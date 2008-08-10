@@ -1,0 +1,52 @@
+<Combine fileversion="1.0" name="PluginProjects" description="">
+  <StartMode startupentry="" single="True">
+    <Execute entry="FileExplorer" type="None" />
+    <Execute entry="ASCompletion" type="None" />
+    <Execute entry="FlashConnect" type="None" />
+    <Execute entry="OutputPanel" type="None" />
+    <Execute entry="ResultsPanel" type="None" />
+    <Execute entry="SnippetsPanel" type="None" />
+    <Execute entry="FlashOut" type="None" />
+    <Execute entry="ProjectExplorer" type="None" />
+    <Execute entry="XMLCompletion" type="None" />
+    <Execute entry="RunCommand" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\FileExplorer\FileExplorer.prjx" />
+    <Entry filename=".\ASCompletion\ASCompletion.prjx" />
+    <Entry filename=".\FlashConnect\FlashConnect.prjx" />
+    <Entry filename=".\OutputPanel\OutputPanel.prjx" />
+    <Entry filename=".\ResultsPanel\ResultsPanel.prjx" />
+    <Entry filename=".\SnippetsPanel\SnippetsPanel.prjx" />
+    <Entry filename=".\FlashOut\FlashOut.prjx" />
+    <Entry filename=".\ProjectExplorer\ProjectExplorer.prjx" />
+    <Entry filename=".\XMLCompletion\XMLCompletion.prjx" />
+    <Entry filename=".\RunCommand\RunCommand.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="FileExplorer" configurationname="Release" build="False" />
+      <Entry name="ASCompletion" configurationname="Release" build="False" />
+      <Entry name="FlashConnect" configurationname="Release" build="False" />
+      <Entry name="OutputPanel" configurationname="Release" build="False" />
+      <Entry name="ResultsPanel" configurationname="Release" build="False" />
+      <Entry name="SnippetsPanel" configurationname="Release" build="False" />
+      <Entry name="FlashOut" configurationname="Debug" build="False" />
+      <Entry name="ProjectExplorer" configurationname="Release" build="False" />
+      <Entry name="XMLCompletion" configurationname="Release" build="False" />
+      <Entry name="RunCommand" configurationname="Release" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="FileExplorer" configurationname="Release" build="False" />
+      <Entry name="ASCompletion" configurationname="Release" build="False" />
+      <Entry name="FlashConnect" configurationname="Release" build="False" />
+      <Entry name="OutputPanel" configurationname="Release" build="False" />
+      <Entry name="ResultsPanel" configurationname="Release" build="False" />
+      <Entry name="SnippetsPanel" configurationname="Release" build="False" />
+      <Entry name="FlashOut" configurationname="Debug" build="False" />
+      <Entry name="ProjectExplorer" configurationname="Release" build="False" />
+      <Entry name="XMLCompletion" configurationname="Release" build="False" />
+      <Entry name="RunCommand" configurationname="Release" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,11 @@
+﻿package $(CSLB){
+	
+	/**
+	* ...
+	* @author $(DefaultUser)
+	*/
+	public class $(EntryPoint) $(CSLB){
+		
+	}
+	
+}

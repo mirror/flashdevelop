@@ -1,0 +1,24 @@
+<Combine fileversion="1.0" name="FlashDevelop" description="">
+  <StartMode startupentry="FlashDevelop" single="True">
+    <Execute entry="FlashDevelop" type="None" />
+    <Execute entry="PluginCore" type="None" />
+    <Execute entry="PluginProjects" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\FlashDevelop.prjx" />
+    <Entry filename="..\PluginCore\PluginCore.prjx" />
+    <Entry filename="..\PluginProjects\PluginProjects.cmbx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="FlashDevelop" configurationname="Debug" build="False" />
+      <Entry name="PluginCore" configurationname="Release" build="False" />
+      <Entry name="PluginProjects" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="FlashDevelop" configurationname="Debug" build="False" />
+      <Entry name="PluginCore" configurationname="Release" build="False" />
+      <Entry name="PluginProjects" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

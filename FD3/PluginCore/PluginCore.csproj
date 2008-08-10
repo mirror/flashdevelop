@@ -1,0 +1,419 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61885F70-B4DC-4B44-852D-5D6D03F2A734}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>PluginCore</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PluginCore</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>false</SignAssembly>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>Bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>Bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DockPanelSuite\Customization\DockPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Customization\DockPanelStripRenderer.cs" />
+    <Compile Include="DockPanelSuite\Customization\InertButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Customization\VS2005AutoHideStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Customization\VS2005DockPaneCaption.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Customization\VS2005DockPaneStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\AutoHideStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockAreasEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockContentCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockContentEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockContentHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockOutlineBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPane.SplitterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPaneCaptionBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPaneCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.AutoHideWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.DockDragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.DragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.FocusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.MdiClientController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.Persistor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanel.SplitterDragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPanelExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockPaneStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockWindow.SplitterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DockWindowCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DragForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\DummyControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\FloatWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\FloatWindowCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\InertButtonBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\Interfaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\Localization.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\Measures.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\NestedDockingStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\NestedPaneCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\SplitterBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Docking\VisibleNestedPaneCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Helpers\DockHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Helpers\DrawHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Helpers\ResourceHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Helpers\Win32Helper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DockPanelSuite\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DockPanelSuite\Win32\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Win32\NativeMethods.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PluginCore\Helpers\ProcessHelper.cs" />
+    <Compile Include="PluginCore\Helpers\ResourceHelper.cs" />
+    <Compile Include="PluginCore\Helpers\SnippetHelper.cs" />
+    <Compile Include="PluginCore\Localization\Attributes.cs" />
+    <Compile Include="PluginCore\Localization\LocaleVersion.cs" />
+    <Compile Include="PluginCore\Localization\TextHelper.cs" />
+    <Compile Include="PluginCore\Managers\DocumentManager.cs" />
+    <Compile Include="PluginCore\Utilities\ImageKonverter.cs" />
+    <Compile Include="PluginCore\Utilities\ProcessRunner.cs" />
+    <Compile Include="PluginCore\Utilities\InteropSHFileOperation.cs" />
+    <Compile Include="PluginCore\Utilities\SingleInstanceApp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PluginCore\Controls\MethodCallTip.cs" />
+    <Compile Include="PluginCore\Controls\CompletionList.cs" />
+    <Compile Include="PluginCore\Controls\RichToolTip.cs" />
+    <Compile Include="PluginCore\Controls\MessageBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PluginCore\Controls\UITools.cs" />
+    <Compile Include="PluginCore\Enumerators.cs" />
+    <Compile Include="PluginCore\FRService\FRConfiguration.cs" />
+    <Compile Include="PluginCore\FRService\FRRunner.cs" />
+    <Compile Include="PluginCore\FRService\FRSearch.cs" />
+    <Compile Include="PluginCore\Helpers\FolderHelper.cs" />
+    <Compile Include="PluginCore\Helpers\PathHelper.cs" />
+    <Compile Include="PluginCore\Utilities\HashCalculator.cs" />
+    <Compile Include="PluginCore\Utilities\IconExtractor.cs" />
+    <Compile Include="PluginCore\Utilities\PathWalker.cs" />
+    <Compile Include="PluginCore\Managers\EventManager.cs" />
+    <Compile Include="PluginCore\PluginBase.cs" />
+    <Compile Include="PluginCore\Helpers\FileHelper.cs" />
+    <Compile Include="PluginCore\Helpers\XmlHelper.cs" />
+    <Compile Include="PluginCore\Managers\ErrorManager.cs" />
+    <Compile Include="PluginCore\EventTypes.cs" />
+    <Compile Include="PluginCore\Interfaces.cs" />
+    <Compile Include="PluginCore\Managers\TraceManager.cs" />
+    <Compile Include="PluginCore\Utilities\DataConverter.cs" />
+    <Compile Include="PluginCore\Utilities\LineEndDetector.cs" />
+    <Compile Include="PluginCore\Utilities\ObjectSerializer.cs" />
+    <Compile Include="ScintillaNet\Configuration\CharacterClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\ConfigFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\ConfigItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\ConfigurationUtility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\EditorStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\Include.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\KeywordClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\Language.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\Lexer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\Scintilla.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\StyleClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\UseKeyword.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\UseStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Configuration\Value.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Events.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Lexers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\ScintillaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\Structs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\WinAPI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScintillaNet\XPM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DockPanelSuite\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockPanelSuite\Strings.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginCore\Resources\en_US.resX">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginCore\Resources\MessageBarClose.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Bottom.bmp" />
+    <Content Include="DockPanelSuite\Resources\Dockindicator_PaneDiamond_Fill.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Hotspot.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_HotspotIndex.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Left.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Right.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Top.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelBottom.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelBottom_Active.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelFill.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelFill_Active.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelLeft.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelLeft_Active.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelRight.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelRight_Active.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelTop.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PanelTop_Active.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockPanel.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockPane_AutoHide.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockPane_Close.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockPane_Dock.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockPane_Option.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockPane_OptionOverflow.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

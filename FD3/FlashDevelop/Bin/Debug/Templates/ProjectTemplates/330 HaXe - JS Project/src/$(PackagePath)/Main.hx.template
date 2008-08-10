@@ -1,0 +1,11 @@
+package $(PackageName);
+
+import js.Lib;
+
+class Main
+{
+	static function main()
+	{
+		
+	}
+}

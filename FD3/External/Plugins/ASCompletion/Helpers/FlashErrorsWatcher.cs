@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using PluginCore.Helpers;
+using ASCompletion.Context;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using PluginCore.Managers;
+using PluginCore;
+
+namespace ASCompletion.Helpers
+{
+    public class FlashErrorsWatcher
+    {
+        private string logFile;
+        private FileSystemWatcher fsWatcher;
+        private Timer updater;
+        private Regex reError = new Regex(
+            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+):(?<desc>.*)$", 
+            RegexOptions.Compiled | RegexOptions.Multiline);
+
+        public FlashErrorsWatcher()
+        {
+            string scriptsLocation = Path.Combine(PathHelper.ToolDir, "flashide");
+            logFile = Path.Combine(scriptsLocation, "errors.log");
+            fsWatcher = new FileSystemWatcher(scriptsLocation, "*.log");
+            fsWatcher.EnableRaisingEvents = true;
+            fsWatcher.Changed += new FileSystemEventHandler(fsWatcher_Changed);
+
+            updater = new Timer();
+            updater.Interval = 100;
+            updater.Tick += new EventHandler(updater_Tick);
+        }
+
+        void updater_Tick(object sender, EventArgs e)
+        {
+            updater.Stop();
+            string src = File.ReadAllText(logFile);
+            MatchCollection matches = reError.Matches(src);
+            if (matches.Count == 0) 
+                return;
+
+            NotifyEvent ne = new NotifyEvent(EventType.ProcessStart);
+            EventManager.DispatchEvent(this, ne);
+            foreach (Match m in matches)
+            {
+                string file = m.Groups["file"].Value;
+                string line = m.Groups["line"].Value;
+                string desc = m.Groups["desc"].Value.Trim();
+                TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
+            }
+            TextEvent te = new TextEvent(EventType.ProcessEnd, "Done(0)");
+            EventManager.DispatchEvent(this, te);
+
+            (PluginBase.MainForm as Form).Activate();
+            (PluginBase.MainForm as Form).Focus();
+        }
+
+        private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            if (!File.Exists(e.FullPath)) return;
+            SetTimer();
+        }
+
+        private void SetTimer()
+        {
+            if (ASContext.Panel.InvokeRequired) ASContext.Panel.BeginInvoke(new MethodInvoker(SetTimer));
+            else
+            {
+                updater.Stop();
+                updater.Start();
+            }
+        }
+    }
+}

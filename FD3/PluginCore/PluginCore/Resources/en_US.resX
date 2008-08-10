@@ -1,0 +1,2610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AS2Context.Description.DefaultFlashVersion" xml:space="preserve">
+    <value>Default Flash Player target version when no project is defined.</value>
+  </data>
+  <data name="AS2Context.Description.MMClassPath" xml:space="preserve">
+    <value>Path to Adobe Flash IDE classpath.</value>
+  </data>
+  <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
+    <value>MTASC compiler parameters for syntax checking.</value>
+  </data>
+  <data name="AS2Context.Description.MtascPath" xml:space="preserve">
+    <value>Path to the MTASC compiler.</value>
+  </data>
+  <data name="AS2Context.Description.UseMtascIntrinsic" xml:space="preserve">
+    <value>Use MTASC compiler intrinsic classes instead of Adobe Flash IDE intrinsics. This is usually preferred as MTASC is more strict and doesn't support a few features of the Flash plugin.</value>
+  </data>
+  <data name="AS2Context.Info.FeatureMissing" xml:space="preserve">
+    <value>Feature not implemented.</value>
+  </data>
+  <data name="AS2Context.Info.InvalidClass" xml:space="preserve">
+    <value>This file is not a valid AS2 class.</value>
+  </data>
+  <data name="AS2Context.Info.InvalidForQuickBuild" xml:space="preserve">
+    <value>This file is not a valid AS2 class or does not include a valid @mtasc build command.</value>
+  </data>
+  <data name="AS2Context.Info.InvalidMtascPath" xml:space="preserve">
+    <value>MTASC compiler path is not correctly set. Please check your Program Settings.</value>
+  </data>
+  <data name="AS2Context.Info.InvalidQuickBuildCommand" xml:space="preserve">
+    <value>Invalid QuickBuild command.</value>
+  </data>
+  <data name="AS3Context.Description.AS3Classpath" xml:space="preserve">
+    <value>Path to AS3 language intrinsic classes.</value>
+  </data>
+  <data name="AS3Context.Description.DefaultFlashVersion" xml:space="preserve">
+    <value>Default Flash Player target version when no project is defined.</value>
+  </data>
+  <data name="AS3Context.Description.FlexSDK" xml:space="preserve">
+    <value>The path to the Flex SDK on your computer.</value>
+  </data>
+  <data name="AS3Context.Info.CheckError" xml:space="preserve">
+    <value>Error while running the AS3 syntax checking.</value>
+  </data>
+  <data name="AS3Context.Info.InvalidClass" xml:space="preserve">
+    <value>This file is not a valid AS3 class.</value>
+  </data>
+  <data name="AS3Context.Info.InvalidForQuickBuild" xml:space="preserve">
+    <value>This file is not a valid AS3 class or does not include a valid @mxmlc build command.</value>
+  </data>
+  <data name="AS3Context.Info.OpenCompilerSettings" xml:space="preserve">
+    <value>Would you like to open the AS3 context settings to configure the compiler?</value>
+  </data>
+  <data name="AS3Context.Info.ResourceError" xml:space="preserve">
+    <value>Unable to extract compiler shell resource.</value>
+  </data>
+  <data name="AS3Context.Info.SetFlex2OrCS3Path" xml:space="preserve">
+    <value>Would you like to open the AS3 context settings to configure the path to the Flex SDK?
+
+Alternatively, Flash CS3 can also be used for syntax checking - press "No" to configure the path to Flash CS3.</value>
+  </data>
+  <data name="AS3Context.Title.ConfigurationRequired" xml:space="preserve">
+    <value>Compiler Configuration Required</value>
+  </data>
+  <data name="ASCompletion.Description.AddSpaceAfter" xml:space="preserve">
+    <value>When reformating, always keep a space character after these words.</value>
+  </data>
+  <data name="ASCompletion.Description.AlwaysCompleteWordLength" xml:space="preserve">
+    <value>Start completion automatically after typing a few characters (0 to disable).</value>
+  </data>
+  <data name="ASCompletion.Description.BraceAfterLine" xml:space="preserve">
+    <value>Move blocks' starting brace to a new line.</value>
+  </data>
+  <data name="ASCompletion.Description.CheckSyntaxOnSave" xml:space="preserve">
+    <value>Check file syntax after saving.</value>
+  </data>
+  <data name="ASCompletion.Description.CompactChars" xml:space="preserve">
+    <value>When reformating, remove any whitespace around these characters.</value>
+  </data>
+  <data name="ASCompletion.Description.CompletionEnabled" xml:space="preserve">
+    <value>Enable completion assistants.</value>
+  </data>
+  <data name="ASCompletion.Description.CompletionListAllTypes" xml:space="preserve">
+    <value>In completion, show all known types in project.</value>
+  </data>
+  <data name="ASCompletion.Description.CompletionLooseMatching" xml:space="preserve">
+    <value>In completion, use smart text matching.</value>
+  </data>
+  <data name="ASCompletion.Description.CompletionShowQualifiedTypes" xml:space="preserve">
+    <value>In completion, show qualified type names (ie. package + type).</value>
+  </data>
+  <data name="ASCompletion.Description.CondenseWhitespace" xml:space="preserve">
+    <value>Remove additional whitespace characters in text. Only keep required whitespace.</value>
+  </data>
+  <data name="ASCompletion.Description.DescriptionLinesLimit" xml:space="preserve">
+    <value>Limit the description text which will be displayed in detailed tips.</value>
+  </data>
+  <data name="ASCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
+    <value>Disable insertion of closing blocks braces.</value>
+  </data>
+  <data name="ASCompletion.Description.DisableCache" xml:space="preserve">
+    <value>For faster classpath parsing, a hidden cache file is created in each classpath directory root. Set this property to disable it.</value>
+  </data>
+  <data name="ASCompletion.Description.DisableCodeReformat" xml:space="preserve">
+    <value>Disable automatic code formating after typing &lt;Enter&gt; or &lt;;&gt;.</value>
+  </data>
+  <data name="ASCompletion.Description.DisableFDB" xml:space="preserve">
+    <value>Disable hosting of the command line Flex debugger (FDB) in FlashDevelop.</value>
+  </data>
+  <data name="ASCompletion.Description.DocumentationCommandLine" xml:space="preserve">
+    <value>Program or URL to execute when pressing F1 for help.</value>
+  </data>
+  <data name="ASCompletion.Description.GenerateImports" xml:space="preserve">
+    <value>Automatically generate import statements when typing a fully qualified type.</value>
+  </data>
+  <data name="ASCompletion.Description.JavadocIndent" xml:space="preserve">
+    <value>Indent javadoc comment lines with an extra space.</value>
+  </data>
+  <data name="ASCompletion.Description.JavadocTags" xml:space="preserve">
+    <value>Javadoc tags list for completion.</value>
+  </data>
+  <data name="ASCompletion.Description.JavadocTagsEnabled" xml:space="preserve">
+    <value>Enable javadoc tags completion in documentation blocks.</value>
+  </data>
+  <data name="ASCompletion.Description.LazyClasspathExploration" xml:space="preserve">
+    <value>If not "lazy", will explore and parse all the classes in the project classpath.</value>
+  </data>
+  <data name="ASCompletion.Description.OutlineViewShowExtends" xml:space="preserve">
+    <value>Show inheritance in outline view.</value>
+  </data>
+  <data name="ASCompletion.Description.OutlineViewShowImplements" xml:space="preserve">
+    <value>Show implemented interfaces in outline view.</value>
+  </data>
+  <data name="ASCompletion.Description.OutlineViewShowImports" xml:space="preserve">
+    <value>Show imports in outline view.</value>
+  </data>
+  <data name="ASCompletion.Description.PathToFlashIDE" xml:space="preserve">
+    <value>Define the path to Adobe Flash IDE.</value>
+  </data>
+  <data name="ASCompletion.Description.PlayAfterBuild" xml:space="preserve">
+    <value>Automatically play the generated SWF after Quick Build.</value>
+  </data>
+  <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
+    <value>Go back to the previous location before a Goto Declaration action.</value>
+  </data>
+  <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
+    <value>Find and open the declaration or the element at caret position.</value>
+  </data>
+  <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
+    <value>Run the compiler against the current file. This action may require compiler instructions to be present in the source.</value>
+  </data>
+  <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
+    <value>Check the current file syntax.</value>
+  </data>
+  <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
+    <value>Open the project types explorer.</value>
+  </data>
+  <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
+    <value>Parse javadoc tags in documentation block to enrich the completion tips.</value>
+  </data>
+  <data name="ASCompletion.Description.SortingMode" xml:space="preserve">
+    <value>Set how the members are sorted in the outline view.</value>
+  </data>
+  <data name="ASCompletion.Description.SpaceBeforeFunctionCall" xml:space="preserve">
+    <value>Reformat code with an additional space before a function parenthesis.</value>
+  </data>
+  <data name="ASCompletion.Description.SpacedChars" xml:space="preserve">
+    <value>When reformating, surround these characters with a space.</value>
+  </data>
+  <data name="ASCompletion.Description.UserClasspath" xml:space="preserve">
+    <value>Global language classpaths.</value>
+  </data>
+  <data name="ASCompletion.Info.ConfigurationRequired" xml:space="preserve">
+    <value>Flash IDE Configuration Required</value>
+  </data>
+  <data name="ASCompletion.Info.ConfigureFlashPath" xml:space="preserve">
+    <value>The path to Flash.exe is not configured properly, do you want to edit your program settings?</value>
+  </data>
+  <data name="ASCompletion.Info.Exploring" xml:space="preserve">
+    <value>Exploring...</value>
+  </data>
+  <data name="ASCompletion.Info.FindType" xml:space="preserve">
+    <value>Find type:</value>
+  </data>
+  <data name="ASCompletion.Info.InheritanceLoop" xml:space="preserve">
+    <value>Inheritance loop detected between {0} and {1}.</value>
+  </data>
+  <data name="ASCompletion.Info.Parsing" xml:space="preserve">
+    <value>Parsing ({0})</value>
+  </data>
+  <data name="ASCompletion.Info.ParsingCache" xml:space="preserve">
+    <value>Cache...</value>
+  </data>
+  <data name="ASCompletion.Label.BackFromDeclaration" xml:space="preserve">
+    <value>&amp;Back From Declaration</value>
+  </data>
+  <data name="ASCompletion.Label.CheckSyntax" xml:space="preserve">
+    <value>Check S&amp;yntax</value>
+  </data>
+  <data name="ASCompletion.Label.CompleteDocDetails" xml:space="preserve">
+    <value>Method details</value>
+  </data>
+  <data name="ASCompletion.Label.CompleteDocEmpty" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="ASCompletion.Label.ConvertToIntrinsic" xml:space="preserve">
+    <value>Convert To &amp;Intrinsic</value>
+  </data>
+  <data name="ASCompletion.Label.DocBoxTemplate" xml:space="preserve">
+    <value>Documentation box template</value>
+  </data>
+  <data name="ASCompletion.Label.DocTagTemplate" xml:space="preserve">
+    <value>Documentation tag template</value>
+  </data>
+  <data name="ASCompletion.Label.GotoDeclaration" xml:space="preserve">
+    <value>Goto &amp;Declaration</value>
+  </data>
+  <data name="ASCompletion.Label.ModelConvert" xml:space="preserve">
+    <value>&amp;Convert To Intrinsic</value>
+  </data>
+  <data name="ASCompletion.Label.ModelEdit" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="ASCompletion.Label.ModelExplore" xml:space="preserve">
+    <value>E&amp;xplore</value>
+  </data>
+  <data name="ASCompletion.Label.QuickBuild" xml:space="preserve">
+    <value>&amp;Build Current File</value>
+  </data>
+  <data name="ASCompletion.Label.RebuildClasspathCache" xml:space="preserve">
+    <value>Rebuild Classpath Cache</value>
+  </data>
+  <data name="ASCompletion.Label.TypesExplorer" xml:space="preserve">
+    <value>Project Type E&amp;xplorer...</value>
+  </data>
+  <data name="ASCompletion.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Outline Panel</value>
+  </data>
+  <data name="ASCompletion.Title.ModelExplorer" xml:space="preserve">
+    <value>Type Explorer</value>
+  </data>
+  <data name="ASCompletion.Title.PluginPanel" xml:space="preserve">
+    <value>Outline</value>
+  </data>
+  <data name="ASCompletion.ToolTip.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ASCompletion.ToolTip.Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="DataEncoder.Info.CantSaveFile" xml:space="preserve">
+    <value>Could not save the file because the xml is invalid.</value>
+  </data>
+  <data name="DataEncoder.Info.Description" xml:space="preserve">
+    <value>Converts the file data for specific files to view them properly in FlashDevelop.</value>
+  </data>
+  <data name="FileExplorer.Description.FilePath" xml:space="preserve">
+    <value>Last browsed file path.</value>
+  </data>
+  <data name="FileExplorer.Description.SortColumn" xml:space="preserve">
+    <value>Current column that have been sorted.</value>
+  </data>
+  <data name="FileExplorer.Description.SortOrder" xml:space="preserve">
+    <value>The sort order of the current column.</value>
+  </data>
+  <data name="FileExplorer.Header.Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FileExplorer.Header.Modified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="FileExplorer.Header.Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="FileExplorer.Header.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FileExplorer.Info.BrowseDescription" xml:space="preserve">
+    <value>Open a folder to list the files in the folder.</value>
+  </data>
+  <data name="FileExplorer.Info.ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the selected items?</value>
+  </data>
+  <data name="FileExplorer.Info.Description" xml:space="preserve">
+    <value>Adds a file explorer panel to FlashDevelop.</value>
+  </data>
+  <data name="FileExplorer.Info.Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="FileExplorer.Info.NewFileName" xml:space="preserve">
+    <value>New File</value>
+  </data>
+  <data name="FileExplorer.Info.NewFolderName" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="FileExplorer.Label.CommandPromptHere" xml:space="preserve">
+    <value>Command &amp;Prompt Here...</value>
+  </data>
+  <data name="FileExplorer.Label.Copy" xml:space="preserve">
+    <value>C&amp;opy</value>
+  </data>
+  <data name="FileExplorer.Label.CreateFileHere" xml:space="preserve">
+    <value>&amp;Create File Here...</value>
+  </data>
+  <data name="FileExplorer.Label.CreateFolderHere" xml:space="preserve">
+    <value>Create &amp;Folder Here...</value>
+  </data>
+  <data name="FileExplorer.Label.Delete" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="FileExplorer.Label.Edit" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="FileExplorer.Label.ExploreHere" xml:space="preserve">
+    <value>E&amp;xplore Here...</value>
+  </data>
+  <data name="FileExplorer.Label.Paste" xml:space="preserve">
+    <value>&amp;Paste</value>
+  </data>
+  <data name="FileExplorer.Label.RefreshView" xml:space="preserve">
+    <value>&amp;Refresh View</value>
+  </data>
+  <data name="FileExplorer.Label.Rename" xml:space="preserve">
+    <value>Re&amp;name</value>
+  </data>
+  <data name="FileExplorer.Label.Run" xml:space="preserve">
+    <value>&amp;Run</value>
+  </data>
+  <data name="FileExplorer.Label.SynchronizeView" xml:space="preserve">
+    <value>&amp;Synchronize View</value>
+  </data>
+  <data name="FileExplorer.Label.TrustHere" xml:space="preserve">
+    <value>Add To &amp;Trusted Paths</value>
+  </data>
+  <data name="FileExplorer.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;File Explorer</value>
+  </data>
+  <data name="FileExplorer.Title.PluginPanel" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FileExplorer.ToolTip.Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="FileExplorer.ToolTip.Synchronize" xml:space="preserve">
+    <value>Synchronize</value>
+  </data>
+  <data name="FlashConnect.Description.Enabled" xml:space="preserve">
+    <value>Enables FlashConnect normally on startup.</value>
+  </data>
+  <data name="FlashConnect.Description.Host" xml:space="preserve">
+    <value>The host of the connection.</value>
+  </data>
+  <data name="FlashConnect.Description.Port" xml:space="preserve">
+    <value>The port of the connection.</value>
+  </data>
+  <data name="FlashConnect.Info.Description" xml:space="preserve">
+    <value>Adds a xml socket to FlashDevelop that let's you trace messages from outside of FlashDevelop.</value>
+  </data>
+  <data name="FlashConnect.Info.IncorrectPacket" xml:space="preserve">
+    <value>The recieved packet was incorrect: </value>
+  </data>
+  <data name="FlashConnect.Info.InvalidMessage" xml:space="preserve">
+    <value>The received xml message was invalid.</value>
+  </data>
+  <data name="FlashDevelop.Category.Controls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="FlashDevelop.Category.Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="FlashDevelop.Category.Editor" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="FlashDevelop.Category.Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="FlashDevelop.Category.Folding" xml:space="preserve">
+    <value>Folding</value>
+  </data>
+  <data name="FlashDevelop.Category.Formatting" xml:space="preserve">
+    <value>Formatting</value>
+  </data>
+  <data name="FlashDevelop.Category.General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="FlashDevelop.Category.Indenting" xml:space="preserve">
+    <value>Indenting</value>
+  </data>
+  <data name="FlashDevelop.Category.State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="FlashDevelop.Description.ApplyFileExtension" xml:space="preserve">
+    <value>Applies the default extension to the filename.</value>
+  </data>
+  <data name="FlashDevelop.Description.AutoFilterList" xml:space="preserve">
+    <value>Completion list realtime filtering.</value>
+  </data>
+  <data name="FlashDevelop.Description.BackSpaceUnIndents" xml:space="preserve">
+    <value>Unindents the code with the backspace key.</value>
+  </data>
+  <data name="FlashDevelop.Description.BackupInterval" xml:space="preserve">
+    <value>Interval in milliseconds to save backups from modified files.</value>
+  </data>
+  <data name="FlashDevelop.Description.BraceMatchingEnabled" xml:space="preserve">
+    <value>Highlights matching braces with a background color.</value>
+  </data>
+  <data name="FlashDevelop.Description.CaretLineVisible" xml:space="preserve">
+    <value>Highlights the line that contains the caret with a background color.</value>
+  </data>
+  <data name="FlashDevelop.Description.CaretPeriod" xml:space="preserve">
+    <value>Blinking delay of the caret symbol.</value>
+  </data>
+  <data name="FlashDevelop.Description.CaretWidth" xml:space="preserve">
+    <value>Width of the caret symbol.</value>
+  </data>
+  <data name="FlashDevelop.Description.CodingStyle" xml:space="preserve">
+    <value>Defines how the coding style line breaks are processed.</value>
+  </data>
+  <data name="FlashDevelop.Description.ComboBoxFlatStyle" xml:space="preserve">
+    <value>Used FlatStyle of toolstrip combo boxes.</value>
+  </data>
+  <data name="FlashDevelop.Description.CustomArguments" xml:space="preserve">
+    <value>List of user defined arguments for string processing.</value>
+  </data>
+  <data name="FlashDevelop.Description.DefaultCodePage" xml:space="preserve">
+    <value>Default codepage of the program.</value>
+  </data>
+  <data name="FlashDevelop.Description.DefaultFileExtension" xml:space="preserve">
+    <value>Default file extension of the program.</value>
+  </data>
+  <data name="FlashDevelop.Description.DisabledPlugins" xml:space="preserve">
+    <value>List of plugins that have been disabled.</value>
+  </data>
+  <data name="FlashDevelop.Description.DisableSmartMatch" xml:space="preserve">
+    <value>Disable loose text matching in the completion list.</value>
+  </data>
+  <data name="FlashDevelop.Description.DisplayDelay" xml:space="preserve">
+    <value>Completion list apparition delay.</value>
+  </data>
+  <data name="FlashDevelop.Description.EnableAutoHide" xml:space="preserve">
+    <value>Non-obstrusive completion list.</value>
+  </data>
+  <data name="FlashDevelop.Description.EnsureConsistentLineEnds" xml:space="preserve">
+    <value>Ensures that documents have consistent line ends.</value>
+  </data>
+  <data name="FlashDevelop.Description.EnsureLastLineEnd" xml:space="preserve">
+    <value>Ensures that each document have a line end characters at the end of the document.</value>
+  </data>
+  <data name="FlashDevelop.Description.EOLMode" xml:space="preserve">
+    <value>Characters that are added to the end of lines.</value>
+  </data>
+  <data name="FlashDevelop.Description.RedirectFilesResults" xml:space="preserve">
+    <value>Redirects the find in files results to Results View.</value>
+  </data>
+  <data name="FlashDevelop.Description.FoldAtElse" xml:space="preserve">
+    <value>Folds the code at else statements.</value>
+  </data>
+  <data name="FlashDevelop.Description.FoldComment" xml:space="preserve">
+    <value>Folds the code at comments.</value>
+  </data>
+  <data name="FlashDevelop.Description.FoldCompact" xml:space="preserve">
+    <value>Adds the blank lines to a fold region.</value>
+  </data>
+  <data name="FlashDevelop.Description.FoldFlags" xml:space="preserve">
+    <value>Behaviour of the folding.</value>
+  </data>
+  <data name="FlashDevelop.Description.FoldHtml" xml:space="preserve">
+    <value>Folds the html source code. </value>
+  </data>
+  <data name="FlashDevelop.Description.FoldPreprocessor" xml:space="preserve">
+    <value>Folds the code at preprocessor directives.</value>
+  </data>
+  <data name="FlashDevelop.Description.HighlightAllColor" xml:space="preserve">
+    <value>Color of the pattern highlight in the quick find control.</value>
+  </data>
+  <data name="FlashDevelop.Description.HighlightGuide" xml:space="preserve">
+    <value>Style of the brace highlighting.</value>
+  </data>
+  <data name="FlashDevelop.Description.HoverDelay" xml:space="preserve">
+    <value>Mouse hover tip delay.</value>
+  </data>
+  <data name="FlashDevelop.Description.IndentSize" xml:space="preserve">
+    <value>Size of the intendation in terms of the width of a space.</value>
+  </data>
+  <data name="FlashDevelop.Description.LatestCommand" xml:space="preserve">
+    <value>Version of the latest executed startup command.</value>
+  </data>
+  <data name="FlashDevelop.Description.LatestDialogPath" xml:space="preserve">
+    <value>Last active path in the program.</value>
+  </data>
+  <data name="FlashDevelop.Description.LineCommentsAfterIndent" xml:space="preserve">
+    <value>Places the comment after an indentation.</value>
+  </data>
+  <data name="FlashDevelop.Description.LocaleVersion" xml:space="preserve">
+    <value>Current locale of the program. Requires restart.</value>
+  </data>
+  <data name="FlashDevelop.Description.MarkerBackgroundColor" xml:space="preserve">
+    <value>Background color of the common markers.</value>
+  </data>
+  <data name="FlashDevelop.Description.MarkerForegroundColor" xml:space="preserve">
+    <value>Foreground color of the common markers.</value>
+  </data>
+  <data name="FlashDevelop.Description.MoveCursorAfterComment" xml:space="preserve">
+    <value>Moves the cursor after the line is commented.</value>
+  </data>
+  <data name="FlashDevelop.Description.PreviousDocuments" xml:space="preserve">
+    <value>List of previously opened documents.</value>
+  </data>
+  <data name="FlashDevelop.Description.RenderMode" xml:space="preserve">
+    <value>Specifies the used renderer for common UI elements. Requires restart.</value>
+  </data>
+  <data name="FlashDevelop.Description.RestoreFileSession" xml:space="preserve">
+    <value>Restores the open files on startup.</value>
+  </data>
+  <data name="FlashDevelop.Description.RestoreFileStates" xml:space="preserve">
+    <value>Restores the files states on startup.</value>
+  </data>
+  <data name="FlashDevelop.Description.ScrollWidth" xml:space="preserve">
+    <value>Default document width in pixels.</value>
+  </data>
+  <data name="FlashDevelop.Description.SequentialTabbing" xml:space="preserve">
+    <value>Behaviour of the tabbing.</value>
+  </data>
+  <data name="FlashDevelop.Description.ShowDetails" xml:space="preserve">
+    <value>Show detailed tooltips.</value>
+  </data>
+  <data name="FlashDevelop.Description.SmartIndentType" xml:space="preserve">
+    <value>Type of the automatic indenting.</value>
+  </data>
+  <data name="FlashDevelop.Description.StripTrailingSpaces" xml:space="preserve">
+    <value>Strips the trailing spaces and tab from lines.</value>
+  </data>
+  <data name="FlashDevelop.Description.TabIndents" xml:space="preserve">
+    <value>Indents the code with the tab key.</value>
+  </data>
+  <data name="FlashDevelop.Description.TabWidth" xml:space="preserve">
+    <value>Width of a tab character as characters.</value>
+  </data>
+  <data name="FlashDevelop.Description.UseFolding" xml:space="preserve">
+    <value>Folds the code in the document.</value>
+  </data>
+  <data name="FlashDevelop.Description.UseTabs" xml:space="preserve">
+    <value>Uses tabs instead of series of spaces.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewBookmarks" xml:space="preserve">
+    <value>Displays the margin that contains bookmark symbols. If symbols are not shown, bookmarks are shown by highlighting the line.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewEOL" xml:space="preserve">
+    <value>Displays the end of line characters as symbols.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewIndentationGuides" xml:space="preserve">
+    <value>Displays the intendation lines.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewLineNumbers" xml:space="preserve">
+    <value>Displays the margin that contains line numbers.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewToolBar" xml:space="preserve">
+    <value>Displays the default toolbar.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewWhitespace" xml:space="preserve">
+    <value>Shows the whitespace characters as symbols.</value>
+  </data>
+  <data name="FlashDevelop.Description.WindowPosition" xml:space="preserve">
+    <value>Last known position of the program in normal window state.</value>
+  </data>
+  <data name="FlashDevelop.Description.WindowSize" xml:space="preserve">
+    <value>Last known size of the program in normal window state.</value>
+  </data>
+  <data name="FlashDevelop.Description.WindowState" xml:space="preserve">
+    <value>Last known window state of the program.</value>
+  </data>
+  <data name="FlashDevelop.Description.WrapList" xml:space="preserve">
+    <value>When navigating using keyboard.</value>
+  </data>
+  <data name="FlashDevelop.Description.WrapText" xml:space="preserve">
+    <value>Wraps the texts in the editor.</value>
+  </data>
+  <data name="FlashDevelop.Group.Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="FlashDevelop.Group.Plugins" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="FlashDevelop.Info.AppDescription" xml:space="preserve">
+    <value>The main application and the shared plugin core.</value>
+  </data>
+  <data name="FlashDevelop.Info.AreYouSureToReload" xml:space="preserve">
+    <value>Are you sure you want to reload the file? All changes get lost.</value>
+  </data>
+  <data name="FlashDevelop.Info.AreYouSureToRevert" xml:space="preserve">
+    <value>Are you sure you want to revert the file?</value>
+  </data>
+  <data name="FlashDevelop.Info.CheckingUpdates" xml:space="preserve">
+    <value>Checking for updates..</value>
+  </data>
+  <data name="FlashDevelop.Info.CodeAndStrings" xml:space="preserve">
+    <value>Code and strings</value>
+  </data>
+  <data name="FlashDevelop.Info.CommentsOnly" xml:space="preserve">
+    <value>Comments only</value>
+  </data>
+  <data name="FlashDevelop.Info.CompareError" xml:space="preserve">
+    <value>Not an ICompletionListItem</value>
+  </data>
+  <data name="FlashDevelop.Info.DeleteFilesAlso" xml:space="preserve">
+    <value>Do you also want to delete the files?</value>
+  </data>
+  <data name="FlashDevelop.Info.DescHeader" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="FlashDevelop.Info.Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="FlashDevelop.Info.ErrorOccurred" xml:space="preserve">
+    <value>Error occurred in FlashDevelop. Here are details of the error:</value>
+  </data>
+  <data name="FlashDevelop.Info.ErrorsInThisSession" xml:space="preserve">
+    <value>Errors in this session:</value>
+  </data>
+  <data name="FlashDevelop.Info.ExtensionFilter" xml:space="preserve">
+    <value>Extension filter:</value>
+  </data>
+  <data name="FlashDevelop.Info.FileDetails" xml:space="preserve">
+    <value>File: {1}{0}Created: {2}{0}Modified: {3}{0}Size: {4} bytes</value>
+  </data>
+  <data name="FlashDevelop.Info.FileDialogFilter" xml:space="preserve">
+    <value>All Files (*.*)</value>
+  </data>
+  <data name="FlashDevelop.Info.FileIsModifiedOutside" xml:space="preserve">
+    <value>The file has been modified externally. Do you want to reload the file?</value>
+  </data>
+  <data name="FlashDevelop.Info.Find" xml:space="preserve">
+    <value>Find:</value>
+  </data>
+  <data name="FlashDevelop.Info.FindLookupCanceled" xml:space="preserve">
+    <value>The find lookup was canceled.</value>
+  </data>
+  <data name="FlashDevelop.Info.FindWhat" xml:space="preserve">
+    <value>Find what:</value>
+  </data>
+  <data name="FlashDevelop.Info.FoundInFiles" xml:space="preserve">
+    <value>Found total of {0} matches in {1} files.</value>
+  </data>
+  <data name="FlashDevelop.Info.FullSourceCode" xml:space="preserve">
+    <value>Full source code</value>
+  </data>
+  <data name="FlashDevelop.Info.GiveProperInt32Value" xml:space="preserve">
+    <value>Give a proper integer value.</value>
+  </data>
+  <data name="FlashDevelop.Info.Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="FlashDevelop.Info.InitFailed" xml:space="preserve">
+    <value>Initialization failed. Please, run FlashDevelop again.</value>
+  </data>
+  <data name="FlashDevelop.Info.Initializing" xml:space="preserve">
+    <value>FlashDevelop is initializing. Please wait...</value>
+  </data>
+  <data name="FlashDevelop.Info.InvalidFileOnReopen" xml:space="preserve">
+    <value>Could not find the file to open. The menu will be repopulated.</value>
+  </data>
+  <data name="FlashDevelop.Info.LineHeader" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="FlashDevelop.Info.LookIn" xml:space="preserve">
+    <value>Look in:</value>
+  </data>
+  <data name="FlashDevelop.Info.MakeReadOnlyWritable" xml:space="preserve">
+    <value>The file is marked as read only. Do you want to make the file writable?</value>
+  </data>
+  <data name="FlashDevelop.Info.MatchesBookmarked" xml:space="preserve">
+    <value>All matches are now bookmarked.</value>
+  </data>
+  <data name="FlashDevelop.Info.NoFileInfoAvailable" xml:space="preserve">
+    <value>The are no file info available.</value>
+  </data>
+  <data name="FlashDevelop.Info.NoItemSelected" xml:space="preserve">
+    <value>(no item selected)</value>
+  </data>
+  <data name="FlashDevelop.Info.NoMatches" xml:space="preserve">
+    <value>No suitable matches available.</value>
+  </data>
+  <data name="FlashDevelop.Info.NoMatchesFound" xml:space="preserve">
+    <value>No matches were found.</value>
+  </data>
+  <data name="FlashDevelop.Info.NothingToBookmark" xml:space="preserve">
+    <value>There is nothing to bookmark.</value>
+  </data>
+  <data name="FlashDevelop.Info.NothingToPrint" xml:space="preserve">
+    <value>There is nothing to print.</value>
+  </data>
+  <data name="FlashDevelop.Info.NoUpdateAvailable" xml:space="preserve">
+    <value>There are no updates available.</value>
+  </data>
+  <data name="FlashDevelop.Info.OnlyErrorManager" xml:space="preserve">
+    <value>Only ErrorManager is allowed to show the error dialog directly.</value>
+  </data>
+  <data name="FlashDevelop.Info.PathHeader" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="FlashDevelop.Info.PrintFooterPage" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="FlashDevelop.Info.ProcessAlreadyRunning" xml:space="preserve">
+    <value>A process is currently running.</value>
+  </data>
+  <data name="FlashDevelop.Info.ProcessDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="FlashDevelop.Info.RecoveryInfo" xml:space="preserve">
+    <value>The recovery folder contains temporary backup files and this possibly means that your previous coding session was interrupted. {0}What do you want to do to these files?</value>
+  </data>
+  <data name="FlashDevelop.Info.ReplacedInFiles" xml:space="preserve">
+    <value>Replaced total of {0} matches in {1} files.</value>
+  </data>
+  <data name="FlashDevelop.Info.ReplacedMatches" xml:space="preserve">
+    <value>Replaced total of {0} matches.</value>
+  </data>
+  <data name="FlashDevelop.Info.ReplaceLookupCanceled" xml:space="preserve">
+    <value>The replace lookup was canceled.</value>
+  </data>
+  <data name="FlashDevelop.Info.ReplacementsHeader" xml:space="preserve">
+    <value>Replacements</value>
+  </data>
+  <data name="FlashDevelop.Info.ReplaceWith" xml:space="preserve">
+    <value>Replace with:</value>
+  </data>
+  <data name="FlashDevelop.Info.RestartAfterPluginChange" xml:space="preserve">
+    <value>Please restart FlashDevelop after enabling or disabling plugins.</value>
+  </data>
+  <data name="FlashDevelop.Info.RunningProcess" xml:space="preserve">
+    <value>Running process:</value>
+  </data>
+  <data name="FlashDevelop.Info.SaveChanges" xml:space="preserve">
+    <value>Do you want to save the current changes?</value>
+  </data>
+  <data name="FlashDevelop.Info.SelectedReplaced" xml:space="preserve">
+    <value>The selected match was replaced.</value>
+  </data>
+  <data name="FlashDevelop.Info.SettingsTakeEffect" xml:space="preserve">
+    <value>Settings will take effect as soon as you edit them successfully but some may require a program restart.</value>
+  </data>
+  <data name="FlashDevelop.Info.ShowingResult" xml:space="preserve">
+    <value>Showing result {0} of {1}.</value>
+  </data>
+  <data name="FlashDevelop.Info.SnippetFilter" xml:space="preserve">
+    <value>FlashDevelop Snippets (*.fds)</value>
+  </data>
+  <data name="FlashDevelop.Info.SnippetItemDesc" xml:space="preserve">
+    <value>Snippet</value>
+  </data>
+  <data name="FlashDevelop.Info.StatusText" xml:space="preserve">
+    <value>Line: {0}  |  Column: {1}  |  EOL: ({2})  |  Encoding: {3}  |  {4}</value>
+  </data>
+  <data name="FlashDevelop.Info.StringsOnly" xml:space="preserve">
+    <value>Strings only</value>
+  </data>
+  <data name="FlashDevelop.Info.TemplateFilter" xml:space="preserve">
+    <value>FlashDevelop Templates (*.fdt)</value>
+  </data>
+  <data name="FlashDevelop.Info.TopFolder" xml:space="preserve">
+    <value>Top folder:</value>
+  </data>
+  <data name="FlashDevelop.Info.Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="FlashDevelop.Info.UntitledFileStart" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="FlashDevelop.Info.UpdateAvailable" xml:space="preserve">
+    <value>There is a newer version of FlashDevelop available.{0}Your version: {1}  /  Server version: {2}</value>
+  </data>
+  <data name="FlashDevelop.Info.UpdateCheckFailed" xml:space="preserve">
+    <value>Could not run the update check.{0}Please check your internet connection.</value>
+  </data>
+  <data name="FlashDevelop.Info.Value" xml:space="preserve">
+    <value>Value:</value>
+  </data>
+  <data name="FlashDevelop.Label.8Bits" xml:space="preserve">
+    <value>8 &amp;Bits</value>
+  </data>
+  <data name="FlashDevelop.Label.About" xml:space="preserve">
+    <value>&amp;About FlashDevelop...</value>
+  </data>
+  <data name="FlashDevelop.Label.ApplicationFiles" xml:space="preserve">
+    <value>&amp;Application Files...</value>
+  </data>
+  <data name="FlashDevelop.Label.ASDocGen" xml:space="preserve">
+    <value>&amp;Documentation Generator...</value>
+  </data>
+  <data name="FlashDevelop.Label.Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="FlashDevelop.Label.BigEndian" xml:space="preserve">
+    <value>&amp;Big Endian</value>
+  </data>
+  <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
+    <value>&amp;Bookmark All</value>
+  </data>
+  <data name="FlashDevelop.Label.Cancel" xml:space="preserve">
+    <value>Ca&amp;ncel</value>
+  </data>
+  <data name="FlashDevelop.Label.CheckUpdates" xml:space="preserve">
+    <value>Check For Updates...</value>
+  </data>
+  <data name="FlashDevelop.Label.ClearBookmarks" xml:space="preserve">
+    <value>Cle&amp;ar Bookmarks</value>
+  </data>
+  <data name="FlashDevelop.Label.ClearBreakpoints" xml:space="preserve">
+    <value>Clear Breakpoints</value>
+  </data>
+  <data name="FlashDevelop.Label.ClearReopenList" xml:space="preserve">
+    <value>&amp;Clear Recent Files List</value>
+  </data>
+  <data name="FlashDevelop.Label.Close" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="FlashDevelop.Label.CloseAll" xml:space="preserve">
+    <value>Clos&amp;e All</value>
+  </data>
+  <data name="FlashDevelop.Label.CloseOthers" xml:space="preserve">
+    <value>Close &amp;Others</value>
+  </data>
+  <data name="FlashDevelop.Label.CollapseAll" xml:space="preserve">
+    <value>Collapse Al&amp;l</value>
+  </data>
+  <data name="FlashDevelop.Label.Color" xml:space="preserve">
+    <value>&amp;Color</value>
+  </data>
+  <data name="FlashDevelop.Label.CommandPrompt" xml:space="preserve">
+    <value>&amp;Command Prompt</value>
+  </data>
+  <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
+    <value>Comment Li&amp;ne</value>
+  </data>
+  <data name="FlashDevelop.Label.CommentSelection" xml:space="preserve">
+    <value>Co&amp;mment Selection</value>
+  </data>
+  <data name="FlashDevelop.Label.CompareFiles" xml:space="preserve">
+    <value>&amp;Compare Files...</value>
+  </data>
+  <data name="FlashDevelop.Label.Continue" xml:space="preserve">
+    <value>&amp;Continue</value>
+  </data>
+  <data name="FlashDevelop.Label.ConvertTextTo" xml:space="preserve">
+    <value>Convert Text To</value>
+  </data>
+  <data name="FlashDevelop.Label.Copy" xml:space="preserve">
+    <value>&amp;Copy</value>
+  </data>
+  <data name="FlashDevelop.Label.CopyLine" xml:space="preserve">
+    <value>C&amp;opy Line</value>
+  </data>
+  <data name="FlashDevelop.Label.CR" xml:space="preserve">
+    <value>C&amp;R</value>
+  </data>
+  <data name="FlashDevelop.Label.CRLF" xml:space="preserve">
+    <value>&amp;CR+LF</value>
+  </data>
+  <data name="FlashDevelop.Label.CSSValidator" xml:space="preserve">
+    <value>&amp;CSS Validator...</value>
+  </data>
+  <data name="FlashDevelop.Label.Cut" xml:space="preserve">
+    <value>Cu&amp;t</value>
+  </data>
+  <data name="FlashDevelop.Label.CutLine" xml:space="preserve">
+    <value>C&amp;ut Line</value>
+  </data>
+  <data name="FlashDevelop.Label.DeleteFiles" xml:space="preserve">
+    <value>&amp;Delete Files</value>
+  </data>
+  <data name="FlashDevelop.Label.DeleteLine" xml:space="preserve">
+    <value>&amp;Delete Line</value>
+  </data>
+  <data name="FlashDevelop.Label.Details" xml:space="preserve">
+    <value>&amp;Details</value>
+  </data>
+  <data name="FlashDevelop.Label.DownloadUpdate" xml:space="preserve">
+    <value>&amp;Download Update</value>
+  </data>
+  <data name="FlashDevelop.Label.Duplicate" xml:space="preserve">
+    <value>&amp;Duplicate</value>
+  </data>
+  <data name="FlashDevelop.Label.DuplicateLine" xml:space="preserve">
+    <value>Duplic&amp;ate Line</value>
+  </data>
+  <data name="FlashDevelop.Label.Edit" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="FlashDevelop.Label.Encoding" xml:space="preserve">
+    <value>En&amp;coding</value>
+  </data>
+  <data name="FlashDevelop.Label.EscapedCharacters" xml:space="preserve">
+    <value>&amp;Escaped characters</value>
+  </data>
+  <data name="FlashDevelop.Label.Exit" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="FlashDevelop.Label.ExpandAll" xml:space="preserve">
+    <value>E&amp;xpand All</value>
+  </data>
+  <data name="FlashDevelop.Label.FDDocs" xml:space="preserve">
+    <value>&amp;Online Documentation...</value>
+  </data>
+  <data name="FlashDevelop.Label.FDHome" xml:space="preserve">
+    <value>&amp;FlashDevelop Home...</value>
+  </data>
+  <data name="FlashDevelop.Label.File" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="FlashDevelop.Label.FileDetails" xml:space="preserve">
+    <value>File &amp;Details</value>
+  </data>
+  <data name="FlashDevelop.Label.Find" xml:space="preserve">
+    <value>&amp;Find...</value>
+  </data>
+  <data name="FlashDevelop.Label.FindAndReplace" xml:space="preserve">
+    <value>&amp;Find And Replace...</value>
+  </data>
+  <data name="FlashDevelop.Label.FindAndReplaceInFiles" xml:space="preserve">
+    <value>Find And &amp;Replace In Files...</value>
+  </data>
+  <data name="FlashDevelop.Label.FindNext" xml:space="preserve">
+    <value>Find &amp;Next</value>
+  </data>
+  <data name="FlashDevelop.Label.FindPrevious" xml:space="preserve">
+    <value>Find &amp;Previous</value>
+  </data>
+  <data name="FlashDevelop.Label.FlashTools" xml:space="preserve">
+    <value>&amp;Flash Tools</value>
+  </data>
+  <data name="FlashDevelop.Label.Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="FlashDevelop.Label.FromFile" xml:space="preserve">
+    <value>&amp;From File...</value>
+  </data>
+  <data name="FlashDevelop.Label.GeneralTools" xml:space="preserve">
+    <value>&amp;General Tools</value>
+  </data>
+  <data name="FlashDevelop.Label.Go" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="FlashDevelop.Label.GotoMatchingBrace" xml:space="preserve">
+    <value>Goto &amp;Matching Brace</value>
+  </data>
+  <data name="FlashDevelop.Label.GotoPositionOrLine" xml:space="preserve">
+    <value>&amp;Goto Position Or Line...</value>
+  </data>
+  <data name="FlashDevelop.Label.GUID" xml:space="preserve">
+    <value>&amp;GUID</value>
+  </data>
+  <data name="FlashDevelop.Label.Help" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="FlashDevelop.Label.HighlightAll" xml:space="preserve">
+    <value>&amp;Highlight all</value>
+  </data>
+  <data name="FlashDevelop.Label.Homepage" xml:space="preserve">
+    <value>&amp;Homepage</value>
+  </data>
+  <data name="FlashDevelop.Label.HTMLValidator" xml:space="preserve">
+    <value>&amp;HTML Validator...</value>
+  </data>
+  <data name="FlashDevelop.Label.IndentationGuides" xml:space="preserve">
+    <value>&amp;Indentation Guides</value>
+  </data>
+  <data name="FlashDevelop.Label.Insert" xml:space="preserve">
+    <value>&amp;Insert</value>
+  </data>
+  <data name="FlashDevelop.Label.KillRunningProcess" xml:space="preserve">
+    <value>&amp;Kill Running Process</value>
+  </data>
+  <data name="FlashDevelop.Label.LanguageReferences" xml:space="preserve">
+    <value>&amp;Language References</value>
+  </data>
+  <data name="FlashDevelop.Label.LF" xml:space="preserve">
+    <value>&amp;LF</value>
+  </data>
+  <data name="FlashDevelop.Label.Line" xml:space="preserve">
+    <value>&amp;Line</value>
+  </data>
+  <data name="FlashDevelop.Label.LineEndCharacters" xml:space="preserve">
+    <value>&amp;Line End Characters</value>
+  </data>
+  <data name="FlashDevelop.Label.LineEnds" xml:space="preserve">
+    <value>&amp;Line Ends</value>
+  </data>
+  <data name="FlashDevelop.Label.LittleEndian" xml:space="preserve">
+    <value>&amp;Little Endian</value>
+  </data>
+  <data name="FlashDevelop.Label.LookInComments" xml:space="preserve">
+    <value>Look in &amp;comments</value>
+  </data>
+  <data name="FlashDevelop.Label.LookInStrings" xml:space="preserve">
+    <value>Look in &amp;strings</value>
+  </data>
+  <data name="FlashDevelop.Label.LookInSubdirectories" xml:space="preserve">
+    <value>Look in sub&amp;directories</value>
+  </data>
+  <data name="FlashDevelop.Label.MatchCase" xml:space="preserve">
+    <value>Match &amp;case</value>
+  </data>
+  <data name="FlashDevelop.Label.Modify" xml:space="preserve">
+    <value>&amp;Modify</value>
+  </data>
+  <data name="FlashDevelop.Label.New" xml:space="preserve">
+    <value>&amp;New</value>
+  </data>
+  <data name="FlashDevelop.Label.Next" xml:space="preserve">
+    <value>&amp;Next</value>
+  </data>
+  <data name="FlashDevelop.Label.NextBookmark" xml:space="preserve">
+    <value>Ne&amp;xt Bookmark</value>
+  </data>
+  <data name="FlashDevelop.Label.NotifyLater" xml:space="preserve">
+    <value>&amp;Notify Later</value>
+  </data>
+  <data name="FlashDevelop.Label.Ok" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="FlashDevelop.Label.Open" xml:space="preserve">
+    <value>&amp;Open...</value>
+  </data>
+  <data name="FlashDevelop.Label.OpenFiles" xml:space="preserve">
+    <value>&amp;Open Files</value>
+  </data>
+  <data name="FlashDevelop.Label.Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="FlashDevelop.Label.Paste" xml:space="preserve">
+    <value>&amp;Paste</value>
+  </data>
+  <data name="FlashDevelop.Label.Position" xml:space="preserve">
+    <value>&amp;Position</value>
+  </data>
+  <data name="FlashDevelop.Label.PrevBookmark" xml:space="preserve">
+    <value>Pr&amp;ev Bookmark</value>
+  </data>
+  <data name="FlashDevelop.Label.Previous" xml:space="preserve">
+    <value>&amp;Previous</value>
+  </data>
+  <data name="FlashDevelop.Label.Print" xml:space="preserve">
+    <value>&amp;Print</value>
+  </data>
+  <data name="FlashDevelop.Label.PrintPreview" xml:space="preserve">
+    <value>Print Previe&amp;w</value>
+  </data>
+  <data name="FlashDevelop.Label.ProgramSettings" xml:space="preserve">
+    <value>&amp;Program Settings...</value>
+  </data>
+  <data name="FlashDevelop.Label.PublishMovieInFlash" xml:space="preserve">
+    <value>Publish Movie in Flash IDE</value>
+  </data>
+  <data name="FlashDevelop.Label.QuickFind" xml:space="preserve">
+    <value>&amp;Quick Find...</value>
+  </data>
+  <data name="FlashDevelop.Label.QuickFindNext" xml:space="preserve">
+    <value>Quick Find &amp;Next</value>
+  </data>
+  <data name="FlashDevelop.Label.QuickFindPrevious" xml:space="preserve">
+    <value>Quick Find &amp;Previous</value>
+  </data>
+  <data name="FlashDevelop.Label.RecentFiles" xml:space="preserve">
+    <value>&amp;Recent Files</value>
+  </data>
+  <data name="FlashDevelop.Label.Redo" xml:space="preserve">
+    <value>&amp;Redo</value>
+  </data>
+  <data name="FlashDevelop.Label.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="FlashDevelop.Label.RegExpTk" xml:space="preserve">
+    <value>&amp;Regular Expression Toolkit</value>
+  </data>
+  <data name="FlashDevelop.Label.RegularExpressions" xml:space="preserve">
+    <value>&amp;Regular expressions</value>
+  </data>
+  <data name="FlashDevelop.Label.ReleaseNotes" xml:space="preserve">
+    <value>&amp;Release Notes...</value>
+  </data>
+  <data name="FlashDevelop.Label.Reload" xml:space="preserve">
+    <value>&amp;Reload</value>
+  </data>
+  <data name="FlashDevelop.Label.Replace" xml:space="preserve">
+    <value>&amp;Replace...</value>
+  </data>
+  <data name="FlashDevelop.Label.ReplaceAll" xml:space="preserve">
+    <value>Replace &amp;All</value>
+  </data>
+  <data name="FlashDevelop.Label.Revert" xml:space="preserve">
+    <value>Re&amp;vert</value>
+  </data>
+  <data name="FlashDevelop.Label.Save" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="FlashDevelop.Label.SaveAll" xml:space="preserve">
+    <value>Sa&amp;ve All</value>
+  </data>
+  <data name="FlashDevelop.Label.SaveAs" xml:space="preserve">
+    <value>Save &amp;As...</value>
+  </data>
+  <data name="FlashDevelop.Label.SaveAsSnippet" xml:space="preserve">
+    <value>Save As &amp;Snippet...</value>
+  </data>
+  <data name="FlashDevelop.Label.SaveAsTemplate" xml:space="preserve">
+    <value>Save As &amp;Template...</value>
+  </data>
+  <data name="FlashDevelop.Label.Search" xml:space="preserve">
+    <value>&amp;Search</value>
+  </data>
+  <data name="FlashDevelop.Label.SelectAll" xml:space="preserve">
+    <value>&amp;Select All</value>
+  </data>
+  <data name="FlashDevelop.Label.Selection" xml:space="preserve">
+    <value>&amp;Selection</value>
+  </data>
+  <data name="FlashDevelop.Label.Settings" xml:space="preserve">
+    <value>&amp;Settings...</value>
+  </data>
+  <data name="FlashDevelop.Label.Snippet" xml:space="preserve">
+    <value>&amp;Snippet</value>
+  </data>
+  <data name="FlashDevelop.Label.SnippetEditor" xml:space="preserve">
+    <value>&amp;Snippet Editor...</value>
+  </data>
+  <data name="FlashDevelop.Label.SOReader" xml:space="preserve">
+    <value>&amp;SharedObject Reader...</value>
+  </data>
+  <data name="FlashDevelop.Label.Syntax" xml:space="preserve">
+    <value>Synta&amp;x</value>
+  </data>
+  <data name="FlashDevelop.Label.TechnicalSpecifications" xml:space="preserve">
+    <value>&amp;Technical Specifications</value>
+  </data>
+  <data name="FlashDevelop.Label.TestMovieInFlash" xml:space="preserve">
+    <value>&amp;Test Movie In Flash IDE</value>
+  </data>
+  <data name="FlashDevelop.Label.Text" xml:space="preserve">
+    <value>&amp;Text</value>
+  </data>
+  <data name="FlashDevelop.Label.Timestamp" xml:space="preserve">
+    <value>&amp;Timestamp</value>
+  </data>
+  <data name="FlashDevelop.Label.ToggleBookmark" xml:space="preserve">
+    <value>&amp;Toggle Bookmark</value>
+  </data>
+  <data name="FlashDevelop.Label.ToggleBreakpoint" xml:space="preserve">
+    <value>Toggle Breakpoint</value>
+  </data>
+  <data name="FlashDevelop.Label.ToggleFold" xml:space="preserve">
+    <value>Toggle &amp;Fold</value>
+  </data>
+  <data name="FlashDevelop.Label.ToLowercase" xml:space="preserve">
+    <value>To Lo&amp;wercase</value>
+  </data>
+  <data name="FlashDevelop.Label.Tools" xml:space="preserve">
+    <value>&amp;Tools</value>
+  </data>
+  <data name="FlashDevelop.Label.ToUppercase" xml:space="preserve">
+    <value>To Upper&amp;case</value>
+  </data>
+  <data name="FlashDevelop.Label.TransposeLines" xml:space="preserve">
+    <value>&amp;Transpose Lines</value>
+  </data>
+  <data name="FlashDevelop.Label.UncommentLine" xml:space="preserve">
+    <value>Uncomment Li&amp;ne</value>
+  </data>
+  <data name="FlashDevelop.Label.Undo" xml:space="preserve">
+    <value>&amp;Undo</value>
+  </data>
+  <data name="FlashDevelop.Label.UTF8" xml:space="preserve">
+    <value>&amp;UTF-8</value>
+  </data>
+  <data name="FlashDevelop.Label.View" xml:space="preserve">
+    <value>&amp;View</value>
+  </data>
+  <data name="FlashDevelop.Label.WebTools" xml:space="preserve">
+    <value>&amp;Web Tools</value>
+  </data>
+  <data name="FlashDevelop.Label.WhitespaceCharacters" xml:space="preserve">
+    <value>&amp;Whitespace Characters</value>
+  </data>
+  <data name="FlashDevelop.Label.WholeWord" xml:space="preserve">
+    <value>&amp;Whole word</value>
+  </data>
+  <data name="FlashDevelop.Label.WindowsExplorer" xml:space="preserve">
+    <value>Windows &amp;Explorer</value>
+  </data>
+  <data name="FlashDevelop.Label.WrapEditorText" xml:space="preserve">
+    <value>Wrap &amp;Editor Text</value>
+  </data>
+  <data name="FlashDevelop.Title.AboutDialog" xml:space="preserve">
+    <value>About FlashDevelop</value>
+  </data>
+  <data name="FlashDevelop.Title.ConfirmDialog" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="FlashDevelop.Title.CustomDocument" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="FlashDevelop.Title.ErrorDialog" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FlashDevelop.Title.FindAndReplaceDialog" xml:space="preserve">
+    <value>Find And Replace</value>
+  </data>
+  <data name="FlashDevelop.Title.FindAndReplaceInFilesDialog" xml:space="preserve">
+    <value>Find And Replace In Files</value>
+  </data>
+  <data name="FlashDevelop.Title.GoToDialog" xml:space="preserve">
+    <value>Goto</value>
+  </data>
+  <data name="FlashDevelop.Title.InfoDialog" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="FlashDevelop.Title.RecoveryDialog" xml:space="preserve">
+    <value>Recovery File Notification</value>
+  </data>
+  <data name="FlashDevelop.Title.SaveChanges" xml:space="preserve">
+    <value>Save Changes In:</value>
+  </data>
+  <data name="FlashDevelop.Title.SettingDialog" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="FlashDevelop.Title.UpdateDialog" xml:space="preserve">
+    <value>Update Check</value>
+  </data>
+  <data name="FlashDevelop.Title.WarningDialog" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="FlashDevelop.ToolTip.ToggleResults" xml:space="preserve">
+    <value>Toggle Results</value>
+  </data>
+  <data name="FlashViewer.Description.DisplayStyle" xml:space="preserve">
+    <value>Specifies how Flash movies are viewed in FlashDevelop.</value>
+  </data>
+  <data name="FlashViewer.Description.PlayerPath" xml:space="preserve">
+    <value>Path to the external Flash Player.</value>
+  </data>
+  <data name="FlashViewer.Info.Description" xml:space="preserve">
+    <value>Adds a ability to view Flash movies with FlashDevelop.</value>
+  </data>
+  <data name="FlashViewer.Info.FlashMissing" xml:space="preserve">
+    <value>Could not display the movie. You need to install Flash 9 ActiveX Player for IE.</value>
+  </data>
+  <data name="HaXeContext.Description.DefaultFlashVersion" xml:space="preserve">
+    <value>Default Flash Player target version when no project is defined.</value>
+  </data>
+  <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
+    <value>HaXe compiler parameters for syntax checking.</value>
+  </data>
+  <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
+    <value>Path to the HaXe compiler.</value>
+  </data>
+  <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
+    <value>This file is not a valid HaXe class or does not include a @haxe build command.</value>
+  </data>
+  <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
+    <value>HaXe compiler path is not correctly set. Please check your Program Settings.</value>
+  </data>
+  <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
+    <value>Invalid QuickBuild command.</value>
+  </data>
+  <data name="LayoutManager.Description.CustomLayoutPath" xml:space="preserve">
+    <value>Path to the custom directory that contains the layouts.</value>
+  </data>
+  <data name="LayoutManager.Info.Description" xml:space="preserve">
+    <value>Adds a panel layout manager to FlashDevelop.</value>
+  </data>
+  <data name="LayoutManager.Info.NoLayoutsFound" xml:space="preserve">
+    <value>No saved layouts found.</value>
+  </data>
+  <data name="LayoutManager.Info.OpenFileFilter" xml:space="preserve">
+    <value>FlashDevelop Layouts (*.fdl)|*.fdl</value>
+  </data>
+  <data name="LayoutManager.Label.DeleteLayout" xml:space="preserve">
+    <value>&amp;Delete Layout</value>
+  </data>
+  <data name="LayoutManager.Label.LoadLayout" xml:space="preserve">
+    <value>&amp;Load Layout</value>
+  </data>
+  <data name="LayoutManager.Label.SaveCurrent" xml:space="preserve">
+    <value>&amp;Save Current...</value>
+  </data>
+  <data name="LayoutManager.Label.ShowSettings" xml:space="preserve">
+    <value>S&amp;how Settings...</value>
+  </data>
+  <data name="LayoutManager.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Layout Manager</value>
+  </data>
+  <data name="LayoutManager.Title.PluginPanel" xml:space="preserve">
+    <value>Layouts</value>
+  </data>
+  <data name="OutputPanel.Description.ShowOnOutput" xml:space="preserve">
+    <value>Always open the panel to show the new output.</value>
+  </data>
+  <data name="OutputPanel.Description.ShowOnProcessEnd" xml:space="preserve">
+    <value>Open the panel after the captured process has finished.</value>
+  </data>
+  <data name="OutputPanel.Info.Description" xml:space="preserve">
+    <value>Adds a output panel for debug messages to FlashDevelop.</value>
+  </data>
+  <data name="OutputPanel.Label.ClearOutput" xml:space="preserve">
+    <value>&amp;Clear Output</value>
+  </data>
+  <data name="OutputPanel.Label.CopyOutput" xml:space="preserve">
+    <value>Copy &amp;Output</value>
+  </data>
+  <data name="OutputPanel.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Output Panel</value>
+  </data>
+  <data name="OutputPanel.Label.WrapText" xml:space="preserve">
+    <value>&amp;Wrap Text</value>
+  </data>
+  <data name="OutputPanel.Title.PluginPanel" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="PluginCore.Docking.ToolTipAutoHide" xml:space="preserve">
+    <value>Auto Hide</value>
+  </data>
+  <data name="PluginCore.Docking.ToolTipClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="PluginCore.Docking.ToolTipOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="PluginCore.Docking.ToolTipWindowList" xml:space="preserve">
+    <value>Window List</value>
+  </data>
+  <data name="ProjectManager.Category.Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="ProjectManager.Category.CodeInjection" xml:space="preserve">
+    <value>Code Injection</value>
+  </data>
+  <data name="ProjectManager.Category.CompilerOptions" xml:space="preserve">
+    <value>Compiler Options</value>
+  </data>
+  <data name="ProjectManager.Category.Exclusions" xml:space="preserve">
+    <value>Exclusions</value>
+  </data>
+  <data name="ProjectManager.Category.General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ProjectManager.Category.GeneralOptions" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ProjectManager.Category.OtherOptions" xml:space="preserve">
+    <value>Other Options</value>
+  </data>
+  <data name="ProjectManager.Category.ProjectTree" xml:space="preserve">
+    <value>Project Tree</value>
+  </data>
+  <data name="ProjectManager.Category.Trace" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="ProjectManager.Column.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ProjectManager.Column.Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ProjectManager.Description.Accessible" xml:space="preserve">
+    <value>Enables accessibility features when compiling the Flex application or SWC file.</value>
+  </data>
+  <data name="ProjectManager.Description.Additional" xml:space="preserve">
+    <value>Set advanced compiler command line options. Not recommended.</value>
+  </data>
+  <data name="ProjectManager.Description.AllowSourcePathOverlap" xml:space="preserve">
+    <value>Checks if a source-path entry is a subdirectory of another source-path entry.</value>
+  </data>
+  <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
+    <value>If you would like to store your project templates in a custom directory, you can specify one here.  Leave it blank to use the default location.</value>
+  </data>
+  <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
+    <value>Specifies the source file to compile.</value>
+  </data>
+  <data name="ProjectManager.Description.Benchmark" xml:space="preserve">
+    <value>Prints detailed compile times to the output panel.</value>
+  </data>
+  <data name="ProjectManager.Description.CustomSDK" xml:space="preserve">
+    <value>Use this option to set a different path to the Flex SDK.</value>
+  </data>
+  <data name="ProjectManager.Description.DeclareOverride" xml:space="preserve">
+    <value>Ensure overriden methods are declared with "override".</value>
+  </data>
+  <data name="ProjectManager.Description.Directives" xml:space="preserve">
+    <value>Specifies the user-defined compiler directives.</value>
+  </data>
+  <data name="ProjectManager.Description.DisableMxmlMapping" xml:space="preserve">
+    <value>By default, MXML source files (mx:Script, mx:Style) are grouped under the MXML file.</value>
+  </data>
+  <data name="ProjectManager.Description.ES" xml:space="preserve">
+    <value>Instructs the compiler to use the ECMAScript Edition 3 prototype-based object model to allow dynamic overriding of prototype properties.</value>
+  </data>
+  <data name="ProjectManager.Description.ExcludedDirectories" xml:space="preserve">
+    <value>The set of directories to exclude from the project treeview altogether.</value>
+  </data>
+  <data name="ProjectManager.Description.ExcludedFileTypes" xml:space="preserve">
+    <value>The set of filetypes to exclude from the project treeview altogether.</value>
+  </data>
+  <data name="ProjectManager.Description.ExcludeFile" xml:space="preserve">
+    <value>Excluded code generation of classes listed in specified file. Format is one full class path per line.</value>
+  </data>
+  <data name="ProjectManager.Description.ExecutableFileTypes" xml:space="preserve">
+    <value>The set of filetypes to execute when the item is opened.</value>
+  </data>
+  <data name="ProjectManager.Description.ExternalLibraryPaths" xml:space="preserve">
+    <value>Specifies a list of SWC files or directories to exclude from linking when compiling a SWF file.</value>
+  </data>
+  <data name="ProjectManager.Description.FlashStrict" xml:space="preserve">
+    <value>More type strict Flash API.</value>
+  </data>
+  <data name="ProjectManager.Description.Frame" xml:space="preserve">
+    <value>If using Code Injection only, exports your classes into a specific frame of the input SWF.</value>
+  </data>
+  <data name="ProjectManager.Description.GroupClasses" xml:space="preserve">
+    <value>Merges classes into one single MovieClip. This will reduce SWF size but might cause some problems if you're using Code Injection or UseMX.</value>
+  </data>
+  <data name="ProjectManager.Description.HaXeLibraries" xml:space="preserve">
+    <value>Specify haxelib libraries to use.</value>
+  </data>
+  <data name="ProjectManager.Description.IncludeLibraries" xml:space="preserve">
+    <value>Links all classes inside a SWC file to the resulting application SWF file, regardless of whether or not they are used.</value>
+  </data>
+  <data name="ProjectManager.Description.IncludePackages" xml:space="preserve">
+    <value>Allows you to specify one or more packages that will always be compiled into your movie.</value>
+  </data>
+  <data name="ProjectManager.Description.Includes" xml:space="preserve">
+    <value>Links one or more classes to the resulting application SWF file, whether or not those classes are required at compile time.</value>
+  </data>
+  <data name="ProjectManager.Description.Infer" xml:space="preserve">
+    <value>If set to true, the compiler will attempt to automatically determine the type of a local variable declared with the "var" keyword.</value>
+  </data>
+  <data name="ProjectManager.Description.IntrinsicPaths" xml:space="preserve">
+    <value>Additional classes declaration to be used by the completion engine.</value>
+  </data>
+  <data name="ProjectManager.Description.Keep" xml:space="preserve">
+    <value>If using Code Injection only, keeps classes compiled by the Flash IDE into the output SWF. This could cause some classes to be present two times if also compiled with FlashDevelop.</value>
+  </data>
+  <data name="ProjectManager.Description.LibraryPaths" xml:space="preserve">
+    <value>Links SWC files to the resulting application SWF file. The compiler only links in those classes for the SWC file that are required.</value>
+  </data>
+  <data name="ProjectManager.Description.LibraryPrefix" xml:space="preserve">
+    <value>Specifies a string to be placed in front of all auto-generated library asset ID's. This is useful to prevent namespace collisions if this project is a shared library.</value>
+  </data>
+  <data name="ProjectManager.Description.LoadConfig" xml:space="preserve">
+    <value>Specifies the location of the configuration file that defines compiler options. If you specify a configuration file, you can override individual options by setting them on the command line.</value>
+  </data>
+  <data name="ProjectManager.Description.Locale" xml:space="preserve">
+    <value>Specifies the locale (ie. en_US) that should be packaged in the SWF file.</value>
+  </data>
+  <data name="ProjectManager.Description.MainClass" xml:space="preserve">
+    <value>Specifies the class with a static main entry point.</value>
+  </data>
+  <data name="ProjectManager.Description.MaxRecentProjects" xml:space="preserve">
+    <value>The number of recent projects to remember in the project drop-down.</value>
+  </data>
+  <data name="ProjectManager.Description.Optimize" xml:space="preserve">
+    <value>Enables the ActionScript optimizer. This optimizer reduces file size and increases performance by optimizing the SWF file's bytecode.</value>
+  </data>
+  <data name="ProjectManager.Description.RSLPaths" xml:space="preserve">
+    <value>Specifies a list of run-time shared libraries (RSL) to use for this application. Run-time shared libraries are dynamically-linked at run time.</value>
+  </data>
+  <data name="ProjectManager.Description.ShowActionScriptWarnings" xml:space="preserve">
+    <value>Shows warnings for ActionScript classes.</value>
+  </data>
+  <data name="ProjectManager.Description.ShowBindingWarnings" xml:space="preserve">
+    <value>Shows a warning when Flash Player cannot detect changes to a bound property.</value>
+  </data>
+  <data name="ProjectManager.Description.ShowDeprecationWarnings" xml:space="preserve">
+    <value>Shows deprecation warnings for Flex components.</value>
+  </data>
+  <data name="ProjectManager.Description.ShowGlobalClasspaths" xml:space="preserve">
+    <value>Sets whether or not to include global classpath directories in the project tree.</value>
+  </data>
+  <data name="ProjectManager.Description.ShowProjectClasspaths" xml:space="preserve">
+    <value>Sets whether or not to include project classpath directories in the project tree.</value>
+  </data>
+  <data name="ProjectManager.Description.ShowUnusedTypeSelectorWarnings" xml:space="preserve">
+    <value>Shows warnings when a type selector in a style sheet or &lt;mx:Style&gt; block is not used by any components in the application.</value>
+  </data>
+  <data name="ProjectManager.Description.Strict" xml:space="preserve">
+    <value>If set to true, the compiler will require that all variables are either explicitly typed or inferrable.</value>
+  </data>
+  <data name="ProjectManager.Description.StrictAS3" xml:space="preserve">
+    <value>Prints undefined property and function calls, also performs compile-time type checking on assignments and options supplied to method calls.</value>
+  </data>
+  <data name="ProjectManager.Description.TraceFunction" xml:space="preserve">
+    <value>If the Trace Mode is set to CustomFunction, you may type in the full path to the function you would like to replace trace() calls with.  You may need to ensure the class containing the function is compiled in by marking it as Always Compile.</value>
+  </data>
+  <data name="ProjectManager.Description.TraceMode" xml:space="preserve">
+    <value>Controls how the trace() call is handled by the compiler. The default is FlashConnect, which will cause trace output to be sent to FlashDevelop's output panel.</value>
+  </data>
+  <data name="ProjectManager.Description.UseMain" xml:space="preserve">
+    <value>If set to true, you must define a single static function called main() that will be the entry point of your movie.</value>
+  </data>
+  <data name="ProjectManager.Description.UseMX" xml:space="preserve">
+    <value>If set to true, all code in the mx.* namespace will never be compiled into the output SWF.</value>
+  </data>
+  <data name="ProjectManager.Description.UseNetwork" xml:space="preserve">
+    <value>Specifies that the current application uses network services.</value>
+  </data>
+  <data name="ProjectManager.Description.UseResourceBundleMetadata" xml:space="preserve">
+    <value>Enables resource bundles. Set to true to instruct the compiler to process the contents of the ResourceBundle metadata tag.</value>
+  </data>
+  <data name="ProjectManager.Description.Verbose" xml:space="preserve">
+    <value>If set to true, the compiler will produce more detailed output, which can be viewed in the Output Panel.</value>
+  </data>
+  <data name="ProjectManager.Description.VerboseStackTraces" xml:space="preserve">
+    <value>Generates source code that includes line numbers. When a run-time error occurs, the stacktrace shows these line numbers. Enabling this option generates larger SWF files.</value>
+  </data>
+  <data name="ProjectManager.Description.Warnings" xml:space="preserve">
+    <value>Enables all warnings. Set to false to disable all warnings.</value>
+  </data>
+  <data name="ProjectManager.Description.WarnUnusedImports" xml:space="preserve">
+    <value>If set to true, the compiler will warn you when you have used the "import" keyword needlessly.</value>
+  </data>
+  <data name="ProjectManager.Info.AlwaysExecute" xml:space="preserve">
+    <value>Always execute</value>
+  </data>
+  <data name="ProjectManager.Info.AndAllItsContents" xml:space="preserve">
+    <value>and all its contents</value>
+  </data>
+  <data name="ProjectManager.Info.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="ProjectManager.Info.Builder" xml:space="preserve">
+    <value>Builder...</value>
+  </data>
+  <data name="ProjectManager.Info.BuildFailed" xml:space="preserve">
+    <value>Build Failed</value>
+  </data>
+  <data name="ProjectManager.Info.BuildStarted" xml:space="preserve">
+    <value>Build Started...</value>
+  </data>
+  <data name="ProjectManager.Info.BuildSucceeded" xml:space="preserve">
+    <value>Build Succeeded</value>
+  </data>
+  <data name="ProjectManager.Info.Classpaths" xml:space="preserve">
+    <value>Classpaths</value>
+  </data>
+  <data name="ProjectManager.Info.ClasspathsAreSaved" xml:space="preserve">
+    <value>Global classpaths will be saved along with your FlashDevelop settings.</value>
+  </data>
+  <data name="ProjectManager.Info.CompilerOptions" xml:space="preserve">
+    <value>Compiler Options</value>
+  </data>
+  <data name="ProjectManager.Info.ConfirmFileUpdate" xml:space="preserve">
+    <value>Would you like to keep this file updated from the source location? You can always change this in the Options context menu.</value>
+  </data>
+  <data name="ProjectManager.Info.CouldNotCreateProject" xml:space="preserve">
+    <value>Could not create the requested project:</value>
+  </data>
+  <data name="ProjectManager.Info.CouldNotFindProject" xml:space="preserve">
+    <value>Could not find the project to open. The menu will be repopulated.</value>
+  </data>
+  <data name="ProjectManager.Info.CouldNotOpenProject" xml:space="preserve">
+    <value>Could not open the requested project:</value>
+  </data>
+  <data name="ProjectManager.Info.CreateDirForProject" xml:space="preserve">
+    <value>Create &amp;directory for project</value>
+  </data>
+  <data name="ProjectManager.Info.Custom" xml:space="preserve">
+    <value>Run custom command...</value>
+  </data>
+  <data name="ProjectManager.Info.Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="ProjectManager.Info.Default" xml:space="preserve">
+    <value>Play (FlashViewer default)</value>
+  </data>
+  <data name="ProjectManager.Info.Document" xml:space="preserve">
+    <value>Play in new tab</value>
+  </data>
+  <data name="ProjectManager.Info.EditCommand" xml:space="preserve">
+    <value>&amp;Edit...</value>
+  </data>
+  <data name="ProjectManager.Info.EmbedNeedsOpenDocument" xml:space="preserve">
+    <value>You must have a document open to insert a resource string.</value>
+  </data>
+  <data name="ProjectManager.Info.EmptyProject" xml:space="preserve">
+    <value>Empty Project</value>
+  </data>
+  <data name="ProjectManager.Info.EnterText" xml:space="preserve">
+    <value>Enter text:</value>
+  </data>
+  <data name="ProjectManager.Info.Exploring" xml:space="preserve">
+    <value>Exploring...</value>
+  </data>
+  <data name="ProjectManager.Info.External" xml:space="preserve">
+    <value>Play in external player</value>
+  </data>
+  <data name="ProjectManager.Info.FileAlreadyExistsInProject" xml:space="preserve">
+    <value>The file "{0}" already exists in the project folder. Would you like to overwrite it?</value>
+  </data>
+  <data name="ProjectManager.Info.FileFilter" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
+  </data>
+  <data name="ProjectManager.Info.FlashMovieFilter" xml:space="preserve">
+    <value>Flash Movies (*.swf)|*.swf</value>
+  </data>
+  <data name="ProjectManager.Info.FolderAlreadyContainsFile" xml:space="preserve">
+    <value>This folder already contains a file named "{0}".{1}Would you like to replace the existing file?</value>
+  </data>
+  <data name="ProjectManager.Info.FolderAlreadyContainsFolder" xml:space="preserve">
+    <value>This folder already contains a folder named "{0}".{1}{1}If the files in the existing folder have the same name as files in the{1}folder you are moving or copying, they will be replaced. Do you still{1}want to move or copy the folder?</value>
+  </data>
+  <data name="ProjectManager.Info.General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ProjectManager.Info.GlobalClasspaths" xml:space="preserve">
+    <value>Global classpaths are specific to your machine{0}and are not stored in the project file.</value>
+  </data>
+  <data name="ProjectManager.Info.InjectionConfirmation" xml:space="preserve">
+    <value>The library assets currently embedded in your project will be removed from the project, but not deleted. Are you sure you want to proceed?</value>
+  </data>
+  <data name="ProjectManager.Info.InvalidPath" xml:space="preserve">
+    <value>The path you selected is invalid. Project classpaths must be relative to the project location and on the same drive.</value>
+  </data>
+  <data name="ProjectManager.Info.ItemsWillBeMovedToRecycleBin" xml:space="preserve">
+    <value>The selected items will be moved to the Recycle Bin.</value>
+  </data>
+  <data name="ProjectManager.Info.JsflNotFound" xml:space="preserve">
+    <value>Flash IDE scripts not found in Tools\flashide directory.</value>
+  </data>
+  <data name="ProjectManager.Info.NewProject" xml:space="preserve">
+    <value>New Project</value>
+  </data>
+  <data name="ProjectManager.Info.NoOutput" xml:space="preserve">
+    <value>No output, only run pre/post build commands.</value>
+  </data>
+  <data name="ProjectManager.Info.NoOutputAndNoBuild" xml:space="preserve">
+    <value>This project has no output and not build command configured.</value>
+  </data>
+  <data name="ProjectManager.Info.NoProjectsOpenLink" xml:space="preserve">
+    <value>|Create a new project|{0}or{0}|Open an existing project|{0}or{0}|Import a Flex Builder project|</value>
+  </data>
+  <data name="ProjectManager.Info.NoTemplatesFound" xml:space="preserve">
+    <value>No templates were found in the templates directory. You will not be able to create new projects. You might try reinstalling FlashDevelop.</value>
+  </data>
+  <data name="ProjectManager.Info.Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="ProjectManager.Info.PathConflict" xml:space="preserve">
+    <value>The path you selected conflicts with the existing classpath {0}. Would you still like to add it?</value>
+  </data>
+  <data name="ProjectManager.Info.Platform" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="ProjectManager.Info.Popup" xml:space="preserve">
+    <value>Play in popup</value>
+  </data>
+  <data name="ProjectManager.Info.PostBuildCmdLine" xml:space="preserve">
+    <value>Post-Build Command Line</value>
+  </data>
+  <data name="ProjectManager.Info.PreBuildCmdLine" xml:space="preserve">
+    <value>Pre-Build Command Line</value>
+  </data>
+  <data name="ProjectManager.Info.ProjectClasspaths" xml:space="preserve">
+    <value>Project classpaths are relative to the project location.</value>
+  </data>
+  <data name="ProjectManager.Info.ProjectDirectory" xml:space="preserve">
+    <value>&lt;Project Directory&gt;</value>
+  </data>
+  <data name="ProjectManager.Info.ProjectFileAlreadyExists" xml:space="preserve">
+    <value>The project file already exists. Do you want to overwrite it?</value>
+  </data>
+  <data name="ProjectManager.Info.ProjectsFilter" xml:space="preserve">
+    <value>FlashDevelop Projects (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties</value>
+  </data>
+  <data name="ProjectManager.Info.Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="ProjectManager.Info.RecursiveCopyDetected" xml:space="preserve">
+    <value>Recursive copy detected.</value>
+  </data>
+  <data name="ProjectManager.Info.Release" xml:space="preserve">
+    <value>Release</value>
+  </data>
+  <data name="ProjectManager.Info.SelectClasspathDirectory" xml:space="preserve">
+    <value>Please select a classpath directory.</value>
+  </data>
+  <data name="ProjectManager.Info.SelectProjectDirectory" xml:space="preserve">
+    <value>Please select the location to place the project directory.</value>
+  </data>
+  <data name="ProjectManager.Info.SettingsCouldNotLoad" xml:space="preserve">
+    <value>The Project Manager settings could not be parsed. Your settings will be reset to default values.</value>
+  </data>
+  <data name="ProjectManager.Info.SpecifyCompilerPath" xml:space="preserve">
+    <value>Would you like to open the {0} context settings to configure the compiler?</value>
+  </data>
+  <data name="ProjectManager.Info.SpecifyFlex2SDK" xml:space="preserve">
+    <value>The Flex 2 SDK is required to debug this project. Check the AS3 language context settings.</value>
+  </data>
+  <data name="ProjectManager.Info.SpecifyInputSwfForInjection" xml:space="preserve">
+    <value>You must specify an input SWF file if you wish to use Code Injection.</value>
+  </data>
+  <data name="ProjectManager.Info.SpecifyValidOutputSWF" xml:space="preserve">
+    <value>In order to build this project, you must specify a valid output SWF in the Project Properties.</value>
+  </data>
+  <data name="ProjectManager.Info.TargetDirNotEmpty" xml:space="preserve">
+    <value>The directory is not empty, are you sure you want to copy the template files there?</value>
+  </data>
+  <data name="ProjectManager.Info.TargetVersion" xml:space="preserve">
+    <value>&amp;Target:</value>
+  </data>
+  <data name="ProjectManager.Info.TemplateDirNotFound" xml:space="preserve">
+    <value>The templates directory could not be found. You will not be able to create new projects. You might try reinstalling FlashDevelop.</value>
+  </data>
+  <data name="ProjectManager.Info.WillCreate" xml:space="preserve">
+    <value>Will create:</value>
+  </data>
+  <data name="ProjectManager.Info.WillMoveToRecycleBin" xml:space="preserve">
+    <value>will be moved to the Recycle Bin.</value>
+  </data>
+  <data name="ProjectManager.Label.Add" xml:space="preserve">
+    <value>&amp;Add</value>
+  </data>
+  <data name="ProjectManager.Label.AddAsPreloader" xml:space="preserve">
+    <value>Add as &amp;preloader</value>
+  </data>
+  <data name="ProjectManager.Label.AddClasspath" xml:space="preserve">
+    <value>&amp;Add Classpath...</value>
+  </data>
+  <data name="ProjectManager.Label.AddExistingFile" xml:space="preserve">
+    <value>Add Existing File</value>
+  </data>
+  <data name="ProjectManager.Label.AddLibraryAsset" xml:space="preserve">
+    <value>Add Library Asset</value>
+  </data>
+  <data name="ProjectManager.Label.AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="ProjectManager.Label.AddToLibrary" xml:space="preserve">
+    <value>Add To &amp;Library</value>
+  </data>
+  <data name="ProjectManager.Label.Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="ProjectManager.Label.AlwaysCompile" xml:space="preserve">
+    <value>Always &amp;Compile</value>
+  </data>
+  <data name="ProjectManager.Label.Apply" xml:space="preserve">
+    <value>&amp;Apply</value>
+  </data>
+  <data name="ProjectManager.Label.AutoGenerateID" xml:space="preserve">
+    <value>Auto-generate &amp;ID for attachMovie():</value>
+  </data>
+  <data name="ProjectManager.Label.BackgroundColor" xml:space="preserve">
+    <value>Background &amp;color:</value>
+  </data>
+  <data name="ProjectManager.Label.Browse" xml:space="preserve">
+    <value>&amp;Browse...</value>
+  </data>
+  <data name="ProjectManager.Label.BuildProject" xml:space="preserve">
+    <value>&amp;Build Project</value>
+  </data>
+  <data name="ProjectManager.Label.Cancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="ProjectManager.Label.ClearRecentProjects" xml:space="preserve">
+    <value>&amp;Clear Recent Projects List</value>
+  </data>
+  <data name="ProjectManager.Label.CloseProject" xml:space="preserve">
+    <value>&amp;Close Project</value>
+  </data>
+  <data name="ProjectManager.Label.Copy" xml:space="preserve">
+    <value>Cop&amp;y</value>
+  </data>
+  <data name="ProjectManager.Label.CopyOf" xml:space="preserve">
+    <value>Copy of {0}</value>
+  </data>
+  <data name="ProjectManager.Label.CustomTestMovieCommand" xml:space="preserve">
+    <value>Command:</value>
+  </data>
+  <data name="ProjectManager.Label.Cut" xml:space="preserve">
+    <value>Cu&amp;t</value>
+  </data>
+  <data name="ProjectManager.Label.Delete" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="ProjectManager.Label.Dimensions" xml:space="preserve">
+    <value>&amp;Dimensions:</value>
+  </data>
+  <data name="ProjectManager.Label.EditGlobalClasspaths" xml:space="preserve">
+    <value>&amp;Edit Global Classpaths...</value>
+  </data>
+  <data name="ProjectManager.Label.EmbedAllChars" xml:space="preserve">
+    <value>Embed &amp;all characters</value>
+  </data>
+  <data name="ProjectManager.Label.EmbedTheseChars" xml:space="preserve">
+    <value>Embed &amp;these characters:</value>
+  </data>
+  <data name="ProjectManager.Label.Execute" xml:space="preserve">
+    <value>&amp;Execute</value>
+  </data>
+  <data name="ProjectManager.Label.ExistingFile" xml:space="preserve">
+    <value>&amp;Existing File...</value>
+  </data>
+  <data name="ProjectManager.Label.ExplainTheseOptions" xml:space="preserve">
+    <value>Explain these options</value>
+  </data>
+  <data name="ProjectManager.Label.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="ProjectManager.Label.FileName" xml:space="preserve">
+    <value>Filename:</value>
+  </data>
+  <data name="ProjectManager.Label.Font" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="ProjectManager.Label.FrameRate" xml:space="preserve">
+    <value>&amp;Framerate:</value>
+  </data>
+  <data name="ProjectManager.Label.GlobalClasspaths" xml:space="preserve">
+    <value>&amp;Global Classpaths...</value>
+  </data>
+  <data name="ProjectManager.Label.HideFile" xml:space="preserve">
+    <value>&amp;Hide File</value>
+  </data>
+  <data name="ProjectManager.Label.HideFolder" xml:space="preserve">
+    <value>&amp;Hide Folder</value>
+  </data>
+  <data name="ProjectManager.Label.HideItems" xml:space="preserve">
+    <value>&amp;Hide Items</value>
+  </data>
+  <data name="ProjectManager.Label.Insert" xml:space="preserve">
+    <value>&amp;Insert</value>
+  </data>
+  <data name="ProjectManager.Label.InsertIntoDocument" xml:space="preserve">
+    <value>&amp;Insert Into Document</value>
+  </data>
+  <data name="ProjectManager.Label.InstalledTemplates" xml:space="preserve">
+    <value>Installed &amp;Templates</value>
+  </data>
+  <data name="ProjectManager.Label.KeepUpdatedBySourceFile" xml:space="preserve">
+    <value>&amp;Keep updated by copying source file:</value>
+  </data>
+  <data name="ProjectManager.Label.LibraryAsset" xml:space="preserve">
+    <value>Library &amp;Asset...</value>
+  </data>
+  <data name="ProjectManager.Label.LoadAtRuntime" xml:space="preserve">
+    <value>Load at &amp;runtime (shared library)</value>
+  </data>
+  <data name="ProjectManager.Label.Location" xml:space="preserve">
+    <value>&amp;Location:</value>
+  </data>
+  <data name="ProjectManager.Label.MainMenuItem" xml:space="preserve">
+    <value>&amp;Project Manager</value>
+  </data>
+  <data name="ProjectManager.Label.Name" xml:space="preserve">
+    <value>&amp;Name:</value>
+  </data>
+  <data name="ProjectManager.Label.New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="ProjectManager.Label.NewFile" xml:space="preserve">
+    <value>New File</value>
+  </data>
+  <data name="ProjectManager.Label.NewFolder" xml:space="preserve">
+    <value>New &amp;Folder...</value>
+  </data>
+  <data name="ProjectManager.Label.NewProject" xml:space="preserve">
+    <value>&amp;New Project...</value>
+  </data>
+  <data name="ProjectManager.Label.NoProjectOutput" xml:space="preserve">
+    <value>(Project output not built)</value>
+  </data>
+  <data name="ProjectManager.Label.NotValidGroup" xml:space="preserve">
+    <value>Not a valid group</value>
+  </data>
+  <data name="ProjectManager.Label.OK" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="ProjectManager.Label.Open" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="ProjectManager.Label.OpenProject" xml:space="preserve">
+    <value>&amp;Open Project...</value>
+  </data>
+  <data name="ProjectManager.Label.Options" xml:space="preserve">
+    <value>&amp;Options...</value>
+  </data>
+  <data name="ProjectManager.Label.OutputFile" xml:space="preserve">
+    <value>&amp;Output file:</value>
+  </data>
+  <data name="ProjectManager.Label.Paste" xml:space="preserve">
+    <value>&amp;Paste</value>
+  </data>
+  <data name="ProjectManager.Label.Project" xml:space="preserve">
+    <value>&amp;Project</value>
+  </data>
+  <data name="ProjectManager.Label.ProjectClasspaths" xml:space="preserve">
+    <value>&amp;Project Classpaths...</value>
+  </data>
+  <data name="ProjectManager.Label.Properties" xml:space="preserve">
+    <value>&amp;Properties...</value>
+  </data>
+  <data name="ProjectManager.Label.RecentProjects" xml:space="preserve">
+    <value>Recent Pro&amp;jects</value>
+  </data>
+  <data name="ProjectManager.Label.Remove" xml:space="preserve">
+    <value>&amp;Remove</value>
+  </data>
+  <data name="ProjectManager.Label.Rename" xml:space="preserve">
+    <value>Rena&amp;me</value>
+  </data>
+  <data name="ProjectManager.Label.ShowHiddenItems" xml:space="preserve">
+    <value>&amp;Show Hidden Items</value>
+  </data>
+  <data name="ProjectManager.Label.SpecifySharePointID" xml:space="preserve">
+    <value>&amp;Specify sharepoint ID:</value>
+  </data>
+  <data name="ProjectManager.Label.SwfFile" xml:space="preserve">
+    <value>SWF File</value>
+  </data>
+  <data name="ProjectManager.Label.TestMovie" xml:space="preserve">
+    <value>&amp;Test Movie</value>
+  </data>
+  <data name="ProjectManager.Title.CommandLineBuilder" xml:space="preserve">
+    <value>Command-Line Builder</value>
+  </data>
+  <data name="ProjectManager.Title.ConfigurationRequired" xml:space="preserve">
+    <value>Compiler Configuration Required</value>
+  </data>
+  <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
+    <value>Enter Custom Test Movie Command</value>
+  </data>
+  <data name="ProjectManager.Title.EnterText" xml:space="preserve">
+    <value>Enter Text</value>
+  </data>
+  <data name="ProjectManager.Title.GlobalClasspaths" xml:space="preserve">
+    <value>Global Classpaths</value>
+  </data>
+  <data name="ProjectManager.Title.GlobalClasspathsBox" xml:space="preserve">
+    <value>Global {0} Classpaths</value>
+  </data>
+  <data name="ProjectManager.Title.LibraryAssetProperties" xml:space="preserve">
+    <value>Library Asset Properties</value>
+  </data>
+  <data name="ProjectManager.Title.PathConflict" xml:space="preserve">
+    <value>Path Conflict</value>
+  </data>
+  <data name="ProjectManager.Title.PluginPanel" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ProjectManager.Title.ProjectProperties" xml:space="preserve">
+    <value>Project Properties</value>
+  </data>
+  <data name="ProjectManager.ToolTip.AlwaysExecute" xml:space="preserve">
+    <value>Execute the Post-Build Command Line even after a failed build.</value>
+  </data>
+  <data name="ProjectManager.ToolTip.ProjectProperties" xml:space="preserve">
+    <value>Project Properties</value>
+  </data>
+  <data name="ProjectManager.ToolTip.ProjectTypes" xml:space="preserve">
+    <value>Type Explorer</value>
+  </data>
+  <data name="ProjectManager.ToolTip.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ProjectManager.ToolTip.SelectConfiguration" xml:space="preserve">
+    <value>Select Configuration</value>
+  </data>
+  <data name="ProjectManager.ToolTip.ShowHiddenItems" xml:space="preserve">
+    <value>Show Hidden Items</value>
+  </data>
+  <data name="ResultsPanel.Header.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ResultsPanel.Header.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="ResultsPanel.Header.Line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="ResultsPanel.Header.Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="ResultsPanel.Info.Description" xml:space="preserve">
+    <value>Adds a results panel for console info to FlashDevelop.</value>
+  </data>
+  <data name="ResultsPanel.Label.ClearEntries" xml:space="preserve">
+    <value>&amp;Clear Entries</value>
+  </data>
+  <data name="ResultsPanel.Label.CopyEntry" xml:space="preserve">
+    <value>Copy &amp;Entry</value>
+  </data>
+  <data name="ResultsPanel.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Results Panel</value>
+  </data>
+  <data name="ResultsPanel.Title.PluginPanel" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="StartPage.Category.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="StartPage.Category.Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="StartPage.Description.CloseOnProjectOpen" xml:space="preserve">
+    <value>Closes the start page when a project is opened. If show start page insead of untitled document is also true start page will remain open if it is the only window opened.</value>
+  </data>
+  <data name="StartPage.Description.CustomRssFeed" xml:space="preserve">
+    <value>URL of the custom RSS feed to use.</value>
+  </data>
+  <data name="StartPage.Description.CustomStartPage" xml:space="preserve">
+    <value>Path of the custom start page to use.</value>
+  </data>
+  <data name="StartPage.Description.ShowStartPageInsteadOfUntitled" xml:space="preserve">
+    <value>Show the start page when all documents are closed instead of untitled document.</value>
+  </data>
+  <data name="StartPage.Description.ShowStartPageOnStartup" xml:space="preserve">
+    <value>Should the start page show when you open FlashDevelop: Always - FlashDevelop will not restore a session, but instead show the start page. NotRestoringSession - start page will show if FlashDevelop is not restoring a session. Never - the start page will not show based on startup.</value>
+  </data>
+  <data name="StartPage.Description.UseCustomRssFeed" xml:space="preserve">
+    <value>Uses the custom RSS feed instead of the default start page feed.</value>
+  </data>
+  <data name="StartPage.Description.UseCustomStartPage" xml:space="preserve">
+    <value>Uses the custom start page instead of the default start page.</value>
+  </data>
+  <data name="StartPage.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Start Page</value>
+  </data>
+  <data name="StartPage.Title.StartPage" xml:space="preserve">
+    <value>Start Page</value>
+  </data>
+  <data name="TaskListPanel.Column.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TaskListPanel.Column.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="TaskListPanel.Column.Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="TaskListPanel.Column.Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="TaskListPanel.Column.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TaskListPanel.Description.FileExtensions" xml:space="preserve">
+    <value>File extensions to listen for changes.</value>
+  </data>
+  <data name="TaskListPanel.Description.GroupValues" xml:space="preserve">
+    <value>Group values to look for.</value>
+  </data>
+  <data name="TaskListPanel.Description.ImageIndexes" xml:space="preserve">
+    <value>Image indexes of the results.</value>
+  </data>
+  <data name="TaskListPanel.Info.Processing" xml:space="preserve">
+    <value>Processing {0} of {1}.</value>
+  </data>
+  <data name="TaskListPanel.Info.Refreshing" xml:space="preserve">
+    <value>Refreshing...</value>
+  </data>
+  <data name="TaskListPanel.Info.SettingError" xml:space="preserve">
+    <value>Error: Please verify your plugin settings.</value>
+  </data>
+  <data name="TaskListPanel.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Task List</value>
+  </data>
+  <data name="TaskListPanel.Title.PluginPanel" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="XMLCompletion.Description.CloseTags" xml:space="preserve">
+    <value>Closes the current tag automaticly.</value>
+  </data>
+  <data name="XMLCompletion.Description.EnableXMLCompletion" xml:space="preserve">
+    <value>Enables the completion for xml files.</value>
+  </data>
+  <data name="XMLCompletion.Description.InsertQuotes" xml:space="preserve">
+    <value>Inserts quotes to the generated attribute.</value>
+  </data>
+  <data name="XMLCompletion.Description.SmartIndenter" xml:space="preserve">
+    <value>Uses automatic indenting to the source.</value>
+  </data>
+  <data name="XMLCompletion.Description.UpperCaseHtmlTags" xml:space="preserve">
+    <value>Force uppercase html tags for generated code.</value>
+  </data>
+  <data name="XMLCompletion.Info.Description" xml:space="preserve">
+    <value>Adds simple HTML and XML completion to FlashDevelop.</value>
+  </data>
+  <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
+    <value>Shortcut for calling the contextual code generator.</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateFunction" xml:space="preserve">
+    <value>Generate function</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
+    <value>Getter</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateGetSet" xml:space="preserve">
+    <value>Getter and setter</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateHandler" xml:space="preserve">
+    <value>Generate {0} handler</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
+    <value>Setter</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateVar" xml:space="preserve">
+    <value>Declare variable</value>
+  </data>
+  <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
+    <value>Implement interface methods</value>
+  </data>
+  <data name="ASCompletion.Label.PromoteLocal" xml:space="preserve">
+    <value>Promote to class member</value>
+  </data>
+  <data name="ProjectManager.Info.AboutPackages" xml:space="preserve">
+    <value>(not supported in all projects)</value>
+  </data>
+  <data name="ProjectManager.Label.Package" xml:space="preserve">
+    <value>&amp;Package:</value>
+  </data>
+  <data name="FileExplorer.Info.PathTrusted" xml:space="preserve">
+    <value>was added to the Flash Player trusted paths.</value>
+  </data>
+  <data name="ProjectManager.Label.SwcExternalLibraryOption" xml:space="preserve">
+    <value>&amp;External library (not included)</value>
+  </data>
+  <data name="ProjectManager.Label.SwcIncludedLibraryOption" xml:space="preserve">
+    <value>&amp;Included library (include completely)</value>
+  </data>
+  <data name="ProjectManager.Label.SwcLibraryOption" xml:space="preserve">
+    <value>&amp;Library (include referenced classes)</value>
+  </data>
+  <data name="AS2Context.Info.Description" xml:space="preserve">
+    <value>Adds an ActionScript 2 context for the ASCompletion engine.</value>
+  </data>
+  <data name="AS3Context.Info.Description" xml:space="preserve">
+    <value>Adds an ActionScript 3 context for the ASCompletion engine.</value>
+  </data>
+  <data name="ASCompletion.Info.Description" xml:space="preserve">
+    <value>Adds a code completion engine to FlashDevelop.</value>
+  </data>
+  <data name="HaXeContext.Info.Description" xml:space="preserve">
+    <value>Adds a HaXe context for the ASCompletion engine.</value>
+  </data>
+  <data name="ProjectManager.Info.Description" xml:space="preserve">
+    <value>Adds a project management and building to FlashDevelop.</value>
+  </data>
+  <data name="StartPage.Info.Description" xml:space="preserve">
+    <value>Adds a start page to FlashDevelop.</value>
+  </data>
+  <data name="TaskListPanel.Info.Description" xml:space="preserve">
+    <value>Adds a task list panel to FlashDevelop.</value>
+  </data>
+  <data name="ProjectManager.Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="ProjectManager.Description.ShortcutBuild" xml:space="preserve">
+    <value>Shortcut to Build Project action.</value>
+  </data>
+  <data name="ProjectManager.Description.ShortcutTestMovie" xml:space="preserve">
+    <value>Shortcut to Test Movie action.</value>
+  </data>
+  <data name="ResultsPanel.Description.NextError" xml:space="preserve">
+    <value>Shortcut to jump to next error in results.</value>
+  </data>
+  <data name="ResultsPanel.Description.PreviousError" xml:space="preserve">
+    <value>Shortcut to jump to previous error in results.</value>
+  </data>
+  <data name="ResultsPanel.Label.NextEntry" xml:space="preserve">
+    <value>&amp;Next Entry</value>
+  </data>
+  <data name="ResultsPanel.Label.PreviousEntry" xml:space="preserve">
+    <value>&amp;Previous Entry</value>
+  </data>
+  <data name="ProjectManager.Info.AddToLibrary" xml:space="preserve">
+    <value>Add to library</value>
+  </data>
+  <data name="FlashDevelop.Title.OpenFileDialog" xml:space="preserve">
+    <value>Open File</value>
+  </data>
+  <data name="FlashDevelop.Title.SaveFileDialog" xml:space="preserve">
+    <value>Save File</value>
+  </data>
+  <data name="ProjectManager.Title.OpenProjectDialog" xml:space="preserve">
+    <value>Open Project</value>
+  </data>
+  <data name="ProjectManager.Info.CodeInjection" xml:space="preserve">
+    <value>Code injection is a compilation method that is useful for maintaining a workflow in conjunction with the Flash IDE.
+
+If you enable injection, your source will be compiled into an existing SWF file. The input SWF will be copied first and the injected file will be your output SWF name.
+
+Please note that with injection enabled, you will not be able to use many project options, including asset embedding.</value>
+  </data>
+  <data name="ProjectManager.Info.Injection" xml:space="preserve">
+    <value>Injection</value>
+  </data>
+  <data name="ProjectManager.Info.InputSWF" xml:space="preserve">
+    <value>&amp;Input SWF file:</value>
+  </data>
+  <data name="ProjectManager.Info.UseCodeInjection" xml:space="preserve">
+    <value>&amp;Enable Code Injection</value>
+  </data>
+  <data name="FlashDevelop.Description.FallbackCodePage" xml:space="preserve">
+    <value>The code page detection defaults to this code page if there is no byte order mark (BOM) present in the file.</value>
+  </data>
+  <data name="ASCompletion.Description.VerboseFDB" xml:space="preserve">
+    <value>Display all output of the Flex debugger.</value>
+  </data>
+  <data name="ASCompletion.Description.DisableCallTip" xml:space="preserve">
+    <value>Do not show automatically the method call-tip when typing '(' or ','. You can still display the call tip by pressing Ctrl+Shift+Space.</value>
+  </data>
+  <data name="ProjectManager.Description.MissingEntryPoint" xml:space="preserve">
+    <value>In order to build this project, you must mark the AS or MXML entry point as "Always Compile" in the project tree.</value>
+  </data>
+  <data name="ProjectManager.Description.MissingTarget" xml:space="preserve">
+    <value>In order to build this project, you must mark one or more classes as "Always Compile" in the project tree, or turn off the 'UseMain' compiler option.</value>
+  </data>
+  <data name="BookmarkPanel.ColumnHeader.Line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="BookmarkPanel.ColumnHeader.Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="BookmarkPanel.Info.Description" xml:space="preserve">
+    <value>Adds a bookmark management panel to FlashDevelop.</value>
+  </data>
+  <data name="BookmarkPanel.Info.NothingToBookmark" xml:space="preserve">
+    <value>There is nothing to bookmark.</value>
+  </data>
+  <data name="BookmarkPanel.Info.RemoveBookmarks" xml:space="preserve">
+    <value>Remove selected bookmarks?</value>
+  </data>
+  <data name="BookmarkPanel.Label.RemoveBookmarks" xml:space="preserve">
+    <value>&amp;Remove Bookmarks</value>
+  </data>
+  <data name="BookmarkPanel.Label.ViewMenuItem" xml:space="preserve">
+    <value>&amp;Bookmark Panel</value>
+  </data>
+  <data name="BookmarkPanel.Title.PluginPanel" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="BookmarkPanel.ToolTip.SearchBookmarks" xml:space="preserve">
+    <value>Search And Add Bookmarks</value>
+  </data>
+  <data name="ProjectManager.Info.OpenDocument" xml:space="preserve">
+    <value>Open document...</value>
+  </data>
+  <data name="ProjectManager.Label.CustomTestMovieDocument" xml:space="preserve">
+    <value>Document:</value>
+  </data>
+  <data name="ProjectManager.Title.CustomTestMovieDocument" xml:space="preserve">
+    <value>Select Document To Open On Test Movie</value>
+  </data>
+  <data name="FlashDevelop.Info.NotEnoughArguments" xml:space="preserve">
+    <value>Not enough arguments to run a process successfully:</value>
+  </data>
+  <data name="ProjectManager.Label.BrowseDirectory" xml:space="preserve">
+    <value>E&amp;xplore</value>
+  </data>
+  <data name="ASCompletion.Description.ShowRegions" xml:space="preserve">
+    <value>Uses region grouping in the list of the items.</value>
+  </data>
+  <data name="TaskListPanel.Description.UseGrouping" xml:space="preserve">
+    <value>Uses grouping in the list of the items.</value>
+  </data>
+  <data name="FlashDevelop.Label.CustomArguments" xml:space="preserve">
+    <value>C&amp;ustom Arguments...</value>
+  </data>
+  <data name="FlashDevelop.Group.Arguments" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="FlashDevelop.Info.Argument" xml:space="preserve">
+    <value>Argument:</value>
+  </data>
+  <data name="FlashDevelop.Info.Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="FlashDevelop.Info.Key" xml:space="preserve">
+    <value>Key:</value>
+  </data>
+  <data name="FlashDevelop.Info.Undefined" xml:space="preserve">
+    <value>Undefined</value>
+  </data>
+  <data name="FlashDevelop.Label.Add" xml:space="preserve">
+    <value>&amp;Add</value>
+  </data>
+  <data name="FlashDevelop.Label.Delete" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="FlashDevelop.Title.ArgumentDialog" xml:space="preserve">
+    <value>Custom Arguments</value>
+  </data>
+  <data name="FlashDevelop.Info.ArgumentsTakeEffect" xml:space="preserve">
+    <value>Custom arguments will take effect as soon as you edit them successfully.</value>
+  </data>
+  <data name="BookmarkPanel.Label.RemoveBookmark" xml:space="preserve">
+    <value>&amp;Remove Bookmark</value>
+  </data>
+  <data name="ProjectManager.Label.ImportProject" xml:space="preserve">
+    <value>&amp;Import Project...</value>
+  </data>
+  <data name="ProjectManager.Title.ImportProject" xml:space="preserve">
+    <value>Select Project To Import</value>
+  </data>
+  <data name="ProjectManager.Info.ImportProjectFilter" xml:space="preserve">
+    <value>Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties</value>
+  </data>
+  <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
+    <value>Send results to Results Panel</value>
+  </data>
+  <data name="FlashDevelop.Description.DefaultFont" xml:space="preserve">
+    <value>Defines the default UI font of the program.</value>
+  </data>
+  <data name="FlashDevelop.Description.BookmarkLineColor" xml:space="preserve">
+    <value>Background color of the bookmarked line. The color is shown only if the  bookmark margin is hidden.</value>
+  </data>
+  <data name="FlashDevelop.Description.ModifiedLineColor" xml:space="preserve">
+    <value>The margin highlight color for the modified lines in the code.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewModifiedLines" xml:space="preserve">
+    <value>Shows the lines in the editor that have been modified by highlighting the margin with the defined color untill saved.</value>
+  </data>
+  <data name="FlashDevelop.Description.ConsoleFont" xml:space="preserve">
+    <value>Font used in console or output controls.</value>
+  </data>
+  <data name="FlashDevelop.Label.SortLines" xml:space="preserve">
+    <value>Sort Lines</value>
+  </data>
+  <data name="FlashDevelop.Label.SortLineGroups" xml:space="preserve">
+    <value>Sort Line Groups</value>
+  </data>
+  <data name="ASCompletion.Description.DisableKnownTypesColoring" xml:space="preserve">
+    <value>Disable dynamic syntax coloring of known types.</value>
+  </data>
+  <data name="FlashDevelop.Description.ViewStatusBar" xml:space="preserve">
+    <value>Displays the default statusbar.</value>
+  </data>
+  <data name="ProjectManager.Description.MinorVersion" xml:space="preserve">
+    <value>Optionally define an explicit Flash player minor version target (like "0.60" for verison "9.0.60").</value>
+  </data>
+  <data name="FlashDevelop.Label.Debug" xml:space="preserve">
+    <value>&amp;Debug</value>
+  </data>
+  <data name="FdbPlugin.Info.Description" xml:space="preserve">
+    <value>Hosts the ActionScript 3 debugger in FlashDevelop.</value>
+  </data>
+  <data name="FdbPlugin.Label.Continue" xml:space="preserve">
+    <value>&amp;Continue</value>
+  </data>
+  <data name="FdbPlugin.Label.Copy" xml:space="preserve">
+    <value>C&amp;opy</value>
+  </data>
+  <data name="FdbPlugin.Label.DebugMenuItem" xml:space="preserve">
+    <value>&amp;Debug</value>
+  </data>
+  <data name="FdbPlugin.Label.Killfdb" xml:space="preserve">
+    <value>&amp;Kill Fdb Process</value>
+  </data>
+  <data name="FdbPlugin.Label.Next" xml:space="preserve">
+    <value>&amp;Step Over</value>
+  </data>
+  <data name="FdbPlugin.Label.Pause" xml:space="preserve">
+    <value>&amp;Pause</value>
+  </data>
+  <data name="FdbPlugin.Label.Start" xml:space="preserve">
+    <value>&amp;Start</value>
+  </data>
+  <data name="FdbPlugin.Label.Step" xml:space="preserve">
+    <value>Step &amp;Into</value>
+  </data>
+  <data name="FdbPlugin.Label.Stop" xml:space="preserve">
+    <value>S&amp;top</value>
+  </data>
+  <data name="FdbPlugin.Label.Viewer" xml:space="preserve">
+    <value>&amp;Viewer</value>
+  </data>
+  <data name="FdbPlugin.Label.ViewLocalVariablesPanelMenuItem" xml:space="preserve">
+    <value>&amp;Local Variables Panel</value>
+  </data>
+  <data name="FdbPlugin.Title.LocalVariables" xml:space="preserve">
+    <value>Local Variables</value>
+  </data>
+  <data name="FdbPlugin.Category.Misc" xml:space="preserve">
+    <value>Misc</value>
+  </data>
+  <data name="FdbPlugin.Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="FdbPlugin.Category.View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="FdbPlugin.Description.AlwaysCheckDebugStop" xml:space="preserve">
+    <value>Always check when debug stops.</value>
+  </data>
+  <data name="FdbPlugin.Description.Continue" xml:space="preserve">
+    <value>Continue shortcut setting.</value>
+  </data>
+  <data name="FdbPlugin.Description.DebugFlashPlayerPath" xml:space="preserve">
+    <value>DebugFlashPlayer setting.</value>
+  </data>
+  <data name="FdbPlugin.Description.DebugLineColor" xml:space="preserve">
+    <value>Debug line's color.</value>
+  </data>
+  <data name="FdbPlugin.Description.DebugWithCompile" xml:space="preserve">
+    <value>debugging started with compile</value>
+  </data>
+  <data name="FdbPlugin.Description.Next" xml:space="preserve">
+    <value>Next shortcut setting.</value>
+  </data>
+  <data name="FdbPlugin.Description.Pause" xml:space="preserve">
+    <value>Pause shortcut setting.</value>
+  </data>
+  <data name="FdbPlugin.Description.StartNoDebug" xml:space="preserve">
+    <value>Start Without Debugging shortcut setting.</value>
+  </data>
+  <data name="FdbPlugin.Description.Step" xml:space="preserve">
+    <value>Step shortcut setting.</value>
+  </data>
+  <data name="FdbPlugin.Description.Stop" xml:space="preserve">
+    <value>Stop shortcut setting.</value>
+  </data>
+  <data name="FdbPlugin.Info.AssociateFilesWith" xml:space="preserve">
+    <value>Associate .swf files with {0}</value>
+  </data>
+  <data name="FdbPlugin.Info.CheckFlexSDKSetting" xml:space="preserve">
+    <value>The Flex SDK is not properly configured. See AS3Context in program settings.</value>
+  </data>
+  <data name="FdbPlugin.Info.DebugWithoutCompiler" xml:space="preserve">
+    <value>Is debugging started without compile?</value>
+  </data>
+  <data name="FdbPlugin.Info.LanguageNotAS3" xml:space="preserve">
+    <value>Language is not Actionscript 3.</value>
+  </data>
+  <data name="FdbPlugin.Info.NoMainClass" xml:space="preserve">
+    <value>This project does not have a main class.</value>
+  </data>
+  <data name="FdbPlugin.Label.StartNoDebug" xml:space="preserve">
+    <value>Start Without Debugging</value>
+  </data>
+  <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
+    <value>The Project's Custom Path to Flex SDK is invalid. Please correct it in the Project Properties (Compiler Options).</value>
+  </data>
+  <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
+    <value>FlashDevelop Arguments (*.fda)</value>
+  </data>
+  <data name="FlashDevelop.Label.ExportArguments" xml:space="preserve">
+    <value>&amp;Export Arguments...</value>
+  </data>
+  <data name="FlashDevelop.Label.ImportArguments" xml:space="preserve">
+    <value>&amp;Import Arguments...</value>
+  </data>
+  <data name="FlashDevelop.Info.SettingLoadError" xml:space="preserve">
+    <value>Could not load a corrupted setting file. Default values will be restored.</value>
+  </data>
+  <data name="PHPContext.Description.IntrinsicDefinitions" xml:space="preserve">
+    <value>Path to language intrinsic definitions for the code completion.</value>
+  </data>
+  <data name="PHPContext.Info.Description" xml:space="preserve">
+    <value>Adds a PHP context for the ASCompletion engine.</value>
+  </data>
+  <data name="ASCompletion.Category.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="ASCompletion.Category.Documentation" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="ASCompletion.Category.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ASCompletion.Category.Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="ASCompletion.Category.FlashIDE" xml:space="preserve">
+    <value>Flash IDE</value>
+  </data>
+  <data name="ASCompletion.Category.Helpers" xml:space="preserve">
+    <value>Helpers</value>
+  </data>
+  <data name="ASCompletion.Category.OutlineView" xml:space="preserve">
+    <value>OutlineView</value>
+  </data>
+  <data name="ASCompletion.Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="ASCompletion.Info.TypeDeclMissing" xml:space="preserve">
+    <value>Type declaration missing for '{0}'.</value>
+  </data>
+  <data name="ProjectManager.Label.EmbedAsBitmap" xml:space="preserve">
+    <value>Embed as Bitmap instead of Clip</value>
+  </data>
+  <data name="FlashDevelop.Label.FullScreen" xml:space="preserve">
+    <value>F&amp;ull Screen</value>
+  </data>
+</root>

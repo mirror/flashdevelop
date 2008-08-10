@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="PluginCore" description="">
+  <StartMode startupentry="PluginCore" single="True">
+    <Execute entry="PluginCore" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\PluginCore.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="PluginCore" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="PluginCore" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

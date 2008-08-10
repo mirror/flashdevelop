@@ -1,0 +1,61 @@
+<Project name="ASCompletion" standardNamespace="ASCompletion" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\PluginMain.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ASContext.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ASClassParser.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ASComplete.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DebugConsole.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ASClasses.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\PluginUI.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\AssemblyInfo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ASDocumentation.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Class.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\FilePlain.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\FolderClosed.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\FolderOpen.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Intrinsic.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Method.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\MethodPrivate.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Package.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Property.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\PropertyPrivate.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Template.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Variable.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\VariablePrivate.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\QuickBuild.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\CheckAS.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\IASContext.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Win32\FixedTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls\StateSavingTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Win32" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Win32\Scrolling.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\AS3" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\AS3\ProcessRunner.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\AS3\AscShell.java" subtype="Code" buildaction="Nothing" dependson="" data="" />
+    <File name=".\AS3\Flex2Shell.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\AS3\MxmlcShell.java" subtype="Code" buildaction="Nothing" dependson="" data="" />
+    <File name=".\AS3\flex2shell.jar" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+  </Contents>
+  <References>
+    <Reference type="Assembly" refto="..\..\PluginCore\bin\Release\PluginCore.dll" localcopy="False" />
+  </References>
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Release">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="True" />
+    <Output directory="..\..\FlashDevelop\Bin\Release\Plugins" assembly="ASCompletion" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Release">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\Bin\Release\Plugins" assembly="ASCompletion" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\Bin\Release\Plugins" assembly="ASCompletion" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>

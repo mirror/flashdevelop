@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="FDBuild" description="">
+  <StartMode startupentry="FDBuild" single="True">
+    <Execute entry="FDBuild" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\FDBuild.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="FDBuild" configurationname="Release" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="FDBuild" configurationname="Release" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

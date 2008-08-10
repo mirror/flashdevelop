@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="AS2APIGUI" description="">
+  <StartMode startupentry="AS2APIGUI" single="True">
+    <Execute entry="AS2APIGUI" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\AS2APIGUI.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="AS2APIGUI" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="AS2APIGUI" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<scintillamenu>
+	<menu label="Label.Edit" name="EditMenu">
+		<button label="Label.ToUppercase" click="ScintillaCommand" tag="UpperCase" shortcut="Control|U" image="458" flags="Enable:HasSelection" />
+		<button label="Label.ToLowercase" click="ScintillaCommand" tag="LowerCase" shortcut="Control|L" image="446" flags="Enable:HasSelection" />
+	</menu>
+	<button label="Label.Undo" click="ScintillaCommand" tag="Undo" shortcut="Control|Z" image="73" flags="Enable:CanUndo" />
+	<button label="Label.Redo" click="ScintillaCommand" tag="Redo" shortcut="Control|Y" image="65" flags="Enable:CanRedo" />
+	<separator />
+	<button label="Label.Cut" click="ScintillaCommand" tag="Cut" shortcut="Control|X" image="158" flags="Enable:HasSelection" />
+	<button label="Label.Copy" click="ScintillaCommand" tag="Copy" shortcut="Control|C" image="278" flags="Enable:HasSelection" />
+	<button label="Label.Paste" click="ScintillaCommand" tag="Paste" shortcut="Control|V" image="283" flags="Enable:CanPaste" />
+	<separator />
+	<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" shortcut="Control|A" />
+	<separator />
+	<button label="Label.SaveAsTemplate" click="SaveAsTemplate" flags="Enable:HasSelection" />
+	<button label="Label.SaveAsSnippet" click="SaveAsSnippet" flags="Enable:HasSelection" />
+</scintillamenu>

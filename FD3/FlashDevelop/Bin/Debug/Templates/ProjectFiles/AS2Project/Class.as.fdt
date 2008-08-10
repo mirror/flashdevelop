@@ -1,0 +1,12 @@
+/**
+* ...
+* @author $(DefaultUser)
+*/
+
+class $(FileNameWithPackage) $(CSLB){
+	
+	public function $(FileName)() $(CSLB){
+		$(EntryPoint)
+	}
+	
+}

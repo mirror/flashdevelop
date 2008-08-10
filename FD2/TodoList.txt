@@ -1,0 +1,32 @@
+FlashDevelop:
+
+- For localization purpose, all texts concatenation should be done using String.Format()
+- Make the application/plugins localizable (at run-time?)
+- Ctrl+Shift+Up/Down to exchange lines
+
+FileExplorer:
+
+- Allow drop file from explorer on the Scintilla control
+
+ASCompletion:
+
+- As-you-type syntax checking? Maybe for FD 2.1.
+
+ProjectExplorer:
+
+- Show missing files/folders that are referenced in the .fdp
+
+ResultsPanel:
+
+- Show margin icon at the matched line position
+- Request: several Error icons to fit FlashConnect error levels
+
+FlashConnect:
+
+- Still erratic behaviour, it's not reliable!
+
+Future Plugins:
+
+- Create a Search results panel (Find In Files)
+- Perspective/Workspace management
+- CSSCompletion

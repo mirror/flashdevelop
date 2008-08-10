@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<includes>
+		<include file="$(BaseDir)\Settings\Languages\AS2.xml" />
+		<include file="$(BaseDir)\Settings\Languages\AS3.xml" />
+		<include file="$(BaseDir)\Settings\Languages\CSS.xml" />
+		<include file="$(BaseDir)\Settings\Languages\HaXe.xml" />
+		<include file="$(BaseDir)\Settings\Languages\HTML.xml" />
+		<include file="$(BaseDir)\Settings\Languages\JScript.xml" />
+		<include file="$(BaseDir)\Settings\Languages\Python.xml" />
+		<include file="$(BaseDir)\Settings\Languages\Text.xml" />
+		<include file="$(BaseDir)\Settings\Languages\XML.xml" />
+	</includes>
+	<globals>
+		<value name="default-fore">0x000000</value>
+		<value name="default-back">0xffffff</value>
+		<value name="default-font">Courier New</value>
+		<value name="default-font-size">9</value>
+		<value name="default-selection-fore">0xffffff</value>
+		<value name="default-selection-back">0x000000</value>
+		<value name="default-caretline-back">0xececec</value>
+		<value name="default-caret-fore">0x000000</value>
+	</globals>
+	<style-classes>
+		<style-class name="default" fore="default-fore" back="default-back" size="default-font-size" font="default-font" />
+		<style-class name="gdefault" fore="default-fore" back="default-back" size="default-font-size" font="default-font" />
+		<style-class name="bracebad" fore="default-fore" back="default-back" size="default-font-size" font="default-font" bold="true" />
+		<style-class name="bracelight" fore="0x0000cc" back="0xcdcdff" size="default-font-size" font="default-font" bold="true" />
+		<style-class name="controlchar" fore="0xffffff" back="default-back" size="default-font-size" font="default-font" />
+		<style-class name="indentguide" fore="0xc0c0c0" back="default-back" size="default-font-size" font="default-font" />
+		<style-class name="linenumber" fore="0x666666" back="default-back" size="default-font-size" font="default-font" />
+		<style-class name="lastpredefined" fore="default-fore" back="default-back" size="default-font-size" font="default-font" />
+	</style-classes>
+</Scintilla>

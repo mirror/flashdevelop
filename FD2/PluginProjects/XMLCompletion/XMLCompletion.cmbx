@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="XMLCompletion" description="">
+  <StartMode startupentry="XMLCompletion" single="True">
+    <Execute entry="XMLCompletion" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\XMLCompletion.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="XMLCompletion" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="XMLCompletion" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="FlashOut" description="">
+  <StartMode startupentry="FlashOut" single="True">
+    <Execute entry="FlashOut" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\FlashOut.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="FlashOut" configurationname="Release" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="FlashOut" configurationname="Release" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

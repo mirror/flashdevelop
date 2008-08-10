@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="ProjectExplorer" description="">
+  <StartMode startupentry="ProjectExplorer" single="True">
+    <Execute entry="ProjectExplorer" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\ProjectExplorer.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="ProjectExplorer" configurationname="Release" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="ProjectExplorer" configurationname="Release" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,37 @@
+﻿package $(PackageName)
+{
+	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.utils.getDefinitionByName;
+	
+	public class Preloader extends MovieClip
+	{
+		
+		public function Preloader() 
+		{
+			addEventListener(Event.ENTER_FRAME, progress);
+			// show loader
+		}
+		
+		private function progress(e:Event):void 
+		{
+			// update loader
+			if (currentFrame == totalFrames)
+			{
+				removeEventListener(Event.ENTER_FRAME, progress);
+				startup();
+			}
+		}
+		
+		private function startup():void 
+		{
+			// hide loader
+			stop();
+			var mainClass:Class = getDefinitionByName("$(PackageDot)Main") as Class;
+			addChild(new mainClass() as DisplayObject);
+		}
+		
+	}
+	
+}

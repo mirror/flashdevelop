@@ -1,0 +1,143 @@
+<Project name="PluginCore" standardNamespace="PluginCore" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\AssemblyInfo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\PluginCore.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ErrorHandler.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\EventsStuff.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBar.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarButton.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarButtonBase.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarCheckBox.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarComboBox.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarContextMenu.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarControl.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarItem.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarItemCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarManager.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarMenu.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarSeparator.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarStyle.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\CommandBarTypeConverter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\NativeMethods.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CommandBar\TextGraphics.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Controls" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Win32" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Helpers" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Controls\InertButton.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\SplitterBase.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHidePane.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHidePaneCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideStateCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideStripBase.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideStripVS2003.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideTab.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideTabCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideTabVS2003.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideWindow.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\AutoHideWindowSplitter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DisplayingDockList.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockAreasEditor.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockContent.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockContentCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockList.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPane.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneCaptionBase.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneCaptionVS2003.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPanel.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPanelExtender.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPanelPersist.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneSplitter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneStripBase.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneStripVS2003.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneTab.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneTabCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockPaneTabVS2003.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockWindow.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockWindowCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DockWindowSplitter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DragHandler.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DragHandlerBase.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\DummyControl.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\Enums.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\EventArgs.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\FloatWindow.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\FloatWindowCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\HiddenMdiChild.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\Interfaces.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\Measures.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Docking\NestedDockingStatus.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Helpers\DrawHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Helpers\Localization.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Helpers\LocalWindowsHook.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Helpers\ResourceHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Win32\Enums.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Win32\Gdi32.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Win32\Structs.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Win32\User32.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneCaption.AutoHideNo.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneCaption.AutoHideYes.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneCaption.CloseDisabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneCaption.CloseEnabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneStrip.CloseDisabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneStrip.CloseEnabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneStrip.ScrollLeftDisabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneStrip.ScrollLeftEnabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneStrip.ScrollRightDisabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Resources.DockPaneStrip.ScrollRightEnabled.bmp" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\ScintillaNet" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\CharacterClass.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\ConfigFile.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\ConfigItem.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\ConfigurationUtility.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\EditorStyle.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\Include.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\KeywordClass.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\Language.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\Lexer.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\Scintilla.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\StyleClass.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\UseKeyword.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\UseStyle.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Configuration\Value.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Enums.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Events.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Lexers.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\ScintillaControl.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\Structs.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ScintillaNet\WinAPI.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockingPanel\Resources\WeifenLuo.WinFormsUI.Strings.resources" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\ScintillaNet\XPM.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls\UITools.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls\MessageBar.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls\Icons\Warning.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\CustomControls\CompletionList.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CustomControls\InfoTip.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+  </Contents>
+  <References />
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Release">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="True" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="TRACE" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="True" />
+    <Output directory=".\Bin\Release" assembly="PluginCore" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Release">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="DEBUG;TRACE" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory=".\Bin\Debug" assembly="PluginCore" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="True" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="TRACE" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory=".\Bin\Release" assembly="PluginCore" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>

@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using ASCompletion.Model;
+
+namespace PHPContext
+{
+    class PhpFilter
+    {
+        /// <summary>
+        /// Called if a FileModel needs filtering
+        /// - define inline AS3 ranges
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        static public string FilterSource(string src, List<InlineRange> phpRanges)
+        {
+            StringBuilder sb = new StringBuilder();
+            int len = src.Length - 8;
+            int rangeStart = -1;
+            int nodeStart = -1;
+            int nodeEnd = -1;
+            bool skip = true;
+            for (int i = 0; i < len; i++)
+            {
+                char c = src[i];
+                // keep newlines
+                if (c == 10 || c == 13) sb.Append(c);
+                // in XML
+                else if (skip)
+                {
+                    if (c == '<')
+                    {
+                        if (src[i + 1] == '?')
+                        {
+                            i += 2;
+                            skip = false;
+                            rangeStart = i;
+                            continue;
+                        }
+                        else
+                        {
+                            nodeStart = i + 1;
+                            nodeEnd = -1;
+                        }
+                    }
+                    else if (nodeEnd < 0)
+                    {
+                        if (nodeStart >= 0 && (c == ' ' || c == '>'))
+                        {
+                            nodeEnd = i;
+                        }
+                    }
+                    /*else if (c == 'i' && src[i + 1] == 'd' && src[i - 1] <= 32)
+                    {
+                        i += 2;
+                        while (src[i] == ' ') i++;
+                        if (src[i++] != '=') continue;
+                        char quote = src[i++];
+                        if (quote != '"' && quote != '\'') continue;
+                        int strStart = i;
+                        while (i < len && src[i] != quote) i++;
+                        string id = src.Substring(strStart, i - strStart);
+                        string node = src.Substring(nodeStart, nodeEnd - nodeStart);
+                    }*/
+                }
+                // in script
+                else
+                {
+                    if (c == '?' && src[i] == '>')
+                    {
+                        skip = true;
+                        phpRanges.Add(new InlineRange("php", rangeStart, i));
+                        rangeStart = -1;
+                    }
+                    else sb.Append(c);
+                }
+            }
+            if (rangeStart >= 0)
+                phpRanges.Add(new InlineRange("php", rangeStart, src.Length));
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Called if a FileModel needs filtering
+        /// - modify parsed model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        static public void FilterSource(FileModel model, List<InlineRange> phpRanges)
+        {
+            model.InlinedIn = "html";
+            model.InlinedRanges = phpRanges;
+        }
+    }
+}

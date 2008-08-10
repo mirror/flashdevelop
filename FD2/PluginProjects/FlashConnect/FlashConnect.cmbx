@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="FlashConnect" description="">
+  <StartMode startupentry="FlashConnect" single="True">
+    <Execute entry="FlashConnect" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\FlashConnect.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="FlashConnect" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="FlashConnect" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

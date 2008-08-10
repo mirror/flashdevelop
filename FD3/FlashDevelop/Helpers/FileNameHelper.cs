@@ -1,0 +1,135 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using PluginCore.Helpers;
+
+namespace FlashDevelop.Helpers
+{
+    class FileNameHelper
+    {
+        /// <summary>
+        /// Path to the file state directory
+        /// </summary>
+        public static String FileStateDir
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "FileStates");
+            }
+        }
+
+        /// <summary>
+        /// Path to the recovery directory
+        /// </summary>
+        public static String RecoveryDir
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "Recovery");
+            }
+        }
+
+        /// <summary>
+        /// Path to the toolbar file
+        /// </summary>
+        public static String ToolBar
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "ToolBar.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the main menu file
+        /// </summary>
+        public static String MainMenu
+        {
+            get 
+            {
+                return Path.Combine(PathHelper.SettingDir, "MainMenu.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the session file
+        /// </summary>
+        public static String SessionData
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "SessionData.fdb");
+            }
+        }
+
+        /// <summary>
+        /// Path to the panel layout file
+        /// </summary>
+        public static String LayoutData
+        {
+            get 
+            {
+                return Path.Combine(PathHelper.SettingDir, "LayoutData.fdl"); 
+            }
+        }
+
+        /// <summary>
+        /// Path to the setting file
+        /// </summary>
+        public static String SettingData
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "SettingData.fdb");
+            }
+        }
+
+        /// <summary>
+        /// Path to the scintilla config file
+        /// </summary>
+        public static String Scintilla
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "ScintillaNET.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the scintilla menu file
+        /// </summary>
+        public static String ScintillaMenu
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "ScintillaMenu.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the tab menu file
+        /// </summary>
+        public static String TabMenu
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "TabMenu.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the system image file
+        /// </summary>
+        public static String Images
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "Images.png");
+            }
+        }
+
+    }
+
+}

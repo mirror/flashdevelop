@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<keyword-classes>
+		<keyword-class name="js-primary-keywords">
+			enum throw throws class extends try const finally long private package final
+			protected public byte int short char interface static double enum float package
+			boolean implements while function export if in assign ref do for import var
+			else switch with abstract native catch return default instanceOf new goto delete 
+		</keyword-class>
+		<keyword-class name="js-secondary-keywords">
+			alert arguments break callee caller captureEvents clearInterval clearTimeout close 
+			closed comment confirm constructor continue debugger defaultStatus document 
+			escape eval export false find focus frames getClass history home Infinity innerHeight 
+			innerWidth isFinite isNaN isNan java label length Link location Location locationbar 
+			menubar moveBy moveTo name NaN navigate navigator netscape null onBlur onError 
+			onFocus onLoad onUnload open opener outerHeight outerWidth pageXoffset pageYoffset 
+			parent parseFloat parseInt personalbar print prompt prototype releaseEvents resizeBy 
+			resizeTo routeEvent scroll scrollbars scrollBy scrollTo Select self setInterval 
+			setTimeout status statusbar stop sun super synchronized taint this toolbar top toString 
+			transient true typeof undefined unescape untaint unwatch valueOf void watch window 
+		</keyword-class>
+		<keyword-class name="js-additional-keywords">
+			ActiveXObject Anchor Area Array blur Boolean Button Date Checkbox Document Element 
+			FileUpload Form Frame Function Hidden History Image JavaArray JavaClass JavaObject JavaPackage 
+			Math MimeType Navigator Number Object Option Packages Password Plugin Radio RegExp 
+			Text Textarea Submit Window Reset String XMLHttpRequest
+		</keyword-class>
+		<keyword-class name="js-documentation-keywords">
+			author exception deprecated link param return see serial serialData serialField since throws version usage copy default example exampleText inheritDoc internal private 
+		</keyword-class>
+	</keyword-classes>
+	<languages>
+		<language name="jscript">
+			<lexer name="cpp" style-bits="7" />
+			<editor-style caret-fore="default-caret-fore" caretline-back="default-caretline-back" selection-fore="default-selection-fore" selection-back="default-selection-back" />
+			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789_$]]></character-class>
+			<line-comment><![CDATA[//]]></line-comment>
+			<comment-start><![CDATA[/*]]></comment-start>
+			<comment-end><![CDATA[*/]]></comment-end>
+			<file-extensions>js,jsfl,asc</file-extensions>
+			<use-keywords>
+				<keyword key="0" class="js-secondary-keywords" />
+				<keyword key="1" class="js-additional-keywords" />
+				<keyword key="2" class="js-documentation-keywords" />
+				<keyword key="3" class="js-primary-keywords" />
+			</use-keywords>
+			<use-styles>
+				<style name="default" inherit-style="default" />
+				<style name="comment" fore="0x008000" />
+				<style name="commentline" fore="0x008000" />
+				<style name="commentdoc" fore="0x008000" />
+				<style name="number" fore="0x000099" />
+				<style name="word" fore="0x000099" />
+				<style name="string" fore="0xa31515" />
+				<style name="character" fore="0xa31515" />
+				<style name="uuid" />
+				<style name="preprocessor" fore="0x000099" />
+				<style name="operator" />
+				<style name="identifier" />
+				<style name="stringeol" />
+				<style name="verbatim" />
+				<style name="regex" />
+				<style name="commentlinedoc" fore="0x008000" />
+				<style name="word2" fore="0x008080" />
+				<style name="commentdockeyword" fore="0x800000" />
+				<style name="commentdockeyworderror" fore="0xff0000" />
+				<style name="globalclass" fore="0x1518ff" />
+				<style name="gdefault" inherit-style="gdefault" />
+				<style name="linenumber" inherit-style="linenumber" />
+				<style name="bracelight" inherit-style="bracelight" />
+				<style name="bracebad" inherit-style="bracebad" />
+				<style name="controlchar" inherit-style="controlchar" />
+				<style name="indentguide" inherit-style="indentguide" />
+				<style name="lastpredefined" inherit-style="lastpredefined" />
+			</use-styles>
+		</language>
+	</languages>
+</Scintilla>

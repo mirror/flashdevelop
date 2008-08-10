@@ -1,0 +1,172 @@
+<Project name="SwfOp" standardNamespace="SwfOp" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\AssemblyInfo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\License.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\ActionCode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Compiler.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Decompiler.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionAdd.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionAdd2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionAnd.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionAsciiiToChar.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionBitAnd.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionBitLShift.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionBitOr.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionBitRShift.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionBitURShift.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionBitXor.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCall.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCallFunction.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCallMethod.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCastOp.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCatch.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCharToAscii.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionCloneSprite.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionConstantpool.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionContainer.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionDecrement.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionDefineLocal.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionDefineLocal2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionDelete.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionDelete2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionDivide.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEnd.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEndDrag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEndTryBlock.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEndWait.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEndWith.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEnumerate.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEnumerate2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEquals.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionEquals2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionExtends.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionFinally.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionFunction.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionFunction2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGetMember.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGetProperty.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGetTime.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGetUrl.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGetUrl2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGetVariable.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGotoFrame.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGotoFrame2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGotoLabel.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionGreater.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionIf.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionImplements.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionIncrement.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionInitArray.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionInitObject.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionInstanceOf.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionJump.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionLabel.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionLess.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionLess2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionMBAsciiToChar.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionMBCharToAscii.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionMBStringExtract.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionMBStringLength.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionModulo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionMultiply.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionNewMethod.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionNewObject.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionNextFrame.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionNot.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionOr.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionPlay.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionPop.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionPreviousFrame.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionPush.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionPushDuplicate.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionPushList.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionRandomNumber.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionRemoveSprite.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionReturn.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionSetMember.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionSetProperty.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionSetTarget.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionSetTarget2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionSetVariable.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStackSwap.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStartDrag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStop.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStopSounds.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStoreRegister.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStrictEquals.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStringAdd.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStringEquals.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStringExtract.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStringGreater.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStringLength.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionStringLess.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionSubtract.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionTargetPath.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionThrow.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionToggleQuality.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionToInteger.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionToNumber.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionToString.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionTrace.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionTry.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionTypeOf.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionWaitForFrame.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionWaitForFrame2.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\ActionWith.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\BaseAction.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\DummyAction.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\IJump.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\InvalidPushTypeException.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\MultiByteAction.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ByteCode\Actions\UnknownAction.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CodeFlow\CodeTraverser.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CodeFlow\CodeWalker.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CodeFlow\IActionExaminer.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\CodeFlow\InvocationExaminer.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\ClipActionRec.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\RecordHeader.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Swf.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\SwfHeader.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\BaseTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\DefineBitsJepg2Tag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\DefineBitsJpeg3Tag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\DefineBitsTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\DefineSpriteTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\DoActionTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\InitActionTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\JpegTable.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\PlaceObject2Tag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\ScriptLimitTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\TagCodeEnum.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\IO\InvalidTagLengthException.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\IO\SwfReader.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\IO\SwfWriter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utils\BinaryStringRW.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utils\BitParser.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\docs\Documentation.chm" subtype="Code" buildaction="Nothing" dependson="" data="" />
+    <File name=".\PokeSwf.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\IO\SwfExportTagReader.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Data\Tags\ExportTag.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+  </Contents>
+  <References>
+    <Reference type="Assembly" refto=".\ICSharpCode.SharpZipLib.dll" localcopy="True" />
+  </References>
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Release">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Exe" definesymbols="TRACE" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="True" />
+    <Output directory="..\..\FlashDevelop\bin\Release\Tools\swfop" assembly="swfop" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Release">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Exe" definesymbols="DEBUG;TRACE" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\bin\Release\Tools\swfop" assembly="swfop" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Exe" definesymbols="TRACE" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\bin\Release\Tools\swfop" assembly="swfop" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>

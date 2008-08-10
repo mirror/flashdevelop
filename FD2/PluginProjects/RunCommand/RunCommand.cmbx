@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="RunCommand" description="">
+  <StartMode startupentry="RunCommand" single="True">
+    <Execute entry="RunCommand" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\RunCommand.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="RunCommand" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="RunCommand" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,59 @@
+<Project name="FlashDevelop" standardNamespace="FlashDevelop" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\MainForm.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\AssemblyInfo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\FilePaths.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\FileSystem.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\PluginStuff.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\SettingParser.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\TraceLog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\XmlUtils.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\AboutDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\FindDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\GoToDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\ReplaceDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\SettingsDlg.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\ValueChanger.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\XmlComBar\Images.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\XmlComBar\ItemFinder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\XmlComBar\XmlBuilder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\XmlComBar" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\CopyData" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\CopyData\CopyData.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Libraries\CopyData\EnumWindows.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\DockElements.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\InstalledPlugins.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Resources\FlashDevelop.MainForm.resources" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Utilities\SettingInitializer.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\Arguments.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\SettingAdder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\ProcessRunner.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\SharedUtils.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Utilities\SnippetItem.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Windows\FindInFiles.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+  </Contents>
+  <References>
+    <Reference type="Assembly" refto="..\PluginCore\bin\Release\PluginCore.dll" localcopy="True" />
+  </References>
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Release">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="True" generateoverflowchecks="False" mainclass="" target="WinExe" definesymbols="" generatexmldocumentation="False" win32Icon=".\General\FlashDevelopXP.ico" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="False" />
+    <Output directory=".\Bin\Release" assembly="FlashDevelop" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Release">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="True" generateoverflowchecks="True" mainclass="" target="WinExe" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="False" />
+      <Output directory=".\Bin\Debug" assembly="FlashDevelop" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="True" generateoverflowchecks="False" mainclass="" target="WinExe" definesymbols="" generatexmldocumentation="False" win32Icon=".\General\FlashDevelopXP.ico" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="False" />
+      <Output directory=".\Bin\Release" assembly="FlashDevelop" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>

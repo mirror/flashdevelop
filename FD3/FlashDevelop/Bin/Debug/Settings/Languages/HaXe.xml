@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<keyword-classes>
+		<keyword-class name="haxe-primary-keywords">
+			function class var if else  while do for break continue return extends implements import switch case default static 
+			public private try catch new throw extern enum in interface untyped cast package typedef override f9dynamic inline
+		</keyword-class>
+		<keyword-class name="haxe-secondary-keywords">
+			super this null true false
+		</keyword-class>
+		<keyword-class name="haxe-additional-keywords">
+			Void Int Float Dynamic Bool UInt Iterator Array List Hash IntHash Date String Xml
+		</keyword-class>
+		<keyword-class name="haxe-documentation-keywords">
+			author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link 
+			param private return see serial serialData serialField since throws usage version
+		</keyword-class>
+	</keyword-classes>
+	<languages>
+		<language name="haxe">
+			<lexer name="cpp" style-bits="7" />
+			<editor-style caret-fore="default-caret-fore" caretline-back="default-caretline-back" selection-fore="default-selection-fore" selection-back="default-selection-back" />
+			<character-class><![CDATA[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_]]></character-class>
+			<line-comment><![CDATA[//]]></line-comment>
+			<comment-start><![CDATA[/*]]></comment-start>
+			<comment-end><![CDATA[*/]]></comment-end>
+			<file-extensions>hx</file-extensions>
+			<use-keywords>
+				<keyword key="0" class="haxe-secondary-keywords" />
+				<keyword key="1" class="haxe-additional-keywords" />
+				<keyword key="2" class="haxe-documentation-keywords" />
+				<keyword key="3" class="haxe-primary-keywords" />
+			</use-keywords>
+			<use-styles>
+				<style name="default" inherit-style="default" />
+				<style name="comment" fore="0x008000" />
+				<style name="commentline" fore="0x008000" />
+				<style name="commentdoc" fore="0x008000" />
+				<style name="number" fore="0x000099" />
+				<style name="word" fore="0x000099" />
+				<style name="string" fore="0xa31515" />
+				<style name="character" fore="0xa31515" />
+				<style name="uuid" />
+				<style name="preprocessor" fore="0x000099" />
+				<style name="operator" />
+				<style name="identifier" />
+				<style name="stringeol" />
+				<style name="verbatim" />
+				<style name="regex" />
+				<style name="commentlinedoc" fore="0x008000" />
+				<style name="word2" fore="0x008080" />
+				<style name="commentdockeyword" fore="0x800000" />
+				<style name="commentdockeyworderror" fore="0xff0000" />
+				<style name="globalclass" fore="0x1518ff" />
+				<style name="gdefault" inherit-style="gdefault" />
+				<style name="linenumber" inherit-style="linenumber" />
+				<style name="bracelight" inherit-style="bracelight" />
+				<style name="bracebad" inherit-style="bracebad" />
+				<style name="controlchar" inherit-style="controlchar" />
+				<style name="indentguide" inherit-style="indentguide" />
+				<style name="lastpredefined" inherit-style="lastpredefined" />
+			</use-styles>
+		</language>
+	</languages>
+</Scintilla>

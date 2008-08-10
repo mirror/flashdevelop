@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="SnippetsPanel" description="">
+  <StartMode startupentry="SnippetsPanel" single="True">
+    <Execute entry="SnippetsPanel" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\SnippetsPanel.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="SnippetsPanel" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="SnippetsPanel" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,58 @@
+<Project name="FDBuild" standardNamespace="ProjectExplorer" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\Helpers" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\Project.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\CompilerOptions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\MovieOptions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\HiddenPathCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\FDBuild.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\ArgumentBuilder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\MtascArgumentBuilder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\ProjectBuilder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\SwfmillLibraryBuilder.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\FileHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\PathCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\FileComparer.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\PathHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\BuildEventRunner.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectBuilding\ProcessRunner.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\UsageComplementAttribute.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\AboutAttribute.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\AuthorAttribute.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\WhatToDoNext.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\ArgumentProcessorAttribute.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\OptionAttribute.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\OptionDetails.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\OptionList.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\OptionProcessingResult.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\Options.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Mono\GetOptions\OptionsParsingMode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\ProjectWriter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\LibraryAsset.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\ProjectReader.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\BuildEventVars.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+  </Contents>
+  <References />
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Release">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="FDBuild.MainClass" target="Exe" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="True" />
+    <Output directory="..\..\FlashDevelop\Bin\Release\Tools\fdbuild" assembly="fdbuild" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Release">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" target="Exe" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\Bin\Debug\Plugins" assembly="FDBuild" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="FDBuild.MainClass" target="Exe" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\Bin\Release\Tools\fdbuild" assembly="fdbuild" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>

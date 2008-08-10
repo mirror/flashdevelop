@@ -1,0 +1,601 @@
+using System;
+using System.Windows.Forms;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Diagnostics;
+using System.Timers;
+using System.Runtime.InteropServices;
+using PluginCore;
+using PluginCore.Helpers;
+using ASCompletion.Context;
+using PluginCore.Managers;
+using PluginCore.Utilities;
+using PluginCore.Localization;
+using ASCompletion.Model;
+
+namespace AS3Context.Compiler
+{
+	/// <summary>
+	/// Description of Flex2Shell.
+	/// </summary>
+	public class Flex2Shell
+	{
+		static readonly public Regex re_SplitParams = 
+			new Regex("[\\s](?<switch>\\-[A-z\\-\\.]+)", RegexOptions.Compiled | RegexOptions.Singleline);
+		static readonly public Regex re_Disk = 
+			new Regex("^[a-z]:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		
+		static private readonly string[] PATH_SWITCHES = { 
+			"-compiler.context-root","-context-root",
+			"-compiler.defaults-css-url","-defaults-css-url",
+			"-compiler.external-library-path","-external-library-path","-el",
+			"-compiler.fonts.system-search-path","-system-search-path",
+			"-compiler.include-libraries","-include-libraries",
+			"-compiler.library-path","-library-path","-l",
+			"-compiler.source-path","-source-path","-sp",
+			"-compiler.services","-services",
+			"-compiler.theme","-theme",
+			"-dump-config","-file-specs","resource-bundle-list",
+			"-link-report","-load-config","-load-externs",
+			"-output","-o","-runtime-shared-libraries","-rsl",
+            "-namespace","-compiler.namespaces.namespace"};
+		
+        static private string ascPath;
+        static private string mxmlcPath;
+		static private string flex2Jar = "flex2shell.jar";
+		static private string flex2Shell;
+		
+		static private void CheckResource(string filename)
+		{
+            string path = Path.Combine(PathHelper.DataDir, "ASCompletion");
+            flex2Shell = Path.Combine(path, filename);
+            if (!File.Exists(flex2Shell))
+			{
+                string id = "AS3Context.Compiler." + filename;
+				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                using (BinaryReader br = new BinaryReader(assembly.GetManifestResourceStream(id)))
+                {
+                    using (FileStream bw = File.Create(flex2Shell))
+                    {
+                        byte[] buffer = br.ReadBytes(1024);
+                        while (buffer.Length > 0)
+                        {
+                            bw.Write(buffer, 0, buffer.Length);
+                            buffer = br.ReadBytes(1024);
+                        }
+                        bw.Close();
+                    }
+                    br.Close();
+                }
+			}
+		}
+
+        static public Flex2Shell Instance 
+		{
+			get {
+				if (instance == null) instance = new Flex2Shell();
+				return instance;
+			}
+		}
+		
+		static private Flex2Shell instance;
+
+
+        private Flex2Shell()
+		{
+			watcher = new FileSystemWatcher();
+			watcher.EnableRaisingEvents = false;
+			watcher.Filter = "*.p";
+			watcher.Created += new FileSystemEventHandler(onCreateFile);
+			
+			timer = new System.Timers.Timer();
+			timer.Enabled = false;
+			timer.AutoReset = false;
+			timer.Interval = 300;
+			timer.Elapsed += new ElapsedEventHandler(onTimedDelete);
+		}
+
+        private ProcessRunner ascRunner;
+		private ProcessRunner mxmlcRunner;
+		private FileSystemWatcher watcher;
+		private string watchedFile;
+		private string fullWatchedPath;
+		private System.Timers.Timer timer;
+		private string builtSWF;
+        private bool debugMode;
+
+		public void CheckAS3(string filename, string flex2Path)
+		{
+            string basePath = null;
+            if (PluginBase.CurrentProject != null)
+                basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
+            flex2Path = PathHelper.ResolvePath(flex2Path, basePath);
+            // asc.jar in Flex2SDK
+            if (flex2Path != null && Directory.Exists(flex2Path))
+            {
+                if (flex2Path.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
+                    flex2Path = Path.GetDirectoryName(flex2Path);
+                ascPath = Path.Combine(flex2Path, "lib\\asc.jar");
+            }
+            // asc_authoring.jar in Flash CS3
+            if (ascPath == null) ascPath = FindAscAuthoring();
+
+            if (ascPath == null)
+            {
+                DialogResult result = MessageBox.Show(TextHelper.GetString("Info.SetFlex2OrCS3Path"), TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    IASContext context = ASContext.GetLanguageContext("as3");
+                    if (context == null) return;
+                    PluginBase.MainForm.ShowSettingsDialog("AS3Context");
+                }
+                else if (result == DialogResult.No)
+                {
+                    PluginBase.MainForm.ShowSettingsDialog("ASCompletion");
+                }
+                return;
+            }
+
+            CheckResource(flex2Jar);
+            if (!File.Exists(flex2Shell))
+            {
+                ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
+                return;
+            }
+			
+			try
+			{
+				EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
+				
+				if (ascRunner == null || !ascRunner.IsRunning) StartAscRunner();
+				TraceManager.Add("AscShell command: "+filename, -1);
+				
+				StringBuilder sb = new StringBuilder(filename.Length);
+				GetShortPathName(filename, sb, (uint)filename.Length);
+				string shortname = sb.ToString().Replace(".AS", ".as");
+                if (shortname.Length == 0) shortname = filename;
+				
+				WatchFile(shortname);
+				
+				ASContext.SetStatusText("Asc Running");
+				notificationSent = false;
+				ascRunner.HostedProcess.StandardInput.WriteLine("clear");
+                ascRunner.HostedProcess.StandardInput.WriteLine("asc -p " + shortname);
+			}
+			catch(Exception ex)
+			{
+                ErrorManager.ShowError(TextHelper.GetString("Info.CheckError"), ex);
+			}
+		}
+
+        public void RunMxmlc(string cmd, string flex2Path)
+		{
+            string basePath = null;
+            if (PluginBase.CurrentProject != null)
+                basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
+            flex2Path = PathHelper.ResolvePath(flex2Path, basePath);
+
+            if (flex2Path != null && Directory.Exists(flex2Path))
+            {
+                if (flex2Path.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
+                    flex2Path = Path.GetDirectoryName(flex2Path);
+                mxmlcPath = Path.Combine(Path.Combine(flex2Path, "lib"), "mxmlc.jar");
+            }
+			if (mxmlcPath == null || !File.Exists(mxmlcPath)) 
+            {
+                DialogResult result = MessageBox.Show(TextHelper.GetString("Info.OpenCompilerSettings"), TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    IASContext context = ASContext.GetLanguageContext("as3");
+                    if (context == null) return;
+                    PluginBase.MainForm.ShowSettingsDialog("AS3Context");
+                }
+				return;
+			}
+
+            CheckResource(flex2Jar);
+            if (!File.Exists(flex2Shell))
+            {
+                ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
+                return;
+            }
+			
+			try
+			{
+				EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
+				
+				if (mxmlcRunner == null || !mxmlcRunner.IsRunning) StartMxmlcRunner(flex2Path);
+				
+				//cmd = mainForm.ProcessArgString(cmd);
+				TraceManager.Add("MxmlcShell command: "+cmd, -1);
+				
+				ASContext.SetStatusText("Mxmlc Running");
+				notificationSent = false;
+				mxmlcRunner.HostedProcess.StandardInput.WriteLine(cmd);
+			}
+			catch(Exception ex)
+			{
+				ErrorManager.ShowError(ex);
+			}
+		}
+
+        public void QuickBuild(FileModel theFile, string flex2Path, bool requireTag, bool playAfterBuild)
+		{
+			// environment
+            string filename = theFile.FileName;
+            string currentPath = Environment.CurrentDirectory;
+            string buildPath = PluginBase.MainForm.ProcessArgString("$(ProjectDir)");
+			if (!Directory.Exists(buildPath) 
+                || !filename.StartsWith(buildPath, StringComparison.OrdinalIgnoreCase)) 
+			{
+                buildPath = theFile.BasePath;
+                if (!Directory.Exists(buildPath))
+				    buildPath = Path.GetDirectoryName(filename);
+			}
+			// command
+			builtSWF = Path.Combine(buildPath, Path.GetFileNameWithoutExtension(filename)+".swf");
+            debugMode = false;
+            bool addFilename = true;
+			string cmd = "-o;"+builtSWF+";--;";
+			Match mCmd = Regex.Match(PluginBase.MainForm.CurrentDocument.SciControl.Text, "\\s@mxmlc\\s(?<cmd>.*)");
+            if (mCmd.Success)
+            {
+                try
+                {
+                    bool hasOutput = false;
+
+                    // cleanup tag
+                    string tag = mCmd.Groups["cmd"].Value;
+                    if (tag.IndexOf("-->") > 0) tag = tag.Substring(0, tag.IndexOf("-->"));
+                    if (tag.IndexOf("]]>") > 0) tag = tag.Substring(0, tag.IndexOf("]]>"));
+                    tag = " " + tag.Trim();
+                    if (tag.EndsWith("--")) addFilename = false;
+                    else tag += " --";
+
+                    // split
+                    MatchCollection mPar = re_SplitParams.Matches(tag);
+                    if (mPar.Count > 0)
+                    {
+                        cmd = "";
+                        string op;
+                        string arg;
+                        for (int i = 0; i < mPar.Count; i++)
+                        {
+                            op = mPar[i].Groups["switch"].Value;
+                            if (op == "-noplay")
+                            {
+                                playAfterBuild = false;
+                                continue;
+                            }
+                            if (op == "-debug") debugMode = true;
+
+                            int start = mPar[i].Index + mPar[i].Length;
+                            int end = (i < mPar.Count - 1) ? mPar[i + 1].Index : 0;
+                            if (end > start)
+                            {
+                                string concat = ";";
+                                arg = tag.Substring(start, end - start).Trim();
+                                if (arg.StartsWith("+=") || arg.StartsWith("="))
+                                {
+                                    concat = arg.Substring(0, arg.IndexOf('=') + 1);
+                                    arg = arg.Substring(concat.Length);
+                                }
+                                bool isPath = false;
+                                foreach (string pswitch in PATH_SWITCHES)
+                                {
+                                    if (pswitch == op)
+                                    {
+                                        if (op.EndsWith("namespace"))
+                                        {
+                                            int sp = arg.IndexOf(' ');
+                                            if (sp > 0)
+                                            {
+                                                concat += arg.Substring(0, sp) + ";";
+                                                arg = arg.Substring(sp + 1).TrimStart();
+                                            }
+                                        }
+                                        isPath = true;
+                                        if (!arg.StartsWith("\\") && !re_Disk.IsMatch(arg))
+                                            arg = Path.Combine(buildPath, arg);
+                                    }
+                                }
+                                if (op == "-o" || op == "-output")
+                                {
+                                    builtSWF = arg;
+                                    hasOutput = true;
+                                }
+                                if (!isPath) arg = arg.Replace(" ", ";");
+                                cmd += op + concat + arg + ";";
+                            }
+                            else cmd += op + ";";
+                        }
+                    }
+
+                    // output default 
+                    if (!hasOutput) cmd = "-o;" + builtSWF + ";" + cmd;
+                }
+                catch
+                {
+                    ErrorManager.ShowInfo(TextHelper.GetString("Info.InvalidForQuickBuild"));
+                }
+            }
+            else if (requireTag) return;
+
+			// build
+			cmd = cmd.Replace(";;", ";");
+            if (addFilename) cmd += filename;
+            else cmd = cmd.Substring(0, cmd.Length - 3);
+            RunMxmlc(cmd, flex2Path);
+			if (!playAfterBuild) builtSWF = null;
+			
+			// restaure working directory
+			Environment.CurrentDirectory = currentPath;
+        }
+
+        private string FindAscAuthoring()
+        {
+            string flashPath = ASContext.CommonSettings.PathToFlashIDE;
+            if (flashPath == null) return null;
+            string configPath = PluginMain.FindCS3ConfigurationPath(flashPath);
+            if (configPath == null) return null;
+            string ascJar = Path.Combine(configPath, "ActionScript 3.0\\asc_authoring.jar");
+            if (File.Exists(ascJar)) return ascJar;
+            else return null;
+        }
+
+        #region .p files cleanup
+
+        /// <summary>
+		/// Set watcher to remove the .p file
+		/// </summary>
+		private void WatchFile(string filename)
+		{
+			string folder = Path.GetDirectoryName(filename);
+			watchedFile = Path.GetFileNameWithoutExtension(filename).ToLower()+".p";
+			fullWatchedPath = Path.Combine(folder, watchedFile);
+			if (File.Exists(fullWatchedPath)) File.Delete(fullWatchedPath);
+			watcher.Path = folder;
+			watcher.EnableRaisingEvents = true;
+		}
+		
+		private void onCreateFile(object source, FileSystemEventArgs e)
+		{
+			//if (e.Name.ToLower() == watchedFile)
+			if (Path.GetExtension(e.Name).ToLower() == ".p")
+			{
+				watcher.EnableRaisingEvents = false;
+				timer.Enabled = true;
+			}
+		}
+		
+		private void onTimedDelete(object source, ElapsedEventArgs e)
+		{
+			Control ctrl = ASContext.Panel as Control;
+        	if (ctrl != null && ctrl.InvokeRequired) ctrl.BeginInvoke(new ElapsedEventHandler(onTimedDelete), new object[]{source, e});
+        	else
+        	{
+				if (File.Exists(fullWatchedPath)) 
+				{
+					File.Delete(fullWatchedPath);
+	        		TraceManager.Add("Done(0)", -2);
+                    EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(0)"));
+					ASContext.SetStatusText("Asc Done");
+				}
+        	}
+        }
+        #endregion
+
+        #region Background process
+
+        /// <summary>
+		/// Stop background processes
+		/// </summary>
+		public void Stop()
+		{
+			if (ascRunner != null && ascRunner.IsRunning) ascRunner.KillProcess();
+			ascRunner = null;
+			if (mxmlcRunner != null && mxmlcRunner.IsRunning) mxmlcRunner.KillProcess();
+			mxmlcRunner = null;
+		}
+		
+		/// <summary>
+		/// Start background process
+		/// </summary>
+		private void StartAscRunner()
+		{
+            string cmd = "-classpath \"" + ascPath + ";" + flex2Shell + "\" AscShell";
+            TraceManager.Add("Background process: java " + cmd, -1);
+			// run asc shell
+			ascRunner = new ProcessRunner();
+            ascRunner.WorkingDirectory = Path.GetDirectoryName(ascPath);
+            ascRunner.RedirectInput = true;
+            ascRunner.Run("java", cmd, true);
+            ascRunner.Output += ascRunner_Output;
+            ascRunner.Error += ascRunner_Error;
+            errorState = 0;
+            Thread.Sleep(100);
+		}
+		
+		/// <summary>
+		/// Start background process
+		/// </summary>
+		private void StartMxmlcRunner(string flex2Path)
+		{
+            string cmd = "-classpath \"" + mxmlcPath + ";" + flex2Shell + "\" MxmlcShell";
+            TraceManager.Add("Background process: java " + cmd, -1);
+			// run compiler shell
+            mxmlcRunner = new ProcessRunner();
+            mxmlcRunner.WorkingDirectory = Path.Combine(flex2Path, "frameworks");
+            mxmlcRunner.RedirectInput = true;
+			mxmlcRunner.Run("java", cmd, true);
+            mxmlcRunner.Output += mxmlcRunner_Output;
+            mxmlcRunner.Error += mxmlcRunner_Error;
+            errorState = 0;
+            Thread.Sleep(100);
+        }
+        #endregion
+
+        #region process output capture
+
+        private int errorState;
+        private string errorDesc;
+        private bool notificationSent;
+
+        private void ascRunner_Error(object sender, string line)
+        {
+            if (line.StartsWith("[Compiler] Error"))
+            {
+                errorState = 1;
+                errorDesc = line.Substring(10);
+            }
+            else if (errorState == 1)
+            {
+                line = line.Trim();
+                Match mErr = Regex.Match(line, @"(?<file>[^,]+), Ln (?<line>[0-9]+), Col (?<col>[0-9]+)");
+                if (mErr.Success)
+                {
+                	string filename = mErr.Groups["file"].Value;
+            		try 
+            		{
+	                	if (File.Exists(filename))
+	                	{
+		                	StringBuilder sb = new StringBuilder(1024);
+		                	GetLongPathName(filename, sb, (uint)1024);
+							filename = sb.ToString();
+	                	}
+            		}
+            		catch {}
+                	errorDesc = String.Format("{0}:{1}: {2}", filename, mErr.Groups["line"].Value, errorDesc);
+                    ascRunner_OutputError(sender, errorDesc);
+                }
+                errorState++;
+            }
+            else if (errorState > 0)
+            {
+            	if (line.IndexOf("error found") > 0) errorState = 0;
+            }
+            else if (line.Trim().Length > 0) ascRunner_OutputError(sender, line);
+        }
+        
+        private void ascRunner_OutputError(object sender, string line)
+        {
+        	Control ctrl = ASContext.Panel as Control;
+        	if (ctrl != null && ctrl.InvokeRequired)
+                ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_OutputError(sender, line); });
+        	else 
+        	{
+                TraceManager.Add(line, -3);
+	        	if (!notificationSent) 
+	        	{
+	        		notificationSent = true;
+	        		ASContext.SetStatusText("Asc Done");
+                    TraceManager.Add("Done(1)", -2);
+                    EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(1)"));
+                    EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "ResultsPanel.ShowResults", null));
+	        	}
+        	}
+        }
+
+        private void ascRunner_Output(object sender, string line)
+        {
+        	if (line.StartsWith("(ash)")) return;
+            Control ctrl = ASContext.Panel as Control;
+            if (ctrl != null && ctrl.InvokeRequired)
+                ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_Output(sender, line); });
+            else TraceManager.Add(line, 0);
+        }
+        
+        private void mxmlcRunner_Error(object sender, string line)
+        {
+            Control ctrl = ASContext.Panel as Control;
+        	if (ctrl != null && ctrl.InvokeRequired)
+                ctrl.BeginInvoke((MethodInvoker)delegate { mxmlcRunner_Error(sender, line); });
+        	else 
+        	{
+                TraceManager.Add(line, -3);
+        	}
+        }
+
+        private void mxmlcRunner_Output(object sender, string line)
+        {
+            Control ctrl = ASContext.Panel as Control;
+        	if (ctrl != null && ctrl.InvokeRequired) 
+                ctrl.BeginInvoke((MethodInvoker)delegate { mxmlcRunner_Output(sender, line); });
+        	else 
+        	{
+        		if (!notificationSent && line.StartsWith("Done("))
+        		{
+                    TraceManager.Add(line, -2);
+        			notificationSent = true;
+	        		ASContext.SetStatusText("Mxmlc Done");
+                    EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, line));
+	        		if (Regex.IsMatch(line, "Done\\([1-9]"))
+	        		{
+                        EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "ResultsPanel.ShowResults", null));
+	        		}
+	        		else RunAfterBuild();
+        		}
+                else TraceManager.Add(line, 0);
+        	}
+        }
+        
+        private void RunAfterBuild()
+        {
+            if (builtSWF == null || !File.Exists(builtSWF))
+            {
+                debugMode = false;
+                return;
+            }
+        	string swf = builtSWF;
+        	builtSWF = null;
+
+            // debugger
+            if (debugMode)
+            {
+                DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                EventManager.DispatchEvent(this, de);
+            }
+
+   			// other plugin may handle the SWF playing
+            DataEvent dePlay = new DataEvent(EventType.Command, "FlashViewer.Default", swf);
+            EventManager.DispatchEvent(this, dePlay);
+			if (dePlay.Handled) return;
+			
+			try 
+			{
+				// change current directory
+				string currentPath = System.IO.Directory.GetCurrentDirectory();
+				System.IO.Directory.SetCurrentDirectory(Path.GetDirectoryName(swf));
+				// run
+				System.Diagnostics.Process.Start(swf);
+				// restaure current directory
+				System.IO.Directory.SetCurrentDirectory(currentPath);
+			}
+			catch (Exception ex)
+			{
+				ErrorManager.ShowError(ex.Message, ex);
+			}
+        }
+        #endregion
+
+        #region Win32
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError=true)]
+		static extern uint GetShortPathName(
+		   [MarshalAs(UnmanagedType.LPTStr)]
+		   string lpszLongPath,
+		   [MarshalAs(UnmanagedType.LPTStr)]
+		   StringBuilder lpszShortPath,
+		   uint cchBuffer);
+        
+        [DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Auto)]
+		static extern uint GetLongPathName(
+		    string lpszShortPath,
+		    [Out] StringBuilder lpszLongPath,
+		    uint cchBuffer);
+
+        #endregion
+    }
+}

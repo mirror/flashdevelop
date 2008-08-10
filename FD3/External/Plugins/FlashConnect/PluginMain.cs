@@ -1,0 +1,267 @@
+using System;
+using System.IO;
+using System.Xml;
+using System.Web;
+using System.Text;
+using System.Net.Sockets;
+using System.ComponentModel;
+using System.Windows.Forms;
+using WeifenLuo.WinFormsUI;
+using PluginCore.Localization;
+using PluginCore.Utilities;
+using PluginCore.Managers;
+using PluginCore.Helpers;
+using PluginCore;
+
+namespace FlashConnect
+{
+	public class PluginMain : IPlugin
+	{
+		private String pluginName = "FlashConnect";
+        private String pluginGuid = "425ae753-fdc2-4fdf-8277-c47c39c2e26b";
+        private String pluginHelp = "www.flashdevelop.org/community/";
+        private String pluginDesc = "Adds a xml socket to FlashDevelop that let's you trace messages from outside of FlashDevelop.";
+        private String pluginAuth = "FlashDevelop Team";
+        private String settingFilename;
+        private Settings settingObject;
+		private XmlSocket xmlSocket;
+
+        #region Required Properties
+
+        /// <summary>
+        /// Name of the plugin
+        /// </summary>
+        public String Name
+        {
+            get { return this.pluginName; }
+        }
+
+        /// <summary>
+        /// GUID of the plugin
+        /// </summary>
+        public String Guid
+        {
+            get { return this.pluginGuid; }
+        }
+
+        /// <summary>
+        /// Author of the plugin
+        /// </summary>
+        public String Author
+        {
+            get { return this.pluginAuth; }
+        }
+
+        /// <summary>
+        /// Description of the plugin
+        /// </summary>
+        public String Description
+        {
+            get { return this.pluginDesc; }
+        }
+
+        /// <summary>
+        /// Web address for help
+        /// </summary>
+        public String Help
+        {
+            get { return this.pluginHelp; }
+        }
+
+        /// <summary>
+        /// Object that contains the settings
+        /// </summary>
+        [Browsable(false)]
+        public Object Settings
+        {
+            get { return this.settingObject; }
+        }
+
+        #endregion
+
+        #region Required Methods
+
+        /// <summary>
+		/// Initializes the plugin
+		/// </summary>
+        public void Initialize()
+        {
+            this.InitBasics();
+            this.LoadSettings();
+            this.SetupSocket();
+        }
+
+        /// <summary>
+        /// Disposes the plugin
+        /// </summary>
+        public void Dispose()
+        {
+            this.SaveSettings();
+        }
+
+        /// <summary>
+        /// Handles the incoming events
+        /// </summary>
+        public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
+        {
+            // Nothing to do here..
+        }
+
+        #endregion
+		
+		#region Custom Methods
+        
+        // Response messages and errors
+        private readonly Byte[] RESULT_INVALID = Encoding.Default.GetBytes("<flashconnect status=\"1\"/>\0");
+        private readonly Byte[] RESULT_NOTFOUND = Encoding.Default.GetBytes("<flashconnect status=\"2\"/>\0");
+        private readonly Exception INVALID_MSG = new Exception(TextHelper.GetString("Info.InvalidMessage"));
+
+        /// <summary>
+        /// Sets up the basic stuff
+        /// </summary> 
+        private void InitBasics()
+        {
+            String dataPath = Path.Combine(PathHelper.DataDir, "FlashConnect");
+            if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
+            this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            this.pluginDesc = TextHelper.GetString("Info.Description");
+        }
+
+        /// <summary>
+        /// Setups the socket connection
+        /// </summary> 
+        private void SetupSocket()
+        {
+            if (this.settingObject.Enabled && !SingleInstanceApp.AlreadyExists)
+            {
+                this.xmlSocket = new XmlSocket(this.settingObject.Host, this.settingObject.Port);
+                this.xmlSocket.XmlReceived += new XmlReceivedEventHandler(this.HandleXml);
+            }
+        }
+		
+		/// <summary>
+		/// Handles the incoming xml message
+		/// </summary>
+		public void HandleXml(Object sender, XmlReceivedEventArgs e)
+		{
+            if (PluginBase.MainForm.MenuStrip.InvokeRequired) PluginBase.MainForm.MenuStrip.BeginInvoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    XmlDocument message = e.XmlDocument;
+                    XmlNode mainNode = message.FirstChild;
+                    for (Int32 i = 0; i < mainNode.ChildNodes.Count; i++)
+                    {
+                        XmlNode cmdNode = mainNode.ChildNodes[i];
+                        if (XmlHelper.HasAttribute(cmdNode, "cmd"))
+                        {
+                            String cmd = XmlHelper.GetAttribute(cmdNode, "cmd");
+                            switch (cmd)
+                            {
+                                case "trace":
+                                    this.HandleTraceMsg(cmdNode, e.Socket);
+                                    break;
+                                case "notify":
+                                    this.HandleNotifyMsg(cmdNode, e.Socket);
+                                    break;
+                                case "return":
+                                    this.HandleReturnMsg(cmdNode, e.Socket);
+                                    break;
+                                default:
+                                    ErrorManager.ShowError(INVALID_MSG);
+                                    break;
+                            }
+                        }
+                        else ErrorManager.ShowError(INVALID_MSG);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorManager.ShowError(ex);
+                }
+            });
+		}
+		
+		/// <summary>
+		/// Handles the trace message
+		/// </summary>
+		public void HandleTraceMsg(XmlNode msgNode, Socket client)
+		{
+			try 
+			{
+                String message = HttpUtility.UrlDecode(XmlHelper.GetValue(msgNode));
+                Int32 state = Convert.ToInt32(XmlHelper.GetAttribute(msgNode, "state"));
+				TraceManager.Add(message, state);
+			} 
+			catch
+			{
+				client.Send(RESULT_INVALID);
+			}
+		}
+		
+		/// <summary>
+		/// Handles the distribute message
+		/// </summary>
+		public void HandleNotifyMsg(XmlNode msgNode, Socket client)
+		{
+			try 
+			{
+                String message = HttpUtility.UrlDecode(XmlHelper.GetValue(msgNode));
+				String guid = XmlHelper.GetAttribute(msgNode, "guid");
+				IPlugin plugin = PluginBase.MainForm.FindPlugin(guid);
+				if (plugin != null)
+				{
+                    DataEvent de = new DataEvent(EventType.Command, "FlashConnect", message);
+                    plugin.HandleEvent(this, de, HandlingPriority.Normal);
+				}
+				else client.Send(RESULT_NOTFOUND);
+			} 
+			catch
+			{
+				client.Send(RESULT_INVALID);
+			}
+		}
+		
+		/// <summary>
+		/// Handles the return message
+		/// </summary>
+		public void HandleReturnMsg(XmlNode msgNode, Socket client)
+		{
+			try 
+			{
+				Byte[] data = Encoding.ASCII.GetBytes(msgNode.InnerXml + "\0");
+				client.Send(data);
+			} 
+			catch
+			{
+				client.Send(RESULT_INVALID);
+			}
+		}
+
+        /// <summary>
+        /// Loads the plugin settings
+        /// </summary>
+        public void LoadSettings()
+        {
+            this.settingObject = new Settings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (Settings)obj;
+            }
+        }
+
+        /// <summary>
+        /// Saves the plugin settings
+        /// </summary>
+        public void SaveSettings()
+        {
+            ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
+        }
+
+		#endregion
+	
+	}
+	
+}

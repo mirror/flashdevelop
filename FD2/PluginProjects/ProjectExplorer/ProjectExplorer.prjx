@@ -1,0 +1,100 @@
+<Project name="ProjectExplorer" standardNamespace="ProjectExplorer" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\PluginMain.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\PluginUI.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Actions" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\TreeViews" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\ExtractIconClass.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\FDProcessRunner.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\LineEntryDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\Project.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\CompilerOptions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\MovieOptions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\HiddenPathCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\FileHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\PathCollection.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\RecentProject.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.HiddenFolder.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.ImageResource.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\AssemblyInfo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.UpArrow.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.DownArrow.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Helpers\ProjectIcon.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\FileAssociation.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\PathHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\ProjectWriter.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\LibraryAsset.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\ProjectFormat\ProjectReader.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.FlashDevelop Project.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.XmlFile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.AddFile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.SwfMovie.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.TextFile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.ActionscriptFile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.ActionscriptCompile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Icons\Icons.HtmlFile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Actions\BuildActions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Actions\FileActions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Actions\ProjectActions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\RecentComboBox.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\ClasspathControl.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\ClasspathDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\FDMenus.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\Icons.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\LibraryAssetDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\MergableMenu.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\NewProjectDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\PropertiesDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\TreeViews\MultiSelectTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\ProjectCreator.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Settings.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.Folder.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Helpers\TreeViews\StateSavingTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Actions\FlashDevelopActions.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\TreeViews\ToolTippedTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\Scrolling.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.FolderCompile.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\ProjectFormat\BuildEventVars.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\BuildEventDialog.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Helpers\TreeViews\DragDropTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\WatcherNode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\DirectoryNode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\FileNode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\GenericNode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\ProjectContextMenu.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\ProjectTreeView.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\OtherNodes.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\PluginData.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.SwfMovieHidden.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Helpers\ProcessHelper.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeBar.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controls\TreeView\SwfFileNode.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Icons\Icons.Class.png" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\Helpers\ProcessRunner.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+  </Contents>
+  <References>
+    <Reference type="Assembly" refto="..\..\PluginCore\bin\Release\PluginCore.dll" localcopy="False" />
+  </References>
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Release">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon=".\Icons\FlashDevelop Project.ico" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="True" />
+    <Output directory="..\..\FlashDevelop\Bin\Release\Plugins" assembly="ProjectExplorer" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Release">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\Bin\Debug\Plugins" assembly="ProjectExplorer" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="Standard" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon=".\Icons\FlashDevelop Project.ico" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="True" />
+      <Output directory="..\..\FlashDevelop\Bin\Release\Plugins" assembly="ProjectExplorer" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>

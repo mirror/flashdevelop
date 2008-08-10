@@ -1,0 +1,353 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ComponentModel;
+using System.Drawing.Design;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
+using PluginCore.Localization;
+
+namespace ASCompletion.Settings
+{
+    public enum OutlineSorting
+    {
+        None,
+        Sorted,
+        SortedByKind,
+        SortedSmart,
+        SortedGroup
+    }
+
+    [Serializable]
+    public class GeneralSettings
+    {
+        #region Shortcuts
+
+        const Keys DEFAULT_CHECKSYNTAX = Keys.F7;
+        const Keys DEFAULT_QUICKBUILD = Keys.Control | Keys.F8;
+        const Keys DEFAULT_GOTODECLARATION = Keys.F4;
+        const Keys DEFAULT_DECLARATIONBACK = Keys.Shift | Keys.F4;
+        const Keys DEFAULT_TYPESEXPLORER = Keys.Control | Keys.J;
+        const Keys DEFAULT_GENERATOR = Keys.Control | Keys.Shift | Keys.D1;
+
+        protected Keys checkSyntax = DEFAULT_CHECKSYNTAX;
+        protected Keys quickBuild = DEFAULT_QUICKBUILD;
+        protected Keys gotoDeclaration = DEFAULT_GOTODECLARATION;
+        protected Keys backFromDeclaration = DEFAULT_DECLARATIONBACK;
+        protected Keys typesExplorer = DEFAULT_TYPESEXPLORER;
+        protected Keys contextualGenerator = DEFAULT_GENERATOR;
+
+        [DisplayName("Check Syntax")]
+        [LocalizedCategory("ASCompletion.Category.Shortcuts"), LocalizedDescription("ASCompletion.Description.ShortcutSyntaxChecking"), DefaultValue(DEFAULT_CHECKSYNTAX)]
+        public Keys CheckSyntax
+        {
+            get { return checkSyntax; }
+            set { checkSyntax = value; }
+        }
+
+        [DisplayName("Quick Build")]
+        [LocalizedCategory("ASCompletion.Category.Shortcuts"), LocalizedDescription("ASCompletion.Description.ShortcutQuickBuild"), DefaultValue(DEFAULT_QUICKBUILD)]
+        public Keys QuickBuild
+        {
+            get { return quickBuild; }
+            set { quickBuild = value; }
+        }
+
+        [DisplayName("Goto Declaration")]
+        [LocalizedCategory("ASCompletion.Category.Shortcuts"), LocalizedDescription("ASCompletion.Description.ShortcutGotoDeclaration"), DefaultValue(DEFAULT_GOTODECLARATION)]
+        public Keys GotoDeclaration
+        {
+            get { return gotoDeclaration; }
+            set { gotoDeclaration = value; }
+        }
+
+        [DisplayName("Back From Declaration")]
+        [LocalizedCategory("ASCompletion.Category.Shortcuts"), LocalizedDescription("ASCompletion.Description.ShortcutBackFromDeclaration"), DefaultValue(DEFAULT_DECLARATIONBACK)]
+        public Keys BackFromDeclaration
+        {
+            get { return backFromDeclaration; }
+            set { backFromDeclaration = value; }
+        }
+
+        [DisplayName("Project Types Explorer")]
+        [LocalizedCategory("ASCompletion.Category.Shortcuts"), LocalizedDescription("ASCompletion.Description.ShortcutTypesExplorer"), DefaultValue(DEFAULT_TYPESEXPLORER)]
+        public Keys TypesExplorer
+        {
+            get { return typesExplorer; }
+            set { typesExplorer = value; }
+        }
+
+        [DisplayName("Contextual Generator")]
+        [LocalizedCategory("ASCompletion.Category.Shortcuts"), LocalizedDescription("ASCompletion.Description.ContextualGenerator"), DefaultValue(DEFAULT_GENERATOR)]
+        public Keys ContextualGenerator
+        {
+            get { return contextualGenerator; }
+            set { contextualGenerator = value; }
+        }
+        #endregion
+
+        #region Documentation
+
+        const bool DEFAULT_SMARTTIPS = true;
+        const bool DEFAULT_JAVADOCS = true;
+        static public string[] DEFAULT_TAGS = new string[] {
+            "author","copy","default","deprecated","eventType","example","exampleText","exception",
+            "haxe","inheritDoc","internal","link","mtasc","mxmlc","param","private","return","see",
+            "serial","serialData","serialField","since","throws","usage","version"
+        };
+        const int DEFAULT_MAXLINES = 5;
+        const bool DEFAULT_JAVADOCINDENT = true;
+
+        protected bool smartTipsEnabled = DEFAULT_SMARTTIPS;
+        protected bool javadocTagsEnabled = DEFAULT_JAVADOCS;
+        protected string[] javadocTags = null;
+        protected bool javadocIndent = DEFAULT_JAVADOCINDENT;
+        private int descriptionLinesLimit = DEFAULT_MAXLINES;
+
+        [DisplayName("Enable Javadoc Tags")]
+        [LocalizedCategory("ASCompletion.Category.Documentation"), LocalizedDescription("ASCompletion.Description.JavadocTagsEnabled"), DefaultValue(DEFAULT_JAVADOCS)]
+        public bool JavadocTagsEnabled
+        {
+            get { return javadocTagsEnabled; }
+            set { javadocTagsEnabled = value; }
+        }
+
+        [DisplayName("Javadoc Tags")]
+        [LocalizedCategory("ASCompletion.Category.Documentation"), LocalizedDescription("ASCompletion.Description.JavadocTags")]
+        public string[] JavadocTags
+        {
+            get { return javadocTags; }
+            set { javadocTags = value; }
+        }
+
+        [DisplayName("Indent Javadoc Tags")]
+        [LocalizedCategory("ASCompletion.Category.Documentation"), LocalizedDescription("ASCompletion.Description.JavadocIndent"), DefaultValue(DEFAULT_JAVADOCINDENT)]
+        public bool JavadocIndent
+        {
+            get { return javadocIndent; }
+            set { javadocIndent = value; }
+        }
+
+        [DisplayName("Enable Smart Tips")]
+        [LocalizedCategory("ASCompletion.Category.Documentation"), LocalizedDescription("ASCompletion.Description.SmartTipsEnabled"), DefaultValue(DEFAULT_SMARTTIPS)]
+        public bool SmartTipsEnabled
+        {
+            get { return smartTipsEnabled; }
+            set { smartTipsEnabled = value; }
+        }
+
+        [DisplayName("Limit Of Description Lines")]
+        [LocalizedCategory("ASCompletion.Category.Documentation"), LocalizedDescription("ASCompletion.Description.DescriptionLinesLimit"), DefaultValue(DEFAULT_MAXLINES)]
+        public int DescriptionLinesLimit
+        {
+            get { return descriptionLinesLimit; }
+            set { descriptionLinesLimit = Math.Max(1, value); }
+        }
+
+
+        #endregion
+
+        #region Helpers
+
+        const bool DEFAULT_DISABLE_CLOSEBRACE = false;
+        const bool DEFAULT_DISABLE_REFORMAT = false;
+        const bool DEFAULT_CONDENSE_WS = false;
+        const bool DEFAULT_SPACEBEFOREFUNCTIONCALL = false;
+        const bool DEFAULT_DISABLETYPESCOLORING = false;
+        const int DEFAULT_ALWAYSCOMPLETELENGTH = 2;
+        const bool DEFAULT_DISABLECALLTIP = false;
+        const string DEFAULT_COMPACTCHARS = ",;.():[]";
+        const string DEFAULT_SPACEDCHARS = ",;{}*+-=/%<>|&!^";
+        const string DEFAULT_ADDSPACEAFTER = "if for while do catch with";
+
+        private bool disableAutoCloseBraces = DEFAULT_DISABLE_CLOSEBRACE;
+        private bool disableCodeReformat = DEFAULT_DISABLE_REFORMAT;
+        private bool disableKnownTypesColoring = DEFAULT_DISABLETYPESCOLORING;
+        private bool condenseWhitespace = DEFAULT_CONDENSE_WS;
+        private bool spaceBeforeFunctionCall = DEFAULT_SPACEBEFOREFUNCTIONCALL;
+        private int alwaysCompleteWordLength = DEFAULT_ALWAYSCOMPLETELENGTH;
+        private bool disableCallTip = DEFAULT_DISABLECALLTIP;
+        private string compactChars = DEFAULT_COMPACTCHARS;
+        private string spacedChars = DEFAULT_SPACEDCHARS;
+        private string addSpaceAfter = DEFAULT_ADDSPACEAFTER;
+
+        [DisplayName("Disable Auto-Close Braces")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableAutoCloseBraces"), 
+        DefaultValue(DEFAULT_DISABLE_CLOSEBRACE)]
+        public bool DisableAutoCloseBraces
+        {
+            get { return disableAutoCloseBraces; }
+            set { disableAutoCloseBraces = value; }
+        }
+
+        [DisplayName("Condense Whitespace")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.CondenseWhitespace"), 
+        DefaultValue(DEFAULT_CONDENSE_WS)]
+        public bool CondenseWhitespace
+        {
+            get { return condenseWhitespace; }
+            set { condenseWhitespace = value; }
+        }
+
+        [DisplayName("Disable Code Reformat")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableCodeReformat"), 
+        DefaultValue(DEFAULT_DISABLE_REFORMAT)]
+        public bool DisableCodeReformat
+        {
+            get { return disableCodeReformat; }
+            set { disableCodeReformat = value; }
+        }
+
+        [DisplayName("Add Space Before Function Call")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.SpaceBeforeFunctionCall"),
+        DefaultValue(DEFAULT_SPACEBEFOREFUNCTIONCALL)]
+        public bool SpaceBeforeFunctionCall
+        {
+            get { return spaceBeforeFunctionCall; }
+            set { spaceBeforeFunctionCall = value; }
+        }
+
+        [DisplayName("Always Complete Word Length")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.AlwaysCompleteWordLength"),
+        DefaultValue(DEFAULT_ALWAYSCOMPLETELENGTH)]
+        public int AlwaysCompleteWordLength
+        {
+            get { return alwaysCompleteWordLength; }
+            set { alwaysCompleteWordLength = value; }
+        }
+
+        [DisplayName("Disable Automatic Call-Tip")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableCallTip"),
+        DefaultValue(DEFAULT_DISABLECALLTIP)]
+        public bool DisableCallTip
+        {
+            get { return disableCallTip; }
+            set { disableCallTip = value; }
+        }
+
+        [DisplayName("Disable Known Types Coloring")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableKnownTypesColoring"),
+        DefaultValue(DEFAULT_DISABLETYPESCOLORING)]
+        public bool DisableKnownTypesColoring
+        {
+            get { return disableKnownTypesColoring; }
+            set { disableKnownTypesColoring = value; }
+        }
+
+        [DisplayName("Characters Not Surrounded By Spaces")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.CompactChars"),
+        DefaultValue(DEFAULT_COMPACTCHARS)]
+        public string CompactChars
+        {
+            get { return compactChars ?? DEFAULT_COMPACTCHARS; }
+            set { compactChars = value; }
+        }
+
+        [DisplayName("Characters Requiring Whitespace")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.SpacedChars"),
+        DefaultValue(DEFAULT_SPACEDCHARS)]
+        public string SpacedChars
+        {
+            get { return spacedChars ?? DEFAULT_SPACEDCHARS; }
+            set { spacedChars = value; }
+        }
+
+        [DisplayName("Always Add Space After")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.AddSpaceAfter"),
+        DefaultValue(DEFAULT_ADDSPACEAFTER)]
+        public string AddSpaceAfter
+        {
+            get { return addSpaceAfter ?? DEFAULT_ADDSPACEAFTER; }
+            set { addSpaceAfter = value; }
+        }
+
+        #endregion
+
+        #region Flash IDE
+
+        private string pathToFlashIDE;
+
+        [DisplayName("Path To Flash IDE")]
+        [LocalizedCategory("ASCompletion.Category.FlashIDE"), LocalizedDescription("ASCompletion.Description.PathToFlashIDE")]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        public string PathToFlashIDE
+        {
+            get { return pathToFlashIDE; }
+            set { pathToFlashIDE = value; }
+        }
+        #endregion
+
+        #region Outline view
+
+        const bool DEFAULT_EXTENDS = true;
+        const bool DEFAULT_IMPORTS = true;
+        const bool DEFAULT_IMPLEMENTS = true;
+        const bool DEFAULT_REGIONS = true;
+        const OutlineSorting DEFAULT_MODE = OutlineSorting.None;
+
+        protected bool showExtends = DEFAULT_EXTENDS;
+        protected bool showImplements = DEFAULT_IMPLEMENTS;
+        protected bool showImports = DEFAULT_IMPORTS;
+        protected bool showRegions = DEFAULT_REGIONS;
+        protected OutlineSorting sortingMode = DEFAULT_MODE;
+
+        [DisplayName("Show Extends")]
+        [LocalizedCategory("ASCompletion.Category.OutlineView"), LocalizedDescription("ASCompletion.Description.OutlineViewShowExtends"), DefaultValue(DEFAULT_EXTENDS)]
+        public bool ShowExtends
+        {
+            get { return showExtends; }
+            set { showExtends = value; }
+        }
+
+        [DisplayName("Show Implements")]
+        [LocalizedCategory("ASCompletion.Category.OutlineView"), LocalizedDescription("ASCompletion.Description.OutlineViewShowImplements"), DefaultValue(DEFAULT_IMPLEMENTS)]
+        public bool ShowImplements
+        {
+            get { return showImplements; }
+            set { showImplements = value; }
+        }
+
+        [DisplayName("Show Imports")]
+        [LocalizedCategory("ASCompletion.Category.OutlineView"), LocalizedDescription("ASCompletion.Description.OutlineViewShowImports"), DefaultValue(DEFAULT_IMPORTS)]
+        public bool ShowImports
+        {
+            get { return showImports; }
+            set { showImports = value; }
+        }
+
+        [DisplayName("Show Regions")]
+        [LocalizedDescription("ASCompletion.Description.ShowRegions")]
+        [LocalizedCategory("ASCompletion.Category.OutlineView"), DefaultValue(DEFAULT_REGIONS)]
+        public bool ShowRegions 
+        {
+            get { return showRegions; }
+            set { showRegions = value; }
+        }
+
+        [DisplayName("Sorting Mode")]
+        [LocalizedCategory("ASCompletion.Category.OutlineView"), LocalizedDescription("ASCompletion.Description.SortingMode"), DefaultValue(DEFAULT_MODE)]
+        public OutlineSorting SortingMode
+        {
+            get { return sortingMode; }
+            set { sortingMode = value; }
+        }
+
+        #endregion
+
+        #region Advanced options
+
+        const bool DEFAULT_CACHE = false;
+
+        protected bool disableCache = false;
+
+        [DisplayName("Disable Cache")]
+        [LocalizedCategory("ASCompletion.Category.Advanced"), LocalizedDescription("ASCompletion.Description.DisableCache"), DefaultValue(DEFAULT_CACHE)]
+        public bool DisableCache
+        {
+            get { return disableCache; }
+            set { disableCache = value; }
+        }
+        #endregion
+    }
+
+}

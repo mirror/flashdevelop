@@ -1,0 +1,458 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ASCompletion.Completion
+{
+    public class ReformatOptions
+    {
+        public string Newline = "\r\n";
+        public string Tab = "\t";
+        public bool CondenseWhitespace = false;
+        public bool BraceAfterLine = true;
+        public bool SpaceBeforeFunctionCall = false;
+        public string CompactChars = "";
+        public string SpacedChars = "";
+        public string[] AddSpaceAfter = new string[] {};
+        public string Operators = "=+-*/%<>&|^";
+    }
+
+    public class Reformater
+    {
+        /// <summary>
+        /// Adjust whitespace according to options
+        /// </summary>
+        /// <param name="txt">Original text</param>
+        /// <param name="options">Formatting options</param>
+        /// <param name="offset">Cursor position in line</param>
+        /// <returns></returns>
+        public static string ReformatLine(string txt, ReformatOptions options, ref int offset)
+        {
+            StringBuilder sb = new StringBuilder(txt.Length);
+            int i = 0;
+            int n = txt.Length;
+            char c = ' ';
+            char c2 = ' ';
+
+            // copy indentation
+            while (i < n && txt[i] <= 32) sb.Append(txt[i++]);
+            string indentation = sb.ToString();
+
+            // first char
+            if (i < n && txt[i] != '/' && txt[i] != '"' && txt[i] != '\'' && txt[i] != '<' && txt[i] != ']' && txt[i] != '?') 
+            {
+                c = c2 = txt[i++];
+                sb.Append(c);
+                if (options.SpacedChars.IndexOf(c) >= 0)
+                    while (i < n && options.SpacedChars.IndexOf(txt[i]) >= 0) sb.Append(txt[i++]);
+            }
+
+            // reformat line
+            bool fixedOffset = (i > offset);
+            bool needSpace = false;
+            int inString = 0;
+            bool inComments = false;
+            while (i < n)
+            {
+                if (!fixedOffset && i == offset)
+                {
+                    fixedOffset = true;
+                    offset = sb.Length;
+                }
+                c = txt[i++];
+                // skip string literals
+                if (c == '\\')
+                {
+                    sb.Append(c);
+                    if (i < n)
+                    {
+                        c = txt[i++];
+                        sb.Append(c);
+                    }
+                    continue;
+                }
+                switch (inString)
+                {
+                    case 0:
+                        if (c == '"') inString = 1;
+                        else if (c == '\'') inString = 2;
+                        break;
+                    case 1:
+                        sb.Append(c);
+                        if (c == '"') inString = 0;
+                        c2 = c;
+                        continue;
+                    case 2:
+                        sb.Append(c);
+                        if (c == '\'') inString = 0;
+                        c2 = c;
+                        continue;
+                }
+
+                // comments
+                if (inComments)
+                {
+                    sb.Append(c);
+                    if (i < n && c == '*' && txt[i] == '/')
+                    {
+                        i++;
+                        sb.Append('/');
+                        c2 = ' ';
+                        inComments = false;
+                    }
+                    continue;
+                }
+                else if (i < n &&  c == '/' && (txt[i] == '*' || txt[i] == '/'))
+                {
+                    if (txt[i] == '/')
+                    {
+                        sb.Append(txt.Substring(i - 1));
+                        break;
+                    }
+                    else if (txt[i] == '*')
+                    {
+                        inComments = true;
+                        sb.Append(c);
+                        continue;
+                    }
+                }
+
+                // litteral XML
+                if (c == '<')
+                {
+                    int i2 = i;
+                    if (lookupXML(txt, ref i))
+                    {
+                        sb.Append(c).Append(txt.Substring(i2, i - i2));
+                        c2 = ' ';
+                        needSpace = false;
+                        continue;
+                    }
+                }
+                else if ((c == ']' && i < n - 1 && txt[i] == ']' && txt[i + 1] == '>')
+                    || (c == '-' && i < n - 1 && txt[i] == '-' && txt[i + 1] == '>'))
+                {
+                    sb.Append(c).Append(txt.Substring(i, 2));
+                    i += 2;
+                    c2 = ' ';
+                    needSpace = false;
+                    continue;
+                }
+                else if (c == '?' && i < n - 1 && txt[i] == '>')
+                {
+                    sb.Append(c).Append(txt[i]);
+                    i++;
+                    c2 = ' ';
+                    needSpace = false;
+                    continue;
+                }
+                // litteral Regexp
+                else if (c == '/')
+                {
+                    int i2 = i;
+                    if (lookupRegex(txt, ref i))
+                    {
+                        sb.Append('/').Append(txt.Substring(i2, i - i2));
+                        c2 = ' ';
+                        needSpace = false;
+                        continue;
+                    }
+                }
+
+                // is a white space needed?
+                if (options.CompactChars.IndexOf(c) >= 0)
+                {
+                    if (c2 == '}' && (c == ';' || c == ','))
+                        needSpace = false;
+                    else if (options.SpaceBeforeFunctionCall && Char.IsLetterOrDigit(c2) && c == '(')
+                        needSpace = true;
+                    else
+                    {
+                        string word = GetLastWord(sb);
+                        if (word.Length > 0)
+                        foreach (string token in options.AddSpaceAfter)
+                            if (token == word)
+                            {
+                                needSpace = true;
+                                break;
+                            }
+                    }
+                }
+                else if (options.SpacedChars.IndexOf(c) >= 0)
+                {
+                    if (c == '*')
+                    {
+                        if (c2 == '.' || c2 == ':') // import wildchar or any type
+                        {
+                            needSpace = false;
+                            sb.Append('*');
+                            c2 = ' ';
+                            continue;
+                        }
+                        else needSpace = true;
+                    }
+                    else if (i < n && (c == '+' || c == '-') && txt[i] == c) // unary operators
+                    {
+                        sb.Append(c).Append(c);
+                        c2 = c;
+                        needSpace = false;
+                        i++;
+                        continue;
+                    }
+                    else if (i < n && c == '-' && txt[i] == '>') // php dot operator
+                    {
+                        sb.Append(c).Append(txt[i]);
+                        c2 = ' ';
+                        needSpace = false;
+                        i++;
+                        continue;
+                    }
+                    else needSpace = (c != '!' || (c2 != '(' && c2 != '['));
+
+                    if (options.BraceAfterLine && c == '{')
+                    {
+                        if (c2 == ' ' && i > 3) c2 = txt[i - 3];
+                        if (Char.IsLetterOrDigit(c2) || c2 == ')')
+                        {
+                            sb.Append(options.Newline).Append(indentation).Append('{');
+                            needSpace = false;
+                            continue;
+                        }
+                    }
+                }
+
+                // adding whitespace
+                if (c != ' ' && c != '\t')
+                {
+                    if (needSpace && c != '\r' && c != '\n')
+                    {
+                        if (c2 != ' ') sb.Append(' ');
+                        needSpace = false;
+                    }
+                    sb.Append(c);
+                    if (options.SpacedChars.IndexOf(c) >= 0)
+                    {
+                        if ((c == '-' || c == '+') && (i >= n || options.Operators.IndexOf(txt[i]) < 0)) // unary sign
+                        {
+                            needSpace = (c2 == ')' || c2 == ']' || c2 == '\'' || c2 == '"' || Char.IsLetterOrDigit(c2));
+                        }
+                        else if (c != '!' || (i < n && options.Operators.IndexOf(txt[i]) >= 0)) // operator
+                        {
+                            while (i < n && (txt[i] == '=' || txt[i] == c))
+                            {
+                                c = txt[i];
+                                sb.Append(txt[i++]);
+                            }
+                            needSpace = true;
+                        }
+                    }
+                    if (c == ')' && i < n && Char.IsLetter(txt[i]))
+                        sb.Append(' ');
+                    c2 = c;
+                }
+                else
+                {
+                    if (options.CondenseWhitespace) needSpace = true;
+                    else 
+                    {
+                        sb.Append(c);
+                        c2 = ' ';
+                        needSpace = false;
+                    }
+                }
+            }
+            if (!fixedOffset) offset = sb.Length;
+            return sb.ToString();
+        }
+
+        public static bool lookupXML(string txt, ref int index)
+        {
+            int inString = 0;
+            int inComments = 0;
+            bool inTag = true;
+            bool inExpr = false;
+            bool inCData = false;
+            bool inComment = false;
+            bool isXML = false;
+
+            int i = index;
+            int n = txt.Length;
+            char c = '<';
+            char c2 = '<';
+            while (i < n)
+            {
+                c = txt[i++];
+
+                // AS expression
+                if (inExpr)
+                {
+                    if (c == '{') return false;
+                    else if (c != '}') continue;
+                }
+                // comments
+                if (inComments > 0)
+                {
+                    if (c == '\r' || (i < n && c == '*' && txt[i] == '/'))
+                    {
+                        i++;
+                        inComments = 0;
+                    }
+                    continue;
+                }
+                else if (i < n &&  c == '/' && (txt[i] == '*' || txt[i] == '/'))
+                {
+                    if (txt[i] == '/')
+                    {
+                        inComments = 1;
+                        break;
+                    }
+                    else if (txt[i] == '*')
+                    {
+                        inComments = 2;
+                        continue;
+                    }
+                }
+                else if (inExpr)
+                {
+                    if (c == '}') inExpr = false;
+                    continue;
+                }
+                else if (inCData)
+                {
+                    if (c == ']' && i < n - 1 && txt[i] == ']' && txt[i + 1] == '>')
+                    {
+                        i += 2;
+                        inCData = false;
+                    }
+                    continue;
+                }
+                else if (inComment)
+                {
+                    if (c == '-' && i < n - 1 && txt[i] == '-' && txt[i + 1] == '>')
+                    {
+                        i += 2;
+                        inComment = false;
+                    }
+                    continue;
+                }
+
+
+                // litteral
+                switch (inString)
+                {
+                    case 0:
+                        if (c == '"') inString = 1;
+                        else if (c == '\'') inString = 2;
+                        if (inString > 0 && c2 != '=') return false;
+                        break;
+                    case 1:
+                        if (c == '"') inString = 0;
+                        c2 = c;
+                        continue;
+                    case 2:
+                        if (c == '\'') inString = 0;
+                        c2 = c;
+                        continue;
+                }
+                
+                // AS expression
+                if (c == '{')
+                {
+                    if (c2 == '=')
+                    {
+                        inExpr = true;
+                        continue;
+                    }
+                    else return false;
+                }
+
+                // new tag
+                if (c == '<')
+                {
+                    if (!inTag)
+                    {
+                        inTag = true;
+                        isXML = false;
+                        c2 = '<';
+                        continue;
+                    }
+                    else return false;
+                }
+                if (c == '>')
+                {
+                    if (inTag)
+                    {
+                        inTag = false;
+                        isXML = true;
+                        c2 = '>';
+                        continue;
+                    }
+                    else return false;
+                }
+
+                // CDATA, HTML comments
+                if (c == '!' && n - i > 2)
+                {
+                    if (txt[i] == '[' && txt.Substring(i).StartsWith("[CDATA["))
+                    {
+                        i += 7;
+                        inCData = true;
+                        continue;
+                    }
+                    else if (txt[i] == '-' && txt[i + 1] == '-')
+                    {
+                        i += 2;
+                        inComment = true;
+                        continue;
+                    }
+                }
+                if (c == '?' && c2 == '<')
+                {
+                    index = i + 1;
+                    return true;
+                }
+
+                if (c >= 32) c2 = c;
+                if (char.IsLetterOrDigit(c) || c == ':' || c == '-' || c == '.' || c == '=') continue;
+            }
+
+            if (isXML || inCData || inComment)
+            {
+                index = i;
+                return true;
+            }
+            else return false;
+        }
+
+        public static bool lookupRegex(string txt, ref int index)
+        {
+            int n = txt.Length;
+            int i = index;
+            char c = '/';
+            while (i < n)
+            {
+                c = txt[i++];
+                if (c == '\\')
+                {
+                    i++;
+                    continue;
+                }
+                if (c < 32) return false;
+                if (c == '/')
+                {
+                    index = i;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static string GetLastWord(StringBuilder sb)
+        {
+            string word = "";
+            int i = sb.Length - 1;
+            while (i > 0 && Char.IsLetter(sb[i])) word = sb[i--] + word;
+            return word;
+        }
+    }
+}

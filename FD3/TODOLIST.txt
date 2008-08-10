@@ -1,0 +1,21 @@
+Things to fix:
+
+- Try to solve the file access issues with saved files?
+
+Things to add:
+
+- Better completion support for timeline code
+- Installer(?) and update process for thirdparty plugins
+- Finish haXe projects support (platforms, directives, makefile)
+- Add SWF metadata support in Flex projects (title, description, ..)
+- A typed variable should after "new" select the correct type by default
+- Offer alternative shortcut for Ctrl+Space
+- ASCompletion exclusions settings
+
+Future features:
+
+- Other language completion & projects (JS, etc)
+- Add an option to use only package imports (com.domain.package.*)
+- Filtering/tabs to results panel? (all, errors, info, todo)
+- Inheritance level browsing with completion lists?
+- Xml beautifier/checker
