@@ -115,10 +115,10 @@ Function GetFlashVersion
 
 	Push $0
 	ClearErrors
-	ReadRegStr $0 HKLM "SOFTWARE\Macromedia\FlashPlayer" "CurrentVersion"
+	ReadRegStr $0 HKLM "Software\Macromedia\FlashPlayer" "CurrentVersion"
 	IfErrors 0 +5
 	ClearErrors
-	ReadRegStr $0 HKCU "SOFTWARE\Macromedia\FlashPlayer" "FlashPlayerVersion"
+	ReadRegStr $0 HKCU "Software\Macromedia\FlashPlayer" "FlashPlayerVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	${WordReplace} $0 "," "." "+" $1
@@ -130,7 +130,18 @@ Function GetJavaVersion
 
 	Push $0
 	ClearErrors
-	ReadRegStr $0 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
+	ReadRegStr $0 HKLM "Software\JavaSoft\Java Runtime Environment" "CurrentVersion"
+	IfErrors 0 +2
+	StrCpy $0 "not_found"
+	Exch $0
+
+FunctionEnd
+
+Function GetFDVersion
+
+	Push $0
+	ClearErrors
+	ReadRegStr $0 HKLM Software\FlashDevelop "CurrentVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
@@ -146,12 +157,6 @@ Function .onInit
 	MessageBox MB_OK|MB_ICONSTOP "The FlashDevelop ${VERSION} installer is already running."
 	Abort
 
-	; Check if the FlashDevelop is currently running
-	FindWindow $0 "SetTheIdHereBeforeRelease" ""
-	StrCmp $0 0 +3
-	MessageBox MB_ICONSTOP|MB_OK "You need to close FlashDevelop before installing a new version."
-	Abort
-
 	Call GetDotNETVersion
 	Pop $0
 	${If} $0 == "not_found"
@@ -163,6 +168,12 @@ Function .onInit
 	${If} $1 == 2
 	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop. You have $0."
 	Abort
+	${EndIf}
+
+	Call GetFDVersion
+	Pop $0
+	${If} $0 == "not_found"
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable if updated. You should uninstall it before installing this one."
 	${EndIf}
 
 	Call GetFlashVersion
@@ -201,7 +212,7 @@ Section "FlashDevelop" Main
 	SetOutPath "$INSTDIR"
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.manifest /x Data /x Settings "..\Bin\Debug\*.*"
 
-	SetOverwrite on
+	SetOverwrite off
 
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x FileStates /x Recovery /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
@@ -258,6 +269,7 @@ Section "Registry Modifications" RegistryMods
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayIcon" "${EXECUTABLE}"
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "NoModify" 1
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "NoRepair" 1
+	WriteRegStr HKLM "Software\FlashDevelop" "CurrentVersion" ${VERSION}
 	WriteRegStr HKLM "Software\FlashDevelop" "" $INSTDIR
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 
