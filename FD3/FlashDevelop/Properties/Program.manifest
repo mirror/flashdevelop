@@ -1,11 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <asmv1:assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
-      <applicationRequestMinimum>
-        <PermissionSet class="System.Security.PermissionSet" version="1" Unrestricted="true" ID="Custom" SameSite="site" />
-        <defaultAssemblyRequest permissionSetReference="Custom" />
-      </applicationRequestMinimum>
+      <requestedPrivileges>
+        <!-- tells Vista that FlashDevelop runs correctly in standard -->
+        <!-- user mode and does not need file/registry virtualization -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false"/>
+        <!-- (uiAccess should be used only for UI Accessibility applications) -->
+      </requestedPrivileges>
     </security>
   </trustInfo>
   <asmv3:application xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">

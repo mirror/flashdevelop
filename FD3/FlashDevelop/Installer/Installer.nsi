@@ -38,8 +38,18 @@ RequestExecutionLevel admin
 !insertmacro WordReplace
 !insertmacro VersionCompare
 
+; Required props
 SetCompressor /SOLID lzma
 XPStyle on
+
+; Installer details
+VIAddVersionKey "CompanyName" "FlashDevelop.org"
+VIAddVersionKey "ProductName" "FlashDevelop Installer"
+VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2008"
+VIAddVersionKey "FileDescription" "FlashDevelop Installer"
+VIAddVersionKey "ProductVersion" "1.0.0.B8"
+VIAddVersionKey "FileVersion" "1.0.0.B8"
+VIProductVersion "1.0.0.0"
 
 ;--------------------------------
 
@@ -189,7 +199,12 @@ Section "FlashDevelop" Main
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.manifest /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb /x FileStates /x Data /x Recovery "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.manifest /x Data /x Settings "..\Bin\Debug\*.*"
+
+	SetOverwrite on
+
+	SetOutPath "$INSTDIR\Settings"
+	File /r /x .svn /x *.db /x FileStates /x Recovery /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
 
 SectionEnd
 

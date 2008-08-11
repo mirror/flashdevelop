@@ -178,7 +178,11 @@ namespace FlashDevelop.Dialogs
                         {
                             String[] args = data.Split(';');
                             if (Directory.Exists(args[0])) FolderHelper.CopyFolder(args[0], args[1]);
-                            else File.Copy(args[0], args[1], true);
+                            else
+                            {
+                                if (args.Length == 3 && args[2] == "keep-old") File.Copy(args[0], args[1], false);
+                                else File.Copy(args[0], args[1], true);
+                            }
                         }
                         else if (command.Action.ToLower() == "move")
                         {
