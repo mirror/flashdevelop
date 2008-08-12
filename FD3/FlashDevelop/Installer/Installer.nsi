@@ -7,18 +7,19 @@
 
 ;--------------------------------
 
-; Define application version
+; Define version info
 !define VERSION "3.0.0"
+!define BUILD "Beta8"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
 
 ; The captions of the installer
-Caption "FlashDevelop ${VERSION} Beta8 Setup"
-UninstallCaption "FlashDevelop ${VERSION} Beta8 Uninstall"
+Caption "FlashDevelop ${VERSION} ${BUILD} Setup"
+UninstallCaption "FlashDevelop ${VERSION} ${BUILD} Uninstall"
 
 ; The file to write
-OutFile "Binary\FlashDevelop-${VERSION}-Beta8.exe"
+OutFile "Binary\FlashDevelop-${VERSION}-${BUILD}.exe"
 
 ; Default installation folder
 InstallDir "$PROGRAMFILES\FlashDevelop\"
@@ -59,7 +60,7 @@ VIProductVersion "1.0.0.0"
 !define MUI_ABORTWARNING
 !define MUI_HEADERIMAGE_BITMAP "Graphics\Banner.bmp"
 !define MUI_PAGE_HEADER_SUBTEXT "Please view the licence before installing FlashDevelop ${VERSION}."
-!define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the installation of $(^NameDA).\r\n\r\nIt is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.\r\n\r\nTo get everything out of FlashDevelop you should have Java 1.6 Runtime and Flash 9 Player (ActiveX for IE) installed.\r\n\r\nWARNING: Before you install a beta version, backup you customized files because they will be overwritten.\r\n\r\n$_CLICK"
+!define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the installation of $(^NameDA).\r\n\r\nIt is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.\r\n\r\nTo get everything out of FlashDevelop you should have Java 1.6 Runtime and Flash 9 Player (ActiveX for IE) installed.\r\n\r\n$_CLICK"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_FINISHPAGE_RUN "${EXECUTABLE}"
@@ -147,7 +148,6 @@ Function GetFDVersion
 	Exch $0
 
 FunctionEnd
-
 
 Function GetFDInstDir
 
@@ -286,7 +286,7 @@ Section "Registry Modifications" RegistryMods
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayIcon" "${EXECUTABLE}"
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "NoModify" 1
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "NoRepair" 1
-	WriteRegStr HKLM "Software\FlashDevelop" "CurrentVersion" ${VERSION}
+	WriteRegStr HKLM "Software\FlashDevelop" "CurrentVersion" ${VERSION}-${BUILD}
 	WriteRegStr HKLM "Software\FlashDevelop" "" $INSTDIR
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 
@@ -338,7 +338,7 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${Main} "Installs the main program and other required files."
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
-!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Run as standalone application instead of installing user-related files to the user's application data directory."
+!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Run as standalone application instead of installing user-related files to the user's application data directory. WARNING: Standard users might not be able to run FlashDevelop in standalone mode."
 !insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
