@@ -148,6 +148,18 @@ Function GetFDVersion
 
 FunctionEnd
 
+
+Function GetFDInstDir
+
+	Push $1
+	ClearErrors
+	ReadRegStr $1 HKLM Software\FlashDevelop ""
+	IfErrors 0 +2
+	StrCpy $1 "not_found"
+	Exch $1
+
+FunctionEnd
+
 Function .onInit
 	
 	; Check if the installer is already running
@@ -172,8 +184,12 @@ Function .onInit
 
 	Call GetFDVersion
 	Pop $0
+	Call GetFDInstDir
+	Pop $1
 	${If} $0 == "not_found"
+	${If} $1 != "not_found"
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable if updated. You should uninstall it before installing this one."
+	${EndIf}
 	${EndIf}
 
 	Call GetFlashVersion
