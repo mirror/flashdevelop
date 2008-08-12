@@ -47,8 +47,8 @@ VIAddVersionKey "CompanyName" "FlashDevelop.org"
 VIAddVersionKey "ProductName" "FlashDevelop Installer"
 VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2008"
 VIAddVersionKey "FileDescription" "FlashDevelop Installer"
-VIAddVersionKey "ProductVersion" "1.0.0.B8"
-VIAddVersionKey "FileVersion" "1.0.0.B8"
+VIAddVersionKey "ProductVersion" "1.0.0.0"
+VIAddVersionKey "FileVersion" "1.0.0.0"
 VIProductVersion "1.0.0.0"
 
 ;--------------------------------
@@ -223,12 +223,13 @@ Section "Registry Modifications" RegistryMods
 	
 	SectionIn 1 3
 	SetOverwrite on
+	SetShellVarContext all
 	
 	Delete "$INSTDIR\.multi"
 	Delete "$INSTDIR\.local"
 
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
-	DeleteRegKey /ifempty HKLM "SOFTWARE\Classes\Applications\FlashDevelop.exe"
+	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
 	DeleteRegKey /ifempty HKCU "Software\Classes\Applications\FlashDevelop.exe"
 	
 	!insertmacro APP_ASSOCIATE "fdp" "FlashDevelop.Project" "FlashDevelop Project" "${WIN32RES},2" "" "${EXECUTABLE}"
@@ -334,6 +335,7 @@ SectionEnd
 Section "un.FlashDevelop" UninstMain
 	
 	SectionIn 1 2 RO
+	SetShellVarContext all
 
 	RMDir /r "$INSTDIR\Docs"
 	RMDir /r "$INSTDIR\Library"
@@ -373,7 +375,7 @@ Section "un.FlashDevelop" UninstMain
 	DeleteRegKey /ifempty HKLM "Software\FlashDevelop"
 
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
-	DeleteRegKey /ifempty HKLM "SOFTWARE\Classes\Applications\FlashDevelop.exe"
+	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
 	DeleteRegKey /ifempty HKCU "Software\Classes\Applications\FlashDevelop.exe"
 
 	!insertmacro UPDATEFILEASSOC
