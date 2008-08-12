@@ -30,7 +30,7 @@ InstallDir "$PROGRAMFILES\FlashDevelop\"
 !define ASDOCGEN "$INSTDIR\Tools\asdocgen\ASDocGen.exe"
 
 ; Get installation folder from registry if available
-InstallDirRegKey HKLM "Software\FlashDevelop" "Install_Dir"
+InstallDirRegKey HKLM "Software\FlashDevelop" ""
 
 ; Vista redirects $SMPROGRAMS to all users without this
 RequestExecutionLevel admin
@@ -278,14 +278,16 @@ Section "Registry Modifications" RegistryMods
 	WriteINIStr "$SMPROGRAMS\FlashDevelop\Community.url" "InternetShortcut" "URL" "http://www.flashdevelop.org/community/"
 	CreateShortCut "$SMPROGRAMS\FlashDevelop\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
 	
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayName" "FlashDevelop ${VERSION}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "Comments" "Thank you for using FlashDevelop."
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "HelpLink" "http://www.flashdevelop.org/community/"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "Publisher" "FlashDevelop.org"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "UninstallString" "$INSTDIR\Uninstall.exe"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayIcon" "${EXECUTABLE}"
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "NoModify" 1
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "NoRepair" 1
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "InstallLocation" "$INSTDIR"	
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "DisplayVersion" "${VERSION}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "Publisher" "FlashDevelop.org"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "DisplayName" "FlashDevelop ${VERSION}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "Comments" "Thank you for using FlashDevelop."
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "HelpLink" "http://www.flashdevelop.org/community/"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "UninstallString" "$INSTDIR\Uninstall.exe"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "DisplayIcon" "${EXECUTABLE}"
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "NoRepair" 1
 	WriteRegStr HKLM "Software\FlashDevelop" "CurrentVersion" ${VERSION}-${BUILD}
 	WriteRegStr HKLM "Software\FlashDevelop" "" $INSTDIR
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -387,8 +389,8 @@ Section "un.FlashDevelop" UninstMain
 	!insertmacro APP_UNASSOCIATE "fdb" "FlashDevelop.Binary"
 	!insertmacro APP_UNASSOCIATE "fdl" "FlashDevelop.Layout"
 
-	DeleteRegKey /ifempty HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product"
 	DeleteRegKey /ifempty HKLM "Software\FlashDevelop"
+	DeleteRegKey /ifempty HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop"
 
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
 	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
