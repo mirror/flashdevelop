@@ -12,18 +12,16 @@ namespace FlashDevelop.Controls
     /// </summary>
     public class FormState
     {
-        private Boolean topMost;
+        private Rectangle windowBounds;
         private FormWindowState winState;
         private FormBorderStyle borderStyle;
-        private Rectangle windowBounds;
 
         /// <summary>
         /// Maximizes the form to fullscreen
         /// </summary>
         public void Maximize(Form form)
         {
-            Save(form);
-            form.TopMost = true;
+            this.Save(form);
             form.WindowState = FormWindowState.Maximized;
             form.FormBorderStyle = FormBorderStyle.None;
             Win32.SetWinFullScreen(form.Handle);
@@ -34,10 +32,9 @@ namespace FlashDevelop.Controls
         /// </summary>
         public void Save(Form form)
         {
-            winState = form.WindowState;
-            borderStyle = form.FormBorderStyle;
-            windowBounds = form.Bounds;
-            topMost = form.TopMost;
+            this.winState = form.WindowState;
+            this.borderStyle = form.FormBorderStyle;
+            this.windowBounds = form.Bounds;
         }
 
         /// <summary>
@@ -45,10 +42,9 @@ namespace FlashDevelop.Controls
         /// </summary>
         public void Restore(Form form)
         {
-            form.WindowState = winState;
-            form.FormBorderStyle = borderStyle;
-            form.Bounds = windowBounds;
-            form.TopMost = topMost;
+            form.WindowState = this.winState;
+            form.FormBorderStyle = this.borderStyle;
+            form.Bounds = this.windowBounds;
         }
 
     }

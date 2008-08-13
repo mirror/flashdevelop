@@ -1991,12 +1991,14 @@ namespace FlashDevelop
             {
                 this.formState.Restore(this);
                 if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
+                LayoutManager.RestoreLayout(FileNameHelper.FullScreen);
                 this.isFullScreen = false;
             } 
             else 
             {
                 this.formState.Maximize(this);
                 this.toolStrip.Visible = false;
+                this.dockPanel.SaveAsXml(FileNameHelper.FullScreen);
                 foreach (DockContent content in this.dockPanel.Contents)
                 {
                     switch (content.DockState)
