@@ -1455,7 +1455,12 @@ namespace FlashDevelop
                     this.appSettings.WindowPosition = this.Location;
                 }
                 ObjectSerializer.Serialize(FileNameHelper.SettingData, this.appSettings);
-                this.dockPanel.SaveAsXml(FileNameHelper.LayoutData);
+                if (this.isFullScreen)
+                {
+                    File.Delete(FileNameHelper.LayoutData);
+                    File.Copy(FileNameHelper.FullScreen, FileNameHelper.LayoutData);
+                }
+                else this.dockPanel.SaveAsXml(FileNameHelper.LayoutData);
             }
             catch (Exception ex)
             {
