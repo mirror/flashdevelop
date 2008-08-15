@@ -362,6 +362,8 @@ namespace FlashDevelop.Dialogs
                 Argument argument = item.Tag as Argument;
                 this.valueTextBox.Text = argument.Value;
                 this.keyTextBox.Text = argument.Key;
+                if (argument.Key == "DefaultUser") this.keyTextBox.ReadOnly = true;
+                else this.keyTextBox.ReadOnly = false;
             }
             else
             {
