@@ -82,6 +82,7 @@ namespace AS2Context
             features.hasMethods = true;
             features.hasStatics = true;
             features.hasTryCatch = true;
+            features.checkFileName = true;
 
             // allowed declarations access modifiers
             features.classModifiers = Visibility.Public | Visibility.Private;
@@ -661,7 +662,7 @@ namespace AS2Context
             // refresh model
             base.CheckModel(onFileOpen);
 
-            if (cFile.Version == 2 || cFile.Version == 3)
+            if (features.checkFileName && cFile.Version > 1)
             {
                 string package = cFile.Package;
                 ClassModel pClass = cFile.GetPublicClass();

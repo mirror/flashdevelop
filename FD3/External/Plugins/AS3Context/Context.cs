@@ -54,6 +54,7 @@ namespace AS3Context
             features.hasOverride = true;
             features.hasTryCatch = true;
             features.hasE4X = true;
+            features.checkFileName = true;
 
             // allowed declarations access modifiers
             Visibility all = Visibility.Public | Visibility.Internal | Visibility.Protected | Visibility.Private;

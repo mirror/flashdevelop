@@ -266,19 +266,23 @@ namespace ASCompletion.Model
 
             // convert classes
             Thread.Sleep(1);
-            string[] files = Directory.GetFiles(path, mask);
-			foreach(string file in files)
-			{
-				foundFiles.Add(file);
-			}
+            try
+            {
+                string[] files = Directory.GetFiles(path, mask);
+                foreach (string file in files)
+                {
+                    foundFiles.Add(file);
+                }
 
-			// explore subfolders
-			string[] dirs = Directory.GetDirectories(path);
-			foreach(string dir in dirs)
-			{
-				if (!explored.Contains(dir) && (File.GetAttributes(dir) & FileAttributes.Hidden) == 0) 
-                    ExploreFolder(dir, mask);
-			}
+                // explore subfolders
+                string[] dirs = Directory.GetDirectories(path);
+                foreach (string dir in dirs)
+                {
+                    if (!explored.Contains(dir) && (File.GetAttributes(dir) & FileAttributes.Hidden) == 0)
+                        ExploreFolder(dir, mask);
+                }
+            }
+            catch { }
 		}
 	}
 }

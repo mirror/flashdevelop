@@ -52,6 +52,7 @@ namespace HaXeContext
             features.hasMethods = true;
             features.hasStatics = true;
             features.hasTryCatch = true;
+            features.checkFileName = false;
 
             // haxe directives
             features.hasDirectives = true;

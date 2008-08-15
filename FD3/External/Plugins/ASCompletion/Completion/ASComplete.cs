@@ -245,8 +245,11 @@ namespace ASCompletion.Completion
             // generators
             else if (keys == ASContext.CommonSettings.ContextualGenerator)
             {
-                ASGenerator.ContextualGenerator(Sci);
-                return true;
+                if (ASContext.HasContext && ASContext.Context.IsFileValid)
+                {
+                    ASGenerator.ContextualGenerator(Sci);
+                    return true;
+                }
             }
             return false;
         }

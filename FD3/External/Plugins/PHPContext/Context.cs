@@ -52,6 +52,7 @@ namespace PHPContext
             features.hasMethods = true;
             features.hasStatics = true;
             features.hasTryCatch = true;
+            features.checkFileName = false;
 
             // allowed declarations access modifiers
             Visibility all = Visibility.Public | Visibility.Protected | Visibility.Private;
@@ -275,7 +276,7 @@ namespace PHPContext
             {
                 // copy declarations as file-level (ie. flatten class)
                 ClassModel tlClass = topLevel.GetPublicClass();
-                if (!tlClass.IsVoid())
+                if (!tlClass.IsVoid() && tlClass.Members.Count > 0)
                 {
                     topLevel.Members = tlClass.Members;
                     tlClass.Members = null;
@@ -295,6 +296,15 @@ namespace PHPContext
             topLevel.Members.Sort();
             foreach (MemberModel member in topLevel.Members)
                 member.Flags |= FlagType.Intrinsic;
+        }
+
+        public override void CheckModel(bool onFileOpen)
+        {
+            if (!File.Exists(cFile.FileName))
+            {
+                // refresh model
+                base.CheckModel(onFileOpen);
+            }
         }
 
         /// <summary>
