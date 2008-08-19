@@ -708,7 +708,8 @@ namespace ASCompletion.Completion
             ReformatOptions options = new ReformatOptions();
             options.Newline = GetNewLineMarker(Sci.EOLMode);
             options.CondenseWhitespace = ASContext.CommonSettings.CondenseWhitespace;
-            options.BraceAfterLine = (PluginBase.MainForm.Settings.CodingStyle == CodingStyle.BracesAfterLine);
+            options.BraceAfterLine = ASContext.CommonSettings.ReformatBraces 
+                && PluginBase.MainForm.Settings.CodingStyle == CodingStyle.BracesAfterLine;
             options.CompactChars = ASContext.CommonSettings.CompactChars;
             options.SpacedChars = ASContext.CommonSettings.SpacedChars;
             options.SpaceBeforeFunctionCall = ASContext.CommonSettings.SpaceBeforeFunctionCall;

@@ -151,6 +151,7 @@ namespace ASCompletion.Settings
 
         const bool DEFAULT_DISABLE_CLOSEBRACE = false;
         const bool DEFAULT_DISABLE_REFORMAT = false;
+        const bool DEFAULT_REFORMAT_BRACES = false;
         const bool DEFAULT_CONDENSE_WS = false;
         const bool DEFAULT_SPACEBEFOREFUNCTIONCALL = false;
         const bool DEFAULT_DISABLETYPESCOLORING = false;
@@ -162,6 +163,7 @@ namespace ASCompletion.Settings
 
         private bool disableAutoCloseBraces = DEFAULT_DISABLE_CLOSEBRACE;
         private bool disableCodeReformat = DEFAULT_DISABLE_REFORMAT;
+        private bool reformatBraces = DEFAULT_REFORMAT_BRACES;
         private bool disableKnownTypesColoring = DEFAULT_DISABLETYPESCOLORING;
         private bool condenseWhitespace = DEFAULT_CONDENSE_WS;
         private bool spaceBeforeFunctionCall = DEFAULT_SPACEBEFOREFUNCTIONCALL;
@@ -196,6 +198,15 @@ namespace ASCompletion.Settings
         {
             get { return disableCodeReformat; }
             set { disableCodeReformat = value; }
+        }
+
+        [DisplayName("Reformat Braces")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.ReformatBraces"),
+        DefaultValue(DEFAULT_REFORMAT_BRACES)]
+        public bool ReformatBraces
+        {
+            get { return reformatBraces; }
+            set { reformatBraces = value; }
         }
 
         [DisplayName("Add Space Before Function Call")]

@@ -9,7 +9,7 @@ namespace ASCompletion.Completion
         public string Newline = "\r\n";
         public string Tab = "\t";
         public bool CondenseWhitespace = false;
-        public bool BraceAfterLine = true;
+        public bool BraceAfterLine = false;
         public bool SpaceBeforeFunctionCall = false;
         public string CompactChars = "";
         public string SpacedChars = "";
