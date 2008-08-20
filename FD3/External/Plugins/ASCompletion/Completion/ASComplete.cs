@@ -908,20 +908,20 @@ namespace ASCompletion.Completion
 		{
 			// measure highlighting
 			int start = calltipDef.IndexOf('(');
-			while ((start >= 0) && (paramNumber-- > 0))
-				start = calltipDef.IndexOf(',',start+1);
-			int end = calltipDef.IndexOf(',',start+1);
-			if (end < 0)
-				end = calltipDef.IndexOf(')', start+1);
+            while ((start >= 0) && (paramNumber-- > 0))
+                start = calltipDef.IndexOf(',', start + 1);
+            int end = calltipDef.IndexOf(',', start + 1);
+            if (end < 0)
+                end = calltipDef.IndexOf(')', start + 1);
 
 			// get parameter name
 			string paramName = "";
 			if (calltipMember.Comments != null && start >= 0 && end > 0)
 			{
-				paramName = calltipDef.Substring(start+1, end-start).Trim();
+                paramName = calltipDef.Substring(start + 1, end - start - 1).Trim();
 				int p = paramName.IndexOf(':');
-				if (p > 0) paramName = paramName.Substring(0, p).TrimEnd();
-				if (paramName.Length > 0)
+                if (p > 0) paramName = paramName.Substring(0, p).TrimEnd();
+                if (paramName.Length > 0)
 				{
 					Match mParam = Regex.Match(calltipMember.Comments, "@param\\s+"+Regex.Escape(paramName)+"[ \t:]+(?<desc>[^\r\n]*)");
 					if (mParam.Success)

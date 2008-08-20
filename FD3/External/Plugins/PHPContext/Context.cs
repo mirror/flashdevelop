@@ -120,7 +120,7 @@ namespace PHPContext
             // intrinsic language definitions
             if (langSettings.LanguageDefinitions != null)
             {
-                string langPath = langSettings.LanguageDefinitions;
+                string langPath = PathHelper.ResolvePath(langSettings.LanguageDefinitions, null);
                 if (Directory.Exists(langPath)) AddPath(langPath);
             }
 
@@ -275,13 +275,13 @@ namespace PHPContext
             if (File.Exists(filename))
             {
                 // copy declarations as file-level (ie. flatten class)
-                ClassModel tlClass = topLevel.GetPublicClass();
+                /*ClassModel tlClass = topLevel.GetPublicClass();
                 if (!tlClass.IsVoid() && tlClass.Members.Count > 0)
                 {
                     topLevel.Members = tlClass.Members;
                     tlClass.Members = null;
                     topLevel.Classes = new List<ClassModel>();
-                }
+                }*/
             }
             // not found
             else
