@@ -265,9 +265,6 @@ namespace ASCompletion.Model
 			while (i < len)
 			{
 				c1 = ba[i++];
-                if (i > 4170)
-                {
-                }
 				isInString = (inString > 0);
 
 				/* MATCH COMMENTS / STRING LITERALS */

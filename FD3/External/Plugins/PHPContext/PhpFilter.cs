@@ -16,7 +16,7 @@ namespace PHPContext
         static public string FilterSource(string src, List<InlineRange> phpRanges)
         {
             StringBuilder sb = new StringBuilder();
-            int len = src.Length - 8;
+            int len = src.Length - 1;
             int rangeStart = -1;
             int nodeStart = -1;
             int nodeEnd = -1;
@@ -51,18 +51,6 @@ namespace PHPContext
                             nodeEnd = i;
                         }
                     }
-                    /*else if (c == 'i' && src[i + 1] == 'd' && src[i - 1] <= 32)
-                    {
-                        i += 2;
-                        while (src[i] == ' ') i++;
-                        if (src[i++] != '=') continue;
-                        char quote = src[i++];
-                        if (quote != '"' && quote != '\'') continue;
-                        int strStart = i;
-                        while (i < len && src[i] != quote) i++;
-                        string id = src.Substring(strStart, i - strStart);
-                        string node = src.Substring(nodeStart, nodeEnd - nodeStart);
-                    }*/
                 }
                 // in script
                 else
