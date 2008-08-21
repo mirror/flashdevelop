@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ProjectManager.Projects;
@@ -14,20 +15,20 @@ namespace ProjectManager.Controls.TreeView
     public class WatcherNode : DirectoryNode
 	{
 		FileSystemWatcher watcher;
+        List<String> changedPaths;
 		Timer updateTimer;
 		bool updateNeeded;
 
 		public WatcherNode(string directory) : base(directory)
 		{
 			isRefreshable = true;
-
+            changedPaths = new List<String>();
 			if (Directory.Exists(directory))
 			{
 				// Use a timer for FileSystemWatcher updates so they don't do lots of redrawing
 				updateTimer = new Timer();
 				updateTimer.Interval = 500;
 				updateTimer.Tick += updateTimer_Tick;
-
 				watcher = new FileSystemWatcher(directory);
 				watcher.Created += watcher_Created;
 				watcher.Deleted += watcher_Deleted;
@@ -45,13 +46,11 @@ namespace ProjectManager.Controls.TreeView
 		public override void Dispose()
 		{
 			base.Dispose();
-
 			if (updateTimer != null)
 			{
 				updateTimer.Stop();
 				updateTimer.Dispose();
 			}
-
 			if (watcher != null)
 			{
 				watcher.EnableRaisingEvents = false;
@@ -65,17 +64,36 @@ namespace ProjectManager.Controls.TreeView
 			updateTimer.Enabled = true;
 		}
 
-		private void watcher_Created(object sender, FileSystemEventArgs e) { Changed(); }
-		private void watcher_Deleted(object sender, FileSystemEventArgs e) { Changed(); }
-		private void watcher_Renamed(object sender, RenamedEventArgs e) { Changed(); }
+        private void AppendPath(FileSystemEventArgs e)
+        {
+            String path = Path.GetDirectoryName(e.FullPath);
+            if (Directory.Exists(path))
+            {
+                this.changedPaths.Add(path);
+            }
+        }
+
+		private void watcher_Created(object sender, FileSystemEventArgs e) 
+        {
+            AppendPath(e);
+            Changed(); 
+        }
+		private void watcher_Deleted(object sender, FileSystemEventArgs e) 
+        {
+            AppendPath(e);
+            Changed(); 
+        }
+		private void watcher_Renamed(object sender, RenamedEventArgs e) 
+        {
+            AppendPath(e);
+            Changed();
+        }
 
 		private void Changed()
 		{
             // have we been deleted already?
             if (!Directory.Exists(BackingPath)) return;
-
-			if (Tree.InvokeRequired)
-				Tree.BeginInvoke(new MethodInvoker(Changed));
+			if (Tree.InvokeRequired) Tree.BeginInvoke(new MethodInvoker(Changed));
 			else
 			{
 				updateNeeded = true;
@@ -92,11 +110,13 @@ namespace ProjectManager.Controls.TreeView
                 updateTimer.Enabled = true;
             }
 			if (!updateNeeded) return;
-
 			try
 			{
 				Tree.BeginUpdate();
                 Tree.RefreshTree();
+                String[] paths = this.changedPaths.ToArray();
+                this.changedPaths.Clear();
+                Tree.RefreshTree(paths);
 				updateNeeded = false;
 			}
 			catch {}
@@ -113,5 +133,7 @@ namespace ProjectManager.Controls.TreeView
 			updateTimer.Enabled = false;
 			Update();
 		}
+
 	}
+
 }
