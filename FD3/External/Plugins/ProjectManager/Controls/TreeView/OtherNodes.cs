@@ -7,7 +7,7 @@ using ProjectManager.Projects;
 
 namespace ProjectManager.Controls.TreeView
 {
-	public class ProjectNode : DirectoryNode
+	public class ProjectNode : WatcherNode
 	{
 		public ProjectNode(Project project) : base(project.Directory)
 		{

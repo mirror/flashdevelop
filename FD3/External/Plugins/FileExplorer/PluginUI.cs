@@ -1037,7 +1037,7 @@ namespace FileExplorer
             this.BeginInvoke((MethodInvoker)delegate
             {
                 long timestamp = DateTime.Now.Ticks;
-                if (timestamp - this.lastUpdateTimeStamp < 100) return;
+                if (timestamp - this.lastUpdateTimeStamp < 500) return;
                 this.lastUpdateTimeStamp = timestamp; // Store timestamp
                 this.PopulateFileView(this.selectedPath.Text);
             });

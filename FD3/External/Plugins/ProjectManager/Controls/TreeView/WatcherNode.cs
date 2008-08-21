@@ -11,7 +11,7 @@ namespace ProjectManager.Controls.TreeView
 	/// <summary>
 	/// Represents a node that watches for changes to its children using a FileSystemWatcher.
 	/// </summary>
-	public class WatcherNode : GenericNode
+    public class WatcherNode : DirectoryNode
 	{
 		FileSystemWatcher watcher;
 		Timer updateTimer;
@@ -32,6 +32,7 @@ namespace ProjectManager.Controls.TreeView
 				watcher.Created += watcher_Created;
 				watcher.Deleted += watcher_Deleted;
 				watcher.Renamed += watcher_Renamed;
+                watcher.IncludeSubdirectories = true;
 				watcher.EnableRaisingEvents = true;
 			}
 			else
@@ -95,7 +96,7 @@ namespace ProjectManager.Controls.TreeView
 			try
 			{
 				Tree.BeginUpdate();
-				Refresh(false);
+                Tree.RefreshTree();
 				updateNeeded = false;
 			}
 			catch {}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace FlashDevelop
@@ -31,9 +32,12 @@ namespace FlashDevelop
         /// </summary>
         public static void SetWinFullScreen(IntPtr hwnd)
         {
-            Int32 screenX = Win32.GetSystemMetrics(0);
-            Int32 screenY = Win32.GetSystemMetrics(1);
-            Win32.SetWindowPos(hwnd, IntPtr.Zero, 0, 0, screenX, screenY, Win32.SWP_SHOWWINDOW);
+            Screen screen = Screen.FromHandle(hwnd);
+            Int32 screenTop = screen.Bounds.Top;
+            Int32 screenLeft = screen.Bounds.Top;
+            Int32 screenWidth = screen.Bounds.Width;
+            Int32 screenHeight = screen.Bounds.Height;
+            Win32.SetWindowPos(hwnd, IntPtr.Zero, screenTop, screenLeft, screenWidth, screenHeight, Win32.SWP_SHOWWINDOW);
         }
 
     }

@@ -19,7 +19,7 @@ namespace ProjectManager.Controls.TreeView
         public PlaceholderNode(string backingPath) : base(backingPath) { }
     }
 
-	public class DirectoryNode : WatcherNode
+    public class DirectoryNode : GenericNode
 	{
 		bool dirty;
 
