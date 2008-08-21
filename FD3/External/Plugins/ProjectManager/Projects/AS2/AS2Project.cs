@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using PluginCore.Managers;
 
 namespace ProjectManager.Projects.AS2
 {
@@ -71,14 +72,17 @@ namespace ProjectManager.Projects.AS2
 
         public override void SaveAs(string fileName)
         {
-            AS2ProjectWriter writer = new AS2ProjectWriter(this, fileName);
-
-			try
-			{
+            try
+            {
+                AS2ProjectWriter writer = new AS2ProjectWriter(this, fileName);
 				writer.WriteProject();
-				writer.Flush();
-			}
-			finally { writer.Close(); }
+                writer.Flush();
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowWarning(ex.Message, ex);
+            }
 		}
 
 		#endregion

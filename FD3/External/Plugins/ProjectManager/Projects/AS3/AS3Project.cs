@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using PluginCore.Localization;
 using System.Text.RegularExpressions;
+using PluginCore.Managers;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -167,14 +168,18 @@ namespace ProjectManager.Projects.AS3
 
         public override void SaveAs(string fileName)
         {
-            AS3ProjectWriter writer = new AS3ProjectWriter(this, fileName);
-
             try
             {
+                AS3ProjectWriter writer = new AS3ProjectWriter(this, fileName);
+
                 writer.WriteProject();
                 writer.Flush();
+                writer.Close();
             }
-            finally { writer.Close(); }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowWarning(ex.Message, ex);
+            }
         }
 
         internal void RebuildCompilerOptions()

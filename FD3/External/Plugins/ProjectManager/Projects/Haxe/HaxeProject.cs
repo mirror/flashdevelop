@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using PluginCore.Managers;
 
 namespace ProjectManager.Projects.Haxe
 {
@@ -70,14 +71,17 @@ namespace ProjectManager.Projects.Haxe
 
         public override void SaveAs(string fileName)
         {
-            HaxeProjectWriter writer = new HaxeProjectWriter(this, fileName);
-
             try
             {
+                HaxeProjectWriter writer = new HaxeProjectWriter(this, fileName);
                 writer.WriteProject();
                 writer.Flush();
+                writer.Close();
             }
-            finally { writer.Close(); }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowWarning(ex.Message, ex);
+            }
         }
 
         #endregion
