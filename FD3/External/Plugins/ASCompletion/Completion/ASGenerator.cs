@@ -93,6 +93,12 @@ namespace ASCompletion.Completion
             }
             if (found.inClass != ClassModel.VoidClass && contextToken != null)
             {
+                // ignore automatic vars (MovieClip members)
+                if (resolve.Member != null && (resolve.Member.Flags & FlagType.AutomaticVar) > 0)
+                {
+                    resolve.Member = null;
+                    resolve.Type = null;
+                }
                 if (resolve.Member == null && resolve.Type != null
                     && (resolve.Type.Flags & FlagType.Interface) > 0) // implement interface
                 {
