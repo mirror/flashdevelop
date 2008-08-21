@@ -635,7 +635,11 @@ namespace ASCompletion.Context
 				// add path
 				temporaryPath = path;
                 PathModel tempModel = PathModel.GetModel(temporaryPath, this);
-                if (!tempModel.WasExplored) tempModel.IsTemporaryPath = true;
+                if (!tempModel.WasExplored)
+                {
+                    tempModel.IsTemporaryPath = true;
+                    tempModel.ReleaseWatcher();
+                }
                 tempModel.InUse = true;
                 classPath.Insert(0, tempModel);
                 return true;

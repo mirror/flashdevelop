@@ -16,7 +16,6 @@ namespace ASCompletion.Model
     public class PathModel
     {
         //static private readonly bool cacheEnabled = false;
-        static public PathModel Orphans = new PathModel("", null);
         static private Dictionary<string, PathModel> pathes = new Dictionary<string, PathModel>();
 
         /// <summary>
@@ -24,7 +23,6 @@ namespace ASCompletion.Model
         /// </summary>
         static public void ClearAll()
         {
-            Orphans.Files.Clear();
             foreach (PathModel model in pathes.Values)
             {
                 model.watcher.EnableRaisingEvents = false;
@@ -40,13 +38,13 @@ namespace ASCompletion.Model
         {
             lock (pathes)
             {
-                TimeSpan keep = TimeSpan.FromMinutes(5);
+                //TimeSpan keep = TimeSpan.FromMinutes(5);
                 Dictionary<string, PathModel> clean = new Dictionary<string, PathModel>();
                 foreach (string key in pathes.Keys)
                 {
                     PathModel model = pathes[key];
-                    TimeSpan span = DateTime.Now.Subtract(model.LastAccess);
-                    if (model.InUse || span < keep) clean.Add(key, model);
+                    //TimeSpan span = DateTime.Now.Subtract(model.LastAccess);
+                    if (model.InUse/* || span < keep*/) clean.Add(key, model);
                     else model.Cleanup();
                 }
                 pathes = clean;
@@ -69,8 +67,11 @@ namespace ASCompletion.Model
             if (pathes.ContainsKey(modelName))
             {
                 aPath = pathes[modelName] as PathModel;
-                aPath.IsTemporaryPath = false;
-                aPath.Touch();
+                if (aPath.IsTemporaryPath)
+                {
+                    pathes[modelName] = aPath = new PathModel(path, context);
+                }
+                else aPath.Touch();
             }
             else pathes[modelName] = aPath = new PathModel(path, context);
             return aPath;
@@ -425,6 +426,17 @@ namespace ASCompletion.Model
         }
         #endregion
 
+        public void ReleaseWatcher()
+        {
+            if (watcher != null)
+            {
+                watcher.EnableRaisingEvents = false;
+                watcher.Dispose();
+                watcher = null;
+                //TraceManager.Add("Release: " + Path);
+            }
+        }
+
         public bool HasFile(string fileName)
         {
             if (!IsValid) return false;
@@ -466,13 +478,7 @@ namespace ASCompletion.Model
         public void Cleanup()
         {
             Files.Clear();
-            if (watcher != null)
-            {
-                watcher.EnableRaisingEvents = false;
-                watcher.Dispose();
-                watcher = null;
-            }
-            //TraceManager.Add("Drop: " + Path);
+            ReleaseWatcher();
         }
     }
 }

@@ -24,7 +24,8 @@ namespace ProjectManager.Actions
 	/// </summary>
 	public class ProjectActions
 	{
-		IWin32Window owner; // for dialogs
+        IWin32Window owner; // for dialogs
+        string currentLang;
 
 		public event ProjectModifiedHandler ProjectModified;
 
@@ -164,13 +165,24 @@ namespace ProjectManager.Actions
                 }
             }
 
-            // add language target
-            string language = (project != null) ? project.Language : "as2";
+            // release old classpath
+            DataEvent de;
+            if (currentLang != null && (project == null || currentLang != project.Language))
+            {
+                de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", currentLang + ";");
+                EventManager.DispatchEvent(this, de);
+            }
 
-            string cps = language + ";" + string.Join(";", classPaths.ToArray());
+            // set new classpath
+            if (project != null)
+            {
+                currentLang = project.Language;
+                string cps = currentLang + ";" + string.Join(";", classPaths.ToArray());
 
-            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", cps);
-            EventManager.DispatchEvent(this, de);
+                de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", cps);
+                EventManager.DispatchEvent(this, de);
+            }
+            else currentLang = null;
 		}
 
 		#endregion
