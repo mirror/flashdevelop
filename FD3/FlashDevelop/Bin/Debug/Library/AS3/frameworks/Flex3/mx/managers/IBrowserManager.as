@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.managers {
-	public interface IBrowserManager extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface IBrowserManager extends IEventDispatcher {
 		/**
 		 * The portion of current URL before the '#' as it appears
 		 *  in the browser address bar.

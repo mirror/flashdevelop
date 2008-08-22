@@ -2,8 +2,9 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.effects {
+	import flash.events.IEventDispatcher;
 	import flash.events.Event;
-	public interface IEffect extends <a href="../../mx/effects/IAbstractEffect.html">IAbstractEffect</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IEffect extends IAbstractEffect, IEventDispatcher {
 		/**
 		 * The name of the effect class, such as "Fade".
 		 */

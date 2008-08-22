@@ -3,14 +3,16 @@
 /**********************************************************/
 package mx.core {
 	import flash.accessibility.AccessibilityProperties;
+	import flash.display.IBitmapDrawable;
 	import flash.display.LoaderInfo;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.events.IEventDispatcher;
 	import flash.geom.Rectangle;
 	import flash.display.Stage;
 	import flash.geom.Transform;
 	import flash.geom.Point;
-	public interface IFlexDisplayObject extends <a href="../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IFlexDisplayObject extends IBitmapDrawable, IEventDispatcher {
 		/**
 		 * The current accessibility options for this display object. If you modify the accessibilityProperties
 		 *  property or any of the fields within accessibilityProperties, you must call

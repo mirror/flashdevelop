@@ -2,8 +2,11 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.charts.chartClasses {
+	import flash.display.IBitmapDrawable;
+	import flash.events.IEventDispatcher;
+	import mx.core.IFlexDisplayObject;
 	import flash.geom.Point;
-	public interface IChartElement2 extends <a href="../../../mx/charts/chartClasses/IChartElement.html">IChartElement</a> , <a href="../../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IChartElement2 extends IChartElement, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * Converts a tuple of data values to an x-y coordinate on screen.
 		 *  Call this function to transform data on to the screen

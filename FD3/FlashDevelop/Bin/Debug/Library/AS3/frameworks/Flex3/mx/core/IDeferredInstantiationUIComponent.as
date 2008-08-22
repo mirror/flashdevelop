@@ -2,7 +2,9 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.core {
-	public interface IDeferredInstantiationUIComponent extends <a href="../../mx/core/IUIComponent.html">IUIComponent</a> , <a href="../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.display.IBitmapDrawable;
+	import flash.events.IEventDispatcher;
+	public interface IDeferredInstantiationUIComponent extends IUIComponent, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * Used by Flex to suggest bitmap caching for the object.
 		 *  If cachePolicy is UIComponentCachePolicy.AUTO,

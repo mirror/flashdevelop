@@ -2,9 +2,13 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.core {
+	import mx.styles.ISimpleStyleClient;
+	import mx.managers.IToolTipManagerClient;
+	import flash.display.IBitmapDrawable;
+	import flash.events.IEventDispatcher;
 	import flash.text.TextFormat;
 	import flash.text.StyleSheet;
-	public interface IUITextField extends <a href="../../mx/core/IIMESupport.html">IIMESupport</a> , <a href="../../mx/core/IFlexModule.html">IFlexModule</a> , <a href="../../mx/core/IInvalidating.html">IInvalidating</a> , <a href="../../mx/styles/ISimpleStyleClient.html">ISimpleStyleClient</a> , <a href="../../mx/managers/IToolTipManagerClient.html">IToolTipManagerClient</a> , <a href="../../mx/core/IUIComponent.html">IUIComponent</a> , <a href="../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IUITextField extends IIMESupport, IFlexModule, IInvalidating, ISimpleStyleClient, IToolTipManagerClient, IUIComponent, IFlexDisplayObject, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * The ITextField interface defines the basic set of APIs
 		 *  for flash.display.TextField

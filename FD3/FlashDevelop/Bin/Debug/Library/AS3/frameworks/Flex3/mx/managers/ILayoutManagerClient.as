@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.managers {
-	public interface ILayoutManagerClient extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface ILayoutManagerClient extends IEventDispatcher {
 		/**
 		 * A flag that determines if an object has been through all three phases
 		 *  of layout validation (provided that any were required)

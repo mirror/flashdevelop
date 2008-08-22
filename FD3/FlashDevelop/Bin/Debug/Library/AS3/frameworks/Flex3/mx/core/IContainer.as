@@ -3,6 +3,8 @@
 /**********************************************************/
 package mx.core {
 	import flash.display.DisplayObject;
+	import flash.display.IBitmapDrawable;
+	import flash.events.IEventDispatcher;
 	import mx.managers.IFocusManager;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
@@ -10,7 +12,7 @@ package mx.core {
 	import flash.text.TextSnapshot;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	public interface IContainer extends <a href="../../mx/core/IUIComponent.html">IUIComponent</a> , <a href="../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IContainer extends IUIComponent, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * Specifies the button mode of this sprite. If true, this
 		 *  sprite behaves as a button, which means that it triggers the display

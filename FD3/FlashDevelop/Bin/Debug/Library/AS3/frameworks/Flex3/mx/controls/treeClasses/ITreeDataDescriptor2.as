@@ -4,7 +4,7 @@
 package mx.controls.treeClasses {
 	import mx.collections.ICollectionView;
 	import mx.collections.IViewCursor;
-	public interface ITreeDataDescriptor2 extends <a href="../../../mx/controls/treeClasses/ITreeDataDescriptor.html">ITreeDataDescriptor</a>  {
+	public interface ITreeDataDescriptor2 extends ITreeDataDescriptor {
 		/**
 		 * Returns an ICollectionView instance that makes the hierarchical data appear
 		 *  as if it was a linear ICollectionView instance.

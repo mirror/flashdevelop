@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.rpc.soap {
-	public interface ISOAPDecoder extends <a href="../../../mx/rpc/xml/IXMLDecoder.html">IXMLDecoder</a>  {
+	import mx.rpc.xml.IXMLDecoder;
+	public interface ISOAPDecoder extends IXMLDecoder {
 		/**
 		 * Determines whether or not a single or empty return value for an output
 		 *  message part that is defined as an array should be returned as an array

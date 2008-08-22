@@ -2,8 +2,9 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.charts.chartClasses {
+	import flash.events.IEventDispatcher;
 	import mx.charts.AxisLabel;
-	public interface IAxis extends <a href="../../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IAxis extends IEventDispatcher {
 		/**
 		 * The baseline position for the axis.
 		 *  Some series, such as ColumnSeries or AreaSeries, use this value to

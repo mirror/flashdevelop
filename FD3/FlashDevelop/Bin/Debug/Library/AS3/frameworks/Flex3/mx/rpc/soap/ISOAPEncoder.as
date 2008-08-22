@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.rpc.soap {
-	public interface ISOAPEncoder extends <a href="../../../mx/rpc/xml/IXMLEncoder.html">IXMLEncoder</a>  {
+	import mx.rpc.xml.IXMLEncoder;
+	public interface ISOAPEncoder extends IXMLEncoder {
 		/**
 		 * Determines whether the encoder should ignore whitespace when
 		 *  constructing an XML representation of a SOAP request.

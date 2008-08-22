@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.managers {
-	public interface ILayoutManager extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface ILayoutManager extends IEventDispatcher {
 		/**
 		 * A flag that indicates whether the LayoutManager allows screen updates
 		 *  between phases.

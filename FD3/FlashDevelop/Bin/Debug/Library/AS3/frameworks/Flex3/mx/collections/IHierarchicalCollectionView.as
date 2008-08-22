@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.collections {
-	public interface IHierarchicalCollectionView extends <a href="../../mx/collections/ICollectionView.html">ICollectionView</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface IHierarchicalCollectionView extends ICollectionView, IEventDispatcher {
 		/**
 		 * A flag that, if true, indicates that the current data provider has a root node;
 		 *  for example, a single top-level node in a hierarchical structure.

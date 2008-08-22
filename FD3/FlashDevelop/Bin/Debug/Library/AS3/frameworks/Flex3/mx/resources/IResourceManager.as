@@ -2,9 +2,10 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.resources {
+	import flash.events.IEventDispatcher;
 	import flash.system.ApplicationDomain;
 	import flash.system.SecurityDomain;
-	public interface IResourceManager extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IResourceManager extends IEventDispatcher {
 		/**
 		 * An Array of locale Strings, such as [ "en_US" ],
 		 *  which specifies one or more locales to be searched for resources.

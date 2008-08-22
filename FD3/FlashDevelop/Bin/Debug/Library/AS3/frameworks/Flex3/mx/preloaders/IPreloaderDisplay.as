@@ -2,8 +2,9 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.preloaders {
+	import flash.events.IEventDispatcher;
 	import flash.display.Sprite;
-	public interface IPreloaderDisplay extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IPreloaderDisplay extends IEventDispatcher {
 		/**
 		 * Alpha level of the SWF file or image defined by
 		 *  the backgroundImage property, or the color defined by

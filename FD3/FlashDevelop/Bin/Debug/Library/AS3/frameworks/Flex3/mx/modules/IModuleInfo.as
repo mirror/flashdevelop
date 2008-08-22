@@ -2,10 +2,11 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.modules {
+	import flash.events.IEventDispatcher;
 	import mx.core.IFlexModuleFactory;
 	import flash.system.ApplicationDomain;
 	import flash.system.SecurityDomain;
-	public interface IModuleInfo extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IModuleInfo extends IEventDispatcher {
 		/**
 		 * User data that can be associated with the singleton IModuleInfo
 		 *  for a given URL.

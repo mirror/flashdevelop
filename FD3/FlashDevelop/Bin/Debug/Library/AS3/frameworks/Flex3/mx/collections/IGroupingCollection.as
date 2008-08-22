@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.collections {
-	public interface IGroupingCollection extends <a href="../../mx/collections/IHierarchicalData.html">IHierarchicalData</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface IGroupingCollection extends IHierarchicalData, IEventDispatcher {
 		/**
 		 * The Grouping object applied to the source data.
 		 *  Setting this property does not automatically refresh the view;

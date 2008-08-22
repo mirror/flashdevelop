@@ -4,8 +4,9 @@
 package mx.automation {
 	import flash.display.DisplayObject;
 	import flash.events.Event;
+	import flash.events.IEventDispatcher;
 	import mx.automation.events.AutomationReplayEvent;
-	public interface IAutomationManager extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IAutomationManager extends IEventDispatcher {
 		/**
 		 * The automation environment for this automation manager.
 		 *  The automation environment provides information about the

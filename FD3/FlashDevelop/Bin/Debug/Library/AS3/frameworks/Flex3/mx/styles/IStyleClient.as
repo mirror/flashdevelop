@@ -2,7 +2,7 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.styles {
-	public interface IStyleClient extends <a href="../../mx/styles/ISimpleStyleClient.html">ISimpleStyleClient</a>  {
+	public interface IStyleClient extends ISimpleStyleClient {
 		/**
 		 * The name of the component class.
 		 */

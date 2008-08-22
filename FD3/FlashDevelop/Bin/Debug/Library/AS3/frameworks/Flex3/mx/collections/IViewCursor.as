@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.collections {
-	public interface IViewCursor extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface IViewCursor extends IEventDispatcher {
 		/**
 		 * If the cursor is located after the last item in the view,
 		 *  this property is true .

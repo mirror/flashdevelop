@@ -2,8 +2,11 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.charts.chartClasses {
+	import flash.display.IBitmapDrawable;
+	import flash.events.IEventDispatcher;
+	import mx.core.IFlexDisplayObject;
 	import flash.display.Sprite;
-	public interface IChartElement extends <a href="../../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IChartElement extends IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * The data provider assigned to the enclosing chart.
 		 *  Element types can choose to inherit the data provider

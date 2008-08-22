@@ -3,7 +3,7 @@
 /**********************************************************/
 package mx.olap {
 	import mx.collections.IList;
-	public interface IOLAPLevel extends <a href="../../mx/olap/IOLAPElement.html">IOLAPElement</a>  {
+	public interface IOLAPLevel extends IOLAPElement {
 		/**
 		 * The next child level in the hierarchy.
 		 */

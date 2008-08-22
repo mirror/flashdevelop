@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.collections {
-	public interface ICollectionView extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface ICollectionView extends IEventDispatcher {
 		/**
 		 * A function that the view will use to eliminate items that do not
 		 *  match the function's criteria.

@@ -2,7 +2,7 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.managers {
-	public interface IFocusManagerComplexComponent extends <a href="../../mx/managers/IFocusManagerComponent.html">IFocusManagerComponent</a>  {
+	public interface IFocusManagerComplexComponent extends IFocusManagerComponent {
 		/**
 		 * A flag that indicates whether the component currently has internal
 		 *  focusable targets

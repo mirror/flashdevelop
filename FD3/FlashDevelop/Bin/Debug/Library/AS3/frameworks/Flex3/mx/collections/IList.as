@@ -2,7 +2,8 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.collections {
-	public interface IList extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.events.IEventDispatcher;
+	public interface IList extends IEventDispatcher {
 		/**
 		 * The number of items in this collection.
 		 *  0 means no items while -1 means the length is unknown.

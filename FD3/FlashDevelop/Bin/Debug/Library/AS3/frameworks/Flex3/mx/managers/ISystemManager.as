@@ -2,13 +2,15 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.managers {
+	import mx.core.IFlexModuleFactory;
+	import flash.events.IEventDispatcher;
 	import mx.core.IChildList;
 	import flash.display.Sprite;
 	import flash.display.LoaderInfo;
 	import flash.geom.Rectangle;
 	import flash.display.Stage;
 	import flash.text.TextFormat;
-	public interface ISystemManager extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a> , <a href="../../mx/core/IChildList.html">IChildList</a> , <a href="../../mx/core/IFlexModuleFactory.html">IFlexModuleFactory</a>  {
+	public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModuleFactory {
 		/**
 		 * An list of the custom cursors
 		 *  being parented by this ISystemManager.

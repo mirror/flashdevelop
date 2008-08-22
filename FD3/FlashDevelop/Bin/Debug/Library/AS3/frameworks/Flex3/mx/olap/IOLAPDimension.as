@@ -3,7 +3,7 @@
 /**********************************************************/
 package mx.olap {
 	import mx.collections.IList;
-	public interface IOLAPDimension extends <a href="../../mx/olap/IOLAPElement.html">IOLAPElement</a>  {
+	public interface IOLAPDimension extends IOLAPElement {
 		/**
 		 * The attributes of this dimension, as a list of OLAPAttribute instances.
 		 */

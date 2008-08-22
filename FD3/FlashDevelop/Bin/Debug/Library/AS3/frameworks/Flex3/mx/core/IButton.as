@@ -2,7 +2,9 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.core {
-	public interface IButton extends <a href="../../mx/core/IUIComponent.html">IUIComponent</a> , <a href="../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	import flash.display.IBitmapDrawable;
+	import flash.events.IEventDispatcher;
+	public interface IButton extends IUIComponent, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * Draws a thick border around the Button control
 		 *  when the control is in its up state if emphasized

@@ -3,7 +3,7 @@
 /**********************************************************/
 package mx.charts.chartClasses {
 	import flash.utils.Dictionary;
-	public interface IStackable2 extends <a href="../../../mx/charts/chartClasses/IStackable.html">IStackable</a>  {
+	public interface IStackable2 extends IStackable {
 		/**
 		 * Stacks the series. Normally, a series implements the updateData() method
 		 *  to load its data out of the data provider. But a stacking series performs special

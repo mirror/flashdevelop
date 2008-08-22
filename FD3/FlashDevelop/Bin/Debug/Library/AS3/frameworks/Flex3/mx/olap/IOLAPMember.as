@@ -3,7 +3,7 @@
 /**********************************************************/
 package mx.olap {
 	import mx.collections.IList;
-	public interface IOLAPMember extends <a href="../../mx/olap/IOLAPElement.html">IOLAPElement</a>  {
+	public interface IOLAPMember extends IOLAPElement {
 		/**
 		 * The children of this member, as a list of IOLAPMember instances.
 		 */

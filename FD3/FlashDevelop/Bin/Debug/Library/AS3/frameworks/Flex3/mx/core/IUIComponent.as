@@ -2,11 +2,13 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.core {
+	import flash.display.IBitmapDrawable;
 	import flash.display.Sprite;
 	import flash.display.DisplayObjectContainer;
+	import flash.events.IEventDispatcher;
 	import mx.managers.ISystemManager;
 	import flash.display.DisplayObject;
-	public interface IUIComponent extends <a href="../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a> , <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IUIComponent extends IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
 		/**
 		 * The y-coordinate of the baseline
 		 *  of the first line of text of the component.

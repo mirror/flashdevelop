@@ -2,8 +2,16 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.controls.menuClasses {
+	import mx.managers.ILayoutManagerClient;
+	import mx.styles.ISimpleStyleClient;
+	import mx.core.IUIComponent;
+	import flash.events.IEventDispatcher;
+	import mx.controls.listClasses.IListItemRenderer;
+	import mx.core.IDataRenderer;
+	import mx.core.IFlexDisplayObject;
+	import flash.display.IBitmapDrawable;
 	import mx.controls.MenuBar;
-	public interface IMenuBarItemRenderer extends <a href="../../../mx/core/IDataRenderer.html">IDataRenderer</a> , <a href="../../../mx/core/IUIComponent.html">IUIComponent</a> , <a href="../../../mx/styles/ISimpleStyleClient.html">ISimpleStyleClient</a> , <a href="../../../mx/controls/listClasses/IListItemRenderer.html">IListItemRenderer</a> , <a href="../../../flash/events/IEventDispatcher.html">IEventDispatcher</a> , <a href="../../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../../mx/managers/ILayoutManagerClient.html">ILayoutManagerClient</a> , <a href="../../../mx/core/IFlexDisplayObject.html">IFlexDisplayObject</a> , <a href="../../../flash/display/IBitmapDrawable.html">IBitmapDrawable</a>  {
+	public interface IMenuBarItemRenderer extends IDataRenderer, IUIComponent, ISimpleStyleClient, IListItemRenderer, IEventDispatcher, IFlexDisplayObject, ILayoutManagerClient, IFlexDisplayObject, IBitmapDrawable {
 		/**
 		 * Contains a reference to the item renderer's MenuBar control.
 		 */

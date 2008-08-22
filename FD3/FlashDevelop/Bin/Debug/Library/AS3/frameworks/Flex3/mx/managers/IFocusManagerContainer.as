@@ -2,8 +2,9 @@
 /*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
 /**********************************************************/
 package mx.managers {
+	import flash.events.IEventDispatcher;
 	import flash.display.DisplayObject;
-	public interface IFocusManagerContainer extends <a href="../../flash/events/IEventDispatcher.html">IEventDispatcher</a>  {
+	public interface IFocusManagerContainer extends IEventDispatcher {
 		/**
 		 * The FocusManager for this component.
 		 *  The FocusManager must be in a focusManager property.

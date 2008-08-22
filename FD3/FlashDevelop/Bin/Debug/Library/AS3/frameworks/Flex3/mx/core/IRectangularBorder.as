@@ -3,7 +3,7 @@
 /**********************************************************/
 package mx.core {
 	import flash.geom.Rectangle;
-	public interface IRectangularBorder extends <a href="../../mx/core/IBorder.html">IBorder</a>  {
+	public interface IRectangularBorder extends IBorder {
 		/**
 		 * Rectangular area within which to draw the background image.
 		 *  This can be larger than the dimensions of the border
