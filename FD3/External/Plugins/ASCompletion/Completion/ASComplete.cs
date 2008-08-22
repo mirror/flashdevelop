@@ -2589,8 +2589,9 @@ namespace ASCompletion.Completion
 
             if (expr.Separator == ' ' && expr.WordBefore != null)
             {
+
                 if (expr.WordBefore == features.importKey
-                    || (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case"))
+                    || (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case" && expr.WordBefore != "return"))
                 {
                     if (expr.WordBefore == features.importKey)
                         ASContext.Context.RefreshContextCache(expr.Value);
