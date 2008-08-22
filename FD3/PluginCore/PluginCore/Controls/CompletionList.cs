@@ -540,9 +540,9 @@ namespace PluginCore.Controls
                             if (p3 == label.LastIndexOf('.'))
                             {
                                 if (label.EndsWith("." + word)) return 1;
-                                else return 2;
+                                else return 3;
                             }
-                            else return 3;
+                            else return 4;
                         }
                     }
                     if (p2 == 0)
@@ -550,7 +550,7 @@ namespace PluginCore.Controls
                         if (word == label) return 1;
                         else return 2;
                     }
-                    else if (p2 > 0) return 3;
+                    else if (p2 > 0) return 4;
                 }
 
                 p2 = label.LastIndexOf("." + word, StringComparison.OrdinalIgnoreCase); // in qualified type name
