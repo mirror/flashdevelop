@@ -521,27 +521,10 @@ namespace ASCompletion.Completion
                         continue;
 
                     // check if method exists
-                    addOverride = false;
                     ASComplete.FindMember(method.Name, cClass, result, method.Flags, 0);
-                    if (!result.IsNull())
-                    {
-                        if (result.inClass == cClass)
-                            continue;
-                        if (features.overrideKey != null) addOverride = true;
-                        entry += GetSuperCall(method, typesUsed);
-                    }
+                    if (!result.IsNull()) continue;
 
                     string decl = String.Format(template, GetDeclaration(method), entry);
-                    if (addOverride)
-                    {
-                        Match insert = reInsert.Match(decl);
-                        if (insert.Success)
-                        {
-                            decl = decl.Substring(0, insert.Groups[1].Index)
-                                + features.overrideKey + " "
-                                + decl.Substring(insert.Groups[1].Index);
-                        }
-                    }
                     entry = "";
 
                     sb.Append(decl);
