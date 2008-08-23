@@ -145,7 +145,10 @@ namespace PHPContext
         public void LoadSettings()
         {
             this.settingObject = ObjectSerializer.Deserialize<ContextSettings>(this.settingFilename) as ContextSettings;
-            //if (this.settingObject.LanguageDefinitions == null) setDefaultPath(); // default values
+            if (this.settingObject.LanguageDefinitions == null) // default values
+            {
+                this.settingObject.LanguageDefinitions = @"Library\PHP\Intrinsic";
+            }
             AddSettingsListeners(); // updating
         }
 
