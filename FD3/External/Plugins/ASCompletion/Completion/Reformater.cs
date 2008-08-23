@@ -207,6 +207,14 @@ namespace ASCompletion.Completion
                         i++;
                         continue;
                     }
+                    else if (i < n && c2 == '.' && c == '=') // php concat operator
+                    {
+                        needSpace = false;
+                    }
+                    else if (i < n && c2 == '=' && c == '>') // php array(key => value)
+                    {
+                        needSpace = false;
+                    }
                     else needSpace = (c != '!' || (c2 != '(' && c2 != '['));
 
                     if (options.BraceAfterLine && c == '{')

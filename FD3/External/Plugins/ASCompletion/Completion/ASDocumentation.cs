@@ -52,7 +52,7 @@ namespace ASCompletion.Completion
 		
 		static public bool OnChar(ScintillaNet.ScintillaControl Sci, int Value, int position, int style)
 		{
-			if (style == 3)
+			if (style == 3 || style == 124)
 			{
 				switch (Value)
 				{
