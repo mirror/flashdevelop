@@ -89,6 +89,7 @@ namespace FlashDevelop.Managers
                 String file = sci.FileName;
                 File.SetAttributes(file, FileAttributes.Normal);
                 sci.IsReadOnly = false;
+                sci.Focus();
             }
             catch (Exception ex)
             {
