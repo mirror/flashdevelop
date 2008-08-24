@@ -10,16 +10,16 @@
 		
 		public function Preloader() 
 		{
-			addEventListener(Event.ENTER_FRAME, progress);
+			addEventListener(Event.ENTER_FRAME, checkFrame);
 			// show loader
 		}
 		
-		private function progress(e:Event):void 
+		private function checkFrame(e:Event):void 
 		{
 			// update loader
 			if (currentFrame == totalFrames)
 			{
-				removeEventListener(Event.ENTER_FRAME, progress);
+				removeEventListener(Event.ENTER_FRAME, checkFrame);
 				startup();
 			}
 		}

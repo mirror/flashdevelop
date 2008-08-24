@@ -1,0 +1,17 @@
+package $(PackageName)
+{
+	import mx.core.WindowedApplication;
+	
+	public class Main extends WindowedApplication
+	{
+		
+		public function Main() 
+		{
+		}
+		
+		public function init():void
+		{
+			// entry point
+		}	
+	}
+}

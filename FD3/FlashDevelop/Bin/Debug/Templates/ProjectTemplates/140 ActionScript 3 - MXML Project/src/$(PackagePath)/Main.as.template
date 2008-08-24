@@ -1,0 +1,17 @@
+package $(PackageName)
+{
+	import mx.core.Application;
+	
+	public class Main extends Application
+	{
+		
+		public function Main() 
+		{
+		}
+		
+		public function init():void
+		{
+			// entry point
+		}	
+	}
+}
