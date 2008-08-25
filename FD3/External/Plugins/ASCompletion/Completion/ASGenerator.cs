@@ -509,7 +509,6 @@ namespace ASCompletion.Completion
             ClassModel cClass = ASContext.Context.CurrentClass;
             ContextFeatures features = ASContext.Context.Features;
             bool canGenerate = false;
-            bool addOverride;
             string template = GetTemplate("ImplementPart");
 
             aType.ResolveExtends(); // resolve inheritance chain
