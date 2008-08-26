@@ -54,8 +54,9 @@ namespace ProjectManager.Controls.TreeView
 			SelectedImageIndex = ImageIndex;
 
 			// make the plus/minus sign correct
-			bool empty = Directory.GetFileSystemEntries(BackingPath).Length == 0;
-			
+            bool empty = !Directory.Exists(BackingPath) || Directory.GetFileSystemEntries(BackingPath).Length == 0;
+
+            if (ForeColor == Color.Red) ForeColor = SystemColors.ControlText;
 			if (!empty)
 			{
 				// we want the plus sign because we have *something* in here
@@ -70,6 +71,7 @@ namespace ProjectManager.Controls.TreeView
 			}
 			else
 			{
+                if (!Directory.Exists(BackingPath)) ForeColor = Color.Red;
 				// we just became empty!
 				if (Nodes.Count > 0)
 					PopulateChildNodes(recursive);
