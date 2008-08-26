@@ -112,7 +112,7 @@ namespace PluginCore.Utilities
             }
             else
             {
-                using (FileStream stream = info.Open(FileMode.Open))
+                using (FileStream stream = info.Open(FileMode.Open, FileAccess.Read))
                 {
                     return formatter.Deserialize(stream);
                 }
@@ -131,5 +131,7 @@ namespace PluginCore.Utilities
             this.Path = file;
             this.Time = File.GetLastWriteTime(file);
         }
+
     }
+
 }

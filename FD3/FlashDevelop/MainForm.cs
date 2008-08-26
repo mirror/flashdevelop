@@ -651,18 +651,13 @@ namespace FlashDevelop
                 Point position = this.appSettings.WindowPosition;
                 if (position.X < -4 || position.Y < -4) this.Location = new Point(0, 0);
                 else this.Location = position; // Set zero position if window is hidden
-                
-                // user-specific plugins
-                FileInfo localFile = new FileInfo(Path.Combine(PathHelper.BaseDir, ".local"));
-                if (!localFile.Exists)
+                if (!File.Exists(Path.Combine(PathHelper.BaseDir, ".local")))
                 {
                     String userPluginDir = PathHelper.UserPluginDir;
                     if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
                 }
-                // common plugins
                 String pluginDir = PathHelper.PluginDir;
                 if (Directory.Exists(pluginDir)) PluginServices.FindPlugins(pluginDir);
-                
                 LayoutManager.BuildLayoutSystems(FileNameHelper.LayoutData);
                 PluginCore.Controls.UITools.Init();
             }
