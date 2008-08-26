@@ -338,7 +338,15 @@ namespace SnippetEditor
         {
             this.snippets = new Dictionary<String, String[]>();
             this.snippetNameTextBox.SelectAll();
-            this.snippetFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"..\..\Snippets");
+
+            String exePath = Path.GetDirectoryName(Application.ExecutablePath);
+            this.snippetFolder = Path.Combine(exePath, @"..\..\Snippets");
+            if (!File.Exists(Path.Combine(exePath, @"..\..\.local")))
+            {
+                String appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                String userSnippets = Path.Combine(appData, @"FlashDevelop\Snippets");
+                if (Directory.Exists(userSnippets)) this.snippetFolder = userSnippets;
+            }
             this.GetSnippetFolder();
             if (this.snippetFolder != null && Directory.Exists(this.snippetFolder))
             {
