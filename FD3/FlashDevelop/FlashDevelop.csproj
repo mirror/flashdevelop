@@ -71,7 +71,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SwfOp, Version=1.0.0.41046, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SwfOp, Version=1.0.0.25200, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -201,15 +201,6 @@
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="ICSharpCode.SharpZipLib">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="SwfOp">
       <Visible>False</Visible>
       <Group>
       </Group>
