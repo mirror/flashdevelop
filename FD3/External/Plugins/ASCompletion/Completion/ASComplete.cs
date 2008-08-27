@@ -356,7 +356,7 @@ namespace ASCompletion.Completion
                 FileModel model = result.inFile
                     ?? ((result.Member != null && result.Member.InFile != null) ? result.Member.InFile : null)
                     ?? ((result.Type != null) ? result.Type.InFile : null);
-                if (model == null) return false;
+                if (model == null || model.FileName == "") return false;
                 ClassModel inClass = result.inClass ?? result.Type;
 
 				// for Back command

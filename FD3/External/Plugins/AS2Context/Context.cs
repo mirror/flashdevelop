@@ -603,6 +603,16 @@ namespace AS2Context
                         }
                     }
                 }
+                if (classPath.Count > 0 && classPath[0].IsTemporaryPath)
+                {
+                    // guess file name
+                    string fullClass = ((package.Length > 0) ? package + "." : "") + cname;
+                    string fileName = fullClass.Replace(".", dirSeparator) + ".as";
+
+                    ClassModel model = LocateClassFile(classPath[0], fileName);
+                    if (model != null) return model;
+                    else return ClassModel.VoidClass;
+                }
             }
             else
             {
@@ -611,39 +621,50 @@ namespace AS2Context
                 string fileName = fullClass.Replace(".", dirSeparator) + ".as";
 
                 foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
-                    try
-                    {
-                        string path = Path.Combine(aPath.Path, fileName);
-                        // cached file
-                        if (aPath.HasFile(path))
-                        {
-                            FileModel nFile = aPath.Files[path.ToUpper()];
-                            if (nFile.Context != this)
-                            {
-                                // not associated with this context -> refresh
-                                nFile.OutOfDate = true;
-                                nFile.Context = this;
-                            }
-                            return nFile.GetPublicClass();
-                        }
-                        // non-cached existing file
-                        else if (File.Exists(path))
-                        {
-                            FileModel nFile = GetFileModel(path);
-                            if (nFile != null)
-                            {
-                                aPath.AddFile(nFile);
-                                return nFile.GetPublicClass();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorManager.ShowError(ex);
-                    }
+                {
+                    ClassModel model = LocateClassFile(aPath, fileName);
+                    if (model != null) return model;
+                }
             }
             return ClassModel.VoidClass;
 		}
+
+        private ClassModel LocateClassFile(PathModel aPath, string fileName)
+        {
+            if (!aPath.IsValid) return null;
+            try
+            {
+                string path = Path.Combine(aPath.Path, fileName);
+                // cached file
+                if (aPath.HasFile(path))
+                {
+                    FileModel nFile = aPath.Files[path.ToUpper()];
+                    if (nFile.Context != this)
+                    {
+                        // not associated with this context -> refresh
+                        nFile.OutOfDate = true;
+                        nFile.Context = this;
+                    }
+                    return nFile.GetPublicClass();
+                }
+                // non-cached existing file
+                else if (File.Exists(path))
+                {
+                    FileModel nFile = GetFileModel(path);
+                    if (nFile != null)
+                    {
+                        aPath.AddFile(nFile);
+                        return nFile.GetPublicClass();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                aPath.IsValid = false;
+                ErrorManager.ShowError(ex);
+            }
+            return null;
+        }
 
         /// <summary>
         /// Update model if needed and warn user if it has problems
