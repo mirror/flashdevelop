@@ -99,7 +99,16 @@ namespace AS3Context
 
                     type.Members = GetMembers(trait.members, FlagType.Static, instance.name);
                     type.Members.Add(GetMembers(instance.members, FlagType.Dynamic, instance.name));
-                    
+
+                    if (type.Flags == FlagType.Interface)
+                    {
+                        foreach (MemberModel member in type.Members)
+                        {
+                            member.Access = Visibility.Public;
+                            member.Namespace = "";
+                        }
+                    }
+
                     // constructor
                     if (instance.init != null)
                     {
