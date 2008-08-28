@@ -32,7 +32,7 @@
     <option useResourceBundleMetadata="True" />
     <option warnings="True" />
     <option verboseStackTraces="False" />
-    <option additional="" />
+    <option additional="+configname=air" />
     <option customSDK="" />
   </build>
   <!-- SWC Include Libraries -->
@@ -54,6 +54,7 @@
   <!-- Intrinsic Libraries -->
   <intrinsics>
     <element path="Library\AS3\frameworks\Flex3" />
+    <element path="Library\AS3\frameworks\AIR" />
   </intrinsics>
   <!-- Assets to embed into the output SWF -->
   <library>
@@ -61,7 +62,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\$(ProjectID).mxml" />
+    <compile path="src\$(PackageSlash)Main.mxml" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
@@ -74,6 +75,7 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="ExternalPlayer" />
+    <option testMovie="Custom" />
+    <option testMovieCommand="$(FlexSDK)\bin\adl.exe;application.xml bin" />
   </options>
 </project>
