@@ -651,7 +651,7 @@ namespace FlashDevelop
                 Point position = this.appSettings.WindowPosition;
                 if (position.X < -4 || position.Y < -4) this.Location = new Point(0, 0);
                 else this.Location = position; // Set zero position if window is hidden
-                if (!File.Exists(Path.Combine(PathHelper.BaseDir, ".local")))
+                if (this.StandaloneMode)
                 {
                     String userPluginDir = PathHelper.UserPluginDir;
                     if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
@@ -976,8 +976,7 @@ namespace FlashDevelop
                         this.notifyOpenFile = false;
                     }
                 }
-
-                BreakpointsEnabled = false;
+                this.BreakpointsEnabled = false;
                 NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
                 EventManager.DispatchEvent(this, ne);
                 if (this.CurrentDocument.IsEditable)

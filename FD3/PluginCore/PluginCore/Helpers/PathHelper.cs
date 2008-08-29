@@ -17,8 +17,7 @@ namespace PluginCore.Helpers
         {
             get
             {
-                if (PluginBase.MainForm == null) return Environment.CurrentDirectory;
-                else if (PluginBase.MainForm.StandaloneMode) return AppDir;
+                if (PluginBase.MainForm.StandaloneMode) return AppDir;
                 else return UserAppDir;
             }
         }

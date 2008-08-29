@@ -23,13 +23,15 @@ namespace PluginCore.Utilities
         }
 
         /// <summary>
-        /// The BinaryFormatter will need some help finding Assemblies in the Plugins directory
+        /// The BinaryFormatter will need some help finding Assemblies from both plugins directories
         /// </summary>
         static Assembly CurrentDomainAssemblyResolve(Object sender, ResolveEventArgs args)
         {
             AssemblyName name = new AssemblyName(args.Name);
-            String file = Path.Combine(PathHelper.PluginDir, name.Name + ".dll");
-            if (File.Exists(file)) return Assembly.LoadFrom(file);
+            String dfile = Path.Combine(PathHelper.PluginDir, name.Name + ".dll");
+            String ufile = Path.Combine(PathHelper.UserPluginDir, name.Name + ".dll");
+            if (File.Exists(dfile)) return Assembly.LoadFrom(dfile);
+            if (File.Exists(ufile)) return Assembly.LoadFrom(ufile);
             else return null;
         }
 

@@ -33,11 +33,11 @@ namespace FlashDevelop
         public static void SetWinFullScreen(IntPtr hwnd)
         {
             Screen screen = Screen.FromHandle(hwnd);
-            Int32 screenTop = screen.Bounds.Top;
-            Int32 screenLeft = screen.Bounds.Top;
-            Int32 screenWidth = screen.Bounds.Width;
-            Int32 screenHeight = screen.Bounds.Height;
-            Win32.SetWindowPos(hwnd, IntPtr.Zero, screenTop, screenLeft, screenWidth, screenHeight, Win32.SWP_SHOWWINDOW);
+            Int32 screenTop = screen.WorkingArea.Top;
+            Int32 screenLeft = screen.WorkingArea.Top;
+            Int32 screenWidth = screen.WorkingArea.Width;
+            Int32 screenHeight = screen.WorkingArea.Height;
+            Win32.SetWindowPos(hwnd, hwnd, screenTop, screenLeft, screenWidth, screenHeight, Win32.SWP_SHOWWINDOW);
         }
 
     }

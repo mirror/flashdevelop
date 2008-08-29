@@ -12,13 +12,13 @@ namespace FlashDevelop.Utilities
 {
 	class PluginServices
 	{
+        public static List<String> KnownDLLs;
         public static List<AvailablePlugin> AvailablePlugins;
-        private static List<String> knownDLLs;
         
         static PluginServices()
         {
+            KnownDLLs = new List<String>();
             AvailablePlugins = new List<AvailablePlugin>();
-            knownDLLs = new List<String>();
         }
 
 		/// <summary>
@@ -29,9 +29,9 @@ namespace FlashDevelop.Utilities
             foreach (String fileOn in Directory.GetFiles(path, "*.dll"))
 			{
                 String name = Path.GetFileNameWithoutExtension(fileOn);
-                if (name != "PluginCore" && !knownDLLs.Contains(name))
+                if (name != "PluginCore" && !KnownDLLs.Contains(name))
                 {
-                    knownDLLs.Add(name);
+                    KnownDLLs.Add(name);
                     AddPlugin(fileOn);
                 }
 			}

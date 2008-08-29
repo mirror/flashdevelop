@@ -172,6 +172,16 @@ namespace FlashDevelop.Docking
         public void Save(String file)
         {
             if (!this.IsEditable) return;
+            if (FileHelper.FileIsReadOnly(this.FileName))
+            {
+                String dlgTitle = TextHelper.GetString("Title.ConfirmDialog");
+                String message = TextHelper.GetString("Info.MakeReadOnlyWritable");
+                if (MessageBox.Show(Globals.MainForm, message, dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ScintillaManager.MakeFileWritable(this.SciControl);
+                }
+                else return;
+            }
             Boolean otherFile = (this.SciControl.FileName != file);
             if (otherFile)
             {
@@ -232,6 +242,7 @@ namespace FlashDevelop.Docking
                 String contents = FileHelper.ReadFile(this.FileName, encoding);
                 this.SciControl.Encoding = encoding;
                 this.SciControl.CodePage = ScintillaManager.SelectCodePage(codepage);
+                this.SciControl.IsReadOnly = FileHelper.FileIsReadOnly(this.FileName);
                 this.SciControl.Text = contents;
                 this.SciControl.CurrentPos = position;
                 this.SciControl.EmptyUndoBuffer();
