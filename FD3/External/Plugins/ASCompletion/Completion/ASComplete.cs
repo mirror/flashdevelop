@@ -1064,8 +1064,16 @@ namespace ASCompletion.Completion
 					if (method == null)
 						return true;
 				}
-				else if ((method.Flags & FlagType.Function) == 0)
-					return true;
+                else if ((method.Flags & FlagType.Function) == 0)
+                {
+                    if (method.Name == "super" && result.Type != null)
+                    {
+                        result.Member = method = result.Type.Members.Search(result.Type.Constructor, FlagType.Constructor, 0);
+                        if (method == null)
+                            return true;
+                    }
+                    else return true;
+                }
 
                 // inherit doc
                 while ((method.Flags & FlagType.Override) > 0 && result.inClass != null
