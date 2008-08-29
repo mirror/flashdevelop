@@ -2,9 +2,9 @@ package $(Package) $(CSLB){
 	import flash.events.Event;
 	
 	/**
-	* ...
-	* @author $(DefaultUser)
-	*/
+	 * ...
+	 * @author $(DefaultUser)
+	 */
 	public class $(FileName) extends Event $(CSLB){
 		
 		public function $(FileName)(type:String, bubbles:Boolean=false, cancelable:Boolean=false) $(CSLB){ 

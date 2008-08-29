@@ -1,9 +1,9 @@
 package $(Package) $(CSLB){
 	
 	/**
-	* ...
-	* @author $(DefaultUser)
-	*/
+	 * ...
+	 * @author $(DefaultUser)
+	 */
 	public class $(FileName) $(CSLB){
 		
 		public function $(FileName)() $(CSLB){

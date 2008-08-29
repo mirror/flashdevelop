@@ -1,7 +1,7 @@
 /**
-* ...
-* @author $(DefaultUser)
-*/
+ * ...
+ * @author $(DefaultUser)
+ */
 
 class $(FileNameWithPackage) $(CSLB){
 	

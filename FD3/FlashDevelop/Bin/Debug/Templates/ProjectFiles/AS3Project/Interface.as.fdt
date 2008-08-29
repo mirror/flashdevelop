@@ -1,0 +1,13 @@
+package $(Package) $(CSLB){
+	
+	/**
+	 * ...
+	 * @author $(DefaultUser)
+	 */
+	public interface $(FileName) $(CSLB){
+		
+		
+		
+	}
+	
+}
