@@ -405,7 +405,7 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartAscRunner()
 		{
-            string cmd = "-classpath \"" + ascPath + ";" + flex2Shell + "\" AscShell";
+            string cmd = "-classpath \"" + ascPath + ";" + flex2Shell + "\" -Duser.language=en AscShell";
             TraceManager.Add("Background process: java " + cmd, -1);
 			// run asc shell
 			ascRunner = new ProcessRunner();
@@ -423,7 +423,7 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartMxmlcRunner(string flex2Path)
 		{
-            string cmd = "-classpath \"" + mxmlcPath + ";" + flex2Shell + "\" MxmlcShell";
+            string cmd = "-classpath \"" + mxmlcPath + ";" + flex2Shell + "\" -Duser.language=en MxmlcShell";
             TraceManager.Add("Background process: java " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();

@@ -15,8 +15,8 @@ namespace ASCompletion.Commands
     {
         private delegate void RunBackgroundInvoker(string exe, string args);
 
-        // TODO  Add the Flash 9 IDE detection when it goes live
         static readonly private string[] MACROMEDIA_FLASHIDE_PATH = {
+            @"C:\Program Files\Adobe\Adobe Flash CS4\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS3\Flash.exe",
             @"C:\Program Files\Macromedia\Flash 8\Flash.exe",
             @"C:\Program Files\Macromedia\Flash MX 2004\Flash.exe"

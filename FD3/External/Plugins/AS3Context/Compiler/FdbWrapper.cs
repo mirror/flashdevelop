@@ -21,16 +21,17 @@ namespace AS3Context.Compiler
         public void Run(string projectPath, string flex2Path)
         {
             flex2Path = PathHelper.ResolvePath(flex2Path, projectPath);
+            string fdbPath;
             if (flex2Path != null && Directory.Exists(flex2Path))
             {
                 if (flex2Path.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
                     flex2Path = Path.GetDirectoryName(flex2Path);
-                flex2Path = Path.Combine(flex2Path, "bin\\fdb.exe");
+                fdbPath = Path.Combine(flex2Path, "lib\\fdb.jar");
             }
             else return;
 
             if (process == null || process.HasExited)
-                Initialize(flex2Path, projectPath);
+                Initialize(flex2Path, fdbPath, projectPath);
         }
 
         public void PushCommand(string cmd)
@@ -59,7 +60,7 @@ namespace AS3Context.Compiler
         bool interactive;
         bool connected;
 
-        bool Initialize(string fdbPath, string projectPath)
+        bool Initialize(string flex2Path, string fdbPath, string projectPath)
         {
             cmdQueue = new Queue<string>();
 
@@ -76,7 +77,9 @@ namespace AS3Context.Compiler
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.FileName = fdbPath;
+            process.StartInfo.FileName = "java.exe";
+            process.StartInfo.Arguments = "-Xmx384m -Dsun.io.useCanonCaches=false -Duser.language=en " +
+                "-Dapplication.home=" + flex2Path + " -jar " + fdbPath;
             process.StartInfo.WorkingDirectory = workingDir;
             process.Start();
 

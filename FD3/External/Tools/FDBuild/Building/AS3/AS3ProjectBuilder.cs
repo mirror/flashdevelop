@@ -13,7 +13,8 @@ namespace ProjectManager.Building.AS3
     {
         AS3Project project;
         FlexCompilerShell fcsh;
-
+        const string VMARGS = "-Xmx384m -Dsun.io.useCanonCaches=false -Duser.language=en";
+        string sdkPath;
         string mxmlcPath;
         string fcshPath;
 
@@ -47,16 +48,10 @@ namespace ProjectManager.Building.AS3
 
         private void DetectFlex2Sdk(string flex2sdkPath)
         {
-            // path provided in program arguments
-            if (flex2sdkPath != null && Directory.Exists(flex2sdkPath))
+            if (flex2sdkPath == null || !Directory.Exists(flex2sdkPath))
             {
-                string binPath = flex2sdkPath.EndsWith("bin") ? flex2sdkPath : Path.Combine(flex2sdkPath, "bin");
-                mxmlcPath = Path.Combine(binPath, "mxmlc.exe");
-                fcshPath = Path.Combine(binPath, "fcsh.exe");
-            }
-            // search for FDBuildHints.txt in the ProjectManager's Data directory
-            else 
-            {
+                // search for FDBuildHints.txt in the ProjectManager's Data directory
+                // when path is not provided in program arguments.
                 string toolsDir = Path.GetDirectoryName(FDBuildDirectory);
                 string firstRunDir = Path.GetDirectoryName(toolsDir);
                 string dataDir = Path.Combine(firstRunDir, "Data");
@@ -72,11 +67,12 @@ namespace ProjectManager.Building.AS3
                 using (StreamReader reader = File.OpenText(fdbuildHints))
                 {
                     flex2sdkPath = reader.ReadLine();
-                    string binPath = flex2sdkPath.EndsWith("bin") ? flex2sdkPath : Path.Combine(flex2sdkPath, "bin");
-                    mxmlcPath = Path.Combine(binPath, "mxmlc.exe");
-                    fcshPath = Path.Combine(binPath, "fcsh.exe");
                 }
             }
+            sdkPath = flex2sdkPath;
+            mxmlcPath = Path.Combine(Path.Combine(flex2sdkPath, "lib"), "mxmlc.jar");
+            fcshPath = Path.Combine(Path.Combine(flex2sdkPath, "lib"), "fcsh.jar");
+
         }
 
         #endregion
@@ -146,7 +142,8 @@ namespace ProjectManager.Building.AS3
             {
                 string output;
                 string[] errors;
-                fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, fcshPath);
+                string jvmarg = VMARGS + " -Dapplication.home=\""+ sdkPath + "\" -jar \"" + fcshPath + "\"";
+                fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, jvmarg);
 
                 Console.WriteLine(output);
                 foreach (string error in errors)
@@ -157,7 +154,8 @@ namespace ProjectManager.Building.AS3
             }
             else
             {
-                if (!ProcessRunner.Run(mxmlcPath, arguments, false))
+                string jvmarg = VMARGS + " -jar \"" + mxmlcPath + "\" +flexlib=\"" + Path.Combine(sdkPath, "frameworks") + "\" ";
+                if (!ProcessRunner.Run("java.exe", jvmarg + arguments, false))
                     throw new BuildException("Build halted with errors (mxmlc).");
             }
         }

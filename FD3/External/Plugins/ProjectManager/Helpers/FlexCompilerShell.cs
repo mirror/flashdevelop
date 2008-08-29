@@ -29,12 +29,14 @@ namespace ProjectManager.Helpers
         static string lastArguments;
         static int lastCompileID;
 
-        string Initialize(string fcshPath, string projectPath)
+        string Initialize(string jvmarg, string projectPath)
         {
             errorList = new List<string>();
-            
-            if (fcshPath == null || !File.Exists(fcshPath))
+
+            if (jvmarg == null)
             {
+                //  || !File.Exists(fcshPath)
+                // removed! how can i guess file existence using jvm arguments?
                 process = null;
                 return "failed, no compiler configured";
             }
@@ -48,7 +50,8 @@ namespace ProjectManager.Helpers
             process.StartInfo.StandardOutputEncoding = Encoding.Default;
             process.StartInfo.StandardErrorEncoding = Encoding.Default;
             process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.FileName = fcshPath;
+            process.StartInfo.FileName = "java.exe";
+            process.StartInfo.Arguments = jvmarg;
             process.StartInfo.WorkingDirectory = workingDir;
             process.Start();
 
@@ -64,7 +67,7 @@ namespace ProjectManager.Helpers
         }
 
         public void Compile(string projectPath, bool configChanged, string arguments,
-            out string output, out string[] errors, string fcshPath)
+            out string output, out string[] errors, string jvmarg)
         {
             StringBuilder o = new StringBuilder();
             
@@ -73,7 +76,7 @@ namespace ProjectManager.Helpers
             
             // start up fcsh if necessary
             if (process == null || process.HasExited)
-                o.AppendLine("INITIALIZING: " + Initialize(fcshPath, projectPath));
+                o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath));
 
             // success?
             if (process == null)
@@ -112,7 +115,7 @@ namespace ProjectManager.Helpers
                 // force a fresh compile
                 lastCompileID = 0;
                 lastArguments = null;
-                Compile(projectPath, true, arguments, out output, out errors, fcshPath);
+                Compile(projectPath, true, arguments, out output, out errors, jvmarg);
                 return;
             }
             

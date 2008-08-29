@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using PluginCore.Managers;
+using System.Windows.Forms;
 
 namespace ProjectManager.Projects.AS2
 {
@@ -81,7 +81,7 @@ namespace ProjectManager.Projects.AS2
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowWarning(ex.Message, ex);
+                MessageBox.Show(ex.Message, "IO Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 		}
 

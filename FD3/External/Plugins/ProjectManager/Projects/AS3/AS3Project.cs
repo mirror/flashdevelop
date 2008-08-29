@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using PluginCore.Localization;
 using System.Text.RegularExpressions;
-using PluginCore.Managers;
+using System.Windows.Forms;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -178,7 +178,7 @@ namespace ProjectManager.Projects.AS3
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowWarning(ex.Message, ex);
+                MessageBox.Show(ex.Message, "IO Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using PluginCore.Managers;
+using System.Windows.Forms;
 
 namespace ProjectManager.Projects.Haxe
 {
@@ -80,7 +80,7 @@ namespace ProjectManager.Projects.Haxe
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowWarning(ex.Message, ex);
+                MessageBox.Show(ex.Message, "IO Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
