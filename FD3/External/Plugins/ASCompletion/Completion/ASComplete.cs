@@ -1144,7 +1144,8 @@ namespace ASCompletion.Completion
 					return HandleImportCompletion(Sci, expr.Value, autoHide);
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=') 
-                    || expr.coma == ComaExpression.AnonymousObject || expr.coma == ComaExpression.FunctionDeclaration)
+                    || expr.coma == ComaExpression.AnonymousObject 
+                    || expr.coma == ComaExpression.FunctionDeclaration)
                     return false;
 
                 // complete declaration
@@ -2089,7 +2090,7 @@ namespace ASCompletion.Completion
                             int testPos = position - 1;
                             string testWord = GetWordLeft(Sci, ref testPos); // anonymous function
                             string testWord2 = GetWordLeft(Sci, ref testPos); // regular function
-                            if (testWord == ASContext.Context.Features.functionKey 
+                            if (testWord == ASContext.Context.Features.functionKey || testWord == "catch"
                                 || testWord2 == ASContext.Context.Features.functionKey) 
                             {
                                 expression.Separator = ',';
