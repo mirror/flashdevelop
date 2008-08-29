@@ -39,6 +39,12 @@ namespace PluginCore
         BracesAfterLine = 1
     }
 
+    public enum CommentBlockStyle
+    {
+        Indented = 0,
+        NotIndented = 1
+    }
+
     public enum UiRenderMode
     {
         Professional,

@@ -1,9 +1,9 @@
 package $(Package) $(CSLB){
 	
 	/**
-	 * ...
-	 * @author $(DefaultUser)
-	 */
+	$(CBI)* ...
+	$(CBI)* @author $(DefaultUser)
+	$(CBI)*/
 	public interface $(FileName) $(CSLB){
 		
 		

@@ -669,7 +669,7 @@ namespace ASCompletion.Completion
 				int style = Sci.BaseStyleAt(position);
 
 				// in comments
-                if (ASContext.CommonSettings.JavadocIndent && txt.EndsWith("*/"))
+                if (PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented && txt.EndsWith("*/"))
                     FixIndentationAfterComments(Sci, line);
                 else if (IsCommentStyle(style) && (Sci.BaseStyleAt(position + 1) == style))
                     FormatComments(Sci, txt, line);
@@ -818,7 +818,7 @@ namespace ASCompletion.Completion
             if (txt.StartsWith("/*"))
             {
                 Sci.ReplaceSel("* ");
-                if (ASContext.CommonSettings.JavadocIndent)
+                if (PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented)
                     Sci.SetLineIndentation(line, Sci.GetLineIndentation(line) + 1);
                 int position = Sci.LineIndentPosition(line) + 2;
                 Sci.SetSel(position, position);

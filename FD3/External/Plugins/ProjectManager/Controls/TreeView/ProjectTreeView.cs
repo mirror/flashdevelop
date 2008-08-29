@@ -298,7 +298,7 @@ namespace ProjectManager.Controls.TreeView
 							nodeMap[path].Refresh(false);
 				}
 			}
-			finally { EndUpdate(); }
+            finally { EndUpdate(); }
 		}
 
 		#endregion

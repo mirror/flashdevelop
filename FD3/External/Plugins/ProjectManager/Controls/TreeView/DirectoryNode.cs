@@ -10,7 +10,6 @@ using PluginCore.Managers;
 using ProjectManager.Projects;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Controls.AS3;
-using PluginCore.Localization;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -245,16 +244,6 @@ namespace ProjectManager.Controls.TreeView
 			{
 				// use SelectedNode so multiselect treeview can handle painting
 				Tree.SelectedNodes = new ArrayList(new object[]{node});
-				Tree.PathToSelect = null;
-				node.EnsureVisible();
-
-				// if you created a new folder, then label edit it!
-                string label = TextHelper.GetString("Label.NewFolder").Replace("&", "").Replace("...", "");
-                if (node.Text.StartsWith(label))
-				{
-					Tree.EndUpdate();
-					node.BeginEdit();
-				}
 			}
 		}
 

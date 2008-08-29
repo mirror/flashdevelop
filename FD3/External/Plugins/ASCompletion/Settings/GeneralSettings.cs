@@ -96,12 +96,10 @@ namespace ASCompletion.Settings
             "serial","serialData","serialField","since","throws","usage","version"
         };
         const int DEFAULT_MAXLINES = 5;
-        const bool DEFAULT_JAVADOCINDENT = true;
 
         protected bool smartTipsEnabled = DEFAULT_SMARTTIPS;
         protected bool javadocTagsEnabled = DEFAULT_JAVADOCS;
         protected string[] javadocTags = null;
-        protected bool javadocIndent = DEFAULT_JAVADOCINDENT;
         private int descriptionLinesLimit = DEFAULT_MAXLINES;
 
         [DisplayName("Enable Javadoc Tags")]
@@ -118,14 +116,6 @@ namespace ASCompletion.Settings
         {
             get { return javadocTags; }
             set { javadocTags = value; }
-        }
-
-        [DisplayName("Indent Javadoc Tags")]
-        [LocalizedCategory("ASCompletion.Category.Documentation"), LocalizedDescription("ASCompletion.Description.JavadocIndent"), DefaultValue(DEFAULT_JAVADOCINDENT)]
-        public bool JavadocIndent
-        {
-            get { return javadocIndent; }
-            set { javadocIndent = value; }
         }
 
         [DisplayName("Enable Smart Tips")]

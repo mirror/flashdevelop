@@ -230,8 +230,8 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   <data name="ASCompletion.Description.GenerateImports" xml:space="preserve">
     <value>Automatically generate import statements when typing a fully qualified type.</value>
   </data>
-  <data name="ASCompletion.Description.JavadocIndent" xml:space="preserve">
-    <value>Indent javadoc comment lines with an extra space.</value>
+  <data name="FlashDevelop.Description.CommentBlockStyle" xml:space="preserve">
+    <value>Should javadoc comment lines be added an extra space.</value>
   </data>
   <data name="ASCompletion.Description.JavadocTags" xml:space="preserve">
     <value>Javadoc tags list for completion.</value>

@@ -186,6 +186,7 @@ namespace PluginCore
         LocaleVersion LocaleVersion { get; set; }
         UiRenderMode RenderMode { get; set; }
         CodingStyle CodingStyle { get; set; }
+        CommentBlockStyle CommentBlockStyle { get; set; }
         FlatStyle ComboBoxFlatStyle { get; set; }
         String DefaultFileExtension { get; set; }
         String LatestDialogPath { get; set; }

@@ -83,7 +83,7 @@ namespace ASCompletion.Completion
 			// get EOL
 			int eolMode = Sci.EOLMode;
 			string newline = ASComplete.GetNewLineMarker(eolMode);
-            string star = ASContext.CommonSettings.JavadocIndent ? " *" : "*";
+            string star = PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " *" : "*";
 			
 			// empty box
             if (Context == null)

@@ -325,6 +325,16 @@ namespace FlashDevelop.Settings
             set { this.codingStyle = value; }
         }
 
+        [DisplayName("Comment Block Indenting")]
+        [DefaultValue(CommentBlockStyle.Indented)]
+        [LocalizedCategory("FlashDevelop.Category.Indenting")]
+        [LocalizedDescription("FlashDevelop.Description.CommentBlockStyle")]
+        public CommentBlockStyle CommentBlockStyle
+        {
+            get { return this.commentBlockStyle; }
+            set { this.commentBlockStyle = value; }
+        }
+
         [DefaultValue(4)]
         [DisplayName("Indenting Size")]
         [LocalizedCategory("FlashDevelop.Category.Indenting")]

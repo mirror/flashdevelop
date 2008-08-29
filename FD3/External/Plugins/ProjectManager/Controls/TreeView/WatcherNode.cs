@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ProjectManager.Projects;
+using PluginCore.Localization;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -125,7 +126,23 @@ namespace ProjectManager.Controls.TreeView
 				Tree.EndUpdate();
 				// prevent further calls to Update() until after 1 second
 				updateTimer.Enabled = true;
-			}
+            }
+
+            // new folder name edition
+            if (Tree.PathToSelect != null && Tree.SelectedNode != null && Tree.SelectedNode is DirectoryNode
+                && (Tree.SelectedNode as DirectoryNode).BackingPath == Tree.PathToSelect)
+            {
+                DirectoryNode node = Tree.SelectedNode as DirectoryNode;
+                Tree.PathToSelect = null;
+                node.EnsureVisible();
+
+                // if you created a new folder, then label edit it!
+                string label = TextHelper.GetString("Label.NewFolder").Replace("&", "").Replace("...", "");
+                if (node.Text.StartsWith(label))
+                {
+                    node.BeginEdit();
+                }
+            }
 		}
 
 		void updateTimer_Tick(object sender, EventArgs e)

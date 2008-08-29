@@ -300,6 +300,7 @@ namespace FlashDevelop.Utilities
                 string name = match.Groups[1].Value;
                 switch (name)
                 {
+                    case "CBI": return Globals.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " " : "";
                     case "Quote": return "\"";
                     case "AppDir": return GetAppDir();
                     case "UserAppDir": return GetUserAppDir();

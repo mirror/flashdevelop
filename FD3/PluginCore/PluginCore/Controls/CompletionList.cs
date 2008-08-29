@@ -659,7 +659,7 @@ namespace PluginCore.Controls
                 {
                     CompletionList.Hide('\0');
                 }
-                else if (millis < 400 && word.Length < 4 && completionList.SelectedItem != null 
+                else if (word.Length < 4 && completionList.SelectedItem != null 
                     && !(completionList.SelectedItem as ICompletionListItem).Label.Equals(word, StringComparison.OrdinalIgnoreCase))
                 {
                     CompletionList.Hide('\0');

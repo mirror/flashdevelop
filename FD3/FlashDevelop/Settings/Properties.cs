@@ -23,6 +23,7 @@ namespace FlashDevelop.Settings
         private ScintillaNet.Enums.SmartIndent smartIndentType = ScintillaNet.Enums.SmartIndent.CPP;
         private UiRenderMode uiRenderMode = UiRenderMode.Professional;
         private CodingStyle codingStyle = CodingStyle.BracesAfterLine;
+        private CommentBlockStyle commentBlockStyle = CommentBlockStyle.Indented;
         private FlatStyle comboBoxFlatStyle = FlatStyle.Popup;
         private Font consoleFont = new Font("Courier New", 8.75F);
         private Font defaultFont = new Font("Tahoma", 8.25F);
