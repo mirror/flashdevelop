@@ -92,6 +92,8 @@ namespace ProjectManager.Actions
                 if (!Path.HasExtension(newFilePath) && extension != ".ext")
                     newFilePath = Path.ChangeExtension(newFilePath, extension);
 
+                if (!ConfirmOverwrite(newFilePath)) return;
+
                 // save this so when we are asked to process args, we know what file it's talking about
                 lastFileFromTemplate = newFilePath;
 

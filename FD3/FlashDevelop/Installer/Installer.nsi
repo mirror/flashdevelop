@@ -176,7 +176,7 @@ Function .onInit
 	Abort
 	${EndIf}
 	StrCpy $0 $0 "" 1 # skip "v"
-	${VersionCompare} $0 "2.0" $1
+	${VersionCompare} $0 "2.0.50727" $1
 	${If} $1 == 2
 	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop. You have $0."
 	Abort
