@@ -478,6 +478,7 @@ namespace SnippetEditor
             this.insertComboBox.Items.Add("$(ExitPoint) - Selection's end position.");
             this.insertComboBox.Items.Add("$(Boundary) - Keep all text between boundaries");
             this.insertComboBox.Items.Add("$(CSLB) - Coding style line break");
+            this.insertComboBox.Items.Add("$(CBI) - Comment block indent");
             this.insertComboBox.Items.Add("- TEXT -------------------------------------------------------------------------");
             this.insertComboBox.Items.Add("$(SelText) - Selected text");
             this.insertComboBox.Items.Add("$(CurWord) - Word at cursor position");
