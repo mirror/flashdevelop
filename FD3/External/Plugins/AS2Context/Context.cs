@@ -153,7 +153,7 @@ namespace AS2Context
             //
 			classPath = new List<PathModel>();
             // MTASC
-            string mtascPath = PathHelper.ResolvePath(as2settings.MtascPath, null) ?? "";
+            string mtascPath = PathHelper.ResolvePath(as2settings.MtascPath) ?? "";
             if (Path.GetExtension(mtascPath) != "") mtascPath = Path.GetDirectoryName(mtascPath);
             string path;
             if ((as2settings.UseMtascIntrinsic || as2settings.MMClassPath.Length == 0)

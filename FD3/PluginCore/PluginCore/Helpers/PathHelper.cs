@@ -146,6 +146,16 @@ namespace PluginCore.Helpers
         /// <summary>
         /// Resolve a path which may be:
         /// - absolute or
+        /// - relative to base path
+        /// </summary>
+        public static string ResolvePath(String path)
+        {
+            return ResolvePath(path, null);
+        }
+
+        /// <summary>
+        /// Resolve a path which may be:
+        /// - absolute or
         /// - relative to a specified path, or 
         /// - relative to base path
         /// </summary>

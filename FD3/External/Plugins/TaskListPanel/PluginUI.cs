@@ -366,10 +366,11 @@ namespace TaskListPanel
                 }
                 else if (status == 1)
                 {
-                    if (((List<String>)table["files"]).Count > 0)
+                    List<string> files = table["files"] as List<string>;
+                    if (files != null && files.Count > 0)
                     {
                         Boolean parseFile = false;
-                        path = ((List<String>)table["files"])[0];
+                        path = files[0];
                         DateTime lastWriteTime = new FileInfo(path).LastWriteTime;
                         if (!this.filesCache.ContainsKey(path))
                         {
@@ -383,7 +384,7 @@ namespace TaskListPanel
                                 parseFile = true;
                             }
                         }
-                        ((List<String>)table["files"]).RemoveAt(0);
+                        files.RemoveAt(0);
                         if (parseFile) this.ParseFile(path);
                         this.processedFiles++;
                         String message = TextHelper.GetString("Info.Processing");

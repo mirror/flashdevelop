@@ -130,9 +130,9 @@ namespace ProjectManager.Actions
         {
             string cmd = (runOutput) ? "testmovie.jsfl" : "buildmovie.jsfl";
             if (!noTrace) cmd = "debug-" + cmd;
-            cmd = Path.Combine("flashide", cmd);
-            cmd = Path.Combine(PluginCore.Helpers.PathHelper.ToolDir, cmd);
-            if (!File.Exists(cmd))
+            cmd = Path.Combine("Tools", Path.Combine("flashide", cmd));
+            cmd = PathHelper.ResolvePath(cmd, null);
+            if (cmd == null || !File.Exists(cmd))
             {
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.JsflNotFound"));
             }

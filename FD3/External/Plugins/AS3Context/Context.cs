@@ -133,7 +133,7 @@ namespace AS3Context
             // AS3 intrinsic
             if (as3settings.AS3ClassPath.Length > 0)
             {
-                string as3cp = PathHelper.ResolvePath(as3settings.AS3ClassPath, null);
+                string as3cp = PathHelper.ResolvePath(as3settings.AS3ClassPath);
                 if (Directory.Exists(as3cp)) AddPath(as3cp);
             }
 

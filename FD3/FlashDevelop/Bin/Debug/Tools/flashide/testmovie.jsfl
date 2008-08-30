@@ -13,6 +13,12 @@ else
 
 if (fl.compilerErrors) 
 {
-	var file = fl.scriptURI.substr(0, fl.scriptURI.lastIndexOf('/')+1) + "errors.log";
-	fl.compilerErrors.save(file);
+	var file = fl.configURI;
+	if (file.indexOf("Adobe") > 0)
+	{
+		var path = file.split("Adobe")[0] + "FlashDevelop/Data/FlashIDE/";
+		FLfile.createFolder(path);
+		file = path + "errors.log";
+		fl.compilerErrors.save(file);
+	}
 }

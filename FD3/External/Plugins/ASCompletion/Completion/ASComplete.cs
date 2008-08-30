@@ -226,9 +226,9 @@ namespace ASCompletion.Completion
                             string idePath = ASContext.CommonSettings.PathToFlashIDE;
                             if (idePath != null && File.Exists(Path.Combine(idePath, "Flash.exe")))
                             {
-                                string cmd = Path.Combine("flashide", "testmovie.jsfl");
-                                cmd = Path.Combine(PluginCore.Helpers.PathHelper.ToolDir, cmd);
-                                if (File.Exists(cmd))
+                                string cmd = Path.Combine("Tools", Path.Combine("flashide", "testmovie.jsfl"));
+                                cmd = PathHelper.ResolvePath(cmd);
+                                if (cmd != null && File.Exists(cmd))
                                     Commands.CallFlashIDE.Run(idePath, cmd);
                             }
                         }

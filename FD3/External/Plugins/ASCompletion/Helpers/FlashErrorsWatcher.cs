@@ -22,15 +22,22 @@ namespace ASCompletion.Helpers
 
         public FlashErrorsWatcher()
         {
-            string scriptsLocation = Path.Combine(PathHelper.ToolDir, "flashide");
-            logFile = Path.Combine(scriptsLocation, "errors.log");
-            fsWatcher = new FileSystemWatcher(scriptsLocation, "*.log");
-            fsWatcher.EnableRaisingEvents = true;
-            fsWatcher.Changed += new FileSystemEventHandler(fsWatcher_Changed);
+            try
+            {
+                string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string logLocation = Path.Combine(appData, Path.Combine("FlashDevelop", Path.Combine("Data", "FlashIDE")));
+                Directory.CreateDirectory(logLocation);
+                logFile = Path.Combine(logLocation, "errors.log");
 
-            updater = new Timer();
-            updater.Interval = 100;
-            updater.Tick += new EventHandler(updater_Tick);
+                fsWatcher = new FileSystemWatcher(logLocation, "*.log");
+                fsWatcher.EnableRaisingEvents = true;
+                fsWatcher.Changed += new FileSystemEventHandler(fsWatcher_Changed);
+
+                updater = new Timer();
+                updater.Interval = 100;
+                updater.Tick += new EventHandler(updater_Tick);
+            }
+            catch { }
         }
 
         void updater_Tick(object sender, EventArgs e)

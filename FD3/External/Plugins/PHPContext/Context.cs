@@ -120,7 +120,7 @@ namespace PHPContext
             // intrinsic language definitions
             if (langSettings.LanguageDefinitions != null)
             {
-                string langPath = PathHelper.ResolvePath(langSettings.LanguageDefinitions, null);
+                string langPath = PathHelper.ResolvePath(langSettings.LanguageDefinitions);
                 if (Directory.Exists(langPath)) AddPath(langPath);
             }
 
