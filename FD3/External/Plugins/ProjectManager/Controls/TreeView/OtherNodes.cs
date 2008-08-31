@@ -26,7 +26,7 @@ namespace ProjectManager.Controls.TreeView
 		}
 	}
 
-	public class ClasspathNode : DirectoryNode
+	public class ClasspathNode : WatcherNode
 	{
 		public ClasspathNode(Project project, string classpath, string text) : base(classpath)
 		{

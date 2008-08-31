@@ -55,7 +55,7 @@ namespace ProjectManager.Controls.TreeView
 			// make the plus/minus sign correct
             bool empty = !Directory.Exists(BackingPath) || Directory.GetFileSystemEntries(BackingPath).Length == 0;
 
-            if (ForeColor == Color.Red) ForeColor = SystemColors.ControlText;
+            ForeColor = SystemColors.ControlText;
 			if (!empty)
 			{
 				// we want the plus sign because we have *something* in here
@@ -110,8 +110,13 @@ namespace ProjectManager.Controls.TreeView
                     nodesToDie.AddRange(node.Nodes);
             }
 
-			PopulateDirectories(nodesToDie,recursive);
-			PopulateFiles(nodesToDie,recursive);
+            if (Directory.Exists(BackingPath))
+            {
+                //if (ForeColor == Color.Red) ForeColor = ForeColorRequest = SystemColors.ControlText;
+                PopulateDirectories(nodesToDie, recursive);
+                PopulateFiles(nodesToDie, recursive);
+            }
+            //else ForeColor = ForeColorRequest = Color.Red;
 
 			foreach (GenericNode node in nodesToDie)
 			{

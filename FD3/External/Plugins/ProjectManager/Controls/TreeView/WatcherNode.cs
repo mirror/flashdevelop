@@ -24,25 +24,38 @@ namespace ProjectManager.Controls.TreeView
 		{
 			isRefreshable = true;
             changedPaths = new List<String>();
-			if (Directory.Exists(directory))
-			{
-				// Use a timer for FileSystemWatcher updates so they don't do lots of redrawing
-				updateTimer = new Timer();
-				updateTimer.Interval = 500;
-				updateTimer.Tick += updateTimer_Tick;
-				watcher = new FileSystemWatcher(directory);
-				watcher.Created += watcher_Created;
-				watcher.Deleted += watcher_Deleted;
-				watcher.Renamed += watcher_Renamed;
-                watcher.IncludeSubdirectories = true;
-				watcher.EnableRaisingEvents = true;
-			}
-			else
-			{
-				ForeColorRequest = Color.Red;
-				isInvalid = true;
-			}
+            // Use a timer for FileSystemWatcher updates so they don't do lots of redrawing
+            updateTimer = new Timer();
+            updateTimer.Interval = 500;
+            updateTimer.Tick += updateTimer_Tick;
+            setWatcher();
 		}
+
+        private void setWatcher()
+        {
+            try
+            {
+                if (Directory.Exists(BackingPath))
+                {
+                    watcher = new FileSystemWatcher(BackingPath);
+                    watcher.Created += watcher_Created;
+                    watcher.Deleted += watcher_Deleted;
+                    watcher.Renamed += watcher_Renamed;
+                    watcher.IncludeSubdirectories = true;
+                    watcher.EnableRaisingEvents = true;
+                }
+            }
+            catch {}
+
+            //if (watcher == null) ForeColor = ForeColorRequest = Color.Red;
+            //else ForeColor = ForeColorRequest = SystemColors.ControlText;
+        }
+
+        public override void Refresh(bool recursive)
+        {
+            if (watcher == null) setWatcher();
+            base.Refresh(recursive);
+        }
 		
 		public override void Dispose()
 		{
