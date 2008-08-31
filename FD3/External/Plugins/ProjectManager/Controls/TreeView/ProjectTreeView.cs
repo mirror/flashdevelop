@@ -58,10 +58,11 @@ namespace ProjectManager.Controls.TreeView
         public void RefreshNode(GenericNode node)
         {
             // refresh the first parent that *can* be refreshed
-            while (!node.IsRefreshable)
+            while (node != null && !node.IsRefreshable)
             {
                 node = node.Parent as GenericNode;
             }
+            if (node == null) return;
             // if you refresh a SwfFileNode this way (by asking for it), you get
             // special feedback
             SwfFileNode swfNode = node as SwfFileNode;
