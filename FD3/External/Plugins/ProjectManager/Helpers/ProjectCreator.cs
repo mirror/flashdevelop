@@ -10,6 +10,7 @@ using System.Text;
 using PluginCore;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using PluginCore.Utilities;
 
 namespace ProjectManager.Helpers
 {
@@ -124,13 +125,13 @@ namespace ProjectManager.Helpers
                 if (ext == ".bat" || ext == ".cmd") encoding = Encoding.ASCII;
 
                 string src = File.ReadAllText(source);
-                src = ReplaceKeywords(src);
+                src = ReplaceKeywords(ProcessCodeStyleLineBreaks(src));
                 File.WriteAllText(dest, src, encoding);
 			}
 			else File.Copy(source,dest);
-		}
+        }
 
-		private string ReplaceKeywords(string line)
+        private string ReplaceKeywords(string line)
 		{
             if (line.IndexOf("$") < 0) return line;
             return line = reArgs.Replace(line, new MatchEvaluator(ReplaceVars));
@@ -143,6 +144,7 @@ namespace ProjectManager.Helpers
                 string name = match.Groups[1].Value.ToUpper();
                 switch (name)
                 {
+                    case "CBI": return PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " " : "";
                     case "PROJECTNAME": return projectName; 
                     case "PROJECTID": return projectId; 
                     case "PACKAGENAME": return packageName;
@@ -185,5 +187,52 @@ namespace ProjectManager.Helpers
 
             return stringBuilder.ToString();
         }
+
+        #region ArgsProcessor duplicated code
+        /// <summary>
+        /// Gets the correct coding style line break chars
+        /// </summary>
+        public static String ProcessCodeStyleLineBreaks(String text)
+        {
+            String CSLB = "$(CSLB)";
+            Int32 nextIndex = text.IndexOf(CSLB);
+            if (nextIndex < 0) return text;
+            CodingStyle cs = PluginBase.Settings.CodingStyle;
+            if (cs == CodingStyle.BracesOnLine) return text.Replace(CSLB, "");
+            Int32 eolMode = (Int32)PluginBase.Settings.EOLMode;
+            String lineBreak = LineEndDetector.GetNewLineMarker(eolMode);
+            String result = ""; Int32 currentIndex = 0;
+            while (nextIndex >= 0)
+            {
+                result += text.Substring(currentIndex, nextIndex - currentIndex) + lineBreak + GetLineIndentation(text, nextIndex);
+                currentIndex = nextIndex + CSLB.Length;
+                nextIndex = text.IndexOf(CSLB, currentIndex);
+            }
+            return result + text.Substring(currentIndex);
+        }
+
+        /// <summary>
+        /// Gets the line intendation from the text
+        /// </summary>
+        private static String GetLineIndentation(String text, Int32 position)
+        {
+            Char c;
+            Int32 startPos = position;
+            while (startPos > 0)
+            {
+                c = text[startPos];
+                if (c == 10 || c == 13) break;
+                startPos--;
+            }
+            Int32 endPos = ++startPos;
+            while (endPos < position)
+            {
+                c = text[endPos];
+                if (c != '\t' && c != ' ') break;
+                endPos++;
+            }
+            return text.Substring(startPos, endPos - startPos);
+        }
+        #endregion
 	}
 }

@@ -1,31 +1,29 @@
-﻿package $(PackageName)
-{
+﻿package $(PackageName)$(CSLB){
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	
-	public class Preloader extends MovieClip
-	{
+	/**
+	$(CBI)* ...
+	$(CBI)* @author $(DefaultUser)
+	$(CBI)*/
+	public class Preloader extends MovieClip $(CSLB){
 		
-		public function Preloader() 
-		{
+		public function Preloader() $(CSLB){
 			addEventListener(Event.ENTER_FRAME, checkFrame);
 			// show loader
 		}
 		
-		private function checkFrame(e:Event):void 
-		{
+		private function checkFrame(e:Event):void $(CSLB){
 			// update loader
-			if (currentFrame == totalFrames)
-			{
+			if (currentFrame == totalFrames) $(CSLB){
 				removeEventListener(Event.ENTER_FRAME, checkFrame);
 				startup();
 			}
 		}
 		
-		private function startup():void 
-		{
+		private function startup():void $(CSLB){
 			// hide loader
 			stop();
 			var mainClass:Class = getDefinitionByName("$(PackageDot)Main") as Class;
@@ -33,5 +31,4 @@
 		}
 		
 	}
-	
 }

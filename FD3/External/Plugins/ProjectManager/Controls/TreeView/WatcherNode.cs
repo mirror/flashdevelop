@@ -46,9 +46,6 @@ namespace ProjectManager.Controls.TreeView
                 }
             }
             catch {}
-
-            //if (watcher == null) ForeColor = ForeColorRequest = Color.Red;
-            //else ForeColor = ForeColorRequest = SystemColors.ControlText;
         }
 
         public override void Refresh(bool recursive)

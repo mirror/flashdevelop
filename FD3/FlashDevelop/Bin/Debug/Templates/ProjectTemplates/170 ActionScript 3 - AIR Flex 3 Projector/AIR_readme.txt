@@ -1,3 +1,6 @@
+
+Instructions for distributing your application:
+
 1. Creating a self-signed certificate:
 - edit CreateCertificate.bat to change the path to Flex SDK,
 - edit CreateCertificate.bat to set your certificate password (and name if you like),

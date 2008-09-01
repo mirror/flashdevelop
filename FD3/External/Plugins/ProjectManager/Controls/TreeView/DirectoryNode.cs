@@ -70,7 +70,6 @@ namespace ProjectManager.Controls.TreeView
 			}
 			else
 			{
-                //if (!Directory.Exists(BackingPath)) ForeColor = Color.Red;
 				// we just became empty!
 				if (Nodes.Count > 0)
 					PopulateChildNodes(recursive);
@@ -112,11 +111,9 @@ namespace ProjectManager.Controls.TreeView
 
             if (Directory.Exists(BackingPath))
             {
-                //if (ForeColor == Color.Red) ForeColor = ForeColorRequest = SystemColors.ControlText;
                 PopulateDirectories(nodesToDie, recursive);
                 PopulateFiles(nodesToDie, recursive);
             }
-            //else ForeColor = ForeColorRequest = Color.Red;
 
 			foreach (GenericNode node in nodesToDie)
 			{
