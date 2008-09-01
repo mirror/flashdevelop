@@ -186,7 +186,7 @@ namespace XMLCompletion
 						htag = new HTMLTag(
                             (toUpper) ? tag.Name.ToUpper() : tag.Name, 
                             (ns != null) ? ns.Value : null, isLeaf != null && isLeaf.Value == "yes");
-                        if (htag.NS != null && !namespaces.Contains(htag.NS))
+                        if (htag.NS != null && htag.NS.Length > 0 && !namespaces.Contains(htag.NS))
                             namespaces.Add(htag.NS);
 						htag.Attributes = new List<string>();
 						temp = tag.Attributes["at"].Value;
