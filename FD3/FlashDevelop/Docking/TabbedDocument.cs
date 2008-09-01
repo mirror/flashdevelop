@@ -172,7 +172,7 @@ namespace FlashDevelop.Docking
         public void Save(String file)
         {
             if (!this.IsEditable) return;
-            if (FileHelper.FileIsReadOnly(this.FileName))
+            if (!this.IsUntitled && FileHelper.FileIsReadOnly(this.FileName))
             {
                 String dlgTitle = TextHelper.GetString("Title.ConfirmDialog");
                 String message = TextHelper.GetString("Info.MakeReadOnlyWritable");
