@@ -162,8 +162,8 @@ namespace AS3Context
                         {
                             FlexDebugger.Stop();
                         }
-                        else if (action == "FlashViewer.External")
-                        /*|| action == "FlashViewer.Popup" || action == "FlashViewer.Document"*/
+                        else if (action == "FlashViewer.External"
+                            || action == "FlashViewer.Popup" || action == "FlashViewer.Document")
                         {
                             if (!(settingObject as AS3Settings).DisableFDB
                                 && PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "as3"
