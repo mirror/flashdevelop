@@ -151,11 +151,27 @@ FunctionEnd
 
 Function GetFDInstDir
 
-	Push $1
+	Push $0
 	ClearErrors
-	ReadRegStr $1 HKLM Software\FlashDevelop ""
+	ReadRegStr $0 HKLM Software\FlashDevelop ""
 	IfErrors 0 +2
-	StrCpy $1 "not_found"
+	StrCpy $0 "not_found"
+	Exch $0
+
+FunctionEnd
+
+Function GetNeedsReset
+
+	Call GetFDVersion
+	Pop $0
+	Push $1
+	${If} $0 == "not_found"
+	StrCpy $1 "do_reset"
+	${ElseIf} $0 == "3.0.0-Beta8"
+	StrCpy $1 "do_reset"
+	${Else}
+	StrCpy $1 "is_ok"
+	${EndIf}
 	Exch $1
 
 FunctionEnd
@@ -182,12 +198,12 @@ Function .onInit
 	Abort
 	${EndIf}
 
-	Call GetFDVersion
-	Pop $0
 	Call GetFDInstDir
+	Pop $0
+	Call GetNeedsReset
 	Pop $1
-	${If} $0 == "not_found"
-	${If} $1 != "not_found"
+	${If} $1 == "do_reset"
+	${If} $0 != "not_found"
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable if updated. You should uninstall it before installing this one."
 	${EndIf}
 	${EndIf}
@@ -226,12 +242,19 @@ Section "FlashDevelop" Main
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.manifest /x Data /x Settings "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.manifest /x Data /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
 
 	SetOverwrite off
-
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x FileStates /x Recovery /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
+
+	SetOverwrite off
+	SetOutPath "$INSTDIR\Snippets"
+	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
+
+	SetOverwrite off
+	SetOutPath "$INSTDIR\Templates"
+	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
 
 SectionEnd
 
@@ -358,9 +381,7 @@ Section "un.FlashDevelop" UninstMain
 	RMDir /r "$INSTDIR\Docs"
 	RMDir /r "$INSTDIR\Library"
 	RMDir /r "$INSTDIR\Plugins"
-	RMDir /r "$INSTDIR\Snippets"
 	RMDir /r "$INSTDIR\StartPage"
-	RMDir /r "$INSTDIR\Templates"
 	RMDir /r "$INSTDIR\Tools"
 	
 	Delete "$INSTDIR\.multi"
@@ -406,6 +427,8 @@ Section /o "un.Settings" UninstSettings
 
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
+	RMDir /r "$INSTDIR\Snippets"
+	RMDir /r "$INSTDIR\Templates"
 	RMDir /r "$LOCALAPPDATA\FlashDevelop"
 	RMDir /r "$SMPROGRAMS\FlashDevelop"
 	RMDir "$INSTDIR"
@@ -418,7 +441,7 @@ SectionEnd
 
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${UninstMain} "Uninstalls the main program, other required files and registry modifications."
-!insertmacro MUI_DESCRIPTION_TEXT ${UninstSettings} "Uninstalls all setting files from the install directory and user's application data directory."
+!insertmacro MUI_DESCRIPTION_TEXT ${UninstSettings} "Uninstalls all settings, snippets and templates from the install directory and user's application data directory."
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_END
 
 ;--------------------------------
