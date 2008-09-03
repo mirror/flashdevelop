@@ -653,11 +653,8 @@ namespace FlashDevelop
                 else this.Location = position; // Set zero position if window is hidden
                 String pluginDir = PathHelper.PluginDir;
                 if (Directory.Exists(pluginDir)) PluginServices.FindPlugins(pluginDir);
-                if (this.StandaloneMode)
-                {
-                    String userPluginDir = PathHelper.UserPluginDir;
-                    if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
-                }
+                String userPluginDir = PathHelper.UserPluginDir;
+                if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
                 LayoutManager.BuildLayoutSystems(FileNameHelper.LayoutData);
                 PluginCore.Controls.UITools.Init();
             }
