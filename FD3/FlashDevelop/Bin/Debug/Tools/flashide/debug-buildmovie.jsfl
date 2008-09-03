@@ -16,9 +16,9 @@ if (fl.compilerErrors)
 	var file = fl.configURI;
 	if (file.indexOf("Adobe") > 0)
 	{
-		var path = file.split("Adobe")[0] + "FlashDevelop/Data/FlashIDE/";
+		var path = file.split("Adobe")[0] + "Adobe/FlashDevelop/";
 		FLfile.createFolder(path);
-		file = path + "errors.log";
+		file = path + "FlashErrors.log";
 		fl.compilerErrors.save(file);
 	}
 }

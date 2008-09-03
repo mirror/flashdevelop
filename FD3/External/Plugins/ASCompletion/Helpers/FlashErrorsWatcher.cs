@@ -25,9 +25,9 @@ namespace ASCompletion.Helpers
             try
             {
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string logLocation = Path.Combine(appData, Path.Combine("FlashDevelop", Path.Combine("Data", "FlashIDE")));
+                string logLocation = Path.Combine(appData, Path.Combine("Adobe", "FlashDevelop"));
                 Directory.CreateDirectory(logLocation);
-                logFile = Path.Combine(logLocation, "errors.log");
+                logFile = Path.Combine(logLocation, "FlashErrors.log");
 
                 fsWatcher = new FileSystemWatcher(logLocation, "*.log");
                 fsWatcher.EnableRaisingEvents = true;
