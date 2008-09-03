@@ -48,9 +48,9 @@ VIAddVersionKey "CompanyName" "FlashDevelop.org"
 VIAddVersionKey "ProductName" "FlashDevelop Installer"
 VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2008"
 VIAddVersionKey "FileDescription" "FlashDevelop Installer"
-VIAddVersionKey "ProductVersion" "1.0.0.0"
-VIAddVersionKey "FileVersion" "1.0.0.0"
-VIProductVersion "1.0.0.0"
+VIAddVersionKey "ProductVersion" "3.0.0.0"
+VIAddVersionKey "FileVersion" "3.0.0.0"
+VIProductVersion "3.0.0.0"
 
 ;--------------------------------
 
