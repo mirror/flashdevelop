@@ -204,7 +204,7 @@ Function .onInit
 	Pop $1
 	${If} $1 == "do_reset"
 	${If} $0 != "not_found"
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable if updated. You should uninstall it before installing this one."
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable or you may miss new features if updated. You should backup you custom setting files and do a full uninstall before installing this one. After install customize the new setting files."
 	${EndIf}
 	${EndIf}
 

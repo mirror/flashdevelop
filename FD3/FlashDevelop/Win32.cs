@@ -11,7 +11,6 @@ namespace FlashDevelop
         public const Int32 SW_RESTORE = 9;
         public const Int32 SW_SHOWMINIMIZED = 2;
         public const Int32 SWP_SHOWWINDOW = 64;
-        public const Int32 HWND_TOPMOST = -1;
 
         [DllImport("user32.dll")]
         public static extern Int32 GetSystemMetrics(Int32 which);
@@ -38,8 +37,7 @@ namespace FlashDevelop
             Int32 screenLeft = screen.WorkingArea.Left;
             Int32 screenWidth = screen.WorkingArea.Width;
             Int32 screenHeight = screen.WorkingArea.Height;
-            IntPtr topMostWindow = (IntPtr)Win32.HWND_TOPMOST;
-            Win32.SetWindowPos(hwnd, topMostWindow, screenTop, screenLeft, screenWidth, screenHeight, Win32.SWP_SHOWWINDOW);
+            Win32.SetWindowPos(hwnd, IntPtr.Zero, screenLeft, screenTop, screenWidth, screenHeight, Win32.SWP_SHOWWINDOW);
         }
 
     }
