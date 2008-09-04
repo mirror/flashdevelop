@@ -556,7 +556,6 @@ namespace ProjectManager
                 EventManager.DispatchEvent(this, de);
                 if (de.Handled) return;
             }
-
             int w = project.MovieOptions.Width;
             int h = project.MovieOptions.Height;
             bool isOutput = path.ToLower() == project.OutputPathAbsolute.ToLower();
@@ -585,10 +584,8 @@ namespace ProjectManager
                         DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
                     }
-
                     string doc = project.GetAbsolutePath(project.TestMovieCommand);
                     doc = project.FixDebugReleasePath(doc);
-                    TraceManager.Add("Test Movie: " + doc);
                     ProcessStartInfo psi = new ProcessStartInfo(doc);
                     psi.WorkingDirectory = project.Directory;
                     ProcessHelper.StartAsync(psi);
@@ -603,11 +600,9 @@ namespace ProjectManager
                         DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
                     }
-
                     string cmd = MainForm.ProcessArgString(project.TestMovieCommand);
                     cmd = project.FixDebugReleasePath(cmd);
                     string[] args = (cmd + ';').Split(';');
-                    TraceManager.Add("Test Movie: " + args[0] + " " + args[1]);
                     ProcessStartInfo psi = new ProcessStartInfo(args[0], args[1]);
                     psi.UseShellExecute = true;
                     psi.WorkingDirectory = project.Directory;
@@ -617,7 +612,7 @@ namespace ProjectManager
             else
             {
                 // Default: Let FlashViewer handle it..
-                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path);
+                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path + "," + w + "," + h);
                 EventManager.DispatchEvent(this, de);
             }
         }

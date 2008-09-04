@@ -177,7 +177,8 @@ namespace FlashViewer
             {
                 if (evnt.Action.StartsWith("FlashViewer."))
                 {
-                    string action = evnt.Action;
+                    String action = evnt.Action;
+                    String[] args = evnt.Data.ToString().Split(',');
                     if (action == "FlashViewer.Default")
                     {
                         switch (this.settingObject.DisplayStyle)
@@ -198,17 +199,17 @@ namespace FlashViewer
                     switch (action)
                     {
                         case "FlashViewer.Popup":
-                            String[] args = evnt.Data.ToString().Split(',');
-                            Size size = new Size(Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
-                            this.CreatePopup(args[0], size);
+                            Int32 width = Convert.ToInt32(args[1]);
+                            Int32 height = Convert.ToInt32(args[2]);
+                            this.CreatePopup(args[0], new Size(width, height));
                             break;
 
                         case "FlashViewer.Document":
-                            this.CreateDocument(evnt.Data.ToString());
+                            this.CreateDocument(args[0]);
                             break;
 
                         case "FlashViewer.External":
-                            this.LaunchExternal(evnt.Data.ToString());
+                            this.LaunchExternal(args[0]);
                             break;
 
                         case "FlashViewer.GetDisplayStyle":
