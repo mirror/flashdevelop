@@ -195,11 +195,10 @@ namespace FlashViewer
                                 break;
                         }
                     }
-
                     switch (action)
                     {
                         case "FlashViewer.Popup":
-                            String[] args = (evnt.Data.ToString() + ",550,440").Split(',');
+                            String[] args = evnt.Data.ToString().Split(',');
                             Size size = new Size(Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
                             this.CreatePopup(args[0], size);
                             break;
@@ -260,9 +259,8 @@ namespace FlashViewer
         /// </summary>
         public void CreatePopup(String file, Size size)
         {
-            if (!File.Exists(file)) 
-                return;
             FlashView flashView;
+            if (!File.Exists(file)) return;
             foreach (Form form in this.popups)
             {
                 flashView = form.Controls[0] as FlashView;
@@ -308,9 +306,8 @@ namespace FlashViewer
         /// </summary>
         public void CreateDocument(String file)
         {
-            if (!File.Exists(file))
-                return;
             FlashView flashView;
+            if (!File.Exists(file)) return;
             foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
             {
                 if (!document.IsEditable)
@@ -322,7 +319,6 @@ namespace FlashViewer
                         {
                             document.Controls.Remove(flashView);
                             flashView.Dispose();
-
                             flashView = CreateFlashView(file);
                             if (flashView == null) return;
                             flashView.Dock = DockStyle.Fill;
@@ -341,8 +337,7 @@ namespace FlashViewer
             flashView.MoviePath = file;
             flashDoc.Disposed += delegate { NotifyDisposed(file); };
         }
-
-        private void NotifyDisposed(string file)
+        private void NotifyDisposed(String file)
         {
             DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Closed", file);
             EventManager.DispatchEvent(this, de);
