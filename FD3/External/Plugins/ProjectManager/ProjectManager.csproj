@@ -76,7 +76,7 @@
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SwfOp, Version=1.0.0.33894, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SwfOp, Version=1.0.0.16146, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\SwfOp.dll</HintPath>
       <Private>False</Private>

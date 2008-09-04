@@ -8,8 +8,9 @@ package $(PackageName)$(CSLB){
 	public class Main extends Sprite $(CSLB){
 		
 		public function Main():void $(CSLB){
-			
+			$(EntryPoint)
 		}
 		
 	}
+	
 }

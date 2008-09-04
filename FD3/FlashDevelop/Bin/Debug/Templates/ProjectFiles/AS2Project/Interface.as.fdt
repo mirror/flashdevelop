@@ -4,6 +4,6 @@ $(CBI)* @author $(DefaultUser)
 $(CBI)*/
 public interface $(FileName) $(CSLB){
 	
-	
+	$(EntryPoint)
 	
 }

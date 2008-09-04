@@ -2,7 +2,6 @@
 $(CBI)* ...
 $(CBI)* @author $(DefaultUser)
 $(CBI)*/
-
 class $(FileNameWithPackage) $(CSLB){
 	
 	public function $(FileName)() $(CSLB){

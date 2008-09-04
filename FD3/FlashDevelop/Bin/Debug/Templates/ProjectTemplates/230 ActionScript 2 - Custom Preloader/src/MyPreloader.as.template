@@ -2,7 +2,6 @@
 $(CBI)* ...
 $(CBI)* @author $(DefaultUser)
 $(CBI)*/
-
 class MyPreloader extends Preloader $(CSLB){
 	
 	// register our Preloader class to be created instead of the base Preloader class
@@ -23,4 +22,5 @@ class MyPreloader extends Preloader $(CSLB){
 	function onComplete():Void $(CSLB){
 		_root.debug_txt.removeTextField();
 	}
+	
 }

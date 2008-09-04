@@ -6,7 +6,7 @@ package $(Package) $(CSLB){
 	$(CBI)*/
 	public interface $(FileName) $(CSLB){
 		
-		
+		$(EntryPoint)
 		
 	}
 	
