@@ -79,7 +79,7 @@ namespace AS3Context.Compiler
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.FileName = "java.exe";
             process.StartInfo.Arguments = "-Xmx384m -Dsun.io.useCanonCaches=false -Duser.language=en " +
-                "-Dapplication.home=" + flex2Path + " -jar " + fdbPath;
+                "-Dapplication.home=\"" + flex2Path + "\" -jar \"" + fdbPath + "\"";
             process.StartInfo.WorkingDirectory = workingDir;
             process.Start();
 
@@ -99,6 +99,7 @@ namespace AS3Context.Compiler
         {
             keepAlive = false;
             Cleanup();
+            OnOutput("[FDB halted]");
         }
 
         public void Cleanup()
