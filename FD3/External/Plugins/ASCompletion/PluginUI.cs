@@ -256,7 +256,7 @@ namespace ASCompletion
             if (outlineTree.Nodes.Count == 0) return;
             string match;
             // class or class member
-            if (classModel != null)
+            if (classModel != null && classModel != ClassModel.VoidClass)
             {
                 match = classModel.Name;
                 foreach (TreeNode node in outlineTree.Nodes[0].Nodes)
@@ -284,7 +284,7 @@ namespace ASCompletion
             else if (memberModel != null)
             {
                 match = memberModel.ToString();
-                foreach (TreeNode node in outlineTree.Nodes)
+                foreach (TreeNode node in outlineTree.Nodes[0].Nodes)
                 {
                     if (node.Text == match)
                     {
