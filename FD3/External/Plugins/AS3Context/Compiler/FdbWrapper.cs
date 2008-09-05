@@ -99,7 +99,7 @@ namespace AS3Context.Compiler
         {
             keepAlive = false;
             Cleanup();
-            OnOutput("[FDB halted]");
+            if (OnOutput != null) OnOutput("[FDB halted]");
         }
 
         public void Cleanup()
