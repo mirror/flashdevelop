@@ -145,10 +145,8 @@ namespace ResultsPanel
             menu.Items.Add(this.previousEntry);
             this.entriesView.ContextMenuStrip = menu;
             menu.Font = PluginBase.Settings.DefaultFont;
-            if (PluginMain.Settings.NextError != Keys.None)
-                PluginBase.MainForm.IgnoredKeys.Add(PluginMain.Settings.NextError);
-            if (PluginMain.Settings.NextError != Keys.None)
-                PluginBase.MainForm.IgnoredKeys.Add(PluginMain.Settings.PreviousError);
+            if (PluginMain.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(PluginMain.Settings.NextError);
+            if (PluginMain.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(PluginMain.Settings.PreviousError);
         }
 
         /// <summary>
@@ -245,13 +243,13 @@ namespace ResultsPanel
                 {
                     Int32 start = Convert.ToInt32(mcaret3.Groups["start"].Value);
                     Int32 end = Convert.ToInt32(mcaret3.Groups["end"].Value);
-                    this.MBSafeSetSelAndFocus(sci, start, end);
+                    this.SetSelAndFocus(sci, start, end);
                 }
                 else if (mcaret4.Success)
                 {
                     Int32 start = Convert.ToInt32(mcaret4.Groups["start"].Value);
                     Int32 position = sci.PositionFromLine(line) + start;
-                    this.MBSafeSetSelAndFocus(sci, position, position);
+                    this.SetSelAndFocus(sci, position, position);
                 }
                 else
                 {
@@ -267,19 +265,6 @@ namespace ResultsPanel
         private void SetSelAndFocus(ScintillaControl sci, Int32 startPosition, Int32 endPosition)
 		{
             sci.SetSel(startPosition, endPosition);
-            Int32 line = sci.LineFromPosition(sci.CurrentPos);
-            sci.EnsureVisible(line);
-        }
-
-        /// <summary>
-        /// Goes to the match with multi-byte indexes and ensures that correct fold is opened
-        /// </summary>
-        private void MBSafeSetSelAndFocus(ScintillaControl sci, Int32 startPosition, Int32 endPosition)
-        {
-            Int32 len = sci.Text.Length;
-            startPosition = Math.Min(len, startPosition);
-            endPosition = Math.Min(len, endPosition);
-            sci.MBSafeSetSel(startPosition, endPosition);
             Int32 line = sci.LineFromPosition(sci.CurrentPos);
             sci.EnsureVisible(line);
         }
@@ -528,7 +513,9 @@ namespace ResultsPanel
         {
             if (entriesView.Items.Count == 0) return;
             if (entryIndex >= 0 && entryIndex < entriesView.Items.Count)
+            {
                 entriesView.Items[entryIndex].ForeColor = SystemColors.WindowText;
+            }
             entryIndex = (entryIndex + 1) % entriesView.Items.Count;
             entriesView.SelectedItems.Clear();
             entriesView.Items[entryIndex].Selected = true;
@@ -544,7 +531,9 @@ namespace ResultsPanel
         {
             if (entriesView.Items.Count == 0) return;
             if (entryIndex >= 0 && entryIndex < entriesView.Items.Count)
+            {
                 entriesView.Items[entryIndex].ForeColor = SystemColors.WindowText;
+            }
             if (--entryIndex < 0) entryIndex = entriesView.Items.Count - 1;
             entriesView.SelectedItems.Clear();
             entriesView.Items[entryIndex].Selected = true;
