@@ -223,49 +223,79 @@ namespace ResultsPanel
                 Int32 line = Convert.ToInt32(match.Groups["line"].Value) - 1;
                 Match mcaret = this.errorCharacters.Match(match.Groups["description"].Value);
                 Match mcaret2 = this.errorCharacter.Match(match.Groups["description"].Value);
-                Match mcaret3 = this.lookupRange.Match(match.Groups["description"].Value);
-                Match mcaret4 = this.errorCharacters2.Match(match.Groups["description"].Value);
+                Match mcaret3 = this.errorCharacters2.Match(match.Groups["description"].Value);
+                Match mcaret4 = this.lookupRange.Match(match.Groups["description"].Value);
                 if (mcaret.Success)
                 {
                     Int32 start = Convert.ToInt32(mcaret.Groups["start"].Value);
                     Int32 end = Convert.ToInt32(mcaret.Groups["end"].Value);
+                    // An error (!=0) with this pattern is most likely a MTASC error (not multibyte)
+                    if (item.ImageIndex == 0)
+                    {
+                        // start & end columns are multibyte lengths
+                        start = this.MBSafeColumn(sci, line, start);
+                        end = this.MBSafeColumn(sci, line, end);
+                    }
                     Int32 startPosition = sci.PositionFromLine(line) + start;
                     Int32 endPosition = sci.PositionFromLine(line) + end;
-                    this.SetSelAndFocus(sci, startPosition, endPosition);
+                    this.SetSelAndFocus(sci, line, startPosition, endPosition);
                 }
                 else if (mcaret2.Success)
                 {
                     Int32 start = Convert.ToInt32(mcaret2.Groups["start"].Value);
+                    // column is a multibyte length
+                    start = this.MBSafeColumn(sci, line, start);
                     Int32 position = sci.PositionFromLine(line) + start;
-                    this.SetSelAndFocus(sci, position, position);
+                    this.SetSelAndFocus(sci, line, position, position);
                 }
                 else if (mcaret3.Success)
                 {
                     Int32 start = Convert.ToInt32(mcaret3.Groups["start"].Value);
-                    Int32 end = Convert.ToInt32(mcaret3.Groups["end"].Value);
-                    this.SetSelAndFocus(sci, start, end);
+                    // column is a multibyte length
+                    start = this.MBSafeColumn(sci, line, start);
+                    Int32 position = sci.PositionFromLine(line) + start;
+                    this.SetSelAndFocus(sci, line, position, position);
                 }
                 else if (mcaret4.Success)
                 {
+                    // expected: both multibyte lengths
                     Int32 start = Convert.ToInt32(mcaret4.Groups["start"].Value);
-                    Int32 position = sci.PositionFromLine(line) + start;
-                    this.SetSelAndFocus(sci, position, position);
+                    Int32 end = Convert.ToInt32(mcaret4.Groups["end"].Value);
+                    this.MBSafeSetSelAndFocus(sci, line, start, end);
                 }
                 else
                 {
                     Int32 position = sci.PositionFromLine(line);
-                    this.SetSelAndFocus(sci, position, position);
+                    this.SetSelAndFocus(sci, line, position, position);
                 }
 			}
 		}
 
         /// <summary>
+        /// Convert multibyte column to byte length
+        /// </summary>
+        private int MBSafeColumn(ScintillaControl sci, int line, int length)
+        {
+            String text = sci.GetLine(line);
+            length = Math.Min(length, text.Length);
+            return sci.MBSafeTextLength(text.Substring(0, length));
+        }
+
+        /// <summary>
         /// Goes to the match and ensures that correct fold is opened
         /// </summary>
-        private void SetSelAndFocus(ScintillaControl sci, Int32 startPosition, Int32 endPosition)
+        private void SetSelAndFocus(ScintillaControl sci, Int32 line, Int32 startPosition, Int32 endPosition)
 		{
             sci.SetSel(startPosition, endPosition);
-            Int32 line = sci.LineFromPosition(sci.CurrentPos);
+            sci.EnsureVisible(line);
+        }
+
+        /// <summary>
+        /// Goes to the match and ensures that correct fold is opened
+        /// </summary>
+        private void MBSafeSetSelAndFocus(ScintillaControl sci, Int32 line, Int32 startPosition, Int32 endPosition)
+        {
+            sci.MBSafeSetSel(startPosition, endPosition);
             sci.EnsureVisible(line);
         }
 
@@ -401,8 +431,14 @@ namespace ResultsPanel
 		/// </summary>
 		private void AddSquiggle(ListViewItem item)
 		{
+            bool fixIndexes = true;
             Match match = errorCharacters.Match(item.SubItems[2].Text);
-            if (!match.Success) match = errorCharacter.Match(item.SubItems[2].Text);
+            if (match.Success)
+            {
+                // An error with this pattern is most likely a MTASC error (not multibyte)
+                if (item.ImageIndex != 0) fixIndexes = false;
+            }
+            else match = errorCharacter.Match(item.SubItems[2].Text);
             if (!match.Success) match = errorCharacters2.Match(item.SubItems[2].Text);
             if (match.Success)
 			{
@@ -418,9 +454,13 @@ namespace ResultsPanel
                         Int32 end;
                         Int32 line = Convert.ToInt32(((Match)item.Tag).Groups["line"].Value) - 1;
                         Int32 start = Convert.ToInt32(match.Groups["start"].Value);
+                        // start column is (probably) a multibyte length
+                        if (fixIndexes) start = this.MBSafeColumn(sci, line, start);
                         if (match.Groups["end"] != null && match.Groups["end"].Success)
                         {
                             end = Convert.ToInt32(match.Groups["end"].Value);
+                            // end column is (probably) a multibyte length
+                            if (fixIndexes) end = this.MBSafeColumn(sci, line, end);
                         }
                         else
                         { 
