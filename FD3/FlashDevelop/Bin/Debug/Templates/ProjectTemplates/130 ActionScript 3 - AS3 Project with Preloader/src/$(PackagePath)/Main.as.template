@@ -16,7 +16,6 @@ package $(PackageName)$(CSLB){
 		private function init(e:Event = null):void $(CSLB){
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
-			$(EntryPoint)
 		}
 		
 	}

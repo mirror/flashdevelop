@@ -10,7 +10,7 @@ $(CBI)*/
 class Main $(CSLB){
 	
 	static function main() $(CSLB){
-		$(EntryPoint)
+		
 	}
 	
 }
