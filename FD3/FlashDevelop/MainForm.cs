@@ -782,6 +782,7 @@ namespace FlashDevelop
             this.Shown += new EventHandler(this.OnMainFormShow);
             this.Load += new EventHandler(this.OnMainFormLoad);
             this.LocationChanged += new EventHandler(this.OnMainFormLocationChange);
+            this.GotFocus += new EventHandler(this.OnMainFormGotFocus);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -791,13 +792,23 @@ namespace FlashDevelop
         #region Event Handlers
 
         /// <summary>
-		/// Checks the file changes
+		/// Checks the file changes and activates
 		/// </summary>
-        public void OnMainFormActivate(Object sender, System.EventArgs e)
+        private void OnMainFormActivate(Object sender, System.EventArgs e)
         {
             if (this.CurrentDocument == null) return;
             if (this.CurrentDocument.IsEditable) this.CurrentDocument.SciControl.Focus();
             else this.CurrentDocument.Activate(); // Activate the current document
+            TabbedDocument document = (TabbedDocument)this.CurrentDocument;
+            document.CheckFileChange();
+        }
+
+        /// <summary>
+        /// Checks the file changes when recieving focus
+        /// </summary>
+        private void OnMainFormGotFocus(Object sender, System.EventArgs e)
+        {
+            if (this.CurrentDocument == null) return;
             TabbedDocument document = (TabbedDocument)this.CurrentDocument;
             document.CheckFileChange();
         }
