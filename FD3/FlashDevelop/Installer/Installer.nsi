@@ -163,16 +163,16 @@ FunctionEnd
 Function GetNeedsReset
 
 	Call GetFDVersion
-	Pop $0
-	Push $1
-	${If} $0 == "not_found"
-	StrCpy $1 "do_reset"
-	${ElseIf} $0 == "3.0.0-Beta8"
-	StrCpy $1 "do_reset"
+	Pop $1
+	Push $2
+	${If} $1 == "not_found"
+	StrCpy $2 "do_reset"
+	${ElseIf} $1 == "3.0.0-Beta8"
+	StrCpy $2 "do_reset"
 	${Else}
-	StrCpy $1 "is_ok"
+	StrCpy $2 "is_ok"
 	${EndIf}
-	Exch $1
+	Exch $2
 
 FunctionEnd
 
@@ -201,8 +201,8 @@ Function .onInit
 	Call GetFDInstDir
 	Pop $0
 	Call GetNeedsReset
-	Pop $1
-	${If} $1 == "do_reset"
+	Pop $2
+	${If} $2 == "do_reset"
 	${If} $0 != "not_found"
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable or you may miss new features if updated. You should backup you custom setting files and do a full uninstall before installing this one. After install customize the new setting files."
 	${EndIf}
