@@ -47,10 +47,10 @@ namespace PluginCore.Controls
 			bar = new MessageBar();
 			bar.Visible = false;
 			target.Controls.Add(bar);
-			bar.Update(message);
 			bar.Dock = DockStyle.Top;
-			bar.Visible = true;
-            bar.BringToFront();
+            bar.Update(message);
+            bar.SendToBack();
+            bar.Visible = true;
 			return bar;
 		}
 

@@ -51,7 +51,7 @@ namespace ScintillaNet
 
         public void OnResize(object sender, EventArgs e)
         {
-            SetWindowPos(this.hwndScintilla, 0, base.Location.X, base.Location.Y, base.Width, base.Height, 0);
+            SetWindowPos(this.hwndScintilla, 0, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width, this.ClientRectangle.Height, 0);
         }
 
         public override bool PreProcessMessage(ref Message m)
