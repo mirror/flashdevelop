@@ -75,9 +75,9 @@ namespace ProjectManager.Controls
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancelButton.Location = new System.Drawing.Point(451, 362);
+            this.cancelButton.Location = new System.Drawing.Point(451, 336);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(75, 21);
             this.cancelButton.TabIndex = 8;
             this.cancelButton.Text = "&Cancel";
             // 
@@ -86,47 +86,52 @@ namespace ProjectManager.Controls
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.Enabled = false;
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.okButton.Location = new System.Drawing.Point(368, 362);
+            this.okButton.Location = new System.Drawing.Point(368, 336);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.Size = new System.Drawing.Size(75, 21);
             this.okButton.TabIndex = 7;
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // previewBox
             // 
+            this.previewBox.BackColor = System.Drawing.Color.White;
             this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.previewBox.Location = new System.Drawing.Point(333, 14);
+            this.previewBox.Location = new System.Drawing.Point(333, 13);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(192, 168);
+            this.previewBox.Size = new System.Drawing.Size(192, 156);
             this.previewBox.TabIndex = 5;
             this.previewBox.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.projectListView);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox2.Location = new System.Drawing.Point(12, 8);
+            this.groupBox2.Location = new System.Drawing.Point(12, 7);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(313, 229);
+            this.groupBox2.Size = new System.Drawing.Size(313, 213);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Installed &Templates";
             // 
             // projectListView
             // 
-            this.projectListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.projectListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.projectListView.BackColor = System.Drawing.SystemColors.Control;
             this.projectListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.projectListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.projectListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.projectListView.HideSelection = false;
-            this.projectListView.Location = new System.Drawing.Point(7, 16);
+            this.projectListView.Location = new System.Drawing.Point(7, 15);
             this.projectListView.MultiSelect = false;
             this.projectListView.Name = "projectListView";
-            this.projectListView.Size = new System.Drawing.Size(299, 207);
+            this.projectListView.Size = new System.Drawing.Size(299, 192);
             this.projectListView.SmallImageList = this.imageList;
             this.projectListView.TabIndex = 0;
             this.projectListView.UseCompatibleStateImageBehavior = false;
@@ -145,10 +150,11 @@ namespace ProjectManager.Controls
             // 
             // locationTextBox
             // 
-            this.locationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.locationTextBox.Location = new System.Drawing.Point(67, 306);
+            this.locationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.locationTextBox.Location = new System.Drawing.Point(67, 284);
             this.locationTextBox.Name = "locationTextBox";
-            this.locationTextBox.Size = new System.Drawing.Size(375, 21);
+            this.locationTextBox.Size = new System.Drawing.Size(375, 20);
             this.locationTextBox.TabIndex = 3;
             this.locationTextBox.Text = "C:\\Documents and Settings\\Nick\\My Documents";
             this.locationTextBox.TextChanged += new System.EventHandler(this.locationTextBox_TextChanged);
@@ -157,19 +163,20 @@ namespace ProjectManager.Controls
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label1.Location = new System.Drawing.Point(12, 309);
+            this.label1.Location = new System.Drawing.Point(12, 287);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
+            this.label1.Size = new System.Drawing.Size(56, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "&Location:";
             // 
             // descriptionLabel
             // 
-            this.descriptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.descriptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.descriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.descriptionLabel.Location = new System.Drawing.Point(12, 249);
+            this.descriptionLabel.Location = new System.Drawing.Point(12, 231);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(513, 20);
+            this.descriptionLabel.Size = new System.Drawing.Size(513, 19);
             this.descriptionLabel.TabIndex = 1;
             this.descriptionLabel.Text = "Project description";
             this.descriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -178,9 +185,9 @@ namespace ProjectManager.Controls
             // 
             this.browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.browseButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.browseButton.Location = new System.Drawing.Point(451, 305);
+            this.browseButton.Location = new System.Drawing.Point(451, 283);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(75, 23);
+            this.browseButton.Size = new System.Drawing.Size(75, 22);
             this.browseButton.TabIndex = 4;
             this.browseButton.Text = "&Browse...";
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
@@ -189,18 +196,19 @@ namespace ProjectManager.Controls
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label2.Location = new System.Drawing.Point(12, 280);
+            this.label2.Location = new System.Drawing.Point(12, 260);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 16);
+            this.label2.Size = new System.Drawing.Size(56, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "&Name:";
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameTextBox.Location = new System.Drawing.Point(67, 277);
+            this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameTextBox.Location = new System.Drawing.Point(67, 257);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(458, 21);
+            this.nameTextBox.Size = new System.Drawing.Size(458, 20);
             this.nameTextBox.TabIndex = 2;
             this.nameTextBox.Text = "New Project";
             this.nameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
@@ -209,43 +217,46 @@ namespace ProjectManager.Controls
             // 
             this.createDirectoryBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.createDirectoryBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.createDirectoryBox.Location = new System.Drawing.Point(67, 366);
+            this.createDirectoryBox.Location = new System.Drawing.Point(67, 340);
             this.createDirectoryBox.Name = "createDirectoryBox";
-            this.createDirectoryBox.Size = new System.Drawing.Size(200, 16);
+            this.createDirectoryBox.Size = new System.Drawing.Size(200, 15);
             this.createDirectoryBox.TabIndex = 6;
             this.createDirectoryBox.Text = " Create &directory for project";
             this.createDirectoryBox.CheckedChanged += new System.EventHandler(this.createDirectoryBox_CheckedChanged);
             // 
             // statusBar
             // 
-            this.statusBar.Location = new System.Drawing.Point(0, 392);
+            this.statusBar.Location = new System.Drawing.Point(0, 364);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(537, 22);
+            this.statusBar.Size = new System.Drawing.Size(537, 20);
             this.statusBar.SizingGrip = false;
             this.statusBar.TabIndex = 9;
             this.statusBar.Text = "  Will create:  C:\\Documents and Settings\\Nick\\My Documents\\New Project.fdp";
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(9, 337);
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Location = new System.Drawing.Point(9, 313);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.Size = new System.Drawing.Size(59, 12);
             this.label3.TabIndex = 5;
             this.label3.Text = "&Package:";
             // 
             // packageTextBox
             // 
-            this.packageTextBox.Location = new System.Drawing.Point(67, 334);
+            this.packageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.packageTextBox.Location = new System.Drawing.Point(67, 310);
             this.packageTextBox.Name = "packageTextBox";
-            this.packageTextBox.Size = new System.Drawing.Size(303, 21);
+            this.packageTextBox.Size = new System.Drawing.Size(303, 20);
             this.packageTextBox.TabIndex = 5;
             this.packageTextBox.TextChanged += new System.EventHandler(this.textPackage_TextChanged);
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(368, 337);
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.Location = new System.Drawing.Point(368, 313);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(158, 13);
+            this.label4.Size = new System.Drawing.Size(158, 12);
             this.label4.TabIndex = 5;
             this.label4.Text = "(not supported in all projects)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -253,9 +264,9 @@ namespace ProjectManager.Controls
             // NewProjectDialog
             // 
             this.AcceptButton = this.okButton;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(537, 414);
+            this.ClientSize = new System.Drawing.Size(537, 384);
             this.Controls.Add(this.packageTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
