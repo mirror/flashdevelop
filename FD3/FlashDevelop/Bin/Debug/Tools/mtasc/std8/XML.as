@@ -22,6 +22,8 @@ intrinsic class XML extends XMLNode
 	
 	// Flash 8
 	
+	var idMap:Object;
+	
 	function onHTTPStatus(httpStatus:Number):Void;
 }
 
