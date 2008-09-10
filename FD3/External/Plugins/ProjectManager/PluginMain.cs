@@ -70,9 +70,9 @@ namespace ProjectManager
         public static IMainForm MainForm { get { return PluginBase.MainForm; } }
         public static ProjectManagerSettings Settings;
 
-        const EventType eventMask = EventType.UIStarted | EventType.FileOpening 
+        const EventType eventMask = EventType.UIStarted | EventType.FileOpening
             | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd
-            | EventType.ProcessArgs | EventType.Command | EventType.Keys;
+            | EventType.ProcessArgs | EventType.Command | EventType.Keys | EventType.RestoreSession;
 
         #region Load/Save Settings
 
@@ -358,6 +358,10 @@ namespace ProjectManager
                     }
                     break;
 
+                case EventType.RestoreSession:
+                    e.Handled = RestoreProjectSession();
+                    break;
+
                 case EventType.Keys:
                     e.Handled = HandleKeyEvent(e as KeyEvent);
                     break;
@@ -400,6 +404,30 @@ namespace ProjectManager
 
         #region Custom Methods
 
+        bool RestoreProjectSession()
+        {
+            if (project == null) return false;
+            String hash = HashCalculator.CalculateSHA1(project.ProjectPath.ToLower());
+            String sessionDir = Path.Combine(SettingsDir, "Sessions");
+            String sessionFile = Path.Combine(sessionDir, hash + ".fdb");
+            if (File.Exists(sessionFile))
+            {
+                PluginBase.MainForm.CallCommand("RestoreSession", sessionFile);
+                return true;
+            }
+            return false;
+        }
+
+        void SaveProjectSession()
+        {
+            if (project == null) return;
+            String hash = HashCalculator.CalculateSHA1(project.ProjectPath.ToLower());
+            String sessionDir = Path.Combine(SettingsDir, "Sessions");
+            String sessionFile = Path.Combine(sessionDir, hash + ".fdb");
+            if (!Directory.Exists(sessionDir)) Directory.CreateDirectory(sessionDir);
+            PluginBase.MainForm.CallCommand("SaveSession", sessionFile);
+        }
+
         void SetProject(Project project, Boolean stealFocus)
         {
             if (this.project == project) return;
@@ -420,6 +448,8 @@ namespace ProjectManager
             PluginBase.CurrentProject = project;
             PluginBase.MainForm.RefreshUI();
             BroadcastProjectInfo();
+
+            if (Settings.UseProjectSessions) RestoreProjectSession();
 
             if (stealFocus)
             {
@@ -447,6 +477,8 @@ namespace ProjectManager
             ProjectPreferences prefs = Settings.GetPrefs(project);
             prefs.ExpandedPaths = Tree.ExpandedPaths;
             prefs.EnableTrace = !pluginUI.IsTraceDisabled;
+
+            if (Settings.UseProjectSessions) SaveProjectSession();
 
             project = null;
             FlexCompilerShell.Cleanup(); // clear compile cache for this project

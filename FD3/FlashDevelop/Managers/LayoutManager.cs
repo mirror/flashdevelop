@@ -137,7 +137,7 @@ namespace FlashDevelop.Managers
                     if (!Globals.MainForm.CloseAllCanceled)
                     {
                         LayoutManager.BuildLayoutSystems(file);
-                        SessionManager.RestoreSession(session);
+                        SessionManager.RestoreSession("", session, false);
                     }
                 }
                 Globals.MainForm.RestoringContents = false;

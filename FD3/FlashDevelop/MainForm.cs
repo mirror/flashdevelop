@@ -867,7 +867,8 @@ namespace FlashDevelop
             }
             else if (this.appSettings.RestoreFileSession)
             {
-                SessionManager.LoadSession();
+                String file = FileNameHelper.SessionData;
+                SessionManager.RestoreSession(file, true);
             }
             if (this.Documents.Length == 0)
             {
@@ -886,7 +887,6 @@ namespace FlashDevelop
         /// </summary>
         public void OnMainFormClosing(Object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Session session = SessionManager.GetCurrentSession();
             NotifyEvent ne = new NotifyEvent(EventType.UIClosing);
             EventManager.DispatchEvent(this, ne);
             this.closingEntirely = true;
@@ -900,7 +900,8 @@ namespace FlashDevelop
             }
             if (!e.Cancel)
             {
-                SessionManager.SaveSession(session);
+                String file = FileNameHelper.SessionData;
+                SessionManager.SaveSession(file);
                 PluginServices.DisposePlugins();
                 this.SaveAllSettings();
             }
@@ -1636,6 +1637,23 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Saves the current file session
+        /// </summary>
+        public void SaveSession(Object sender, System.EventArgs e)
+        {
+            try
+            {
+                ToolStripItem button = (ToolStripItem)sender;
+                String file = ((ItemData)button.Tag).Tag;
+                SessionManager.SaveSession(file);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
         /// Restores the specified file session
         /// </summary>
         public void RestoreSession(Object sender, System.EventArgs e)
@@ -1643,11 +1661,8 @@ namespace FlashDevelop
             try
             {
                 ToolStripItem button = (ToolStripItem)sender;
-                String[] args = ((ItemData)button.Tag).Tag.Split('|');
-                Int32 selectedIndex = Convert.ToInt32(args[0]);
-                List<String> files = new List<String>(args[1].Split(';'));
-                Session session = new Session(selectedIndex, files);
-                SessionManager.RestoreSession(session);
+                String file = ((ItemData)button.Tag).Tag;
+                SessionManager.RestoreSession(file, false);
             }
             catch (Exception ex)
             {

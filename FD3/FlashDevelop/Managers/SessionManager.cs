@@ -14,14 +14,14 @@ namespace FlashDevelop.Managers
     class SessionManager
     {
         /// <summary>
-        /// Saves the current session
+        /// Saves the current session to a file
         /// </summary>
-        public static void SaveSession(Session session)
+        public static void SaveSession(String file)
         {
             try
             {
-                String sessionFile = FileNameHelper.SessionData;
-                ObjectSerializer.Serialize(sessionFile, session);
+                Session session = GetCurrentSession();
+                ObjectSerializer.Serialize(file, session);
             }
             catch (Exception ex)
             {
@@ -30,30 +30,22 @@ namespace FlashDevelop.Managers
         }
 
         /// <summary>
-        /// Loads the saved session 
-        /// </summary> 
-        public static void LoadSession()
+        /// Loads and restores the saved session 
+        /// </summary>
+        public static void RestoreSession(String file, Boolean notify)
         {
             try
             {
-                String sessionFile = FileNameHelper.SessionData;
-                if (File.Exists(sessionFile))
-                {
-                    Session session = new Session();
-                    session = (Session)ObjectSerializer.Deserialize(sessionFile, session);
-                    RestoreSession(session);
-                }
+                Session session = new Session();
+                session = (Session)ObjectSerializer.Deserialize(file, session);
+                RestoreSession(file, session, notify);
             }
             catch (Exception ex)
             {
                 ErrorManager.ShowError(ex);
             }
         }
-
-        /// <summary>
-        /// Properties of the class 
-        /// </summary>
-        public static void RestoreSession(Session session)
+        public static void RestoreSession(String file, Session session, Boolean notify)
         {
             try
             {
@@ -61,14 +53,14 @@ namespace FlashDevelop.Managers
                 Globals.MainForm.CloseAllDocuments(false);
                 if (!Globals.MainForm.CloseAllCanceled)
                 {
-                    TextEvent te = new TextEvent(EventType.RestoreSession, session.ToString());
-                    EventManager.DispatchEvent(Globals.MainForm, te);
+                    TextEvent te = new TextEvent(EventType.RestoreSession, file);
+                    if (notify) EventManager.DispatchEvent(Globals.MainForm, te);
                     if (!te.Handled)
                     {
                         for (Int32 i = 0; i < session.Files.Count; i++)
                         {
-                            String file = session.Files[i];
-                            if (File.Exists(file)) Globals.MainForm.OpenEditableDocument(file);
+                            String fileToOpen = session.Files[i];
+                            if (File.Exists(fileToOpen)) Globals.MainForm.OpenEditableDocument(fileToOpen);
                         }
                         if (Globals.MainForm.Documents.Length == 0)
                         {
@@ -122,19 +114,6 @@ namespace FlashDevelop.Managers
         {
             this.Index = index;
             this.Files = files;
-        }
-
-        /// <summary>
-        /// Gets a string presentation of the session
-        /// </summary>
-        public override String ToString()
-        {
-            String result = this.Index.ToString() + "|";
-            for (Int32 i = 0; i < this.Files.Count; i++)
-            {
-                result += this.Files[i] + ";";
-            }
-            return result.Substring(0, result.Length-1);
         }
 
     }

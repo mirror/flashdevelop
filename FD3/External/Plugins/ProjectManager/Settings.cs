@@ -33,6 +33,7 @@ namespace ProjectManager
         string alternateTemplateDir;
         string lastProject = string.Empty;
         bool createProjectDirectory = false;
+        bool useProjectSessions = false;
         string newProjectDefaultDirectory = string.Empty;
         bool disableMxmlMapping = false;
         Keys shortcutTestMovie = DEFAULT_TESTMOVIE;
@@ -77,7 +78,17 @@ namespace ProjectManager
             get { return newProjectDefaultDirectory; }
             set { newProjectDefaultDirectory = value; FireChanged("NewProjectDefaultDirectory"); }
         }
-        
+
+        [DisplayName("Use Project Sessions")]
+        [LocalizedDescription("ProjectManager.Description.UseProjectSessions")]
+        [LocalizedCategory("ProjectManager.Category.OtherOptions")]
+        [DefaultValue(false)]
+        public Boolean UseProjectSessions
+        {
+            get { return useProjectSessions; }
+            set { useProjectSessions = value; }
+        }
+
         [DisplayName("Maximum Recent Projects")]
         [LocalizedDescription("ProjectManager.Description.MaxRecentProjects")]
         [LocalizedCategory("ProjectManager.Category.OtherOptions")]

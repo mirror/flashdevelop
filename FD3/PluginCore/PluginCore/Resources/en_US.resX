@@ -2610,4 +2610,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Description.ReformatBraces" xml:space="preserve">
     <value>Automatically reformat braces according to the Coding Style Line Break option in the main application settings.</value>
   </data>
+  <data name="ProjectManager.Description.UseProjectSessions" xml:space="preserve">
+    <value>Uses project related sessions when opening or closing projects.</value>
+  </data>
 </root>
