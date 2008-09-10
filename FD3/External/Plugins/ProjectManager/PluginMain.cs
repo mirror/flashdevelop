@@ -70,7 +70,7 @@ namespace ProjectManager
         public static IMainForm MainForm { get { return PluginBase.MainForm; } }
         public static ProjectManagerSettings Settings;
 
-        const EventType eventMask = EventType.UIStarted | EventType.FileOpening
+        const EventType eventMask = EventType.UIStarted | EventType.FileOpening | EventType.UIClosing
             | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd
             | EventType.ProcessArgs | EventType.Command | EventType.Keys | EventType.RestoreSession;
 
@@ -362,6 +362,10 @@ namespace ProjectManager
                     e.Handled = RestoreProjectSession();
                     break;
 
+                case EventType.UIClosing:
+                    SaveProjectSession();
+                    break;
+
                 case EventType.Keys:
                     e.Handled = HandleKeyEvent(e as KeyEvent);
                     break;
@@ -478,7 +482,7 @@ namespace ProjectManager
             prefs.ExpandedPaths = Tree.ExpandedPaths;
             prefs.EnableTrace = !pluginUI.IsTraceDisabled;
 
-            if (Settings.UseProjectSessions) SaveProjectSession();
+            if (Settings.UseProjectSessions && !PluginBase.MainForm.ClosingEntirely) SaveProjectSession();
 
             project = null;
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
