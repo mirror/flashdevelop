@@ -181,7 +181,7 @@ namespace AS2Context
 
         #region AS2 specific settings
 
-        const string DEFAULT_MTASCPATH = "tools\\mtasc";
+        const string DEFAULT_MTASCPATH = "Tools\\mtasc";
         const bool DEFAULT_USEMTASC = true;
         const int DEFAULT_FLASHVERSION = 9; // Flash CS3 has a specific FP9 support for AS2
         const string DEFAULT_MTASCCHECKPARAMS = "-mx -wimp";
