@@ -198,6 +198,7 @@ namespace TaskListPanel
         {
             this.contextMenu = new ContextMenuStrip();
             this.contextMenu.Font = PluginBase.Settings.DefaultFont;
+            this.statusStrip.Font = PluginBase.Settings.DefaultFont;
             Image image = PluginBase.MainForm.FindImage("66");
             String label = TextHelper.GetString("FlashDevelop.Label.Refresh");
             this.refreshButton = new ToolStripMenuItem(label, image, new EventHandler(this.RefreshButtonClick));
@@ -309,16 +310,12 @@ namespace TaskListPanel
             if (!this.isEnabled) return;
             this.listView.Items.Clear();
             this.filesCache.Clear();
-            if (PluginBase.CurrentProject != null)
-            {
-                this.RefreshProject();
-            }
+            if (PluginBase.CurrentProject != null) this.RefreshProject();
             else
             {
                 this.parseTimer.Enabled = false;
                 this.parseTimer.Stop();
-                if (!this.InvokeRequired)
-                    this.toolStripLabel.Text = "";
+                if (!this.InvokeRequired) this.toolStripLabel.Text = "";
             }
         }
 
@@ -379,10 +376,7 @@ namespace TaskListPanel
                         }
                         else
                         {
-                            if (this.filesCache[path] != lastWriteTime)
-                            {
-                                parseFile = true;
-                            }
+                            if (this.filesCache[path] != lastWriteTime) parseFile = true;
                         }
                         files.RemoveAt(0);
                         if (parseFile) this.ParseFile(path);
@@ -420,8 +414,7 @@ namespace TaskListPanel
         /// </summary>
         private void ParseFile(String path)
         {
-            if (!File.Exists(path)) 
-                return;
+            if (!File.Exists(path)) return;
             Hashtable itemTag;
             ListViewItem item;
             String text = String.Empty;
@@ -448,6 +441,7 @@ namespace TaskListPanel
                     }, FindImageIndex(match.Groups[2].Value));
                     item.Tag = itemTag;
                     item.Name = path;
+                    item.ToolTipText = match.Groups[2].Value;
                     this.listView.Items.Add(item);
                     this.AddToGroup(item, path);
                 }

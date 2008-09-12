@@ -73,6 +73,7 @@ namespace BookmarkPanel
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnLine,
             this.columnText});
+            this.listView.ShowItemToolTips = true;
             this.listView.ContextMenuStrip = this.contextMenuStrip;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.FullRowSelect = true;
@@ -198,9 +199,9 @@ namespace BookmarkPanel
             this.timeoutManager = new TimeoutManager();
             this.updateTimer = new System.Windows.Forms.Timer();
             this.updateTimer.Interval = 500;
-            this.updateTimer.Tick += new EventHandler(updateTimer_Tick);
-            UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(Manager_OnTextChanged);
-            UITools.Manager.OnMarkerChanged += new UITools.LineEventHandler(Manager_OnMarkerChanged);
+            this.updateTimer.Tick += new EventHandler(this.UpdateTimerTick);
+            UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(this.ManagerOnTextChanged);
+            UITools.Manager.OnMarkerChanged += new UITools.LineEventHandler(this.ManagerOnMarkerChanged);
         }
 
         /// <summary>
@@ -412,7 +413,7 @@ namespace BookmarkPanel
         /// <summary>
         /// Document text changed
         /// </summary>
-        private void Manager_OnTextChanged(ScintillaControl sender, int position, int length, int linesAdded)
+        private void ManagerOnTextChanged(ScintillaControl sender, int position, int length, int linesAdded)
         {
             ListViewGroup group = this.FindGroup(sender.Parent as ITabbedDocument);
             if (group == null) return;
@@ -424,7 +425,7 @@ namespace BookmarkPanel
         /// <summary>
         /// Document markers changed
         /// </summary>
-        private void Manager_OnMarkerChanged(ScintillaControl sender, int line)
+        private void ManagerOnMarkerChanged(ScintillaControl sender, int line)
         {
             ListViewGroup group = this.FindGroup(sender.Parent as ITabbedDocument);
             if (group == null) return;
@@ -436,7 +437,7 @@ namespace BookmarkPanel
         /// <summary>
         /// Check all documents markers
         /// </summary>
-        private void updateTimer_Tick(object sender, EventArgs e)
+        private void UpdateTimerTick(object sender, EventArgs e)
         {
             updateTimer.Stop();
             List<ListViewGroup> groups = new List<ListViewGroup>();
@@ -471,6 +472,7 @@ namespace BookmarkPanel
                 foreach (Int32 marker in markers)
                 {
                     item = new ListViewItem(new String[]{(marker+1).ToString(), sci.GetLine(marker).Trim()}, 0);
+                    item.ToolTipText = sci.GetLine(marker).Trim();
                     item.Name = group.Name;
                     item.Group = group;
                     item.Tag = marker;
