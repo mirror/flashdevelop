@@ -23,17 +23,14 @@ namespace ProjectManager.Building.AS3
         {
             this.project = project;
 
-            DetectFlex2Sdk(compilerPath);
+            DetectFlexSdk(compilerPath);
 
             bool hostedInFD = (ipcName != null && ipcName != "");
             bool mxmlcExists = File.Exists(mxmlcPath);
             bool fcshExists = File.Exists(fcshPath);
 
             if (!mxmlcExists && !project.NoOutput)
-                throw new Exception("Could not find mxmlc.exe.  Please set the correct path to the Flex2 SDK in the Project Manager settings dialog.");
-
-            if (hostedInFD && !fcshExists)
-                Console.WriteLine("HINT: Improve your build speed when compiling in FlashDevelop3 by placing the Adobe Flex Compiler Shell in your Flex2 bin path.");
+                throw new Exception("Could not locate lib\\mxmlc.jar in Flex SDK. Please set the correct path to the Flex SDK in AS3Context plugin settings.");
 
             if (hostedInFD && fcshExists)
             {
@@ -44,11 +41,11 @@ namespace ProjectManager.Building.AS3
             }
         }
 
-        #region Grab Flex2 SDK Path from Project Manager
+        #region Grab Flex SDK Path from Project Manager
 
-        private void DetectFlex2Sdk(string flex2sdkPath)
+        private void DetectFlexSdk(string flexsdkPath)
         {
-            if (flex2sdkPath == null || !Directory.Exists(flex2sdkPath))
+            if (flexsdkPath == null || !Directory.Exists(flexsdkPath))
             {
                 // search for FDBuildHints.txt in the ProjectManager's Data directory
                 // when path is not provided in program arguments.
@@ -66,12 +63,13 @@ namespace ProjectManager.Building.AS3
 
                 using (StreamReader reader = File.OpenText(fdbuildHints))
                 {
-                    flex2sdkPath = reader.ReadLine();
+                    flexsdkPath = reader.ReadLine();
                 }
             }
-            sdkPath = flex2sdkPath;
-            mxmlcPath = Path.Combine(Path.Combine(flex2sdkPath, "lib"), "mxmlc.jar");
-            fcshPath = Path.Combine(Path.Combine(flex2sdkPath, "lib"), "fcsh.jar");
+            if (Path.GetFileName(flexsdkPath) == "bin") flexsdkPath = Path.GetDirectoryName(flexsdkPath);
+            sdkPath = flexsdkPath;
+            mxmlcPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "mxmlc.jar");
+            fcshPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "fcsh.jar");
 
         }
 
@@ -150,7 +148,7 @@ namespace ProjectManager.Building.AS3
                     Console.Error.WriteLine(error);
 
                 if (errors.Length > 0)
-                    throw new BuildException("Build halted with errors (mxmlc).");
+                    throw new BuildException("Build halted with errors (fcsh).");
             }
             else
             {

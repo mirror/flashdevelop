@@ -1809,7 +1809,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Would you like to open the {0} context settings to configure the compiler?</value>
   </data>
   <data name="ProjectManager.Info.SpecifyFlex2SDK" xml:space="preserve">
-    <value>The Flex 2 SDK is required to debug this project. Check the AS3 language context settings.</value>
+    <value>The Flex SDK is required to debug this project. Check the AS3 language context settings.</value>
   </data>
   <data name="ProjectManager.Info.SpecifyInputSwfForInjection" xml:space="preserve">
     <value>You must specify an input SWF file if you wish to use Code Injection.</value>
