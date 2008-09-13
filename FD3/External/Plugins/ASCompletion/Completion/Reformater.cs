@@ -15,6 +15,7 @@ namespace ASCompletion.Completion
         public string SpacedChars = "";
         public string[] AddSpaceAfter = new string[] {};
         public string Operators = "=+-*/%<>&|^";
+        public bool isPhp = false;
     }
 
     public class Reformater
@@ -204,23 +205,34 @@ namespace ASCompletion.Completion
                         i++;
                         continue;
                     }
-                    else if (i < n && c == '-' && txt[i] == '>') // php dot operator
+                    else if (i > 0 && c == '-' && c2 == 'e')
                     {
-                        sb.Append(c).Append(txt[i]);
-                        c2 = ' ';
                         needSpace = false;
-                        i++;
+                        sb.Append(c);
+                        c2 = ' ';
                         continue;
                     }
-                    else if (i < n && c2 == '.' && c == '=') // php concat operator
-                    {
-                        needSpace = false;
-                    }
-                    else if (i < n && c2 == '=' && c == '>') // php array(key => value)
-                    {
-                        needSpace = false;
-                    }
                     else needSpace = (c != '!' || (c2 != '(' && c2 != '['));
+
+                    if (options.isPhp)
+                    {
+                        if (i < n && c == '-' && txt[i] == '>') // php dot operator
+                        {
+                            sb.Append(c).Append(txt[i]);
+                            c2 = ' ';
+                            needSpace = false;
+                            i++;
+                            continue;
+                        }
+                        else if (i < n && c2 == '.' && c == '=') // php concat operator
+                        {
+                            needSpace = false;
+                        }
+                        else if (i < n && c2 == '=' && c == '>') // php array(key => value)
+                        {
+                            needSpace = false;
+                        }
+                    }
 
                     if (options.BraceAfterLine && c == '{')
                     {

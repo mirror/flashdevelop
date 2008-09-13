@@ -714,6 +714,7 @@ namespace ASCompletion.Completion
             options.SpacedChars = ASContext.CommonSettings.SpacedChars;
             options.SpaceBeforeFunctionCall = ASContext.CommonSettings.SpaceBeforeFunctionCall;
             options.AddSpaceAfter = ASContext.CommonSettings.AddSpaceAfter.Split(' ');
+            options.isPhp = ASContext.Context.Settings.LanguageId == "PHP";
 
             int newOffset = offset;
             string replace = Reformater.ReformatLine(txt, options, ref newOffset);
