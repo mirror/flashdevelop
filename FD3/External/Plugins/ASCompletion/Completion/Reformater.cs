@@ -60,6 +60,11 @@ namespace ASCompletion.Completion
                     offset = sb.Length;
                 }
                 c = txt[i++];
+                if (c == '\r') 
+                {
+                    sb.Append(c);
+                    break;
+                }
                 // skip string literals
                 if (c == '\\')
                 {

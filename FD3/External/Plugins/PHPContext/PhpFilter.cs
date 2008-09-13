@@ -21,11 +21,16 @@ namespace PHPContext
             int nodeStart = -1;
             int nodeEnd = -1;
             bool skip = true;
+            bool hadNL = false;
             for (int i = 0; i < len; i++)
             {
                 char c = src[i];
                 // keep newlines
-                if (c == 10 || c == 13) sb.Append(c);
+                if (c == 10 || c == 13)
+                {
+                    sb.Append(c);
+                    hadNL = true;
+                }
                 // in XML
                 else if (skip)
                 {
@@ -35,6 +40,7 @@ namespace PHPContext
                         {
                             i += 2;
                             skip = false;
+                            hadNL = false;
                             rangeStart = i;
                             continue;
                         }
@@ -55,16 +61,16 @@ namespace PHPContext
                 // in script
                 else
                 {
-                    if (c == '?' && src[i] == '>')
+                    if (c == '?' && i < len - 2 && src[i + 1] == '>')
                     {
                         skip = true;
-                        phpRanges.Add(new InlineRange("php", rangeStart, i));
+                        if (hadNL) phpRanges.Add(new InlineRange("php", rangeStart, i));
                         rangeStart = -1;
                     }
                     else sb.Append(c);
                 }
             }
-            if (rangeStart >= 0)
+            if (rangeStart >= 0 && hadNL)
                 phpRanges.Add(new InlineRange("php", rangeStart, src.Length));
             return sb.ToString();
         }

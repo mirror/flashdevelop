@@ -96,17 +96,22 @@ namespace ASCompletion.Model
             string res = Name;
             if ((Flags & (FlagType.Function | FlagType.Setter | FlagType.Getter)) > 0)
             {
-                res += "(" + ParametersString() + ")";
+                res += "(" + ParametersString(true) + ")";
             }
             if ((Flags & FlagType.Constructor) > 0)
                 return res;
             else if (Type != null && Type.Length > 0)
-                return res + ":" + Type;
+                return res + ":" + FormatType(Type);
             else
                 return res;
         }
 
         public string ParametersString()
+        {
+            return ParametersString(false);
+        }
+
+        public string ParametersString(bool formated)
         {
             string res = "";
             if (Parameters != null && Parameters.Count > 0)
@@ -118,7 +123,7 @@ namespace ASCompletion.Model
                     else addSep = true;
                     res += param.Name;
                     if (param.Type != null && param.Type.Length > 0)
-                        res += ":" + param.Type;
+                        res += ":" + (formated ? FormatType(param.Type) : param.Type);
                     if (param.Parameters != null && param.Parameters.Count > 0)
                         res += " = " + param.Parameters[0].Comments.Trim();
                 }
@@ -144,6 +149,15 @@ namespace ASCompletion.Model
 				throw new InvalidCastException("This object is not of type MemberModel");
 			return string.Compare(Name, ((MemberModel)obj).Name, false);
 		}
+
+        static public string FormatType(string type)
+        {
+            if (type == null || type.Length == 0)
+                return null;
+            int p = type.IndexOf('$');
+            if (p > 0) return "/*" + type.Substring(p + 1) + "*/" + type.Substring(0, p);
+            else return type;
+        }
 	}
 	
 	/// <summary>

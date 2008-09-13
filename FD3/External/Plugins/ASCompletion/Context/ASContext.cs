@@ -222,7 +222,21 @@ namespace ASCompletion.Context
         /// </summary>
         public virtual bool IsFileValid
         {
-            get { return cFile != null && cFile != FileModel.Ignore && cFile.Version > 0 && Settings != null; }
+            get 
+            {
+                if (cFile == null || cFile == FileModel.Ignore || cFile.Version == 0 || Settings == null)
+                    return false;
+                if (cFile.InlinedRanges != null)
+                {
+                    int position = ASContext.CurSciControl.CurrentPos;
+                    foreach (InlineRange range in cFile.InlinedRanges)
+                    {
+                        if (position > range.Start && position < range.End) return true;
+                    }
+                    return false;
+                }
+                else return true;
+            }
         }
 
 		/// <summary>

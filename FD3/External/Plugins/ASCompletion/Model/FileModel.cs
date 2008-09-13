@@ -215,7 +215,6 @@ namespace ASCompletion.Model
                 else if ((member.Flags & FlagType.Function) > 0)
                 {
                     decl = ClassModel.MemberDeclaration(member);
-                    if ((member.Flags & FlagType.Constructor) > 0) decl = decl.Replace(" : ctor", "");
                     sb.Append(ClassModel.CommentDeclaration(member.Comments, tab));
                     sb.Append(tab).Append(decl).Append(semi).Append(nl);
                 }

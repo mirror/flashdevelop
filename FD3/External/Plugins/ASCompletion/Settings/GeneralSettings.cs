@@ -340,6 +340,7 @@ namespace ASCompletion.Settings
         const bool DEFAULT_CACHE = false;
 
         protected bool disableCache = false;
+        protected string lastASVersion;
 
         [DisplayName("Disable Cache")]
         [LocalizedCategory("ASCompletion.Category.Advanced"), LocalizedDescription("ASCompletion.Description.DisableCache"), DefaultValue(DEFAULT_CACHE)]
@@ -347,6 +348,14 @@ namespace ASCompletion.Settings
         {
             get { return disableCache; }
             set { disableCache = value; }
+        }
+        
+        [DisplayName("Last Actionscript Version")]
+        [LocalizedCategory("ASCompletion.Category.Advanced"), LocalizedDescription("ASCompletion.Description.LastASVersion")]
+        public string LastASVersion
+        {
+            get { return lastASVersion; }
+            set { lastASVersion = value; }
         }
         #endregion
     }

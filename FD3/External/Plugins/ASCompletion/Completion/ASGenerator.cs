@@ -479,7 +479,14 @@ namespace ASCompletion.Completion
 
         private static bool RemoveLocalDeclaration(ScintillaNet.ScintillaControl Sci, MemberModel contextMember)
         {
-            string type = (contextMember.Type == null) ? "" : ":\\s*" + contextMember.Type;
+            string type = "";
+            if (contextMember.Type != null)
+            {
+                type = FormatType(contextMember.Type);
+                if (type.IndexOf('*') > 0)
+                    type = type.Replace("/*", @"/\*\s*").Replace("*/", @"\s*\*/");
+                type = @":\s*" + type;
+            }
             Regex reDecl = new Regex(String.Format(@"\s(var\s+{0}\s*{1})\s*", contextMember.Name, type));
             for (int i = contextMember.LineFrom; i <= contextMember.LineTo + 10; i++)
             {
@@ -915,11 +922,7 @@ namespace ASCompletion.Completion
 
         private static string FormatType(string type)
         {
-            if (type == null || type.Length == 0)
-                return null;
-            int p = type.IndexOf('$');
-            if (p > 0) return "/*" + type.Substring(p + 1) + "*/" + type.Substring(0, p);
-            else return type;
+            return MemberModel.FormatType(type);
         }
 
         private static string CleanType(string type)

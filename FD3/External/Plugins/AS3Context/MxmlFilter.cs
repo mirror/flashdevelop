@@ -38,6 +38,7 @@ namespace AS3Context
             int line = 0;
             bool firstNode = true;
             bool skip = true;
+            bool hadNL = false;
             bool inComment = false;
             for (int i = 0; i < len; i++)
             {
@@ -48,6 +49,7 @@ namespace AS3Context
                     if (c == 13) line++;
                     else if (i > 0 && src[i - 1] != 13) line++;
                     sb.Append(c);
+                    hadNL = true;
                 }
                 // XML comment
                 else if (inComment)
@@ -77,6 +79,7 @@ namespace AS3Context
                             {
                                 i += 8;
                                 skip = false;
+                                hadNL = false;
                                 rangeStart = i;
                                 continue;
                             }
@@ -128,13 +131,13 @@ namespace AS3Context
                     if (c == ']' && src[i] == ']' && src[i + 1] == '>')
                     {
                         skip = true;
-                        as3ranges.Add(new InlineRange("as3", rangeStart, i));
+                        if (hadNL) as3ranges.Add(new InlineRange("as3", rangeStart, i));
                         rangeStart = -1;
                     }
                     else sb.Append(c);
                 }
             }
-            if (rangeStart >= 0)
+            if (rangeStart >= 0 && hadNL)
                 as3ranges.Add(new InlineRange("as3", rangeStart, src.Length));
             return sb.ToString();
         }
