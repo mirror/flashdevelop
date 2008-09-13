@@ -4481,17 +4481,21 @@ namespace ScintillaNet
                             break;
 
 						case (uint)Enums.ScintillaEvents.Modified:
+                            string text = null;
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.InsertText)>0)
-							{	
+							{
+                                text = MarshalStr(scn.text, scn.length);
 								if (TextInserted != null) TextInserted(this, scn.position, scn.length, scn.linesAdded);
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.DeleteText)>0) 
 							{
+                                text = MarshalStr(scn.text, scn.length);
 								if (TextDeleted != null) TextDeleted(this, scn.position, scn.length, scn.linesAdded);
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.ChangeStyle)>0) 
 							{
 								if (StyleChanged != null) StyleChanged(this, scn.position, scn.length);
+                                return;
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.ChangeFold)>0)
 							{
@@ -4500,6 +4504,7 @@ namespace ScintillaNet
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.UserPerformed)>0) 
 							{
 								if (UserPerformed != null ) UserPerformed(this);
+                                if (scn.length == 0) return;
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.UndoPerformed)>0)
 							{
@@ -4507,28 +4512,31 @@ namespace ScintillaNet
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.RedoPerformed)>0)
 							{
-								if (RedoPerformed != null )RedoPerformed(this);
+								if (RedoPerformed != null ) RedoPerformed(this);
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.LastStepInUndoRedo)>0)
 							{
 								if (LastStepInUndoRedo != null ) LastStepInUndoRedo(this);
+                                return;
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.ChangeMarker)>0)
 							{
 								if (MarkerChanged != null ) MarkerChanged(this, scn.line);
+                                return;
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.BeforeInsert)>0)
 							{
 								if (BeforeInsert != null ) BeforeInsert(this, scn.position, scn.length);
+                                return;
 							}
 							if ((scn.modificationType & (uint)Enums.ModificationFlags.BeforeDelete)>0)
 							{
 								if (BeforeDelete != null ) BeforeDelete(this, scn.position, scn.length);
+                                return;
 							}
 							if (Modified != null)
 							{
-								if ((scn.modificationType & (uint)Enums.ModificationFlags.BeforeInsert)>0) Modified( this, scn.position, scn.modificationType, MarshalStr(scn.text, scn.length), scn.length, scn.linesAdded, scn.line, scn.foldLevelNow,scn.foldLevelPrev);
-								else Modified( this, scn.position, scn.modificationType, null, scn.length, scn.linesAdded, scn.line, scn.foldLevelNow, scn.foldLevelPrev);
+                                Modified(this, scn.position, scn.modificationType, text, scn.length, scn.linesAdded, scn.line, scn.foldLevelNow, scn.foldLevelPrev);
 							}
 							break;
 					}

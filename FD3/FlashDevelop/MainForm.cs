@@ -1141,7 +1141,7 @@ namespace FlashDevelop
         public void OnScintillaControlModified(ScintillaControl sender, Int32 pos, Int32 modType, String text, Int32 length, Int32 lAdded, Int32 line, Int32 fLevelNow, Int32 fLevelPrev)
         {
             ITabbedDocument document = DocumentManager.FindDocument(sender);
-            if (document != null && document.IsEditable && (modType != (Int32)ScintillaNet.Enums.ModificationFlags.ChangeMarker))
+            if (document != null && document.IsEditable)
             {
                 this.OnDocumentModify(document);
                 if (this.appSettings.ViewModifiedLines)
