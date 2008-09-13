@@ -98,6 +98,7 @@ namespace AS3Context
         /// </summary>
         public void Dispose()
         {
+            FlexDebugger.Stop();
             this.SaveSettings();
         }
 
