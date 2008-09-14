@@ -216,7 +216,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Disable insertion of closing blocks braces.</value>
   </data>
   <data name="ASCompletion.Description.DisableCache" xml:space="preserve">
-    <value>For faster classpath parsing, a hidden cache file is created in each classpath directory root. Set this property to disable it.</value>
+    <value>For faster classpath parsing, a cache file is created in your FlashDevelop user files for each explored path. Set this property to disable it.</value>
   </data>
   <data name="ASCompletion.Description.DisableCodeReformat" xml:space="preserve">
     <value>Disable automatic code formating after typing &lt;Enter&gt; or &lt;;&gt;.</value>
@@ -2612,5 +2612,8 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ProjectManager.Description.UseProjectSessions" xml:space="preserve">
     <value>Uses project related sessions when opening or closing projects.</value>
+  </data>
+  <data name="ASCompletion.Description.LastASVersion" xml:space="preserve">
+    <value>Internal: automaticlaly storing latest Actionscript version detected to apply to files without package/class declarations.</value>
   </data>
 </root>
