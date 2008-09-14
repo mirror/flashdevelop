@@ -217,7 +217,8 @@ namespace ASCompletion
                         if (!doc.IsEditable) return;
                         if (doc.FileName.ToLower().EndsWith(".as"))
                         {
-                            (e as TextEvent).Value = DetectActionscriptVersion(doc);
+                            settingObject.LastASVersion = DetectActionscriptVersion(doc);
+                            (e as TextEvent).Value = settingObject.LastASVersion;
                             e.Handled = true;
                         }
                         break;
@@ -630,7 +631,9 @@ namespace ASCompletion
             FileModel model = new FileModel(doc.FileName);
             parser.ParseSrc(model, doc.SciControl.Text);
             if (model.Version == 1 && PluginBase.CurrentProject != null) return PluginBase.CurrentProject.Language;
-            else return (model.Version > 2) ? "as3" : "as2";
+            else if (model.Version > 2) return "as3";
+            else if (settingObject.LastASVersion != null) return settingObject.LastASVersion;
+            else return "as2";
         }
 
         /// <summary>
