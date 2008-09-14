@@ -112,7 +112,8 @@ namespace AS3Context
                 if (e.Type == EventType.Command)
                 {
                     string action = (e as DataEvent).Action;
-                    if (action == "AS3Context.StartDebugger")
+                    if (!(settingObject as AS3Settings).DisableFDB 
+                        && action == "AS3Context.StartDebugger")
                     {
                         string workDir = (PluginBase.CurrentProject != null)
                             ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
@@ -166,8 +167,7 @@ namespace AS3Context
                         else if (action == "FlashViewer.External" || action == "FlashViewer.Default" 
                             || action == "FlashViewer.Popup" || action == "FlashViewer.Document")
                         {
-                            if (!(settingObject as AS3Settings).DisableFDB
-                                && PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "as3"
+                            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "as3"
                                 && PluginBase.CurrentProject.TraceEnabled)
                             {
                                 DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
