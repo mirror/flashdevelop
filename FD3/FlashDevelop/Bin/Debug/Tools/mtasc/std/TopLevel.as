@@ -20,6 +20,9 @@ intrinsic class TopLevel {
 	static function setInterval():Number;
 	static function clearInterval(id:Number):Void;
 
+	static function setTimeout():Number;
+	static function clearTimeout(id:Number):Void;
+
 	static function MMExecute(expr:String);
 
 	// private members are not stored into _global, they need special compilation opcodes
@@ -45,5 +48,6 @@ intrinsic class TopLevel {
 	private static function throw(x) : Void;
 	private static function fscommand(x,y) : Void;
 	private static function print(x,y : String) : Void;
+	private static function stopAllSounds() : Void;
 
 }

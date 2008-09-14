@@ -1,5 +1,4 @@
-import flash.geom.Matrix;
-dynamic intrinsic class MovieClip
+﻿dynamic intrinsic class MovieClip
 {
 	var useHandCursor:Boolean;
 	var enabled:Boolean;
@@ -69,7 +68,7 @@ dynamic intrinsic class MovieClip
 	function moveTo(x:Number,y:Number):Void;
 	function lineTo(x:Number,y:Number):Void;
 	function curveTo(controlX:Number,controlY:Number,anchorX:Number,anchorY:Number):Void;
-	function lineStyle(thickness:Number,rgb:Number,alpha:Number):Void;
+	function lineStyle(thickness:Number,rgb:Number,alpha:Number,pixelHinting:Boolean,noScale:String,capsStyle:String,jointStyle:String,miterLimit:Number):Void;
 	function endFill():Void;
 	function clear():Void;
 	function createTextField(instanceName:String,depth:Number,x:Number,y:Number,width:Number,height:Number):TextField; /* Void before Flash 8 */
@@ -106,8 +105,10 @@ dynamic intrinsic class MovieClip
 	var scale9Grid : flash.geom.Rectangle;
 	function getRect( bounds : Object ) : Object;
 	function attachBitmap( bmp : flash.display.BitmapData, depth : Number, pixelSnapping : String, smoothing : Boolean ) : Void;
-	function beginBitmapFill ( bmp : flash.display.BitmapData, matrix : Matrix, repeat : Boolean, smoothing : Boolean) : Void;
 
+	// FLASH 9
+	var forceSmoothing : Boolean;
+	
 }
 
 
