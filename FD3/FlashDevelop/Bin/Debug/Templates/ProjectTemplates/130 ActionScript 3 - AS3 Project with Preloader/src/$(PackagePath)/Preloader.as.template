@@ -2,6 +2,7 @@
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.ProgressEvent;
 	import flash.utils.getDefinitionByName;
 	
 	/**
@@ -12,11 +13,15 @@
 		
 		public function Preloader() $(CSLB){
 			addEventListener(Event.ENTER_FRAME, checkFrame);
+			loaderInfo.addEventListener(ProgressEvent.PROGRESS, progress);
 			// show loader
 		}
 		
-		private function checkFrame(e:Event):void $(CSLB){
+		private function progress(e:ProgressEvent):void $(CSLB){
 			// update loader
+		}
+		
+		private function checkFrame(e:Event):void $(CSLB){
 			if (currentFrame == totalFrames) $(CSLB){
 				removeEventListener(Event.ENTER_FRAME, checkFrame);
 				startup();
@@ -26,6 +31,7 @@
 		private function startup():void $(CSLB){
 			// hide loader
 			stop();
+			loaderInfo.removeEventListener(ProgressEvent.PROGRESS, progress);
 			var mainClass:Class = getDefinitionByName("$(PackageDot)Main") as Class;
 			addChild(new mainClass() as DisplayObject);
 		}
