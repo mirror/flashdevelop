@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using ProjectManager.Projects;
 using PluginCore.Localization;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -19,14 +20,16 @@ namespace ProjectManager.Controls.TreeView
         List<String> changedPaths;
 		Timer updateTimer;
 		bool updateNeeded;
+        string[] exludes;
 
 		public WatcherNode(string directory) : base(directory)
 		{
 			isRefreshable = true;
             changedPaths = new List<String>();
+            exludes = PluginMain.Settings.ExcludedDirectories.Clone() as string[];
             // Use a timer for FileSystemWatcher updates so they don't do lots of redrawing
             updateTimer = new Timer();
-            updateTimer.Interval = 500;
+            updateTimer.Interval = 300;
             updateTimer.Tick += updateTimer_Tick;
             setWatcher();
 		}
@@ -77,10 +80,23 @@ namespace ProjectManager.Controls.TreeView
 
         private void AppendPath(FileSystemEventArgs e)
         {
-            String path = Path.GetDirectoryName(e.FullPath);
-            if (Directory.Exists(path))
+            lock (this.changedPaths)
             {
-                this.changedPaths.Add(path);
+                String path = Path.GetDirectoryName(e.FullPath);
+                // filter ignored paths
+                if (this.exludes != null)
+                {
+                    char sep = Path.DirectorySeparatorChar;
+                    foreach (string exclude in this.exludes)
+                    {
+                        if (Regex.IsMatch(path, Regex.Escape(sep + exclude + sep)))
+                            return;
+                    }
+                }
+                if (!this.changedPaths.Contains(path) && Directory.Exists(path))
+                {
+                    this.changedPaths.Add(path);
+                }
             }
         }
 
@@ -108,19 +124,15 @@ namespace ProjectManager.Controls.TreeView
 			else
 			{
 				updateNeeded = true;
-				Update();
+                updateTimer.Enabled = false; // reset timer
+                updateTimer.Enabled = true;
 			}
 		}
 
 		private void Update()
 		{
-			// we're waiting for the next opportunity
-            if (updateTimer.Enabled)
-            {
-                updateTimer.Enabled = false; // reset timer
-                updateTimer.Enabled = true;
-            }
 			if (!updateNeeded) return;
+            updateTimer.Enabled = false;
 			try
 			{
 				Tree.BeginUpdate();
@@ -128,14 +140,13 @@ namespace ProjectManager.Controls.TreeView
                 String[] paths = this.changedPaths.ToArray();
                 this.changedPaths.Clear();
                 Tree.RefreshTree(paths);
-				updateNeeded = false;
 			}
 			catch {}
 			finally
 			{
 				Tree.EndUpdate();
-				// prevent further calls to Update() until after 1 second
-				updateTimer.Enabled = true;
+                updateNeeded = false;
+                exludes = PluginMain.Settings.ExcludedDirectories.Clone() as string[];
             }
 
             // new folder name edition
