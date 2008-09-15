@@ -30,7 +30,6 @@ namespace StartPage
         private Settings settingObject;
         private DockContent startPage;
         private Image pluginImage;
-        private Timer timer;
 
 	    #region Required Properties
 
@@ -126,10 +125,10 @@ namespace StartPage
                                 {
                                     // The project manager does not update recent projects until after
                                     // it broadcasts this event so we'll wait a little bit before refreshing
-                                    this.timer = new Timer();
-                                    this.timer.Interval = 100;
-                                    this.timer.Tick += delegate { this.startPageWebBrowser.SendProjectInfo(); this.timer.Stop(); };
-                                    this.timer.Start();
+                                    Timer timer = new Timer();
+                                    timer.Interval = 100;
+                                    timer.Tick += delegate { this.startPageWebBrowser.SendProjectInfo(); timer.Stop(); };
+                                    timer.Start();
                                 }
                             }
                             break;
@@ -272,7 +271,6 @@ namespace StartPage
         /// </summary>
         private void PluginPanelDisposed(Object sender, EventArgs e)
         {
-            this.timer.Stop();
             this.startPage = null;
         }
 
