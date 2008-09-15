@@ -11,6 +11,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using ProjectManager.Actions;
 using ProjectManager.Controls;
 using ProjectManager.Controls.AS2;
+using ProjectManager.Projects.AS3;
 using ProjectManager.Controls.TreeView;
 using ProjectManager.Helpers;
 using ProjectManager.Projects;
@@ -19,7 +20,6 @@ using PluginCore.Managers;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
 using PluginCore;
-using ProjectManager.Projects.AS3;
 
 namespace ProjectManager
 {
@@ -70,9 +70,9 @@ namespace ProjectManager
         public static IMainForm MainForm { get { return PluginBase.MainForm; } }
         public static ProjectManagerSettings Settings;
 
-        const EventType eventMask = EventType.UIStarted | EventType.FileOpening | EventType.UIClosing
+        const EventType eventMask = EventType.UIStarted | EventType.FileOpening
             | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd
-            | EventType.ProcessArgs | EventType.Command | EventType.Keys | EventType.RestoreSession;
+            | EventType.ProcessArgs | EventType.Command | EventType.Keys;
 
         #region Load/Save Settings
 
@@ -358,14 +358,6 @@ namespace ProjectManager
                     }
                     break;
 
-                case EventType.RestoreSession:
-                    e.Handled = RestoreProjectSession();
-                    break;
-
-                case EventType.UIClosing:
-                    SaveProjectSession();
-                    break;
-
                 case EventType.Keys:
                     e.Handled = HandleKeyEvent(e as KeyEvent);
                     break;
@@ -410,7 +402,7 @@ namespace ProjectManager
 
         bool RestoreProjectSession()
         {
-            if (project == null) return false;
+            if (project == null || !Settings.UseProjectSessions) return false;
             String hash = HashCalculator.CalculateSHA1(project.ProjectPath.ToLower());
             String sessionDir = Path.Combine(SettingsDir, "Sessions");
             String sessionFile = Path.Combine(sessionDir, hash + ".fdb");
@@ -424,7 +416,7 @@ namespace ProjectManager
 
         void SaveProjectSession()
         {
-            if (project == null) return;
+            if (project == null || !Settings.UseProjectSessions) return;
             String hash = HashCalculator.CalculateSHA1(project.ProjectPath.ToLower());
             String sessionDir = Path.Combine(SettingsDir, "Sessions");
             String sessionFile = Path.Combine(sessionDir, hash + ".fdb");
@@ -432,7 +424,7 @@ namespace ProjectManager
             PluginBase.MainForm.CallCommand("SaveSession", sessionFile);
         }
 
-        void SetProject(Project project, Boolean stealFocus)
+        void SetProject(Project project, Boolean stealFocus, Boolean internalOpening)
         {
             if (this.project == project) return;
             if (this.project != null) CloseProject(true);
@@ -453,7 +445,7 @@ namespace ProjectManager
             PluginBase.MainForm.RefreshUI();
             BroadcastProjectInfo();
 
-            if (Settings.UseProjectSessions) RestoreProjectSession();
+            if (!internalOpening) RestoreProjectSession();
 
             if (stealFocus)
             {
@@ -468,9 +460,13 @@ namespace ProjectManager
             timer.Tick += delegate { projectActions.UpdateASCompletion(MainForm, project); timer.Stop(); };
             timer.Start();
         }
+        void SetProject(Project project, Boolean stealFocus)
+        {
+            SetProject(project, stealFocus, false);
+        }
         void SetProject(Project project)
         {
-            SetProject(project, true);
+            SetProject(project, true, false);
         }
 
         void CloseProject(bool internalClosing)
@@ -481,8 +477,8 @@ namespace ProjectManager
             ProjectPreferences prefs = Settings.GetPrefs(project);
             prefs.ExpandedPaths = Tree.ExpandedPaths;
             prefs.EnableTrace = !pluginUI.IsTraceDisabled;
-
-            if (Settings.UseProjectSessions && !PluginBase.MainForm.ClosingEntirely) SaveProjectSession();
+            
+            if (!PluginBase.MainForm.ClosingEntirely) SaveProjectSession();
 
             project = null;
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
@@ -515,7 +511,7 @@ namespace ProjectManager
             string lastProject = Settings.LastProject;
             if (lastProject != null && lastProject != "" && File.Exists(lastProject))
             {
-                SetProject(projectActions.OpenProjectSilent(lastProject), false);
+                SetProject(projectActions.OpenProjectSilent(lastProject), false, true);
             }
         }
 

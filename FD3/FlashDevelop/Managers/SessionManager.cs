@@ -18,9 +18,13 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void SaveSession(String file)
         {
+            Session session = GetCurrentSession();
+            SaveSession(file, session);
+        }
+        public static void SaveSession(String file, Session session)
+        {
             try
             {
-                Session session = GetCurrentSession();
                 ObjectSerializer.Serialize(file, session);
             }
             catch (Exception ex)
@@ -32,20 +36,21 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Loads and restores the saved session 
         /// </summary>
-        public static void RestoreSession(String file, Boolean notify)
+        public static void RestoreSession(String file, SessionType type)
         {
             try
             {
                 Session session = new Session();
                 session = (Session)ObjectSerializer.Deserialize(file, session);
-                RestoreSession(file, session, notify);
+                session.Type = type; // set the type here...
+                RestoreSession(file, session);
             }
             catch (Exception ex)
             {
                 ErrorManager.ShowError(ex);
             }
         }
-        public static void RestoreSession(String file, Session session, Boolean notify)
+        public static void RestoreSession(String file, Session session)
         {
             try
             {
@@ -53,8 +58,8 @@ namespace FlashDevelop.Managers
                 Globals.MainForm.CloseAllDocuments(false);
                 if (!Globals.MainForm.CloseAllCanceled)
                 {
-                    TextEvent te = new TextEvent(EventType.RestoreSession, file);
-                    if (notify) EventManager.DispatchEvent(Globals.MainForm, te);
+                    DataEvent te = new DataEvent(EventType.RestoreSession, file, session);
+                    EventManager.DispatchEvent(Globals.MainForm, te);
                     if (!te.Handled)
                     {
                         for (Int32 i = 0; i < session.Files.Count; i++)
@@ -100,20 +105,42 @@ namespace FlashDevelop.Managers
             }
             return session;
         }
-
     }
 
     [Serializable]
-    public class Session
+    public class Session : ISession
     {
-        public Int32 Index = 0;
-        public List<String> Files = new List<String>();
+        private Int32 index = 0;
+        private List<String> files = new List<String>();
+        private SessionType type = SessionType.Startup;
 
-        public Session() { }
+        public Session() {}
         public Session(Int32 index, List<String> files)
         {
-            this.Index = index;
-            this.Files = files;
+            this.index = index;
+            this.files = files;
+        }
+        public Session(Int32 index, List<String> files, SessionType type)
+        {
+            this.index = index;
+            this.files = files;
+            this.type = type;
+        }
+
+        public SessionType Type
+        {
+            get { return this.type; }
+            set { this.type = value; }
+        }
+        public Int32 Index 
+        {
+            get { return this.index; }
+            set { this.index = value; }
+        }
+        public List<String> Files
+        {
+            get { return this.files; }
+            set { this.files = value; }
         }
 
     }

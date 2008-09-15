@@ -45,7 +45,7 @@ namespace PluginCore.Helpers
             {
                 using (StreamReader sr = new StreamReader(file, encoding))
                 {
-                    string src = sr.ReadToEnd();
+                    String src = sr.ReadToEnd();
                     sr.Close();
                     return src;
                 }
@@ -129,15 +129,9 @@ namespace PluginCore.Helpers
         {
             try
             {
-                if (!File.Exists(file))
-                {
-                    return true;
-                }
+                if (!File.Exists(file)) return true;
                 FileAttributes fileAttr = File.GetAttributes(file);
-                if ((fileAttr & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-                {
-                    return true;
-                }
+                if ((fileAttr & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) return true;
                 else return false;
             }
             catch (Exception ex)

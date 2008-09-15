@@ -33,6 +33,13 @@ namespace PluginCore
         Keys = 1 << 26
     }
 
+    public enum SessionType
+    {
+        Startup = 0,
+        Layout = 1,
+        External = 2
+    }
+
     public enum CodingStyle
     {
         BracesOnLine = 0,

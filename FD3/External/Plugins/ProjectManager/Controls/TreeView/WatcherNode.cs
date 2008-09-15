@@ -16,17 +16,17 @@ namespace ProjectManager.Controls.TreeView
 	/// </summary>
     public class WatcherNode : DirectoryNode
 	{
-		FileSystemWatcher watcher;
+        Timer updateTimer;
+        FileSystemWatcher watcher;
         List<String> changedPaths;
-		Timer updateTimer;
-		bool updateNeeded;
-        string[] exludes;
+		Boolean updateNeeded;
+        String[] excludes;
 
 		public WatcherNode(string directory) : base(directory)
 		{
 			isRefreshable = true;
             changedPaths = new List<String>();
-            exludes = PluginMain.Settings.ExcludedDirectories.Clone() as string[];
+            excludes = PluginMain.Settings.ExcludedDirectories.Clone() as String[];
             // Use a timer for FileSystemWatcher updates so they don't do lots of redrawing
             updateTimer = new Timer();
             updateTimer.Interval = 300;
@@ -51,7 +51,7 @@ namespace ProjectManager.Controls.TreeView
             catch {}
         }
 
-        public override void Refresh(bool recursive)
+        public override void Refresh(Boolean recursive)
         {
             if (watcher == null) setWatcher();
             base.Refresh(recursive);
@@ -83,14 +83,12 @@ namespace ProjectManager.Controls.TreeView
             lock (this.changedPaths)
             {
                 String path = Path.GetDirectoryName(e.FullPath);
-                // filter ignored paths
-                if (this.exludes != null)
+                if (this.excludes != null) // filter ignored paths
                 {
-                    char sep = Path.DirectorySeparatorChar;
-                    foreach (string exclude in this.exludes)
+                    Char separator = Path.DirectorySeparatorChar;
+                    foreach (String exclude in this.excludes)
                     {
-                        if (Regex.IsMatch(path, Regex.Escape(sep + exclude + sep)))
-                            return;
+                        if (Regex.IsMatch(path, Regex.Escape(separator + exclude + separator))) return;
                     }
                 }
                 if (!this.changedPaths.Contains(path) && Directory.Exists(path))
@@ -146,17 +144,14 @@ namespace ProjectManager.Controls.TreeView
 			{
 				Tree.EndUpdate();
                 updateNeeded = false;
-                exludes = PluginMain.Settings.ExcludedDirectories.Clone() as string[];
+                excludes = PluginMain.Settings.ExcludedDirectories.Clone() as String[];
             }
-
             // new folder name edition
-            if (Tree.PathToSelect != null && Tree.SelectedNode != null && Tree.SelectedNode is DirectoryNode
-                && (Tree.SelectedNode as DirectoryNode).BackingPath == Tree.PathToSelect)
+            if (Tree.PathToSelect != null && Tree.SelectedNode != null && Tree.SelectedNode is DirectoryNode && (Tree.SelectedNode as DirectoryNode).BackingPath == Tree.PathToSelect)
             {
                 DirectoryNode node = Tree.SelectedNode as DirectoryNode;
                 Tree.PathToSelect = null;
                 node.EnsureVisible();
-
                 // if you created a new folder, then label edit it!
                 string label = TextHelper.GetString("Label.NewFolder").Replace("&", "").Replace("...", "");
                 if (node.Text.StartsWith(label))

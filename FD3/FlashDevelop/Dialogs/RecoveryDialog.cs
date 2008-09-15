@@ -139,7 +139,8 @@ namespace FlashDevelop.Dialogs
             String[] files = GetRecoveryFiles();
             foreach (String file in files)
             {
-                Globals.MainForm.OpenEditableDocument(file);
+                String arguments = "bak;" + file;
+                MainForm.Instance.CallCommand("NewFromTemplate", arguments);
             }
             String message = TextHelper.GetString("Info.DeleteFilesAlso");
             String caption = " " + TextHelper.GetString("Title.ConfirmDialog");
@@ -156,10 +157,7 @@ namespace FlashDevelop.Dialogs
         private void DeleteButtonClick(Object sender, EventArgs e)
         {
             String[] files = GetRecoveryFiles();
-            foreach (String file in files)
-            {
-                if (!FileHelper.Recycle(file)) File.Delete(file);
-            }
+            foreach (String file in files) FileHelper.Recycle(file);
             this.Close();
         }
 
@@ -179,10 +177,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         public static Boolean ShouldShowDialog()
         {
-            if (!SingleInstanceApp.AlreadyExists && GetRecoveryFiles().Length > 0)
-            {
-                return true;
-            }
+            if (!SingleInstanceApp.AlreadyExists && GetRecoveryFiles().Length > 0) return true;
             else return false;
         }
 

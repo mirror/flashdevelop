@@ -22,7 +22,6 @@ namespace StartPage
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds a start page to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
-
         private Boolean justOpened = true;
         private String defaultRssUrl = "";
         private String defaultStartPageUrl = "";
@@ -31,9 +30,7 @@ namespace StartPage
         private Settings settingObject;
         private DockContent startPage;
         private Image pluginImage;
-
-        private String CurrentPageUrl { get { return this.settingObject.UseCustomStartPage ? this.settingObject.CustomStartPage : this.defaultStartPageUrl; } }
-        private String CurrentRssUrl { get { return this.settingObject.UseCustomRssFeed ? this.settingObject.CustomRssFeed : this.defaultRssUrl; } }
+        private Timer timer;
 
 	    #region Required Properties
 
@@ -129,10 +126,10 @@ namespace StartPage
                                 {
                                     // The project manager does not update recent projects until after
                                     // it broadcasts this event so we'll wait a little bit before refreshing
-                                    Timer timer = new Timer();
-                                    timer.Interval = 100;
-                                    timer.Tick += delegate { this.startPageWebBrowser.SendProjectInfo(); timer.Stop(); };
-                                    timer.Start();
+                                    this.timer = new Timer();
+                                    this.timer.Interval = 100;
+                                    this.timer.Tick += delegate { this.startPageWebBrowser.SendProjectInfo(); this.timer.Stop(); };
+                                    this.timer.Start();
                                 }
                             }
                             break;
@@ -149,14 +146,10 @@ namespace StartPage
                     break;
 
                 case EventType.RestoreSession:
-                    // if we always are showing the start page then cancel restoring the session
+                    ISession session = ((DataEvent)e).Data as ISession;
+                    if (session.Type != SessionType.Startup) return; // handle only startup sessions
                     if (this.settingObject.ShowStartPageOnStartup == ShowStartPageOnStartupEnum.Always) e.Handled = true;
-                    else
-                    {
-                        // figure out if we are really restoring a session.  if so then set justOpened to false
-                        TextEvent te = (TextEvent)e;
-                        if (te.Value.Length > 1) this.justOpened = false;
-                    }  
+                    else if (session.Files.Count > 0) this.justOpened = false;
                     break;
             }
 
@@ -165,7 +158,10 @@ namespace StartPage
 		#endregion
 
         #region Custom Methods
-       
+
+        private String CurrentPageUrl { get { return this.settingObject.UseCustomStartPage ? this.settingObject.CustomStartPage : this.defaultStartPageUrl; } }
+        private String CurrentRssUrl { get { return this.settingObject.UseCustomRssFeed ? this.settingObject.CustomRssFeed : this.defaultRssUrl; } }
+
         /// <summary>
         /// Initializes important variables
         /// </summary>
@@ -276,6 +272,7 @@ namespace StartPage
         /// </summary>
         private void PluginPanelDisposed(Object sender, EventArgs e)
         {
+            this.timer.Stop();
             this.startPage = null;
         }
 

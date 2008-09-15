@@ -242,7 +242,17 @@ namespace PluginCore
         Boolean DisableSmartMatch { get; set; }
         
         #endregion
+    }
 
+    public interface ISession
+    {
+        #region ISession Properties
+
+        Int32 Index { get; set; }
+        List<String> Files { get; set; }
+        SessionType Type { get; }
+
+        #endregion
     }
 
     #region Structs And Classes

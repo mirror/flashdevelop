@@ -2130,7 +2130,10 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Show the start page when all documents are closed instead of untitled document.</value>
   </data>
   <data name="StartPage.Description.ShowStartPageOnStartup" xml:space="preserve">
-    <value>Should the start page show when you open FlashDevelop: Always - FlashDevelop will not restore a session, but instead show the start page. NotRestoringSession - start page will show if FlashDevelop is not restoring a session. Never - the start page will not show based on startup.</value>
+    <value>Should the start page show when you open FlashDevelop: 
+Always - FlashDevelop will not restore a session, but instead show the start page. 
+NotRestoringSession - start page will show if FlashDevelop is not restoring a session. 
+Never - the start page will not show based on startup.</value>
   </data>
   <data name="StartPage.Description.UseCustomRssFeed" xml:space="preserve">
     <value>Uses the custom RSS feed instead of the default start page feed.</value>

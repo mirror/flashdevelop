@@ -868,7 +868,7 @@ namespace FlashDevelop
             else if (this.appSettings.RestoreFileSession)
             {
                 String file = FileNameHelper.SessionData;
-                SessionManager.RestoreSession(file, true);
+                SessionManager.RestoreSession(file, SessionType.Startup);
             }
             if (this.Documents.Length == 0)
             {
@@ -887,6 +887,7 @@ namespace FlashDevelop
         /// </summary>
         public void OnMainFormClosing(Object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Session session = SessionManager.GetCurrentSession();
             NotifyEvent ne = new NotifyEvent(EventType.UIClosing);
             EventManager.DispatchEvent(this, ne);
             this.closingEntirely = true;
@@ -901,7 +902,7 @@ namespace FlashDevelop
             if (!e.Cancel)
             {
                 String file = FileNameHelper.SessionData;
-                SessionManager.SaveSession(file);
+                SessionManager.SaveSession(file, session);
                 PluginServices.DisposePlugins();
                 this.SaveAllSettings();
             }
@@ -1662,7 +1663,7 @@ namespace FlashDevelop
             {
                 ToolStripItem button = (ToolStripItem)sender;
                 String file = ((ItemData)button.Tag).Tag;
-                SessionManager.RestoreSession(file, false);
+                SessionManager.RestoreSession(file, SessionType.External);
             }
             catch (Exception ex)
             {
