@@ -1,5 +1,5 @@
 var version = parseInt(fl.version.split(" ")[1]);
-var proj = (version < 10 && fl.getProject) ? fl.getProject() : null; 
+var proj = null; //(version < 10 && fl.getProject) ? fl.getProject() : null; 
 if (proj != null && proj.canTestProject()) 
 { 
    proj.testProject();
