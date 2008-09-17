@@ -1540,8 +1540,13 @@ namespace FlashDevelop
                     this.Documents[0].Close();
                     this.closingForOpenFile = false;
                 }
-                ITabbedDocument document = (ITabbedDocument)this.CreateEditableDocument(fileName, actionPoint.Text, encoding.CodePage);
-                SnippetHelper.ExecuteActionPoint(actionPoint, document.SciControl);
+                TextEvent te = new TextEvent(EventType.FileTemplate, fileName);
+                EventManager.DispatchEvent(this, te);
+                if (!te.Handled)
+                {
+                    ITabbedDocument document = (ITabbedDocument)this.CreateEditableDocument(fileName, actionPoint.Text, encoding.CodePage);
+                    SnippetHelper.ExecuteActionPoint(actionPoint, document.SciControl);
+                }
             }
             catch (Exception ex)
             {

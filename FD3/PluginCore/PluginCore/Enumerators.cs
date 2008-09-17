@@ -18,19 +18,20 @@ namespace PluginCore
         FileEncode = 1 << 11,
         FileDecode = 1 << 12,
         FileEmpty = 1 << 13,
-        RestoreSession = 1 << 14,
-        RestoreLayout = 1 << 15,
-        SyntaxChange = 1 << 16,
-        SyntaxDetect = 1 << 17,
-        UIStarted = 1 << 18,
-        UIRefresh = 1 << 19,
-        UIClosing = 1 << 20,
-        ProcessArgs = 1 << 21,
-        ProcessStart = 1 << 22,
-        ProcessEnd = 1 << 23,
-        Command = 1 << 24,
-        Trace = 1 << 25,
-        Keys = 1 << 26
+        FileTemplate = 1 << 14,
+        RestoreSession = 1 << 15,
+        RestoreLayout = 1 << 16,
+        SyntaxChange = 1 << 17,
+        SyntaxDetect = 1 << 18,
+        UIStarted = 1 << 19,
+        UIRefresh = 1 << 20,
+        UIClosing = 1 << 21,
+        ProcessArgs = 1 << 22,
+        ProcessStart = 1 << 23,
+        ProcessEnd = 1 << 24,
+        Command = 1 << 25,
+        Trace = 1 << 26,
+        Keys = 1 << 27
     }
 
     public enum SessionType
