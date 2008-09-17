@@ -31,23 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AS2Context, Version=1.0.0.28590, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AS2Context, Version=1.0.0.28590, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\FlashDevelop\Bin\Debug\Plugins\AS2Context.dll</HintPath>
     </Reference>
-    <Reference Include="AS3Context, Version=1.0.0.28591, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AS3Context, Version=1.0.0.28591, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\FlashDevelop\Bin\Debug\Plugins\AS3Context.dll</HintPath>
     </Reference>
-    <Reference Include="ASCompletion, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ASCompletion, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\FlashDevelop\Bin\Debug\Plugins\ASCompletion.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\FlashDevelop\Bin\Debug\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="PluginCore, Version=2.0.0.35853, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PluginCore, Version=2.0.0.35853, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
     </Reference>

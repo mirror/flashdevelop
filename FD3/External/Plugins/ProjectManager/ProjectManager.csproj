@@ -71,7 +71,7 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="PluginCore, Version=2.0.0.37938, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PluginCore, Version=2.0.0.37938, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
       <Private>False</Private>

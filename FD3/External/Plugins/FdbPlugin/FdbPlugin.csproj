@@ -57,26 +57,26 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
+    <Reference Include="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Aga.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="AS3Context, Version=1.0.0.7333, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AS3Context, Version=1.0.0.7333, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\FirstRun\Plugins\AS3Context.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASCompletion, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ASCompletion, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\FirstRun\Plugins\ASCompletion.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="PluginCore, Version=2.0.0.7311, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PluginCore, Version=2.0.0.7311, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ProjectManager, Version=2.0.0.7327, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ProjectManager, Version=2.0.0.7327, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\FirstRun\Plugins\ProjectManager.dll</HintPath>
       <Private>False</Private>
