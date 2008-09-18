@@ -75,7 +75,6 @@ function handleProjectXml(xml)
 	var element = document.getElementById("projectsContent");
 	element.innerHTML = "<ul>" + html + "</ul>";
 }
-
 function addSlashes(s)
 {
 	return s.split("'").join("\\'");

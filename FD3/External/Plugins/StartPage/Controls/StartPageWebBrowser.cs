@@ -105,7 +105,7 @@ namespace StartPage.Controls
         public void SendProjectInfo()
         {
             this.recentProjectList.Update(ProjectManager.PluginMain.Settings.RecentProjects);
-            this.webBrowser.Document.InvokeScript("handleXmlData", new String[] { this.recentProjectList.ToXml(), null });
+            this.webBrowser.Document.InvokeScript("handleXmlData", new String[] { this.recentProjectList.ToXml(), null});
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace StartPage.Controls
         private void WebBrowserDocumentCompleted(Object sender, EventArgs e)
         {
             this.recentProjectList.Update(ProjectManager.PluginMain.Settings.RecentProjects);
-            this.webBrowser.Document.InvokeScript("handleXmlData", new String[] { this.recentProjectList.ToXml(), this.rssUrl });
+            this.webBrowser.Document.InvokeScript("handleXmlData", new String[] { this.recentProjectList.ToXml(), this.rssUrl});
         }
 
         /// <summary>
