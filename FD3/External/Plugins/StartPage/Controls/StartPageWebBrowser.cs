@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using WeifenLuo.WinFormsUI.Docking;
 using PluginCore.Localization;
 using StartPage.ProjectInfo;
@@ -13,7 +14,6 @@ using PluginCore.Managers;
 using PluginCore.Helpers;
 using ProjectManager;
 using PluginCore;
-using System.Runtime.InteropServices;
 
 namespace StartPage.Controls
 {

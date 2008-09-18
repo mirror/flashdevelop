@@ -28,8 +28,12 @@ namespace PluginCore.Utilities
         static Assembly CurrentDomainAssemblyResolve(Object sender, ResolveEventArgs args)
         {
             AssemblyName name = new AssemblyName(args.Name);
+            String ffile = Path.Combine(PathHelper.AppDir, name.Name + ".exe");
+            String afile = Path.Combine(PathHelper.AppDir, name.Name + ".dll");
             String dfile = Path.Combine(PathHelper.PluginDir, name.Name + ".dll");
             String ufile = Path.Combine(PathHelper.UserPluginDir, name.Name + ".dll");
+            if (File.Exists(ffile)) return Assembly.LoadFrom(ffile);
+            if (File.Exists(afile)) return Assembly.LoadFrom(afile);
             if (File.Exists(dfile)) return Assembly.LoadFrom(dfile);
             if (File.Exists(ufile)) return Assembly.LoadFrom(ufile);
             else return null;

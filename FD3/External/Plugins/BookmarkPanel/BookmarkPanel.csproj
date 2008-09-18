@@ -95,7 +95,8 @@
     </Compile>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>cd "$(ProjectDir)" &amp; copy /y "$(TargetDir)\$(TargetName).*" "C:\Documents and Settings\alexander\Local Settings\Application Data\FlashDevelop\Plugins" &amp; cd $(ProjectDir)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\PluginCore\PluginCore.csproj">
