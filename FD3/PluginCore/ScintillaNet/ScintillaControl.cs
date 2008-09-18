@@ -7,6 +7,7 @@ using ScintillaNet.Configuration;
 using System.Drawing.Printing;
 using System.Drawing;
 using System.Text;
+using PluginCore.Managers;
 
 namespace ScintillaNet
 {
@@ -332,6 +333,9 @@ namespace ScintillaNet
                             case Enums.Lexer.PROPERTIES:
                                 theType = typeof(Lexers.PROPERTIES);
                                 break;
+                            case Enums.Lexer.PYTHON:
+                                theType = typeof(Lexers.PYTHON);
+                                break;
                             case Enums.Lexer.VB:
                                 theType = typeof(Lexers.VB);
                                 break;
@@ -351,7 +355,25 @@ namespace ScintillaNet
                                 theType = typeof(Lexers.YAML);
                                 break;
                         }
-                        usestyle.key = (int)Enum.Parse(theType, usestyle.name, true);
+                        try
+                        {
+                            usestyle.key = (int)Enum.Parse(theType, usestyle.name, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            String info;
+                            if (theType == null)
+                            {
+                                info = String.Format("Lexer '{0}' ({1}) unknwon", lang.lexer.name, lang.lexer.key);
+                                ErrorManager.ShowWarning(info, ex);
+                                break;
+                            }
+                            else
+                            {
+                                info = String.Format("Style '{0}' in syntax file is not used by lexer '{1}'", usestyle.name, theType.Name);
+                                ErrorManager.ShowWarning(info, ex);
+                            }
+                        }
                     }
                     if (usestyle.HasForegroundColor) StyleSetFore(usestyle.key, usestyle.ForegroundColor);
                     if (usestyle.HasBackgroundColor) StyleSetBack(usestyle.key, usestyle.BackgroundColor);
