@@ -1094,7 +1094,7 @@ namespace FlashDevelop
                 String encoding = ButtonManager.GetActiveEncodingName();
                 this.toolStripStatusLabel.Text = String.Format(statusText, line, column, eol, encoding, file);
             }
-            else this.toolStripStatusLabel.Text = "";
+            else this.toolStripStatusLabel.Text = " ";
             this.OnUpdateMainFormDialogTitle();
             ButtonManager.UpdateFlaggedButtons();
             NotifyEvent ne = new NotifyEvent(EventType.UIRefresh);
