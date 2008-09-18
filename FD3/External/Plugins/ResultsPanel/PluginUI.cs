@@ -35,6 +35,7 @@ namespace ResultsPanel
             this.InitializeContextMenu();
             this.InitializeGraphics();
             this.InitializeTexts();
+            this.ApplySettings();
 		}
 		
 		#region Windows Forms Designer Generated Code
@@ -64,6 +65,7 @@ namespace ResultsPanel
             this.entryDesc,
             this.entryFile,
             this.entryPath});
+            this.entriesView.ShowGroups = true;
             this.entriesView.ShowItemToolTips = true;
             this.entriesView.FullRowSelect = true;
             this.entriesView.GridLines = true;
@@ -113,6 +115,14 @@ namespace ResultsPanel
 		#region Methods And Event Handlers
 
         /// <summary>
+        /// Accessor for settings
+        /// </summary>
+        private Settings Settings
+        {
+            get { return (Settings)this.pluginMain.Settings; }
+        }
+
+        /// <summary>
         /// Initializes the image list for entriesView
         /// </summary>
         public void InitializeGraphics()
@@ -137,16 +147,16 @@ namespace ResultsPanel
             menu.Items.Add(new ToolStripSeparator());
             this.nextEntry = new ToolStripMenuItem(TextHelper.GetString("Label.NextEntry"), null, new EventHandler(this.NextEntry));
             this.nextEntry.Enabled = false;
-            this.nextEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(PluginMain.Settings.NextError);
+            this.nextEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(this.Settings.NextError);
             menu.Items.Add(this.nextEntry);
             this.previousEntry = new ToolStripMenuItem(TextHelper.GetString("Label.PreviousEntry"), null, new EventHandler(this.PreviousEntry));
             this.previousEntry.Enabled = false;
-            this.previousEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(PluginMain.Settings.PreviousError);
+            this.previousEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(this.Settings.PreviousError);
             menu.Items.Add(this.previousEntry);
             this.entriesView.ContextMenuStrip = menu;
             menu.Font = PluginBase.Settings.DefaultFont;
-            if (PluginMain.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(PluginMain.Settings.NextError);
-            if (PluginMain.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(PluginMain.Settings.PreviousError);
+            if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.NextError);
+            if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.PreviousError);
         }
 
         /// <summary>
@@ -159,6 +169,16 @@ namespace ResultsPanel
             this.entryLine.Text = TextHelper.GetString("Header.Line");
             this.entryPath.Text = TextHelper.GetString("Header.Path");
             this.entryPath.Width = -2; // Extend last column
+        }
+
+        /// <summary>
+        /// Applies the settings to the UI
+        /// </summary>
+        public void ApplySettings()
+        {
+            Boolean useGrouping = PluginBase.Settings.UseListViewGrouping;
+            this.entriesView.ShowGroups = useGrouping;
+            this.entriesView.GridLines = !useGrouping;
         }
 
         /// <summary>
@@ -357,16 +377,14 @@ namespace ResultsPanel
                     if (fileTest.StartsWith("~/")) // relative to project root
                     {
                         IProject project = PluginBase.CurrentProject;
-                        if (project != null)
-                            fileTest = Path.GetDirectoryName(project.ProjectPath) + fileTest.Substring(1);
+                        if (project != null) fileTest = Path.GetDirectoryName(project.ProjectPath) + fileTest.Substring(1);
                     }
                     match = fileEntry.Match(fileTest);
                     if (!match.Success) match = fileEntry2.Match(fileTest);
                     if (match.Success)
                     {
                         string filename = match.Groups["filename"].Value;
-                        if (!File.Exists(filename))
-                            continue;
+                        if (!File.Exists(filename)) continue;
                         FileInfo fileInfo = new FileInfo(filename);
                         if (fileInfo != null)
                         {
@@ -379,7 +397,9 @@ namespace ResultsPanel
                                 if (description[1] == ':' && Char.IsDigit(description[0]))
                                 {
                                     if (int.TryParse(description[0].ToString(), out state))
+                                    {
                                         description = description.Substring(2);
+                                    }
                                 }
                             }
                             if (state > 2) icon = 1;
@@ -393,6 +413,7 @@ namespace ResultsPanel
                             item.SubItems.Add(fileInfo.Name);
                             item.SubItems.Add(fileInfo.Directory.ToString());
                             if (newResult < 0) newResult = this.entriesView.Items.Count;
+                            this.AddToGroup(item, fileInfo.FullName);
                             this.entriesView.Items.Add(item);
                         }
                     }
@@ -410,6 +431,36 @@ namespace ResultsPanel
                 this.previousEntry.Enabled = true;
             }
             this.entryPath.Width = -2; // Extend last column
+        }
+
+        /// <summary>
+        /// Adds item to the specified group
+        /// </summary>
+        private void AddToGroup(ListViewItem item, String path)
+        {
+            String gpname;
+            Boolean found = false;
+            ListViewGroup gp = null;
+            if (File.Exists(path)) gpname = Path.GetFileName(path);
+            else gpname = TextHelper.GetString("FlashDevelop.Group.Other");
+            foreach (ListViewGroup lvg in this.entriesView.Groups)
+            {
+                if (lvg.Tag.ToString() == path)
+                {
+                    found = true;
+                    gp = lvg;
+                    break;
+                }
+            }
+            if (found) gp.Items.Add(item);
+            else
+            {
+                gp = new ListViewGroup();
+                gp.Tag = path;
+                gp.Header = gpname;
+                this.entriesView.Groups.Add(gp);
+                gp.Items.Add(item);
+            }
         }
 
 		/// <summary>

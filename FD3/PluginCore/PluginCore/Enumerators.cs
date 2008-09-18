@@ -26,12 +26,13 @@ namespace PluginCore
         UIStarted = 1 << 19,
         UIRefresh = 1 << 20,
         UIClosing = 1 << 21,
-        ProcessArgs = 1 << 22,
-        ProcessStart = 1 << 23,
-        ProcessEnd = 1 << 24,
-        Command = 1 << 25,
-        Trace = 1 << 26,
-        Keys = 1 << 27
+        ApplySettings = 1 << 22,
+        ProcessArgs = 1 << 23,
+        ProcessStart = 1 << 24,
+        ProcessEnd = 1 << 25,
+        Command = 1 << 26,
+        Trace = 1 << 27,
+        Keys = 1 << 28
     }
 
     public enum SessionType

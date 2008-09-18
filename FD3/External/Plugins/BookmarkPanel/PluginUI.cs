@@ -11,6 +11,7 @@ using PluginCore.Localization;
 using WeifenLuo.WinFormsUI;
 using PluginCore.FRService;
 using PluginCore.Controls;
+using PluginCore.Managers;
 using ScintillaNet;
 using PluginCore;
 
@@ -41,6 +42,7 @@ namespace BookmarkPanel
             this.InitializeGraphics();
             this.InitializeLayout();
             this.InitializeTexts();
+            this.UpdateSettings();
 		}
 
         #region Windows Forms Designer Generated Code
@@ -73,6 +75,8 @@ namespace BookmarkPanel
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnLine,
             this.columnText});
+            this.listView.LabelWrap = false;
+            this.listView.GridLines = true;
             this.listView.ShowItemToolTips = true;
             this.listView.ContextMenuStrip = this.contextMenuStrip;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -237,6 +241,16 @@ namespace BookmarkPanel
         }
 
         /// <summary>
+        /// Updates the UI with the settings
+        /// </summary>
+        public void UpdateSettings()
+        {
+            Boolean useGrouping = PluginBase.Settings.UseListViewGrouping;
+            this.listView.ShowGroups = useGrouping;
+            this.listView.GridLines = !useGrouping;
+        }
+
+        /// <summary>
         /// Initializes the custom rendering
         /// </summary>
         private void InitializeLayout()
@@ -305,9 +319,10 @@ namespace BookmarkPanel
                 ListViewItem item = this.listView.SelectedItems[0];
                 String filename = item.Group.Name;
                 Int32 line = (Int32)item.Tag;
-                if (PluginUI.ActivateDocument(filename))
+                ITabbedDocument document = DocumentManager.FindDocument(filename);
+                if (document != null && document.IsEditable)
                 {
-                    PluginMain.MainForm.CurrentDocument.SciControl.GotoLine(line);
+                    document.SciControl.GotoLine(line);
                 }
             }
         }
@@ -327,7 +342,7 @@ namespace BookmarkPanel
         /// </summary>
         private void SearchBookmarks()
         {
-            ITabbedDocument document = PluginMain.MainForm.CurrentDocument;
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document != null && document.IsEditable)
             {
                 ScintillaControl sci = document.SciControl;
@@ -456,7 +471,7 @@ namespace BookmarkPanel
         /// </summary>
         private void UpdateMarkers(string fileName)
         {
-            ITabbedDocument document = this.FindDocument(fileName);
+            ITabbedDocument document = DocumentManager.FindDocument(fileName);
             if (document == null || !document.IsEditable) return;
             ScintillaControl sci = document.SciControl;
             ListViewGroup group = this.FindGroup(document);
@@ -549,7 +564,7 @@ namespace BookmarkPanel
             }
             foreach (DictionaryEntry entry in deleteItems)
             {
-                foreach (ITabbedDocument document in PluginMain.MainForm.Documents)
+                foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
                 {
                     if (document.IsEditable && document.FileName == (String)entry.Value)
                     {
@@ -566,22 +581,6 @@ namespace BookmarkPanel
             }
             updateTimer.Stop();
             updateTimer.Start();
-        }
-
-        /// <summary>
-        /// Activates a document spcified by filename
-        /// </summary>
-        public static Boolean ActivateDocument(String filename)
-        {
-            foreach (ITabbedDocument doc in MainForm.Documents)
-            {
-                if (doc.IsEditable && doc.FileName == filename)
-                {
-                    doc.Activate();
-                    return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>
@@ -623,18 +622,6 @@ namespace BookmarkPanel
             foreach (ListViewGroup group in this.listView.Groups)
             {
                 if (group.Name == document.FileName) return group;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Find a group from a given ITabbedDocument
-        /// </summary>
-        public ITabbedDocument FindDocument(string fileName)
-        {
-            foreach (ITabbedDocument doc in MainForm.Documents)
-            {
-                if (doc.FileName == fileName) return doc;
             }
             return null;
         }

@@ -76,7 +76,6 @@ namespace StartPage
         /// <summary>
         /// Object that contains the settings
         /// </summary>
-        [Browsable(false)]
         public Object Settings
         {
             get { return this.settingObject; }

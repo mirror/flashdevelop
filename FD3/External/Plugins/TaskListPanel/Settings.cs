@@ -7,18 +7,9 @@ using PluginCore.Localization;
 
 namespace TaskListPanel
 {
-    public delegate void GroupsChangedEvent();
-    public delegate void ExtensionChangedEvent();
-    public delegate void ImagesIndexChangedEvent();
-
     [Serializable]
     public class Settings
     {
-        public event GroupsChangedEvent OnGroupsChanged;
-        public event ImagesIndexChangedEvent OnImagesIndexChanged;
-        public event ExtensionChangedEvent OnExtensionChanged;
-
-        private Boolean useGrouping = true;
         private Int32[] images = new Int32[] { 229, 197 };
         private String[] extensions = new String[]{ ".as", ".txt" };
         private String[] groups = new String[]{ "TODO", "BUG" };
@@ -32,11 +23,7 @@ namespace TaskListPanel
         public String[] FileExtensions
         {
             get { return this.extensions; }
-            set 
-            { 
-                this.extensions = value;
-                if (OnExtensionChanged != null) OnExtensionChanged();
-            }
+            set { this.extensions = value; }
         }
 
         /// <summary> 
@@ -48,11 +35,7 @@ namespace TaskListPanel
         public String[] GroupValues
         {
             get { return this.groups; }
-            set 
-            { 
-                this.groups = value;
-                if (OnGroupsChanged != null) OnGroupsChanged();
-            }
+            set { this.groups = value; }
         }
 
         /// <summary> 
@@ -64,26 +47,7 @@ namespace TaskListPanel
         public Int32[] ImageIndexes
         {
             get { return this.images; }
-            set
-            {
-                this.images = value;
-                if (OnImagesIndexChanged != null) OnImagesIndexChanged();
-            }
-        }
-
-        /// <summary> 
-        /// Grouping the results by project/class path.
-        /// </summary>
-        [DisplayName("Use Grouping")]
-        [LocalizedDescription("TaskListPanel.Description.UseGrouping")]
-        [DefaultValue(true)]
-        public Boolean UseGrouping {
-            get { return this.useGrouping; }
-            set 
-            {
-                this.useGrouping = value;
-                if (OnGroupsChanged != null) OnGroupsChanged();
-            }
+            set { this.images = value; }
         }
 
     }

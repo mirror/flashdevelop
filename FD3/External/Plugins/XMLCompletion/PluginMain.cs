@@ -68,7 +68,6 @@ namespace XMLCompletion
         /// <summary>
         /// Object that contains the settings
         /// </summary>
-        [Browsable(false)]
         public Object Settings
         {
             get { return this.settingObject; }
@@ -108,6 +107,7 @@ namespace XMLCompletion
                 case EventType.SyntaxChange:
                     XMLComplete.CurrentFile = PluginBase.MainForm.CurrentDocument.FileName;
                     break;
+
                 case EventType.Keys:
                     e.Handled = XMLComplete.OnShortCut(((KeyEvent)e).Value);
                     break;

@@ -2379,9 +2379,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Description.ShowRegions" xml:space="preserve">
     <value>Uses region grouping in the list of the items.</value>
   </data>
-  <data name="TaskListPanel.Description.UseGrouping" xml:space="preserve">
-    <value>Uses grouping in the list of the items.</value>
-  </data>
   <data name="FlashDevelop.Label.CustomArguments" xml:space="preserve">
     <value>C&amp;ustom Arguments...</value>
   </data>
@@ -2618,5 +2615,17 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ASCompletion.Description.LastASVersion" xml:space="preserve">
     <value>Internal: automaticlaly storing latest Actionscript version detected to apply to files without package/class declarations.</value>
+  </data>
+  <data name="FlashDevelop.Info.FileHeader" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FlashDevelop.Description.UseListViewGrouping" xml:space="preserve">
+    <value>Uses item grouping in ListView controls.</value>
+  </data>
+  <data name="FlashDevelop.Group.Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="ResultsPanel.Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
   </data>
 </root>

@@ -251,6 +251,16 @@ namespace FlashDevelop.Settings
             set { this.comboBoxFlatStyle = value; }
         }
 
+        [DefaultValue(true)]
+        [DisplayName("Use List View Grouping")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.UseListViewGrouping")]
+        public Boolean UseListViewGrouping
+        {
+            get { return this.useListViewGrouping; }
+            set { this.useListViewGrouping = value; }
+        }
+
         [DisplayName("UI Render Mode")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.RenderMode")]

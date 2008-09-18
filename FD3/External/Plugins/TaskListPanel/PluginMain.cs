@@ -71,7 +71,6 @@ namespace TaskListPanel
         /// <summary>
         /// Object that contains the settings
         /// </summary>
-        [Browsable(false)]
         public Object Settings
         {
             get { return this.settingObject; }
@@ -113,6 +112,10 @@ namespace TaskListPanel
                     EventManager.AddEventHandler(this, EventType.Command);
                     break;
 
+                case EventType.ApplySettings:
+                    this.pluginUI.UpdateSettings();
+                    break;
+
                 case EventType.Command:
                     DataEvent de = (DataEvent)e;
                     if (de.Action == "ProjectManager.Project")
@@ -126,14 +129,6 @@ namespace TaskListPanel
 		#endregion
 
         #region Custom Methods
-
-        /// <summary>
-        /// Access to the mainform
-        /// </summary>
-        public static IMainForm MainForm 
-        { 
-            get { return PluginBase.MainForm; } 
-        }
 
         /// <summary>
         /// Initializes important variables
@@ -152,7 +147,7 @@ namespace TaskListPanel
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.ApplySettings);
         }
 
         /// <summary>
@@ -185,7 +180,6 @@ namespace TaskListPanel
             {
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
-                AddSettingsListeners();
             }
         }
 
@@ -194,9 +188,7 @@ namespace TaskListPanel
         /// </summary>
         public void SaveSettings()
         {
-            this.RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-            this.AddSettingsListeners();
         }
 
         /// <summary>
@@ -205,40 +197,6 @@ namespace TaskListPanel
         public void OpenPanel(Object sender, System.EventArgs e)
         {
             this.pluginPanel.Show();
-        }
-
-        /// <summary>
-        /// Adds the listeners to the setting object
-        /// </summary>
-        private void AddSettingsListeners()
-        {
-            if (this.settingObject != null)
-            {
-                this.settingObject.OnExtensionChanged += new ExtensionChangedEvent(this.SettingObjectOnSettingsChanged);
-                this.settingObject.OnImagesIndexChanged += new ImagesIndexChangedEvent(this.SettingObjectOnSettingsChanged);
-                this.settingObject.OnGroupsChanged += new GroupsChangedEvent(this.SettingObjectOnSettingsChanged);
-            }
-        }
-
-        /// <summary>
-        /// Removes the listeners from the setting object
-        /// </summary>
-        private void RemoveSettingsListeners()
-        {
-            if (this.settingObject != null)
-            {
-                this.settingObject.OnExtensionChanged -= new ExtensionChangedEvent(this.SettingObjectOnSettingsChanged);
-                this.settingObject.OnImagesIndexChanged -= new ImagesIndexChangedEvent(this.SettingObjectOnSettingsChanged);
-                this.settingObject.OnGroupsChanged -= new GroupsChangedEvent(this.SettingObjectOnSettingsChanged);
-            }
-        }
-
-        /// <summary>
-        /// When settings have changed, refresh!
-        /// </summary>
-        private void SettingObjectOnSettingsChanged()
-        {
-            this.pluginUI.UpdateSettings();
         }
 
 		#endregion

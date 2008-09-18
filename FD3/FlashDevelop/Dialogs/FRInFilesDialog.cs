@@ -24,6 +24,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label extensionLabel;
         private System.Windows.Forms.ColumnHeader lineHeader;
         private System.Windows.Forms.ColumnHeader descHeader;
+        private System.Windows.Forms.ColumnHeader fileHeader;
         private System.Windows.Forms.ColumnHeader pathHeader;
         private System.Windows.Forms.ColumnHeader replacedHeader;
         private System.Windows.Forms.ProgressBar progressBar;
@@ -55,6 +56,7 @@ namespace FlashDevelop.Dialogs
             this.InitializeComponent();
             this.ApplyLocalizedTexts();
             this.InitializeGraphics();
+            this.UpdateSettings();
         }
 
         #region Windows Form Designer Generated Code
@@ -91,6 +93,7 @@ namespace FlashDevelop.Dialogs
             this.lineHeader = new System.Windows.Forms.ColumnHeader();
             this.descHeader = new System.Windows.Forms.ColumnHeader();
             this.pathHeader = new System.Windows.Forms.ColumnHeader();
+            this.fileHeader = new System.Windows.Forms.ColumnHeader();
             this.resultsView = new System.Windows.Forms.ListView();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.closeButton = new System.Windows.Forms.Button();
@@ -335,10 +338,15 @@ namespace FlashDevelop.Dialogs
             this.descHeader.Text = "Description";
             this.descHeader.Width = 120;
             // 
+            // fileHeader
+            // 
+            this.fileHeader.Text = "File";
+            this.fileHeader.Width = 120;
+            // 
             // pathHeader
             // 
             this.pathHeader.Text = "Path";
-            this.pathHeader.Width = 340;
+            this.pathHeader.Width = 220;
             // 
             // resultsView
             // 
@@ -346,7 +354,10 @@ namespace FlashDevelop.Dialogs
             this.resultsView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.lineHeader,
             this.descHeader,
+            this.fileHeader,
             this.pathHeader});
+            this.resultsView.ShowGroups = true;
+            this.resultsView.LabelWrap = false;
             this.resultsView.FullRowSelect = true;
             this.resultsView.GridLines = true;
             this.resultsView.Location = new System.Drawing.Point(12, 219);
@@ -440,6 +451,16 @@ namespace FlashDevelop.Dialogs
         #region Methods And Event Handlers
 
         /// <summary>
+        /// Applies the settings to the UI
+        /// </summary>
+        public void UpdateSettings()
+        {
+            Boolean useGroups = Globals.MainForm.Settings.UseListViewGrouping;
+            this.resultsView.ShowGroups = useGroups;
+            this.resultsView.GridLines = !useGroups;
+        }
+
+        /// <summary>
         /// Initializes the external graphics
         /// </summary>
         private void InitializeGraphics()
@@ -463,6 +484,7 @@ namespace FlashDevelop.Dialogs
             this.lineHeader.Text = TextHelper.GetString("Info.LineHeader");
             this.descHeader.Text = TextHelper.GetString("Info.DescHeader");
             this.pathHeader.Text = TextHelper.GetString("Info.PathHeader");
+            this.fileHeader.Text = TextHelper.GetString("Info.FileHeader");
             this.replacedHeader.Text = TextHelper.GetString("Info.ReplacementsHeader");
             this.optionsGroupBox.Text = " " + TextHelper.GetString("Label.Options");
             this.matchCaseCheckBox.Text = " " + TextHelper.GetString("Label.MatchCase");
@@ -636,9 +658,11 @@ namespace FlashDevelop.Dialogs
                             ListViewItem item = new ListViewItem();
                             item.Text = match.Line.ToString();
                             item.SubItems.Add(match.LineText.Trim());
-                            item.SubItems.Add(entry.Key);
+                            item.SubItems.Add(Path.GetFileName(entry.Key));
+                            item.SubItems.Add(Path.GetDirectoryName(entry.Key));
                             item.Tag = new KeyValuePair<String, SearchMatch>(entry.Key, match);
                             this.resultsView.Items.Add(item);
+                            this.AddToGroup(item, entry.Key);
                         }
                     }
                     String message = TextHelper.GetString("Info.FoundInFiles");
@@ -699,8 +723,10 @@ namespace FlashDevelop.Dialogs
                         if (replaceCount == 0) continue;
                         item.Tag = new KeyValuePair<String, SearchMatch>(entry.Key, null);
                         item.Text = replaceCount.ToString();
-                        item.SubItems.Add(entry.Key);
+                        item.SubItems.Add(Path.GetFileName(entry.Key));
+                        item.SubItems.Add(Path.GetDirectoryName(entry.Key));
                         this.resultsView.Items.Add(item);
+                        this.AddToGroup(item, entry.Key);
                     }
                     String message = TextHelper.GetString("Info.ReplacedInFiles");
                     String formatted = String.Format(message, matchCount, fileCount);
@@ -724,19 +750,49 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
+        /// Adds item to the specified group
+        /// </summary>
+        private void AddToGroup(ListViewItem item, String path)
+        {
+            String gpname;
+            Boolean found = false;
+            ListViewGroup gp = null;
+            if (File.Exists(path)) gpname = Path.GetFileName(path);
+            else gpname = TextHelper.GetString("Group.Other");
+            foreach (ListViewGroup lvg in this.resultsView.Groups)
+            {
+                if (lvg.Tag.ToString() == path)
+                {
+                    found = true;
+                    gp = lvg;
+                    break;
+                }
+            }
+            if (found) gp.Items.Add(item);
+            else
+            {
+                gp = new ListViewGroup();
+                gp.Tag = path;
+                gp.Header = gpname;
+                this.resultsView.Groups.Add(gp);
+                gp.Items.Add(item);
+            }
+        }
+
+        /// <summary>
         /// Setups the resultsView.Columns for find and replace
         /// </summary>
         private void SetupResultsView(Boolean finding)
         {
-            if (finding && this.resultsView.Columns.Count != 3)
+            if (finding && this.resultsView.Columns.Count != 4)
             {
                 this.resultsView.Columns.Clear();
-                this.resultsView.Columns.AddRange(new ColumnHeader[] { this.lineHeader, this.descHeader, this.pathHeader });
+                this.resultsView.Columns.AddRange(new ColumnHeader[] { this.lineHeader, this.descHeader, this.fileHeader, this.pathHeader });
             }
-            else if (!finding && this.resultsView.Columns.Count != 2)
+            else if (!finding && this.resultsView.Columns.Count != 3)
             {
                 this.resultsView.Columns.Clear();
-                this.resultsView.Columns.AddRange(new ColumnHeader[] { this.replacedHeader, this.pathHeader });
+                this.resultsView.Columns.AddRange(new ColumnHeader[] { this.replacedHeader, this.fileHeader, this.pathHeader });
             }
         }
 

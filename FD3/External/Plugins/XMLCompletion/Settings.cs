@@ -84,5 +84,7 @@ namespace XMLCompletion
             get { return this.enableXMLCompletion; }
             set { this.enableXMLCompletion = value; }
         }
+
     }
+
 }

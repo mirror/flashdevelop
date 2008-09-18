@@ -69,7 +69,6 @@ namespace BookmarkPanel
         /// <summary>
         /// Object that contains the settings
         /// </summary>
-        [Browsable(false)]
         public Object Settings
         {
             get { return null; }
@@ -95,7 +94,7 @@ namespace BookmarkPanel
 		/// </summary>
 		public void Dispose()
 		{
-            // Nothing to do here...
+            // Nothing here...
 		}
 		
 		/// <summary>
@@ -103,19 +102,31 @@ namespace BookmarkPanel
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             switch (e.Type)
             {
                 case EventType.FileOpen:
-                    if (MainForm.CurrentDocument.IsEditable)
+                    if (document.IsEditable)
                     {
-                        this.pluginUI.CreateDocument(MainForm.CurrentDocument);
+                        this.pluginUI.CreateDocument(document);
                     }
                     break;
 
                 case EventType.FileClose:
-                    if (!MainForm.ClosingEntirely && MainForm.CurrentDocument.IsEditable)
+                    if (!PluginBase.MainForm.ClosingEntirely && document.IsEditable)
                     {
-                        this.pluginUI.CloseDocument(MainForm.CurrentDocument);
+                        this.pluginUI.CloseDocument(document);
+                    }
+                    break;
+
+                case EventType.ApplySettings:
+                    this.pluginUI.UpdateSettings();
+                    break;
+
+                case EventType.FileSwitch:
+                    if (PluginBase.MainForm.Documents.Length == 1 && !document.IsEditable)
+                    {
+                        this.pluginUI.CloseAll();
                     }
                     break;
 
@@ -131,14 +142,6 @@ namespace BookmarkPanel
         #region Custom Methods
 
         /// <summary>
-        /// Accessor for MainForm
-        /// </summary>
-        public static IMainForm MainForm
-        {
-            get { return PluginBase.MainForm; }
-        }
-
-        /// <summary>
         /// Initializes important variables
         /// </summary>
         public void InitBasics()
@@ -152,7 +155,7 @@ namespace BookmarkPanel
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileOpen | EventType.FileClose | EventType.FileSwitch | EventType.FileEmpty);
+            EventManager.AddEventHandler(this, EventType.FileOpen | EventType.FileClose | EventType.FileSwitch | EventType.FileEmpty | EventType.ApplySettings);
         }
 
         /// <summary>
@@ -180,7 +183,7 @@ namespace BookmarkPanel
         public void OpenPanel(Object sender, System.EventArgs e)
         {
             this.pluginPanel.Show();
-        } 
+        }
 
 		#endregion
 

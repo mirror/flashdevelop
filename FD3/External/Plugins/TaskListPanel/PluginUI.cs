@@ -57,8 +57,8 @@ namespace TaskListPanel
             this.groups = new List<String>();
             this.columnSorter = new ListViewSorter();
             this.listView.ListViewItemSorter = this.columnSorter;
+            Settings settings = (Settings)pluginMain.Settings;
             this.filesCache = new Dictionary<String, DateTime>();
-            Settings settings = ((Settings)pluginMain.Settings);
             try
             {
                 this.extensions = new List<String>();
@@ -71,7 +71,8 @@ namespace TaskListPanel
                     this.isEnabled = true;
                     this.InitGraphics();
                 }
-                this.listView.ShowGroups = settings.UseGrouping;
+                this.listView.ShowGroups = PluginBase.Settings.UseListViewGrouping;
+                this.listView.GridLines = !PluginBase.Settings.UseListViewGrouping;
             }
             catch (Exception ex)
             {
@@ -240,7 +241,8 @@ namespace TaskListPanel
                     this.InitGraphics();
                 }
                 else this.isEnabled = false;
-                this.listView.ShowGroups = settings.UseGrouping;
+                this.listView.ShowGroups = PluginBase.Settings.UseListViewGrouping;
+                this.listView.GridLines = !PluginBase.Settings.UseListViewGrouping;
             }
             catch (Exception ex)
             {
@@ -293,9 +295,10 @@ namespace TaskListPanel
             {
                 try
                 {
-                    files.AddRange(this.GetFiles(PluginBase.CurrentProject.GetAbsolutePath(path)));
+                    String projDir = PluginBase.CurrentProject.GetAbsolutePath(path);
+                    files.AddRange(this.GetFiles(projDir));
                 }
-                catch { }
+                catch {}
             }
             return files;
         }
@@ -488,29 +491,14 @@ namespace TaskListPanel
         /// </summary>
         private void AddToGroup(ListViewItem item, String path)
         {
-            if (PluginBase.CurrentProject == null)
-                return;
+            String gpname;
             Boolean found = false;
             ListViewGroup gp = null;
-            String gpname = "Others";
-            if (path.Contains(Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)))
-            {
-                gpname = PluginBase.CurrentProject.Name;
-            }
-            else 
-            {
-                foreach (string cpath in PluginBase.CurrentProject.SourcePaths)
-                {
-                    if (path.Contains(PluginBase.CurrentProject.GetAbsolutePath(cpath)))
-                    {
-                        gpname = cpath;
-                        break;
-                    }
-                }
-            }
+            if (File.Exists(path)) gpname = Path.GetFileName(path);
+            else gpname = TextHelper.GetString("FlashDevelop.Group.Other");
             foreach (ListViewGroup lvg in this.listView.Groups)
             {
-                if (lvg.Header == gpname)
+                if (lvg.Tag.ToString() == path)
                 {
                     found = true;
                     gp = lvg;
@@ -521,9 +509,9 @@ namespace TaskListPanel
             else
             {
                 gp = new ListViewGroup();
+                gp.Tag = path;
                 gp.Header = gpname;
-                if (gpname == PluginBase.CurrentProject.Name) this.listView.Groups.Insert(0, gp);
-                else this.listView.Groups.Add(gp);
+                this.listView.Groups.Add(gp);
                 gp.Items.Add(item);
             }
         }
@@ -640,15 +628,14 @@ namespace TaskListPanel
             {
                 ListViewItem firstSelected = selected[0];
                 String path = (string)firstSelected.Name;
-
                 this.currentFileName = path;
                 this.currentPos = (Int32)((Hashtable)firstSelected.Tag)["Position"];
-
-                if (PluginBase.MainForm.CurrentDocument.IsEditable)
+                ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                if (document.IsEditable)
                 {
-                    if (PluginBase.MainForm.CurrentDocument.FileName.ToUpper() == path.ToUpper())
+                    if (document.FileName.ToUpper() == path.ToUpper())
                     {
-                        MoveToPosition(PluginBase.MainForm.CurrentDocument.SciControl, currentPos);
+                        MoveToPosition(document.SciControl, currentPos);
                         currentFileName = null;
                         currentPos = -1;
                     }
@@ -668,13 +655,14 @@ namespace TaskListPanel
             {
                 case EventType.FileOpen:
                 case EventType.FileSwitch:
-                    if (PluginBase.MainForm.CurrentDocument.IsEditable)
+                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                    if (document.IsEditable)
                     {
                         if (this.currentFileName != null && this.currentPos > -1)
                         {
-                            if (this.currentFileName.ToUpper() == PluginBase.MainForm.CurrentDocument.FileName.ToUpper())
+                            if (this.currentFileName.ToUpper() == document.FileName.ToUpper())
                             {
-                                this.MoveToPosition(PluginBase.MainForm.CurrentDocument.SciControl, currentPos);
+                                this.MoveToPosition(document.SciControl, currentPos);
                             }
                         }
                     }

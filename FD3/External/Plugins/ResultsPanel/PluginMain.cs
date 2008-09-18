@@ -19,8 +19,9 @@ namespace ResultsPanel
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds a results panel for console info to FlashDevelop";
         private String pluginAuth = "FlashDevelop Team";
-        private static PanelSettings settingsObject;
         private DockContent pluginPanel;
+        private Settings settingObject;
+        private String settingFilename;
         private PluginUI pluginUI;
         private Image pluginImage;
 
@@ -69,10 +70,9 @@ namespace ResultsPanel
         /// <summary>
         /// Object that contains the settings
         /// </summary>
-        [Browsable(false)]
-        object IPlugin.Settings
+        public Object Settings
         {
-            get { return settingsObject; }
+            get { return this.settingObject; }
         }
 		
 		#endregion
@@ -84,8 +84,8 @@ namespace ResultsPanel
 		/// </summary>
 		public void Initialize()
 		{
-            this.LoadSettings();
             this.InitBasics();
+            this.LoadSettings();
             this.AddEventHandlers();
             this.CreatePluginPanel();
             this.CreateMenuItem();
@@ -96,7 +96,7 @@ namespace ResultsPanel
 		/// </summary>
 		public void Dispose()
 		{
-            // Don't have to do anything :)
+            this.SaveSettings();
 		}
 		
 		/// <summary>
@@ -120,6 +120,10 @@ namespace ResultsPanel
                     }
                     break;
 
+                case EventType.ApplySettings:
+                    this.pluginUI.ApplySettings();
+                    break;
+
                 case EventType.ProcessStart:
                     this.pluginUI.ClearOutput();
                     break;
@@ -139,12 +143,12 @@ namespace ResultsPanel
 
                 case EventType.Keys:
                     KeyEvent ke = (KeyEvent)e;
-                    if (ke.Value == settingsObject.NextError)
+                    if (ke.Value == this.settingObject.NextError)
                     {
                         ke.Handled = true;
                         this.pluginUI.NextEntry(null, null);
                     }
-                    else if (ke.Value == settingsObject.PreviousError)
+                    else if (ke.Value == this.settingObject.PreviousError)
                     {
                         ke.Handled = true;
                         this.pluginUI.PreviousEntry(null, null);
@@ -162,8 +166,33 @@ namespace ResultsPanel
         /// </summary>
         public void InitBasics()
         {
-            this.pluginImage = PluginBase.MainForm.FindImage("127");
+            String dataDir = Path.Combine(PathHelper.DataDir, "ResultsPanel");
+            if (!Directory.Exists(dataDir)) Directory.CreateDirectory(dataDir);
+            this.settingFilename = Path.Combine(dataDir, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
+            this.pluginImage = PluginBase.MainForm.FindImage("127");
+        }
+
+        /// <summary>
+        /// Saves the plugin settings
+        /// </summary>
+        public void SaveSettings()
+        {
+            ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
+        }
+
+        /// <summary>
+        /// Loads the plugin settings
+        /// </summary>
+        public void LoadSettings()
+        {
+            this.settingObject = new Settings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (Settings)obj;
+            }
         }
 
         /// <summary>
@@ -171,7 +200,7 @@ namespace ResultsPanel
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventType eventMask = EventType.ProcessEnd | EventType.ProcessStart | EventType.FileOpen | EventType.Command | EventType.Trace | EventType.Keys;
+            EventType eventMask = EventType.ProcessEnd | EventType.ProcessStart | EventType.FileOpen | EventType.Command | EventType.Trace | EventType.Keys | EventType.ApplySettings;
             EventManager.AddEventHandler(this, eventMask);
         }
 
@@ -204,21 +233,6 @@ namespace ResultsPanel
         }
 
 		#endregion
-
-        #region Settings
-
-        static string SettingsDir { get { return Path.Combine(PathHelper.DataDir, "ResultsPanel"); } }
-        static string SettingsPath { get { return Path.Combine(SettingsDir, "Settings.fdb"); } }
-
-        static public PanelSettings Settings { get { return settingsObject; } }
-
-        private void LoadSettings()
-        {
-            settingsObject = ObjectSerializer.Deserialize<PanelSettings>(SettingsPath);
-            if (settingsObject == null) settingsObject = new PanelSettings();
-        }
-
-        #endregion
 
 	}
 	

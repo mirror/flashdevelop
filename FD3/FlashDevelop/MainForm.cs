@@ -1441,8 +1441,11 @@ namespace FlashDevelop
                 ITabbedDocument document = this.Documents[i];
                 if (document.IsEditable) ScintillaManager.ApplySciSettings(document.SciControl);
             }
+            this.frInFilesDialog.UpdateSettings();
             this.toolStrip.Visible = this.appSettings.ViewToolBar;
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
+            NotifyEvent ne = new NotifyEvent(EventType.ApplySettings);
+            EventManager.DispatchEvent(this, ne);
             ButtonManager.UpdateFlaggedButtons();
         }
 

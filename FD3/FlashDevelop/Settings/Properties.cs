@@ -46,6 +46,7 @@ namespace FlashDevelop.Settings
         private String latestDialogPath = Application.StartupPath;
         private String defaultFileExtension = "as";
         private Boolean redirectFilesResults = true;
+        private Boolean useListViewGrouping = true;
         private Boolean applyFileExtension = true;
         private Boolean restoreFileStates = true;
         private Boolean restoreFileSession = true;
