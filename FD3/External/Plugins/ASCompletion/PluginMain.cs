@@ -52,6 +52,7 @@ namespace ASCompletion
         private string currentDoc;
         private bool started;
         private FlashErrorsWatcher flashErrorsWatcher;
+        private bool checking = false;
 
         #region Required Properties
 
@@ -668,7 +669,12 @@ namespace ASCompletion
 		/// </summary>
 		public void CheckSyntax(object sender, System.EventArgs e)
 		{
-            if (!PluginBase.MainForm.SavingMultiple) ASContext.Context.CheckSyntax();
+            if (!checking && !PluginBase.MainForm.SavingMultiple)
+            {
+                checking = true;
+                ASContext.Context.CheckSyntax();
+                checking = false;
+            }
 		}
 
 		/// <summary>
