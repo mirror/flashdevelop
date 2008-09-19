@@ -236,7 +236,8 @@ namespace ASCompletion
                         bool ignoreFile = !doc.IsEditable;
                         ASContext.SetCurrentFile(doc, ignoreFile);
                         // UI
-                        SetItemsEnabled(ASContext.Context.IsFileValid);
+                        Boolean enableItems = ASContext.Context.IsFileValid && !doc.IsUntitled;
+                        SetItemsEnabled(enableItems);
                         return;
 
                     // some commands work all the time

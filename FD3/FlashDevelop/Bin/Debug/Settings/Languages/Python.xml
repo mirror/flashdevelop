@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <keyword-classes>
-      <keyword-class name="python">
+      <keyword-class name="python-primary-keywords">
          and assert break class continue def del elif
          else except exec finally for from global if import in is lambda None
          not or pass print raise return try while yield
@@ -18,7 +18,7 @@
          __rpow__ __rrshift__ __rshift__ __rsub__ __rxor__ __safe_for_unpickling__ __self__
          __setattr__ __setitem__ __setslice__ __str__ __sub__ __truediv__ __version__ __xor__
       </keyword-class>
-      <keyword-class name="python.extra">
+      <keyword-class name="python-additional-keywords">
          apply buffer callable chr cmp coerce compile complex delattr dict dir divmod eval
          execfile file filter float getattr globals hasattr hash help hex id input int intern
          isinstance issubclass iter len list locals long map max min oct open ord pow range
@@ -65,30 +65,26 @@
          <comment-end><![CDATA["""]]></comment-end>
          <file-extensions>py</file-extensions>
          <use-keywords>
-            <keyword key="0" class="python" />
-            <keyword key="1" class="python.extra" />
+            <keyword key="0" class="python-primary-keywords" />
+            <keyword key="1" class="python-additional-keywords" />
          </use-keywords>
          <use-styles>
             <style name="default" inherit-style="default" />
-            <!--<style name="comment" fore="0x008000" />-->
             <style name="commentline" fore="0x008000" />
-            <!--<style name="commentdoc" fore="0x008000" />-->
             <style name="number" fore="0x000099" />
-            <style name="word" fore="0x000099" />
             <style name="string" fore="0xa31515" />
             <style name="character" fore="0xa31515" />
-            <!--<style name="uuid" />-->
-            <!--<style name="preprocessor" fore="0x000099" />-->
+			<style name="word" fore="0x000099" />
+			<style name="triple" />
+			<style name="tripledouble" />
+			<style name="classname" />
+			<style name="defname" />
             <style name="operator" />
             <style name="identifier" />
-            <style name="stringeol" />
-            <!--<style name="verbatim" />-->
-            <!--<style name="regex" fore="0xff00ff" />-->
-            <!--<style name="commentlinedoc" fore="0x008000" />-->
+            <style name="commentblock" fore="0x008000" />
+			<style name="stringeol" />
             <style name="word2" fore="0x008080" />
-            <!--<style name="commentdockeyword" fore="0x800000" />-->
-            <!--<style name="commentdockeyworderror" fore="0xff0000" />-->
-            <!--<style name="globalclass" fore="0x1518ff" />-->
+            <style name="decorator" />
             <style name="gdefault" inherit-style="gdefault" />
             <style name="linenumber" inherit-style="linenumber" />
             <style name="bracelight" inherit-style="bracelight" />
