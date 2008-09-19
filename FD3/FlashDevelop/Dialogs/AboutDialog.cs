@@ -59,7 +59,7 @@ namespace FlashDevelop.Dialogs
             this.copyLabel.Name = "copyLabel";
             this.copyLabel.Size = new System.Drawing.Size(356, 31);
             this.copyLabel.TabIndex = 0;
-            this.copyLabel.Text = "FlashDevelop logo, domain and the name is copyright of Mika Palmu.\r\nTeam: Mika Palmu, Philippe Elsass, Nick Farina and Alessandro Crugnola.\r\n";
+            this.copyLabel.Text = "FlashDevelop logo, domain and the name is copyright of Mika Palmu.\r\nDevelopment: Mika Palmu, Philippe Elsass and all helpful contributors.";
             this.copyLabel.Click += new System.EventHandler(this.CloseClick);
             // 
             // versionLabel
