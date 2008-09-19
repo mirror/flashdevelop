@@ -17,9 +17,7 @@ class AscShell
 {
 	static private Context ctx;
 
-	/**
-	* @throw java.io.IOException
-	*/
+	// Start a shell waiting for files to parse
 	static public void main(String[] args)
 	{
 		ContextStatics statics = new ContextStatics();
@@ -44,6 +42,7 @@ class AscShell
 		}
 	}
 
+	// Run Flex SDK Actionscript parser against provided file
 	static public void parseFile(String filespec)
 	{
 		if (ctx == null) return;
