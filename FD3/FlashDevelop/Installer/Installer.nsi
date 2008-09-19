@@ -391,6 +391,7 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\.multi"
 	Delete "$INSTDIR\.local"
 	Delete "$INSTDIR\FirstRun.fdb"
+	Delete "$INSTDIR\Exceptions.log"
 	Delete "$INSTDIR\FlashDevelop.exe"
 	Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
 	Delete "$INSTDIR\PluginCore.dll"
