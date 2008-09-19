@@ -322,6 +322,7 @@ namespace BookmarkPanel
                 ITabbedDocument document = DocumentManager.FindDocument(filename);
                 if (document != null && document.IsEditable)
                 {
+                    document.Activate();
                     document.SciControl.GotoLine(line);
                 }
             }

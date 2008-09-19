@@ -595,7 +595,7 @@ namespace FlashDevelop.Dialogs
                 ScintillaControl sci = Globals.CurrentDocument.SciControl;
                 if (Globals.CurrentDocument.IsEditable)
                 {
-                    if (this.resultsView.Columns.Count == 3)
+                    if (this.resultsView.Columns.Count == 4)
                     {
                         sci.EnsureVisible(data.Value.Line-1);
                         Int32 column = sci.MBSafeTextLength(data.Value.LineText.Substring(0, data.Value.Column));
