@@ -85,24 +85,10 @@ namespace AS3Context.Compiler
 
         private Flex2Shell()
 		{
-			watcher = new FileSystemWatcher();
-			watcher.EnableRaisingEvents = false;
-			watcher.Filter = "*.p";
-			watcher.Created += new FileSystemEventHandler(onCreateFile);
-			
-			timer = new System.Timers.Timer();
-			timer.Enabled = false;
-			timer.AutoReset = false;
-			timer.Interval = 300;
-			timer.Elapsed += new ElapsedEventHandler(onTimedDelete);
 		}
 
         private ProcessRunner ascRunner;
 		private ProcessRunner mxmlcRunner;
-		private FileSystemWatcher watcher;
-		private string watchedFile;
-		private string fullWatchedPath;
-		private System.Timers.Timer timer;
 		private string builtSWF;
         private bool debugMode;
 
@@ -152,17 +138,9 @@ namespace AS3Context.Compiler
 				if (ascRunner == null || !ascRunner.IsRunning) StartAscRunner();
 				TraceManager.Add("AscShell command: "+filename, -1);
 				
-				StringBuilder sb = new StringBuilder(filename.Length);
-				GetShortPathName(filename, sb, (uint)filename.Length);
-				string shortname = sb.ToString().Replace(".AS", ".as");
-                if (shortname.Length == 0) shortname = filename;
-				
-				WatchFile(shortname);
-				
 				ASContext.SetStatusText("Asc Running");
 				notificationSent = false;
-				ascRunner.HostedProcess.StandardInput.WriteLine("clear");
-                ascRunner.HostedProcess.StandardInput.WriteLine("asc -p " + shortname);
+                ascRunner.HostedProcess.StandardInput.WriteLine(filename);
 			}
 			catch(Exception ex)
 			{
@@ -345,48 +323,6 @@ namespace AS3Context.Compiler
             else return null;
         }
 
-        #region .p files cleanup
-
-        /// <summary>
-		/// Set watcher to remove the .p file
-		/// </summary>
-		private void WatchFile(string filename)
-		{
-			string folder = Path.GetDirectoryName(filename);
-			watchedFile = Path.GetFileNameWithoutExtension(filename).ToLower()+".p";
-			fullWatchedPath = Path.Combine(folder, watchedFile);
-			if (File.Exists(fullWatchedPath)) File.Delete(fullWatchedPath);
-			watcher.Path = folder;
-			watcher.EnableRaisingEvents = true;
-		}
-		
-		private void onCreateFile(object source, FileSystemEventArgs e)
-		{
-			//if (e.Name.ToLower() == watchedFile)
-			if (Path.GetExtension(e.Name).ToLower() == ".p")
-			{
-				watcher.EnableRaisingEvents = false;
-				timer.Enabled = true;
-			}
-		}
-		
-		private void onTimedDelete(object source, ElapsedEventArgs e)
-		{
-			Control ctrl = ASContext.Panel as Control;
-        	if (ctrl != null && ctrl.InvokeRequired) ctrl.BeginInvoke(new ElapsedEventHandler(onTimedDelete), new object[]{source, e});
-        	else
-        	{
-				if (File.Exists(fullWatchedPath)) 
-				{
-					File.Delete(fullWatchedPath);
-	        		TraceManager.Add("Done(0)", -2);
-                    EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(0)"));
-					ASContext.SetStatusText("Asc Done");
-				}
-        	}
-        }
-        #endregion
-
         #region Background process
 
         /// <summary>
@@ -467,7 +403,7 @@ namespace AS3Context.Compiler
 	                	}
             		}
             		catch {}
-                	errorDesc = String.Format("{0}:{1}: {2}", filename, mErr.Groups["line"].Value, errorDesc);
+                    errorDesc = String.Format("{0}:{1}: col: {2}: {3}", filename, mErr.Groups["line"].Value, mErr.Groups["col"].Value, errorDesc);
                     ascRunner_OutputError(sender, errorDesc);
                 }
                 errorState++;
@@ -500,11 +436,29 @@ namespace AS3Context.Compiler
 
         private void ascRunner_Output(object sender, string line)
         {
-        	if (line.StartsWith("(ash)")) return;
+            if (line.StartsWith("(ash)"))
+            {
+                if (!notificationSent && line.IndexOf("Done") > 0)
+                {
+                    notificationSent = true;
+                    ascRunner_End();
+                }
+                return;
+            }
             Control ctrl = ASContext.Panel as Control;
             if (ctrl != null && ctrl.InvokeRequired)
                 ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_Output(sender, line); });
             else TraceManager.Add(line, 0);
+        }
+
+        private void ascRunner_End()
+        {
+            Control ctrl = ASContext.Panel as Control;
+        	if (ctrl != null && ctrl.InvokeRequired)
+                ctrl.BeginInvoke((MethodInvoker)delegate {
+                    ascRunner_End();
+                });
+            else TraceManager.Add("Done(0)", -2);
         }
         
         private void mxmlcRunner_Error(object sender, string line)
