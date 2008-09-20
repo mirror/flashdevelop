@@ -131,7 +131,7 @@ namespace ProjectManager.Building.AS2
 				}
 
 			foreach (string pack in project.CompilerOptions.IncludePackages)
-				Add("-pack", pack);
+				if (pack.Trim().Length > 0) Add("-pack", pack);
 
 			if (noTrace)
 			{
