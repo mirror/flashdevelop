@@ -10,29 +10,52 @@ import macromedia.asc.parser.ProgramNode;
 *
 * Author: Philippe Elsass
 *
-* Building: javac -classpath "C:\Program Files\Adobe\flex_sdk_3.1.0.2710\lib\asc.jar;." AscShell.java
-* Running: java -classpath "C:\Program Files\Adobe\flex_sdk_3.1.0.2710\lib\asc.jar;." AscShell
+* Building: javac -classpath "C:\flex_sdk_3.0.2.2113\lib\asc.jar;." AscShell.java
+* Running: java -classpath "C:\flex_sdk_3.0.2.2113\lib\asc.jar;." AscShell
 */
 class AscShell
 {
-	static private Context ctx;
-
+	static private Context ctx = null;
+	
 	// Start a shell waiting for files to parse
 	static public void main(String[] args)
 	{
 		ContextStatics statics = new ContextStatics();
 		ctx = new Context(statics);
-
+		
 		try
 		{
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
+			String rawFile = null;
+			StringBuilder src = null;
+			
 			while(true)
 			{
-				// get command line
 				String cmd = in.readLine();
 				if (cmd == null) break;
-				parseFile(cmd);
+				
+				// parse from provided raw file source
+				if (cmd.endsWith("$raw$"))
+				{
+					if (rawFile != null && src != null) 
+					{
+						parseSrc(rawFile, src.toString());
+						rawFile = null;
+						src = null;
+					}
+					else 
+					{
+						rawFile = cmd;
+						src = new StringBuilder();
+					}
+				}
+				else if (src != null)
+				{
+					src.append(cmd).append("\n");
+				}
+				
+				// parse from provided filename
+				else parseFile(cmd);
 			}
 			in.close();
 		}
@@ -41,21 +64,34 @@ class AscShell
 			System.out.println(iex);
 		}
 	}
+	
+	// Run Flex SDK Actionscript parser against provided source
+	static public void parseSrc(String filespec, String src)
+	{
+		if (ctx == null) return;
+		
+		try
+		{
+			Parser parser = new Parser(ctx, src, filespec);
+			ProgramNode pn = parser.parseProgram();
+			Thread.sleep(50);
+			System.out.println("(ash) Done");
+		}
+		catch (InterruptedException tex) {}
+	}
 
 	// Run Flex SDK Actionscript parser against provided file
 	static public void parseFile(String filespec)
 	{
 		if (ctx == null) return;
-
+		
 		try
 		{
 			BufferedInputStream stream = new BufferedInputStream(new FileInputStream(filespec));
-
-			ProgramNode pn = null;
 			try
 			{
 				Parser parser = new Parser(ctx, stream, filespec);
-				pn = parser.parseProgram();
+				ProgramNode pn = parser.parseProgram();
 				Thread.sleep(50);
 				System.out.println("(ash) Done");
 			}

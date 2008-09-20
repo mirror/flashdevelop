@@ -17,11 +17,15 @@ using ASCompletion.Model;
 
 namespace AS3Context.Compiler
 {
+    public delegate void SyntaxErrorHandler(string error);
+
 	/// <summary>
 	/// Description of Flex2Shell.
 	/// </summary>
 	public class Flex2Shell
 	{
+        static public event SyntaxErrorHandler SyntaxError;
+
 		static readonly public Regex re_SplitParams = 
 			new Regex("[\\s](?<switch>\\-[A-z\\-\\.]+)", RegexOptions.Compiled | RegexOptions.Singleline);
 		static readonly public Regex re_Disk = 
@@ -46,6 +50,8 @@ namespace AS3Context.Compiler
         static private string mxmlcPath;
 		static private string flex2Jar = "flex2shell.jar";
 		static private string flex2Shell;
+        static private bool running;
+        static private bool silentChecking;
 		
 		static private void CheckResource(string filename)
 		{
@@ -92,8 +98,14 @@ namespace AS3Context.Compiler
 		private string builtSWF;
         private bool debugMode;
 
-		public void CheckAS3(string filename, string flex2Path)
+        public void CheckAS3(string filename, string flex2Path)
+        {
+            CheckAS3(filename, flex2Path, null);
+        }
+
+        public void CheckAS3(string filename, string flex2Path, string src)
 		{
+            if (running) return;
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
@@ -133,14 +145,25 @@ namespace AS3Context.Compiler
 			
 			try
 			{
-				EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
-				
+                running = true;
 				if (ascRunner == null || !ascRunner.IsRunning) StartAscRunner();
-				TraceManager.Add("AscShell command: "+filename, -1);
-				
-				ASContext.SetStatusText("Asc Running");
+
 				notificationSent = false;
-                ascRunner.HostedProcess.StandardInput.WriteLine(filename);
+                if (src == null)
+                {
+                    silentChecking = false;
+                    EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
+                    TraceManager.Add("AscShell command: " + filename, -1);
+                    ASContext.SetStatusText("Asc Running");
+                    ascRunner.HostedProcess.StandardInput.WriteLine(filename);
+                }
+                else
+                {
+                    silentChecking = true;
+                    ascRunner.HostedProcess.StandardInput.WriteLine(filename + "$raw$");
+                    ascRunner.HostedProcess.StandardInput.WriteLine(src);
+                    ascRunner.HostedProcess.StandardInput.WriteLine(filename + "$raw$");
+                }
 			}
 			catch(Exception ex)
 			{
@@ -150,6 +173,7 @@ namespace AS3Context.Compiler
 
         public void RunMxmlc(string cmd, string flex2Path)
 		{
+            if (running) return;
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
@@ -182,6 +206,7 @@ namespace AS3Context.Compiler
 			
 			try
 			{
+                running = true;
 				EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
 				
 				if (mxmlcRunner == null || !mxmlcRunner.IsRunning) StartMxmlcRunner(flex2Path);
@@ -201,6 +226,7 @@ namespace AS3Context.Compiler
 
         public void QuickBuild(FileModel theFile, string flex2Path, bool requireTag, bool playAfterBuild)
 		{
+            if (running) return;
 			// environment
             string filename = theFile.FileName;
             string currentPath = Environment.CurrentDirectory;
@@ -422,13 +448,18 @@ namespace AS3Context.Compiler
                 ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_OutputError(sender, line); });
         	else 
         	{
+                if (silentChecking) 
+                {
+                    if (SyntaxError != null) SyntaxError(line);
+                    return;
+                }
                 TraceManager.Add(line, -3);
 	        	if (!notificationSent) 
 	        	{
 	        		notificationSent = true;
-	        		ASContext.SetStatusText("Asc Done");
                     TraceManager.Add("Done(1)", -2);
                     EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(1)"));
+                    ASContext.SetStatusText("Asc Done");
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "ResultsPanel.ShowResults", null));
 	        	}
         	}
@@ -438,27 +469,38 @@ namespace AS3Context.Compiler
         {
             if (line.StartsWith("(ash)"))
             {
-                if (!notificationSent && line.IndexOf("Done") > 0)
+                if (line.IndexOf("Done") > 0)
                 {
-                    notificationSent = true;
-                    ascRunner_End();
+                    running = false;
+                    if (!silentChecking && !notificationSent)
+                    {
+                        notificationSent = true;
+                        ascRunner_End();
+                    }
                 }
                 return;
             }
             Control ctrl = ASContext.Panel as Control;
             if (ctrl != null && ctrl.InvokeRequired)
                 ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_Output(sender, line); });
-            else TraceManager.Add(line, 0);
+            else
+            {
+                if (!silentChecking) TraceManager.Add(line, 0);
+            }
         }
 
         private void ascRunner_End()
         {
             Control ctrl = ASContext.Panel as Control;
-        	if (ctrl != null && ctrl.InvokeRequired)
-                ctrl.BeginInvoke((MethodInvoker)delegate {
+            if (ctrl != null && ctrl.InvokeRequired)
+                ctrl.BeginInvoke((MethodInvoker)delegate
+                {
                     ascRunner_End();
                 });
-            else TraceManager.Add("Done(0)", -2);
+            else
+            {
+                TraceManager.Add("Done(0)", -2);
+            }
         }
         
         private void mxmlcRunner_Error(object sender, string line)
@@ -481,6 +523,7 @@ namespace AS3Context.Compiler
         	{
         		if (!notificationSent && line.StartsWith("Done("))
         		{
+                    running = false;
                     TraceManager.Add(line, -2);
         			notificationSent = true;
 	        		ASContext.SetStatusText("Mxmlc Done");

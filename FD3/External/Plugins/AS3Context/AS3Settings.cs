@@ -186,10 +186,12 @@ namespace AS3Context
 
         const bool DEFAULT_DISABLEFDB = false;
         const bool DEFAULT_VERBOSEFDB = false;
+        const bool DEFAULT_DISABLELIVECHECKING = false;
 
         private string flexSDK;
         private bool disableFDB;
         private bool verboseFDB;
+        private bool disableLiveChecking;
 
         [DisplayName("Flex SDK Location")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.FlexSDK")]
@@ -216,6 +218,13 @@ namespace AS3Context
             set { verboseFDB = value; }
         }
 
+        [DisplayName("Disable Live Syntax Checking")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("ASCompletion.Description.DisableLiveSyntaxChecking"), DefaultValue(DEFAULT_DISABLELIVECHECKING)]
+        public bool DisableLiveChecking
+        {
+            get { return disableLiveChecking; }
+            set { disableLiveChecking = value; }
+        }
         #endregion
 
         [Browsable(false)]

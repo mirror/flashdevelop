@@ -12,6 +12,7 @@ using PluginCore.Controls;
 using PluginCore.Localization;
 using AS3Context.Compiler;
 using PluginCore.Helpers;
+using System.Timers;
 
 namespace AS3Context
 {
@@ -19,10 +20,15 @@ namespace AS3Context
     {
         static readonly protected Regex re_genericType =
             new Regex("(?<gen>[^<]+)\\.<(?<type>.+)>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        
+        // C:\path\to\Main.as$raw$:31: col: 1:  Error #1084: Syntax error: expecting rightbrace before end of program.
+        static readonly protected Regex re_syntaxError =
+            new Regex("(?<filename>.*)\\$raw\\$:(?<line>[0-9]+): col: (?<col>[0-9]+):(?<desc>.*)", RegexOptions.Compiled);
 
         #region initialization
         private AS3Settings as3settings;
         private MxmlFilterContext mxmlFilterContext; // extract inlined AS3 ranges & MXML tags
+        private System.Timers.Timer timerCheck;
 
         public Context(AS3Settings initSettings)
         {
@@ -98,6 +104,12 @@ namespace AS3Context
 
             settings = initSettings;
             //BuildClassPath(); // defered to first use
+
+            // live syntax checking
+            timerCheck = new Timer(500);
+            timerCheck.AutoReset = false;
+            timerCheck.Elapsed += new ElapsedEventHandler(timerCheck_Elapsed);
+            Flex2Shell.SyntaxError += new SyntaxErrorHandler(Flex2Shell_SyntaxError);
         }
         #endregion
 
@@ -245,6 +257,82 @@ namespace AS3Context
         {
             if (mxmlFilterContext != null) MxmlFilter.FilterSource(model, mxmlFilterContext);
             mxmlFilterContext = null;
+        }
+        #endregion
+
+        #region model caching
+
+        public override void TrackTextChange(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
+        {
+            base.TrackTextChange(sender, position, length, linesAdded);
+            if (!as3settings.DisableLiveChecking)
+            {
+                timerCheck.Stop();
+                timerCheck.Start();
+            }
+        }
+
+        private void timerCheck_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            BackgroundSyntaxCheck();
+        }
+
+        private void BackgroundSyntaxCheck()
+        {
+            if (Panel == null) return;
+            if (Panel.InvokeRequired)
+            {
+                Panel.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate { BackgroundSyntaxCheck(); });
+                return;
+            }
+            // check syntax
+            ScintillaNet.ScintillaControl sci = CurSciControl;
+            ClearSquiggles(sci);
+            Flex2Shell.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, CurSciControl.Text);
+        }
+
+        private void ClearSquiggles(ScintillaNet.ScintillaControl sci)
+        {
+            int es = sci.EndStyled;
+            int mask = (1 << sci.StyleBits);
+            sci.StartStyling(0, mask);
+            sci.SetStyling(sci.TextLength, 0);
+            sci.StartStyling(es, mask - 1);
+        }
+
+        private void Flex2Shell_SyntaxError(string error)
+        {
+            Match m = re_syntaxError.Match(error);
+            if (!m.Success) return;
+
+            ScintillaNet.ScintillaControl sci = CurSciControl;
+            int line = int.Parse(m.Groups["line"].Value) - 1;
+            int start = MBSafeColumn(sci, line, int.Parse(m.Groups["col"].Value) - 1);
+            AddSquiggles(sci, line, start, start + 1);
+        }
+
+        /// <summary>
+        /// Convert multibyte column to byte length
+        /// </summary>
+        private int MBSafeColumn(ScintillaNet.ScintillaControl sci, int line, int length)
+        {
+            String text = sci.GetLine(line);
+            length = Math.Min(length, text.Length);
+            return sci.MBSafeTextLength(text.Substring(0, length));
+        }
+
+        private void AddSquiggles(ScintillaNet.ScintillaControl sci, int line, int start, int end)
+        {
+            int position = sci.PositionFromLine(line) + start;
+            int indic = (int)ScintillaNet.Enums.IndicatorStyle.Squiggle;
+            int fore = 0x000000ff;
+            int es = sci.EndStyled;
+            int mask = 1 << sci.StyleBits;
+            sci.SetIndicStyle(0, indic);
+            sci.SetIndicFore(0, fore);
+            sci.StartStyling(position, mask);
+            sci.SetStyling(end - start, mask);
+            sci.StartStyling(es, mask - 1);
         }
         #endregion
 
