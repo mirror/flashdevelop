@@ -296,7 +296,7 @@ namespace ResultsPanel
         /// </summary>
         private int MBSafeColumn(ScintillaControl sci, int line, int length)
         {
-            String text = sci.GetLine(line);
+            String text = sci.GetLine(line) ?? "";
             length = Math.Min(length, text.Length);
             return sci.MBSafeTextLength(text.Substring(0, length));
         }

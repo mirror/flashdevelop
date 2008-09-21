@@ -122,6 +122,7 @@ namespace AS3Context.Compiler
 
             if (ascPath == null)
             {
+                if (src != null) return; // silent checking
                 DialogResult result = MessageBox.Show(TextHelper.GetString("Info.SetFlex2OrCS3Path"), TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Yes)
                 {
@@ -139,6 +140,7 @@ namespace AS3Context.Compiler
             CheckResource(flex2Jar);
             if (!File.Exists(flex2Shell))
             {
+                if (src != null) return; // silent checking
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
                 return;
             }

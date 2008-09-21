@@ -265,7 +265,7 @@ namespace AS3Context
         public override void TrackTextChange(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
         {
             base.TrackTextChange(sender, position, length, linesAdded);
-            if (!as3settings.DisableLiveChecking)
+            if (!as3settings.DisableLiveChecking && IsFileValid)
             {
                 timerCheck.Stop();
                 timerCheck.Start();
@@ -285,8 +285,10 @@ namespace AS3Context
                 Panel.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate { BackgroundSyntaxCheck(); });
                 return;
             }
+            if (!IsFileValid) return;
             // check syntax
             ScintillaNet.ScintillaControl sci = CurSciControl;
+            if (sci == null) return;
             ClearSquiggles(sci);
             Flex2Shell.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, CurSciControl.Text);
         }
@@ -302,12 +304,17 @@ namespace AS3Context
 
         private void Flex2Shell_SyntaxError(string error)
         {
+            if (!IsFileValid) return;
             Match m = re_syntaxError.Match(error);
             if (!m.Success) return;
 
             ScintillaNet.ScintillaControl sci = CurSciControl;
+            if (sci == null || m.Groups["filename"].Value != CurrentFile) 
+                return;
             int line = int.Parse(m.Groups["line"].Value) - 1;
+            if (sci.LineCount < line) return;
             int start = MBSafeColumn(sci, line, int.Parse(m.Groups["col"].Value) - 1);
+            if (line == sci.LineCount && start == 0 && line > 0) start = -1;
             AddSquiggles(sci, line, start, start + 1);
         }
 
@@ -316,7 +323,7 @@ namespace AS3Context
         /// </summary>
         private int MBSafeColumn(ScintillaNet.ScintillaControl sci, int line, int length)
         {
-            String text = sci.GetLine(line);
+            String text = sci.GetLine(line) ?? "";
             length = Math.Min(length, text.Length);
             return sci.MBSafeTextLength(text.Substring(0, length));
         }
