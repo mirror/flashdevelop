@@ -1986,7 +1986,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>(Project output not built)</value>
   </data>
   <data name="ProjectManager.Label.NotValidGroup" xml:space="preserve">
-    <value>Not a valid group</value>
+    <value>No actions available.</value>
   </data>
   <data name="ProjectManager.Label.OK" xml:space="preserve">
     <value>&amp;OK</value>
