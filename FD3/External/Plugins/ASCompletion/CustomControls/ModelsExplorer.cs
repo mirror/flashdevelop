@@ -325,8 +325,10 @@ namespace ASCompletion
 
         private FileModel OpenFile(string filename)
         {
+            if (current == null || current.Classpath == null)
+                return null;
             FileModel model = null;
-            foreach (PathModel aPath in ASContext.Context.Classpath)
+            foreach (PathModel aPath in current.Classpath)
                 if (aPath.HasFile(filename))
                 {
                     model = aPath.GetFile(filename);
