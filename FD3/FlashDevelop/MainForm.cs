@@ -1062,7 +1062,7 @@ namespace FlashDevelop
         {
             ITabbedDocument document = sender as ITabbedDocument;
             TabbingManager.TabHistory.Remove(document);
-            NotifyEvent ne = new NotifyEvent(EventType.FileClose);
+            TextEvent ne = new TextEvent(EventType.FileClose, document.FileName);
             EventManager.DispatchEvent(this, ne);
             if (this.appSettings.SequentialTabbing)
             {

@@ -102,32 +102,20 @@ namespace BookmarkPanel
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             switch (e.Type)
             {
                 case EventType.FileOpen:
-                    if (document.IsEditable)
-                    {
-                        this.pluginUI.CreateDocument(document);
-                    }
+                    TextEvent fo = (TextEvent)e;
+                    this.pluginUI.CreateDocument(fo.Value);
                     break;
 
                 case EventType.FileClose:
-                    if (!PluginBase.MainForm.ClosingEntirely && document.IsEditable)
-                    {
-                        this.pluginUI.CloseDocument(document);
-                    }
+                    TextEvent fc = (TextEvent)e;
+                    this.pluginUI.CloseDocument(fc.Value);
                     break;
 
                 case EventType.ApplySettings:
                     this.pluginUI.UpdateSettings();
-                    break;
-
-                case EventType.FileSwitch:
-                    if (PluginBase.MainForm.Documents.Length == 1 && !document.IsEditable)
-                    {
-                        this.pluginUI.CloseAll();
-                    }
                     break;
 
                 case EventType.FileEmpty:
@@ -155,7 +143,7 @@ namespace BookmarkPanel
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileOpen | EventType.FileClose | EventType.FileSwitch | EventType.FileEmpty | EventType.ApplySettings);
+            EventManager.AddEventHandler(this, EventType.FileOpen | EventType.FileClose | EventType.FileEmpty | EventType.ApplySettings);
         }
 
         /// <summary>

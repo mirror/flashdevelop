@@ -431,7 +431,7 @@ namespace BookmarkPanel
         /// </summary>
         private void ManagerOnTextChanged(ScintillaControl sender, int position, int length, int linesAdded)
         {
-            ListViewGroup group = this.FindGroup(sender.Parent as ITabbedDocument);
+            ListViewGroup group = this.FindGroup(sender.FileName);
             if (group == null) return;
             group.Tag = null; // bookmarks list may be dirty
             updateTimer.Stop();
@@ -443,7 +443,7 @@ namespace BookmarkPanel
         /// </summary>
         private void ManagerOnMarkerChanged(ScintillaControl sender, int line)
         {
-            ListViewGroup group = this.FindGroup(sender.Parent as ITabbedDocument);
+            ListViewGroup group = this.FindGroup(sender.FileName);
             if (group == null) return;
             group.Tag = null; // bookmarks list may be dirty
             updateTimer.Stop();
@@ -470,12 +470,12 @@ namespace BookmarkPanel
         /// <summary>
         /// Update document bookmarks
         /// </summary>
-        private void UpdateMarkers(string fileName)
+        private void UpdateMarkers(String filename)
         {
-            ITabbedDocument document = DocumentManager.FindDocument(fileName);
+            ITabbedDocument document = DocumentManager.FindDocument(filename);
             if (document == null || !document.IsEditable) return;
             ScintillaControl sci = document.SciControl;
-            ListViewGroup group = this.FindGroup(document);
+            ListViewGroup group = this.FindGroup(document.FileName);
             if (group == null) return;
             List<Int32> markers = this.GetMarkers(document.SciControl);
             if (group != null && this.NeedRefresh(document.SciControl, markers, group.Items))
@@ -487,7 +487,7 @@ namespace BookmarkPanel
                 ListViewItem[] items = new ListViewItem[markers.Count];
                 foreach (Int32 marker in markers)
                 {
-                    item = new ListViewItem(new String[]{(marker+1).ToString(), sci.GetLine(marker).Trim()}, 0);
+                    item = new ListViewItem(new String[]{(marker + 1).ToString(), sci.GetLine(marker).Trim()}, 0);
                     item.ToolTipText = sci.GetLine(marker).Trim();
                     item.Name = group.Name;
                     item.Group = group;
@@ -588,29 +588,28 @@ namespace BookmarkPanel
         /// Create a new ListViewGroup and assign to the current listview
         /// </summary>
         /// <param name="doc"></param>
-        public void CreateDocument(ITabbedDocument document)
+        public void CreateDocument(String filename)
         {
-            if (!document.IsEditable) return;
             ListViewGroup group = new ListViewGroup();
-            group.Header = Path.GetFileName(document.FileName);
-            group.Name = document.FileName;
+            group.Header = Path.GetFileName(filename);
+            group.Name = filename;
             this.listView.BeginUpdate();
             this.listView.Groups.Add(group);
             this.listView.EndUpdate();
-            this.timeoutManager.SetTimeout(UpdateMarkers, document.FileName);
+            this.timeoutManager.SetTimeout(UpdateMarkers, filename);
         }
 
         /// <summary>
         /// Remove the group and all associated subitems
         /// </summary>
-        public void CloseDocument(ITabbedDocument document)
+        public void CloseDocument(String filename)
         {
-            ListViewGroup group = FindGroup(document);
+            ListViewGroup group = FindGroup(filename);
             if (group != null)
             {
                 this.listView.BeginUpdate();
+                this.RemoveItemsFromGroup(group);
                 this.listView.Groups.Remove(group);
-                group.Items.Clear();
                 this.listView.EndUpdate();
             }
         }
@@ -618,11 +617,11 @@ namespace BookmarkPanel
         /// <summary>
         /// Find a group from a given ITabbedDocument
         /// </summary>
-        public ListViewGroup FindGroup(ITabbedDocument document)
+        public ListViewGroup FindGroup(String filename)
         {
             foreach (ListViewGroup group in this.listView.Groups)
             {
-                if (group.Name == document.FileName) return group;
+                if (group.Name == filename) return group;
             }
             return null;
         }
