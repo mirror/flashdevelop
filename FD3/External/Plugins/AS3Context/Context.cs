@@ -260,7 +260,12 @@ namespace AS3Context
         }
         #endregion
 
-        #region model caching
+        #region syntax checking
+
+        internal void OnFileOperation(NotifyEvent e)
+        {
+            timerCheck.Stop();
+        }
 
         public override void TrackTextChange(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
         {

@@ -186,7 +186,7 @@ namespace FlashDevelop.Docking
             if (otherFile)
             {
                 RecoveryManager.RemoveTemporaryFile(this.FileName);
-                NotifyEvent close = new NotifyEvent(EventType.FileClose);
+                TextEvent close = new TextEvent(EventType.FileClose, this.FileName);
                 EventManager.DispatchEvent(this, close);
             }
             TextEvent saving = new TextEvent(EventType.FileSaving, file);

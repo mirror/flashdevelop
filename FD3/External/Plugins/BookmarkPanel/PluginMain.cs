@@ -105,13 +105,13 @@ namespace BookmarkPanel
             switch (e.Type)
             {
                 case EventType.FileOpen:
-                    TextEvent fo = (TextEvent)e;
-                    this.pluginUI.CreateDocument(fo.Value);
+                    TextEvent fo = e as TextEvent;
+                    if (fo != null) this.pluginUI.CreateDocument(fo.Value);
                     break;
 
                 case EventType.FileClose:
-                    TextEvent fc = (TextEvent)e;
-                    this.pluginUI.CloseDocument(fc.Value);
+                    TextEvent fc = e as TextEvent;
+                    if (fc != null) this.pluginUI.CloseDocument(fc.Value);
                     break;
 
                 case EventType.ApplySettings:

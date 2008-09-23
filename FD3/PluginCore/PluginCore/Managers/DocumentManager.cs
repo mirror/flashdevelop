@@ -76,10 +76,11 @@ namespace PluginCore.Managers
                     }
                     if (filename.StartsWith(oldPath))
                     {
+                        TextEvent te = new TextEvent(EventType.FileClose, document.SciControl.FileName);
+                        EventManager.DispatchEvent(PluginBase.MainForm, te);
+
                         document.SciControl.FileName = filename.Replace(oldPath, newPath);
-                        NotifyEvent ne = new NotifyEvent(EventType.FileClose);
-                        EventManager.DispatchEvent(PluginBase.MainForm, ne);
-                        TextEvent te = new TextEvent(EventType.FileOpen, document.SciControl.FileName);
+                        te = new TextEvent(EventType.FileOpen, document.SciControl.FileName);
                         EventManager.DispatchEvent(PluginBase.MainForm, te);
                         if (current != document)
                         {

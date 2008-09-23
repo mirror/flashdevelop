@@ -130,21 +130,28 @@ namespace AS3Context
 
             else if (priority == HandlingPriority.Normal)
             {
-                if (e.Type == EventType.ProcessArgs)
+                switch (e.Type)
                 {
-                    TextEvent te = e as TextEvent;
-                    if (te.Value.IndexOf("$(FlexSDK)") >= 0)
-                    {
-                        string path = Regex.Replace(settingObject.FlexSDK, @"[\\/]bin[\\/]?$", "");
-                        te.Value = te.Value.Replace("$(FlexSDK)", path);
-                    }
-                } 
-                else if (e.Type == EventType.UIStarted)
-                {
-                    contextInstance = new Context(settingObject);
-                    // Associate this context with AS3 language
-                    ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "as3");
-                    ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "mxml");
+                    case EventType.ProcessArgs:
+                        TextEvent te = e as TextEvent;
+                        if (te.Value.IndexOf("$(FlexSDK)") >= 0)
+                        {
+                            string path = Regex.Replace(settingObject.FlexSDK, @"[\\/]bin[\\/]?$", "");
+                            te.Value = te.Value.Replace("$(FlexSDK)", path);
+                        }
+                        break;
+
+                    case EventType.UIStarted:
+                        contextInstance = new Context(settingObject);
+                        // Associate this context with AS3 language
+                        ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "as3");
+                        ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "mxml");
+                        break;
+
+                    case EventType.FileSave:
+                    case EventType.FileSwitch:
+                        if (contextInstance != null) contextInstance.OnFileOperation(e);
+                        break;
                 }
                 return;
             }
@@ -199,7 +206,7 @@ namespace AS3Context
         /// </summary>
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.ProcessArgs);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.ProcessArgs | EventType.FileSwitch | EventType.FileSave);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.Low);
         }
