@@ -30,12 +30,14 @@ namespace FlashDevelop.Controls
         private ToolStripButton previousButton;
         private EscapeTextBox findTextBox;
         private ToolStripLabel findLabel;
+        private Timer typingTimer;
 
         public QuickFind()
         {
             this.Font = Globals.Settings.DefaultFont;
             this.InitializeComponent();
             this.InitializeEvents();
+            this.InitializeTimers();
         }
 
         #region Internal Events
@@ -178,6 +180,16 @@ namespace FlashDevelop.Controls
         }
 
         /// <summary>
+        /// Initializes the timers used in the control.
+        /// </summary>
+        private void InitializeTimers()
+        {
+            this.typingTimer = new Timer();
+            this.typingTimer.Tick += new EventHandler(this.TypingTimerTick);
+            this.typingTimer.Interval = 500;
+        }
+
+        /// <summary>
         /// Set the text to search
         /// </summary>
         public void SetFindText(String text)
@@ -241,6 +253,16 @@ namespace FlashDevelop.Controls
         /// </summary>
         private void FindTextBoxTextChanged(Object sender, EventArgs e)
         {
+            this.typingTimer.Stop();
+            this.typingTimer.Start();
+        }
+
+        /// <summary>
+        /// When the typing timer ticks update the search
+        /// </summary>
+        private void TypingTimerTick(Object sender, EventArgs e)
+        {
+            this.typingTimer.Stop();
             if (this.findTextBox.Text.Trim() != "")
             {
                 this.FindCorrect(this.findTextBox.Text, this.highlightCheckBox.Checked);
