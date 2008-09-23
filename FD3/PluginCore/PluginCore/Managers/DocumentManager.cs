@@ -70,18 +70,16 @@ namespace PluginCore.Managers
                     String filename = Path.GetFullPath(document.FileName);
                     if (filename == oldPath)
                     {
-                        Boolean hasStar = document.Text.IndexOf("*") > -1;
                         document.Text = Path.GetFileName(newPath);
-                        if (hasStar) document.Text += "*";
+                        document.IsModified = true;
                     }
                     if (filename.StartsWith(oldPath))
                     {
-                        TextEvent te = new TextEvent(EventType.FileClose, document.SciControl.FileName);
-                        EventManager.DispatchEvent(PluginBase.MainForm, te);
-
+                        TextEvent ce = new TextEvent(EventType.FileClose, document.FileName);
+                        EventManager.DispatchEvent(PluginBase.MainForm, ce);
                         document.SciControl.FileName = filename.Replace(oldPath, newPath);
-                        te = new TextEvent(EventType.FileOpen, document.SciControl.FileName);
-                        EventManager.DispatchEvent(PluginBase.MainForm, te);
+                        TextEvent oe = new TextEvent(EventType.FileOpen, document.FileName);
+                        EventManager.DispatchEvent(PluginBase.MainForm, oe);
                         if (current != document)
                         {
                             document.Activate();
@@ -89,8 +87,8 @@ namespace PluginCore.Managers
                         }
                         else
                         {
-                            te = new TextEvent(EventType.FileSwitch, document.SciControl.FileName);
-                            EventManager.DispatchEvent(PluginBase.MainForm, te);
+                            TextEvent se = new TextEvent(EventType.FileSwitch, document.FileName);
+                            EventManager.DispatchEvent(PluginBase.MainForm, se);
                         }
                     }
                 }
