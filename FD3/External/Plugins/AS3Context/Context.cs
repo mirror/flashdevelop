@@ -109,7 +109,7 @@ namespace AS3Context
             timerCheck = new Timer(500);
             timerCheck.AutoReset = false;
             timerCheck.Elapsed += new ElapsedEventHandler(timerCheck_Elapsed);
-            Flex2Shell.SyntaxError += new SyntaxErrorHandler(Flex2Shell_SyntaxError);
+            FlexShells.SyntaxError += new SyntaxErrorHandler(Flex2Shell_SyntaxError);
         }
         #endregion
 
@@ -295,7 +295,7 @@ namespace AS3Context
             ScintillaNet.ScintillaControl sci = CurSciControl;
             if (sci == null) return;
             ClearSquiggles(sci);
-            Flex2Shell.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, CurSciControl.Text);
+            FlexShells.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, CurSciControl.Text);
         }
 
         private void ClearSquiggles(ScintillaNet.ScintillaControl sci)
@@ -577,7 +577,7 @@ namespace AS3Context
             if (IsFileValid && cFile.InlinedIn == null)
             {
                 PluginBase.MainForm.CallCommand("Save", null);
-                Flex2Shell.Instance.CheckAS3(cFile.FileName, as3settings.FlexSDK);
+                FlexShells.Instance.CheckAS3(cFile.FileName, as3settings.FlexSDK);
             }
         }
 
@@ -594,7 +594,7 @@ namespace AS3Context
             }
 
             string command = (append ?? "") + " -- " + CurrentFile;
-            Flex2Shell.Instance.RunMxmlc(command, as3settings.FlexSDK);
+            FlexShells.Instance.RunMxmlc(command, as3settings.FlexSDK);
         }
 
         /// <summary>
@@ -610,7 +610,7 @@ namespace AS3Context
             
             MainForm.CallCommand("SaveAllModified", null);
 
-            Flex2Shell.Instance.QuickBuild(CurrentModel, as3settings.FlexSDK, failSilently, as3settings.PlayAfterBuild);
+            FlexShells.Instance.QuickBuild(CurrentModel, as3settings.FlexSDK, failSilently, as3settings.PlayAfterBuild);
             return true;
         }
         #endregion

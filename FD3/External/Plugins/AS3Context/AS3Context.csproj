@@ -57,7 +57,7 @@
     <Compile Include="AbcConverter.cs" />
     <Compile Include="AS3Settings.cs" />
     <Compile Include="Compiler\FdbWrapper.cs" />
-    <Compile Include="Compiler\Flex2Shell.cs" />
+    <Compile Include="Compiler\FlexShells.cs" />
     <Compile Include="Compiler\FlexDebugger.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="MxmlFilter.cs" />
@@ -96,6 +96,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Compiler\flex2shell.jar" />
+    <EmbeddedResource Include="Compiler\FlexShells.jar" />
   </ItemGroup>
 </Project>

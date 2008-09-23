@@ -20,9 +20,9 @@ namespace AS3Context.Compiler
     public delegate void SyntaxErrorHandler(string error);
 
 	/// <summary>
-	/// Description of Flex2Shell.
+	/// Wrappers for Flex SDK integration
 	/// </summary>
-	public class Flex2Shell
+	public class FlexShells
 	{
         static public event SyntaxErrorHandler SyntaxError;
 
@@ -48,22 +48,22 @@ namespace AS3Context.Compiler
 		
         static private string ascPath;
         static private string mxmlcPath;
-		static private string flex2Jar = "flex2shell.jar";
-		static private string flex2Shell;
+		static private string flexShellsJar = "FlexShells.jar";
+		static private string flexShellsPath;
         static private bool running;
         static private bool silentChecking;
 		
 		static private void CheckResource(string filename)
 		{
             string path = Path.Combine(PathHelper.DataDir, "AS3Context");
-            flex2Shell = Path.Combine(path, "AscShell.jar");
-            if (!File.Exists(flex2Shell))
+            flexShellsPath = Path.Combine(path, flexShellsJar);
+            if (!File.Exists(flexShellsPath))
 			{
                 string id = "AS3Context.Compiler." + filename;
 				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
                 using (BinaryReader br = new BinaryReader(assembly.GetManifestResourceStream(id)))
                 {
-                    using (FileStream bw = File.Create(flex2Shell))
+                    using (FileStream bw = File.Create(flexShellsPath))
                     {
                         byte[] buffer = br.ReadBytes(1024);
                         while (buffer.Length > 0)
@@ -78,18 +78,17 @@ namespace AS3Context.Compiler
 			}
 		}
 
-        static public Flex2Shell Instance 
+        static public FlexShells Instance 
 		{
 			get {
-				if (instance == null) instance = new Flex2Shell();
+				if (instance == null) instance = new FlexShells();
 				return instance;
 			}
 		}
 		
-		static private Flex2Shell instance;
+		static private FlexShells instance;
 
-
-        private Flex2Shell()
+        private FlexShells()
 		{
 		}
 
@@ -98,24 +97,24 @@ namespace AS3Context.Compiler
 		private string builtSWF;
         private bool debugMode;
 
-        public void CheckAS3(string filename, string flex2Path)
+        public void CheckAS3(string filename, string flexPath)
         {
-            CheckAS3(filename, flex2Path, null);
+            CheckAS3(filename, flexPath, null);
         }
 
-        public void CheckAS3(string filename, string flex2Path, string src)
+        public void CheckAS3(string filename, string flexPath, string src)
 		{
             if (running) return;
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-            flex2Path = PathHelper.ResolvePath(flex2Path, basePath);
+            flexPath = PathHelper.ResolvePath(flexPath, basePath);
             // asc.jar in Flex2SDK
-            if (flex2Path != null && Directory.Exists(flex2Path))
+            if (flexPath != null && Directory.Exists(flexPath))
             {
-                if (flex2Path.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
-                    flex2Path = Path.GetDirectoryName(flex2Path);
-                ascPath = Path.Combine(flex2Path, "lib\\asc.jar");
+                if (flexPath.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
+                    flexPath = Path.GetDirectoryName(flexPath);
+                ascPath = Path.Combine(flexPath, "lib\\asc.jar");
             }
             // asc_authoring.jar in Flash CS3
             if (ascPath == null) ascPath = FindAscAuthoring();
@@ -137,8 +136,8 @@ namespace AS3Context.Compiler
                 return;
             }
 
-            CheckResource(flex2Jar);
-            if (!File.Exists(flex2Shell))
+            CheckResource(flexShellsJar);
+            if (!File.Exists(flexShellsPath))
             {
                 if (src != null) return; // silent checking
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
@@ -199,8 +198,8 @@ namespace AS3Context.Compiler
 				return;
 			}
 
-            CheckResource(flex2Jar);
-            if (!File.Exists(flex2Shell))
+            CheckResource(flexShellsJar);
+            if (!File.Exists(flexShellsPath))
             {
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
                 return;
@@ -369,7 +368,7 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartAscRunner()
 		{
-            string cmd = "-classpath \"" + ascPath + ";" + flex2Shell + "\" -Duser.language=en AscShell";
+            string cmd = "-classpath \"" + ascPath + ";" + flexShellsPath + "\" -Duser.language=en AscShell";
             TraceManager.Add("Background process: java " + cmd, -1);
 			// run asc shell
 			ascRunner = new ProcessRunner();
@@ -387,7 +386,7 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartMxmlcRunner(string flex2Path)
 		{
-            string cmd = "-classpath \"" + mxmlcPath + ";" + flex2Shell + "\" -Duser.language=en MxmlcShell";
+            string cmd = "-classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" -Duser.language=en MxmlcShell";
             TraceManager.Add("Background process: java " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();
