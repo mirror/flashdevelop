@@ -55,8 +55,8 @@ namespace AS3Context.Compiler
 		
 		static private void CheckResource(string filename)
 		{
-            string path = Path.Combine(PathHelper.DataDir, "ASCompletion");
-            flex2Shell = Path.Combine(path, filename);
+            string path = Path.Combine(PathHelper.DataDir, "AS3Context");
+            flex2Shell = Path.Combine(path, "AscShell.jar");
             if (!File.Exists(flex2Shell))
 			{
                 string id = "AS3Context.Compiler." + filename;

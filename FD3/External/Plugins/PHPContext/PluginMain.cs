@@ -95,10 +95,6 @@ namespace PHPContext
         public void Dispose()
         {
             this.SaveSettings();
-            /*if (Context.TemporaryOutputFile != null && File.Exists(Context.TemporaryOutputFile))
-            {
-                File.Delete(Context.TemporaryOutputFile);
-            }*/
         }
 
         /// <summary>
@@ -125,9 +121,9 @@ namespace PHPContext
         /// </summary>
         public void InitBasics()
         {
-            String dataPath = Path.Combine(PathHelper.DataDir, languageID + "Completion");
+            String dataPath = Path.Combine(PathHelper.DataDir, languageID + "Context");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            this.settingFilename = Path.Combine(dataPath, languageID + "Settings.fdb");
+            this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 

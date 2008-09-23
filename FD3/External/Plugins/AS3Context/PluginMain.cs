@@ -195,9 +195,9 @@ namespace AS3Context
         /// </summary>
         public void InitBasics()
         {
-            String dataPath = Path.Combine(PathHelper.DataDir, "ASCompletion");
+            String dataPath = Path.Combine(PathHelper.DataDir, "AS3Context");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            this.settingFilename = Path.Combine(dataPath, "AS3Settings.fdb");
+            this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 
