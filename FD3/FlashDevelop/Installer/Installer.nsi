@@ -9,7 +9,7 @@
 
 ; Define version info
 !define VERSION "3.0.0"
-!define BUILD "Beta9"
+!define BUILD "Beta10"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
@@ -168,6 +168,8 @@ Function GetNeedsReset
 	${If} $1 == "not_found"
 	StrCpy $2 "do_reset"
 	${ElseIf} $1 == "3.0.0-Beta8"
+	StrCpy $2 "do_reset"
+	${ElseIf} $1 == "3.0.0-Beta9"
 	StrCpy $2 "do_reset"
 	${Else}
 	StrCpy $2 "is_ok"

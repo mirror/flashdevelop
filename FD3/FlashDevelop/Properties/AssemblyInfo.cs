@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("FlashDevelop 3")]
 [assembly: AssemblyDescription("FlashDevelop is an open source script editor.")]
-[assembly: AssemblyProduct("FlashDevelop 3.0.0 Beta9 for Microsoft.NET 2.0 Runtime")]
+[assembly: AssemblyProduct("FlashDevelop 3.0.0 Beta10 for Microsoft.NET 2.0 Runtime")]
 [assembly: AssemblyCopyright("FlashDevelop.org 2005-2008")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyConfiguration("")]
