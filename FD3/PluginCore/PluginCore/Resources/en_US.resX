@@ -2631,4 +2631,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Description.DisableLiveSyntaxChecking" xml:space="preserve">
     <value>Disable as-you-type syntax checking.</value>
   </data>
+  <data name="FlashDevelop.Info.CurrentSelection" xml:space="preserve">
+    <value>Current selection</value>
+  </data>
 </root>

@@ -254,6 +254,7 @@ namespace FlashDevelop.Dialogs
             this.lookComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lookComboBox.Items.AddRange(new object[] {
             "Full source code",
+            "Current selection",
             "Code and strings",
             "Comments only",
             "Strings only"});
@@ -350,9 +351,10 @@ namespace FlashDevelop.Dialogs
             this.replaceButton.Text = TextHelper.GetString("Label.Replace").Replace("...", "");
             this.closeButton.Text = TextHelper.GetString("Label.Close");
             this.lookComboBox.Items[0] = TextHelper.GetString("Info.FullSourceCode");
-            this.lookComboBox.Items[1] = TextHelper.GetString("Info.CodeAndStrings");
-            this.lookComboBox.Items[2] = TextHelper.GetString("Info.CommentsOnly");
-            this.lookComboBox.Items[3] = TextHelper.GetString("Info.StringsOnly");
+            this.lookComboBox.Items[1] = TextHelper.GetString("Info.CurrentSelection");
+            this.lookComboBox.Items[2] = TextHelper.GetString("Info.CodeAndStrings");
+            this.lookComboBox.Items[3] = TextHelper.GetString("Info.CommentsOnly");
+            this.lookComboBox.Items[4] = TextHelper.GetString("Info.StringsOnly");
             this.optionsGroupBox.Text = " " + TextHelper.GetString("Label.Options");
             this.matchCaseCheckBox.Text = " " + TextHelper.GetString("Label.MatchCase");
             this.wholeWordCheckBox.Text = " " + TextHelper.GetString("Label.WholeWord");
@@ -456,6 +458,12 @@ namespace FlashDevelop.Dialogs
             if (Globals.SciControl == null) return;
             ScintillaControl sci = Globals.SciControl;
             List<SearchMatch> matches = this.GetResults(sci);
+            if (matches != null && this.lookComboBox.SelectedIndex == 1 && sci.SelText.Length > 0)
+            {
+                Int32 end = sci.MBSafeCharPosition(sci.SelectionEnd);
+                Int32 start = sci.MBSafeCharPosition(sci.SelectionStart);
+                matches = FRDialogGenerics.FilterMatches(matches, start, end);
+            }
             if (matches != null && matches.Count != 0)
             {
                 FRDialogGenerics.BookmarkMatches(sci, matches);
@@ -498,6 +506,12 @@ namespace FlashDevelop.Dialogs
             if (Globals.SciControl == null) return;
             ScintillaControl sci = Globals.SciControl;
             List<SearchMatch> matches = this.GetResults(sci);
+            if (matches != null && this.lookComboBox.SelectedIndex == 1 && sci.SelText.Length > 0)
+            {
+                Int32 end = sci.MBSafeCharPosition(sci.SelectionEnd);
+                Int32 start = sci.MBSafeCharPosition(sci.SelectionStart);
+                matches = FRDialogGenerics.FilterMatches(matches, start, end);
+            }
             if (matches != null)
             {
                 sci.BeginUndoAction();
@@ -603,15 +617,15 @@ namespace FlashDevelop.Dialogs
                 search.NoCase = !this.matchCaseCheckBox.Checked;
                 search.IsRegex = this.useRegexCheckBox.Checked;
                 search.Filter = SearchFilter.None;
-                if (this.lookComboBox.SelectedIndex == 1)
+                if (this.lookComboBox.SelectedIndex == 2)
                 {
                     search.Filter = SearchFilter.OutsideCodeComments;
                 }
-                else if (this.lookComboBox.SelectedIndex == 2)
+                else if (this.lookComboBox.SelectedIndex == 3)
                 {
                     search.Filter = SearchFilter.InCodeComments;
                 }
-                else if (this.lookComboBox.SelectedIndex == 3)
+                else if (this.lookComboBox.SelectedIndex == 4)
                 {
                     search.Filter = SearchFilter.InStringLiterals;
                 }
