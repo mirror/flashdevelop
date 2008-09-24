@@ -551,31 +551,28 @@ namespace BookmarkPanel
         /// </summary>
         private void DeleteMarkers(Boolean confirm)
         {
-            String title = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
             String message = TextHelper.GetString("Info.RemoveBookmarks");
+            String title = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
             if (confirm && (MessageBox.Show(title, message, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK))
             {
                 return;
             }
-            Hashtable deleteItems = new Hashtable();
+            ArrayList deleteItems = new ArrayList();
             foreach (ListViewItem item in this.listView.SelectedItems)
             {
-                deleteItems[item.Tag] = item.Group.Name;
+                deleteItems.Add(new KeyValuePair<String,Int32>(item.Group.Name, (Int32)item.Tag));
                 item.Group.Tag = null; // dirty
             }
-            foreach (DictionaryEntry entry in deleteItems)
+            foreach (KeyValuePair<String,Int32> entry in deleteItems)
             {
                 foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
                 {
-                    if (document.IsEditable && document.FileName == (String)entry.Value)
+                    if (document.IsEditable && document.FileName == entry.Key)
                     {
                         Int32 mask = document.SciControl.GetMarginMaskN(0);
                         for (Int32 i = 0; i < 32; i++)
                         {
-                            if ((mask & (1 << i)) > 0)
-                            {
-                                document.SciControl.MarkerDelete((Int32)entry.Key, i);
-                            }
+                            if ((mask & (1 << i)) > 0) document.SciControl.MarkerDelete(entry.Value, i);
                         }
                     }
                 }
@@ -650,7 +647,7 @@ namespace BookmarkPanel
 		public delegate void TimeoutDelegate(String tag);
 
         /// <summary>
-        /// 
+        /// Sets the specified timeout
         /// </summary>
         public void SetTimeout(TimeoutDelegate timeoutHandler, String tag)
 		{
@@ -671,7 +668,7 @@ namespace BookmarkPanel
         }
 
         /// <summary>
-        /// 
+        /// Handles the elapsed event
         /// </summary>
         private void TimerElapsed(Object sender, EventArgs e)
         {
@@ -681,13 +678,11 @@ namespace BookmarkPanel
             timer.TimeoutHandler(timer.Tag as String);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
 	    private class TagTimer : System.Windows.Forms.Timer
 	    {
             public TimeoutDelegate TimeoutHandler;
 	    }
+
     }
 
     #endregion
