@@ -27,22 +27,20 @@ namespace PluginCore.Utilities
         /// </summary>
         static Assembly CurrentDomainAssemblyResolve(Object sender, ResolveEventArgs args)
         {
-            String shortName = String.Empty;
             try
             {
                 AssemblyName assemblyName = new AssemblyName(args.Name);
-                shortName = assemblyName.Name;
+                String dfile = Path.Combine(PathHelper.PluginDir, assemblyName.Name + ".dll");
+                String ufile = Path.Combine(PathHelper.UserPluginDir, assemblyName.Name + ".dll");
+                if (File.Exists(dfile)) return Assembly.LoadFrom(dfile);
+                if (File.Exists(ufile)) return Assembly.LoadFrom(ufile);
+                return null;
             }
-            catch { shortName = args.Name; }
-            String ffile = Path.Combine(PathHelper.AppDir, shortName + ".exe");
-            String afile = Path.Combine(PathHelper.AppDir, shortName + ".dll");
-            String dfile = Path.Combine(PathHelper.PluginDir, shortName + ".dll");
-            String ufile = Path.Combine(PathHelper.UserPluginDir, shortName + ".dll");
-            if (File.Exists(ffile)) return Assembly.LoadFrom(ffile);
-            if (File.Exists(afile)) return Assembly.LoadFrom(afile);
-            if (File.Exists(dfile)) return Assembly.LoadFrom(dfile);
-            if (File.Exists(ufile)) return Assembly.LoadFrom(ufile);
-            else return null;
+            catch (Exception ex)
+            {
+                ErrorManager.AddToLog("Error while resolving assebly: " + args.Name, ex);
+                return null;
+            }
         }
 
         /// <summary>
@@ -71,11 +69,22 @@ namespace PluginCore.Utilities
                 ErrorManager.ShowError(ex);
             }
         }
+
+        /// <summary>
+        /// Forces the serialization to a binary file without any file info checks
+        /// </summary>
         public static void ForcedSerialize(String file, Object obj)
         {
-            using (FileStream stream = File.Create(file))
+            try
             {
-                formatter.Serialize(stream, obj);
+                using (FileStream stream = File.Create(file))
+                {
+                    formatter.Serialize(stream, obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
             }
         }
 
@@ -93,18 +102,8 @@ namespace PluginCore.Utilities
             {
                 String message = TextHelper.GetString("FlashDevelop.Info.SettingLoadError");
                 ErrorManager.ShowWarning(message, new Exception("Error while deserializing: " + file, ex));
-                try { ObjectSerializer.Serialize(file, obj); } catch {}
                 return obj;
             }
-        }
-
-        /// <summary>
-        /// Deserializes a previously saved file into the original object type, specified by the generic T parameter.
-        /// </summary>
-        public static T Deserialize<T>(String file)
-        {
-             fileDates.Add(new FileDate(file));
-             return (T)InternalDeserialize(file, typeof(T));
         }
 
         /// <summary>

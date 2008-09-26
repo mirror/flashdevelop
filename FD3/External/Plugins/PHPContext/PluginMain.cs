@@ -140,36 +140,31 @@ namespace PHPContext
         /// </summary>
         public void LoadSettings()
         {
-            this.settingObject = ObjectSerializer.Deserialize<ContextSettings>(this.settingFilename) as ContextSettings;
-            if (this.settingObject.LanguageDefinitions == null) // default values
+            this.settingObject = new ContextSettings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
             {
-                this.settingObject.LanguageDefinitions = @"Library\PHP\Intrinsic";
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (ContextSettings)obj;
             }
+            if (this.settingObject.LanguageDefinitions == null) this.settingObject.LanguageDefinitions = @"Library\PHP\Intrinsic";
             AddSettingsListeners(); // updating
         }
 
         /// <summary>
         /// Update the classpath if an important setting has changed
         /// </summary>
-        private void settingObject_OnClasspathChanged()
+        private void SettingObjectOnClasspathChanged()
         { 
             contextInstance.BuildClassPath();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void AddSettingsListeners()
         {
-            this.settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
+            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void RemoveSettingsListeners()
         {
-            this.settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
+            this.settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
@@ -177,7 +172,7 @@ namespace PHPContext
         /// </summary>
         public void SaveSettings()
         {
-            if (this.settingObject != null) RemoveSettingsListeners();
+            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
             AddSettingsListeners();
         }

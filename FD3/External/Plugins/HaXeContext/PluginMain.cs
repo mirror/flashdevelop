@@ -18,9 +18,9 @@ namespace HaXeContext
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "HaXe context for the ASCompletion engine.";
         private String pluginAuth = "FlashDevelop Team";
-        private String settingFilename;
         private HaXeSettings settingObject;
         private Context contextInstance;
+        private String settingFilename;
 
         #region Required Properties
 
@@ -141,7 +141,13 @@ namespace HaXeContext
         /// </summary>
         public void LoadSettings()
         {
-            this.settingObject = ObjectSerializer.Deserialize<HaXeSettings>(this.settingFilename) as HaXeSettings;
+            this.settingObject = new HaXeSettings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (HaXeSettings)obj;
+            }
             if (this.settingObject.HaXePath == null) this.settingObject.HaXePath = @"C:\Program Files\Motion-Twin\haxe"; // default values
             AddSettingsListeners(); // updating
         }
@@ -149,23 +155,15 @@ namespace HaXeContext
         /// <summary>
         /// Update the classpath if an important setting has changed
         /// </summary>
-        void settingObject_OnClasspathChanged()
+        private void settingObject_OnClasspathChanged()
         {
             contextInstance.BuildClassPath();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void AddSettingsListeners()
+        private void AddSettingsListeners()
         {
             this.settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void RemoveSettingsListeners()
+        private void RemoveSettingsListeners()
         {
             this.settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
         }
@@ -175,7 +173,7 @@ namespace HaXeContext
         /// </summary>
         public void SaveSettings()
         {
-            if (this.settingObject != null) RemoveSettingsListeners();
+            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
             AddSettingsListeners();
         }

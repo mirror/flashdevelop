@@ -20,9 +20,9 @@ namespace AS3Context
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "ActionScript 3 context for the ASCompletion engine.";
         private String pluginAuth = "FlashDevelop Team";
-        private String settingFilename;
         static private AS3Settings settingObject;
         private Context contextInstance;
+        private String settingFilename;
 
         #region Required Properties
 
@@ -216,29 +216,30 @@ namespace AS3Context
         /// </summary>
         public void LoadSettings()
         {
-            settingObject = ObjectSerializer.Deserialize<AS3Settings>(this.settingFilename) as AS3Settings;
-
-            // default values
-            if (settingObject.AS3ClassPath == null)
-                settingObject.AS3ClassPath = @"Library\AS3\intrinsic";
-            if (settingObject.FlexSDK == null) 
-                settingObject.FlexSDK = @"C:\flex_sdk_3";
-            // updating
-            AddSettingsListeners();
+            settingObject = new AS3Settings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, settingObject);
+                settingObject = (AS3Settings)obj;
+            }
+            if (settingObject.AS3ClassPath == null) settingObject.AS3ClassPath = @"Library\AS3\intrinsic";
+            if (settingObject.FlexSDK == null) settingObject.FlexSDK = @"C:\flex_sdk_3";
+            AddSettingsListeners(); // updating
         }
 
-        void settingObject_OnClasspathChanged()
+        /// <summary>
+        /// Update the classpath if an important setting has changed
+        /// </summary>
+        private void settingObject_OnClasspathChanged()
         {
-            // update the classpath if an important setting has changed
             contextInstance.BuildClassPath();
         }
-
-        void AddSettingsListeners()
+        private void AddSettingsListeners()
         {
             settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
         }
-
-        void RemoveSettingsListeners()
+        private void RemoveSettingsListeners()
         {
             settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
         }
@@ -248,11 +249,8 @@ namespace AS3Context
         /// </summary>
         public void SaveSettings()
         {
-            if (settingObject != null)
-                RemoveSettingsListeners();
-
+            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, settingObject);
-
             AddSettingsListeners();
         }
 

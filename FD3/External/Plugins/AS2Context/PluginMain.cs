@@ -137,32 +137,34 @@ namespace AS2Context
         /// </summary>
         public void LoadSettings()
         {
-            this.settingObject = ObjectSerializer.Deserialize<AS2Settings>(this.settingFilename) as AS2Settings;
-            
-            // default values
+            this.settingObject = new AS2Settings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (AS2Settings)obj;
+            }
             if (this.settingObject.MMClassPath == null) this.settingObject.MMClassPath = FindMMClassPath();
             if (this.settingObject.UserClasspath == null)
             {
-                if (this.settingObject.MMClassPath != null)
-                    this.settingObject.UserClasspath = new String[] { this.settingObject.MMClassPath };
-                else this.settingObject.UserClasspath = new String[] { };
+                if (this.settingObject.MMClassPath != null) this.settingObject.UserClasspath = new String[] { this.settingObject.MMClassPath };
+                else this.settingObject.UserClasspath = new String[] {};
             }
-            // updating
-            AddSettingsListeners();
+            AddSettingsListeners(); // updating
         }
 
-        void settingObject_OnClasspathChanged()
+        /// <summary>
+        /// Update the classpath if an important setting has changed
+        /// </summary>
+        private void settingObject_OnClasspathChanged()
         {
-            // update the classpath if an important setting has changed
             contextInstance.BuildClassPath();
         }
-
-        void AddSettingsListeners()
+        private void AddSettingsListeners()
         {
             this.settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
         }
-
-        void RemoveSettingsListeners()
+        private void RemoveSettingsListeners()
         {
             this.settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
         }
@@ -172,11 +174,8 @@ namespace AS2Context
         /// </summary>
         public void SaveSettings()
         {
-            if (this.settingObject != null)
-                RemoveSettingsListeners();
-
+            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-
             AddSettingsListeners();
         }
 
@@ -230,6 +229,7 @@ namespace AS2Context
             else return null;
         }
         #endregion
+
     }
 
 }

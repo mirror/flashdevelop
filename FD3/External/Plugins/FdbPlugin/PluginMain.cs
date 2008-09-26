@@ -818,7 +818,13 @@ namespace FdbPlugin
         /// </summary>
         public void LoadSettings()
         {
-            settingObject = ObjectSerializer.Deserialize<Settings>(this.settingFilename);
+            this.settingObject = new Settings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (Settings)obj;
+            }
             AddSettingsListeners();
         }
 
@@ -827,7 +833,7 @@ namespace FdbPlugin
         /// </summary>
         public void SaveSettings()
         {
-            if (settingObject != null) RemoveSettingsListeners();
+            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
             AddSettingsListeners();
         }

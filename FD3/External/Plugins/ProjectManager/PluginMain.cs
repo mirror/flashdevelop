@@ -82,12 +82,13 @@ namespace ProjectManager
 
         public void LoadSettings()
         {
-            Settings = ObjectSerializer.Deserialize<ProjectManagerSettings>(SettingsPath);
-            // was deserialization successful?
-            if (Settings == null)
+            Settings = new ProjectManagerSettings();
+            if (!Directory.Exists(SettingsDir)) Directory.CreateDirectory(SettingsDir);
+            if (!File.Exists(SettingsPath)) this.SaveSettings();
+            else
             {
-                ErrorManager.ShowInfo(TextHelper.GetString("Info.SettingsCouldNotLoad"));
-                Settings = new ProjectManagerSettings();
+                Object obj = ObjectSerializer.Deserialize(SettingsPath, Settings);
+                Settings = (ProjectManagerSettings)obj;
             }
             if (Settings.ShortcutTestMovie == Keys.None && Settings.ShortcutBuildProject == Keys.None)
             {
@@ -101,8 +102,6 @@ namespace ProjectManager
 
         public void SaveSettings()
         {
-            if (!Directory.Exists(SettingsDir)) Directory.CreateDirectory(SettingsDir);
-            if (Settings == null) Settings = new ProjectManagerSettings();
             Settings.Changed -= SettingChanged;
             ObjectSerializer.Serialize(SettingsPath, Settings);
             Settings.Changed += SettingChanged;
