@@ -71,7 +71,7 @@ namespace ProjectManager
         public static ProjectManagerSettings Settings;
 
         const EventType eventMask = EventType.UIStarted | EventType.FileOpening
-            | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd
+            | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd 
             | EventType.ProcessArgs | EventType.Command | EventType.Keys;
 
         #region Load/Save Settings
@@ -102,9 +102,7 @@ namespace ProjectManager
 
         public void SaveSettings()
         {
-            Settings.Changed -= SettingChanged;
             ObjectSerializer.Serialize(SettingsPath, Settings);
-            Settings.Changed += SettingChanged;
         }
 
         #endregion
@@ -228,8 +226,8 @@ namespace ProjectManager
             string lastProject = (project != null) ? project.ProjectPath : "";
             CloseProject(true);
             Settings.LastProject = lastProject;
-            SaveSettings();
             FlexCompilerShell.Cleanup(); // in case it was used
+            SaveSettings();
 		}
 		
         #endregion
@@ -908,4 +906,5 @@ namespace ProjectManager
         #endregion
 
 	}
+
 }

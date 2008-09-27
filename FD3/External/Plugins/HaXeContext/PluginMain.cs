@@ -149,33 +149,23 @@ namespace HaXeContext
                 this.settingObject = (HaXeSettings)obj;
             }
             if (this.settingObject.HaXePath == null) this.settingObject.HaXePath = @"C:\Program Files\Motion-Twin\haxe"; // default values
-            AddSettingsListeners(); // updating
+            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
         /// Update the classpath if an important setting has changed
         /// </summary>
-        private void settingObject_OnClasspathChanged()
+        private void SettingObjectOnClasspathChanged()
         {
-            contextInstance.BuildClassPath();
-        }
-        private void AddSettingsListeners()
-        {
-            this.settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
-        }
-        private void RemoveSettingsListeners()
-        {
-            this.settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
+            if (contextInstance != null) contextInstance.BuildClassPath();
         }
 
         /// <summary>
         /// Saves the plugin settings
         /// </summary>
-        public void SaveSettings()
+        private void SaveSettings()
         {
-            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-            AddSettingsListeners();
         }
 
         #endregion

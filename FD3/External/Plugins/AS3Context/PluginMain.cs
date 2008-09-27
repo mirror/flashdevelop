@@ -225,23 +225,15 @@ namespace AS3Context
             }
             if (settingObject.AS3ClassPath == null) settingObject.AS3ClassPath = @"Library\AS3\intrinsic";
             if (settingObject.FlexSDK == null) settingObject.FlexSDK = @"C:\flex_sdk_3";
-            AddSettingsListeners(); // updating
+            settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
         /// Update the classpath if an important setting has changed
         /// </summary>
-        private void settingObject_OnClasspathChanged()
+        private void SettingObjectOnClasspathChanged()
         {
-            contextInstance.BuildClassPath();
-        }
-        private void AddSettingsListeners()
-        {
-            settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
-        }
-        private void RemoveSettingsListeners()
-        {
-            settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
+            if (contextInstance != null) contextInstance.BuildClassPath();
         }
 
         /// <summary>
@@ -249,9 +241,7 @@ namespace AS3Context
         /// </summary>
         public void SaveSettings()
         {
-            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, settingObject);
-            AddSettingsListeners();
         }
 
         /// <summary>

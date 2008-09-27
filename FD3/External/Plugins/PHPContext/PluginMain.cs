@@ -148,23 +148,15 @@ namespace PHPContext
                 this.settingObject = (ContextSettings)obj;
             }
             if (this.settingObject.LanguageDefinitions == null) this.settingObject.LanguageDefinitions = @"Library\PHP\Intrinsic";
-            AddSettingsListeners(); // updating
+            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
         /// Update the classpath if an important setting has changed
         /// </summary>
         private void SettingObjectOnClasspathChanged()
-        { 
-            contextInstance.BuildClassPath();
-        }
-        private void AddSettingsListeners()
         {
-            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
-        }
-        private void RemoveSettingsListeners()
-        {
-            this.settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
+            if (contextInstance != null) contextInstance.BuildClassPath();
         }
 
         /// <summary>
@@ -172,9 +164,7 @@ namespace PHPContext
         /// </summary>
         public void SaveSettings()
         {
-            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-            AddSettingsListeners();
         }
 
         #endregion

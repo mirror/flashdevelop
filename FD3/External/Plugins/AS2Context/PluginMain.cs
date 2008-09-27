@@ -17,9 +17,9 @@ namespace AS2Context
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "ActionScript 2 context for the ASCompletion engine.";
         private String pluginAuth = "FlashDevelop Team";
-        private String settingFilename;
         private AS2Settings settingObject;
         private Context contextInstance;
+        private String settingFilename;
 
         #region Required Properties
 
@@ -150,23 +150,15 @@ namespace AS2Context
                 if (this.settingObject.MMClassPath != null) this.settingObject.UserClasspath = new String[] { this.settingObject.MMClassPath };
                 else this.settingObject.UserClasspath = new String[] {};
             }
-            AddSettingsListeners(); // updating
+            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
         /// Update the classpath if an important setting has changed
         /// </summary>
-        private void settingObject_OnClasspathChanged()
+        private void SettingObjectOnClasspathChanged()
         {
-            contextInstance.BuildClassPath();
-        }
-        private void AddSettingsListeners()
-        {
-            this.settingObject.OnClasspathChanged += settingObject_OnClasspathChanged;
-        }
-        private void RemoveSettingsListeners()
-        {
-            this.settingObject.OnClasspathChanged -= settingObject_OnClasspathChanged;
+            if (contextInstance != null) contextInstance.BuildClassPath();
         }
 
         /// <summary>
@@ -174,9 +166,7 @@ namespace AS2Context
         /// </summary>
         public void SaveSettings()
         {
-            RemoveSettingsListeners();
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-            AddSettingsListeners();
         }
 
         #endregion
