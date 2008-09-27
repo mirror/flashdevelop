@@ -165,6 +165,7 @@ namespace HaXeContext
         /// </summary>
         private void SaveSettings()
         {
+            this.settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
         }
 

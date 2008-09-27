@@ -241,6 +241,7 @@ namespace AS3Context
         /// </summary>
         public void SaveSettings()
         {
+            settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
             ObjectSerializer.Serialize(this.settingFilename, settingObject);
         }
 

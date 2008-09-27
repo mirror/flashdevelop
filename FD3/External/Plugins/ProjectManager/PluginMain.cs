@@ -102,6 +102,7 @@ namespace ProjectManager
 
         public void SaveSettings()
         {
+            Settings.Changed -= SettingChanged;
             ObjectSerializer.Serialize(SettingsPath, Settings);
         }
 

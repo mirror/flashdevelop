@@ -164,6 +164,7 @@ namespace PHPContext
         /// </summary>
         public void SaveSettings()
         {
+            this.settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
         }
 
