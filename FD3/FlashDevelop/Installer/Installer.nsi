@@ -9,7 +9,7 @@
 
 ; Define version info
 !define VERSION "3.0.0"
-!define BUILD "Beta10"
+!define BUILD "RC1"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
