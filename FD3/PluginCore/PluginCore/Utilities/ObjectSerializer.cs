@@ -27,20 +27,12 @@ namespace PluginCore.Utilities
         /// </summary>
         static Assembly CurrentDomainAssemblyResolve(Object sender, ResolveEventArgs args)
         {
-            try
-            {
-                AssemblyName assemblyName = new AssemblyName(args.Name);
-                String dfile = Path.Combine(PathHelper.PluginDir, assemblyName.Name + ".dll");
-                String ufile = Path.Combine(PathHelper.UserPluginDir, assemblyName.Name + ".dll");
-                if (File.Exists(dfile)) return Assembly.LoadFrom(dfile);
-                if (File.Exists(ufile)) return Assembly.LoadFrom(ufile);
-                return null;
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.AddToLog("Error while resolving assebly: " + args.Name, ex);
-                return null;
-            }
+            AssemblyName assemblyName = new AssemblyName(args.Name);
+            String dfile = Path.Combine(PathHelper.PluginDir, assemblyName.Name + ".dll");
+            String ufile = Path.Combine(PathHelper.UserPluginDir, assemblyName.Name + ".dll");
+            if (File.Exists(dfile)) return Assembly.LoadFrom(dfile);
+            if (File.Exists(ufile)) return Assembly.LoadFrom(ufile);
+            return null;
         }
 
         /// <summary>
