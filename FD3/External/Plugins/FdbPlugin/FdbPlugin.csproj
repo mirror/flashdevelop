@@ -124,7 +124,6 @@
     <Content Include="Icons\StartNoDebug.png" />
     <Content Include="Icons\Step.png" />
     <Content Include="Icons\Stop.png" />
-    <None Include="Resources\StartNoDebug.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\PluginCore\PluginCore.csproj">
