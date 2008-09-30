@@ -9,6 +9,7 @@ using PluginCore.Localization;
 using FlashDevelop.Utilities;
 using FlashDevelop.Dialogs;
 using FlashDevelop.Helpers;
+using PluginCore.Managers;
 using PluginCore;
 
 namespace FlashDevelop.Dialogs
@@ -81,6 +82,7 @@ namespace FlashDevelop.Dialogs
             this.itemPropertyGrid.Size = new System.Drawing.Size(472, 352);
             this.itemPropertyGrid.TabIndex = 3;
             this.itemPropertyGrid.ToolbarVisible = false;
+            this.itemPropertyGrid.PropertyValueChanged += new PropertyValueChangedEventHandler(this.PropertyValueChanged);
             // 
             // closeButton
             // 
@@ -316,6 +318,20 @@ namespace FlashDevelop.Dialogs
                 this.itemPropertyGrid.SelectedObject = null;
                 this.itemPropertyGrid.Enabled = false;
                 this.ShowInfoControls(false);
+            }
+        }
+
+        /// <summary>
+        /// When setting value has changed, dispatch event
+        /// </summary>
+        private void PropertyValueChanged(Object sender, PropertyValueChangedEventArgs e)
+        {
+            if (this.itemListView.SelectedIndices.Count > 0)
+            {
+                GridItem changedItem = (GridItem)e.ChangedItem;
+                String settingId = this.nameLabel.Text + "." + changedItem.Label.Replace(" ", "");
+                TextEvent te = new TextEvent(EventType.SettingChanged, settingId);
+                EventManager.DispatchEvent(Globals.MainForm, te);
             }
         }
 
