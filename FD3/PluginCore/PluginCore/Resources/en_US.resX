@@ -2565,9 +2565,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Label.ImportArguments" xml:space="preserve">
     <value>&amp;Import Arguments...</value>
   </data>
-  <data name="FlashDevelop.Info.SettingLoadError" xml:space="preserve">
-    <value>Could not load a corrupted setting file. Default values will be restored.</value>
-  </data>
   <data name="PHPContext.Description.IntrinsicDefinitions" xml:space="preserve">
     <value>Path to language intrinsic definitions for the code completion.</value>
   </data>

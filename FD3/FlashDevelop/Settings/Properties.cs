@@ -12,7 +12,7 @@ using PluginCore;
 
 namespace FlashDevelop.Settings
 {
-    [SerializableAttribute()]
+    [Serializable]
     [DefaultPropertyAttribute("AutoFilterList")]
     public partial class SettingObject : ISettings
     {

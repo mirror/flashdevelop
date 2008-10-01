@@ -92,8 +92,7 @@ namespace PluginCore.Utilities
             }
             catch (Exception ex)
             {
-                String message = TextHelper.GetString("FlashDevelop.Info.SettingLoadError");
-                ErrorManager.ShowWarning(message, new Exception("Error while deserializing: " + file, ex));
+                ErrorManager.ShowError(ex);
                 return obj;
             }
         }

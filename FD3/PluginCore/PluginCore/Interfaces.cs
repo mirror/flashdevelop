@@ -251,7 +251,7 @@ namespace PluginCore
 
         Int32 Index { get; set; }
         List<String> Files { get; set; }
-        SessionType Type { get; }
+        SessionType Type { get; set; }
 
         #endregion
     }
