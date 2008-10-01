@@ -614,8 +614,13 @@ namespace ProjectManager
                         DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
                     }
-                    string doc = project.GetAbsolutePath(project.TestMovieCommand);
-                    doc = project.FixDebugReleasePath(doc);
+                    string doc = project.TestMovieCommand;
+                    try
+                    {
+                        doc = project.GetAbsolutePath(doc);
+                        doc = project.FixDebugReleasePath(doc);
+                    }
+                    catch { }
                     ProcessStartInfo psi = new ProcessStartInfo(doc);
                     psi.WorkingDirectory = project.Directory;
                     ProcessHelper.StartAsync(psi);
