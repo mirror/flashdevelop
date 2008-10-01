@@ -162,7 +162,14 @@ namespace ProjectManager.Controls.TreeView
                     return;
                 if (parser.Errors.Count > 0)
                 {
-                    (Nodes[0] as WorkingNode).SetErrorText(parser.Errors[0]);
+                    WorkingNode wnode = Nodes[0] as WorkingNode;
+                    if (wnode == null)
+                    {
+                        Nodes.Clear();
+                        wnode = new WorkingNode(BackingPath);
+                        Nodes.Add(wnode);
+                    }
+                    wnode.SetErrorText(parser.Errors[0]);
                     return;
                 }
 
@@ -188,7 +195,9 @@ namespace ProjectManager.Controls.TreeView
                             frame.Text = groupName;
                             node.Nodes.Add(frame);
                         }
-                        foreach (string cls in classesComp.groups[groupName])
+                        List<String> names = classesComp.groups[groupName];
+                        names.Sort(); // TODO Add setting?
+                        foreach (string cls in names)
                             node.Nodes.Add(new ClassExportNode(BackingPath, cls.Replace(':', '.')));
                     }
                     Nodes.Add(node);
@@ -208,7 +217,9 @@ namespace ProjectManager.Controls.TreeView
                             frame.Text = groupName;
                             node2.Nodes.Add(frame);
                         }
-                        foreach (string symbol in symbolsComp.groups[groupName])
+                        List<String> names = symbolsComp.groups[groupName];
+                        names.Sort(); // TODO Add setting?
+                        foreach (string symbol in names)
                             node2.Nodes.Add(new ExportNode(BackingPath, symbol));
                     }
                     Nodes.Add(node2);
