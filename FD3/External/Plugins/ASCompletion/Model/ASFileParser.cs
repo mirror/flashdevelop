@@ -56,7 +56,7 @@ namespace ASCompletion.Model
         static public Regex re_import = new Regex("^[\\s]*import[\\s]+(?<package>[\\w.]+)", ro_cm);
 		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
         static private Regex re_validTypeName = new Regex("^[\\w.]*$", RegexOptions.Compiled);
-        static private Regex re_region = new Regex(@"^(#|{)region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
+        static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
 		#endregion
 
         #region public methods
