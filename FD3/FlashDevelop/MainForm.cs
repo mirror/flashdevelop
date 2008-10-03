@@ -971,6 +971,7 @@ namespace FlashDevelop
                     * Checks the file changes
                     */
                     TabbedDocument document = (TabbedDocument)this.CurrentDocument;
+                    document.SciControl.Focus();
                     document.CheckFileChange();
                     /**
                     * Processes the opened file
@@ -989,13 +990,6 @@ namespace FlashDevelop
                 this.BreakpointsEnabled = false;
                 NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
                 EventManager.DispatchEvent(this, ne);
-                if (this.CurrentDocument.IsEditable)
-                {
-                    this.BeginInvoke((MethodInvoker)delegate 
-                    { 
-                        this.CurrentDocument.SciControl.Focus(); 
-                    });
-                }
             }
             catch (Exception ex)
             {
@@ -2304,7 +2298,7 @@ namespace FlashDevelop
                 if (this.colorDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     String colorText = DataConverter.ColorToHex(this.colorDialog.Color);
-                    if (sci.ConfigurationLanguage == "xml" || sci.ConfigurationLanguage == "html")
+                    if (sci.ConfigurationLanguage == "xml" || sci.ConfigurationLanguage == "html" || sci.ConfigurationLanguage == "css")
                     {
                         colorText = colorText.Replace("0x", "#");
                     }
