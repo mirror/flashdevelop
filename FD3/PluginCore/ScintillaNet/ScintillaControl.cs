@@ -3897,7 +3897,6 @@ namespace ScintillaNet
 		}	
 						
 		/// <summary>
-		/// Move to the previous change in capitalisation.
 		/// Move to the previous change in capitalisation extending selection
 		/// to new caret position.
 		/// </summary>
@@ -3907,9 +3906,6 @@ namespace ScintillaNet
 		}	
 						
 		/// <summary>
-		/// Move to the previous change in capitalisation.
-		/// Move to the previous change in capitalisation extending selection
-		/// to new caret position.
 		/// Move to the change next in capitalisation.
 		/// </summary>
 		public void WordPartRight()
@@ -3918,10 +3914,6 @@ namespace ScintillaNet
 		}	
 						
 		/// <summary>
-		/// Move to the previous change in capitalisation.
-		/// Move to the previous change in capitalisation extending selection
-		/// to new caret position.
-		/// Move to the change next in capitalisation.
 		/// Move to the next change in capitalisation extending selection
 		/// to new caret position.
 		/// </summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ASCompletion.Completion
 {
@@ -452,8 +453,17 @@ namespace ASCompletion.Completion
         public static bool lookupRegex(string txt, ref int index)
         {
             int n = txt.Length;
-            int i = index;
+            int i = index - 2;
             char c = '/';
+            while (i > 0)
+            {
+                c = txt[i--];
+                if (c == ' ' || c == '\t') continue;
+                if (c == '\r' || c == '\n') break;
+                if (Regex.IsMatch(c.ToString(), "[a-z0-9_$)\\]]", RegexOptions.IgnoreCase)) return false;
+                break;
+            }
+            i = index;
             while (i < n)
             {
                 c = txt[i++];
