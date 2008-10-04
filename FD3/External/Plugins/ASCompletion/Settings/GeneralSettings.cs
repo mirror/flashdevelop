@@ -350,7 +350,7 @@ namespace ASCompletion.Settings
             set { disableCache = value; }
         }
         
-        [DisplayName("Last Actionscript Version")]
+        [DisplayName("Last ActionScript Version")]
         [LocalizedCategory("ASCompletion.Category.Advanced"), LocalizedDescription("ASCompletion.Description.LastASVersion")]
         public string LastASVersion
         {

@@ -2611,7 +2611,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Uses project related sessions when opening or closing projects.</value>
   </data>
   <data name="ASCompletion.Description.LastASVersion" xml:space="preserve">
-    <value>Internal: automaticlaly storing latest Actionscript version detected to apply to files without package/class declarations.</value>
+    <value>Internal: automaticly stored latest ActionScript version detected to apply to files without package/class declarations.</value>
   </data>
   <data name="FlashDevelop.Info.FileHeader" xml:space="preserve">
     <value>File</value>
