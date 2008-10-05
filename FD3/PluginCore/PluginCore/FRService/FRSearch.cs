@@ -902,7 +902,7 @@ namespace PluginCore.FRService
             List<SearchToken> tokens = new List<SearchToken>();
 
             int i = 0;
-            int len = pattern.Length;
+            int len = Math.Min(pattern.Length, 1023);
             char c;
             bool escaped = false;
 
