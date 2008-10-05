@@ -24,7 +24,7 @@ namespace AS3Context
         // C:\path\to\Main.as$raw$:31: col: 1:  Error #1084: Syntax error: expecting rightbrace before end of program.
         static readonly protected Regex re_syntaxError =
             new Regex("(?<filename>.*)\\$raw\\$:(?<line>[0-9]+): col: (?<col>[0-9]+):(?<desc>.*)", RegexOptions.Compiled);
-
+        
         #region initialization
         private AS3Settings as3settings;
         private MxmlFilterContext mxmlFilterContext; // extract inlined AS3 ranges & MXML tags
@@ -282,6 +282,9 @@ namespace AS3Context
             BackgroundSyntaxCheck();
         }
 
+        /// <summary>
+        /// Checking syntax of current file
+        /// </summary>
         private void BackgroundSyntaxCheck()
         {
             if (Panel == null) return;
@@ -291,11 +294,13 @@ namespace AS3Context
                 return;
             }
             if (!IsFileValid) return;
-            // check syntax
+
             ScintillaNet.ScintillaControl sci = CurSciControl;
             if (sci == null) return;
             ClearSquiggles(sci);
-            FlexShells.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, CurSciControl.Text);
+
+            string src = CurSciControl.Text;
+            FlexShells.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, src);
         }
 
         private void ClearSquiggles(ScintillaNet.ScintillaControl sci)

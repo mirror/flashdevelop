@@ -263,26 +263,28 @@ namespace ASCompletion.Model
 		{
             if (stopExploration || !Directory.Exists(path)) return;
 			explored.Add(path);
-
-            // convert classes
             Thread.Sleep(1);
+
+            // The following try/catch is used to handle "There are no more files" IOException.
+            // For some undocumented reason, on a networks share, and when using a mask, 
+            //  Directory.GetFiles() can throw an IOException instead of returning an empty array.
+            string[] files = null;
             try
             {
-                string[] files = Directory.GetFiles(path, mask);
-                foreach (string file in files)
-                {
-                    foundFiles.Add(file);
-                }
-
-                // explore subfolders
-                string[] dirs = Directory.GetDirectories(path);
-                foreach (string dir in dirs)
-                {
-                    if (!explored.Contains(dir) && (File.GetAttributes(dir) & FileAttributes.Hidden) == 0)
-                        ExploreFolder(dir, mask);
-                }
+                files = Directory.GetFiles(path, mask);
             }
-            catch { }
+            catch {} 
+            if (files != null) 
+                foreach (string file in files) foundFiles.Add(file);
+
+            // explore subfolders
+            string[] dirs = Directory.GetDirectories(path);
+            foreach (string dir in dirs)
+            {
+                if (!explored.Contains(dir) && (File.GetAttributes(dir) & FileAttributes.Hidden) == 0
+                    && !Path.GetFileName(dir).StartsWith("."))
+                    ExploreFolder(dir, mask);
+            }
 		}
 	}
 }

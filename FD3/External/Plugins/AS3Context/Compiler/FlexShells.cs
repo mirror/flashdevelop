@@ -28,9 +28,7 @@ namespace AS3Context.Compiler
 
 		static readonly public Regex re_SplitParams = 
 			new Regex("[\\s](?<switch>\\-[A-z\\-\\.]+)", RegexOptions.Compiled | RegexOptions.Singleline);
-		static readonly public Regex re_Disk = 
-			new Regex("^[a-z]:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-		
+
 		static private readonly string[] PATH_SWITCHES = { 
 			"-compiler.context-root","-context-root",
 			"-compiler.defaults-css-url","-defaults-css-url",
@@ -147,14 +145,14 @@ namespace AS3Context.Compiler
 			try
 			{
                 running = true;
+                if (src == null) EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
 				if (ascRunner == null || !ascRunner.IsRunning) StartAscRunner();
 
 				notificationSent = false;
                 if (src == null)
                 {
                     silentChecking = false;
-                    EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
-                    TraceManager.Add("AscShell command: " + filename, -1);
+                    TraceManager.Add("Checking: " + filename, -1);
                     ASContext.SetStatusText("Asc Running");
                     ascRunner.HostedProcess.StandardInput.WriteLine(filename);
                 }
@@ -302,7 +300,7 @@ namespace AS3Context.Compiler
                                             }
                                         }
                                         isPath = true;
-                                        if (!arg.StartsWith("\\") && !re_Disk.IsMatch(arg))
+                                        if (!arg.StartsWith("\\") && !Path.IsPathRooted(arg))
                                             arg = Path.Combine(buildPath, arg);
                                     }
                                 }
@@ -369,7 +367,7 @@ namespace AS3Context.Compiler
 		private void StartAscRunner()
 		{
             string cmd = "-classpath \"" + ascPath + ";" + flexShellsPath + "\" -Duser.language=en AscShell";
-            TraceManager.Add("Background process: java " + cmd, -1);
+            TraceManager.Add("Syntax checking process starting: java " + cmd, -1);
 			// run asc shell
 			ascRunner = new ProcessRunner();
             ascRunner.WorkingDirectory = Path.GetDirectoryName(ascPath);
@@ -387,7 +385,7 @@ namespace AS3Context.Compiler
 		private void StartMxmlcRunner(string flex2Path)
 		{
             string cmd = "-classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" -Duser.language=en MxmlcShell";
-            TraceManager.Add("Background process: java " + cmd, -1);
+            TraceManager.Add("Flex compiler process starting: java " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();
             mxmlcRunner.WorkingDirectory = Path.Combine(flex2Path, "frameworks");
