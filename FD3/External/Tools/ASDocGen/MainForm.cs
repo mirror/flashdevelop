@@ -1056,7 +1056,8 @@ namespace ASDocGen
                     }
                     if (this.activeProject.sourcesList.Trim() != String.Empty)
                     {
-                        contents += " -exclude-classes " + "\"" + this.activeProject.sourcesList + "\"";
+                        String[] classes = this.activeProject.sourcesList.TrimEnd().Split(' ');
+                        foreach (String cls in classes) contents += " -exclude-classes " + "\"" + cls + "\"";
                     }
                     if (this.activeProject.extraOptions.Trim() != String.Empty)
                     {
