@@ -9,6 +9,8 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using ASDocGen.Utilities;
 using ASDocGen.Objects;
+using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace ASDocGen
 {
@@ -25,6 +27,7 @@ namespace ASDocGen
         private System.Windows.Forms.Button browseOutputDirButton;
         private System.Windows.Forms.Button removeClasspathButton;
         private System.Windows.Forms.Button browseClasspathButton;
+        private System.Windows.Forms.Button newFromProjectButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
@@ -82,6 +85,7 @@ namespace ASDocGen
             this.saveProjectButton = new System.Windows.Forms.Button();
             this.newProjectButton = new System.Windows.Forms.Button();
             this.generateDocsButton = new System.Windows.Forms.Button();
+            this.newFromProjectButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -157,15 +161,27 @@ namespace ASDocGen
             this.newProjectButton.UseVisualStyleBackColor = true;
             this.newProjectButton.Click += new System.EventHandler(this.NewProjectButtonClick);
             // 
+            // newFromProjectButton
+            // 
+            this.newFromProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.newFromProjectButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.newFromProjectButton.Location = new System.Drawing.Point(325, 326);
+            this.newFromProjectButton.Name = "newProjectButton";
+            this.newFromProjectButton.Size = new System.Drawing.Size(100, 23);
+            this.newFromProjectButton.TabIndex = 4;
+            this.newFromProjectButton.Text = "Import Project...";
+            this.newFromProjectButton.UseVisualStyleBackColor = true;
+            this.newFromProjectButton.Click += new System.EventHandler(this.NewFromProjectButtonClick);
+            // 
             // generateDocsButton
             // 
             this.generateDocsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.generateDocsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.generateDocsButton.Location = new System.Drawing.Point(386, 326);
+            this.generateDocsButton.Location = new System.Drawing.Point(441, 326);
             this.generateDocsButton.Name = "generateDocsButton";
-            this.generateDocsButton.Size = new System.Drawing.Size(150, 23);
-            this.generateDocsButton.TabIndex = 4;
-            this.generateDocsButton.Text = "Generate Documentation";
+            this.generateDocsButton.Size = new System.Drawing.Size(100, 23);
+            this.generateDocsButton.TabIndex = 5;
+            this.generateDocsButton.Text = "Generate!";
             this.generateDocsButton.UseVisualStyleBackColor = true;
             this.generateDocsButton.Click += new System.EventHandler(this.GenerateDocsButtonClick);
             // 
@@ -234,9 +250,7 @@ namespace ASDocGen
             this.compilerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.compilerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.compilerComboBox.FormattingEnabled = true;
-            this.compilerComboBox.Items.AddRange(new object[] {
-            "AS2API (AS2)",
-            "ASDOC (AS3)"});
+            this.compilerComboBox.Items.AddRange(new object[]{"AS2API (AS2)","ASDOC (AS3)"});
             this.compilerComboBox.Location = new System.Drawing.Point(317, 222);
             this.compilerComboBox.Name = "compilerComboBox";
             this.compilerComboBox.Size = new System.Drawing.Size(186, 21);
@@ -245,9 +259,7 @@ namespace ASDocGen
             // 
             // extraOptionsTextBox
             // 
-            this.extraOptionsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.extraOptionsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.extraOptionsTextBox.Location = new System.Drawing.Point(14, 222);
             this.extraOptionsTextBox.Multiline = true;
             this.extraOptionsTextBox.Name = "extraOptionsTextBox";
@@ -267,8 +279,7 @@ namespace ASDocGen
             // 
             // packagesTextBox
             // 
-            this.packagesTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.packagesTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.packagesTextBox.Location = new System.Drawing.Point(14, 64);
             this.packagesTextBox.Name = "packagesTextBox";
             this.packagesTextBox.Size = new System.Drawing.Size(491, 21);
@@ -277,8 +288,7 @@ namespace ASDocGen
             // 
             // outputDirTextBox
             // 
-            this.outputDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.outputDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.outputDirTextBox.Location = new System.Drawing.Point(14, 105);
             this.outputDirTextBox.Name = "outputDirTextBox";
             this.outputDirTextBox.Size = new System.Drawing.Size(383, 21);
@@ -287,8 +297,7 @@ namespace ASDocGen
             // 
             // pageTitleTextBox
             // 
-            this.pageTitleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pageTitleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pageTitleTextBox.Location = new System.Drawing.Point(14, 23);
             this.pageTitleTextBox.Name = "pageTitleTextBox";
             this.pageTitleTextBox.Size = new System.Drawing.Size(491, 21);
@@ -373,8 +382,7 @@ namespace ASDocGen
             // 
             // classpathListBox
             // 
-            this.classpathListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.classpathListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.classpathListBox.FormattingEnabled = true;
             this.classpathListBox.Location = new System.Drawing.Point(14, 146);
             this.classpathListBox.Name = "classpathListBox";
@@ -383,16 +391,14 @@ namespace ASDocGen
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.projectTabPage);
             this.tabControl.Controls.Add(this.settingsTabPage);
             this.tabControl.Controls.Add(this.outputTabPage);
             this.tabControl.Location = new System.Drawing.Point(11, 11);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(526, 310);
+            this.tabControl.Size = new System.Drawing.Size(531, 310);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             // 
@@ -438,8 +444,7 @@ namespace ASDocGen
             // 
             // asdocLocationTextBox
             // 
-            this.asdocLocationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.asdocLocationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.asdocLocationTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.asdocLocationTextBox.Location = new System.Drawing.Point(14, 64);
             this.asdocLocationTextBox.Name = "asdocLocationTextBox";
@@ -471,8 +476,7 @@ namespace ASDocGen
             // 
             // as2apiLocationTextBox
             // 
-            this.as2apiLocationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.as2apiLocationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.as2apiLocationTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.as2apiLocationTextBox.Location = new System.Drawing.Point(14, 23);
             this.as2apiLocationTextBox.Name = "as2apiLocationTextBox";
@@ -521,7 +525,7 @@ namespace ASDocGen
             this.documentationLabel.Text = "Help";
             this.documentationLabel.AutoSize = true;
             this.documentationLabel.Size = new System.Drawing.Size(11, 13);
-            this.documentationLabel.Location = new System.Drawing.Point(505, 11);
+            this.documentationLabel.Location = new System.Drawing.Point(510, 11);
             this.documentationLabel.Name = "documentationLabel";
             this.documentationLabel.Click += new EventHandler(this.DocumentationLabelClick);
             this.documentationLabel.Font = SystemFonts.MenuFont;
@@ -532,8 +536,8 @@ namespace ASDocGen
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(546, 360);
-            this.MinimumSize = new System.Drawing.Size(505, 385);
+            this.ClientSize = new System.Drawing.Size(551, 360);
+            this.MinimumSize = new System.Drawing.Size(558, 385);
             this.Controls.Add(this.documentationLabel);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.tabControl);
@@ -541,11 +545,13 @@ namespace ASDocGen
             this.Controls.Add(this.newProjectButton);
             this.Controls.Add(this.saveProjectButton);
             this.Controls.Add(this.openProjectButton);
+            this.Controls.Add(this.newFromProjectButton);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ActionScript Documentation Generator";
             this.Load += new System.EventHandler(this.MainFormLoaded);
+            this.FormClosing += new FormClosingEventHandler(this.MainFormClosing);
             this.outputTabPage.ResumeLayout(false);
             this.projectTabPage.ResumeLayout(false);
             this.projectTabPage.PerformLayout();
@@ -579,6 +585,30 @@ namespace ASDocGen
             this.processRunner = new ProcessRunner();
             this.processRunner.DataReceived += new DataReceivedEventHandler(this.ProcessDataReceived);
             this.processRunner.Exited += new EventHandler(this.ProcessExited);
+        }
+
+        /// <summary>
+        /// Gets the path to the default classes directory of MTASC.
+        /// </summary>
+        private String MtascStdDir
+        {
+            get 
+            {
+                String parentDir = Directory.GetParent(this.AppDirectory).FullName;
+                return Path.Combine(parentDir, "mtasc\\std");
+            }
+        }
+
+        /// <summary>
+        /// Gets the path to the default classes directory of MTASC for FP8.
+        /// </summary>
+        private String MtascStd8Dir
+        {
+            get 
+            {
+                String parentDir = Directory.GetParent(this.AppDirectory).FullName;
+                return Path.Combine(parentDir, "mtasc\\std8");
+            }
         }
 
         /// <summary>
@@ -725,6 +755,21 @@ namespace ASDocGen
             this.SettingsAreModified = false;
             this.ProjectIsModified = false;
             this.ProcessStartArguments();
+        }
+
+        /// <summary>
+        /// If there are unsaved changes, ask user to confirm close.
+        /// </summary>
+        private void MainFormClosing(Object sender, FormClosingEventArgs e)
+        {
+            if (this.ProjectIsModified || this.SettingsAreModified)
+            {
+                String message = "You have unsaved changes. Are you sure you want to quit?";
+                if (MessageBox.Show(message, " Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         /// <summary>
@@ -908,6 +953,38 @@ namespace ASDocGen
         }
 
         /// <summary>
+        /// Creates a new project and clears the controls.
+        /// </summary>
+        private void NewFromProjectButtonClick(Object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Project Files (*.as2proj,*.as3proj)|*.as2proj;*.as3proj";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                String path = ofd.FileName;
+                Regex nameRegex = new Regex(@"[\w\d -]+\.");
+                FileStream project = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                MatchCollection matches = nameRegex.Matches(path);
+                XmlDocument projXml = new XmlDocument(); projXml.Load(project);
+                XmlNodeList node = projXml.GetElementsByTagName("class");
+                String[] paths = new String[node.Count];
+                for (Int32 i = 0; i < node.Count; i++)
+                {
+                    XmlAttributeCollection attributes = node[i].Attributes;
+                    if (attributes[0].Name == "path") paths[i] = attributes[0].Value;
+                }
+                Int32 version = Int32.Parse(path.Substring(path.Length - 5, 1)) - 2;
+                String name = matches[matches.Count - 1].Value;
+                name = name.Substring(0, name.Length - 1);
+                this.pageTitleTextBox.Text = name;
+                this.classpathListBox.Items.Clear();
+                this.saveFileDialog.FileName = "Untitled.docproj";
+                this.compilerComboBox.SelectedIndex = version;
+                this.classpathListBox.Items.AddRange(paths);
+            }
+        }
+
+        /// <summary>
         /// Generates the documentation based on the current state.
         /// </summary>
         private void GenerateDocsButtonClick(Object sender, EventArgs e)
@@ -945,7 +1022,9 @@ namespace ASDocGen
                     }
                     if (this.activeProject.classPaths.Trim() != String.Empty)
                     {
-                        contents += " --classpath " + "\"" + this.activeProject.classPaths + "\"";
+                        String classPaths = this.activeProject.classPaths;
+                        classPaths = classPaths + ";" + this.MtascStdDir + ";" + this.MtascStd8Dir;
+                        contents += " --classpath " + "\"" + classPaths + "\"";
                     }
                     if (this.activeProject.extraOptions.Trim() != String.Empty)
                     {
