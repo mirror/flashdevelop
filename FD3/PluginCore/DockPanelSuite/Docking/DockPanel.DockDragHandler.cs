@@ -160,8 +160,8 @@ namespace WeifenLuo.WinFormsUI.Docking
                     private static Bitmap _bitmapPaneDiamondTop = Resources.DockIndicator_PaneDiamond_Top;
                     private static Bitmap _bitmapPaneDiamondBottom = Resources.DockIndicator_PaneDiamond_Bottom;
                     private static Bitmap _bitmapPaneDiamondFill = Resources.DockIndicator_PaneDiamond_Fill;
-                    private static Bitmap _bitmapPaneDiamondHotSpot = Resources.DockIndicator_PaneDiamond_HotSpot;
-                    private static Bitmap _bitmapPaneDiamondHotSpotIndex = Resources.DockIndicator_PaneDiamond_HotSpotIndex;
+                    private static Bitmap _bitmapPaneDiamondHotSpot = Resources.DockIndicator_PaneDiamond_Hotspot;
+                    private static Bitmap _bitmapPaneDiamondHotSpotIndex = Resources.DockIndicator_PaneDiamond_HotspotIndex;
                     private static HotSpotIndex[] _hotSpots = new HotSpotIndex[]
 			{
 				new HotSpotIndex(1, 0, DockStyle.Top),
