@@ -6,12 +6,6 @@ namespace ScintillaNet
 {
 	public class WinAPI
 	{
-		[DllImport("user32.dll", SetLastError=true)]
-		public static extern bool MessageBeep(BeepType type);
-		
-		[DllImport("kernel32.dll")]
-		public static extern bool Beep(int frequency, int time);
-		
 		[DllImport("kernel32.dll")]
 		public extern static IntPtr LoadLibrary(string lpLibFileName);
 		
