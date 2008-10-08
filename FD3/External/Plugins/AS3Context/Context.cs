@@ -29,6 +29,7 @@ namespace AS3Context
         private AS3Settings as3settings;
         private MxmlFilterContext mxmlFilterContext; // extract inlined AS3 ranges & MXML tags
         private System.Timers.Timer timerCheck;
+        private string fileWithSquiggles;
 
         public Context(AS3Settings initSettings)
         {
@@ -265,6 +266,7 @@ namespace AS3Context
         internal void OnFileOperation(NotifyEvent e)
         {
             timerCheck.Stop();
+            if (fileWithSquiggles != null) ClearSquiggles(CurSciControl);
         }
 
         public override void TrackTextChange(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
@@ -305,11 +307,21 @@ namespace AS3Context
 
         private void ClearSquiggles(ScintillaNet.ScintillaControl sci)
         {
-            int es = sci.EndStyled;
-            int mask = (1 << sci.StyleBits);
-            sci.StartStyling(0, mask);
-            sci.SetStyling(sci.TextLength, 0);
-            sci.StartStyling(es, mask - 1);
+            try
+            {
+                if (sci == null) return;
+                if (CurrentFile != fileWithSquiggles) return;
+
+                int es = sci.EndStyled;
+                int mask = (1 << sci.StyleBits);
+                sci.StartStyling(0, mask);
+                sci.SetStyling(sci.TextLength, 0);
+                sci.StartStyling(es, mask - 1);
+            }
+            finally
+            {
+                fileWithSquiggles = null;
+            }
         }
 
         private void Flex2Shell_SyntaxError(string error)
@@ -340,6 +352,8 @@ namespace AS3Context
 
         private void AddSquiggles(ScintillaNet.ScintillaControl sci, int line, int start, int end)
         {
+            if (sci == null) return;
+            fileWithSquiggles = CurrentFile;
             int position = sci.PositionFromLine(line) + start;
             int indic = (int)ScintillaNet.Enums.IndicatorStyle.Squiggle;
             int fore = 0x000000ff;
