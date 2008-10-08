@@ -266,7 +266,8 @@ namespace AS3Context
         internal void OnFileOperation(NotifyEvent e)
         {
             timerCheck.Stop();
-            if (fileWithSquiggles != null) ClearSquiggles(CurSciControl);
+            foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
+                if (doc.FileName == fileWithSquiggles) ClearSquiggles(doc.SciControl);
         }
 
         public override void TrackTextChange(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
@@ -307,11 +308,9 @@ namespace AS3Context
 
         private void ClearSquiggles(ScintillaNet.ScintillaControl sci)
         {
+            if (sci == null) return;
             try
             {
-                if (sci == null) return;
-                if (CurrentFile != fileWithSquiggles) return;
-
                 int es = sci.EndStyled;
                 int mask = (1 << sci.StyleBits);
                 sci.StartStyling(0, mask);
