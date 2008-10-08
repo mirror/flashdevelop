@@ -348,7 +348,7 @@ namespace FdbPlugin
         private void fdbWrapper_PrintEvent(Object sender, PrintArg e)
         {
             String name = e.valname;
-            if (e.printtype == (int)PrintType.LOCAL)
+            if (e.printtype == PrintType.LOCAL)
             {
                 pluginUI.TreeControl.Invoke((MethodInvoker)delegate()
                 {
