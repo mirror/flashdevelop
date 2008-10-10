@@ -25,8 +25,6 @@ namespace ProjectManager.Projects
 
 	public class BuildEventVars
 	{
-        public string CompilerPath;
-
 		Project project;
         List<BuildEventInfo> additional = new List<BuildEventInfo>();
 

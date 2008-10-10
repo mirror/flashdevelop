@@ -17,7 +17,7 @@ namespace ProjectManager.Building
 		{
 			this.project = project;
 			this.vars = new BuildEventVars(project);
-            vars.CompilerPath = compilerPath;
+            vars.AddVar("CompilerPath", compilerPath);
 		}
 
         //parse line into command/argument pair
