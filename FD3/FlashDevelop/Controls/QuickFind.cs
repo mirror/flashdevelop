@@ -186,7 +186,7 @@ namespace FlashDevelop.Controls
         {
             this.typingTimer = new Timer();
             this.typingTimer.Tick += new EventHandler(this.TypingTimerTick);
-            this.typingTimer.Interval = 500;
+            this.typingTimer.Interval = 250;
         }
 
         /// <summary>
@@ -253,8 +253,12 @@ namespace FlashDevelop.Controls
         /// </summary>
         private void FindTextBoxTextChanged(Object sender, EventArgs e)
         {
-            this.typingTimer.Stop();
-            this.typingTimer.Start();
+            if (Globals.SciControl.TextLength > 30000)
+            {
+                this.typingTimer.Stop();
+                this.typingTimer.Start();
+            }
+            else this.TypingTimerTick(null, null);
         }
 
         /// <summary>
