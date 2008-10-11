@@ -442,7 +442,7 @@
   <ItemGroup>
     <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond.bmp" />
     <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Bottom.bmp" />
-    <Content Include="DockPanelSuite\Resources\Dockindicator_PaneDiamond_Fill.bmp" />
+    <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Fill.bmp" />
     <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Hotspot.bmp" />
     <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_HotspotIndex.bmp" />
     <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond_Left.bmp" />
