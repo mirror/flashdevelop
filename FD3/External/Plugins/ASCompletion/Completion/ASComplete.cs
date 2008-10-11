@@ -127,7 +127,7 @@ namespace ASCompletion.Completion
                             char c0 = (char)Sci.CharAt(position - 2);
                             bool result = false;
                             if (c0 == '.' || Char.IsLetterOrDigit(c0))
-                                HandleColonCompletion(Sci, "", autoHide);
+                                return HandleColonCompletion(Sci, "", autoHide);
                             return result;
                         }
                         else break;
@@ -1327,18 +1327,26 @@ namespace ASCompletion.Completion
 		static private bool HandleColonCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide)
 		{
             ComaExpression coma = ComaExpression.None;
-			int position = Sci.CurrentPos;
-            while (position > 0 && Sci.CharAt(position) != ':') position--;
+			int position = Sci.CurrentPos - 1;
+            char c = ' ';
+            //bool inGenericType = false;
+            while (position > 0)
+            {
+                c = (char)Sci.CharAt(position);
+                //if (c == '<') inGenericType = true;
+                if (c == ':' || c == ';' || c == '=' || c == ',') break;
+                position--;
+            }
             position--;
+
             // var declaration
             GetWordLeft(Sci, ref position);
-            string keyword = GetWordLeft(Sci, ref position);
+            string keyword = (c == ':') ? GetWordLeft(Sci, ref position) : null;
             if (keyword == ASContext.Context.Features.varKey || keyword == ASContext.Context.Features.constKey)
                 coma = ComaExpression.VarDeclaration;
             // function return type
             else if ((char)Sci.CharAt(position) == ')')
             {
-                char c;
                 int parCount = 0;
                 while (position > 0)
                 {
@@ -2237,6 +2245,15 @@ namespace ASCompletion.Completion
                 {
                     return ComaExpression.None;
                 }
+                // var declaration
+                else if (c == ':')
+                {
+                    position--;
+                    string word = GetWordLeft(Sci, ref position);
+                    word = GetWordLeft(Sci, ref position);
+                    if (word == features.varKey) return ComaExpression.VarDeclaration;
+                    else continue;
+                }
                 // Array values
                 else if (c == '[')
                 {
@@ -2260,7 +2277,7 @@ namespace ASCompletion.Completion
                         string word1 = GetWordLeft(Sci, ref position);
                         if (word1 == features.functionKey) return ComaExpression.FunctionDeclaration; // anonymous function
                         string word2 = GetWordLeft(Sci, ref position);
-                        if (word2 == features.functionKey || word2 == features.setKey || word2 == features.getKey) 
+                        if (word2 == features.functionKey || word2 == features.setKey || word2 == features.getKey)
                             return ComaExpression.FunctionDeclaration; // function declaration
                         return ComaExpression.FunctionParameter; // function call
                     }
@@ -2878,7 +2895,8 @@ namespace ASCompletion.Completion
         VarDeclaration,
         FunctionDeclaration,
         FunctionParameter,
-        ArrayValue
+        ArrayValue,
+        GenericIndexType
     }
 
 	/// <summary>
