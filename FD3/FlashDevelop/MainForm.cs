@@ -43,6 +43,7 @@ namespace FlashDevelop
         {
             MainForm.Instance = this;
             PluginBase.Initialize(this);
+            this.InitializeErrorLog();
             this.InitializeSettings();
             this.InitializeFirstRun();
             this.InitializeRendering();
@@ -51,6 +52,23 @@ namespace FlashDevelop
             this.InitializeSmartDialogs();
             this.InitializeMainForm();
             this.InitializeGraphics();
+        }
+
+        /// <summary>
+        /// Initializes some extra error logging
+        /// </summary>
+        private void InitializeErrorLog()
+        {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.OnUnhandledException);
+        }
+
+        /// <summary>
+        /// Handles the catched unhandled exception and logs it
+        /// </summary>
+        private void OnUnhandledException(Object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception exception = new Exception(e.ExceptionObject.ToString());
+            ErrorManager.AddToLog("Unhandled exception:", exception);
         }
 
         #endregion

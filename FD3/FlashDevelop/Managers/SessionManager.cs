@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using PluginCore.Localization;
 using FlashDevelop.Helpers;
 using PluginCore.Utilities;
@@ -109,6 +110,7 @@ namespace FlashDevelop.Managers
     }
 
     [Serializable]
+    [ComVisible(true)]
     public class Session : ISession
     {
         private Int32 index = 0;

@@ -221,12 +221,11 @@ namespace ASCompletion
                 BeginInvoke(new SetStatusInvoker(SetStatus), new object[] { state, value, max });
                 return;
             }
+            if (PluginBase.MainForm.ClosingEntirely) return;
             if (state == null)
             {
-                if (PluginBase.MainForm.ProgressLabel != null)
-                    PluginBase.MainForm.ProgressLabel.Visible = false;
-                if (PluginBase.MainForm.ProgressBar != null)
-                    PluginBase.MainForm.ProgressBar.Visible = false;
+                if (PluginBase.MainForm.ProgressLabel != null) PluginBase.MainForm.ProgressLabel.Visible = false;
+                if (PluginBase.MainForm.ProgressBar != null) PluginBase.MainForm.ProgressBar.Visible = false;
                 return;
             }
             if (PluginBase.MainForm.ProgressLabel != null)

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using PluginCore.Localization;
 using System.Windows.Forms;
 using PluginCore.Managers;
@@ -13,6 +14,7 @@ using PluginCore;
 namespace FlashDevelop.Settings
 {
     [Serializable]
+    [ComVisible(true)]
     [DefaultPropertyAttribute("AutoFilterList")]
     public partial class SettingObject : ISettings
     {
