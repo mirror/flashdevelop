@@ -12,7 +12,8 @@
 		var flashvars = {};
 		var params = {
 			menu: "false",
-			scale: "noScale"
+			scale: "noScale",
+			bgcolor: "#FFFFFF"
 		};
 		swfobject.embedSWF("$(ProjectID).swf", "altContent", "100%", "100%", "9.0.0", "expressInstall.swf", flashvars, params);
 	</script>
