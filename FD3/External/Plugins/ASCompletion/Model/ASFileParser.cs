@@ -659,7 +659,7 @@ namespace ASCompletion.Model
 						curMember.Type = param;
 					}
                     // AS3 method parameter default value
-					else if (version > 2)
+					else if (version > 2 && (curMember.Flags & FlagType.Variable) > 0)
 					{
                         MemberModel paramValueMember = new MemberModel();
                         paramValueMember.Comments = param;
@@ -1572,7 +1572,8 @@ namespace ASCompletion.Model
 								if (inEnum) member.Flags |= FlagType.Enum;
 								if (curMethod.Parameters == null) curMethod.Parameters = new List<MemberModel>();
                                 member.Access = 0;
-								curMethod.Parameters.Add(member);
+                                if (member.Name.Length > 0)
+								    curMethod.Parameters.Add(member);
 							}
 							// class member
                             else if (curClass != null)

@@ -2008,7 +2008,7 @@ namespace ASCompletion.Completion
                             else if (pre[i] == '\n') expression.FunctionOffset++;
                         body = body.Substring(pos);
                     }
-                    expression.FunctionBody = body;
+                    expression.FunctionBody = "";
                 }
                 else
                 {
