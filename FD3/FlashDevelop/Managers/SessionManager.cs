@@ -110,7 +110,6 @@ namespace FlashDevelop.Managers
     }
 
     [Serializable]
-    [ComVisible(true)]
     public class Session : ISession
     {
         private Int32 index = 0;

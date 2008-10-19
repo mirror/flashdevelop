@@ -14,8 +14,7 @@ using PluginCore;
 namespace FlashDevelop.Settings
 {
     [Serializable]
-    [ComVisible(true)]
-    [DefaultPropertyAttribute("AutoFilterList")]
+    [DefaultProperty("AutoFilterList")]
     public partial class SettingObject : ISettings
     {
         private CodePage defaultCodePage = CodePage.UTF8;

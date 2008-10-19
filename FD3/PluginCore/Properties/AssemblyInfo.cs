@@ -17,5 +17,4 @@ using System.Runtime.InteropServices;
 // Version information for an assembly consists of the following four values:
 // Major Version . Minor Version . Build Number . Revision
 [assembly: AssemblyVersion("2.0.0.*")]
-[assembly: ComVisibleAttribute(true)]
-[assembly: Guid("dae4980a-9d3b-47db-af5d-11ccf59c3d9e")]
+[assembly: ComVisibleAttribute(false)]

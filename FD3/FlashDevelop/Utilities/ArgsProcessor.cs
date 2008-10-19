@@ -51,11 +51,8 @@ namespace FlashDevelop.Utilities
 		/// </summary>
         private static String GetSelText()
 		{
-            if (!Globals.CurrentDocument.IsEditable)
-            {
-                return String.Empty;
-            }
-            return Globals.SciControl.SelText;
+            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
+            else return Globals.SciControl.SelText;
 		}
 		
 		/// <summary>
@@ -63,11 +60,8 @@ namespace FlashDevelop.Utilities
 		/// </summary>
         private static String GetCurFile()
 		{
-            if (!Globals.CurrentDocument.IsEditable)
-            {
-                return String.Empty;
-            }
-            return Globals.CurrentDocument.FileName;
+            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
+            else return Globals.CurrentDocument.FileName;
 		}
 
 		/// <summary>
@@ -75,11 +69,8 @@ namespace FlashDevelop.Utilities
 		/// </summary>
         private static String GetCurDir()
 		{
-            if (!Globals.CurrentDocument.IsEditable)
-            {
-                return Globals.MainForm.WorkingDirectory;
-            }
-            return Path.GetDirectoryName(GetCurFile());
+            if (!Globals.CurrentDocument.IsEditable) return Globals.MainForm.WorkingDirectory;
+            else return Path.GetDirectoryName(GetCurFile());
 		}
 		
 		/// <summary>
@@ -87,11 +78,8 @@ namespace FlashDevelop.Utilities
 		/// </summary>
         private static String GetCurFilename()
 		{
-            if (!Globals.CurrentDocument.IsEditable)
-            {
-                return String.Empty;
-            }
-            return Path.GetFileName(GetCurFile());
+            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
+            else return Path.GetFileName(GetCurFile());
 		}
 
         /// <summary>
@@ -107,12 +95,8 @@ namespace FlashDevelop.Utilities
 		/// </summary>
         private static String GetCurWord()
 		{
-            if (!Globals.CurrentDocument.IsEditable)
-            {
-                return String.Empty;
-            }
-            ScintillaControl sci = Globals.SciControl;
-            String curWord = sci.GetWordFromPosition(sci.CurrentPos);
+            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
+            String curWord = Globals.SciControl.GetWordFromPosition(Globals.SciControl.CurrentPos);
 			if (curWord != null) return curWord;
 			else return String.Empty;
 		}
@@ -165,10 +149,7 @@ namespace FlashDevelop.Utilities
 			OpenFileDialog ofd = new OpenFileDialog();
 			ofd.InitialDirectory = GetCurDir();
 			ofd.Multiselect = false;
-            if (ofd.ShowDialog(Globals.MainForm) == DialogResult.OK)
-			{
-				return ofd.FileName;
-			}
+            if (ofd.ShowDialog(Globals.MainForm) == DialogResult.OK) return ofd.FileName;
             else return String.Empty;
 		}
 		
@@ -179,10 +160,7 @@ namespace FlashDevelop.Utilities
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.InitialDirectory = GetCurDir();
-            if (sfd.ShowDialog(Globals.MainForm) == DialogResult.OK)
-			{
-				return sfd.FileName;
-			}
+            if (sfd.ShowDialog(Globals.MainForm) == DialogResult.OK) return sfd.FileName;
             else return String.Empty;
 		}
 		
@@ -193,10 +171,7 @@ namespace FlashDevelop.Utilities
 		{
 			FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.RootFolder = Environment.SpecialFolder.MyComputer;
-            if (fbd.ShowDialog(Globals.MainForm) == DialogResult.OK)
-			{
-				return fbd.SelectedPath;
-			}
+            if (fbd.ShowDialog(Globals.MainForm) == DialogResult.OK) return fbd.SelectedPath;
             else return String.Empty;
 		}
 		
@@ -212,6 +187,34 @@ namespace FlashDevelop.Utilities
 			}
             else return String.Empty;
 		}
+
+        /// <summary>
+        /// Gets the comment block indent
+        /// </summary>
+        private static String GetCBI()
+        {
+            CommentBlockStyle cbs = Globals.Settings.CommentBlockStyle;
+            if (cbs == CommentBlockStyle.Indented) return " ";
+            else return "";
+        }
+
+        /// <summary>
+        /// Gets the current syntax based on project or current file.
+        /// </summary>
+        private static String GetCurSyntax()
+        {
+            if (PluginBase.CurrentProject != null)
+            {
+                String syntax = PluginBase.CurrentProject.Language;
+                return syntax.ToLower();
+            }
+            else if (Globals.CurrentDocument.IsEditable)
+            {
+                ScintillaControl sci = Globals.SciControl;
+                return sci.ConfigurationLanguage.ToLower();
+            }
+            else return String.Empty;
+        }
 
         /// <summary>
         /// Gets the correct coding style line break chars
@@ -300,26 +303,27 @@ namespace FlashDevelop.Utilities
                 string name = match.Groups[1].Value;
                 switch (name)
                 {
-                    case "CBI": return Globals.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " " : "";
-                    case "Quote": return "\"";
-                    case "AppDir": return GetAppDir();
-                    case "UserAppDir": return GetUserAppDir();
-                    case "BaseDir": return GetBaseDir();
-                    case "SelText": return GetSelText();
-                    case "CurFilename": return GetCurFilename();
-                    case "CurFile": return GetCurFile();
-                    case "CurDir": return GetCurDir();
-                    case "CurWord": return GetCurWord();
-                    case "Timestamp": return GetTimestamp();
-                    case "OpenFile": return GetOpenFile();
-                    case "SaveFile": return GetSaveFile();
-                    case "OpenDir": return GetOpenDir();
-                    case "DesktopDir": return GetDesktopDir();
-                    case "SystemDir": return GetSystemDir();
-                    case "ProgramsDir": return GetProgramsDir();
-                    case "PersonalDir": return GetPersonalDir();
-                    case "WorkingDir": return GetWorkingDir();
-                    case "Clipboard": return GetClipboard();
+                    case "Quote" : return "\"";
+                    case "CBI" : return GetCBI();
+                    case "AppDir" : return GetAppDir();
+                    case "UserAppDir" : return GetUserAppDir();
+                    case "BaseDir" : return GetBaseDir();
+                    case "SelText" : return GetSelText();
+                    case "CurFilename" : return GetCurFilename();
+                    case "CurFile" : return GetCurFile();
+                    case "CurDir" : return GetCurDir();
+                    case "CurWord" : return GetCurWord();
+                    case "CurSyntax": return GetCurSyntax();
+                    case "Timestamp" : return GetTimestamp();
+                    case "OpenFile" : return GetOpenFile();
+                    case "SaveFile" : return GetSaveFile();
+                    case "OpenDir" : return GetOpenDir();
+                    case "DesktopDir" : return GetDesktopDir();
+                    case "SystemDir" : return GetSystemDir();
+                    case "ProgramsDir" : return GetProgramsDir();
+                    case "PersonalDir" : return GetPersonalDir();
+                    case "WorkingDir" : return GetWorkingDir();
+                    case "Clipboard" : return GetClipboard();
                 }
                 foreach (Argument arg in Globals.Settings.CustomArguments)
                 {

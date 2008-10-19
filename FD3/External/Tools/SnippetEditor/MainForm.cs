@@ -29,9 +29,11 @@ namespace SnippetEditor
         private System.String snippetFolder;
         private System.String currentSyntax;
         private System.Int32 folderCount;
+        private System.String[] args;
 
-        public MainForm()
+        public MainForm(String[] arguments)
         {
+            this.args = arguments;
             this.Font = SystemFonts.MenuFont;
             this.InitializeComponent();
         }
@@ -63,9 +65,7 @@ namespace SnippetEditor
             // contentsTextBox
             // 
             this.contentsTextBox.AcceptsTab = true;
-            this.contentsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.contentsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.contentsTextBox.Enabled = false;
             this.contentsTextBox.Font = new System.Drawing.Font("Courier New", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contentsTextBox.Location = new System.Drawing.Point(121, 90);
@@ -111,8 +111,7 @@ namespace SnippetEditor
             // 
             // snippetListBox
             // 
-            this.snippetListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.snippetListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.snippetListBox.BackColor = System.Drawing.SystemColors.Window;
             this.snippetListBox.Enabled = false;
             this.snippetListBox.FormattingEnabled = true;
@@ -166,8 +165,7 @@ namespace SnippetEditor
             // 
             // tab
             // 
-            this.tab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tab.Controls.Add(this.tabPage);
             this.tab.Location = new System.Drawing.Point(10, 12);
             this.tab.Name = "tab";
@@ -190,8 +188,7 @@ namespace SnippetEditor
             // 
             // insertComboBox
             // 
-            this.insertComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.insertComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.insertComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.insertComboBox.FormattingEnabled = true;
             this.insertComboBox.Location = new System.Drawing.Point(284, 63);
@@ -314,9 +311,7 @@ namespace SnippetEditor
         /// </summary>
         private void DeleteButtonClick(Object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to delete this snippet?", "Confirm", 
-                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
-                return;
+            if (MessageBox.Show("Do you really want to delete this snippet?", " Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK) return;
             String path = Path.Combine(this.snippetFolder, this.currentSyntax);
             path = Path.Combine(path, this.snippetNameTextBox.Text + ".fds");
             if (!File.Exists(path)) return;
@@ -338,7 +333,6 @@ namespace SnippetEditor
         {
             this.snippets = new Dictionary<String, String[]>();
             this.snippetNameTextBox.SelectAll();
-
             String exePath = Path.GetDirectoryName(Application.ExecutablePath);
             this.snippetFolder = Path.Combine(exePath, @"..\..\Snippets");
             if (!File.Exists(Path.Combine(exePath, @"..\..\.local")))
@@ -357,6 +351,17 @@ namespace SnippetEditor
                 this.PopulateInsertComboBox();
                 this.UpdateSnippetList();
                 this.EnableAllControls();
+                if (this.args.Length > 0)
+                {
+                    foreach (TabPage page in this.tab.TabPages)
+                    {
+                        if (page.Text == this.args[0])
+                        {
+                            this.tab.SelectedTab = page;
+                            break;
+                        }
+                    }
+                }
             }
             else this.Close();
         }
@@ -482,6 +487,7 @@ namespace SnippetEditor
             this.insertComboBox.Items.Add("- TEXT -------------------------------------------------------------------------");
             this.insertComboBox.Items.Add("$(SelText) - Selected text");
             this.insertComboBox.Items.Add("$(CurWord) - Word at cursor position");
+            this.insertComboBox.Items.Add("$(CurSyntax) - Currently active syntax");
             this.insertComboBox.Items.Add("$(Clipboard) - Clipboard content");
             this.insertComboBox.Items.Add("- FILE -------------------------------------------------------------------------");
             this.insertComboBox.Items.Add("$(CurFile) - Current file");

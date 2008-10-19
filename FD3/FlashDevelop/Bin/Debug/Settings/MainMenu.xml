@@ -129,7 +129,7 @@
 			<button label="Label.PublishMovieInFlash" click="PluginCommand" tag="ASCompletion.CallFlashIDE;$(Quote)$(AppDir)\Tools\flashide\buildmovie.jsfl$(Quote)" shortcut="Control|F6" />
 		</menu>
 		<menu label="Label.GeneralTools" name="GeneralToolsMenu">
-			<button label="Label.SnippetEditor" click="RunProcess" tag="$(Quote)$(AppDir)\Tools\snedit\snedit.exe$(Quote)" image="341|5|2|2" />
+			<button label="Label.SnippetEditor" click="RunProcess" tag="$(Quote)$(AppDir)\Tools\snedit\snedit.exe$(Quote);$(CurSyntax)" image="341|5|2|2" />
 			<button label="Label.CompareFiles" click="RunProcess" tag="$(Quote)$(AppDir)\Tools\diffui\diffui.exe$(Quote)" image="37|16|-1|-1" />
 		</menu>
 		<menu label="Label.WebTools" name="WebToolsMenu">
