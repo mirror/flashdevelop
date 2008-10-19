@@ -18,23 +18,10 @@ namespace MXMLCompletionBuilder
         static Regex reMatchDefaultProperty = new Regex("^\\s*\\[DefaultProperty\\(\"([^\"]+)\"", RegexOptions.Multiline);
         static Regex reMatchIncludes = new Regex("^\\s*include \"([^\"]+)\";", RegexOptions.Multiline);
 
+        static private string inputFile;
+        static private string outputFile;
+        static private GeneratorConfig config;
         static private int index = 0;
-        static private string[] frameworkSWCs = new string[] {
-            @"C:\flex_sdk_3.0.2.2113\frameworks\libs",
-            @"C:\flex_sdk_3.0.2.2113\frameworks\libs\air"
-        };
-        static private string[] classpath = new string[] {
-            @"C:\dev\net\FD3\FlashDevelop\Bin\Debug\Library\AS3\intrinsic",
-            @"C:\flex_sdk_3.0.2.2113\frameworks\projects\rpc\src",
-            @"C:\flex_sdk_3.0.2.2113\frameworks\projects\framework\src",
-            @"C:\flex_sdk_3.0.2.2113\frameworks\projects\airframework\src"
-        };
-        static private string[] forceMX = new string[] {
-            "Sprite", "Matrix", "Point",
-            "BevelFilter", "BlurFilter", "ColorMatrixFilter", "DisplacementFilter", "DropShadowFilter",
-            "GlowFilter", "GradientBevelFilter", "GradientGlowFilter"
-        };
-
         static private PathExplorer explorer;
         static private AS3Context.Context context;
         static private PathModel pathModel;
@@ -46,12 +33,106 @@ namespace MXMLCompletionBuilder
 
         static void Main(string[] args)
         {
-            log = File.CreateText("log.txt");
-            output = File.CreateText("mxml.xml");
+            inputFile = "config.xml";
+            outputFile = "mxml.xml";
+
+            if (args.Length == 1 && args[0] == "help")
+            {
+                Console.WriteLine("Usage:");
+                Console.WriteLine("  MXMLCompletionBuilder [<configuration file> [<output file>]]");
+                return;
+            }
+
+            if (args.Length > 0)
+            {
+                inputFile = args[0];
+                outputFile = Path.Combine(Path.GetDirectoryName(inputFile), outputFile);
+            }
+            if (args.Length > 1) outputFile = args[1];
+
+            // read config file
+            if (File.Exists(inputFile))
+            {
+                try
+                {
+                    config = GeneratorConfig.Deserialize(inputFile);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Unable to load configuration:\n" + ex.Message);
+                }
+            }
+
+            // write default config file
+            if (config == null)
+            {
+                config = new GeneratorConfig();
+                config.FlexFrameworkSWCs = new string[] {
+                    @"C:\flex_sdk_3\frameworks\libs",
+                    @"C:\flex_sdk_3\frameworks\libs\air"
+                };
+                config.Classpath = new string[] {
+                    @"C:\Program Files\FlashDevelop\Library\AS3\intrinsic",
+                    @"C:\flex_sdk_3\frameworks\projects\rpc\src",
+                    @"C:\flex_sdk_3\frameworks\projects\framework\src",
+                    @"C:\flex_sdk_3\frameworks\projects\airframework\src"
+                };
+                config.IncludePackage = new SerializableDictionary<string, string>();
+                config.IncludePackage.Add("flash.display", "display");
+                config.IncludePackage.Add("flash.errors", "errors");
+                config.IncludePackage.Add("flash.events", "events");
+                config.IncludePackage.Add("flash.external", "external");
+                config.IncludePackage.Add("flash.filters", "filters");
+                config.IncludePackage.Add("flash.geom", "geom");
+                config.IncludePackage.Add("flash.media", "media");
+                config.IncludePackage.Add("flash.net", "net");
+                config.IncludePackage.Add("flash.printing", "printing");
+                config.IncludePackage.Add("flash.system", "system");
+                config.IncludePackage.Add("flash.text", "text");
+                config.IncludePackage.Add("flash.ui", "ui");
+                config.IncludePackage.Add("flash.utils", "utils");
+                config.IncludePackage.Add("flash.xml", "xml");
+
+                config.BuiltInTags = new SerializableDictionary<string, string>();
+                config.BuiltInTags.Add("arguments", "");
+                config.BuiltInTags.Add("Array", "");
+                config.BuiltInTags.Add("Binding", "source,destination");
+                config.BuiltInTags.Add("Boolean", "");
+                config.BuiltInTags.Add("Component", "className:s");
+                config.BuiltInTags.Add("Metadata", "");
+                config.BuiltInTags.Add("method", "name,concurrency,result:e,resultFormat,fault:e");
+                config.BuiltInTags.Add("Model", "source");
+                config.BuiltInTags.Add("Number", "");
+                config.BuiltInTags.Add("Object", "");
+                config.BuiltInTags.Add("operation", "name,concurrency,makeObjectsBindable,result:e,resultFormat,fault:e");
+                config.BuiltInTags.Add("request", "");
+                config.BuiltInTags.Add("Script", "source");
+                config.BuiltInTags.Add("String", "");
+                config.BuiltInTags.Add("Style", "source");
+                config.BuiltInTags.Add("XML", "format,source");
+                config.BuiltInTags.Add("XMLList", "");
+
+                config.ForceMxNamespace = new string[] {
+                    "Sprite", "Matrix", "Point",
+                    "BevelFilter", "BlurFilter", "ColorMatrixFilter", "DisplacementFilter", "DropShadowFilter",
+                    "GlowFilter", "GradientBevelFilter", "GradientGlowFilter"
+                };
+
+                config.LeafTags = new string[] {
+                    "UIComponent"
+                };
+                config.ContainerTags = new string[] {
+                    "Container", "IContainer"
+                };
+                GeneratorConfig.Serialize(inputFile, config);
+            }
+            
+            log = File.CreateText(Path.Combine(Path.GetDirectoryName(inputFile), "log.txt"));
+            output = File.CreateText(outputFile);
 
             // mx tags declared in SWCs
             mxTags = new HashSet<string>();
-            foreach (string swcPath in frameworkSWCs)
+            foreach (string swcPath in config.FlexFrameworkSWCs)
             {
                 string[] libs = Directory.GetFiles(swcPath, "*.swc");
                 foreach (string lib in libs) ReadCatalog(lib);
@@ -87,15 +168,14 @@ namespace MXMLCompletionBuilder
                 {
                     string name = reader.GetAttribute("className").Replace(':', '.');
                     mxTags.Add(name);
-                    Log("is mx: " + name);
+                    Log("include " + name);
                 }
             }
         }
 
         private static void ExploreNext()
         {
-            Log("==========");
-            if (index >= classpath.Length)
+            if (index >= config.Classpath.Length)
             {
                 ForceMXNamespace();
                 AddBuiltInTags();
@@ -109,7 +189,8 @@ namespace MXMLCompletionBuilder
             }
             else
             {
-                string path = classpath[index++];
+                string path = config.Classpath[index++];
+                Log("> " + path);
                 pathModel = new PathModel(path, context);
                 explorer = new PathExplorer(context, pathModel);
                 explorer.Run();
@@ -119,7 +200,7 @@ namespace MXMLCompletionBuilder
 
         private static void ForceMXNamespace()
         {
-            foreach (string cname in forceMX)
+            foreach (string cname in config.ForceMxNamespace)
             {
                 if (groups.ContainsKey(cname))
                 {
@@ -132,23 +213,8 @@ namespace MXMLCompletionBuilder
 
         private static void AddBuiltInTags()
         {
-            AddCustomTag("arguments", "");
-            AddCustomTag("Array", "");
-            AddCustomTag("Binding", "source,destination");
-            AddCustomTag("Boolean", "");
-            AddCustomTag("Component", "className:s");
-            AddCustomTag("Metadata", "");
-            AddCustomTag("method", "name,concurrency,result:e,resultFormat,fault:e");
-            AddCustomTag("Model", "source");
-            AddCustomTag("Number", "");
-            AddCustomTag("Object", "");
-            AddCustomTag("operation", "name,concurrency,makeObjectsBindable,result:e,resultFormat,fault:e");
-            AddCustomTag("request", "");
-            AddCustomTag("Script", "source");
-            AddCustomTag("String", "");
-            AddCustomTag("Style", "source");
-            AddCustomTag("XML", "format,source");
-            AddCustomTag("XMLList", "");
+            foreach (string key in config.BuiltInTags.Keys)
+                AddCustomTag(key, config.BuiltInTags[key]);
         }
 
         private static void AddCustomTag(string name, string attributes)
@@ -245,14 +311,13 @@ namespace MXMLCompletionBuilder
 
         private static bool GetIsLeaf(TypeInfos infos)
         {
-            if (!infos.isLeaf) return false; // we already know it isn't a leaf
+            if (!infos.isLeaf) 
+                return false; // we already know it isn't a leaf
             TypeInfos extInfos = infos;
             while (extInfos != null)
             {
                 if (!extInfos.isLeaf) return false;
-                else if (extInfos.name == "UIComponent" 
-                    || extInfos.name.EndsWith("Filter")
-                    || extInfos.name.EndsWith("Effect")) return true;
+                else if (config.LeafTags.Contains<string>(extInfos.name)) return true;
                 extInfos = GetExtends(extInfos);
             }
             return false;
@@ -334,22 +399,20 @@ namespace MXMLCompletionBuilder
                     infos.ignore = true;
                 }
                 else if ((type.Flags & FlagType.Interface) > 0 || package.Length == 0
-                    || package.StartsWith("flash.accessibility") || package.StartsWith("flash.sampler") || package.StartsWith("flash.profiler"))
+                    || !config.IncludePackage.ContainsKey(package))
                 {
-                    Log("skip " + type.QualifiedName);
+                    Log("ignore " + type.QualifiedName);
                     continue;
                 }
-                else 
-                {
-                    string[] parts = package.Split('.');
-                    infos.ns = parts[parts.Length - 1];
-                }
+                else infos.ns = config.IncludePackage[package];
+
                 if (type.ExtendsType != null && !type.ExtendsType.EndsWith(type.Name))
                     infos.extends = type.ExtendsType;
                 infos.isAbstract = (type.Members.Search(type.Constructor, 0, 0) == null);
-                // detect non-leafs (all UIComponent-based classes will be considered "leafs")
-                infos.isLeaf = !(type.Name == "Container" 
-                    || (type.Implements != null && type.Implements.Contains("IContainer")));
+
+                if (CheckIsContainer(infos, type))
+                    infos.isLeaf = false;
+
                 if (!ReadMetaData(model.FileName, infos))
                 {
                     Log("excluded " + type.QualifiedName);
@@ -359,6 +422,19 @@ namespace MXMLCompletionBuilder
                 groups[type.Name] = infos;
             }
             ExploreNext();
+        }
+
+        private static bool CheckIsContainer(TypeInfos infos, ClassModel model)
+        {
+            if (config.ContainerTags.Contains<string>(infos.name))
+                return true;
+            if (model.Implements != null)
+            {
+                foreach (string cname in model.Implements)
+                    if (config.ContainerTags.Contains<string>(cname))
+                        return true;
+            }
+            return false;
         }
 
         private static void AddMembers(TypeInfos infos, ClassModel type)
