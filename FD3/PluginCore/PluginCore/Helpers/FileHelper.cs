@@ -129,7 +129,7 @@ namespace PluginCore.Helpers
         {
             try
             {
-                if (!File.Exists(file)) return true;
+                if (!File.Exists(file)) return false;
                 FileAttributes fileAttr = File.GetAttributes(file);
                 if ((fileAttr & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) return true;
                 else return false;
