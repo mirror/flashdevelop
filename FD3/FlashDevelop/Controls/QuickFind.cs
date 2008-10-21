@@ -352,7 +352,11 @@ namespace FlashDevelop.Controls
                 if (match != null) FRDialogGenerics.SelectMatch(sci, match);
                 if (refreshHighlights) this.RefreshHighlights(sci, matches);
             }
-            else this.findTextBox.BackColor = Color.Salmon;
+            else
+            {
+                this.findTextBox.BackColor = Color.Salmon;
+                sci.SetSel(sci.SelectionStart, sci.SelectionStart);
+            }
         }
 
         /// <summary>
@@ -370,7 +374,11 @@ namespace FlashDevelop.Controls
                 if (match != null) FRDialogGenerics.SelectMatch(sci, match);
                 if (refreshHighlights) this.RefreshHighlights(sci, matches);
             }
-            else this.findTextBox.BackColor = Color.Salmon;
+            else
+            {
+                this.findTextBox.BackColor = Color.Salmon;
+                sci.SetSel(sci.SelectionStart, sci.SelectionStart);
+            }
         }
 
         /// <summary>
@@ -388,7 +396,11 @@ namespace FlashDevelop.Controls
                 if (match != null) FRDialogGenerics.SelectMatch(sci, match);
                 if (refreshHighlights) this.RefreshHighlights(sci, matches);
             }
-            else this.findTextBox.BackColor = Color.Salmon;
+            else
+            {
+                this.findTextBox.BackColor = Color.Salmon;
+                sci.SetSel(sci.SelectionStart, sci.SelectionStart);
+            }
         }
 
         /// <summary>
