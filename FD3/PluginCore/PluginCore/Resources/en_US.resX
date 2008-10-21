@@ -645,7 +645,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Type of the automatic indenting.</value>
   </data>
   <data name="FlashDevelop.Description.StripTrailingSpaces" xml:space="preserve">
-    <value>Strips the trailing spaces and tab from lines.</value>
+    <value>Strips the trailing spaces and tabs from lines.</value>
   </data>
   <data name="FlashDevelop.Description.TabIndents" xml:space="preserve">
     <value>Indents the code with the tab key.</value>
