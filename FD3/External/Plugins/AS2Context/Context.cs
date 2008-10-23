@@ -864,7 +864,12 @@ namespace AS2Context
 
         private void PopulateClassesEntries(string package, string path, MemberList memberList)
         {
-            string[] fileEntries = System.IO.Directory.GetFiles(path, "*" + settings.DefaultExtension);
+            string[] fileEntries = null;
+            try
+            {
+                fileEntries = System.IO.Directory.GetFiles(path, "*" + settings.DefaultExtension);
+            }
+            catch { }
             if (fileEntries == null) return;
             string mname;
             string type;
@@ -884,8 +889,14 @@ namespace AS2Context
 
         private void PopulatePackageEntries(string package, string path, MemberList memberList)
         {
-            string[] dirEntries = System.IO.Directory.GetDirectories(path);
+            string[] dirEntries = null;
+            try
+            {
+                dirEntries = System.IO.Directory.GetDirectories(path);
+            }
+            catch { }
             if (dirEntries == null) return;
+
             string mname;
             string type;
             foreach (string entry in dirEntries)
