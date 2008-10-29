@@ -1887,7 +1887,8 @@ namespace FlashDevelop
             ScintillaControl sci = Globals.SciControl;
             String extension = Path.GetExtension(sci.FileName);
             String filename = DocumentManager.GetNewDocumentName(extension);
-            this.CreateEditableDocument(filename, sci.Text, sci.CodePage);
+            DockContent document = this.CreateEditableDocument(filename, sci.Text, sci.CodePage);
+            ((TabbedDocument)document).IsModified = true;
         }
 
         /// <summary>
@@ -2034,10 +2035,13 @@ namespace FlashDevelop
         {
             if (this.isFullScreen)
             {
-                this.formState.Restore(this);
-                if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
                 LayoutManager.RestoreLayout(FileNameHelper.FullScreen);
-                this.isFullScreen = false;
+                if (!this.closeAllCanceled)
+                {
+                    this.formState.Restore(this);
+                    if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
+                    this.isFullScreen = false;
+                }
             } 
             else 
             {
