@@ -3,8 +3,8 @@
 	<keyword-classes>
 		<keyword-class name="as3-primary-keywords">
 			class dynamic extends implements import interface new case do while else if for in switch throw intrinsic
-			private public static get set function var try catch finally while with default break continue delete return final
-			each label internal native override protected const namespace package include use AS3
+			private public static get set function var try catch finally while with default break continue delete return
+			final each internal native override protected const namespace package include use AS3
 		</keyword-class>
 		<keyword-class name="as3-secondary-keywords">
 			super this null Infinity NaN undefined true false is as instanceof typeof
