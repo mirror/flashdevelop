@@ -4546,10 +4546,17 @@ namespace ScintillaNet
 								if (BeforeDelete != null ) BeforeDelete(this, scn.position, scn.length);
                                 notify = false;
 							}
-							if (notify && Modified != null)
+                            if (notify && Modified != null && scn.text != null)
 							{
-                                string text = MarshalStr(scn.text, scn.length);
-                                Modified(this, scn.position, scn.modificationType, text, scn.length, scn.linesAdded, scn.line, scn.foldLevelNow, scn.foldLevelPrev);
+                                try
+                                {
+                                    string text = MarshalStr(scn.text, scn.length);
+                                    Modified(this, scn.position, scn.modificationType, text, scn.length, scn.linesAdded, scn.line, scn.foldLevelNow, scn.foldLevelPrev);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //ErrorManager.ShowInfo("Invalid pointer : " + scn.text + ", " + scn.length + ", " + scn.modificationType);
+                                }
 							}
 							break;
 					}
