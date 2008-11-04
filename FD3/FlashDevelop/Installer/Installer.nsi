@@ -244,7 +244,7 @@ Section "FlashDevelop" Main
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
 
 	SetOverwrite off
 	SetOutPath "$INSTDIR\Settings"
@@ -395,6 +395,7 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\FirstRun.fdb"
 	Delete "$INSTDIR\Exceptions.log"
 	Delete "$INSTDIR\FlashDevelop.exe"
+	Delete "$INSTDIR\FlashDevelop.exe.config"
 	Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
 	Delete "$INSTDIR\PluginCore.dll"
 	Delete "$INSTDIR\SciLexer.dll"
