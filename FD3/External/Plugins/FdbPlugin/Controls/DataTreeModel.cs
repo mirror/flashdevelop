@@ -38,7 +38,6 @@ namespace FdbPlugin.Controls
         {
             foreach (Node node in root.Nodes)
             {
-                string ppp = this.GetFullPath(node);
                 if (path == this.GetFullPath(node))
                 {
                     return node;

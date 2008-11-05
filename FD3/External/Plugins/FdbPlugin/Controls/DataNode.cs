@@ -8,8 +8,6 @@ namespace FdbPlugin.Controls
 {
     public class DataNode : Node
     {
-        static Regex reObject = new Regex(@".*\[Object\s\d*, class='.*'\]", RegexOptions.Compiled);
-
         public override string Text
         {
             get { return base.Text; }
@@ -33,7 +31,7 @@ namespace FdbPlugin.Controls
         {
             get
             {
-                if (reObject.IsMatch(this._value))
+                if (RegexManager.RegexObject.IsMatch(this._value))
                 {
                     return false;
                 }

@@ -16,10 +16,6 @@ namespace FdbPlugin.Controls
     public partial class DataTreeControl : UserControl
     {
         private DataTreeModel _model;
-
-        Regex reNameValue = new Regex(@"(?<name>.*).*?(\s=\s)(?<value>.*)", RegexOptions.IgnoreCase);
-        static Regex reObject = new Regex(@".*\[Object\s\d*, class='.*'\]", RegexOptions.Compiled);
-
         private static ViewerForm viewerForm = null;
         private ContextMenuStrip _contextMenuStrip;
         private ToolStripMenuItem copyMenuItem, viewerMenuItem;

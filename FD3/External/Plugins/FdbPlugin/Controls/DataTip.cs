@@ -8,9 +8,8 @@ using System.Text.RegularExpressions;
 
 namespace FdbPlugin.Controls
 {
-    class DataTip
+    class DataTip:ISetData
     {
-        //public event MethodInvoker HideEvent = null;
         public event MethodInvoker UpDateDataFinishEvent = null;
 
         private Panel toolTip;
@@ -18,7 +17,7 @@ namespace FdbPlugin.Controls
         private Cursor orgCursor;
         private bool mouseDownFlg = false;
         private Point mouseDownPoint = new Point();
-        private Regex reNameValue = new Regex(@"(?<name>.*).*?(\s=\s)(?<value>.*)", RegexOptions.Compiled);
+        //private Regex reNameValue = new Regex(@"(?<name>.*).*?(\s=\s)(?<value>.*)", RegexOptions.Compiled);
         char[] chTrims = { '.' };
         private List<Control> controls = new List<Control>();
 
@@ -57,6 +56,7 @@ namespace FdbPlugin.Controls
         public Point Location
         {
             get { return toolTip.Location; }
+            set { toolTip.Location = value; }
         }
 
         public Point PointToScreen(Point p)
@@ -176,7 +176,7 @@ namespace FdbPlugin.Controls
             int valueMaxWtmp = 0;
             foreach (string data in datalist)
             {
-                Match m = reNameValue.Match(data);
+                Match m = RegexManager.RegexNameValue.Match(data);
 
                 int w = calcWidth(m.Groups["name"].Value);
                 if (w > nameMaxWtmp) nameMaxWtmp = w;
@@ -230,7 +230,7 @@ namespace FdbPlugin.Controls
             foreach (string data in datalist)
             {
                 Match m;
-                if ((m = reNameValue.Match(data)).Success)
+                if ((m = RegexManager.RegexNameValue.Match(data)).Success)
                 {
                     int w = calcWidth(m.Groups["name"].Value);
                     if (w > nameMaxW) nameMaxW = w;
@@ -267,6 +267,15 @@ namespace FdbPlugin.Controls
                 UpDateDataFinishEvent();
         }
 
+        public void Show(Point point)
+        {
+            toolTip.Left = point.X;
+            toolTip.Top = point.Y;
+            toolTip.Visible = true;
+            toolTip.BringToFront();
+            toolTip.Focus();
+        }
+
         public void Hide()
         {
             mouseDownFlg = false;
@@ -286,6 +295,64 @@ namespace FdbPlugin.Controls
             return w;
         }
 
+
+        #region SetDataInterface ãƒ¡ãƒ³ãƒ
+
+        public void SetData(string name, List<string> datalist, object option)
+        {
+            if (datalist.Count != 0)
+            {
+                this.Show(this.Location);
+            }
+            else
+            {
+                return;
+            }
+            if (option != null)
+            {
+                AddNodes(name, datalist);
+            }
+            else
+            {
+                dataTipControl.DataTree.Nodes.Clear();
+                foreach (string data in datalist)
+                {
+                    Match m;
+                    if ((m = RegexManager.RegexNameValue.Match(data)).Success)
+                    {
+                        int w = calcWidth(m.Groups["name"].Value);
+                        if (w > nameMaxW) nameMaxW = w;
+
+                        w = calcWidth(m.Groups["value"].Value);
+                        if (w > valueMaxW) valueMaxW = w;
+
+                        dataTipControl.DataTree.AddRootNode(new DataNode(m.Groups["name"].Value, m.Groups["value"].Value));
+                    }
+                }
+                if (dataTipControl.DataTree.Nodes.Count == 0)
+                {
+                    curRawCount = 0;
+                    nameMaxW = calcWidth(name);
+                    valueMaxW = calcWidth("Expression could not be evaluated");
+                    dataTipControl.DataTree.AddRootNode(new DataNode(name, "Expression could not be evaluated"));
+                }
+                else
+                {
+                    curRawCount = dataTipControl.DataTree.Nodes[0].Nodes.Count;
+                }
+                dataTipControl.DataTree.Tree.Columns[0].Width = nameMaxW + dataTipControl.DataTree.Tree.Indent + 8;
+                dataTipControl.DataTree.Tree.Columns[1].Width = valueMaxW + dataTipControl.DataTree.Tree.Indent;
+                this.Height = (curRawCount + 3) * dataTipControl.DataTree.Tree.RowHeight + dataTipControl.ResizepictureBox.Height + 8;
+                this.Width = dataTipControl.DataTree.Tree.Columns[0].Width + dataTipControl.DataTree.Tree.Columns[1].Width + 8;
+            }
+        }
+
+        public Control TargetControl
+        {
+            get { return dataTipControl; }
+        }
+
+        #endregion
     }
 
     public delegate void MouseDownEventHandler(MouseButtons button, Point e);

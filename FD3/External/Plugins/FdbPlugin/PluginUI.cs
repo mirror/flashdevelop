@@ -9,7 +9,7 @@ using PluginCore;
 
 namespace FdbPlugin
 {
-    class PluginUI : DockPanelControl
+    class PluginUI : DockPanelControl, ISetData
     {
         private PluginMain pluginMain;
         private DataTreeControl treeControl;
@@ -19,7 +19,6 @@ namespace FdbPlugin
             this.pluginMain = pluginMain;
             this.treeControl = new DataTreeControl();
             this.treeControl.Tree.BorderStyle = BorderStyle.None;
-            this.treeControl.Tree.Expanding += new EventHandler<TreeViewAdvEventArgs>(this.LocalVariablesTreeExpanding);
             this.treeControl.Resize += new EventHandler(this.TreeControlResize);
             this.treeControl.Tree.Font = PluginBase.Settings.DefaultFont;
             this.treeControl.Dock = DockStyle.Fill;
@@ -46,23 +45,49 @@ namespace FdbPlugin
             this.treeControl.Tree.Columns[1].Width = w - 8;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private static Regex reObject = new Regex(@".*\[Object\s\d*, class='.*'\]", RegexOptions.Compiled);
-        private void LocalVariablesTreeExpanding(Object sender, TreeViewAdvEventArgs e)
+        private static Char[] chTrims = { '.' };
+        #region SetDataInterface ãƒ¡ãƒ³ãƒ
+
+        public void SetData(string name, List<string> datalist, object option)
         {
-            if (e.Node.Index >= 0)
+            treeControl.Tree.BeginUpdate();
+
+            if ((string)option == "expand")
             {
-                DataNode node = e.Node.Tag as DataNode;
-                if (reObject.IsMatch(node.Value))
+                DataNode node = treeControl.GetNode(name.Trim(chTrims));
+                if (node.Nodes.Count > 0) return;
+                foreach (String data in datalist)
                 {
-                    String path = this.treeControl.GetFullPath(node) + ".";
-                    this.pluginMain.FdbWrapper.Print(path, PrintType.LOCALEXPAND);
+                    Match m = RegexManager.RegexNameValue.Match(data);
+                    node.Nodes.Add(new DataNode(m.Groups["name"].Value, m.Groups["value"].Value));
                 }
             }
+            else
+            {
+                foreach (string buf in datalist)
+                {
+                    Match m = RegexManager.RegexNameValue.Match(buf);
+                    string objname = m.Groups["name"].Value.Trim();
+                    string objvalue = m.Groups["value"].Value.Trim();
+
+                    DataNode node = treeControl.GetNode(objname.Trim(chTrims));
+                    if (node != null)
+                    {
+                        node.Value = objvalue;
+                    }
+                }
+            }
+
+            treeControl.Tree.EndUpdate();
+            treeControl.Enabled = true;
         }
 
+        public Control TargetControl
+        {
+            get { return this.treeControl; }
+        }
+
+        #endregion
     }
 
 }

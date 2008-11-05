@@ -67,6 +67,55 @@ namespace FdbPlugin.Properties {
             }
         }
         
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;FdbRegex xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;Locate&gt;en_US&lt;/Locate&gt;
+        ///  &lt;MsgList&gt;
+        ///    &lt;MsgPattern&gt;
+        ///      &lt;Name&gt;UnknownCommandFormat&lt;/Name&gt;
+        ///      &lt;Pattern&gt;&lt;![CDATA[Unknown command &apos;{0}&apos;, ignoring it]]&gt;&lt;/Pattern&gt;
+        ///    &lt;/MsgPattern&gt;
+        ///  &lt;/MsgList&gt;
+        ///  &lt;RegexList&gt;
+        ///    &lt;RegexPattern&gt;
+        ///      &lt;Name&gt;RegexSetBreakPoint&lt;/Name&gt;
+        ///      &lt;Pattern&gt;&lt;![CDATA[Breakpoint (?&lt;breakpoint&gt;.*).*?: file (?&lt;filename&gt;.*).*?, line (?&lt;line&gt;.*)]] [æ®‹ã‚Šã®æ–‡å­—åˆ—ã¯åˆ‡ã‚Šè©°ã‚ã‚‰ã‚Œã¾ã—ãŸ]&quot;; ã«é¡žä¼¼ã—ã¦ã„ã‚‹ãƒ­ãƒ¼ã‚«ãƒ©ã‚¤ã‚ºã•ã‚ŒãŸæ–‡å­—åˆ—ã‚’æ¤œç´¢ã—ã¾ã™ã€‚
+        /// </summary>
+        internal static string FdbRegex_en_US {
+            get {
+                return ResourceManager.GetString("FdbRegex_en_US", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;FdbRegex xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;Locate&gt;ja_JP&lt;/Locate&gt;
+        ///  &lt;MsgList&gt;
+        ///    &lt;MsgPattern&gt;
+        ///      &lt;Name&gt;UnknownCommandFormat&lt;/Name&gt;
+        ///      &lt;Pattern&gt;&lt;![CDATA[ä¸æ˜Žãªã‚³ãƒžãƒ³ãƒ‰ [{0}] ãŒè¦‹ã¤ã‹ã‚Šã¾ã—ãŸã€‚ã“ã®ã‚³ãƒžãƒ³ãƒ‰ã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚]]&gt;&lt;/Pattern&gt;
+        ///    &lt;/MsgPattern&gt;
+        ///  &lt;/MsgList&gt;
+        ///  &lt;RegexList&gt;
+        ///    &lt;RegexPattern&gt;
+        ///      &lt;Name&gt;RegexSetBreakPoint&lt;/Name&gt;
+        ///      &lt;Pattern&gt;&lt;![CDATA[ãƒ–ãƒ¬ãƒ¼ã‚¯ãƒã‚¤ãƒ³ãƒˆ (?&lt;breakpoint&gt;.*).*?: ãƒ•ã‚¡ã‚¤ãƒ« (?&lt;filename&gt;.*).*?ã€è¡Œç•ªå· (?&lt;line&gt;.*)]]&gt; [æ®‹ã‚Šã®æ–‡å­—åˆ—ã¯åˆ‡ã‚Šè©°ã‚ã‚‰ã‚Œã¾ã—ãŸ]&quot;; ã«é¡žä¼¼ã—ã¦ã„ã‚‹ãƒ­ãƒ¼ã‚«ãƒ©ã‚¤ã‚ºã•ã‚ŒãŸæ–‡å­—åˆ—ã‚’æ¤œç´¢ã—ã¾ã™ã€‚
+        /// </summary>
+        internal static string FdbRegex_ja_JP {
+            get {
+                return ResourceManager.GetString("FdbRegex_ja_JP", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Finish {
+            get {
+                object obj = ResourceManager.GetObject("Finish", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Next {
             get {
                 object obj = ResourceManager.GetObject("Next", resourceCulture);

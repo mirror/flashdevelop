@@ -10,6 +10,13 @@ using System.Xml.Serialization;
 namespace FdbPlugin
 {
     public delegate void PathChangedEventHandler(String path);
+    public delegate void FlexSDKLocaleChangedEventHandler(FlexSDKLocale locate);
+
+    public enum FlexSDKLocale
+    {
+        en_US,
+        ja_JP
+    }
 
     [Serializable]
     public class Settings
@@ -21,10 +28,27 @@ namespace FdbPlugin
         private Keys stepShortcut;
         private Keys nextShortcut;
         private Keys pauseShortcut;
+
+        private Keys toggleBreakPointShortcut;
+        private Keys finishShortcut;
+        private Keys toggleBreakPointEnableShortcut;
+
+        private Keys disableAllBreakPointsShortcut;
+        private Keys enableAllBreakPointsShortcut;
+
         private String debugFlashPlayerPath;
         private Boolean debugWithCompile = true;
         private Boolean alwaysCheckDebugStop = true;
+        private Boolean isTraceLog = false;
+
+        private Boolean saveBreakPoints = false;
+        private FlexSDKLocale flexSdkLocale = FlexSDKLocale.en_US;
+
+        private Color breakPointEnableLineColor = Color.Yellow;
+        private Color breakPointDisableLineColor = Color.Gray;
+
         public event PathChangedEventHandler PathChangedEvent = null;
+        public event FlexSDKLocaleChangedEventHandler FlexSDKLocaleChangedEvent = null;
 
         [LocalizedCategory("FdbPlugin.Category.View")]
         [LocalizedDescription("FdbPlugin.Description.DebugLineColor")] 
@@ -83,6 +107,35 @@ namespace FdbPlugin
             set { this.pauseShortcut = value; }
         }
 
+        [LocalizedCategory("FdbPlugin.Category.Shortcuts")]
+        public Keys Finish
+        {
+            get { return this.finishShortcut; }
+            set { this.finishShortcut = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.Shortcuts")]
+        public Keys ToggleBreakPoint
+        {
+            get { return this.toggleBreakPointShortcut; }
+            set { this.toggleBreakPointShortcut = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.Shortcuts")]
+        public Keys DisableAllBreakPoints
+        {
+            get { return this.disableAllBreakPointsShortcut; }
+            set { this.disableAllBreakPointsShortcut = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.Shortcuts")]
+        public Keys EnableAllBreakPoints
+        {
+            get { return this.enableAllBreakPointsShortcut; }
+            set { this.enableAllBreakPointsShortcut = value; }
+        }
+
+
         [LocalizedCategory("FdbPlugin.Category.Misc")]
         [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
         [LocalizedDescription("FdbPlugin.Description.DebugFlashPlayerPath")]
@@ -133,7 +186,60 @@ namespace FdbPlugin
             get { return this.alwaysCheckDebugStop; }
             set { this.alwaysCheckDebugStop = value; }
         }
-        
+
+        [LocalizedCategory("FdbPlugin.Category.Misc")]
+        [Description("Tarce Log(Require restart FlashDevelop)"), DefaultValue(false)]
+        public bool IsTraceLog
+        {
+            get { return this.isTraceLog; }
+            set { this.isTraceLog = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.Misc")]
+        [Description("Save BreakPoints"), DefaultValue(false)]
+        public bool SaveBreakPoints
+        {
+            get { return this.saveBreakPoints; }
+            set { this.saveBreakPoints = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.Misc")]
+        [Description("Flex SDK Locate"), DefaultValue(FlexSDKLocale.en_US)]
+        public FlexSDKLocale FlexSdkLocale
+        {
+            get { return this.flexSdkLocale; }
+            set
+            {
+                if (value == this.flexSdkLocale) return;
+                this.flexSdkLocale = value;
+                if (FlexSDKLocaleChangedEvent != null)
+                    FlexSDKLocaleChangedEvent(this.flexSdkLocale);
+            }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.Shortcuts")]
+        public Keys ToggleBreakPointEnable
+        {
+            get { return this.toggleBreakPointEnableShortcut; }
+            set { this.toggleBreakPointEnableShortcut = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.View")]
+        [DefaultValue(typeof(Color), "Yellow")]
+        public Color BreakPointEnableLineColor
+        {
+            get { return this.breakPointEnableLineColor; }
+            set { this.breakPointEnableLineColor = value; }
+        }
+
+        [LocalizedCategory("FdbPlugin.Category.View")]
+        [DefaultValue(typeof(Color), "Gray")]
+        public Color BrekPointDisableLineColor
+        {
+            get { return this.breakPointDisableLineColor; }
+            set { this.breakPointDisableLineColor = value; }
+        }
+
         [Browsable(false)]
         private void FireChanged()
         {

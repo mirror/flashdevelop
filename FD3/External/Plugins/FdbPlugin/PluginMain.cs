@@ -13,10 +13,8 @@ using PluginCore.Controls;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using ASCompletion.Context;
-using ASCompletion.Completion;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Projects;
-using ASCompletion.Model;
 using FdbPlugin.Properties;
 using FdbPlugin.Controls;
 using ScintillaNet;
@@ -38,6 +36,15 @@ namespace FdbPlugin
         private PluginUI pluginUI;
         private Image pluginImage;
 
+        //break
+        private String breakPointGuid = "59518ab2-83f8-44cd-953f-66731aaff3c7";
+        private DockContent breakPointPanel;
+        private BreakPointUI breakPointUI;
+
+        private String stackframeGuid = "e5dac885-3d0f-47bb-ae77-86bd8da44983";
+        private DockContent stackframePanel;
+        private StackframeUI stackframeUI;
+
         private Point dataTipPoint;
         private ImageList imageList;
         private FdbWrapper fdbWrapper;
@@ -45,17 +52,29 @@ namespace FdbPlugin
         private ToolStripItem[] toolbarButtons;
         private MouseMessageFilter mouseMessageFilter;
         private String AssociateExecutableFilePath, processname;
-        private ToolStripButton PauseButton, StopButton, ContinueButton, StepButton, NextButton, StartNoDebugButton;
-        private ToolStripDropDownItem StartMenu, StartNoDebugMenu, PauseMenu, StopMenu, ContinueMenu, StepMenu, NextMenu, KillfdbMenu;
+        private ToolStripButton PauseButton, StopButton, ContinueButton, StepButton, NextButton, StartNoDebugButton,
+            FinishButton;
+        private ToolStripDropDownItem StartMenu, StartNoDebugMenu, PauseMenu, StopMenu, ContinueMenu, StepMenu, NextMenu, KillfdbMenu,
+            FinishMenu, 
+            ToggleBreakPointMenu, ToggleBreakPointEnableMenu, 
+            DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu;
+
+        private ToolStripItem QuickWatchItem;
         private Boolean debugBuildStart = false;
         private Boolean buildCmpFlg = false;
         private Boolean disableDebugger = false;
 
+        private BreakPointManager breakPointManager;
+
         private static DataTip dataTip;
+        private static QuickWatchForm quickWatchForm;
         private static String exclude = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789_$.";
-        private static Regex reNameValue = new Regex(@"(?<name>.*).*?(\s=\s)(?<value>.*)", RegexOptions.Compiled);
-        private static Regex reObject = new Regex(@".*\[Object\s\d*, class='.*'\]", RegexOptions.Compiled);
         private static Char[] chTrims = { '.' };
+
+        private const int markerNumBreakPoint = 1;
+        private const int markerNumBreakPointEnable = 3;
+        private const int markerNumBreakPointDisable = 4;
+
 
         private static class CurrentDebugPostion
         {
@@ -128,6 +147,14 @@ namespace FdbPlugin
             this.InitLocalization();
             this.CreatePluginPanel();
             this.CreateMenuItem();
+
+            SetFlexSDKLocale(settingObject.FlexSdkLocale);
+
+            //debug
+            FdbPluginTrace.init();
+            FdbPluginTrace.IsTraceLog = settingObject.IsTraceLog;
+            FdbPluginTrace.Trace("--------------------------");
+            FdbPluginTrace.Trace("---fdbPluginTrace Start---");
         }
 		
 		/// <summary>
@@ -149,10 +176,18 @@ namespace FdbPlugin
                 case EventType.FileOpen :
                     TextEvent evnt = (TextEvent)e;
                     AddSciEvent(evnt.Value); // TODO make a centralized event in UITools
+
+                    //break
+                    breakPointManager.SetBreakPointsToEditor(evnt.Value);
+
                     break;
 
                 case EventType.UIStarted:
                     CheckValidFile(!disableDebugger);
+                    break;
+                
+                case EventType.UIClosing:
+                    breakPointManager.Save();
                     break;
 
                 case EventType.FileSwitch:
@@ -188,12 +223,23 @@ namespace FdbPlugin
                             disableDebugger = false;
                             AddStartNoDebugButton();
                             CheckValidFile(true);
+
+                            breakPointUI.Clear();
+                            breakPointManager.Project = project;
+                            breakPointManager.Load();
+                            breakPointManager.SetBreakPointsToEditor(PluginBase.MainForm.Documents);
                         }
                         else
                         {
                             disableDebugger = true;
                             RemoveStartNoDebugButton();
                             CheckValidFile(false);
+
+                            if(breakPointManager.Project != null)
+                            {
+                                breakPointManager.Save();
+                            }
+                            breakPointUI.Clear();
                         }
                     }
                     else if (disableDebugger) return;
@@ -279,13 +325,79 @@ namespace FdbPlugin
 
         #region FdbWrapper Event Handling
 
+
+        void fdbWrapper_PrintEvent(object sender, PrintArg e)
+        {
+            if (sender is ISetData)
+            {
+                ISetData si = sender as ISetData;
+                if (si.TargetControl == null)
+                {
+                    si.SetData(e.valname, e.output, e.option);
+                }
+                else
+                {
+                    si.TargetControl.Invoke((MethodInvoker)delegate()
+                    {
+                        si.SetData(e.valname, e.output, e.option);
+                    });
+                }
+            }
+        }
+
+        void fdbWrapper_MoveFrameEvent(object sender, FdbMsg e)
+        {
+            (PluginBase.MainForm as Form).Invoke((MethodInvoker)delegate()
+            {
+                ActiveDocument(e.filefillpath, e.line - 1, true);
+            });
+
+            stackframeUI.Invoke((MethodInvoker)delegate()
+            {
+                stackframeUI.ActiveItem();
+            });
+        }
+
+        void fdbWrapper_PrintStackfremaEvent(object sender, PrintArg e)
+        {
+            stackframeUI.Invoke((MethodInvoker)delegate()
+            {
+                stackframeUI.AddItem(e.output);
+            });
+        }
+
+        void fdbWrapper_ConditionErrorEvent(object sender)
+        {
+            fdbWrapper.Stop(processname, false);
+
+            (PluginBase.MainForm as Form).Invoke((MethodInvoker)delegate()
+            {
+                MessageBox.Show("Condition Error");
+            });
+            breakPointPanel.Invoke((MethodInvoker)delegate()
+            {
+                breakPointPanel.Show();
+            });
+        }
+
         /// <summary>
         /// 
         /// </summary>
         void fdbWrapper_ExceptionEvent(object sender)
         {
-            //UpdateMenuState(FdbState.EXCEPTION_CONTINUE);
+            targetHwnd = IntPtr.Zero;
+            Process[] allProcesses = Process.GetProcessesByName(processname);
+            foreach (Process oneProcess in allProcesses)
+            {
+                targetProcess = oneProcess;
+            }
             Util.EnumWindows(new Util.EnumerateWindowsCallback(EnumerateWindows), 0);
+            if (targetHwnd == IntPtr.Zero)
+            {
+                return;
+            }
+            Util.SetForegroundWindow(targetHwnd);
+            UpdateMenuState(FdbState.WAIT);
         }
 
         /// <summary>
@@ -318,7 +430,6 @@ namespace FdbPlugin
         /// </summary>
         private void fdbWrapper_StopEvent(Object sender)
         {
-
             if ((PluginBase.MainForm as Form).InvokeRequired)
             {
                 (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate()
@@ -340,83 +451,18 @@ namespace FdbPlugin
                 });
             }
             else pluginUI.TreeControl.Nodes.Clear();
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void fdbWrapper_PrintEvent(Object sender, PrintArg e)
-        {
-            String name = e.valname;
-            if (e.printtype == PrintType.LOCAL)
+            stackframeUI.Invoke((MethodInvoker)delegate()
             {
-                pluginUI.TreeControl.Invoke((MethodInvoker)delegate()
-                {
-                    pluginUI.TreeControl.Tree.BeginUpdate();
-                    DataNode node = pluginUI.TreeControl.GetNode(name.Trim(chTrims));
-                    if (node.Nodes.Count == 0) return;
-                    for (Int32 i = 0; i < node.Nodes.Count; i++)
-                    {
-                        Match m = reNameValue.Match(e.output[i]);
-                        DataNode n = node.Nodes[i] as DataNode;
-                        n.Text = m.Groups["name"].Value.Trim();
-                        n.Value = m.Groups["value"].Value.Trim();
-                    }
-                    pluginUI.TreeControl.Tree.EndUpdate();
-                });
-            }
-            else if (e.printtype == PrintType.LOCALEXPAND)
+                stackframeUI.ClearItem();
+            });
+
+            //Close window(AIR)
+            if (adlProcess != null && !adlProcess.HasExited)
             {
-                pluginUI.TreeControl.Invoke((MethodInvoker)delegate()
-                {
-                    DataNode node = pluginUI.TreeControl.GetNode(name.Trim(chTrims));
-                    if (node.Nodes.Count > 0) return;
-                    foreach (String data in e.output)
-                    {
-                        Match m = reNameValue.Match(data);
-                        node.Nodes.Add(new DataNode(m.Groups["name"].Value, m.Groups["value"].Value));
-                    }
-                });
-            }
-            else if (e.printtype == PrintType.LOCALEXPANDUPDATE)
-            {
-                pluginUI.TreeControl.Invoke((MethodInvoker)delegate()
-                {
-                    pluginUI.TreeControl.Tree.BeginUpdate();
-                    DataNode node = pluginUI.TreeControl.GetNode(name.Trim(chTrims));
-                    if (node.Nodes.Count == 0) return;
-                    for (int i = 0; i < node.Nodes.Count; i++)
-                    {
-                        Match m = reNameValue.Match(e.output[i]);
-                        DataNode n = node.Nodes[i] as DataNode;
-                        n.Text = m.Groups["name"].Value.Trim();
-                        n.Value = m.Groups["value"].Value.Trim();
-                    }
-                    pluginUI.TreeControl.Tree.EndUpdate();
-                });
-                leafCount--;
-                if (leafCount == 0)
-                {
-                    (PluginBase.MainForm as Form).Invoke((MethodInvoker)delegate()
-                    {
-                        UpdateMenuState(fdbWrapper.State);
-                    });
-                }
-            }
-            else if (e.printtype == PrintType.DATATIP)
-            {
-                dataTip.DataTree.Invoke((MethodInvoker)delegate()
-                {
-                    dataTipPoint.Y += 8;
-                    dataTip.Show(dataTipPoint, e.valname, e.output);
-                });
-            }
-            else if (e.printtype == PrintType.DATATIPEXPAND)
-            {
-                dataTip.DataTree.Invoke((MethodInvoker)delegate()
-                {
-                    dataTip.AddNodes(e.valname, e.output);
-                });
+                adlProcess.CloseMainWindow();
+                adlProcess.WaitForExit();
+                adlProcess = null;
             }
         }
 
@@ -432,7 +478,7 @@ namespace FdbPlugin
                     foreach (String data in e.output)
                     {
                         Match m = null;
-                        if ((m = reNameValue.Match(data)).Success)
+                        if ((m = RegexManager.RegexNameValue.Match(data)).Success)
                         {
                             pluginUI.TreeControl.AddRootNode(new DataNode(m.Groups["name"].Value.Trim(), m.Groups["value"].Value.Trim()));
                         }
@@ -447,7 +493,7 @@ namespace FdbPlugin
                     foreach (String data in e.output)
                     {
                         Match m;
-                        if ((m = reNameValue.Match(data)).Success)
+                        if ((m = RegexManager.RegexNameValue.Match(data)).Success)
                         {
                             String name = m.Groups["name"].Value.Trim();
                             name = name.TrimEnd(chTrims);
@@ -455,7 +501,7 @@ namespace FdbPlugin
                             DataNode node = pluginUI.TreeControl.GetNode(name);//.Value = value;
                             if (node != null)
                             {
-                                if (node.Nodes.Count == 0 && node.IsLeaf && reObject.IsMatch(value))
+                                if (node.Nodes.Count == 0 && node.IsLeaf && RegexManager .RegexObject.IsMatch(value))
                                 {
                                     node.Parent.Nodes.Insert(node.Index, new DataNode(name, value));
                                     node.Parent.Nodes.Remove(node);
@@ -489,6 +535,7 @@ namespace FdbPlugin
                     PluginBase.MainForm.OpenEditableDocument(e.filefillpath);
                     sci = GetScintillaControl(e.filefillpath);
                 }
+
                 CurrentDebugPostion.fullpath = e.filefillpath;
                 Int32 i = GetScintillaControlIndex(sci);
                 PluginBase.MainForm.Documents[i].Activate();
@@ -507,21 +554,41 @@ namespace FdbPlugin
         /// </summary>
         private void Start(String filename)
         {
-            UpdateMenuState(FdbState.START);
-            TraceManager.Add("[Debugging with FDB]");
-            OpenLocalVariablesPanel(null, null);
-            Application.DoEvents();
-            fdbWrapper.CurrentProject = currentProject;
-            fdbWrapper.CurrentSettings = AS3Context.PluginMain.Settings;
-            fdbWrapper.Outputfilefullpath = filename;
-            fdbWrapper.GetBreakPointMark(PluginBase.MainForm.Documents);
-            fdbWrapper.Start();
-            if (fdbWrapper.State != FdbState.PAUSE_SET_BREAKPOINT
-                 && fdbWrapper.State != FdbState.CONTINUE
-                && fdbWrapper.State != FdbState.UNLOAD)
+            try
             {
-                fdbWrapper.InfoLocals();
-                UpdatelocalVariablesLeaf();
+                FdbPluginTrace.TraceInfo("----Start(string filename)----");
+                UpdateMenuState(FdbState.START);
+                TraceManager.Add("[Debugging with FDB]");
+                OpenLocalVariablesPanel(null, null);
+                Application.DoEvents();
+                fdbWrapper.CurrentProject = currentProject;
+                fdbWrapper.CurrentSettings = AS3Context.PluginMain.Settings;
+                fdbWrapper.Outputfilefullpath = filename;
+                fdbWrapper.Start();
+
+                FdbPluginTrace.TraceInfo("fdbWrapper.Start() end");
+                FdbPluginTrace.TraceInfo("fdbWrapper.State = " + fdbWrapper.State.ToString());
+
+                if (fdbWrapper.State != FdbState.CONDITIONERROR 
+                    && fdbWrapper.State != FdbState.PAUSE_SET_BREAKPOINT
+                    && fdbWrapper.State != FdbState.CONTINUE
+                    && fdbWrapper.State != FdbState.UNLOAD)
+                {
+                    fdbWrapper.InfoLocals();
+                    FdbPluginTrace.TraceInfo("Start(string filename) fdbWrapper.InfoLocals(); end");
+                    UpdatelocalVariablesLeaf();
+                    FdbPluginTrace.TraceInfo("Start(string filename) UpdatelocalVariablesLeaf(); end");
+
+                    if (stackframePanel.DockState != DockState.Hidden)
+                    {
+                        fdbWrapper.InfoStack();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                fdbWrapper.Stop(processname, false);
             }
         }
 
@@ -532,6 +599,7 @@ namespace FdbPlugin
         {
             try
             {
+                FdbPluginTrace.Trace("CheckCurrent()");
                 CheckCurrent();
             }
             catch (Exception ex)
@@ -539,6 +607,7 @@ namespace FdbPlugin
                 ErrorManager.ShowError(ex);
                 return;
             }
+
             debugBuildStart = true;
             UpdateMenuState(FdbState.WAIT);
             if (settingObject.DebugWithCompile 
@@ -550,7 +619,7 @@ namespace FdbPlugin
                 }
                 catch
                 {
-                    String message = TextHelper.GetString("Info.DebugWithoutCompiler");
+                    String message = TextHelper.GetString("FdbPlugin.Info.DebugWithoutCompiler");
                     String title = " " + TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
                     if (MessageBox.Show(message, title, MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
@@ -584,6 +653,7 @@ namespace FdbPlugin
         {
             dataTip.Hide();
             fdbWrapper.Stop(processname, settingObject.AlwaysCheckDebugStop);
+            FdbPluginTrace.TraceInfo("Stop() fdbWrapper.Stop; end");
         }
 
         /// <summary>
@@ -593,16 +663,24 @@ namespace FdbPlugin
         {
             if (fdbWrapper.State == FdbState.EXCEPTION)
             {
+                FdbPluginTrace.TraceInfo("Next() fdbWrapper.ExceptionContinue(); start");
                 fdbWrapper.ExceptionContinue();
+                FdbPluginTrace.TraceInfo("Next() fdbWrapper.ExceptionContinue(); end");
             }
             else
             {
-                UpdateMenuState(FdbState.CONTINUE);
+                UpdateMenuState(FdbState.NEXT);
                 RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
-                leafCount = pluginUI.TreeControl.AllHasChildNodes.Count;
-                fdbWrapper.Next();
+                fdbWrapper.Next(); 
                 fdbWrapper.InfoLocals();
+                FdbPluginTrace.TraceInfo("Next() fdbWrapper.InfoLocals(); end");
                 UpdatelocalVariablesLeaf();
+                FdbPluginTrace.TraceInfo("Next() UpdatelocalVariablesLeaf(); end");
+                
+                if (stackframePanel.DockState != DockState.Hidden)
+                {
+                    fdbWrapper.InfoStack();
+                }
             }
         }
 
@@ -611,17 +689,42 @@ namespace FdbPlugin
         /// </summary>
         private void Step_Click(Object sender, EventArgs e)
         {
-            if (fdbWrapper.State == FdbState.EXCEPTION)
+            try
             {
-                fdbWrapper.ExceptionContinue();
+                if (fdbWrapper.State == FdbState.EXCEPTION)
+                {
+                    FdbPluginTrace.TraceInfo("Step() fdbWrapper.ExceptionContinue(); start");
+                    fdbWrapper.ExceptionContinue();
+                    FdbPluginTrace.TraceInfo("Step() fdbWrapper.ExceptionContinue(); end");
+                }
+                else
+                {
+                    UpdateMenuState(FdbState.STEP);
+                    RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
+                    fdbWrapper.Step();
+                    fdbWrapper.InfoLocals();
+                    FdbPluginTrace.TraceInfo("Step() fdbWrapper.InfoLocals(); end");
+                    UpdatelocalVariablesLeaf();
+                    FdbPluginTrace.TraceInfo("Step() UpdatelocalVariablesLeaf(); end");
+
+                    if (stackframePanel.DockState != DockState.Hidden)
+                    {
+                        fdbWrapper.InfoStack();
+                    }
+                }
             }
-            else
+            catch (NotFindSourceException ex)
             {
-                UpdateMenuState(FdbState.CONTINUE);
-                RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
-                fdbWrapper.Step();
-                fdbWrapper.InfoLocals();
-                UpdatelocalVariablesLeaf();
+                MessageBox.Show(ex.Message);
+                UpdateMenuState(FdbState.BREAK);
+
+
+                ITabbedDocument doc = GetDocument(ex.PreFileFullPath);
+                if(doc != null)
+                {
+                    ScintillaControl sci = doc.SciControl;
+                    AddHighlights(sci, ex.PreLine-1);
+                }
             }
         }
 
@@ -630,20 +733,37 @@ namespace FdbPlugin
         /// </summary>
         private void Continue_Click(Object sender, EventArgs e)
         {
-            if (fdbWrapper.State == FdbState.EXCEPTION)
+            try
             {
-                fdbWrapper.ExceptionContinue();
-            }
-            else
-            {
-                UpdateMenuState(FdbState.CONTINUE);
-                RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
-                fdbWrapper.Continue();
-                if (fdbWrapper.State != FdbState.PAUSE_SET_BREAKPOINT)
+                if (fdbWrapper.State == FdbState.EXCEPTION)
                 {
-                    fdbWrapper.InfoLocals();
-                    UpdatelocalVariablesLeaf();
+                    FdbPluginTrace.TraceInfo("Continue() fdbWrapper.ExceptionContinue(); start");
+                    fdbWrapper.ExceptionContinue();
+                    FdbPluginTrace.TraceInfo("Continue() fdbWrapper.ExceptionContinue(); end");
                 }
+                else
+                {
+                    //break
+                    UpdateMenuState(FdbState.CONTINUE);
+                    RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
+                    fdbWrapper.Continue();
+                    if (fdbWrapper.State != FdbState.PAUSE_SET_BREAKPOINT)
+                    {
+                        fdbWrapper.InfoLocals();
+                        FdbPluginTrace.TraceInfo("Continue() fdbWrapper.InfoLocals(); end");
+                        UpdatelocalVariablesLeaf();
+                        FdbPluginTrace.TraceInfo("Continue() UpdatelocalVariablesLeaf(); end");
+
+                        if (stackframePanel.DockState != DockState.Hidden)
+                        {
+                            fdbWrapper.InfoStack();
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -654,6 +774,7 @@ namespace FdbPlugin
         {
             UpdateMenuState(FdbState.WAIT);
             RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
+            FdbPluginTrace.TraceInfo("Pause() fdbWrapper.Pause();");
             fdbWrapper.Pause();
         }
 
@@ -662,17 +783,87 @@ namespace FdbPlugin
         /// </summary>
         private void Killfdb_Click(Object sender, EventArgs e)
         {
-            /*string ProcessName = "fdb";
-            Process[] allProcesses = Process.GetProcessesByName(ProcessName);
-            foreach (Process oneProcess in allProcesses)
-            {
-                DialogResult res = MessageBox.Show("Kill fdb Process?", "", MessageBoxButtons.OKCancel);
-                if (res == DialogResult.OK)
-                {
-                    oneProcess.Kill();
-                }
-            }*/
             fdbWrapper.Cleanup();
+        }
+
+        private void Finish_Click(Object sender, EventArgs e)
+        {
+            UpdateMenuState(FdbState.CONTINUE);
+            RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
+            FdbPluginTrace.TraceInfo("Finish() fdbWrapper.Pause();");
+            fdbWrapper.Finish();
+
+            RemoveHighlights(GetScintillaControl(CurrentDebugPostion.fullpath));
+            fdbWrapper.InfoLocals();
+            FdbPluginTrace.TraceInfo("Finish() fdbWrapper.InfoLocals(); end");
+            UpdatelocalVariablesLeaf();
+            FdbPluginTrace.TraceInfo("Finish() UpdatelocalVariablesLeaf(); end");
+
+            if (stackframePanel.DockState != DockState.Hidden)
+            {
+                fdbWrapper.InfoStack();
+            }
+        }
+        
+        private void ToggleBreakPoint_Click(Object sender, EventArgs e)
+        {
+            ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
+            int line = sci.LineFromPosition(sci.CurrentPos);
+            this.ToggleMarker(sci, markerNumBreakPoint, line);
+        }
+
+        private void DeleteAllBreakPoints_Click(Object sender, EventArgs e)
+        {
+            foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
+            {
+                doc.SciControl.MarkerDeleteAll(markerNumBreakPoint);
+                doc.SciControl.MarkerDeleteAll(markerNumBreakPointDisable);
+                doc.SciControl.MarkerDeleteAll(markerNumBreakPointEnable);
+            }
+            breakPointManager.ClearAll();
+            breakPointUI.Clear();
+        }
+
+        private void ToggleBreakPointEnable_Click(Object sender, EventArgs e)
+        {
+            ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;       
+            Int32 line = sci.LineFromPosition(sci.CurrentPos);
+
+            if (IsMarker(sci, markerNumBreakPointEnable, line))
+            {
+                ToggleMarker(sci, markerNumBreakPointDisable, line);
+            }
+        }
+
+        private void DisableAllBreakPoints_Click(Object sender, EventArgs e)
+        {
+            foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
+            {
+                List<int> list = breakPointManager.GetMarkers(doc.SciControl, markerNumBreakPoint);
+                foreach (int line in list)
+                {
+                    doc.SciControl.MarkerAdd(line, markerNumBreakPointDisable);
+                }
+            }
+
+            breakPointManager.DisableAllBreakPoints(fdbWrapper.IsDebugStart);
+        }
+
+        private void EnableAllBreakPoints_Click(Object sender, EventArgs e)
+        {
+            foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
+            {
+                List<int> list = breakPointManager.GetMarkers(doc.SciControl, markerNumBreakPoint);
+                foreach (int line in list)
+                {
+                    if (IsMarker(doc.SciControl, markerNumBreakPointDisable, line))
+                    {
+                        ToggleMarker(doc.SciControl, markerNumBreakPointDisable, line);
+                    }
+                }
+            }
+
+            breakPointManager.EnableAllBreakPoints(fdbWrapper.IsDebugStart);
         }
 
         #endregion
@@ -699,6 +890,7 @@ namespace FdbPlugin
             imageList.Images.Add("Step", Resource.Step);
             imageList.Images.Add("Pause", Resource.Pause);
             imageList.Images.Add("NoDebug", Resource.StartNoDebug);
+            imageList.Images.Add("Finish", Resource.Finish);
 
             String dataPath = Path.Combine(PathHelper.DataDir, "FdbPlugin");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
@@ -711,18 +903,92 @@ namespace FdbPlugin
             fdbWrapper = new FdbWrapper();
             fdbWrapper.ContinueEvent += new ContinueEventHandler(fdbWrapper_ContinueEvent);
             fdbWrapper.LocalValuesEvent += new ContinueEventHandler(fdbWrapper_LocalValuesEvent);
-            fdbWrapper.PrintEvent += new PrintEventHandler(fdbWrapper_PrintEvent);
             fdbWrapper.StopEvent += new fdbEventHandler(fdbWrapper_StopEvent);
             fdbWrapper.TraceEvent += new TraceEventHandler(fdbWrapper_TraceEvent);
             fdbWrapper.PauseEvent += new fdbEventHandler(fdbWrapper_PauseEvent);
             fdbWrapper.ExceptionEvent += new fdbEventHandler(fdbWrapper_ExceptionEvent);
             fdbWrapper.PuaseNotRespondEvent += new fdbEventHandler(fdbWrapper_PuaseNotRespondEvent);
 
+            fdbWrapper.PrintEvent += new PrintEventHandler(fdbWrapper_PrintEvent);
+            fdbWrapper.ConditionErrorEvent += new fdbEventHandler(fdbWrapper_ConditionErrorEvent);
+            fdbWrapper.StartadlEvent += new fdbEventHandler(fdbWrapper_StartadlEvent);
+            fdbWrapper.InfoStackEvent += new PrintEventHandler(fdbWrapper_PrintStackfremaEvent);
+            fdbWrapper.MoveFrameEvent += new ContinueEventHandler(fdbWrapper_MoveFrameEvent);
+
+            //break
+            breakPointManager = new BreakPointManager();
+            fdbWrapper.breakPointManager = breakPointManager;
+
             if (dataTip == null) dataTip = new DataTip(PluginBase.MainForm);
             mouseMessageFilter = new MouseMessageFilter();
             mouseMessageFilter.AddControls(dataTip.Controls);
             mouseMessageFilter.MouseDownEvent += new MouseDownEventHandler(mouseMessageFilter_MouseDownEvent);
             Application.AddMessageFilter(mouseMessageFilter);
+
+            quickWatchForm = new QuickWatchForm();
+            quickWatchForm.StartPosition = FormStartPosition.CenterParent;
+            //quickWatchForm.EvaluateEvent += new EvaluateEventHandler(quickWatchForm_EvaluateEvent);
+            //quickWatchForm.DataTreeExpandingEvent += new EvaluateEventHandler(quickWatchForm_DataTreeExpandingEvent)
+
+            quickWatchForm.EvaluateEvent += new EvaluateEventHandler(delegate(object sender, EvaluateArgs e)
+                {
+                    fdbWrapper.Print(quickWatchForm, e.Exp, "evaluate");                 
+                });
+            quickWatchForm.DataTreeExpandingEvent += new EvaluateEventHandler(delegate(object sender, EvaluateArgs e)
+                {
+                    fdbWrapper.Print(quickWatchForm, e.Exp, "expand");
+                });
+        }
+
+        //void quickWatchForm_DataTreeExpandingEvent(object sender, EvaluateArgs e)
+        //{
+        //    fdbWrapper.Print(quickWatchForm, e.Exp, "expand");
+        //}
+
+        //void quickWatchForm_EvaluateEvent(object sender, EvaluateArgs e)
+        //{
+        //    fdbWrapper.Print(quickWatchForm, e.Exp, "exp");
+        //}
+
+
+        void fdbWrapper_PrintQuickWatchEvent(object sender, PrintArg e)
+        {
+            dataTip.DataTree.Invoke((MethodInvoker)delegate()
+            {
+                Point p = new Point(200, 200);
+                dataTip.Show(p, e.valname, e.output);
+            });
+        }
+
+        private void SetFlexSDKLocale(FlexSDKLocale locate)
+        {
+            RegexManager regexManager = new RegexManager();
+            switch (locate)
+            {
+                case FlexSDKLocale.en_US:
+                    regexManager.Load(Resource.FdbRegex_en_US);
+                    break;
+                case FlexSDKLocale.ja_JP:
+                    regexManager.Load(Resource.FdbRegex_ja_JP);
+                    break;
+            }
+            regexManager.SetRegex(fdbWrapper);
+        }
+
+
+        //test
+        Process adlProcess = null;
+        void fdbWrapper_StartadlEvent(object sender)
+        {
+            FdbPluginTrace.TraceInfo("fdbWrapper_StartadlEvent start");
+            string cmd = PluginBase.MainForm.ProcessArgString(currentProject.TestMovieCommand);
+            string[] args = (cmd + ';').Split(';');
+            ProcessStartInfo psi = new ProcessStartInfo(args[0], args[1]);
+            psi.CreateNoWindow = true;
+            psi.UseShellExecute = false;
+            psi.WorkingDirectory = currentProject.Directory;
+            FdbPluginTrace.Trace("psi.WorkingDirectory = " + psi.WorkingDirectory);
+            adlProcess = Process.Start(psi);
         }
 
         /// <summary>
@@ -730,7 +996,7 @@ namespace FdbPlugin
         /// </summary>
         public void InitLocalization()
         {
-            this.pluginDesc = TextHelper.GetString("Info.Description");
+            this.pluginDesc = TextHelper.GetString("FdbPlugin.Info.Description");
         }
 
         /// <summary>
@@ -738,7 +1004,7 @@ namespace FdbPlugin
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.FileSwitch | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command);
+            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.FileSwitch | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
         }
 
@@ -748,58 +1014,97 @@ namespace FdbPlugin
         public void CreateMenuItem()
         {
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanelMenuItem"), this.pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.ViewLocalVariablesPanelMenuItem"), this.pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
 
+            //break
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem("BreakPointList", this.pluginImage, new EventHandler(this.OpenBreakPointPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem("Stackframe", this.pluginImage, new EventHandler(this.OpenStackframePanel)));
+            
             //Menu           
             ToolStripMenuItem debugMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("DebugMenu");
             if (debugMenu == null)
             {
-                debugMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DebugMenuItem"));
+                debugMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.DebugMenuItem"));
                 ToolStripMenuItem toolsMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ToolsMenu");
                 Int32 idx = PluginBase.MainForm.MenuStrip.Items.IndexOf(toolsMenu);
                 if (idx < 0) idx = PluginBase.MainForm.MenuStrip.Items.Count - 1;
                 PluginBase.MainForm.MenuStrip.Items.Insert(idx, debugMenu);
             }
-            StartMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Start"), imageList.Images["Continue"], new EventHandler(Start_Click));
-            StartNoDebugMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartNoDebug"), imageList.Images["NoDebug"], new EventHandler(StartNoDebug_Click), this.settingObject.StartNoDebug);
-            StopMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Stop"), imageList.Images["Stop"], new EventHandler(Stop_Click), this.settingObject.Stop);
-            ContinueMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Continue"), imageList.Images["Continue"], new EventHandler(Continue_Click), this.settingObject.Continue);
-            StepMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Step"), imageList.Images["Step"], new EventHandler(Step_Click), this.settingObject.Step);
-            NextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(Next_Click), this.settingObject.Next);
-            KillfdbMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Killfdb"), null, new EventHandler(Killfdb_Click), this.settingObject.Next);
-            PauseMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Pause"), imageList.Images["Pause"], new EventHandler(Pause_Click), this.settingObject.Pause);
+            StartMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Start"), imageList.Images["Continue"], new EventHandler(Start_Click));
+            StartNoDebugMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.StartNoDebug"), imageList.Images["NoDebug"], new EventHandler(StartNoDebug_Click), this.settingObject.StartNoDebug);
+            StopMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Stop"), imageList.Images["Stop"], new EventHandler(Stop_Click), this.settingObject.Stop);
+            ContinueMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Continue"), imageList.Images["Continue"], new EventHandler(Continue_Click), this.settingObject.Continue);
+            StepMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Step"), imageList.Images["Step"], new EventHandler(Step_Click), this.settingObject.Step);
+            NextMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Next"), imageList.Images["Next"], new EventHandler(Next_Click), this.settingObject.Next);
+            KillfdbMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Killfdb"), null, new EventHandler(Killfdb_Click), this.settingObject.Next);
+            PauseMenu = new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.Pause"), imageList.Images["Pause"], new EventHandler(Pause_Click), this.settingObject.Pause);
 
-            List<ToolStripItem> items = new List<ToolStripItem>(new ToolStripItem[] { StartMenu, StartNoDebugMenu, PauseMenu, StopMenu, ContinueMenu, StepMenu, NextMenu, KillfdbMenu });
-            foreach (ToolStripMenuItem item in items)
+            //break
+            FinishMenu = new ToolStripMenuItem("Finish", imageList.Images["Finish"], new EventHandler(Finish_Click), this.settingObject.Finish);
+
+            ToolStripSeparator spMenu = new ToolStripSeparator();
+
+            ToggleBreakPointMenu = new ToolStripMenuItem("ToggleBreakPoint", null, new EventHandler(ToggleBreakPoint_Click), this.settingObject.ToggleBreakPoint);
+            DeleteAllBreakPointsMenu = new ToolStripMenuItem("DeleteAllBreakPoints", null, new EventHandler(DeleteAllBreakPoints_Click), this.settingObject.Finish);
+            ToggleBreakPointEnableMenu = new ToolStripMenuItem("ToggleBreakPointEnable", null, new EventHandler(ToggleBreakPointEnable_Click), this.settingObject.ToggleBreakPointEnable);
+
+            DisableAllBreakPointsMenu = new ToolStripMenuItem("DisableAllBreakPoints", null, new EventHandler(DisableAllBreakPoints_Click), this.settingObject.DisableAllBreakPoints);
+            EnableAllBreakPointsMenu = new ToolStripMenuItem("EnableAllBreakPoints", null, new EventHandler(EnableAllBreakPoints_Click), this.settingObject.EnableAllBreakPoints);
+
+
+            List<ToolStripItem> items = new List<ToolStripItem>(new ToolStripItem[] { StartMenu, StartNoDebugMenu, PauseMenu, StopMenu, ContinueMenu, StepMenu, NextMenu, FinishMenu, KillfdbMenu, 
+                spMenu, ToggleBreakPointMenu, DeleteAllBreakPointsMenu, ToggleBreakPointEnableMenu ,DisableAllBreakPointsMenu, EnableAllBreakPointsMenu});
+            
+            foreach (ToolStripItem item in items)
             {
-                if (item.ShortcutKeys != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(item.ShortcutKeys);
+                if (item is ToolStripMenuItem)
+                {
+                    if ((item as ToolStripMenuItem).ShortcutKeys != Keys.None)
+                        PluginBase.MainForm.IgnoredKeys.Add((item as ToolStripMenuItem).ShortcutKeys);
+                }
             }
-            if (debugMenu.DropDownItems.Count > 0)
-            {
-                items.Add(new ToolStripSeparator());
-                foreach (ToolStripItem item in debugMenu.DropDownItems) items.Add(item);
-                debugMenu.DropDownItems.Clear();
-            }
+            //if (debugMenu.DropDownItems.Count > 0)
+            //{
+            //    items.Add(new ToolStripSeparator());
+            //    foreach (ToolStripItem item in debugMenu.DropDownItems) items.Add(item);
+            //    debugMenu.DropDownItems.Clear();
+            //}
             debugMenu.DropDownItems.AddRange(items.ToArray());
 
             //ToolStrip
-            StopButton = new ToolStripButton(TextHelper.GetString("Label.Stop"), imageList.Images["Stop"], new EventHandler(Stop_Click));
+            StopButton = new ToolStripButton(TextHelper.GetString("FdbPlugin.Label.Stop"), imageList.Images["Stop"], new EventHandler(Stop_Click));
             StopButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            ContinueButton = new ToolStripButton(TextHelper.GetString("Label.Continue"), imageList.Images["Continue"], new EventHandler(Continue_Click));
+            ContinueButton = new ToolStripButton(TextHelper.GetString("FdbPlugin.Label.Continue"), imageList.Images["Continue"], new EventHandler(Continue_Click));
             ContinueButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            StepButton = new ToolStripButton(TextHelper.GetString("Label.Step"), imageList.Images["Step"], new EventHandler(Step_Click));
+            StepButton = new ToolStripButton(TextHelper.GetString("FdbPlugin.Label.Step"), imageList.Images["Step"], new EventHandler(Step_Click));
             StepButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            NextButton = new ToolStripButton(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(Next_Click));
+            NextButton = new ToolStripButton(TextHelper.GetString("FdbPlugin.Label.Next"), imageList.Images["Next"], new EventHandler(Next_Click));
             NextButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            PauseButton = new ToolStripButton(TextHelper.GetString("Label.Pause"), imageList.Images["Pause"], new EventHandler(Pause_Click));
+            PauseButton = new ToolStripButton(TextHelper.GetString("FdbPlugin.Label.Pause"), imageList.Images["Pause"], new EventHandler(Pause_Click));
             PauseButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolbarButtons = new ToolStripItem[] { new ToolStripSeparator(), PauseButton, StopButton, ContinueButton, StepButton, NextButton };
+            
+            //break
+            FinishButton = new ToolStripButton("Finish", imageList.Images["Finish"], new EventHandler(Finish_Click));
+            FinishButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 
-            StartNoDebugButton = new ToolStripButton(TextHelper.GetString("Label.StartNoDebug"), imageList.Images["NoDebug"], new EventHandler(StartNoDebug_Click));
+            toolbarButtons = new ToolStripItem[] { new ToolStripSeparator(), PauseButton, StopButton, ContinueButton, StepButton, NextButton, FinishButton };
+
+            StartNoDebugButton = new ToolStripButton(TextHelper.GetString("FdbPlugin.Label.StartNoDebug"), imageList.Images["NoDebug"], new EventHandler(StartNoDebug_Click));
             StartNoDebugButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 
             if (dataTip == null) dataTip = new DataTip(PluginBase.MainForm);
-            dataTip.DataTree.Tree.Expanding += new EventHandler<Aga.Controls.Tree.TreeViewAdvEventArgs>(Tree_Expanding);
+            dataTip.DataTree.Tree.Expanding += new EventHandler<Aga.Controls.Tree.TreeViewAdvEventArgs>(DataTipTree_Expanding);
+            
+            //contextmenu
+            QuickWatchItem = new ToolStripMenuItem("QuickWatch", null, delegate
+                {
+                    string exp = PluginBase.MainForm.CurrentDocument.SciControl.SelText;
+                    quickWatchForm.Exp = exp;
+                    quickWatchForm.ShowDialog(PluginBase.MainForm);
+
+                });
+            PluginBase.MainForm.EditorMenu.Items.Add(QuickWatchItem);
+
             UpdateMenuState(FdbState.INIT);
         }
 
@@ -809,8 +1114,25 @@ namespace FdbPlugin
         public void CreatePluginPanel()
         {
             this.pluginUI = new PluginUI(this);
-            this.pluginUI.Text = TextHelper.GetString("Title.LocalVariables");
-            this.pluginPanel = PluginBase.MainForm.CreateDockablePanel(this.pluginUI, this.pluginGuid, this.pluginImage, DockState.DockBottom);
+            this.pluginUI.Text = TextHelper.GetString("FdbPlugin.Title.LocalVariables");
+            this.pluginPanel = PluginBase.MainForm.CreateDockablePanel(this.pluginUI, this.pluginGuid, this.pluginImage, DockState.Hidden);
+
+            this.pluginUI.TreeControl.Tree.Expanding += new EventHandler<Aga.Controls.Tree.TreeViewAdvEventArgs>(LocalVariablesTreeExpanding);
+
+            //break
+            this.breakPointUI = new BreakPointUI(this, breakPointManager);
+            this.breakPointUI.Text = "BreakPointList";
+            this.breakPointPanel = PluginBase.MainForm.CreateDockablePanel(this.breakPointUI, this.breakPointGuid, this.pluginImage, DockState.Hidden);
+
+            this.stackframeUI = new StackframeUI(this, imageList);
+            this.stackframeUI.Text = "Stackframe";
+            this.stackframeUI.CallFrameEvent += new Action<string>(stackframeUI_CallFrameEvent);
+            this.stackframePanel = PluginBase.MainForm.CreateDockablePanel(this.stackframeUI, this.stackframeGuid, this.pluginImage, DockState.Hidden);
+        }
+
+        void stackframeUI_CallFrameEvent(string obj)
+        {
+            fdbWrapper.FrameInfo(obj);
         }
 
         /// <summary>
@@ -868,23 +1190,32 @@ namespace FdbPlugin
             }
             if (!(currentProject.CompileTargets != null && currentProject.CompileTargets.Count != 0))
             {
-                errormsg += TextHelper.GetString("Info.NoMainClass") + System.Environment.NewLine;
+                errormsg += TextHelper.GetString("FdbPlugin.Info.NoMainClass") + System.Environment.NewLine;
             }
             if (currentProject.Language != "as3")
             {
-                errormsg += TextHelper.GetString("Info.LanguageNotAS3") + System.Environment.NewLine;
+                errormsg += TextHelper.GetString("FdbPlugin.Info.LanguageNotAS3") + System.Environment.NewLine;
             }
             if (AS3Context.PluginMain.Settings.FlexSDK == null || AS3Context.PluginMain.Settings.FlexSDK == string.Empty || !Directory.Exists(AS3Context.PluginMain.Settings.FlexSDK))
             {
-                errormsg += TextHelper.GetString("Info.CheckFlexSDKSetting") + System.Environment.NewLine;
+                errormsg += TextHelper.GetString("FdbPlugin.Info.CheckFlexSDKSetting") + System.Environment.NewLine;
             }
             try
             {
-                String cmd = Util.FindAssociatedExecutableFile(".swf", "open");
-                if (cmd != AssociateExecutableFilePath)
+                //$(FlexSDK)\bin\adl.exe;application.xml bin
+                if (currentProject.TestMovieCommand != null && currentProject.TestMovieCommand.Contains("adl.exe"))
                 {
-                    processname = Util.GetAssociateAppFileName(cmd);
-                    AssociateExecutableFilePath = cmd;
+                    //AIR
+                    processname = "adl";
+                }
+                else
+                {
+                    String cmd = Util.FindAssociatedExecutableFile(".swf", "open");
+                    if (cmd != AssociateExecutableFilePath)
+                    {
+                        processname = Util.GetAssociateAppFileName(cmd);
+                        AssociateExecutableFilePath = cmd;
+                    }
                 }
             }
             catch (Exception e)
@@ -897,21 +1228,21 @@ namespace FdbPlugin
         /// <summary>
         /// 
         /// </summary>
-        Int32 leafCount = 0;
         private void UpdatelocalVariablesLeaf()
         {
-            List<DataNode> list = pluginUI.TreeControl.AllHasChildNodes;
-            leafCount = list.Count;
-            if (leafCount == 0)
+            List<DataNode> nodelist = pluginUI.TreeControl.AllHasChildNodes;
+            if (nodelist.Count == 0)
             {
                 UpdateMenuState(fdbWrapper.State);
                 return;
             }
-            foreach (DataNode node in list)
+            List<string> objlist = new List<string>();
+            foreach (DataNode node in nodelist)
             {
                 String fullpath = pluginUI.TreeControl.GetFullPath(node);
-                fdbWrapper.Print(fullpath + ".", PrintType.LOCALEXPANDUPDATE);
+                objlist.Add(fullpath + ".");
             }
+            fdbWrapper.Print(pluginUI, objlist.ToArray());
         }
 
         /// <summary>
@@ -930,7 +1261,9 @@ namespace FdbPlugin
         /// </summary>
         private void Manager_OnMouseHover(ScintillaControl sender, Int32 position)
         {
-            if (fdbWrapper != null && fdbWrapper.IsDebugStart && (fdbWrapper.State == FdbState.BREAK || fdbWrapper.State == FdbState.NEXT || fdbWrapper.State == FdbState.STEP || fdbWrapper.State == FdbState.EXCEPTION))
+            if (!PluginBase.MainForm.EditorMenu.Visible
+                && fdbWrapper != null && fdbWrapper.IsDebugStart 
+                && (fdbWrapper.State == FdbState.BREAK || fdbWrapper.State == FdbState.NEXT || fdbWrapper.State == FdbState.STEP || fdbWrapper.State == FdbState.EXCEPTION))
             {
                 if (CurrentDebugPostion.fullpath != PluginBase.MainForm.CurrentDocument.FileName) return;
                 if (UITools.Tip.Visible)
@@ -947,7 +1280,8 @@ namespace FdbPlugin
                 String leftword = GetWordRes(sender, position);
                 if (leftword != String.Empty)
                 {
-                    fdbWrapper.Print(leftword, PrintType.DATATIP);
+                    dataTip.Location = dataTipPoint;
+                    fdbWrapper.Print(dataTip, leftword);
                 }
             }
         }
@@ -960,6 +1294,20 @@ namespace FdbPlugin
             ScintillaControl sci = GetScintillaControl(value);
             sci.ModEventMask |= (Int32)ScintillaNet.Enums.ModificationFlags.ChangeMarker;
             sci.MarkerChanged += new MarkerChangedHandler(SciControl_MarkerChanged);
+
+            sci.MarkerSetBack(markerNumBreakPointEnable, DataConverter.ColorToInt32(settingObject.BreakPointEnableLineColor)); //enable
+            sci.MarkerSetBack(markerNumBreakPointDisable, DataConverter.ColorToInt32(settingObject.BrekPointDisableLineColor)); //dis
+
+            sci.Modified += new ModifiedHandler(sci_Modified);
+        }
+
+        void sci_Modified(ScintillaControl sender, int position, int modificationType, string text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev)
+        {
+            if (linesAdded != 0)
+            {
+                int modline = sender.LineFromPosition(position);
+                breakPointManager.UpDateBrekPoint(sender.FileName, modline, linesAdded);
+            }
         }
 
         /// <summary>
@@ -967,13 +1315,39 @@ namespace FdbPlugin
         /// </summary>
         private void SciControl_MarkerChanged(ScintillaControl sender, Int32 line)
         {
-            if (line >= 0)
+            if (line < 0) return;
+
+            Boolean breakPointMark = IsMarker(sender, markerNumBreakPoint, line);
+            if ((breakPointMark)
+                || (!breakPointMark && breakPointManager.IsContainBrekPoint(sender.FileName, line)))
             {
-                fdbWrapper.MarkBreakPoint(sender, line);
+                Boolean enable = !IsMarker(sender, markerNumBreakPointDisable, line);
+
+                if (fdbWrapper.IsDebugStart)
+                {
+                    breakPointManager.SetBreakPointInfoInDeubg(sender.FileName, line, !breakPointMark, enable);
+                }
+                else
+                {
+                    breakPointManager.SetBreakPointInfo(sender.FileName, line, !breakPointMark, enable);
+                }
             }
-            else if (fdbWrapper.IsDebugStart)//Delete all breakpoints
+
+            if (breakPointMark)
             {
-                fdbWrapper.DeleteAllBreakPoints();
+                if(!IsMarker(sender, markerNumBreakPointEnable, line))
+                    sender.MarkerAdd(line, markerNumBreakPointEnable);
+            }
+            else
+            {
+                if(IsMarker(sender, markerNumBreakPointEnable, line))
+                {
+                    sender.MarkerDelete(line, markerNumBreakPointEnable);
+                }
+                if(IsMarker(sender, markerNumBreakPointDisable, line))
+                {
+                    sender.MarkerDelete(line, markerNumBreakPointDisable);
+                }
             }
         }
 
@@ -1025,6 +1399,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = true;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = true;
+                    ToggleBreakPointEnableMenu.Enabled = true;
+                    DeleteAllBreakPointsMenu.Enabled = true;
+                    DisableAllBreakPointsMenu.Enabled = true;
+                    EnableAllBreakPointsMenu.Enabled = true;
+                    breakPointUI.Enabled = true;
+
+                    QuickWatchItem.Enabled = false;
                     break;
 
                 case FdbState.START:
@@ -1039,6 +1424,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = false;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = false;
+                    ToggleBreakPointEnableMenu.Enabled = false;
+                    DeleteAllBreakPointsMenu.Enabled = false;
+                    DisableAllBreakPointsMenu.Enabled = false;
+                    EnableAllBreakPointsMenu.Enabled = false;
+                    breakPointUI.Enabled = false;
+
+                    QuickWatchItem.Enabled = false;
                     break;
 
                 case FdbState.STEP:
@@ -1055,6 +1451,17 @@ namespace FdbPlugin
                     NextButton.Enabled = true;
                     NextMenu.Enabled = true;
                     PluginBase.MainForm.BreakpointsEnabled = true;
+
+                    FinishButton.Enabled = true;
+                    FinishMenu.Enabled = true;
+                    ToggleBreakPointMenu.Enabled = true;
+                    ToggleBreakPointEnableMenu.Enabled = true;
+                    DeleteAllBreakPointsMenu.Enabled = true;
+                    DisableAllBreakPointsMenu.Enabled = true;
+                    EnableAllBreakPointsMenu.Enabled = true;
+                    breakPointUI.Enabled = true;
+
+                    QuickWatchItem.Enabled = true;
                     break;
 
                 case FdbState.CONTINUE:
@@ -1069,6 +1476,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = false;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = false;
+                    ToggleBreakPointEnableMenu.Enabled = false;
+                    DeleteAllBreakPointsMenu.Enabled = false;
+                    DisableAllBreakPointsMenu.Enabled = false;
+                    EnableAllBreakPointsMenu.Enabled = false;
+                    breakPointUI.Enabled = false;
+
+                    QuickWatchItem.Enabled = false;
                     break;
 
                 case FdbState.PAUSE:
@@ -1083,6 +1501,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = true;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = true;
+                    ToggleBreakPointEnableMenu.Enabled = true;
+                    DeleteAllBreakPointsMenu.Enabled = true;
+                    DisableAllBreakPointsMenu.Enabled = true;
+                    EnableAllBreakPointsMenu.Enabled = true;
+                    breakPointUI.Enabled = true;
+
+                    QuickWatchItem.Enabled = true;
                     break;
                 case FdbState.PAUSE_SET_BREAKPOINT:
                     StartMenu.Enabled = false;
@@ -1098,6 +1527,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = true;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = true;
+                    ToggleBreakPointEnableMenu.Enabled = true;
+                    DeleteAllBreakPointsMenu.Enabled = true;
+                    DisableAllBreakPointsMenu.Enabled = true;
+                    EnableAllBreakPointsMenu.Enabled = true;
+                    breakPointUI.Enabled = true;
+
+                    QuickWatchItem.Enabled = true;
                     break;
                 case FdbState.EXCEPTION:
                     StartMenu.Enabled = false;
@@ -1112,6 +1552,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = false;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = false;
+                    ToggleBreakPointEnableMenu.Enabled = false;
+                    DeleteAllBreakPointsMenu.Enabled = false;
+                    DisableAllBreakPointsMenu.Enabled = false;
+                    EnableAllBreakPointsMenu.Enabled = false;
+                    breakPointUI.Enabled = false;
+
+                    QuickWatchItem.Enabled = true;
                     break;
 
                 case FdbState.WAIT:
@@ -1130,6 +1581,17 @@ namespace FdbPlugin
                     NextButton.Enabled = false;
                     NextMenu.Enabled = false;
                     PluginBase.MainForm.BreakpointsEnabled = false;
+
+                    FinishButton.Enabled = false;
+                    FinishMenu.Enabled = false;
+                    ToggleBreakPointMenu.Enabled = false;
+                    ToggleBreakPointEnableMenu.Enabled = false;
+                    DeleteAllBreakPointsMenu.Enabled = false;
+                    DisableAllBreakPointsMenu.Enabled = false;
+                    EnableAllBreakPointsMenu.Enabled = false;
+                    breakPointUI.Enabled = false;
+
+                    QuickWatchItem.Enabled = false;
                     break;
             }
             PluginBase.MainForm.RefreshUI();
@@ -1138,15 +1600,29 @@ namespace FdbPlugin
         /// <summary>
         /// 
         /// </summary>
-        private void Tree_Expanding(Object sender, Aga.Controls.Tree.TreeViewAdvEventArgs e)
+        private void DataTipTree_Expanding(Object sender, Aga.Controls.Tree.TreeViewAdvEventArgs e)
         {
             if (e.Node.Index >= 0)
             {
                 DataNode node = e.Node.Tag as DataNode;
-                if (reObject.IsMatch(node.Value))
+                if (RegexManager.RegexObject.IsMatch(node.Value))
                 {
                     String path = dataTip.DataTree.GetFullPath(node) + ".";
-                    fdbWrapper.Print(path, PrintType.DATATIPEXPAND);
+                    fdbWrapper.Print(dataTip, path, "expand");
+                }
+            }
+        }
+
+        private void LocalVariablesTreeExpanding(Object sender, Aga.Controls.Tree.TreeViewAdvEventArgs e)
+        {
+            if (e.Node.Index >= 0)
+            {
+                DataNode node = e.Node.Tag as DataNode;
+                if (node.Nodes.Count == 0 && RegexManager.RegexObject.IsMatch(node.Value))
+                {
+                    this.pluginUI.TreeControl.Enabled = false;
+                    String path = this.pluginUI.TreeControl.GetFullPath(node) + ".";
+                    fdbWrapper.Print(pluginUI, path, "expand");
                 }
             }
         }
@@ -1159,7 +1635,7 @@ namespace FdbPlugin
             if (File.Exists(path))
             {
                 String title = " " + TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
-                String message = String.Format(TextHelper.GetString("Info.AssociateFilesWith"), path);
+                String message = String.Format(TextHelper.GetString("FdbPlugin.Info.AssociateFilesWith"), path);
                 if (MessageBox.Show(message, title, MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     Util.RegAssociatedExecutable(".swf", "open", path);
@@ -1175,12 +1651,32 @@ namespace FdbPlugin
             this.pluginPanel.Show();
         }
 
+        //break
+        /// <summary>
+        /// 
+        /// </summary>
+        public void OpenBreakPointPanel(Object sender, System.EventArgs e)
+        {
+            this.breakPointPanel.Show();
+        }
+
+        public void OpenStackframePanel(Object sender, System.EventArgs e)
+        {
+            this.stackframePanel.Show();
+        }
+
         /// <summary>
         /// 
         /// </summary>
         private void AddSettingsListeners()
         {
             settingObject.PathChangedEvent += settingObject_PathChangedEvent;
+            settingObject.FlexSDKLocaleChangedEvent += settingObject_FlexSDKLocaleChangedEvent;
+        }
+
+        void settingObject_FlexSDKLocaleChangedEvent(FlexSDKLocale locate)
+        {
+            SetFlexSDKLocale(locate);
         }
 
         /// <summary>
@@ -1189,6 +1685,8 @@ namespace FdbPlugin
         private void RemoveSettingsListeners()
         {
             settingObject.PathChangedEvent -= settingObject_PathChangedEvent;
+            settingObject.FlexSDKLocaleChangedEvent -= settingObject_FlexSDKLocaleChangedEvent;
+
         }
 
 		#endregion
@@ -1218,8 +1716,22 @@ namespace FdbPlugin
         public void ToggleMarker(ScintillaControl sci, Int32 marker, Int32 line)
         {
             Int32 lineMask = sci.MarkerGet(line);
-            if ((lineMask & GetMarkerMask(marker)) == 0) sci.MarkerAdd(line, marker);
-            else sci.MarkerDelete(line, marker);
+            if ((lineMask & GetMarkerMask(marker)) == 0)
+                sci.MarkerAdd(line, marker);
+            else
+                sci.MarkerDelete(line, marker);
+        }
+
+        private Boolean IsBreakPointEnable(ScintillaControl sci, Int32 line)
+        {
+            Int32 lineMask = sci.MarkerGet(line);
+            return (lineMask & GetMarkerMask(markerNumBreakPoint)) !=0  ? true : false;
+        }
+
+        private Boolean IsMarker(ScintillaControl sci, Int32 marker, Int32 line)
+        {
+            Int32 lineMask = sci.MarkerGet(line);
+            return (lineMask & GetMarkerMask(marker)) != 0 ? true : false;
         }
 
         /// <summary>
@@ -1316,31 +1828,73 @@ namespace FdbPlugin
                     UpdateMenuState(FdbState.CONTINUE);
                 }
             }
-
         }
+
+        private static Process targetProcess = null;
+        private static IntPtr targetHwnd = IntPtr.Zero;
 
         /// <summary>
         /// find player exception dialog
         /// </summary>
-        public int EnumerateWindows(IntPtr hWnd, int lParam)
+        public static int EnumerateWindows(IntPtr hWnd, int lParam)
         {
-            //window isnt visible
-            if (Util.IsWindowVisible(hWnd) == 0)
+            uint procId = 0;
+            uint result = Util.GetWindowThreadProcessId(hWnd, out procId);
+            if (procId == targetProcess.Id)
             {
                 StringBuilder sb = new StringBuilder(0x1000);
-                //get caption
                 if (Util.GetWindowText(hWnd, sb, 0x1000) != 0)
                 {
-
                     if (sb.ToString().Contains("Adobe Flash Player"))
                     {
-                        Util.SetForegroundWindow(hWnd);
-                        UpdateMenuState(FdbState.WAIT);
+                        targetHwnd = hWnd;
                         return 0;
                     }
                 }
             }
             return 1;
+        }
+
+        public ITabbedDocument GetDocument(string filefullpath)
+        {
+            ITabbedDocument[] documents = PluginBase.MainForm.Documents;
+            foreach (ITabbedDocument docment in documents)
+            {
+                ScintillaControl sci = docment.SciControl;
+                if (sci != null && filefullpath == sci.FileName) return docment;
+            }
+
+            return null;
+        }
+
+        public void ActiveDocument(string filefullpath)
+        {
+            ActiveDocument(filefullpath, -1, false);
+        }
+
+        public void ActiveDocument(string filefullpath, int line, Boolean selectline)
+        {
+            ScintillaControl sci = GetScintillaControl(filefullpath);
+            if (sci == null)
+            {
+                PluginBase.MainForm.OpenEditableDocument(filefullpath);
+                sci = GetScintillaControl(filefullpath);
+            }
+
+            CurrentDebugPostion.fullpath = filefullpath;
+            Int32 i = GetScintillaControlIndex(sci);
+            PluginBase.MainForm.Documents[i].Activate();
+            if (line >= 0)
+            {
+                sci.GotoLine(line);
+                if (selectline)
+                {
+                    Int32 start = sci.PositionFromLine(line);
+                    Int32 end = start + sci.LineLength(line);
+                    sci.SelectionStart = start;
+                    sci.SelectionEnd = end;
+                }
+            }
         }
 
         #endregion
