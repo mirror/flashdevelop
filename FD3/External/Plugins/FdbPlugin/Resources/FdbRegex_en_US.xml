@@ -1,0 +1,120 @@
+﻿<?xml version="1.0"?>
+<FdbRegex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Locate>en_US</Locate>
+  <MsgList>
+    <MsgPattern>
+      <Name>UnknownCommandFormat</Name>
+      <Pattern><![CDATA[Unknown command '{0}', ignoring it]]></Pattern>
+    </MsgPattern>
+  </MsgList>
+  <RegexList>
+    <RegexPattern>
+      <Name>RegexNameValue</Name>
+      <Pattern><![CDATA[(?<name>.*).*?( = )(?<value>.*)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexObject</Name>
+      <Pattern><![CDATA[.*\[Object\s\d*, class='.*'\]]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexSetBreakPoint</Name>
+      <Pattern><![CDATA[Breakpoint (?<breakpoint>.*).*?: file (?<filename>.*).*?, line (?<line>.*)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexPrintObject</Name>
+      <Pattern><![CDATA[.*?(\s=\s)(?<name>.*).*?(\s=\s).*]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexPrintVal</Name>
+      <Pattern><![CDATA[.*?(\s=\s)(?<value>.*)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexPrintValUnknown</Name>
+      <Pattern><![CDATA[Variable\s\S*\sunknown]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexUnloadSWF</Name>
+      <Pattern><![CDATA[^?\[UnloadSWF\]]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexException</Name>
+      <Pattern><![CDATA[^?\[Fault\]]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexStopBreakPoint</Name>
+      <Pattern><![CDATA[Breakpoint (?<breakpointnum>\d+).*?,.*?:\d+]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexCf</Name>
+      <Pattern><![CDATA[(?<filename>.*).*?#(?<num>\d+).*:(?<line>\d+)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexShowFiles</Name>
+      <Pattern><![CDATA[(?<num>\d+).*?\D(?<filefullpath>.*).*?,.*]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexInfoFunctionsFileInfo</Name>
+      <Pattern><![CDATA[Functions in (?<filename>.*).*?#(?<num>\d+)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexInfoFunctionsFunctionInfo</Name>
+      <Pattern><![CDATA[\s(?<function>.*).*?\s(?<line>\d+)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexDisply</Name>
+      <Pattern><![CDATA[\d*?(: ')(?<command1>.*).*?(' = )(?<command2>.*)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexUnknownCommand</Name>
+      <Pattern><![CDATA[Unknown command '(?<command>.*).*?', ignoring it]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexStack</Name>
+      <Pattern><![CDATA[^#(?<framenum>\d+).*?\s.*]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexFrame</Name>
+      <Pattern><![CDATA[.*?( at )(?<filename>.*).*?#(?<srcfilenum>\d+).*?:(?<line>\d+)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexTrace</Name>
+      <Pattern><![CDATA[^?\[trace\]]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexNotRespond</Name>
+      <Pattern><![CDATA[Player did not respond to the command as expected; command aborted\.]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexTerminated</Name>
+      <Pattern><![CDATA[Player session terminated]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexPause</Name>
+      <Pattern><![CDATA[Execution halted .*?(at) 0xExecution halted .*?(\s\().*?(\)$)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexLoadSWF</Name>
+      <Pattern><![CDATA[^\[SWF\].*]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexCheckStart</Name>
+      <Pattern><![CDATA[^\[SWF\].*?(bytes after decompression)]]></Pattern>
+    </RegexPattern>  
+    <RegexPattern>
+      <Name>RegexLoadSWForFrame</Name>
+      <Pattern><![CDATA[Additional ActionScript code has been loaded from a SWF or a frame]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexAskCondition</Name>
+      <Pattern><![CDATA[Your expression contains assignment! Continue? \(y or n\)]]></Pattern>
+    </RegexPattern>
+    <RegexPattern>
+      <Name>RegexClearCondition</Name>
+      <Pattern><![CDATA[Breakpoint (\d+) now unconditional]]></Pattern>
+    </RegexPattern> 
+    <RegexPattern>
+      <Name>RegexFinishError</Name>
+      <Pattern><![CDATA['finish' not meaningful on outermost frame]]></Pattern>
+    </RegexPattern>
+  </RegexList>
+</FdbRegex> 
