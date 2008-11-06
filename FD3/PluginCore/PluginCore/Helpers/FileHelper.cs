@@ -31,8 +31,10 @@ namespace PluginCore.Helpers
         /// </summary>
         public static String ReadFile(String file)
         {
+            Encoding encoding;
             Int32 codepage = GetFileCodepage(file);
-            Encoding encoding = Encoding.GetEncoding(codepage);
+            if (codepage == -1) encoding = Encoding.Default;
+            else encoding = Encoding.GetEncoding(codepage);
             return ReadFile(file, encoding);
         }
 

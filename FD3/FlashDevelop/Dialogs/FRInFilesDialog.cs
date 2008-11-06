@@ -591,16 +591,17 @@ namespace FlashDevelop.Dialogs
             KeyValuePair<String, SearchMatch> data = (KeyValuePair<String, SearchMatch>)item.Tag;
             if (File.Exists(data.Key))
             {
+                Globals.MainForm.Activate();
                 Globals.MainForm.OpenEditableDocument(data.Key, false);
-                ScintillaControl sci = Globals.CurrentDocument.SciControl;
                 if (Globals.CurrentDocument.IsEditable)
                 {
+                    ScintillaControl sci = Globals.CurrentDocument.SciControl;
                     if (this.resultsView.Columns.Count == 4)
                     {
-                        sci.EnsureVisible(data.Value.Line-1);
                         Int32 column = sci.MBSafeTextLength(data.Value.LineText.Substring(0, data.Value.Column));
                         Int32 length = sci.MBSafeTextLength(data.Value.LineText.Substring(data.Value.Column, data.Value.Length));
                         Int32 position = sci.PositionFromLine(data.Value.Line - 1) + column;
+                        sci.EnsureVisible(data.Value.Line - 1);
                         sci.SetSel(position, position + length);
                     }
                 }
