@@ -68,11 +68,6 @@ namespace PluginCore.Managers
                 if (document.IsEditable)
                 {
                     String filename = Path.GetFullPath(document.FileName);
-                    if (filename == oldPath)
-                    {
-                        document.Text = Path.GetFileName(newPath);
-                        document.IsModified = true;
-                    }
                     if (filename.StartsWith(oldPath))
                     {
                         TextEvent ce = new TextEvent(EventType.FileClose, document.FileName);
@@ -91,6 +86,8 @@ namespace PluginCore.Managers
                             EventManager.DispatchEvent(PluginBase.MainForm, se);
                         }
                     }
+                    PluginBase.MainForm.ClearTemporaryFiles(filename);
+                    document.IsModified = document.IsModified;
                 }
             }
             PluginBase.MainForm.RefreshUI();

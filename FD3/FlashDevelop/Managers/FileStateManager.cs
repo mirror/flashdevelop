@@ -61,6 +61,24 @@ namespace FlashDevelop.Managers
         }
 
         /// <summary>
+        /// Removes old state file from disk
+        /// </summary>
+        public static void RemoveStateFile(String file)
+        {
+            try
+            {
+                String fileName = ConvertToFileName(file);
+                String fileStateDir = FileNameHelper.FileStateDir;
+                String stateFile = Path.Combine(fileStateDir, fileName + ".fdb");
+                if (File.Exists(stateFile)) File.Delete(stateFile);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
         /// Removes old state files
         /// </summary>
         public static void RemoveOldStateFiles()

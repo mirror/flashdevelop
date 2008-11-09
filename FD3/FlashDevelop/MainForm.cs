@@ -1383,6 +1383,15 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Clears the temporary files from disk
+        /// </summary>
+        public void ClearTemporaryFiles(String file)
+        {
+            RecoveryManager.RemoveTemporaryFile(file);
+            FileStateManager.RemoveStateFile(file);
+        }
+
+        /// <summary>
         /// Processes the argument string variables
         /// </summary>
         public String ProcessArgString(String args, bool dispatch)
