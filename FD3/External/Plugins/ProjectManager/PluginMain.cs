@@ -285,7 +285,7 @@ namespace ProjectManager
                 case EventType.FileSave:
                     // refresh the tree to update any included <mx:Script> tags
                     string path = MainForm.CurrentDocument.FileName;
-                    if (FileInspector.IsMxml(path) && Tree.NodeMap.ContainsKey(path))
+                    if (FileInspector.IsMxml(path, Path.GetExtension(path).ToLower()) && Tree.NodeMap.ContainsKey(path))
                         Tree.RefreshNode(Tree.NodeMap[path]);
                     break;
                 case EventType.ProcessStart:
@@ -555,7 +555,7 @@ namespace ProjectManager
                 psi.WorkingDirectory = Path.GetDirectoryName(path);
                 ProcessHelper.StartAsync(psi);
             }
-            else if (FileInspector.IsSwf(path)) OpenSwf(path);
+            else if (FileInspector.IsSwf(path, Path.GetExtension(path))) OpenSwf(path);
             else MainForm.OpenEditableDocument(path);
         }
 

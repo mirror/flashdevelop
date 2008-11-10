@@ -25,11 +25,13 @@ namespace ProjectManager.Controls.TreeView
 		/// </summary>
 		public static FileNode Create(string filePath)
 		{
+            string ext = Path.GetExtension(filePath).ToLower();
+
             if (Project.IsOutput(filePath))
                 return new ProjectOutputNode(filePath);
             else if (Project.IsInput(filePath))
                 return new InputSwfNode(filePath);
-            else if (FileInspector.IsSwf(filePath) || FileInspector.IsSwc(filePath))
+            else if (FileInspector.IsSwf(filePath, ext) || FileInspector.IsSwc(filePath, ext))
                 return new SwfFileNode(filePath);
             else
                 return new FileNode(filePath);
@@ -40,14 +42,16 @@ namespace ProjectManager.Controls.TreeView
 			base.Refresh(recursive);
 
 			string path = BackingPath;
+            string ext = Path.GetExtension(path).ToLower();
 
             if (Project.IsPathHidden(path))
                 ImageIndex = Icons.HiddenFile.Index;
-            else if ((FileInspector.IsActionScript(path) || FileInspector.IsHaxeFile(path))
-                    && Project.IsCompileTarget(path))
+            else if ((FileInspector.IsActionScript(path, ext) || FileInspector.IsHaxeFile(path, ext)) && Project.IsCompileTarget(path))
                 ImageIndex = Icons.ActionScriptCompile.Index;
-            else if (FileInspector.IsMxml(path) && Project.IsCompileTarget(path))
+            else if (FileInspector.IsMxml(path, ext) && Project.IsCompileTarget(path))
                 ImageIndex = Icons.MxmlFileCompile.Index;
+            else if (FileInspector.IsCss(path, ext) && Project.IsCompileTarget(path))
+                ImageIndex = Icons.ActionScriptCompile.Index;
             else
                 ImageIndex = Icons.GetImageForFile(path).Index;
 

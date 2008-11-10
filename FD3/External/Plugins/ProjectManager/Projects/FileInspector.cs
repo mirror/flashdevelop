@@ -9,59 +9,73 @@ namespace ProjectManager.Projects
 	{
         public static string[] ExecutableFileTypes = null;
 
-		public static bool IsActionScript(string path)
+		public static bool IsActionScript(string path, string ext)
 		{
-			return Path.GetExtension(path).ToLower() == ".as";
+			return ext == ".as";
 		}
 
-        public static bool IsFlashCS3(string path)
+        public static bool IsFLA(string path, string ext)
         {
-            return Path.GetExtension(path).ToLower() == ".fla";
+            return ext == ".fla";
         }
 
 		public static bool IsActionScript(ICollection paths)
 		{
 			foreach (string path in paths)
-				if (!IsActionScript(path))
+                if (!IsActionScript(path, Path.GetExtension(path).ToLower()))
 					return false;
 			return true;
 		}
 
-        public static bool IsHaxeFile(string path)
+        public static bool IsHaxeFile(string path, string ext)
         {
-            return Path.GetExtension(path).ToLower() == ".hx";
+            return ext == ".hx";
         }
 
-		public static bool IsImage(string path)
+        public static bool IsMxml(string path, string ext)
+        {
+            return ext == ".mxml";
+        }
+
+        public static bool IsCss(string path, string ext)
+        {
+            return ext == ".css";
+        }
+
+        public static bool IsImage(string path, string ext)
 		{
-			string ext = Path.GetExtension(path).ToLower();
             return ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif";
 		}
 
-		public static bool IsSwf(string path)
+        public static bool IsSwf(string path, string ext)
 		{
-			return Path.GetExtension(path).ToLower() == ".swf";
+			return ext == ".swf";
         }
 
         public static bool IsSwc(string path)
         {
-            return Path.GetExtension(path).ToLower() == ".swc";
+            return IsSwc(path, Path.GetExtension(path).ToLower());
         }
 
-		public static bool IsFont(string path)
+        public static bool IsSwc(string path, string ext)
+        {
+            return ext == ".swc";
+        }
+
+        public static bool IsFont(string path, string ext)
 		{
-			return Path.GetExtension(path).ToLower() == ".ttf";
+            return ext == ".ttf" || ext == ".otf";
 		}
 
-		public static bool IsResource(string path)
+        public static bool IsResource(string path, string ext)
 		{
-			return IsImage(path) || IsSwf(path) || IsFont(path);
+			return IsImage(path, ext) || IsSwf(path, ext) || IsFont(path, ext);
 		}
 
 		public static bool IsResource(ICollection paths)
 		{
 			foreach (string path in paths)
-				if (!IsResource(path))
+                if (!IsResource(path, Path.GetExtension(path).ToLower()))
 					return false;
 			return true;
 		}
@@ -77,34 +91,29 @@ namespace ProjectManager.Projects
 			return false;
 		}
 
-		public static bool IsHtml(string path)
+		public static bool IsHtml(string path, string ext)
 		{
-			string ext = Path.GetExtension(path).ToLower();
 			return ext == ".html" || ext == ".htm";
 		}
 
-		public static bool IsXml(string path)
+		public static bool IsXml(string path, string ext)
 		{
-			string ext = Path.GetExtension(path).ToLower();
 			// allow for mxml, sxml, asml, etc
 			return (ext == ".xml" || (ext.Length == 5 && ext.EndsWith("ml")));
 		}
 
-		public static bool IsText(string path)
+		public static bool IsText(string path, string ext)
 		{
-			return Path.GetExtension(path).ToLower() == ".txt" ||
-				Path.GetFileName(path).StartsWith(".");
+			return ext == ".txt" || Path.GetFileName(path).StartsWith(".");
 		}
 
-        public static bool IsAS2Project(string path)
+        public static bool IsAS2Project(string path, string ext)
         {
-            string ext = Path.GetExtension(path).ToLower();
             return ext == ".fdp" || ext == ".as2proj";
         }
 
-        public static bool IsAS3Project(string path)
+        public static bool IsAS3Project(string path, string ext)
         {
-            string ext = Path.GetExtension(path).ToLower();
             return ext == ".as3proj" || IsFlexBuilderProject(path);
         }
 
@@ -113,25 +122,24 @@ namespace ProjectManager.Projects
             return Path.GetFileName(path) == ".actionScriptProperties";
         }
 
-        public static bool IsHaxeProject(string path)
+        public static bool IsHaxeProject(string path, string ext)
         {
-            string ext = Path.GetExtension(path).ToLower();
             return ext == ".hxproj";
         }
 
         public static bool IsProject(string path)
         {
-            return IsAS2Project(path) || IsAS3Project(path) || IsHaxeProject(path);
+            return IsProject(path, Path.GetExtension(path).ToLower());
         }
 
-        public static bool IsMxml(string path)
+        public static bool IsProject(string path, string ext)
         {
-            return Path.GetExtension(path).ToLower() == ".mxml";
+            return IsAS2Project(path, ext) || IsAS3Project(path, ext) || IsHaxeProject(path, ext);
         }
 
-        public static bool IsTemplate(string path)
+        public static bool IsTemplate(string path, string ext)
         {
-            return Path.GetExtension(path).ToLower() == ".template";
+            return ext == ".template";
         }
     }
 }

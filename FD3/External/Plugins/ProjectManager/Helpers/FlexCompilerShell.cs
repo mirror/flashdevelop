@@ -38,7 +38,7 @@ namespace ProjectManager.Helpers
                 //  || !File.Exists(fcshPath)
                 // removed! how can i guess file existence using jvm arguments?
                 process = null;
-                return "failed, no compiler configured";
+                return "Failed, no compiler configured";
             }
 
             workingDir = projectPath;
@@ -53,7 +53,16 @@ namespace ProjectManager.Helpers
             process.StartInfo.FileName = "java.exe";
             process.StartInfo.Arguments = jvmarg;
             process.StartInfo.WorkingDirectory = workingDir;
-            process.Start();
+            try
+            {
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                process = null;
+                errorList.Add("Unable to start java.exe: " + ex.Message);
+                return "Failed, unable to run compiler";
+            }
 
             errorThread = new Thread(ReadErrors);
             errorThread.Start();
@@ -77,12 +86,16 @@ namespace ProjectManager.Helpers
             // start up fcsh if necessary
             if (process == null || process.HasExited)
                 o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath));
+            else errorList.Clear();
 
             // success?
             if (process == null)
-                throw new Exception("Could not compile because the fcsh process could not be started.");
-
-            errorList.Clear();
+            {
+                output = o.ToString();
+                errorList.Add("Could not compile because the fcsh process could not be started.");
+                errors = errorList.ToArray();
+                return;
+            }
 
             if (arguments != lastArguments)
             {

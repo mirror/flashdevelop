@@ -114,15 +114,16 @@ namespace ProjectManager.Helpers
 		private void CopyFile(string source, string dest)
 		{
             dest = ReplaceKeywords(dest); // you can use keywords in filenames too
+            string ext = Path.GetExtension(source).ToLower();
 
-			if (FileInspector.IsProject(source) || FileInspector.IsTemplate(source))
+			if (FileInspector.IsProject(source, ext) || FileInspector.IsTemplate(source, ext))
 			{
-                if (FileInspector.IsTemplate(source)) dest = dest.Substring(0, dest.LastIndexOf('.'));
+                if (FileInspector.IsTemplate(source, ext)) dest = dest.Substring(0, dest.LastIndexOf('.'));
 
                 Encoding encoding = Encoding.GetEncoding((Int32)PluginBase.MainForm.Settings.DefaultCodePage);
                 // batch files must be encoded in ASCII
-                string ext = Path.GetExtension(dest);
-                if (ext == ".bat" || ext == ".cmd") encoding = Encoding.ASCII;
+                ext = Path.GetExtension(dest).ToLower();
+                if (ext == ".bat" || ext == ".cmd" || ext.StartsWith(".php")) encoding = Encoding.ASCII;
 
                 string src = File.ReadAllText(source);
                 src = ReplaceKeywords(ProcessCodeStyleLineBreaks(src));

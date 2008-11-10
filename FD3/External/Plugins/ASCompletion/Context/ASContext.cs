@@ -226,7 +226,7 @@ namespace ASCompletion.Context
             {
                 if (cFile == null || cFile == FileModel.Ignore || cFile.Version == 0 || Settings == null)
                     return false;
-                if (cFile.InlinedRanges != null)
+                if (cFile.InlinedRanges != null && ASContext.CurSciControl != null)
                 {
                     int position = ASContext.CurSciControl.CurrentPos;
                     foreach (InlineRange range in cFile.InlinedRanges)

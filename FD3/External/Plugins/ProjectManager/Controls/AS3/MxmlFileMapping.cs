@@ -16,7 +16,7 @@ namespace ProjectManager.Controls.AS3
         public static void AddMxmlMapping(FileMappingRequest request)
         {
             foreach (string file in request.Files)
-                if (FileInspector.IsMxml(file))
+                if (FileInspector.IsMxml(file, Path.GetExtension(file).ToLower()))
                 {
                     foreach (string includedFile in GetIncludedFiles(file))
                         request.Mapping.Map(includedFile, file);

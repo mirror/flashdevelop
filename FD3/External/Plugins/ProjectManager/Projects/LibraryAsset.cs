@@ -32,10 +32,12 @@ namespace ProjectManager.Projects
 			SwfMode = SwfAssetMode.Library;
 		}
 
-		public bool IsImage { get { return FileInspector.IsImage(Path); } }
-		public bool IsFont { get { return FileInspector.IsFont(Path); } }
-        public bool IsSwf { get { return FileInspector.IsSwf(Path); } }
-        public bool IsSwc { get { return FileInspector.IsSwc(Path); } }
+        public bool IsImage { get { return FileInspector.IsImage(Path, Extension); } }
+        public bool IsFont { get { return FileInspector.IsFont(Path, Extension); } }
+        public bool IsSwf { get { return FileInspector.IsSwf(Path, Extension); } }
+        public bool IsSwc { get { return FileInspector.IsSwc(Path, Extension); } }
+
+        public string Extension { get { return System.IO.Path.GetExtension(Path).ToLower(); } }
 		
 		public string ID { get { return (ManualID != null) ? ManualID : GetAutoID(); } }
 

@@ -275,12 +275,14 @@ namespace ProjectManager.Controls.TreeView
 
             else if (node is FileNode)
             {
-                if (FileInspector.IsActionScript(path)) AddActionScriptItems(menu, path);
-                else if (FileInspector.IsHaxeFile(path)) AddHaxeFileItems(menu, path);
-                else if (FileInspector.IsMxml(path)) AddMxmlItems(menu, path);
-                else if (FileInspector.IsSwf(path)) AddSwfItems(menu, path);
-                else if (FileInspector.IsSwc(path)) AddSwcItems(menu, path);
-                else if (FileInspector.IsResource(path)) AddOtherResourceItems(menu, path);
+                string ext = Path.GetExtension(path).ToLower();
+                if (FileInspector.IsActionScript(path, ext)) AddActionScriptItems(menu, path);
+                else if (FileInspector.IsHaxeFile(path, ext)) AddHaxeFileItems(menu, path);
+                else if (FileInspector.IsMxml(path, ext)) AddMxmlItems(menu, path);
+                else if (FileInspector.IsCss(path, ext)) AddCssItems(menu, path);
+                else if (FileInspector.IsSwf(path, ext)) AddSwfItems(menu, path);
+                else if (FileInspector.IsSwc(path, ext)) AddSwcItems(menu, path);
+                else if (FileInspector.IsResource(path, ext)) AddOtherResourceItems(menu, path);
                 else AddGenericFileItems(menu, path);
             }
         }
@@ -351,6 +353,23 @@ namespace ProjectManager.Controls.TreeView
 
         private void AddMxmlItems(MergableMenu menu, string path)
         {
+            bool alwaysCompile = project.IsCompileTarget(path);
+
+            menu.Add(Open, 0);
+            menu.Add(Execute, 0);
+            menu.Add(AlwaysCompile, 2, alwaysCompile);
+
+            AddFileItems(menu, path);
+        }
+
+        private void AddCssItems(MergableMenu menu, string path)
+        {
+            if (project.Language != "as3")
+            {
+                AddGenericFileItems(menu, path);
+                return;
+            }
+
             bool alwaysCompile = project.IsCompileTarget(path);
 
             menu.Add(Open, 0);

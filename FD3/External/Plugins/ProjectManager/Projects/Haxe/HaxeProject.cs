@@ -39,7 +39,7 @@ namespace ProjectManager.Projects.Haxe
             if (export != null) return export;
             if (IsLibraryAsset(path) && !isInjectionTarget)
                 return GetAsset(path).ID;
-            else if (!NoOutput && FileInspector.IsHaxeFile(inFile))
+            else if (!NoOutput && FileInspector.IsHaxeFile(inFile, Path.GetExtension(inFile).ToLower()))
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(ProjectPath), path).Replace('\\', '/');
             else
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');

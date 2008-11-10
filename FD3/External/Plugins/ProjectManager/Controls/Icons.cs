@@ -174,27 +174,28 @@ namespace ProjectManager.Controls
         {
             if (file == null || file == string.Empty)
                 return Icons.BlankFile;
-            if (FileInspector.IsActionScript(file))
+            string ext = Path.GetExtension(file);
+            if (FileInspector.IsActionScript(file, ext))
                 return Icons.ActionScript;
-            else if (FileInspector.IsHaxeFile(file))
+            else if (FileInspector.IsHaxeFile(file, ext))
                 return Icons.HaxeFile;
-            else if (FileInspector.IsMxml(file))
+            else if (FileInspector.IsMxml(file, ext))
                 return Icons.MxmlFile;
-            else if (FileInspector.IsFont(file))
+            else if (FileInspector.IsFont(file, ext))
                 return Icons.Font;
-            else if (FileInspector.IsImage(file))
+            else if (FileInspector.IsImage(file, ext))
                 return Icons.ImageResource;
-            else if (FileInspector.IsSwf(file))
+            else if (FileInspector.IsSwf(file, ext))
                 return Icons.SwfFile;
-            else if (FileInspector.IsSwc(file))
+            else if (FileInspector.IsSwc(file, ext))
                 return Icons.SwcFile;
-            else if (FileInspector.IsHtml(file))
+            else if (FileInspector.IsHtml(file, ext))
                 return Icons.HtmlFile;
-            else if (FileInspector.IsXml(file))
+            else if (FileInspector.IsXml(file, ext))
                 return Icons.XmlFile;
-            else if (FileInspector.IsText(file))
+            else if (FileInspector.IsText(file, ext))
                 return Icons.TextFile;
-            else if (FileInspector.IsFlashCS3(file))
+            else if (FileInspector.IsFLA(file, ext))
                 return Icons.FlashCS3;
             else
                 return ExtractIconIfNecessary(file);

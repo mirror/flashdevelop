@@ -12,11 +12,12 @@ namespace ProjectManager.Projects
     {
         public static Project Load(string file)
         {
-            if (FileInspector.IsAS2Project(file))
+            string ext = Path.GetExtension(file).ToLower();
+            if (FileInspector.IsAS2Project(file, ext))
                 return AS2Project.Load(file);
-            else if (FileInspector.IsAS3Project(file))
+            else if (FileInspector.IsAS3Project(file, ext))
                 return AS3Project.Load(file);
-            else if (FileInspector.IsHaxeProject(file))
+            else if (FileInspector.IsHaxeProject(file, ext))
                 return HaxeProject.Load(file);
             else
                 throw new Exception("Unknown project extension: " + Path.GetFileName(file));
