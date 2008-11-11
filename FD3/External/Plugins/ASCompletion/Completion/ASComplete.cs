@@ -702,9 +702,10 @@ namespace ASCompletion.Completion
         {
             int line = Sci.LineFromPosition(position);
             string txt = Sci.GetLine(line);
+            int curPos = Sci.CurrentPos;
             int startPos = Sci.PositionFromLine(line);
             int offset = Sci.MBSafeLengthFromBytes(txt, position - startPos);
-
+            
             ReformatOptions options = new ReformatOptions();
             options.Newline = GetNewLineMarker(Sci.EOLMode);
             options.CondenseWhitespace = ASContext.CommonSettings.CondenseWhitespace;
@@ -721,11 +722,12 @@ namespace ASCompletion.Completion
 
             if (replace != txt)
             {
-                position = Sci.CurrentPos + newOffset - offset;
+                position = curPos + newOffset - offset;
                 Sci.SetSel(startPos, startPos + Sci.MBSafeTextLength(txt));
                 Sci.ReplaceSel(replace);
                 Sci.SetSel(position, position);
             }
+            else Sci.SetSel(position, position);
         }
 
         /// <summary>

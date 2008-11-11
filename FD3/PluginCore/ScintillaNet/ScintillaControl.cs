@@ -5249,6 +5249,8 @@ namespace ScintillaNet
         /// <returns>Multi-byte chars length</returns>
         public int MBSafeLengthFromBytes(string txt, int bytes)
         {
+            if (this.CodePage != 65001) return bytes;
+
             byte[] raw = Encoding.UTF8.GetBytes(txt);
             return Encoding.UTF8.GetString(raw, 0, Math.Min(raw.Length, bytes)).Length;
         }
