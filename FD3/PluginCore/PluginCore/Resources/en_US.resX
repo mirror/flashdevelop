@@ -2631,4 +2631,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.CurrentSelection" xml:space="preserve">
     <value>Current selection</value>
   </data>
+  <data name="ASCompletion.Description.GeneratePrivateDeclarations" xml:space="preserve">
+    <value>By default the generator will try to generate 'protected' declarations. Set this option to 'true' to force generating 'private' declarations.</value>
+  </data>
 </root>

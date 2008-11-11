@@ -139,6 +139,7 @@ namespace ASCompletion.Settings
 
         #region Helpers
 
+        const bool DEFAULT_GENERATE_PRIVATE = true;
         const bool DEFAULT_DISABLE_CLOSEBRACE = false;
         const bool DEFAULT_DISABLE_REFORMAT = false;
         const bool DEFAULT_REFORMAT_BRACES = false;
@@ -151,6 +152,7 @@ namespace ASCompletion.Settings
         const string DEFAULT_SPACEDCHARS = ",;{}*+-=/%<>|&!^";
         const string DEFAULT_ADDSPACEAFTER = "if for while do catch with";
 
+        private bool generatePrivateDeclarations = DEFAULT_GENERATE_PRIVATE;
         private bool disableAutoCloseBraces = DEFAULT_DISABLE_CLOSEBRACE;
         private bool disableCodeReformat = DEFAULT_DISABLE_REFORMAT;
         private bool reformatBraces = DEFAULT_REFORMAT_BRACES;
@@ -162,6 +164,15 @@ namespace ASCompletion.Settings
         private string compactChars = DEFAULT_COMPACTCHARS;
         private string spacedChars = DEFAULT_SPACEDCHARS;
         private string addSpaceAfter = DEFAULT_ADDSPACEAFTER;
+
+        [DisplayName("Generate Private Declarations")]
+        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.GeneratePrivateDeclarations"),
+        DefaultValue(DEFAULT_GENERATE_PRIVATE)]
+        public bool GeneratePrivateDeclarations
+        {
+            get { return generatePrivateDeclarations; }
+            set { generatePrivateDeclarations = value; }
+        }
 
         [DisplayName("Disable Auto-Close Braces")]
         [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableAutoCloseBraces"), 

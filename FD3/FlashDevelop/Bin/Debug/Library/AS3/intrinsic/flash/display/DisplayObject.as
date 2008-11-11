@@ -249,5 +249,11 @@ package flash.display {
 		 * @return                  <Point> A Point object with coordinates relative to the Stage.
 		 */
 		public function localToGlobal(point:Point):Point;
+		/**
+		 * Returns the string representation of the specified object.
+		 *
+		 * @return                  <String> A string representation of the object.
+		 */
+		public function toString():String
 	}
 }

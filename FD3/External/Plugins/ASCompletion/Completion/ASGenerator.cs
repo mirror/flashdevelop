@@ -568,7 +568,14 @@ namespace ASCompletion.Completion
             string type = (kind == FlagType.Function) ? ASContext.Context.Features.voidKey : null;
             if (calledFrom != null && (calledFrom.Flags & FlagType.Static) > 0)
                 kind |= FlagType.Static;
-            return new MemberModel(contextToken, type, kind, Visibility.Private);
+            return new MemberModel(contextToken, type, kind, GetDefaultVisibility());
+        }
+
+        private static Visibility GetDefaultVisibility()
+        {
+            if (ASContext.Context.Features.protectedKey != null && !ASContext.CommonSettings.GeneratePrivateDeclarations)
+                return Visibility.Protected;
+            else return Visibility.Private;
         }
 
         private static void GenerateFunction(MemberModel member, int position, bool detach)
@@ -590,7 +597,7 @@ namespace ASCompletion.Completion
         public static bool MakePrivate(ScintillaNet.ScintillaControl Sci, MemberModel member)
         {
             ContextFeatures features = ASContext.Context.Features;
-            string visibility = /*features.protectedKey ??*/ features.privateKey;
+            string visibility = GetPrivateKeyword();
             if (features.publicKey == null || visibility == null) return false;
             Regex rePublic = new Regex(String.Format(@"\s*({0})\s+", features.publicKey));
 
@@ -706,8 +713,17 @@ namespace ASCompletion.Completion
 
         private static string GetPrivateAccessor(MemberModel member)
         {
-            string acc = ASContext.Context.Features.privateKey ?? "private";
+            string acc = GetPrivateKeyword();
             if ((member.Flags & FlagType.Static) > 0) acc = (ASContext.Context.Features.staticKey ?? "static") + " " + acc;
+            return acc;
+        }
+
+        private static string GetPrivateKeyword()
+        {
+            string acc;
+            if (GetDefaultVisibility() == Visibility.Protected)
+                acc = ASContext.Context.Features.protectedKey ?? "protected";
+            else acc = ASContext.Context.Features.privateKey ?? "private";
             return acc;
         }
 
@@ -838,17 +854,21 @@ namespace ASCompletion.Completion
             bool isProxy = (member.Namespace == "flash_proxy");
             if (isProxy) typesUsed.Add("flash.utils.flash_proxy");
             bool isAS2Event = ASContext.Context.Settings.LanguageId == "AS2" && member.Name.StartsWith("on");
+            bool isObjectMethod = ofClass.QualifiedName == "Object";
             
             FlagType flags = member.Flags;
             string acc = "";
             string decl = "";
-            if (features.hasNamespaces && member.Namespace != null && member.Namespace.Length > 0) 
-                acc = member.Namespace;
-            else if ((member.Access & Visibility.Public) > 0) acc = features.publicKey;
+            /*if (features.hasNamespaces && member.Namespace != null && member.Namespace.Length > 0) 
+                acc = member.Namespace; else*/
+            if ((member.Access & Visibility.Public) > 0) acc = features.publicKey;
             else if ((member.Access & Visibility.Internal) > 0) acc = features.internalKey;
             else if ((member.Access & Visibility.Protected) > 0) acc = features.protectedKey;
             else if ((member.Access & Visibility.Private) > 0) acc = features.privateKey;
-            if ((flags & FlagType.Static) > 0) acc = features.staticKey + " " + acc;
+            string currentText = Sci.GetLine(Sci.LineFromPosition(position));
+            if (currentText.IndexOf(acc) >= 0) acc = "";
+            if ((flags & FlagType.Static) > 0 && currentText.IndexOf(features.staticKey) < 0) 
+                acc = features.staticKey + " " + acc;
 
             if ((flags & (FlagType.Getter | FlagType.Setter)) > 0)
             {
@@ -909,7 +929,7 @@ namespace ASCompletion.Completion
                     position += offset;
                 }
                 int len = member.Name.Length;
-                if (!features.hasOverride)
+                if (!features.hasOverride || isObjectMethod)
                 {
                     position -= features.overrideKey.Length + 1;
                     len += features.overrideKey.Length + 1;
