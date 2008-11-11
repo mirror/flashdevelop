@@ -727,7 +727,6 @@ namespace ASCompletion.Completion
                 Sci.ReplaceSel(replace);
                 Sci.SetSel(position, position);
             }
-            else Sci.SetSel(position, position);
         }
 
         /// <summary>
