@@ -54,7 +54,7 @@ namespace AS3Context
                 // XML comment
                 else if (inComment)
                 {
-                    if (i < len - 3 && src[i + 1] == '-' && src[i + 2] == '-' && src[i + 3] == '>')
+                    if (i < len - 3 && c == '-' && src[i + 1] == '-' && src[i + 2] == '>')
                     {
                         inComment = false;
                         i += 3;
