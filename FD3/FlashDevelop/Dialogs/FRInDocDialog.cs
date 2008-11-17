@@ -578,9 +578,7 @@ namespace FlashDevelop.Dialogs
         private void DialogClosing(Object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            ITabbedDocument current = Globals.CurrentDocument;
-            if (current.IsEditable) Globals.SciControl.Focus();
-            else current.Activate();
+            Globals.CurrentDocument.Activate();
             this.Hide();
         }
 

@@ -130,6 +130,18 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
+        /// Activates the scintilla control too on activate
+        /// </summary>
+        public new void Activate()
+        {
+            base.Activate();
+            if (this.IsEditable)
+            {
+                this.SciControl.Focus();
+            }
+        }
+
+        /// <summary>
         /// Adds a new scintilla control to the document
         /// </summary>
         public void AddScintillaControl(ScintillaControl editor)

@@ -115,7 +115,7 @@ namespace OutputPanel
                     if (this.settingObject.ShowOnProcessEnd && !this.settingObject.ShowOnOutput)
                     {
                         this.pluginUI.DisplayOutput();
-                        if (document.IsEditable) document.SciControl.Focus();
+                        document.Activate();
                     }
                     break;
                 case EventType.Trace:

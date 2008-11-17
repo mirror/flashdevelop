@@ -166,6 +166,7 @@ namespace PluginCore
     {
         #region IProject Methods
 
+        String[] GetHiddenPaths();
         String GetRelativePath(String path);
         String GetAbsolutePath(String path);
 

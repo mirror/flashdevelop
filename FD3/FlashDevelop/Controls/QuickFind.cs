@@ -280,7 +280,7 @@ namespace FlashDevelop.Controls
         /// </summary>
         private void FindTextBoxOnKeyEscape()
         {
-            Globals.SciControl.Focus();
+            Globals.CurrentDocument.Activate();
             this.CloseButtonClick(null, null);
         }
 

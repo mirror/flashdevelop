@@ -213,6 +213,11 @@ namespace ProjectManager.Projects
 
 		#region Relative Path Helpers
 
+        public String[] GetHiddenPaths()
+        {
+            return this.hiddenPaths.ToArray();
+        }
+
 		public string GetRelativePath(string path)
 		{
 			return ProjectPaths.GetRelativePath(this.Directory,path);

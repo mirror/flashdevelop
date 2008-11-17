@@ -14,7 +14,6 @@ using WeifenLuo.WinFormsUI;
 using PluginCore.Helpers;
 using PluginCore.Managers;
 using PluginCore.Controls;
-using FlashDevelop.Dialogs;
 using ScintillaNet;
 using PluginCore;
 
@@ -273,14 +272,28 @@ namespace TaskListPanel
         }
 
         /// <summary>
-        /// Get all available files with extension match
+        /// Get all available files with extension matches, filters out hidden paths.
         /// </summary>
-        private List<String> GetFiles(String path)
+        private List<String> GetFiles(String projectPath)
         {
             List<String> files = new List<String>();
-            foreach (String ext in extensions)
+            foreach (String extension in this.extensions)
             {
-                files.AddRange(Directory.GetFiles(path, "*" + ext, SearchOption.AllDirectories));
+                String[] hiddenPaths = PluginBase.CurrentProject.GetHiddenPaths();
+                String[] allFiles = Directory.GetFiles(projectPath, "*" + extension, SearchOption.AllDirectories);
+                files.AddRange(allFiles);
+                foreach (String file in allFiles)
+                {
+                   foreach (String path in hiddenPaths)
+                   {
+                       String compFile = Path.GetFullPath(file);
+                       String compPath = PluginBase.CurrentProject.GetAbsolutePath(path);
+                       if (compFile.ToUpper().StartsWith(compPath.ToUpper()))
+                       {
+                           files.Remove(file);
+                       }
+                   }
+                }
             }
             return files;
         }

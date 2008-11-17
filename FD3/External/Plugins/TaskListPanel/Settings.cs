@@ -10,16 +10,16 @@ namespace TaskListPanel
     [Serializable]
     public class Settings
     {
-        private Int32[] images = new Int32[] { 229, 197 };
-        private String[] extensions = new String[]{ ".as", ".txt" };
-        private String[] groups = new String[]{ "TODO", "BUG" };
+        private Int32[] images = new Int32[] { 229, 197, 197 };
+        private String[] extensions = new String[] { ".as", ".mxml", ".txt" };
+        private String[] groups = new String[] { "TODO", "FIXME", "BUG" };
 
         /// <summary> 
         /// File extensions to listen for changes
         /// </summary>
         [DisplayName("File Extensions")]
         [LocalizedDescription("TaskListPanel.Description.FileExtensions")]
-        [DefaultValue(new String[] { ".as", ".txt" })]
+        [DefaultValue(new String[] { ".as", ".mxml", ".txt" })]
         public String[] FileExtensions
         {
             get { return this.extensions; }
@@ -43,7 +43,7 @@ namespace TaskListPanel
         /// </summary>
         [DisplayName("Image Indexes")]
         [LocalizedDescription("TaskListPanel.Description.ImageIndexes")]
-        [DefaultValue(new Int32[] { 229, 197 })]
+        [DefaultValue(new Int32[] { 229, 197, 197 })]
         public Int32[] ImageIndexes
         {
             get { return this.images; }

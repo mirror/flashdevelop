@@ -57,5 +57,16 @@ namespace ProjectManager.Projects
 			}
 			return false;
 		}
+
+        public String[] ToArray()
+        {
+            String[] hiddenPaths = new String[List.Count];
+			for (Int32 i = 0; i < List.Count; i++)
+			{
+                hiddenPaths.SetValue(List[i], i);
+			}
+            return hiddenPaths;
+        }
+
 	}
 }

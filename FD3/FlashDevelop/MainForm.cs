@@ -815,8 +815,7 @@ namespace FlashDevelop
         private void OnMainFormActivate(Object sender, System.EventArgs e)
         {
             if (this.CurrentDocument == null) return;
-            if (this.CurrentDocument.IsEditable) this.CurrentDocument.SciControl.Focus();
-            else this.CurrentDocument.Activate(); // Activate the current document
+            this.CurrentDocument.Activate(); // Activate the current document
             TabbedDocument document = (TabbedDocument)this.CurrentDocument;
             document.CheckFileChange();
         }
@@ -937,8 +936,7 @@ namespace FlashDevelop
                 {
                     this.panelIsActive = false;
                     TabbedDocument document = (TabbedDocument)this.dockPanel.ActiveContent;
-                    if (document.IsEditable) document.SciControl.Focus();
-                    else document.Activate();
+                    document.Activate();
                 }
                 else this.panelIsActive = true;
                 NotifyEvent ne = new NotifyEvent(EventType.UIRefresh);
@@ -989,8 +987,8 @@ namespace FlashDevelop
                     * Checks the file changes
                     */
                     TabbedDocument document = (TabbedDocument)this.CurrentDocument;
-                    document.SciControl.Focus();
                     document.CheckFileChange();
+                    document.Activate();
                     /**
                     * Processes the opened file
                     */
