@@ -1282,9 +1282,13 @@ namespace ASCompletion.Completion
             if (expr.Value != null)
             {
                 expr.LocalVars = ParseLocalVars(expr);
-                if (expr.LocalVars.Count == 1)
+                foreach (MemberModel localVar in expr.LocalVars)
                 {
-                    CompletionList.SelectItem(expr.LocalVars[0].Type);
+                    if (localVar.LineTo == ASContext.Context.CurrentLine)
+                    {
+                        CompletionList.SelectItem(localVar.Type);
+                        return;
+                    }
                 }
             }
         }
