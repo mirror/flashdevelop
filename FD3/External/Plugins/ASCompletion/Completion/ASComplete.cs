@@ -1275,6 +1275,20 @@ namespace ASCompletion.Completion
 		#endregion
 
 		#region types_completion
+
+        static private void SelectTypedNewMember(ScintillaNet.ScintillaControl sci)
+        {
+            ASExpr expr = GetExpression(sci, sci.CurrentPos);
+            if (expr.Value != null)
+            {
+                expr.LocalVars = ParseLocalVars(expr);
+                if (expr.LocalVars.Count == 1)
+                {
+                    CompletionList.SelectItem(expr.LocalVars[0].Type);
+                }
+            }
+        }
+
 		static private bool HandleNewCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide, string keyword)
 		{
             if (!ASContext.Context.Settings.LazyClasspathExploration
@@ -1282,6 +1296,7 @@ namespace ASCompletion.Completion
             {
                 // show all project classes
                 HandleAllClassesCompletion(Sci, tail, true);
+                SelectTypedNewMember(Sci);
                 return true;
             }
 

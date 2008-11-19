@@ -180,6 +180,28 @@ namespace PluginCore.Controls
         /// <summary>
         /// 
         /// </summary>
+        static public void SelectItem(String type)
+        {
+            ICompletionListItem found = null;
+            foreach (ICompletionListItem item in completionList.Items)
+            {
+                if (item.Label == type)
+                {
+                    completionList.SelectedItem = item;
+                    return;
+                }
+                String[] parts = item.Label.Split('.');
+                if (parts[parts.Length - 1] == type) found = item;
+            }
+            if (found != null)
+            {
+                completionList.SelectedItem = found;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         static private void DisplayList(Object sender, System.Timers.ElapsedEventArgs e)
 		{
             ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
@@ -349,7 +371,7 @@ namespace PluginCore.Controls
         /// <summary>
         /// Filter the completion list with the letter typed
         /// </summary> 
-		static private void FindWordStartingWith(String word)
+		static public void FindWordStartingWith(String word)
 		{
 			Int32 len = word.Length;
             Int32 maxLen = 0;
