@@ -428,7 +428,7 @@ namespace ASCompletion.Completion
                     contextMember.Flags -= FlagType.LocalVar;
                     if ((member.Flags & FlagType.Static) > 0)
                         contextMember.Flags |= FlagType.Static;
-                    contextMember.Access = Visibility.Private;
+                    contextMember.Access = GetDefaultVisibility();
                     GenerateVariable(contextMember, position, detach);
                     
                     Sci.SetSel(lookupPosition, lookupPosition);
@@ -571,9 +571,12 @@ namespace ASCompletion.Completion
             return new MemberModel(contextToken, type, kind, GetDefaultVisibility());
         }
 
-        private static Visibility GetDefaultVisibility()
+        /// <summary>
+        /// Get Visibility.Private or Visibility.Protected, depending on user setting forcing the use of protected.
+        /// </summary>
+        public static Visibility GetDefaultVisibility()
         {
-            if (ASContext.Context.Features.protectedKey != null && !ASContext.CommonSettings.GeneratePrivateDeclarations)
+            if (ASContext.Context.Features.protectedKey != null && ASContext.CommonSettings.GenerateProtectedDeclarations)
                 return Visibility.Protected;
             else return Visibility.Private;
         }

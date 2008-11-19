@@ -1279,17 +1279,25 @@ namespace ASCompletion.Completion
         static private void SelectTypedNewMember(ScintillaNet.ScintillaControl sci)
         {
             ASExpr expr = GetExpression(sci, sci.CurrentPos);
-            if (expr.Value != null)
+            if (expr.Value == null) return;
+            // try local var
+            expr.LocalVars = ParseLocalVars(expr);
+            foreach (MemberModel localVar in expr.LocalVars)
             {
-                expr.LocalVars = ParseLocalVars(expr);
-                foreach (MemberModel localVar in expr.LocalVars)
+                if (localVar.LineTo == ASContext.Context.CurrentLine)
                 {
-                    if (localVar.LineTo == ASContext.Context.CurrentLine)
-                    {
-                        CompletionList.SelectItem(localVar.Type);
-                        return;
-                    }
+                    CompletionList.SelectItem(localVar.Type);
+                    return;
                 }
+            }
+            // try member
+            string currentLine = sci.GetLine(sci.LineFromPosition(sci.CurrentPos));
+            Match mVarNew = Regex.Match(currentLine, "\\s*(?<name>[a-z_$][a-z_$0-9]*)\\s*=\\s*new\\s", RegexOptions.IgnoreCase);
+            if (mVarNew.Success)
+            {
+                ASResult result = EvalVariable(mVarNew.Groups["name"].Value, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass);
+                if (result.Member != null)
+                    CompletionList.SelectItem(result.Member.Type);
             }
         }
 

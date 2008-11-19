@@ -42,6 +42,7 @@ namespace PluginCore.Controls
         private static Boolean needResize;
         private static String widestLabel;
         private static long showTime;
+        private static ICompletionListItem defaultItem;
 
 		#endregion
 		
@@ -163,6 +164,7 @@ namespace PluginCore.Controls
 			exactMatchInList = false;
 			startPos = sci.CurrentPos-word.Length;
 			currentPos = sci.CurrentPos;
+            defaultItem = null;
             // populate list
             needResize = true;
             tempo.Enabled = autoHide && (PluginBase.MainForm.Settings.DisplayDelay > 0);
@@ -178,23 +180,25 @@ namespace PluginCore.Controls
 		}
 
         /// <summary>
-        /// 
+        /// Set default selected item in completion list
         /// </summary>
-        static public void SelectItem(String type)
+        static public void SelectItem(String name)
         {
+            String pname = (name.IndexOf('.') < 0) ? "." + name : null;
             ICompletionListItem found = null;
             foreach (ICompletionListItem item in completionList.Items)
             {
-                if (item.Label == type)
+                if (item.Label == name)
                 {
+                    defaultItem = item;
                     completionList.SelectedItem = item;
                     return;
                 }
-                String[] parts = item.Label.Split('.');
-                if (parts[parts.Length - 1] == type) found = item;
+                if (pname != null && item.Label.EndsWith(pname)) found = item;
             }
             if (found != null)
             {
+                defaultItem = found;
                 completionList.SelectedItem = found;
             }
         }
@@ -410,18 +414,11 @@ namespace PluginCore.Controls
 							if (!smartMatchInList || score < lastScore 
                                 /*|| (score == lastScore && item.Label.Length < matched.Length)*/)
 							{
-                                //matched = item.Label;
                                 lastScore = score;
 								lastIndex = temp.Count;
                                 smartMatchInList = true;
 								exactMatchInList = score < 5 && word == CompletionList.word;
 							}
-							// exact match
-							/*if (autoHide && !fullList && (len == item.Label.Length))
-							{
-								Hide();
-								return;
-							}*/
 							temp.Add(new ItemMatch(score, item));
                             if (item.Label.Length > maxLen)
                             {
@@ -471,6 +468,8 @@ namespace PluginCore.Controls
                         if (completionList.Items[i] != found[i]) { changed = true; break; }
                     if (!changed)
                     {
+                        // preselected item
+                        lastIndex = TestDefaultItem(lastIndex, word, len);
                         completionList.SelectedIndex = lastIndex;
                         return;
                     }
@@ -489,9 +488,11 @@ namespace PluginCore.Controls
                             maxLen = widestLabel.Length;
                         }
 					}
+                    Int32 topIndex = lastIndex;
+                    lastIndex = TestDefaultItem(lastIndex, word, len);
 					// select first item
-					completionList.SelectedIndex = lastIndex;
-					completionList.TopIndex = lastIndex;
+                    completionList.TopIndex = topIndex;
+                    completionList.SelectedIndex = lastIndex;
 				}
 				catch (Exception ex)
 				{
@@ -530,6 +531,16 @@ namespace PluginCore.Controls
 				else exactMatchInList = false;
 			}
 		}
+
+        private static int TestDefaultItem(Int32 index, String word, Int32 len)
+        {
+            if (defaultItem != null && completionList.Items.Contains(defaultItem))
+            {
+                Int32 score = (len == 0) ? 1 : SmartMatch(defaultItem.Label, word, len);
+                if (score > 0 && score < 6) return completionList.Items.IndexOf(defaultItem);
+            }
+            return index;
+        }
 
         static private int SmartMatch(string label, string word, int len)
         {
