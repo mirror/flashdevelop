@@ -1,20 +1,52 @@
-Things to add:
+Known issues:
+- Projects located on shared drives (completion problems, SWC parsing crash,...)
+- Very limited FlexBuilder projects support
+- Some completion/generator problems with SWCs
+- Selecting several FLA files and pressing <Enter>: execution not properly queued
+- QuickBuild does not work if class is packaged
 
-- Better completion support for timeline code
-- Installer(?) and update process for thirdparty plugins
-- Finish haXe projects support (platforms, directives, makefile)
-- Add SWF metadata support in Flex projects (title, description, ..)
-- Offer alternative shortcut for Ctrl+Space
+Code refactoring plans:
+
+- Rename class file to rename in code
+- Duplicate class with new name (would rename in the code too)
+- Imports automatic cleanup
+- Package refactoring
+- For more, we need a complete AST
+
+Flex compilation improvements:
+- Conditional compilation constants in projects (http://livedocs.adobe.com/flex/3/html/compilers_21.html)
+- SWF metadata options in projects (title, description, ..)
+- Link-report/excludes options in projects
+- Framework caching
+
+Completion improvements:
+
+- Configure completion list's insertion trigger characters
 - ASCompletion exclusions settings
+- Better completion support for timeline code
+- Smarter function generator (detect parameters type)
+- Option to generate get/set after the private var
+- Show event types after addEventListener(
+- Add an option to use only package imports (com.domain.package.*)
+- Inheritance level browsing with completion lists?
+- Inheritance explorer: display a type's super & sub classes
+
+Snippets improvements:
+
+- More arguments (http://www.flashdevelop.org/community/viewtopic.php?f=5&t=3661)
+- Arguments operations (uppercase, lowercase, substr, repeat,...)
+- Argument to generate import declarations
+- Tabbing in placeholder arguments (as in Eclipse, Textmate,...)
 
 Future features:
 
-- Bandwidth simulation?
-- Code refactoring support
+- Installer(?) and update process for thirdparty plugins
+- Back/forward buttons to navigate in code (like in VS)
+- Xml beautifier/checker
+- Other language completion & projects (JS, etc)
+- Finish haXe projects support (platforms, directives, makefile)
+- Bandwidth simulation? (would "just" require a custom http server)
 - Centralize few ScintillaNET global settings...
 - TortoiseSVN/CVS/VSS Context menu integration
-- Other language completion & projects (JS, etc)
-- Add an option to use only package imports (com.domain.package.*)
 - Filtering/tabs to results panel? (all, errors, info, todo)
-- Inheritance level browsing with completion lists?
-- Xml beautifier/checker
+- Open file from selected text in code
