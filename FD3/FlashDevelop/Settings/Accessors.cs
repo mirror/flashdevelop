@@ -746,6 +746,16 @@ namespace FlashDevelop.Settings
             set { this.uiDisableSmartMatch = value; }
         }
 
+        [DefaultValue("")]
+        [DisplayName("Completion List Insertion Triggers")]
+        [LocalizedCategory("FlashDevelop.Category.Controls")]
+        [LocalizedDescription("FlashDevelop.Description.InsertionTriggers")]
+        public String InsertionTriggers
+        {
+            get { return this.uiInsertionTriggers; }
+            set { this.uiInsertionTriggers = value; }
+        }
+
         #endregion
 
     }

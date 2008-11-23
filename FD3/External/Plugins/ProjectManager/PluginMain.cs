@@ -917,19 +917,31 @@ namespace ProjectManager
         private void TreeShowShellMenu()
         {
             Int32 count = Tree.SelectedPaths.Length;
+            if (count == 0) return;
             FileInfo[] selectedPathsAndFiles = new FileInfo[count];
             ShellContextMenu scm = new ShellContextMenu();
+            String parentDir = null;
             for (Int32 i = 0; i < count; i++)
             {
                 String path = Tree.SelectedPaths[i];
+                if (parentDir == null) parentDir = Path.GetDirectoryName(path); // only select files in the same directory
+                else if (Path.GetDirectoryName(path) != parentDir) continue;
                 selectedPathsAndFiles[i] = new FileInfo(path);
             }
-            if (selectedPathsAndFiles.Length > 0)
+            this.pluginUI.Menu.Hide(); /* Hide default menu */
+            Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
+            Timer delayedAction = new Timer();
+            delayedAction.Interval = 50;
+            delayedAction.Tick += new EventHandler(delegate
             {
-                this.pluginUI.Menu.Hide(); /* Hide default menu */
-                Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
-                scm.ShowContextMenu(this.Tree.Handle, selectedPathsAndFiles, location);
-            }
+                delayedAction.Stop();
+                try
+                {
+                    scm.ShowContextMenu(PluginBase.MainForm.Handle, selectedPathsAndFiles, location);
+                }
+                catch (System.ExecutionEngineException eee) { }
+            });
+            delayedAction.Start();
         }
 
         #endregion

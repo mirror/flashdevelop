@@ -87,6 +87,7 @@ namespace FlashDevelop.Settings
         private Boolean uiEnableAutoHide = true;
         private Boolean uiWrapList = false;
         private Boolean uiDisableSmartMatch = false;
+        private String uiInsertionTriggers = "";
 
     }
 

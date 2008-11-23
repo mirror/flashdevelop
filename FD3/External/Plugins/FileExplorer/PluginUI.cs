@@ -232,6 +232,7 @@ namespace FileExplorer
         private void ShowShellMenu(Object sender, EventArgs e)
         {
             Int32 count = this.fileView.SelectedItems.Count;
+            if (count == 0) return;
             FileInfo[] selectedPathsAndFiles = new FileInfo[count];
             ShellContextMenu scm = new ShellContextMenu();
             for (Int32 i = 0; i < count; i++)
@@ -239,12 +240,20 @@ namespace FileExplorer
                 String path = this.fileView.SelectedItems[i].Tag.ToString();
                 selectedPathsAndFiles[i] = new FileInfo(path);
             }
-            if (selectedPathsAndFiles.Length > 0)
+            this.menu.Hide(); /* Hide default menu */
+            Point location = new Point(this.menu.Bounds.Left, this.menu.Bounds.Top);
+            Timer delayedAction = new Timer();
+            delayedAction.Interval = 50;
+            delayedAction.Tick += new EventHandler(delegate
             {
-                this.menu.Hide(); /* Hide default menu */
-                Point location = new Point(this.menu.Bounds.Left, this.menu.Bounds.Top);
-                scm.ShowContextMenu(this.Handle, selectedPathsAndFiles, location);
-            }
+                delayedAction.Stop();
+                try
+                {
+                    scm.ShowContextMenu(PluginBase.MainForm.Handle, selectedPathsAndFiles, location);
+                }
+                catch (System.ExecutionEngineException eee) { }
+            });
+            delayedAction.Start();
         }
 
         /// <summary>

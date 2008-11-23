@@ -260,6 +260,7 @@ namespace PluginCore
         Boolean EnableAutoHide { get; set; }
         Boolean WrapList { get; set; }
         Boolean DisableSmartMatch { get; set; }
+        String InsertionTriggers { get; set; }
         
         #endregion
     }

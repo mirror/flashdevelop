@@ -633,6 +633,10 @@ namespace PluginCore.Controls
         /// </summary> 
 		static public void ReplaceText(ScintillaControl sci, String tail, char trigger)
 		{
+            String triggers = PluginBase.Settings.InsertionTriggers ?? "";
+            if (triggers.Length > 0 && Regex.Unescape(triggers).IndexOf(trigger) < 0)
+                return;
+
             ICompletionListItem item = null;
             if (completionList.SelectedIndex >= 0) 
                 item = completionList.Items[completionList.SelectedIndex] as ICompletionListItem;
