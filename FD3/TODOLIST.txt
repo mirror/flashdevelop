@@ -3,7 +3,6 @@ Known issues:
 - Very limited FlexBuilder projects support
 - Some completion/generator problems with SWCs
 - Selecting several FLA files and pressing <Enter>: execution not properly queued
-- QuickBuild does not work if class is packaged
 
 Code refactoring plans:
 

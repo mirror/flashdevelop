@@ -238,24 +238,20 @@ namespace AS3Context.Compiler
 				    buildPath = Path.GetDirectoryName(filename);
 			}
 			// command
-			builtSWF = Path.Combine(buildPath, Path.GetFileNameWithoutExtension(filename)+".swf");
             debugMode = false;
-            bool addFilename = true;
-			string cmd = "-o;"+builtSWF+";--;";
+            bool hasOutput = false;
+            string cmd = "";
 			Match mCmd = Regex.Match(PluginBase.MainForm.CurrentDocument.SciControl.Text, "\\s@mxmlc\\s(?<cmd>.*)");
             if (mCmd.Success)
             {
                 try
                 {
-                    bool hasOutput = false;
 
                     // cleanup tag
                     string tag = mCmd.Groups["cmd"].Value;
                     if (tag.IndexOf("-->") > 0) tag = tag.Substring(0, tag.IndexOf("-->"));
                     if (tag.IndexOf("]]>") > 0) tag = tag.Substring(0, tag.IndexOf("]]>"));
-                    tag = " " + tag.Trim();
-                    if (tag.EndsWith("--")) addFilename = false;
-                    else tag += " --";
+                    tag = " " + tag.Trim() + " --";
 
                     // split
                     MatchCollection mPar = re_SplitParams.Matches(tag);
@@ -267,6 +263,7 @@ namespace AS3Context.Compiler
                         for (int i = 0; i < mPar.Count; i++)
                         {
                             op = mPar[i].Groups["switch"].Value;
+                            if (op == "--") break;
                             if (op == "-noplay")
                             {
                                 playAfterBuild = false;
@@ -315,9 +312,6 @@ namespace AS3Context.Compiler
                             else cmd += op + ";";
                         }
                     }
-
-                    // output default 
-                    if (!hasOutput) cmd = "-o;" + builtSWF + ";" + cmd;
                 }
                 catch
                 {
@@ -326,10 +320,22 @@ namespace AS3Context.Compiler
             }
             else if (requireTag) return;
 
-			// build
+            // add current class sourcepath and global classpaths
+            cmd += ";-sp+=" + theFile.BasePath;
+            if (Context.Context.Settings.UserClasspath != null)
+                foreach (string cp in Context.Context.Settings.UserClasspath)
+                    cmd += ";-sp+=" + cp;
+            // add output filename
+            if (!hasOutput) 
+            {
+                builtSWF = Path.Combine(buildPath, Path.GetFileNameWithoutExtension(filename)+".swf");
+                cmd = "-o;" + builtSWF + ";" + cmd;
+            }
+            // add current file
+            cmd += ";--;" + filename;
+
+            // build
 			cmd = cmd.Replace(";;", ";");
-            if (addFilename) cmd += filename;
-            else cmd = cmd.Substring(0, cmd.Length - 3);
             RunMxmlc(cmd, flex2Path);
 			if (!playAfterBuild) builtSWF = null;
 			

@@ -419,13 +419,15 @@ namespace AS3Context
                 foreach (FileModel aFile in aPath.Files.Values)
                 {
                     aClass = aFile.GetPublicClass();
-                    if (!aClass.IsVoid() && aClass.IndexType == null
-                        && (aClass.Access == Visibility.Public
-                            || (aClass.Access == Visibility.Internal && aFile.Package == package)))
+                    if (!aClass.IsVoid() && aClass.IndexType == null)
                     {
-                        item = aClass.ToMemberModel();
-                        item.Name = item.Type;
-                        fullList.Add(item);
+                        if (aClass.Access == Visibility.Public
+                            || (aClass.Access == Visibility.Internal && aFile.Package == package))
+                        {
+                            item = aClass.ToMemberModel();
+                            item.Name = item.Type;
+                            fullList.Add(item);
+                        }
                     }
                     if (aFile.Package.Length > 0 && aFile.Members.Count > 0)
                     {

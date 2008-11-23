@@ -16,7 +16,7 @@ namespace ASCompletion.Completion
     public class ASGenerator
     {
         #region context detection (ie. entry points)
-        const string patternEvent = "(add|remove)EventListener\\s*\\(\\s*(?<event>[a-z_0-9.\\\"']+)\\s*,\\s*{0}";
+        const string patternEvent = "Listener\\s*\\(\\s*(?<event>[a-z_0-9.\\\"']+)\\s*,\\s*{0}";
         const string patternDelegate = @"\.\s*create\s*\(\s*[a-z_0-9.]+,\s*{0}";
         const string patternVarDecl = @"\s*{0}\s*:\s*{1}";
         const string patternMethod = @"{0}\s*\(";
