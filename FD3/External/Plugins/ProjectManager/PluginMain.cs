@@ -930,18 +930,7 @@ namespace ProjectManager
             }
             this.pluginUI.Menu.Hide(); /* Hide default menu */
             Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
-            Timer delayedAction = new Timer();
-            delayedAction.Interval = 50;
-            delayedAction.Tick += new EventHandler(delegate
-            {
-                delayedAction.Stop();
-                try
-                {
-                    scm.ShowContextMenu(PluginBase.MainForm.Handle, selectedPathsAndFiles, location);
-                }
-                catch (System.ExecutionEngineException eee) { }
-            });
-            delayedAction.Start();
+            scm.ShowContextMenu(PluginBase.MainForm.Handle, selectedPathsAndFiles, location);
         }
 
         #endregion
