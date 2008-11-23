@@ -130,6 +130,8 @@ namespace ProjectManager.Projects.AS3
                     case "useResourceBundleMetadata": options.UseResourceBundleMetadata = BoolValue; break;
                     case "warnings": options.Warnings = BoolValue; break;
                     case "verboseStackTraces": options.VerboseStackTraces = BoolValue; break;
+                    case "linkReport": options.LinkReport = Value; break;
+                    case "loadExterns": options.LoadExterns = Value; break;
                     case "additional": options.Additional = Value.Split('\n'); break;
                     case "customSDK": options.CustomSDK = Value; break;
                 }

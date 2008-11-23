@@ -2640,4 +2640,10 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Label.ShellMenu" xml:space="preserve">
     <value>Shell Menu...</value>
   </data>
+  <data name="ProjectManager.Description.LinkReport" xml:space="preserve">
+    <value>Generate a file describing symbols which were compiled in the SWF. This file can be used to optimize a module with load-externs compiler option.</value>
+  </data>
+  <data name="ProjectManager.Description.LoadExterns" xml:space="preserve">
+    <value>Specifies a file declaring symbols to omit from linking. This file can be generated using link-report compiler option.</value>
+  </data>
 </root>

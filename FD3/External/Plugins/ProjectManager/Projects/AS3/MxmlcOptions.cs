@@ -9,31 +9,6 @@ namespace ProjectManager.Projects.AS3
     [Serializable]
     public class MxmlcOptions : CompilerOptions
     {
-        #region General
-
-        bool benchmark = false;
-        [LocalizedCategory("ProjectManager.Category.GeneralOptions")]
-        [DisplayName("Show Benchmark Results")]
-        [LocalizedDescription("ProjectManager.Description.Benchmark")]
-        [DefaultValue(false)]
-        public bool Benchmark { get { return benchmark; } set { benchmark = value; } }
-
-        bool useNetwork = true;
-        [LocalizedCategory("ProjectManager.Category.GeneralOptions")]
-        [DisplayName("Use Network Services")]
-        [LocalizedDescription("ProjectManager.Description.UseNetwork")]
-        [DefaultValue(true)]
-        public bool UseNetwork { get { return useNetwork; } set { useNetwork = value; } }
-
-        string minorVersion = "";
-        [LocalizedCategory("ProjectManager.Category.Advanced")]
-        [DisplayName("Player Minor Version")]
-        [LocalizedDescription("ProjectManager.Description.MinorVersion")]
-        [DefaultValue("")]
-        public string MinorVersion { get { return minorVersion; } set { minorVersion = value; } }
-
-        #endregion
-
         #region Compiler Options
 
         bool accessible = false;
@@ -49,6 +24,13 @@ namespace ProjectManager.Projects.AS3
         [LocalizedDescription("ProjectManager.Description.AllowSourcePathOverlap")]
         [DefaultValue(false)]
         public bool AllowSourcePathOverlap { get { return allowSourcePathOverlap; } set { allowSourcePathOverlap = value; } }
+
+        bool benchmark = false;
+        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [DisplayName("Show Benchmark Results")]
+        [LocalizedDescription("ProjectManager.Description.Benchmark")]
+        [DefaultValue(false)]
+        public bool Benchmark { get { return benchmark; } set { benchmark = value; } }
 
         bool es = false;
         [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
@@ -152,6 +134,13 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue("")]
         public string CustomSDK { get { return customSDK; } set { customSDK = value; } }
 
+        string minorVersion = "";
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Player Minor Version")]
+        [LocalizedDescription("ProjectManager.Description.MinorVersion")]
+        [DefaultValue("")]
+        public string MinorVersion { get { return minorVersion; } set { minorVersion = value; } }
+
         string[] intrinsicPaths = new string[] { };
         [DisplayName("Intrinsic Libraries")]
         [LocalizedCategory("ProjectManager.Category.Advanced")]
@@ -206,6 +195,27 @@ namespace ProjectManager.Projects.AS3
             get { return rslPaths; }
             set { rslPaths = value; }
         }
+
+        bool useNetwork = true;
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Use Network Services")]
+        [LocalizedDescription("ProjectManager.Description.UseNetwork")]
+        [DefaultValue(true)]
+        public bool UseNetwork { get { return useNetwork; } set { useNetwork = value; } }
+
+        string linkReport = "";
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Link Report")]
+        [LocalizedDescription("ProjectManager.Description.LinkReport")]
+        [DefaultValue("")]
+        public string LinkReport { get { return linkReport; } set { linkReport = value; } }
+
+        string loadExterns = "";
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Load Externs")]
+        [LocalizedDescription("ProjectManager.Description.LoadExterns")]
+        [DefaultValue("")]
+        public string LoadExterns { get { return loadExterns; } set { loadExterns = value; } }
 
         #endregion
     }
