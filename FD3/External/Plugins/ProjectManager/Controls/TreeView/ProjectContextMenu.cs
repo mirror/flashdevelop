@@ -254,7 +254,6 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(ShellMenu, 1);
             menu.Add(Paste, 2);
             menu.Add(ShowHidden, 3, showHidden);
-            menu.Add(ShellMenu, 3);
             menu.Add(Properties, 4);
         }
 
@@ -301,6 +300,7 @@ namespace ProjectManager.Controls.TreeView
             bool alwaysCompile = project.IsCompileTarget(path);
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
+            menu.Add(ShellMenu, 0);
             menu.Add(AlwaysCompile, 2, alwaysCompile);
             AddFileItems(menu, path);
         }
