@@ -1,23 +1,24 @@
 using System;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
-using WeifenLuo.WinFormsUI;
-using WeifenLuo.WinFormsUI.Docking;
 using ProjectManager.Actions;
 using ProjectManager.Controls;
 using ProjectManager.Controls.AS2;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Controls.TreeView;
+using WeifenLuo.WinFormsUI.Docking;
+using WeifenLuo.WinFormsUI;
 using ProjectManager.Helpers;
 using ProjectManager.Projects;
 using PluginCore.Localization;
-using PluginCore.Managers;
 using PluginCore.Utilities;
+using PluginCore.Managers;
+using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore;
 
@@ -210,6 +211,7 @@ namespace ProjectManager
             pluginUI.Menu.BuildProject.Click += delegate { BuildProject(); };
             pluginUI.Menu.CloseProject.Click += delegate { CloseProject(false); };
             pluginUI.Menu.Properties.Click += delegate { OpenProjectProperties(); };
+            pluginUI.Menu.ShellMenu.Click += delegate { TreeShowShellMenu(); };
 
             Tree.MovePath += fileActions.Move;
             Tree.CopyPath += fileActions.Copy;
@@ -907,6 +909,27 @@ namespace ProjectManager
         public void TreeRefreshSelectedNode()
         {
             Tree.RefreshNode(Tree.SelectedNode);
+        }
+
+        /// <summary>
+        /// Shows the explorer shell menu
+        /// </summary>
+        private void TreeShowShellMenu()
+        {
+            Int32 count = Tree.SelectedPaths.Length;
+            FileInfo[] selectedPathsAndFiles = new FileInfo[count];
+            ShellContextMenu scm = new ShellContextMenu();
+            for (Int32 i = 0; i < count; i++)
+            {
+                String path = Tree.SelectedPaths[i];
+                selectedPathsAndFiles[i] = new FileInfo(path);
+            }
+            if (selectedPathsAndFiles.Length > 0)
+            {
+                this.pluginUI.Menu.Hide(); /* Hide default menu */
+                Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
+                scm.ShowContextMenu(this.Tree.Handle, selectedPathsAndFiles, location);
+            }
         }
 
         #endregion

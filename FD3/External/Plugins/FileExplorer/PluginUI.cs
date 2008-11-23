@@ -5,12 +5,13 @@ using System.Drawing;
 using System.Security;
 using System.Diagnostics;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Collections.Specialized;
 using PluginCore.Localization;
-using PluginCore.Managers;
 using PluginCore.Utilities;
+using PluginCore.Managers;
+using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore;
 
@@ -25,6 +26,7 @@ namespace FileExplorer
         private System.Windows.Forms.ToolStripMenuItem editButton;
         private System.Windows.Forms.ToolStripMenuItem renameButton;
         private System.Windows.Forms.ToolStripMenuItem deleteButton;
+        private System.Windows.Forms.ToolStripMenuItem shellButton;
         private System.Windows.Forms.ToolStripMenuItem pasteButton;
         private System.Windows.Forms.ToolStripMenuItem copyButton;
         private System.Windows.Forms.ToolStripSeparator separator;
@@ -225,6 +227,27 @@ namespace FileExplorer
         }
 
         /// <summary>
+        /// Shows the explorer shell menu
+        /// </summary>
+        private void ShowShellMenu(Object sender, EventArgs e)
+        {
+            Int32 count = this.fileView.SelectedItems.Count;
+            FileInfo[] selectedPathsAndFiles = new FileInfo[count];
+            ShellContextMenu scm = new ShellContextMenu();
+            for (Int32 i = 0; i < count; i++)
+            {
+                String path = this.fileView.SelectedItems[i].Tag.ToString();
+                selectedPathsAndFiles[i] = new FileInfo(path);
+            }
+            if (selectedPathsAndFiles.Length > 0)
+            {
+                this.menu.Hide(); /* Hide default menu */
+                Point location = new Point(this.menu.Bounds.Left, this.menu.Bounds.Top);
+                scm.ShowContextMenu(this.Handle, selectedPathsAndFiles, location);
+            }
+        }
+
+        /// <summary>
         /// Creates and attaches the context menu
         /// </summary>
         private void InitializeContextMenu()
@@ -237,6 +260,8 @@ namespace FileExplorer
             this.menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CreateFolderHere"), null, new EventHandler(this.CreateFolderHere)));
             this.menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CommandPromptHere"), null, new EventHandler(this.CommandPromptHere)));
             this.menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ExploreHere"), null, new EventHandler(this.ExploreHere)));
+            this.shellButton = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"), null, new EventHandler(this.ShowShellMenu));
+            this.menu.Items.Add(this.shellButton);
             this.menu.Items.Add(new ToolStripSeparator());
             this.menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.TrustHere"), null, new EventHandler(this.TrustHere)));
             this.separator = new ToolStripSeparator();

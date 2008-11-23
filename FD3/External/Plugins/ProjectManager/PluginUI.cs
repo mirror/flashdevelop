@@ -77,7 +77,8 @@ namespace ProjectManager
             string helpText = "";
             int[] linkStart = { 0, 0, 0 };
             int[] linkLength = { 0, 0, 0 };
-            for (int i = 0; i < 3; i++) 
+            for (int i = 0; i < 3; i++)
+            {
                 if (helpParts.Length > i * 2)
                 {
                     helpText += helpParts[i * 2];
@@ -85,9 +86,12 @@ namespace ProjectManager
                     helpText += helpParts[i * 2 + 1];
                     linkLength[i] = helpParts[i * 2 + 1].Length;
                 }
+            }
             help.Text = helpText + helpParts[helpParts.Length - 1];
-            for (int i = 0; i < 3; i++) 
+            for (int i = 0; i < 3; i++)
+            {
                 help.Links.Add(linkStart[i], linkLength[i], helpActions[i]);
+            }
             help.LinkClicked += link_LinkClicked;
             help.Dock = DockStyle.Fill;
             help.TextAlign = ContentAlignment.MiddleCenter;
