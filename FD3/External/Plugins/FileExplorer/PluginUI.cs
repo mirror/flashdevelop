@@ -232,13 +232,19 @@ namespace FileExplorer
         private void ShowShellMenu(Object sender, EventArgs e)
         {
             Int32 count = this.fileView.SelectedItems.Count;
-            if (count == 0) return;
             FileInfo[] selectedPathsAndFiles = new FileInfo[count];
             ShellContextMenu scm = new ShellContextMenu();
             for (Int32 i = 0; i < count; i++)
             {
                 String path = this.fileView.SelectedItems[i].Tag.ToString();
                 selectedPathsAndFiles[i] = new FileInfo(path);
+            }
+            if (count == 0)
+            {
+                String path = this.selectedPath.Text;
+                if (!Directory.Exists(path)) return;
+                selectedPathsAndFiles = new FileInfo[1];
+                selectedPathsAndFiles[0] = new FileInfo(path);
             }
             this.menu.Hide(); /* Hide default menu */
             Point location = new Point(this.menu.Bounds.Left, this.menu.Bounds.Top);
