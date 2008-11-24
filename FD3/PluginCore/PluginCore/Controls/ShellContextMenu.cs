@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Permissions;
+using System.Threading;
 
 namespace PluginCore.Controls
 {
@@ -1408,7 +1409,7 @@ namespace PluginCore.Controls
                 m_hookType,
                 m_filterFunc,
                 IntPtr.Zero,
-                (int)AppDomain.GetCurrentThreadId());
+                Thread.CurrentThread.ManagedThreadId);
         }
         // ************************************************************************
 
