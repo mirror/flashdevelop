@@ -2649,4 +2649,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.InsertionTriggers" xml:space="preserve">
     <value>Set this option to limit the characters which insert completion list item. Tab and Enter characters must be escaped (ie. \t \n).</value>
   </data>
+  <data name="TaskListPanel.Info.InvalidFile" xml:space="preserve">
+    <value>The file could not be found. The task list will be refreshed.</value>
+  </data>
 </root>

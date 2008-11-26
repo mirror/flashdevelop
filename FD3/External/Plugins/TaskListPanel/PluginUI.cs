@@ -651,8 +651,15 @@ namespace TaskListPanel
                         MoveToPosition(document.SciControl, currentPos);
                         currentFileName = null;
                         currentPos = -1;
+                        return;
                     }
-                    else PluginBase.MainForm.OpenEditableDocument(path, false);
+                }
+                if (!File.Exists(path))
+                {
+                    String message = TextHelper.GetString("Info.InvalidFile");
+                    ErrorManager.ShowInfo(message);
+                    this.RemoveInvalidItems();
+                    this.RefreshProject();
                 }
                 else PluginBase.MainForm.OpenEditableDocument(path, false);
             }
