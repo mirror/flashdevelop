@@ -4553,7 +4553,8 @@ namespace ScintillaNet
                                     string text = MarshalStr(scn.text, scn.length);
                                     Modified(this, scn.position, scn.modificationType, text, scn.length, scn.linesAdded, scn.line, scn.foldLevelNow, scn.foldLevelPrev);
                                 }
-                                catch {}
+                                catch {
+                                }
 							}
 							break;
 					}

@@ -15,6 +15,7 @@ namespace ProjectManager.Projects.Haxe
                     "Flash Player 7",
                     "Flash Player 8",
                     "Flash Player 9",
+                    "Flash Player 10",
                     "JavaScript",
                     "Neko"
                 };

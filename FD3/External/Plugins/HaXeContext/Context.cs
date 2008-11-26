@@ -99,6 +99,20 @@ namespace HaXeContext
         #endregion
 
         #region classpath management
+
+        public bool IsFlashTarget
+        {
+            get { return flashVersion < 11; }
+        }
+        public bool IsJavaScriptTarget
+        {
+            get { return flashVersion == 11; }
+        }
+        public bool IsNekoTarget
+        {
+            get { return flashVersion == 12; }
+        }
+
         /// <summary>
         /// Classpathes & classes cache initialisation
         /// </summary>
@@ -123,15 +137,15 @@ namespace HaXeContext
                 catch { }
             }
 
-            // NOTE: version > 9 for non-Flash platforms
+            // NOTE: version > 10 for non-Flash platforms
             string lang = null;
             features.Directives = new List<string>();
-            if (flashVersion == 10) 
+            if (IsJavaScriptTarget) 
             {
                 lang = "js";
                 features.Directives.Add(lang);
             }
-            else if (flashVersion == 11) 
+            else if (IsNekoTarget) 
             {
                 lang = "neko";
                 features.Directives.Add(lang);
@@ -140,7 +154,7 @@ namespace HaXeContext
             {
                 features.Directives.Add("flash");
                 features.Directives.Add("flash" + flashVersion);
-                lang = (flashVersion == 9) ? "flash9" : "flash";
+                lang = (flashVersion >= 9) ? "flash9" : "flash";
             }
             features.Directives.Add("true");
 
@@ -437,8 +451,8 @@ namespace HaXeContext
             if (TemporaryOutputFile == null) TemporaryOutputFile = Path.GetTempFileName();
             string output = "-swf ";
 
-            if (flashVersion == 10) output = "-js ";
-            else if (flashVersion == 11) output = "-neko ";
+            if (IsJavaScriptTarget) output = "-js ";
+            else if (IsNekoTarget) output = "-neko ";
 
             RunCMD(output + "\"" + TemporaryOutputFile + "\" " + hxsettings.HaXeCheckParameters);
         }
@@ -486,7 +500,7 @@ namespace HaXeContext
                 if (cname.IndexOf('<') > 0) cname = cname.Substring(0, cname.IndexOf('<'));
                 command += cname;
 
-                if (flashVersion < 10 && (append == null || append.IndexOf("-swf-version") < 0)) 
+                if (IsFlashTarget && (append == null || append.IndexOf("-swf-version") < 0)) 
                     command += " -swf-version " + flashVersion;
                 // classpathes
                 foreach (PathModel aPath in classPath)

@@ -22,15 +22,15 @@ namespace ProjectManager.Projects.Haxe
 
         public bool IsFlashOutput
         {
-            get { return MovieOptions.Version < 10; }
+            get { return MovieOptions.Version < 11; }
         }
         public bool IsJavacriptOutput
         {
-            get { return MovieOptions.Version == 10; }
+            get { return MovieOptions.Version == 11; }
         }
         public bool IsNekoOutput
         {
-            get { return MovieOptions.Version == 11; }
+            get { return MovieOptions.Version == 12; }
         }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
