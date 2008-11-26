@@ -15,6 +15,9 @@ namespace PluginCore.Controls
         public event UpdateCallTipHandler OnUpdateCallTip;
 
         // state
+        protected string currentText;
+        protected int currentHLStart;
+        protected int currentHLEnd;
         protected bool isActive;
         protected int memberPos;
         protected int startPos;
@@ -43,6 +46,9 @@ namespace PluginCore.Controls
                 UITools.Manager.UnlockControl(); // unlock keys
 			}
             faded = false;
+            currentText = null;
+            currentHLStart = -1;
+            currentHLEnd = -1;
             base.Hide();
         }
 
@@ -53,9 +59,10 @@ namespace PluginCore.Controls
 
         public void CallTipShow(ScintillaControl sci, int position, string text)
         {
-            if (toolTip.Visible && position == memberPos && text == Text)
+            if (toolTip.Visible && position == memberPos && text == currentText)
                 return;
             toolTip.Visible = false;
+            currentText = text;
             Text = text;
             AutoSize();
             memberPos = position;
@@ -85,6 +92,10 @@ namespace PluginCore.Controls
 
         public void CallTipSetHlt(int start, int end)
         {
+            if (currentHLStart == start && currentHLEnd == end) 
+                return;
+            currentHLStart = start;
+            currentHLEnd = end;
             SetRichText();
             if (start != end)
             {
