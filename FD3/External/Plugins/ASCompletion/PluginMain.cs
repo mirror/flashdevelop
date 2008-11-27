@@ -363,7 +363,7 @@ namespace ASCompletion
                         {
                             string cmdData = (e as DataEvent).Data as string;
                             // run MTASC
-                            if (command == "ASCompletion.MtascRun")
+                            if (command == "ASCompletion.CustomBuild")
                             {
                                 if (cmdData != null) ASContext.Context.RunCMD(cmdData);
                                 else ASContext.Context.RunCMD("");
@@ -371,7 +371,7 @@ namespace ASCompletion
                             }
 
                             // build the SWF using MTASC
-                            else if (command == "ASCompletion.MtascBuild")
+                            else if (command == "ASCompletion.QuickBuild")
                             {
                                 ASContext.Context.BuildCMD(false);
                                 e.Handled = true;
