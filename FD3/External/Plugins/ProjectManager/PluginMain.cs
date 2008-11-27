@@ -930,7 +930,7 @@ namespace ProjectManager
             }
             this.pluginUI.Menu.Hide(); /* Hide default menu */
             Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
-            scm.ShowContextMenu(PluginBase.MainForm.Handle, selectedPathsAndFiles, location);
+            scm.ShowContextMenu(selectedPathsAndFiles, location);
         }
 
         #endregion

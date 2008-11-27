@@ -248,7 +248,7 @@ namespace FileExplorer
             }
             this.menu.Hide(); /* Hide default menu */
             Point location = new Point(this.menu.Bounds.Left, this.menu.Bounds.Top);
-            scm.ShowContextMenu(PluginBase.MainForm.Handle, selectedPathsAndFiles, location);
+            scm.ShowContextMenu(selectedPathsAndFiles, location);
         }
 
         /// <summary>

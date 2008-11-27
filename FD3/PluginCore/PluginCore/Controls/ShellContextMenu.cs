@@ -34,12 +34,13 @@ namespace PluginCore.Controls
     ///    files[0] = new FileInfo(@"c:\windows\notepad.exe");
     ///    scm.ShowContextMenu(this.Handle, files, Cursor.Position);
     /// </example>
-    public class ShellContextMenu
+    public class ShellContextMenu : NativeWindow
     {
         #region Constructor
         /// <summary>Default constructor</summary>
         public ShellContextMenu()
         {
+            this.CreateHandle(new CreateParams());
         }
         #endregion
 
@@ -56,40 +57,90 @@ namespace PluginCore.Controls
         /// <param name="oParentFolder">Parent folder</param>
         /// <param name="arrPIDLs">PIDLs</param>
         /// <returns>true if it got the interfaces, otherwise false</returns>
-        private bool GetContextMenuInterfaces(IShellFolder oParentFolder, IntPtr[] arrPIDLs)
+        private bool GetContextMenuInterfaces(IShellFolder oParentFolder, IntPtr[] arrPIDLs, out IntPtr ctxMenuPtr)
         {
-            IntPtr pUnknownContextMenu = IntPtr.Zero;
-
             int nResult = oParentFolder.GetUIObjectOf(
                 IntPtr.Zero,
                 (uint)arrPIDLs.Length,
                 arrPIDLs,
                 ref IID_IContextMenu,
                 IntPtr.Zero,
-                out pUnknownContextMenu);
+                out ctxMenuPtr);
 
             if (S_OK == nResult)
             {
-                _oContextMenu = (IContextMenu)Marshal.GetTypedObjectForIUnknown(pUnknownContextMenu, typeof(IContextMenu));
-
-                IntPtr pUnknownContextMenu2 = IntPtr.Zero;
-                if (S_OK == Marshal.QueryInterface(pUnknownContextMenu, ref IID_IContextMenu2, out pUnknownContextMenu2))
-                {
-                    _oContextMenu2 = (IContextMenu2)Marshal.GetTypedObjectForIUnknown(pUnknownContextMenu2, typeof(IContextMenu2));
-                }
-                IntPtr pUnknownContextMenu3 = IntPtr.Zero;
-                if (S_OK == Marshal.QueryInterface(pUnknownContextMenu, ref IID_IContextMenu3, out pUnknownContextMenu3))
-                {
-                    _oContextMenu3 = (IContextMenu3)Marshal.GetTypedObjectForIUnknown(pUnknownContextMenu3, typeof(IContextMenu3));
-                }
+                _oContextMenu = (IContextMenu)Marshal.GetTypedObjectForIUnknown(ctxMenuPtr, typeof(IContextMenu));
 
                 return true;
             }
             else
             {
+                ctxMenuPtr = IntPtr.Zero;
+                _oContextMenu = null;
                 return false;
             }
         }
+        #endregion
+
+        #region Override
+
+        /// <summary>
+        /// This method receives WindowMessages. It will make the "Open With" and "Send To" work 
+        /// by calling HandleMenuMsg and HandleMenuMsg2. It will also call the OnContextMenuMouseHover 
+        /// method of Browser when hovering over a ContextMenu item.
+        /// </summary>
+        /// <param name="m">the Message of the Browser's WndProc</param>
+        /// <returns>true if the message has been handled, false otherwise</returns>
+        protected override void WndProc(ref Message m)
+        {
+            #region IContextMenu
+
+            if (_oContextMenu != null &&
+                m.Msg == (int)WM.MENUSELECT &&
+                ((int)ShellHelper.HiWord(m.WParam) & (int)MFT.SEPARATOR) == 0 &&
+                ((int)ShellHelper.HiWord(m.WParam) & (int)MFT.POPUP) == 0)
+            {
+                string info = string.Empty;
+
+                if (ShellHelper.LoWord(m.WParam) == (int)CMD_CUSTOM.ExpandCollapse)
+                    info = "Expands or collapses the current selected item";
+                else
+                {
+                    info = "";
+                }
+            }
+
+            #endregion
+
+            #region IContextMenu2
+
+            if (_oContextMenu2 != null &&
+                (m.Msg == (int)WM.INITMENUPOPUP ||
+                 m.Msg == (int)WM.MEASUREITEM ||
+                 m.Msg == (int)WM.DRAWITEM))
+            {
+                if (_oContextMenu2.HandleMenuMsg(
+                    (uint)m.Msg, m.WParam, m.LParam) == S_OK)
+                    return;
+            }
+
+            #endregion
+
+            #region IContextMenu3
+
+            if (_oContextMenu3 != null &&
+                m.Msg == (int)WM.MENUCHAR)
+            {
+                if (_oContextMenu3.HandleMenuMsg2(
+                    (uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == S_OK)
+                    return;
+            }
+
+            #endregion
+
+            base.WndProc(ref m);
+        }
+
         #endregion
 
         #region InvokeCommand
@@ -106,7 +157,7 @@ namespace PluginCore.Controls
                 ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
             invoke.ptInvoke = new POINT(pointInvoke.X, pointInvoke.Y);
             invoke.nShow = SW.SHOWNORMAL;
-            
+
             oContextMenu.InvokeCommand(ref invoke);
         }
         #endregion
@@ -264,6 +315,45 @@ namespace PluginCore.Controls
 
             return arrPIDLs;
         }
+
+        /// <summary>
+        /// Get the PIDLs
+        /// </summary>
+        /// <param name="arrFI">Array of DirectoryInfo</param>
+        /// <returns>Array of PIDLs</returns>
+        protected IntPtr[] GetPIDLs(DirectoryInfo[] arrFI)
+        {
+            if (null == arrFI || 0 == arrFI.Length)
+            {
+                return null;
+            }
+
+            IShellFolder oParentFolder = GetParentFolder(arrFI[0].Parent.FullName);
+            if (null == oParentFolder)
+            {
+                return null;
+            }
+
+            IntPtr[] arrPIDLs = new IntPtr[arrFI.Length];
+            int n = 0;
+            foreach (DirectoryInfo fi in arrFI)
+            {
+                // Get the file relative to folder
+                uint pchEaten = 0;
+                SFGAO pdwAttributes = 0;
+                IntPtr pPIDL = IntPtr.Zero;
+                int nResult = oParentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, fi.Name, ref pchEaten, out pPIDL, ref pdwAttributes);
+                if (S_OK != nResult)
+                {
+                    FreePIDLs(arrPIDLs);
+                    return null;
+                }
+                arrPIDLs[n] = pPIDL;
+                n++;
+            }
+
+            return arrPIDLs;
+        }
         #endregion
 
         #region FreePIDLs()
@@ -293,7 +383,8 @@ namespace PluginCore.Controls
             // Release all resources first.
             ReleaseAll();
 
-            IntPtr pMenu = IntPtr.Zero;
+            IntPtr pMenu = IntPtr.Zero,
+                iContextMenuPtr = IntPtr.Zero;
 
             try
             {
@@ -304,7 +395,7 @@ namespace PluginCore.Controls
                     return;
                 }
 
-                if (false == GetContextMenuInterfaces(_oParentFolder, _arrPIDLs))
+                if (false == GetContextMenuInterfaces(_oParentFolder, _arrPIDLs, out iContextMenuPtr))
                 {
                     ReleaseAll();
                     return;
@@ -345,38 +436,59 @@ namespace PluginCore.Controls
         #endregion
 
         #region ShowContextMenu()
+
         /// <summary>
         /// Shows the context menu
         /// </summary>
-        /// <param name="handleOwner">Window that will get messages</param>
-        /// <param name="arrFI">FileInfos (should all be in same directory)</param>
+        /// <param name="files">FileInfos (should all be in same directory)</param>
         /// <param name="pointScreen">Where to show the menu</param>
-        public void ShowContextMenu(IntPtr handleOwner, FileInfo[] arrFI, Point pointScreen)
+        public void ShowContextMenu(FileInfo[] files, Point pointScreen)
         {
             // Release all resources first.
             ReleaseAll();
+            _arrPIDLs = GetPIDLs(files);
+            this.ShowContextMenu(pointScreen);
+        }
 
-            IntPtr pMenu = IntPtr.Zero;
-            LocalWindowsHook hook = new LocalWindowsHook(HookType.WH_CALLWNDPROC);
-            hook.HookInvoked += new LocalWindowsHook.HookEventHandler(WindowsHookInvoked);
+        /// <summary>
+        /// Shows the context menu
+        /// </summary>
+        /// <param name="dirs">DirectoryInfos (should all be in same directory)</param>
+        /// <param name="pointScreen">Where to show the menu</param>
+        public void ShowContextMenu(DirectoryInfo[] dirs, Point pointScreen)
+        {
+            // Release all resources first.
+            ReleaseAll();
+            _arrPIDLs = GetPIDLs(dirs);
+            this.ShowContextMenu(pointScreen);
+        }
+
+        /// <summary>
+        /// Shows the context menu
+        /// </summary>
+        /// <param name="arrFI">FileInfos (should all be in same directory)</param>
+        /// <param name="pointScreen">Where to show the menu</param>
+        private void ShowContextMenu(Point pointScreen)
+        {
+            IntPtr pMenu = IntPtr.Zero,
+                iContextMenuPtr = IntPtr.Zero,
+                iContextMenuPtr2 = IntPtr.Zero,
+                iContextMenuPtr3 = IntPtr.Zero;
 
             try
             {
-                //Application.AddMessageFilter(this);
-
-                _arrPIDLs = GetPIDLs(arrFI);
                 if (null == _arrPIDLs)
                 {
                     ReleaseAll();
                     return;
                 }
 
-                if (false == GetContextMenuInterfaces(_oParentFolder, _arrPIDLs))
+                if (false == GetContextMenuInterfaces(_oParentFolder, _arrPIDLs, out iContextMenuPtr))
                 {
                     ReleaseAll();
                     return;
                 }
-                
+
                 pMenu = CreatePopupMenu();
 
                 int nResult = _oContextMenu.QueryContextMenu(
@@ -388,14 +500,18 @@ namespace PluginCore.Controls
                     CMF.NORMAL |
                     ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
 
-                hook.Install();
+                Marshal.QueryInterface(iContextMenuPtr, ref IID_IContextMenu2, out iContextMenuPtr2);
+                Marshal.QueryInterface(iContextMenuPtr, ref IID_IContextMenu3, out iContextMenuPtr3);
+
+                _oContextMenu2 = (IContextMenu2)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr2, typeof(IContextMenu2));
+                _oContextMenu3 = (IContextMenu3)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr3, typeof(IContextMenu3));
 
                 uint nSelected = TrackPopupMenuEx(
                     pMenu,
                     TPM.RETURNCMD,
                     pointScreen.X,
                     pointScreen.Y,
-                    handleOwner,
+                    this.Handle,
                     IntPtr.Zero);
 
                 DestroyMenu(pMenu);
@@ -412,44 +528,23 @@ namespace PluginCore.Controls
             }
             finally
             {
-                hook.Uninstall();
+                //hook.Uninstall();
                 if (pMenu != IntPtr.Zero)
                 {
                     DestroyMenu(pMenu);
                 }
+
+                if (iContextMenuPtr != IntPtr.Zero)
+                    Marshal.Release(iContextMenuPtr);
+
+                if (iContextMenuPtr2 != IntPtr.Zero)
+                    Marshal.Release(iContextMenuPtr2);
+
+                if (iContextMenuPtr3 != IntPtr.Zero)
+                    Marshal.Release(iContextMenuPtr3);
+
                 ReleaseAll();
             }
-        }
-        #endregion
-        
-        #region WindowsHookInvoked()
-        /// <summary>
-        /// Handle messages for context menu
-        /// </summary>
-        private void WindowsHookInvoked(object sender, HookEventArgs e)
-        {
-            CWPSTRUCT cwp = (CWPSTRUCT)Marshal.PtrToStructure(e.lParam, typeof(CWPSTRUCT));
-            
-            if (_oContextMenu2 != null &&
-                (cwp.message == (int)WM.INITMENUPOPUP ||
-                 cwp.message == (int)WM.MEASUREITEM ||
-                 cwp.message == (int)WM.DRAWITEM))
-            {
-                if (_oContextMenu2.HandleMenuMsg((uint)cwp.message, cwp.wparam, cwp.lparam) == S_OK)
-                {
-                    return;
-                }
-            }
-
-            if (_oContextMenu3 != null && cwp.message == (int)WM.MENUCHAR)
-            {
-                if (_oContextMenu3.HandleMenuMsg2((uint)cwp.message, cwp.wparam, cwp.lparam, IntPtr.Zero) == S_OK)
-                {
-                    return;
-                }
-            }
-
-            return;
         }
         #endregion
 
@@ -737,6 +832,12 @@ namespace PluginCore.Controls
             VERNEGANIMATION = 0x2000,
             NOANIMATION = 0x4000,
             LAYOUTRTL = 0x8000
+        }
+
+        // The cmd for a custom added menu item
+        private enum CMD_CUSTOM
+        {
+            ExpandCollapse = (int)CMD_LAST + 1
         }
 
         // Flags used with the CMINVOKECOMMANDINFOEX structure
@@ -1446,5 +1547,39 @@ namespace PluginCore.Controls
         // ************************************************************************
         #endregion
     }
+    #endregion
+
+    #region ShellHelper
+
+    internal static class ShellHelper
+    {
+        #region Low/High Word
+
+        /// <summary>
+        /// Retrieves the High Word of a WParam of a WindowMessage
+        /// </summary>
+        /// <param name="ptr">The pointer to the WParam</param>
+        /// <returns>The unsigned integer for the High Word</returns>
+        public static uint HiWord(IntPtr ptr)
+        {
+            if (((uint)ptr & 0x80000000) == 0x80000000)
+                return ((uint)ptr >> 16);
+            else
+                return ((uint)ptr >> 16) & 0xffff;
+        }
+
+        /// <summary>
+        /// Retrieves the Low Word of a WParam of a WindowMessage
+        /// </summary>
+        /// <param name="ptr">The pointer to the WParam</param>
+        /// <returns>The unsigned integer for the Low Word</returns>
+        public static uint LoWord(IntPtr ptr)
+        {
+            return (uint)ptr & 0xffff;
+        }
+
+        #endregion
+    }
+
     #endregion
 }
