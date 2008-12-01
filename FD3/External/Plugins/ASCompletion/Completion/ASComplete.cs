@@ -1278,29 +1278,36 @@ namespace ASCompletion.Completion
 
         static private void SelectTypedNewMember(ScintillaNet.ScintillaControl sci)
         {
-            ASExpr expr = GetExpression(sci, sci.CurrentPos);
-            if (expr.Value == null) return;
-            // try local var
-            expr.LocalVars = ParseLocalVars(expr);
-            foreach (MemberModel localVar in expr.LocalVars)
+            try
             {
-                if (localVar.LineTo == ASContext.Context.CurrentLine)
+                ASExpr expr = GetExpression(sci, sci.CurrentPos);
+                if (expr.Value == null) return;
+                // try local var
+                expr.LocalVars = ParseLocalVars(expr);
+                foreach (MemberModel localVar in expr.LocalVars)
                 {
-                    CompletionList.SelectItem(localVar.Type);
-                    return;
+                    if (localVar.LineTo == ASContext.Context.CurrentLine)
+                    {
+                        if (localVar.Type != null) // Might be non typed var
+                        {
+                            CompletionList.SelectItem(localVar.Type);
+                        }
+                        return;
+                    }
+                }
+                // try member
+                string currentLine = sci.GetLine(sci.LineFromPosition(sci.CurrentPos));
+                Match mVarNew = Regex.Match(currentLine, "\\s*(?<name>[a-z_$][a-z._$0-9]*)(:*)(?<type>[a-z.0-9]*)\\s*=\\s*new\\s", RegexOptions.IgnoreCase);
+                if (mVarNew.Success)
+                {
+                    ASResult result = EvalExpression(mVarNew.Groups["name"].Value, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
+                    if (result != null && result.Member != null && result.Member.Type != null) // Might be missing or wrongly typed member
+                    {
+                        CompletionList.SelectItem(result.Member.Type);
+                    }
                 }
             }
-            // try member
-            string currentLine = sci.GetLine(sci.LineFromPosition(sci.CurrentPos));
-            Match mVarNew = Regex.Match(currentLine, "\\s*(?<name>[a-z_$][a-z._$0-9]*)(:*)(?<type>[a-z.0-9]*)\\s*=\\s*new\\s", RegexOptions.IgnoreCase);
-            if (mVarNew.Success)
-            {
-                ASResult result = EvalExpression(mVarNew.Groups["name"].Value, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
-                if (result.Member.Type != null)
-                {
-                    CompletionList.SelectItem(result.Member.Type);
-                }
-            }
+            catch {} // Do not throw exception with incorrect types
         }
 
 		static private bool HandleNewCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide, string keyword)
