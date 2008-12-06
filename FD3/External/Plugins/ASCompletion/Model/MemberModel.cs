@@ -30,6 +30,7 @@ namespace ASCompletion.Model
         public List<MemberModel> Parameters;
 		public string Type;
 		public string Comments;
+        public string Value;
 		public int LineFrom;
 		public int LineTo;
 
@@ -124,8 +125,8 @@ namespace ASCompletion.Model
                     res += param.Name;
                     if (param.Type != null && param.Type.Length > 0)
                         res += ":" + (formated ? FormatType(param.Type) : param.Type);
-                    if (param.Parameters != null && param.Parameters.Count > 0)
-                        res += " = " + param.Parameters[0].Comments.Trim();
+                    if (param.Value != null)
+                        res += " = " + param.Value.Trim();
                 }
             }
             return res;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using ASCompletion.Context;
+using System.Text.RegularExpressions;
 
 namespace ASCompletion.Model
 {
@@ -21,6 +22,37 @@ namespace ASCompletion.Model
             Syntax = syntax;
             Start = start;
             End = end;
+        }
+    }
+
+    public class ASMetaData
+    {
+        static private Regex reNameTypeParams = new Regex("name\\s*=\\s*\"(?<name>[^\"]+)\"\\s*,\\s*type\\s*=\\s*\"(?<type>[^\"]+)\"", RegexOptions.Compiled);
+
+        public int LineFrom;
+        public int LineTo;
+        public string Name;
+        public Dictionary<string, string> Params;
+        public string RawParams;
+
+        public ASMetaData(string name)
+        {
+            Name = name;
+        }
+
+        internal void ParseParams(string raw)
+        {
+            RawParams = raw;
+            Params = new Dictionary<string, string>();
+            if (Name == "Event" || Name == "Style")
+            {
+                Match mParams = reNameTypeParams.Match(raw);
+                if (mParams.Success)
+                {
+                    Params.Add("name", mParams.Groups["name"].Value);
+                    Params.Add("type", mParams.Groups["type"].Value);
+                }
+            }
         }
     }
 
@@ -52,6 +84,7 @@ namespace ASCompletion.Model
         public List<ClassModel> Classes;
         public MemberList Members;
         public MemberList Regions;
+        public List<ASMetaData> MetaDatas;
 
         public string BasePath
         {

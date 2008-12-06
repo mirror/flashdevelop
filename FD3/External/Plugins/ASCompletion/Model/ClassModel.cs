@@ -424,7 +424,12 @@ namespace ASCompletion.Model
             {
                 if (modifiers.Length == 0) modifiers = "local ";
                 if ((ft & FlagType.Constant) > 0)
-                    return String.Format("{0}const {1}", modifiers, member.ToString());
+                {
+                    if (member.Value == null)
+                        return String.Format("{0}const {1}", modifiers, member.ToString());
+                    else
+                        return String.Format("{0}const {1} = {2}", modifiers, member.ToString(), member.Value);
+                }
                 else return String.Format("{0}var {1}", modifiers, member.ToString());
             }
             else if (ft == FlagType.Package)

@@ -9,7 +9,7 @@ using ScintillaNet;
 
 namespace PluginCore.Controls
 {
-    public delegate void InsertedTextHandler(ScintillaControl sender, int position, string text, char trigger);
+    public delegate void InsertedTextHandler(ScintillaControl sender, int position, string text, char trigger, ICompletionListItem item);
 
 	public class CompletionList
     {
@@ -273,7 +273,7 @@ namespace PluginCore.Controls
                 {
                     ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
                     if (!doc.IsEditable) return;
-                    OnCancel(doc.SciControl, currentPos, currentWord, trigger);
+                    OnCancel(doc.SciControl, currentPos, currentWord, trigger, null);
                 }
             }
         }
@@ -655,7 +655,7 @@ namespace PluginCore.Controls
                             replace = replace.Substring(0, replace.IndexOf(tail));
                     }
                     sci.ReplaceSel(replace);
-                    if (OnInsert != null) OnInsert(sci, startPos, replace, trigger);
+                    if (OnInsert != null) OnInsert(sci, startPos, replace, trigger, item);
                     if (tail.Length > 0) sci.ReplaceSel(tail);
                 }
 			}

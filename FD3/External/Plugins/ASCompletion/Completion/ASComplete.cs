@@ -1111,10 +1111,65 @@ namespace ASCompletion.Completion
                 calltipDetails = UITools.Manager.ShowDetails;
 				// show
 				prevParam = "";
-				ShowCalltip(Sci, comaCount);
+                if (comaCount == 0 && result.relClass != null && method.Name.EndsWith("EventListener"))
+                    ShowListeners(Sci, position, result.relClass);
+                else ShowCalltip(Sci, comaCount);
 			}
 			return true;
 		}
+
+        private static void ShowListeners(ScintillaNet.ScintillaControl Sci, int position, ClassModel ofClass)
+        {
+            // find event metadatas
+            List<ASMetaData> events = new List<ASMetaData>();
+            while (ofClass != null && !ofClass.IsVoid())
+            {
+                FileModel inFile = ofClass.InFile;
+                if (inFile.MetaDatas != null)
+                {
+                    foreach (ASMetaData meta in inFile.MetaDatas)
+                        if (meta.Name == "Event" && meta.Params != null) events.Add(meta);
+                }
+                ofClass = ofClass.Extends;
+            }
+            if (events.Count == 0) return;
+            // show
+            Dictionary<String, ClassModel> eventTypes = new Dictionary<string, ClassModel>();
+            List<ICompletionListItem> list = new List<ICompletionListItem>();
+            foreach (ASMetaData meta in events)
+            {
+                string name = '"' + meta.Params["name"] + '"';
+                string type = meta.Params["type"];
+                FlagType flags = FlagType.Variable | FlagType.Constant;
+                Visibility acc = Visibility.Public;
+                if (name.Length > 0 && type.Length > 0)
+                {
+                    ClassModel evClass;
+                    if (!eventTypes.ContainsKey(type))
+                    {
+                        evClass = ASContext.Context.ResolveType(type.Replace(':', '.'), null);
+                        eventTypes.Add(type, evClass);
+                    }
+                    else evClass = eventTypes[type];
+                    if (evClass.IsVoid()) continue;
+                    foreach (MemberModel member in evClass.Members)
+                    {
+                        if (member.Value == name)
+                        {
+                            name = evClass.Name + '.' + member.Name;
+                            flags = member.Flags;
+                            acc = member.Access;
+                            break;
+                        }
+                    }
+                    list.Add(new EventItem(name, evClass));
+                }
+            }
+            Sci.SetSel(position + 1, Sci.CurrentPos);
+            string tail = Sci.SelText;
+            Sci.SetSel(Sci.SelectionEnd, Sci.SelectionEnd);
+            CompletionList.Show(list, true, tail);
+        }
 		#endregion
 
 		#region dot_completion
@@ -1857,6 +1912,7 @@ namespace ASCompletion.Completion
                 if (result.inFile != null) FindMember(token, result.inFile, result, mask, acc);
                 return;
             }
+            else result.relClass = inClass;
             // previous member accessed as an array
             if (token == "[]")
             {
@@ -2574,13 +2630,20 @@ namespace ASCompletion.Completion
         /// - automatically insert import statement 
         /// - replace with short name
         /// </summary>
-        static internal void HandleCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger)
+        static internal void HandleCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger, ICompletionListItem item)
         {
             if (!ASContext.Context.IsFileValid)
                 return;
             // let the context handle the insertion
             if (ASContext.Context.OnCompletionInsert(sci, position, text))
                 return;
+
+            // event inserted
+            if (item is EventItem)
+            {
+                SmartEventInsertion(sci, position + text.Length, item);
+                return;
+            }
 
             // default handling
             if (ASContext.Context.Settings != null)
@@ -2606,6 +2669,29 @@ namespace ASCompletion.Completion
                 ASResult context = EvalExpression(expr.Value, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
                 if (SmartInsertion(sci, position, expr, context))
                     DispatchInsertedElement(context, trigger);
+            }
+        }
+
+        private static void SmartEventInsertion(ScintillaNet.ScintillaControl sci, int position, ICompletionListItem item)
+        {
+            try
+            {
+                ClassModel import = (item as EventItem).EventType;
+                if (!ASContext.Context.IsImported(import, sci.LineFromPosition(position)))
+                {
+                    if (ASContext.Context.Settings.GenerateImports)
+                    {
+                        int offset = ASGenerator.InsertImport(import, true);
+                        if (offset > 0)
+                        {
+                            position += offset;
+                            sci.SetSel(position, position);
+                        }
+                    }
+                }
+            }
+            catch (Exception) // event type name already present in imports
+            {
             }
         }
 
@@ -2653,7 +2739,6 @@ namespace ASCompletion.Completion
 
             if (expr.Separator == ' ' && expr.WordBefore != null)
             {
-
                 if (expr.WordBefore == features.importKey
                     || (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case" && expr.WordBefore != "return"))
                 {
@@ -2922,6 +3007,40 @@ namespace ASCompletion.Completion
             get { return label; }
         }
     }
+
+    /// <summary>
+    /// Declaration completion list item
+    /// </summary>
+    public class EventItem : ICompletionListItem
+    {
+        private string name;
+        public ClassModel EventType;
+
+        public EventItem(string name, ClassModel type)
+        {
+            this.name = name;
+            EventType = type;
+        }
+
+        public string Label
+        {
+            get { return name; }
+        }
+        public string Description
+        {
+            get { return "Event"; }
+        }
+
+        public System.Drawing.Bitmap Icon
+        {
+            get { return (System.Drawing.Bitmap)ASContext.Panel.GetIcon(PluginUI.ICON_CONST); }
+        }
+
+        public string Value
+        {
+            get { return name; }
+        }
+    }
     #endregion
 
 	#region expressions_structures
@@ -2974,6 +3093,7 @@ namespace ASCompletion.Completion
 	{
 		public ClassModel Type;
         public ClassModel inClass;
+        public ClassModel relClass;
         public FileModel inFile;
 		public MemberModel Member;
         public bool IsStatic;

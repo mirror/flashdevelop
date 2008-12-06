@@ -57,6 +57,8 @@ namespace ASCompletion.Model
 		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
         static private Regex re_validTypeName = new Regex("^[\\w.]*$", RegexOptions.Compiled);
         static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
+        static private Regex re_meta1 = new Regex("^(?<name>[a-z0-9]+)", ro_cs | RegexOptions.IgnoreCase);
+        static private Regex re_meta2 = new Regex("^(?<name>[a-z0-9]+)\\s*[(](?<params>.*)[)]", ro_cs | RegexOptions.IgnoreCase);
 		#endregion
 
         #region public methods
@@ -137,6 +139,7 @@ namespace ASCompletion.Model
         private bool inTypedef;
         private bool inGeneric;
 		private bool inValue;
+        private bool inConst;
 		private bool inType;
         private bool flattenNextBlock;
 		private FlagType foundKeyword;
@@ -193,6 +196,7 @@ namespace ASCompletion.Model
             model.Regions.Clear();
             model.PrivateSectionIndex = 0;
             model.Package = "";
+            model.MetaDatas = null;
 
 			// state
 			int len = ba.Length;
@@ -251,6 +255,7 @@ namespace ASCompletion.Model
             inTypedef = false;
             inGeneric = false;
 			inValue = false;
+            inConst = false;
 			inType = false;
 
 			bool addChar = false;
@@ -515,7 +520,8 @@ namespace ASCompletion.Model
 				else if (isInString)
 				{
 					// store parameter default value
-					if (inParams && inValue && valueLength < VALUE_BUFFER) valueBuffer[valueLength++] = c1;
+                    if (inValue && (inParams || inConst) && valueLength < VALUE_BUFFER) 
+                        valueBuffer[valueLength++] = c1;
 					continue;
 				}
 				if (braceCount > 0)
@@ -603,9 +609,9 @@ namespace ASCompletion.Model
 					}
 
 					// in params, store the default value
-					else if ((inParams || inType) && valueLength < VALUE_BUFFER)
+					else if ((inParams || inType || inConst) && valueLength < VALUE_BUFFER)
 					{
-						if (c1 < 32)
+						if (c1 <= 32)
 						{
 							if (valueLength > 0 && valueBuffer[valueLength-1] != ' ') valueBuffer[valueLength++] = ' ';
 						}
@@ -658,13 +664,10 @@ namespace ASCompletion.Model
                         }
 						curMember.Type = param;
 					}
-                    // AS3 method parameter default value
+                    // AS3 const or method parameter's default value 
 					else if (version > 2 && (curMember.Flags & FlagType.Variable) > 0)
 					{
-                        MemberModel paramValueMember = new MemberModel();
-                        paramValueMember.Comments = param;
-						curMember.Parameters = new List<MemberModel>();
-						curMember.Parameters.Add(paramValueMember);
+                        curMember.Value = param;
 					}
 					//
 					valueLength = 0;
@@ -988,6 +991,7 @@ namespace ASCompletion.Model
                             if (!inValue)
                             {
                                 inValue = true;
+                                inConst = (curMember.Flags & FlagType.Constant) > 0;
                                 inType = false;
                                 paramBraceCount = 0;
                                 paramParCount = 0;
@@ -998,17 +1002,23 @@ namespace ASCompletion.Model
                             }
                         }
 					}
-					
-					// haXe signatures: T -> T -> T
-					else if (haXe && c1 == '-' && curMember != null)
-					{
-						if (ba[i] == '>')
-						{
-							curMember.Type += " ->";
+
+                    // metadata
+                    else if (c1 == '[' && version == 3)
+                    {
+                        LookupMeta(ref ba, ref i);
+                    }
+
+                    // haXe signatures: T -> T -> T
+                    else if (haXe && c1 == '-' && curMember != null)
+                    {
+                        if (ba[i] == '>')
+                        {
+                            curMember.Type += " ->";
                             foundColon = true;
-						}
-					}
-                    
+                        }
+                    }
+
                     // escape next char
                     else if (c1 == '\\') { i++; continue; }
 				}
@@ -1034,6 +1044,58 @@ namespace ASCompletion.Model
             if (cachedPath == null && model.HasFiltering && model.Context != null)
                 model.Context.FilterSource(model);
 		}
+
+        private bool LookupMeta(ref string ba, ref int i)
+        {
+            int len = ba.Length;
+            int i0 = i;
+            int line0 = line;
+            int inString = 0;
+            bool isComplex = false;
+            while (i < len)
+            {
+                char c = ba[i];
+                if (c == 10 || c == 13)
+                {
+                    if (cachedPath == null) line++; // cache breaks line count
+                    if (c == 13 && i < len && ba[i + 1] == 10) i++;
+				}
+                if (inString == 0)
+                {
+                    if (c == '"') inString = 1;
+                    else if (c == '\'') inString = 2;
+                    else if ("{;[".IndexOf(c) >= 0)
+                    {
+                        i = i0;
+                        line = line0;
+                        return false;
+                    }
+                    else if (c == ')') isComplex = true;
+                    else if (c == ']') break;
+                }
+                else if (inString == 1 && c == '"') inString = 0;
+                else if (inString == 2 && c == '\'') inString = 0;
+                i++;
+            }
+            string meta = ba.Substring(i0, i - i0);
+            Match m = (isComplex) ? re_meta2.Match(meta) : re_meta1.Match(meta);
+            if (m.Success)
+            {
+                ASMetaData md = new ASMetaData(m.Groups["name"].Value);
+                md.LineFrom = line0;
+                md.LineTo = line;
+                if (isComplex) md.ParseParams(m.Groups["params"].Value.Trim());
+                if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
+                model.MetaDatas.Add(md);
+                return true;
+            }
+            else
+            {
+                i = i0;
+                line = line0;
+                return false;
+            }
+        }
 
         private void FinalizeModel()
         {
@@ -1251,6 +1313,7 @@ namespace ASCompletion.Model
                         inTypedef = false;
                         inGeneric = false;
                         inValue = false;
+                        inConst = false;
                         inType = false;
                         valueMember = null;
                         foundColon = false;
@@ -1289,6 +1352,7 @@ namespace ASCompletion.Model
                 inTypedef = false;
                 inGeneric = false;
                 inValue = false;
+                inConst = false;
                 if (token != "function") valueMember = null;
                 foundColon = false;
                 context = foundKeyword;
