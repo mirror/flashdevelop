@@ -3028,7 +3028,7 @@ namespace ASCompletion.Completion
         }
         public string Description
         {
-            get { return "Event"; }
+            get { return "Event name"; }
         }
 
         public System.Drawing.Bitmap Icon
