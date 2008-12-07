@@ -57,8 +57,6 @@ namespace ASCompletion.Model
 		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
         static private Regex re_validTypeName = new Regex("^[\\w.]*$", RegexOptions.Compiled);
         static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
-        static private Regex re_meta1 = new Regex("^(?<name>[a-z0-9]+)", ro_cs | RegexOptions.IgnoreCase);
-        static private Regex re_meta2 = new Regex("^(?<name>[a-z0-9]+)\\s*[(](?<params>.*)[)]", ro_cs | RegexOptions.IgnoreCase);
 		#endregion
 
         #region public methods
@@ -1077,24 +1075,19 @@ namespace ASCompletion.Model
                 else if (inString == 2 && c == '\'') inString = 0;
                 i++;
             }
+
             string meta = ba.Substring(i0, i - i0);
-            Match m = (isComplex) ? re_meta2.Match(meta) : re_meta1.Match(meta);
-            if (m.Success)
+            ASMetaData md = new ASMetaData(isComplex ? meta.Substring(0, meta.IndexOf('(')) : meta);
+            md.LineFrom = line0;
+            md.LineTo = line;
+            if (isComplex)
             {
-                ASMetaData md = new ASMetaData(m.Groups["name"].Value);
-                md.LineFrom = line0;
-                md.LineTo = line;
-                if (isComplex) md.ParseParams(m.Groups["params"].Value.Trim());
-                if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
-                model.MetaDatas.Add(md);
-                return true;
+                meta = meta.Substring(meta.IndexOf('(') + 1);
+                md.ParseParams(meta.Substring(0, meta.Length - 1));
             }
-            else
-            {
-                i = i0;
-                line = line0;
-                return false;
-            }
+            if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
+            model.MetaDatas.Add(md);
+            return true;
         }
 
         private void FinalizeModel()
