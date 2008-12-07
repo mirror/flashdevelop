@@ -236,6 +236,18 @@ namespace ASCompletion.Model
                 sb.Append(nl);
             }
 
+            // event/style metadatas
+            if (MetaDatas != null)
+            {
+                bool emptyMeta = true;
+                foreach (ASMetaData meta in MetaDatas) if (meta.Name == "Event" || meta.Name == "Style")
+                {
+                    emptyMeta = false;
+                    sb.Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl);
+                }
+                if (!emptyMeta) sb.Append(nl);
+            }
+
             // members			
             string decl;
             foreach (MemberModel member in Members)

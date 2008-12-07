@@ -385,7 +385,7 @@ namespace ASCompletion.Model
             else
             {
                 if ((acc & Visibility.Public) > 0) modifiers += "public ";
-                else if ((acc & Visibility.Internal) > 0) modifiers += "internal ";
+                //else if ((acc & Visibility.Internal) > 0) modifiers += "internal "; // AS3 default
                 else if ((acc & Visibility.Protected) > 0) modifiers += "protected ";
                 else if ((acc & Visibility.Private) > 0) modifiers += "private ";
             }
