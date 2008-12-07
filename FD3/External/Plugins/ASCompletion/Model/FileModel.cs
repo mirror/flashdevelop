@@ -25,7 +25,7 @@ namespace ASCompletion.Model
         }
     }
 
-    public class ASMetaData
+    public class ASMetaData: IComparable
     {
         static private Regex reNameTypeParams = new Regex("name\\s*=\\s*\"(?<name>[^\"]+)\"\\s*,\\s*type\\s*=\\s*\"(?<type>[^\"]+)\"", RegexOptions.Compiled);
 
@@ -53,6 +53,15 @@ namespace ASCompletion.Model
                     Params.Add("type", mParams.Groups["type"].Value);
                 }
             }
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (!(obj is ASMetaData))
+                throw new InvalidCastException("This object is not of type ASMetaData");
+            if (Name == "Event" && Params != null && Params.Count > 0)
+                return Params["type"].CompareTo((obj as ASMetaData).Params["type"]);
+            return Name.CompareTo((obj as ASMetaData).Name);
         }
     }
 

@@ -1134,6 +1134,7 @@ namespace ASCompletion.Completion
             }
             if (events.Count == 0) return;
             // show
+            events.Sort();
             Dictionary<String, ClassModel> eventTypes = new Dictionary<string, ClassModel>();
             List<ICompletionListItem> list = new List<ICompletionListItem>();
             foreach (ASMetaData meta in events)
