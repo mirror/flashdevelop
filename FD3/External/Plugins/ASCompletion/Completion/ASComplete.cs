@@ -1141,6 +1141,7 @@ namespace ASCompletion.Completion
             {
                 string name = '"' + meta.Params["name"] + '"';
                 string type = meta.Params["type"];
+                string comments = meta.Comments;
                 FlagType flags = FlagType.Variable | FlagType.Constant;
                 Visibility acc = Visibility.Public;
                 if (name.Length > 0 && type.Length > 0)
@@ -1160,10 +1161,11 @@ namespace ASCompletion.Completion
                             name = evClass.Name + '.' + member.Name;
                             flags = member.Flags;
                             acc = member.Access;
+                            if (member.Comments != null) comments = member.Comments;
                             break;
                         }
                     }
-                    list.Add(new EventItem(name, evClass));
+                    list.Add(new EventItem(name, evClass, comments));
                 }
             }
             Sci.SetSel(position + 1, Sci.CurrentPos);
@@ -3015,12 +3017,15 @@ namespace ASCompletion.Completion
     public class EventItem : ICompletionListItem
     {
         private string name;
+        private string comments;
+        private string desc;
         public ClassModel EventType;
 
-        public EventItem(string name, ClassModel type)
+        public EventItem(string name, ClassModel type, string comments)
         {
             this.name = name;
             EventType = type;
+            this.comments = comments;
         }
 
         public string Label
@@ -3029,7 +3034,15 @@ namespace ASCompletion.Completion
         }
         public string Description
         {
-            get { return "Event name"; }
+            get 
+            {
+                if (desc == null)
+                {
+                    CommentBlock cb = ASDocumentation.ParseComment(comments ?? name);
+                    desc = ASDocumentation.Get2LinesOf(cb.Description).Trim();
+                }
+                return desc;
+            }
         }
 
         public System.Drawing.Bitmap Icon

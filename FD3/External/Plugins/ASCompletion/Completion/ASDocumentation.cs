@@ -283,7 +283,7 @@ namespace ASCompletion.Completion
 		
 		#region Tooltips
 		
-		static private CommentBlock ParseComment(string comment)
+		static public CommentBlock ParseComment(string comment)
 		{
 			// cleanup
 			comment = Regex.Replace(comment, "^[ \t*]+", "");
@@ -402,7 +402,7 @@ namespace ASCompletion.Completion
 			return details;
 		}
 
-        private static string Get2LinesOf(string text)
+        static public string Get2LinesOf(string text)
         {
             string[] lines = text.Split('\n');
             text = "";

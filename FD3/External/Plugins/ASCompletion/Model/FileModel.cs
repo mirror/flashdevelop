@@ -34,6 +34,7 @@ namespace ASCompletion.Model
         public string Name;
         public Dictionary<string, string> Params;
         public string RawParams;
+        public string Comments;
 
         public ASMetaData(string name)
         {

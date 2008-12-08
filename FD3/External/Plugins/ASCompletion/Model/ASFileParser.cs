@@ -1084,6 +1084,11 @@ namespace ASCompletion.Model
             {
                 meta = meta.Substring(meta.IndexOf('(') + 1);
                 md.ParseParams(meta.Substring(0, meta.Length - 1));
+                if (lastComment != null && (md.Name == "Event" || md.Name == "Style"))
+                {
+                    md.Comments = lastComment;
+                    lastComment = null;
+                }
             }
             if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
             model.MetaDatas.Add(md);
