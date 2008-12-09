@@ -17,7 +17,7 @@
   </classpaths>
   <!-- Intrinsic Libraries -->
   <intrinsics>
-    <element path="Library\AS3\frameworks\FlashCS3" />
+    <element path="Library\AS3\frameworks\FlashIDE" />
   </intrinsics>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
