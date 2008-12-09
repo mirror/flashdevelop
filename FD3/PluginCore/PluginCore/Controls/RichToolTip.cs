@@ -100,9 +100,12 @@ namespace PluginCore.Controls
 		
 		public void ShowAtMouseLocation(string text)
 		{
-			toolTip.Visible = false;
-			Text = text;
-			AutoSize();
+            if (text != Text)
+            {
+                toolTip.Visible = false;
+                Text = text;
+                AutoSize();
+            }
 			ShowAtMouseLocation();
 		}
 		
