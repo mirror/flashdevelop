@@ -1,52 +1,0 @@
-﻿package fl.events
-{
-import flash.events.Event;
-
-/**
-* The ComponentEvent class defines events that are associated with the UIComponent class.     * These include the following events:     * <ul>     *     <li><code>ComponentEvent.BUTTON_DOWN</code>: dispatched after a button is pressed.</li>     *     <li><code>ComponentEvent.ENTER</code>: dispatched after the Enter key is pressed.</li>     *     <li><code>ComponentEvent.HIDE</code>: dispatched after the visible property of a component is set to <code>false</code>.</li>     *     <li><code>ComponentEvent.LABEL_CHANGE</code>: dispatched after the Enter key is pressed.</li>     *     <li><code>ComponentEvent.MOVE</code>: dispatched after there is a change in the x or y properties that identify the component location.</li>     *     <li><code>ComponentEvent.RESIZE</code>: dispatched after a component is resized.</li>     *     <li><code>ComponentEvent.SHOW</code>: dispatched after the <code>visible</code> property of a component is set to <code>true</code>.</li>     * </ul>     *      * @langver
-*/
-public class ComponentEvent extends Event
-{
-	/**
-	* Defines the value of the <code>type</code> property of a <code>buttonDown</code>         * event object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         * 			behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          * 			the event object with an event listener. </td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *           not always the object listening for the event. Use the <code>currentTarget</code>         * 			property to access the object that is listening for the event.</td></tr>         *  </table>         *         * @event
-	*/
-		public static const BUTTON_DOWN : String;
-	/**
-	* Defines the value of the <code>type</code> property of a <code>labelChange</code>         * event object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         * 			behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          * 			the event object with an event listener.</td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *           not always the object listening for the event. Use the <code>currentTarget</code>         * 			property to access the object that is listening for the event.</td></tr>         *  </table>         *         * @event
-	*/
-		public static const LABEL_CHANGE : String;
-	/**
-	* Defines the value of the <code>type</code> property of a <code>hide</code>         * event object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         * 			behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          * 			the event object with an event listener.</td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *           not always the object listening for the event. Use the <code>currentTarget</code>         * 			property to access the object that is listening for the event.</td></tr>         *  </table>         *         * @eventType hi
-	*/
-		public static const HIDE : String;
-	/**
-	* Defines the value of the <code>type</code> property of a <code>show</code> event         * object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         * 			behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          * 			the event object with an event listener.</td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *           not always the object listening for the event. Use the <code>currentTarget</code>         * 			property to access the object that is listening for the event.</td></tr>         *  </table>         *         * @eventType sh
-	*/
-		public static const SHOW : String;
-	/**
-	* Defines the value of the <code>type</code> property of a <code>resize</code>          * event object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         * 			behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          * 			the event object with an event listener. </td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *           not always the object listening for the event. Use the <code>currentTarget</code>         * 			property to access the object that is listening for the event.</td></tr>         *  </table>         *         * @eventTyp
-	*/
-		public static const RESIZE : String;
-	/**
-	* Defines the value of the <code>type</code> property of a <code>move</code>         * event object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         * 			behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          * 			the event object with an event listener. </td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *           not always the object listening for the event. Use the <code>currentTarget</code>         * 			property to access the object that is listening for the event.</td></tr>         *  </table>         *         * @eventType m
-	*/
-		public static const MOVE : String;
-	/**
-	* Defines the value of the <code>type</code> property of an <code>enter</code>         * event object.          *          * <p>This event has the following properties:</p>         *  <table class="innertable" width="100%">         *     <tr><th>Property</th><th>Value</th></tr>         *	   <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>         *     <tr><td><code>cancelable</code></td><td><code>false</code>; there is no default         *         behavior to cancel.</td></tr>         *     <tr><td><code>currentTarget</code></td><td>The object that is actively processing          *         the event object with an event listener.</td></tr>         *     <tr><td><code>target</code></td><td>The object that dispatched the event. The target is          *         not always the object listening for the event. Use the <code>currentTarget</code>         * 	       property to access the object that is listening for the event.</td></tr>         *  </table>         *
-	*/
-		public static const ENTER : String;
-
-	/**
-	* Creates a new ComponentEvent object that contains information about a component          * event. A ComponentEvent object is passed as a parameter to an event listener.         *         * @param type The type of the event. Event listeners can access this information          *        through the <code>type</code> property of the event object. A component can          *        have the following types of events: <code>ComponentEvent.BUTTON_DOWN</code>,          *        <code>ComponentEvent.ENTER</code>, <code>ComponentEvent.HIDE</code>,          *        <code>ComponentEvent.LABEL_CHANGE</code>, <code>ComponentEvent.MOVE</code>,          *        <code>ComponentEvent.RESIZE</code>, <code>ComponentEvent.SHOW</code>.         *         * @param bubbles Determines whether the ComponentEvent object participates in the          *        bubbling phase of the event flow. Event listeners can access this information          *        through the <code>bubbles</code> property of the event objec
-	*/
-		public function ComponentEvent (type:String, bubbles:Boolean =false, cancelable:Boolean =false);
-	/**
-	* Returns a string that contains all the properties of the ComponentEvent object. The          * string is in the following format:         * <code><p>[ComponentEvent type=<em>value</em> bubbles=<em>value</em> cancelable=<em>value</em>]</p></code>         *          * @return A string representation of the ComponentEvent object.         *         * @langversion 3.0         * @playerversion Flash 9.0.28.0
-	*/
-		public function toString () : String;
-	/**
-	* Creates a copy of the ComponentEvent object and sets the value of each parameter to         * match the original.         *         * @return A new ComponentEvent object with property values that match those of the         * original.         *         * @langversion 3.0         * @playerversion Flash 9.0.28.0
-	*/
-		public function clone () : Event;
-}
-}
