@@ -121,7 +121,7 @@ namespace AS3IntrinsicsGenerator
                 foreach (PropertyModel prop in block.Properties)
                 {
                     prop.IsStatic = false;
-                    prop.IsConst = false;
+                    prop.Kind = "var";
                 }
             }
         }
@@ -139,6 +139,16 @@ namespace AS3IntrinsicsGenerator
                 ParsePart(part, block);
                 foreach (BaseModel member in block.Methods) member.IsStatic = false;
                 foreach (BaseModel member in block.Properties) member.IsStatic = false;
+
+                // MANUAL FIX FOR SPECIAL CASES
+                if (package == "flash.utils" && block.Blocks.Count == 0)
+                {
+                    PropertyModel ns = new PropertyModel();
+                    ns.Kind = "namespace";
+                    ns.Name = "flash_proxy";
+                    ns.Comment = "Proxy methods namespace";
+                    block.Properties.Insert(0, ns);
+                }
 
                 WriteFile(block);
             }
@@ -183,7 +193,7 @@ namespace AS3IntrinsicsGenerator
                 model.Name = GetAttribute(node, "name");
                 model.IsAIR = GetAttribute(node, "playername").Trim() == "AIR";
                 model.IsFP10 = GetAttribute(node, "version").Trim() == "1.5";
-                model.IsConst = GetAttribute(node, "constant") == "true";
+                if (GetAttribute(node, "constant") == "true") model.Kind = "const";
                 string text = GetAttribute(node, "text");
                 model.IsStatic = text[0] != '.';
 
@@ -277,6 +287,33 @@ namespace AS3IntrinsicsGenerator
             foreach (XmlNode part in node.ChildNodes)
                 ParsePart(part, block);
 
+            // MANUAL FIX FOR SPECIFIC CASES
+            if (block.Name == "Proxy")
+            {
+                foreach (MethodModel method in block.Methods)
+                {
+                    method.Namespace = "flash_proxy";
+                }
+            }
+            if (block.Name == "BitmapData")
+            {
+                foreach (MethodModel method in block.Methods)
+                {
+                    if (method.Name == "histogram")
+                    {
+                        method.ReturnType = "Vector.<Vector.<Number>>";
+                        break;
+                    }
+                }
+            }
+            if (block.Name == "DisplayObject")
+            {
+                foreach (PropertyModel prop in block.Properties)
+                {
+                    if (prop.Name.EndsWith("z", StringComparison.OrdinalIgnoreCase))
+                        prop.IsFP10 = true;
+                }
+            }
             parentBlock.Blocks.Add(block);
         }
     }

@@ -16,6 +16,7 @@ namespace AS3IntrinsicsGenerator
         public bool IsStatic;
         public bool IsFP10;
         public bool IsAIR;
+        public string Namespace = "public";
 
         public virtual void Format(StringBuilder sb, string tabs) { }
 
@@ -84,9 +85,8 @@ namespace AS3IntrinsicsGenerator
         public override void Format(StringBuilder sb, string tabs)
         {
             FormatComments(sb, tabs);
-            sb.Append(tabs);
-            if (IsStatic) sb.Append("public static ");
-            else sb.Append("public ");
+            sb.Append(tabs).Append(Namespace).Append(' ');
+            if (IsStatic) sb.Append("static ");
             sb.Append("function ").Append(Name)
                 .Append('(').Append(Params).Append(')');
             if (ReturnType != null) sb.Append(':').Append(ReturnType);
@@ -116,24 +116,21 @@ namespace AS3IntrinsicsGenerator
     public class PropertyModel : BaseModel
     {
         public string ValueType;
-        public bool IsConst;
+        public string Kind = "var";
 
         public override void Format(StringBuilder sb, string tabs)
         {
             FormatComments(sb, tabs);
-            sb.Append(tabs);
-            if (IsStatic) sb.Append("public static ");
-            else sb.Append("public ");
-            if (IsConst) sb.Append("const ");
-            else sb.Append("var ");
-            sb.Append(Name);
+            sb.Append(tabs).Append(Namespace).Append(' ');
+            if (IsStatic) sb.Append("static ");
+            sb.Append(Kind).Append(' ').Append(Name);
             if (ValueType != null && ValueType.Length > 0) sb.Append(':').Append(ValueType);
             sb.Append(SEMI).Append(NL).Append(NL);
         }
 
         public void GuessValue()
         {
-            if (IsConst && ValueType == "String" && Char.IsUpper(Name[0]))
+            if (Kind == "const" && ValueType == "String" && Char.IsUpper(Name[0]))
             {
                 ValueType = "String = \"" + Camelize(Name) + "\"";
             }
