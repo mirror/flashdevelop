@@ -295,7 +295,7 @@ namespace AS3IntrinsicsGenerator
                     method.Namespace = "flash_proxy";
                 }
             }
-            if (block.Name == "BitmapData")
+            else if (block.Name == "BitmapData")
             {
                 foreach (MethodModel method in block.Methods)
                 {
@@ -306,13 +306,17 @@ namespace AS3IntrinsicsGenerator
                     }
                 }
             }
-            if (block.Name == "DisplayObject")
+            else if (block.Name == "DisplayObject")
             {
                 foreach (PropertyModel prop in block.Properties)
                 {
                     if (prop.Name.EndsWith("z", StringComparison.OrdinalIgnoreCase))
                         prop.IsFP10 = true;
                 }
+            }
+            else if (block.Name == "Vector")
+            {
+                block.Decl = "public class Vector.<T>";
             }
             parentBlock.Blocks.Add(block);
         }

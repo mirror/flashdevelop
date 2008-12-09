@@ -97,6 +97,8 @@ namespace AS3IntrinsicsGenerator
         {
             if (Params.Length > 0)
             {
+                Params = Params.Replace("[", "");
+                Params = Params.Replace("]", "");
                 Params = reComa.Replace(Params, ", $1");
                 Params = reType.Replace(Params, ":$1.");
                 Params = reVector.Replace(Params, "Vector.<$1>");

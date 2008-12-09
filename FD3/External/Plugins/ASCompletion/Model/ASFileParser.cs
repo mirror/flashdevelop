@@ -591,8 +591,8 @@ namespace ASCompletion.Model
                         else if (c1 == '>')
                         {
                             // ignore haxe method signatures
-                            if (!(inGeneric && i > 1 && ba[i-2] == '-'))
-                                paramTempCount--;
+                            if (inGeneric && i > 1 && ba[i - 2] == '-') { /*ignore*/ }
+                            else paramTempCount--;
                         }
                     }
 
@@ -620,7 +620,7 @@ namespace ASCompletion.Model
                     if (!Char.IsLetterOrDigit(c1)) //c1 < 'a' || c1 > 'z')
                     {
                         // escape next char
-                        if (c1 == '\\' || c1 == '<') { i++; continue; }
+                        if (c1 == '\\' || (inType && (c1 == '<' || c1 == '.'))) { i++; continue; }
                         hadWS = true;
                     }
                 }

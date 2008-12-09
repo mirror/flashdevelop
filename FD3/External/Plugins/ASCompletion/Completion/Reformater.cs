@@ -56,10 +56,10 @@ namespace ASCompletion.Completion
             bool inComments = false;
             while (i < n)
             {
-                if (!fixedOffset && i == offset)
+                if (!fixedOffset && i == offset - 1)
                 {
                     fixedOffset = true;
-                    offset = sb.Length;
+                    offset = sb.Length + 1;
                 }
                 c = txt[i++];
                 if (c == '\r') 
@@ -124,6 +124,19 @@ namespace ASCompletion.Completion
                     }
                 }
 
+                // generic type
+                if (c == '<' && c2 == '.')
+                {
+                    int i2 = i;
+                    if (lookupGeneric(txt, ref i))
+                    {
+                        sb.Append(c).Append(txt.Substring(i2, i - i2));
+                        c2 = '$';
+                        needSpace = false;
+                        continue;
+                    }
+                }
+
                 // litteral XML
                 if (c == '<')
                 {
@@ -131,7 +144,7 @@ namespace ASCompletion.Completion
                     if (lookupXML(txt, ref i))
                     {
                         sb.Append(c).Append(txt.Substring(i2, i - i2));
-                        c2 = ' ';
+                        c2 = '$';
                         needSpace = false;
                         continue;
                     }
@@ -289,6 +302,31 @@ namespace ASCompletion.Completion
             }
             if (!fixedOffset) offset = sb.Length;
             return sb.ToString();
+        }
+
+        private static bool lookupGeneric(string txt, ref int index)
+        {
+            int i = index;
+            int n = txt.Length;
+            char c = '<';
+            int sub = 0;
+            while (i < n)
+            {
+                c = txt[i++];
+                if (Char.IsLetterOrDigit(c) || c == '.' || c == ' ') continue;
+                if (c == '<') sub++;
+                else if (c == '>')
+                {
+                    sub--;
+                    if (sub < 0)
+                    {
+                        index = i;
+                        return true;
+                    }
+                }
+                else break;
+            }
+            return false;
         }
 
         public static bool lookupXML(string txt, ref int index)
@@ -460,7 +498,7 @@ namespace ASCompletion.Completion
                 c = txt[i--];
                 if (c == ' ' || c == '\t') continue;
                 if (c == '\r' || c == '\n') break;
-                if (Regex.IsMatch(c.ToString(), "[a-z0-9_$)\\]]", RegexOptions.IgnoreCase)) return false;
+                if (Char.IsLetterOrDigit(c) || "_$])".IndexOf(c) >= 0) return false;
                 break;
             }
             i = index;
