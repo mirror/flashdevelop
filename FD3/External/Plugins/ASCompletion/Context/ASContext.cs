@@ -853,7 +853,8 @@ namespace ASCompletion.Context
             ASFileParser parser = GetCodeParser();
             // parse
             FileModel temp = new FileModel();
-            parser.ParseSrc(temp, src);
+            if (src != null && src.Trim().Length > 0) 
+                parser.ParseSrc(temp, src);
             return temp;
         }
 

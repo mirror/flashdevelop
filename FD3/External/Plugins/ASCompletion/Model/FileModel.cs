@@ -242,7 +242,7 @@ namespace ASCompletion.Model
             if (Imports.Count > 0)
             {
                 foreach (MemberModel import in Imports)
-                    sb.Append("import ").Append(import.Type).Append(semi).Append(nl);
+                    sb.Append(tab).Append("import ").Append(import.Type).Append(semi).Append(nl);
                 sb.Append(nl);
             }
 
@@ -253,7 +253,8 @@ namespace ASCompletion.Model
                 foreach (ASMetaData meta in MetaDatas) if (meta.Name == "Event" || meta.Name == "Style")
                 {
                     emptyMeta = false;
-                    sb.Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl);
+                    sb.Append(ClassModel.CommentDeclaration(meta.Comments, tab));
+                    sb.Append(tab).Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl);
                 }
                 if (!emptyMeta) sb.Append(nl);
             }

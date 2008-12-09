@@ -128,7 +128,7 @@ namespace AS3IntrinsicsGenerator
 
         private static void ParsePackage(XmlNode node, string package)
         {
-            if (package.StartsWith("fl.")) 
+            if (package.StartsWith("fl.") || package.StartsWith("adobe.")) 
                 return;
             foreach (XmlNode part in node.ChildNodes)
             {
