@@ -47,6 +47,7 @@ namespace AS2Context
         public override IContextSettings Settings
         {
             get { return settings; }
+            set { settings = value; }
         }
 
         /// <summary>

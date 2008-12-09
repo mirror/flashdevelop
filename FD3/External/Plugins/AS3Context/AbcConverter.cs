@@ -7,7 +7,7 @@ using System.IO;
 
 namespace AS3Context
 {
-    class AbcConverter
+    public class AbcConverter
     {
         private static Dictionary<string, FileModel> genericTypes;
 

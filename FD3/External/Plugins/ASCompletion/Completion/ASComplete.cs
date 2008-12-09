@@ -1161,7 +1161,8 @@ namespace ASCompletion.Completion
                             name = evClass.Name + '.' + member.Name;
                             flags = member.Flags;
                             acc = member.Access;
-                            if (member.Comments != null) comments = member.Comments;
+                            if (meta.Comments == null && member.Comments != null) 
+                                comments = member.Comments;
                             break;
                         }
                     }

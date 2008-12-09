@@ -4,15 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.IO;
+using AS3Context;
+using ASCompletion.Model;
 
 namespace AS3IntrinsicsGenerator
 {
     class Program
     {
+        static private Context context;
+        static private ClassModel currentClass;
+        
         static void Main(string[] args)
         {
+            string AS3XML = "ActionsPanel_3.xml";
+            if (!File.Exists(AS3XML))
+            {
+                Console.WriteLine("Copy {0} in bin\\Debug", AS3XML);
+                return;
+            }
+
+            // SWC parsing
+            Console.WriteLine("Parsing SWCs...");
+            AS3Settings settings = new AS3Settings();
+            context = new Context(settings);
+            context.Classpath = new List<PathModel>();
+            context.Classpath.Add(ParseSWC("servicemonitor.swc"));
+            context.Classpath.Add(ParseSWC("airglobal.swc"));
+            context.Classpath.Add(ParseSWC("playerglobal.swc"));
+
+            // AS3 doc parsing
+            Console.WriteLine("Generating...");
             XmlDocument doc = new XmlDocument();
-            doc.Load("ActionsPanel_3.xml");
+            doc.Load(AS3XML);
             XmlNodeList nodes = doc.LastChild.FirstChild.ChildNodes;
             foreach (XmlNode node in nodes)
             {
@@ -26,6 +49,21 @@ namespace AS3IntrinsicsGenerator
                 }
                 else ParsePackage(node, id);
             }
+            Console.WriteLine("Done.");
+        }
+
+        private static PathModel ParseSWC(string swcFile)
+        {
+            PathModel path = new PathModel(System.IO.Path.GetFullPath(swcFile), context);
+            if (!File.Exists(swcFile))
+            {
+                Console.WriteLine("Copy {0} in bin\\Debug", swcFile);
+                return path;
+            }
+            SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
+            parser.Run();
+            AbcConverter.Convert(parser.Abcs, path, context);
+            return path;
         }
 
         private static string GetAttribute(XmlNode node, string name)
@@ -52,7 +90,7 @@ namespace AS3IntrinsicsGenerator
             else fileName = Path.Combine(fileName, "package.as");
             
             fileName = Path.Combine("out", fileName);
-            Console.WriteLine(fileName);
+            //Console.WriteLine(fileName);
             StringBuilder sb = new StringBuilder();
             block.Format(sb, "");
             Directory.CreateDirectory(Path.GetDirectoryName(fileName));
@@ -65,7 +103,17 @@ namespace AS3IntrinsicsGenerator
             if (id == "Global Functions")
             {
                 ParseMethods(part, block);
-                foreach (MethodModel method in block.Methods) method.IsStatic = false;
+                List<MethodModel> methods = new List<MethodModel>();
+                foreach (MethodModel method in block.Methods)
+                {
+                    // ignore convertion methods
+                    if (method.Name != method.ReturnType && method.Name != "Vector")
+                    {
+                        method.IsStatic = false;
+                        methods.Add(method);
+                    }
+                }
+                block.Methods = methods;
             }
             else if (id == "Global Constants")
             {
@@ -89,8 +137,8 @@ namespace AS3IntrinsicsGenerator
                 block.Decl = "package " + package;
 
                 ParsePart(part, block);
-                foreach (MemberModel member in block.Methods) member.IsStatic = false;
-                foreach (MemberModel member in block.Properties) member.IsStatic = false;
+                foreach (BaseModel member in block.Methods) member.IsStatic = false;
+                foreach (BaseModel member in block.Properties) member.IsStatic = false;
 
                 WriteFile(block);
             }
@@ -138,22 +186,38 @@ namespace AS3IntrinsicsGenerator
                 model.IsConst = GetAttribute(node, "constant") == "true";
                 string text = GetAttribute(node, "text");
                 model.IsStatic = text[0] != '.';
-                if (model.IsConst)
+
+                if (!currentClass.IsVoid())
                 {
-                    if (block.Name == "Keyboard")
+                    MemberModel member = currentClass.Members.Search(model.Name, 0, 0);
+                    if (member == null)
                     {
-                        if (model.Name.StartsWith("STRING_") || model.Name.StartsWith("KEYNAME_"))
-                            model.ValueType = "String";
-                        else model.ValueType = "uint";
+                        if (model.Name == "SAMPLE_DATA") model.ValueType = "String";
+                        else if (model.Name == "prototype") model.ValueType = "Object";
+                        else if (model.Name == "constructor") model.ValueType = "Function";
+                        else if (model.Name == "enabled") model.ValueType = "Boolean";
+                        else if (model.Name == "Infinity") model.ValueType = "Number";
+                        else if (model.Name == "-Infinity") continue;
+                        else if (model.Name == "NaN") model.ValueType = "Number";
+                        else if (model.Name == "undefined") model.ValueType = "*";
+                        else
+                            Console.WriteLine("Member not found in SWC: {0}", block.Name + "." + model.Name);
                     }
-                    else if (block.Name == "int" || block.Name == "uint" || block.Name == "Number") model.ValueType = block.Name;
-                    else if (block.Name == "Math") model.ValueType = "Number";
-                    else if (model.Name.StartsWith("MAX_")) model.ValueType = "int";
-                    else if (model.Name.Length > 1 && Char.IsLower(model.Name[1])) model.ValueType = "*";
-                    else model.ValueType = "String";
+                    else if ((member.Flags & FlagType.Setter) > 0)
+                    {
+                        // MANUAL FIX FOR MISSING MEMBERS
+                        if (member.Parameters == null)
+                        {
+                            Console.WriteLine("Setter parameter missing in SWC: {0}", block.Name + "." + model.Name);
+                        }
+                        else model.ValueType = member.Parameters[0].Type;
+                    }
+                    else
+                        model.ValueType = member.Type;
                 }
+
                 model.Comment = GetAttribute(node, "tiptext");
-                model.GuessType(block);
+                model.GuessValue();
                 block.Properties.Add(model);
             }
         }
@@ -164,6 +228,8 @@ namespace AS3IntrinsicsGenerator
             {
                 EventModel model = new EventModel();
                 model.Name = GetAttribute(node, "name");
+                model.IsAIR = GetAttribute(node, "playername").Trim() == "AIR";
+                model.IsFP10 = GetAttribute(node, "version").Trim() == "1.5";
                 string temp = GetAttribute(node, "text");
                 int p = temp.IndexOf("%type:String=");
                 if (p > 0)
@@ -186,6 +252,27 @@ namespace AS3IntrinsicsGenerator
             else ext = "";
             block.Decl = "public class " + block.Name + ext;
             block.Comment = GetAttribute(node, "tiptext");
+
+            string package = parentBlock.Name;
+            if (package.Length > 0) package += ".";
+            currentClass = context.ResolveType(package + block.Name, null);
+            if (currentClass.IsVoid())
+            {
+                // MANUAL FIX FOR MISSING CLASSES
+                if (block.Name == "arguments")
+                {
+                    currentClass = new ClassModel();
+                    currentClass.Members.Add(new MemberModel("callee", "Object", FlagType.Variable, Visibility.Public));
+                    currentClass.Members.Add(new MemberModel("length", "int", FlagType.Variable, Visibility.Public));
+                }
+                else if (block.Name == "Vector")
+                {
+                    currentClass = new ClassModel();
+                    currentClass.Members.Add(new MemberModel("fixed", "Boolean", FlagType.Variable, Visibility.Public));
+                    currentClass.Members.Add(new MemberModel("length", "int", FlagType.Variable, Visibility.Public));
+                }
+                else Console.WriteLine("Class not found in SWC: {0}", package + block.Name);
+            }
 
             foreach (XmlNode part in node.ChildNodes)
                 ParsePart(part, block);

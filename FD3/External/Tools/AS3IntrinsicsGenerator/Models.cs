@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace AS3IntrinsicsGenerator
 {
-    public class MemberModel
+    public class BaseModel
     {
         protected const string NL = "\r\n";
         protected const char SEMI = ';';
@@ -24,8 +24,13 @@ namespace AS3IntrinsicsGenerator
             string cmt = Comment ?? "";
             if (IsAIR) cmt = "[AIR] " + cmt;
             else if (IsFP10) cmt = "[FP10] " + cmt;
-            if (cmt.Length > 0)
-                sb.Append(tabs).Append("/** ").Append(cmt).Append(" */").Append(NL);
+            if (cmt.Length == 0) return;
+            if (cmt.IndexOf('\n') > 0)
+                sb.Append(tabs).Append("/** ")
+                    .Append(NL).Append(tabs).Append(" * ").Append(cmt)
+                    .Append(NL).Append(tabs).Append(" */").Append(NL);
+            else
+                sb.Append(tabs).Append("/// ").Append(cmt).Append(NL);
         }
 
         static public string Camelize(string name)
@@ -42,7 +47,7 @@ namespace AS3IntrinsicsGenerator
         }
     }
 
-    public class BlockModel : MemberModel
+    public class BlockModel : BaseModel
     {
         public string Decl;
         public List<EventModel> Events = new List<EventModel>();
@@ -57,24 +62,21 @@ namespace AS3IntrinsicsGenerator
                 .Append(tabs).Append('{').Append(NL);
 
             string ctabs = tabs + '\t';
-            foreach (MemberModel m in Events) m.Format(sb, ctabs);
-            if (Events.Count > 0) sb.Append(NL);
-            foreach (MemberModel m in Properties) m.Format(sb, ctabs);
-            if (Properties.Count > 0) sb.Append(NL);
-            foreach (MemberModel m in Methods) m.Format(sb, ctabs);
-            if (Methods.Count > 0) sb.Append(NL);
-            foreach (MemberModel m in Blocks) m.Format(sb, ctabs);
+            foreach (BaseModel m in Events) m.Format(sb, ctabs);
+            foreach (BaseModel m in Properties) m.Format(sb, ctabs);
+            foreach (BaseModel m in Methods) m.Format(sb, ctabs);
+            foreach (BaseModel m in Blocks) m.Format(sb, ctabs);
 
-            sb.Append(tabs).Append('}').Append(NL);
+            sb.Append(tabs).Append('}').Append(NL).Append(NL);
         }
     }
 
-    public class MethodModel : MemberModel
+    public class MethodModel : BaseModel
     {
         static private Regex reComa = new Regex(",([a-z])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         static private Regex reRest = new Regex("([a-z0-9]+):restParam", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         static private Regex reVector = new Regex("Vector\\$([a-z.]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        static private Regex reType = new Regex(":([a-z.]+):", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        static private Regex reType = new Regex(":([a-z.$]+):", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public string Params;
         public string ReturnType;
@@ -88,7 +90,7 @@ namespace AS3IntrinsicsGenerator
             sb.Append("function ").Append(Name)
                 .Append('(').Append(Params).Append(')');
             if (ReturnType != null) sb.Append(':').Append(ReturnType);
-            sb.Append(SEMI).Append(NL);
+            sb.Append(SEMI).Append(NL).Append(NL);
         }
 
         public void FixParams()
@@ -111,7 +113,7 @@ namespace AS3IntrinsicsGenerator
         }
     }
 
-    public class PropertyModel : MemberModel
+    public class PropertyModel : BaseModel
     {
         public string ValueType;
         public bool IsConst;
@@ -126,31 +128,19 @@ namespace AS3IntrinsicsGenerator
             else sb.Append("var ");
             sb.Append(Name);
             if (ValueType != null && ValueType.Length > 0) sb.Append(':').Append(ValueType);
-            sb.Append(SEMI).Append(NL);
+            sb.Append(SEMI).Append(NL).Append(NL);
         }
 
-        public void GuessType(BlockModel block)
+        public void GuessValue()
         {
             if (IsConst && ValueType == "String" && Char.IsUpper(Name[0]))
             {
                 ValueType = "String = \"" + Camelize(Name) + "\"";
             }
-            else if (ValueType == null)
-            {
-                if (block.Name == "XML" || Comment.IndexOf(" whether ") > 0) ValueType = "Boolean";
-                else if (Comment.IndexOf(" array of ") > 0) ValueType = "Array";
-                else if (Comment.IndexOf(" number of ") > 0) ValueType = "int";
-                else if (Comment.IndexOf(" amount of ") > 0) ValueType = "Number";
-                else if (Comment.IndexOf(" transparency value ") > 0) ValueType = "Number";
-                else if (Comment.IndexOf(" color of ") > 0) ValueType = "uint";
-                else if (Comment.IndexOf(" Vector of ") > 0) ValueType = "Vector.<*>";
-                else if (Comment.IndexOf(" name of ") > 0) ValueType = "String";
-                else ValueType = "*";
-            }
         }
     }
 
-    public class EventModel : MemberModel
+    public class EventModel : BaseModel
     {
         public string EventType;
 
@@ -162,7 +152,7 @@ namespace AS3IntrinsicsGenerator
             sb.Append(tabs).Append("[Event(")
                 .Append("name=\"").Append(Name)
                 .Append("\", type=\"").Append(EventType.Substring(0, EventType.LastIndexOf('.')))
-                .Append("\")]").Append(NL);
+                .Append("\")]").Append(NL).Append(NL);
         }
     }
 }

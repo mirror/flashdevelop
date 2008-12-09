@@ -130,11 +130,13 @@ namespace ASCompletion.Context
         public virtual IContextSettings Settings
         {
             get { return null; }
+            set { }
         }
 
         public virtual ContextFeatures Features 
         {
             get { return features; }
+            set { features = value; }
         }
 
         public virtual int CurrentLine
@@ -172,6 +174,7 @@ namespace ASCompletion.Context
                 if (cFile.OutOfDate) UpdateCurrentFile(true);
 				return (cClass != null) ? cClass : ClassModel.VoidClass;
 			}
+            set { cClass = value; }
 		}
 
         public virtual string CurrentFile
@@ -206,6 +209,7 @@ namespace ASCompletion.Context
         public virtual FileModel CurrentModel
         {
             get { return cFile; }
+            set { cFile = value; }
         }
 
         /// <summary>
@@ -214,6 +218,7 @@ namespace ASCompletion.Context
         public virtual bool InPrivateSection
         {
             get { return inPrivateSection; }
+            set { inPrivateSection = value; }
         }
 
         /// <summary>
@@ -245,6 +250,7 @@ namespace ASCompletion.Context
 		public FileModel TopLevel
 		{
 			get { return topLevel; }
+            set { topLevel = value; }
 		}
 
         /// <summary>
@@ -253,6 +259,7 @@ namespace ASCompletion.Context
         public List<PathModel> Classpath
         {
             get { return classPath; }
+            set { classPath = value; }
         }
 		#endregion
 
