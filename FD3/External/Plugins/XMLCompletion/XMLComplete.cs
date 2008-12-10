@@ -23,6 +23,7 @@ namespace XMLCompletion
         public static Bitmap HtmlAttributeIcon;
         public static Bitmap StyleAttributeIcon;
         public static Bitmap EventAttributeIcon;
+        public static Bitmap EffectAttributeIcon;
         public static Bitmap HtmlTagIcon;
         public static Bitmap NamespaceTagIcon;
 
@@ -116,6 +117,7 @@ namespace XMLCompletion
             xmlBlocks.Add(new XMLBlockItem("CDATA", "XML Block", "[CDATA[|]]>"));
             xmlBlocks.Add(new XMLBlockItem("Comment", "XML Block", "-- | -->"));
             EventAttributeIcon = new Bitmap(PluginBase.MainForm.FindImage("243"));
+            EffectAttributeIcon = new Bitmap(PluginBase.MainForm.FindImage("198"));
             StyleAttributeIcon = new Bitmap(PluginBase.MainForm.FindImage("408"));
             HtmlAttributeIcon = new Bitmap(PluginBase.MainForm.FindImage("272"));
             HtmlTagIcon = new Bitmap(PluginBase.MainForm.FindImage("417"));

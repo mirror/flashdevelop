@@ -153,15 +153,20 @@ namespace XMLCompletion
             if (p > 0)
             {
                 String ic = name.Substring(p + 1);
-                if (ic == "style" || ic == "s")
+                if (ic == "s" || ic == "style")
                 {
                     this.icon = XMLComplete.StyleAttributeIcon;
                     this.desc = "Styling attribute";
                 }
-                else if (ic == "event" || ic == "e")
+                else if (ic == "e" || ic == "event")
                 {
                     this.icon = XMLComplete.EventAttributeIcon;
                     this.desc = "Event attribute";
+                }
+                else if (ic == "x" || ic == "effect")
+                {
+                    this.icon = XMLComplete.EffectAttributeIcon;
+                    this.desc = "Effect attribute";
                 }
                 else
                 {

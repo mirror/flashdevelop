@@ -12,9 +12,10 @@ namespace MXMLCompletionBuilder
 {
     class Program
     {
-        static Regex reMatchEvents = new Regex("^\\s*\\[Event\\(name=\"([^\"]+)\"", RegexOptions.Multiline);
-        static Regex reMatchStyles = new Regex("^\\s*\\[Style\\(name=\"([^\"]+)\"", RegexOptions.Multiline);
-        static Regex reMatchExcludes = new Regex("^\\s*\\[Exclude\\(name=\"([^\"]+)\"", RegexOptions.Multiline);
+        static Regex reMatchEvents = new Regex("^\\s*\\[Event\\((name=)?\"([^\"]+)\"", RegexOptions.Multiline);
+        static Regex reMatchStyles = new Regex("^\\s*\\[Style\\((name=)?\"([^\"]+)\"", RegexOptions.Multiline);
+        static Regex reMatchEffects = new Regex("^\\s*\\[Effect\\((name=)?\"([^\"]+)\"", RegexOptions.Multiline);
+        static Regex reMatchExcludes = new Regex("^\\s*\\[Exclude\\((name=)?\"([^\"]+)\"", RegexOptions.Multiline);
         static Regex reMatchDefaultProperty = new Regex("^\\s*\\[DefaultProperty\\(\"([^\"]+)\"", RegexOptions.Multiline);
         static Regex reMatchIncludes = new Regex("^\\s*include \"([^\"]+)\";", RegexOptions.Multiline);
 
@@ -87,7 +88,7 @@ namespace MXMLCompletionBuilder
                 config.IncludePackage.Add("flash.media", "media");
                 config.IncludePackage.Add("flash.net", "net");
                 config.IncludePackage.Add("flash.printing", "printing");
-                config.IncludePackage.Add("flash.system", "system");
+                //config.IncludePackage.Add("flash.system", "system");
                 config.IncludePackage.Add("flash.text", "text");
                 config.IncludePackage.Add("flash.ui", "ui");
                 config.IncludePackage.Add("flash.utils", "utils");
@@ -359,6 +360,7 @@ namespace MXMLCompletionBuilder
                 foreach (string at in infos.members) if (infos.excludes.IndexOf(at) < 0) ats.Add(at);
                 foreach (string at in infos.events) ats.Add(at + ":e");
                 foreach (string at in infos.styles) ats.Add(at + ":s");
+                foreach (string at in infos.effects) ats.Add(at + ":x");
                 if (ats.Count == 0)
                 {
                     infos.isEmpty = true;
@@ -391,7 +393,7 @@ namespace MXMLCompletionBuilder
                 TypeInfos infos;
                 if (groups.ContainsKey(typeName))
                 {
-                    Console.WriteLine("-- merging classes with same name: " + type.Name);
+                    Log("-- merging classes with same name: " + type.Name);
                     infos = groups[typeName]; // merge blocs with same name
                 }
                 else infos = new TypeInfos(type.Name);
@@ -399,6 +401,7 @@ namespace MXMLCompletionBuilder
                 if (mxTags.Contains(type.QualifiedName))
                 {
                     infos.ns = "mx";
+                    infos.ignore = false;
                 }
                 else if (package.StartsWith("mx."))
                 {
@@ -476,6 +479,7 @@ namespace MXMLCompletionBuilder
                 return false;
             MatchCollection eventMatches = reMatchEvents.Matches(src);
             MatchCollection stylesMatches = reMatchStyles.Matches(src);
+            MatchCollection effectsMatches = reMatchEffects.Matches(src);
             MatchCollection exMatches = reMatchExcludes.Matches(src);
             Match defaultProp = reMatchDefaultProperty.Match(src);
             if (defaultProp.Success)
@@ -483,9 +487,10 @@ namespace MXMLCompletionBuilder
                 infos.excludes.Add(defaultProp.Groups[1].Value);
                 infos.isLeaf = false;
             }
-            foreach (Match m in eventMatches) infos.events.Add(m.Groups[1].Value);
-            foreach (Match m in stylesMatches) infos.styles.Add(m.Groups[1].Value);
-            foreach (Match m in exMatches) infos.excludes.Add(m.Groups[1].Value);
+            foreach (Match m in eventMatches) infos.events.Add(m.Groups[2].Value);
+            foreach (Match m in stylesMatches) infos.styles.Add(m.Groups[2].Value);
+            foreach (Match m in effectsMatches) infos.effects.Add(m.Groups[2].Value);
+            foreach (Match m in exMatches) infos.excludes.Add(m.Groups[2].Value);
 
             string path = Path.GetDirectoryName(fileName);
             MatchCollection incMatches = reMatchIncludes.Matches(src);
@@ -525,6 +530,7 @@ namespace MXMLCompletionBuilder
         public List<string> members = new List<string>();
         public List<string> events = new List<string>();
         public List<string> styles = new List<string>();
+        public List<string> effects = new List<string>();
         public List<string> excludes = new List<string>();
         public List<TypeInfos> includes = new List<TypeInfos>();
         public bool ignore;
