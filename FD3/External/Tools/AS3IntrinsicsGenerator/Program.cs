@@ -128,7 +128,7 @@ namespace AS3IntrinsicsGenerator
 
         private static void ParsePackage(XmlNode node, string package)
         {
-            if (package.StartsWith("fl.") || package.StartsWith("adobe.")) 
+            if (package.StartsWith("fl.")) 
                 return;
             foreach (XmlNode part in node.ChildNodes)
             {
@@ -197,7 +197,7 @@ namespace AS3IntrinsicsGenerator
                 string text = GetAttribute(node, "text");
                 model.IsStatic = text[0] != '.';
 
-                if (!currentClass.IsVoid())
+                if (currentClass != null && !currentClass.IsVoid())
                 {
                     MemberModel member = currentClass.Members.Search(model.Name, 0, 0);
                     if (member == null)

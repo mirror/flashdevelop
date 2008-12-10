@@ -181,7 +181,7 @@ namespace MXMLCompletionBuilder
                 AddBuiltInTags();
                 ExpandInheritance();
                 BuildGroups();
-                AddBuiltInEvents();
+                //AddBuiltInEvents(); // FD intrinsics now contain required information
                 GenerateDeclarations();
                 output.Close();
                 log.Close();
@@ -229,7 +229,7 @@ namespace MXMLCompletionBuilder
             groups[name] = infos;
         }
 
-        private static void AddBuiltInEvents()
+        /*private static void AddBuiltInEvents()
         {
             // TODO add missing built-in events
             // http://livedocs.adobe.com/flash/9.0/ActionScriptLangRefV3/flash/events/EventDispatcher.html
@@ -246,7 +246,7 @@ namespace MXMLCompletionBuilder
             AddParams("URLLoader", "complete:e,httpResponseStatus:e,httpStatus:e,ioError:e,open:e,progress:e,securityError:e");
             AddParams("LoaderInfo", "complete:e,httpStatus:e,init:e,ioError:e,open:e,progress:e,unload:e");
             AddParams("Timer", "timer:e,timerComplete:e");
-        }
+        }*/
 
         private static void AddParams(string tagName, string add)
         {
@@ -388,7 +388,14 @@ namespace MXMLCompletionBuilder
                 string package = model.Package;
                 string typeName = type.Name;
 
-                TypeInfos infos = new TypeInfos(type.Name);
+                TypeInfos infos;
+                if (groups.ContainsKey(typeName))
+                {
+                    Console.WriteLine("-- merging classes with same name: " + type.Name);
+                    infos = groups[typeName]; // merge blocs with same name
+                }
+                else infos = new TypeInfos(type.Name);
+
                 if (mxTags.Contains(type.QualifiedName))
                 {
                     infos.ns = "mx";

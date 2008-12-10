@@ -95,7 +95,7 @@ namespace ASCompletion.Settings
             "haxe","inheritDoc","internal","link","mtasc","mxmlc","param","private","return","see",
             "serial","serialData","serialField","since","throws","usage","version"
         };
-        const int DEFAULT_MAXLINES = 5;
+        const int DEFAULT_MAXLINES = 8;
 
         protected bool smartTipsEnabled = DEFAULT_SMARTTIPS;
         protected bool javadocTagsEnabled = DEFAULT_JAVADOCS;

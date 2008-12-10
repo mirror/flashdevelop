@@ -27,7 +27,7 @@ namespace ASCompletion.Model
 
     public class ASMetaData: IComparable
     {
-        static private Regex reNameTypeParams = new Regex("name\\s*=\\s*\"(?<name>[^\"]+)\"\\s*,\\s*type\\s*=\\s*\"(?<type>[^\"]+)\"", RegexOptions.Compiled);
+        static private Regex reNameTypeParams = new Regex("\"(?<name>[^\"]+)\"\\s*,\\s*type\\s*=\\s*\"(?<type>[^\"]+)\"", RegexOptions.Compiled);
 
         public int LineFrom;
         public int LineTo;
@@ -35,6 +35,8 @@ namespace ASCompletion.Model
         public Dictionary<string, string> Params;
         public string RawParams;
         public string Comments;
+        public bool IsEvent;
+        public bool IsStyle;
 
         public ASMetaData(string name)
         {
@@ -52,6 +54,8 @@ namespace ASCompletion.Model
                 {
                     Params.Add("name", mParams.Groups["name"].Value);
                     Params.Add("type", mParams.Groups["type"].Value);
+                    if (Name == "Event") IsEvent = true;
+                    else if (Name == "Style") IsStyle = true;
                 }
             }
         }
@@ -60,9 +64,10 @@ namespace ASCompletion.Model
         {
             if (!(obj is ASMetaData))
                 throw new InvalidCastException("This object is not of type ASMetaData");
-            if (Name == "Event" && Params != null && Params.Count > 0)
-                return Params["type"].CompareTo((obj as ASMetaData).Params["type"]);
-            return Name.CompareTo((obj as ASMetaData).Name);
+            ASMetaData meta = obj as ASMetaData;
+            if (IsEvent && meta.IsEvent)
+                return Params["type"].CompareTo(meta.Params["type"]);
+            return Name.CompareTo(meta.Name);
         }
     }
 

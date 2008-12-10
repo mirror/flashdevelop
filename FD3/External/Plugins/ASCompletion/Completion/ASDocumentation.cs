@@ -17,7 +17,7 @@ using PluginCore.Localization;
 
 namespace ASCompletion.Completion
 {
-	public struct CommentBlock
+	public class CommentBlock
 	{
 		public string Description;
 		public string InfoTip;
@@ -360,7 +360,7 @@ namespace ASCompletion.Completion
 			{
                 string tip = (UITools.Manager.ShowDetails) ? GetTipFullDetails(member, highlightParam) : GetTipShortDetails(member, highlightParam);
                 // remove paragraphs from comments
-                return re_tags.Replace(tip, "");
+                return RemoveHTMLTags(tip);
 			}
 			catch(Exception ex)
 			{
@@ -368,6 +368,11 @@ namespace ASCompletion.Completion
 				return "";
 			}
 		}
+
+        static public string RemoveHTMLTags(string tip)
+        {
+            return re_tags.Replace(tip, "");
+        }
 		
 		/// <summary>
 		/// Short contextual details to display in tips
@@ -379,7 +384,17 @@ namespace ASCompletion.Completion
 		{
             if (member == null || member.Comments == null || !ASContext.CommonSettings.SmartTipsEnabled) return "";
 			CommentBlock cb = ParseComment(member.Comments);
-			string details = " …";
+            return " …" + GetTipShortDetails(cb, highlightParam);
+        }
+
+        /// <summary>
+        /// Short contextual details to display in tips
+        /// </summary>
+        /// <param name="cb">Parsed comments</param>
+        /// <returns>Formated comments</returns>
+        static public string GetTipShortDetails(CommentBlock cb, string highlightParam)
+        {
+			string details = "";
 			
 			// get parameter detail
 			if (highlightParam != null && highlightParam.Length > 0 && cb.ParamName != null)
@@ -402,6 +417,9 @@ namespace ASCompletion.Completion
 			return details;
 		}
 
+        /// <summary>
+        /// Split multiline text and return 2 lines or less of text
+        /// </summary>
         static public string Get2LinesOf(string text)
         {
             string[] lines = text.Split('\n');
@@ -416,14 +434,22 @@ namespace ASCompletion.Completion
 		/// Extract member comments for display in the completion list
 		/// </summary>
 		/// <param name="member">Member data</param>
-		/// <param name="member">Parameter to highlight</param>
+        /// <param name="highlightParam">Parameter to highlight</param>
 		/// <returns>Formated comments</returns>
 		static public string GetTipFullDetails(MemberModel member, string highlightParam)
 		{
             if (member == null || member.Comments == null || !ASContext.CommonSettings.SmartTipsEnabled) return "";
 			CommentBlock cb = ParseComment(member.Comments);
-			
-			// details
+            return GetTipFullDetails(cb, highlightParam);
+        }
+
+        /// <summary>
+        /// Extract comments for display in the completion list
+        /// </summary>
+        /// <param name="cb">Parsed comments</param>
+        /// <returns>Formated comments</returns>
+        static public string GetTipFullDetails(CommentBlock cb, string highlightParam)
+        {
 			string details = "";
 			if (cb.Description.Length > 0) 
 			{

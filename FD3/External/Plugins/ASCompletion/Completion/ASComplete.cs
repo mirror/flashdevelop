@@ -1128,7 +1128,7 @@ namespace ASCompletion.Completion
                 if (inFile.MetaDatas != null)
                 {
                     foreach (ASMetaData meta in inFile.MetaDatas)
-                        if (meta.Name == "Event" && meta.Params != null) events.Add(meta);
+                        if (meta.IsEvent) events.Add(meta);
                 }
                 ofClass = ofClass.Extends;
             }
@@ -3019,7 +3019,7 @@ namespace ASCompletion.Completion
     {
         private string name;
         private string comments;
-        private string desc;
+        private CommentBlock cb;
         public ClassModel EventType;
 
         public EventItem(string name, ClassModel type, string comments)
@@ -3037,12 +3037,11 @@ namespace ASCompletion.Completion
         {
             get 
             {
-                if (desc == null)
-                {
-                    CommentBlock cb = ASDocumentation.ParseComment(comments ?? name);
-                    desc = ASDocumentation.Get2LinesOf(cb.Description).Trim();
-                }
-                return desc;
+                if (!ASContext.CommonSettings.SmartTipsEnabled) return "Event const";
+                if (cb == null) cb = ASDocumentation.ParseComment(comments ?? name);
+                string tip = (UITools.Manager.ShowDetails) ? ASDocumentation.GetTipFullDetails(cb, null) : ASDocumentation.GetTipShortDetails(cb, null);
+                // remove paragraphs from comments
+                return ASDocumentation.RemoveHTMLTags(tip).Trim();
             }
         }
 
