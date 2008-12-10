@@ -1,114 +1,110 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.styles {
-	public class StyleProxy implements IStyleClient {
+﻿package mx.styles
+{
+	import mx.core.mx_internal;
+	import mx.core.FlexVersion;
+
+	/**
+	 *  Wraps an object that implements the IStyleClient interface. This interface *  supports a <code>filterMap</code> property that contains style-source/style-destination pairs. *  *  @see mx.styles.IStyleClient
+	 */
+	public class StyleProxy implements IStyleClient
+	{
 		/**
-		 * The name of the component class.
+		 *  @private     *  Storage for the filterMap property.
 		 */
-		public function get className():String;
+		private var _filterMap : Object;
 		/**
-		 * A set of string pairs. The first item of the string pair is the name of the style
-		 *  in the source component. The second item of the String pair is the name of the style
-		 *  in the subcomponent. With this object, you can map a particular style in the parent component
-		 *  to a different style in the subcomponent. This is useful if both the parent
-		 *  component and the subcomponent share the same style, but you want to be able to
-		 *  control the values seperately.
+		 *  @private     *  Storage for the filterMap property.
 		 */
-		public function get filterMap():Object;
-		public function set filterMap(value:Object):void;
+		private var _source : IStyleClient;
+
 		/**
-		 * An object containing the inheritable styles for this component.
+		 *  @copy mx.styles.IStyleClient#className
 		 */
-		public function get inheritingStyles():Object;
-		public function set inheritingStyles(value:Object):void;
+		public function get className () : String;
 		/**
-		 * An object containing the noninheritable styles for this component.
+		 *  A set of string pairs. The first item of the string pair is the name of the style      *  in the source component. The second item of the String pair is the name of the style      *  in the subcomponent. With this object, you can map a particular style in the parent component      *  to a different style in the subcomponent. This is useful if both the parent      *  component and the subcomponent share the same style, but you want to be able to      *  control the values seperately.
 		 */
-		public function get nonInheritingStyles():Object;
-		public function set nonInheritingStyles(value:Object):void;
+		public function get filterMap () : Object;
 		/**
-		 * The object that implements the IStyleClient interface. This is the object
-		 *  that is being proxied.
+		 *  @private
 		 */
-		public function get source():IStyleClient;
-		public function set source(value:IStyleClient):void;
+		public function set filterMap (value:Object) : void;
 		/**
-		 * The style declaration used by this object.
+		 *  @copy mx.styles.IStyleClient#inheritingStyles
 		 */
-		public function get styleDeclaration():CSSStyleDeclaration;
-		public function set styleDeclaration(value:CSSStyleDeclaration):void;
+		public function get inheritingStyles () : Object;
 		/**
-		 * The source of this object's style values.
-		 *  The value of the styleName property can be one of three possible types:
-		 *  String, such as "headerStyle". The String names a class selector that is defined in a CSS style sheet.
-		 *  CSSStyleDeclaration, such as StyleManager.getStyleDeclaration(".headerStyle").
-		 *  UIComponent. The object that implements this interface inherits all the style values from the referenced UIComponent.
+		 *  @private
 		 */
-		public function get styleName():Object;
-		public function set styleName(value:Object):void;
+		public function set inheritingStyles (value:Object) : void;
 		/**
-		 * Constructor.
-		 *
-		 * @param source            <IStyleClient> The object that implements the IStyleClient interface.
-		 * @param filterMap         <Object> The set of styles to pass from the source to the subcomponent.
+		 *  @copy mx.styles.IStyleClient#nonInheritingStyles
 		 */
-		public function StyleProxy(source:IStyleClient, filterMap:Object);
+		public function get nonInheritingStyles () : Object;
 		/**
-		 * Deletes a style property from this component instance.
-		 *
-		 * @param styleProp         <String> Name of the style property.
+		 *  @private
 		 */
-		public function clearStyle(styleProp:String):void;
+		public function set nonInheritingStyles (value:Object) : void;
 		/**
-		 * Returns an Array of CSSStyleDeclaration objects for the type selector
-		 *  that applies to this component, or null if none exist.
-		 *
-		 * @return                  <Array> Array of CSSStyleDeclaration objects.
+		 *  The object that implements the IStyleClient interface. This is the object     *  that is being proxied.
 		 */
-		public function getClassStyleDeclarations():Array;
+		public function get source () : IStyleClient;
 		/**
-		 * Gets a style property that has been set anywhere in this
-		 *  component's style lookup chain.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @return                  <*> Style value.
+		 *  @private
 		 */
-		public function getStyle(styleProp:String):*;
+		public function set source (value:IStyleClient) : void;
 		/**
-		 * Propagates style changes to the children of this component.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @param recursive         <Boolean> Whether to propagate the style changes to the children's children.
+		 *  @copy mx.styles.IStyleClient#styleDeclaration
 		 */
-		public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void;
+		public function get styleDeclaration () : CSSStyleDeclaration;
 		/**
-		 * Sets up the internal style cache values so that the getStyle()
-		 *  method functions.
-		 *  If this object already has children, then reinitialize the children's
-		 *  style caches.
-		 *
-		 * @param recursive         <Boolean> Regenerate the proto chains of the children.
+		 *  @private
 		 */
-		public function regenerateStyleCache(recursive:Boolean):void;
+		public function set styleDeclaration (value:CSSStyleDeclaration) : void;
 		/**
-		 * Registers the EffectManager as one of the event listeners for each effect event.
-		 *
-		 * @param effects           <Array> An Array of Strings of effect names.
+		 *  @copy mx.styles.ISimpleStyleClient#styleName
 		 */
-		public function registerEffects(effects:Array):void;
+		public function get styleName () : Object;
 		/**
-		 * Sets a style property on this component instance.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @param newValue          <*> New value for the style.
+		 *  @private
 		 */
-		public function setStyle(styleProp:String, newValue:*):void;
+		public function set styleName (value:Object) : void;
+
 		/**
-		 * Called when the value of a style property is changed.
-		 *
-		 * @param styleProp         <String> The name of the style property that changed.
+		 *  Constructor.     *       *  @param source The object that implements the IStyleClient interface.     *  @param filterMap The set of styles to pass from the source to the subcomponent.
 		 */
-		public function styleChanged(styleProp:String):void;
+		public function StyleProxy (source:IStyleClient, filterMap:Object);
+		/**
+		 *  @copy mx.styles.ISimpleStyleClient#styleChanged()
+		 */
+		public function styleChanged (styleProp:String) : void;
+		/**
+		 *  @copy mx.styles.IStyleClient#getStyle()
+		 */
+		public function getStyle (styleProp:String) : *;
+		/**
+		 *  @copy mx.styles.IStyleClient#setStyle()
+		 */
+		public function setStyle (styleProp:String, newValue:*) : void;
+		/**
+		 *  @copy mx.styles.IStyleClient#clearStyle()
+		 */
+		public function clearStyle (styleProp:String) : void;
+		/**
+		 *  @copy mx.styles.IStyleClient#getClassStyleDeclarations()
+		 */
+		public function getClassStyleDeclarations () : Array;
+		/**
+		 *  @copy mx.styles.IStyleClient#notifyStyleChangeInChildren()
+		 */
+		public function notifyStyleChangeInChildren (styleProp:String, recursive:Boolean) : void;
+		/**
+		 *  @copy mx.styles.IStyleClient#regenerateStyleCache()
+		 */
+		public function regenerateStyleCache (recursive:Boolean) : void;
+		/**
+		 *  @copy mx.styles.IStyleClient#registerEffects()
+		 */
+		public function registerEffects (effects:Array) : void;
 	}
 }

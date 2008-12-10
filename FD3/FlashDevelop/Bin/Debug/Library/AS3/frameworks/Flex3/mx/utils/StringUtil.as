@@ -1,48 +1,25 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.utils {
-	public class StringUtil {
+﻿package mx.utils
+{
+	/**
+	 *  The StringUtil utility class is an all-static class with methods for *  working with String objects within Flex. *  You do not create instances of StringUtil; *  instead you call methods such as  *  the <code>StringUtil.substitute()</code> method.
+	 */
+	public class StringUtil
+	{
 		/**
-		 * Returns true if the specified string is
-		 *  a single space, tab, carriage return, newline, or formfeed character.
-		 *
-		 * @param character         <String> The String that is is being queried.
-		 * @return                  <Boolean> true if the specified string is
-		 *                            a single space, tab, carriage return, newline, or formfeed character.
+		 *  Removes all whitespace characters from the beginning and end     *  of the specified string.     *     *  @param str The String whose whitespace should be trimmed.      *     *  @return Updated String where whitespace was removed from the      *  beginning and end.
 		 */
-		public static function isWhitespace(character:String):Boolean;
+		public static function trim (str:String) : String;
 		/**
-		 * Substitutes "{n}" tokens within the specified string
-		 *  with the respective arguments passed in.
-		 *
-		 * @param str               <String> The string to make substitutions in.
-		 *                            This string can contain special tokens of the form
-		 *                            {n}, where n is a zero based index,
-		 *                            that will be replaced with the additional parameters
-		 *                            found at that index if specified.
-		 * @return                  <String> New string with all of the {n} tokens
-		 *                            replaced with the respective arguments specified.
+		 *  Removes all whitespace characters from the beginning and end     *  of each element in an Array, where the Array is stored as a String.      *     *  @param value The String whose whitespace should be trimmed.      *     *  @param separator The String that delimits each Array element in the string.     *     *  @return Updated String where whitespace was removed from the      *  beginning and end of each element.
 		 */
-		public static function substitute(str:String, ... rest):String;
+		public static function trimArrayElements (value:String, delimiter:String) : String;
 		/**
-		 * Removes all whitespace characters from the beginning and end
-		 *  of the specified string.
-		 *
-		 * @param str               <String> The String whose whitespace should be trimmed.
-		 * @return                  <String> Updated String where whitespace was removed from the
-		 *                            beginning and end.
+		 *  Returns <code>true</code> if the specified string is     *  a single space, tab, carriage return, newline, or formfeed character.     *     *  @param str The String that is is being queried.      *     *  @return <code>true</code> if the specified string is     *  a single space, tab, carriage return, newline, or formfeed character.
 		 */
-		public static function trim(str:String):String;
+		public static function isWhitespace (character:String) : Boolean;
 		/**
-		 * Removes all whitespace characters from the beginning and end
-		 *  of each element in an Array, where the Array is stored as a String.
-		 *
-		 * @param value             <String> The String whose whitespace should be trimmed.
-		 * @param delimiter         <String> The String that delimits each Array element in the string.
-		 * @return                  <String> Updated String where whitespace was removed from the
-		 *                            beginning and end of each element.
+		 *  Substitutes "{n}" tokens within the specified string     *  with the respective arguments passed in.     *     *  @param str The string to make substitutions in.     *  This string can contain special tokens of the form     *  <code>{n}</code>, where <code>n</code> is a zero based index,     *  that will be replaced with the additional parameters     *  found at that index if specified.     *     *  @param rest Additional parameters that can be substituted     *  in the <code>str</code> parameter at each <code>{n}</code>     *  location, where <code>n</code> is an integer (zero based)     *  index value into the array of values specified.     *  If the first parameter is an array this array will be used as     *  a parameter list.     *  This allows reuse of this routine in other methods that want to     *  use the ... rest signature.     *  For example <pre>     *     public function myTracer(str:String, ... rest):void     *     {      *         label.text += StringUtil.substitute(str, rest) + "\n";     *     } </pre>     *     *  @return New string with all of the <code>{n}</code> tokens     *  replaced with the respective arguments specified.     *     *  @example     *     *  var str:String = "here is some info '{0}' and {1}";     *  trace(StringUtil.substitute(str, 15.4, true));     *     *  // this will output the following string:     *  // "here is some info '15.4' and true"
 		 */
-		public static function trimArrayElements(value:String, delimiter:String):String;
+		public static function substitute (str:String, ...rest) : String;
 	}
 }

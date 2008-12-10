@@ -1,23 +1,26 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	public class DeferredInstanceFromClass implements IDeferredInstance {
+﻿package mx.core
+{
+	/**
+	 *  A deferred instance factory that creates and returns an instance *  of a specified class. *  An application can use the <code>getInstance()</code> method to *  create an instance of the class when it is first needed and get *  a reference to the instance thereafter. * *  @see DeferredInstanceFromFunction
+	 */
+	public class DeferredInstanceFromClass implements IDeferredInstance
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param generator         <Class> The class whose instance the getInstance()
-		 *                            method creates and returns.
+		 * 	@private     *	The generator class.
 		 */
-		public function DeferredInstanceFromClass(generator:Class);
+		private var generator : Class;
 		/**
-		 * Creates and returns an instance of the class specified in the
-		 *  DeferredInstanceFromClass constructor, if it does not yet exist;
-		 *  otherwise, returns the already-created class instance.
-		 *
-		 * @return                  <Object> An instance of the class specified in the
-		 *                            DeferredInstanceFromClass constructor.
+		 * 	@private	 * 	The generated value.
 		 */
-		public function getInstance():Object;
+		private var instance : Object;
+
+		/**
+		 *  Constructor.	 *	 *  @param generator The class whose instance the <code>getInstance()</code>	 *  method creates and returns.
+		 */
+		public function DeferredInstanceFromClass (generator:Class);
+		/**
+		 *	Creates and returns an instance of the class specified in the	 *  DeferredInstanceFromClass constructor, if it does not yet exist;	 *  otherwise, returns the already-created class instance.	 *	 *  @return An instance of the class specified in the	 *  DeferredInstanceFromClass constructor.
+		 */
+		public function getInstance () : Object;
 	}
 }

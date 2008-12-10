@@ -1,70 +1,124 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.containers.utilityClasses {
-	import flash.events.EventDispatcher;
+﻿package mx.containers.utilityClasses
+{
+	import flash.events.Event;
+	import flash.events.IEventDispatcher;
+	import mx.core.IInvalidating;
+	import mx.core.mx_internal;
 	import mx.core.IMXMLObject;
-	public class ConstraintRow extends EventDispatcher implements IMXMLObject {
+	import flash.events.EventDispatcher;
+
+	/**
+	 *  ConstraintRow class partitions an absolutely *  positioned container in the horizontal plane.  *  *  ConstraintRow instances have 3 sizing options: fixed, percentage,   *  and content. These options dictate the position of the constraint row,  *  the amount of space the constraint row takes in the container, and  *  how the constraint row deals with a change in the size of the container.
+	 */
+	public class ConstraintRow extends EventDispatcher implements IMXMLObject
+	{
+		local var contentSize : Boolean;
 		/**
-		 * Number that specifies the explicit height of the
-		 *  ConstraintRow instance, in pixels, in the ConstraintRow
-		 *  instance's coordinates.
+		 *  @private
 		 */
-		public function get explicitHeight():Number;
-		public function set explicitHeight(value:Number):void;
+		private var _container : IInvalidating;
 		/**
-		 * Number that specifies the height of the ConstraintRow instance, in pixels,
-		 *  in the parent's coordinates.
+		 *  @private     *  Storage for the height property.
 		 */
-		public function get height():Number;
-		public function set height(value:Number):void;
+		local var _height : Number;
 		/**
-		 * ID of the ConstraintRow instance. This value becomes the instance name
-		 *  of the constraint row and should not contain white space or special
-		 *  characters.
+		 *  @private     *  Storage for the explicitHeight property.
 		 */
-		public function get id():String;
-		public function set id(value:String):void;
+		private var _explicitHeight : Number;
 		/**
-		 * Number that specifies the maximum height of the ConstraintRow instance,
-		 *  in pixels, in the ConstraintRow instance's coordinates.
+		 *  @private
 		 */
-		public function get maxHeight():Number;
-		public function set maxHeight(value:Number):void;
+		private var _id : String;
 		/**
-		 * Number that specifies the minimum height of the ConstraintRow instance,
-		 *  in pixels, in the ConstraintRow instance's coordinates.
+		 *  @private     *  Storage for the maxHeight property.
 		 */
-		public function get minHeight():Number;
-		public function set minHeight(value:Number):void;
+		private var _explicitMaxHeight : Number;
 		/**
-		 * Number that specifies the height of a component as a percentage
-		 *  of its parent's size. Allowed values are 0-100. The default value is NaN.
-		 *  Setting the width property resets this property to NaN.
+		 *  @private     *  Storage for the minHeight property.
 		 */
-		public function get percentHeight():Number;
-		public function set percentHeight(value:Number):void;
+		private var _explicitMinHeight : Number;
 		/**
-		 * Constructor.
+		 *  @private     *  Storage for the percentHeight property.
 		 */
-		public function ConstraintRow();
+		private var _percentHeight : Number;
+		private var _y : Number;
+
 		/**
-		 * Called automatically by the MXML compiler when the ConstraintRow
-		 *  instance is created using an MXML tag.
-		 *  If you create the constraint row through ActionScript, you
-		 *  must call this method passing in the MXML document and
-		 *  null for the id.
-		 *
-		 * @param document          <Object> The MXML document containing this ConstraintRow.
-		 * @param id                <String> Ignored.
+		 *  The container being partitioned by this ConstraintRow instance.
 		 */
-		public function initialized(document:Object, id:String):void;
+		public function get container () : IInvalidating;
 		/**
-		 * Sizes the ConstraintRow
-		 *
-		 * @param h                 <Number> Height of constaint row computed during parent container
-		 *                            processing.
+		 *  @private
 		 */
-		public function setActualHeight(h:Number):void;
+		public function set container (value:IInvalidating) : void;
+		/**
+		 *  Number that specifies the height of the ConstraintRow instance, in pixels,     *  in the parent's coordinates.     *
+		 */
+		public function get height () : Number;
+		/**
+		 *  @private
+		 */
+		public function set height (value:Number) : void;
+		/**
+		 *  Number that specifies the explicit height of the      *  ConstraintRow instance, in pixels, in the ConstraintRow      *  instance's coordinates.     *
+		 */
+		public function get explicitHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set explicitHeight (value:Number) : void;
+		/**
+		 *  ID of the ConstraintRow instance. This value becomes the instance name      *  of the constraint row and should not contain white space or special      *  characters.
+		 */
+		public function get id () : String;
+		/**
+		 *  @private
+		 */
+		public function set id (value:String) : void;
+		/**
+		 *  Number that specifies the maximum height of the ConstraintRow instance,     *  in pixels, in the ConstraintRow instance's coordinates.     *
+		 */
+		public function get maxHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set maxHeight (value:Number) : void;
+		/**
+		 *  Number that specifies the minimum height of the ConstraintRow instance,     *  in pixels, in the ConstraintRow instance's coordinates.     *
+		 */
+		public function get minHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set minHeight (value:Number) : void;
+		/**
+		 *  Number that specifies the height of a component as a percentage     *  of its parent's size. Allowed values are 0-100. The default value is NaN.     *  Setting the <code>width</code> property resets this property to NaN.
+		 */
+		public function get percentHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set percentHeight (value:Number) : void;
+		/**
+		 *  @private
+		 */
+		public function get y () : Number;
+		/**
+		 *  @private
+		 */
+		public function set y (value:Number) : void;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ConstraintRow ();
+		/**
+		 *  Called automatically by the MXML compiler when the ConstraintRow      *  instance is created using an MXML tag.        *  If you create the constraint row through ActionScript, you       *  must call this method passing in the MXML document and       *  <code>null</code> for the <code>id</code>.      *      *  @param document The MXML document containing this ConstraintRow.      *      *  @param id Ignored.
+		 */
+		public function initialized (document:Object, id:String) : void;
+		/**
+		 *  Sizes the ConstraintRow     *     *  @param height Height of constaint row computed during parent container     *  processing.
+		 */
+		public function setActualHeight (h:Number) : void;
 	}
 }

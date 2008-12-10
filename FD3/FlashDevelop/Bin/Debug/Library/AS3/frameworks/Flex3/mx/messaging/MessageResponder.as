@@ -1,77 +1,99 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging {
+﻿package mx.messaging
+{
+	import flash.events.TimerEvent;
 	import flash.net.Responder;
+	import flash.utils.Timer;
 	import mx.messaging.messages.IMessage;
-	public class MessageResponder extends Responder {
+	import mx.messaging.messages.ErrorMessage;
+	import mx.resources.IResourceManager;
+	import mx.resources.ResourceManager;
+
+	/**
+	 *  The MessageResponder class handles a successful result or fault from a message *  destination. For each message that a Channel sends, the Channel creates a *  MessageResponder to handle the result. Upon a response, the Channel will *  invoke either the <code>result()</code> or <code>status()</code> callback *  on the MessageResponder. MessageResponder subclasses should override these *  methods to perform any necessary processing. For every response, whether a  *  successful result or an error, the MessageResponder should invoke  *  <code>acknowledge()</code> on its agent. If the response was a fault, the *  MessageResponder should also invoke <code>fault()</code> on its agent.
+	 */
+	public class MessageResponder extends Responder
+	{
 		/**
-		 * Provides access to the MessageAgent that sent the message.
+		 *  @private	 *  Flag indicating whether the request corresponding to this responder	 *  has timed out. This is used by responders that cannot close	 *  their underlying connection (NetConnection for instance) so they must 	 *  instead ignore any response that is returned after the request timeout 	 *  is reached.
 		 */
-		public function get agent():MessageAgent;
+		private var _requestTimedOut : Boolean;
 		/**
-		 * Provides access to the Channel used to send the message.
+		 *  @private	 *  Timer used to trigger a request timeout.
 		 */
-		public function get channel():Channel;
+		private var _requestTimer : Timer;
 		/**
-		 * Provides access to the sent Message.
+		 * @private
 		 */
-		public function get message():IMessage;
-		public function set message(value:IMessage):void;
+		private var resourceManager : IResourceManager;
 		/**
-		 * Constructs a MessageResponder to handle the response for the specified
-		 *  Message for the specified MessageAgent.
-		 *
-		 * @param agent             <MessageAgent> agent The MessageAgent sending the Message.
-		 * @param message           <IMessage> message The Message being sent.
-		 * @param channel           <Channel (default = null)> The Channel used to send.
+		 *  @private
 		 */
-		public function MessageResponder(agent:MessageAgent, message:IMessage, channel:Channel = null);
+		private var _agent : MessageAgent;
 		/**
-		 * Constructs an ErrorMessage that can be passed to the associated
-		 *  MessageAgent's callbacks upon a request timeout.
+		 *  @private
 		 */
-		protected function createRequestTimeoutErrorMessage():ErrorMessage;
+		private var _channel : Channel;
 		/**
-		 * Subclasses must override this method to handle a request timeout and
-		 *  invoke the proper callbacks on the associated MessageAgent.
+		 *  @private
 		 */
-		protected function requestTimedOut():void;
+		private var _message : IMessage;
+
 		/**
-		 * Called by the channel that created this MessageResponder when a
-		 *  response returns from the destination.
-		 *  This method performs core result processing and then invokes the
-		 *  resultHandler() method that subclasses may override to
-		 *  perform any necessary custom processing.
-		 *
-		 * @param message           <IMessage> The result Message returned by the destination.
+		 *  Provides access to the MessageAgent that sent the message.
 		 */
-		public final function result(message:IMessage):void;
+		public function get agent () : MessageAgent;
 		/**
-		 * Subclasses must override this method to perform custom processing of
-		 *  the result and invoke the proper callbacks on the associated
-		 *  MessageAgent.
-		 *
-		 * @param message           <IMessage> The result Message returned by the destination.
+		 *  Provides access to the Channel used to send the message.
 		 */
-		protected function resultHandler(message:IMessage):void;
+		public function get channel () : Channel;
 		/**
-		 * Called by the channel that created this MessageResponder when a fault
-		 *  response returns from the destination.
-		 *  This method performs core result processing and then invokes the
-		 *  statusHandler() method that subclasses may override to
-		 *  perform any necessary custom processing.
-		 *
-		 * @param message           <IMessage> The fault Message returned by the destination.
+		 *  Provides access to the sent Message.
 		 */
-		public final function status(message:IMessage):void;
+		public function get message () : IMessage;
 		/**
-		 * Subclasses must override this method to perform custom processing of
-		 *  the status and invoke the proper callbacks on the associated
-		 *  MessageAgent.
-		 *
-		 * @param message           <IMessage> The fault Message returned by the destination.
+		 * @private
 		 */
-		protected function statusHandler(message:IMessage):void;
+		public function set message (value:IMessage) : void;
+
+		/**
+		 *  Constructs a MessageResponder to handle the response for the specified     *  Message for the specified MessageAgent.     *     *  @param  agent The MessageAgent sending the Message.     *      *  @param  message The Message being sent.     *      *  @param channel The Channel used to send.
+		 */
+		public function MessageResponder (agent:MessageAgent, message:IMessage, channel:Channel = null);
+		/**
+		 *  @private      *  Starts a timer to monitor a request timeout. If the timer hits the     *  specified requestTimeout before a response is returned,      *  <code>requestTimedOut()</code> is invoked and any subsequent      *  response is ignored by this responder.     *      *  @param requestTimeout The amount of time in seconds to allow a request     *                        to run before timing it out.
+		 */
+		public function startRequestTimeout (requestTimeout:int) : void;
+		/**
+		 *  Called by the channel that created this MessageResponder when a     *  response returns from the destination.     *  This method performs core result processing and then invokes the     *  <code>resultHandler()</code> method that subclasses may override to     *  perform any necessary custom processing.     *     *  @param message The result Message returned by the destination.
+		 */
+		public function result (message:IMessage) : void;
+		/**
+		 *  Called by the channel that created this MessageResponder when a fault     *  response returns from the destination.     *  This method performs core result processing and then invokes the     *  <code>statusHandler()</code> method that subclasses may override to     *  perform any necessary custom processing.     *      *  @param message The fault Message returned by the destination.
+		 */
+		public function status (message:IMessage) : void;
+		/**
+		 *  Constructs an ErrorMessage that can be passed to the associated      *  MessageAgent's callbacks upon a request timeout.     *     *  @return Returns an ErrorMessage that can be passed to the associated     *  MessageAgent's callbacks upon a request timeout.
+		 */
+		protected function createRequestTimeoutErrorMessage () : ErrorMessage;
+		/**
+		 *  Subclasses must override this method to perform custom processing of     *  the result and invoke the proper callbacks on the associated      *  MessageAgent.     *      *  @param message The result Message returned by the destination.
+		 */
+		protected function resultHandler (message:IMessage) : void;
+		/**
+		 *  Subclasses must override this method to handle a request timeout and      *  invoke the proper callbacks on the associated MessageAgent.
+		 */
+		protected function requestTimedOut () : void;
+		/**
+		 *  Subclasses must override this method to perform custom processing of     *  the status and invoke the proper callbacks on the associated      *  MessageAgent.     *      *  @param message The fault Message returned by the destination.
+		 */
+		protected function statusHandler (message:IMessage) : void;
+		/**
+		 *  @private     *  Helper callback that flags the request as timed out before delegating     *  to custom timeout processing.
+		 */
+		private function timeoutRequest (event:TimerEvent) : void;
+		/**
+		 *  @private     *  Utility method to shutdown the request timeout Timer.
+		 */
+		private function releaseTimer () : void;
 	}
 }

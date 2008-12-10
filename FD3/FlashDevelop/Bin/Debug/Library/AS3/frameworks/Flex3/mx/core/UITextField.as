@@ -1,447 +1,599 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	import mx.automation.IAutomationObject;
-	import mx.styles.ISimpleStyleClient;
-	import mx.managers.IToolTipManagerClient;
-	import flash.display.Sprite;
-	import flash.display.DisplayObjectContainer;
-	import mx.managers.ISystemManager;
+﻿package mx.core
+{
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.events.Event;
-	public class UITextField extends FlexTextField implements IAutomationObject, IIMESupport, IFlexModule, IInvalidating, ISimpleStyleClient, IToolTipManagerClient, IUITextField {
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.text.TextLineMetrics;
+	import flash.utils.getQualifiedClassName;
+	import mx.automation.IAutomationObject;
+	import mx.core.FlexVersion;
+	import mx.managers.ISystemManager;
+	import mx.managers.IToolTipManagerClient;
+	import mx.managers.SystemManager;
+	import mx.managers.ToolTipManager;
+	import mx.resources.IResourceManager;
+	import mx.resources.ResourceManager;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
+	import mx.styles.StyleManager;
+	import mx.styles.StyleProtoChain;
+	import mx.utils.StringUtil;
+
+	/**
+	 *  The UITextField class defines the component used by many Flex *  components to display text. *  For example, the mx.controls.Button control uses a  *  UITextField component to define the label area of the Button control.  *  *  <p>The UITextField class extends the flash.text.TextField class to *  support additional functionality required by Flex, such as CSS styles, *  invalidation/measurement/layout, enabling/disabling, tooltips, and IME *  (Input Method Editor) support for entering Chinese, Japanese, and *  Korean text.</p> * *  @see flash.text.TextField *  @see mx.core.UITextFormat
+	 */
+	public class UITextField extends FlexTextField implements IAutomationObject
+	{
 		/**
-		 * The delegate object which is handling the automation related functionality.
+		 *  @private     *  The padding to be added to textWidth to get the width     *  of a TextField that can display the text without clipping.
 		 */
-		public function get automationDelegate():Object;
-		public function set automationDelegate(value:Object):void;
+		static const TEXT_WIDTH_PADDING : int = 5;
 		/**
-		 * Name that can be used as an identifier for this object.
+		 *  @private     *  The padding to be added to textHeight to get the height     *  of a TextField that can display the text without clipping.
 		 */
-		public function get automationName():String;
-		public function set automationName(value:String):void;
+		static const TEXT_HEIGHT_PADDING : int = 4;
 		/**
-		 * This value generally corresponds to the rendered appearance of the
-		 *  object and should be usable for correlating the identifier with
-		 *  the object as it appears visually within the application.
+		 *  @private     *  Most resources are fetched on the fly from the ResourceManager,     *  so they automatically get the right resource when the locale changes.     *  But since truncateToFit() can be called frequently,     *  this class caches this resource value in this variable     *  and updates it when the locale changes.
 		 */
-		public function get automationValue():Array;
+		private static var truncationIndicatorResource : String;
 		/**
-		 * The y-coordinate of the baseline of the first line of text.
+		 *  @private
 		 */
-		public function get baselinePosition():Number;
+		static var debuggingBorders : Boolean;
 		/**
-		 * The name of this instance's class, such as
-		 *  "DataGridItemRenderer".
+		 *  @private     *  Storage for the _embeddedFontRegistry property.     *  Note: This gets initialized on first access,     *  not when this class is initialized, in order to ensure     *  that the Singleton registry has already been initialized.
 		 */
-		public function get className():String;
+		private static var _embeddedFontRegistry : IEmbeddedFontRegistry;
 		/**
-		 * A reference to the document object associated with this UITextField object.
-		 *  A document object is an Object at the top of the hierarchy of a Flex application,
-		 *  MXML component, or AS component.
+		 *  @private     *  Cached value of the TextFormat read from the Styles.
 		 */
-		public function get document():Object;
-		public function set document(value:Object):void;
+		private var cachedTextFormat : TextFormat;
 		/**
-		 * A Boolean value that indicates whether the component is enabled.
-		 *  This property only affects
-		 *  the color of the text and not whether the UITextField is editable.
-		 *  To control editability, use the
-		 *  flash.text.TextField.type property.
+		 * @private     *      * Cache last value of embedded font.
 		 */
-		public function get enabled():Boolean;
-		public function set enabled(value:Boolean):void;
+		private var cachedEmbeddedFont : EmbeddedFont;
 		/**
-		 * Number that specifies the explicit height of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private
 		 */
-		public function get explicitHeight():Number;
-		public function set explicitHeight(value:Number):void;
+		private var invalidateDisplayListFlag : Boolean;
 		/**
-		 * Number that specifies the maximum height of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private
 		 */
-		public function get explicitMaxHeight():Number;
+		local var styleChangedFlag : Boolean;
 		/**
-		 * Number that specifies the maximum width of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private     *  This var is either the last value of 'htmlText' that was set     *  or null (if 'text' was set instead of 'htmlText').     *     *  This var is different from getting the 'htmlText',     *  because when you set 'htmlText' into a TextField and then get it,     *  you don't get what you set; what you get includes additional     *  HTML markup generated from the defaultTextFormat     *  (which for a Flex component is based on the CSS styles).     *     *  When you set 'htmlText', a TextField parses through it     *  and creates TextFormat runs based on the HTML markup.     *  It applies these on top of the defaultTextFormat.     *  A TextField saves the non-markup characters as the 'text',     *  but it doesn't save the original 'htmlText',     *  so we have to do this ourselves.     *     *  If the CSS styles change, validateNow() will get called     *  and a new TextFormat based on the new CSS styles     *  will get applied to the entire TextField, wiping     *  out any TextFormats that came from the HTML markup.     *  So we use this var to re-apply the original markup     *  after a CSS change.
 		 */
-		public function get explicitMaxWidth():Number;
+		private var explicitHTMLText : String;
 		/**
-		 * Number that specifies the minimum height of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private     *  Color set explicitly by setColor(); overrides style lookup.
 		 */
-		public function get explicitMinHeight():Number;
+		local var explicitColor : uint;
 		/**
-		 * Number that specifies the minimum width of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private
 		 */
-		public function get explicitMinWidth():Number;
+		private var resourceManager : IResourceManager;
 		/**
-		 * Number that specifies the explicit width of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private
 		 */
-		public function get explicitWidth():Number;
-		public function set explicitWidth(value:Number):void;
+		private var untruncatedText : String;
 		/**
-		 * A single Sprite object that is shared among components
-		 *  and used as an overlay for drawing focus.
-		 *  Components share this object if their parent is a focused component,
-		 *  not if the component implements the IFocusManagerComponent interface.
+		 *  @private     *  Reference to this component's virtual parent container.     *  "Virtual" means that this parent may not be the same     *  as the one that the Player returns as the 'parent'     *  property of a DisplayObject.     *  For example, if a Container has created a contentPane     *  to improve scrolling performance,     *  then its "children" are really its grandchildren     *  and their "parent" is actually their grandparent,     *  because we don't want developers to be concerned with     *  whether a contentPane exists or not.
 		 */
-		public function get focusPane():Sprite;
-		public function set focusPane(value:Sprite):void;
+		local var _parent : DisplayObjectContainer;
 		/**
-		 * If true, the paddingLeft and
-		 *  paddingRight styles will not add space
-		 *  around the text of the component.
+		 *  @private
 		 */
-		public function get ignorePadding():Boolean;
-		public function set ignorePadding(value:Boolean):void;
+		private var _automationDelegate : IAutomationObject;
 		/**
-		 * Specifies the IME (input method editor) mode.
-		 *  The IME enables users to enter text in Chinese, Japanese, and Korean.
-		 *  Flex sets the specified IME mode when the control gets the focus,
-		 *  and sets it back to the previous value when the control loses the focus.
+		 *  @private     *  Storage for the automationName property.
 		 */
-		public function get imeMode():String;
-		public function set imeMode(value:String):void;
+		private var _automationName : String;
 		/**
-		 * Specifies whether this component is included in the layout of the
-		 *  parent container.
-		 *  If true, the object is included in its parent container's
-		 *  layout.  If false, the object is positioned by its parent
-		 *  container as per its layout rules, but it is ignored for the purpose of
-		 *  computing the position of the next child.
+		 *  @private     *  Storage for the enabled property.
 		 */
-		public function get includeInLayout():Boolean;
-		public function set includeInLayout(value:Boolean):void;
+		private var _document : Object;
 		/**
-		 * The beginning of this UITextField's chain of inheriting styles.
-		 *  The getStyle() method accesses
-		 *  inheritingStyles[styleName] to search the entire
-		 *  prototype-linked chain.
-		 *  This object is set up by the initProtoChain() method.
-		 *  You typically never need to access this property directly.
+		 *  @private     *  Storage for the enabled property.
 		 */
-		public function get inheritingStyles():Object;
-		public function set inheritingStyles(value:Object):void;
+		private var _enabled : Boolean;
 		/**
-		 * A flag that determines if an object has been through all three phases
-		 *  of layout validation (provided that any were required)
+		 *  @private     *  Storage for the explicitHeight property.
 		 */
-		public function get initialized():Boolean;
-		public function set initialized(value:Boolean):void;
+		private var _explicitHeight : Number;
 		/**
-		 * Set to true by the PopUpManager to indicate
-		 *  that component has been popped up.
+		 *  @private     *  Storage for the explicitWidth property.
 		 */
-		public function get isPopUp():Boolean;
-		public function set isPopUp(value:Boolean):void;
+		private var _explicitWidth : Number;
 		/**
-		 * Number that specifies the maximum height of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private     *  Storage for the ignorePadding property.
 		 */
-		public function get maxHeight():Number;
+		private var _ignorePadding : Boolean;
 		/**
-		 * Number that specifies the maximum width of the component,
-		 *  in pixels, in the component's coordinates.
+		 *  @private     *  Storage for the imeMode property.
 		 */
-		public function get maxWidth():Number;
+		private var _imeMode : String;
 		/**
-		 * The default height of the component, in pixels.
-		 *  This value is set by the measure() method.
+		 *  @private     *  Storage for the includeInLayout property.
 		 */
-		public function get measuredHeight():Number;
+		private var _includeInLayout : Boolean;
 		/**
-		 * The default minimum height of the component, in pixels.
-		 *  This value is set by the measure() method.
+		 *  @private     *  Storage for the inheritingStyles property.
 		 */
-		public function get measuredMinHeight():Number;
-		public function set measuredMinHeight(value:Number):void;
+		private var _inheritingStyles : Object;
 		/**
-		 * The default minimum width of the component, in pixels.
-		 *  This value is set by the measure() method.
+		 *  @private     *  Storage for the initialize property.
 		 */
-		public function get measuredMinWidth():Number;
-		public function set measuredMinWidth(value:Number):void;
+		private var _initialized : Boolean;
 		/**
-		 * The default width of the component, in pixels.
-		 *  This value is set by the measure() method.
+		 *  @private     *  Storage for the moduleFactory property.
 		 */
-		public function get measuredWidth():Number;
+		private var _moduleFactory : IFlexModuleFactory;
 		/**
-		 * Number that specifies the minimum height of the component,
-		 *  in pixels, in the component's coordinates.
-		 *  The default value depends on the component implementation.
+		 *  @private     *  Storage for the nestLevel property.
 		 */
-		public function get minHeight():Number;
+		private var _nestLevel : int;
 		/**
-		 * Number that specifies the minimum width of the component,
-		 *  in pixels, in the component's coordinates.
-		 *  The default value depends on the component implementation.
+		 *  @private     *  Storage for the nonInheritingStyles property.
 		 */
-		public function get minWidth():Number;
+		private var _nonInheritingStyles : Object;
 		/**
-		 * The moduleFactory that is used to create TextFields in the correct SWF context. This is necessary so that
-		 *  embedded fonts will work.
+		 *  @private
 		 */
-		public function get moduleFactory():IFlexModuleFactory;
-		public function set moduleFactory(value:IFlexModuleFactory):void;
+		private var _processedDescriptors : Boolean;
 		/**
-		 * Depth of this object in the containment hierarchy.
-		 *  This number is used by the measurement and layout code.
-		 *  The value is 0 if this component is not on the DisplayList.
+		 *  @private     *  Storage for the styleName property.
 		 */
-		public function get nestLevel():int;
-		public function set nestLevel(value:int):void;
+		private var _styleName : Object;
 		/**
-		 * The beginning of this UITextField's chain of non-inheriting styles.
-		 *  The getStyle() method accesses
-		 *  nonInheritingStyles[styleName] method to search the entire
-		 *  prototype-linked chain.
-		 *  This object is set up by the initProtoChain() method.
-		 *  You typically never need to access this property directly.
+		 *  @private     *  Storage for the toolTip property.
 		 */
-		public function get nonInheritingStyles():Object;
-		public function set nonInheritingStyles(value:Object):void;
+		local var _toolTip : String;
 		/**
-		 * Unlike textHeight, this returns a non-zero value
-		 *  even when the text is empty.
-		 *  In this case, it returns what the textHeight would be
-		 *  if the text weren't empty.
+		 *  @private     *  Storage for the updateCompletePendingFlag property.
 		 */
-		public function get nonZeroTextHeight():Number;
+		private var _updateCompletePendingFlag : Boolean;
 		/**
-		 * By default, set to the parent container of this object.
-		 *  However, if this object is a child component that is
-		 *  popped up by its parent, such as the dropdown list of a ComboBox control,
-		 *  the owner is the component that popped up this object.
+		 *  @private
 		 */
-		public function get owner():DisplayObjectContainer;
-		public function set owner(value:DisplayObjectContainer):void;
+		private var _owner : DisplayObjectContainer;
+
 		/**
-		 * The parent container or component for this component.
+		 *  @private     *  A reference to the embedded font registry.     *  Single registry in the system.     *  Used to look up the moduleFactory of a font.
 		 */
-		public function get parent():DisplayObjectContainer;
+		private static function get embeddedFontRegistry () : IEmbeddedFontRegistry;
 		/**
-		 * Number that specifies the height of a component as a percentage
-		 *  of its parent's size. Allowed values are 0-100. The default value is NaN.
-		 *  Setting the height or explicitHeight properties
-		 *  resets this property to NaN.
+		 *  @private
 		 */
-		public function get percentHeight():Number;
-		public function set percentHeight(value:Number):void;
+		public function set htmlText (value:String) : void;
 		/**
-		 * Number that specifies the width of a component as a percentage
-		 *  of its parent's size. Allowed values are 0-100. The default value is NaN.
-		 *  Setting the width or explicitWidth properties
-		 *  resets this property to NaN.
+		 *  The parent container or component for this component.
 		 */
-		public function get percentWidth():Number;
-		public function set percentWidth(value:Number):void;
+		public function get parent () : DisplayObjectContainer;
 		/**
-		 * Set to true after the createChildren()
-		 *  method creates any internal component children.
+		 *  @private
 		 */
-		public function get processedDescriptors():Boolean;
-		public function set processedDescriptors(value:Boolean):void;
+		public function set text (value:String) : void;
 		/**
-		 * The class style used by this component. This can be a String, CSSStyleDeclaration
-		 *  or an IStyleClient.
+		 *  The delegate object which is handling the automation related functionality.     *
 		 */
-		public function get styleName():Object;
-		public function set styleName(value:Object):void;
+		public function get automationDelegate () : Object;
 		/**
-		 * Returns the SystemManager object used by this component.
+		 *  @private
 		 */
-		public function get systemManager():ISystemManager;
-		public function set systemManager(value:ISystemManager):void;
+		public function set automationDelegate (value:Object) : void;
 		/**
-		 * Text to display in the ToolTip.
+		 *  @inheritDoc
 		 */
-		public function get toolTip():String;
-		public function set toolTip(value:String):void;
+		public function get automationName () : String;
 		/**
-		 * Array of properties that are currently being tweened on this object.
+		 * @private
 		 */
-		public function get tweeningProperties():Array;
-		public function set tweeningProperties(value:Array):void;
+		public function set automationName (value:String) : void;
 		/**
-		 * A flag that determines if an object has been through all three phases
-		 *  of layout validation (provided that any were required)
+		 *  @inheritDoc
 		 */
-		public function get updateCompletePendingFlag():Boolean;
-		public function set updateCompletePendingFlag(value:Boolean):void;
+		public function get automationValue () : Array;
 		/**
-		 * Constructor.
+		 *  The y-coordinate of the baseline of the first line of text.
 		 */
-		public function UITextField();
+		public function get baselinePosition () : Number;
 		/**
-		 * A convenience method for determining whether to use the
-		 *  explicit or measured height
-		 *
-		 * @return                  <Number> A Number which is explicitHeight if defined
-		 *                            or measuredHeight if not.
+		 *  The name of this instance's class, such as     *  <code>"DataGridItemRenderer"</code>.     *     *  <p>This string does not include the package name.     *  If you need the package name as well, call the     *  <code>getQualifiedClassName()</code> method in the flash.utils package.     *  It will return a string such as     *  <code>"mx.controls.dataGridClasses::DataGridItemRenderer"</code>.</p>
 		 */
-		public function getExplicitOrMeasuredHeight():Number;
+		public function get className () : String;
 		/**
-		 * A convenience method for determining whether to use the
-		 *  explicit or measured width
-		 *
-		 * @return                  <Number> A Number which is explicitWidth if defined
-		 *                            or measuredWidth if not.
+		 *  A reference to the document object associated with this UITextField object.      *  A document object is an Object at the top of the hierarchy of a Flex application,      *  MXML component, or AS component.
 		 */
-		public function getExplicitOrMeasuredWidth():Number;
+		public function get document () : Object;
 		/**
-		 * Gets a style property that has been set anywhere in this
-		 *  component's style lookup chain.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @return                  <*> Style value.
+		 *  @private
 		 */
-		public function getStyle(styleProp:String):*;
+		public function set document (value:Object) : void;
 		/**
-		 * Returns the TextFormat object that represents
-		 *  character formatting information for this UITextField object.
-		 *
-		 * @return                  <TextFormat> A TextFormat object.
+		 *  A Boolean value that indicates whether the component is enabled.      *  This property only affects     *  the color of the text and not whether the UITextField is editable.     *  To control editability, use the      *  <code>flash.text.TextField.type</code> property.     *       *  @default true     *  @see flash.text.TextField
 		 */
-		public function getTextStyles():TextFormat;
+		public function get enabled () : Boolean;
 		/**
-		 * Returns a UITextFormat object that contains formatting information for this component.
-		 *  This method is similar to the getTextFormat() method of the
-		 *  flash.text.TextField class, but it returns a UITextFormat object instead
-		 *  of a TextFormat object.
-		 *
-		 * @return                  <UITextFormat> An object that contains formatting information for this component.
+		 *  @private
 		 */
-		public function getUITextFormat():UITextFormat;
+		public function set enabled (value:Boolean) : void;
 		/**
-		 * Initializes this component.
+		 *  @copy mx.core.UIComponent#explicitHeight
 		 */
-		public function initialize():void;
+		public function get explicitHeight () : Number;
 		/**
-		 * Marks a component so that its updateDisplayList()
-		 *  method gets called during a later screen update.
+		 *  @private
 		 */
-		public function invalidateDisplayList():void;
+		public function set explicitHeight (value:Number) : void;
 		/**
-		 * Marks a component so that its commitProperties()
-		 *  method gets called during a later screen update.
+		 *  Number that specifies the maximum height of the component,      *  in pixels, in the component's coordinates, if the maxHeight property     *  is set. Because maxHeight is read-only, this method returns NaN.      *  You must override this method and add a setter to use this     *  property.     *       *  @see mx.core.UIComponent#explicitMaxHeight     *       *  @default NaN
 		 */
-		public function invalidateProperties():void;
+		public function get explicitMaxHeight () : Number;
 		/**
-		 * Marks a component so that its measure()
-		 *  method gets called during a later screen update.
+		 *  Number that specifies the maximum width of the component,      *  in pixels, in the component's coordinates, if the maxWidth property     *  is set. Because maxWidth is read-only, this method returns NaN.      *  You must override this method and add a setter to use this     *  property.     *       *  @see mx.core.UIComponent#explicitMaxWidth     *       *  @default NaN
 		 */
-		public function invalidateSize():void;
+		public function get explicitMaxWidth () : Number;
 		/**
-		 * Moves the component to a specified position within its parent.
-		 *  Calling this method is exactly the same as
-		 *  setting the component's x and y properties.
-		 *
-		 * @param x                 <Number> Left position of the component within its parent.
-		 * @param y                 <Number> Top position of the component within its parent.
+		 *  @copy mx.core.UIComponent#explicitMinHeight
 		 */
-		public function move(x:Number, y:Number):void;
+		public function get explicitMinHeight () : Number;
 		/**
-		 * Returns true if the child is parented or owned by this object.
-		 *
-		 * @param child             <DisplayObject> The child DisplayObject.
-		 * @return                  <Boolean> true if the child is parented or owned by this UITextField object.
+		 *  @copy mx.core.UIComponent#explicitMinWidth
 		 */
-		public function owns(child:DisplayObject):Boolean;
+		public function get explicitMinWidth () : Number;
 		/**
-		 * This function is called when a UITextField object is assigned
-		 *  a parent.
-		 *  You typically never need to call this method.
-		 *
-		 * @param p                 <DisplayObjectContainer> The parent of this UITextField object.
+		 *  @copy mx.core.UIComponent#explicitWidth
 		 */
-		public function parentChanged(p:DisplayObjectContainer):void;
+		public function get explicitWidth () : Number;
 		/**
-		 * Replays the specified event.  A component author should probably call
-		 *  super.replayAutomatableEvent in case default replay behavior has been defined
-		 *  in a superclass.
-		 *
-		 * @param event             <Event> The event to replay.
-		 * @return                  <Boolean> true if a replay was successful.
+		 *  @private
 		 */
-		public function replayAutomatableEvent(event:Event):Boolean;
+		public function set explicitWidth (value:Number) : void;
 		/**
-		 * Sizes the object.
-		 *  Unlike directly setting the width and height
-		 *  properties, calling the setActualSize() method
-		 *  does not set the explictWidth and
-		 *  explicitHeight properties, so a future layout
-		 *  calculation may result in the object returning to its previous size.
-		 *  This method is used primarily by component developers implementing
-		 *  the updateDisplayList() method, by Effects,
-		 *  and by the LayoutManager.
-		 *
-		 * @param w                 <Number> Width of the object.
-		 * @param h                 <Number> Height of the object.
+		 *  @inheritDoc
 		 */
-		public function setActualSize(w:Number, h:Number):void;
+		public function get focusPane () : Sprite;
 		/**
-		 * Sets the font color of the text.
-		 *
-		 * @param color             <uint> The new font color.
+		 *  @private
 		 */
-		public function setColor(color:uint):void;
+		public function set focusPane (value:Sprite) : void;
 		/**
-		 * Sets the focus to this component.
-		 *  The component may in turn pass focus to a subcomponent.
+		 *  If <code>true</code>, the <code>paddingLeft</code> and     *  <code>paddingRight</code> styles will not add space     *  around the text of the component.     *       *  @default true
 		 */
-		public function setFocus():void;
+		public function get ignorePadding () : Boolean;
 		/**
-		 * Does nothing.
-		 *  A UITextField cannot have inline styles.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @param value             <*> New value for the style.
+		 *  @private
 		 */
-		public function setStyle(styleProp:String, value:*):void;
+		public function set ignorePadding (value:Boolean) : void;
 		/**
-		 * Sets the visible property of this UITextField object.
-		 *
-		 * @param visible           <Boolean> true to make this UITextField visible,
-		 *                            and false to make it invisible.
-		 * @param noEvent           <Boolean (default = false)> true to suppress generating an event when you change visibility.
+		 *  Specifies the IME (input method editor) mode.     *  The IME enables users to enter text in Chinese, Japanese, and Korean.     *  Flex sets the specified IME mode when the control gets the focus,     *  and sets it back to the previous value when the control loses the focus.     *     * <p>The flash.system.IMEConversionMode class defines constants for the     *  valid values for this property.     *  You can also specify <code>null</code> to specify no IME.</p>     *     *  @see flash.system.IMEConversionMode     *     *  @default null
 		 */
-		public function setVisible(visible:Boolean, noEvent:Boolean = false):void;
+		public function get imeMode () : String;
 		/**
-		 * Detects changes to style properties. When any style property is set,
-		 *  Flex calls the styleChanged() method,
-		 *  passing to it the name of the style being set.
-		 *
-		 * @param styleProp         <String> The name of the style property, or null if all styles for this
-		 *                            component have changed.
+		 *  @private
 		 */
-		public function styleChanged(styleProp:String):void;
+		public function set imeMode (value:String) : void;
 		/**
-		 * Truncate text to make it fit horizontally in the area defined for the control,
-		 *  and append an ellipsis, three periods (...), to the text.
-		 *
-		 * @param truncationIndicator<String (default = null)> The text to be appended after truncation.
-		 *                            If you pass null, a localizable string
-		 *                            such as "..." will be used.
-		 * @return                  <Boolean> true if the text needed truncation.
+		 *  @copy mx.core.UIComponent#includeInLayout
 		 */
-		public function truncateToFit(truncationIndicator:String = null):Boolean;
+		public function get includeInLayout () : Boolean;
 		/**
-		 * Validate and update the properties and layout of this object
-		 *  and redraw it, if necessary.
-		 *  Processing properties that require substantial computation are normally
-		 *  not processed until the script finishes executing.
-		 *  For example setting the width property is delayed, because it may
-		 *  require recalculating the widths of the objects children or its parent.
-		 *  Delaying the processing prevents it from being repeated
-		 *  multiple times if the script sets the width property more than once.
-		 *  This method lets you manually override this behavior.
+		 *  @private
 		 */
-		public function validateNow():void;
+		public function set includeInLayout (value:Boolean) : void;
+		/**
+		 *  The beginning of this UITextField's chain of inheriting styles.     *  The <code>getStyle()</code> method accesses     *  <code>inheritingStyles[styleName]</code> to search the entire     *  prototype-linked chain.     *  This object is set up by the <code>initProtoChain()</code> method.     *  You typically never need to access this property directly.
+		 */
+		public function get inheritingStyles () : Object;
+		/**
+		 *  @private
+		 */
+		public function set inheritingStyles (value:Object) : void;
+		/**
+		 *  A flag that determines if an object has been through all three phases     *  of layout validation (provided that any were required)
+		 */
+		public function get initialized () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set initialized (value:Boolean) : void;
+		/**
+		 *  @private
+		 */
+		private function get isHTML () : Boolean;
+		/**
+		 *  @copy mx.core.UIComponent#isPopUp
+		 */
+		public function get isPopUp () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set isPopUp (value:Boolean) : void;
+		/**
+		 *  @copy mx.core.UIComponent#maxHeight
+		 */
+		public function get maxHeight () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#maxWidth
+		 */
+		public function get maxWidth () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#measuredHeight
+		 */
+		public function get measuredHeight () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#measuredMinHeight
+		 */
+		public function get measuredMinHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set measuredMinHeight (value:Number) : void;
+		/**
+		 *  @copy mx.core.UIComponent#measuredMinWidth
+		 */
+		public function get measuredMinWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set measuredMinWidth (value:Number) : void;
+		/**
+		 *  @copy mx.core.UIComponent#measuredWidth
+		 */
+		public function get measuredWidth () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#minHeight
+		 */
+		public function get minHeight () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#minWidth
+		 */
+		public function get minWidth () : Number;
+		/**
+		 *  The moduleFactory that is used to create TextFields in the correct SWF context. This is necessary so that     *  embedded fonts will work.
+		 */
+		public function get moduleFactory () : IFlexModuleFactory;
+		/**
+		 *  @private
+		 */
+		public function set moduleFactory (factory:IFlexModuleFactory) : void;
+		/**
+		 *  @copy mx.core.UIComponent#nestLevel
+		 */
+		public function get nestLevel () : int;
+		/**
+		 *  @private
+		 */
+		public function set nestLevel (value:int) : void;
+		/**
+		 *  The beginning of this UITextField's chain of non-inheriting styles.     *  The <code>getStyle()</code> method accesses     *  <code>nonInheritingStyles[styleName]</code> method to search the entire     *  prototype-linked chain.     *  This object is set up by the <code>initProtoChain()</code> method.     *  You typically never need to access this property directly.
+		 */
+		public function get nonInheritingStyles () : Object;
+		/**
+		 *  @private
+		 */
+		public function set nonInheritingStyles (value:Object) : void;
+		/**
+		 *  @copy mx.core.UIComponent#percentHeight
+		 */
+		public function get percentHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set percentHeight (value:Number) : void;
+		/**
+		 *  @copy mx.core.UIComponent#percentWidth
+		 */
+		public function get percentWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set percentWidth (value:Number) : void;
+		/**
+		 *  Set to <code>true</code> after the <code>createChildren()</code>     *  method creates any internal component children.
+		 */
+		public function get processedDescriptors () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set processedDescriptors (value:Boolean) : void;
+		/**
+		 *  @copy mx.core.UIComponent#styleName
+		 */
+		public function get styleName () : Object;
+		/**
+		 *  @private
+		 */
+		public function set styleName (value:Object) : void;
+		/**
+		 *  @copy mx.core.UIComponent#systemManager
+		 */
+		public function get systemManager () : ISystemManager;
+		/**
+		 *  @private
+		 */
+		public function set systemManager (value:ISystemManager) : void;
+		/**
+		 *  Unlike textHeight, this returns a non-zero value     *  even when the text is empty.     *  In this case, it returns what the textHeight would be     *  if the text weren't empty.
+		 */
+		public function get nonZeroTextHeight () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#toolTip
+		 */
+		public function get toolTip () : String;
+		/**
+		 *  @private
+		 */
+		public function set toolTip (value:String) : void;
+		/**
+		 *  @copy mx.core.UIComponent#tweeningProperties
+		 */
+		public function get tweeningProperties () : Array;
+		/**
+		 *  @private
+		 */
+		public function set tweeningProperties (value:Array) : void;
+		/**
+		 *  A flag that determines if an object has been through all three phases     *  of layout validation (provided that any were required)
+		 */
+		public function get updateCompletePendingFlag () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set updateCompletePendingFlag (value:Boolean) : void;
+		/**
+		 *  By default, set to the parent container of this object.      *  However, if this object is a child component that is      *  popped up by its parent, such as the dropdown list of a ComboBox control,      *  the owner is the component that popped up this object.      *     *  <p>This property is not managed by Flex, but by each component.      *  Therefore, if you use the <code>PopUpManger.createPopUp()</code> or      *  <code>PopUpManger.addPopUp()</code> method to pop up a child component,      *  you should set the <code>owner</code> property of the child component      *  to the component that popped it up.</p>     *      *  <p>The default value is the value of the <code>parent</code> property.</p>
+		 */
+		public function get owner () : DisplayObjectContainer;
+		public function set owner (value:DisplayObjectContainer) : void;
+		/**
+		 *  @private
+		 */
+		public function get numAutomationChildren () : int;
+		/**
+		 *  @private
+		 */
+		public function get showInAutomationHierarchy () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set showInAutomationHierarchy (value:Boolean) : void;
+		/**
+		 *  @private
+		 */
+		public function get automationTabularData () : Object;
+
+		/**
+		 *  Constructor.
+		 */
+		public function UITextField ();
+		/**
+		 *  @private
+		 */
+		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void;
+		/**
+		 *  @private
+		 */
+		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void;
+		/**
+		 *  @private
+		 */
+		public function replaceText (beginIndex:int, endIndex:int, newText:String) : void;
+		/**
+		 *  Initializes this component.     *     *  <p>This method is required by the IUIComponent interface,     *  but it actually does nothing for a UITextField.</p>
+		 */
+		public function initialize () : void;
+		/**
+		 *  @copy mx.core.UIComponent#getExplicitOrMeasuredWidth()
+		 */
+		public function getExplicitOrMeasuredWidth () : Number;
+		/**
+		 *  @copy mx.core.UIComponent#getExplicitOrMeasuredHeight()
+		 */
+		public function getExplicitOrMeasuredHeight () : Number;
+		/**
+		 *  Sets the <code>visible</code> property of this UITextField object.     *      *  @param visible <code>true</code> to make this UITextField visible,      *  and <code>false</code> to make it invisible.     *     *  @param noEvent <code>true</code> to suppress generating an event when you change visibility.
+		 */
+		public function setVisible (visible:Boolean, noEvent:Boolean = false) : void;
+		/**
+		 *  @copy mx.core.UIComponent#setFocus()
+		 */
+		public function setFocus () : void;
+		/**
+		 *  Returns a UITextFormat object that contains formatting information for this component.      *  This method is similar to the <code>getTextFormat()</code> method of the      *  flash.text.TextField class, but it returns a UITextFormat object instead      *  of a TextFormat object.     *     *  <p>The UITextFormat class extends the TextFormat class to add the text measurement methods     *  <code>measureText()</code> and <code>measureHTMLText()</code>.</p>     *     *  @return An object that contains formatting information for this component.     *     *  @see mx.core.UITextFormat     *  @see flash.text.TextField
+		 */
+		public function getUITextFormat () : UITextFormat;
+		/**
+		 *  @copy mx.core.UIComponent#move()
+		 */
+		public function move (x:Number, y:Number) : void;
+		/**
+		 *  @copy mx.core.UIComponent#setActualSize()
+		 */
+		public function setActualSize (w:Number, h:Number) : void;
+		/**
+		 *  @copy mx.core.UIComponent#getStyle()
+		 */
+		public function getStyle (styleProp:String) : *;
+		/**
+		 *  Does nothing.     *  A UITextField cannot have inline styles.     *     *  @param styleProp Name of the style property.     *     *  @param newValue New value for the style.
+		 */
+		public function setStyle (styleProp:String, value:*) : void;
+		/**
+		 *  This function is called when a UITextField object is assigned     *  a parent.     *  You typically never need to call this method.     *     *  @param p The parent of this UITextField object.
+		 */
+		public function parentChanged (p:DisplayObjectContainer) : void;
+		/**
+		 *  @copy mx.core.UIComponent#styleChanged()
+		 */
+		public function styleChanged (styleProp:String) : void;
+		/**
+		 *  @copy mx.core.UIComponent#validateNow()
+		 */
+		public function validateNow () : void;
+		/**
+		 *  Returns the TextFormat object that represents      *  character formatting information for this UITextField object.     *     *  @return A TextFormat object.      *     *  @see flash.text.TextFormat
+		 */
+		public function getTextStyles () : TextFormat;
+		/**
+		 *  Sets the font color of the text.     *     *  @param color The new font color.
+		 */
+		public function setColor (color:uint) : void;
+		/**
+		 *  @copy mx.core.UIComponent#invalidateSize()
+		 */
+		public function invalidateSize () : void;
+		/**
+		 *  @copy mx.core.UIComponent#invalidateDisplayList()
+		 */
+		public function invalidateDisplayList () : void;
+		/**
+		 *  @copy mx.core.UIComponent#invalidateProperties()
+		 */
+		public function invalidateProperties () : void;
+		/**
+		 *  Truncate text to make it fit horizontally in the area defined for the control,      *  and append an ellipsis, three periods (...), to the text.     *     *  @param truncationIndicator The text to be appended after truncation.     *  If you pass <code>null</code>, a localizable string     *  such as <code>"..."</code> will be used.     *     *  @return <code>true</code> if the text needed truncation.
+		 */
+		public function truncateToFit (truncationIndicator:String = null) : Boolean;
+		/**
+		 *  @private
+		 */
+		private function changeHandler (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		private function textFieldStyleChangeHandler (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		private function resourceManager_changeHandler (event:Event) : void;
+		/**
+		 *  Returns <code>true</code> if the child is parented or owned by this object.     *     *  @param child The child DisplayObject.     *     *  @return <code>true</code> if the child is parented or owned by this UITextField object.     *      *  @see #owner
+		 */
+		public function owns (child:DisplayObject) : Boolean;
+		private function creatingSystemManager () : ISystemManager;
+		/**
+		 * @private     *      * Get the embedded font for a set of font attributes.
+		 */
+		private function getEmbeddedFont (fontName:String, bold:Boolean, italic:Boolean) : EmbeddedFont;
+		/**
+		 *  @inheritDoc
+		 */
+		public function replayAutomatableEvent (event:Event) : Boolean;
+		/**
+		 *  @private
+		 */
+		public function createAutomationIDPart (child:IAutomationObject) : Object;
+		/**
+		 *  @private
+		 */
+		public function resolveAutomationIDPart (criteria:Object) : Array;
+		/**
+		 *  @private
+		 */
+		public function getAutomationChildAt (index:int) : IAutomationObject;
 	}
 }

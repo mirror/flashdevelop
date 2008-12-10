@@ -1,20 +1,24 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	import flash.display.IBitmapDrawable;
-	import flash.events.IEventDispatcher;
+﻿package mx.core
+{
 	import flash.geom.Rectangle;
-	public interface IToolTip extends IUIComponent, IFlexDisplayObject, IBitmapDrawable,IEventDispatcher {
+
+	/**
+	 *  The IToolTip interface defines the API that tooltip-like components *  must implement in order to work with the ToolTipManager. *  The ToolTip class implements this interface. * *  @see mx.controls.ToolTip *  @see mx.managers.ToolTipManager
+	 */
+	public interface IToolTip extends IUIComponent
+	{
 		/**
-		 * A Rectangle that specifies the size and position
-		 *  of the base drawing surface for this tooltip.
+		 *  A Rectangle that specifies the size and position	 *  of the base drawing surface for this tooltip.
 		 */
-		public function get screen():Rectangle;
+		public function get screen () : Rectangle;
 		/**
-		 * The text that appears in the tooltip.
+		 *  The text that appears in the tooltip.
 		 */
-		public function get text():String;
-		public function set text(value:String):void;
+		public function get text () : String;
+		/**
+		 *  @private
+		 */
+		public function set text (value:String) : void;
+
 	}
 }

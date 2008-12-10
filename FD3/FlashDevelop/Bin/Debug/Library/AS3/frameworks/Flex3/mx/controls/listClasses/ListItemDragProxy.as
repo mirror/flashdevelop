@@ -1,15 +1,25 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.listClasses {
+﻿package mx.controls.listClasses
+{
+	import flash.display.DisplayObject;
+	import mx.core.mx_internal;
 	import mx.core.UIComponent;
-	public class ListItemDragProxy extends UIComponent {
+
+	/**
+	 *  The default drag proxy used when dragging from a list-based control *  (except for the DataGrid class). *  A drag proxy is a component that parents the objects *  or copies of the objects being dragged * *  @see mx.controls.dataGridClasses.DataGridDragProxy
+	 */
+	public class ListItemDragProxy extends UIComponent
+	{
 		/**
-		 * Constructor.
+		 *  Constructor.
 		 */
-		public function ListItemDragProxy();
+		public function ListItemDragProxy ();
 		/**
+		 *  @private
 		 */
-		protected override function measure():void;
+		protected function createChildren () : void;
+		/**
+		 *  @private
+		 */
+		protected function measure () : void;
 	}
 }

@@ -1,33 +1,41 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	public class ButtonAsset extends FlexSimpleButton implements IFlexAsset, IFlexDisplayObject {
+﻿package mx.core
+{
+	import mx.core.FlexSimpleButton;
+
+	/**
+	 *  ButtonAsset is a subclass of the flash.display.SimpleButton class *  which represents button symbols that you embed in a Flex *  application from a SWF file produced by Flash. *  It implements the IFlexDisplayObject interface, which makes it *  possible for a SimpleButtonAsset to be displayed in an Image control, *  or to be used as a container background or a component skin. * *  <p>This class is included in Flex for completeness, so that any kind *  of symbol in a SWF file produced by Flash can be embedded *  in a Flex application. *  However, Flex applications do not typically use embedded SimpleButtons. *  Refer to more commonly-used asset classes such as BitmapAsset *  for more information about how embedded assets work in Flex.</p>
+	 */
+	public class ButtonAsset extends FlexSimpleButton implements IFlexAsset
+	{
 		/**
-		 * The measured height of this object.
+		 *  @private     *  Storage for the measuredWidth property.
 		 */
-		public function get measuredHeight():Number;
+		private var _measuredHeight : Number;
 		/**
-		 * The measured width of this object.
+		 *  @private     *  Storage for the measuredWidth property.
 		 */
-		public function get measuredWidth():Number;
+		private var _measuredWidth : Number;
+
 		/**
-		 * Constructor.
+		 *  @inheritDoc
 		 */
-		public function ButtonAsset();
+		public function get measuredHeight () : Number;
 		/**
-		 * Moves this object to the specified x and y coordinates.
-		 *
-		 * @param x                 <Number> The new x-position for this object.
-		 * @param y                 <Number> The new y-position for this object.
+		 *  @inheritDoc
 		 */
-		public function move(x:Number, y:Number):void;
+		public function get measuredWidth () : Number;
+
 		/**
-		 * Sets the actual size of this object.
-		 *
-		 * @param newWidth          <Number> The new width for this object.
-		 * @param newHeight         <Number> The new height for this object.
+		 *  Constructor.
 		 */
-		public function setActualSize(newWidth:Number, newHeight:Number):void;
+		public function ButtonAsset ();
+		/**
+		 *  @inheritDoc
+		 */
+		public function move (x:Number, y:Number) : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function setActualSize (newWidth:Number, newHeight:Number) : void;
 	}
 }

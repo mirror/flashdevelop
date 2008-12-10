@@ -1,33 +1,32 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
 	import flash.events.Event;
-	public class MoveEvent extends Event {
+
+	/**
+	 *  Represents event objects that are dispatched when a Flex component moves. * *  @see mx.core.UIComponent
+	 */
+	public class MoveEvent extends Event
+	{
 		/**
-		 * The previous x coordinate of the object, in pixels.
+		 *  The <code>MoveEvent.MOVE</code> constant defines the value of the	 *  <code>type</code> property of the event object for a <code>move</code> event.	 *     *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the     *       event listener that handles the event. For example, if you use     *       <code>myButton.addEventListener()</code> to register an event listener,     *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>oldX</code></td><td>The previous x coordinate of the object, in pixels.</td></tr>     *     <tr><td><code>oldY</code></td><td>The previous y coordinate of the object, in pixels.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;     *       it is not always the Object listening for the event.     *       Use the <code>currentTarget</code> property to always access the     *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType move
 		 */
-		public var oldX:Number;
+		public static const MOVE : String = "move";
 		/**
-		 * The previous y coordinate of the object, in pixels.
+		 *  The previous <code>x</code> coordinate of the object, in pixels.
 		 */
-		public var oldY:Number;
+		public var oldX : Number;
 		/**
-		 * Constructor.
-		 *
-		 * @param type              <String> The event type; indicates the action that caused the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble
-		 *                            up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Specifies whether the behavior
-		 *                            associated with the event can be prevented.
-		 * @param oldX              <Number (default = NaN)> The previous x coordinate of the object, in pixels.
-		 * @param oldY              <Number (default = NaN)> The previous y coordinate of the object, in pixels.
+		 *  The previous <code>y</code> coordinate of the object, in pixels.
 		 */
-		public function MoveEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, oldX:Number = NaN, oldY:Number = NaN);
+		public var oldY : Number;
+
 		/**
-		 * The MoveEvent.MOVE constant defines the value of the
-		 *  type property of the event object for a move event.
+		 *  Constructor.	 *	 *  @param type The event type; indicates the action that caused the event.	 *	 *  @param bubbles Specifies whether the event can bubble	 *  up the display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior	 *  associated with the event can be prevented.	 *	 *  @param oldX The previous x coordinate of the object, in pixels.	 *	 *  @param oldY The previous y coordinate of the object, in pixels.
 		 */
-		public static const MOVE:String = "move";
+		public function MoveEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, oldX:Number = NaN, oldY:Number = NaN);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

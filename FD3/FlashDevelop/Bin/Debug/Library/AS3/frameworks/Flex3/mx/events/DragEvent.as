@@ -1,78 +1,63 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
+	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import mx.core.IUIComponent;
 	import mx.core.DragSource;
-	public class DragEvent extends MouseEvent {
+	import mx.core.IUIComponent;
+
+	/**
+	 *  The DragEvent class represents event objects that are dispatched as part of a drag-and-drop *  operation. * *  @see mx.managers.DragManager *  @see mx.core.DragSource *  @see mx.core.UIComponent
+	 */
+	public class DragEvent extends MouseEvent
+	{
 		/**
-		 * The requested action.
-		 *  One of DragManager.COPY, DragManager.LINK,
-		 *  DragManager.MOVE, or DragManager.NONE.
+		 *  The <code>DragEvent.DRAG_COMPLETE</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>dragComplete</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>action</code></td><td>The action that caused the event:      *       <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,      *       <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.</td></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>dragInitiator</code></td><td>The component that initiated the drag.</td></tr>     *     <tr><td><code>dragSource</code></td><td>The DragSource object containing the      *       data being dragged.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType dragComplete
 		 */
-		public var action:String;
+		public static const DRAG_COMPLETE : String = "dragComplete";
 		/**
-		 * If the dragInitiator property contains
-		 *  an IAutomationObject object,
-		 *  this property contains the child IAutomationObject object near the mouse cursor.
-		 *  If the dragInitiator property does not contain
-		 *  an IAutomationObject object,  this proprty is null.
+		 *  The <code>DragEvent.DRAG_DROP</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>dragDrop</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>action</code></td><td>The action that caused the event:      *       <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,      *       <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.</td></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>dragInitiator</code></td><td>The component that initiated the drag.</td></tr>     *     <tr><td><code>dragSource</code></td><td>The DragSource object containing the      *       data being dragged.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType dragDrop
 		 */
-		public var draggedItem:Object;
+		public static const DRAG_DROP : String = "dragDrop";
 		/**
-		 * The component that initiated the drag.
+		 *  The <code>DragEvent.DRAG_ENTER</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>dragEnter</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>action</code></td><td>The action that caused the event, which is always     *       <code>DragManager.MOVE</code>.</td></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>dragInitiator</code></td><td>The component that initiated the drag.</td></tr>     *     <tr><td><code>dragSource</code></td><td>The DragSource object containing the      *       data being dragged.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType dragEnter
 		 */
-		public var dragInitiator:IUIComponent;
+		public static const DRAG_ENTER : String = "dragEnter";
 		/**
-		 * The DragSource object containing the data being dragged.
+		 *  The <code>DragEvent.DRAG_EXIT</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>dragExit</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>action</code></td><td>The action that caused the event:      *       <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,      *       <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.</td></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>dragInitiator</code></td><td>The component that initiated the drag.</td></tr>     *     <tr><td><code>dragSource</code></td><td>The DragSource object containing the      *       data being dragged.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType dragExit
 		 */
-		public var dragSource:DragSource;
+		public static const DRAG_EXIT : String = "dragExit";
 		/**
-		 * Constructor.
-		 *  Normally called by the Flex control and not used in application code.
-		 *
-		 * @param type              <String> The event type; indicates the action that caused the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = true)> Specifies whether the behavior associated with the event can be prevented.
-		 * @param dragInitiator     <IUIComponent (default = null)> IUIComponent that specifies the component initiating
-		 *                            the drag.
-		 * @param dragSource        <DragSource (default = null)> A DragSource object containing the data being dragged.
-		 * @param action            <String (default = null)> The specified drop action, such as DragManager.MOVE.
-		 * @param ctrlKey           <Boolean (default = false)> Indicates whether the Ctrl key was pressed.
-		 * @param altKey            <Boolean (default = false)> Indicates whether the Alt key was pressed.
-		 * @param shiftKey          <Boolean (default = false)> Indicates whether the Shift key was pressed.
+		 *  The <code>DragEvent.DRAG_OVER</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>dragOver</code> event.     *	 * <p>The properties of the event object have the following values:</p>	 * <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>action</code></td><td>The action that caused the event:      *       <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,      *       <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.</td></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>dragInitiator</code></td><td>The component that initiated the drag.</td></tr>     *     <tr><td><code>dragSource</code></td><td>The DragSource object containing the      *       data being dragged.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType dragOver
 		 */
-		public function DragEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true, dragInitiator:IUIComponent = null, dragSource:DragSource = null, action:String = null, ctrlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false);
+		public static const DRAG_OVER : String = "dragOver";
 		/**
-		 * The DragEvent.DRAG_COMPLETE constant defines the value of the
-		 *  type property of the event object for a dragComplete event.
+		 *  The DragEvent.DRAG_START constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>dragStart</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>action</code></td><td>The action that caused the event:      *       <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,      *       <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.</td></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>dragInitiator</code></td><td>The component that initiated the drag.</td></tr>     *     <tr><td><code>dragSource</code></td><td>The DragSource object containing the      *       data being dragged.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType dragStart
 		 */
-		public static const DRAG_COMPLETE:String = "dragComplete";
+		public static const DRAG_START : String = "dragStart";
 		/**
-		 * The DragEvent.DRAG_DROP constant defines the value of the
-		 *  type property of the event object for a dragDrop event.
+		 *  The requested action.	 *  One of <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,	 *  <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.
 		 */
-		public static const DRAG_DROP:String = "dragDrop";
+		public var action : String;
 		/**
-		 * The DragEvent.DRAG_ENTER constant defines the value of the
-		 *  type property of the event object for a dragEnter event.
+		 *  If the <code>dragInitiator</code> property contains 	 *  an IAutomationObject object,	 *  this property contains the child IAutomationObject object near the mouse cursor.	 *  If the <code>dragInitiator</code> property does not contain 	 *  an IAutomationObject object,  this proprty is <code>null</code>.
 		 */
-		public static const DRAG_ENTER:String = "dragEnter";
+		public var draggedItem : Object;
 		/**
-		 * The DragEvent.DRAG_EXIT constant defines the value of the
-		 *  type property of the event object for a dragExit event.
+		 *  The component that initiated the drag.
 		 */
-		public static const DRAG_EXIT:String = "dragExit";
+		public var dragInitiator : IUIComponent;
 		/**
-		 * The DragEvent.DRAG_OVER constant defines the value of the
-		 *  type property of the event object for a dragOver event.
+		 *  The DragSource object containing the data being dragged.
 		 */
-		public static const DRAG_OVER:String = "dragOver";
+		public var dragSource : DragSource;
+
 		/**
-		 * The DragEvent.DRAG_START constant defines the value of the
-		 *  type property of the event object for a dragStart event.
+		 *  Constructor.	 *  Normally called by the Flex control and not used in application code.	 *	 *  @param type The event type; indicates the action that caused the event.	 *	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.	 *	 *  @param dragInitiator IUIComponent that specifies the component initiating	 *  the drag.	 *	 *  @param dragSource A DragSource object containing the data being dragged.	 *	 *  @param action The specified drop action, such as <code>DragManager.MOVE</code>.	 *	 *  @param ctrlKey Indicates whether the <code>Ctrl</code> key was pressed.	 *	 *  @param altKey Indicates whether the <code>Alt</code> key was pressed.	 *	 *  @param shiftKey Indicates whether the <code>Shift</code> key was pressed.
 		 */
-		public static const DRAG_START:String = "dragStart";
+		public function DragEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = true, dragInitiator:IUIComponent = null, dragSource:DragSource = null, action:String = null, ctrlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

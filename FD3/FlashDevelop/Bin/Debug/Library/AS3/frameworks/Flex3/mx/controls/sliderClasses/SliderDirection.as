@@ -1,17 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.sliderClasses {
-	public final  class SliderDirection {
+﻿package mx.controls.sliderClasses
+{
+	/**
+	 *  The SliderDirection class defines the constant values *  for the <code>direction</code> property of the Slider class. * *  @see mx.controls.sliderClasses.Slider
+	 */
+	public class SliderDirection
+	{
 		/**
-		 * Specifies to display a horizontal slider.
-		 *  The HSlider control uses this constant.
+		 *  Specifies to display a horizontal slider.	 *  The HSlider control uses this constant.
 		 */
-		public static const HORIZONTAL:String = "horizontal";
+		public static const HORIZONTAL : String = "horizontal";
 		/**
-		 * Specifies to display a vertical slider.
-		 *  The VSlider control uses this constant.
+		 *  Specifies to display a vertical slider.	 *  The VSlider control uses this constant.
 		 */
-		public static const VERTICAL:String = "vertical";
+		public static const VERTICAL : String = "vertical";
+
 	}
 }

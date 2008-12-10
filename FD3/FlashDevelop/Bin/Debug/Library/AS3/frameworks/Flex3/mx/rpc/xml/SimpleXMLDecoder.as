@@ -1,24 +1,32 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.rpc.xml {
+﻿package mx.rpc.xml
+{
 	import flash.xml.XMLNode;
-	public class SimpleXMLDecoder {
+	import flash.xml.XMLNodeType;
+	import mx.collections.ArrayCollection;
+	import mx.utils.ObjectProxy;
+
+	/**
+	 *  The SimpleXMLDecoder class deserialize XML into a graph of ActionScript objects. * Use  this class when no schema information is available.
+	 */
+	public class SimpleXMLDecoder
+	{
+		private var makeObjectsBindable : Boolean;
+
 		/**
-		 * Converts a tree of XMLNodes into a tree of ActionScript Objects.
-		 *
-		 * @param dataNode          <XMLNode> 
+		 *  @private
 		 */
-		public function decodeXML(dataNode:XMLNode):Object;
+		public static function simpleType (val:Object) : Object;
 		/**
-		 * @param xmlNode           <XMLNode> 
+		 *  @private     *  Constructor.
 		 */
-		public static function getLocalName(xmlNode:XMLNode):String;
+		public function SimpleXMLDecoder (makeObjectsBindable:Boolean = false);
 		/**
-		 * Converts an ActionScript object into a Number, Boolean, or String.
-		 *
-		 * @param val               <Object> 
+		 *  Converts a tree of XMLNodes into a tree of ActionScript Objects.     *     *  @param dataNode An XMLNode to be converted into a tree of ActionScript Objects.     *     *  @return A tree of ActionScript Objects.
 		 */
-		public static function simpleType(val:Object):Object;
+		public function decodeXML (dataNode:XMLNode) : Object;
+		/**
+		 * Returns the local name of an XMLNode.     *     * @return The local name of an XMLNode.
+		 */
+		public static function getLocalName (xmlNode:XMLNode) : String;
 	}
 }

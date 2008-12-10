@@ -1,59 +1,44 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
 	import flash.events.Event;
-	public class ColorPickerEvent extends Event {
+
+	/**
+	 *  Represents events that are specific to the ColorPicker control, *  such as when the user rolls the mouse over or out of a swatch in *  the swatch panel.
+	 */
+	public class ColorPickerEvent extends Event
+	{
 		/**
-		 * The RGB color that was rolled over, rolled out of, selected, or
-		 *  entered.
+		 *  The <code>ColorPickerEvent.CHANGE</code> constant defines the value of the	 *  <code>type</code> property of the event that is dispatched when the user 	 *  selects a color from the ColorPicker control.	 *     *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>color</code></td><td>The RGB color that was selected.</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the     *       event listener that handles the event. For example, if you use     *       <code>myButton.addEventListener()</code> to register an event listener,     *       myButton is the value of the <code>currentTarget</code>.</td></tr>     *     <tr><td><code>index</code></td>	 *         <td>The zero-based index in the Color's data provider that corresponds 	 *             to the color that was selected.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;     *       it is not always the Object listening for the event.     *       Use the <code>currentTarget</code> property to always access the     *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType change
 		 */
-		public var color:uint;
+		public static const CHANGE : String = "change";
 		/**
-		 * The zero-based index in the Color's data provider that corresponds
-		 *  to the color that was rolled over, rolled out of, or selected.
-		 *  If the event type is ColorPickerEvent.ENTER,
-		 *  will have default value -1; it is not set in this case because
-		 *  the user can enter an RGB string that doesn't match any color
-		 *  in the data provider.
+		 *  The <code>ColorPickerEvent.ENTER</code> constant defines the value of the	 *  <code>type</code> property of the event that is dispatched when the user 	 *  presses the Enter key after typing in the color selector box.	 *     *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>color</code></td><td>The RGB color that was entered.</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the     *       event listener that handles the event. For example, if you use     *       <code>myButton.addEventListener()</code> to register an event listener,     *       myButton is the value of the <code>currentTarget</code>.</td></tr>     *     <tr><td><code>index</code></td>	 *         <td>Always -1.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;     *       it is not always the Object listening for the event.     *       Use the <code>currentTarget</code> property to always access the     *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType enter
 		 */
-		public var index:int;
+		public static const ENTER : String = "enter";
 		/**
-		 * Constructor.
-		 *
-		 * @param type              <String> The event type; indicates the action that caused the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Specifies whether the behavior associated with the event can be prevented.
-		 * @param index             <int (default = -1)> The zero-based index in the Color's data provider
-		 *                            that corresponds to the color that was rolled over, rolled out of,
-		 *                            or selected.
-		 * @param color             <uint (default = 0xFFFFFFFF)> The RGB color that was rolled over, rolled out of,
-		 *                            selected, or entered.
+		 *  The <code>ColorPickerEvent.ITEM_ROLL_OUT</code> constant defines the value of the	 *  <code>type</code> property of the event that is dispatched when the user 	 *  rolls the mouse out of a swatch in the swatch panel.	 *     *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>color</code></td><td>The RGB color of the color 	 *                   that was rolled over.</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the     *       event listener that handles the event. For example, if you use     *       <code>myButton.addEventListener()</code> to register an event listener,     *       myButton is the value of the <code>currentTarget</code>.</td></tr>     *     <tr><td><code>index</code></td>	 *         <td>The zero-based index in the Color's data provider that corresponds 	 *             to the color that was rolled over.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;     *       it is not always the Object listening for the event.     *       Use the <code>currentTarget</code> property to always access the     *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType itemRollOut
 		 */
-		public function ColorPickerEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, index:int = -1, color:uint = 0xFFFFFFFF);
+		public static const ITEM_ROLL_OUT : String = "itemRollOut";
 		/**
-		 * The ColorPickerEvent.CHANGE constant defines the value of the
-		 *  type property of the event that is dispatched when the user
-		 *  selects a color from the ColorPicker control.
+		 *  The <code>ColorPickerEvent.ITEM_ROLL_OVER</code> constant defines the value of the	 *  <code>type</code> property of the event that is dispatched when the user 	 *  rolls the mouse over of a swatch in the swatch panel.	 *     *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>color</code></td><td>The RGB color of the color 	 *                   that the user rolled out of.</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the     *       event listener that handles the event. For example, if you use     *       <code>myButton.addEventListener()</code> to register an event listener,     *       myButton is the value of the <code>currentTarget</code>.</td></tr>     *     <tr><td><code>index</code></td>	 *         <td>The zero-based index in the Color's data provider that corresponds 	 *             to the color that the user rolled out of.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;     *       it is not always the Object listening for the event.     *       Use the <code>currentTarget</code> property to always access the     *       Object listening for the event.</td></tr>	 *  </table>	 *     *  @eventType itemRollOver
 		 */
-		public static const CHANGE:String = "change";
+		public static const ITEM_ROLL_OVER : String = "itemRollOver";
 		/**
-		 * The ColorPickerEvent.ENTER constant defines the value of the
-		 *  type property of the event that is dispatched when the user
-		 *  presses the Enter key after typing in the color selector box.
+		 *  The RGB color that was rolled over, rolled out of, selected, or	 *  entered.
 		 */
-		public static const ENTER:String = "enter";
+		public var color : uint;
 		/**
-		 * The ColorPickerEvent.ITEM_ROLL_OUT constant defines the value of the
-		 *  type property of the event that is dispatched when the user
-		 *  rolls the mouse out of a swatch in the swatch panel.
+		 *  The zero-based index in the Color's data provider that corresponds	 *  to the color that was rolled over, rolled out of, or selected.	 *  If the event type is <code>ColorPickerEvent.ENTER</code>,	 *  will have default value -1; it is not set in this case because	 *  the user can enter an RGB string that doesn't match any color	 *  in the data provider.
 		 */
-		public static const ITEM_ROLL_OUT:String = "itemRollOut";
+		public var index : int;
+
 		/**
-		 * The ColorPickerEvent.ITEM_ROLL_OVER constant defines the value of the
-		 *  type property of the event that is dispatched when the user
-		 *  rolls the mouse over of a swatch in the swatch panel.
+		 *  Constructor.	 *	 *  @param type The event type; indicates the action that caused the event.	 *	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.	 *	 *  @param index The zero-based index in the Color's data provider	 *  that corresponds to the color that was rolled over, rolled out of,	 *  or selected.	 *	 *  @param color The RGB color that was rolled over, rolled out of,	 *  selected, or entered.
 		 */
-		public static const ITEM_ROLL_OVER:String = "itemRollOver";
+		public function ColorPickerEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, index:int = -1, color:uint = 0xFFFFFFFF);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

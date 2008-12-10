@@ -1,12 +1,23 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.GradientType;
+	import flash.display.Graphics;
 	import mx.skins.ProgrammaticSkin;
-	public class TitleBackground extends ProgrammaticSkin {
+	import mx.styles.StyleManager;
+	import mx.utils.ColorUtil;
+
+	/**
+	 *  The skin for a title bar area of a Panel.
+	 */
+	public class TitleBackground extends ProgrammaticSkin
+	{
 		/**
-		 * Constructor.
+		 *  Constructor.
 		 */
-		public function TitleBackground();
+		public function TitleBackground ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

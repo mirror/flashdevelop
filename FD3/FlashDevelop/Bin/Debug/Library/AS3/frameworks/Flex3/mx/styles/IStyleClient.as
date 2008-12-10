@@ -1,76 +1,69 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.styles {
-	public interface IStyleClient extends ISimpleStyleClient {
+﻿package mx.styles
+{
+	import mx.styles.CSSStyleDeclaration;
+	import mx.styles.ISimpleStyleClient;
+
+	/**
+	 *  This interface describes the properties and methods that an object  *  must implement so that it can fully participate in the style subsystem.  *  This interface is implemented by UIComponent. * *  <p>If the object does not need to store style values locally, it can  *  implement the <code>ISimpleStyleClient</code> interface instead.</p> * *  @see mx.styles.ISimpleStyleClient *  @see mx.styles.CSSStyleDeclaration
+	 */
+	public interface IStyleClient extends ISimpleStyleClient
+	{
 		/**
-		 * The name of the component class.
+		 *  The name of the component class.
 		 */
-		public function get className():String;
+		public function get className () : String;
 		/**
-		 * An object containing the inheritable styles for this component.
+		 *  An object containing the inheritable styles for this component.
 		 */
-		public function get inheritingStyles():Object;
-		public function set inheritingStyles(value:Object):void;
+		public function get inheritingStyles () : Object;
 		/**
-		 * An object containing the noninheritable styles for this component.
+		 *  @private
 		 */
-		public function get nonInheritingStyles():Object;
-		public function set nonInheritingStyles(value:Object):void;
+		public function set inheritingStyles (value:Object) : void;
 		/**
-		 * The style declaration used by this object.
+		 *  An object containing the noninheritable styles for this component.
 		 */
-		public function get styleDeclaration():CSSStyleDeclaration;
-		public function set styleDeclaration(value:CSSStyleDeclaration):void;
+		public function get nonInheritingStyles () : Object;
 		/**
-		 * Deletes a style property from this component instance.
-		 *
-		 * @param styleProp         <String> Name of the style property.
+		 *  @private
 		 */
-		public function clearStyle(styleProp:String):void;
+		public function set nonInheritingStyles (value:Object) : void;
 		/**
-		 * Returns an Array of CSSStyleDeclaration objects for the type selector
-		 *  that applies to this component, or null if none exist.
-		 *
-		 * @return                  <Array> Array of CSSStyleDeclaration objects.
+		 *  The style declaration used by this object.     *     *  @see mx.styles.CSSStyleDeclaration
 		 */
-		public function getClassStyleDeclarations():Array;
+		public function get styleDeclaration () : CSSStyleDeclaration;
 		/**
-		 * Gets a style property that has been set anywhere in this
-		 *  component's style lookup chain.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @return                  <*> Style value.
+		 *  @private
 		 */
-		public function getStyle(styleProp:String):*;
+		public function set styleDeclaration (value:CSSStyleDeclaration) : void;
+
 		/**
-		 * Propagates style changes to the children of this component.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @param recursive         <Boolean> Whether to propagate the style changes to the children's children.
+		 *  Gets a style property that has been set anywhere in this     *  component's style lookup chain.     *     *  <p>This same method is used to get any kind of style property,     *  so the value returned may be a Boolean, String, Number, int,     *  uint (for an RGB color), Class (for a skin), or any kind of object.     *  Therefore the return type is specified as ~~.</p>     *     *  <p>If you are getting a particular style property, you will     *  know its type and will often want to store the result in a     *  variable of that type. You can use either the <code>as</code>     *  operator or coercion to do this. For example:</p>     *     *  <pre>     *  var backgroundColor:uint = getStyle("backgroundColor") as int;     *       *  or     *       *  var backgroundColor:uint = int(getStyle("backgroundColor"));     *  </pre>     *     *  <p>If the style property has not been set anywhere in the     *  style lookup chain, the value returned by the <code>getStyle()</code> method     *  is <code>undefined</code>.     *  Note that <code>undefined</code> is a special value that is     *  not the same as <code>false</code>, the empty String (<code>""</code>),     *  <code>NaN</code>, 0, or <code>null</code>.     *  No valid style value is ever <code>undefined</code>.     *  You can use the static method     *  <code>StyleManager.isValidStyleValue()</code>     *  to test whether the value was set.</p>     *     *  @param styleProp Name of the style property.     *     *  @return Style value.
 		 */
-		public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void;
+		public function getStyle (styleProp:String) : *;
 		/**
-		 * Sets up the internal style cache values so that the getStyle()
-		 *  method functions.
-		 *  If this object already has children, then reinitialize the children's
-		 *  style caches.
-		 *
-		 * @param recursive         <Boolean> Regenerate the proto chains of the children.
+		 *  Sets a style property on this component instance.     *     *  <p>This may override a style that was set globally.</p>     *     *  <p>Calling the <code>setStyle()</code> method can result in decreased performance.     *  Use it only when necessary.</p>     *     *  @param styleProp Name of the style property.     *     *  @param newValue New value for the style.
 		 */
-		public function regenerateStyleCache(recursive:Boolean):void;
+		public function setStyle (styleProp:String, newValue:*) : void;
 		/**
-		 * Registers the EffectManager as one of the event listeners for each effect event.
-		 *
-		 * @param effects           <Array> An Array of Strings of effect names.
+		 *  Deletes a style property from this component instance.     *     *  <p>This does not necessarily cause the <code>getStyle()</code> method to return     *  <code>undefined</code>.</p>     *     *  @param styleProp Name of the style property.
 		 */
-		public function registerEffects(effects:Array):void;
+		public function clearStyle (styleProp:String) : void;
 		/**
-		 * Sets a style property on this component instance.
-		 *
-		 * @param styleProp         <String> Name of the style property.
-		 * @param newValue          <*> New value for the style.
+		 *  Returns an Array of CSSStyleDeclaration objects for the type selector     *  that applies to this component, or <code>null</code> if none exist.     *     *  <p>For example, suppose that component MyButton extends Button.     *  This method first looks for a MyButton selector; then, it looks for a Button type selector;     *  finally, it looks for a UIComponent type selector.</p>     *     *  @return Array of CSSStyleDeclaration objects.
 		 */
-		public function setStyle(styleProp:String, newValue:*):void;
+		public function getClassStyleDeclarations () : Array;
+		/**
+		 *  Propagates style changes to the children of this component.     *     *  @param styleProp Name of the style property.     *     *  @param recursive Whether to propagate the style changes to the children's children.
+		 */
+		public function notifyStyleChangeInChildren (styleProp:String, recursive:Boolean) : void;
+		/**
+		 *  Sets up the internal style cache values so that the <code>getStyle()</code>      *  method functions.     *  If this object already has children, then reinitialize the children's     *  style caches.     *     *  @param recursive Regenerate the proto chains of the children.
+		 */
+		public function regenerateStyleCache (recursive:Boolean) : void;
+		/**
+		 *  Registers the EffectManager as one of the event listeners for each effect event.     *     *  @param effects An Array of Strings of effect names.
+		 */
+		public function registerEffects (effects:Array) : void;
 	}
 }

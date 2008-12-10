@@ -1,15 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.containers {
-	public final  class BoxDirection {
+﻿package mx.containers
+{
+	/**
+	 *  The BoxDirection class specifies constant values *  for the <code>direction</code> property of the Box container. * *  @see mx.containers.Box
+	 */
+	public class BoxDirection
+	{
 		/**
-		 * Specifies that children of the Box container are laid out horizontally.
+		 *  Specifies that children of the Box container are laid out horizontally.
 		 */
-		public static const HORIZONTAL:String = "horizontal";
+		public static const HORIZONTAL : String = "horizontal";
 		/**
-		 * Specifies that children of the Box container are laid out vertically.
+		 *  Specifies that children of the Box container are laid out vertically.
 		 */
-		public static const VERTICAL:String = "vertical";
+		public static const VERTICAL : String = "vertical";
+
 	}
 }

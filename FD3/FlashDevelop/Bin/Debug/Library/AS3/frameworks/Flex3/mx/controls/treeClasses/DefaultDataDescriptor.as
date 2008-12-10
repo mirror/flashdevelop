@@ -1,197 +1,88 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.treeClasses {
-	import mx.controls.menuClasses.IMenuDataDescriptor;
+﻿package mx.controls.treeClasses
+{
+	import flash.utils.Dictionary;
+	import mx.collections.ArrayCollection;
+	import mx.collections.CursorBookmark;
 	import mx.collections.ICollectionView;
+	import mx.collections.IList;
 	import mx.collections.IViewCursor;
-	public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDescriptor {
+	import mx.collections.XMLListCollection;
+	import mx.controls.menuClasses.IMenuDataDescriptor;
+	import mx.utils.UIDUtil;
+
+	/**
+	 *  The DefaultDataDescriptor class provides a default implementation for *  accessing and manipulating data for use in controls such as Tree and Menu. * *  This implementation handles e4x XML and object nodes in similar but different *  ways. See each method description for details on how the method *  accesses values in nodes of various types. * *  This class is the default value of the Tree, Menu, MenuBar, and *  PopUpMenuButton control <code>dataDescriptor</code> properties. * *  @see mx.controls.treeClasses.ITreeDataDescriptor *  @see mx.controls.menuClasses.IMenuDataDescriptor *  @see mx.controls.Menu *  @see mx.controls.MenuBar *  @see mx.controls.PopUpMenuButton *  @see mx.controls.Tree
+	 */
+	public class DefaultDataDescriptor implements ITreeDataDescriptor2
+	{
 		/**
-		 * Constructor
+		 *  @private
 		 */
-		public function DefaultDataDescriptor();
+		private var ChildCollectionCache : Dictionary;
+
 		/**
-		 * Add a child node to a node at the specified index.
-		 *  This implementation does the following:
-		 *  If the parent parameter is null or undefined,
-		 *  inserts the child parameter at the
-		 *  specified index in the collection specified by model
-		 *  parameter.
-		 *  If the parent parameter has a children
-		 *  field or property, the method adds the child parameter
-		 *  to it at the index parameter location.
-		 *  In this case, the model parameter is not required.
-		 *  If the parent parameter does not have a children
-		 *  field or property, the method adds the children
-		 *  property to the parent. The method then adds the
-		 *  child parameter to the parent at the
-		 *  index parameter location.
-		 *  In this case, the model parameter is not required.
-		 *  If the index value is greater than the collection
-		 *  length or number of children in the parent, adds the object as
-		 *  the last child.
-		 *
-		 * @param parent            <Object> The node object that will parent the child
-		 * @param newChild          <Object> The node object that will be parented by the node
-		 * @param index             <int> The 0-based index of where to put the child node relative to the parent
-		 * @param model             <Object (default = null)> The entire collection that this node is a part of
-		 * @return                  <Boolean> true if successful
+		 *  Constructor.
 		 */
-		public function addChildAt(parent:Object, newChild:Object, index:int, model:Object = null):Boolean;
+		public function DefaultDataDescriptor ();
 		/**
-		 * Provides access to a node's children. Returns a collection
-		 *  of children if they exist. If the node is an Object, the method
-		 *  returns the contents of the object's children field as
-		 *  an ArrayCollection.
-		 *  If the node is XML, the method returns an XMLListCollection containing
-		 *  the child elements.
-		 *
-		 * @param node              <Object> The node object currently being evaluated.
-		 * @param model             <Object (default = null)> The collection that contains the node; ignored by this class.
-		 * @return                  <ICollectionView> An object containing the children nodes.
+		 *  Provides access to a node's children. Returns a collection     *  of children if they exist. If the node is an Object, the method     *  returns the contents of the object's <code>children</code> field as     *  an ArrayCollection.     *  If the node is XML, the method returns an XMLListCollection containing     *  the child elements.     *     *  @param node The node object currently being evaluated.     *  @param model The collection that contains the node; ignored by this class.     *  @return An object containing the children nodes.
 		 */
-		public function getChildren(node:Object, model:Object = null):ICollectionView;
+		public function getChildren (node:Object, model:Object = null) : ICollectionView;
 		/**
-		 * Returns a node's data.
-		 *  Currently returns the entire node.
-		 *
-		 * @param node              <Object> The node object currently being evaluated.
-		 * @param model             <Object (default = null)> The collection that contains the node; ignored by this class.
-		 * @return                  <Object> The node.
+		 *  Determines if the node actually has children.      *      *  @param node The node object currently being evaluated.     *  @param model The collection that contains the node; ignored by this class.     *       *  @return <code>true</code> if this node currently has children.
 		 */
-		public function getData(node:Object, model:Object = null):Object;
+		public function hasChildren (node:Object, model:Object = null) : Boolean;
 		/**
-		 * Returns the name of the radio button group to which
-		 *  the node belongs, if any.
-		 *  This method is used by menu-based controls.
-		 *
-		 * @param node              <Object> The node for which to get the group name.
-		 * @return                  <String> The value of the node's groupName
-		 *                            attribute or field, or an empty string if there is no such
-		 *                            entry.
+		 *  Tests a node for termination.     *  Branches are non-terminating but are not required to have any leaf nodes.     *  If the node is XML, returns <code>true</code> if the node has children     *  or a <code>true isBranch</code> attribute.     *  If the node is an object, returns <code>true</code> if the node has a     *  (possibly empty) <code>children</code> field.     *     *  @param node The node object currently being evaluated.     *  @param model The collection that contains the node; ignored by this class.     *       *  @return <code>true</code> if this node is non-terminating.
 		 */
-		public function getGroupName(node:Object):String;
+		public function isBranch (node:Object, model:Object = null) : Boolean;
 		/**
-		 * Returns an ICollectionView instance that makes the hierarchical data appear
-		 *  as if it was a linear ICollectionView instance.
-		 *
-		 * @param hierarchicalData  <ICollectionView> The hierarchical data.
-		 * @param uidFunction       <Function> A function that takes an Object and returns the UID, as a String.
-		 *                            This parameter is usually the Tree.itemToUID() method.
-		 * @param openItems         <Object> The items that have been opened or set opened.
-		 * @param model             <Object (default = null)> The collection to which this node belongs.
-		 * @return                  <ICollectionView> An ICollectionView instance.
+		 *  Returns a node's data.     *  Currently returns the entire node.     *     *  @param node The node object currently being evaluated.     *  @param model The collection that contains the node; ignored by this class.     *  @return The node.
 		 */
-		public function getHierarchicalCollectionAdaptor(hierarchicalData:ICollectionView, uidFunction:Function, openItems:Object, model:Object = null):ICollectionView;
+		public function getData (node:Object, model:Object = null) : Object;
 		/**
-		 * Returns the depth of the node, meaning the number of ancestors it has.
-		 *
-		 * @param node              <Object> The Object that defines the node.
-		 * @param iterator          <IViewCursor> An IViewCursor instance that could be used to do the calculation.
-		 * @param model             <Object (default = null)> The collection to which this node belongs.
-		 * @return                  <int> The depth of the node, where 0 corresponds to the top level,
-		 *                            and -1 if the depth cannot be calculated.
+		 *  Add a child node to a node at the specified index.      *  This implementation does the following:     *      *  <ul>     *      <li>If the <code>parent</code> parameter is null or undefined,     *          inserts the <code>child</code> parameter at the      *          specified index in the collection specified by <code>model</code>     *          parameter.     *      </li>     *      <li>If the <code>parent</code> parameter has a <code>children</code>     *          field or property, the method adds the <code>child</code> parameter     *          to it at the <code>index</code> parameter location.     *          In this case, the <code>model</code> parameter is not required.     *     </li>     *     <li>If the <code>parent</code> parameter does not have a <code>children</code>     *          field or property, the method adds the <code>children</code>      *          property to the <code>parent</code>. The method then adds the      *          <code>child</code> parameter to the parent at the      *          <code>index</code> parameter location.      *          In this case, the <code>model</code> parameter is not required.     *     </li>     *     <li>If the <code>index</code> value is greater than the collection      *         length or number of children in the parent, adds the object as     *         the last child.     *     </li>     * </ul>     *     *  @param parent The node object that will parent the child.     *  @param newChild The node object that will be parented by the node.     *  @param index The 0-based index of where to put the child node relative to the parent.     *  @param model The entire collection that this node is a part of.     *       *  @return <code>true</code> if successful.
 		 */
-		public function getNodeDepth(node:Object, iterator:IViewCursor, model:Object = null):int;
+		public function addChildAt (parent:Object, newChild:Object, index:int, model:Object = null) : Boolean;
 		/**
-		 * Returns the parent of the node
-		 *  The parent of a top-level node is null.
-		 *
-		 * @param node              <Object> The Object that defines the node.
-		 * @param collection        <ICollectionView> An ICollectionView instance that could be used to do the calculation.
-		 * @param model             <Object (default = null)> The collection to which this node belongs.
-		 * @return                  <Object> The parent node containing the node as child,
-		 *                            null for a top-level node,
-		 *                            and undefined if the parent cannot be determined.
+		 *  Removes the child node from a node at the specified index.     *  If the <code>parent</code> parameter is null      *  or undefined, the method uses the <code>model</code> parameter to      *  access the child; otherwise, it uses the <code>parent</code> parameter     *  and ignores the <code>model</code> parameter.    *     *  @param parent The node object that currently parents the child node.     *  @param child The node that is being removed.     *  @param index The 0-based index of  the child node to remove relative to the parent.     *  @param model The entire collection that this node is a part of.     *       *  @return <code>true</code> if successful.
 		 */
-		public function getParent(node:Object, collection:ICollectionView, model:Object = null):Object;
+		public function removeChildAt (parent:Object, child:Object, index:int, model:Object = null) : Boolean;
 		/**
-		 * Returns the type identifier of a node.
-		 *  This method is used by menu-based controls to determine if the
-		 *  node represents a separator, radio button,
-		 *  a check box, or normal item.
-		 *
-		 * @param node              <Object> The node object for which to get the type.
-		 * @return                  <String> the value of the type attribute or field,
-		 *                            or the empty string if there is no such field.
+		 *  Returns the type identifier of a node.     *  This method is used by menu-based controls to determine if the     *  node represents a separator, radio button,     *  a check box, or normal item.     *     *  @param node The node object for which to get the type.     *       *  @return  The value of the <code>type</code> attribute or field,     *  or the empty string if there is no such field.
 		 */
-		public function getType(node:Object):String;
+		public function getType (node:Object) : String;
 		/**
-		 * Returns true if the node actually has children.
-		 *
-		 * @param node              <Object> The node object currently being evaluated.
-		 * @param model             <Object (default = null)> The collection that contains the node; ignored by this class.
-		 * @return                  <Boolean> boolean indicating if this node currently has children
+		 *  Returns whether the node is enabled.     *  This method is used by menu-based controls.     *     *  @param node The node for which to get the status.     *       *  @return The value of the node's <code>enabled</code>     *  attribute or field, or <code>true</code> if there is no such     *  entry or the value is not <code>false</code>.
 		 */
-		public function hasChildren(node:Object, model:Object = null):Boolean;
+		public function isEnabled (node:Object) : Boolean;
 		/**
-		 * Tests a node for termination.
-		 *  Branches are non-terminating but are not required to have any leaf nodes.
-		 *  If the node is XML, returns true if the node has children
-		 *  or a true isBranch attribute.
-		 *  If the node is an object, returns true if the node has a
-		 *  (possibly empty) children field.
-		 *
-		 * @param node              <Object> The node object currently being evaluated.
-		 * @param model             <Object (default = null)> The collection that contains the node; ignored by this class.
-		 * @return                  <Boolean> boolean indicating if this node is non-terminating
+		 *  Sets the value of the field or attribute in the data provider     *  that identifies whether the node is enabled.     *  This method sets the value of the node's <code>enabled</code>     *  attribute or field.     *  This method is used by menu-based controls.     *     *  @param node The node for which to set the status.     *  @param value Whether the node is enabled.
 		 */
-		public function isBranch(node:Object, model:Object = null):Boolean;
+		public function setEnabled (node:Object, value:Boolean) : void;
 		/**
-		 * Returns whether the node is enabled.
-		 *  This method is used by menu-based controls.
-		 *
-		 * @param node              <Object> The node for which to get the status.
-		 * @return                  <Boolean> the value of the node's enabled
-		 *                            attribute or field, or true if there is no such
-		 *                            entry or the value is not false.
+		 *  Returns whether the node is toggled.     *  This method is used by menu-based controls.     *     *  @param node The node for which to get the status.     *       *  @return The value of the node's <code>toggled</code>     *  attribute or field, or <code>false</code> if there is no such     *  entry.
 		 */
-		public function isEnabled(node:Object):Boolean;
+		public function isToggled (node:Object) : Boolean;
 		/**
-		 * Returns whether the node is toggled.
-		 *  This method is used by menu-based controls.
-		 *
-		 * @param node              <Object> The node for which to get the status.
-		 * @return                  <Boolean> The value of the node's toggled
-		 *                            attribute or field, or false if there is no such
-		 *                            entry.
+		 *  Sets the value of the field or attribute in the data provider     *  that identifies whether the node is toggled.     *  This method sets the value of the node's <code>toggled</code>     *  attribute or field.     *  This method is used by menu-based controls.     *     *  @param node The node for which to set the status.     *  @param value Whether the node is toggled.
 		 */
-		public function isToggled(node:Object):Boolean;
+		public function setToggled (node:Object, value:Boolean) : void;
 		/**
-		 * Removes the child node from a node at the specified index.
-		 *  If the parent parameter is null
-		 *  or undefined, the method uses the model parameter to
-		 *  access the child; otherwise, it uses the parent parameter
-		 *  and ignores the model parameter.
-		 *
-		 * @param parent            <Object> The node object that currently parents the child node
-		 * @param child             <Object> The node that is being removed
-		 * @param index             <int> The 0-based index of  the child node to remove relative to the parent
-		 * @param model             <Object (default = null)> The entire collection that this node is a part of
-		 * @return                  <Boolean> true if successful
+		 *  Returns the name of the radio button group to which     *  the node belongs, if any.     *  This method is used by menu-based controls.     *     *  @param node The node for which to get the group name.     *  @return The value of the node's <code>groupName</code>     *  attribute or field, or an empty string if there is no such     *  entry.
 		 */
-		public function removeChildAt(parent:Object, child:Object, index:int, model:Object = null):Boolean;
+		public function getGroupName (node:Object) : String;
 		/**
-		 * Sets the value of the field or attribute in the data provider
-		 *  that identifies whether the node is enabled.
-		 *  This method sets the value of the node's enabled
-		 *  attribute or field.
-		 *  This method is used by menu-based controls.
-		 *
-		 * @param node              <Object> The node for which to set the status.
-		 * @param value             <Boolean> Whether the node is enabled.
+		 *  @inheritDoc
 		 */
-		public function setEnabled(node:Object, value:Boolean):void;
+		public function getHierarchicalCollectionAdaptor (hierarchicalData:ICollectionView, uidFunction:Function, openItems:Object, model:Object = null) : ICollectionView;
 		/**
-		 * Sets the value of the field or attribute in the data provider
-		 *  that identifies whether the node is toggled.
-		 *  This method sets the value of the node's toggled
-		 *  attribute or field.
-		 *  This method is used by menu-based controls.
-		 *
-		 * @param node              <Object> The node for which to set the status.
-		 * @param value             <Boolean> Whether the node is toggled.
+		 *  @inheritDoc
 		 */
-		public function setToggled(node:Object, value:Boolean):void;
+		public function getNodeDepth (node:Object, iterator:IViewCursor, model:Object = null) : int;
+		/**
+		 *  @inheritDoc
+		 */
+		public function getParent (node:Object, collection:ICollectionView, model:Object = null) : Object;
 	}
 }

@@ -1,55 +1,62 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.automation {
-	public class Automation {
+﻿package mx.automation
+{
+	import flash.display.DisplayObject;
+	import flash.utils.getQualifiedClassName;
+	import mx.automation.IAutomationMouseSimulator;
+	import mx.automation.IAutomationObjectHelper;
+	import mx.core.IUIComponent;
+	import mx.core.mx_internal;
+
+	/**
+	 * The Automation class defines the entry point for the Flex Automation framework.
+	 */
+	public class Automation
+	{
+		/**
+		 *  @private     *  Component class to Delegate class map
+		 */
+		static var delegateClassMap : Object;
+		/**
+		 *  @private
+		 */
+		private static var _automationManager : IAutomationManager;
+		/**
+		 *  @private
+		 */
+		private static var _automationObjectHelper : IAutomationObjectHelper;
+		/**
+		 *  @private
+		 */
+		private static var _mouseSimulator : IAutomationMouseSimulator;
+
 		/**
 		 * The IAutomationManager instance.
 		 */
-		public static function get automationManager():IAutomationManager;
-		public function set automationManager(value:IAutomationManager):void;
+		public static function get automationManager () : IAutomationManager;
+		/**
+		 * @private
+		 */
+		public static function set automationManager (manager:IAutomationManager) : void;
 		/**
 		 * The available IAutomationObjectHelper instance.
 		 */
-		public static function get automationObjectHelper():IAutomationObjectHelper;
+		public static function get automationObjectHelper () : IAutomationObjectHelper;
 		/**
+		 * Contains <code>true</code> if the automation module has been initialized.
 		 */
-		public static function get errorShown():Boolean;
-		public function set errorShown(value:Boolean):void;
-		/**
-		 * Contains true if the automation module has been initialized.
-		 */
-		public static function get initialized():Boolean;
+		public static function get initialized () : Boolean;
 		/**
 		 * The currently active mouse simulator.
 		 */
-		public static function get mouseSimulator():IAutomationMouseSimulator;
-		public function set mouseSimulator(value:IAutomationMouseSimulator):void;
+		public static function get mouseSimulator () : IAutomationMouseSimulator;
 		/**
+		 * @private
 		 */
-		public static function get recordedLinesCount():Number;
-		public function set recordedLinesCount(value:Number):void;
+		public static function set mouseSimulator (ms:IAutomationMouseSimulator) : void;
+
 		/**
+		 *  Registers the component class and delegate class association with Automation.     *      *  @param compClass The component class.      *      *  @param delegateClass The delegate class associated with the component.
 		 */
-		public static var recordReplayLimit:Number = 30;
-		/**
-		 */
-		public function set restrictionNeeded(value:Boolean):void;
-		/**
-		 */
-		public static function decrementRecordedLinesCount():Number;
-		/**
-		 */
-		public static function incrementRecordedLinesCount():Number;
-		/**
-		 */
-		public static function isLicensePresent():Boolean;
-		/**
-		 * Registers the component class and delegate class association with Automation.
-		 *
-		 * @param compClass         <Class> The component class.
-		 * @param delegateClass     <Class> The delegate class associated with the component.
-		 */
-		public static function registerDelegateClass(compClass:Class, delegateClass:Class):void;
+		public static function registerDelegateClass (compClass:Class, delegateClass:Class) : void;
 	}
 }

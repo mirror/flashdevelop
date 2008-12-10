@@ -1,34 +1,32 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
 	import flash.events.Event;
-	public class NumericStepperEvent extends Event {
+
+	/**
+	 *  Represents events that are specific to the NumericStepper control. * *  @see mx.controls.NumericStepper
+	 */
+	public class NumericStepperEvent extends Event
+	{
 		/**
-		 * If the value is changed in response to a user action,
-		 *  this property contains a value indicating the type of input action.
-		 *  The value is either InteractionInputType.MOUSE
-		 *  or InteractionInputType.KEYBOARD.
+		 *  The <code>NumericStepperEvent.CHANGE</code> constant defines the value of the	 *  <code>type</code> property of the event object for a <code>change</code> event.	 *     *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the     *       event listener that handles the event. For example, if you use     *       <code>myButton.addEventListener()</code> to register an event listener,     *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;     *       it is not always the Object listening for the event.     *       Use the <code>currentTarget</code> property to always access the     *       Object listening for the event.</td></tr>     *     <tr><td><code>value</code></td><td>The value of the NumericStepper control      *       when the event was dispatched.</td></tr>	 *  </table>	 *     *  @eventType change
 		 */
-		public var triggerEvent:Event;
+		public static const CHANGE : String = "change";
 		/**
-		 * The value of the NumericStepper control when the event was dispatched.
+		 *	The value of the NumericStepper control when the event was dispatched.
 		 */
-		public var value:Number;
+		public var value : Number;
 		/**
-		 * Constructor.
-		 *
-		 * @param type              <String> The event type; indicates the action that caused the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Specifies whether the behavior associated with the event can be prevented.
-		 * @param value             <Number (default = NaN)> The value of the NumericStepper control when the event was dispatched.
-		 * @param triggerEvent      <Event (default = null)> 
+		 *  If the value is changed in response to a user action, 	 *  this property contains a value indicating the type of input action. 	 *  The value is either <code>InteractionInputType.MOUSE</code> 	 *  or <code>InteractionInputType.KEYBOARD</code>.
 		 */
-		public function NumericStepperEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, value:Number = NaN, triggerEvent:Event = null);
+		public var triggerEvent : Event;
+
 		/**
-		 * The NumericStepperEvent.CHANGE constant defines the value of the
-		 *  type property of the event object for a change event.
+		 *  Constructor.	 *	 *  @param type The event type; indicates the action that caused the event.	 *	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.	 *	 *  @param value The value of the NumericStepper control when the event was dispatched.         *         *  @param triggerEvent If the value changed in response to a user action, contains a value         *  indicating the type of input action, either <code>InteractionInputType.MOUSE</code>         *  or <code>InteractionInputType.KEYBOARD</code>.
 		 */
-		public static const CHANGE:String = "change";
+		public function NumericStepperEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, value:Number = NaN, triggerEvent:Event = null);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

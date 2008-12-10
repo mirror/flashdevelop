@@ -1,13 +1,13 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.collections.errors {
-	public class SortError extends Error {
+﻿package mx.collections.errors
+{
+	/**
+	 *  This error is thrown when a Sort class is not configured properly; *  for example, if the find criteria are invalid.
+	 */
+	public class SortError extends Error
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param message           <String> A message providing information about the error cause.
+		 *  Constructor.	 *	 *  @param message A message providing information about the error cause.
 		 */
-		public function SortError(message:String);
+		public function SortError (message:String);
 	}
 }

@@ -1,27 +1,43 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.rpc {
+﻿package mx.rpc
+{
+	import mx.core.mx_internal;
 	import mx.messaging.Producer;
+	import mx.messaging.messages.AcknowledgeMessage;
+	import mx.messaging.messages.AsyncMessage;
+	import mx.messaging.messages.ErrorMessage;
 	import mx.messaging.messages.IMessage;
-	public class AsyncRequest extends Producer {
+	import mx.messaging.events.MessageEvent;
+	import mx.messaging.events.MessageFaultEvent;
+
+	/**
+	 *  The AsyncRequest class provides an abstraction of messaging for RPC call invocation. *  An AsyncRequest allows multiple requests to be made on a remote destination *  and will call back to the responder specified within the request when *  the remote request is completed.
+	 */
+	public class AsyncRequest extends mx.messaging.Producer
+	{
 		/**
-		 * Constructs a new asynchronous request.
+		 *  manages a list of all pending requests.  each request must implement	 *  IResponder
 		 */
-		public function AsyncRequest();
+		private var _pendingRequests : Object;
+
 		/**
-		 * Returns true if there are any pending requests for the passed in message.
-		 *
-		 * @param msg               <IMessage> The message for which the existence of pending requests is checked.
+		 *  Constructs a new asynchronous request.
 		 */
-		public override function hasPendingRequestForMessage(msg:IMessage):Boolean;
+		public function AsyncRequest ();
 		/**
-		 * Dispatches the asynchronous request and stores the responder to call
-		 *  later.
-		 *
-		 * @param msg               <IMessage> 
-		 * @param responder         <IResponder> 
+		 *  Delegates to the results to responder	 *  @param    ack Message acknowlegdement of message previously sent	 *  @param    msg Message that was recieved the acknowledgement	 *  @private
 		 */
-		public function invoke(msg:IMessage, responder:IResponder):void;
+		public function acknowledge (ack:AcknowledgeMessage, msg:IMessage) : void;
+		/**
+		 *  Delegates to the fault to responder	 *  @param    error message.	 *            The error codes and informaton are contained in the	 *            <code>headers</code> property	 *  @param    msg Message original message that caused the fault.	 *  @private
+		 */
+		public function fault (errMsg:ErrorMessage, msg:IMessage) : void;
+		/**
+		 * Returns <code>true</code> if there are any pending requests for the passed in message.    *     * @param msg The message for which the existence of pending requests is checked.    *    * @return Returns <code>true</code> if there are any pending requests for the     * passed in message; otherwise, returns <code>false</code>.
+		 */
+		public function hasPendingRequestForMessage (msg:IMessage) : Boolean;
+		/**
+		 *  Dispatches the asynchronous request and stores the responder to call	 *  later.         *         * @param msg The message to be sent asynchronously.         *         * @param responder The responder to be called later.
+		 */
+		public function invoke (msg:IMessage, responder:IResponder) : void;
 	}
 }

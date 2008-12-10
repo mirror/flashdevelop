@@ -1,44 +1,47 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.states {
+﻿package mx.states
+{
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import mx.core.mx_internal;
 	import mx.core.UIComponent;
-	public class RemoveChild implements IOverride {
+
+	/**
+	 * *  The RemoveChild class removes a child display object, such as a component,  *  from a container as part of a view state. *  The child is only removed from the display list, it is not deleted. *  You use this class in the <code>overrides</code> property of the State class. * *  @mxml * *  <p>The <code>&lt;mx:RemoveChild&gt;</code> tag *  has the following attributes:</p> *   *  <pre> *  &lt;mx:RemoveChild *  <b>Properties</b> *  target="null" *  /&gt; *  </pre> * *  @see mx.states.State *  @see mx.states.AddChild *  @see mx.states.Transition *  @see mx.effects.RemoveChildAction * *  @includeExample examples/StatesExample.mxml
+	 */
+	public class RemoveChild implements IOverride
+	{
 		/**
-		 * The child to remove from the view.
+		 *  @private     *  Parent of the removed child.
 		 */
-		public var target:DisplayObject;
+		private var oldParent : DisplayObjectContainer;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <DisplayObject (default = null)> The child to remove from the view.
+		 *  @private     *  Index of the removed child.
 		 */
-		public function RemoveChild(target:DisplayObject = null);
+		private var oldIndex : int;
 		/**
-		 * Applies the override. Flex retains the original value, so that it can
-		 *  restore the value later in the remove() method.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  @private
 		 */
-		public function apply(parent:UIComponent):void;
+		private var removed : Boolean;
 		/**
-		 * Initializes the override.
-		 *  Flex calls this method before the first call to the
-		 *  apply() method, so you put one-time initialization
-		 *  code for the override in this method.
+		 *  The child to remove from the view.
 		 */
-		public function initialize():void;
+		public var target : DisplayObject;
+
 		/**
-		 * Removes the override. The value remembered in the apply()
-		 *  method is restored.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  Constructor.	 *	 *  @param target The child to remove from the view.
 		 */
-		public function remove(parent:UIComponent):void;
+		public function RemoveChild (target:DisplayObject = null);
+		/**
+		 *  IOverride interface method; this class implements it as an empty method.	 * 	 *  @copy IOverride#initialize()
+		 */
+		public function initialize () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function apply (parent:UIComponent) : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function remove (parent:UIComponent) : void;
 	}
 }

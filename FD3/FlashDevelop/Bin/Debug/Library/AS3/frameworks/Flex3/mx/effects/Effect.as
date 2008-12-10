@@ -1,317 +1,315 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects {
-	import flash.events.EventDispatcher;
+﻿package mx.effects
+{
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.utils.getQualifiedClassName;
+	import mx.core.IFlexDisplayObject;
+	import mx.core.mx_internal;
+	import mx.effects.effectClasses.AddRemoveEffectTargetFilter;
+	import mx.effects.effectClasses.HideShowEffectTargetFilter;
+	import mx.effects.effectClasses.PropertyChanges;
 	import mx.events.EffectEvent;
-	public class Effect extends EventDispatcher implements IEffect {
+	import mx.managers.LayoutManager;
+
+	/**
+	 *  Dispatched when the effect finishes playing, *  either when the effect finishes playing or when the effect has  *  been interrupted by a call to the <code>end()</code> method. * *  @eventType mx.events.EffectEvent.EFFECT_END
+	 */
+	[Event(name="effectEnd", type="mx.events.EffectEvent")] 
+	/**
+	 *  Dispatched when the effect starts playing. * *  @eventType mx.events.EffectEvent.EFFECT_START
+	 */
+	[Event(name="effectStart", type="mx.events.EffectEvent")] 
+
+	/**
+	 *  The Effect class is an abstract base class that defines the basic  *  functionality of all Flex effects. *  The Effect class defines the base factory class for all effects. *  The EffectInstance class defines the base class for all effect *  instance subclasses. * *  <p>You do not create an instance of the Effect class itself *  in an application. *  Instead, you create an instance of one of the subclasses, *  such as Fade or WipeLeft.</p> *   *  @mxml * *  <p>The Effect class defines the following properties, *  which all of its subclasses inherit:</p> *   *  <pre> *  &lt;mx:<i>tagname</i> *    <b>Properties</b> *    customFilter="" *    duration="500" *    filter="" *    hideFocusRing="false" *    perElementOffset="0" *    repeatCount="1" *    repeatDelay="0" *    startDelay="0" *    suspendBackgroundProcessing="false|true" *    target="<i>effect target</i>" *    targets="<i>array of effect targets</i>" *      *    <b>Events</b> *    effectEnd="<i>No default</i>" *    efectStart="<i>No default</i>" *  /&gt; *  </pre> * *  @see mx.effects.EffectInstance *  *  @includeExample examples/SimpleEffectExample.mxml
+	 */
+	public class Effect extends EventDispatcher implements IEffect
+	{
 		/**
-		 * The name of the effect class, such as "Fade".
+		 *  @private
 		 */
-		public function get className():String;
+		private var _instances : Array;
 		/**
-		 * Specifies a custom filter object, of type EffectTargetFilter,
-		 *  used by the effect to determine the targets
-		 *  on which to play the effect.
+		 *  @private
 		 */
-		public function get customFilter():EffectTargetFilter;
-		public function set customFilter(value:EffectTargetFilter):void;
+		private var _callValidateNow : Boolean;
 		/**
-		 * Duration of the effect in milliseconds.
+		 *  @private
 		 */
-		public function get duration():Number;
-		public function set duration(value:Number):void;
+		private var isPaused : Boolean;
 		/**
-		 * A property that lets you access the target list-based control
-		 *  of a data effect.
-		 *  This property enables an instance of an effect class to communicate
-		 *  with the list-based control on which the effect is playing.
+		 *  @private
 		 */
-		public function get effectTargetHost():IEffectTargetHost;
-		public function set effectTargetHost(value:IEffectTargetHost):void;
+		local var filterObject : EffectTargetFilter;
 		/**
-		 * A flag containing true if the end values
-		 *  of an effect have already been determined,
-		 *  or false if they should be acquired from the
-		 *  current properties of the effect targets when the effect runs.
-		 *  This property is required by data effects because the sequence
-		 *  of setting up the data effects, such as DefaultListEffect
-		 *  and DefaultTileListEffect, is more complicated than for
-		 *  normal effects.
+		 *  @private	 *  Used in applyValueToTarget()
 		 */
-		protected var endValuesCaptured:Boolean = false;
+		local var applyActualDimensions : Boolean;
 		/**
-		 * Specifies an algorithm for filtering targets for an effect.
-		 *  A value of null specifies no filtering.
+		 *  @private     *  Holds the init object passed in by the Transition.
 		 */
-		public function get filter():String;
-		public function set filter(value:String):void;
+		local var propertyChangesArray : Array;
 		/**
-		 * Determines whether the effect should hide the focus ring
-		 *  when starting the effect.
-		 *  The effect target is responsible for the hiding the focus ring.
-		 *  Subclasses of the UIComponent class hide the focus ring automatically.
-		 *  If the effect target is not a subclass of the UIComponent class,
-		 *  you must add functionality to it to hide the focus ring.
+		 *  @private     *  Storage for the customFilter property.
 		 */
-		public function get hideFocusRing():Boolean;
-		public function set hideFocusRing(value:Boolean):void;
+		private var _customFilter : EffectTargetFilter;
 		/**
-		 * An object of type Class that specifies the effect
-		 *  instance class class for this effect class.
+		 *  @private     *  Storage for the duration property.
 		 */
-		public var instanceClass:Class;
+		private var _duration : Number;
 		/**
-		 * A read-only flag which is true if any instances of the effect
-		 *  are currently playing, and false if none are.
+		 *  @private
 		 */
-		public function get isPlaying():Boolean;
+		local var durationExplicitlySet : Boolean;
 		/**
-		 * Additional delay, in milliseconds, for effect targets
-		 *  after the first target of the effect.
-		 *  This value is added to the value
-		 *  of the startDelay property.
+		 *  @private	 *  Storage for the effectTargetHost property.
 		 */
-		public function get perElementOffset():Number;
-		public function set perElementOffset(value:Number):void;
+		private var _effectTargetHost : IEffectTargetHost;
 		/**
-		 * An Array of property names to use when performing filtering.
-		 *  This property is used internally and should not be set by
-		 *  effect users.
+		 *  A flag containing <code>true</code> if the end values	 *  of an effect have already been determined,      *  or <code>false</code> if they should be acquired from the	 *  current properties of the effect targets when the effect runs.      *  This property is required by data effects because the sequence	 *  of setting up the data effects, such as DefaultListEffect	 *  and DefaultTileListEffect, is more complicated than for	 *  normal effects.     *     *  @default false
 		 */
-		public function get relevantProperties():Array;
-		public function set relevantProperties(value:Array):void;
+		protected var endValuesCaptured : Boolean;
 		/**
-		 * An Array of style names to use when performing filtering.
-		 *  This property is used internally and should not be set by
-		 *  effect users.
+		 *  @private     *  Storage for the filter property.
 		 */
-		public function get relevantStyles():Array;
-		public function set relevantStyles(value:Array):void;
+		private var _filter : String;
 		/**
-		 * Number of times to repeat the effect.
-		 *  Possible values are any integer greater than or equal to 0.
-		 *  A value of 1 means to play the effect once.
-		 *  A value of 0 means to play the effect indefinitely
-		 *  until stopped by a call to the end() method.
+		 *  @private	 *  Storage for the hideFocusRing property.
 		 */
-		public var repeatCount:int = 1;
+		private var _hideFocusRing : Boolean;
 		/**
-		 * Amount of time, in milliseconds, to wait before repeating the effect.
-		 *  Possible values are any integer greater than or equal to 0.
+		 *  An object of type Class that specifies the effect     *  instance class class for this effect class.      *       *  <p>All subclasses of the Effect class must set this property      *  in their constructor.</p>
 		 */
-		public var repeatDelay:int = 0;
+		public var instanceClass : Class;
 		/**
-		 * Amount of time, in milliseconds, to wait before starting the effect.
-		 *  Possible values are any int greater than or equal to 0.
-		 *  If the effect is repeated by using the repeatCount
-		 *  property, the startDelay is only applied
-		 *  to the first time the effect is played.
+		 *  @private	 *  Storage for the perElementOffset property.
 		 */
-		public var startDelay:int = 0;
+		private var _perElementOffset : Number;
 		/**
-		 * If true, blocks all background processing
-		 *  while the effect is playing.
-		 *  Background processing includes measurement, layout, and
-		 *  processing responses that have arrived from the server.
-		 *  The default value is false.
+		 *  @private     *  Storage for the relevantProperties property.
 		 */
-		public var suspendBackgroundProcessing:Boolean = false;
+		private var _relevantProperties : Array;
 		/**
-		 * The UIComponent object to which this effect is applied.
-		 *  When an effect is triggered by an effect trigger,
-		 *  the target property is automatically set to be
-		 *  the object that triggers the effect.
+		 *  @private	 *  Storage for the relevantStyles property.
 		 */
-		public function get target():Object;
-		public function set target(value:Object):void;
+		private var _relevantStyles : Array;
 		/**
-		 * An Array of UIComponent objects that are targets for the effect.
-		 *  When the effect is playing, it performs the effect on each target
-		 *  in parallel.
-		 *  Setting the target property replaces all objects
-		 *  in this Array.
-		 *  When the targets property is set, the target
-		 *  property returns the first item in this Array.
+		 *  Number of times to repeat the effect.     *  Possible values are any integer greater than or equal to 0.     *  A value of 1 means to play the effect once.     *  A value of 0 means to play the effect indefinitely     *  until stopped by a call to the <code>end()</code> method.     *     *  @default 1
 		 */
-		public function get targets():Array;
-		public function set targets(value:Array):void;
+		public var repeatCount : int;
 		/**
-		 * The Event object passed to this Effect
-		 *  by the EffectManager when an effect is triggered,
-		 *  or null if the effect is not being
-		 *  played by the EffectManager.
+		 *  Amount of time, in milliseconds, to wait before repeating the effect.     *  Possible values are any integer greater than or equal to 0.     *     *  @default 0
 		 */
-		public function get triggerEvent():Event;
-		public function set triggerEvent(value:Event):void;
+		public var repeatDelay : int;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object (default = null)> The Object to animate with this effect.
+		 *  Amount of time, in milliseconds, to wait before starting the effect.     *  Possible values are any int greater than or equal to 0.     *  If the effect is repeated by using the <code>repeatCount</code>     *  property, the <code>startDelay</code> is only applied     *  to the first time the effect is played.     *     *  @default 0
 		 */
-		public function Effect(target:Object = null);
+		public var startDelay : int;
 		/**
-		 * Used internally by the Effect infrastructure.
-		 *  If captureStartValues() has been called,
-		 *  then when Flex calls the play() method, it uses this function
-		 *  to set the targets back to the starting state.
-		 *  The default behavior is to take the value captured
-		 *  using the getValueFromTarget() method
-		 *  and set it directly on the target's property.
-		 *
-		 * @param target            <Object> The effect target.
-		 * @param property          <String> The target property.
-		 * @param value             <*> The value of the property.
-		 * @param props             <Object> Array of Objects, where each Array element contains a
-		 *                            start and end Object
-		 *                            for the properties that the effect is monitoring.
+		 *  If <code>true</code>, blocks all background processing     *  while the effect is playing.     *  Background processing includes measurement, layout, and     *  processing responses that have arrived from the server.     *  The default value is <code>false</code>.     *     *  <p>You are encouraged to set this property to     *  <code>true</code> in most cases, because it improves     *  the performance of the application.     *  However, the property should be set to <code>false</code>     *  if either of the following is true:</p>     *  <ul>     *    <li>User input may arrive while the effect is playing,     *    and the application must respond to the user input     *    before the effect finishes playing.</li>     *    <li>A response may arrive from the server while the effect     *    is playing, and the application must process the response     *    while the effect is still playing.</li>     *  </ul>     *     *  @default false
 		 */
-		protected function applyValueToTarget(target:Object, property:String, value:*, props:Object):void;
+		public var suspendBackgroundProcessing : Boolean;
 		/**
-		 * Captures the current values of the relevant properties
-		 *  on the effect's targets and saves them as end values.
+		 *  @private     *  Storage for the targets property.
 		 */
-		public function captureEndValues():void;
+		private var _targets : Array;
 		/**
-		 * Captures the current values of the relevant properties
-		 *  of an additional set of targets
-		 *
-		 * @param targets           <Array> Array of targets for which values will be captured
+		 *  @private     *  Storage for the triggerEvent property.
 		 */
-		public function captureMoreStartValues(targets:Array):void;
+		private var _triggerEvent : Event;
+
 		/**
-		 * Captures the current values of the relevant properties
-		 *  on the effect's targets.
-		 *  Flex automatically calls the captureStartValues()
-		 *  method when the effect is part of a transition.
+		 *  @copy mx.effects.IEffect#className
 		 */
-		public function captureStartValues():void;
+		public function get className () : String;
 		/**
-		 * Creates a single effect instance and initializes it.
-		 *  Use this method instead of the play() method
-		 *  to manipulate the effect instance properties
-		 *  before the effect instance plays.
-		 *
-		 * @param target            <Object (default = null)> Object to animate with this effect.
-		 * @return                  <IEffectInstance> The effect instance object for the effect.
+		 *  @copy mx.effects.IEffect#customFilter
 		 */
-		public function createInstance(target:Object = null):IEffectInstance;
+		public function get customFilter () : EffectTargetFilter;
 		/**
-		 * Takes an Array of target objects and invokes the
-		 *  createInstance() method on each target.
-		 *
-		 * @param targets           <Array (default = null)> Array of objects to animate with this effect.
-		 * @return                  <Array> Array of effect instance objects, one per target,
-		 *                            for the effect.
+		 *  @private
 		 */
-		public function createInstances(targets:Array = null):Array;
+		public function set customFilter (value:EffectTargetFilter) : void;
 		/**
-		 * Removes event listeners from an instance
-		 *  and removes it from the list of instances.
-		 *
-		 * @param instance          <IEffectInstance> 
+		 *  @copy mx.effects.IEffect#duration
 		 */
-		public function deleteInstance(instance:IEffectInstance):void;
+		public function get duration () : Number;
 		/**
-		 * Called when an effect instance has finished playing.
-		 *  If you override this method, ensure that you call the super method.
-		 *
-		 * @param event             <EffectEvent> An event object of type EffectEvent.
+		 *  @private
 		 */
-		protected function effectEndHandler(event:EffectEvent):void;
+		public function set duration (value:Number) : void;
 		/**
-		 * This method is called when the effect instance starts playing.
-		 *  If you override this method, ensure that you call the super method.
-		 *
-		 * @param event             <EffectEvent> An event object of type EffectEvent.
+		 *  @copy mx.effects.IEffect#effectTargetHost
 		 */
-		protected function effectStartHandler(event:EffectEvent):void;
+		public function get effectTargetHost () : IEffectTargetHost;
 		/**
-		 * Interrupts an effect that is currently playing,
-		 *  and jumps immediately to the end of the effect.
-		 *  Calling this method invokes the EffectInstance.end()
-		 *  method.
-		 *
-		 * @param effectInstance    <IEffectInstance (default = null)> EffectInstance to terminate.
+		 *  @private
 		 */
-		public function end(effectInstance:IEffectInstance = null):void;
+		public function set effectTargetHost (value:IEffectTargetHost) : void;
 		/**
-		 * Determines the logic for filtering out an effect instance.
-		 *  The CompositeEffect class overrides this method.
-		 *
-		 * @param propChanges       <Array> The properties modified by the effect.
-		 * @param target            <Object> The effect target.
-		 * @return                  <Boolean> Returns true if the effect instance should play.
+		 *  @copy mx.effects.IEffect#filter
 		 */
-		protected function filterInstance(propChanges:Array, target:Object):Boolean;
+		public function get filter () : String;
 		/**
-		 * Returns an Array of Strings, where each String is the name
-		 *  of a property that is changed by this effect.
-		 *  For example, the Move effect returns an Array that contains
-		 *  "x" and "y".
-		 *
-		 * @return                  <Array> An Array of Strings specifying the names of the
-		 *                            properties modified by this effect.
+		 *  @private
 		 */
-		public function getAffectedProperties():Array;
+		public function set filter (value:String) : void;
 		/**
-		 * Called by the captureStartValues() method to get the value
-		 *  of a property from the target.
-		 *  This function should only be called internally
-		 *  by the effects framework.
-		 *  The default behavior is to simply return target[property].
-		 *  Effect developers can override this function
-		 *  if you need a different behavior.
-		 *
-		 * @param target            <Object> The effect target.
-		 * @param property          <String> The target property.
-		 * @return                  <*> The value of the target property.
+		 *  @copy mx.effects.IEffect#hideFocusRing
 		 */
-		protected function getValueFromTarget(target:Object, property:String):*;
+		public function get hideFocusRing () : Boolean;
 		/**
-		 * Copies properties of the effect to the effect instance.
-		 *
-		 * @param instance          <IEffectInstance> The effect instance to initialize.
+		 *  @private
 		 */
-		protected function initInstance(instance:IEffectInstance):void;
+		public function set hideFocusRing (value:Boolean) : void;
 		/**
-		 * Pauses the effect until you call the resume() method.
+		 *  @copy mx.effects.IEffect#isPlaying
 		 */
-		public function pause():void;
+		public function get isPlaying () : Boolean;
 		/**
-		 * Begins playing the effect.
-		 *  You typically call the end() method
-		 *  before you call the play() method
-		 *  to ensure that any previous instance of the effect
-		 *  has ended before you start a new one.
-		 *
-		 * @param targets           <Array (default = null)> Array of target objects on which to play this effect.
-		 *                            If this parameter is specified, then the effect's targets
-		 *                            property is not used.
-		 * @param playReversedFromEnd<Boolean (default = false)> If true,
-		 *                            play the effect backwards.
-		 * @return                  <Array> Array of EffectInstance objects, one per target,
-		 *                            for the effect.
+		 *  @copy mx.effects.IEffect#perElementOffset
 		 */
-		public function play(targets:Array = null, playReversedFromEnd:Boolean = false):Array;
+		public function get perElementOffset () : Number;
 		/**
-		 * Resumes the effect after it has been paused
-		 *  by a call to the pause() method.
+		 *  @private
 		 */
-		public function resume():void;
+		public function set perElementOffset (value:Number) : void;
 		/**
-		 * Plays the effect in reverse, if the effect is currently playing,
-		 *  starting from the current position of the effect.
+		 *  @copy mx.effects.IEffect#relevantProperties
 		 */
-		public function reverse():void;
+		public function get relevantProperties () : Array;
 		/**
-		 * Stops the effect, leaving the effect targets in their current state.
-		 *  Unlike a call to the pause() method,
-		 *  you cannot call the resume() method after calling
-		 *  the stop() method.
-		 *  However, you can call the play() method to restart the effect.
+		 *  @private
 		 */
-		public function stop():void;
+		public function set relevantProperties (value:Array) : void;
+		/**
+		 *  @copy mx.effects.IEffect#relevantStyles
+		 */
+		public function get relevantStyles () : Array;
+		/**
+		 *  @private
+		 */
+		public function set relevantStyles (value:Array) : void;
+		/**
+		 *  @copy mx.effects.IEffect#target
+		 */
+		public function get target () : Object;
+		/**
+		 *  @private
+		 */
+		public function set target (value:Object) : void;
+		/**
+		 *  @copy mx.effects.IEffect#targets
+		 */
+		public function get targets () : Array;
+		/**
+		 *  @private
+		 */
+		public function set targets (value:Array) : void;
+		/**
+		 *  @copy mx.effects.IEffect#triggerEvent
+		 */
+		public function get triggerEvent () : Event;
+		/**
+		 *  @private
+		 */
+		public function set triggerEvent (value:Event) : void;
+
+		/**
+		 *  @private
+		 */
+		private static function mergeArrays (a1:Array, a2:Array) : Array;
+		/**
+		 *  @private
+		 */
+		private static function stripUnchangedValues (propChanges:Array) : Array;
+		/**
+		 *  Constructor.     *     *  <p>Starting an effect is usually a three-step process:</p>     *     *  <ul>     *    <li>Create an instance of the effect object     *    with the <code>new</code> operator.</li>     *    <li>Set properties on the effect object,     *    such as <code>duration</code>.</li>     *    <li>Call the <code>play()</code> method     *    or assign the effect to a trigger.</li>     *  </ul>     *     *  @param target The Object to animate with this effect.
+		 */
+		public function Effect (target:Object = null);
+		/**
+		 *  @copy mx.effects.IEffect#getAffectedProperties()
+		 */
+		public function getAffectedProperties () : Array;
+		/**
+		 *  @copy mx.effects.IEffect#createInstances()
+		 */
+		public function createInstances (targets:Array = null) : Array;
+		/**
+		 *  @copy mx.effects.IEffect#createInstance()
+		 */
+		public function createInstance (target:Object = null) : IEffectInstance;
+		/**
+		 *  Copies properties of the effect to the effect instance.      *     *  <p>Flex calls this method from the <code>Effect.createInstance()</code>     *  method; you do not have to call it yourself. </p>     *     *  <p>When you create a custom effect, override this method to      *  copy properties from the Effect class to the effect instance class.      *  In your override, you must call <code>super.initInstance()</code>. </p>     *     *  @param EffectInstance The effect instance to initialize.
+		 */
+		protected function initInstance (instance:IEffectInstance) : void;
+		/**
+		 *  @copy mx.effects.IEffect#deleteInstance()
+		 */
+		public function deleteInstance (instance:IEffectInstance) : void;
+		/**
+		 *  @copy mx.effects.IEffect#play()
+		 */
+		public function play (targets:Array = null, playReversedFromEnd:Boolean = false) : Array;
+		/**
+		 *  @copy mx.effects.IEffect#pause()
+		 */
+		public function pause () : void;
+		/**
+		 *  @copy mx.effects.IEffect#stop()
+		 */
+		public function stop () : void;
+		/**
+		 *  @copy mx.effects.IEffect#resume()
+		 */
+		public function resume () : void;
+		/**
+		 *  @copy mx.effects.IEffect#reverse()
+		 */
+		public function reverse () : void;
+		/**
+		 *  @copy mx.effects.IEffect#end()
+		 */
+		public function end (effectInstance:IEffectInstance = null) : void;
+		/**
+		 *  Determines the logic for filtering out an effect instance.     *  The CompositeEffect class overrides this method.     *     *  @param propChanges The properties modified by the effect.     *     *  @param targ The effect target.     *     *  @return Returns <code>true</code> if the effect instance should play.
+		 */
+		protected function filterInstance (propChanges:Array, target:Object) : Boolean;
+		/**
+		 *  @copy mx.effects.IEffect#captureStartValues()
+		 */
+		public function captureStartValues () : void;
+		/**
+		 *  @copy mx.effects.IEffect#captureMoreStartValues()
+		 */
+		public function captureMoreStartValues (targets:Array) : void;
+		/**
+		 *  @copy mx.effects.IEffect#captureEndValues()
+		 */
+		public function captureEndValues () : void;
+		/**
+		 *  @private     *  Used internally to grab the values of the relevant properties
+		 */
+		function captureValues (propChanges:Array, setStartValues:Boolean) : Array;
+		/**
+		 *  Called by the <code>captureStartValues()</code> method to get the value     *  of a property from the target.     *  This function should only be called internally     *  by the effects framework.     *  The default behavior is to simply return <code>target[property]</code>.     *  Effect developers can override this function     *  if you need a different behavior.      *     *  @param target The effect target.     *     *  @param property The target property.     *     *  @return The value of the target property.
+		 */
+		protected function getValueFromTarget (target:Object, property:String) : *;
+		/**
+		 *  @private     *  Applies the start values found in the array of PropertyChanges     *  to the relevant targets.
+		 */
+		function applyStartValues (propChanges:Array, targets:Array) : void;
+		/**
+		 *  Used internally by the Effect infrastructure.     *  If <code>captureStartValues()</code> has been called,     *  then when Flex calls the <code>play()</code> method, it uses this function     *  to set the targets back to the starting state.     *  The default behavior is to take the value captured     *  using the <code>getValueFromTarget()</code> method     *  and set it directly on the target's property. For example: <pre>     *       *  target[property] = value;</pre>     *     *  <p>Only override this method if you need to apply     *  the captured values in a different way.     *  Note that style properties of a target are set     *  using a different mechanism.     *  Use the <code>relevantStyles</code> property to specify     *  which style properties to capture and apply. </p>     *     *  @param target The effect target.     *     *  @param property The target property.     *     *  @param value The value of the property.      *     *  @param props Array of Objects, where each Array element contains a      *  <code>start</code> and <code>end</code> Object     *  for the properties that the effect is monitoring.
+		 */
+		protected function applyValueToTarget (target:Object, property:String, value:*, props:Object) : void;
+		/**
+		 *  This method is called when the effect instance starts playing.      *  If you override this method, ensure that you call the super method.      *     *  @param event An event object of type EffectEvent.
+		 */
+		protected function effectStartHandler (event:EffectEvent) : void;
+		/**
+		 *  Called when an effect instance has finished playing.      *  If you override this method, ensure that you call the super method.     *     *  @param event An event object of type EffectEvent.
+		 */
+		protected function effectEndHandler (event:EffectEvent) : void;
 	}
 }

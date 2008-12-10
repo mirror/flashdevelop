@@ -1,13 +1,13 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.collections.errors {
-	public class CollectionViewError extends Error {
+﻿package mx.collections.errors
+{
+	/**
+	 *  The <code>CollectionViewError</code> class represents general errors *  within a collection that are not related to specific activities *  such as Cursor seeking. *  Errors of this class are thrown by the ListCollectionView class.
+	 */
+	public class CollectionViewError extends Error
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param message           <String> A message providing information about the error cause.
+		 *  Constructor.	 *	 *  @param message A message providing information about the error cause.
 		 */
-		public function CollectionViewError(message:String);
+		public function CollectionViewError (message:String);
 	}
 }

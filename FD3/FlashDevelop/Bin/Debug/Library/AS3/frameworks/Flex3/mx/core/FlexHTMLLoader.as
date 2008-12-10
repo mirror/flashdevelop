@@ -1,60 +1,60 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-03 13:18] ***/
-/**********************************************************/
-package mx.core {
-	public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexComponent {
+﻿package mx.core
+{
+	import flash.display.FocusDirection;
+	import flash.html.HTMLLoader;
+	import mx.managers.IFocusManagerComplexComponent;
+	import mx.utils.NameUtil;
+
+	/**
+	 *  FlexHTMLLoader is a subclass of the Player's HTMLLoader class used by the *  Flex HTML control. *  It overrides the <code>toString()</code> method *  to return a string indicating the location of the object *  within the hierarchy of DisplayObjects in the application. *  *  @playerversion AIR 1.1
+	 */
+	public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexComponent
+	{
 		/**
-		 * A flag that indicates whether the component can receive focus when selected.
+		 *  @private
 		 */
-		public function get focusEnabled():Boolean;
-		public function set focusEnabled(value:Boolean):void;
+		private var _focusEnabled : Boolean;
 		/**
-		 * Whether the component can receive focus when clicked on.
-		 *  If false, focus will be transferred to
-		 *  the first parent that is mouseFocusEnable
-		 *  set to true.
+		 *  @private     *  Storage for the mouseFocusEnabled property.
 		 */
-		public function get mouseFocusEnabled():Boolean;
-		public function set mouseFocusEnabled(value:Boolean):void;
+		private var _mouseFocusEnabled : Boolean;
+
 		/**
-		 * Constructor.
+		 *  A flag that indicates whether the component can receive focus when selected.     *     *  <p>As an optimization, if a child component in your component     *  implements the IFocusManagerComponent interface, and you     *  never want it to receive focus,     *  you can set <code>focusEnabled</code>     *  to <code>false</code> before calling <code>addChild()</code>     *  on the child component.</p>     *     *  <p>This will cause the FocusManager to ignore this component     *  and not monitor it for changes to the <code>tabEnabled</code>,     *  <code>tabChildren</code>, and <code>mouseFocusEnabled</code> properties.     *  This also means you cannot change this value after     *  <code>addChild()</code> and expect the FocusManager to notice.</p>     *     *  <p>Note: It does not mean that you cannot give this object focus     *  programmatically in your <code>setFocus()</code> method;     *  it just tells the FocusManager to ignore this IFocusManagerComponent     *  component in the Tab and mouse searches.</p>
 		 */
-		public function FlexHTMLLoader();
+		public function get focusEnabled () : Boolean;
 		/**
-		 * Called by the FocusManager when the component receives focus.
-		 *  The component may in turn set focus to an internal component.
-		 *  The component's setFocus() method will still be called when focused by
-		 *  the mouse, but this method will be used when focus changes via the
-		 *  keyboard.
-		 *
-		 * @param direction         <String> one of flash.display.FocusDirection
+		 *  @private
 		 */
-		public function assignFocus(direction:String):void;
+		public function set focusEnabled (value:Boolean) : void;
 		/**
-		 * Called by the FocusManager when the component receives focus.
-		 *  The component should draw or hide a graphic
-		 *  that indicates that the component has focus.
-		 *
-		 * @param isFocused         <Boolean> If true, draw the focus indicator,
-		 *                            otherwise hide it.
+		 *  Whether the component can receive focus when clicked on.     *  If <code>false</code>, focus will be transferred to     *  the first parent that is <code>mouseFocusEnable</code>     *  set to <code>true</code>.     *     *  @default true
 		 */
-		public function drawFocus(isFocused:Boolean):void;
+		public function get mouseFocusEnabled () : Boolean;
 		/**
-		 * Called by the FocusManager when the component receives focus.
-		 *  The component may in turn set focus to an internal component.
+		 *  @private
 		 */
-		public function setFocus():void;
+		public function set mouseFocusEnabled (value:Boolean) : void;
+
 		/**
-		 * Returns a string indicating the location of this object
-		 *  within the hierarchy of DisplayObjects in the Application.
-		 *  This string, such as "MyApp0.HBox5.FlexLoader13",
-		 *  is built by the displayObjectToString() method
-		 *  of the mx.utils.NameUtils class from the name
-		 *  property of the object and its ancestors.
-		 *
-		 * @return                  <String> A String indicating the location of this object
-		 *                            within the DisplayObject hierarchy.
+		 *  Constructor.     *     *  <p>Sets the <code>name</code> property to a string     *  returned by the <code>createUniqueName()</code>     *  method of the mx.utils.NameUtils class.</p>     *     *  <p>This string is the name of the object's class concatenated     *  with an integer that is unique within the application,     *  such as <code>"FlexLoader13"</code>.</p>     *     *  @see flash.display.DisplayObject#name     *  @see mx.utils.NameUtils#createUniqueName()
 		 */
-		public override function toString():String;
+		public function FlexHTMLLoader ();
+		/**
+		 *  Called by the FocusManager when the component receives focus.     *  The component may in turn set focus to an internal component.
+		 */
+		public function setFocus () : void;
+		/**
+		 *  Called by the FocusManager when the component receives focus.     *  The component should draw or hide a graphic     *  that indicates that the component has focus.     *     *  @param isFocused If <code>true</code>, draw the focus indicator,     *  otherwise hide it.
+		 */
+		public function drawFocus (isFocused:Boolean) : void;
+		/**
+		 *  Called by the FocusManager when the component receives focus.     *  The component may in turn set focus to an internal component.     *  The component's <code>setFocus()</code> method will still be called when focused by     *  the mouse, but this method will be used when focus changes via the     *  keyboard.     *     *  @param direction one of flash.display.FocusDirection
+		 */
+		public function assignFocus (direction:String) : void;
+		/**
+		 *  Returns a string indicating the location of this object     *  within the hierarchy of DisplayObjects in the Application.     *  This string, such as <code>"MyApp0.HBox5.FlexLoader13"</code>,     *  is built by the <code>displayObjectToString()</code> method     *  of the mx.utils.NameUtils class from the <code>name</code>     *  property of the object and its ancestors.     *     *  @return A String indicating the location of this object     *  within the DisplayObject hierarchy.     *     *  @see flash.display.DisplayObject#name     *  @see mx.utils.NameUtils#displayObjectToString()
+		 */
+		public function toString () : String;
 	}
 }

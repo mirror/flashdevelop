@@ -1,224 +1,136 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.styles {
+﻿package mx.styles
+{
+	import flash.events.IEventDispatcher;
 	import flash.system.ApplicationDomain;
 	import flash.system.SecurityDomain;
-	public class StyleManager {
+	import mx.core.Singleton;
+	import mx.core.mx_internal;
+
+	/**
+	 *  The StyleManager class manages the following: *  <ul> *    <li>Which CSS style properties the class inherits</li> *    <li>Which style properties are colors, and therefore get special handling</li> *    <li>A list of strings that are aliases for color values</li> *  </ul> * *  @see mx.styles.CSSStyleDeclaration
+	 */
+	public class StyleManager
+	{
 		/**
-		 * Returns an Array of all the CSS selectors that are registered with the StyleManager.
-		 *  You can pass items in this Array to the getStyleDeclaration() method to get the corresponding CSSStyleDeclaration object.
-		 *  Class selectors are prepended with a period.
+		 *  The <code>getColorName()</code> method returns this value if the passed-in     *  String is not a legitimate color name.
 		 */
-		public static function get selectors():Array;
+		public static const NOT_A_COLOR : uint = 0xFFFFFFFF;
 		/**
-		 * Clears the CSSStyleDeclaration object that stores the rules
-		 *  for the specified CSS selector.
-		 *
-		 * @param selector          <String> The name of the CSS selector to clear.
-		 * @param update            <Boolean> Set to true to force an immediate update of the styles.
-		 *                            Set to false to avoid an immediate update of the styles in the application.
-		 *                            For more information about this method, see the description in the setStyleDeclaration()
-		 *                            method.
+		 *  @private     *  Linker dependency on implementation class.
 		 */
-		public static function clearStyleDeclaration(selector:String, update:Boolean):void;
+		private static var implClassDependency : StyleManagerImpl;
 		/**
-		 * Returns the numeric RGB color value that corresponds to the
-		 *  specified color string.
-		 *  The color string can be either a case-insensitive color name
-		 *  such as "red", "Blue", or
-		 *  "haloGreen", a hexadecimal value such as 0xFF0000, or a #-hexadecimal String
-		 *  such as "#FF0000".
-		 *
-		 * @param colorName         <Object> The color name.
-		 * @return                  <uint> Returns a uint that represents the color value or NOT_A_COLOR
-		 *                            if the value of the colorName property is not an alias for a color.
+		 *  @private     *  Storage for the impl getter.     *  This gets initialized on first access,     *  not at static initialization time, in order to ensure     *  that the Singleton registry has already been initialized.
 		 */
-		public static function getColorName(colorName:Object):uint;
+		private static var _impl : IStyleManager2;
+
 		/**
-		 * Converts each element of the colors Array from a color name
-		 *  to a numeric RGB color value.
-		 *  Each color String can be either a case-insensitive color name
-		 *  such as "red", "Blue", or
-		 *  "haloGreen", a hexadecimal value such as 0xFF0000, or a #-hexadecimal String
-		 *  such as "#FF0000"..
-		 *
-		 * @param colors            <Array> An Array of color names.
+		 *  @private     *  The singleton instance of StyleManagerImpl which was     *  registered as implementing the IStyleManager2 interface.
 		 */
-		public static function getColorNames(colors:Array):void;
+		private static function get impl () : IStyleManager2;
 		/**
-		 * Gets the CSSStyleDeclaration object that stores the rules
-		 *  for the specified CSS selector.
-		 *
-		 * @param selector          <String> The name of the CSS selector.
-		 * @return                  <CSSStyleDeclaration> The style declaration whose name matches the selector property.
+		 *  @private     *  The root of all proto chains used for looking up styles.     *  This object is initialized once by initProtoChainRoots() and     *  then updated by calls to setStyle() on the global CSSStyleDeclaration.     *  It is accessed by code that needs to construct proto chains,     *  such as the initProtoChain() method of UIComponent.
 		 */
-		public static function getStyleDeclaration(selector:String):CSSStyleDeclaration;
+		static function get stylesRoot () : Object;
+		static function set stylesRoot (value:Object) : void;
 		/**
-		 * Tests to see if the given String is an alias for a color value. For example,
-		 *  by default, the String "blue" is an alias for 0x0000FF.
-		 *
-		 * @param colorName         <String> The color name to test. This parameter is not case-sensitive.
-		 * @return                  <Boolean> Returns true if colorName is an alias
-		 *                            for a color.
+		 *  @private     *  Set of inheriting non-color styles.     *  This is not the complete set from CSS.     *  Some of the omitted we don't support at all,     *  others may be added later as needed.     *  The method registerInheritingStyle() adds to this set     *  and isInheritingStyle() queries this set.
 		 */
-		public static function isColorName(colorName:String):Boolean;
+		static function get inheritingStyles () : Object;
+		static function set inheritingStyles (value:Object) : void;
 		/**
-		 * Tests to see if a style is inheriting.
-		 *
-		 * @param styleName         <String> The name of the style that you test to see if it is inheriting.
-		 * @return                  <Boolean> Returns true if the specified style is inheriting.
+		 *  @private
 		 */
-		public static function isInheritingStyle(styleName:String):Boolean;
+		static function get typeSelectorCache () : Object;
+		static function set typeSelectorCache (value:Object) : void;
 		/**
-		 * Test to see if a TextFormat style is inheriting.
-		 *
-		 * @param styleName         <String> The name of the style that you test to see if it is inheriting.
-		 * @return                  <Boolean> Returns true if the specified TextFormat style
-		 *                            is inheriting.
+		 *  Returns an Array of all the CSS selectors that are registered with the StyleManager.     *  You can pass items in this Array to the <code>getStyleDeclaration()</code> method to get the corresponding CSSStyleDeclaration object.     *  Class selectors are prepended with a period.     *       *  @return An Array of all of the selectors
 		 */
-		public static function isInheritingTextFormatStyle(styleName:String):Boolean;
+		public static function get selectors () : Array;
+
 		/**
-		 * Tests to see if this style affects the component's parent container in
-		 *  such a way as to require that the parent container redraws itself when this style changes.
-		 *
-		 * @param styleName         <String> The name of the style to test.
-		 * @return                  <Boolean> Returns true if the specified style is one
-		 *                            which may affect the appearance or layout of the component's
-		 *                            parent container.
+		 *  @private     *  This method is called by code autogenerated by the MXML compiler,     *  after StyleManager.styles is popuplated with CSSStyleDeclarations.
 		 */
-		public static function isParentDisplayListInvalidatingStyle(styleName:String):Boolean;
+		static function initProtoChainRoots () : void;
 		/**
-		 * Tests to see if the style changes the size of the component's parent container.
-		 *
-		 * @param styleName         <String> The name of the style to test.
-		 * @return                  <Boolean> Returns true if the specified style is one
-		 *                            which may affect the measured size of the component's
-		 *                            parent container.
+		 *  Gets the CSSStyleDeclaration object that stores the rules     *  for the specified CSS selector.     *     *  <p>If the <code>selector</code> parameter starts with a period (.),     *  the returned CSSStyleDeclaration is a class selector and applies only to those instances     *  whose <code>styleName</code> property specifies that selector     *  (not including the period).     *  For example, the class selector <code>".bigMargins"</code>     *  applies to any UIComponent whose <code>styleName</code>     *  is <code>"bigMargins"</code>.</p>     *     *  <p>If the <code>selector</code> parameter does not start with a period,     *  the returned CSSStyleDeclaration is a type selector and applies to all instances     *  of that type.     *  For example, the type selector <code>"Button"</code>     *  applies to all instances of Button and its subclasses.</p>     *     *  <p>The <code>global</code> selector is similar to a type selector     *  and does not start with a period.</p>     *     *  @param selector The name of the CSS selector.     *     *  @return The style declaration whose name matches the <code>selector</code> property.
 		 */
-		public static function isParentSizeInvalidatingStyle(styleName:String):Boolean;
+		public static function getStyleDeclaration (selector:String) : CSSStyleDeclaration;
 		/**
-		 * Tests to see if a style changes the size of a component.
-		 *
-		 * @param styleName         <String> The name of the style to test.
-		 * @return                  <Boolean> Returns true if the specified style is one
-		 *                            which may affect the measured size of the component.
+		 *  Sets the CSSStyleDeclaration object that stores the rules     *  for the specified CSS selector.     *     *  <p>If the <code>selector</code> parameter starts with a period (.),     *  the specified selector is a "class selector" and applies only to those instances     *  whose <code>styleName</code> property specifies that selector     *  (not including the period).     *  For example, the class selector <code>".bigMargins"</code>     *  applies to any UIComponent whose <code>styleName</code>     *  is <code>"bigMargins"</code>.</p>     *     *  <p>If the <code>selector</code> parameter does not start with a period,     *  the specified selector is a "type selector" and applies to all instances     *  of that type.     *  For example, the type selector <code>"Button"</code>     *  applies to all instances of Button and its subclasses.</p>     *     *  <p>The <code>global</code> selector is similar to a type selector     *  and does not start with a period.</p>     *     *  @param selector The name of the CSS selector.     *  @param styleDeclaration The new style declaration.     *  @param update Set to <code>true</code> to force an immediate update of the styles; internally, Flex     *  calls the <code>styleChanged()</code> method of UIComponent.     *  Set to <code>false</code> to avoid an immediate update of the styles in the application.     *      *  <p>The styles will be updated the next time one of the following methods is called with     *  the <code>update</code> property set to <code>true</code>:     *  <ul>     *   <li><code>clearStyleDeclaration()</code></li>     *   <li><code>loadStyleDeclarations()</code></li>     *   <li><code>setStyleDeclaration()</code></li>     *   <li><code>unloadStyleDeclarations()</code></li>     *  </ul>     *  </p>     *      *  <p>Typically, if you call the one of these methods multiple times,      *  you set this property to <code>true</code> only on the last call,     *  so that Flex does not call the <code>styleChanged()</code> method multiple times.</p>     *      *  <p>If you call the <code>getStyle()</code> method, Flex returns the style value      *  that was last applied to the UIComponent through a call to the <code>styleChanged()</code> method.      *  The component's appearance might not reflect the value returned by the <code>getStyle()</code> method. This occurs     *  because one of these style declaration methods might not yet have been called with the      *  <code>update</code> property set to <code>true</code>.</p>     *
 		 */
-		public static function isSizeInvalidatingStyle(styleName:String):Boolean;
+		public static function setStyleDeclaration (selector:String, styleDeclaration:CSSStyleDeclaration, update:Boolean) : void;
 		/**
-		 * Determines if a specified parameter is a valid style property.
-		 *
-		 * @param value             <*> The style property to test.
-		 * @return                  <Boolean> If you pass the value returned by a getStyle() method call
-		 *                            to this method, it returns true if the style
-		 *                            was set and false if it was not set.
+		 *  Clears the CSSStyleDeclaration object that stores the rules     *  for the specified CSS selector.     *     *  <p>If the specified selector is a class selector (for example, ".bigMargins" or ".myStyle"),     *  you must be sure to start the     *  <code>selector</code> property with a period (.).</p>     *     *  <p>If the specified selector is a type selector (for example, "Button"), do not start the     *  <code>selector</code> property with a period.</p>     *     *  <p>The <code>global</code> selector is similar to a type selector     *  and does not start with a period.</p>     *     *  @param selector The name of the CSS selector to clear.     *  @param update Set to <code>true</code> to force an immediate update of the styles.     *  Set to <code>false</code> to avoid an immediate update of the styles in the application.     *  For more information about this method, see the description in the <code>setStyleDeclaration()</code>     *  method.     *       *  @see #setStyleDeclaration()
 		 */
-		public static function isValidStyleValue(value:*):Boolean;
+		public static function clearStyleDeclaration (selector:String, update:Boolean) : void;
 		/**
-		 * Loads a style SWF.
-		 *
-		 * @param url               <String> Location of the style SWF.
-		 * @param update            <Boolean (default = true)> Set to true to force
-		 *                            an immediate update of the styles.
-		 *                            Set to false to avoid an immediate update
-		 *                            of the styles in the application.
-		 *                            This parameter is optional and defaults to true
-		 *                            For more information about this parameter, see the description
-		 *                            in the setStyleDeclaration() method.
-		 * @param trustContent      <Boolean (default = false)> Obsolete, no longer used.
-		 *                            This parameter is optional and defaults to false.
-		 * @param applicationDomain <ApplicationDomain (default = null)> The ApplicationDomain passed to the
-		 *                            load() method of the IModuleInfo that loads the style SWF.
-		 *                            This parameter is optional and defaults to null.
-		 * @param securityDomain    <SecurityDomain (default = null)> The SecurityDomain passed to the
-		 *                            load() method of the IModuleInfo that loads the style SWF.
-		 *                            This parameter is optional and defaults to null.
-		 * @return                  <IEventDispatcher> An IEventDispatcher implementation that supports
-		 *                            StyleEvent.PROGRESS, StyleEvent.COMPLETE, and
-		 *                            StyleEvent.ERROR.
+		 *  @private     *  After an entire selector is added, replaced, or removed,     *  this method updates all the DisplayList trees.
 		 */
-		public static function loadStyleDeclarations(url:String, update:Boolean = true, trustContent:Boolean = false, applicationDomain:ApplicationDomain = null, securityDomain:SecurityDomain = null):IEventDispatcher;
+		static function styleDeclarationsChanged () : void;
 		/**
-		 * Adds a color name to the list of aliases for colors.
-		 *
-		 * @param colorName         <String> The name of the color to add to the list; for example, "blue".
-		 *                            If you later access this color name, the value is not case-sensitive.
-		 * @param colorValue        <uint> Color value, for example, 0x0000FF.
+		 *  Adds to the list of styles that can inherit values     *  from their parents.     *     *  <p><b>Note:</b> Ensure that you avoid using duplicate style names, as name     *  collisions can result in decreased performance if a style that is     *  already used becomes inheriting.</p>     *     *  @param styleName The name of the style that is added to the list of styles that can inherit values.
 		 */
-		public static function registerColorName(colorName:String, colorValue:uint):void;
+		public static function registerInheritingStyle (styleName:String) : void;
 		/**
-		 * Adds to the list of styles that can inherit values
-		 *  from their parents.
-		 *
-		 * @param styleName         <String> The name of the style that is added to the list of styles that can inherit values.
+		 *  Tests to see if a style is inheriting.     *     *  @param styleName The name of the style that you test to see if it is inheriting.     *     *  @return Returns <code>true</code> if the specified style is inheriting.
 		 */
-		public static function registerInheritingStyle(styleName:String):void;
+		public static function isInheritingStyle (styleName:String) : Boolean;
 		/**
-		 * Adds to the list of styles which may affect the appearance
-		 *  or layout of the component's parent container.
-		 *  When one of these styles is set with setStyle(),
-		 *  the invalidateDisplayList() method is auomatically called on the component's
-		 *  parent container to make it redraw and/or relayout its children.
-		 *
-		 * @param styleName         <String> The name of the style to register.
+		 *  Test to see if a TextFormat style is inheriting.     *     *  @param styleName The name of the style that you test to see if it is inheriting.     *     *  @return Returns <code>true</code> if the specified TextFormat style     *  is inheriting.
 		 */
-		public static function registerParentDisplayListInvalidatingStyle(styleName:String):void;
+		public static function isInheritingTextFormatStyle (styleName:String) : Boolean;
 		/**
-		 * Adds to the list of styles which may affect the measured size
-		 *  of the component's parent container.
-		 *
-		 * @param styleName         <String> The name of the style to register.
+		 *  Adds to the list of styles which may affect the measured size     *  of the component.     *  When one of these styles is set with <code>setStyle()</code>,     *  the <code>invalidateSize()</code> method is automatically called on the component     *  to make its measured size get recalculated later.     *     *  @param styleName The name of the style that you add to the list.
 		 */
-		public static function registerParentSizeInvalidatingStyle(styleName:String):void;
+		public static function registerSizeInvalidatingStyle (styleName:String) : void;
 		/**
-		 * Adds to the list of styles which may affect the measured size
-		 *  of the component.
-		 *  When one of these styles is set with setStyle(),
-		 *  the invalidateSize() method is automatically called on the component
-		 *  to make its measured size get recalculated later.
-		 *
-		 * @param styleName         <String> The name of the style that you add to the list.
+		 *  Tests to see if a style changes the size of a component.     *     *  <p>When one of these styles is set with the <code>setStyle()</code> method,     *  the <code>invalidateSize()</code> method is automatically called on the component     *  to make its measured size get recalculated later.</p>     *     *  @param styleName The name of the style to test.     *     *  @return Returns <code>true</code> if the specified style is one     *  which may affect the measured size of the component.
 		 */
-		public static function registerSizeInvalidatingStyle(styleName:String):void;
+		public static function isSizeInvalidatingStyle (styleName:String) : Boolean;
 		/**
-		 * Sets the CSSStyleDeclaration object that stores the rules
-		 *  for the specified CSS selector.
-		 *
-		 * @param selector          <String> The name of the CSS selector.
-		 * @param styleDeclaration  <CSSStyleDeclaration> The new style declaration.
-		 * @param update            <Boolean> Set to true to force an immediate update of the styles; internally, Flex
-		 *                            calls the styleChanged() method of UIComponent.
-		 *                            Set to false to avoid an immediate update of the styles in the application.
-		 *                            The styles will be updated the next time one of the following methods is called with
-		 *                            the update property set to true:
-		 *                            clearStyleDeclaration()
-		 *                            loadStyleDeclarations()
-		 *                            setStyleDeclaration()
-		 *                            unloadStyleDeclarations()
-		 *                            Typically, if you call the one of these methods multiple times,
-		 *                            you set this property to true only on the last call,
-		 *                            so that Flex does not call the styleChanged() method multiple times.
-		 *                            If you call the getStyle() method, Flex returns the style value
-		 *                            that was last applied to the UIComponent through a call to the styleChanged() method.
-		 *                            The component's appearance might not reflect the value returned by the getStyle() method. This occurs
-		 *                            because one of these style declaration methods might not yet have been called with the
-		 *                            update property set to true.
+		 *  Adds to the list of styles which may affect the measured size     *  of the component's parent container.     *  <p>When one of these styles is set with <code>setStyle()</code>,     *  the <code>invalidateSize()</code> method is automatically called on the component's     *  parent container to make its measured size get recalculated     *  later.</p>     *     *  @param styleName The name of the style to register.
 		 */
-		public static function setStyleDeclaration(selector:String, styleDeclaration:CSSStyleDeclaration, update:Boolean):void;
+		public static function registerParentSizeInvalidatingStyle (styleName:String) : void;
 		/**
-		 * Unloads a style SWF.
-		 *
-		 * @param url               <String> Location of the style SWF.
-		 * @param update            <Boolean (default = true)> Set to true to force an immediate update of the styles.
-		 *                            Set to false to avoid an immediate update of the styles in the application.
-		 *                            For more information about this method, see the description in the setStyleDeclaration()
-		 *                            method.
+		 *  Tests to see if the style changes the size of the component's parent container.     *     *  <p>When one of these styles is set with <code>setStyle()</code>,     *  the <code>invalidateSize()</code> method is automatically called on the component's     *  parent container to make its measured size get recalculated     *  later.</p>     *     *  @param styleName The name of the style to test.     *     *  @return Returns <code>true</code> if the specified style is one     *  which may affect the measured size of the component's     *  parent container.
 		 */
-		public static function unloadStyleDeclarations(url:String, update:Boolean = true):void;
+		public static function isParentSizeInvalidatingStyle (styleName:String) : Boolean;
 		/**
-		 * The getColorName() method returns this value if the passed-in
-		 *  String is not a legitimate color name.
+		 *  Adds to the list of styles which may affect the appearance     *  or layout of the component's parent container.     *  When one of these styles is set with <code>setStyle()</code>,     *  the <code>invalidateDisplayList()</code> method is auomatically called on the component's     *  parent container to make it redraw and/or relayout its children.     *     *  @param styleName The name of the style to register.
 		 */
-		public static const NOT_A_COLOR:uint = 0xFFFFFFFF;
+		public static function registerParentDisplayListInvalidatingStyle (styleName:String) : void;
+		/**
+		 *  Tests to see if this style affects the component's parent container in     *  such a way as to require that the parent container redraws itself when this style changes.     *     *  <p>When one of these styles is set with <code>setStyle()</code>,     *  the <code>invalidateDisplayList()</code> method is auomatically called on the component's     *  parent container to make it redraw and/or relayout its children.</p>     *     *  @param styleName The name of the style to test.     *     *  @return Returns <code>true</code> if the specified style is one     *  which may affect the appearance or layout of the component's     *  parent container.
+		 */
+		public static function isParentDisplayListInvalidatingStyle (styleName:String) : Boolean;
+		/**
+		 *  Adds a color name to the list of aliases for colors.     *     *  @param colorName The name of the color to add to the list; for example, "blue".     *  If you later access this color name, the value is not case-sensitive.     *     *  @param colorValue Color value, for example, 0x0000FF.
+		 */
+		public static function registerColorName (colorName:String, colorValue:uint) : void;
+		/**
+		 *  Tests to see if the given String is an alias for a color value. For example,     *  by default, the String "blue" is an alias for 0x0000FF.     *     *  @param colorName The color name to test. This parameter is not case-sensitive.     *     *  @return Returns <code>true</code> if <code>colorName</code> is an alias     *  for a color.
+		 */
+		public static function isColorName (colorName:String) : Boolean;
+		/**
+		 *  Returns the numeric RGB color value that corresponds to the     *  specified color string.     *  The color string can be either a case-insensitive color name     *  such as <code>"red"</code>, <code>"Blue"</code>, or     *  <code>"haloGreen"</code>, a hexadecimal value such as 0xFF0000, or a #-hexadecimal String     *  such as <code>"#FF0000"</code>.     *     *  <p>This method returns a uint, such as 4521830, that represents a color. You can convert     *  this uint to a hexadecimal value by passing the numeric base (in this case, 16), to     *  the uint class's <code>toString()</code> method, as the following example shows:</p>     *  <pre>     *  import mx.styles.StyleManager;     *  private function getNewColorName():void {     *      StyleManager.registerColorName("soylentGreen",0x44FF66);     *      trace(StyleManager.getColorName("soylentGreen").toString(16));     *  }     *  </pre>     *     *  @param colorName The color name.     *     *  @return Returns a uint that represents the color value or <code>NOT_A_COLOR</code>     *  if the value of the <code>colorName</code> property is not an alias for a color.
+		 */
+		public static function getColorName (colorName:Object) : uint;
+		/**
+		 *  Converts each element of the colors Array from a color name     *  to a numeric RGB color value.     *  Each color String can be either a case-insensitive color name     *  such as <code>"red"</code>, <code>"Blue"</code>, or     *  <code>"haloGreen"</code>, a hexadecimal value such as 0xFF0000, or a #-hexadecimal String     *  such as <code>"#FF0000"</code>..     *     *  @param colors An Array of color names.
+		 */
+		public static function getColorNames (colors:Array) : void;
+		/**
+		 *  Determines if a specified parameter is a valid style property. For example:     *     *  <pre>     *  trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());     *  </pre>     *     *  <p>This can be useful because some styles can be set to values     *  such as 0, <code>NaN</code>,     *  the empty String (<code>""</code>), or <code>null</code>, which can     *  cause an <code>if (value)</code> test to fail.</p>     *     *  @param value The style property to test.     *     *  @return If you pass the value returned by a <code>getStyle()</code> method call     *  to this method, it returns <code>true</code> if the style     *  was set and <code>false</code> if it was not set.     *
+		 */
+		public static function isValidStyleValue (value:*) : Boolean;
+		/**
+		 *  Loads a style SWF.     *     *  @param url Location of the style SWF.     *     *  @param update Set to <code>true</code> to force     *  an immediate update of the styles.     *  Set to <code>false</code> to avoid an immediate update     *  of the styles in the application.     *  This parameter is optional and defaults to <code>true</code>     *  For more information about this parameter, see the description     *  in the <code>setStyleDeclaration()</code> method.     *     *  @param trustContent Obsolete, no longer used.     *  This parameter is optional and defaults to <code>false</code>.     *     *  @param applicationDomain The ApplicationDomain passed to the     *  <code>load()</code> method of the IModuleInfo that loads the style SWF.     *  This parameter is optional and defaults to <code>null</code>.     *     *  @param securityDomain The SecurityDomain passed to the     *  <code>load()</code> method of the IModuleInfo that loads the style SWF.     *  This parameter is optional and defaults to <code>null</code>.     *      *  @return An IEventDispatcher implementation that supports     *          StyleEvent.PROGRESS, StyleEvent.COMPLETE, and     *          StyleEvent.ERROR.     *     *  @see #setStyleDeclaration()
+		 */
+		public static function loadStyleDeclarations (url:String, update:Boolean = true, trustContent:Boolean = false, applicationDomain:ApplicationDomain = null, securityDomain:SecurityDomain = null) : IEventDispatcher;
+		/**
+		 *  Unloads a style SWF.     *     *  @param url Location of the style SWF.     *  @param update Set to <code>true</code> to force an immediate update of the styles.     *  Set to <code>false</code> to avoid an immediate update of the styles in the application.     *  For more information about this method, see the description in the <code>setStyleDeclaration()</code>     *  method.     *       *  @see #setStyleDeclaration()
+		 */
+		public static function unloadStyleDeclarations (url:String, update:Boolean = true) : void;
 	}
 }

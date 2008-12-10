@@ -1,22 +1,41 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
-	public class SetPropertyActionInstance extends ActionEffectInstance {
+﻿package mx.effects.effectClasses
+{
+	import mx.core.mx_internal;
+
+	/**
+	 *  The SetPropertyActionInstance class implements the instance class *  for the SetPropertyAction effect. *  Flex creates an instance of this class when it plays a SetPropertyAction *  effect; you do not create one yourself. * *  @see mx.effects.SetPropertyAction
+	 */
+	public class SetPropertyActionInstance extends ActionEffectInstance
+	{
 		/**
-		 * The name of the property being changed.
+		 *  The name of the property being changed.
 		 */
-		public var name:String;
+		public var name : String;
 		/**
-		 * The new value for the property.
+		 *  Storage for the value property.
 		 */
-		public function get value():*;
-		public function set value(value:any):void;
+		private var _value : *;
+
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> The Object to animate with this effect.
+		 *  The new value for the property.
 		 */
-		public function SetPropertyActionInstance(target:Object);
+		public function get value () : *;
+		/**
+		 *  @private
+		 */
+		public function set value (val:*) : void;
+
+		/**
+		 *  Constructor.	 *	 *  @param target The Object to animate with this effect.
+		 */
+		public function SetPropertyActionInstance (target:Object);
+		/**
+		 *  @private
+		 */
+		public function play () : void;
+		/**
+		 *  @private
+		 */
+		protected function saveStartValue () : *;
 	}
 }

@@ -1,12 +1,20 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
 	import mx.skins.ProgrammaticSkin;
-	public class BrokenImageBorderSkin extends ProgrammaticSkin {
+
+	/**
+	 *  The skin for the border of a SWFLoader or Image component when the content *  could not be loaded.
+	 */
+	public class BrokenImageBorderSkin extends ProgrammaticSkin
+	{
 		/**
-		 * Constructor.
+		 *  Constructor.
 		 */
-		public function BrokenImageBorderSkin();
+		public function BrokenImageBorderSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

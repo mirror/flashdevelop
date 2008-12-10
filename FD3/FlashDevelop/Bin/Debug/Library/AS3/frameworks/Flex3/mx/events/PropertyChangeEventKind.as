@@ -1,15 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
-	public final  class PropertyChangeEventKind {
+﻿package mx.events
+{
+	/**
+	 *  The PropertyChangeEventKind class defines the constant values  *  for the <code>kind</code> property of the PropertyChangeEvent class. *  *  @see mx.events.PropertyChangeEvent
+	 */
+	public class PropertyChangeEventKind
+	{
 		/**
-		 * Indicates that the property was deleted from the object.
+		 *  Indicates that the value of the property changed.
 		 */
-		public static const DELETE:String = "delete";
+		public static const UPDATE : String = "update";
 		/**
-		 * Indicates that the value of the property changed.
+		 *  Indicates that the property was deleted from the object.
 		 */
-		public static const UPDATE:String = "update";
+		public static const DELETE : String = "delete";
+
 	}
 }

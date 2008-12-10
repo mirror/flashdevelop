@@ -1,28 +1,22 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls {
-	public final  class ProgressBarMode {
+﻿package mx.controls
+{
+	/**
+	 *  The ProgressBarMode class defines the values for the <code>mode</code> property *  of the ProgressBar class. * *  @see mx.controls.ProgressBar
+	 */
+	public class ProgressBarMode
+	{
 		/**
-		 * The control specified by the source property must
-		 *  dispatch progress and completed events.
-		 *  The ProgressBar uses these events to update its status.
+		 *  The control specified by the <code>source</code> property must	 *  dispatch <code>progress</code> and <code>completed</code> events. 	 *  The ProgressBar uses these events to update its status.
 		 */
-		public static const EVENT:String = "event";
+		public static const EVENT : String = "event";
 		/**
-		 * You manually update the ProgressBar status. In this mode, you
-		 *  specify the maximum and minimum
-		 *  properties and use the setProgress() method
-		 *  to specify the status. This mode is often used when the
-		 *  indeterminate property is true.
+		 *  You manually update the ProgressBar status. In this mode, you	 *  specify the <code>maximum</code> and <code>minimum</code>	 *  properties and use the <code>setProgress()</code> method	 *  to specify the status. This mode is often used when the	 *  <code>indeterminate</code> property is <code>true</code>.
 		 */
-		public static const MANUAL:String = "manual";
+		public static const MANUAL : String = "manual";
 		/**
-		 * The source property must specify an object that
-		 *  exposes the getBytesLoaded() and
-		 *  getBytesTotal() methods.  The ProgressBar control
-		 *  calls these methods to update its status.
+		 *  The <code>source</code> property must specify an object that	 *  exposes the <code>getBytesLoaded()</code> and	 *  <code>getBytesTotal()</code> methods.  The ProgressBar control	 *  calls these methods to update its status.
 		 */
-		public static const POLLED:String = "polled";
+		public static const POLLED : String = "polled";
+
 	}
 }

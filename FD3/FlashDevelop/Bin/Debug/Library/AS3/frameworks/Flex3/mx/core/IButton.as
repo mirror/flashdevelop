@@ -1,23 +1,19 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	import flash.display.IBitmapDrawable;
-	import flash.events.IEventDispatcher;
-	public interface IButton extends IUIComponent, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
+﻿package mx.core
+{
+	/**
+	 *  The IButton interface is a marker interface that indicates that a component *  acts as a button.
+	 */
+	public interface IButton extends IUIComponent
+	{
 		/**
-		 * Draws a thick border around the Button control
-		 *  when the control is in its up state if emphasized
-		 *  is set to true.
+		 *  @copy mx.controls.Button#emphasized
 		 */
-		public function get emphasized():Boolean;
-		public function set emphasized(value:Boolean):void;
+		public function get emphasized () : Boolean;
+		public function set emphasized (value:Boolean) : void;
+
 		/**
-		 * Queues a function to be called later.
-		 *
-		 * @param method            <Function> Reference to a method to be executed later.
-		 * @param args              <Array (default = null)> Array of Objects that represent the arguments to pass to the method.
+		 *  @copy mx.core.UIComponent#callLater()
 		 */
-		public function callLater(method:Function, args:Array = null):void;
+		public function callLater (method:Function, args:Array = null) : void;
 	}
 }

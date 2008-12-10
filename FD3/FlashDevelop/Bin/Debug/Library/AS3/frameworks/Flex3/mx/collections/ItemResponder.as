@@ -1,39 +1,27 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.collections {
+﻿package mx.collections
+{
 	import mx.rpc.IResponder;
-	public class ItemResponder implements IResponder {
+
+	/**
+	 *  The ItemResponder class provides a default implementation of the *  <code>mx.rpc.IResponder</code> interface. *  It represents a responder that lets you specify methods to be  *  called when a request is completed, either successfully or with an error. *  The class object can also lets you provide data (a token) to be used by *  the responder methods. *  * <p>You use an <code>ItemResponder</code> object in the <code>catch</code> statement * of a try block that might result in getting remote data, as shown in the following * code:</p> *  *  <pre><code> *     import mx.collections.ItemResponder; *     //... * *     try *     { *        //... *        cursor.moveNext(); *     } *	   catch(e:ItemPendingError) *     { *        e.addResponder(new ItemResponder(myResultFunction, myFaultFunction, {info:"..."})); *     } *  </code></pre> * *  <p>The result method specified must have the following signature:</p> *  *  <code><pre> *     public function myResultFunction(result:Object, token:Object = null):void; *  </pre></code> * *  <p>The fault method specified must have the following signature:</p> *  *  <code><pre> *     public function myFaultFunction(error:Object, token:Object = null):void; *  </pre></code> *  *  <p>Any other signature will result in a runtime error.</p> *  *  @see mx.collections.errors.ItemPendingError
+	 */
+	public class ItemResponder implements IResponder
+	{
+		private var _resultHandler : Function;
+		private var _faultHandler : Function;
+		private var _token : Object;
+
 		/**
-		 * Constructs an instance of the responder with the specified data and
-		 *  handlers.
-		 *
-		 * @param result            <Function> Function that should be called when the request has
-		 *                            completed successfully.
-		 *                            Must have the following signature:
-		 *                            public function (result:Object, token:Object = null):void;
-		 * @param fault             <Function> Function that should be called when the request has
-		 *                            completed with errors.
-		 *                            Must have the following signature:
-		 *                            public function (error:ErrorMessage, token:Object = null):void;
-		 * @param token             <Object (default = null)> Object [optional] additional information to associate with
-		 *                            this request. This object is passed to the result and fault functions
-		 *                            as their second parameter.
+		 *  Constructs an instance of the responder with the specified data and 	 *  handlers.	 *  	 *  @param	result Function that should be called when the request has	 *          completed successfully.	 *  		Must have the following signature:	 *  		<code><pre>	 *     		    public function (result:Object, token:Object = null):void;	 *  		</pre></code>	 *  @param	fault Function that should be called when the request has	 *			completed with errors.	 *  		Must have the following signature:	 *  		<code><pre>	 *     		    public function (error:ErrorMessage, token:Object = null):void;	 *  		</pre></code>	 *  @param	token Object [optional] additional information to associate with	 *          this request. This object is passed to the result and fault functions	 *          as their second parameter.
 		 */
-		public function ItemResponder(result:Function, fault:Function, token:Object = null);
+		public function ItemResponder (result:Function, fault:Function, token:Object = null);
 		/**
-		 * This method is called by a service when an error has been received.
-		 *
-		 * @param info              <Object> Object containing the information about the error that
-		 *                            occured.
+		 *  This method is called by a service when the return value has been 	 *  received.	 *	 *  @param	data Object containing the information returned from the request.
 		 */
-		public function fault(info:Object):void;
+		public function result (data:Object) : void;
 		/**
-		 * This method is called by a service when the return value has been
-		 *  received.
-		 *
-		 * @param data              <Object> Object containing the information returned from the request.
+		 *  This method is called by a service when an error has been received.	 *	 *  @param	info Object containing the information about the error that 	 *   		occured.
 		 */
-		public function result(data:Object):void;
+		public function fault (info:Object) : void;
 	}
 }

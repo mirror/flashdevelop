@@ -1,12 +1,30 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
 	import mx.skins.Border;
-	public class ProgressBarSkin extends Border {
+	import mx.styles.StyleManager;
+	import mx.utils.ColorUtil;
+
+	/**
+	 *  The skin for a ProgressBar.
+	 */
+	public class ProgressBarSkin extends Border
+	{
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function ProgressBarSkin();
+		public function get measuredWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function get measuredHeight () : Number;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ProgressBarSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

@@ -1,97 +1,186 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.formatters {
-	public class CurrencyFormatter extends Formatter {
+﻿package mx.formatters
+{
+	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
+
+	/**
+	 *  The CurrencyFormatter class formats a valid number as a currency value. *  It adjusts the decimal rounding and precision, the thousands separator,  *  and the negative sign; it also adds a currency symbol. *  You place the currency symbol on either the left or the right side *  of the value with the <code>alignSymbol</code> property. *  The currency symbol can contain multiple characters, *  including blank spaces. *   *  <p>If an error occurs, an empty String is returned and a String that describes  *  the error is saved to the <code>error</code> property. The <code>error</code>  *  property can have one of the following values:</p> * *  <ul> *    <li><code>"Invalid value"</code> means an invalid numeric value is passed to  *    the <code>format()</code> method. The value should be a valid number in the  *    form of a Number or a String.</li> *    <li><code>"Invalid format"</code> means one of the parameters contains an unusable setting.</li> *  </ul> *   *  @mxml *   *  <p>The <code>&lt;mx:CurrencyFormatter&gt;</code> tag *  inherits all of the tag attributes of its superclass, *  and adds the following tag attributes:</p> *   *  <pre> *  &lt;mx:CurrencyFormatter *    alignSymbol="left|right"  *    currencySymbol="$" *    decimalSeparatorFrom="." *    decimalSeparatorTo="." *    precision="-1" *    rounding="none|up|down|nearest" *    thousandsSeparatorFrom="," *    thousandsSeparatorTo="," *    useNegativeSign="true|false" *    useThousandsSeparator="true|false" *	/>   *  </pre> *   *  @includeExample examples/CurrencyFormatterExample.mxml *   *  @see mx.formatters.NumberBase *  @see mx.formatters.NumberBaseRoundType
+	 */
+	public class CurrencyFormatter extends Formatter
+	{
 		/**
-		 * Aligns currency symbol to the left side or the right side
-		 *  of the formatted number.
-		 *  Permitted values are "left" and "right".
+		 *  @private	 *  Storage for the alignSymbol property.
 		 */
-		public function get alignSymbol():String;
-		public function set alignSymbol(value:String):void;
+		private var _alignSymbol : String;
 		/**
-		 * Character to use as a currency symbol for a formatted number.
-		 *  You can use one or more characters to represent the currency
-		 *  symbol; for example, "$" or "YEN".
-		 *  You can also use empty spaces to add space between the
-		 *  currency character and the formatted number.
-		 *  When the number is a negative value, the currency symbol
-		 *  appears between the number and the minus sign or parentheses.
+		 *  @private
 		 */
-		public function get currencySymbol():String;
-		public function set currencySymbol(value:String):void;
+		private var alignSymbolOverride : String;
 		/**
-		 * Decimal separator character to use
-		 *  when parsing an input string.
+		 *  @private	 *  Storage for the currencySymbol property.
 		 */
-		public function get decimalSeparatorFrom():String;
-		public function set decimalSeparatorFrom(value:String):void;
+		private var _currencySymbol : String;
 		/**
-		 * Decimal separator character to use
-		 *  when outputting formatted decimal numbers.
+		 *  @private
 		 */
-		public function get decimalSeparatorTo():String;
-		public function set decimalSeparatorTo(value:String):void;
+		private var currencySymbolOverride : String;
 		/**
-		 * Number of decimal places to include in the output String.
-		 *  You can disable precision by setting it to -1.
-		 *  A value of -1 means do not change the precision. For example,
-		 *  if the input value is 1.453 and rounding
-		 *  is set to NumberBaseRoundType.NONE, return 1.453.
-		 *  If precision is -1 and you set some form of
-		 *  rounding, return a value based on that rounding type.
+		 *  @private	 *  Storage for the decimalSeparatorFrom property.
 		 */
-		public function get precision():Object;
-		public function set precision(value:Object):void;
+		private var _decimalSeparatorFrom : String;
 		/**
-		 * How to round the number.
-		 *  In ActionScript, the value can be NumberBaseRoundType.NONE,
-		 *  NumberBaseRoundType.UP,
-		 *  NumberBaseRoundType.DOWN, or NumberBaseRoundType.NEAREST.
-		 *  In MXML, the value can be "none",
-		 *  "up", "down", or "nearest".
+		 *  @private
 		 */
-		public function get rounding():String;
-		public function set rounding(value:String):void;
+		private var decimalSeparatorFromOverride : String;
 		/**
-		 * Character to use as the thousands separator
-		 *  in the input String.
+		 *  @private	 *  Storage for the decimalSeparatorTo property.
 		 */
-		public function get thousandsSeparatorFrom():String;
-		public function set thousandsSeparatorFrom(value:String):void;
+		private var _decimalSeparatorTo : String;
 		/**
-		 * Character to use as the thousands separator
-		 *  in the output string.
+		 *  @private
 		 */
-		public function get thousandsSeparatorTo():String;
-		public function set thousandsSeparatorTo(value:String):void;
+		private var decimalSeparatorToOverride : String;
 		/**
-		 * If true, format a negative number
-		 *  by preceding it with a minus "-" sign.
-		 *  If false, format the number
-		 *  surrounded by parentheses, for example (400).
+		 *  @private	 *  Storage for the precision property.
 		 */
-		public function get useNegativeSign():Object;
-		public function set useNegativeSign(value:Object):void;
+		private var _precision : Object;
 		/**
-		 * If true, split the number into thousands increments
-		 *  by using a separator character.
+		 *  @private
 		 */
-		public function get useThousandsSeparator():Object;
-		public function set useThousandsSeparator(value:Object):void;
+		private var precisionOverride : Object;
 		/**
-		 * Constructor.
+		 *  @private	 *  Storage for the rounding property.
 		 */
-		public function CurrencyFormatter();
+		private var _rounding : String;
 		/**
-		 * Formats value as currency.
-		 *  If value cannot be formatted, return an empty String
-		 *  and write a description of the error to the error property.
-		 *
-		 * @param value             <Object> Value to format.
-		 * @return                  <String> Formatted string. Empty if an error occurs.
+		 *  @private
 		 */
-		public override function format(value:Object):String;
+		private var roundingOverride : String;
+		/**
+		 *  @private	 *  Storage for the thousandsSeparatorFrom property.
+		 */
+		private var _thousandsSeparatorFrom : String;
+		/**
+		 *  @private
+		 */
+		private var thousandsSeparatorFromOverride : String;
+		/**
+		 *  @private	 *  Storage for the thousandsSeparatorTo property.
+		 */
+		private var _thousandsSeparatorTo : String;
+		/**
+		 *  @private
+		 */
+		private var thousandsSeparatorToOverride : String;
+		/**
+		 *  @private	 *  Storage for the useNegativeSign property.
+		 */
+		private var _useNegativeSign : Object;
+		/**
+		 *  @private
+		 */
+		private var useNegativeSignOverride : Object;
+		/**
+		 *  @private	 *  Storage for the useThousandsSeparator property.
+		 */
+		private var _useThousandsSeparator : Object;
+		/**
+		 *  @private
+		 */
+		private var useThousandsSeparatorOverride : Object;
+
+		/**
+		 *  Aligns currency symbol to the left side or the right side	 *  of the formatted number.     *  Permitted values are <code>"left"</code> and <code>"right"</code>.	 *     *  @default "left"
+		 */
+		public function get alignSymbol () : String;
+		/**
+		 *  @private
+		 */
+		public function set alignSymbol (value:String) : void;
+		/**
+		 *  Character to use as a currency symbol for a formatted number.     *  You can use one or more characters to represent the currency 	 *  symbol; for example, "$" or "YEN".	 *  You can also use empty spaces to add space between the 	 *  currency character and the formatted number.	 *  When the number is a negative value, the currency symbol	 *  appears between the number and the minus sign or parentheses.	 *     *  @default "$"
+		 */
+		public function get currencySymbol () : String;
+		/**
+		 *  @private
+		 */
+		public function set currencySymbol (value:String) : void;
+		/**
+		 *  Decimal separator character to use	 *  when parsing an input string.	 *     *  @default "."
+		 */
+		public function get decimalSeparatorFrom () : String;
+		/**
+		 *  @private
+		 */
+		public function set decimalSeparatorFrom (value:String) : void;
+		/**
+		 *  Decimal separator character to use	 *  when outputting formatted decimal numbers.	 *     *  @default "."
+		 */
+		public function get decimalSeparatorTo () : String;
+		/**
+		 *  @private
+		 */
+		public function set decimalSeparatorTo (value:String) : void;
+		/**
+		 *  Number of decimal places to include in the output String.	 *  You can disable precision by setting it to <code>-1</code>.	 *  A value of <code>-1</code> means do not change the precision. For example, 	 *  if the input value is 1.453 and <code>rounding</code> 	 *  is set to <code>NumberBaseRoundType.NONE</code>, return 1.453.	 *  If <code>precision</code> is -1 and you set some form of 	 *  rounding, return a value based on that rounding type.	 *     *  @default -1
+		 */
+		public function get precision () : Object;
+		/**
+		 *  @private
+		 */
+		public function set precision (value:Object) : void;
+		/**
+		 *  How to round the number.	 *  In ActionScript, the value can be <code>NumberBaseRoundType.NONE</code>, 	 *  <code>NumberBaseRoundType.UP</code>,	 *  <code>NumberBaseRoundType.DOWN</code>, or <code>NumberBaseRoundType.NEAREST</code>.	 *  In MXML, the value can be <code>"none"</code>, 	 *  <code>"up"</code>, <code>"down"</code>, or <code>"nearest"</code>.	 *	 *  @default NumberBaseRoundType.NONE 	 *	 *  @see mx.formatters.NumberBaseRoundType
+		 */
+		public function get rounding () : String;
+		/**
+		 *  @private
+		 */
+		public function set rounding (value:String) : void;
+		/**
+		 *  Character to use as the thousands separator	 *  in the input String.	 *     *  @default ","
+		 */
+		public function get thousandsSeparatorFrom () : String;
+		/**
+		 *  @private
+		 */
+		public function set thousandsSeparatorFrom (value:String) : void;
+		/**
+		 *  Character to use as the thousands separator	 *  in the output string.	 *     *  @default ","
+		 */
+		public function get thousandsSeparatorTo () : String;
+		/**
+		 *  @private
+		 */
+		public function set thousandsSeparatorTo (value:String) : void;
+		/**
+		 *  If <code>true</code>, format a negative number 	 *  by preceding it with a minus "-" sign.	 *  If <code>false</code>, format the number	 *  surrounded by parentheses, for example (400).	 *     *  @default true
+		 */
+		public function get useNegativeSign () : Object;
+		/**
+		 *  @private
+		 */
+		public function set useNegativeSign (value:Object) : void;
+		/**
+		 *  If <code>true</code>, split the number into thousands increments	 *  by using a separator character.	 *     *  @default true
+		 */
+		public function get useThousandsSeparator () : Object;
+		/**
+		 *  @private
+		 */
+		public function set useThousandsSeparator (value:Object) : void;
+
+		/**
+		 *  Constructor.
+		 */
+		public function CurrencyFormatter ();
+		/**
+		 *  @private
+		 */
+		protected function resourcesChanged () : void;
+		/**
+		 *  Formats <code>value</code> as currency.	 *  If <code>value</code> cannot be formatted, return an empty String 	 *  and write a description of the error to the <code>error</code> property.	 *     *  @param value Value to format.	 *     *  @return Formatted string. Empty if an error occurs.
+		 */
+		public function format (value:Object) : String;
 	}
 }

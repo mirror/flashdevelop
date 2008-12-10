@@ -1,23 +1,26 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
-	public final  class DateChooserEventDetail {
+﻿package mx.events
+{
+	/**
+	 *  Constants that define the  values of the <code>detail</code> property *  of a DateChooserEvent object. * *  @see mx.events.DateChooserEvent
+	 */
+	public class DateChooserEventDetail
+	{
 		/**
-		 * Indicates that the user scrolled the calendar to the next month.
+		 *  Indicates that the user scrolled the calendar to the next month.
 		 */
-		public static const NEXT_MONTH:String = "nextMonth";
+		public static const NEXT_MONTH : String = "nextMonth";
 		/**
-		 * Indicates that the user scrolled the calendar to the next year.
+		 *  Indicates that the user scrolled the calendar to the next year.
 		 */
-		public static const NEXT_YEAR:String = "nextYear";
+		public static const NEXT_YEAR : String = "nextYear";
 		/**
-		 * Indicates that the user scrolled the calendar to the previous month.
+		 *  Indicates that the user scrolled the calendar to the previous month.
 		 */
-		public static const PREVIOUS_MONTH:String = "previousMonth";
+		public static const PREVIOUS_MONTH : String = "previousMonth";
 		/**
-		 * Indicates that the user scrolled the calendar to the previous year.
+		 *  Indicates that the user scrolled the calendar to the previous year.
 		 */
-		public static const PREVIOUS_YEAR:String = "previousYear";
+		public static const PREVIOUS_YEAR : String = "previousYear";
+
 	}
 }

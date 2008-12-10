@@ -1,89 +1,155 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.rpc {
-	import flash.utils.Proxy;
+﻿package mx.rpc
+{
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	import flash.utils.describeType;
+	import flash.utils.flash_proxy;
+	import flash.utils.Proxy;
+	import mx.core.mx_internal;
 	import mx.messaging.ChannelSet;
-	public dynamic  class AbstractService extends Proxy implements IEventDispatcher {
+	import mx.resources.IResourceManager;
+	import mx.resources.ResourceManager;
+	import mx.rpc.events.AbstractEvent;
+	import mx.utils.ObjectUtil;
+
+	/**
+	 * The invoke event is dispatched when a service Operation is invoked so long as * an Error is not thrown before the Channel attempts to send the message. * @eventType mx.rpc.events.InvokeEvent.INVOKE
+	 */
+	[Event(name="invoke", type="mx.rpc.events.InvokeEvent")] 
+	/**
+	 * The result event is dispatched when a service call successfully returns and * isn't handled by the Operation itself. * @eventType mx.rpc.events.ResultEvent.RESULT
+	 */
+	[Event(name="result", type="mx.rpc.events.ResultEvent")] 
+	/**
+	 * The fault event is dispatched when a service call fails and isn't handled by * the Operation itself. * @eventType mx.rpc.events.FaultEvent.FAULT
+	 */
+	[Event(name="fault", type="mx.rpc.events.FaultEvent")] 
+
+	/**
+	 * The AbstractService class is the base class for the WebService and * RemoteObject classes. This class does the work of creating Operations * which do the actual execution of remote procedure calls.
+	 */
+	flash_proxy dynamic class AbstractService extends Proxy implements IEventDispatcher
+	{
 		/**
-		 * Provides access to the ChannelSet used by the service. The
-		 *  ChannelSet can be manually constructed and assigned, or it will be
-		 *  dynamically created to use the configured Channels for the
-		 *  destination for this service.
+		 *  @private
 		 */
-		public function get channelSet():ChannelSet;
-		public function set channelSet(value:ChannelSet):void;
+		private var resourceManager : IResourceManager;
 		/**
-		 * The destination of the service. This value should match a destination
-		 *  entry in the services-config.xml file.
+		 * @private
 		 */
-		public function get destination():String;
-		public function set destination(value:String):void;
+		local var _operations : Object;
+		private var nextNameArray : Array;
+		local var _availableChannelIds : Array;
+		local var asyncRequest : AsyncRequest;
+		private var eventDispatcher : EventDispatcher;
+
 		/**
-		 * The Operations array is usually only set by the MXML compiler if you
-		 *  create a service using an MXML tag.
+		 *  Provides access to the ChannelSet used by the service. The     *  ChannelSet can be manually constructed and assigned, or it will be      *  dynamically created to use the configured Channels for the     *  <code>destination</code> for this service.
 		 */
-		public function get operations():Object;
-		public function set operations(value:Object):void;
+		public function get channelSet () : ChannelSet;
 		/**
-		 * Provides access to the request timeout in seconds for sent messages.
-		 *  A value less than or equal to zero prevents request timeout.
+		 *  @private
 		 */
-		public function get requestTimeout():int;
-		public function set requestTimeout(value:int):void;
+		public function set channelSet (value:ChannelSet) : void;
 		/**
-		 * Disconnects the service's network connection and removes any pending
-		 *  request responders.
-		 *  This method does not wait for outstanding network operations to complete.
+		 * The destination of the service. This value should match a destination     * entry in the services-config.xml file.
 		 */
-		public function disconnect():void;
+		public function get destination () : String;
+		public function set destination (name:String) : void;
 		/**
-		 * Returns an Operation of the given name. If the Operation wasn't
-		 *  created beforehand, subclasses are responsible for creating it during
-		 *  this call. Operations are usually accessible by simply naming them after
-		 *  the service variable (myService.someOperation), but if your
-		 *  Operation name happens to match a defined method on the service (like
-		 *  setCredentials), you can use this method to get the
-		 *  Operation instead.
-		 *
-		 * @param name              <String> Name of the Operation.
-		 * @return                  <AbstractOperation> Operation that executes for this name.
+		 * @private     * This is required by data binding.
 		 */
-		public function getOperation(name:String):AbstractOperation;
+		public function get operations () : Object;
 		/**
-		 * Logs the user out of the destination.
-		 *  Logging out of a destination applies to everything connected using the
-		 *  same ChannelSet as specified in the server configuration. For example,
-		 *  if you're connected over the my-rtmp channel and you log out using one
-		 *  of your RPC components, anything that was connected over the same
-		 *  ChannelSet is logged out.
+		 * The Operations array is usually only set by the MXML compiler if you     * create a service using an MXML tag.
 		 */
-		public function logout():void;
+		public function set operations (ops:Object) : void;
 		/**
-		 * Sets the credentials for the destination accessed by the service when using Data Services on the server side.
-		 *  The credentials are applied to all services connected over the same
-		 *  ChannelSet. Note that services that use a proxy or a third-party adapter
-		 *  to a remote endpoint will need to setRemoteCredentials instead.
-		 *
-		 * @param username          <String> The username for the destination.
-		 * @param password          <String> The password for the destination.
-		 * @param charset           <String (default = null)> The character set encoding to use while encoding the
-		 *                            credentials. The default is null, which implies the legacy charset of
-		 *                            ISO-Latin-1. The only other supported charset is "UTF-8".
+		 *  Provides access to the request timeout in seconds for sent messages.      *  A value less than or equal to zero prevents request timeout.
 		 */
-		public function setCredentials(username:String, password:String, charset:String = null):void;
+		public function get requestTimeout () : int;
 		/**
-		 * The username and password to be used to authenticate a user when
-		 *  accessing a remote, third-party endpoint such as a web service through a
-		 *  proxy or a remote object through a custom adapter when using Data Services on the server side.
-		 *
-		 * @param remoteUsername    <String> the username to pass to the remote endpoint
-		 * @param remotePassword    <String> the password to pass to the remote endpoint
-		 * @param charset           <String (default = null)> The character set encoding to use while encoding the
-		 *                            remote credentials. The default is null, which implies the legacy charset
-		 *                            of ISO-Latin-1. The only other supported charset is "UTF-8".
+		 *  @private
 		 */
-		public function setRemoteCredentials(remoteUsername:String, remotePassword:String, charset:String = null):void;
+		public function set requestTimeout (value:int) : void;
+
+		/**
+		 *  Constructor.     *       *  @param destination The destination of the service.
+		 */
+		public function AbstractService (destination:String = null);
+		/**
+		 * @private
+		 */
+		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
+		/**
+		 * @private
+		 */
+		public function dispatchEvent (event:Event) : Boolean;
+		/**
+		 * @private
+		 */
+		public function removeEventListener (type:String, listener:Function, useCapture:Boolean = false) : void;
+		/**
+		 * @private
+		 */
+		public function hasEventListener (type:String) : Boolean;
+		/**
+		 * @private
+		 */
+		public function willTrigger (type:String) : Boolean;
+		/**
+		 * @private
+		 */
+		flash_proxy function getProperty (name:*) : *;
+		/**
+		 * @private
+		 */
+		flash_proxy function setProperty (name:*, value:*) : void;
+		/**
+		 * @private
+		 */
+		flash_proxy function callProperty (name:*, ...args:Array) : *;
+		/**
+		 * @private
+		 */
+		flash_proxy function nextNameIndex (index:int) : int;
+		/**
+		 * @private
+		 */
+		flash_proxy function nextName (index:int) : String;
+		/**
+		 * @private
+		 */
+		flash_proxy function nextValue (index:int) : *;
+		function getLocalName (name:Object) : String;
+		/**
+		 * Returns an Operation of the given name. If the Operation wasn't     * created beforehand, subclasses are responsible for creating it during     * this call. Operations are usually accessible by simply naming them after     * the service variable (<code>myService.someOperation</code>), but if your     * Operation name happens to match a defined method on the service (like     * <code>setCredentials</code>), you can use this method to get the     * Operation instead.     * @param name Name of the Operation.     * @return Operation that executes for this name.
+		 */
+		public function getOperation (name:String) : AbstractOperation;
+		/**
+		 *  Disconnects the service's network connection and removes any pending     *  request responders.     *  This method does not wait for outstanding network operations to complete.
+		 */
+		public function disconnect () : void;
+		/**
+		 * Sets the credentials for the destination accessed by the service when using Data Services on the server side.     * The credentials are applied to all services connected over the same     * ChannelSet. Note that services that use a proxy or a third-party adapter     * to a remote endpoint will need to setRemoteCredentials instead.     *      * @param username The username for the destination.     * @param password The password for the destination.     * @param charset The character set encoding to use while encoding the     * credentials. The default is null, which implies the legacy charset of     * ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+		 */
+		public function setCredentials (username:String, password:String, charset:String = null) : void;
+		/**
+		 * Logs the user out of the destination.      * Logging out of a destination applies to everything connected using the     * same ChannelSet as specified in the server configuration. For example,     * if you're connected over the my-rtmp channel and you log out using one     * of your RPC components, anything that was connected over the same     * ChannelSet is logged out.
+		 */
+		public function logout () : void;
+		/**
+		 * The username and password to be used to authenticate a user when     * accessing a remote, third-party endpoint such as a web service through a     * proxy or a remote object through a custom adapter when using Data Services on the server side.     *     * @param remoteUsername the username to pass to the remote endpoint     * @param remotePassword the password to pass to the remote endpoint     * @param charset The character set encoding to use while encoding the     * remote credentials. The default is null, which implies the legacy charset     * of ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+		 */
+		public function setRemoteCredentials (remoteUsername:String, remotePassword:String, charset:String = null) : void;
+		/**
+		 * Returns this service.     *      * @private
+		 */
+		public function valueOf () : Object;
+		/**
+		 * @private
+		 */
+		function hasTokenResponders (event:Event) : Boolean;
 	}
 }

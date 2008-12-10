@@ -1,79 +1,50 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	import flash.display.IBitmapDrawable;
-	import flash.events.IEventDispatcher;
-	public interface IDeferredInstantiationUIComponent extends IUIComponent, IFlexDisplayObject, IBitmapDrawable, IEventDispatcher {
+﻿package mx.core
+{
+	/**
+	 *  The IDeferredInstantiationUIComponent interface defines the interface for a component  *  or object that defers instantiation.
+	 */
+	public interface IDeferredInstantiationUIComponent extends IUIComponent
+	{
 		/**
-		 * Used by Flex to suggest bitmap caching for the object.
-		 *  If cachePolicy is UIComponentCachePolicy.AUTO,
-		 *  then cacheHeuristic
-		 *  is used to control the object's cacheAsBitmap property.
+		 *  @copy mx.core.UIComponent#cacheHeuristic
 		 */
-		public function set cacheHeuristic(value:Boolean):void;
+		public function set cacheHeuristic (value:Boolean) : void;
 		/**
-		 * Specifies the bitmap caching policy for this object.
-		 *  Possible values in MXML are "on",
-		 *  "off" and
-		 *  "auto" (default).
+		 *  @copy mx.core.UIComponent#cachePolicy
 		 */
-		public function get cachePolicy():String;
+		public function get cachePolicy () : String;
 		/**
-		 * Reference to the UIComponentDescriptor, if any, that was used
-		 *  by the createComponentFromDescriptor() method to create this
-		 *  UIComponent instance. If this UIComponent instance
-		 *  was not created from a descriptor, this property is null.
+		 *  @copy mx.core.UIComponent#descriptor
 		 */
-		public function get descriptor():UIComponentDescriptor;
-		public function set descriptor(value:UIComponentDescriptor):void;
+		public function get descriptor () : UIComponentDescriptor;
 		/**
-		 * ID of the component. This value becomes the instance name of the object
-		 *  and should not contain any white space or special characters. Each component
-		 *  throughout an application should have a unique id.
+		 *  @private
 		 */
-		public function get id():String;
-		public function set id(value:String):void;
+		public function set descriptor (value:UIComponentDescriptor) : void;
 		/**
-		 * Creates an id reference to this IUIComponent object
-		 *  on its parent document object.
-		 *  This function can create multidimensional references
-		 *  such as b[2][4] for objects inside one or more repeaters.
-		 *  If the indices are null, it creates a simple non-Array reference.
-		 *
-		 * @param parentDocument    <IFlexDisplayObject> The parent of this IUIComponent object.
+		 *  @copy mx.core.UIComponent#id
 		 */
-		public function createReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void;
+		public function get id () : String;
 		/**
-		 * Deletes the id reference to this IUIComponent object
-		 *  on its parent document object.
-		 *  This function can delete from multidimensional references
-		 *  such as b[2][4] for objects inside one or more Repeaters.
-		 *  If the indices are null, it deletes the simple non-Array reference.
-		 *
-		 * @param parentDocument    <IFlexDisplayObject> The parent of this IUIComponent object.
+		 *  @private
 		 */
-		public function deleteReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void;
+		public function set id (value:String) : void;
+
 		/**
-		 * Executes the data bindings into this UIComponent object.
-		 *  Workaround for MXML container/bindings problem (177074):
-		 *  override Container.executeBindings() to prefer descriptor.document over parentDocument in the
-		 *  call to BindingManager.executeBindings().
-		 *  This should always provide the correct behavior for instances created by descriptor, and will
-		 *  provide the original behavior for procedurally-created instances. (The bug may or may not appear
-		 *  in the latter case.)
-		 *  A more complete fix, guaranteeing correct behavior in both non-DI and reparented-component
-		 *  scenarios, is anticipated for updater 1.
-		 *
-		 * @param recurse           <Boolean (default = false)> Recursively execute bindings for children of this component.
+		 *  Creates an <code>id</code> reference to this IUIComponent object	 *  on its parent document object.     *  This function can create multidimensional references     *  such as b[2][4] for objects inside one or more repeaters.     *  If the indices are null, it creates a simple non-Array reference.     *     *  @param parentDocument The parent of this IUIComponent object.
 		 */
-		public function executeBindings(recurse:Boolean = false):void;
+		public function createReferenceOnParentDocument (parentDocument:IFlexDisplayObject) : void;
 		/**
-		 * For each effect event, register the EffectManager
-		 *  as one of the event listeners.
-		 *
-		 * @param effects           <Array> An Array of strings of effect names.
+		 *  Deletes the <code>id</code> reference to this IUIComponent object	 *  on its parent document object.     *  This function can delete from multidimensional references     *  such as b[2][4] for objects inside one or more Repeaters.     *  If the indices are null, it deletes the simple non-Array reference.     *     *  @param parentDocument The parent of this IUIComponent object.
 		 */
-		public function registerEffects(effects:Array):void;
+		public function deleteReferenceOnParentDocument (parentDocument:IFlexDisplayObject) : void;
+		/**
+		 *  @copy mx.core.UIComponent#executeBindings()
+		 */
+		public function executeBindings (recurse:Boolean = false) : void;
+		/**
+		 *  For each effect event, register the EffectManager	 *  as one of the event listeners.	 *	 *  @param effects An Array of strings of effect names.
+		 */
+		public function registerEffects (effects:Array) : void;
 	}
 }

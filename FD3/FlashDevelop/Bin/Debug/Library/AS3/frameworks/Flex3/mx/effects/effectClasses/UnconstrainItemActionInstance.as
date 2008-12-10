@@ -1,16 +1,27 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
-	public class UnconstrainItemActionInstance extends ActionEffectInstance {
+﻿package mx.effects.effectClasses
+{
+	import flash.events.Event;
+	import mx.core.mx_internal;
+	import mx.controls.listClasses.ListBase;
+
+	/**
+	 *  The UnconstrainItemActionInstance class implements the instance class *  for the UnconstrainItemAction effect. *  Flex creates an instance of this class when it plays a UnconstrainItemAction *  effect; you do not create one yourself. * *  @see mx.effects.UnconstrainItemAction
+	 */
+	public class UnconstrainItemActionInstance extends ActionEffectInstance
+	{
+		public var effectHost : ListBase;
+
 		/**
+		 *  Constructor.     *     *  @param target The Object to animate with this effect.
 		 */
-		public var effectHost:ListBase = null;
+		public function UnconstrainItemActionInstance (target:Object);
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> The Object to animate with this effect.
+		 *  @private
 		 */
-		public function UnconstrainItemActionInstance(target:Object);
+		public function initEffect (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		public function play () : void;
 	}
 }

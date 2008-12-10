@@ -1,136 +1,117 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.messages {
-	public class MessagePerformanceUtils {
+﻿package mx.messaging.messages
+{
+	import mx.messaging.messages.MessagePerformanceInfo;
+
+	/**
+	 * The MessagePerformanceUtils utility class is used to retrieve various metrics about     * the sizing and timing of a message sent from a client to the server and its      * response message, as well as pushed messages from the server to the client.       * Metrics are gathered when corresponding properties on the channel used are enabled:     * &lt;record-message-times&gt; denotes capturing of timing information,     * &lt;record-message-sizes&gt; denotes capturing of sizing information.     *      * <p>You can then use methods of this utility class to retrieve various performance information     * about the message that you have just received.</p>     *      * <p>When these metrics are enabled an instance of this class should be created from      * a response, acknowledgement, or message handler via something like: </p>     * @example     * <pre>     *      var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);     * </pre>         *
+	 */
+	public class MessagePerformanceUtils
+	{
 		/**
-		 * The number of milliseconds since the start of the Unix epoch,
-		 *  January 1, 1970, 00:00:00 GMT, to when the client received response message from the server.
+		 * @private          *          * Information about the original message sent out by the client
 		 */
-		public function get clientReceiveTime():Number;
+		public var mpii : MessagePerformanceInfo;
 		/**
-		 * The size of the original client message, in bytes,
-		 *  as measured during deserialization by the server endpoint.
+		 * @private          *          * Information about the response message sent back to the client
 		 */
-		public function get messageSize():int;
+		public var mpio : MessagePerformanceInfo;
 		/**
-		 * The duration, in milliseconds, from when a client sent a message to the server
-		 *  until it received a response, excluding the server processing time.
-		 *  This value is calculated as totalTime - serverProcessingTime.
+		 * @private          *          * If this is a pushed message, information about the original message         * that caused the push
 		 */
-		public function get networkRTT():Number;
+		public var mpip : MessagePerformanceInfo;
 		/**
-		 * The timestamp, in milliseconds since the start of the Unix epoch on
-		 *  January 1, 1970, 00:00:00 GMT, to when the client that caused a push message sent its message.
-		 *  Only populated in the case of a pushed message, but not for an acknowledge message.
+		 * @private          *          * Header for MPI of original message sent by client
 		 */
-		public function get originatingMessageSentTime():Number;
+		public static const MPI_HEADER_IN : String = "DSMPII";
 		/**
-		 * Size, in bytes, of the message that originally caused this pushed message.
-		 *  Only populated in the case of a pushed message, but not for an acknowledge message.
+		 * @private          *          * Header for MPI of response message sent to the client
 		 */
-		public function get originatingMessageSize():Number;
+		public static const MPI_HEADER_OUT : String = "DSMPIO";
 		/**
-		 * Contains true if the message was pushed to the client
-		 *  but is not a response to a message that originated on the client.
-		 *  For example, when the client polls the server for a message,
-		 *  pushedMessageFlag is false.
-		 *  When you are using a streaming channel, pushedMessageFlag is true.
-		 *  For an acknowledge message, pushedMessageFlag is false.
+		 * @private          *          * Header for MPI of a message that caused a pushed message
 		 */
-		public function get pushedMessageFlag():Boolean;
+		public static const MPI_HEADER_PUSH : String = "DSMPIP";
+
 		/**
-		 * Time, in milliseconds, from when the server pushed the message
-		 *  until the client received it.
-		 *  Note that this value is only relevant if the server and receiving client
-		 *  have synchronized clocks.
-		 *  Only populated in the case of a pushed message, but not for an acknowledge message.
+		 * Time between this client sending a message and receiving a response         * for it from the server         *          * @return Total time in milliseconds
 		 */
-		public function get pushOneWayTime():Number;
+		public function get totalTime () : Number;
 		/**
-		 * The size, in bytes, of the response message sent to the client by the server
-		 *  as measured during serialization at the server endpoint.
+		 * Time between server receiving the client message and either the time         * the server responded to the received message or had the pushed message ready         * to be sent to the receiving client.           *          * @return Server processing time in milliseconds
 		 */
-		public function get responseMessageSize():int;
+		public function get serverProcessingTime () : Number;
 		/**
-		 * Time, in milliseconds, spent in a module invoked from the adapter associated
-		 *  with the destination for this message, before either the response to the message
-		 *  was ready or the message had been prepared to be pushed to the receiving client.
-		 *  This corresponds to the time that the message was processed by the server,
-		 *  excluding the time it was processed by your custom code, as defined by the value in
-		 *  the serverAdapterTime property.
+		 * Time between server receiving the client message and the server beginning to push         * messages out to other clients as a result of the original message.           *          * @return Server pre-push processing time in milliseconds
 		 */
-		public function get serverAdapterExternalTime():Number;
+		public function get serverPrePushTime () : Number;
 		/**
-		 * Processing time, in milliseconds, of the message by the adapter
-		 *  associated with the destination before either the response to
-		 *  the message was ready or the message has been prepared to be pushed
-		 *  to the receiving client.
-		 *  This corresponds to the time that the message was processed by your code
-		 *  on the server.
+		 * Time spent in the adapter associated with the destination for this message before         * either the response to the message was ready or the message had been prepared         * to be pushed to the receiving client.           *          * @return Server adapter processing time in milliseconds
 		 */
-		public function get serverAdapterTime():Number;
+		public function get serverAdapterTime () : Number;
 		/**
-		 * Server processing time spent outside of the adapter associated with
-		 *  the destination of this message.
-		 *  Calculated as serverProcessingTime - serverAdapterTime.
+		 * Time spent in a module invoked from the adapter associated with the destination for this message          * but external to it, before either the response to the message was ready or the message had been          * prepared to be pushed to the receiving client.           *          * @return Server adapter-external processing time in milliseconds
 		 */
-		public function get serverNonAdapterTime():Number;
+		public function get serverAdapterExternalTime () : Number;
 		/**
-		 * Time, in milliseconds, that this message sat on the server after it was ready
-		 *  to be pushed to this client but before it was picked up by a poll request.
-		 *  For an RTMP channel, this value is always 0.
+		 * @return Time that the message waited on the server after it was ready to be pushed to the client         * but had not yet been polled for.
 		 */
-		public function get serverPollDelay():Number;
+		public function get serverPollDelay () : Number;
 		/**
-		 * Time, in milliseconds, between the server receiving the client message
-		 *  and the server beginning to push the message out to other clients.
+		 * Server processing time spent outside of the adapter associated with the destination of this message         *          * @return Non-adapter server processing time in milliseconds
 		 */
-		public function get serverPrePushTime():Number;
+		public function get serverNonAdapterTime () : Number;
 		/**
-		 * Time, in milliseconds, between server receiving the client message and
-		 *  either the time the server responded to the received message or has
-		 *  the pushed message ready to be sent to a receiving client.
-		 *  For example, for an acknowledge message, this is the time from when the server receives
-		 *  a message from the producer and sends the acknowledge message back to the producer.
-		 *  For a consumer that uses polling, it is the time between the arrival of
-		 *  the consumer?s polling message and any message returned in response to the poll.
+		 * The network round trip time for a client message and the server response to it,         * calculated by the difference between total time and server processing time         *          * @return Network round trip time in milliseconds
 		 */
-		public function get serverProcessingTime():Number;
+		public function get networkRTT () : Number;
 		/**
-		 * The number of milliseconds since the start of the Unix epoch,
-		 *  January 1, 1970, 00:00:00 GMT, to when the server sent a response message back to the client.
+		 * Timestamp in milliseconds since epoch of when the server sent a response message back         * to the client         *          * @return Timestamp in milliseconds since epoch
 		 */
-		public function get serverSendTime():Number;
+		public function get serverSendTime () : Number;
 		/**
-		 * Time, in milliseconds, from when the originating client sent a message
-		 *  and the time that the receiving client received the pushed message.
-		 *  Note that this value is only relevant if the two clients have synchronized clocks.
-		 *  Only populated in the case of a pushed message, but not for an acknowledge message,
+		 * Timestamp in milliseconds since epoch of when the client received response message from         * the server         *          * @return Timestamp in milliseconds since epoch
 		 */
-		public function get totalPushTime():Number;
+		public function get clientReceiveTime () : Number;
 		/**
-		 * Time, in milliseconds, between this client sending a message and
-		 *  receiving a response from the server.
-		 *  This property contains 0 for an RTMP channel.
+		 * The size of the original client message as measured during deserialization by the server         * endpoint         *          * @return Message size in Bytes
 		 */
-		public function get totalTime():Number;
+		public function get messageSize () : int;
 		/**
-		 * Constructor.
-		 *  Creates an MessagePerformanceUtils instance with information from
-		 *  the message received by the client.
-		 *
-		 * @param message           <Object> The message received from the server.
-		 *                            This can be a message pushed from the server, or an acknowledge message received
-		 *                            by the client after the client pushed a message to the server.
+		 * The size of the response message sent to the client by the server as measured during serialization         * at the server endpoint         *          * @return Message size in Bytes
 		 */
-		public function MessagePerformanceUtils(message:Object);
+		public function get responseMessageSize () : int;
 		/**
-		 * The prettyPrint() method returns a formatted String containing all
-		 *  non-zero and non-null properties of the class.
-		 *
-		 * @return                  <String> String containing a summary of all available non-zero and non-null metrics.
+		 * Returns true if message was pushed to the client and is not a response to a message that         * originated on the client         *          * @return true if this message was pushed to the client and is not a response to a message that         * originated on the client
 		 */
-		public function prettyPrint():String;
+		public function get pushedMessageFlag () : Boolean;
+		/**
+		 * Only populated in the case of a pushed message, this is the time between the push causing client         * sending its message and the push receving client receiving it.  Note that the two clients'         * clocks must be in sync for this to be meaningful.         *          * @return Total push time in milliseconds
+		 */
+		public function get totalPushTime () : Number;
+		/**
+		 * Only populated in the case of a pushed message, this is the network time between         * the server pushing the message and the client receiving it.  Note that the server         * and client clocks must be in sync for this to be meaningful.         *          * @return One way server push time in milliseconds
+		 */
+		public function get pushOneWayTime () : Number;
+		/**
+		 * Only populated in the case of a pushed message, timestamp in milliseconds since epoch of          * when the client that caused a push message sent its message.         *          * @return Timestamp in milliseconds since epoch
+		 */
+		public function get originatingMessageSentTime () : Number;
+		/**
+		 * Only populated in the case of a pushed message, size in Bytes of the message that originally         * caused this pushed message         *          * @return Pushed causer message size in Bytes
+		 */
+		public function get originatingMessageSize () : Number;
+		/**
+		 * @private         *          * Overhead time in milliseconds for processing of the push causer message
+		 */
+		private function get pushedOverheadTime () : Number;
+
+		/**
+		 * Constructor         *          * Creates an MPUtils instance with information from the MPI headers         * of the passed in message         *          * @param message The message whose MPI headers will be used in retrieving         * MPI information
+		 */
+		public function MessagePerformanceUtils (message:Object);
+		/**
+		 * Method returns a summary of all information available in MPI.  A suggested use of this         * is something like,         * @example         * <listing version="3.0">         *      var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);                              *      Alert.show(mpiutil.prettyPrint(), "MPI Output", Alert.NONMODAL);         * </listing>                     *          * @return String containing a summary of all information available in MPI
+		 */
+		public function prettyPrint () : String;
 	}
 }

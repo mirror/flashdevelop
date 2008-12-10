@@ -1,21 +1,33 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.config {
-	public class LoaderConfig {
+﻿package mx.messaging.config
+{
+	import mx.core.mx_internal;
+
+	/**
+	 *  This class acts as a context for the messaging framework so that it *  has access the URL and arguments of the SWF without needing *  access to the root MovieClip's LoaderInfo or Flex's Application *  class.
+	 */
+	public class LoaderConfig
+	{
 		/**
-		 * If the LoaderConfig has been initialized, this
-		 *  should represent the top-level MovieClip's parameters.
+		 *  @private	 *  Storage for the parameters property.
 		 */
-		public static function get parameters():Object;
+		static var _parameters : Object;
 		/**
-		 * If the LoaderConfig has been initialized, this
-		 *  should represent the top-level MovieClip's URL.
+		 *  @private	 *  Storage for the url property.
 		 */
-		public static function get url():String;
+		static var _url : String;
+
 		/**
-		 * Constructor.
+		 *  If the LoaderConfig has been initialized, this     *  should represent the top-level MovieClip's parameters.
 		 */
-		public function LoaderConfig();
+		public static function get parameters () : Object;
+		/**
+		 *  If the LoaderConfig has been initialized, this     *  should represent the top-level MovieClip's URL.
+		 */
+		public static function get url () : String;
+
+		/**
+		 *  Constructor.	 *	 *  <p>One instance of LoaderConfig is created by the SystemManager. 	 *  You should not need to construct your own.</p>
+		 */
+		public function LoaderConfig ();
 	}
 }

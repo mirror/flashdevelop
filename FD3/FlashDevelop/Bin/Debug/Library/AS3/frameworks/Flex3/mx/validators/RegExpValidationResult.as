@@ -1,37 +1,26 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public class RegExpValidationResult extends ValidationResult {
+﻿package mx.validators
+{
+	/**
+	 *  The RegExpValidator class dispatches the <code>valid</code> *  and <code>invalid</code> events.  *  For an <code>invalid</code> event, the event object *  is an instance of the ValidationResultEvent class,  *  and the <code>ValidationResultEvent.results</code> property *  contains an Array of ValidationResult objects. * *  <p>However, for a <code>valid</code> event, the  *  <code>ValidationResultEvent.results</code> property contains  *  an Array of RegExpValidationResult objects. *  The RegExpValidationResult class is a child class *  of the ValidationResult class, and contains additional properties  *  used with regular expressions.</p> * *  @see mx.events.ValidationResultEvent
+	 */
+	public class RegExpValidationResult extends ValidationResult
+	{
 		/**
-		 * An integer that contains the starting index
-		 *  in the input String of the match.
+		 *  An integer that contains the starting index	 *  in the input String of the match.
 		 */
-		public var matchedIndex:int;
+		public var matchedIndex : int;
 		/**
-		 * A String that contains the substring of the input String
-		 *  that matches the regular expression.
+		 *  A String that contains the substring of the input String	 *  that matches the regular expression.
 		 */
-		public var matchedString:String;
+		public var matchedString : String;
 		/**
-		 * An Array of Strings that contains parenthesized
-		 *  substring matches, if any.
-		 *  If no substring matches are found, this Array is of length 0.
-		 *  Use matchedSubStrings[0] to access
-		 *  the first substring match.
+		 *  An Array of Strings that contains parenthesized	 *  substring matches, if any. 	 *	If no substring matches are found, this Array is of length 0.	 *	Use <code>matchedSubStrings[0]</code> to access	 *  the first substring match.
 		 */
-		public var matchedSubstrings:Array;
+		public var matchedSubstrings : Array;
+
 		/**
-		 * Constructor
-		 *
-		 * @param isError           <Boolean> Pass true if there was a validation error.
-		 * @param subField          <String (default = "")> Name of the subfield of the validated Object.
-		 * @param errorCode         <String (default = "")> Validation error code.
-		 * @param errorMessage      <String (default = "")> Validation error message.
-		 * @param matchedString     <String (default = "")> Matching substring.
-		 * @param matchedIndex      <int (default = 0)> Index of the matching String.
-		 * @param matchedSubstrings <Array (default = null)> Array of substring matches.
+		 *  Constructor	 *       *  @param isError Pass <code>true</code> if there was a validation error.     *     *  @param subField Name of the subfield of the validated Object.     *     *  @param errorCode  Validation error code.     *     *  @param errorMessage Validation error message.     *     *  @param matchedString Matching substring.     *     *  @param matchedIndex Index of the matching String.     *     *  @param matchedSubstrings Array of substring matches.
 		 */
-		public function RegExpValidationResult(isError:Boolean, subField:String = "", errorCode:String = "", errorMessage:String = "", matchedString:String = "", matchedIndex:int = 0, matchedSubstrings:Array = null);
+		public function RegExpValidationResult (isError:Boolean, subField:String = "", errorCode:String = "", errorMessage:String = "", matchedString:String = "", matchedIndex:int = 0, matchedSubstrings:Array = null);
 	}
 }

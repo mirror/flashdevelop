@@ -1,12 +1,32 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.GradientType;
+	import mx.core.FlexVersion;
 	import mx.skins.Border;
-	public class ScrollTrackSkin extends Border {
+	import mx.styles.StyleManager;
+	import mx.utils.ColorUtil;
+
+	/**
+	 *  The skin for the track in a ScrollBar.
+	 */
+	public class ScrollTrackSkin extends Border
+	{
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function ScrollTrackSkin();
+		public function get measuredWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function get measuredHeight () : Number;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ScrollTrackSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

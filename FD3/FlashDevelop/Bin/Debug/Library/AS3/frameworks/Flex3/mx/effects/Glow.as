@@ -1,71 +1,69 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects {
-	public class Glow extends TweenEffect {
+﻿package mx.effects
+{
+	import mx.effects.effectClasses.GlowInstance;
+	import mx.styles.StyleManager;
+
+	/**
+	 *  The Glow effect lets you apply a visual glow effect to a component.  * *  <p>The Glow effect uses the Flash GlowFilter class *  as part of its implementation.  *  For more information, see the flash.filters.GlowFilter class. *  If you apply a Glow effect to a component, you cannot apply a GlowFilter *  or a second Glow effect to the component.</p> * *  @mxml * *  <p>The <code>&lt;mx:Glow&gt;</code> tag *  inherits all of the tag attributes of its superclass, *  and adds the following tag attributes:</p> *   *  <pre> *  &lt;mx:Glow *    id="ID" *    alphaFrom="val" *    alphaTo="val" *    blurXFrom="val" *    blurXTo="val" *    blurYFrom="val" *    blurYTo="val" *    color="<i>themeColor of the application</i>" *    inner="false|true" *    knockout="false|true" *    strength="2" *  /&gt; *  </pre> *   *  @see flash.filters.GlowFilter *  @see mx.effects.effectClasses.GlowInstance * *  @includeExample examples/GlowEffectExample.mxml
+	 */
+	public class Glow extends TweenEffect
+	{
 		/**
-		 * Starting transparency level between 0.0 and 1.0,
-		 *  where 0.0 means transparent and 1.0 means fully opaque.
+		 *  @private
 		 */
-		public var alphaFrom:Number;
+		private static var AFFECTED_PROPERTIES : Array;
 		/**
-		 * Ending transparency level between 0.0 and 1.0,
-		 *  where 0.0 means transparent and 1.0 means fully opaque.
+		 *  Starting transparency level between 0.0 and 1.0,	 *  where 0.0 means transparent and 1.0 means fully opaque.
 		 */
-		public var alphaTo:Number;
+		public var alphaFrom : Number;
 		/**
-		 * The starting amount of horizontal blur.
-		 *  Valid values are from 0.0 to 255.0.
+		 *  Ending transparency level between 0.0 and 1.0,	 *  where 0.0 means transparent and 1.0 means fully opaque.
 		 */
-		public var blurXFrom:Number;
+		public var alphaTo : Number;
 		/**
-		 * The ending amount of horizontal blur.
-		 *  Valid values are from 0.0 to 255.0.
+		 *  The starting amount of horizontal blur.	 *  Valid values are from 0.0 to 255.0.
 		 */
-		public var blurXTo:Number;
+		public var blurXFrom : Number;
 		/**
-		 * The starting amount of vertical blur.
-		 *  Valid values are from 0.0 to 255.0.
+		 *  The ending amount of horizontal blur.	 *  Valid values are from 0.0 to 255.0.
 		 */
-		public var blurYFrom:Number;
+		public var blurXTo : Number;
 		/**
-		 * The ending amount of vertical blur.
-		 *  Valid values are from 0.0 to 255.0.
+		 *  The starting amount of vertical blur.	 *  Valid values are from 0.0 to 255.0.
 		 */
-		public var blurYTo:Number;
+		public var blurYFrom : Number;
 		/**
-		 * The color of the glow.
-		 *  The default value is the value of the themeColor style
-		 *  property of the application.
+		 *  The ending amount of vertical blur.	 *  Valid values are from 0.0 to 255.0.
 		 */
-		public var color:uint = 0xFFFFFFFF;
+		public var blurYTo : Number;
 		/**
-		 * Specifies whether the glow is an inner glow.
-		 *  A value of true indicates an inner glow within
-		 *  the outer edges of the object.
-		 *  The default value is false, to specify
-		 *  an outer glow around the outer edges of the object.
+		 *  The color of the glow. 	 *  The default value is the value of the <code>themeColor</code> style 	 *  property of the application.
 		 */
-		public var inner:Boolean;
+		public var color : uint;
 		/**
-		 * Specifies whether the object has a knockout effect.
-		 *  A value of true makes the object's fill color transparent
-		 *  to reveal the background color of the underlying object.
-		 *  The default value is false to specify no knockout effect.
+		 *  Specifies whether the glow is an inner glow. 	 *  A value of <code>true</code> indicates an inner glow within	 *  the outer edges of the object. 	 *  The default value is <code>false</code>, to specify 	 *  an outer glow around the outer edges of the object. 	 *	 *  @default false
 		 */
-		public var knockout:Boolean;
+		public var inner : Boolean;
 		/**
-		 * The strength of the imprint or spread.
-		 *  The higher the value, the more color is imprinted and the stronger the
-		 *  contrast between the glow and the background.
-		 *  Valid values are from 0 to 255.
+		 *  Specifies whether the object has a knockout effect. 	 *  A value of <code>true</code> makes the object's fill color transparent 	 *  to reveal the background color of the underlying object. 	 *  The default value is <code>false</code> to specify no knockout effect. 	 *	 *  @default false
 		 */
-		public var strength:Number;
+		public var knockout : Boolean;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object (default = null)> The Object to animate with this effect.
+		 *  The strength of the imprint or spread. 	 *  The higher the value, the more color is imprinted and the stronger the 	 *  contrast between the glow and the background. 	 *  Valid values are from <code>0</code> to <code>255</code>. 	 *	 *  @default 2
 		 */
-		public function Glow(target:Object = null);
+		public var strength : Number;
+
+		/**
+		 *  Constructor.	 *	 *  @param target The Object to animate with this effect.
+		 */
+		public function Glow (target:Object = null);
+		/**
+		 *  @private
+		 */
+		public function getAffectedProperties () : Array;
+		/**
+		 *  @private
+		 */
+		protected function initInstance (instance:IEffectInstance) : void;
 	}
 }

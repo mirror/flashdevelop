@@ -1,18 +1,42 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.resources {
-	public class ResourceManager {
+﻿package mx.resources
+{
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.IEventDispatcher;
+	import flash.events.TimerEvent;
+	import flash.system.ApplicationDomain;
+	import flash.system.SecurityDomain;
+	import flash.utils.Timer;
+	import mx.core.IFlexModuleFactory;
+	import mx.core.mx_internal;
+	import mx.core.Singleton;
+	import mx.events.ModuleEvent;
+	import mx.events.ResourceEvent;
+	import mx.modules.IModuleInfo;
+	import mx.modules.ModuleManager;
+	import mx.utils.StringUtil;
+
+	/**
+	 *  This class is used to get a single instance of the IResourceManager *  implementation. *  The IResourceManager and IResourceBundle interfaces work together *  to provide internationalization support for Flex applications. * *  <p>A single instance of an IResourceManager implementation *  manages all localized resources *  for a Flex application.</p> *   *  @see mx.resources.IResourceManager *  @see mx.resources.IResourceBundle
+	 */
+	public class ResourceManager
+	{
 		/**
-		 * Constructor.
+		 *  @private     *  Linker dependency on implementation class.
 		 */
-		public function ResourceManager();
+		private static var implClassDependency : ResourceManagerImpl;
 		/**
-		 * Gets the single instance of the ResourceManager class.
-		 *  This object manages all localized resources for a Flex application.
-		 *
-		 * @return                  <IResourceManager> An object implementing IResourceManager.
+		 *  @private     *  The sole instance of the ResourceManager.
 		 */
-		public static function getInstance():IResourceManager;
+		private static var instance : IResourceManager;
+
+		/**
+		 *  Gets the single instance of the ResourceManager class.     *  This object manages all localized resources for a Flex application.     *       *  @return An object implementing IResourceManager.
+		 */
+		public static function getInstance () : IResourceManager;
+		/**
+		 *  Constructor.
+		 */
+		public function ResourceManager ();
 	}
 }

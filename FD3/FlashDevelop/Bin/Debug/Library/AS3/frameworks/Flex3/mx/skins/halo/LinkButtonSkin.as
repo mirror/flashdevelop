@@ -1,12 +1,25 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import mx.core.EdgeMetrics;
 	import mx.skins.Border;
-	public class LinkButtonSkin extends Border {
+
+	/**
+	 *  The skin for all the states of a LinkButton.
+	 */
+	public class LinkButtonSkin extends Border
+	{
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function LinkButtonSkin();
+		public function get borderMetrics () : EdgeMetrics;
+
+		/**
+		 *  Constructor.
+		 */
+		public function LinkButtonSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

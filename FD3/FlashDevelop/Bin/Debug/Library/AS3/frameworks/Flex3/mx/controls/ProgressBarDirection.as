@@ -1,15 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls {
-	public final  class ProgressBarDirection {
+﻿package mx.controls
+{
+	/**
+	 *  The ProgressBarDirection class defines the values *  for the <code>direction</code> property of the ProgressBar class. * *  @see mx.controls.ProgressBar
+	 */
+	public class ProgressBarDirection
+	{
 		/**
-		 * Specifies to fill the progress bar from the right to the left.
+		 *  Specifies to fill the progress bar from the right to the left.
 		 */
-		public static const LEFT:String = "left";
+		public static const LEFT : String = "left";
 		/**
-		 * Specifies to fill the progress bar from the left to the right.
+		 *  Specifies to fill the progress bar from the left to the right.
 		 */
-		public static const RIGHT:String = "right";
+		public static const RIGHT : String = "right";
+
 	}
 }

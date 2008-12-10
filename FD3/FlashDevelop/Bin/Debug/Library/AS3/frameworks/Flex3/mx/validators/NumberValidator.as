@@ -1,132 +1,286 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public class NumberValidator extends Validator {
+﻿package mx.validators
+{
+	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
+
+	/**
+	 *  The NumberValidator class ensures that a String represents a valid number. *  It can ensure that the input falls within a given range *  (specified by <code>minValue</code> and <code>maxValue</code>), *  is an integer (specified by <code>domain</code>), *  is non-negative (specified by <code>allowNegative</code>), *  and does not exceed the specified <code>precision</code>. *  The validator correctly validates formatted numbers (e.g., "12,345.67") *  and you can customize the <code>thousandsSeparator</code> and *  <code>decimalSeparator</code> properties for internationalization. *   *  @mxml * *  <p>The <code>&lt;mx:NumberValidator&gt;</code> tag *  inherits all of the tag attributes of its superclass, *  and adds the following tag attributes:</p> *   *  <pre> *  &lt;mx:NumberValidator  *    allowNegative="true|false"  *    decimalPointCountError="The decimal separator can only occur once."  *    decimalSeparator="."  *    domain="real|int"  *    exceedsMaxError="The number entered is too large."  *    integerError="The number must be an integer."  *    invalidCharError="The input contains invalid characters."  *    invalidFormatCharsError="One of the formatting parameters is invalid."  *    lowerThanMinError="The amount entered is too small."  *    maxValue="NaN"  *    minValue="NaN"  *    negativeError="The amount may not be negative."  *    precision="-1"  *    precisionError="The amount entered has too many digits beyond the decimal point."  *    separationError="The thousands separator must be followed by three digits."  *    thousandsSeparator=","  *  /&gt; *  </pre> *   *  @includeExample examples/NumberValidatorExample.mxml
+	 */
+	public class NumberValidator extends Validator
+	{
 		/**
-		 * Specifies whether negative numbers are permitted.
-		 *  Valid values are true or false.
+		 *  @private	 *  Storage for the allowNegative property.
 		 */
-		public function get allowNegative():Object;
-		public function set allowNegative(value:Object):void;
+		private var _allowNegative : Object;
 		/**
-		 * Error message when the decimal separator character occurs more than once.
+		 *  @private
 		 */
-		public function get decimalPointCountError():String;
-		public function set decimalPointCountError(value:String):void;
+		private var allowNegativeOverride : Object;
 		/**
-		 * The character used to separate the whole
-		 *  from the fractional part of the number.
-		 *  Cannot be a digit and must be distinct from the
-		 *  thousandsSeparator.
+		 *  @private	 *  Storage for the decimalSeparator property.
 		 */
-		public function get decimalSeparator():String;
-		public function set decimalSeparator(value:String):void;
+		private var _decimalSeparator : String;
 		/**
-		 * Type of number to be validated.
-		 *  Permitted values are "real" and "int".
+		 *  @private
 		 */
-		public function get domain():String;
-		public function set domain(value:String):void;
+		private var decimalSeparatorOverride : String;
 		/**
-		 * Error message when the value exceeds the maxValue property.
+		 *  @private	 *  Storage for the domain property.
 		 */
-		public function get exceedsMaxError():String;
-		public function set exceedsMaxError(value:String):void;
+		private var _domain : String;
 		/**
-		 * Error message when the number must be an integer, as defined
-		 *  by the domain property.
+		 *  @private
 		 */
-		public function get integerError():String;
-		public function set integerError(value:String):void;
+		private var domainOverride : String;
 		/**
-		 * Error message when the value contains invalid characters.
+		 *  @private	 *  Storage for the maxValue property.
 		 */
-		public function get invalidCharError():String;
-		public function set invalidCharError(value:String):void;
+		private var _maxValue : Object;
 		/**
-		 * Error message when the value contains invalid format characters, which means that
-		 *  it contains a digit or minus sign (-) as a separator character,
-		 *  or it contains two or more consecutive separator characters.
+		 *  @private
 		 */
-		public function get invalidFormatCharsError():String;
-		public function set invalidFormatCharsError(value:String):void;
+		private var maxValueOverride : Object;
 		/**
-		 * Error message when the value is less than minValue.
+		 *  @private	 *  Storage for the minValue property.
 		 */
-		public function get lowerThanMinError():String;
-		public function set lowerThanMinError(value:String):void;
+		private var _minValue : Object;
 		/**
-		 * Maximum value for a valid number. A value of NaN means there is no maximum.
+		 *  @private
 		 */
-		public function get maxValue():Object;
-		public function set maxValue(value:Object):void;
+		private var minValueOverride : Object;
 		/**
-		 * Minimum value for a valid number. A value of NaN means there is no minimum.
+		 *  @private	 *  Storage for the precision property.
 		 */
-		public function get minValue():Object;
-		public function set minValue(value:Object):void;
+		private var _precision : Object;
 		/**
-		 * Error message when the value is negative and the
-		 *  allowNegative property is false.
+		 *  @private
 		 */
-		public function get negativeError():String;
-		public function set negativeError(value:String):void;
+		private var precisionOverride : Object;
 		/**
-		 * The maximum number of digits allowed to follow the decimal point.
-		 *  Can be any nonnegative integer.
-		 *  Note: Setting to 0 has the same effect
-		 *  as setting domain to "int".
-		 *  A value of -1 means it is ignored.
+		 *  @private	 *  Storage for the thousandsSeparator property.
 		 */
-		public function get precision():Object;
-		public function set precision(value:Object):void;
+		private var _thousandsSeparator : String;
 		/**
-		 * Error message when the value has a precision that exceeds the value defined
-		 *  by the precision property.
+		 *  @private
 		 */
-		public function get precisionError():String;
-		public function set precisionError(value:String):void;
+		private var thousandsSeparatorOverride : String;
 		/**
-		 * Error message when the thousands separator is in the wrong location.
+		 *  @private	 *  Storage for the decimalPointCountError property.
 		 */
-		public function get separationError():String;
-		public function set separationError(value:String):void;
+		private var _decimalPointCountError : String;
 		/**
-		 * The character used to separate thousands
-		 *  in the whole part of the number.
-		 *  Cannot be a digit and must be distinct from the
-		 *  decimalSeparator.
+		 *  @private
 		 */
-		public function get thousandsSeparator():String;
-		public function set thousandsSeparator(value:String):void;
+		private var decimalPointCountErrorOverride : String;
 		/**
-		 * Constructor.
+		 *  @private	 *  Storage for the exceedsMaxError property.
 		 */
-		public function NumberValidator();
+		private var _exceedsMaxError : String;
 		/**
-		 * Override of the base class doValidation() method
-		 *  to validate a number.
-		 *
-		 * @param value             <Object> Object to validate.
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private
 		 */
-		protected override function doValidation(value:Object):Array;
+		private var exceedsMaxErrorOverride : String;
 		/**
-		 * Convenience method for calling a validator
-		 *  from within a custom validation function.
-		 *  Each of the standard Flex validators has a similar convenience method.
-		 *
-		 * @param validator         <NumberValidator> The NumberValidator instance.
-		 * @param value             <Object> A field to validate.
-		 * @param baseField         <String> Text representation of the subfield
-		 *                            specified in the value parameter.
-		 *                            For example, if the value parameter specifies value.number,
-		 *                            the baseField value is "number".
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private	 *  Storage for the integerError property.
 		 */
-		public static function validateNumber(validator:NumberValidator, value:Object, baseField:String):Array;
+		private var _integerError : String;
+		/**
+		 *  @private
+		 */
+		private var integerErrorOverride : String;
+		/**
+		 *  @private	 *  Storage for the invalidCharError property.
+		 */
+		private var _invalidCharError : String;
+		/**
+		 *  @private
+		 */
+		private var invalidCharErrorOverride : String;
+		/**
+		 *  @private	 *  Storage for the invalidFormatCharsError property.
+		 */
+		private var _invalidFormatCharsError : String;
+		/**
+		 *  @private
+		 */
+		private var invalidFormatCharsErrorOverride : String;
+		/**
+		 *  @private	 *  Storage for the lowerThanMinError property.
+		 */
+		private var _lowerThanMinError : String;
+		/**
+		 *  @private
+		 */
+		private var lowerThanMinErrorOverride : String;
+		/**
+		 *  @private	 *  Storage for the negativeError property.
+		 */
+		private var _negativeError : String;
+		/**
+		 *  @private
+		 */
+		private var negativeErrorOverride : String;
+		/**
+		 *  @private	 *  Storage for the precisionError property.
+		 */
+		private var _precisionError : String;
+		/**
+		 *  @private
+		 */
+		private var precisionErrorOverride : String;
+		/**
+		 *  @private	 *  Storage for the separationError property.
+		 */
+		private var _separationError : String;
+		/**
+		 *  @private
+		 */
+		private var separationErrorOverride : String;
+
+		/**
+		 *  Specifies whether negative numbers are permitted.	 *  Valid values are <code>true</code> or <code>false</code>.	 *	 *  @default true
+		 */
+		public function get allowNegative () : Object;
+		/**
+		 *  @private
+		 */
+		public function set allowNegative (value:Object) : void;
+		/**
+		 *  The character used to separate the whole	 *  from the fractional part of the number.	 *  Cannot be a digit and must be distinct from the     *  <code>thousandsSeparator</code>.	 *	 *  @default "."
+		 */
+		public function get decimalSeparator () : String;
+		/**
+		 *  @private
+		 */
+		public function set decimalSeparator (value:String) : void;
+		/**
+		 *  Type of number to be validated.	 *  Permitted values are <code>"real"</code> and <code>"int"</code>.	 *	 *  @default "real"
+		 */
+		public function get domain () : String;
+		/**
+		 *  @private
+		 */
+		public function set domain (value:String) : void;
+		/**
+		 *  Maximum value for a valid number. A value of NaN means there is no maximum.	 *	 *  @default NaN
+		 */
+		public function get maxValue () : Object;
+		/**
+		 *  @private
+		 */
+		public function set maxValue (value:Object) : void;
+		/**
+		 *  Minimum value for a valid number. A value of NaN means there is no minimum.	 *	 *  @default NaN
+		 */
+		public function get minValue () : Object;
+		/**
+		 *  @private
+		 */
+		public function set minValue (value:Object) : void;
+		/**
+		 *  The maximum number of digits allowed to follow the decimal point.	 *  Can be any nonnegative integer. 	 *  Note: Setting to <code>0</code> has the same effect	 *  as setting <code>domain</code> to <code>"int"</code>.	 *  A value of -1 means it is ignored.	 *	 *  @default -1
+		 */
+		public function get precision () : Object;
+		/**
+		 *  @private
+		 */
+		public function set precision (value:Object) : void;
+		/**
+		 *  The character used to separate thousands	 *  in the whole part of the number.	 *  Cannot be a digit and must be distinct from the     *  <code>decimalSeparator</code>.	 *	 *  @default ","
+		 */
+		public function get thousandsSeparator () : String;
+		/**
+		 *  @private
+		 */
+		public function set thousandsSeparator (value:String) : void;
+		/**
+		 *  Error message when the decimal separator character occurs more than once.	 *	 *  @default "The decimal separator can occur only once."
+		 */
+		public function get decimalPointCountError () : String;
+		/**
+		 *  @private
+		 */
+		public function set decimalPointCountError (value:String) : void;
+		/**
+		 *  Error message when the value exceeds the <code>maxValue</code> property.	 *	 *  @default "The number entered is too large."
+		 */
+		public function get exceedsMaxError () : String;
+		/**
+		 *  @private
+		 */
+		public function set exceedsMaxError (value:String) : void;
+		/**
+		 *  Error message when the number must be an integer, as defined      * by the <code>domain</code> property.	 *	 *  @default "The number must be an integer."
+		 */
+		public function get integerError () : String;
+		/**
+		 *  @private
+		 */
+		public function set integerError (value:String) : void;
+		/**
+		 *  Error message when the value contains invalid characters.	 *	 *  @default The input contains invalid characters."
+		 */
+		public function get invalidCharError () : String;
+		/**
+		 *  @private
+		 */
+		public function set invalidCharError (value:String) : void;
+		/**
+		 *  Error message when the value contains invalid format characters, which means that      *  it contains a digit or minus sign (-) as a separator character,      *  or it contains two or more consecutive separator characters.	 *	 *  @default "One of the formatting parameters is invalid."
+		 */
+		public function get invalidFormatCharsError () : String;
+		/**
+		 *  @private
+		 */
+		public function set invalidFormatCharsError (value:String) : void;
+		/**
+		 *  Error message when the value is less than <code>minValue</code>.	 *	 *  @default "The amount entered is too small."
+		 */
+		public function get lowerThanMinError () : String;
+		/**
+		 *  @private
+		 */
+		public function set lowerThanMinError (value:String) : void;
+		/**
+		 *  Error message when the value is negative and the      *  <code>allowNegative</code> property is <code>false</code>.	 *	 *  @default "The amount may not be negative."
+		 */
+		public function get negativeError () : String;
+		/**
+		 *  @private
+		 */
+		public function set negativeError (value:String) : void;
+		/**
+		 *  Error message when the value has a precision that exceeds the value defined      *  by the precision property.	 *	 *  @default "The amount entered has too many digits beyond the decimal point."
+		 */
+		public function get precisionError () : String;
+		/**
+		 *  @private
+		 */
+		public function set precisionError (value:String) : void;
+		/**
+		 *  Error message when the thousands separator is in the wrong location.	 *	 *  @default "The thousands separator must be followed by three digits."
+		 */
+		public function get separationError () : String;
+		/**
+		 *  @private
+		 */
+		public function set separationError (value:String) : void;
+
+		/**
+		 *  Convenience method for calling a validator	 *  from within a custom validation function.	 *  Each of the standard Flex validators has a similar convenience method.	 *	 *  @param validator The NumberValidator instance.	 *	 *  @param value A field to validate.	 *     *  @param baseField Text representation of the subfield	 *  specified in the <code>value</code> parameter.	 *  For example, if the <code>value</code> parameter specifies value.number,	 *  the <code>baseField</code> value is "number".	 *	 *  @return An Array of ValidationResult objects, with one ValidationResult 	 *  object for each field examined by the validator. 	 *	 *  @see mx.validators.ValidationResult
+		 */
+		public static function validateNumber (validator:NumberValidator, value:Object, baseField:String) : Array;
+		/**
+		 *  Constructor.
+		 */
+		public function NumberValidator ();
+		/**
+		 *  @private
+		 */
+		protected function resourcesChanged () : void;
+		/**
+		 *  Override of the base class <code>doValidation()</code> method      *  to validate a number.     *	 *  <p>You do not call this method directly;	 *  Flex calls it as part of performing a validation.	 *  If you create a custom Validator class, you must implement this method. </p>	 *     *  @param value Object to validate.     *	 *  @return An Array of ValidationResult objects, with one ValidationResult 	 *  object for each field examined by the validator.
+		 */
+		protected function doValidation (value:Object) : Array;
 	}
 }

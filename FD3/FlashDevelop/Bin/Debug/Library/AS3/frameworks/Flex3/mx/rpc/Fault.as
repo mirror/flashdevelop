@@ -1,44 +1,51 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.rpc {
-	public class Fault extends Error {
+﻿package mx.rpc
+{
+	/**
+	 * The Fault class represents a fault in a remote procedure call (RPC) service * invocation.
+	 */
+	public class Fault extends Error
+	{
 		/**
+		 * The raw content of the fault (if available), such as an HTTP response     * body.
 		 */
-		protected var _faultCode:String;
+		public var content : Object;
 		/**
+		 * The cause of the fault. The value will be null if the cause is     * unknown or whether this fault represents the root itself.
 		 */
-		protected var _faultDetail:String;
+		public var rootCause : Object;
 		/**
+		 * @private
 		 */
-		protected var _faultString:String;
+		protected var _faultCode : String;
+		/**
+		 * @private
+		 */
+		protected var _faultString : String;
+		/**
+		 * @private
+		 */
+		protected var _faultDetail : String;
+
 		/**
 		 * A simple code describing the fault.
 		 */
-		public function get faultCode():String;
+		public function get faultCode () : String;
 		/**
 		 * Any extra details of the fault.
 		 */
-		public function get faultDetail():String;
+		public function get faultDetail () : String;
 		/**
 		 * Text description of the fault.
 		 */
-		public function get faultString():String;
+		public function get faultString () : String;
+
 		/**
-		 * The cause of the fault. The value will be null if the cause is
-		 *  unknown or whether this fault represents the root itself.
+		 * Creates a new Fault object.     *     * @param faultCode A simple code describing the fault.     * @param faultString Text description of the fault.     * @param faultDetail Additional details describing the fault.     *
 		 */
-		public var rootCause:Object;
+		public function Fault (faultCode:String, faultString:String, faultDetail:String = null);
 		/**
-		 * Creates a new Fault object.
-		 *
-		 * @param faultCode         <String> 
-		 * @param faultString       <String> 
-		 * @param faultDetail       <String (default = null)> 
+		 * Returns the string representation of a Fault object.     *     * @return Returns the string representation of a Fault object.
 		 */
-		public function Fault(faultCode:String, faultString:String, faultDetail:String = null);
-		/**
-		 */
-		public function toString():String;
+		public function toString () : String;
 	}
 }

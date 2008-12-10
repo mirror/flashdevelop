@@ -1,55 +1,47 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.events {
+﻿package mx.messaging.events
+{
 	import flash.events.Event;
 	import mx.messaging.messages.IMessage;
-	public class MessageEvent extends Event {
+	import mx.core.mx_internal;
+
+	/**
+	 *  The MessageEvent class is used to propagate messages within the messaging system.
+	 */
+	public class MessageEvent extends Event
+	{
 		/**
-		 * The Message associated with this event.
+		 *  The MESSAGE event type; dispatched upon receipt of a message.     *  <p>The value of this constant is <code>"message"</code>.</p>     *     *  <p>The properties of the event object have the following values:</p>     *  <table class="innertable">     *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>message</code></td><td>The message associated with this event.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *  </table>     *  @eventType message
 		 */
-		public var message:IMessage;
+		public static const MESSAGE : String = "message";
 		/**
-		 * Constructs an instance of this event with the specified type and
-		 *  message.
-		 *
-		 * @param type              <String> The type for the MessageEvent.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display
-		 *                            list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Indicates whether the behavior associated with the
-		 *                            event can be prevented; used by the RPC subclasses.
-		 * @param message           <IMessage (default = null)> The associated message.
+		 *  The RESULT event type; dispatched when an RPC agent receives a result from     *  a remote service destination.     *  <p>The value of this constant is <code>"result"</code>.</p>     *     *  <p>The properties of the event object have the following values:</p>     *  <table class="innertable">     *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>message</code></td><td>The message associated with this event.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *  </table>     *  @eventType result
 		 */
-		public function MessageEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, message:IMessage = null);
+		public static const RESULT : String = "result";
 		/**
-		 * Clones the MessageEvent.
-		 *
-		 * @return                  <Event> Copy of this MessageEvent.
+		 *  The Message associated with this event.
 		 */
-		public override function clone():Event;
+		public var message : IMessage;
+
 		/**
-		 * Utility method to create a new MessageEvent that doesn't bubble and
-		 *  is not cancelable.
-		 *
-		 * @param type              <String> The type for the MessageEvent.
-		 * @param msg               <IMessage> The associated message.
-		 * @return                  <MessageEvent> New MessageEvent.
+		 *  @private
 		 */
-		public static function createEvent(type:String, msg:IMessage):MessageEvent;
+		public function get messageId () : String;
+
 		/**
-		 * Returns a string representation of the MessageEvent.
-		 *
-		 * @return                  <String> String representation of the MessageEvent.
+		 *  Utility method to create a new MessageEvent that doesn't bubble and     *  is not cancelable.     *      *  @param type The type for the MessageEvent.     *       *  @param message The associated message.     *      *  @return New MessageEvent.
 		 */
-		public override function toString():String;
+		public static function createEvent (type:String, msg:IMessage) : MessageEvent;
 		/**
-		 * The MESSAGE event type; dispatched upon receipt of a message.
+		 *  Constructs an instance of this event with the specified type and      *  message.     *      *  @param type The type for the MessageEvent.     *      *  @param bubbles Specifies whether the event can bubble up the display      *  list hierarchy.     *      *  @param cancelable Indicates whether the behavior associated with the      *  event can be prevented; used by the RPC subclasses.     *      *  @param message The associated message.
 		 */
-		public static const MESSAGE:String = "message";
+		public function MessageEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, message:IMessage = null);
 		/**
-		 * The RESULT event type; dispatched when an RPC agent receives a result from
-		 *  a remote service destination.
+		 *  Clones the MessageEvent.     *     *  @return Copy of this MessageEvent.
 		 */
-		public static const RESULT:String = "result";
+		public function clone () : Event;
+		/**
+		 *  Returns a string representation of the MessageEvent.     *     *  @return String representation of the MessageEvent.
+		 */
+		public function toString () : String;
 	}
 }

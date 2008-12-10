@@ -1,89 +1,54 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.events {
+﻿package mx.messaging.events
+{
+	import flash.events.Event;
 	import mx.messaging.Channel;
-	public class ChannelFaultEvent extends ChannelEvent {
+	import mx.messaging.messages.ErrorMessage;
+
+	/**
+	 *  The ChannelFaultEvent class is used to propagate channel fault events within the messaging system.
+	 */
+	public class ChannelFaultEvent extends ChannelEvent
+	{
 		/**
-		 * Provides access to the destination-specific failure code. For more
-		 *  specific details see the faultString and
-		 *  faultDetails properties.
+		 *  The FAULT event type; indicates that the Channel faulted.     *  <p>The value of this constant is <code>"channelFault"</code>.</p>     *     *  <p>The properties of the event object have the following values:</p>     *  <table class="innertable">     *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>channel</code></td><td>The Channel that generated this event.</td></tr>        *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>faultCode</code></td><td>Provides destination-specific     *       details of the failure.</td></tr>     *     <tr><td><code>faultDetail</code></td><td>Provides access to the     *       destination-specific reason for the failure.</td></tr>     *     <tr><td><code>faultString</code></td><td>Provides access to the underlying     *        reason for the failure if the channel did not raise the failure itself.</td></tr>     *     <tr><td><code>reconnecting</code></td><td> Indicates whether the channel     *       that generated this event is reconnecting.</td></tr>      *     <tr><td><code>rootCause</code></td><td> Provides access to the underlying reason     *       for the failure if the channel did not raise the failure itself.</td></tr>              *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *  </table>     *  @eventType channelFault
 		 */
-		public var faultCode:String;
+		public static const FAULT : String = "channelFault";
 		/**
-		 * Provides destination-specific details of the failure.
+		 *  Provides access to the destination-specific failure code. For more      *  specific details see the <code>faultString</code> and      *  <code>faultDetails</code> properties.     *     *  <p>The format of the fault codes are provided by the remote destination,      *  but will typically have the following form: <i>host.operation.error</i>      *  e.g. <code>"Server.Connect.Failed"</code></p>     *     *  @see #faultString     *  @see #faultDetail
 		 */
-		public var faultDetail:String;
+		public var faultCode : String;
 		/**
-		 * Provides access to the destination-specific reason for the failure.
+		 *  Provides destination-specific details of the failure.     *     *  <p>Typically fault details are a stack trace of an exception thrown at      *  the remote destination.</p>     *     *  @see #faultString     *  @see #faultCode
 		 */
-		public var faultString:String;
+		public var faultDetail : String;
 		/**
-		 * Provides access to the underlying reason for the failure if the channel did
-		 *  not raise the failure itself.
+		 *  Provides access to the destination-specific reason for the failure.     *     *  @see #faultCode     *  @see #faultDetail
 		 */
-		public var rootCause:Object;
+		public var faultString : String;
 		/**
-		 * Constructs an instance of this event with the specified type.
-		 *  Note that the rejected and connected arguments that correspond to properties
-		 *  defined by the super-class ChannelEvent were not originally included in this method signature and have been
-		 *  added at the end of the argument list to preserve backward compatibility even though this signature differs from
-		 *  ChannelEvent's constructor.
-		 *
-		 * @param type              <String> The Channel generating the event.
-		 * @param bubbles           <Boolean (default = false)> Indicates whether the Channel is in the process of
-		 *                            reconnecting or not.
-		 * @param cancelable        <Boolean (default = false)> The fault code.
-		 * @param channel           <Channel (default = null)> The fault level.
-		 * @param reconnecting      <Boolean (default = false)> The fault description.
-		 * @param code              <String (default = null)> Indicates whether the Channel's connection has been rejected,
-		 *                            which suppresses automatic reconnection.
-		 * @param level             <String (default = null)> Indicates whether the Channel that generated this event
-		 *                            is already connected.
-		 * @param description       <String (default = null)> 
-		 * @param rejected          <Boolean (default = false)> 
-		 * @param connected         <Boolean (default = false)> 
+		 * Provides access to the underlying reason for the failure if the channel did     * not raise the failure itself.
 		 */
-		public function ChannelFaultEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, channel:Channel = null, reconnecting:Boolean = false, code:String = null, level:String = null, description:String = null, rejected:Boolean = false, connected:Boolean = false);
+		public var rootCause : Object;
+
 		/**
-		 * Clones the ChannelFaultEvent.
-		 *
-		 * @return                  <Event> Copy of this ChannelFaultEvent.
+		 *  Utility method to create a new ChannelFaultEvent that doesn't bubble and     *  is not cancelable.     *       *  @param channel The Channel generating the event.     *      *  @param reconnecting Indicates whether the Channel is in the process of     *  reconnecting or not.     *      *  @param code The fault code.     *      *  @param level The fault level.     *      *  @param description The fault description.     *      *  @param rejected Indicates whether the Channel's connection has been rejected,     *  which suppresses automatic reconnection.     *      *  @param connected Indicates whether the Channel that generated this event      *  is already connected.     *      *  @return New ChannelFaultEvent.
 		 */
-		public override function clone():Event;
+		public static function createEvent (channel:Channel, reconnecting:Boolean = false, code:String = null, level:String = null, description:String = null, rejected:Boolean = false, connected:Boolean = false) : ChannelFaultEvent;
 		/**
-		 * Creates an ErrorMessage based on the ChannelFaultEvent by copying over
-		 *  the faultCode, faultString, faultDetail and rootCause to the new ErrorMessage.
-		 *
-		 * @return                  <ErrorMessage> The ErrorMessage.
+		 *  Constructs an instance of this event with the specified type.     *  Note that the <code>rejected</code> and <code>connected</code> arguments that correspond to properties     *  defined by the super-class <code>ChannelEvent</code> were not originally included in this method signature and have been      *  added at the end of the argument list to preserve backward compatibility even though this signature differs from      *  <code>ChannelEvent</code>'s constructor.     *      *  @param type The type of the event.     *     *  @param bubbles Indicates whether the event can bubble up the display list hierarchy.     *     *  @param cancelable Indicates whether the behavior associated with the event can be prevented.     *     *  @param channel The Channel generating the event.     *      *  @param reconnecting Indicates whether the Channel is in the process of     *                      reconnecting or not.     *      *  @param code The fault code.     *      *  @param level The fault level.     *      *  @param description The fault description.     *      *  @param rejected Indicates whether the Channel's connection has been rejected,     *  which suppresses automatic reconnection.     *      *  @param connected Indicates whether the Channel that generated this event      *  is already connected.
 		 */
-		public function createErrorMessage():ErrorMessage;
+		public function ChannelFaultEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, channel:Channel = null, reconnecting:Boolean = false, code:String = null, level:String = null, description:String = null, rejected:Boolean = false, connected:Boolean = false);
 		/**
-		 * Utility method to create a new ChannelFaultEvent that doesn't bubble and
-		 *  is not cancelable.
-		 *
-		 * @param channel           <Channel> The Channel generating the event.
-		 * @param reconnecting      <Boolean (default = false)> Indicates whether the Channel is in the process of
-		 *                            reconnecting or not.
-		 * @param code              <String (default = null)> The fault code.
-		 * @param level             <String (default = null)> The fault level.
-		 * @param description       <String (default = null)> The fault description.
-		 * @param rejected          <Boolean (default = false)> Indicates whether the Channel's connection has been rejected,
-		 *                            which suppresses automatic reconnection.
-		 * @param connected         <Boolean (default = false)> Indicates whether the Channel that generated this event
-		 *                            is already connected.
-		 * @return                  <ChannelFaultEvent> New ChannelFaultEvent.
+		 *  Clones the ChannelFaultEvent.     *     *  @return Copy of this ChannelFaultEvent.
 		 */
-		public static function createEvent(channel:Channel, reconnecting:Boolean = false, code:String = null, level:String = null, description:String = null, rejected:Boolean = false, connected:Boolean = false):ChannelFaultEvent;
+		public function clone () : Event;
 		/**
-		 * Returns a string representation of the ChannelFaultEvent.
-		 *
-		 * @return                  <String> String representation of the ChannelFaultEvent.
+		 *  Returns a string representation of the ChannelFaultEvent.     *     *  @return String representation of the ChannelFaultEvent.
 		 */
-		public override function toString():String;
+		public function toString () : String;
 		/**
-		 * The FAULT event type; indicates that the Channel faulted.
+		 *  Creates an ErrorMessage based on the ChannelFaultEvent by copying over     *  the faultCode, faultString, faultDetail and rootCause to the new ErrorMessage.     *      *  @return The ErrorMessage.
 		 */
-		public static const FAULT:String = "channelFault";
+		public function createErrorMessage () : ErrorMessage;
 	}
 }

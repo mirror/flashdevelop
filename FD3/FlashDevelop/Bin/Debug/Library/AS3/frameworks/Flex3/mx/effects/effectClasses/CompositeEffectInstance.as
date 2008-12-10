@@ -1,48 +1,110 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
+﻿package mx.effects.effectClasses
+{
+	import flash.events.Event;
+	import mx.core.mx_internal;
 	import mx.effects.EffectInstance;
 	import mx.effects.IEffectInstance;
-	public class CompositeEffectInstance extends EffectInstance {
+	import mx.effects.Tween;
+	import mx.events.EffectEvent;
+
+	/**
+	 *  The CompositeEffectInstance class implements the instance class *  for the CompositeEffect class. *  Flex creates an instance of this class  when it plays a CompositeEffect; *  you do not create one yourself. * *  @see mx.effects.CompositeEffect
+	 */
+	public class CompositeEffectInstance extends EffectInstance
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> This argument is ignored for Composite effects.
-		 *                            It is included only for consistency with other types of effects.
+		 *  @private 	 *  Internal queue of EffectInstances that are currently playing or waiting to be played.	 *  Used internally by subclasses.
 		 */
-		public function CompositeEffectInstance(target:Object);
+		local var activeEffectQueue : Array;
 		/**
-		 * Adds a new set of child effects to this Composite effect.
-		 *  A Sequence effect plays each child effect set one at a time,
-		 *  in the order that it is added.
-		 *  A Parallel effect plays all child effect sets simultaneously;
-		 *  the order in which they are added doesn't matter.
-		 *
-		 * @param childSet          <Array> Array of child effects to be added
-		 *                            to the CompositeEffect.
+		 *  @private
 		 */
-		public function addChildSet(childSet:Array):void;
+		private var _playheadTime : Number;
 		/**
-		 * Called each time one of the child effects has finished playing.
-		 *  Subclasses must implement this function.
-		 *
-		 * @param childEffect       <IEffectInstance> child effect.
+		 *  @private
 		 */
-		protected function onEffectEnd(childEffect:IEffectInstance):void;
+		local var childSets : Array;
 		/**
-		 * Used internally to keep track of the value of
-		 *  the playheadTime property.
-		 *
-		 * @param value             <Object> 
+		 *  @private
 		 */
-		public function onTweenEnd(value:Object):void;
+		local var endEffectCalled : Boolean;
 		/**
-		 * Used internally to keep track of the value of
-		 *  the playheadTime property.
-		 *
-		 * @param value             <Object> 
+		 *  @private	 *  Used internally to obtain the playheadTime for the composite effect.
 		 */
-		public function onTweenUpdate(value:Object):void;
+		local var timerTween : Tween;
+
+		/**
+		 *  @private	 *  Used internally to retrieve the actual duration,	 *  which includes startDelay, repeatCount, and repeatDelay.
+		 */
+		function get actualDuration () : Number;
+		/**
+		 *  @private
+		 */
+		public function get playheadTime () : Number;
+		/**
+		 *  @private	 *  Used internally to calculate the duration from the children effects	 *  for one repetition of this effect.
+		 */
+		function get durationWithoutRepeat () : Number;
+
+		/**
+		 *  Constructor.  	 *	 *  @param target This argument is ignored for Composite effects.	 *  It is included only for consistency with other types of effects.
+		 */
+		public function CompositeEffectInstance (target:Object);
+		/**
+		 *  @private
+		 */
+		public function play () : void;
+		/**
+		 *  @private
+		 */
+		public function pause () : void;
+		/**
+		 *  @private
+		 */
+		public function stop () : void;
+		/**
+		 *  @private
+		 */
+		public function resume () : void;
+		/**
+		 *  @private
+		 */
+		public function reverse () : void;
+		/**
+		 *  @private
+		 */
+		public function finishEffect () : void;
+		/**
+		 *  Adds a new set of child effects to this Composite effect.	 *  A Sequence effect plays each child effect set one at a time,	 *  in the order that it is added.	 *  A Parallel effect plays all child effect sets simultaneously;	 *  the order in which they are added doesn't matter.	 *	 *  @param childSet Array of child effects to be added	 *  to the CompositeEffect.
+		 */
+		public function addChildSet (childSet:Array) : void;
+		/**
+		 *  @private	 *  Check if we have a RotateInstance in one of our childSets array elements
+		 */
+		function hasRotateInstance () : Boolean;
+		/**
+		 *  @private
+		 */
+		function playWithNoDuration () : void;
+		/**
+		 *  Called each time one of the child effects has finished playing. 	 *  Subclasses must implement this function.	 *	 *  @param The child effect.
+		 */
+		protected function onEffectEnd (childEffect:IEffectInstance) : void;
+		/**
+		 *  @private
+		 */
+		public function onTweenUpdate (value:Object) : void;
+		/**
+		 *  @private
+		 */
+		public function onTweenEnd (value:Object) : void;
+		/**
+		 *  @private
+		 */
+		public function initEffect (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		function effectEndHandler (event:EffectEvent) : void;
 	}
 }

@@ -1,12 +1,28 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
 	import mx.skins.Border;
-	public class SliderHighlightSkin extends Border {
+
+	/**
+	 *  The skin for the highlighted state of the track of a Slider.
+	 */
+	public class SliderHighlightSkin extends Border
+	{
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function SliderHighlightSkin();
+		public function get measuredWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function get measuredHeight () : Number;
+
+		/**
+		 *  Constructor.
+		 */
+		public function SliderHighlightSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

@@ -1,176 +1,267 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects {
-	import flash.events.EventDispatcher;
-	import mx.effects.effectClasses.PropertyChanges;
+﻿package mx.effects
+{
 	import flash.events.Event;
-	public class EffectInstance extends EventDispatcher implements IEffectInstance {
+	import flash.events.EventDispatcher;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getTimer;
+	import mx.core.UIComponent;
+	import mx.core.mx_internal;
+	import mx.effects.effectClasses.PropertyChanges;
+	import mx.events.EffectEvent;
+	import mx.events.FlexEvent;
+
+	/**
+	 *  The EffectInstance class represents an instance of an effect *  playing on a target. *  Each target has a separate effect instance associated with it. *  An effect instance's lifetime is transitory. *  An instance is created when the effect is played on a target *  and is destroyed when the effect has finished playing.  *  If there are multiple effects playing on a target at the same time  *  (for example, a Parallel effect), there is a separate effect instance *  for each effect. *  *  <p>Effect developers must create an instance class *  for their custom effects.</p> * *  @see mx.effects.Effect
+	 */
+	public class EffectInstance extends EventDispatcher implements IEffectInstance
+	{
 		/**
-		 * The name of the effect class, such as "FadeInstance".
+		 *  @private     *  Timer used to track startDelay and repeatDelay.
 		 */
-		public function get className():String;
+		local var delayTimer : Timer;
 		/**
-		 * The duration of the effect, in milliseconds.
+		 *  @private     *  Starting time of delayTimer.
 		 */
-		public function get duration():Number;
-		public function set duration(value:Number):void;
+		private var delayStartTime : Number;
 		/**
-		 * The IEffect object that created this IEffectInstance object.
+		 *  @private     *  Elapsed time of delayTimer when paused.     *  Used by resume() to figure out amount of time remaining.
 		 */
-		public function get effect():IEffect;
-		public function set effect(value:IEffect):void;
+		private var delayElapsedTime : Number;
 		/**
-		 * A property that lets you access the target
-		 *  list-based control of a data effect.
-		 *  This property enables an instance of an effect class
-		 *  to communicate with the  list-based control
-		 *  on which the effect is playing.
+		 *  @private     *  Internal flag remembering whether the user     *  explicitly specified a duration or not.
 		 */
-		public function get effectTargetHost():IEffectTargetHost;
-		public function set effectTargetHost(value:IEffectTargetHost):void;
+		local var durationExplicitlySet : Boolean;
 		/**
-		 * Determines whether the effect should hide
-		 *  the focus ring when starting the effect.
-		 *  The effect target is responsible for the hiding the focus ring.
-		 *  Subclasses of the UIComponent class hide the focus ring automatically.
-		 *  If the effect target is not a subclass of the UIComponent class,
-		 *  you must add functionality to it to hide the focus ring.
+		 *  @private     *  If this is a "hide" effect, the EffectManager sets this flag     *  as a reminder to hide the object when the effect finishes.
 		 */
-		public function get hideFocusRing():Boolean;
-		public function set hideFocusRing(value:Boolean):void;
+		local var hideOnEffectEnd : Boolean;
 		/**
-		 * Current position in time of the effect.
-		 *  This property has a value between 0 and the actual duration
-		 *  (which includes the value of the startDelay,
-		 *  repeatCount, and repeatDelay properties).
+		 *  @private     *  Pointer back to the CompositeEffect that created this instance.     *  Value is null if we are not the child of a CompositeEffect
 		 */
-		public function get playheadTime():Number;
+		local var parentCompositeEffectInstance : EffectInstance;
 		/**
-		 * Specifies the PropertyChanges object containing
-		 *  the start and end values for the set of properties
-		 *  relevant to the effect's targets.
-		 *  This property is only set if the
-		 *  captureStartValues() method was called
-		 *  on the effect that created this effect instance.
+		 *  @private     *  Number of times that the instance has been played.
 		 */
-		public function get propertyChanges():PropertyChanges;
-		public function set propertyChanges(value:PropertyChanges):void;
+		private var playCount : int;
 		/**
-		 * Number of times to repeat the effect.
-		 *  Possible values are any integer greater than or equal to 0.
+		 *  @private     *  Used internally to prevent the effect from repeating     *  once the effect has been ended by calling end().
 		 */
-		public function get repeatCount():int;
-		public function set repeatCount(value:int):void;
+		local var stopRepeat : Boolean;
 		/**
-		 * Amount of time, in milliseconds,
-		 *  to wait before repeating the effect.
+		 *  @private     *  Storage for the duration property.
 		 */
-		public function get repeatDelay():int;
-		public function set repeatDelay(value:int):void;
+		private var _duration : Number;
 		/**
-		 * Amount of time, in milliseconds,
-		 *  to wait before starting the effect.
-		 *  Possible values are any int greater than or equal to 0.
-		 *  If the effect is repeated by using the repeatCount
-		 *  property, the startDelay property is applied
-		 *  only the first time the effect is played.
+		 *  @private     *  Storage for the effect property.
 		 */
-		public function get startDelay():int;
-		public function set startDelay(value:int):void;
+		private var _effect : IEffect;
 		/**
-		 * If true, blocks all background processing
-		 *  while the effect is playing.
-		 *  Background processing includes measurement, layout,
-		 *  and processing responses that have arrived from the server.
+		 *  @private     *  Storage for the effectTargetHost property.
 		 */
-		public function get suspendBackgroundProcessing():Boolean;
-		public function set suspendBackgroundProcessing(value:Boolean):void;
+		private var _effectTargetHost : IEffectTargetHost;
 		/**
-		 * The UIComponent object to which this effect is applied.
+		 *  @private     *  Storage for the hideFocusRing property.
 		 */
-		public function get target():Object;
-		public function set target(value:Object):void;
+		private var _hideFocusRing : Boolean;
 		/**
-		 * The event, if any, which triggered the playing of the effect.
-		 *  This property is useful when an effect is assigned to
-		 *  multiple triggering events.
+		 *  @private     *  Storage for the playReversed property.
 		 */
-		public function get triggerEvent():Event;
-		public function set triggerEvent(value:Event):void;
+		private var _playReversed : Boolean;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> UIComponent object to animate with this effect.
+		 *  @private     *  Storage for the propertyChanges property.
 		 */
-		public function EffectInstance(target:Object);
+		private var _propertyChanges : PropertyChanges;
 		/**
-		 * Interrupts an effect instance that is currently playing,
-		 *  and jumps immediately to the end of the effect.
-		 *  This method is invoked by a call
-		 *  to the Effect.end() method.
-		 *  As part of its implementation, it calls
-		 *  the finishEffect() method.
+		 *  @private     *  Storage for the repeatCount property.
 		 */
-		public function end():void;
+		private var _repeatCount : int;
 		/**
-		 * Called by the end() method when the effect
-		 *  finishes playing.
-		 *  This function dispatches an endEffect event
-		 *  for the effect target.
+		 *  @private     *  Storage for the repeatDelay property.
 		 */
-		public function finishEffect():void;
+		private var _repeatDelay : int;
 		/**
-		 * Called after each iteration of a repeated effect finishes playing.
+		 *  @private     *  Storage for the startDelay property.
 		 */
-		public function finishRepeat():void;
+		private var _startDelay : int;
 		/**
-		 * This method is called if the effect was triggered by the EffectManager.
-		 *  This base class version saves the event that triggered the effect
-		 *  in the triggerEvent property.
-		 *  Each subclass should override this method.
-		 *
-		 * @param event             <Event> The Event object that was dispatched
-		 *                            to trigger the effect.
-		 *                            For example, if the trigger was a mouseDownEffect, the event
-		 *                            would be a MouseEvent with type equal to MouseEvent.MOUSEDOWN.
+		 *  @private     *  Storage for the suspendBackgroundProcessing property.
 		 */
-		public function initEffect(event:Event):void;
+		private var _suspendBackgroundProcessing : Boolean;
 		/**
-		 * Pauses the effect until you call the resume() method.
+		 *  @private     *  Storage for the target property.
 		 */
-		public function pause():void;
+		private var _target : Object;
 		/**
-		 * Plays the effect instance on the target.
-		 *  Call the startEffect() method instead
-		 *  to make an effect start playing on an EffectInstance.
+		 *  @private     *  Storage for the triggerEvent property.
 		 */
-		public function play():void;
+		private var _triggerEvent : Event;
+
 		/**
-		 * Resumes the effect after it has been paused
-		 *  by a call to the pause() method.
+		 *  @private     *  Used internally to determine the duration     *  including the startDelay, repeatDelay, and repeatCount values.
 		 */
-		public function resume():void;
+		function get actualDuration () : Number;
 		/**
-		 * Plays the effect in reverse, starting from
-		 *  the current position of the effect.
+		 *  @copy mx.effects.IEffectInstance#className
 		 */
-		public function reverse():void;
+		public function get className () : String;
 		/**
-		 * Plays the effect instance on the target after the
-		 *  startDelay period has elapsed.
-		 *  Called by the Effect class.
-		 *  Use this function instead of the play() method
-		 *  when starting an EffectInstance.
+		 *  @copy mx.effects.IEffectInstance#duration
 		 */
-		public function startEffect():void;
+		public function get duration () : Number;
 		/**
-		 * Stops the effect, leaving the target in its current state.
-		 *  This method is invoked by a call
-		 *  to the Effect.stop() method.
-		 *  As part of its implementation, it calls
-		 *  the finishEffect() method.
+		 *  @private
 		 */
-		public function stop():void;
+		public function set duration (value:Number) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#effect
+		 */
+		public function get effect () : IEffect;
+		/**
+		 *  @private
+		 */
+		public function set effect (value:IEffect) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#effectTargetHost
+		 */
+		public function get effectTargetHost () : IEffectTargetHost;
+		/**
+		 *  @private
+		 */
+		public function set effectTargetHost (value:IEffectTargetHost) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#hideFocusRing
+		 */
+		public function get hideFocusRing () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set hideFocusRing (value:Boolean) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#playheadTime
+		 */
+		public function get playheadTime () : Number;
+		/**
+		 *  @private     *  Used internally to specify whether or not this effect     *  should be played in reverse.     *  Set this value before you play the effect.
+		 */
+		function get playReversed () : Boolean;
+		/**
+		 *  @private
+		 */
+		function set playReversed (value:Boolean) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#propertyChanges
+		 */
+		public function get propertyChanges () : PropertyChanges;
+		/**
+		 *  @private
+		 */
+		public function set propertyChanges (value:PropertyChanges) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#repeatCount
+		 */
+		public function get repeatCount () : int;
+		/**
+		 *  @private
+		 */
+		public function set repeatCount (value:int) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#repeatDelay
+		 */
+		public function get repeatDelay () : int;
+		/**
+		 *  @private
+		 */
+		public function set repeatDelay (value:int) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#startDelay
+		 */
+		public function get startDelay () : int;
+		/**
+		 *  @private
+		 */
+		public function set startDelay (value:int) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#suspendBackgroundProcessing
+		 */
+		public function get suspendBackgroundProcessing () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set suspendBackgroundProcessing (value:Boolean) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#target
+		 */
+		public function get target () : Object;
+		/**
+		 *  @private
+		 */
+		public function set target (value:Object) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#triggerEvent
+		 */
+		public function get triggerEvent () : Event;
+		/**
+		 *  @private
+		 */
+		public function set triggerEvent (value:Event) : void;
+
+		/**
+		 *  Constructor.     *     *  @param target UIComponent object to animate with this effect.
+		 */
+		public function EffectInstance (target:Object);
+		/**
+		 *  @copy mx.effects.IEffectInstance#initEffect()
+		 */
+		public function initEffect (event:Event) : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#startEffect()
+		 */
+		public function startEffect () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#play()
+		 */
+		public function play () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#pause()
+		 */
+		public function pause () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#stop()
+		 */
+		public function stop () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#resume()
+		 */
+		public function resume () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#reverse()
+		 */
+		public function reverse () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#end()
+		 */
+		public function end () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#finishEffect()
+		 */
+		public function finishEffect () : void;
+		/**
+		 *  @copy mx.effects.IEffectInstance#finishRepeat()
+		 */
+		public function finishRepeat () : void;
+		/**
+		 *  @private
+		 */
+		function playWithNoDuration () : void;
+		/**
+		 *  @private     *  If someone explicitly sets the visibility of the target object     *  to true, clear the flag that is remembering to hide the      *  target when this effect ends.
+		 */
+		function eventHandler (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		private function delayTimerHandler (event:TimerEvent) : void;
 	}
 }

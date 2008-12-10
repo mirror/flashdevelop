@@ -1,37 +1,33 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
 	import flash.events.Event;
 	import mx.effects.IEffectInstance;
-	public class EffectEvent extends Event {
+
+	/**
+	 *  Represents event objects that are specific to Flex effects.  *  Flex effects dispatch the following types of events: *  <ul> *    <li><code>effectStart</code></li> *    <li><code>effectEnd</code></li> *  </ul> * *  @see mx.effects.Effect
+	 */
+	public class EffectEvent extends Event
+	{
 		/**
-		 * The effect instance object for the event.
-		 *  You can use this property to access the properties of the effect
-		 *  instance object from within your event listener.
+		 *  The <code>EffectEvent.EFFECT_END</code> constant defines the value of the      *  <code>type</code> property of the event object for an      *  <code>effectEnd</code> event. 	 *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>effectInstance</code></td><td>The effect instance object      *       for the event.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @see mx.effects.Effect     *     *  @eventType effectEnd
 		 */
-		public var effectInstance:IEffectInstance;
+		public static const EFFECT_END : String = "effectEnd";
 		/**
-		 * Constructor.
-		 *
-		 * @param eventType         <String> The event type; indicates the action that caused the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the
-		 *                            display list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Specifies whether the behavior associated with the event can be prevented.
-		 * @param effectInstance    <IEffectInstance (default = null)> The effect instance that triggered the event.
+		 *  The <code>EffectEvent.EFFECT_START</code> constant defines the value of the      *  <code>type</code> property of the event object for an      *  <code>effectStart</code> event.      *  	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>effectInstance</code></td><td>The effect instance object      *       for the event.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @see mx.effects.Effect     *     *  @eventType effectStart
 		 */
-		public function EffectEvent(eventType:String, bubbles:Boolean = false, cancelable:Boolean = false, effectInstance:IEffectInstance = null);
+		public static const EFFECT_START : String = "effectStart";
 		/**
-		 * The EffectEvent.EFFECT_END constant defines the value of the
-		 *  type property of the event object for an
-		 *  effectEnd event.
+		 *  The effect instance object for the event.	 *  You can use this property to access the properties of the effect	 *  instance object from within your event listener.
 		 */
-		public static const EFFECT_END:String = "effectEnd";
+		public var effectInstance : IEffectInstance;
+
 		/**
-		 * The EffectEvent.EFFECT_START constant defines the value of the
-		 *  type property of the event object for an
-		 *  effectStart event.
+		 *  Constructor.	 *	 *  @param eventType The event type; indicates the action that caused the event.	 *	 *  @param bubbles Specifies whether the event can bubble up the 	 *  display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.	 *	 *  @param effectInstance The effect instance that triggered the event.
 		 */
-		public static const EFFECT_START:String = "effectStart";
+		public function EffectEvent (eventType:String, bubbles:Boolean = false, cancelable:Boolean = false, effectInstance:IEffectInstance = null);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

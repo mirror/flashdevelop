@@ -1,62 +1,50 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
+	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
-	public class RSLEvent extends ProgressEvent {
+
+	/**
+	 *  The RSLEvent class represents an event object used by the  *  DownloadProgressBar class when an RSL is being downloaded by the Preloader class.  * *  @see mx.preloaders.DownloadProgressBar *  @see mx.preloaders.Preloader
+	 */
+	public class RSLEvent extends ProgressEvent
+	{
 		/**
-		 * The error message if the type is RSL_ERROR; otherwise, it is null;
+		 *  Dispatched when the RSL has finished downloading. 		 *  The <code>RSLEvent.RSL_COMPLETE</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>rslComplete</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>bytesLoaded</code></td><td>The number of bytes loaded.</td></tr>     *     <tr><td><code>bytesTotal</code></td><td>The total number of bytes to load.</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>errorText</code></td><td>Empty</td></tr>     *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL      *       currently being downloaded. </td></tr>     *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs      *       being downloaded. </td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *     <tr><td><code>url</code></td><td>The URLRequest object that represents      *       the location of the RSL being downloaded.</td></tr>	 *  </table>	 *     *  @eventType rslComplete
 		 */
-		public var errorText:String;
+		public static const RSL_COMPLETE : String = "rslComplete";
 		/**
-		 * The index number of the RSL currently being downloaded.
-		 *  This is a number between 0 and rslTotal - 1.
+		 *  Dispatched when there is an error downloading the RSL.	 *  The <code>RSLEvent.RSL_ERROR</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>rslError</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>bytesLoaded</code></td><td>Empty</td></tr>     *     <tr><td><code>bytesTotal</code></td><td>Empty</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>errorText</code></td>An error message.<td></td></tr>     *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL      *       currently being downloaded. </td></tr>     *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs      *       being downloaded. </td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *     <tr><td><code>url</code></td><td>The URLRequest object that represents      *       the location of the RSL being downloaded.</td></tr>	 *  </table>	 *     *  @eventType rslError
 		 */
-		public var rslIndex:int;
+		public static const RSL_ERROR : String = "rslError";
 		/**
-		 * The total number of RSLs being downloaded by the preloader
+		 *  Dispatched when the RSL is downloading.	 *  The <code>RSLEvent.RSL_PROGRESS</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>rslProgress</code> event.     *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>bytesLoaded</code></td><td>The number of bytes loaded.</td></tr>     *     <tr><td><code>bytesTotal</code></td><td>The total number of bytes to load.</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>errorText</code></td>Empty<td></td></tr>     *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL      *       currently being downloaded. </td></tr>     *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs      *       being downloaded. </td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *     <tr><td><code>url</code></td><td>The URLRequest object that represents      *       the location of the RSL being downloaded.</td></tr>	 *  </table>	 *     *  @eventType rslProgress
 		 */
-		public var rslTotal:int;
+		public static const RSL_PROGRESS : String = "rslProgress";
 		/**
-		 * The URLRequest object that represents the location
-		 *  of the RSL being downloaded.
+		 *  The error message if the type is RSL_ERROR; otherwise, it is null;
 		 */
-		public var url:URLRequest;
+		public var errorText : String;
 		/**
-		 * Constructor.
-		 *
-		 * @param type              <String> The type of the event. Possible values are:
-		 *                            "rslProgress" (RSLEvent.RSL_PROGRESS);
-		 *                            "rslComplete" (RSLEvent.RSL_COMPLETE);
-		 *                            "rslError" (RSLEvent.RSL_ERROR);
-		 * @param bubbles           <Boolean (default = false)> Determines whether the Event object participates in the bubbling stage of the event flow.
-		 * @param cancelable        <Boolean (default = false)> Determines whether the Event object can be cancelled.
-		 * @param bytesLoaded       <int (default = -1)> The number of bytes loaded at the time the listener processes the event.
-		 * @param bytesTotal        <int (default = -1)> The total number of bytes that will ultimately be loaded if the loading process succeeds.
-		 * @param rslIndex          <int (default = -1)> The index number of the RSL relative to the total. This should be a value between 0 and total - 1.
-		 * @param rslTotal          <int (default = -1)> The total number of RSLs being loaded.
-		 * @param url               <URLRequest (default = null)> The location of the RSL.
-		 * @param errorText         <String (default = null)> The error message of the error when type is RSLEvent.RSL_ERROR.
+		 *  The index number of the RSL currently being downloaded.	 *  This is a number between 0 and <code>rslTotal - 1</code>.
 		 */
-		public function RSLEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:int = -1, bytesTotal:int = -1, rslIndex:int = -1, rslTotal:int = -1, url:URLRequest = null, errorText:String = null);
+		public var rslIndex : int;
 		/**
-		 * Dispatched when the RSL has finished downloading.
-		 *  The RSLEvent.RSL_COMPLETE constant defines the value of the
-		 *  type property of the event object for a rslComplete event.
+		 *  The total number of RSLs being downloaded by the preloader
 		 */
-		public static const RSL_COMPLETE:String = "rslComplete";
+		public var rslTotal : int;
 		/**
-		 * Dispatched when there is an error downloading the RSL.
-		 *  The RSLEvent.RSL_ERROR constant defines the value of the
-		 *  type property of the event object for a rslError event.
+		 *  The URLRequest object that represents the location	 *  of the RSL being downloaded.
 		 */
-		public static const RSL_ERROR:String = "rslError";
+		public var url : URLRequest;
+
 		/**
-		 * Dispatched when the RSL is downloading.
-		 *  The RSLEvent.RSL_PROGRESS constant defines the value of the
-		 *  type property of the event object for a rslProgress event.
+		 *  Constructor.	 * 	 *  @param type The type of the event. Possible values are:	 *  <ul>	 *     <li>"rslProgress" (<code>RSLEvent.RSL_PROGRESS</code>);</li>	 *     <li>"rslComplete" (<code>RSLEvent.RSL_COMPLETE</code>);</li>	 *     <li>"rslError" (<code>RSLEvent.RSL_ERROR</code>);</li>	 *  </ul>	 *	 *  @param bubbles  Determines whether the Event object participates in the bubbling stage of the event flow.	 *	 *  @param cancelable Determines whether the Event object can be cancelled.	 *	 *  @param bytesLoaded The number of bytes loaded at the time the listener processes the event.	 *	 *  @param bytesTotal The total number of bytes that will ultimately be loaded if the loading process succeeds.	 *	 *  @param rslIndex The index number of the RSL relative to the total. This should be a value between 0 and <code>total - 1</code>.	 *	 *  @param rslTotal The total number of RSLs being loaded.	 *	 *  @param url The location of the RSL.	 *	 *  @param errorText The error message of the error when type is RSLEvent.RSL_ERROR.	 *	 *  @tiptext Constructor for <code>RSLEvent</code> objects.
 		 */
-		public static const RSL_PROGRESS:String = "rslProgress";
+		public function RSLEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:int = -1, bytesTotal:int = -1, rslIndex:int = -1, rslTotal:int = -1, url:URLRequest = null, errorText:String = null);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

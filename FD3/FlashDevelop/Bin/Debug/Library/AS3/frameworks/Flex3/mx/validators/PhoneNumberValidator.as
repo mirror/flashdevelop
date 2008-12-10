@@ -1,50 +1,80 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public class PhoneNumberValidator extends Validator {
+﻿package mx.validators
+{
+	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
+	import mx.resources.IResourceManager;
+	import mx.resources.ResourceManager;
+
+	/**
+	 *  The PhoneNumberValidator class validates that a string *  is a valid phone number. *  A valid phone number contains at least 10 digits, *  plus additional formatting characters. *  The validator does not check if the phone number *  is an actual active phone number. *   *  @mxml * *  <p>The <code>&lt;mx:PhoneNumberValidator&gt;</code> tag *  inherits all of the tag attributes of its superclass, *  and adds the following tag attributes:</p> *   *  <pre> *  &lt;mx:PhoneNumberValidator  *    allowedFormatChars="()- .+"  *    invalidCharError="Your telephone number contains invalid characters." *    wrongLengthError="Your telephone number must contain at least 10 digits." *  /&gt; *  </pre> *   *  @includeExample examples/PhoneNumberValidatorExample.mxml
+	 */
+	public class PhoneNumberValidator extends Validator
+	{
 		/**
-		 * The set of allowable formatting characters.
+		 *  @private	 *  Storage for the allowedFormatChars property.
 		 */
-		public function get allowedFormatChars():String;
-		public function set allowedFormatChars(value:String):void;
+		private var _allowedFormatChars : String;
 		/**
-		 * Error message when the value contains invalid characters.
+		 *  @private
 		 */
-		public function get invalidCharError():String;
-		public function set invalidCharError(value:String):void;
+		private var allowedFormatCharsOverride : String;
 		/**
-		 * Error message when the value has fewer than 10 digits.
+		 *  @private	 *  Storage for the invalidCharError property.
 		 */
-		public function get wrongLengthError():String;
-		public function set wrongLengthError(value:String):void;
+		private var _invalidCharError : String;
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function PhoneNumberValidator();
+		private var invalidCharErrorOverride : String;
 		/**
-		 * Override of the base class doValidation() method
-		 *  to validate a phone number.
-		 *
-		 * @param value             <Object> Object to validate.
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private	 *  Storage for the wrongLengthError property.
 		 */
-		protected override function doValidation(value:Object):Array;
+		private var _wrongLengthError : String;
 		/**
-		 * Convenience method for calling a validator
-		 *  from within a custom validation function.
-		 *  Each of the standard Flex validators has a similar convenience method.
-		 *
-		 * @param validator         <PhoneNumberValidator> The PhoneNumberValidator instance.
-		 * @param value             <Object> A field to validate.
-		 * @param baseField         <String> Text representation of the subfield
-		 *                            specified in the value parameter.
-		 *                            For example, if the value parameter specifies value.phone,
-		 *                            the baseField value is "phone".
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private
 		 */
-		public static function validatePhoneNumber(validator:PhoneNumberValidator, value:Object, baseField:String):Array;
+		private var wrongLengthErrorOverride : String;
+
+		/**
+		 *  The set of allowable formatting characters.	 *	 *  @default "()- .+"
+		 */
+		public function get allowedFormatChars () : String;
+		/**
+		 *  @private
+		 */
+		public function set allowedFormatChars (value:String) : void;
+		/**
+		 *  Error message when the value contains invalid characters.	 *	 *  @default "Your telephone number contains invalid characters."
+		 */
+		public function get invalidCharError () : String;
+		/**
+		 *  @private
+		 */
+		public function set invalidCharError (value:String) : void;
+		/**
+		 *  Error message when the value has fewer than 10 digits.	 *	 *  @default "Your telephone number must contain at least 10 digits."
+		 */
+		public function get wrongLengthError () : String;
+		/**
+		 *  @private
+		 */
+		public function set wrongLengthError (value:String) : void;
+
+		/**
+		 *  Convenience method for calling a validator	 *  from within a custom validation function.	 *  Each of the standard Flex validators has a similar convenience method.	 *	 *  @param validator The PhoneNumberValidator instance.	 *	 *  @param value A field to validate.	 *	 *  @param baseField Text representation of the subfield	 *  specified in the <code>value</code> parameter.	 *  For example, if the <code>value</code> parameter specifies value.phone,	 *  the <code>baseField</code> value is "phone".	 *	 *  @return An Array of ValidationResult objects, with one ValidationResult 	 *  object for each field examined by the validator. 	 *	 *  @see mx.validators.ValidationResult
+		 */
+		public static function validatePhoneNumber (validator:PhoneNumberValidator, value:Object, baseField:String) : Array;
+		/**
+		 *  Constructor.
+		 */
+		public function PhoneNumberValidator ();
+		/**
+		 *  @private
+		 */
+		protected function resourcesChanged () : void;
+		/**
+		 *  Override of the base class <code>doValidation()</code> method     *  to validate a phone number.     *	 *  <p>You do not typically call this method directly;	 *  Flex calls it as part of performing a validation.	 *  If you create a custom Validator class, you must implement this method. </p>	 *     *  @param value Object to validate.     *	 *  @return An Array of ValidationResult objects, with one ValidationResult 	 *  object for each field examined by the validator.
+		 */
+		protected function doValidation (value:Object) : Array;
 	}
 }

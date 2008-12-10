@@ -1,63 +1,60 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.states {
+﻿package mx.states
+{
 	import flash.events.EventDispatcher;
+	import flash.utils.Dictionary;
+	import mx.core.ComponentDescriptor;
 	import mx.core.UIComponent;
-	public class SetEventHandler extends EventDispatcher implements IOverride {
+
+	/**
+	 *  The event handler function to execute in response to the event that is *  specified by the <code>name</code> property.  * *  <p>Do not specify the <code>handler</code> property and the <code>handlerFunction</code> *  property in a single <code>&lt;mx:SetEventHandler&gt;</code> tag.</p> * *  <p>Flex does <i>not</i> dispatch a <code>handler</code> event. *  You use the <code>handler</code> key word only as an MXML attribte.  *  When you use the <code>handler</code> handler attribute, you can specify a  *  method that takes multiple parameters, not just the Event object; *  also, you can specify the handler code in-line in the MXML tag.</p>
+	 */
+	[Event(name="handler", type="Object")] 
+
+	/**
+	 *  The SetEventHandler class specifies an event handler that is active  *  only during a particular view state. *  For example, you might define a Button control that uses one event handler  *  in the base view state, but uses a different event handler when you change view state. * *  <p> You use this class in the <code>overrides</code> property of the State class.</p> * *  @mxml * *  <p>The <code>&lt;mx:SetEventHanlder&gt;</code> tag *  has the following attributes:</p> *   *  <pre> *  &lt;mx:SetEventHandler *  <b>Properties</b> *  name="null" *  handlerFunction="null" *  target="null" *   *  <b>Events</b> *  handler=<i>No default</i> *  /&gt; *  </pre> * *  @see mx.states.State *  @see mx.states.SetProperty *  @see mx.states.SetStyle
+	 */
+	public class SetEventHandler extends EventDispatcher implements IOverride
+	{
 		/**
-		 * The handler function for the event.
-		 *  This property is intended for developers who use ActionScript to
-		 *  create and access view states.
-		 *  In MXML, you can use the equivalent handler
-		 *  event attribute; do not use both in a single MXML tag.
+		 *  @private	 *  Storage for the old event handler value.
 		 */
-		public var handlerFunction:Function;
+		private var oldHandlerFunction : Function;
 		/**
-		 * The name of the event whose handler is being set.
-		 *  You must set this property, either in
-		 *  the SetEventHandler constructor or by setting
-		 *  the property value directly.
+		 *  @private	 *	Dictionary of installed event handlers.
 		 */
-		public var name:String;
+		private static var installedHandlers : Dictionary;
 		/**
-		 * The component that dispatches the event.
-		 *  If the property value is null, Flex uses the
-		 *  immediate parent of the <mx:states> tag.
+		 *  The name of the event whose handler is being set.	 *  You must set this property, either in 	 *  the SetEventHandler constructor or by setting	 *  the property value directly.
 		 */
-		public var target:EventDispatcher;
+		public var name : String;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <EventDispatcher (default = null)> The object that dispatches the event to be handled.
-		 *                            By default, Flex uses the immediate parent of the State object.
-		 * @param name              <String (default = null)> The event type for which to set the handler.
+		 *  The handler function for the event.	 *  This property is intended for developers who use ActionScript to	 *  create and access view states.	 *  In MXML, you can use the equivalent <code>handler</code>	 *  event attribute; do not use both in a single MXML tag.	 *  	 *  @default null
 		 */
-		public function SetEventHandler(target:EventDispatcher = null, name:String = null);
+		public var handlerFunction : Function;
 		/**
-		 * Applies the override. Flex retains the original value, so that it can
-		 *  restore the value later in the remove() method.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  The component that dispatches the event.	 *  If the property value is <code>null</code>, Flex uses the     *  immediate parent of the <code>&lt;mx:states&gt;</code> tag.     *	 *  @default null
 		 */
-		public function apply(parent:UIComponent):void;
+		public var target : EventDispatcher;
+
 		/**
-		 * Initializes the override.
-		 *  Flex calls this method before the first call to the
-		 *  apply() method, so you put one-time initialization
-		 *  code for the override in this method.
+		 *  Constructor.	 *	 *  @param target The object that dispatches the event to be handled.	 *  By default, Flex uses the immediate parent of the State object.	 *	 *  @param event The event type for which to set the handler.
 		 */
-		public function initialize():void;
+		public function SetEventHandler (target:EventDispatcher = null, name:String = null);
 		/**
-		 * Removes the override. The value remembered in the apply()
-		 *  method is restored.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  @private
 		 */
-		public function remove(parent:UIComponent):void;
+		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
+		/**
+		 *  IOverride interface method; this class implements it as an empty method.	 * 	 *  @copy IOverride#initialize()
+		 */
+		public function initialize () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function apply (parent:UIComponent) : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function remove (parent:UIComponent) : void;
 	}
 }

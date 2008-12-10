@@ -1,27 +1,30 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-03 13:18] ***/
-/**********************************************************/
-package mx.controls {
-	public final  class FileSystemEnumerationMode {
+﻿package mx.controls
+{
+	/**
+	 *  The FileSystemEnumerationMode class defines the constant values *  for the <code>enumerationMode</code> property *  of the FileSystemList, FileSystemDataGrid, *  and FileSystemTree classes. * *  @see mx.controls.FileSystemList#enumerationMode *  @see mx.controls.FileSystemDataGrid#enumerationMode *  @see mx.controls.FileSystemTree#enumerationMode *  *  @playerversion AIR 1.1
+	 */
+	public class FileSystemEnumerationMode
+	{
 		/**
-		 * Specifies to show directories, then files.
+		 *  Specifies to show files but not directories.
 		 */
-		public static const DIRECTORIES_FIRST:String = "directoriesFirst";
+		public static const FILES_ONLY : String = "filesOnly";
 		/**
-		 * Specifies to show directories but not files.
+		 *  Specifies to show directories but not files.
 		 */
-		public static const DIRECTORIES_ONLY:String = "directoriesOnly";
+		public static const DIRECTORIES_ONLY : String = "directoriesOnly";
 		/**
-		 * Specifies to show both files and directories, mixed together.
+		 *  Specifies to show files first, then directories.
 		 */
-		public static const FILES_AND_DIRECTORIES:String = "filesAndDirectories";
+		public static const FILES_FIRST : String = "filesFirst";
 		/**
-		 * Specifies to show files first, then directories.
+		 *  Specifies to show directories, then files.
 		 */
-		public static const FILES_FIRST:String = "filesFirst";
+		public static const DIRECTORIES_FIRST : String = "directoriesFirst";
 		/**
-		 * Specifies to show files but not directories.
+		 *  Specifies to show both files and directories, mixed together.
 		 */
-		public static const FILES_ONLY:String = "filesOnly";
+		public static const FILES_AND_DIRECTORIES : String = "filesAndDirectories";
+
 	}
 }

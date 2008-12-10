@@ -1,82 +1,81 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	public class FlexVersion {
+﻿package mx.core
+{
+	import mx.resources.ResourceManager;
+
+	/**
+	 *  This class controls the backward-compatibility of the framework. *  With every new release, some aspects of the framework such as behaviors,  *  styles, and default settings, are changed which can affect your application. *  By setting the <code>compatibilityVersion</code> property, the behavior can be changed *  to match previous releases. *  This is a 'global' flag; you cannot apply one version to one component or group of components *  and a different version to another component or group of components.
+	 */
+	public class FlexVersion
+	{
 		/**
-		 * A function that gets called when the compatibility version
-		 *  is set more than once, or set after it has been read.
-		 *  If this function is not set, the SDK throws an error.
-		 *  If set, File calls this function, but it is
-		 *  up to the developer to decide how to handle the call.
-		 *  This function will also be called if the function is set more than once.
-		 *  The function takes two parameters: the first is a uint
-		 *  which is the version that was attempted to be set; the second
-		 *  is a string that is the reason it failed, either
-		 *  VERSION_ALREADY_SET or VERSION_ALREADY_READ.
+		 *  The current released version of the Flex SDK, encoded as a uint.
 		 */
-		public static function get compatibilityErrorFunction():Function;
-		public function set compatibilityErrorFunction(value:Function):void;
+		public static const CURRENT_VERSION : uint = 0x03000000;
 		/**
-		 * The current version that the framework maintains compatibility for.
-		 *  This defaults to CURRENT_VERSION.
-		 *  It can be changed only once; changing it a second time
-		 *  results in a call to the compatibilityErrorFunction() method
-		 *  if it exists, or results in a runtime error.
-		 *  Changing it after the compatibilityVersion property has been read results in an error
-		 *  because code that is dependent on the version has already run.
-		 *  There are no notifications; the assumption is that this is set only once, and this it is set
-		 *  early enough that no code that depends on it has run yet.
+		 *  The <code>compatibilityVersion</code> value of Flex 3.0,     *  encoded numerically as a <code>uint</code>.     *  Code can compare this constant against     *  the <code>compatibilityVersion</code>     *  to implement version-specific behavior.
 		 */
-		public static function get compatibilityVersion():uint;
-		public function set compatibilityVersion(value:uint):void;
+		public static const VERSION_3_0 : uint = 0x03000000;
 		/**
-		 * The compatibility version, as a string of the form "X.X.X".
-		 *  This is a pass-through to the compatibilityVersion
-		 *  property, which converts the number to and from a more
-		 *  human-readable String version.
+		 *  The <code>compatibilityVersion</code> value of Flex 2.0.1,     *  encoded numerically as a <code>uint</code>.     *  Code can compare this constant against     *  the <code>compatibilityVersion</code>     *  to implement version-specific behavior.
 		 */
-		public static function get compatibilityVersionString():String;
-		public function set compatibilityVersionString(value:String):void;
+		public static const VERSION_2_0_1 : uint = 0x02000001;
 		/**
-		 * The current released version of the Flex SDK, encoded as a uint.
+		 *  The <code>compatibilityVersion</code> value of Flex 2.0,     *  encoded numerically as a <code>uint</code>.     *  Code can compare this constant against     *  the <code>compatibilityVersion</code>     *  to implement version-specific behavior.
 		 */
-		public static const CURRENT_VERSION:uint = 0x03000000;
+		public static const VERSION_2_0 : uint = 0x02000000;
 		/**
-		 * The compatibilityVersion value of Flex 2.0,
-		 *  encoded numerically as a uint.
-		 *  Code can compare this constant against
-		 *  the compatibilityVersion
-		 *  to implement version-specific behavior.
+		 *  A String passed as a parameter     *  to the <code>compatibilityErrorFunction()</code> method     *  if the compatibility version has already been set.
 		 */
-		public static const VERSION_2_0:uint = 0x02000000;
+		public static const VERSION_ALREADY_SET : String = "versionAlreadySet";
 		/**
-		 * The compatibilityVersion value of Flex 2.0.1,
-		 *  encoded numerically as a uint.
-		 *  Code can compare this constant against
-		 *  the compatibilityVersion
-		 *  to implement version-specific behavior.
+		 *  A String passed as a parameter     *  to the <code>compatibilityErrorFunction()</code> method      *  if the compatibility version has already been read.
 		 */
-		public static const VERSION_2_0_1:uint = 0x02000001;
+		public static const VERSION_ALREADY_READ : String = "versionAlreadyRead";
 		/**
-		 * The compatibilityVersion value of Flex 3.0,
-		 *  encoded numerically as a uint.
-		 *  Code can compare this constant against
-		 *  the compatibilityVersion
-		 *  to implement version-specific behavior.
+		 *  @private     *  Storage for the compatibilityErrorFunction property.
 		 */
-		public static const VERSION_3_0:uint = 0x03000000;
+		private static var _compatibilityErrorFunction : Function;
 		/**
-		 * A String passed as a parameter
-		 *  to the compatibilityErrorFunction() method
-		 *  if the compatibility version has already been read.
+		 *  @private     *  Storage for the compatibilityVersion property.
 		 */
-		public static const VERSION_ALREADY_READ:String = "versionAlreadyRead";
+		private static var _compatibilityVersion : uint;
 		/**
-		 * A String passed as a parameter
-		 *  to the compatibilityErrorFunction() method
-		 *  if the compatibility version has already been set.
+		 *  @private
 		 */
-		public static const VERSION_ALREADY_SET:String = "versionAlreadySet";
+		private static var compatibilityVersionChanged : Boolean;
+		/**
+		 *  @private
+		 */
+		private static var compatibilityVersionRead : Boolean;
+
+		/**
+		 *  A function that gets called when the compatibility version     *  is set more than once, or set after it has been read.     *  If this function is not set, the SDK throws an error.     *  If set, File calls this function, but it is     *  up to the developer to decide how to handle the call.     *  This function will also be called if the function is set more than once.          *  The function takes two parameters: the first is a <code>uint</code>     *  which is the version that was attempted to be set; the second     *  is a string that is the reason it failed, either     *  <code>VERSION_ALREADY_SET</code> or <code>VERSION_ALREADY_READ</code>.
+		 */
+		public static function get compatibilityErrorFunction () : Function;
+		/**
+		 *  @private
+		 */
+		public static function set compatibilityErrorFunction (value:Function) : void;
+		/**
+		 *  The current version that the framework maintains compatibility for.       *  This defaults to <code>CURRENT_VERSION</code>.     *  It can be changed only once; changing it a second time     *  results in a call to the <code>compatibilityErrorFunction()</code> method     *  if it exists, or results in a runtime error.      *  Changing it after the <code>compatibilityVersion</code> property has been read results in an error     *  because code that is dependent on the version has already run.     *  There are no notifications; the assumption is that this is set only once, and this it is set     *  early enough that no code that depends on it has run yet.     *     *  @default FlexVersion.CURRENT_VERSION
+		 */
+		public static function get compatibilityVersion () : uint;
+		/**
+		 *  @private
+		 */
+		public static function set compatibilityVersion (value:uint) : void;
+		/**
+		 *  The compatibility version, as a string of the form "X.X.X".     *  This is a pass-through to the <code>compatibilityVersion</code>     *  property, which converts the number to and from a more     *  human-readable String version.
+		 */
+		public static function get compatibilityVersionString () : String;
+		/**
+		 *  @private
+		 */
+		public static function set compatibilityVersionString (value:String) : void;
+
+		/**
+		 *  @private     *  A back door for changing the compatibility version.     *  This is provided for FlexBuilder's Design View,     *  which needs to be able to change compatibility mode.      *  In general, we won't support late changes to compatibility,      *  because the framework won't watch for changes.       *  Design View will need to set this early during initialization.
+		 */
+		static function changeCompatibilityVersionString (value:String) : void;
 	}
 }

@@ -1,13 +1,13 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.collections.errors {
-	public class CursorError extends Error {
+﻿package mx.collections.errors
+{
+	/**
+	 *  This error is thrown by a collection Cursor. *  Errors of this class are thrown by classes *  that implement the IViewCursor interface.
+	 */
+	public class CursorError extends Error
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param message           <String> A message providing information about the error cause.
+		 *  Constructor.     *     *  @param message A message providing information about the error cause.
 		 */
-		public function CursorError(message:String);
+		public function CursorError (message:String);
 	}
 }

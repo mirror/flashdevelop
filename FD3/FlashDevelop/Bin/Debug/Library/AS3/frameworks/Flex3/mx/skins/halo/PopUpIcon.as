@@ -1,12 +1,35 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
+	import mx.core.mx_internal;
 	import mx.skins.ProgrammaticSkin;
-	public class PopUpIcon extends ProgrammaticSkin {
+
+	/**
+	 *  The skin for all the states of the icon in a PopUpButton.
+	 */
+	public class PopUpIcon extends ProgrammaticSkin
+	{
 		/**
-		 * Constructor
+		 *  @private
 		 */
-		public function PopUpIcon();
+		local var arrowColor : uint;
+
+		/**
+		 *  @private
+		 */
+		public function get measuredWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function get measuredHeight () : Number;
+
+		/**
+		 *  Constructor
+		 */
+		public function PopUpIcon ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

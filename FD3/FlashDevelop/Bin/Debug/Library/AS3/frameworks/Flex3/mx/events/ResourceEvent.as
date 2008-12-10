@@ -1,49 +1,37 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
+	import flash.events.Event;
 	import flash.events.ProgressEvent;
-	public class ResourceEvent extends ProgressEvent {
+
+	/**
+	 *  The ResourceEvent class represents an Event object that is dispatched *  when the ResourceManager loads the resource bundles in a resource module *  by calling the <code>loadResourceModule()</code> method. * *  @see mx.resources.ResourceManager
+	 */
+	public class ResourceEvent extends ProgressEvent
+	{
 		/**
-		 * The error message if the type is ERROR;
-		 *  otherwise, it is null.
+		 *  Dispatched when the resource module SWF file has finished loading.          *  The ResourceEvent.COMPLETE constant defines the value of the      *  <code>type</code> property of the event object for a <code>complete</code> event.     *     *  <p>The properties of the event object have the following values:</p>     *  <table class="innertable">     *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>     *     <tr><td><code>cancelable</code></td><td><code>false</code></td></tr>     *     <tr><td><code>currentTarget</code></td><td>The object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       <code>myButton</code> is the value of <code>currentTarget</code>. </td></tr>     *     <tr><td><code>errorText</code></td><td>Empty</td></tr>     *     <tr><td><code>target</code></td><td>The object that dispatched the event;      *       it is not always the object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       object that listens for the event.</td></tr>     *  </table>     *     *  @eventType complete
 		 */
-		public var errorText:String;
+		public static const COMPLETE : String = "complete";
 		/**
-		 * Constructor.
-		 *
-		 * @param type              <String> The value of the type property of the event object. Possible values are:
-		 *                            "progress" (ResourceEvent.PROGRESS)
-		 *                            "complete" (ResourceEvent.COMPLETE)
-		 *                            "error" (ResourceEvent.ERROR)
-		 * @param bubbles           <Boolean (default = false)> Determines whether the Event object
-		 *                            participates in the bubbling stage of the event flow.
-		 * @param cancelable        <Boolean (default = false)> Determines whether the Event object can be cancelled.
-		 * @param bytesLoaded       <uint (default = 0)> The number of bytes loaded
-		 *                            at the time the listener processes the event.
-		 * @param bytesTotal        <uint (default = 0)> The total number of bytes
-		 *                            that will ultimately be loaded if the loading process succeeds.
-		 * @param errorText         <String (default = null)> The error message of the error
-		 *                            when type is ResourceEvent.ERROR.
+		 *  Dispatched when there is an error loading the resource module SWF file.     *  The ResourceEvent.ERROR constant defines the value of the      *  <code>type</code> property of the event object for a <code>error</code> event.     *     *  <p>The properties of the event object have the following values:</p>     *  <table class="innertable">     *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>     *     <tr><td><code>bytesLoaded</code></td><td>Empty</td></tr>     *     <tr><td><code>bytesTotal</code></td><td>Empty</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The object that defines the      *       event listener that handles the event. For example, if you use the      *       <code>myButton.addEventListener()</code> method to register an event listener,      *       <code>myButton</code> is the value of <code>currentTarget</code>. </td></tr>     *     <tr><td><code>errorText</code></td>An error message.<td></td></tr>     *     <tr><td><code>target</code></td><td>The object that dispatched the event;      *       it is not always the object that is listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       object that listens for the event.</td></tr>     *  </table>     *     *  @eventType error
 		 */
-		public function ResourceEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:uint = 0, bytesTotal:uint = 0, errorText:String = null);
+		public static const ERROR : String = "error";
 		/**
-		 * Dispatched when the resource module SWF file has finished loading.
-		 *  The ResourceEvent.COMPLETE constant defines the value of the
-		 *  type property of the event object for a complete event.
+		 *  Dispatched when the resource module SWF file is loading.     *  The ResourceEvent.PROGRESS constant defines the value of the      *  <code>type</code> property of the event object for a <code>progress</code> event.     *     *  <p>The properties of the event object have the following values:</p>     *  <table class="innertable">     *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>     *     <tr><td><code>bytesLoaded</code></td><td>The number of bytes loaded.</td></tr>     *     <tr><td><code>bytesTotal</code></td><td>The total number of bytes to load.</td></tr>     *     <tr><td><code>cancelable</code></td><td><code>false</code></td></tr>     *     <tr><td><code>currentTarget</code></td><td>The object that defines the      *       event listener that handles the event. For example, if you use the      *       <code>myButton.addEventListener()</code> method to register an event listener,      *       <code>myButton</code> is the value of <code>currentTarget</code>.</td></tr>     *     <tr><td><code>errorText</code></td>Empty<td></td></tr>     *     <tr><td><code>target</code></td><td>The object that dispatched the event;      *       it is not always the object that listens for the event.      *       Use the <code>currentTarget</code> property to always access the      *       object that is listening for the event.</td></tr>     *  </table>     *     *  @eventType progress
 		 */
-		public static const COMPLETE:String = "complete";
+		public static const PROGRESS : String = "progress";
 		/**
-		 * Dispatched when there is an error loading the resource module SWF file.
-		 *  The ResourceEvent.ERROR constant defines the value of the
-		 *  type property of the event object for a error event.
+		 *  The error message if the <code>type</code> is <code>ERROR</code>;     *  otherwise, it is <code>null</code>.
 		 */
-		public static const ERROR:String = "error";
+		public var errorText : String;
+
 		/**
-		 * Dispatched when the resource module SWF file is loading.
-		 *  The ResourceEvent.PROGRESS constant defines the value of the
-		 *  type property of the event object for a progress event.
+		 *  Constructor.     *      *  @param type The value of the <code>type</code> property of the event object. Possible values are:     *  <ul>     *     <li><code>"progress"</code> (<code>ResourceEvent.PROGRESS</code>)</li>     *     <li><code>"complete"</code> (<code>ResourceEvent.COMPLETE</code>)</li>     *     <li><code>"error"</code> (<code>ResourceEvent.ERROR</code>)</li>     *  </ul>     *     *  @param bubbles Determines whether the Event object     *  participates in the bubbling stage of the event flow.     *     *  @param cancelable Determines whether the Event object can be cancelled.     *     *  @param bytesLoaded The number of bytes loaded     *  at the time the listener processes the event.     *     *  @param bytesTotal The total number of bytes     *  that will ultimately be loaded if the loading process succeeds.     *     *  @param errorText The error message of the error     *  when <code>type</code> is <code>ResourceEvent.ERROR</code>.
 		 */
-		public static const PROGRESS:String = "progress";
+		public function ResourceEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:uint = 0, bytesTotal:uint = 0, errorText:String = null);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

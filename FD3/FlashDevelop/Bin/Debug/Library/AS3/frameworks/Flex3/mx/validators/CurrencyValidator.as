@@ -1,145 +1,306 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public class CurrencyValidator extends Validator {
+﻿package mx.validators
+{
+	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
+
+	/**
+	 *  The CurrencyValidator class ensures that a String *  represents a valid currency expression. *  It can make sure the input falls within a given range *  (specified by <code>minValue</code> and <code>maxValue</code>), *  is non-negative (specified by <code>allowNegative</code>), *  and does not exceed the specified <code>precision</code>. The  *  CurrencyValidator class correctly validates formatted and unformatted *  currency expressions, e.g., "$12,345.00" and "12345". *  You can customize the <code>currencySymbol</code>, <code>alignSymbol</code>, *  <code>thousandsSeparator</code>, and <code>decimalSeparator</code> *  properties for internationalization. * *  @mxml * *  <p>The <code>&lt;mx:CurrencyValidator&gt;</code> tag *  inherits all of the tag properties of its superclass, *  and adds the following tag properties:</p> * *  <pre> *  &lt;mx:CurrencyValidator *    alignSymbol="left|right|any" *    allowNegative="true|false" *    currencySymbol="$" *    currencySymbolError="The currency symbol occurs in an invalid location." *    decimalPointCountError="The decimal separator can occur only once." *    decimalSeparator="." *    exceedsMaxError="The amount entered is too large." *    invalidCharError="The input contains invalid characters." *    invalidFormatCharsError="One of the formatting parameters is invalid." *    lowerThanMinError="The amount entered is too small." *    maxValue="NaN" *    minValue="NaN" *    negativeError="The amount may not be negative." *    precision="2" *    precisionError="The amount entered has too many digits beyond the decimal point." *    separationError="The thousands separator must be followed by three digits." *    thousandsSeparator="," *  /&gt; *  </pre> * *  @see mx.validators.CurrencyValidatorAlignSymbol * *  @includeExample examples/CurrencyValidatorExample.mxml
+	 */
+	public class CurrencyValidator extends Validator
+	{
 		/**
-		 * Specifies the alignment of the currencySymbol
-		 *  relative to the rest of the expression.
-		 *  Acceptable values in ActionScript are CurrencyValidatorAlignSymbol.LEFT,
-		 *  CurrencyValidatorAlignSymbol.RIGHT, and
-		 *  CurrencyValidatorAlignSymbol.ANY.
-		 *  Acceptable values in MXML are "left",
-		 *  "right", and
-		 *  "any".
+		 *  @private     *  Formatting characters for negative values.
 		 */
-		public function get alignSymbol():String;
-		public function set alignSymbol(value:String):void;
+		private static const NEGATIVE_FORMATTING_CHARS : String = "-()";
 		/**
-		 * Specifies whether negative numbers are permitted.
-		 *  Can be true or false.
+		 *  @private     *  Storage for the alignSymbol property.
 		 */
-		public function get allowNegative():Object;
-		public function set allowNegative(value:Object):void;
+		private var _alignSymbol : String;
 		/**
-		 * The single-character String used to specify the currency symbol,
-		 *  such as "$" or "£".
-		 *  Cannot be a digit and must be distinct from the
-		 *  thousandsSeparator and the decimalSeparator.
+		 *  @private
 		 */
-		public function get currencySymbol():String;
-		public function set currencySymbol(value:String):void;
+		private var alignSymbolOverride : String;
 		/**
-		 * Error message when the currency symbol, defined by currencySymbol,
-		 *  is in the wrong location.
+		 *  @private     *  Storage for the allowNegative property.
 		 */
-		public function get currencySymbolError():String;
-		public function set currencySymbolError(value:String):void;
+		private var _allowNegative : Object;
 		/**
-		 * Error message when the decimal separator character occurs more than once.
+		 *  @private
 		 */
-		public function get decimalPointCountError():String;
-		public function set decimalPointCountError(value:String):void;
+		private var allowNegativeOverride : Object;
 		/**
-		 * The character used to separate the whole
-		 *  from the fractional part of the number.
-		 *  Cannot be a digit and must be distinct from the
-		 *  currencySymbol and the thousandsSeparator.
+		 *  @private     *  Storage for the currencySymbol property.
 		 */
-		public function get decimalSeparator():String;
-		public function set decimalSeparator(value:String):void;
+		private var _currencySymbol : String;
 		/**
-		 * Error message when the value is greater than maxValue.
+		 *  @private
 		 */
-		public function get exceedsMaxError():String;
-		public function set exceedsMaxError(value:String):void;
+		private var currencySymbolOverride : String;
 		/**
-		 * Error message when the currency contains invalid characters.
+		 *  @private     *  Storage for the decimalSeparator property.
 		 */
-		public function get invalidCharError():String;
-		public function set invalidCharError(value:String):void;
+		private var _decimalSeparator : String;
 		/**
-		 * Error message when the value contains an invalid formatting character.
+		 *  @private
 		 */
-		public function get invalidFormatCharsError():String;
-		public function set invalidFormatCharsError(value:String):void;
+		private var decimalSeparatorOverride : String;
 		/**
-		 * Error message when the value is less than minValue.
+		 *  @private     *  Storage for the maxValue property.
 		 */
-		public function get lowerThanMinError():String;
-		public function set lowerThanMinError(value:String):void;
+		private var _maxValue : Object;
 		/**
-		 * Maximum value for a valid number.
-		 *  A value of NaN means it is ignored.
+		 *  @private
 		 */
-		public function get maxValue():Object;
-		public function set maxValue(value:Object):void;
+		private var maxValueOverride : Object;
 		/**
-		 * Minimum value for a valid number.
-		 *  A value of NaN means it is ignored.
+		 *  @private     *  Storage for the minValue property.
 		 */
-		public function get minValue():Object;
-		public function set minValue(value:Object):void;
+		private var _minValue : Object;
 		/**
-		 * Error message when the value is negative and
-		 *  the allowNegative property is false.
+		 *  @private
 		 */
-		public function get negativeError():String;
-		public function set negativeError(value:String):void;
+		private var minValueOverride : Object;
 		/**
-		 * The maximum number of digits allowed to follow the decimal point.
-		 *  Can be any non-negative integer.
-		 *  Note: Setting to 0
-		 *  has the same effect as setting NumberValidator.domain
-		 *  to int.
-		 *  Setting it to -1, means it is ignored.
+		 *  @private     *  Storage for the precision property.
 		 */
-		public function get precision():Object;
-		public function set precision(value:Object):void;
+		private var _precision : Object;
 		/**
-		 * Error message when the value has a precision that exceeds the value
-		 *  defined by the precision property.
+		 *  @private
 		 */
-		public function get precisionError():String;
-		public function set precisionError(value:String):void;
+		private var precisionOverride : Object;
 		/**
-		 * Error message when the thousands separator is incorrectly placed.
+		 *  @private     *  Storage for the thousandsSeparator property.
 		 */
-		public function get separationError():String;
-		public function set separationError(value:String):void;
+		private var _thousandsSeparator : String;
 		/**
-		 * The character used to separate thousands.
-		 *  Cannot be a digit and must be distinct from the
-		 *  currencySymbol and the decimalSeparator.
+		 *  @private
 		 */
-		public function get thousandsSeparator():String;
-		public function set thousandsSeparator(value:String):void;
+		private var thousandsSeparatorOverride : String;
 		/**
-		 * Constructor.
+		 *  @private     *  Storage for the currencySymbolError property.
 		 */
-		public function CurrencyValidator();
+		private var _currencySymbolError : String;
 		/**
-		 * Override of the base class doValidation() method
-		 *  to validate a currency expression.
-		 *
-		 * @param value             <Object> Object to validate.
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private
 		 */
-		protected override function doValidation(value:Object):Array;
+		private var currencySymbolErrorOverride : String;
 		/**
-		 * Convenience method for calling a validator.
-		 *  Each of the standard Flex validators has a similar convenience method.
-		 *
-		 * @param validator         <CurrencyValidator> The CurrencyValidator instance.
-		 * @param value             <Object> The object to validate.
-		 * @param baseField         <String> Text representation of the subfield
-		 *                            specified in the value parameter.
-		 *                            For example, if the value parameter specifies value.currency,
-		 *                            the baseField value is "currency".
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private     *  Storage for the decimalPointCountError property.
 		 */
-		public static function validateCurrency(validator:CurrencyValidator, value:Object, baseField:String):Array;
+		private var _decimalPointCountError : String;
+		/**
+		 *  @private
+		 */
+		private var decimalPointCountErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the exceedsMaxError property.
+		 */
+		private var _exceedsMaxError : String;
+		/**
+		 *  @private
+		 */
+		private var exceedsMaxErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the invalidCharError property.
+		 */
+		private var _invalidCharError : String;
+		/**
+		 *  @private
+		 */
+		private var invalidCharErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the invalidFormatCharsError property.
+		 */
+		private var _invalidFormatCharsError : String;
+		/**
+		 *  @private
+		 */
+		private var invalidFormatCharsErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the lowerThanMinError property.
+		 */
+		private var _lowerThanMinError : String;
+		/**
+		 *  @private
+		 */
+		private var lowerThanMinErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the negativeError property.
+		 */
+		private var _negativeError : String;
+		/**
+		 *  @private
+		 */
+		private var negativeErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the precisionError property.
+		 */
+		private var _precisionError : String;
+		/**
+		 *  @private
+		 */
+		private var precisionErrorOverride : String;
+		/**
+		 *  @private     *  Storage for the separationError property.
+		 */
+		private var _separationError : String;
+		/**
+		 *  @private
+		 */
+		private var separationErrorOverride : String;
+
+		/**
+		 *  Specifies the alignment of the <code>currencySymbol</code>     *  relative to the rest of the expression.     *  Acceptable values in ActionScript are <code>CurrencyValidatorAlignSymbol.LEFT</code>,      *  <code>CurrencyValidatorAlignSymbol.RIGHT</code>, and      *  <code>CurrencyValidatorAlignSymbol.ANY</code>.     *  Acceptable values in MXML are <code>"left"</code>,      *  <code>"right"</code>, and      *  <code>"any"</code>.     *      *  @default CurrencyValidatorAlignSymbol.LEFT     *     *  @see mx.validators.CurrencyValidatorAlignSymbol
+		 */
+		public function get alignSymbol () : String;
+		/**
+		 *  @private
+		 */
+		public function set alignSymbol (value:String) : void;
+		/**
+		 *  Specifies whether negative numbers are permitted.     *  Can be <code>true</code> or <code>false</code>.     *       *  @default true
+		 */
+		public function get allowNegative () : Object;
+		/**
+		 *  @private
+		 */
+		public function set allowNegative (value:Object) : void;
+		/**
+		 *  The character String used to specify the currency symbol,      *  such as "$", "R$", or "&#163;".     *  Cannot be a digit and must be distinct from the     *  <code>thousandsSeparator</code> and the <code>decimalSeparator</code>.     *     *  @default "$"
+		 */
+		public function get currencySymbol () : String;
+		/**
+		 *  @private
+		 */
+		public function set currencySymbol (value:String) : void;
+		/**
+		 *  The character used to separate the whole     *  from the fractional part of the number.     *  Cannot be a digit and must be distinct from the     *  <code>currencySymbol</code> and the <code>thousandsSeparator</code>.     *       *  @default "."
+		 */
+		public function get decimalSeparator () : String;
+		/**
+		 *  @private
+		 */
+		public function set decimalSeparator (value:String) : void;
+		/**
+		 *  Maximum value for a valid number.     *  A value of NaN means it is ignored.     *       *  @default NaN
+		 */
+		public function get maxValue () : Object;
+		/**
+		 *  @private
+		 */
+		public function set maxValue (value:Object) : void;
+		/**
+		 *  Minimum value for a valid number.     *  A value of NaN means it is ignored.     *       *  @default NaN
+		 */
+		public function get minValue () : Object;
+		/**
+		 *  @private
+		 */
+		public function set minValue (value:Object) : void;
+		/**
+		 *  The maximum number of digits allowed to follow the decimal point.     *  Can be any non-negative integer.     *  Note: Setting to <code>0</code>     *  has the same effect as setting <code>NumberValidator.domain</code>     *  to <code>int</code>.     *  Setting it to -1, means it is ignored.     *      *  @default 2
+		 */
+		public function get precision () : Object;
+		/**
+		 *  @private
+		 */
+		public function set precision (value:Object) : void;
+		/**
+		 *  The character used to separate thousands.     *  Cannot be a digit and must be distinct from the     *  <code>currencySymbol</code> and the <code>decimalSeparator</code>.     *       *  @default ","
+		 */
+		public function get thousandsSeparator () : String;
+		/**
+		 *  @private
+		 */
+		public function set thousandsSeparator (value:String) : void;
+		/**
+		 *  Error message when the currency symbol, defined by <code>currencySymbol</code>,     *  is in the wrong location.     *       *  @default "The currency symbol occurs in an invalid location."
+		 */
+		public function get currencySymbolError () : String;
+		/**
+		 *  @private
+		 */
+		public function set currencySymbolError (value:String) : void;
+		/**
+		 *  Error message when the decimal separator character occurs more than once.     *       *  @default "The decimal separator can only occur once."
+		 */
+		public function get decimalPointCountError () : String;
+		/**
+		 *  @private
+		 */
+		public function set decimalPointCountError (value:String) : void;
+		/**
+		 *  Error message when the value is greater than <code>maxValue</code>.     *       *  @default "The amount entered is too large."
+		 */
+		public function get exceedsMaxError () : String;
+		/**
+		 *  @private
+		 */
+		public function set exceedsMaxError (value:String) : void;
+		/**
+		 *  Error message when the currency contains invalid characters.     *       *  @default "The input contains invalid characters."
+		 */
+		public function get invalidCharError () : String;
+		/**
+		 *  @private
+		 */
+		public function set invalidCharError (value:String) : void;
+		/**
+		 *  Error message when the value contains an invalid formatting character.     *       *  @default "One of the formatting parameters is invalid."
+		 */
+		public function get invalidFormatCharsError () : String;
+		/**
+		 *  @private
+		 */
+		public function set invalidFormatCharsError (value:String) : void;
+		/**
+		 *  Error message when the value is less than <code>minValue</code>.     *       *  @default "The amount entered is too small."
+		 */
+		public function get lowerThanMinError () : String;
+		/**
+		 *  @private
+		 */
+		public function set lowerThanMinError (value:String) : void;
+		/**
+		 *  Error message when the value is negative and     *  the <code>allowNegative</code> property is <code>false</code>.     *       *  @default "The amount may not be negative."
+		 */
+		public function get negativeError () : String;
+		/**
+		 *  @private
+		 */
+		public function set negativeError (value:String) : void;
+		/**
+		 *  Error message when the value has a precision that exceeds the value     *  defined by the <code>precision</code> property.     *       *  @default "The amount entered has too many digits beyond      *  the decimal point."
+		 */
+		public function get precisionError () : String;
+		/**
+		 *  @private
+		 */
+		public function set precisionError (value:String) : void;
+		/**
+		 *  Error message when the thousands separator is incorrectly placed.     *       *  @default "The thousands separator must be followed by three digits."
+		 */
+		public function get separationError () : String;
+		/**
+		 *  @private
+		 */
+		public function set separationError (value:String) : void;
+
+		/**
+		 *  Convenience method for calling a validator.     *  Each of the standard Flex validators has a similar convenience method.     *     *  @param validator The CurrencyValidator instance.     *     *  @param value The object to validate.     *     *  @param baseField Text representation of the subfield     *  specified in the <code>value</code> parameter.     *  For example, if the <code>value</code> parameter specifies value.currency,     *  the baseField value is "currency".     *     *  @return An Array of ValidationResult objects, with one ValidationResult      *  object for each field examined by the validator.      *     *  @see mx.validators.ValidationResult
+		 */
+		public static function validateCurrency (validator:CurrencyValidator, value:Object, baseField:String) : Array;
+		/**
+		 *  Constructor.
+		 */
+		public function CurrencyValidator ();
+		/**
+		 *  @private
+		 */
+		protected function resourcesChanged () : void;
+		/**
+		 *  Override of the base class <code>doValidation()</code> method     *  to validate a currency expression.     *     *  <p>You do not call this method directly;     *  Flex calls it as part of performing a validation.     *  If you create a custom Validator class, you must implement this method. </p>     *     *  @param value Object to validate.     *     *  @return An Array of ValidationResult objects, with one ValidationResult      *  object for each field examined by the validator.
+		 */
+		protected function doValidation (value:Object) : Array;
 	}
 }

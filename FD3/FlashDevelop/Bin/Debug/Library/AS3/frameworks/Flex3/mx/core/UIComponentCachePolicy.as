@@ -1,22 +1,22 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	public final  class UIComponentCachePolicy {
+﻿package mx.core
+{
+	/**
+	 *  The ContainerCreationPolicy class defines the constant values *  for the <code>cachePolicy</code> property of the UIComponent class. * *  @see mx.core.UIComponent#cachePolicy
+	 */
+	public class UIComponentCachePolicy
+	{
 		/**
-		 * Specifies that the Flex framework should use heuristics
-		 *  to decide whether to cache the object as a bitmap.
+		 *  Specifies that the Flex framework should use heuristics	 *  to decide whether to cache the object as a bitmap.
 		 */
-		public static const AUTO:String = "auto";
+		public static const AUTO : String = "auto";
 		/**
-		 * Specifies that the Flex framework should never attempt
-		 *  to cache the object as a bitmap.
+		 *  Specifies that the Flex framework should never attempt	 *  to cache the object as a bitmap.
 		 */
-		public static const OFF:String = "off";
+		public static const OFF : String = "off";
 		/**
-		 * Specifies that the Flex framework should always cache
-		 *  the object as a bitmap.
+		 *  Specifies that the Flex framework should always cache	 *  the object as a bitmap.
 		 */
-		public static const ON:String = "on";
+		public static const ON : String = "on";
+
 	}
 }

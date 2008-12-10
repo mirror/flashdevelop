@@ -1,23 +1,26 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	public final  class ContainerCreationPolicy {
+﻿package mx.core
+{
+	/**
+	 *  The ContainerCreationPolicy class defines the constant values *  for the <code>creationPolicy</code> property of the Container class. * *  @see mx.core.Container#creationPolicy
+	 */
+	public class ContainerCreationPolicy
+	{
 		/**
-		 * Immediately create all descendants.
+		 *  Delay creating some or all descendants until they are needed.	 *	 *  <p>For example, if a navigator container such as a TabNavigator	 *  has this <code>creationPolicy</code>, it will immediately create	 *  all of its children, plus the descendants of the initially	 *  selected child.	 *  However, it will wait to create the descendants of the other children	 *  until the user navigates to them.</p>
 		 */
-		public static const ALL:String = "all";
+		public static const AUTO : String = "auto";
 		/**
-		 * Delay creating some or all descendants until they are needed.
+		 *  Immediately create all descendants.	 *	 *  <p>Avoid using this <code>creationPolicy</code> because	 *  it increases the startup time of your application.	 *  There is usually no good reason to create components at startup	 *  which the user cannot see.	 *  If you are using this policy so that you can "push" data into	 *  hidden components at startup, you should instead design your	 *  application so that the data is stored in data variables	 *  and components which are created later "pull" in this data,	 *  via databinding or an <code>initialize</code> handler.</p>
 		 */
-		public static const AUTO:String = "auto";
+		public static const ALL : String = "all";
 		/**
-		 * Do not create any children.
+		 *  Add the container to a creation queue.
 		 */
-		public static const NONE:String = "none";
+		public static const QUEUED : String = "queued";
 		/**
-		 * Add the container to a creation queue.
+		 *  Do not create any children.	 *	 *  <p>With this <code>creationPolicy</code>, it is the developer's	 *  responsibility to programmatically create the children 	 *  from the UIComponentDescriptors by calling	 *  <code>createComponentsFromDescriptors()</code>	 *  on the parent container.</p>
 		 */
-		public static const QUEUED:String = "queued";
+		public static const NONE : String = "none";
+
 	}
 }

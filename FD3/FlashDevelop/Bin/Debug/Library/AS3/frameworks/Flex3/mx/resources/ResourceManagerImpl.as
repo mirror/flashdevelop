@@ -1,236 +1,227 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.resources {
+﻿package mx.resources
+{
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.IEventDispatcher;
+	import flash.events.TimerEvent;
 	import flash.system.ApplicationDomain;
+	import flash.system.Capabilities;
 	import flash.system.SecurityDomain;
-	public class ResourceManagerImpl extends EventDispatcher implements IResourceManager {
+	import flash.utils.Timer;
+	import mx.core.IFlexModuleFactory;
+	import mx.core.mx_internal;
+	import mx.core.Singleton;
+	import mx.events.ModuleEvent;
+	import mx.events.ResourceEvent;
+	import mx.modules.IModuleInfo;
+	import mx.modules.ModuleManager;
+	import mx.utils.StringUtil;
+	import flash.events.EventDispatcher;
+	import mx.events.ModuleEvent;
+	import mx.events.ResourceEvent;
+	import mx.modules.IModuleInfo;
+	import mx.resources.IResourceModule;
+
+	/**
+	 *  @copy mx.resources.IResourceManager#change
+	 */
+	[Event(name="change", type="flash.events.Event")] 
+
+	/**
+	 *  This class provides an implementation of the IResourceManager interface. *  The IResourceManager and IResourceBundle interfaces work together *  to provide internationalization support for Flex applications. * *  <p>A single instance of this class manages all localized resources *  for a Flex application.</p> *   *  @see mx.resources.IResourceManager *  @see mx.resources.IResourceBundle
+	 */
+	public class ResourceManagerImpl extends EventDispatcher implements IResourceManager
+	{
 		/**
-		 * An Array of locale Strings, such as [ "en_US" ],
-		 *  which specifies one or more locales to be searched for resources.
+		 *  @private     *  The sole instance of the ResourceManager.
 		 */
-		public function get localeChain():Array;
-		public function set localeChain(value:Array):void;
+		private static var instance : IResourceManager;
 		/**
-		 * Constructor.
+		 *  @private     *  A map whose keys are locale strings like "en_US"     *  and whose values are "bundle maps".     *  A bundle map is a map whose keys are bundle names     *  like "SharedResources" and whose values are ResourceBundle instances.     *  You can get to an individual resource value like this:     *  localeMap["en_US"]["SharedResources"].content["currencySymbol"]
 		 */
-		public function ResourceManagerImpl();
+		private var localeMap : Object;
 		/**
-		 * Adds the specified ResourceBundle to the ResourceManager
-		 *  so that its resources can be accessed by ResourceManager
-		 *  methods such as getString().
-		 *
-		 * @param resourceBundle    <IResourceBundle> The resource bundle to be added.
+		 *  @private     *  A map whose keys are URLs for resource modules that have been loaded     *  and whose values are ResourceModuleInfo instances for those modules.
 		 */
-		public function addResourceBundle(resourceBundle:IResourceBundle):void;
+		private var resourceModules : Object;
 		/**
-		 * @param bundleName        <String> 
-		 * @param resourceName      <String> 
+		 *  @private
 		 */
-		public function findResourceBundleWithResource(bundleName:String, resourceName:String):IResourceBundle;
+		private var initializedForNonFrameworkApp : Boolean;
 		/**
-		 * Gets the value of a specified resource as a Boolean.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <Boolean> The resource value, as a Boolean,
-		 *                            or false if it is not found.
+		 *  @private     *  Storage for the localeChain property.
 		 */
-		public function getBoolean(bundleName:String, resourceName:String, locale:String = null):Boolean;
+		private var _localeChain : Array;
+
 		/**
-		 * Returns an Array of Strings specifying the bundle names
-		 *  for all ResourceBundle objects that exist in the ResourceManager
-		 *  and that belong to the specified locale.
-		 *
-		 * @param locale            <String> A locale string such as "en_US".
-		 * @return                  <Array> An Array of bundle names.
+		 *  @copy mx.resources.IResourceManager#localeChain
 		 */
-		public function getBundleNamesForLocale(locale:String):Array;
+		public function get localeChain () : Array;
 		/**
-		 * Gets the value of a specified resource as a Class.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <Class> The resource value, as a Class,
-		 *                            or null if it is not found.
+		 *  @private
 		 */
-		public function getClass(bundleName:String, resourceName:String, locale:String = null):Class;
+		public function set localeChain (value:Array) : void;
+
 		/**
-		 * Gets the single instance of the ResourceManagerImpl class.
-		 *  This object manages all localized resources for a Flex application.
-		 *
-		 * @return                  <IResourceManager> An object implementing IResourceManager.
+		 *  Gets the single instance of the ResourceManagerImpl class.     *  This object manages all localized resources for a Flex application.     *       *  @return An object implementing IResourceManager.
 		 */
-		public static function getInstance():IResourceManager;
+		public static function getInstance () : IResourceManager;
 		/**
-		 * Gets the value of a specified resource as an int.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <int> The resource value, as an int,
-		 *                            or 0 if it is not found.
+		 *  Constructor.
 		 */
-		public function getInt(bundleName:String, resourceName:String, locale:String = null):int;
+		public function ResourceManagerImpl ();
 		/**
-		 * Returns an Array of Strings specifying all locales for which
-		 *  ResourceBundle objects exist in the ResourceManager.
-		 *
-		 * @return                  <Array> An Array of locale Strings.
+		 *  @private     *  This method is called by the SystemManager class of an Application     *  when the application starts.     *  It is also called by the FlexModuleFactory class of a code module     *  when that module gets loaded.     *     *  The MXML compiler autogenerated code which set the     *  "compiledLocales" and "compiledResourceBundleNames" properties     *  of the info() Object required by the IFlexModuleFactory     *  interface that these classes implement.     *  These two properties together indicate which resource bundle     *  classes the MXML compiler autogenerated and linked into the     *  application or module.     *     *  The "compiledLocales" property has been set to the locales     *  which were specified at compile time using the -locale option.     *  For example, if you compile with -locale=en_US,ja_JP     *  then the "compiledLocales" property is the array [ "en_US", "ja_JP" ].     *     *  The "compiledResourceBundleNames" property has been set     *  to the names of the resource bundles which are used by     *  the application or module, as determined by the compiler     *  from [ResourceBundle] metadata and ~~Resource() directives.     *  For example, if the classes in the application or module     *  declare that they use resource bundles named "core" and "MyApp",     *  then the "compiledResourceBundleNames" property is the array     *  [ "core", "MyApp" ].     *     *  The compiler autogenerated a ResourceBundle subclass for each     *  (locale, bundle name) pair.     *  For example, with the above locales and bundle names,     *  there would be four classes:     *    en_US$core_properties     *    en_US$MyApp_properties     *    ja_JP$core_properties     *    ja_JP$MyApp_properties     *     *  This method creates one instance of each such class     *  and installs it into the ResourceManager with addResourceBundle().     *  If a bundle for a given locale and bundle name already exists     *  in the ResourceManager already exists, it does not get replaced.     *  This can happen when a code module gets loaded into an application.
 		 */
-		public function getLocales():Array;
+		public function installCompiledResourceBundles (applicationDomain:ApplicationDomain, locales:Array, bundleNames:Array) : void;
 		/**
-		 * Gets the value of a specified resource as a Number.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <Number> The resource value, as a Number,
-		 *                            or NaN if it is not found.
+		 *  @private
 		 */
-		public function getNumber(bundleName:String, resourceName:String, locale:String = null):Number;
+		function installCompiledResourceBundle (applicationDomain:ApplicationDomain, locale:String, bundleName:String) : void;
 		/**
-		 * Gets the value of a specified resource as an Object.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <*> The resource value, exactly as it is stored
-		 *                            in the content Object,
-		 *                            or undefined if the resource is not found.
+		 *  @copy mx.resources.IResourceManager#initializeLocaleChain()
 		 */
-		public function getObject(bundleName:String, resourceName:String, locale:String = null):*;
+		public function initializeLocaleChain (compiledLocales:Array) : void;
 		/**
-		 * Returns a ResourceBundle with the specified locale
-		 *  and bundleName that has been previously added
-		 *  to the ResourceManager with addResourceBundle().
-		 *  If no such ResourceBundle exists, this method returns null.
-		 *
-		 * @param locale            <String> A locale string such as "en_US".
-		 * @param bundleName        <String> A bundle name such as "MyResources".
-		 * @return                  <IResourceBundle> The ResourceBundle with the specified locale
-		 *                            and bundleName if one exists; otherwise null.
+		 *  @copy mx.resources.IResourceManager#loadResourceModule()
 		 */
-		public function getResourceBundle(locale:String, bundleName:String):IResourceBundle;
+		public function loadResourceModule (url:String, updateFlag:Boolean = true, applicationDomain:ApplicationDomain = null, securityDomain:SecurityDomain = null) : IEventDispatcher;
 		/**
-		 * Gets the value of a specified resource as a String,
-		 *  after substituting specified values for placeholders.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param parameters        <Array (default = null)> An Array of parameters that are
-		 *                            substituted for the placeholders.
-		 *                            Each parameter is converted to a String with the toString() method
-		 *                            before being substituted.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <String> The resource value, as a String,
-		 *                            or null if it is not found.
+		 *  @copy mx.resources.IResourceManager#unloadResourceModule()
 		 */
-		public function getString(bundleName:String, resourceName:String, parameters:Array = null, locale:String = null):String;
+		public function unloadResourceModule (url:String, update:Boolean = true) : void;
 		/**
-		 * Gets the value of a specified resource as an Array of Strings.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <Array> The resource value, as an Array of Strings,
-		 *                            or null if it is not found.
+		 *  @copy mx.resources.IResourceManager#addResourceBundle()
 		 */
-		public function getStringArray(bundleName:String, resourceName:String, locale:String = null):Array;
+		public function addResourceBundle (resourceBundle:IResourceBundle) : void;
 		/**
-		 * Gets the value of a specified resource as a uint.
-		 *
-		 * @param bundleName        <String> The name of a resource bundle.
-		 * @param resourceName      <String> The name of a resource in the resource bundle.
-		 * @param locale            <String (default = null)> A specific locale to be used for the lookup,
-		 *                            or null to search all locales
-		 *                            in the localeChain.
-		 *                            This parameter is optional and defaults to null;
-		 *                            you should seldom need to specify it.
-		 * @return                  <uint> The resource value, as a uint,
-		 *                            or 0 if it is not found.
+		 *  @copy mx.resources.IResourceManager#getResourceBundle()
 		 */
-		public function getUint(bundleName:String, resourceName:String, locale:String = null):uint;
+		public function getResourceBundle (locale:String, bundleName:String) : IResourceBundle;
 		/**
-		 * Begins loading a resource module containing resource bundles.
-		 *
-		 * @param url               <String> The URL from which to load the resource module.
-		 * @param update            <Boolean (default = true)> Whether to call
-		 *                            the update() method when the module finishes loading.
-		 * @param applicationDomain <ApplicationDomain (default = null)> The ApplicationDomain passed to the
-		 *                            load() method of the IModuleInfo class
-		 *                            that loads the resource module.
-		 *                            This parameter is optional and defaults to null.
-		 * @param securityDomain    <SecurityDomain (default = null)> The SecurityDomain passed to the
-		 *                            load() method of the IModuleInfo class
-		 *                            that loads the resource module.
-		 *                            This parameter is optional and defaults to null.
-		 * @return                  <IEventDispatcher> An object that is associated with this particular load operation
-		 *                            that dispatches ResourceEvent.PROGRESS,
-		 *                            ResourceEvent.COMPLETE, and
-		 *                            ResourceEvent.ERROR events.
+		 *  @copy mx.resources.IResourceManager#removeResourceBundle()
 		 */
-		public function loadResourceModule(url:String, update:Boolean = true, applicationDomain:ApplicationDomain = null, securityDomain:SecurityDomain = null):IEventDispatcher;
+		public function removeResourceBundle (locale:String, bundleName:String) : void;
 		/**
-		 * Removes the specified ResourceBundle from the ResourceManager
-		 *  so that its resources can no longer be accessed by ResourceManager
-		 *  methods such as getString().
-		 *
-		 * @param locale            <String> A locale string such as "en_US".
-		 * @param bundleName        <String> A bundle name such as "MyResources".
+		 *  @copy mx.resources.IResourceManager#removeResourceBundlesForLocale()
 		 */
-		public function removeResourceBundle(locale:String, bundleName:String):void;
+		public function removeResourceBundlesForLocale (locale:String) : void;
 		/**
-		 * Removes all ResourceBundles for the specified locale
-		 *  from the ResourceManager so that their resources
-		 *  can no longer be accessed by ResourceManager methods
-		 *  such as getString().
-		 *
-		 * @param locale            <String> A locale string such as "en_US".
+		 *  @copy mx.resources.IResourceManager#update()
 		 */
-		public function removeResourceBundlesForLocale(locale:String):void;
+		public function update () : void;
 		/**
-		 * This method has not yet been implemented.
-		 *
-		 * @param url               <String> 
-		 * @param update            <Boolean (default = true)> 
+		 *  @copy mx.resources.IResourceManager#getLocales()
 		 */
-		public function unloadResourceModule(url:String, update:Boolean = true):void;
+		public function getLocales () : Array;
 		/**
-		 * Dispatches a change event from the
-		 *  ResourceManager.
+		 *  @copy mx.resources.IResourceManager#getPreferredLocaleChain()
 		 */
-		public function update():void;
+		public function getPreferredLocaleChain () : Array;
+		/**
+		 *  @copy mx.resources.IResourceManager#getBundleNamesForLocale()
+		 */
+		public function getBundleNamesForLocale (locale:String) : Array;
+		/**
+		 *  @copy mx.resources.findResourceBundleWithResource
+		 */
+		public function findResourceBundleWithResource (bundleName:String, resourceName:String) : IResourceBundle;
+		/**
+		 *  @copy mx.resources.IResourceManager#getObject()
+		 */
+		public function getObject (bundleName:String, resourceName:String, locale:String = null) : *;
+		/**
+		 *  @copy mx.resources.IResourceManager#getString()
+		 */
+		public function getString (bundleName:String, resourceName:String, parameters:Array = null, locale:String = null) : String;
+		/**
+		 *  @copy mx.resources.IResourceManager#getStringArray()
+		 */
+		public function getStringArray (bundleName:String, resourceName:String, locale:String = null) : Array;
+		/**
+		 *  @copy mx.resources.IResourceManager#getNumber()
+		 */
+		public function getNumber (bundleName:String, resourceName:String, locale:String = null) : Number;
+		/**
+		 *  @copy mx.resources.IResourceManager#getInt()
+		 */
+		public function getInt (bundleName:String, resourceName:String, locale:String = null) : int;
+		/**
+		 *  @copy mx.resources.IResourceManager#getUint()
+		 */
+		public function getUint (bundleName:String, resourceName:String, locale:String = null) : uint;
+		/**
+		 *  @copy mx.resources.IResourceManager#getBoolean()
+		 */
+		public function getBoolean (bundleName:String, resourceName:String, locale:String = null) : Boolean;
+		/**
+		 *  @copy mx.resources.IResourceManager#getClass()
+		 */
+		public function getClass (bundleName:String, resourceName:String, locale:String = null) : Class;
+		/**
+		 *  @private.
+		 */
+		private function findBundle (bundleName:String, resourceName:String, locale:String) : IResourceBundle;
+		/**
+		 *  @private.
+		 */
+		private function supportNonFrameworkApps () : void;
+		/**
+		 *  @private
+		 */
+		private function getSystemPreferredLocales () : Array;
+		/**
+		 *  @private.
+		 */
+		private function dumpResourceModule (resourceModule:*) : void;
+	}
+	/**
+	 *  @private
+	 */
+	internal class ResourceModuleInfo
+	{
+		/**
+		 *  @private
+		 */
+		public var errorHandler : Function;
+		/**
+		 *  @private
+		 */
+		public var moduleInfo : IModuleInfo;
+		/**
+		 *  @private
+		 */
+		public var readyHandler : Function;
+		/**
+		 *  @private
+		 */
+		public var resourceModule : IResourceModule;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ResourceModuleInfo (moduleInfo:IModuleInfo, readyHandler:Function, errorHandler:Function);
+	}
+	/**
+	 *  @private
+	 */
+	internal class ResourceEventDispatcher extends EventDispatcher
+	{
+		/**
+		 *  Constructor.
+		 */
+		public function ResourceEventDispatcher (moduleInfo:IModuleInfo);
+		/**
+		 *  @private
+		 */
+		private function moduleInfo_errorHandler (event:ModuleEvent) : void;
+		/**
+		 *  @private
+		 */
+		private function moduleInfo_progressHandler (event:ModuleEvent) : void;
+		/**
+		 *  @private
+		 */
+		private function moduleInfo_readyHandler (event:ModuleEvent) : void;
 	}
 }

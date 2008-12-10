@@ -1,12 +1,21 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.sliderClasses {
+﻿package mx.controls.sliderClasses
+{
+	import flash.text.TextLineMetrics;
 	import mx.controls.Label;
-	public class SliderLabel extends Label {
+	import mx.core.mx_internal;
+
+	/**
+	 *  The SliderLabel class defines the label used in the mx.controls.Slider component.  *  The class adds no additional functionality to mx.controls.Label. *  It is used to apply a type selector style. *  	 *  @see mx.controls.HSlider *  @see mx.controls.VSlider *  @see mx.controls.sliderClasses.Slider *  @see mx.controls.sliderClasses.SliderDataTip *  @see mx.controls.sliderClasses.SliderThumb
+	 */
+	public class SliderLabel extends Label
+	{
 		/**
-		 * Constructor.
+		 *  Constructor.
 		 */
-		public function SliderLabel();
+		public function SliderLabel ();
+		/**
+		 *  @private
+		 */
+		function getMinimumText (t:String) : String;
 	}
 }

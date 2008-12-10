@@ -1,76 +1,60 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.config {
+﻿package mx.messaging.config
+{
+	import flash.utils.getQualifiedClassName;
 	import flash.utils.Proxy;
-	public dynamic  class ConfigMap extends Proxy {
+	import flash.utils.flash_proxy;
+	import mx.utils.object_proxy;
+	import mx.utils.ObjectUtil;
+
+	/**
+	 *  The ConfigMap class provides a mechanism to store the properties returned  *  by the server with the ordering of the properties maintained.
+	 */
+	flash_proxy dynamic class ConfigMap extends Proxy
+	{
 		/**
-		 * Contains a list of all of the property names for the proxied object.
+		 *  Contains a list of all of the property names for the proxied object.
 		 */
-		object_proxy var propertyList:Array;
+		local var propertyList : Array;
 		/**
-		 * Returns the value of the proxied object's method with the specified name.
-		 *
-		 * @param name              <*> The name of the method being invoked.
-		 * @return                  <*> The return value of the called method.
+		 *  Storage for the object property.
 		 */
-		flash_proxy override function callProperty(name:*, ... rest):*;
+		private var _item : Object;
+
 		/**
-		 * Deletes the specified property on the proxied object and
-		 *  sends notification of the delete to the handler.
-		 *
-		 * @param name              <*> Typically a string containing the name of the property,
-		 *                            or possibly a QName where the property name is found by
-		 *                            inspecting the localName property.
-		 * @return                  <Boolean> A Boolean indicating if the property was deleted.
+		 * Constructor.     *     * @param item An Object containing name/value pairs.
 		 */
-		flash_proxy override function deleteProperty(name:*):Boolean;
+		public function ConfigMap (item:Object = null);
 		/**
-		 * Returns the specified property value of the proxied object.
-		 *
-		 * @param name              <*> Typically a string containing the name of the property,
-		 *                            or possibly a QName where the property name is found by
-		 *                            inspecting the localName property.
-		 * @return                  <*> The value of the property.
+		 *  Returns the specified property value of the proxied object.     *     *  @param name Typically a string containing the name of the property,     *  or possibly a QName where the property name is found by      *  inspecting the <code>localName</code> property.     *     *  @return The value of the property.
 		 */
-		flash_proxy override function getProperty(name:*):*;
+		flash_proxy function getProperty (name:*) : *;
 		/**
-		 * This is an internal function that must be implemented by
-		 *  a subclass of flash.utils.Proxy.
-		 *
-		 * @param name              <*> The property name that should be tested
-		 *                            for existence.
+		 *  Returns the value of the proxied object's method with the specified name.     *     *  @param name The name of the method being invoked.     *     *  @param rest An array specifying the arguments to the     *  called method.     *     *  @return The return value of the called method.
 		 */
-		flash_proxy override function hasProperty(name:*):Boolean;
+		flash_proxy function callProperty (name:*, ...rest) : *;
 		/**
-		 * This is an internal function that must be implemented by
-		 *  a subclass of flash.utils.Proxy.
-		 *
-		 * @param index             <int> 
+		 *  Deletes the specified property on the proxied object and     *  sends notification of the delete to the handler.     *      *  @param name Typically a string containing the name of the property,     *  or possibly a QName where the property name is found by      *  inspecting the <code>localName</code> property.     *     *  @return A Boolean indicating if the property was deleted.
 		 */
-		flash_proxy override function nextName(index:int):String;
+		flash_proxy function deleteProperty (name:*) : Boolean;
 		/**
-		 * This is an internal function that must be implemented by
-		 *  a subclass of flash.utils.Proxy.
-		 *
-		 * @param index             <int> 
+		 *  This is an internal function that must be implemented by      *  a subclass of flash.utils.Proxy.     *       *  @param name The property name that should be tested      *  for existence.     *     *  @return If the property exists, <code>true</code>;      *  otherwise <code>false</code>.     *     *  @see flash.utils.Proxy#hasProperty()
 		 */
-		flash_proxy override function nextNameIndex(index:int):int;
+		flash_proxy function hasProperty (name:*) : Boolean;
 		/**
-		 * This is an internal function that must be implemented by
-		 *  a subclass of flash.utils.Proxy.
-		 *
-		 * @param index             <int> 
+		 *  This is an internal function that must be implemented by      *  a subclass of flash.utils.Proxy.     *     *  @param index The zero-based index value of the object's     *  property.     *     *  @return The property's name.     *     *  @see flash.utils.Proxy#nextName()
 		 */
-		flash_proxy override function nextValue(index:int):*;
+		flash_proxy function nextName (index:int) : String;
 		/**
-		 * Updates the specified property on the proxied object
-		 *  and sends notification of the update to the handler.
-		 *
-		 * @param name              <*> Object containing the name of the property that
-		 *                            should be updated on the proxied object.
-		 * @param value             <*> Value that should be set on the proxied object.
+		 *  This is an internal function that must be implemented by      *  a subclass of flash.utils.Proxy.     *     *  @see flash.utils.Proxy#nextNameIndex()
 		 */
-		flash_proxy override function setProperty(name:*, value:*):void;
+		flash_proxy function nextNameIndex (index:int) : int;
+		/**
+		 *  This is an internal function that must be implemented by      *  a subclass of flash.utils.Proxy.     *     *  @param index The zero-based index value of the object's     *  property.     *     *  @return The property's value.     *     *  @see flash.utils.Proxy#nextValue()
+		 */
+		flash_proxy function nextValue (index:int) : *;
+		/**
+		 *  Updates the specified property on the proxied object     *  and sends notification of the update to the handler.     *     *  @param name Object containing the name of the property that     *  should be updated on the proxied object.     *     *  @param value Value that should be set on the proxied object.
+		 */
+		flash_proxy function setProperty (name:*, value:*) : void;
 	}
 }

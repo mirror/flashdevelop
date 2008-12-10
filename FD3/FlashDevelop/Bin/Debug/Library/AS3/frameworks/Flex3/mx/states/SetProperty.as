@@ -1,59 +1,61 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.states {
+﻿package mx.states
+{
 	import mx.core.UIComponent;
-	public class SetProperty implements IOverride {
+	import mx.core.mx_internal;
+
+	/**
+	 *  The SetProperty class specifies a property value that is in effect only  *  during the parent view state. *  You use this class in the <code>overrides</code> property of the State class. *  *  @mxml * *  <p>The <code>&lt;mx:SetProperty&gt;</code> tag *  has the following attributes:</p> *   *  <pre> *  &lt;mx:SetProperty *   <b>Properties</b> *   name="null" *   target="null" *   value="undefined" *  /&gt; *  </pre> * *  @see mx.states.State *  @see mx.states.SetEventHandler *  @see mx.states.SetStyle *  @see mx.effects.SetPropertyAction * *  @includeExample examples/StatesExample.mxml
+	 */
+	public class SetProperty implements IOverride
+	{
 		/**
-		 * The name of the property to change.
-		 *  You must set this property, either in
-		 *  the SetProperty constructor or by setting
-		 *  the property value directly.
+		 *  @private     *  This is a table of pseudonyms.     *  Whenever the property being overridden is found in this table,     *  the pseudonym is saved/restored instead.
 		 */
-		public var name:String;
+		private static const PSEUDONYMS : Object;
 		/**
-		 * The object containing the property to be changed.
-		 *  If the property value is null, Flex uses the
-		 *  immediate parent of the State object.
+		 *  @private     *  This is a table of related properties.     *  Whenever the property being overridden is found in this table,     *  the related property is also saved and restored.
 		 */
-		public var target:Object;
+		private const RELATED_PROPERTIES : Object;
 		/**
-		 * The new value for the property.
+		 *  @private     *  Storage for the old property value.
 		 */
-		public var value:*;
+		private var oldValue : Object;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object (default = null)> The object whose property is being set.
-		 *                            By default, Flex uses the immediate parent of the State object.
-		 * @param name              <String (default = null)> The property to set.
-		 * @param value             <* (default = NaN)> The value of the property in the view state.
+		 *  @private     *  Storage for the old related property values, if used.
 		 */
-		public function SetProperty(target:Object = null, name:String = null, value:*);
+		private var oldRelatedValues : Array;
 		/**
-		 * Applies the override. Flex retains the original value, so that it can
-		 *  restore the value later in the remove() method.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  The name of the property to change.     *  You must set this property, either in      *  the SetProperty constructor or by setting     *  the property value directly.
 		 */
-		public function apply(parent:UIComponent):void;
+		public var name : String;
 		/**
-		 * Initializes the override.
-		 *  Flex calls this method before the first call to the
-		 *  apply() method, so you put one-time initialization
-		 *  code for the override in this method.
+		 *  The object containing the property to be changed.     *  If the property value is <code>null</code>, Flex uses the     *  immediate parent of the State object.     *     *  @default null
 		 */
-		public function initialize():void;
+		public var target : Object;
 		/**
-		 * Removes the override. The value remembered in the apply()
-		 *  method is restored.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  The new value for the property.     *     *  @default undefined
 		 */
-		public function remove(parent:UIComponent):void;
+		public var value : *;
+
+		/**
+		 *  IOverride interface method; this class implements it as an empty method.     *      *  @copy IOverride#initialize()
+		 */
+		public function initialize () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function apply (parent:UIComponent) : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function remove (parent:UIComponent) : void;
+		/**
+		 *  @private     *  Sets the property to a value, coercing if necessary.
+		 */
+		private function setPropertyValue (obj:Object, name:String, value:*, valueForType:Object) : void;
+		/**
+		 *  @private     *  Converts a value to a Boolean true/false.
+		 */
+		private function toBoolean (value:Object) : Boolean;
 	}
 }

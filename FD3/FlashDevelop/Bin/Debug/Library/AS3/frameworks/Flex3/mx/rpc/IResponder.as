@@ -1,24 +1,17 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.rpc {
-	public interface IResponder {
+﻿package mx.rpc
+{
+	/**
+	 *  This interface provides the contract for any service *  that needs to respond to remote or asynchronous calls.
+	 */
+	public interface IResponder
+	{
 		/**
-		 * This method is called by a service when an error has been received.
-		 *  While info is typed as Object it is often
-		 *  (but not always) an mx.rpc.events.FaultEvent.
-		 *
-		 * @param info              <Object> 
+		 *  This method is called by a service when the return value	 *  has been received. 	 *  While <code>data</code> is typed as Object, it is often	 *  (but not always) an mx.rpc.events.ResultEvent.         *         * @param data Although typed as Object, data is often (but not always)         * an mx.rpc.events.ResultEvent.
 		 */
-		public function fault(info:Object):void;
+		public function result (data:Object) : void;
 		/**
-		 * This method is called by a service when the return value
-		 *  has been received.
-		 *  While data is typed as Object, it is often
-		 *  (but not always) an mx.rpc.events.ResultEvent.
-		 *
-		 * @param data              <Object> 
+		 *  This method is called by a service when an error has been received.	 *  While <code>info</code> is typed as Object it is often	 *  (but not always) an mx.rpc.events.FaultEvent.         *         * @param info Although typed as Object, info is often (but not always)         * an mx.rpc.events.FaultEvent.
 		 */
-		public function result(data:Object):void;
+		public function fault (info:Object) : void;
 	}
 }

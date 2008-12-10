@@ -1,12 +1,26 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
+	import mx.core.mx_internal;
 	import mx.skins.ProgrammaticSkin;
-	public class DateChooserIndicator extends ProgrammaticSkin {
+
+	/**
+	 *  The skins of the DateChooser's indicators for  *  displaying today, rollover and selected dates.
+	 */
+	public class DateChooserIndicator extends ProgrammaticSkin
+	{
 		/**
-		 * Constructor
+		 *  @private
 		 */
-		public function DateChooserIndicator();
+		local var indicatorColor : String;
+
+		/**
+		 *  Constructor
+		 */
+		public function DateChooserIndicator ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

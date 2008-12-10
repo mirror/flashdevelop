@@ -1,183 +1,345 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls {
-	import mx.core.UIComponent;
-	import mx.core.IIMESupport;
-	import mx.managers.IFocusManagerComponent;
-	import mx.core.EdgeMetrics;
+﻿package mx.controls
+{
+	import flash.display.DisplayObject;
 	import flash.events.Event;
+	import flash.events.FocusEvent;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.events.TextEvent;
+	import mx.collections.ArrayCollection;
+	import mx.collections.CursorBookmark;
+	import mx.collections.ICollectionView;
+	import mx.collections.IList;
+	import mx.collections.IViewCursor;
+	import mx.collections.ListCollectionView;
+	import mx.collections.XMLListCollection;
+	import mx.core.EdgeMetrics;
+	import mx.core.FlexVersion;
+	import mx.core.IFlexDisplayObject;
+	import mx.core.IIMESupport;
+	import mx.core.IRectangularBorder;
+	import mx.core.IUITextField;
+	import mx.core.UIComponent;
+	import mx.core.UITextField;
+	import mx.core.mx_internal;
+	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
 	import mx.events.FlexEvent;
-	public class ComboBase extends UIComponent implements IIMESupport, IFocusManagerComponent {
+	import mx.managers.IFocusManager;
+	import mx.managers.IFocusManagerComponent;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.StyleProxy;
+	import mx.utils.UIDUtil;
+
+	/**
+	 *  Name of the class to use as the default skin for the background and border.  *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+	 */
+	[Style(name="skin", type="Class", inherit="no", states=" up, over, down, disabled,  editableUp, editableOver, editableDown, editableDisabled")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the mouse is not over the control. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+	 */
+	[Style(name="upSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the mouse is over the control. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class. *  For the ColorPicker class, the default value is the ColorPickerSkin class. *  For the DateField class, the default value is the ScrollArrowDownSkin class.
+	 */
+	[Style(name="overSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the user holds down the mouse button. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class. *  For the ColorPicker class, the default value is the ColorPickerSkin class. *  For the DateField class, the default value is the ScrollArrowDownSkin class.
+	 */
+	[Style(name="downSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the control is disabled. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class. *  For the ColorPicker class, the default value is the ColorPickerSkin class. *  For the DateField class, the default value is the ScrollArrowDownSkin class.
+	 */
+	[Style(name="disabledSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the mouse is not over the control, and the <code>editable</code> *  property is <code>true</code>. This skin is only used by the ComboBox class. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+	 */
+	[Style(name="editableUpSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the mouse is over the control, and the <code>editable</code> *  property is <code>true</code>. This skin is only used by the ComboBox class. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+	 */
+	[Style(name="editableOverSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the user holds down the mouse button, and the <code>editable</code> *  property is <code>true</code>. This skin is only used by the ComboBox class. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+	 */
+	[Style(name="editableDownSkin", type="Class", inherit="no")] 
+	/**
+	 *  Name of the class to use as the skin for the background and border *  when the control is disabled, and the <code>editable</code> *  property is <code>true</code>. This skin is only used by the ComboBox class. *  For the ComboBase class, there is no default value. *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+	 */
+	[Style(name="editableDisabledSkin", type="Class", inherit="no")] 
+	/**
+	 *  The style declaration for the internal TextInput subcomponent  *  that displays the current selection.  *  If no value is specified, then the TextInput subcomponent uses  *  the default text styles defined by the ComboBase class. * *  @default ""
+	 */
+	[Style(name="textInputStyleName", type="String", inherit="no")] 
+
+	/**
+	 *  The ComboBase class is the base class for controls that display text in a  *  text field and have a button that causes a drop-down list to appear where  *  the user can choose which text to display. *  The ComboBase class is not used directly as an MXML tag. * *  @mxml * *  <p>The <code>&lt;mx:ComboBase&gt;</code> tag inherits all the tag attributes *  of its superclass, and adds the following tag attributes:</p> * *  <pre> *  &lt;<i>mx:tagname</i> *    <b>Properties</b> *    dataProvider="null" *    editable="false|true" *    imeMode="null" *    restrict="null" *    selectedIndex="-1" *    selectedItem="null" *    text="" *    &nbsp; *    <b>Styles</b> *    disabledSkin="<i>Depends on class</i>" *    downSkin="<i>Depends on class</i>" *    editableDisabledSkin="<i>Depends on class</i>" *    editableDownSkin="<i>Depends on class</i>" *    editableOverSkin="<i>Depends on class</i>" *    editableUpSkin="<i>Depends on class</i>" *    overSkin="<i>Depends on class</i>" *    textInputStyleName=""  *    upSkin="<i>Depends on class</i>" * *  /&gt; *  </pre> * *  @see mx.controls.Button *  @see mx.controls.TextInput *  @see mx.collections.ICollectionView
+	 */
+	public class ComboBase extends UIComponent implements IIMESupport
+	{
 		/**
-		 * Set of styles to pass from the ComboBase to the down arrow button
+		 *  @private     *  Placeholder for mixin by ComboBaseAccImpl.
 		 */
-		protected function get arrowButtonStyleFilters():Object;
+		static var createAccessibilityImplementation : Function;
 		/**
-		 * Returns an EdgeMetrics object that has four properties:
-		 *  left, top, right,
-		 *  and bottom.
-		 *  The value of each property is equal to the thickness of the
-		 *  corresponding side of the border, expressed in pixels.
+		 *  The ICollectionView of items this component displays.
 		 */
-		protected function get borderMetrics():EdgeMetrics;
+		protected var collection : ICollectionView;
 		/**
-		 * The ICollectionView of items this component displays.
+		 *  The main IViewCursor used to fetch items from the     *  dataProvider and pass the items to the renderers.     *  At the end of any sequence of code, it must always be positioned     *  at the topmost visible item on screen.
 		 */
-		protected var collection:ICollectionView;
+		protected var iterator : IViewCursor;
 		/**
-		 * The set of items this component displays. This property is of type
-		 *  Object because the derived classes can handle a variety of data
-		 *  types such as Arrays, XML, ICollectionViews, and other classes.  All
-		 *  are converted into an ICollectionView and that ICollectionView is
-		 *  returned if you get the value of this property; you will not get the
-		 *  value you set if it was not an ICollectionView.
+		 *  @private     *  A separate IViewCursor used to find indices of items and other things.     *  The collectionIterator can be at any place within the set of items.
 		 */
-		public function get dataProvider():Object;
-		public function set dataProvider(value:Object):void;
+		local var collectionIterator : IViewCursor;
 		/**
-		 * A flag that indicates whether the control is editable,
-		 *  which lets the user directly type entries that are not specified
-		 *  in the dataProvider, or not editable, which requires the user select
-		 *  from the items in the dataProvider.
+		 *  @private     *  The internal object that draws the border.
 		 */
-		public function get editable():Boolean;
-		public function set editable(value:Boolean):void;
+		local var border : IFlexDisplayObject;
 		/**
-		 * Specifies the IME (input method editor) mode.
-		 *  The IME enables users to enter text in Chinese, Japanese, and Korean.
-		 *  Flex sets the specified IME mode when the control gets the focus,
-		 *  and sets it back to the previous value when the control loses the focus.
+		 *  @private     *  The internal Button property that causes the drop-down list to appear.
 		 */
-		public function get imeMode():String;
-		public function set imeMode(value:String):void;
+		local var downArrowButton : Button;
 		/**
-		 * The main IViewCursor used to fetch items from the
-		 *  dataProvider and pass the items to the renderers.
-		 *  At the end of any sequence of code, it must always be positioned
-		 *  at the topmost visible item on screen.
+		 *  @private
 		 */
-		protected var iterator:IViewCursor;
+		local var wrapDownArrowButton : Boolean;
 		/**
-		 * Set of characters that a user can or cannot enter into the text field.
+		 *  @private
 		 */
-		public function get restrict():String;
-		public function set restrict(value:String):void;
+		local var useFullDropdownSkin : Boolean;
 		/**
-		 * The index in the data provider of the selected item.
-		 *  If there is a prompt property, the selectedIndex
-		 *  value can be set to -1 to show the prompt.
-		 *  If there is no prompt, property then selectedIndex
-		 *  will be set to 0 once a dataProvider is set.
+		 *  @private
 		 */
-		public function get selectedIndex():int;
-		public function set selectedIndex(value:int):void;
+		private var selectedUID : String;
 		/**
-		 * The item in the data provider at the selectedIndex.
+		 *  @private     *  A flag indicating that selection has changed
 		 */
-		public function get selectedItem():Object;
-		public function set selectedItem(value:Object):void;
+		local var selectionChanged : Boolean;
 		/**
-		 * Contents of the text field.  If the control is non-editable
-		 *  setting this property has no effect. If the control is editable,
-		 *  setting this property sets the contents of the text field.
+		 *  @private     *  A flag indicating that selectedIndex has changed
 		 */
-		public function get text():String;
-		public function set text(value:String):void;
+		local var selectedIndexChanged : Boolean;
 		/**
-		 * The internal TextInput subcomponent that displays
-		 *  the current selection.
+		 *  @private     *  A flag indicating that selectedItem has changed
 		 */
-		protected var textInput:TextInput;
+		local var selectedItemChanged : Boolean;
 		/**
-		 * The set of styles to pass from the ComboBase to the text input.
-		 *  These styles are ignored if you set
-		 *  the textInputStyleName style property.
+		 *  @private     *  Stores the old value of the borderStyle style
 		 */
-		protected function get textInputStyleFilters():Object;
+		local var oldBorderStyle : String;
 		/**
-		 * The value of the selected item. If the item is a Number or String,
-		 *  the value is the item. If the item is an object, the value is
-		 *  the data property, if it exists, or the label
-		 *  property, if it exists.
+		 *  @private     *  Storage for enabled property.
 		 */
-		public function get value():Object;
+		private var _enabled : Boolean;
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function ComboBase();
+		private var enabledChanged : Boolean;
 		/**
-		 * Determines default values of the height and width to use for the
-		 *  entries in the drop-down list.
-		 *  Each subclass of ComboBase must implement this method and return
-		 *  an Object containing two properties: width and
-		 *  height.
-		 *
-		 * @param numItems          <int> The number of items to check to determine the size
-		 * @return                  <Object> An Object with width and height
-		 *                            properties
+		 *  @private     *  Storage for editable property.
 		 */
-		protected function calculatePreferredSizeFromData(numItems:int):Object;
+		private var _editable : Boolean;
 		/**
-		 * Responds to changes to the data provider.  The component will adjust
-		 *  the selectedIndex property if items are added or removed
-		 *  before the component's selected item.
-		 *
-		 * @param event             <Event> The CollectionEvent dispatched from the collection
+		 *  @private
 		 */
-		protected function collectionChangeHandler(event:Event):void;
+		local var editableChanged : Boolean;
 		/**
-		 * Performs some action when the drop-down button is pressed.  This is
-		 *  an abstract base class implementation, so it has no effect and is
-		 *  overridden by the subclasses.
-		 *
-		 * @param event             <FlexEvent> 
+		 *  @private
 		 */
-		protected function downArrowButton_buttonDownHandler(event:FlexEvent):void;
+		private var _imeMode : String;
 		/**
-		 * Determines the UID for a dataProvider item.
-		 *  Every dataProvider item must have or will be assigned a unique
-		 *  identifier (UID).
-		 *
-		 * @param data              <Object> A dataProvider item
-		 * @return                  <String> A unique identifier.
+		 *  @private     *  Storage for restrict property.
 		 */
-		protected function itemToUID(data:Object):String;
+		private var _restrict : String;
+		private var _selectedIndex : int;
 		/**
-		 * Determines the measuredWidth and
-		 *  measuredHeight properties of the control.
-		 *  The measured width is the width of the widest text
-		 *  in the dataProvider
-		 *  plus the width of the drop-down button.
-		 *  The measured height is the larger of either the button or the text.
-		 *  If no data provider has been set or there are no items
-		 *  in the data provider, the measuredWidth property is set to
-		 *  UIComponent.DEFAULT_MEASURED_WIDTH and the
-		 *  measuredHeight property is set
-		 *  to UIComponent.DEFAULT_MEASURED_HEIGHT.
+		 *  @private     *  Storage for the selectedItem property.
 		 */
-		protected override function measure():void;
+		private var _selectedItem : Object;
 		/**
-		 * Handles changes to the TextInput that serves as the editable
-		 *  text field in the component.  The method sets
-		 *  selectedIndex to -1 (and therefore
-		 *  selectedItem to null).
-		 *
-		 * @param event             <Event> 
+		 *  @private     *  Storage for the text property.
 		 */
-		protected function textInput_changeHandler(event:Event):void;
+		private var _text : String;
 		/**
-		 * Sizes and positions the internal components in the given width
-		 *  and height.  The drop-down button is placed all the way to the right
-		 *  and the text field fills the remaining area.
-		 *
-		 * @param unscaledWidth     <Number> Specifies the width of the component, in pixels,
-		 *                            in the component's coordinates, regardless of the value of the
-		 *                            scaleX property of the component.
-		 * @param unscaledHeight    <Number> Specifies the height of the component, in pixels,
-		 *                            in the component's coordinates, regardless of the value of the
-		 *                            scaleY property of the component.
+		 *  @private
 		 */
-		protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void;
+		local var textChanged : Boolean;
+		/**
+		 *  The internal TextInput subcomponent that displays     *  the current selection.
+		 */
+		protected var textInput : TextInput;
+		private static var _textInputStyleFilters : Object;
+
+		/**
+		 *  @private     *  The baselinePosition of a ComboBase is calculated for its TextInput.
+		 */
+		public function get baselinePosition () : Number;
+		/**
+		 *  @private
+		 */
+		public function set enabled (value:Boolean) : void;
+		/**
+		 *  Set of styles to pass from the ComboBase to the down arrow button     *  @see mx.styles.StyleProxy
+		 */
+		protected function get arrowButtonStyleFilters () : Object;
+		/**
+		 *  Returns an EdgeMetrics object that has four properties:     *  <code>left</code>, <code>top</code>, <code>right</code>,     *  and <code>bottom</code>.     *  The value of each property is equal to the thickness of the     *  corresponding side of the border, expressed in pixels.     *     *  @return EdgeMetrics object with the left, right, top,     *  and bottom properties.
+		 */
+		protected function get borderMetrics () : EdgeMetrics;
+		/**
+		 *  The set of items this component displays. This property is of type     *  Object because the derived classes can handle a variety of data     *  types such as Arrays, XML, ICollectionViews, and other classes.  All     *  are converted into an ICollectionView and that ICollectionView is     *  returned if you get the value of this property; you will not get the     *  value you set if it was not an ICollectionView.     *     *  <p>Setting this property will adjust the <code>selectedIndex</code>     *  property (and therefore the <code>selectedItem</code> property) if      *  the <code>selectedIndex</code> property has not otherwise been set.      *  If there is no <code>prompt</code> property, the <code>selectedIndex</code>     *  property will be set to 0; otherwise it will remain at -1,     *  the index used for the prompt string.       *  If the <code>selectedIndex</code> property has been set and     *  it is out of range of the new data provider, unexpected behavior is     *  likely to occur.</p>     *
+		 */
+		public function get dataProvider () : Object;
+		/**
+		 *  @private
+		 */
+		public function set dataProvider (value:Object) : void;
+		/**
+		 *  A flag that indicates whether the control is editable,      *  which lets the user directly type entries that are not specified      *  in the dataProvider, or not editable, which requires the user select     *  from the items in the dataProvider.     *     *  <p>If <code>true</code> keyboard input will be entered in the     *  editable text field; otherwise it will be used as shortcuts to     *  select items in the dataProvider.</p>     *     *  @default false.     *  This property is ignored by the DateField control.     *
+		 */
+		public function get editable () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set editable (value:Boolean) : void;
+		/**
+		 *  @copy mx.controls.TextInput#imeMode     *      *  @default null
+		 */
+		public function get imeMode () : String;
+		/**
+		 *  @private
+		 */
+		public function set imeMode (value:String) : void;
+		/**
+		 *  Set of characters that a user can or cannot enter into the text field.     *      *  @default null     *     *  @see flash.text.TextField#restrict     *
+		 */
+		public function get restrict () : String;
+		/**
+		 *  @private
+		 */
+		public function set restrict (value:String) : void;
+		/**
+		 *  The index in the data provider of the selected item.     *  If there is a <code>prompt</code> property, the <code>selectedIndex</code>     *  value can be set to -1 to show the prompt.     *  If there is no <code>prompt</code>, property then <code>selectedIndex</code>     *  will be set to 0 once a <code>dataProvider</code> is set.     *     *  <p>If the ComboBox control is editable, the <code>selectedIndex</code>     *  property is -1 if the user types any text     *  into the text field.</p>     *     *  <p>Unlike many other Flex properties that are invalidating (setting     *  them does not have an immediate effect), the <code>selectedIndex</code> and     *  <code>selectedItem</code> properties are synchronous; setting one immediately      *  affects the other.</p>     *     *  @default -1
+		 */
+		public function get selectedIndex () : int;
+		/**
+		 *  @private
+		 */
+		public function set selectedIndex (value:int) : void;
+		/**
+		 *  The item in the data provider at the selectedIndex.     *     *  <p>If the data is an object or class instance, modifying     *  properties in the object or instance modifies the      *  <code>dataProvider</code> object but may not update the views       *  unless the instance is Bindable or implements IPropertyChangeNotifier     *  or a call to dataProvider.itemUpdated() occurs.</p>     *     *  Setting the <code>selectedItem</code> property causes the     *  ComboBox control to select that item (display it in the text field and     *  set the <code>selectedIndex</code>) if it exists in the data provider.     *  If the ComboBox control is editable, the <code>selectedItem</code>     *  property is <code>null</code> if the user types any text     *  into the text field.     *     *  <p>Unlike many other Flex properties that are invalidating (setting     *  them does not have an immediate effect), <code>selectedIndex</code> and     *  <code>selectedItem</code> are synchronous; setting one immediately      *  affects the other.</p>     *     *  @default null;
+		 */
+		public function get selectedItem () : Object;
+		/**
+		 *  @private
+		 */
+		public function set selectedItem (data:Object) : void;
+		/**
+		 *  Contents of the text field.  If the control is non-editable     *  setting this property has no effect. If the control is editable,      *  setting this property sets the contents of the text field.     *     *  @default ""
+		 */
+		public function get text () : String;
+		/**
+		 *  @private
+		 */
+		public function set text (value:String) : void;
+		/**
+		 *  The set of styles to pass from the ComboBase to the text input.      *  These styles are ignored if you set      *  the <code>textInputStyleName</code> style property.     *  @see mx.styles.StyleProxy
+		 */
+		protected function get textInputStyleFilters () : Object;
+		/**
+		 *  The value of the selected item. If the item is a Number or String,     *  the value is the item. If the item is an object, the value is     *  the <code>data</code> property, if it exists, or the <code>label</code>     *  property, if it exists.     *     *  <p><strong>Note:</strong> Using the <code>selectedItem</code> property      *  is often preferable to using this property. The <code>value</code>     *  property exists for backward compatibility with older applications.</p>     *
+		 */
+		public function get value () : Object;
+		/**
+		 *  @private
+		 */
+		function get ComboDownArrowButton () : Button;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ComboBase ();
+		/**
+		 *  @private
+		 */
+		private function setSelectedItem (data:Object, clearFirst:Boolean = true) : void;
+		/**
+		 *  @private
+		 */
+		protected function initializeAccessibility () : void;
+		/**
+		 *  @private
+		 */
+		protected function createChildren () : void;
+		/**
+		 *  @private
+		 */
+		public function styleChanged (styleProp:String) : void;
+		/**
+		 *  @private
+		 */
+		protected function commitProperties () : void;
+		/**
+		 *  Determines the <code>measuredWidth</code> and     *  <code>measuredHeight</code> properties of the control.     *  The measured width is the width of the widest text     *  in the <code>dataProvider</code>     *  plus the width of the drop-down button.     *  The measured height is the larger of either the button or the text.     *  If no data provider has been set or there are no items     *  in the data provider, the <code>measuredWidth</code> property is set to     *  <code>UIComponent.DEFAULT_MEASURED_WIDTH</code> and the      *  <code>measuredHeight</code> property is set     *  to <code>UIComponent.DEFAULT_MEASURED_HEIGHT</code>.     *      *  @see mx.core.UIComponent#measure()
+		 */
+		protected function measure () : void;
+		/**
+		 *  Sizes and positions the internal components in the given width     *  and height.  The drop-down button is placed all the way to the right     *  and the text field fills the remaining area.     *      *  @param unscaledWidth Specifies the width of the component, in pixels,     *  in the component's coordinates, regardless of the value of the     *  <code>scaleX</code> property of the component.     *     *  @param unscaledHeight Specifies the height of the component, in pixels,     *  in the component's coordinates, regardless of the value of the     *  <code>scaleY</code> property of the component.     *      *  @see mx.core.UIComponent#updateDisplayList()
+		 */
+		protected function updateDisplayList (unscaledWidth:Number, unscaledHeight:Number) : void;
+		/**
+		 *  @private
+		 */
+		public function setFocus () : void;
+		/**
+		 *  @private
+		 */
+		protected function isOurFocus (target:DisplayObject) : Boolean;
+		/**
+		 *  Determines default values of the height and width to use for the      *  entries in the drop-down list.      *  Each subclass of ComboBase must implement this method and return      *  an Object containing two properties: <code>width</code> and      *  <code>height</code>.     *     *  @param numItems The number of items to check to determine the size.     *     *  @return An Object with <code>width</code> and <code>height</code>      *  properties.
+		 */
+		protected function calculatePreferredSizeFromData (numItems:int) : Object;
+		/**
+		 *  Determines the UID for a dataProvider item.     *  Every dataProvider item must have or will be assigned a unique     *  identifier (UID).     *     *  @param data A dataProvider item.     *     *  @return A unique identifier.
+		 */
+		protected function itemToUID (data:Object) : String;
+		/**
+		 *  @private
+		 */
+		protected function focusInHandler (event:FocusEvent) : void;
+		/**
+		 *  @private
+		 */
+		protected function focusOutHandler (event:FocusEvent) : void;
+		/**
+		 *  Responds to changes to the data provider.  The component will adjust     *  the <code>selectedIndex</code> property if items are added or removed      *  before the component's selected item.     *     *  @param event The CollectionEvent dispatched from the collection.     *     *  @see mx.events.CollectionEvent
+		 */
+		protected function collectionChangeHandler (event:Event) : void;
+		/**
+		 *  @private     *  Forward an event to the down arrow button.
+		 */
+		private function textInput_mouseEventHandler (event:Event) : void;
+		/**
+		 *  Handles changes to the TextInput that serves as the editable     *  text field in the component.  The method sets      *  <code>selectedIndex</code> to -1 (and therefore      *  <code>selectedItem</code> to <code>null</code>).     *      *  @param event The event that is triggered each time the text in the control changes.
+		 */
+		protected function textInput_changeHandler (event:Event) : void;
+		/**
+		 *  @private     *  valueCommit handler for the textInput
+		 */
+		private function textInput_valueCommitHandler (event:FlexEvent) : void;
+		/**
+		 *  @private
+		 */
+		private function textInput_enterHandler (event:FlexEvent) : void;
+		/**
+		 *  Performs some action when the drop-down button is pressed.  This is     *  an abstract base class implementation, so it has no effect and is     *  overridden by the subclasses.     *      *  @param event The event that is triggered when the drop-down button is pressed.
+		 */
+		protected function downArrowButton_buttonDownHandler (event:FlexEvent) : void;
+		/**
+		 *  @private
+		 */
+		function getTextInput () : TextInput;
 	}
 }

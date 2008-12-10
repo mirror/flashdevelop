@@ -1,41 +1,34 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.menuClasses {
+﻿package mx.controls.menuClasses
+{
 	import mx.controls.listClasses.ListData;
+	import mx.controls.listClasses.ListBase;
 	import mx.core.IUIComponent;
-	public class MenuListData extends ListData {
+
+	/**
+	 *  The MenuListData class defines the data type of the <code>listData</code> property  *  implemented by drop-in item renderers or drop-in item editors for the Menu and  *  MenuBar control.  All drop-in item renderers and drop-in item editors must implement the  *  IDropInListItemRenderer interface, which defines the <code>listData</code> property. * *  @see mx.controls.listClasses.IDropInListItemRenderer
+	 */
+	public class MenuListData extends ListData
+	{
 		/**
-		 * The max branch icon width for all MenuItemListRenderers
+		 *  The max icon width for all MenuItemListRenderers
 		 */
-		public var maxMeasuredBranchIconWidth:Number;
+		public var maxMeasuredIconWidth : Number;
 		/**
-		 * The max icon width for all MenuItemListRenderers
+		 *  The max type icon width for all MenuItemListRenderers
 		 */
-		public var maxMeasuredIconWidth:Number;
+		public var maxMeasuredTypeIconWidth : Number;
 		/**
-		 * The max type icon width for all MenuItemListRenderers
+		 *  The max branch icon width for all MenuItemListRenderers
 		 */
-		public var maxMeasuredTypeIconWidth:Number;
+		public var maxMeasuredBranchIconWidth : Number;
 		/**
-		 * Whether the left icons should layout in two separate columns
-		 *  (one for icons and one for type icons, like check and radio)
+		 *  Whether the left icons should layout in two separate columns	 *  (one for icons and one for type icons, like check and radio)
 		 */
-		public var useTwoColumns:Boolean;
+		public var useTwoColumns : Boolean;
+
 		/**
-		 * Constructor.
-		 *
-		 * @param text              <String> Text representation of the item data.
-		 * @param icon              <Class> A Class or String object representing the icon
-		 *                            for the item in the List control.
-		 * @param labelField        <String> The name of the field of the data provider
-		 *                            containing the label data of the List component.
-		 * @param uid               <String> A unique identifier for the item.
-		 * @param owner             <IUIComponent> A reference to the Menu control.
-		 * @param rowIndex          <int (default = 0)> The index of the item in the data provider for the Menu control.
-		 * @param columnIndex       <int (default = 0)> The index of the column in the currently visible columns of the
-		 *                            control.
+		 *  Constructor.	 *	 *  @param text Text representation of the item data.	 *	 * 	@param icon A Class or String object representing the icon 	 *  for the item in the List control.	 *	 *  @param labelField The name of the field of the data provider 	 *  containing the label data of the List component.	 * 	 *  @param uid A unique identifier for the item.	 *	 *  @param owner A reference to the Menu control.	 *	 *  @param rowIndex The index of the item in the data provider for the Menu control.	 * 	 *  @param columnIndex The index of the column in the currently visible columns of the      *  control.	 *
 		 */
-		public function MenuListData(text:String, icon:Class, labelField:String, uid:String, owner:IUIComponent, rowIndex:int = 0, columnIndex:int = 0);
+		public function MenuListData (text:String, icon:Class, labelField:String, uid:String, owner:IUIComponent, rowIndex:int = 0, columnIndex:int = 0);
 	}
 }

@@ -1,27 +1,30 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public final  class CreditCardValidatorCardType {
+﻿package mx.validators
+{
+	/**
+	 *  The CreditCardValidatorCardType class defines value constants *  for specifying the type of credit card to validate. *  These values are used in the <code>CreditCardValidator.cardType</code> *  property. * *  @see mx.validators.CreditCardValidator
+	 */
+	public class CreditCardValidatorCardType
+	{
 		/**
-		 * Specifies the card type as American Express.
+		 *  Specifies the card type as MasterCard.
 		 */
-		public static const AMERICAN_EXPRESS:String = "American Express";
+		public static const MASTER_CARD : String = "MasterCard" public s;
 		/**
-		 * Specifies the card type as Diners Club.
+		 *  Specifies the card type as Visa.
 		 */
-		public static const DINERS_CLUB:String = "Diners Club";
+		public const VISA : String = "Visa";
 		/**
-		 * Specifies the card type as Discover.
+		 *  Specifies the card type as American Express.
 		 */
-		public static const DISCOVER:String = "Discover";
+		public static const AMERICAN_EXPRESS : String = "American Express";
 		/**
-		 * Specifies the card type as MasterCard.
+		 *  Specifies the card type as Discover.
 		 */
-		public static const MASTER_CARD:String = "MasterCard";
+		public static const DISCOVER : String = "Discover";
 		/**
-		 * Specifies the card type as Visa.
+		 *  Specifies the card type as Diners Club.
 		 */
-		public static const VISA:String = "Visa";
+		public static const DINERS_CLUB : String = "Diners Club";
+
 	}
 }

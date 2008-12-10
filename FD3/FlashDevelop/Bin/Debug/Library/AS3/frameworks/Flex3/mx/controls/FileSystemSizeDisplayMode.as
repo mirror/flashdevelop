@@ -1,15 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-03 13:18] ***/
-/**********************************************************/
-package mx.controls {
-	public final  class FileSystemSizeDisplayMode {
+﻿package mx.controls
+{
+	/**
+	 *  The FileSystemSizeDisplayMode class defines the constant values *  for the <code>sizeDisplayMode</code> property *  of the FileSystemDataGrid class. * *  @see mx.controls.FileSystemDataGrid#enumerationMode *  *  @playerversion AIR 1.1
+	 */
+	public class FileSystemSizeDisplayMode
+	{
 		/**
-		 * Specifies to show file sizes in bytes.
+		 *  Specifies to show file sizes in bytes.
 		 */
-		public static const BYTES:String = "bytes";
+		public static const BYTES : String = "bytes";
 		/**
-		 * Specifies to show file sizes in kilobytes.
+		 *  Specifies to show file sizes in kilobytes.
 		 */
-		public static const KILOBYTES:String = "kilobytes";
+		public static const KILOBYTES : String = "kilobytes";
+
 	}
 }

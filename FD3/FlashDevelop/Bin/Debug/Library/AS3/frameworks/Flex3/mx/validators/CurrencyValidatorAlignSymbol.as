@@ -1,22 +1,22 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public final  class CurrencyValidatorAlignSymbol {
+﻿package mx.validators
+{
+	/**
+	 *  The CurrencyValidatorAlignSymbol class defines value constants *  for specifying currency symbol alignment. *  These values are used in the <code>CurrencyValidator.alignSymbol</code> *  property. * *  @see mx.validators.CurrencyValidator
+	 */
+	public class CurrencyValidatorAlignSymbol
+	{
 		/**
-		 * Specifies "any" as the alignment of the currency symbol
-		 *  for the CurrencyValidator class.
+		 *  Specifies <code>"any"</code> as the alignment of the currency symbol	 *  for the CurrencyValidator class.
 		 */
-		public static const ANY:String = "any";
+		public static const ANY : String = "any";
 		/**
-		 * Specifies "left" as the alignment of the currency symbol
-		 *  for the CurrencyValidator class.
+		 *  Specifies <code>"left"</code> as the alignment of the currency symbol	 *  for the CurrencyValidator class.
 		 */
-		public static const LEFT:String = "left";
+		public static const LEFT : String = "left";
 		/**
-		 * Specifies "right" as the alignment of the currency symbol
-		 *  for the CurrencyValidator class.
+		 *  Specifies <code>"right"</code> as the alignment of the currency symbol	 *  for the CurrencyValidator class.
 		 */
-		public static const RIGHT:String = "right";
+		public static const RIGHT : String = "right";
+
 	}
 }

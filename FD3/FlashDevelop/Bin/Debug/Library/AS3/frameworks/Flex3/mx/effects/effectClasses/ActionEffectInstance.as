@@ -1,29 +1,41 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
+﻿package mx.effects.effectClasses
+{
+	import mx.core.mx_internal;
 	import mx.effects.EffectInstance;
-	public class ActionEffectInstance extends EffectInstance {
+
+	/**
+	 *  The ActionEffectInstance class is the superclass for all  *  action effect instance classes.
+	 */
+	public class ActionEffectInstance extends EffectInstance
+	{
 		/**
-		 * Indicates whether the effect has been played (true),
-		 *  or not (false).
+		 *  Indicates whether the effect has been played (<code>true</code>), 	 *  or not (<code>false</code>). 	 *	 *  <p>The <code>play()</code> method sets this property to 	 *  <code>true</code> after the effect plays;	 *  you do not set it directly.</p>
 		 */
-		protected var playedAction:Boolean = false;
+		protected var playedAction : Boolean;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> The Object to animate with this effect.
+		 *  @private
 		 */
-		public function ActionEffectInstance(target:Object);
+		private var _startValue : *;
+
 		/**
-		 * Used internally to retrieve the values saved by
-		 *  the saveStartValue() method.
+		 *  Constructor.	 *	 *  @param target The Object to animate with this effect.
 		 */
-		protected function getStartValue():*;
+		public function ActionEffectInstance (target:Object);
 		/**
-		 * Subclasses implement this method to save the starting state
-		 *  before the effect plays.
+		 *  Subclasses implement this method to save the starting state	 *  before the effect plays.	 *	 *  @return Returns the starting state value.
 		 */
-		protected function saveStartValue():*;
+		protected function saveStartValue () : *;
+		/**
+		 *  Returns the starting state value that was saved by the	 *  <code>saveStartValue()</code> method.	 *	 *  @return Returns the starting state value.
+		 */
+		protected function getStartValue () : *;
+		/**
+		 *  @private
+		 */
+		public function play () : void;
+		/**
+		 *  @private
+		 */
+		public function end () : void;
 	}
 }

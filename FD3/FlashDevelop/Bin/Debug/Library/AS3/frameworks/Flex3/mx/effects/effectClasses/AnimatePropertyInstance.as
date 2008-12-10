@@ -1,40 +1,49 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
-	public class AnimatePropertyInstance extends TweenEffectInstance {
+﻿package mx.effects.effectClasses
+{
+	import mx.core.mx_internal;
+	import mx.effects.Tween;
+
+	/**
+	 *  The AnimatePropertyInstance class implements the instance class *  for the AnimateProperty effect. *  Flex creates an instance of this class when it plays an AnimateProperty *  effect; you do not create one yourself. * *  <p>Every effect class that is a subclass of the TweenEffect class  *  supports the following events:</p> *   *  <ul> *    <li><code>tweenEnd</code>: Dispatched when the tween effect ends. </li> *   *    <li><code>tweenUpdate</code>: Dispatched every time a TweenEffect  *      class calculates a new value.</li>  *  </ul> *   *  <p>The event object passed to the event listener for these events is of type TweenEvent.  *  The TweenEvent class defines the property <code>value</code>, which contains  *  the tween value calculated by the effect.  *  For the AnimateProperty effect,  *  the <code>TweenEvent.value</code> property contains a Number between the values of  *  the <code>AnimateProperty.fromValue</code> and  *  <code>AnimateProperty.toValue</code> properties, for the target  *  property specified by <code>AnimateProperty.property</code>.</p> * *  @see mx.effects.AnimateProperty *  @see mx.events.TweenEvent
+	 */
+	public class AnimatePropertyInstance extends TweenEffectInstance
+	{
 		/**
-		 * The starting value of the property for the effect.
-		 *  The default value is the target's current property value.
+		 *  The ending value for the effect.	 *  The default value is the target's current property value.
 		 */
-		public var fromValue:Number;
+		public var toValue : Number;
 		/**
-		 * If true, the property attribute is a style and you
-		 *  set it by using the setStyle() method.
+		 *  If <code>true</code>, the property attribute is a style and you	 *  set it by using the <code>setStyle()</code> method. 	 *  	 *  @default false
 		 */
-		public var isStyle:Boolean = false;
+		public var isStyle : Boolean;
 		/**
-		 * The name of the property on the target to animate.
-		 *  This attribute is required.
+		 *  The name of the property on the target to animate.	 *  This attribute is required.
 		 */
-		public var property:String;
+		public var property : String;
 		/**
-		 * If true, round off the interpolated tweened value
-		 *  to the nearest integer.
-		 *  This property is useful if the property you are animating
-		 *  is an int or uint.
+		 *  If <code>true</code>, round off the interpolated tweened value	 *  to the nearest integer. 	 *  This property is useful if the property you are animating	 *  is an int or uint.	 *  	 *  @default false
 		 */
-		public var roundValue:Boolean = false;
+		public var roundValue : Boolean;
 		/**
-		 * The ending value for the effect.
-		 *  The default value is the target's current property value.
+		 *  The starting value of the property for the effect.	 *  The default value is the target's current property value.
 		 */
-		public var toValue:Number;
+		public var fromValue : Number;
+
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> The Object to animate with this effect.
+		 *  Constructor.	 *	 *  @param target The Object to animate with this effect.
 		 */
-		public function AnimatePropertyInstance(target:Object);
+		public function AnimatePropertyInstance (target:Object);
+		/**
+		 *  @private
+		 */
+		public function play () : void;
+		/**
+		 *  @private
+		 */
+		public function onTweenUpdate (value:Object) : void;
+		/**
+		 *  @private
+		 */
+		private function getCurrentValue () : Number;
 	}
 }

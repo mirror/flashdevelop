@@ -1,12 +1,41 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
+	import flash.filters.DropShadowFilter;
+	import mx.core.EdgeMetrics;
+	import mx.graphics.RectangularDropShadow;
 	import mx.skins.RectangularBorder;
-	public class ToolTipBorder extends RectangularBorder {
+
+	/**
+	 *  The skin for a ToolTip.
+	 */
+	public class ToolTipBorder extends RectangularBorder
+	{
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function ToolTipBorder();
+		private var dropShadow : RectangularDropShadow;
+		/**
+		 *  @private	 *  Storage for the borderMetrics property.
+		 */
+		private var _borderMetrics : EdgeMetrics;
+
+		/**
+		 *  @private
+		 */
+		public function get borderMetrics () : EdgeMetrics;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ToolTipBorder ();
+		/**
+		 *  @private	 *  If borderStyle may have changed, clear the cached border metrics.
+		 */
+		public function styleChanged (styleProp:String) : void;
+		/**
+		 *  @private	 *  Draw the background and border.
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

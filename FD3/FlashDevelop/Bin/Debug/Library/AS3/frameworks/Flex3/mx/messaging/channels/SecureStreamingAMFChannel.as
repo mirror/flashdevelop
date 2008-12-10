@@ -1,18 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.channels {
-	public class SecureStreamingAMFChannel extends StreamingAMFChannel {
+﻿package mx.messaging.channels
+{
+	/**
+	 *  The SecureStreamingAMFChannel class is identical to the StreamingAMFChannel  *  class except that it uses a secure protocol, HTTPS, to send messages to an  *  AMF endpoint.
+	 */
+	public class SecureStreamingAMFChannel extends StreamingAMFChannel
+	{
 		/**
-		 * Returns the protocol for this channel (https).
+		 *  Returns the protocol for this channel (https).
 		 */
-		public function get protocol():String;
+		public function get protocol () : String;
+
 		/**
-		 * Creates an new SecureStreamingAMFChannel instance.
-		 *
-		 * @param id                <String (default = null)> The id of this Channel.
-		 * @param uri               <String (default = null)> The uri for this Channel.
+		 *  Creates an new SecureStreamingAMFChannel instance.     *	 *  @param id The id of this Channel.	 *  	 *  @param uri The uri for this Channel.
 		 */
-		public function SecureStreamingAMFChannel(id:String = null, uri:String = null);
+		public function SecureStreamingAMFChannel (id:String = null, uri:String = null);
 	}
 }

@@ -1,13 +1,19 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
-	public class IrisInstance extends MaskEffectInstance {
+﻿package mx.effects.effectClasses
+{
+	import mx.controls.SWFLoader;
+
+	/**
+	 *  The IrisInstance class implements the instance class for the Iris effect. *  Flex creates an instance of this class when it plays an Iris effect; *  you do not create one yourself. * *  @see mx.effects.Iris
+	 */
+	public class IrisInstance extends MaskEffectInstance
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> The Object to animate with this effect.
+		 *  Constructor.	 *	 *  @param target The Object to animate with this effect.
 		 */
-		public function IrisInstance(target:Object);
+		public function IrisInstance (target:Object);
+		/**
+		 *  @private
+		 */
+		protected function initMaskEffect () : void;
 	}
 }

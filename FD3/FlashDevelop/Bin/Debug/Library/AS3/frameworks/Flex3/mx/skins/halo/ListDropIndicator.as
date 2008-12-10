@@ -1,17 +1,25 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
 	import mx.skins.ProgrammaticSkin;
-	public class ListDropIndicator extends ProgrammaticSkin {
+
+	/**
+	 *  The skin for the drop indicator of a list-based control.
+	 */
+	public class ListDropIndicator extends ProgrammaticSkin
+	{
 		/**
-		 * Should the skin draw a horizontal line or vertical line.
-		 *  Default is horizontal.
+		 *  Should the skin draw a horizontal line or vertical line.	 *  Default is horizontal.
 		 */
-		public var direction:String = "horizontal";
+		public var direction : String;
+
 		/**
-		 * Constructor.
+		 *  Constructor.
 		 */
-		public function ListDropIndicator();
+		public function ListDropIndicator ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

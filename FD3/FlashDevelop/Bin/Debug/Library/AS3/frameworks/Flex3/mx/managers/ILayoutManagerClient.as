@@ -1,78 +1,57 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.managers {
+﻿package mx.managers
+{
 	import flash.events.IEventDispatcher;
-	public interface ILayoutManagerClient extends IEventDispatcher {
+	import mx.core.mx_internal;
+
+	/**
+	 *  The ILayoutManagerClient interface defines the interface  *  that a component must implement to participate in the  *  LayoutManager's commit/measurement/layout sequence.   * *  <p>Objects that implement this interface can be passed to the *  LayoutManager's <code>invalidateProperties()</code> method. *  When the LayoutManager reaches the commit properties phase, *  the LayoutManager invokes this object's <code>validateProperties()</code> *  method.</p> * *  <p>Similarly, if an object is passed to the LayoutManager's *  <code>invalidateSize()</code> method, then the LayoutManager *  calls that object's <code>validateSize()</code> method *  during its measurement phase, and if an object is passed *  to LayoutManager's <code>invalidateDisplayList()</code> method, *  then the LayoutManager  calls its <code>validateDisplayList()</code> method  *  during the layout phase.</p> * *  <p>The ILayoutManagerClient interface is implemented by the UIComponent  *  and ProgrammaticSkin classes.</p>
+	 */
+	public interface ILayoutManagerClient extends IEventDispatcher
+	{
 		/**
-		 * A flag that determines if an object has been through all three phases
-		 *  of layout validation (provided that any were required)
-		 *  This flag should only be modified by the LayoutManager.
+		 *  A flag that determines if an object has been through all three phases	 *  of layout validation (provided that any were required)	 *  This flag should only be modified by the LayoutManager.
 		 */
-		public function get initialized():Boolean;
-		public function set initialized(value:Boolean):void;
+		public function get initialized () : Boolean;
 		/**
-		 * The top-level SystemManager has a nestLevel of 1.
-		 *  Its immediate children (the top-level Application and any pop-up
-		 *  windows) have a nestLevel of 2.
-		 *  Their children have a nestLevel of 3, and so on.
-		 *  The nestLevel is used to sort ILayoutManagerClients
-		 *  during the measurement and layout phases.
-		 *  During the commit phase, the LayoutManager commits properties on clients
-		 *  in order of decreasing nestLevel, so that an object's
-		 *  children have already had their properties committed before Flex
-		 *  commits properties on the object itself.
-		 *  During the measurement phase, the LayoutManager measures clients
-		 *  in order of decreasing nestLevel, so that an object's
-		 *  children have already been measured before Flex measures
-		 *  the object itself.
-		 *  During the layout phase, the LayoutManager lays out clients
-		 *  in order of increasing nestLevel, so that an object
-		 *  has a chance to set the sizes of its children before the child
-		 *  objects are asked to position and size their children.
+		 *  @private
 		 */
-		public function get nestLevel():int;
-		public function set nestLevel(value:int):void;
+		public function set initialized (value:Boolean) : void;
 		/**
-		 * Set to true after immediate or deferred child creation,
-		 *  depending on which one happens. For a Container object, it is set
-		 *  to true at the end of
-		 *  the createComponentsFromDescriptors() method,
-		 *  meaning after the Container object creates its children from its child descriptors.
+		 *  The top-level SystemManager has a nestLevel of 1.	 *  Its immediate children (the top-level Application and any pop-up	 *  windows) have a <code>nestLevel</code> of 2.	 *  Their children have a <code>nestLevel</code> of 3, and so on.  	 *	 *  The <code>nestLevel</code> is used to sort ILayoutManagerClients	 *  during the measurement and layout phases.	 *  During the commit phase, the LayoutManager commits properties on clients	 *  in order of decreasing <code>nestLevel</code>, so that an object's	 *  children have already had their properties committed before Flex 	 *  commits properties on the object itself.	 *  During the measurement phase, the LayoutManager measures clients	 *  in order of decreasing <code>nestLevel</code>, so that an object's	 *  children have already been measured before Flex measures	 *  the object itself.	 *  During the layout phase, the LayoutManager lays out clients	 *  in order of increasing <code>nestLevel</code>, so that an object	 *  has a chance to set the sizes of its children before the child	 *  objects are asked to position and size their children.
 		 */
-		public function get processedDescriptors():Boolean;
-		public function set processedDescriptors(value:Boolean):void;
+		public function get nestLevel () : int;
 		/**
-		 * A flag that determines if an object is waiting to have its
-		 *  updateComplete event dispatched.
-		 *  This flag should only be modified by the LayoutManager.
+		 *  @private
 		 */
-		public function get updateCompletePendingFlag():Boolean;
-		public function set updateCompletePendingFlag(value:Boolean):void;
+		public function set nestLevel (value:int) : void;
 		/**
-		 * Validates the position and size of children and draws other
-		 *  visuals.
-		 *  If the LayoutManager.invalidateDisplayList() method is called with
-		 *  this ILayoutManagerClient, then the validateDisplayList() method
-		 *  is called when it's time to update the display list.
+		 *  @copy mx.core.UIComponent#processedDescriptors
 		 */
-		public function validateDisplayList():void;
+		public function get processedDescriptors () : Boolean;
 		/**
-		 * Validates the properties of a component.
-		 *  If the LayoutManager.invalidateProperties() method is called with
-		 *  this ILayoutManagerClient, then the validateProperties() method
-		 *  is called when it's time to commit property values.
+		 *  @private
 		 */
-		public function validateProperties():void;
+		public function set processedDescriptors (value:Boolean) : void;
 		/**
-		 * Validates the measured size of the component
-		 *  If the LayoutManager.invalidateSize() method is called with
-		 *  this ILayoutManagerClient, then the validateSize() method
-		 *  is called when it's time to do measurements.
-		 *
-		 * @param recursive         <Boolean (default = false)> If true, call this method
-		 *                            on the objects children.
+		 *  A flag that determines if an object is waiting to have its	 *  <code>updateComplete</code> event dispatched.	 *  This flag should only be modified by the LayoutManager.
 		 */
-		public function validateSize(recursive:Boolean = false):void;
+		public function get updateCompletePendingFlag () : Boolean;
+		/**
+		 *  @private
+		 */
+		public function set updateCompletePendingFlag (value:Boolean) : void;
+
+		/**
+		 *  Validates the properties of a component.	 *  If the <code>LayoutManager.invalidateProperties()</code> method is called with	 *  this ILayoutManagerClient, then the <code>validateProperties()</code> method	 *  is called when it's time to commit property values.
+		 */
+		public function validateProperties () : void;
+		/**
+		 *  Validates the measured size of the component	 *  If the <code>LayoutManager.invalidateSize()</code> method is called with	 *  this ILayoutManagerClient, then the <code>validateSize()</code> method	 *  is called when it's time to do measurements.	 *	 *  @param recursive If <code>true</code>, call this method	 *  on the objects children.
+		 */
+		public function validateSize (recursive:Boolean = false) : void;
+		/**
+		 *  Validates the position and size of children and draws other	 *  visuals.	 *  If the <code>LayoutManager.invalidateDisplayList()</code> method is called with	 *  this ILayoutManagerClient, then the <code>validateDisplayList()</code> method	 *  is called when it's time to update the display list.
+		 */
+		public function validateDisplayList () : void;
 	}
 }

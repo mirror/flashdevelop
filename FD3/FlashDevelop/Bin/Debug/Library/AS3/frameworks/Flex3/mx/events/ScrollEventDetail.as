@@ -1,63 +1,66 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
-	public final  class ScrollEventDetail {
+﻿package mx.events
+{
+	/**
+	 *  Constants for the values of the <code>detail</code> property *  of a ScrollEvent. * *  @see mx.events.ScrollEvent
+	 */
+	public class ScrollEventDetail
+	{
 		/**
-		 * Indicates that the scroll bar is at the bottom of its scrolling range.
+		 *  Indicates that the scroll bar is at the bottom of its scrolling range.
 		 */
-		public static const AT_BOTTOM:String = "atBottom";
+		public static const AT_BOTTOM : String = "atBottom";
 		/**
-		 * Indicates that the scroll bar is at the left of its scrolling range.
+		 *  Indicates that the scroll bar is at the left of its scrolling range.
 		 */
-		public static const AT_LEFT:String = "atLeft";
+		public static const AT_LEFT : String = "atLeft";
 		/**
-		 * Indicates that the scroll bar is at the right of its scrolling range.
+		 *  Indicates that the scroll bar is at the right of its scrolling range.
 		 */
-		public static const AT_RIGHT:String = "atRight";
+		public static const AT_RIGHT : String = "atRight";
 		/**
-		 * Indicates that the scroll bar is at the top of its scrolling range.
+		 *  Indicates that the scroll bar is at the top of its scrolling range.
 		 */
-		public static const AT_TOP:String = "atTop";
+		public static const AT_TOP : String = "atTop";
 		/**
-		 * Indicates that the scroll bar has moved down by one line.
+		 *  Indicates that the scroll bar has moved down by one line.
 		 */
-		public static const LINE_DOWN:String = "lineDown";
+		public static const LINE_DOWN : String = "lineDown";
 		/**
-		 * Indicates that the scroll bar has moved left by one line.
+		 *  Indicates that the scroll bar has moved left by one line.
 		 */
-		public static const LINE_LEFT:String = "lineLeft";
+		public static const LINE_LEFT : String = "lineLeft";
 		/**
-		 * Indicates that the scroll bar has moved right by one line.
+		 *  Indicates that the scroll bar has moved right by one line.
 		 */
-		public static const LINE_RIGHT:String = "lineRight";
+		public static const LINE_RIGHT : String = "lineRight";
 		/**
-		 * Indicates that the scroll bar has moved up by one line.
+		 *  Indicates that the scroll bar has moved up by one line.
 		 */
-		public static const LINE_UP:String = "lineUp";
+		public static const LINE_UP : String = "lineUp";
 		/**
-		 * Indicates that the scroll bar has moved down by one page.
+		 *  Indicates that the scroll bar has moved down by one page.
 		 */
-		public static const PAGE_DOWN:String = "pageDown";
+		public static const PAGE_DOWN : String = "pageDown";
 		/**
-		 * Indicates that the scroll bar has moved left by one page.
+		 *  Indicates that the scroll bar has moved left by one page.
 		 */
-		public static const PAGE_LEFT:String = "pageLeft";
+		public static const PAGE_LEFT : String = "pageLeft";
 		/**
-		 * Indicates that the scroll bar has moved right by one page.
+		 *  Indicates that the scroll bar has moved right by one page.
 		 */
-		public static const PAGE_RIGHT:String = "pageRight";
+		public static const PAGE_RIGHT : String = "pageRight";
 		/**
-		 * Indicates that the scroll bar has moved up by one page.
+		 *  Indicates that the scroll bar has moved up by one page.
 		 */
-		public static const PAGE_UP:String = "pageUp";
+		public static const PAGE_UP : String = "pageUp";
 		/**
-		 * Indicates that the scroll bar thumb has stopped moving.
+		 *  Indicates that the scroll bar thumb has stopped moving.
 		 */
-		public static const THUMB_POSITION:String = "thumbPosition";
+		public static const THUMB_POSITION : String = "thumbPosition";
 		/**
-		 * Indicates that the scroll bar thumb is moving.
+		 *  Indicates that the scroll bar thumb is moving.
 		 */
-		public static const THUMB_TRACK:String = "thumbTrack";
+		public static const THUMB_TRACK : String = "thumbTrack";
+
 	}
 }

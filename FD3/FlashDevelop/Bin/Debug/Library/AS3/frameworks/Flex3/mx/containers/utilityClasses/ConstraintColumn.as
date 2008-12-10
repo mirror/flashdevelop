@@ -1,68 +1,124 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.containers.utilityClasses {
-	import flash.events.EventDispatcher;
+﻿package mx.containers.utilityClasses
+{
+	import flash.events.Event;
+	import flash.events.IEventDispatcher;
+	import mx.core.IInvalidating;
+	import mx.core.mx_internal;
 	import mx.core.IMXMLObject;
-	public class ConstraintColumn extends EventDispatcher implements IMXMLObject {
+	import flash.events.EventDispatcher;
+
+	/**
+	 *  The ConstraintColumn class partitions an absolutely *  positioned container in the vertical plane.  *  *  ConstraintColumn instances have 3 sizing options: fixed, percentage, and  *  content. These options dictate the position of the  *  constraint column, the amount of space the constraint column  *  takes in the container, and how the constraint column deals with  *  changes in the size of the container.
+	 */
+	public class ConstraintColumn extends EventDispatcher implements IMXMLObject
+	{
+		local var contentSize : Boolean;
 		/**
-		 * Number that specifies the explicit width of the ConstraintColumn instance,
-		 *  in pixels, in the ConstraintColumn instance's coordinates.
+		 *  @private
 		 */
-		public function get explicitWidth():Number;
-		public function set explicitWidth(value:Number):void;
+		private var _container : IInvalidating;
 		/**
-		 * ID of the ConstraintColumn instance. This value becomes the instance name of the
-		 *  ConstraintColumn instance and should not contain white space or special characters.
+		 *  @private
 		 */
-		public function get id():String;
-		public function set id(value:String):void;
+		private var _id : String;
 		/**
-		 * Number that specifies the maximum width of the ConstraintColumn
-		 *  instance, in pixels, in the ConstraintColumn instance's coordinates.
+		 *  @private     *  Storage for the maxWidth property.
 		 */
-		public function get maxWidth():Number;
-		public function set maxWidth(value:Number):void;
+		private var _explicitMaxWidth : Number;
 		/**
-		 * Number that specifies the minimum width of the ConstraintColumn instance,
-		 *  in pixels, in the ConstraintColumn instance's coordinates.
+		 *  @private     *  Storage for the minWidth property.
 		 */
-		public function get minWidth():Number;
-		public function set minWidth(value:Number):void;
+		private var _explicitMinWidth : Number;
 		/**
-		 * Number that specifies the width of a component as a percentage of its
-		 *  parent container's size. Allowed values are 0-100. The default value is NaN.
-		 *  Setting the width property resets this property to NaN.
+		 *  @private     *  Storage for the width property.
 		 */
-		public function get percentWidth():Number;
-		public function set percentWidth(value:Number):void;
+		local var _width : Number;
 		/**
-		 * Number that specifies the width of the ConstraintColumn instance, in pixels,
-		 *  in the parent container's coordinates.
+		 *  @private     *  Storage for the explicitWidth property.
 		 */
-		public function get width():Number;
-		public function set width(value:Number):void;
+		private var _explicitWidth : Number;
 		/**
-		 * Constructor.
+		 *  @private     *  Storage for the percentWidth property.
 		 */
-		public function ConstraintColumn();
+		private var _percentWidth : Number;
+		private var _x : Number;
+
 		/**
-		 * Called automatically by the MXML compiler when the ConstraintColumn
-		 *  instance is created using an MXML tag.
-		 *  If you create the ConstraintColumn instance through ActionScript, you
-		 *  must call this method passing in the MXML document and
-		 *  null for the id.
-		 *
-		 * @param document          <Object> The MXML document containing this ConstraintColumn.
-		 * @param id                <String> Ignored.
+		 *  The container which this ConstraintColumn instance is      *  partitioning.
 		 */
-		public function initialized(document:Object, id:String):void;
+		public function get container () : IInvalidating;
 		/**
-		 * Sizes the constraint column.
-		 *
-		 * @param w                 <Number> Width of constaint column computed during parent container
-		 *                            processing.
+		 *  @private
 		 */
-		public function setActualWidth(w:Number):void;
+		public function set container (value:IInvalidating) : void;
+		/**
+		 *  ID of the ConstraintColumn instance. This value becomes the instance name of the     *  ConstraintColumn instance and should not contain white space or special characters.
+		 */
+		public function get id () : String;
+		/**
+		 *  @private
+		 */
+		public function set id (value:String) : void;
+		/**
+		 *  Number that specifies the maximum width of the ConstraintColumn      *  instance, in pixels, in the ConstraintColumn instance's coordinates.     *
+		 */
+		public function get maxWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set maxWidth (value:Number) : void;
+		/**
+		 *  Number that specifies the minimum width of the ConstraintColumn instance,     *  in pixels, in the ConstraintColumn instance's coordinates.     *
+		 */
+		public function get minWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set minWidth (value:Number) : void;
+		/**
+		 *  Number that specifies the width of the ConstraintColumn instance, in pixels,     *  in the parent container's coordinates.     *
+		 */
+		public function get width () : Number;
+		/**
+		 *  @private
+		 */
+		public function set width (value:Number) : void;
+		/**
+		 *  Number that specifies the explicit width of the ConstraintColumn instance,      *  in pixels, in the ConstraintColumn instance's coordinates.
+		 */
+		public function get explicitWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set explicitWidth (value:Number) : void;
+		/**
+		 *  Number that specifies the width of a component as a percentage of its      *  parent container's size. Allowed values are 0-100. The default value is NaN.     *  Setting the <code>width</code> property resets this property to NaN.
+		 */
+		public function get percentWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set percentWidth (value:Number) : void;
+		/**
+		 *  @private
+		 */
+		public function get x () : Number;
+		/**
+		 *  @private
+		 */
+		public function set x (value:Number) : void;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ConstraintColumn ();
+		/**
+		 *  Called automatically by the MXML compiler when the ConstraintColumn      *  instance is created using an MXML tag.        *  If you create the ConstraintColumn instance through ActionScript, you       *  must call this method passing in the MXML document and       *  <code>null</code> for the <code>id</code>.      *      *  @param document The MXML document containing this ConstraintColumn.      *      *  @param id Ignored.
+		 */
+		public function initialized (document:Object, id:String) : void;
+		/**
+		 *  Sizes the constraint column.	 *	 *  @param width Width of constaint column computed during parent container	 *  processing.
+		 */
+		public function setActualWidth (w:Number) : void;
 	}
 }

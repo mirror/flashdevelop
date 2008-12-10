@@ -1,18 +1,18 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.channels {
-	public class SecureHTTPChannel extends HTTPChannel {
+﻿package mx.messaging.channels
+{
+	/**
+	 *  The SecureHTTPChannel class is identical to the HTTPChannel class except that it uses a *  secure protocol, HTTPS, to send messages to an HTTP endpoint.
+	 */
+	public class SecureHTTPChannel extends HTTPChannel
+	{
 		/**
-		 * Returns the protocol for this channel (https).
+		 *  Returns the protocol for this channel (https).
 		 */
-		public function get protocol():String;
+		public function get protocol () : String;
+
 		/**
-		 * Creates an new SecureHTTPChannel instance.
-		 *
-		 * @param id                <String (default = null)> The id of this Channel.
-		 * @param uri               <String (default = null)> The uri for this Channel.
+		 *  Creates an new SecureHTTPChannel instance.     *	 *  @param id The id of this Channel.	 *  	 *  @param uri The uri for this Channel.
 		 */
-		public function SecureHTTPChannel(id:String = null, uri:String = null);
+		public function SecureHTTPChannel (id:String = null, uri:String = null);
 	}
 }

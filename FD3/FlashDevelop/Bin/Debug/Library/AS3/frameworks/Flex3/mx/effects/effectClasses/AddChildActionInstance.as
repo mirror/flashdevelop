@@ -1,25 +1,34 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.effects.effectClasses {
-	public class AddChildActionInstance extends ActionEffectInstance {
+﻿package mx.effects.effectClasses
+{
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import mx.core.mx_internal;
+
+	/**
+	 *  The AddChildActionInstance class implements the instance class *  for the AddChildAction effect. *  Flex creates an instance of this class when it plays *  an AddChildAction effect; you do not create one yourself. * *  @see mx.effects.AddChildAction
+	 */
+	public class AddChildActionInstance extends ActionEffectInstance
+	{
 		/**
-		 * The index of the child within the parent.
+		 *  The index of the child within the parent.
 		 */
-		public var index:int = -1;
+		public var index : int;
 		/**
-		 * The position of the child component, relative to relativeTo, where it is added.
+		 *  The location where the child component is added.
 		 */
-		public var position:String;
+		public var relativeTo : DisplayObjectContainer;
 		/**
-		 * The location where the child component is added.
+		 *  The position of the child component, relative to relativeTo, where it is added.
 		 */
-		public var relativeTo:DisplayObjectContainer;
+		public var position : String;
+
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <Object> The Object to animate with this effect.
+		 *  Constructor.	 *	 *  @param target The Object to animate with this effect.
 		 */
-		public function AddChildActionInstance(target:Object);
+		public function AddChildActionInstance (target:Object);
+		/**
+		 *  @private
+		 */
+		public function play () : void;
 	}
 }

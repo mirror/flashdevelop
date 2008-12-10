@@ -1,41 +1,39 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.collections {
-	public class CursorBookmark {
+﻿package mx.collections
+{
+	/**
+	 *  Encapsulates the positional aspects of a cursor in an  *  <code>ICollectionView</code>.  Bookmarks are used to return a cursor to  *  an absolute position within the <code>ICollectionView</code>. * *  @see mx.collections.IViewCursor#bookmark *  @see mx.collections.IViewCursor#seek()
+	 */
+	public class CursorBookmark
+	{
+		private static var _first : CursorBookmark;
+		private static var _last : CursorBookmark;
+		private static var _current : CursorBookmark;
+		private var _value : Object;
+
 		/**
-		 * A bookmark representing the current item for the IViewCursor in
-		 *  an ICollectionView.
+		 *  A bookmark for the first item in an <code>ICollectionView</code>.     *     *  @return The bookmark to the first item.
 		 */
-		public static function get CURRENT():CursorBookmark;
+		public static function get FIRST () : CursorBookmark;
 		/**
-		 * A bookmark for the first item in an ICollectionView.
+		 *  A bookmark for the last item in an <code>ICollectionView</code>.     * If the view has no items, the cursor is at this bookmark.     *     *  @return The bookmark to the last item.
 		 */
-		public static function get FIRST():CursorBookmark;
+		public static function get LAST () : CursorBookmark;
 		/**
-		 * A bookmark for the last item in an ICollectionView.
-		 *  If the view has no items, the cursor is at this bookmark.
+		 *  A bookmark representing the current item for the <code>IViewCursor</code> in     *  an <code>ICollectionView</code>.     *     *  @return The bookmark to the current item.
 		 */
-		public static function get LAST():CursorBookmark;
+		public static function get CURRENT () : CursorBookmark;
 		/**
-		 * The underlying marker representation of the bookmark.
-		 *  This value is generally understood only by the IViewCursor
-		 *  or ICollectionView implementation.
+		 *  The underlying marker representation of the bookmark.     *  This value is generally understood only by the <code>IViewCursor</code>     *  or <code>ICollectionView</code> implementation.
 		 */
-		public function get value():Object;
+		public function get value () : Object;
+
 		/**
-		 * Creates a new instance of a bookmark with the specified value.
-		 *
-		 * @param value             <Object> The value of this bookmark.
+		 *  Creates a new instance of a bookmark with the specified value.     *     *  @param value The value of this bookmark.
 		 */
-		public function CursorBookmark(value:Object);
+		public function CursorBookmark (value:Object);
 		/**
-		 * Get the approximate index of the item represented by this bookmark
-		 *  in its view.  If the item has been paged out this method could throw an
-		 *  ItemPendingError.  If the item is not in the current view -1 is
-		 *  returned.  This method also returns -1 if index-based location is not
-		 *  possible.
+		 *  Gets the approximate index of the item represented by this bookmark     *  in its view. If the item has been paged out, this method could throw an      *  ItemPendingError.     *       *  @return The index of the item. If the item is not in the current view, this method returns     *  -1. This method also returns -1 if index-based location is not possible.
 		 */
-		public function getViewIndex():int;
+		public function getViewIndex () : int;
 	}
 }

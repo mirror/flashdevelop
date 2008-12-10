@@ -1,28 +1,20 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.graphics {
+﻿package mx.graphics
+{
 	import flash.display.Graphics;
 	import flash.geom.Rectangle;
-	public interface IFill {
+
+	/**
+	 *  Defines the interface that classes *  that perform a fill must implement. * *  @see mx.graphics.LinearGradient *  @see mx.graphics.RadialGradient
+	 */
+	public interface IFill
+	{
 		/**
-		 * Starts the fill.
-		 *
-		 * @param target            <Graphics> The target Graphics object that is being filled.
-		 * @param rc                <Rectangle> The Rectangle object that defines the size of the fill
-		 *                            inside the target.
-		 *                            If the dimensions of the Rectangle are larger than the dimensions
-		 *                            of the target, the fill is clipped.
-		 *                            If the dimensions of the Rectangle are smaller than the dimensions
-		 *                            of the target, the fill expands to fill the entire
-		 *                            target.
+		 *  Starts the fill.	 *  	 *  @param target The target Graphics object that is being filled.	 *	 *  @param rc The Rectangle object that defines the size of the fill	 *  inside the <code>target</code>.	 *  If the dimensions of the Rectangle are larger than the dimensions	 *  of the <code>target</code>, the fill is clipped.	 *  If the dimensions of the Rectangle are smaller than the dimensions	 *  of the <code>target</code>, the fill expands to fill the entire	 *  <code>target</code>.
 		 */
-		public function begin(target:Graphics, rc:Rectangle):void;
+		public function begin (target:Graphics, rc:Rectangle) : void;
 		/**
-		 * Ends the fill.
-		 *
-		 * @param target            <Graphics> The Graphics object that is being filled.
+		 *  Ends the fill.	 *  	 *  @param target The Graphics object that is being filled.
 		 */
-		public function end(target:Graphics):void;
+		public function end (target:Graphics) : void;
 	}
 }

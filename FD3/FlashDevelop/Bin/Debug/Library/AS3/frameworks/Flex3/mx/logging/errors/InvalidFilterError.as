@@ -1,19 +1,17 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.logging.errors {
-	public class InvalidFilterError extends Error {
+﻿package mx.logging.errors
+{
+	/**
+	 *  This error is thrown when a filter specified for a target *  contains invalid characters or is malformed. *  This error is thrown by the following methods/properties: *  <ul> *    <li><code>ILoggerTarget.filters</code> if a filter expression *    in this listis malformed.</li> *  </ul>
+	 */
+	public class InvalidFilterError extends Error
+	{
 		/**
-		 * Constructor.
-		 *
-		 * @param message           <String> The message that describes this error.
+		 *  Constructor.	 *	 *  @param message The message that describes this error.
 		 */
-		public function InvalidFilterError(message:String);
+		public function InvalidFilterError (message:String);
 		/**
-		 * Returns the messge as a String.
-		 *
-		 * @return                  <String> The message.
+		 *  Returns the messge as a String.	 *  	 *  @return The message.
 		 */
-		public function toString():String;
+		public function toString () : String;
 	}
 }

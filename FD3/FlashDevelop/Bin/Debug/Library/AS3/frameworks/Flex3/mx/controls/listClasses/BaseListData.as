@@ -1,55 +1,46 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.listClasses {
+﻿package mx.controls.listClasses
+{
 	import mx.core.IUIComponent;
-	public class BaseListData {
+	import mx.core.IUID;
+
+	/**
+	 *  The BaseListData class defines the data type of the <code>listData</code> *  property implemented by drop-in item renderers or drop-in item editors.  *  All drop-in item renderers and drop-in item editors must implement the  *  IDropInListItemRenderer interface, which defines the <code>listData</code> *  property. * *  <p>The <code>listData</code> property is of type BaseListData,  *  where the BaseListData class has three subclasses: *  DataGridListData, ListData, and TreeListData.  *  The actual data type of the value of the <code>listData</code> property  *  depends on the control using the drop-in item renderer or item editor.  *  For a DataGrid control, the value is of type DataGridListData,  *  for a List control the value is of type ListData, *  and for a Tree control, the value is of type TreeListData.</p> * *  <p>When used as a drop-in item renderer or drop-in item editor, *  Flex sets the <code>listData</code> property to a BaseListData-derived *  class containing information computed about the item in the data provider  *  containing the data for the item.</p> * *  <p>While the properties of this class are writable, *  you should consider them to be read only. *  They are initialized by the list class, *  and read by an item renderer or item editor. *  Changing these values can lead to unexpected results.</p> * *  @see mx.controls.listClasses.IDropInListItemRenderer
+	 */
+	public class BaseListData
+	{
 		/**
-		 * The index of the column of the List-based control relative
-		 *  to the currently visible columns of the control, where the first column
-		 *  is at an index of 1.
+		 *  The index of the column of the List-based control relative      *  to the currently visible columns of the control, where the first column      *  is at an index of 1.
 		 */
-		public var columnIndex:int;
+		public var columnIndex : int;
 		/**
-		 * The textual representation of the item data, based on the list class's
-		 *  itemToLabel() method.
+		 *  The textual representation of the item data, based on the list class's     *  <code>itemToLabel()</code> method.
 		 */
-		public var label:String;
+		public var label : String;
 		/**
-		 * A reference to the list object that owns this item.
-		 *  This should be a ListBase-derived class.
-		 *  This property is typed as IUIComponent so that drop-ins
-		 *  like Label and TextInput don't have to have dependencies
-		 *  on List and all of its dependencies.
+		 *  A reference to the list object that owns this item.     *  This should be a ListBase-derived class.     *  This property is typed as IUIComponent so that drop-ins     *  like Label and TextInput don't have to have dependencies     *  on List and all of its dependencies.
 		 */
-		public var owner:IUIComponent;
+		public var owner : IUIComponent;
 		/**
-		 * The index of the row of the DataGrid, List, or Tree control relative
-		 *  to the currently visible rows of the control, where the first row
-		 *  is at an index of 1.
-		 *  For example, you click on an item in the control and rowIndex
-		 *  is set to 3.
-		 *  You then scroll the control to change the row's position in the visible rows
-		 *  of the control, and then click on the same row as before.
-		 *  The rowIndex now contains a different value corresponding to
-		 *  the new index of the row in the currently visible rows.
+		 *  The index of the row of the DataGrid, List, or Tree control relative      *  to the currently visible rows of the control, where the first row      *  is at an index of 1.      *  For example, you click on an item in the control and <code>rowIndex</code>      *  is set to 3.      *  You then scroll the control to change the row's position in the visible rows      *  of the control, and then click on the same row as before.      *  The <code>rowIndex</code> now contains a different value corresponding to      *  the new index of the row in the currently visible rows.
 		 */
-		public var rowIndex:int;
+		public var rowIndex : int;
 		/**
-		 * The unique identifier for this item.
+		 *  @private     *  Storage for the uid property.
 		 */
-		public function get uid():String;
-		public function set uid(value:String):void;
+		private var _uid : String;
+
 		/**
-		 * Constructor.
-		 *
-		 * @param label             <String> The textual representation of the item data.
-		 * @param uid               <String> A unique identifier.
-		 * @param owner             <IUIComponent> A reference to the list control.
-		 * @param rowIndex          <int (default = 0)> The index of the row in the currently visible rows of the control.
-		 * @param columnIndex       <int (default = 0)> The index of the column in the currently visible columns of the
-		 *                            control.
+		 *  The unique identifier for this item.
 		 */
-		public function BaseListData(label:String, uid:String, owner:IUIComponent, rowIndex:int = 0, columnIndex:int = 0);
+		public function get uid () : String;
+		/**
+		 *  @private
+		 */
+		public function set uid (value:String) : void;
+
+		/**
+		 *  Constructor.     *     *  @param label The textual representation of the item data.     *     *  @param uid A unique identifier.     *     *  @param owner A reference to the list control.     *     *  @param rowIndex The index of the row in the currently visible rows of the control.     *      *  @param columnIndex The index of the column in the currently visible columns of the      *  control.
+		 */
+		public function BaseListData (label:String, uid:String, owner:IUIComponent, rowIndex:int = 0, columnIndex:int = 0);
 	}
 }

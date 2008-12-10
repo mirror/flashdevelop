@@ -1,34 +1,41 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.rpc.soap {
+﻿package mx.rpc.soap
+{
+	import flash.events.Event;
 	import flash.xml.XMLDocument;
-	public class LoadEvent {
+	import mx.rpc.events.WSDLLoadEvent;
+	import mx.rpc.wsdl.WSDL;
+
+	/**
+	 * This event is dispatched when a WSDL XML document has loaded successfully.
+	 */
+	public class LoadEvent extends WSDLLoadEvent
+	{
 		/**
-		 * Deprecated: Please Use xml
+		 * The <code>LOAD</code> constant defines the value of the <code>type</code> property    * of the event object for a <code>load</code> event.    *    * <p>The properties of the event object have the following values:</p>    * <table class="innertable">    *     <tr><th>Property</th><th>Value</th></tr>    *     <tr><td><code>bubbles</code></td><td>false</td></tr>    *     <tr><td><code>cancelable</code></td><td>true</td></tr>    *     <tr><td><code>wsdl</code></td><td>WSDL object.</td></tr>    *     <tr><td><code>location</code></td><td>URI of the WSDL document</td></tr>    *  </table>    *    *  @eventType load
 		 */
-		public function get document():XMLDocument;
+		public static const LOAD : String = "load";
+		private var _document : XMLDocument;
+
 		/**
-		 * Creates a new WSDLLoadEvent.
-		 *
-		 * @param type              <String> The event type; indicates the action that triggered the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = true)> Specifies whether the behavior associated with the event can be prevented.
-		 * @param wsdl              <WSDL (default = null)> Object that contains the WSDL document.
-		 * @param location          <String (default = null)> URL of the WSDL document.
+		 * This getter is retained to provide legacy access to the loaded document     * as an instance of flash.xml.XMLDocument.
 		 */
-		public function LoadEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true, wsdl:WSDL = null, location:String = null);
+		public function get document () : XMLDocument;
+
 		/**
-		 * Returns a copy of this LoadEvent.
+		 * Creates a new WSDLLoadEvent.     * @param type The event type; indicates the action that triggered the event.     * @param bubbles Specifies whether the event can bubble up the display list hierarchy.     * @param cancelable Specifies whether the behavior associated with the event can be prevented.     * @param wsdl Object that contains the WSDL document.     * @param location URL of the WSDL document.
 		 */
-		public override function clone():Event;
+		public function LoadEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = true, wsdl:WSDL = null, location:String = null);
 		/**
-		 * Returns a String representation of this LoadEvent.
+		 * Returns a copy of this LoadEvent.     *     * @return Returns a copy of this LoadEvent.
 		 */
-		public override function toString():String;
+		public function clone () : Event;
 		/**
-		 * The LOAD event type.
+		 * Returns a String representation of this LoadEvent.     *     * @return Returns a String representation of this LoadEvent.
 		 */
-		public static const LOAD:String = "load";
+		public function toString () : String;
+		/**
+		 * A helper method to create a new LoadEvent.     * @private
+		 */
+		public static function createEvent (wsdl:WSDL, location:String = null) : LoadEvent;
 	}
 }

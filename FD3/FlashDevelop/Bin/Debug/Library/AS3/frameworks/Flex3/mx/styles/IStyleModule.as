@@ -1,11 +1,13 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.styles {
-	public interface IStyleModule {
+﻿package mx.styles
+{
+	/**
+	 * Simple interface that defines an <code>unload()</code> method. * You can cast an object to an IStyleModule type so that there is no dependency on the StyleModule * type in the loading application.
+	 */
+	public interface IStyleModule
+	{
 		/**
 		 * Unloads the style module.
 		 */
-		public function unload():void;
+		public function unload () : void;
 	}
 }

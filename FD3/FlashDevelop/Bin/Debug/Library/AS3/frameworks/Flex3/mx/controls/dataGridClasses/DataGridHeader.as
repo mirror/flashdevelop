@@ -1,172 +1,259 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.controls.dataGridClasses {
+﻿package mx.controls.dataGridClasses
+{
+	import flash.display.DisplayObject;
+	import flash.display.GradientType;
+	import flash.display.Graphics;
+	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.geom.Matrix;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import mx.controls.listClasses.IDropInListItemRenderer;
 	import mx.controls.listClasses.IListItemRenderer;
+	import mx.controls.DataGrid;
+	import mx.core.EdgeMetrics;
+	import mx.core.FlexSprite;
+	import mx.core.FlexVersion;
+	import mx.core.IFlexDisplayObject;
 	import mx.core.UIComponent;
-	public class DataGridHeader extends DataGridHeaderBase {
+	import mx.core.UIComponentGlobals;
+	import mx.events.DataGridEvent;
+	import mx.events.SandboxMouseEvent;
+	import mx.managers.CursorManager;
+	import mx.managers.CursorManagerPriority;
+	import mx.skins.halo.DataGridColumnDropIndicator;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.StyleManager;
+	import mx.core.mx_internal;
+	import mx.effects.easing.Back;
+
+	/**
+	 *  The DataGridHeader class defines the default header *  renderer for a DataGrid control.   *  By default, the header renderer *  draws the text associated with each header in the list, and an optional *  sort arrow (if sorted by that column). * *  @see mx.controls.DataGrid
+	 */
+	public class DataGridHeader extends DataGridHeaderBase
+	{
 		/**
-		 * The offset, in pixels, from the bottom of the content of the renderer.
+		 *  @private     *  Additional affordance given to header separators.
 		 */
-		public var bottomOffset:Number = 0;
+		private var separatorAffordance : Number;
 		/**
-		 * The cached header height, in pixels.
+		 *  The DataGrid control associated with this renderer.
 		 */
-		protected var cachedHeaderHeight:Number = 0;
+		protected var dataGrid : DataGrid;
 		/**
-		 * The cached padding for the bottom of the renderer, in pixels.
+		 *  An Array of header renderer instances.
 		 */
-		protected var cachedPaddingBottom:Number = 0;
+		protected var headerItems : Array;
 		/**
-		 * The cached padding for the top of the renderer, in pixels.
+		 *  The cached header height, in pixels.
 		 */
-		protected var cachedPaddingTop:Number = 0;
+		protected var cachedHeaderHeight : Number;
 		/**
-		 * The DataGrid control associated with this renderer.
+		 *  The cached padding for the bottom of the renderer, in pixels.
 		 */
-		protected var dataGrid:DataGrid;
+		protected var cachedPaddingBottom : Number;
 		/**
-		 * Whether the component can accept user interaction. After setting the enabled
-		 *  property to false, some components still respond to mouse interactions such
-		 *  as mouseOver. As a result, to fully disable UIComponents,
-		 *  you should also set the value of the mouseEnabled property to false.
-		 *  If you set the enabled property to false
-		 *  for a container, Flex dims the color of the container and of all
-		 *  of its children, and blocks user input to the container
-		 *  and to all of its children.
+		 *  The cached padding for the top of the renderer, in pixels.
 		 */
-		public function set enabled(value:Boolean):void;
+		protected var cachedPaddingTop : Number;
 		/**
-		 * An Array of header renderer instances.
+		 *  Whether we need the separator on the far right
 		 */
-		protected var headerItems:Array;
+		public var needRightSeparator : Boolean;
 		/**
-		 * The offset, in pixels, from the left side of the content of the renderer.
+		 *  Whether we need the separator events on the far right
 		 */
-		public var leftOffset:Number = 0;
+		public var needRightSeparatorEvents : Boolean;
 		/**
-		 * Whether we need the separator on the far right
+		 *  @private
 		 */
-		public var needRightSeparator:Boolean = false;
+		private var resizeCursorID : int;
 		/**
-		 * Whether we need the separator events on the far right
+		 *  @private     *  A tmp var to store the stretching col's X coord.
 		 */
-		public var needRightSeparatorEvents:Boolean = false;
+		private var startX : Number;
 		/**
-		 * The offset, in pixels, from the right side of the content of the renderer.
+		 *  @private     *  A tmp var to store the stretching col's min X coord for column's minWidth.
 		 */
-		public var rightOffset:Number = 0;
+		private var minX : Number;
 		/**
-		 * The offset, in pixels, from the top of the content of the renderer.
+		 *  @private     *  A tmp var to store the last point (in dataGrid coords) received while dragging.
 		 */
-		public var topOffset:Number = 0;
+		private var lastPt : Point;
 		/**
-		 * Constructor.
+		 *  @private     *  List of header separators for column resizing.
 		 */
-		public function DataGridHeader();
+		private var separators : Array;
 		/**
-		 * Removes column header separators that the user normally uses
-		 *  to resize columns.
+		 *  Specifies a graphic that shows the proposed column width as the user stretches it.
 		 */
-		protected function clearSeparators():void;
+		private var resizeGraphic : IFlexDisplayObject;
 		/**
-		 * Create child objects of the component.
-		 *  This is an advanced method that you might override
-		 *  when creating a subclass of UIComponent.
+		 *  @private
 		 */
-		protected override function createChildren():void;
+		private var lastItemDown : IListItemRenderer;
 		/**
-		 * Draws the overlay on the dragged column into the given Sprite
-		 *  at the position, width and height specified using the
-		 *  color specified.
-		 *
-		 * @param indicator         <Sprite> A Sprite that should contain the graphics
-		 *                            that indicate that a column is being dragged.
-		 * @param x                 <Number> The suggested x position for the indicator.
-		 * @param y                 <Number> The suggested y position for the indicator.
-		 * @param width             <Number> The suggested width for the indicator.
-		 * @param height            <Number> The suggested height for the indicator.
-		 * @param color             <uint> The suggested color for the indicator.
-		 * @param itemRenderer      <IListItemRenderer> The item renderer that is being dragged.
+		 *  @private     *  Index of column before which to drop
 		 */
-		protected function drawColumnDragOverlay(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void;
+		private var dropColumnIndex : int;
 		/**
-		 * Draws the background of the headers into the given
-		 *  UIComponent. The graphics drawn may be scaled horizontally
-		 *  if the component's width changes or this method will be
-		 *  called again to redraw at a different width and/or height
-		 *
-		 * @param headerBG          <UIComponent> A UIComponent that will contain the header
-		 *                            background graphics.
+		 *  @private
 		 */
-		protected function drawHeaderBackground(headerBG:UIComponent):void;
+		local var columnDropIndicator : IFlexDisplayObject;
 		/**
-		 * Draws the highlight indicator into the given Sprite
-		 *  at the position, width and height specified using the
-		 *  color specified.
-		 *
-		 * @param indicator         <Sprite> A Sprite that should contain the graphics
-		 *                            that make a renderer look highlighted.
-		 * @param x                 <Number> The suggested x position for the indicator.
-		 * @param y                 <Number> The suggested y position for the indicator.
-		 * @param width             <Number> The suggested width for the indicator.
-		 * @param height            <Number> The suggested height for the indicator.
-		 * @param color             <uint> The suggested color for the indicator.
-		 * @param itemRenderer      <IListItemRenderer> The item renderer that is being highlighted.
+		 *  The small arrow graphic used to show sortable columns and direction.
 		 */
-		protected function drawHeaderIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void;
+		local var sortArrow : IFlexDisplayObject;
 		/**
-		 * Draws the selection indicator into the given Sprite
-		 *  at the position, width and height specified using the
-		 *  color specified.
-		 *
-		 * @param indicator         <Sprite> A Sprite that should contain the graphics
-		 *                            that make a renderer look selected.
-		 * @param x                 <Number> The suggested x position for the indicator.
-		 * @param y                 <Number> The suggested y position for the indicator.
-		 * @param width             <Number> The suggested width for the indicator.
-		 * @param height            <Number> The suggested height for the indicator.
-		 * @param color             <uint> The suggested color for the indicator.
-		 * @param itemRenderer      <IListItemRenderer> The item renderer that is being selected.
+		 *  The offset, in pixels, from the left side of the content of the renderer.
 		 */
-		protected function drawSelectionIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void;
+		public var leftOffset : Number;
 		/**
-		 * Creates and displays the column header separators that the user
-		 *  normally uses to resize columns.  This implementation uses
-		 *  the same Sprite as the lines and column backgrounds and adds
-		 *  instances of the headerSeparatorSkin and attaches mouse
-		 *  listeners to them in order to know when the user wants
-		 *  to resize a column.
+		 *  The offset, in pixels, from the top of the content of the renderer.
 		 */
-		protected function drawSeparators():void;
+		public var topOffset : Number;
 		/**
-		 * Calculates the default size, and optionally the default minimum size,
-		 *  of the component. This is an advanced method that you might override when
-		 *  creating a subclass of UIComponent.
+		 *  The offset, in pixels, from the right side of the content of the renderer.
 		 */
-		protected override function measure():void;
+		public var rightOffset : Number;
 		/**
-		 * Draws the sort arrow graphic on the column that is the current sort key.
-		 *  This implementation creates or reuses an instance of the skin specified
-		 *  by sortArrowSkin style property and places
-		 *  it in the appropriate column header.  It
-		 *  also shrinks the size of the column header if the text in the header
-		 *  would be obscured by the sort arrow.
+		 *  The offset, in pixels, from the bottom of the content of the renderer.
 		 */
-		protected function placeSortArrow():void;
+		public var bottomOffset : Number;
 		/**
-		 * Draws the object and/or sizes and positions its children.
-		 *  This is an advanced method that you might override
-		 *  when creating a subclass of UIComponent.
-		 *
-		 * @param unscaledWidth     <Number> Specifies the width of the component, in pixels,
-		 *                            in the component's coordinates, regardless of the value of the
-		 *                            scaleX property of the component.
-		 * @param unscaledHeight    <Number> Specifies the height of the component, in pixels,
-		 *                            in the component's coordinates, regardless of the value of the
-		 *                            scaleY property of the component.
+		 *  @private
 		 */
-		protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void;
+		private var allowItemSizeChangeNotification : Boolean;
+		private var headerBGSkinChanged : Boolean;
+		private var headerSepSkinChanged : Boolean;
+
+		/**
+		 *  @copy mx.core.IUIComponent#enabled
+		 */
+		public function set enabled (value:Boolean) : void;
+		/**
+		 *  @private     *  The column that is being resized.
+		 */
+		private function get resizingColumn () : DataGridColumn;
+		/**
+		 *  @private     *  The column that is being resized.
+		 */
+		private function set resizingColumn (value:DataGridColumn) : void;
+		/**
+		 *  diagnostics
+		 */
+		function get rendererArray () : Array;
+
+		/**
+		 *  Constructor.
+		 */
+		public function DataGridHeader ();
+		/**
+		 *  a function to clear selections
+		 */
+		function clearSelectionLayer () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		protected function createChildren () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		protected function measure () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
+		function _drawHeaderBackground (headerBG:UIComponent) : void;
+		/**
+		 *  Draws the background of the headers into the given      *  UIComponent. The graphics drawn may be scaled horizontally     *  if the component's width changes or this method will be     *  called again to redraw at a different width and/or height     *     *  @param headerBG A UIComponent that will contain the header     *  background graphics.
+		 */
+		protected function drawHeaderBackground (headerBG:UIComponent) : void;
+		private function drawHeaderBackgroundSkin (headerBGSkin:IFlexDisplayObject) : void;
+		function _clearSeparators () : void;
+		/**
+		 *  Removes column header separators that the user normally uses     *  to resize columns.
+		 */
+		protected function clearSeparators () : void;
+		function _drawSeparators () : void;
+		/**
+		 *  Creates and displays the column header separators that the user      *  normally uses to resize columns.  This implementation uses     *  the same Sprite as the lines and column backgrounds and adds     *  instances of the <code>headerSeparatorSkin</code> and attaches mouse     *  listeners to them in order to know when the user wants     *  to resize a column.
+		 */
+		protected function drawSeparators () : void;
+		/**
+		 *  Draws the highlight indicator into the given Sprite     *  at the position, width and height specified using the     *  color specified.     *      *  @param indicator A Sprite that should contain the graphics     *  that make a renderer look highlighted.     *     *  @param x The suggested x position for the indicator.     *     *  @param y The suggested y position for the indicator.     *     *  @param width The suggested width for the indicator.     *     *  @param height The suggested height for the indicator.     *     *  @param color The suggested color for the indicator.     *     *  @param itemRenderer The item renderer that is being highlighted.     *
+		 */
+		protected function drawHeaderIndicator (indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer) : void;
+		/**
+		 *  Draws the selection indicator into the given Sprite     *  at the position, width and height specified using the     *  color specified.     *      *  @param indicator A Sprite that should contain the graphics     *  that make a renderer look selected.     *     *  @param x The suggested x position for the indicator.     *     *  @param y The suggested y position for the indicator.     *     *  @param width The suggested width for the indicator.     *     *  @param height The suggested height for the indicator.     *     *  @param color The suggested color for the indicator.     *     *  @param itemRenderer The item renderer that is being selected.     *
+		 */
+		protected function drawSelectionIndicator (indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer) : void;
+		/**
+		 *  Draws the overlay on the dragged column into the given Sprite     *  at the position, width and height specified using the     *  color specified.     *      *  @param indicator A Sprite that should contain the graphics     *  that indicate that a column is being dragged.     *     *  @param x The suggested x position for the indicator.     *     *  @param y The suggested y position for the indicator.     *     *  @param width The suggested width for the indicator.     *     *  @param height The suggested height for the indicator.     *     *  @param color The suggested color for the indicator.     *     *  @param itemRenderer The item renderer that is being dragged.     *
+		 */
+		protected function drawColumnDragOverlay (indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer) : void;
+		/**
+		 *  @private
+		 */
+		private function columnResizeMouseOverHandler (event:MouseEvent) : void;
+		/**
+		 *  @private
+		 */
+		private function columnResizeMouseOutHandler (event:MouseEvent) : void;
+		/**
+		 *  @private     *  Indicates where the right side of a resized column appears.
+		 */
+		private function columnResizeMouseDownHandler (event:MouseEvent) : void;
+		/**
+		 *  @private
+		 */
+		private function columnResizingHandler (event:MouseEvent) : void;
+		/**
+		 *  @private     *  Determines how much to resize the column.
+		 */
+		private function columnResizeMouseUpHandler (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		private function columnDraggingMouseMoveHandler (event:MouseEvent) : void;
+		/**
+		 *  @private     *      *  @param event MouseEvent or SandboxMouseEvent.
+		 */
+		private function columnDraggingMouseUpHandler (event:Event) : void;
+		/**
+		 *  @private
+		 */
+		protected function mouseOverHandler (event:MouseEvent) : void;
+		/**
+		 *  @private
+		 */
+		protected function mouseOutHandler (event:MouseEvent) : void;
+		/**
+		 *  @private
+		 */
+		protected function mouseDownHandler (event:MouseEvent) : void;
+		/**
+		 *  @private
+		 */
+		protected function mouseUpHandler (event:MouseEvent) : void;
+		function _placeSortArrow () : void;
+		/**
+		 *  Draws the sort arrow graphic on the column that is the current sort key.     *  This implementation creates or reuses an instance of the skin specified     *  by <code>sortArrowSkin</code> style property and places      *  it in the appropriate column header.  It     *  also shrinks the size of the column header if the text in the header     *  would be obscured by the sort arrow.
+		 */
+		protected function placeSortArrow () : void;
+		/**
+		 *  @private
+		 */
+		public function invalidateSize () : void;
+		/**
+		 *  @private
+		 */
+		public function styleChanged (styleProp:String) : void;
+		/**
+		 *  @private
+		 */
+		function getSeparators () : Array;
 	}
 }

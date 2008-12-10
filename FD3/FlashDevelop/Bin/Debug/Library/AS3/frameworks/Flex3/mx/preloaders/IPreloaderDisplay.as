@@ -1,66 +1,69 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.preloaders {
-	import flash.events.IEventDispatcher;
+﻿package mx.preloaders
+{
 	import flash.display.Sprite;
-	public interface IPreloaderDisplay extends IEventDispatcher {
+	import flash.events.IEventDispatcher;
+
+	/**
+	 *  Defines the interface that  *  a class must implement to be used as a download progress bar. *  The IPreloaderDisplay receives events from the Preloader class *  and is responsible for visualizing that information to the user. * *  @see mx.preloaders.DownloadProgressBar *  @see mx.preloaders.Preloader
+	 */
+	public interface IPreloaderDisplay extends IEventDispatcher
+	{
 		/**
-		 * Alpha level of the SWF file or image defined by
-		 *  the backgroundImage property, or the color defined by
-		 *  the backgroundColor property.
-		 *  Valid values range from 0 to 1.0.
+		 *  @copy mx.preloaders.DownloadProgressBar#backgroundAlpha
 		 */
-		public function get backgroundAlpha():Number;
-		public function set backgroundAlpha(value:Number):void;
+		public function get backgroundAlpha () : Number;
 		/**
-		 * Background color of a download progress bar.
-		 *  You can have either a backgroundColor or a
-		 *  backgroundImage, but not both.
+		 *  @private
 		 */
-		public function get backgroundColor():uint;
-		public function set backgroundColor(value:uint):void;
+		public function set backgroundAlpha (value:Number) : void;
 		/**
-		 * The background image of the application,
-		 *  which is passed in by the preloader.
-		 *  You can specify either a backgroundColor
-		 *  or a backgroundImage, but not both.
+		 *  @copy mx.preloaders.DownloadProgressBar#backgroundColor
 		 */
-		public function get backgroundImage():Object;
-		public function set backgroundImage(value:Object):void;
+		public function get backgroundColor () : uint;
 		/**
-		 * Scales the image specified by backgroundImage
-		 *  to different percentage sizes.
-		 *  A value of "100%" stretches the image
-		 *  to fit the entire component.
-		 *  To specify a percentage value, you must include the percent sign (%).
-		 *  A value of "auto", maintains
-		 *  the original size of the image.
+		 *  @private
 		 */
-		public function get backgroundSize():String;
-		public function set backgroundSize(value:String):void;
+		public function set backgroundColor (value:uint) : void;
 		/**
-		 * The Preloader class passes in a reference to itself to the display class
-		 *  so that it can listen for events from the preloader.
+		 *  @copy mx.preloaders.DownloadProgressBar#backgroundImage
 		 */
-		public function set preloader(value:Sprite):void;
+		public function get backgroundImage () : Object;
 		/**
-		 * The height of the stage,
-		 *  which is passed in by the Preloader class.
+		 *  @private
 		 */
-		public function get stageHeight():Number;
-		public function set stageHeight(value:Number):void;
+		public function set backgroundImage (value:Object) : void;
 		/**
-		 * The width of the stage,
-		 *  which is passed in by the Preloader class.
+		 *  @copy mx.preloaders.DownloadProgressBar#backgroundSize
 		 */
-		public function get stageWidth():Number;
-		public function set stageWidth(value:Number):void;
+		public function get backgroundSize () : String;
 		/**
-		 * Called by the Preloader after the download progress bar
-		 *  has been added as a child of the Preloader.
-		 *  This should be the starting point for configuring your download progress bar.
+		 *  @private
 		 */
-		public function initialize():void;
+		public function set backgroundSize (value:String) : void;
+		/**
+		 *  @copy mx.preloaders.DownloadProgressBar#preloader
+		 */
+		public function set preloader (obj:Sprite) : void;
+		/**
+		 *  @copy mx.preloaders.DownloadProgressBar#stageHeight
+		 */
+		public function get stageHeight () : Number;
+		/**
+		 *  @private
+		 */
+		public function set stageHeight (value:Number) : void;
+		/**
+		 *  @copy mx.preloaders.DownloadProgressBar#stageWidth
+		 */
+		public function get stageWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function set stageWidth (value:Number) : void;
+
+		/**
+		 *  @copy mx.preloaders.DownloadProgressBar#initialize()
+		 */
+		public function initialize () : void;
 	}
 }

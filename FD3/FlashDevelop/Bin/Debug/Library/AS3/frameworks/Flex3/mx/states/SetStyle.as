@@ -1,60 +1,54 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.states {
-	import mx.styles.IStyleClient;
+﻿package mx.states
+{
 	import mx.core.UIComponent;
-	public class SetStyle implements IOverride {
+	import mx.styles.IStyleClient;
+	import mx.styles.StyleManager;
+
+	/**
+	 *  The SetStyle class specifies a style that is in effect only during the parent view state. *  You use this class in the <code>overrides</code> property of the State class. * *  @mxml * *  <p>The <code>&lt;mx:SetStyle&gt;</code> tag *  has the following attributes:</p> *   *  <pre> *  &lt;mx:SetStyle *   <b>Properties</b> *   name="null" *   target="null" *   value"null" *  /&gt; *  </pre> * *  @see mx.states.State *  @see mx.states.SetEventHandler *  @see mx.states.SetProperty *  @see mx.effects.SetStyleAction * *  @includeExample examples/StatesExample.mxml
+	 */
+	public class SetStyle implements IOverride
+	{
 		/**
-		 * The name of the style to change.
-		 *  You must set this property, either in
-		 *  the SetStyle constructor or by setting
-		 *  the property value directly.
+		 *  @private     *  This is a table of related properties.     *  Whenever the property being overridden is found in this table,     *  the related property is also saved and restored.
 		 */
-		public var name:String;
+		private static const RELATED_PROPERTIES : Object;
 		/**
-		 * The object whose style is being changed.
-		 *  If the property value is null, Flex uses the
-		 *  immediate parent of the State object.
+		 *  @private     *  Storage for the old style value.
 		 */
-		public var target:IStyleClient;
+		private var oldValue : Object;
 		/**
-		 * The new value for the style.
+		 *  @private     *  Storage for the old related property values, if used.
 		 */
-		public var value:Object;
+		private var oldRelatedValues : Array;
 		/**
-		 * Constructor.
-		 *
-		 * @param target            <IStyleClient (default = null)> The object whose style is being set.
-		 *                            By default, Flex uses the immediate parent of the State object.
-		 * @param name              <String (default = null)> The style to set.
-		 * @param value             <Object (default = null)> The value of the style in the view state.
+		 *     *  The name of the style to change.     *  You must set this property, either in      *  the SetStyle constructor or by setting     *  the property value directly.
 		 */
-		public function SetStyle(target:IStyleClient = null, name:String = null, value:Object = null);
+		public var name : String;
 		/**
-		 * Applies the override. Flex retains the original value, so that it can
-		 *  restore the value later in the remove() method.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *     *  The object whose style is being changed.     *  If the property value is <code>null</code>, Flex uses the     *  immediate parent of the State object.     *      *  @default null
 		 */
-		public function apply(parent:UIComponent):void;
+		public var target : IStyleClient;
 		/**
-		 * Initializes the override.
-		 *  Flex calls this method before the first call to the
-		 *  apply() method, so you put one-time initialization
-		 *  code for the override in this method.
+		 *     *  The new value for the style.     *     *  @default null
 		 */
-		public function initialize():void;
+		public var value : Object;
+
 		/**
-		 * Removes the override. The value remembered in the apply()
-		 *  method is restored.
-		 *
-		 * @param parent            <UIComponent> The parent of the state object containing this override.
-		 *                            The override should use this as its target if an explicit target was
-		 *                            not specified.
+		 *  IOverride interface method; this class implements it as an empty method.     *      *  @copy IOverride#initialize()
 		 */
-		public function remove(parent:UIComponent):void;
+		public function initialize () : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function apply (parent:UIComponent) : void;
+		/**
+		 *  @inheritDoc
+		 */
+		public function remove (parent:UIComponent) : void;
+		/**
+		 *  @private     *  Converts a value to a Boolean true/false.
+		 */
+		private function toBoolean (value:Object) : Boolean;
 	}
 }

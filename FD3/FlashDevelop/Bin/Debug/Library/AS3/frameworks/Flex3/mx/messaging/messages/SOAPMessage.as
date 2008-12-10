@@ -1,20 +1,26 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.messaging.messages {
-	public class SOAPMessage extends HTTPRequestMessage {
+﻿package mx.messaging.messages
+{
+	/**
+	 *  SOAPMessages are similar to HTTPRequestMessages. However, *  they always contain a SOAP XML envelope request body *  that will always be sent using HTTP POST. *  They also allow a SOAP action to be specified.
+	 */
+	public class SOAPMessage extends HTTPRequestMessage
+	{
 		/**
-		 * Constructs an uninitialized SOAPMessage.
+		 *  The HTTP header that stores the SOAP action for the SOAPMessage.
 		 */
-		public function SOAPMessage();
+		public static const SOAP_ACTION_HEADER : String = "SOAPAction";
+
 		/**
-		 * Provides access to the name of the remote method/operation that
-		 *  will be called.
+		 *  Constructs an uninitialized SOAPMessage.
 		 */
-		public function getSOAPAction():String;
+		public function SOAPMessage ();
 		/**
-		 * The HTTP header that stores the SOAP action for the SOAPMessage.
+		 *  Provides access to the name of the remote method/operation that     *  will be called.     *     *  @return Returns the name of the remote method/operation that      *  will be called.
 		 */
-		public static const SOAP_ACTION_HEADER:String = "SOAPAction";
+		public function getSOAPAction () : String;
+		/**
+		 *  @private
+		 */
+		public function setSOAPAction (value:String) : void;
 	}
 }

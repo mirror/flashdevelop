@@ -1,12 +1,31 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
 	import mx.skins.Border;
-	public class ProgressIndeterminateSkin extends Border {
+	import mx.styles.StyleManager;
+	import mx.utils.ColorUtil;
+
+	/**
+	 *  The skin for the indeterminate state of a ProgressBar.
+	 */
+	public class ProgressIndeterminateSkin extends Border
+	{
 		/**
-		 * Constructor.
+		 *  @private
 		 */
-		public function ProgressIndeterminateSkin();
+		public function get measuredWidth () : Number;
+		/**
+		 *  @private
+		 */
+		public function get measuredHeight () : Number;
+
+		/**
+		 *  Constructor.
+		 */
+		public function ProgressIndeterminateSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

@@ -1,135 +1,102 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
 	import flash.events.Event;
-	public class VideoEvent extends Event {
+	import mx.core.mx_internal;
+
+	/**
+	 *  The VideoEvent class represents the event object passed to the event listener for  *  events dispatched by the VideoDisplay control, and defines the values of  *  the <code>VideoDisplay.state</code> property. * *  @see mx.controls.VideoDisplay
+	 */
+	public class VideoEvent extends Event
+	{
 		/**
-		 * The location of the playhead of the VideoDisplay control
-		 *  when the event occurs.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  immediately after a call to the      *  <code>play()</code> or <code>load()</code> method.     *     *  <p>This is a responsive state. In the responsive state, calls to      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>,      *  and <code>pause()</code> methods are executed immediately.</p>
 		 */
-		public var playheadTime:Number;
+		public static const BUFFERING : String = "buffering";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when the event occurs.
+		 *  The <code>VideoEvent.CLOSE</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>close</code> event.	 *      *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>playheadTime</code></td><td>The location of the playhead      *       when the event occurs.</td></tr>     *     <tr><td><code>state</code></td><td>The value of the      *       <code>VideoDisplay.state</code> property when the event occurs.</td></tr>     *     <tr><td><code>stateResponsive</code></td><td>The value of the      *       <code>VideoDisplay.stateResponsive</code> property      *       when the event occurs.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @eventType close
 		 */
-		public var state:String;
+		public static const CLOSE : String = "close";
 		/**
-		 * The value of the VideoDisplay.stateResponsive property
-		 *  when the event occurs.
+		 *  The <code>VideoEvent.COMPLETE</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>complete</code> event.	 *      *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>playheadTime</code></td><td>The location of the playhead      *       when the event occurs.</td></tr>     *     <tr><td><code>state</code></td><td>The value of the      *       <code>VideoDisplay.state</code> property when the event occurs.</td></tr>     *     <tr><td><code>stateResponsive</code></td><td>The value of the      *       <code>VideoDisplay.stateResponsive</code> property      *       when the event occurs.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @eventType complete
 		 */
-		public function get stateResponsive():Boolean;
+		public static const COMPLETE : String = "complete";
 		/**
-		 * Constructor.
-		 *
-		 * @param type              <String> The event type; indicates the action that caused the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Specifies whether the behavior associated with
-		 *                            the event can be prevented.
-		 * @param state             <String (default = null)> The value of the VideoDisplay.state property
-		 *                            when the event occurs.
-		 * @param playheadTime      <Number (default = NaN)> The location of the playhead when the event occurs.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  when the VideoDisplay control was unable to load the video stream.      *  This state can occur when there is no connection to a server,      *  the video stream is not found, or for other reasons.     *     *  <p>This is a unresponsive state. If the control is unresponsive, calls to the 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,	 *  and <code>pause()</code> methods are queued, 	 *  and then executed when the control changes to the responsive state.</p>
 		 */
-		public function VideoEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, state:String = null, playheadTime:Number = NaN);
+		public static const CONNECTION_ERROR : String = "connectionError";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  immediately after a call to the
-		 *  play() or load() method.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  when the video stream has timed out or is idle.     *     *  <p>This is a responsive state. In the responsive state, calls to      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>,      *  and <code>pause()</code> methods are executed immediately.</p>
 		 */
-		public static const BUFFERING:String = "buffering";
+		public static const DISCONNECTED : String = "disconnected";
 		/**
-		 * The VideoEvent.CLOSE constant defines the value of the
-		 *  type property of the event object for a close event.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  during execution of queued command.      *  There will never be a <code>stateChange</code> event dispatched for     *  this state; it is for internal use only.     *     *  <p>This is a unresponsive state. If the control is unresponsive, calls to the 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,	 *  and <code>pause()</code> methods are queued, 	 *  and then executed when the control changes to the responsive state.</p>
 		 */
-		public static const CLOSE:String = "close";
+		public static const EXEC_QUEUED_CMD : String = "execQueuedCmd";
 		/**
-		 * The VideoEvent.COMPLETE constant defines the value of the
-		 *  type property of the event object for a complete event.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  immediately after a call to the      *  <code>play()</code> or <code>load()</code> method.     *     *  <p>This is a unresponsive state. If the control is unresponsive, calls to the 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,	 *  and <code>pause()</code> methods are queued, 	 *  and then executed when the control changes to the responsive state.</p>
 		 */
-		public static const COMPLETE:String = "complete";
+		public static const LOADING : String = "loading";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when the VideoDisplay control was unable to load the video stream.
-		 *  This state can occur when there is no connection to a server,
-		 *  the video stream is not found, or for other reasons.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  when an FLV file is loaded, but play is paused.      *  This state is entered when you call the <code>pause()</code>      *  or <code>load()</code> method.     *     *  <p>This is a responsive state. In the responsive state, calls to      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>,      *  and <code>pause()</code> methods are executed immediately.</p>
 		 */
-		public static const CONNECTION_ERROR:String = "connectionError";
+		public static const PAUSED : String = "paused";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when the video stream has timed out or is idle.
+		 *  The <code>VideoEvent.PLAYHEAD_UPDATE</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>playheadUpdate</code> event.	 *      *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>playheadTime</code></td><td>The location of the playhead      *       when the event occurs.</td></tr>     *     <tr><td><code>state</code></td><td>The value of the      *       <code>VideoDisplay.state</code> property when the event occurs.</td></tr>     *     <tr><td><code>stateResponsive</code></td><td>The value of the      *       <code>VideoDisplay.stateResponsive</code> property      *       when the event occurs.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @eventType playheadUpdate
 		 */
-		public static const DISCONNECTED:String = "disconnected";
+		public static const PLAYHEAD_UPDATE : String = "playheadUpdate";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  during execution of queued command.
-		 *  There will never be a stateChange event dispatched for
-		 *  this state; it is for internal use only.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  when an FLV file is loaded and is playing.      *  This state is entered when you call the <code>play()</code>      *  method.     *     *  <p>This is a responsive state. In the responsive state, calls to      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>,      *  and <code>pause()</code> methods are executed immediately.</p>
 		 */
-		public static const EXEC_QUEUED_CMD:String = "execQueuedCmd";
+		public static const PLAYING : String = "playing";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  immediately after a call to the
-		 *  play() or load() method.
+		 *  The <code>VideoEvent.READY</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>ready</code> event.	 *      *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>playheadTime</code></td><td>The location of the playhead      *       when the event occurs.</td></tr>     *     <tr><td><code>state</code></td><td>The value of the      *       <code>VideoDisplay.state</code> property when the event occurs.</td></tr>     *     <tr><td><code>stateResponsive</code></td><td>The value of the      *       <code>VideoDisplay.stateResponsive</code> property      *       when the event occurs.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @eventType ready
 		 */
-		public static const LOADING:String = "loading";
+		public static const READY : String = "ready";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when an FLV file is loaded, but play is paused.
-		 *  This state is entered when you call the pause()
-		 *  or load() method.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  when the VideoDisplay control is resizing.     *     *  <p>This is a unresponsive state. If the control is unresponsive, calls to the 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,	 *  and <code>pause()</code> methods are queued, 	 *  and then executed when the control changes to the responsive state.</p>
 		 */
-		public static const PAUSED:String = "paused";
+		public static const RESIZING : String = "resizing";
 		/**
-		 * The VideoEvent.PLAYHEAD_UPDATE constant defines the value of the
-		 *  type property of the event object for a playheadUpdate event.
+		 *  The <code>VideoEvent.REWIND</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>rewind</code> event.	 *      *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>playheadTime</code></td><td>The location of the playhead      *       when the event occurs.</td></tr>     *     <tr><td><code>state</code></td><td>The value of the      *       <code>VideoDisplay.state</code> property when the event occurs.</td></tr>     *     <tr><td><code>stateResponsive</code></td><td>The value of the      *       <code>VideoDisplay.stateResponsive</code> property      *       when the event occurs.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @eventType rewind
 		 */
-		public static const PLAYHEAD_UPDATE:String = "playheadUpdate";
+		public static const REWIND : String = "rewind";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when an FLV file is loaded and is playing.
-		 *  This state is entered when you call the play()
-		 *  method.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  during an autorewind triggered     *  when play stops.  After the rewind completes, the state changes to      *  <code>STOPPED</code>.     *     *  <p>This is a unresponsive state. If the control is unresponsive, calls to the 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,	 *  and <code>pause()</code> methods are queued, 	 *  and then executed when the control changes to the responsive state.</p>
 		 */
-		public static const PLAYING:String = "playing";
+		public static const REWINDING : String = "rewinding";
 		/**
-		 * The VideoEvent.READY constant defines the value of the
-		 *  type property of the event object for a ready event.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  for a seek occurring      *  due to the <code>VideoDisplay.playHeadTime</code> property being set.     *     *  <p>This is a unresponsive state. If the control is unresponsive, calls to the 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,	 *  and <code>pause()</code> methods are queued, 	 *  and then executed when the control changes to the responsive state.</p>
 		 */
-		public static const READY:String = "ready";
+		public static const SEEKING : String = "seeking";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when the VideoDisplay control is resizing.
+		 *  The <code>VideoEvent.STATE_CHANGE</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>stateChange</code> event.	 *      *	<p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>playheadTime</code></td><td>The location of the playhead      *       when the event occurs.</td></tr>     *     <tr><td><code>state</code></td><td>The value of the      *       <code>VideoDisplay.state</code> property when the event occurs.</td></tr>     *     <tr><td><code>stateResponsive</code></td><td>The value of the      *       <code>VideoDisplay.stateResponsive</code> property      *       when the event occurs.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>	 *  </table>	 *	 *  @eventType stateChange
 		 */
-		public static const RESIZING:String = "resizing";
+		public static const STATE_CHANGE : String = "stateChange";
 		/**
-		 * The VideoEvent.REWIND constant defines the value of the
-		 *  type property of the event object for a rewind event.
+		 *  The value of the <code>VideoDisplay.state</code> property      *  when an FLV file is loaded but play has stopped.      *  This state is entered  when you call the <code>stop()</code> method     *  or when the playhead reaches the end of the video stream.     *     *  <p>This is a responsive state. In the responsive state, calls to      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>,      *  and <code>pause()</code> methods are executed immediately.</p>
 		 */
-		public static const REWIND:String = "rewind";
+		public static const STOPPED : String = "stopped";
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  during an autorewind triggered
-		 *  when play stops.  After the rewind completes, the state changes to
-		 *  STOPPED.
+		 *  The location of the playhead of the VideoDisplay control 	 *  when the event occurs.
 		 */
-		public static const REWINDING:String = "rewinding";
+		public var playheadTime : Number;
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  for a seek occurring
-		 *  due to the VideoDisplay.playHeadTime property being set.
+		 *  The value of the <code>VideoDisplay.state</code> property 	 *  when the event occurs.	 *	 *  @see mx.controls.VideoDisplay#state
 		 */
-		public static const SEEKING:String = "seeking";
+		public var state : String;
+
 		/**
-		 * The VideoEvent.STATE_CHANGE constant defines the value of the
-		 *  type property of the event object for a stateChange event.
+		 *  The value of the <code>VideoDisplay.stateResponsive</code> property 	 *  when the event occurs.	 *	 *  @see mx.controls.VideoDisplay#stateResponsive
 		 */
-		public static const STATE_CHANGE:String = "stateChange";
+		public function get stateResponsive () : Boolean;
+
 		/**
-		 * The value of the VideoDisplay.state property
-		 *  when an FLV file is loaded but play has stopped.
-		 *  This state is entered  when you call the stop() method
-		 *  or when the playhead reaches the end of the video stream.
+		 *  Constructor.	 *	 *  @param type The event type; indicates the action that caused the event.	 *	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior associated with 	 *  the event can be prevented.	 *	 *  @param state The value of the <code>VideoDisplay.state</code> property 	 *  when the event occurs.	 *	 *  @param playeheadTime The location of the playhead when the event occurs.
 		 */
-		public static const STOPPED:String = "stopped";
+		public function VideoEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, state:String = null, playheadTime:Number = NaN);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

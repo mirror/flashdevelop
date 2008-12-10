@@ -1,59 +1,95 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.validators {
-	public class StringValidator extends Validator {
+﻿package mx.validators
+{
+	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
+	import mx.utils.StringUtil;
+
+	/**
+	 *  The StringValidator class validates that the length of a String  *  is within a specified range.  *   *  @mxml *   *  <p>The <code>&lt;mx:StringValidator&gt;</code> tag *  inherits all of the tag attributes of its superclass, *  and add the following tag attributes:</p> *   *  <pre> *  &lt;mx:StringValidator *    maxLength="NaN"  *    minLength="NaN"  *    tooLongError="This string is longer than the maximum allowed length. This must be less than {0} characters long."  *    tooShortError="This string is shorter than the minimum allowed length. This must be at least {0} characters long."  *  /&gt; *  </pre> *   *  @includeExample examples/StringValidatorExample.mxml
+	 */
+	public class StringValidator extends Validator
+	{
 		/**
-		 * Maximum length for a valid String.
-		 *  A value of NaN means this property is ignored.
+		 *  @private	 *  Storage for the maxLength property.
 		 */
-		public function get maxLength():Object;
-		public function set maxLength(value:Object):void;
+		private var _maxLength : Object;
 		/**
-		 * Minimum length for a valid String.
-		 *  A value of NaN means this property is ignored.
+		 *  @private
 		 */
-		public function get minLength():Object;
-		public function set minLength(value:Object):void;
+		private var maxLengthOverride : Object;
 		/**
-		 * Error message when the String is longer
-		 *  than the maxLength property.
+		 *  @private	 *  Storage for the minLength property.
 		 */
-		public function get tooLongError():String;
-		public function set tooLongError(value:String):void;
+		private var _minLength : Object;
 		/**
-		 * Error message when the string is shorter
-		 *  than the minLength property.
+		 *  @private
 		 */
-		public function get tooShortError():String;
-		public function set tooShortError(value:String):void;
+		private var minLengthOverride : Object;
 		/**
-		 * Constructor.
+		 *  @private	 *  Storage for the tooLongError property.
 		 */
-		public function StringValidator();
+		private var _tooLongError : String;
 		/**
-		 * Override of the base class doValidation() method
-		 *  to validate a String.
-		 *
-		 * @param value             <Object> Object to validate.
-		 * @return                  <Array> An Array of ValidationResult objects, with one ValidationResult
-		 *                            object for each field examined by the validator.
+		 *  @private
 		 */
-		protected override function doValidation(value:Object):Array;
+		private var tooLongErrorOverride : String;
 		/**
-		 * Convenience method for calling a validator.
-		 *  Each of the standard Flex validators has a similar convenience method.
-		 *
-		 * @param validator         <StringValidator> The StringValidator instance.
-		 * @param value             <Object> A field to validate.
-		 * @param baseField         <String (default = null)> Text representation of the subfield
-		 *                            specified in the value parameter.
-		 *                            For example, if the value parameter specifies
-		 *                            value.mystring, the baseField value
-		 *                            is "mystring".
-		 * @return                  <Array> An Array of ValidationResult objects, with one
-		 *                            ValidationResult  object for each field examined by the validator.
+		 *  @private	 *  Storage for the tooShortError property.
 		 */
-		public static function validateString(validator:StringValidator, value:Object, baseField:String = null):Array;
+		private var _tooShortError : String;
+		/**
+		 *  @private
+		 */
+		private var tooShortErrorOverride : String;
+
+		/**
+		 *  Maximum length for a valid String. 	 *  A value of NaN means this property is ignored.	 *	 *  @default NaN
+		 */
+		public function get maxLength () : Object;
+		/**
+		 *  @private
+		 */
+		public function set maxLength (value:Object) : void;
+		/**
+		 *  Minimum length for a valid String.	 *  A value of NaN means this property is ignored.	 *	 *  @default NaN
+		 */
+		public function get minLength () : Object;
+		/**
+		 *  @private
+		 */
+		public function set minLength (value:Object) : void;
+		/**
+		 *  Error message when the String is longer	 *  than the <code>maxLength</code> property.	 *	 *  @default "This string is longer than the maximum allowed length. This must be less than {0} characters long."
+		 */
+		public function get tooLongError () : String;
+		/**
+		 *  @private
+		 */
+		public function set tooLongError (value:String) : void;
+		/**
+		 *  Error message when the string is shorter	 *  than the <code>minLength</code> property.	 *	 *  @default "This string is shorter than the minimum allowed length. This must be at least {0} characters long."
+		 */
+		public function get tooShortError () : String;
+		/**
+		 *  @private
+		 */
+		public function set tooShortError (value:String) : void;
+
+		/**
+		 *  Convenience method for calling a validator.	 *  Each of the standard Flex validators has a similar convenience method.	 *	 *  @param validator The StringValidator instance.	 *	 *  @param value A field to validate.	 *	 *  @param baseField Text representation of the subfield	 *  specified in the <code>value</code> parameter.	 *  For example, if the <code>value</code> parameter specifies	 *  value.mystring, the <code>baseField</code> value	 *  is <code>"mystring"</code>.     *	 *  @return An Array of ValidationResult objects, with one	 *  ValidationResult  object for each field examined by the validator. 	 *	 *  @see mx.validators.ValidationResult
+		 */
+		public static function validateString (validator:StringValidator, value:Object, baseField:String = null) : Array;
+		/**
+		 *  Constructor.
+		 */
+		public function StringValidator ();
+		/**
+		 *  @private
+		 */
+		protected function resourcesChanged () : void;
+		/**
+		 *  Override of the base class <code>doValidation()</code> method     *  to validate a String.     *	 *  <p>You do not call this method directly;	 *  Flex calls it as part of performing a validation.	 *  If you create a custom Validator class, you must implement this method.</p>	 *     *  @param value Object to validate.     *	 *  @return An Array of ValidationResult objects, with one ValidationResult 	 *  object for each field examined by the validator.
+		 */
+		protected function doValidation (value:Object) : Array;
 	}
 }

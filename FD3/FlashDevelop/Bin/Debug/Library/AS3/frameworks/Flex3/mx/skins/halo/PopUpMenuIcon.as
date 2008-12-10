@@ -1,11 +1,20 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
-	public class PopUpMenuIcon extends PopUpIcon {
+﻿package mx.skins.halo
+{
+	import flash.display.Graphics;
+	import mx.core.mx_internal;
+
+	/**
+	 *  The skin for all the states of the icon in a PopUpMenuButton.
+	 */
+	public class PopUpMenuIcon extends PopUpIcon
+	{
 		/**
-		 * Constructor
+		 *  Constructor
 		 */
-		public function PopUpMenuIcon();
+		public function PopUpMenuIcon ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }

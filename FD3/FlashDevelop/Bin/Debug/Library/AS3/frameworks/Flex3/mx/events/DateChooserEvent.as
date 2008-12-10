@@ -1,45 +1,32 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.events {
+﻿package mx.events
+{
 	import flash.events.Event;
-	public class DateChooserEvent extends Event {
+
+	/**
+	 *  The DateChooserEvent class represents the event object passed to  *  the event listener for the <code>scroll</code> event for  *  the DateChooser and DateField controls. * *  @see mx.controls.DateChooser *  @see mx.controls.DateField *  @see mx.events.DateChooserEventDetail
+	 */
+	public class DateChooserEvent extends Event
+	{
 		/**
-		 * Indicates the direction of scrolling. The values are defined by
-		 *  the DateChooserEventDetail class.
-		 *  The possible values are
-		 *  DateChooserEventDetail.NEXT_MONTH,
-		 *  DateChooserEventDetail.NEXT_YEAR,
-		 *  DateChooserEventDetail.PREVIOUS_MONTH, or
-		 *  DateChooserEventDetail.PREVIOUS_YEAR.
+		 *  The <code>DateChooserEvent.SCROLL</code> constant defines the value of the 	 *  <code>type</code> property of the event object for a <code>scroll</code>event.	 *	 *  <p>The properties of the event object have the following values:</p>	 *  <table class="innertable">	 *     <tr><th>Property</th><th>Value</th></tr>     *     <tr><td><code>bubbles</code></td><td>false</td></tr>     *     <tr><td><code>cancelable</code></td><td>false</td></tr>     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the      *       event listener that handles the event. For example, if you use      *       <code>myButton.addEventListener()</code> to register an event listener,      *       myButton is the value of the <code>currentTarget</code>. </td></tr>     *     <tr><td><code>detail</code></td><td>The scroll direction.</td></tr>     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;      *       it is not always the Object listening for the event.      *       Use the <code>currentTarget</code> property to always access the      *       Object listening for the event.</td></tr>     *     <tr><td><code>triggerEvent</code></td><td>The event that triggered this change event;	 *       usually a <code>scroll</code>.</td></tr>	 *  </table>	 *     *  @eventType scroll
 		 */
-		public var detail:String;
+		public static const SCROLL : String = "scroll";
 		/**
-		 * The event that triggered this change;
-		 *  usually a scroll.
+		 *  Indicates the direction of scrolling. The values are defined by      *  the DateChooserEventDetail class.	 *  The possible values are	 *  <code>DateChooserEventDetail.NEXT_MONTH</code>,	 *  <code>DateChooserEventDetail.NEXT_YEAR</code>,	 *  <code>DateChooserEventDetail.PREVIOUS_MONTH</code>, or	 *  <code>DateChooserEventDetail.PREVIOUS_YEAR</code>.	 *	 *  @see mx.events.DateChooserEventDetail
 		 */
-		public var triggerEvent:Event;
+		public var detail : String;
 		/**
-		 * Constructor.
-		 *  Normally called by the DateChooser object and not used in application code.
-		 *
-		 * @param type              <String> The event type; indicates the action that triggered the event.
-		 * @param bubbles           <Boolean (default = false)> Specifies whether the event can bubble up the display list hierarchy.
-		 * @param cancelable        <Boolean (default = false)> Specifies whether the behavior associated with the event can be prevented.
-		 * @param detail            <String (default = null)> Indicates the unit and direction of scrolling.
-		 *                            The possible values are
-		 *                            DateChooserEventDetail.NEXT_MONTH,
-		 *                            DateChooserEventDetail.NEXT_YEAR,
-		 *                            DateChooserEventDetail.PREVIOUS_MONTH, or
-		 *                            DateChooserEventDetail.PREVIOUS_YEAR.
-		 * @param triggerEvent      <Event (default = null)> The event that triggered this change event;
-		 *                            usually a scroll.
+		 *  The event that triggered this change;	 *  usually a <code>scroll</code>.
 		 */
-		public function DateChooserEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, detail:String = null, triggerEvent:Event = null);
+		public var triggerEvent : Event;
+
 		/**
-		 * The DateChooserEvent.SCROLL constant defines the value of the
-		 *  type property of the event object for a scrollevent.
+		 *  Constructor.	 *  Normally called by the DateChooser object and not used in application code.	 *	 *  @param type The event type; indicates the action that triggered the event.	 *	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.	 *	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.	 *	 *  @param detail Indicates the unit and direction of scrolling.	 *  The possible values are	 *  <code>DateChooserEventDetail.NEXT_MONTH</code>,	 *  <code>DateChooserEventDetail.NEXT_YEAR</code>,	 *  <code>DateChooserEventDetail.PREVIOUS_MONTH</code>, or	 *  <code>DateChooserEventDetail.PREVIOUS_YEAR</code>.	 *	 *  @param triggerEvent The event that triggered this change event;	 *   usually a <code>scroll</code>.
 		 */
-		public static const SCROLL:String = "scroll";
+		public function DateChooserEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, detail:String = null, triggerEvent:Event = null);
+		/**
+		 *  @private
+		 */
+		public function clone () : Event;
 	}
 }

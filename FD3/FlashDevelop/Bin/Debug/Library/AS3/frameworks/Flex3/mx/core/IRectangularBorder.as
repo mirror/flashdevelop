@@ -1,26 +1,25 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
+﻿package mx.core
+{
 	import flash.geom.Rectangle;
-	public interface IRectangularBorder extends IBorder {
+
+	/**
+	 *  The IRectangularBorder interface defines the interface that all classes  *  used for rectangular border skins should implement. *
+	 */
+	public interface IRectangularBorder extends IBorder
+	{
 		/**
-		 * Rectangular area within which to draw the background image.
-		 *  This can be larger than the dimensions of the border
-		 *  if the parent container has scrollable content.
-		 *  If this property is null, the border can use
-		 *  the parent's size and viewMetrics property to determine its value.
+		 *  @copy mx.skins.RectangularBorder#backgroundImageBounds
 		 */
-		public function get backgroundImageBounds():Rectangle;
-		public function set backgroundImageBounds(value:Rectangle):void;
+		public function get backgroundImageBounds () : Rectangle;
+		public function set backgroundImageBounds (value:Rectangle) : void;
 		/**
-		 * Contains true if the RectangularBorder instance
-		 *  contains a background image.
+		 *  @copy mx.skins.RectangularBorder#hasBackgroundImage
 		 */
-		public function get hasBackgroundImage():Boolean;
+		public function get hasBackgroundImage () : Boolean;
+
 		/**
-		 * Layout the background image.
+		 *  @copy mx.skins.RectangularBorder#layoutBackgroundImage()
 		 */
-		public function layoutBackgroundImage():void;
+		public function layoutBackgroundImage () : void;
 	}
 }

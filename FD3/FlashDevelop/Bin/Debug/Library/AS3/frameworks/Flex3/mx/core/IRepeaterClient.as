@@ -1,52 +1,42 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.core {
-	public interface IRepeaterClient {
+﻿package mx.core
+{
+	/**
+	 *  The IRepeaterClient interface defines the APIs for components *  that can have multiple instances created by a Repeater. *  The IRepeaterClient interface is implemented by the UIComponent class *  and so is inherited by all Flex framework controls and containers.
+	 */
+	public interface IRepeaterClient
+	{
 		/**
-		 * An Array that contains the indices required
-		 *  to reference the repeated component instance from its document.
-		 *  This Array is empty unless the component
-		 *  is within one or more Repeaters.
-		 *  The first element corresponds to the outermost Repeater.
-		 *  For example, if the id is "b"
-		 *  and instanceIndices is [ 2, 4 ],
-		 *  you would reference it on the document as b[2][4].
+		 *  An Array that contains the indices required     *  to reference the repeated component instance from its document.      *  This Array is empty unless the component     *  is within one or more Repeaters.     *  The first element corresponds to the outermost Repeater.     *  For example, if the <code>id</code> is <code>"b"</code>     *  and <code>instanceIndices</code> is <code>[ 2, 4 ]</code>,     *  you would reference it on the document as <code>b[2][4]</code>.
 		 */
-		public function get instanceIndices():Array;
-		public function set instanceIndices(value:Array):void;
+		public function get instanceIndices () : Array;
 		/**
-		 * Determines whether this UIComponent instance is a document object,
-		 *  that is, whether it is at the top of the hierarchy of a Flex
-		 *  application, MXML component, or ActionScript component.
+		 *  @private
 		 */
-		public function get isDocument():Boolean;
+		public function set instanceIndices (value:Array) : void;
 		/**
-		 * An Array that contains the indices of the items in the data
-		 *  providers of the Repeaters that produced the component.
-		 *  The Array is empty unless the component is within one or more
-		 *  Repeaters.
-		 *  The first element corresponds to the outermost Repeater component.
-		 *  For example, if repeaterIndices is [ 2, 4 ],
-		 *  the outer Repeater component used its dataProvider[2]
-		 *  data item and the inner Repeater component used its
-		 *  dataProvider[4] data item.
+		 *  @copy mx.core.UIComponent#isDocument
 		 */
-		public function get repeaterIndices():Array;
-		public function set repeaterIndices(value:Array):void;
+		public function get isDocument () : Boolean;
 		/**
-		 * An Array that contains any enclosing Repeaters of the component.
-		 *  The Array is empty unless the component is within one or more Repeaters.
-		 *  The first element corresponds to the outermost Repeater.
+		 *  An Array that contains the indices of the items in the data     *  providers of the Repeaters that produced the component.     *  The Array is empty unless the component is within one or more     *  Repeaters.     *  The first element corresponds to the outermost Repeater component.     *  For example, if <code>repeaterIndices</code> is <code>[ 2, 4 ]</code>,     *  the outer Repeater component used its <code>dataProvider[2]</code>     *  data item and the inner Repeater component used its     *  <code>dataProvider[4]</code> data item.     *     *  <p>This property differs from <code>instanceIndices</code>     *  if the <code>startingIndex</code> of any of the Repeater components     *  is non-zero.     *  For example, even if a Repeater component starts at     *  <code>dataProvider</code> item 4, the document reference of the first     *  repeated component is <code>b[0]</code>, not <code>b[4]</code>.</p>
 		 */
-		public function get repeaters():Array;
-		public function set repeaters(value:Array):void;
+		public function get repeaterIndices () : Array;
 		/**
-		 * Initializes the instanceIndices,
-		 *  repeaterIndices, and repeaters properties.
-		 *
-		 * @param parent            <IRepeaterClient> 
+		 *  @private
 		 */
-		public function initializeRepeaterArrays(parent:IRepeaterClient):void;
+		public function set repeaterIndices (value:Array) : void;
+		/**
+		 *  An Array that contains any enclosing Repeaters of the component.     *  The Array is empty unless the component is within one or more Repeaters.     *  The first element corresponds to the outermost Repeater.
+		 */
+		public function get repeaters () : Array;
+		/**
+		 *  @private
+		 */
+		public function set repeaters (value:Array) : void;
+
+		/**
+		 *  Initializes the <code>instanceIndices</code>,     *  <code>repeaterIndices</code>, and <code>repeaters</code> properties.     *     *  <p>This method is called by the Flex framework.     *  Developers should not need to call it.</p>     *       *  @param parent The parent Repeater that created this component.
+		 */
+		public function initializeRepeaterArrays (parent:IRepeaterClient) : void;
 	}
 }

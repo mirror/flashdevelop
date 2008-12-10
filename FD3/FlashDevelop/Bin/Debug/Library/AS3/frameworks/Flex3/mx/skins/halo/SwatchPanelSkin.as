@@ -1,12 +1,19 @@
-/**********************************************************/
-/*** Generated using Asapire [brainy 2008-Mar-07 11:06] ***/
-/**********************************************************/
-package mx.skins.halo {
+﻿package mx.skins.halo
+{
 	import mx.skins.Border;
-	public class SwatchPanelSkin extends Border {
+
+	/**
+	 *  The skin for the border of a SwatchPanel.
+	 */
+	public class SwatchPanelSkin extends Border
+	{
 		/**
-		 * Constructor.
+		 *  Constructor.
 		 */
-		public function SwatchPanelSkin();
+		public function SwatchPanelSkin ();
+		/**
+		 *  @private
+		 */
+		protected function updateDisplayList (w:Number, h:Number) : void;
 	}
 }
