@@ -122,6 +122,15 @@ namespace ProjectManager.Actions
                 // add player version
                 classPaths.Add(project.MovieOptions.Version.ToString());
 
+                // add special features
+                string[] additional = (project.CompilerOptions as MxmlcOptions).Additional;
+                if (additional != null)
+                foreach (string param in additional)
+                {
+                    if (param.IndexOf("configname=air") >= 0)
+                        classPaths.Add("AIR");
+                }
+
                 // add project classpaths
                 foreach (string cp in project.AbsoluteClasspaths)
                     if (Directory.Exists(cp)) classPaths.Add(cp);

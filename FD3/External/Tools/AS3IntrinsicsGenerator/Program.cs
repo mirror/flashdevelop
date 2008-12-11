@@ -88,13 +88,82 @@ namespace AS3IntrinsicsGenerator
             if (block.Blocks.Count > 0) fileName = Path.Combine(fileName, block.Blocks[0].Name + ".as");
             else if (fileName.Length == 0) fileName = "toplevel.as";
             else fileName = Path.Combine(fileName, "package.as");
-            
-            fileName = Path.Combine("out", fileName);
-            //Console.WriteLine(fileName);
+
+            string dest;
+            if (IsAirTarget(block))
+            {
+                dest = Path.Combine("out\\AIR", fileName);
+                WriteFile(dest, block);
+                if (block.Name == "flash.desktop" || block.Name == "flash.filesystem" 
+                    || block.Name == "flash.html") return;
+                RemoveAIRMembers(block);
+            }
+            if (IsFP10Target(block))
+            {
+                dest = Path.Combine("out\\FP10", fileName);
+                WriteFile(dest, block);
+                if (block.Name == "flash.text.engine") return;
+                RemoveFP10Members(block);
+            }
+
+            if (!IsEmptyBlock(block))
+            {
+                dest = Path.Combine("out\\FP9", fileName);
+                WriteFile(dest, block);
+            }
+        }
+
+        private static bool IsEmptyBlock(BlockModel block)
+        {
+            if (block.Methods.Count > 0) return false;
+            if (block.Properties.Count > 0)
+            {
+                if (block.Blocks.Count == 0 && block.Methods.Count == 0 
+                    && (block.IsAIR || block.IsFP10))
+                {
+                    Console.WriteLine("Considered empty: " + block.Name);
+                    return true;
+                }
+            }
+            foreach (var sub in block.Blocks)
+                if (!IsEmptyBlock(sub)) return false;
+            return true;
+        }
+
+        private static void RemoveFP10Members(BlockModel block)
+        {
+            block.Methods.RemoveAll(model => model.IsFP10);
+            block.Properties.RemoveAll(model => model.IsFP10);
+            block.Blocks.ForEach(sub => RemoveFP10Members(sub));
+        }
+
+        private static void RemoveAIRMembers(BlockModel block)
+        {
+            block.Methods.RemoveAll(model => model.IsAIR);
+            block.Properties.RemoveAll(model => model.IsAIR);
+            block.Blocks.ForEach(sub => RemoveAIRMembers(sub));
+        }
+
+        private static void WriteFile(string fileName, BlockModel block)
+        {
             StringBuilder sb = new StringBuilder();
             block.Format(sb, "");
             Directory.CreateDirectory(Path.GetDirectoryName(fileName));
             File.WriteAllText(fileName, sb.ToString());
+        }
+
+        private static bool IsFP10Target(BlockModel block)
+        {
+            return block.Methods.Exists(model => model.IsFP10)
+                || block.Properties.Exists(model => model.IsFP10)
+                || block.Blocks.Exists(sub => IsFP10Target(sub));
+        }
+
+        private static bool IsAirTarget(BlockModel block)
+        {
+            return block.Methods.Exists(model => model.IsAIR)
+                || block.Properties.Exists(model => model.IsAIR)
+                || block.Blocks.Exists(sub => IsAirTarget(sub));
         }
 
         private static void ParseTopLevelPart(XmlNode part, BlockModel block)
@@ -169,16 +238,22 @@ namespace AS3IntrinsicsGenerator
             {
                 MethodModel model = new MethodModel();
                 model.Name = GetAttribute(node, "name");
-                model.IsAIR = GetAttribute(node, "playername").Trim() == "AIR";
+                model.IsAIR = GetAttribute(node, "playername").Trim() == "AIR" || GetAttribute(node, "version").Trim() == "1.0";
                 model.IsFP10 = GetAttribute(node, "version").Trim() == "1.5";
                 string text = GetAttribute(node, "text");
                 model.IsStatic = text[0] != '.' && model.Name != block.Name;
                 int p = text.IndexOf("):");
-                if (p > 0) model.ReturnType = text.Substring(p + 2);
+                if (p > 0)
+                {
+                    model.ReturnType = text.Substring(p + 2);
+                    if (!model.IsFP10 && model.ReturnType.IndexOf("Vector") >= 0) model.IsFP10 = true;
+                }
                 else if (model.Name != block.Name) model.ReturnType = "void";
                 text = text.Substring(text.IndexOf('%') + 1);
                 text = text.Substring(0, text.LastIndexOf('%'));
                 model.Params = text;
+                if (!model.IsFP10 && model.Params.IndexOf("Vector") > 0)
+                    model.IsFP10 = true;
                 model.Comment = GetAttribute(node, "tiptext");
                 model.FixParams();
                 block.Methods.Add(model);

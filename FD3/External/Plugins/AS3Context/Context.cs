@@ -27,6 +27,7 @@ namespace AS3Context
         
         #region initialization
         private AS3Settings as3settings;
+        private bool hasAIRSupport;
         private MxmlFilterContext mxmlFilterContext; // extract inlined AS3 ranges & MXML tags
         private System.Timers.Timer timerCheck;
         private string fileWithSquiggles;
@@ -138,6 +139,14 @@ namespace AS3Context
                 }
                 catch { }
             }
+            
+            // special features
+            if (exPath.Length > 0 && exPath.StartsWith("AIR;"))
+            {
+                exPath = exPath.Substring(5);
+                hasAIRSupport = true;
+            }
+            else hasAIRSupport = false;
 
             //
             // Class pathes
@@ -146,8 +155,22 @@ namespace AS3Context
             // AS3 intrinsic
             if (as3settings.AS3ClassPath.Length > 0)
             {
-                string as3cp = PathHelper.ResolvePath(as3settings.AS3ClassPath);
-                if (Directory.Exists(as3cp)) AddPath(as3cp);
+                try
+                {
+                    string as3cp = PathHelper.ResolvePath(as3settings.AS3ClassPath);
+                    if (Directory.Exists(as3cp))
+                    {
+                        string fp10cp = Path.Combine(as3cp, "FP10");
+                        if (Directory.Exists(fp10cp))
+                        {
+                            if (hasAIRSupport) AddPath(Path.Combine(as3cp, "AIR"));
+                            if (flashVersion > 9) AddPath(fp10cp);
+                            AddPath(Path.Combine(as3cp, "FP9"));
+                        }
+                        else AddPath(as3cp);
+                    }
+                }
+                catch { }
             }
 
             // add external pathes
