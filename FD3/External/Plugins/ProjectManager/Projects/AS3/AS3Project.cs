@@ -67,7 +67,7 @@ namespace ProjectManager.Projects.AS3
 
         #region SWC assets management
 
-        internal AssetCollection SwcLibraries;
+        public AssetCollection SwcLibraries;
 
         public override bool IsLibraryAsset(string path)
         {
@@ -137,6 +137,7 @@ namespace ProjectManager.Projects.AS3
                 asset.SwfMode = SwfAssetMode.ExternalLibrary;
                 SwcLibraries.Add(asset);
             }
+            OnClasspathChanged();
         }
 
         public static AS3Project Load(string path)

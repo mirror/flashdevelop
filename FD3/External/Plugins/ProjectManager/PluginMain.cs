@@ -44,6 +44,7 @@ namespace ProjectManager
         public const string BuildFailed = "ProjectManager.BuildFailed";
         public const string FileMapping = "ProjectManager.FileMapping";
         public const string TreeSelectionChanged = "ProjectManager.TreeSelectionChanged";
+        public const string OpenVirtualFile = "ProjectManager.OpenVirtualFile";
     }
 
 	public class PluginMain : IPlugin
@@ -558,6 +559,11 @@ namespace ProjectManager
                 ProcessHelper.StartAsync(psi);
             }
             else if (FileInspector.IsSwf(path, Path.GetExtension(path))) OpenSwf(path);
+            else if (path.IndexOf("::") > 0)
+            {
+                DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.OpenVirtualFile, path);
+                EventManager.DispatchEvent(this, de);
+            }
             else MainForm.OpenEditableDocument(path);
         }
 
@@ -673,6 +679,7 @@ namespace ProjectManager
         {
             projectActions.UpdateASCompletion(MainForm, project);
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
+            Tree.RebuildTree(true);
         }
 
         private void NewProject()
@@ -741,7 +748,8 @@ namespace ProjectManager
 
         private void SettingChanged(string setting)
         {
-            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths")
+            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" 
+                || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths")
             {
                 Tree.RebuildTree(true);
             }

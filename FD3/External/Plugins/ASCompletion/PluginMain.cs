@@ -336,6 +336,18 @@ namespace ASCompletion
                                 }
                             }
                         }
+                        else if (command == "ProjectManager.OpenVirtualFile")
+                        {
+                            string cmdData = (e as DataEvent).Data as string;
+                            if (Regex.IsMatch(cmdData, "\\.(swf|swc)::"))
+                            {
+                                string[] path = Regex.Split(cmdData, "::");
+                                cmdData = path[0] + Path.DirectorySeparatorChar
+                                    + path[1].Replace('.', Path.DirectorySeparatorChar).Replace("::", Path.DirectorySeparatorChar.ToString())
+                                    + "$.as";
+                                ModelsExplorer.Instance.OpenFile(cmdData);
+                            }
+                        }
                         break;
                 }
 

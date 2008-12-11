@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using ProjectManager.Projects;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using ProjectManager.Projects.AS3;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -239,14 +240,12 @@ namespace ProjectManager.Controls.TreeView
 			if (PluginMain.Settings.ShowGlobalClasspaths)
 				classpaths.AddRange(PluginMain.Settings.GlobalClasspaths);
 
-			// add classpaths at the top level also
+			// add external classpaths at the top level also
 			foreach (string classpath in classpaths)
 			{
 				string absolute = classpath;
-
 				if (!Path.IsPathRooted(absolute))
 					absolute = project.GetAbsolutePath(classpath);
-				
 				if (absolute.StartsWith(project.Directory))
 					continue;
 
@@ -255,6 +254,23 @@ namespace ProjectManager.Controls.TreeView
 				cpNode.Refresh(true);
 				ShowRootLines = true;
 			}
+
+            // add external libraries at the top level also
+            if (project is AS3Project)
+            foreach (LibraryAsset asset in (project as AS3Project).SwcLibraries)
+            {
+                if (!asset.IsSwc) continue;
+                string absolute = asset.Path;
+                if (!Path.IsPathRooted(absolute))
+                    absolute = project.GetAbsolutePath(asset.Path);
+                if (absolute.StartsWith(project.Directory))
+                    continue;
+
+                SwfFileNode swcNode = new SwfFileNode(absolute);
+                Nodes.Add(swcNode);
+                swcNode.Refresh(true);
+                ShowRootLines = true;
+            }
 
 			// restore tree state
 			ExpandedPaths = previouslyExpanded;

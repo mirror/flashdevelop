@@ -39,7 +39,7 @@ namespace ProjectManager.Controls.TreeView
 		public string Export;
 		public string ContainingSwfPath;
 
-		public ExportNode(string filePath, string export) : base(filePath+";"+export)
+		public ExportNode(string filePath, string export) : base(filePath+"::"+export)
 		{
 			ContainingSwfPath = filePath;
             if (export.IndexOf(' ') < 0) Export = export;

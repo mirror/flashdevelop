@@ -240,6 +240,7 @@ namespace ProjectManager.Controls.TreeView
         {
             // it DOES make sense to allow insert of assets inside the injection target!
             if (project.UsesInjection && project.GetRelativePath(node.ContainingSwfPath) != project.InputPath) return;
+            if (node is ClassExportNode) menu.Add(Open, 0);
             menu.Add(Insert, 0);
         }
 

@@ -146,15 +146,20 @@ namespace ASCompletion
         #endregion
 
         #region Nodes population
+        private void DetectContext()
+        {
+            current = ASContext.Context;
+            if (PluginBase.CurrentProject != null)
+                current = ASContext.GetLanguageContext(PluginBase.CurrentProject.Language);
+        }
+
         /// <summary>
         /// Display types in each classpath
         /// </summary>
         /// <param name="context">Language context to explore</param>
         public void UpdateTree()
         {
-            current = ASContext.Context;
-            if (PluginBase.CurrentProject != null)
-                current = ASContext.GetLanguageContext(PluginBase.CurrentProject.Language);
+            DetectContext();
             filterTextBox.Text = "";
 
             outlineTreeView.BeginUpdate();
@@ -323,12 +328,24 @@ namespace ASCompletion
             }
         }
 
-        private FileModel OpenFile(string filename)
+        /// <summary>
+        /// Open a file in the classpath (physical or virtual) or the current context
+        /// </summary>
+        public FileModel OpenFile(string filename)
         {
-            if (current == null || current.Classpath == null)
+            if (current == null) DetectContext();
+            return OpenFile(filename, current);
+        }
+
+        /// <summary>
+        /// Open a file in the classpath (physical or virtual) or a specific context
+        /// </summary>
+        public FileModel OpenFile(string filename, IASContext context)
+        {
+            if (context == null || context.Classpath == null)
                 return null;
             FileModel model = null;
-            foreach (PathModel aPath in current.Classpath)
+            foreach (PathModel aPath in context.Classpath)
                 if (aPath.HasFile(filename))
                 {
                     model = aPath.GetFile(filename);
