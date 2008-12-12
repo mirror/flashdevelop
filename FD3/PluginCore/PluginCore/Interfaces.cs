@@ -194,6 +194,7 @@ namespace PluginCore
     {
         #region ISettings Properties
 
+        Font EditorFont { get; set; }
         Font DefaultFont { get; set; }
         Font ConsoleFont { get; set; }
         Color HighlightAllColor { get; set; }
@@ -250,6 +251,7 @@ namespace PluginCore
         Int32 CaretPeriod { get; set; }
         Int32 CaretWidth { get; set; }
         Int32 ScrollWidth { get; set; }
+        Int32 PrintMarginWidth  { get; set; }
         Size WindowSize { get; set; }
         FormWindowState WindowState { get; set; }
         Point WindowPosition { get; set; }

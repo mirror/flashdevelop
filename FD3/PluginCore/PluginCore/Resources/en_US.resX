@@ -2652,4 +2652,10 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="TaskListPanel.Info.InvalidFile" xml:space="preserve">
     <value>The file could not be found. The task list will be refreshed.</value>
   </data>
+  <data name="FlashDevelop.Description.EditorFont" xml:space="preserve">
+    <value>Global default font of the editor component.</value>
+  </data>
+  <data name="FlashDevelop.Description.PrintMarginWidth" xml:space="preserve">
+    <value>Shows the print margin on the right where the text should be kept.</value>
+  </data>
 </root>

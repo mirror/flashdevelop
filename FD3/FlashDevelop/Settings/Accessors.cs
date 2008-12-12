@@ -111,6 +111,16 @@ namespace FlashDevelop.Settings
             set { this.highlightGuide = value; }
         }
 
+        [DefaultValue(0)]
+        [DisplayName("Print Margin Width")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.PrintMarginWidth")]
+        public Int32 PrintMarginWidth
+        {
+            get { return this.printMarginWidth; }
+            set { this.printMarginWidth = value; }
+        }
+
         [DefaultValue(false)]
         [DisplayName("View EOL Characters")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
@@ -269,6 +279,16 @@ namespace FlashDevelop.Settings
         {
             get { return this.uiRenderMode; }
             set { this.uiRenderMode = value; }
+        }
+
+        [DisplayName("UI Editor Font")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.EditorFont")]
+        [DefaultValue(typeof(Font), "Courier New, 8.75pt")]
+        public Font EditorFont
+        {
+            get { return this.editorFont; }
+            set { this.editorFont = value; }
         }
 
         [DisplayName("UI Console Font")]

@@ -14,12 +14,11 @@
 	<globals>
 		<value name="default-fore">0x000000</value>
 		<value name="default-back">0xffffff</value>
-		<value name="default-font">Courier New</value>
-		<value name="default-font-size">9</value>
+		<value name="default-caret-fore">0x000000</value>
 		<value name="default-selection-fore">0xffffff</value>
 		<value name="default-selection-back">0x000000</value>
 		<value name="default-caretline-back">0xececec</value>
-		<value name="default-caret-fore">0x000000</value>
+		<value name="default-font">setting-defined</value>
 	</globals>
 	<style-classes>
 		<style-class name="default" fore="default-fore" back="default-back" size="default-font-size" font="default-font" />

@@ -235,6 +235,12 @@ namespace FlashDevelop.Managers
                 else if (useFolding) sci.SetMarginWidthN(2, 15);
                 else sci.SetMarginWidthN(2, 2);
                 /**
+                * Adjust the print margin
+                */
+                sci.EdgeColumn = Globals.Settings.PrintMarginWidth;
+                if (sci.EdgeColumn > 0) sci.EdgeMode = 1;
+                else sci.EdgeMode = 0;
+                /**
                 * Add missing ignored keys
                 */
                 Int32 count = Globals.MainForm.IgnoredKeys.Count;
@@ -274,6 +280,7 @@ namespace FlashDevelop.Managers
             sci.EndAtLastLine = 1;
             sci.EdgeColumn = 0;
             sci.EdgeMode = 0;
+            sci.EdgeColour = DataConverter.ColorToInt32(Globals.Settings.BookmarkLineColor);
             sci.IsHScrollBar = true;
             sci.IsMouseDownCaptures = true;
             sci.IsBufferedDraw = true;
