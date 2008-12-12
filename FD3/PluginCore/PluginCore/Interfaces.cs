@@ -251,7 +251,7 @@ namespace PluginCore
         Int32 CaretPeriod { get; set; }
         Int32 CaretWidth { get; set; }
         Int32 ScrollWidth { get; set; }
-        Int32 PrintMarginWidth  { get; set; }
+        Int32 PrintMarginColumn  { get; set; }
         Size WindowSize { get; set; }
         FormWindowState WindowState { get; set; }
         Point WindowPosition { get; set; }

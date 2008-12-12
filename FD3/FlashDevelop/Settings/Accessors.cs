@@ -112,13 +112,13 @@ namespace FlashDevelop.Settings
         }
 
         [DefaultValue(0)]
-        [DisplayName("Print Margin Width")]
+        [DisplayName("Print Margin Column")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.PrintMarginWidth")]
-        public Int32 PrintMarginWidth
+        [LocalizedDescription("FlashDevelop.Description.PrintMarginColumn")]
+        public Int32 PrintMarginColumn
         {
-            get { return this.printMarginWidth; }
-            set { this.printMarginWidth = value; }
+            get { return this.printMarginColumn; }
+            set { this.printMarginColumn = value; }
         }
 
         [DefaultValue(false)]

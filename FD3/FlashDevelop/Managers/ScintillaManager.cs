@@ -237,7 +237,7 @@ namespace FlashDevelop.Managers
                 /**
                 * Adjust the print margin
                 */
-                sci.EdgeColumn = Globals.Settings.PrintMarginWidth;
+                sci.EdgeColumn = Globals.Settings.PrintMarginColumn;
                 if (sci.EdgeColumn > 0) sci.EdgeMode = 1;
                 else sci.EdgeMode = 0;
                 /**
@@ -280,7 +280,6 @@ namespace FlashDevelop.Managers
             sci.EndAtLastLine = 1;
             sci.EdgeColumn = 0;
             sci.EdgeMode = 0;
-            sci.EdgeColour = DataConverter.ColorToInt32(Globals.Settings.BookmarkLineColor);
             sci.IsHScrollBar = true;
             sci.IsMouseDownCaptures = true;
             sci.IsBufferedDraw = true;

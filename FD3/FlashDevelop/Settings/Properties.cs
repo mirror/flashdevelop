@@ -39,7 +39,7 @@ namespace FlashDevelop.Settings
         private Int32 caretWidth = 2;
         private Int32 scrollWidth = 3000;
         private Int32 latestCommand = 0;
-        private Int32 printMarginWidth = 0;
+        private Int32 printMarginColumn = 0;
         private Int32 backupInterval = 15000;
         private LocaleVersion localeVersion = LocaleVersion.en_US;
         private List<Argument> customArguments = new List<Argument>();
