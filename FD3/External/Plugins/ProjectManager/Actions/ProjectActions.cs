@@ -123,12 +123,15 @@ namespace ProjectManager.Actions
                 classPaths.Add(project.MovieOptions.Version.ToString());
 
                 // add special features
-                string[] additional = (project.CompilerOptions as MxmlcOptions).Additional;
-                if (additional != null)
-                foreach (string param in additional)
+                if (project is AS3Project)
                 {
-                    if (param.IndexOf("configname=air") >= 0)
-                        classPaths.Add("AIR");
+                    string[] additional = (project.CompilerOptions as MxmlcOptions).Additional;
+                    if (additional != null)
+                        foreach (string param in additional)
+                        {
+                            if (param.IndexOf("configname=air") >= 0)
+                                classPaths.Add("AIR");
+                        }
                 }
 
                 // add project classpaths
