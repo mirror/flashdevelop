@@ -689,7 +689,7 @@ namespace FlashDevelop.Settings
 
         #region Controls
 
-        [DefaultValue(400)]
+        [DefaultValue(500)]
         [DisplayName("Hover Delay")]
         [LocalizedCategory("FlashDevelop.Category.Controls")]
         [LocalizedDescription("FlashDevelop.Description.HoverDelay")]
