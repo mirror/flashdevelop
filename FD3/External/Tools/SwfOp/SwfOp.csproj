@@ -214,6 +214,7 @@
     <Compile Include="Data\Tags\FrameTag.cs" />
     <Compile Include="Data\Tags\InitActionTag.cs" />
     <Compile Include="Data\Tags\JpegTable.cs" />
+    <Compile Include="Data\Tags\MetaDataTag.cs" />
     <Compile Include="Data\Tags\PlaceObject2Tag.cs" />
     <Compile Include="Data\Tags\ScriptLimitTag.cs" />
     <Compile Include="Data\Tags\TagCodeEnum.cs" />

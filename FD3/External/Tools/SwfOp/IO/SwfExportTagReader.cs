@@ -51,6 +51,9 @@ namespace SwfOp.IO
                 case TagCodeEnum.FrameLabel:
                     return ReadFrameTag(offset);
 
+                case TagCodeEnum.MetaData:
+                    return ReadMetaDataTag(offset);
+
 				default:
                     // Dump tag
                     /*br.BaseStream.Position += offset;
@@ -80,6 +83,13 @@ namespace SwfOp.IO
                 names.Add(ReadString());
             }
             return new ExportTag(ids, names);
+        }
+
+        BaseTag ReadMetaDataTag(int offset)
+        {
+            br.BaseStream.Position += offset;
+            string meta = ReadString();
+            return new MetaDataTag(meta);
         }
 
         BaseTag ReadFrameTag(int offset)
