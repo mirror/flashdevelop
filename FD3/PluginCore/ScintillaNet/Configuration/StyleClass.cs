@@ -163,7 +163,7 @@ namespace ScintillaNet.Configuration
                     if (p.FontName == "setting-defined")
                     {
                         Font sfont = PluginCore.PluginBase.Settings.EditorFont;
-                        return (Int32)sfont.Size;
+                        return (Int32)sfont.SizeInPoints;
                     }
                     else return p.FontSize;
                 }
