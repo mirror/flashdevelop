@@ -19,8 +19,8 @@ package flash.net
 		 */
 		public static const AMF3:uint = 3;
 		/**
-		 * Specifies the default (latest) format for the current runtime (either FlashÂ®
-		 *  Player or AdobeÂ® AIRâ„¢). Because object encoding control is only
+		 * Specifies the default (latest) format for the current runtime (either Flash®
+		 *  Player or Adobe® AIR. Because object encoding control is only
 		 *  available in Flash Player 9 and later and Adobe AIR, the earliest format used will be
 		 *  the Action Message Format for ActionScript 3.0.
 		 */

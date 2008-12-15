@@ -7,13 +7,11 @@ package flash.sampler
 		 *  undefined and a corresponding DeleteObjectSample exists.
 		 */
 		public function get object():*;
-		/**
-		 * The unique identification number that matches up with a DeleteObjectSample's identification number.
-		 */
+		
+		/// The unique identification number that matches up with a DeleteObjectSample's identification number.
 		public const id:Number;
-		/**
-		 * The Class object corresponding to the object created within a getSamples() stream.
-		 */
+		
+		/// The Class object corresponding to the object created within a getSamples() stream.
 		public const type:Class;
 	}
 	

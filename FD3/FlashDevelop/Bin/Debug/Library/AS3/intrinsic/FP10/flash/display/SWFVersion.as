@@ -28,6 +28,9 @@ package flash.display
 		
 		/// SWF file format version 9.0.
 		public static const FLASH9:uint = 9;
+		
+		/// SWF file format version 10.0.
+		public static const FLASH10:uint = 10;
 	}
 	
 }

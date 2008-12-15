@@ -7,9 +7,8 @@ package flash.sampler
 		 *  stack trace is similiar to the content shown in the exception dialog box of the Flash Player debugger version.
 		 */
 		public const stack:Array;
-		/**
-		 * The microseconds that define the duration of the Sample instance.
-		 */
+		
+		/// The microseconds that define the duration of the Sample instance.
 		public const time:Number;
 	}
 	

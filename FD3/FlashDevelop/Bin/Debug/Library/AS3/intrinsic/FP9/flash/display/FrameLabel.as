@@ -8,11 +8,7 @@
 		/// The name of the label.
 		public function get name():String;
 
-		/**
-		 * Create a new FrameLabel instance.
-		 * @param name              <String> The name of the label.
-		 * @param frame             <uint> The frame of the label.
-		 */
+		/// Create a new FrameLabel instance.
 		public function FrameLabel(name:String, frame:uint);
 	}
 	
