@@ -3,6 +3,9 @@ package flash.system
 	/// The ApplicationDomain class is a container for discrete groups of class definitions.
 	public class ApplicationDomain
 	{
+		/// [FP10] Gets the minimum memory object length required to be used as ApplicationDomain.domainMemory.
+		public static const MIN_DOMAIN_MEMORY_LENGTH:uint;
+
 		/// Gets the current application domain in which your code is executing.
 		public static var currentDomain:flash.system.ApplicationDomain;
 
