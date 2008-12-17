@@ -96,10 +96,10 @@ package flash.display
 		/// Indicates the rotation of the DisplayObject instance, in degrees, from its original orientation.
 		public var rotation:Number;
 
-		/// Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
+		/// [FP10] Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
 		public var rotationX:Number;
 
-		/// Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
+		/// [FP10] Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
 		public var rotationY:Number;
 
 		/// [FP10] Indicates the z-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.

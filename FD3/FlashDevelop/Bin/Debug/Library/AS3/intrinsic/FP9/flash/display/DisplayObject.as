@@ -98,12 +98,6 @@ package flash.display
 		/// Indicates the rotation of the DisplayObject instance, in degrees, from its original orientation.
 		public var rotation:Number;
 
-		/// Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
-		public var rotationX:Number;
-
-		/// Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
-		public var rotationY:Number;
-
 		/// Indicates the alpha transparency value of the object specified.
 		public var alpha:Number;
 
