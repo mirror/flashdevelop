@@ -895,10 +895,10 @@ namespace ASCompletion.Model
                         }
 
 						// beginning of method parameters
-						if (context == FlagType.Function)
-						{
-							context = FlagType.Variable;
-							inParams = true;
+                        if (context == FlagType.Function)
+                        {
+                            context = FlagType.Variable;
+                            inParams = true;
                             if (valueMember != null && curMember == null)
                             {
                                 valueLength = 0;
@@ -907,43 +907,43 @@ namespace ASCompletion.Model
                                 curMethod = curMember = valueMember;
                                 valueMember = null;
                             }
-							else if (curMember == null)
-							{
-								context = FlagType.Function;
-								if ((curModifiers & FlagType.Getter) > 0) 
-								{
-									curModifiers -= FlagType.Getter;
-									EvalToken(true, false, i);
-									curMethod = curMember;
-								}
-								else if ((curModifiers & FlagType.Setter) > 0) 
-								{
-									curModifiers -= FlagType.Setter;
-									EvalToken(true, false, i);
-									curMethod = curMember;
-								}
-								else
-								{
-									inParams = false;
-									context = 0;
-								}
-							}
-							else 
-							{
-								curMethod = curMember;
-							}
-						}
-						
-						// an Enum value with parameters
-						else if (inEnum && curToken != null)
-						{
-							context = FlagType.Variable;
-							inParams = true;
-							curMethod = curMember ?? new MemberModel();
-							curMethod.Name = curToken.Text;
-							curMethod.Flags = curModifiers | FlagType.Function | FlagType.Static;
+                            else if (curMember == null)
+                            {
+                                context = FlagType.Function;
+                                if ((curModifiers & FlagType.Getter) > 0)
+                                {
+                                    curModifiers -= FlagType.Getter;
+                                    EvalToken(true, false, i);
+                                    curMethod = curMember;
+                                }
+                                else if ((curModifiers & FlagType.Setter) > 0)
+                                {
+                                    curModifiers -= FlagType.Setter;
+                                    EvalToken(true, false, i);
+                                    curMethod = curMember;
+                                }
+                                else
+                                {
+                                    inParams = false;
+                                    context = 0;
+                                }
+                            }
+                            else
+                            {
+                                curMethod = curMember;
+                            }
+                        }
+
+                        // an Enum value with parameters
+                        else if (inEnum && curToken != null)
+                        {
+                            context = FlagType.Variable;
+                            inParams = true;
+                            curMethod = curMember ?? new MemberModel();
+                            curMethod.Name = curToken.Text;
+                            curMethod.Flags = curModifiers | FlagType.Function | FlagType.Static;
                             curMethod.Parameters = new List<MemberModel>();
-							//
+                            //
                             if (curClass != null && curMember == null) curClass.Members.Add(curMethod);
                         }
 
@@ -959,6 +959,8 @@ namespace ASCompletion.Model
                             //
                             if (curClass != null && curMember == null) curClass.Members.Add(curMethod);
                         }
+
+                        else if (curMember == null) context = 0;
 					}
 					
 					// end of statement
@@ -986,7 +988,7 @@ namespace ASCompletion.Model
 					{
                         if (context == FlagType.Variable || (context == FlagType.Enum && inEnum))
                         {
-                            if (!inValue)
+                            if (!inValue && curMember != null)
                             {
                                 inValue = true;
                                 inConst = (curMember.Flags & FlagType.Constant) > 0;

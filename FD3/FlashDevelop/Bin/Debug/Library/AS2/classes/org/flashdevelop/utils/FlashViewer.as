@@ -20,7 +20,7 @@ class org.flashdevelop.utils.FlashViewer
 	/**
 	* Sends a trace message to the ActiveX component.
 	*/
-	public static function trace(message:String, level:Number)
+	public static function trace(value:Object, level:Number)
 	{
 		counter++;
 		if (counter > limit && !aborted)
@@ -31,18 +31,18 @@ class org.flashdevelop.utils.FlashViewer
 		} 
 		if (!aborted) 
 		{
-			if (!isNaN(level)) fscommand("trace", level.toString() + ":" + message.toString());
-			else fscommand("trace", message.toString());
+			if (!isNaN(level)) fscommand("trace", level + ":" + value);
+			else fscommand("trace", value.toString());
 		}
 	}
 	
 	/**
 	* Adds compatibility with MTASC's tracing facilities.
 	*/
-	public static function mtrace(message:Object, method:String, path:String, line:Number):Void 
+	public static function mtrace(value:Object, method:String, path:String, line:Number):Void 
 	{
 		if (path.charAt(1) != ":") path = "~/" + path;
-		var formatted:String = path + ":" + line + ":" + message;
+		var formatted:String = path + ":" + line + ":" + value;
 		FlashViewer.trace(formatted);
 	}
 	

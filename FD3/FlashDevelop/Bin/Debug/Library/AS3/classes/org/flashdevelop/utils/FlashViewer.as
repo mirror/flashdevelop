@@ -23,7 +23,7 @@ package org.flashdevelop.utils
 		/**
 		* Sends a trace message to the ActiveX component.
 		*/
-		public static function trace(message:String, level:Number = 1):void
+		public static function trace(value:Object, level:Number = 1):void
 		{
 			counter++;
 			if (counter > limit && !aborted)
@@ -32,16 +32,16 @@ package org.flashdevelop.utils
 				var msg:String = "FlashViewer aborted. You have reached the limit of maximum messages.";
 				fscommand("trace", "3:" + msg);
 			} 
-			if (!aborted) fscommand("trace", level.toString() + ":" + message.toString());
+			if (!aborted) fscommand("trace", level + ":" + value);
 		}
 		
 		/**
 		* Sends a trace message to the ActiveX component, MTASC style.
 		*/
-		public static function mtrace(message:Object, method:String, path:String, line:Number):void 
+		public static function mtrace(value:Object, method:String, path:String, line:Number):void 
 		{
 			var fixed:String = path.split("/").join("\\");
-			var formatted:String = fixed + ":" + line + ":" + message;
+			var formatted:String = fixed + ":" + line + ":" + value;
 			FlashViewer.trace(formatted, TraceLevel.DEBUG);
 		}
 		

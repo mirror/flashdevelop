@@ -42,19 +42,19 @@ class org.flashdevelop.utils.FlashConnect
 	/**
 	* Adds a trace command to the message stack.
 	*/
-	public static function trace(message:String, level:Number):Void 
+	public static function trace(value:Object, level:Number):Void 
 	{
-		var msgNode:XMLNode = createMsgNode(message, level);
+		var msgNode:XMLNode = createMsgNode(value.toString(), level);
 		FlashConnect.send(msgNode);
 	}
 	
 	/**
 	* Adds compatibility with MTASC's tracing facilities.
 	*/
-	public static function mtrace(message:Object, method:String, path:String, line:Number):Void 
+	public static function mtrace(value:Object, method:String, path:String, line:Number):Void 
 	{
 		if (path.charAt(1) != ":") path = "~/" + path;
-		var formatted:String = path + ":" + line + ":" + message;
+		var formatted:String = path + ":" + line + ":" + value;
 		FlashConnect.trace(formatted, TraceLevel.DEBUG);
 	}
 	

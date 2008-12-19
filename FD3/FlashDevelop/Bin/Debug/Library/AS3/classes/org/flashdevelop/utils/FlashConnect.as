@@ -46,9 +46,9 @@ package org.flashdevelop.utils
 		/**
 		* Adds a trace command to the message stack.
 		*/
-		public static function trace(message:String, level:Number = TraceLevel.DEBUG):void
+		public static function trace(value:Object, level:Number = TraceLevel.DEBUG):void
 		{
-			var msgNode:XMLNode = createMsgNode(message, level);
+			var msgNode:XMLNode = createMsgNode(value.toString(), level);
 			FlashConnect.send(msgNode);
 		}
 		
@@ -65,10 +65,10 @@ package org.flashdevelop.utils
 		/**
 		* Adds a trace command to the message stack, MTASC style.
 		*/
-		public static function mtrace(message:Object, method:String, path:String, line:Number):void 
+		public static function mtrace(value:Object, method:String, path:String, line:Number):void 
 		{
 			var fixed:String = path.split("/").join("\\");
-			var formatted:String = fixed + ":" + line + ":" + message;
+			var formatted:String = fixed + ":" + line + ":" + value;
 			FlashConnect.trace(formatted, TraceLevel.DEBUG);
 		}
 		
