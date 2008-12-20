@@ -469,7 +469,7 @@ namespace PluginCore.Controls
                     if (!changed)
                     {
                         // preselected item
-                        lastIndex = TestDefaultItem(lastIndex, word, len);
+                        if (lastScore > 2) lastIndex = TestDefaultItem(lastIndex, word, len);
                         completionList.SelectedIndex = lastIndex;
                         return;
                     }
@@ -489,7 +489,7 @@ namespace PluginCore.Controls
                         }
 					}
                     Int32 topIndex = lastIndex;
-                    lastIndex = TestDefaultItem(lastIndex, word, len);
+                    if (lastScore > 2) lastIndex = TestDefaultItem(lastIndex, word, len);
 					// select first item
                     completionList.TopIndex = topIndex;
                     completionList.SelectedIndex = lastIndex;
