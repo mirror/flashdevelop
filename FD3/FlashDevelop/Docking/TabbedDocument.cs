@@ -256,7 +256,7 @@ namespace FlashDevelop.Docking
                 this.SciControl.CodePage = ScintillaManager.SelectCodePage(codepage);
                 this.SciControl.IsReadOnly = FileHelper.FileIsReadOnly(this.FileName);
                 this.SciControl.Text = contents;
-                this.SciControl.CurrentPos = position;
+                this.SciControl.SetSel(position, position);
                 this.SciControl.EmptyUndoBuffer();
                 this.SciControl.Focus();
             }
