@@ -159,7 +159,7 @@ namespace AS3Context
             set
             {
                 if (value == flashVersion) return;
-                if (value <= 9)
+                if (value <= 10)
                 {
                     flashVersion = value;
                     FireChanged();
