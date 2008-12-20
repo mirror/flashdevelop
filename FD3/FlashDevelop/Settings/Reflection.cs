@@ -80,7 +80,7 @@ namespace FlashDevelop.Settings
         {
             SettingObject settings = new SettingObject();
             List<Argument> arguments = new List<Argument>();
-            arguments.Add(new Argument("DefaultUser", "DefaultUser (Tools -> Custom Arguments...)"));
+            arguments.Add(new Argument("DefaultUser", "..."));
             settings.CustomArguments = arguments;
             return settings;
         }
