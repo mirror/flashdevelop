@@ -963,7 +963,7 @@ namespace ASCompletion.Completion
 		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci)
 		{
 			// find method
-			int position = Sci.CurrentPos-1;
+			int position = Sci.CurrentPos - 1;
 			int parCount = 0;
 			int braCount = 0;
 			int comaCount = 0;
@@ -992,9 +992,9 @@ namespace ASCompletion.Completion
 						break;
 					}
 					// skip {} () [] blocks
-					if ( ((braCount > 0) && (c != '{'))
-					    || ((arrCount > 0) && (c != '['))
-					    || ((parCount > 0) && (c != '(')))
+					if ( ((braCount > 0) && (c != '{' && c != '}'))
+					    || ((parCount > 0) && (c != '(' && c != ')'))
+					    || ((arrCount > 0) && (c != '[' && c != ']')) )
 					{
 						position--;
 						continue;
