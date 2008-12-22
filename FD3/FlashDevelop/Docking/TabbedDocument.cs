@@ -23,16 +23,20 @@ namespace FlashDevelop.Docking
         private Timer backupTimer;
         private String previousText;
         private Boolean useCustomIcon;
+        private Timer fileChangeTimer;
         private Boolean isModified;
         private FileInfo fileInfo;
 
         public TabbedDocument()
 		{
-            this.BackColor = Color.White;
-            this.DockAreas = DockAreas.Document;
-            this.DockPanel = Globals.MainForm.DockPanel;
+            this.fileChangeTimer = new Timer();
+            this.fileChangeTimer.Interval = 100;
+            this.fileChangeTimer.Tick += new EventHandler(this.OnFileChangeTimerTick);
             this.ControlAdded += new ControlEventHandler(this.DocumentControlAdded);
+            this.DockPanel = Globals.MainForm.DockPanel;
             this.Font = Globals.Settings.DefaultFont;
+            this.DockAreas = DockAreas.Document;
+            this.BackColor = Color.White;
             this.useCustomIcon = false;
             this.StartBackupTiming();
 		}
@@ -168,13 +172,22 @@ namespace FlashDevelop.Docking
                 if (this.fileInfo.LastWriteTime != fi.LastWriteTime)
                 {
                     this.fileInfo = fi;
-                    String dlgTitle = TextHelper.GetString("Title.InfoDialog");
-                    String message = TextHelper.GetString("Info.FileIsModifiedOutside");
-                    if (MessageBox.Show(Globals.MainForm, message, " " + dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        this.Reload(false);
-                    }
+                    this.fileChangeTimer.Start();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Shows the file change confirmation after a delay
+        /// </summary>
+        private void OnFileChangeTimerTick(Object sender, EventArgs e)
+        {
+            this.fileChangeTimer.Stop();
+            String dlgTitle = TextHelper.GetString("Title.InfoDialog");
+            String message = TextHelper.GetString("Info.FileIsModifiedOutside");
+            if (MessageBox.Show(Globals.MainForm, message, " " + dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                this.Reload(false);
             }
         }
 
