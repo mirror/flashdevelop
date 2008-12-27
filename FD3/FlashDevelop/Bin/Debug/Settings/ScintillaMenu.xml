@@ -1,9 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <scintillamenu>
 	<menu label="Label.Edit" name="EditMenu">
+		<button label="Label.CutLine" click="ScintillaCommand" tag="LineCut" shortcut="Control|Shift|X" flags="Enable:IsEditable" />
+		<button label="Label.CopyLine" click="ScintillaCommand" tag="LineCopy" shortcut="Control|Shift|C" flags="Enable:IsEditable" />
+		<button label="Label.DeleteLine" click="ScintillaCommand" tag="LineDelete" shortcut="Control|Shift|D" flags="Enable:IsEditable" />
+		<button label="Label.TransposeLines" click="ScintillaCommand" tag="LineTranspose" shortcut="Control|T" flags="Enable:IsEditable" />
+		<button label="Label.DuplicateLine" click="ScintillaCommand" tag="LineDuplicate" shortcut="Control|D" flags="Enable:IsEditable" />
+		<button label="Label.SortLineGroups" click="SortLineGroups" flags="Enable:IsEditable|Enable:HasSelection" />
+		<button label="Label.SortLines" click="SortLines" flags="Enable:IsEditable|Enable:HasSelection" />
+		<separator />
 		<button label="Label.ToUppercase" click="ScintillaCommand" tag="UpperCase" shortcut="Control|U" image="458" flags="Enable:HasSelection" />
 		<button label="Label.ToLowercase" click="ScintillaCommand" tag="LowerCase" shortcut="Control|L" image="446" flags="Enable:HasSelection" />
+		<separator />
+		<button label="Label.CommentLine" click="CommentLine" shortcut="Control|Q" flags="Enable:IsEditable" />
+		<button label="Label.UncommentLine" click="UncommentLine" shortcut="Control|Shift|Q" flags="Enable:IsEditable" />
+		<button label="Label.CommentSelection" click="CommentSelection" shortcut="Control|Shift|B" flags="Enable:IsEditable|HasSelection" />
+		<separator />
+		<button label="Label.SaveAsTemplate" click="SaveAsTemplate" flags="Enable:HasSelection" />
+		<button label="Label.SaveAsSnippet" click="SaveAsSnippet" flags="Enable:HasSelection" />
 	</menu>
+	<menu label="Label.Insert" name="InsertMenu">
+		<button label="Label.FromFile" click="InsertFile" tag="$(OpenFile)" flags="Enable:IsEditable" />
+		<button label="Label.FileDetails" click="InsertFileDetails" flags="Enable:IsEditable|!IsUntitled" />
+		<button label="Label.Timestamp" click="InsertTimestamp" tag="g" flags="Enable:IsEditable" />
+		<separator />
+		<button label="Label.Snippet" click="InsertSnippet" shortcut="Control|B" tag="null" flags="Enable:IsEditable" />
+		<button label="Label.Color" click="InsertColor" shortcut="Control|Shift|K" flags="Enable:IsEditable" />
+		<button label="Label.GUID" click="InsertGUID" shortcut="Control|Shift|I" flags="Enable:IsEditable" />
+	</menu>
+	<menu label="Label.Search" name="SearchMenu">
+		<button label="Label.GotoMatchingBrace" click="GoToMatchingBrace" shortcut="Control|M" image="67" flags="Enable:IsEditable" />
+		<button label="Label.GotoPositionOrLine" click="GoTo" shortcut="Control|G" image="67" flags="Enable:IsEditable" />
+		<separator />
+		<button label="Label.ToggleBookmark" click="ToggleBookmark" shortcut="Control|F2" image="402" flags="Enable:IsEditable" />
+		<button label="Label.NextBookmark" click="NextBookmark" shortcut="F2" image="402|9|3|3" flags="Enable:IsEditable" />
+		<button label="Label.PrevBookmark" click="PrevBookmark" shortcut="Shift|F2" image="402|1|-3|3" flags="Enable:IsEditable" />
+		<button label="Label.ClearBookmarks" click="ClearBookmarks" image="402|4|4|4" flags="Enable:IsEditable" />
+	</menu>
+	<separator />
 	<button label="Label.Undo" click="ScintillaCommand" tag="Undo" shortcut="Control|Z" image="73" flags="Enable:CanUndo" />
 	<button label="Label.Redo" click="ScintillaCommand" tag="Redo" shortcut="Control|Y" image="65" flags="Enable:CanRedo" />
 	<separator />
@@ -12,7 +46,4 @@
 	<button label="Label.Paste" click="ScintillaCommand" tag="Paste" shortcut="Control|V" image="283" flags="Enable:CanPaste" />
 	<separator />
 	<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" shortcut="Control|A" />
-	<separator />
-	<button label="Label.SaveAsTemplate" click="SaveAsTemplate" flags="Enable:HasSelection" />
-	<button label="Label.SaveAsSnippet" click="SaveAsSnippet" flags="Enable:HasSelection" />
 </scintillamenu>
