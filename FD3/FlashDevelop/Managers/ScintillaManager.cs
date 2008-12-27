@@ -42,13 +42,13 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void UpdateControlSyntax(ScintillaControl sci)
         {
-            String lang = SciConfig.GetLanguageFromFile(sci.FileName);
-            TextEvent te = new TextEvent(EventType.SyntaxDetect, lang + ";" + sci.FileName);
+            String language = SciConfig.GetLanguageFromFile(sci.FileName);
+            TextEvent te = new TextEvent(EventType.SyntaxDetect, language);
             EventManager.DispatchEvent(SciConfig, te);
-            if (te.Handled && te.Value != null) lang = te.Value;
-            if (sci.ConfigurationLanguage != lang)
+            if (te.Handled && te.Value != null) language = te.Value;
+            if (sci.ConfigurationLanguage != language)
             {
-                sci.ConfigurationLanguage = lang;
+                sci.ConfigurationLanguage = language;
             }
             sci.Colourise(0, -1);
         }

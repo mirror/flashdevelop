@@ -22,7 +22,7 @@ namespace PluginCore
         RestoreSession = 1 << 15, // DataEvent (file, session)
         RestoreLayout = 1 << 16, // TextEvent (file)
         SyntaxChange = 1 << 17, // TextEvent (language)
-        SyntaxDetect = 1 << 18, // TextEvent (language;file)
+        SyntaxDetect = 1 << 18, // TextEvent (language)
         UIStarted = 1 << 19, // NotifyEvent
         UIRefresh = 1 << 20, // NotifyEvent
         UIClosing = 1 << 21, // NotifyEvent
