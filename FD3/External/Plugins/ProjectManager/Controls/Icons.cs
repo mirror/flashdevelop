@@ -210,10 +210,11 @@ namespace ProjectManager.Controls
             }
             else
             {
-                Icon icon = IconExtractor.GetIcon(file, true);
-                imageList.Images.Add(icon);
+                Icon icon = IconExtractor.GetFileIcon(file, true);
+                Image image = ImageKonverter.ImageResize(icon.ToBitmap(), 16, 16);
+                imageList.Images.Add(image);
                 int index = imageList.Images.Count - 1; // of the icon we just added
-                FDImage fdImage = new FDImage(icon.ToBitmap(), index);
+                FDImage fdImage = new FDImage(image, index);
                 extensionIcons.Add(extension, fdImage);
                 return fdImage;
             }
@@ -224,10 +225,8 @@ namespace ProjectManager.Controls
             Bitmap composed = image.Clone() as Bitmap;
             using (Graphics destination = Graphics.FromImage(composed))
             {
-                destination.DrawImage(overlay, new Rectangle(x, y, 16, 16), 
-                    new Rectangle(0, 0, 16, 16), GraphicsUnit.Pixel);
+                destination.DrawImage(overlay, new Rectangle(x, y, 16, 16), new Rectangle(0, 0, 16, 16), GraphicsUnit.Pixel);
             }
-
             return composed;
         }
 

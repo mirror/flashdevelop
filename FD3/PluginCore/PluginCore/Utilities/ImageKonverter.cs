@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 using System.Collections.Generic;
 using PluginCore.Managers;
 
@@ -54,6 +55,20 @@ namespace PluginCore.Utilities
                 ErrorManager.ShowError(ex);
                 return image;
             }
+        }
+
+        /// <summary>
+        /// Resize image with GDI+ so that image is nice and clear with required size.
+        /// </summary>
+        public static Image ImageResize(Bitmap source, Int32 width, Int32 height)
+        {
+            Bitmap bitmap = new Bitmap(width, height, source.PixelFormat);
+            Graphics graphicsImage = Graphics.FromImage(bitmap);
+            graphicsImage.SmoothingMode = SmoothingMode.HighQuality;
+            graphicsImage.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            graphicsImage.DrawImage(source, 0, 0, bitmap.Width, bitmap.Height);
+            graphicsImage.Dispose();
+            return bitmap;
         }
 
     }

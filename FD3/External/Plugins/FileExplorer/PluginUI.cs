@@ -40,7 +40,7 @@ namespace FileExplorer
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.ListViewItem highlightedItem;
         private System.Windows.Forms.ImageList imageList;
-        private System.Collections.Hashtable extensionIcons;
+        private System.Collections.Hashtable iconCache;
         private System.Boolean updateInProgress;
         private System.String previousItemLabel;
         private System.String autoSelectItem;
@@ -53,7 +53,7 @@ namespace FileExplorer
 		public PluginUI(PluginMain pluginMain)
 		{
             this.pluginMain = pluginMain;
-            this.extensionIcons = new Hashtable();
+            this.iconCache = new Hashtable();
             this.listViewSorter = new ListViewSorter();
 			this.InitializeComponent();
             this.InitializeGraphics();
@@ -288,11 +288,9 @@ namespace FileExplorer
         {
             this.imageList = new ImageList();
             this.imageList.ColorDepth = ColorDepth.Depth32Bit;
-            this.imageList.Images.Add(PluginBase.MainForm.FindImage("203|1|-3|3"));
-            this.imageList.Images.Add(PluginBase.MainForm.FindImage("203"));
-            this.fileView.SmallImageList = this.imageList;
             this.syncronizeButton.Image = PluginBase.MainForm.FindImage("203|9|-3|-3");
             this.browseButton.Image = PluginBase.MainForm.FindImage("203");
+            this.fileView.SmallImageList = this.imageList;
         }
 
         /// <summary>
@@ -412,7 +410,7 @@ namespace FileExplorer
                 ListViewItem item;
                 if (directory.Parent != null)
                 {
-                    item = new ListViewItem("[..]", 0);
+                    item = new ListViewItem("[..]", ExtractIconIfNecessary("/Folder/"));
                     item.Tag = directory.Parent.FullName;
                     item.SubItems.Add("-");
                     item.SubItems.Add("-");
@@ -424,7 +422,7 @@ namespace FileExplorer
                     DirectoryInfo subDir = info as DirectoryInfo;
                     if (subDir != null && (subDir.Attributes & FileAttributes.Hidden) == 0)
                     {
-                        item = new ListViewItem(subDir.Name, 1);
+                        item = new ListViewItem(subDir.Name, ExtractIconIfNecessary(subDir.FullName));
                         item.Tag = subDir.FullName;
                         item.SubItems.Add("-");
                         item.SubItems.Add("-");
@@ -1088,19 +1086,22 @@ namespace FileExplorer
 		/// Ask the shell to feed us the appropriate icon for the given file, but
 		/// first try looking in our cache to see if we've already loaded it.
 		/// </summary>
-        private int ExtractIconIfNecessary(String file)
+        private int ExtractIconIfNecessary(String path)
         {
-            String extension = Path.GetExtension(file);
-            if (extension != ".exe" && extensionIcons.ContainsKey(extension))
+            String key = Path.GetFullPath(path).ToUpper();
+            if (iconCache.ContainsKey(key))
             {
-                return (Int32)extensionIcons[extension];
+                return (Int32)iconCache[key];
             }
             else
             {
-                Icon icon = IconExtractor.GetIcon(file, true);
-                imageList.Images.Add(icon);
+                Icon icon;
+                if (File.Exists(path)) icon = IconExtractor.GetFileIcon(path, false, true);
+                else icon = IconExtractor.GetFolderIcon(path, false, true);
+                Image image = ImageKonverter.ImageResize(icon.ToBitmap(), 16, 16);
+                imageList.Images.Add(image);
                 Int32 index = imageList.Images.Count - 1;
-                if (extension != ".exe") extensionIcons.Add(extension, index);
+                iconCache.Add(key, index);
                 return index;
             }
         }
