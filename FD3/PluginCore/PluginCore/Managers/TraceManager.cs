@@ -20,11 +20,9 @@ namespace PluginCore.Managers
         /// </summary>
         public static void Add(TraceItem traceItem)
         {
-            if (PluginBase.MainForm.ClosingEntirely)
-                return;
-            traceLog.Add(traceItem);
-            if ((PluginBase.MainForm as Form).InvokeRequired)
-                return;
+            if (PluginBase.MainForm.ClosingEntirely) return;
+            traceLog.Add(traceItem); // Add to log...
+            if ((PluginBase.MainForm as Form).InvokeRequired) return;
             NotifyEvent ne = new NotifyEvent(EventType.Trace);
             EventManager.DispatchEvent(null, ne);
         }

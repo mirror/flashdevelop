@@ -5,35 +5,35 @@ namespace PluginCore
     [Flags]
     public enum EventType
     {
-        FileNew = 1 << 1,
-        FileOpen = 1 << 2,
-        FileOpening = 1 << 3,
-        FileClose = 1 << 4,
-        FileSwitch = 1 << 5,
-        FileModify = 1 << 6,
-        FileSave = 1 << 7,
-        FileSaving = 1 << 8,
-        FileReload = 1 << 9,
-        FileRevert = 1 << 10,
-        FileEncode = 1 << 11,
-        FileDecode = 1 << 12,
-        FileEmpty = 1 << 13,
-        FileTemplate = 1 << 14,
-        RestoreSession = 1 << 15,
-        RestoreLayout = 1 << 16,
-        SyntaxChange = 1 << 17,
-        SyntaxDetect = 1 << 18,
-        UIStarted = 1 << 19,
-        UIRefresh = 1 << 20,
-        UIClosing = 1 << 21,
-        ApplySettings = 1 << 22,
-        SettingChanged = 1 << 23,
-        ProcessArgs = 1 << 24,
-        ProcessStart = 1 << 25,
-        ProcessEnd = 1 << 26,
-        Command = 1 << 27,
-        Trace = 1 << 28,
-        Keys = 1 << 29
+        FileNew = 1 << 1, // TextEvent (file)
+        FileOpen = 1 << 2, // TextEvent (file)
+        FileOpening = 1 << 3, // TextEvent (file)
+        FileClose = 1 << 4, // TextEvent (file)
+        FileSwitch = 1 << 5, // NotifyEvent
+        FileModify = 1 << 6, // TextEvent (file)
+        FileSave = 1 << 7, // TextEvent (file)
+        FileSaving = 1 << 8, // TextEvent (file)
+        FileReload = 1 << 9, // TextEvent (file)
+        FileRevert = 1 << 10, // TextEvent (file)
+        FileEncode = 1 << 11, // DataEvent (file, text)
+        FileDecode = 1 << 12, // DataEvent (file, null)
+        FileEmpty = 1 << 13, // NotifyEvent
+        FileTemplate = 1 << 14, // TextEvent (file)
+        RestoreSession = 1 << 15, // DataEvent (file, session)
+        RestoreLayout = 1 << 16, // TextEvent (file)
+        SyntaxChange = 1 << 17, // TextEvent (language)
+        SyntaxDetect = 1 << 18, // TextEvent (language;file)
+        UIStarted = 1 << 19, // NotifyEvent
+        UIRefresh = 1 << 20, // NotifyEvent
+        UIClosing = 1 << 21, // NotifyEvent
+        ApplySettings = 1 << 22, // NotifyEvent
+        SettingChanged = 1 << 23, // TextEvent (setting)
+        ProcessArgs = 1 << 24, // TextEvent (content)
+        ProcessStart = 1 << 25, // NotifyEvent
+        ProcessEnd = 1 << 26, // TextEvent (result)
+        Command = 1 << 27, // DataEvent (command)
+        Trace = 1 << 28, // NotifyEvent
+        Keys = 1 << 29 // KeyEvent (keys)
     }
 
     public enum SessionType

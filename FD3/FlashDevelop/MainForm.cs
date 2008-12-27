@@ -1281,7 +1281,10 @@ namespace FlashDevelop
             {
                 document.IsModified = true;
             }
+            TextEvent te = new TextEvent(EventType.FileModify, document.FileName);
+            EventManager.DispatchEvent(this, te);
             ButtonManager.UpdateFlaggedButtons();
+
         }
 
         /// <summary>
@@ -1414,8 +1417,7 @@ namespace FlashDevelop
                 });
                 return;
             }
-            Activate();
-            Focus();
+            this.Activate(); this.Focus();
             if (args != null && args.Length != 0)
             {
                 for (Int32 i = 0; i < args.Length; i++)
