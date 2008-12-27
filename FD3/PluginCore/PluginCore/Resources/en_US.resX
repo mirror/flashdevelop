@@ -2658,4 +2658,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.PrintMarginColumn" xml:space="preserve">
     <value>Shows the print margin on the right where the text should be kept.</value>
   </data>
+  <data name="FileExplorer.Description.SynchronizeToProject" xml:space="preserve">
+    <value>Syncronizes the file view with the current project.</value>
+  </data>
 </root>

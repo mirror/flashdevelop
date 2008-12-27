@@ -14,6 +14,7 @@ namespace FileExplorer
         private Int32 sortOrder = 0;
         private Int32 sortColumn = 0;
         private String filePath = "C:\\";
+        private Boolean synchronizeToProject = true;
 
         /// <summary> 
         /// Get and sets the filePath.
@@ -25,6 +26,17 @@ namespace FileExplorer
         {
             get { return this.filePath; }
             set { this.filePath = value; }
+        }
+
+        /// <summary> 
+        /// Get and sets the synchronizeToProject.
+        /// </summary>
+        [DisplayName("Synchronize To Project")]
+        [LocalizedDescription("FileExplorer.Description.SynchronizeToProject"), DefaultValue(true)]
+        public Boolean SynchronizeToProject
+        {
+            get { return this.synchronizeToProject; }
+            set { this.synchronizeToProject = value; }
         }
 
         /// <summary> 

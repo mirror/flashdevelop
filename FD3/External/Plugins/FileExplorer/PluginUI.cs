@@ -800,11 +800,20 @@ namespace FileExplorer
         /// </summary>
         private void SynchronizeView(Object sender, System.EventArgs e)
         {
-            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-            if (document.IsEditable && !document.IsUntitled && File.Exists(document.FileName))
+            String path;
+            if (PluginBase.CurrentProject != null && this.pluginMain.Settings.SynchronizeToProject)
             {
-                String path = Path.GetDirectoryName(document.FileName);
+                path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
                 this.PopulateFileView(path);
+            }
+            else
+            {
+                ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                if (document.IsEditable && !document.IsUntitled && File.Exists(document.FileName))
+                {
+                    path = Path.GetDirectoryName(document.FileName);
+                    this.PopulateFileView(path);
+                }
             }
         }
 
