@@ -1280,9 +1280,9 @@ namespace FlashDevelop
             if (document.IsEditable && !document.IsModified && !this.reloadingDocument && !this.processingContents)
             {
                 document.IsModified = true;
+                TextEvent te = new TextEvent(EventType.FileModify, document.FileName);
+                EventManager.DispatchEvent(this, te);
             }
-            TextEvent te = new TextEvent(EventType.FileModify, document.FileName);
-            EventManager.DispatchEvent(this, te);
             ButtonManager.UpdateFlaggedButtons();
 
         }
