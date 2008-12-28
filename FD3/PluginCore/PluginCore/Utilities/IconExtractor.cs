@@ -10,7 +10,10 @@ namespace PluginCore.Utilities
 {
     public class IconExtractor
 	{
-		[DllImport("Kernel32.dll")]
+        [DllImport("User32.dll")]
+        private static extern Int32 DestroyIcon(IntPtr hIcon);
+
+        [DllImport("Kernel32.dll")]
         private static extern Int32 GetModuleHandle(String lpModuleName);
 
 		[DllImport("Shell32.dll")]
@@ -57,8 +60,10 @@ namespace PluginCore.Utilities
         /// </summary>
         public static Icon GetSysIcon(Int32 icNo)
 		{
-			IntPtr HIcon = ExtractIcon(GetModuleHandle(String.Empty), "Shell32.dll", icNo);
-			return Icon.FromHandle(HIcon);
+			IntPtr hIcon = ExtractIcon(GetModuleHandle(String.Empty), "Shell32.dll", icNo);
+            Icon icon = (Icon)Icon.FromHandle(hIcon).Clone();
+            DestroyIcon(hIcon);
+            return icon;
 		}
 
         /// <summary>
@@ -73,7 +78,9 @@ namespace PluginCore.Utilities
             if (small) flags |= SHGFI.SmallIcon; else flags |= SHGFI.LargeIcon;
             if (overlays) flags |= SHGFI.AddOverlays; // Get overlays too...
             SHGetFileInfo(path, 0x00000080, out info, (UInt32)cbFileInfo, flags);
-            return Icon.FromHandle(info.hIcon);
+            Icon icon = (Icon)Icon.FromHandle(info.hIcon).Clone();
+            DestroyIcon(info.hIcon);
+            return icon;
         }
         public static Icon GetFileIcon(String path, Boolean small)
         {
@@ -92,7 +99,9 @@ namespace PluginCore.Utilities
             if (small) flags |= SHGFI.SmallIcon; else flags |= SHGFI.LargeIcon;
             if (overlays) flags |= SHGFI.AddOverlays; // Get overlays too...
             SHGetFileInfo(path, 0x00000010, out info, (UInt32)cbFileInfo, flags);
-            return Icon.FromHandle(info.hIcon);
+            Icon icon = (Icon)Icon.FromHandle(info.hIcon).Clone();
+            DestroyIcon(info.hIcon);
+            return icon;
         }
         public static Icon GetFolderIcon(String path, Boolean small)
         {

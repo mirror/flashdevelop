@@ -40,7 +40,6 @@ namespace FileExplorer
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.ListViewItem highlightedItem;
         private System.Windows.Forms.ImageList imageList;
-        private System.Collections.Hashtable iconCache;
         private System.Boolean updateInProgress;
         private System.String previousItemLabel;
         private System.String autoSelectItem;
@@ -53,7 +52,6 @@ namespace FileExplorer
 		public PluginUI(PluginMain pluginMain)
 		{
             this.pluginMain = pluginMain;
-            this.iconCache = new Hashtable();
             this.listViewSorter = new ListViewSorter();
 			this.InitializeComponent();
             this.InitializeGraphics();
@@ -401,6 +399,7 @@ namespace FileExplorer
         /// </summary>
         private void UpdateUI(string path, DirectoryInfo directory, FileSystemInfo[] infos)
         {
+            this.ClearImageList();
             this.pluginMain.Settings.FilePath = path;
             this.selectedPath.Text = path;
             this.fileView.BeginUpdate();
@@ -1097,22 +1096,24 @@ namespace FileExplorer
 		/// </summary>
         private int ExtractIconIfNecessary(String path)
         {
-            String key = Path.GetFullPath(path).ToUpper();
-            if (iconCache.ContainsKey(key))
-            {
-                return (Int32)iconCache[key];
-            }
-            else
-            {
-                Icon icon;
-                if (File.Exists(path)) icon = IconExtractor.GetFileIcon(path, false, true);
-                else icon = IconExtractor.GetFolderIcon(path, false, true);
-                Image image = ImageKonverter.ImageResize(icon.ToBitmap(), 16, 16);
-                imageList.Images.Add(image);
-                Int32 index = imageList.Images.Count - 1;
-                iconCache.Add(key, index);
-                return index;
-            }
+            Icon icon;
+            if (File.Exists(path)) icon = IconExtractor.GetFileIcon(path, false, true);
+            else icon = IconExtractor.GetFolderIcon(path, false, true);
+            Image image = ImageKonverter.ImageResize(icon.ToBitmap(), 16, 16);
+            this.imageList.Images.Add(image); icon.Dispose(); image.Dispose();
+            return this.imageList.Images.Count - 1;
+        }
+
+        /// <summary>
+        /// Dispose all images entirely.
+        /// </summary>
+        private void ClearImageList()
+        {
+            this.imageList.Images.Clear();
+            this.imageList.Dispose();
+            this.imageList = new ImageList();
+            this.imageList.ColorDepth = ColorDepth.Depth32Bit;
+            this.fileView.SmallImageList = this.imageList;
         }
 
         #endregion
