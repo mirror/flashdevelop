@@ -212,7 +212,7 @@ namespace ProjectManager.Controls
             {
                 Icon icon = IconExtractor.GetFileIcon(file, true);
                 Image image = ImageKonverter.ImageResize(icon.ToBitmap(), 16, 16);
-                imageList.Images.Add(image);
+                icon.Dispose(); imageList.Images.Add(image);
                 int index = imageList.Images.Count - 1; // of the icon we just added
                 FDImage fdImage = new FDImage(image, index);
                 extensionIcons.Add(extension, fdImage);
