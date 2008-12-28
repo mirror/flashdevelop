@@ -598,6 +598,15 @@ namespace FlashDevelop.Settings
             set { this.defaultCodePage = value; }
         }
 
+        [DefaultValue(false)]
+        [DisplayName("Save UTF-8 Without BOM")]
+        [LocalizedDescription("FlashDevelop.Description.SaveUTF8WithoutBOM")]
+        public Boolean SaveUTF8WithoutBOM
+        {
+            get { return this.saveUTF8WithoutBOM; }
+            set { this.saveUTF8WithoutBOM = value; }
+        }
+
         #endregion
 
         #region State

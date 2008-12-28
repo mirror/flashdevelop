@@ -47,6 +47,7 @@ namespace FlashDevelop.Settings
         private List<String> disabledPlugins = new List<String>();
         private String latestDialogPath = Application.StartupPath;
         private String defaultFileExtension = "as";
+        private Boolean saveUTF8WithoutBOM = false;
         private Boolean redirectFilesResults = true;
         private Boolean useListViewGrouping = true;
         private Boolean applyFileExtension = true;
