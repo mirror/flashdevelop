@@ -66,8 +66,8 @@ namespace PluginCore.Helpers
         {
             try
             {
-                Boolean skipBOM = (encoding != Encoding.UTF8) && PluginBase.Settings.SaveUTF8WithoutBOM;
-                using (StreamWriter sw = skipBOM ? new StreamWriter(file, false, encoding) : new StreamWriter(file, false))
+                Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && PluginBase.Settings.SaveUTF8WithoutBOM);
+                using (StreamWriter sw = useSkipBomWriter ? new StreamWriter(file, false) : new StreamWriter(file, false, encoding))
                 {
                     sw.Write(text);
                     sw.Close();

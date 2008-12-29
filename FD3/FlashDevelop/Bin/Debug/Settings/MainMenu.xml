@@ -41,6 +41,12 @@
 				<button label="Label.LittleEndian" click="ConvertEncoding" tag="1200" />
 				<button label="Label.UTF8" click="ConvertEncoding" tag="65001" />
 			</menu>
+			<menu label="Label.OpenFilesIn" name="OpenInMenu" flags="Enable:IsEditable">
+				<button label="Label.8Bits" click="OpenIn" tag="0" />
+				<button label="Label.BigEndian" click="OpenIn" tag="1201" />
+				<button label="Label.LittleEndian" click="OpenIn" tag="1200" />
+				<button label="Label.UTF8" click="OpenIn" tag="65001" />
+			</menu>
 		</menu>
 		<menu label="Label.LineEnds" name="EOLMenu" flags="Enable:IsEditable">
 			<button label="Label.CRLF" click="ConvertEOL" tag="0" flags="Check:IsEditable|IsActiveEOL" />

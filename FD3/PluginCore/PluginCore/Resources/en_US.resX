@@ -2664,4 +2664,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.SaveUTF8WithoutBOM" xml:space="preserve">
     <value>Saves UTF-8 encoded files without BOM (byte-order mark). To get this working in and out, set Fallback Codepage to UTF-8.</value>
   </data>
+  <data name="FlashDevelop.Label.OpenFilesIn" xml:space="preserve">
+    <value>&amp;Open Files In</value>
+  </data>
 </root>

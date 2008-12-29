@@ -514,9 +514,9 @@ namespace FlashDevelop
         /// <summary>
         /// Opens the specified file and creates a editable document
         /// </summary>
-        public DockContent OpenEditableDocument(String file, Boolean restorePosition)
+        public DockContent OpenEditableDocument(String file, Encoding encoding, Boolean restorePosition)
         {
-            DockContent createdDoc;
+            Int32 codepage; DockContent createdDoc;
             TextEvent te = new TextEvent(EventType.FileOpening, file);
             EventManager.DispatchEvent(this, te);
             if (te.Handled)
@@ -542,8 +542,12 @@ namespace FlashDevelop
             }
             catch {}
             String text = String.Empty;
-            Int32 codepage = FileHelper.GetFileCodepage(file);
-            if (codepage == -1) return null; // If the file is locked, stop.
+            if (encoding == null)
+            {
+                codepage = FileHelper.GetFileCodepage(file);
+                if (codepage == -1) return null; // If the file is locked, stop.
+            }
+            else codepage = encoding.CodePage;
             DataEvent de = new DataEvent(EventType.FileDecode, file, null);
             EventManager.DispatchEvent(this, de); // Lets ask if a plugin wants to decode the data..
             if (!de.Handled) text = FileHelper.ReadFile(file, Encoding.GetEncoding(codepage));
@@ -570,9 +574,13 @@ namespace FlashDevelop
             ButtonManager.UpdateFlaggedButtons();
             return createdDoc;
         }
+        public DockContent OpenEditableDocument(String file, Boolean restorePosition)
+        {
+            return this.OpenEditableDocument(file, null, restorePosition);
+        }
         public DockContent OpenEditableDocument(String file)
         {
-            return this.OpenEditableDocument(file, true);
+            return this.OpenEditableDocument(file, null, true);
         }
 
         #endregion
@@ -1609,7 +1617,7 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Opens the open file dialog and opens the selected file
+        /// Opens the open file dialog and opens the selected files
         /// </summary>
         public void Open(Object sender, System.EventArgs e)
         {
@@ -1621,6 +1629,27 @@ namespace FlashDevelop
                 for (Int32 i = 0; i < count; i++)
                 {
                     this.OpenEditableDocument(openFileDialog.FileNames[i]);
+                }
+            }
+            this.openFileDialog.Multiselect = false;
+        }
+
+        /// <summary>
+        /// Opens the open file dialog and opens the selected files in specific encoding
+        /// </summary>
+        public void OpenIn(Object sender, System.EventArgs e)
+        {
+            ToolStripItem button = (ToolStripItem)sender;
+            Int32 encMode = Convert.ToInt32(((ItemData)button.Tag).Tag);
+            Encoding encoding = Encoding.GetEncoding(encMode);
+            this.openFileDialog.Multiselect = true; // Allow multiple...
+            this.openFileDialog.InitialDirectory = this.WorkingDirectory;
+            if (this.openFileDialog.ShowDialog(this) == DialogResult.OK && this.openFileDialog.FileName.Length != 0)
+            {
+                Int32 count = this.openFileDialog.FileNames.Length;
+                for (Int32 i = 0; i < count; i++)
+                {
+                    this.OpenEditableDocument(openFileDialog.FileNames[i], encoding, false);
                 }
             }
             this.openFileDialog.Multiselect = false;
