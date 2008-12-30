@@ -20,6 +20,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.TextBox keyTextBox;
         private System.Windows.Forms.TextBox valueTextBox;
         private System.Windows.Forms.ListView argsListView;
+        private System.Windows.Forms.ColumnHeader columnHeader;
         private System.Windows.Forms.ListViewGroup argumentGroup;
         private System.Windows.Forms.PictureBox infoPictureBox;
         private System.Windows.Forms.GroupBox detailsGroupBox;
@@ -54,12 +55,17 @@ namespace FlashDevelop.Dialogs
             this.valueTextBox = new System.Windows.Forms.TextBox();
             this.infoLabel = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
+            this.columnHeader = new System.Windows.Forms.ColumnHeader();
             this.infoPictureBox = new System.Windows.Forms.PictureBox();
             this.addButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.detailsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.infoPictureBox)).BeginInit();
             this.SuspendLayout();
+            //
+            // columnHeader
+            //
+            this.columnHeader.Width = 182;
             // 
             // keyTextBox
             // 
@@ -79,7 +85,9 @@ namespace FlashDevelop.Dialogs
             this.argsListView.Size = new System.Drawing.Size(182, 307);
             this.argsListView.TabIndex = 1;
             this.argsListView.UseCompatibleStateImageBehavior = false;
-            this.argsListView.View = System.Windows.Forms.View.SmallIcon;
+            this.argsListView.View = System.Windows.Forms.View.Details;
+            this.argsListView.Alignment = ListViewAlignment.Left;
+            this.argsListView.Columns.Add(this.columnHeader);
             this.argsListView.SelectedIndexChanged += new System.EventHandler(this.ArgsListViewSelectedIndexChanged);
             // 
             // valueLabel
@@ -332,11 +340,20 @@ namespace FlashDevelop.Dialogs
         private void DeleteButtonClick(Object sender, EventArgs e)
         {
             ListViewItem item = this.argsListView.SelectedItems[0];
+            Int32 previousIndex = item.Index - 1;
             this.argsListView.Items.Remove(item);
             if (this.argsListView.Items.Count > 0)
             {
-                item = this.argsListView.Items[0];
-                item.Selected = true;
+                if (previousIndex >= 0 && previousIndex <= this.argsListView.Items.Count - 1)
+                {
+                    item = this.argsListView.Items[previousIndex];
+                    item.Selected = true;
+                }
+                else
+                {
+                    item = this.argsListView.Items[0];
+                    item.Selected = true;
+                }
             }
         }
 

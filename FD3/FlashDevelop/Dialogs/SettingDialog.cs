@@ -19,6 +19,7 @@ namespace FlashDevelop.Dialogs
         private System.String helpUrl;
         private System.Windows.Forms.ListView itemListView;
         private System.Windows.Forms.PictureBox infoPictureBox;
+        private System.Windows.Forms.ColumnHeader columnHeader;
         private System.Windows.Forms.PropertyGrid itemPropertyGrid;
         private System.Windows.Forms.ListViewGroup pluginsGroup;
         private System.Windows.Forms.ListViewGroup mainGroup;
@@ -50,6 +51,7 @@ namespace FlashDevelop.Dialogs
         {
             this.itemListView = new System.Windows.Forms.ListView();
             this.itemPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.columnHeader = new System.Windows.Forms.ColumnHeader();
             this.closeButton = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
             this.infoPictureBox = new System.Windows.Forms.PictureBox();
@@ -59,9 +61,13 @@ namespace FlashDevelop.Dialogs
             this.helpLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.infoPictureBox)).BeginInit();
             this.SuspendLayout();
+            //
+            // columnHeader
+            //
+            this.columnHeader.Width = 159;
             // 
             // itemListView
-            // 
+            //
             this.itemListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.itemListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.itemListView.HideSelection = false;
@@ -71,7 +77,9 @@ namespace FlashDevelop.Dialogs
             this.itemListView.Size = new System.Drawing.Size(159, 394);
             this.itemListView.TabIndex = 1;
             this.itemListView.UseCompatibleStateImageBehavior = false;
-            this.itemListView.View = System.Windows.Forms.View.SmallIcon;
+            this.itemListView.View = System.Windows.Forms.View.Details;
+            this.itemListView.Alignment = ListViewAlignment.Left;
+            this.itemListView.Columns.Add(this.columnHeader);
             this.itemListView.SelectedIndexChanged += new System.EventHandler(this.ItemListViewSelectedIndexChanged);
             // 
             // itemPropertyGrid
