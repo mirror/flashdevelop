@@ -2659,7 +2659,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Shows the print margin on the right where the text should be kept.</value>
   </data>
   <data name="FileExplorer.Description.SynchronizeToProject" xml:space="preserve">
-    <value>Syncronizes the file view with the current project.</value>
+    <value>Synchronizes the file view with the current project.</value>
   </data>
   <data name="FlashDevelop.Description.SaveUTF8WithoutBOM" xml:space="preserve">
     <value>Saves UTF-8 encoded files without BOM (byte-order mark). To get this working in and out, set Fallback Codepage to UTF-8.</value>
