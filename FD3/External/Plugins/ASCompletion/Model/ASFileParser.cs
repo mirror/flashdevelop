@@ -545,8 +545,9 @@ namespace ASCompletion.Model
 
 				if (inValue)
 				{
-                    if (inType && !Char.IsLetterOrDigit(c1) && c1 != '.' && c1 != '{' && c1 != '}' && c1 != '-' && c1 != '>')
+                    if (inType && !Char.IsLetterOrDigit(c1) && ".{}-><".IndexOf(c1) < 0)
                     {
+                        inType = false;
                         inValue = false;
                         valueLength = 0;
                         context = 0;
@@ -611,16 +612,23 @@ namespace ASCompletion.Model
 					{
 						if (c1 <= 32)
 						{
-							if (valueLength > 0 && valueBuffer[valueLength-1] != ' ') valueBuffer[valueLength++] = ' ';
+                            if (valueLength > 0 && valueBuffer[valueLength-1] != ' ') 
+                                valueBuffer[valueLength++] = ' ';
 						}
 						else valueBuffer[valueLength++] = c1;
 					}
 
 					// detect keywords
-                    if (!Char.IsLetterOrDigit(c1)) //c1 < 'a' || c1 > 'z')
+                    if (!Char.IsLetterOrDigit(c1))
                     {
                         // escape next char
-                        if (c1 == '\\' || (inType && (c1 == '<' || c1 == '.'))) { i++; continue; }
+                        if (c1 == '\\' && i < len) 
+                        {
+                            c1 = ba[i++];
+                            if (valueLength < VALUE_BUFFER) valueBuffer[valueLength++] = c1;
+                            continue; 
+                        }
+                        if (inType && inGeneric && (c1 == '<' || c1 == '.')) continue;
                         hadWS = true;
                     }
                 }
@@ -734,7 +742,7 @@ namespace ASCompletion.Model
                             {
                                 if (i > 2 && length > 1 && i < len - 3
                                     && Char.IsLetterOrDigit(ba[i - 3]) && Char.IsLetter(ba[i])
-                                    && (buffer[length - 1] == '.' || Char.IsLetter(buffer[0])))
+                                    && (buffer[length - 1] == '.' || Char.IsLetter(buffer[length - 1])))
                                 {
                                     evalToken = 0;
                                     inGeneric = true;
