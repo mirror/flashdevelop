@@ -13,27 +13,45 @@ namespace AS3IntrinsicsGenerator
     {
         static private Context context;
         static private ClassModel currentClass;
+        static private Dictionary<string, BlockModel> types;
+        static private Dictionary<string, string> generated;
         
         static void Main(string[] args)
         {
-            string AS3XML = "ActionsPanel_3.xml";
-            if (!File.Exists(AS3XML))
-            {
-                Console.WriteLine("Copy {0} in bin\\Debug", AS3XML);
-                return;
-            }
 
             // SWC parsing
             Console.WriteLine("Parsing SWCs...");
             AS3Settings settings = new AS3Settings();
             context = new Context(settings);
             context.Classpath = new List<PathModel>();
-            context.Classpath.Add(ParseSWC("servicemonitor.swc"));
-            context.Classpath.Add(ParseSWC("airglobal.swc"));
-            context.Classpath.Add(ParseSWC("playerglobal.swc"));
+            context.Classpath.Add(ParseSWC("libs\\air\\servicemonitor.swc"));
+            context.Classpath.Add(ParseSWC("libs\\air\\airglobal.swc"));
+            context.Classpath.Add(ParseSWC("libs\\player\\10\\playerglobal.swc"));
+            context.Classpath.Add(ParseSWC("libs\\player\\9\\playerglobal.swc"));
 
             // AS3 doc parsing
-            Console.WriteLine("Generating...");
+            string AS3XML = "ActionsPanel_3.xml";
+            if (!File.Exists(AS3XML))
+            {
+                Console.WriteLine("Error: missing {0}, copy this file from Flash CS4 installation", AS3XML);
+                return;
+            }
+            ExtractXML(AS3XML);
+
+            // Intrinsics generation
+            Console.WriteLine("Generating intrinsics...");
+            generated = new Dictionary<string, string>();
+            GenerateIntrinsics("FP9", context.Classpath[3]);
+            GenerateIntrinsics("FP10", context.Classpath[2]);
+            GenerateIntrinsics("AIR", context.Classpath[1]);
+
+            Console.WriteLine("Done.");
+        }
+
+        private static void ExtractXML(string AS3XML)
+        {
+            types = new Dictionary<string, BlockModel>();
+            Console.WriteLine("Extracting XML...");
             XmlDocument doc = new XmlDocument();
             doc.Load(AS3XML);
             XmlNodeList nodes = doc.LastChild.FirstChild.ChildNodes;
@@ -49,7 +67,6 @@ namespace AS3IntrinsicsGenerator
                 }
                 else ParsePackage(node, id);
             }
-            Console.WriteLine("Done.");
         }
 
         private static PathModel ParseSWC(string swcFile)
@@ -57,7 +74,7 @@ namespace AS3IntrinsicsGenerator
             PathModel path = new PathModel(System.IO.Path.GetFullPath(swcFile), context);
             if (!File.Exists(swcFile))
             {
-                Console.WriteLine("Copy {0} in bin\\Debug", swcFile);
+                Console.WriteLine("Error: missing {0}, copy Flex SDK's lib directory", swcFile);
                 return path;
             }
             SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
@@ -66,28 +83,172 @@ namespace AS3IntrinsicsGenerator
             return path;
         }
 
-        private static string GetAttribute(XmlNode node, string name)
+        #region Intrinsics generation
+
+        private static void GenerateIntrinsics(string dir, PathModel pathModel)
         {
-            try { return node.Attributes[name].Value; }
-            catch { return ""; }
+            foreach (FileModel aFile in pathModel.Files.Values)
+            {
+                if (aFile.Package == "private") continue;
+
+                ClassModel aClass = aFile.GetPublicClass();
+                if (aClass.IsVoid()) continue;
+                aFile.Members.Sort();
+                aClass.Members.Sort();
+
+                string type = aClass.QualifiedName;
+                string fileName = Path.Combine(Path.Combine("out", dir), 
+                    type.Replace('.', Path.DirectorySeparatorChar)) + ".as";
+                // adding comments extracted from XML
+                if (types.Keys.Contains<string>(type))
+                {
+                    BlockModel docModel = types[type];
+                    aClass.Comments = docModel.Blocks[0].Comment;
+                    AddDocumentation(aFile.Members, docModel);
+                    AddDocumentation(aClass.Members, docModel.Blocks[0]);
+                    AddEvents(aFile, docModel.Blocks[0]);
+                }
+
+                // removing non-public members
+                if ((aClass.Flags & FlagType.Interface) == 0)
+                    aClass.Members.Items
+                        .RemoveAll(member => member.Access != Visibility.Public);
+                // removing AIR members
+                if (dir != "AIR")
+                    aClass.Members.Items
+                        .RemoveAll(member => member.Comments != null && member.Comments.StartsWith("[AIR]"));
+
+                // MANUAL FIX event consts' values
+                if (aFile.Package == "flash.events")
+                    aClass.Members.Items
+                        .FindAll(member => (member.Flags & FlagType.Constant) > 0 && member.Type == "String")
+                        .ForEach(member => member.Value = '"' + BaseModel.Camelize(member.Name) + '"');
+
+                // MANUAL FIX MovieClip.addFrameScript
+                if (aClass.QualifiedName == "flash.display.MovieClip")
+                {
+                    MemberModel member = aClass.Members.Search("addFrameScript", 0, 0);
+                    if (member != null)
+                    {
+                        member.Comments = "[Undocumented] Takes a collection of frame (zero-based) - method pairs that associates a method with a frame on the timeline.";
+                        member.Parameters = new List<MemberModel>();
+                        member.Parameters.Add(new MemberModel("frame", "int", FlagType.ParameterVar, Visibility.Public));
+                        member.Parameters.Add(new MemberModel("method", "Function", FlagType.ParameterVar, Visibility.Public));
+                    }
+                }
+
+                // MANUAL FIX Sprite.toString (needed for override)
+                if (aClass.QualifiedName == "flash.display.Sprite")
+                {
+                    if (aClass.Members.Search("toString", 0, 0) == null)
+                        aClass.Members.Add(new MemberModel("toString", "String", FlagType.Function, Visibility.Public));
+                }
+
+                // MANUAL FIX Object
+                if (aClass.QualifiedName == "Object")
+                {
+                    if (aClass.Members.Search("toString", 0, 0) == null)
+                        aClass.Members.Add(new MemberModel("toString", "String", FlagType.Function, Visibility.Public));
+                    if (aClass.Members.Search("valueOf", 0, 0) == null)
+                        aClass.Members.Add(new MemberModel("valueOf", "Object", FlagType.Function, Visibility.Public));
+                    if (aClass.Members.Search("setPropertyIsEnumerable", 0, 0) == null)
+                    {
+                        MemberModel member = new MemberModel("setPropertyIsEnumerable", "void", FlagType.Function, Visibility.Public);
+                        member.Parameters = new List<MemberModel>();
+                        member.Parameters.Add(new MemberModel("name", "String", FlagType.ParameterVar, Visibility.Public));
+                        member.Parameters.Add(new MemberModel("isEnum", "Boolean", FlagType.ParameterVar, Visibility.Public));
+                        member.Parameters[1].Value = "true";
+                        aClass.Members.Add(member);
+                    }
+                }
+
+                // MANUAL FIX Proxy
+                // TODO  Need to check ABC parser for specific namespaces
+                if (aClass.QualifiedName == "flash.utils.Proxy")
+                {
+                    aClass.Members.Items.ForEach(member => member.Namespace = "flash_proxy");
+                }
+
+                string src = aFile.GenerateIntrinsic(false);
+                if (generated.ContainsKey(type) && generated[type] == src) continue;
+                else generated[type] = src;
+                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+                File.WriteAllText(fileName, src);
+            }
         }
 
-        private static void ParseTopLevel(XmlNode node)
+        private static void AddEvents(FileModel aFile, BlockModel docModel)
         {
-            BlockModel block = new BlockModel();
-            block.Name = "";
-            block.Decl = "package";
-            foreach (XmlNode part in node.ChildNodes)
-                ParseTopLevelPart(part, block);
-            if (block.Methods.Count > 0) WriteFile(block);
+            aFile.MetaDatas = new List<ASMetaData>();
+            foreach (EventModel ev in docModel.Events)
+            {
+                ASMetaData meta = new ASMetaData("Event");
+                if (ev.Comment != null)
+                    meta.Comments = "\n\t * " + ev.Comment + "\n\t * @eventType " + ev.EventType;
+                meta.ParseParams(String.Format("name=\"{0}\", type=\"{1}\"", ev.Name, ev.EventType));
+                aFile.MetaDatas.Add(meta);
+            }
         }
 
-        private static void WriteFile(BlockModel block)
+        private static void AddDocumentation(MemberList members, BlockModel docModel)
+        {
+            AddDocComments(members, docModel.Properties.ToArray());
+            AddDocComments(members, docModel.Methods.ToArray());
+        }
+
+        private static void AddDocComments(MemberList members, BaseModel[] docMembers)
+        {
+            foreach (BaseModel docMember in docMembers)
+            {
+                MemberModel member = members.Search(docMember.Name, 0, 0);
+                if (member == null) continue;
+                member.Comments = docMember.Comment;
+                //if (docMember.IsFP10) member.Comments = "[FP10] " + member.Comments;
+                if (docMember.IsAIR) member.Comments = "[AIR] " + member.Comments;
+            }
+        }
+
+        private static void RegisterBlock(BlockModel block)
         {
             string fileName = block.Name.Replace('.', Path.DirectorySeparatorChar);
-            if (block.Blocks.Count > 0) fileName = Path.Combine(fileName, block.Blocks[0].Name + ".as");
-            else if (fileName.Length == 0) fileName = "toplevel.as";
-            else fileName = Path.Combine(fileName, "package.as");
+            if (block.Blocks.Count > 0)
+            {
+                BlockModel classBlock = block.Blocks[0];
+                fileName = Path.Combine(fileName, classBlock.Name + ".as");
+                types.Add((block.Name.Length > 0 ? block.Name + "." : "") + classBlock.Name, block);
+
+                // MANUAL FIX Vector.join
+                if (classBlock.Name == "Vector")
+                {
+                    classBlock.Methods.ForEach(method => 
+                    {
+                        if (method.Name == "join")
+                            method.Params = method.Params.Replace("= ,", "= \",\"");
+                    });
+                }
+                // will be written based on SWC
+                else return;
+            }
+            else
+            {
+                if (IsEmptyBlock(block)) return;
+                if (fileName.Length == 0) fileName = "toplevel.as";
+                else
+                {
+                    fileName = Path.Combine(fileName, "package.as");
+
+                    // MANUAL FIX flah.net package
+                    if (block.Name == "flash.net")
+                    {
+                        block.Imports = new List<string>();
+                        block.Imports.Add("flash.net.URLRequest");
+                        block.Methods.ForEach(method =>
+                        {
+                            method.Params = method.Params.Replace("flash.net.URLRequest", "URLRequest");
+                        });
+                    }
+                }
+            }
 
             string dest;
             if (IsAirTarget(block))
@@ -166,6 +327,27 @@ namespace AS3IntrinsicsGenerator
                 || block.Blocks.Exists(sub => IsAirTarget(sub));
         }
 
+        #endregion
+
+        #region Extracting information from XML
+
+        private static string GetAttribute(XmlNode node, string name)
+        {
+            try { return node.Attributes[name].Value; }
+            catch { return ""; }
+        }
+
+        private static void ParseTopLevel(XmlNode node)
+        {
+            BlockModel block = new BlockModel();
+            block.Name = "";
+            block.Decl = "package";
+            foreach (XmlNode part in node.ChildNodes)
+                ParseTopLevelPart(part, block);
+
+            RegisterBlock(block);
+        }
+
         private static void ParseTopLevelPart(XmlNode part, BlockModel block)
         {
             string id = GetAttribute(part, "id");
@@ -219,7 +401,7 @@ namespace AS3IntrinsicsGenerator
                     block.Properties.Insert(0, ns);
                 }
 
-                WriteFile(block);
+                RegisterBlock(block);
             }
         }
 
@@ -363,37 +545,26 @@ namespace AS3IntrinsicsGenerator
                 ParsePart(part, block);
 
             // MANUAL FIX FOR SPECIFIC CASES
-            if (block.Name == "Proxy")
-            {
-                foreach (MethodModel method in block.Methods)
-                {
-                    method.Namespace = "flash_proxy";
-                }
-            }
-            else if (block.Name == "BitmapData")
-            {
-                foreach (MethodModel method in block.Methods)
-                {
-                    if (method.Name == "histogram")
-                    {
-                        method.ReturnType = "Vector.<Vector.<Number>>";
-                        break;
-                    }
-                }
-            }
-            else if (block.Name == "DisplayObject")
-            {
-                foreach (PropertyModel prop in block.Properties)
-                {
-                    if (prop.Name.EndsWith("z", StringComparison.OrdinalIgnoreCase))
-                        prop.IsFP10 = true;
-                }
-            }
-            else if (block.Name == "Vector")
+            if (block.Name == "Vector")
             {
                 block.Decl = "public class Vector.<T>";
             }
+            else if (block.Name.StartsWith("Clipboard"))
+            {
+                foreach (BaseModel member in block.Methods)
+                {
+                    member.IsAIR = (member.Comment.IndexOf("AIR only") > 0);
+                    member.IsFP10 = true;
+                }
+                foreach (BaseModel member in block.Properties)
+                {
+                    member.IsAIR = (member.Comment.IndexOf("AIR only") > 0);
+                    member.IsFP10 = true;
+                }
+            }
             parentBlock.Blocks.Add(block);
         }
+
+        #endregion
     }
 }

@@ -258,26 +258,28 @@ namespace ASCompletion.Model
                     sb.Append(iname);
                 }
             }
-            sb.Append(nl).Append(tab0).Append('{').Append(nl);
+            sb.Append(nl).Append(tab0).Append('{');
 
             // MEMBERS
             int count = 0;
             foreach (MemberModel var in Members)
                 if ((var.Flags & FlagType.Variable) > 0)
                 {
+                    if (count == 0) sb.Append(nl);
                     sb.Append(CommentDeclaration(var.Comments, tab));
                     sb.Append(tab).Append(MemberDeclaration(var)).Append(semi).Append(nl);
                     count++;
                 }
-            if (count > 0) sb.Append(nl);
 
             // MEMBERS
             string decl;
             MemberModel temp;
-            count = 0;
+            string prevProperty = null;
             foreach (MemberModel property in Members)
                 if ((property.Flags & (FlagType.Getter | FlagType.Setter)) > 0)
                 {
+                    if (prevProperty != property.Name) sb.Append(nl);
+                    prevProperty = property.Name;
                     sb.Append(CommentDeclaration(property.Comments, tab));
                     FlagType flags = (property.Flags & ~(FlagType.Setter | FlagType.Getter)) | FlagType.Function;
 
@@ -294,19 +296,17 @@ namespace ASCompletion.Model
                         temp = (MemberModel)property.Clone();
                         temp.Name = "set " + temp.Name;
                         temp.Flags = flags;
-                        temp.Type = ASContext.Context.Features.voidKey ?? "Void";
+                        temp.Type = (InFile.Version == 3) ? "void" : "Void";
                         sb.Append(tab).Append(MemberDeclaration(temp)).Append(semi).Append(nl);
                     }
-                    count++;
                 }
-            if (count > 0) sb.Append(nl);
 
             // MEMBERS
             foreach (MemberModel method in Members)
                 if ((method.Flags & FlagType.Function) > 0)
                 {
                     decl = MemberDeclaration(method);
-                    sb.Append(CommentDeclaration(method.Comments, tab));
+                    sb.Append(nl).Append(CommentDeclaration(method.Comments, tab));
                     sb.Append(tab).Append(decl).Append(semi).Append(nl);
                 }
 
@@ -445,7 +445,10 @@ namespace ASCompletion.Model
         static public string CommentDeclaration(string comment, string tab)
         {
             if (comment == null) return "";
-            return tab + "/**\n" + tab + " " + comment.Trim() + "\n" + tab + " */\n";
+            comment = comment.Trim();
+            if (comment.IndexOf('\n') > 0)
+                return tab + "/**\n" + tab + " " + comment +"\n" + tab + " */\n";
+            else return tab + "/// " + comment + "\n";
         }
         #endregion
     }

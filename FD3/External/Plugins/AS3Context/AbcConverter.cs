@@ -10,6 +10,7 @@ namespace AS3Context
     public class AbcConverter
     {
         private static Dictionary<string, FileModel> genericTypes;
+        private static Dictionary<string, string> imports;
 
         /// <summary>
         /// Create virtual FileModel objects from Abc bytecode
@@ -34,6 +35,8 @@ namespace AS3Context
                     if (instance == null)
                         continue;
 
+                    imports = new Dictionary<string, string>();
+
                     FileModel model = new FileModel("");
                     model.Context = context;
                     model.Package = instance.name.uri;
@@ -48,13 +51,15 @@ namespace AS3Context
 
                     type.Type = instance.name.ToTypeString();
                     type.Name = instance.name.localName;
-                    type.ExtendsType = (instance.baseName.uri == model.Package) ? instance.baseName.localName : instance.baseName.ToTypeString();
+                    if (instance.baseName.uri == model.Package)
+                        type.ExtendsType = ImportType(instance.baseName.localName);
+                    else type.ExtendsType = ImportType(instance.baseName);
 
                     if (instance.interfaces != null && instance.interfaces.Length > 0)
                     {
                         type.Implements = new List<string>();
                         foreach (QName name in instance.interfaces)
-                            type.Implements.Add(name.ToTypeString());
+                            type.Implements.Add(ImportType(name));
                     }
 
                     if (model.Package == "private")
@@ -132,6 +137,12 @@ namespace AS3Context
                         privateClasses.Classes.Add(type);
                     }
                     else if (model.Classes.Count > 0) path.AddFile(model);
+
+                    // imports
+                    foreach (string import in imports.Keys)
+                    {
+                        model.Imports.Add(new MemberModel(import, import, FlagType.Import, 0));
+                    }
                 }
             }
 
@@ -187,8 +198,7 @@ namespace AS3Context
                     SlotInfo slot = info as SlotInfo;
                     member.Flags |= FlagType.Variable;
                     if (slot.kind == TraitMember.Const) member.Flags |= FlagType.Constant;
-                    if (slot.type == null) member.Type = "*";
-                    else member.Type = slot.type.ToTypeString();
+                    member.Type = ImportType(slot.type);
                 }
 
                 else if (info is MethodInfo)
@@ -201,8 +211,7 @@ namespace AS3Context
                     }
                     MethodInfo method = info as MethodInfo;
                     QName type = method.returnType;
-                    if (type == null) member.Type = "*";
-                    else member.Type = type.ToTypeString();
+                    member.Type = ImportType(type);
                     
                     member.Parameters = new List<MemberModel>();
                     int n = method.paramTypes.Length;
@@ -212,8 +221,7 @@ namespace AS3Context
                         MemberModel param = new MemberModel();
                         param.Name = (method.paramNames != null) ? method.paramNames[i] : "param" + i;
                         type = method.paramTypes[i];
-                        if (type == null) param.Type = "*";
-                        else param.Type = type.ToTypeString();
+                        param.Type = ImportType(type);
 
                         if (i >= defaultValues) 
                             SetDefaultValue(param, method.optionalValues[i - defaultValues]);
@@ -226,6 +234,23 @@ namespace AS3Context
                 list.Add(member);
             }
             return list;
+        }
+
+        private static string ImportType(QName type)
+        {
+            if (type == null) return "*";
+            else return ImportType(type.ToTypeString());
+        }
+
+        private static string ImportType(string qname)
+        {
+            if (qname == null) return "*";
+            int p = qname.LastIndexOf('.');
+            if (p < 0 || qname.IndexOf('<') > 0) return qname;
+            if (imports.ContainsKey(qname)) return imports[qname];
+            string cname = qname.Substring(p + 1);
+            imports[qname] = cname;
+            return cname;
         }
 
         private static void SetDefaultValue(MemberModel member, object value)

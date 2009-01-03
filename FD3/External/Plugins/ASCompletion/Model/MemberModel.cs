@@ -148,7 +148,9 @@ namespace ASCompletion.Model
 		{
 			if (!(obj is MemberModel))
 				throw new InvalidCastException("This object is not of type MemberModel");
-			return string.Compare(Name, ((MemberModel)obj).Name, false);
+            MemberModel to = (MemberModel)obj;
+            if (Name == to.Name) return (int)Flags - (int)to.Flags;
+            else return string.Compare(Name, to.Name, false);
 		}
 
         static public string FormatType(string type)

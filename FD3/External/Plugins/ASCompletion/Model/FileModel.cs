@@ -43,7 +43,7 @@ namespace ASCompletion.Model
             Name = name;
         }
 
-        internal void ParseParams(string raw)
+        public void ParseParams(string raw)
         {
             RawParams = raw;
             Params = new Dictionary<string, string>();
@@ -254,14 +254,11 @@ namespace ASCompletion.Model
             // event/style metadatas
             if (MetaDatas != null)
             {
-                bool emptyMeta = true;
                 foreach (ASMetaData meta in MetaDatas) if (meta.Name == "Event" || meta.Name == "Style")
                 {
-                    emptyMeta = false;
                     sb.Append(ClassModel.CommentDeclaration(meta.Comments, tab));
-                    sb.Append(tab).Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl);
+                    sb.Append(tab).Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl).Append(nl);
                 }
-                if (!emptyMeta) sb.Append(nl);
             }
 
             // members			

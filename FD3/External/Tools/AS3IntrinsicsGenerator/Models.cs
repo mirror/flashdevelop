@@ -51,6 +51,7 @@ namespace AS3IntrinsicsGenerator
     public class BlockModel : BaseModel
     {
         public string Decl;
+        public List<string> Imports;
         public List<EventModel> Events = new List<EventModel>();
         public List<PropertyModel> Properties = new List<PropertyModel>();
         public List<MethodModel> Methods = new List<MethodModel>();
@@ -63,6 +64,11 @@ namespace AS3IntrinsicsGenerator
                 .Append(tabs).Append('{').Append(NL);
 
             string ctabs = tabs + '\t';
+            if (Imports != null)
+            {
+                foreach (string import in Imports) sb.Append(ctabs).Append("import ").Append(import).Append(';').Append(NL);
+                sb.Append(NL);
+            }
             foreach (BaseModel m in Events) m.Format(sb, ctabs);
             foreach (BaseModel m in Properties) m.Format(sb, ctabs);
             foreach (BaseModel m in Methods) m.Format(sb, ctabs);
@@ -88,8 +94,8 @@ namespace AS3IntrinsicsGenerator
             sb.Append(tabs).Append(Namespace).Append(' ');
             if (IsStatic) sb.Append("static ");
             sb.Append("function ").Append(Name)
-                .Append('(').Append(Params).Append(')');
-            if (ReturnType != null) sb.Append(':').Append(ReturnType);
+                .Append(" (").Append(Params).Append(')');
+            if (ReturnType != null) sb.Append(" : ").Append(ReturnType);
             sb.Append(SEMI).Append(NL).Append(NL);
         }
 
@@ -105,6 +111,7 @@ namespace AS3IntrinsicsGenerator
                 Match m = reRest.Match(Params);
                 if (m.Success)
                     Params = Params.Substring(0, m.Index) + "..." + m.Groups[1].Value + Params.Substring(m.Index + m.Length);
+                Params = Params.Replace("=", " = ");
             }
             if (ReturnType != null)
             {
