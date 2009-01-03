@@ -18,6 +18,7 @@ using ASCompletion.Model;
 using ASCompletion.Context;
 using ASCompletion.Settings;
 using PluginCore.Localization;
+using System.Drawing;
 
 namespace ASCompletion
 {
@@ -106,9 +107,12 @@ namespace ASCompletion
             InitializeComponent();
 
             toolStrip.Renderer = new DockPanelStripRenderer();
-            toolStrip.Padding = new Padding(1, 0, 1, 0);
+            toolStrip.Padding = new Padding(2, 1, 2, 2);
             sortDropDown.Image = PluginBase.MainForm.FindImage("444");
             clearButton.Image = PluginBase.MainForm.FindImage("153");
+            clearButton.Alignment = ToolStripItemAlignment.Right;
+            clearButton.CheckOnClick = false;
+            this.Resize += new EventHandler(PluginUI_Resize);
 
             outlineTree = new FixedTreeView();
             outlineTree.BorderStyle = BorderStyle.None;
@@ -124,6 +128,14 @@ namespace ASCompletion
             outlineTree.AfterSelect += new TreeViewEventHandler(outlineTree_AfterSelect);
             Controls.Add(outlineTree);
             outlineTree.BringToFront();
+        }
+
+        void PluginUI_Resize(object sender, EventArgs e)
+        {
+            Size size = new Size();
+            size.Height = this.findProcTxt.Height;
+            size.Width = this.toolStrip.Width - 65;
+            this.findProcTxt.Size = size;
         }
 
         private void InitializeTexts()
@@ -1000,7 +1012,7 @@ namespace ASCompletion
             else if (item == sortedByKindItem) settings.SortingMode = OutlineSorting.SortedByKind;
             else if (item == sortedGroupItem) settings.SortingMode = OutlineSorting.SortedGroup;
             else if (item == sortedSmartItem) settings.SortingMode = OutlineSorting.SortedSmart;
-            RefreshView(ASContext.Context.CurrentModel);
+            if (ASContext.Context.CurrentModel != null) RefreshView(ASContext.Context.CurrentModel);
         }
 
     }

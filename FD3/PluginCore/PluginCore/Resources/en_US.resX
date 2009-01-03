@@ -2718,4 +2718,13 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Outline.SortingMode" xml:space="preserve">
     <value>Sorting mode</value>
   </data>
+  <data name="FlashLogViewer.Description.RegexError" xml:space="preserve">
+    <value>Allows you to customize the capture regex of error lines.</value>
+  </data>
+  <data name="FlashLogViewer.Description.RegexWarning" xml:space="preserve">
+    <value>Allows you to customize the capture regex of warning lines.</value>
+  </data>
+  <data name="FlashLogViewer.Category.Regex" xml:space="preserve">
+    <value>Regex</value>
+  </data>
 </root>

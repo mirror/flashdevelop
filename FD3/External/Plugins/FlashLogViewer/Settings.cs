@@ -16,9 +16,11 @@ namespace FlashLogViewer
     {
         private String flashLogFile = "";
         private String policyLogFile = "";
-        private Boolean colourWarnings = true;
-        private Boolean keepPopupTopMost = true;
+        private String regexError = "Error #";
+        private String regexWarning = "Warning: ";
         private StartType trackingStartType = StartType.Manually;
+        private Boolean keepPopupTopMost = true;
+        private Boolean colourWarnings = true;
 
         /// <summary> 
         /// Get or sets the flashLogFile.
@@ -80,6 +82,32 @@ namespace FlashLogViewer
         {
             get { return this.trackingStartType; }
             set { this.trackingStartType = value; }
+        }
+
+        /// <summary> 
+        /// Get or sets the regexWarning.
+        /// </summary>
+        [DefaultValue("Warning: ")]
+        [DisplayName("Regex For Warnings")]
+        [LocalizedCategory("FlashLogViewer.Category.Regex")]
+        [LocalizedDescription("FlashLogViewer.Description.RegexWarning")]
+        public String RegexWarning
+        {
+            get { return this.regexWarning; }
+            set { this.regexWarning = value; }
+        }
+
+        /// <summary> 
+        /// Get or sets the regexError.
+        /// </summary>
+        [DefaultValue("Error #")]
+        [DisplayName("Regex For Errors")]
+        [LocalizedCategory("FlashLogViewer.Category.Regex")]
+        [LocalizedDescription("FlashLogViewer.Description.RegexError")]
+        public String RegexError
+        {
+            get { return this.regexError; }
+            set { this.regexError = value; }
         }
 
      }

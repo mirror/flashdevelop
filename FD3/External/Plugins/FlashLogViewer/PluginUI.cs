@@ -180,28 +180,30 @@ namespace FlashLogViewer
         /// </summary>
         private void InitializeSettings()
         {
-            String userDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            String userDir = Environment.GetEnvironmentVariable("USERPROFILE");
             String userAppDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             String macromediaDir = Path.Combine(userAppDir, "Macromedia");
             String flashPlayerDir = Path.Combine(macromediaDir, "Flash Player");
             String flashLogDir = Path.Combine(flashPlayerDir, "Logs");
             String mmConfigFile = Path.Combine(userDir, "mm.cfg");
-            if (!File.Exists(Settings.FlashLogFile))
+            if (!File.Exists(this.Settings.FlashLogFile))
             {
-                Settings.FlashLogFile = Path.Combine(flashLogDir, "flashlog.txt");
-                FileHelper.WriteFile(Settings.FlashLogFile, "", Encoding.ASCII);
+                if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
+                this.Settings.FlashLogFile = Path.Combine(flashLogDir, "flashlog.txt");
+                FileHelper.WriteFile(this.Settings.FlashLogFile, "", Encoding.Default);
             }
-            if (!File.Exists(Settings.PolicyLogFile)) 
+            if (!File.Exists(this.Settings.PolicyLogFile)) 
             {
-                Settings.PolicyLogFile = Path.Combine(flashLogDir, "policyfiles.txt");
-                FileHelper.WriteFile(Settings.PolicyLogFile, "", Encoding.ASCII);
+                if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
+                this.Settings.PolicyLogFile = Path.Combine(flashLogDir, "policyfiles.txt");
+                FileHelper.WriteFile(this.Settings.PolicyLogFile, "", Encoding.Default);
             }
             if (!File.Exists(mmConfigFile))
             {
                 String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\n";
-                FileHelper.WriteFile(mmConfigFile, contents, Encoding.ASCII);
+                FileHelper.WriteFile(mmConfigFile, contents, Encoding.Default);
             }
-            this.curLogFile = Settings.FlashLogFile;
+            this.curLogFile = this.Settings.FlashLogFile;
         }
 
         /// <summary>
@@ -323,10 +325,10 @@ namespace FlashLogViewer
                 if (Settings.ColourWarnings)
                 {
                     // Warning
-                    r = new Regex("Warning: ", RegexOptions.IgnoreCase);
+                    r = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
                     if (r.IsMatch(line)) colorTbl = "\\cf2 ";
                     // Error
-                    r = new Regex("Error #", RegexOptions.IgnoreCase);
+                    r = new Regex(this.Settings.RegexError, RegexOptions.IgnoreCase);
                     if (r.IsMatch(line)) colorTbl = "\\cf3 ";
                 }
                 // escape special rtf characters
