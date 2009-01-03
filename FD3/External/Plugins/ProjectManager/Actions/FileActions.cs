@@ -88,6 +88,8 @@ namespace ProjectManager.Actions
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
+                FlashDevelopActions.CheckAuthorName();
+
                 string newFilePath = Path.Combine(inDirectory, dialog.Line);
                 if (!Path.HasExtension(newFilePath) && extension != ".ext")
                     newFilePath = Path.ChangeExtension(newFilePath, extension);

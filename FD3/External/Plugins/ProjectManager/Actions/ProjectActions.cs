@@ -44,6 +44,8 @@ namespace ProjectManager.Actions
             {
                 try
                 {
+                    FlashDevelopActions.CheckAuthorName();
+
                     ProjectCreator creator = new ProjectCreator();
                     return creator.CreateProject(dialog.TemplateDirectory,
                         dialog.ProjectLocation, dialog.ProjectName, dialog.PackageName);

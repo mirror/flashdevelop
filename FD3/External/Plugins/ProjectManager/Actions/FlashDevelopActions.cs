@@ -6,11 +6,14 @@ using System.Diagnostics;
 using WeifenLuo.WinFormsUI;
 using PluginCore.Utilities;
 using PluginCore;
+using ProjectManager.Helpers;
+using System.Windows.Forms;
 
 namespace ProjectManager.Actions
 {
 	public class FlashDevelopActions
 	{
+        static private bool nameAsked;
         private IMainForm mainForm;
 
 		public FlashDevelopActions(IMainForm mainForm)
@@ -27,5 +30,23 @@ namespace ProjectManager.Actions
 		{
             return LineEndDetector.GetNewLineMarker((Int32)mainForm.Settings.EOLMode);
 		}
-	}
+
+        public static void CheckAuthorName()
+        {
+            if (nameAsked) return;
+            nameAsked = true;
+
+            foreach (Argument arg in PluginBase.Settings.CustomArguments)
+            {
+                if (arg.Key == "DefaultUser" && arg.Value == "...")
+                {
+                    LineEntryDialog prompt = new LineEntryDialog("Template configuration: enter your name", "Author", "");
+                    if (prompt.ShowDialog() == DialogResult.OK)
+                    {
+                        arg.Value = prompt.Line;
+                    }
+                }
+            }
+        }
+    }
 }
