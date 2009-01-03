@@ -17,6 +17,7 @@ using PluginCore.Managers;
 using ASCompletion.Model;
 using ASCompletion.Context;
 using ASCompletion.Settings;
+using PluginCore.Localization;
 
 namespace ASCompletion
 {
@@ -65,8 +66,6 @@ namespace ASCompletion
         public ToolStripMenuItem LookupMenuItem;
         private System.ComponentModel.IContainer components;
         public System.Windows.Forms.ImageList treeIcons;
-        private System.Windows.Forms.Panel panelFind;
-        private System.Windows.Forms.TextBox findProcTxt;
         private FixedTreeView outlineTree;
         private System.Timers.Timer tempoClick;
 
@@ -76,34 +75,62 @@ namespace ASCompletion
 
         private TreeNode currentHighlight;
         private TreeNode nextHighlight;
+        private ToolStrip toolStrip;
+        private ToolStripTextBox findProcTxt;
+        private ToolStripDropDownButton sortDropDown;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem noneItem;
+        private ToolStripMenuItem sortedItem;
+        private ToolStripMenuItem sortedByKindItem;
+        private ToolStripMenuItem sortedSmartItem;
+        private ToolStripMenuItem sortedGroupItem;
+        private ToolStripButton clearButton;
         private Timer highlightTimer;
 
         #region initialization
         public PluginUI(PluginMain plugin)
         {
             settings = plugin.PluginSettings;
-            //
-            // Controls
-            //
+            SuspendLayout();
+            InitializeControls();
+            InitializeTexts();
+            ResumeLayout();
+
+            highlightTimer = new Timer();
+            highlightTimer.Interval = 200;
+            highlightTimer.Tick += new EventHandler(highlightTimer_Tick);
+        }
+
+        private void InitializeControls()
+        {
             InitializeComponent();
+
+            toolStrip.Renderer = new DockPanelStripRenderer();
+            toolStrip.Padding = new Padding(1, 0, 1, 0);
+            sortDropDown.Image = PluginBase.MainForm.FindImage("444");
+            clearButton.Image = PluginBase.MainForm.FindImage("153");
+
             outlineTree = new FixedTreeView();
             outlineTree.BorderStyle = BorderStyle.None;
             outlineTree.ShowRootLines = false;
-            outlineTree.Location = new System.Drawing.Point(1, 0);
+            outlineTree.Location = new System.Drawing.Point(0, toolStrip.Bottom);
             outlineTree.Size = new System.Drawing.Size(198, 300);
-            outlineTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            outlineTree.Dock = DockStyle.Fill;
             outlineTree.ImageList = treeIcons;
             outlineTree.HotTracking = true;
-            outlineTree.TabIndex = 0;
+            outlineTree.TabIndex = 1;
             outlineTree.NodeClicked += new FixedTreeView.NodeClickedHandler(ClassTreeSelect);
             outlineTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindProcTxtKeyDown);
             outlineTree.AfterSelect += new TreeViewEventHandler(outlineTree_AfterSelect);
             Controls.Add(outlineTree);
             outlineTree.BringToFront();
+        }
 
-            highlightTimer = new Timer();
-            highlightTimer.Interval = 200;
-            highlightTimer.Tick += new EventHandler(highlightTimer_Tick);
+        private void InitializeTexts()
+        {
+            sortDropDown.Text = TextHelper.GetString("Outline.SortingMode");
+            searchInvitation = TextHelper.GetString("Outline.Search");
+            FindProcTxtLeave(null, null);
         }
 
         void outlineTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -132,34 +159,19 @@ namespace ASCompletion
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginUI));
-            this.findProcTxt = new System.Windows.Forms.TextBox();
-            this.panelFind = new System.Windows.Forms.Panel();
             this.treeIcons = new System.Windows.Forms.ImageList(this.components);
-            this.panelFind.SuspendLayout();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.sortDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.noneItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortedItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortedByKindItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortedSmartItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortedGroupItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.findProcTxt = new System.Windows.Forms.ToolStripTextBox();
+            this.clearButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // findProcTxt
-            // 
-            this.findProcTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.findProcTxt.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.findProcTxt.Location = new System.Drawing.Point(0, 5);
-            this.findProcTxt.Name = "findProcTxt";
-            this.findProcTxt.Size = new System.Drawing.Size(198, 20);
-            this.findProcTxt.TabIndex = 2;
-            this.findProcTxt.Enter += new System.EventHandler(this.FindProcTxtEnter);
-            this.findProcTxt.Leave += new System.EventHandler(this.FindProcTxtLeave);
-            this.findProcTxt.TextChanged += new System.EventHandler(this.FindProcTxtChanged);
-            this.findProcTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindProcTxtKeyDown);
-            // 
-            // panelFind
-            // 
-            this.panelFind.Controls.Add(this.findProcTxt);
-            this.panelFind.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFind.Location = new System.Drawing.Point(1, 1);
-            this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(198, 32);
-            this.panelFind.TabIndex = 1;
-            this.panelFind.Visible = false;
             // 
             // treeIcons
             // 
@@ -189,14 +201,98 @@ namespace ASCompletion
             this.treeIcons.Images.SetKeyName(21, "Template.png");
             this.treeIcons.Images.SetKeyName(22, "Declaration.png");
             // 
+            // toolStrip
+            // 
+            this.toolStrip.CanOverflow = false;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortDropDown,
+            this.toolStripSeparator1,
+            this.findProcTxt,
+            this.clearButton});
+            this.toolStrip.Location = new System.Drawing.Point(1, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(266, 25);
+            this.toolStrip.TabIndex = 0;
+            // 
+            // sortDropDown
+            // 
+            this.sortDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.sortDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneItem,
+            this.sortedItem,
+            this.sortedByKindItem,
+            this.sortedSmartItem,
+            this.sortedGroupItem});
+            this.sortDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sortDropDown.Name = "sortDropDown";
+            this.sortDropDown.Size = new System.Drawing.Size(13, 22);
+            this.sortDropDown.Text = "";
+            this.sortDropDown.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sortDropDown_DropDownItemClicked);
+            this.sortDropDown.DropDownOpening += new System.EventHandler(this.sortDropDown_DropDownOpening);
+            // 
+            // noneItem
+            // 
+            this.noneItem.Name = "noneItem";
+            this.noneItem.Size = new System.Drawing.Size(152, 22);
+            this.noneItem.Text = "None";
+            // 
+            // sortedItem
+            // 
+            this.sortedItem.Name = "sortedItem";
+            this.sortedItem.Size = new System.Drawing.Size(152, 22);
+            this.sortedItem.Text = "Sorted";
+            // 
+            // sortedByKindItem
+            // 
+            this.sortedByKindItem.Name = "sortedByKindItem";
+            this.sortedByKindItem.Size = new System.Drawing.Size(152, 22);
+            this.sortedByKindItem.Text = "SortedByKind";
+            // 
+            // sortedSmartItem
+            // 
+            this.sortedSmartItem.Name = "sortedSmartItem";
+            this.sortedSmartItem.Size = new System.Drawing.Size(152, 22);
+            this.sortedSmartItem.Text = "SortedSmart";
+            // 
+            // sortedGroupItem
+            // 
+            this.sortedGroupItem.Name = "sortedGroupItem";
+            this.sortedGroupItem.Size = new System.Drawing.Size(152, 22);
+            this.sortedGroupItem.Text = "SortedGroup";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // findProcTxt
+            // 
+            this.findProcTxt.Name = "findProcTxt";
+            this.findProcTxt.Size = new System.Drawing.Size(100, 25);
+            this.findProcTxt.Leave += new System.EventHandler(this.FindProcTxtLeave);
+            this.findProcTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindProcTxtKeyDown);
+            this.findProcTxt.Enter += new System.EventHandler(this.FindProcTxtEnter);
+            this.findProcTxt.TextChanged += new System.EventHandler(this.FindProcTxtChanged);
+            // 
+            // clearButton
+            // 
+            this.clearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clearButton.Image = ((System.Drawing.Image)(resources.GetObject("clearButton.Image")));
+            this.clearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(23, 22);
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // PluginUI
-            //
+            // 
+            this.Controls.Add(this.toolStrip);
             this.Name = "PluginUI";
-            this.Controls.Add(this.panelFind);
-            this.Size = new System.Drawing.Size(200, 300);
-            this.panelFind.ResumeLayout(false);
-            this.panelFind.PerformLayout();
+            this.Size = new System.Drawing.Size(268, 300);
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         #endregion
@@ -372,6 +468,9 @@ namespace ASCompletion
 
         private void RefreshView(FileModel aFile)
         {
+            findProcTxt.Text = "";
+            FindProcTxtLeave(null, null);
+
             //TraceManager.Add("Outline refresh...");
             outlineTree.BeginStatefulUpdate();
             try
@@ -755,14 +854,6 @@ namespace ASCompletion
             }
         }
 
-        private void HilightDeclarationInGroup(TreeNodeCollection nodes, string text)
-        {
-            foreach (TreeNode sub in nodes)
-            {
-                ShowAndHilightNode(sub, IsMach(sub.Tag as string, text));
-            }
-        }
-
         private bool IsMach(string inputText, string searchText)
         {
             if (inputText == null || searchText == "")
@@ -777,45 +868,28 @@ namespace ASCompletion
             try
             {
                 outlineTree.BeginUpdate();
-                outlineTree.CollapseAll();
                 TreeNodeCollection nodes = outlineTree.Nodes;
-                TreeNode node;
-                TreeNode expandedNode = null;
-                // checking wich node is expanded
-                foreach (TreeNode sub in nodes)
-                {
-                    if (sub.IsExpanded)
-                        expandedNode = sub;
-                }
-                foreach (TreeNode sub in nodes)
-                {
-                    node = sub;
-
-                    // hilights the name of the class (if mach)
-                    ShowAndHilightNode(node, IsMach(node.Text, text));
-                    // where to start the hilighting
-                    int startWith = 0;
-                    if (settings.ShowExtends) startWith++; // has Extend node
-                    if (settings.ShowImports) startWith++; // has Imports node
-                    for (int index = startWith; index < node.Nodes.Count; index++)
-                    {
-                        TreeNodeCollection groupNodes = node.Nodes[index].Nodes;
-                        HilightDeclarationInGroup(groupNodes, text);
-                    }
-                }
+                HilightDeclarationInGroup(nodes, text);
                 Win32.Scrolling.scrollToLeft(outlineTree);
-                if (expandedNode != null)
-                    expandedNode.Expand();
             }
             catch (Exception ex)
             {
                 // log error and disable search field
                 ErrorManager.ShowError(ex);
-                findProcTxt.Visible = false;
+                //findProcTxt.Visible = false;
             }
             finally
             {
                 outlineTree.EndUpdate();
+            }
+        }
+
+        private void HilightDeclarationInGroup(TreeNodeCollection nodes, string text)
+        {
+            foreach (TreeNode sub in nodes)
+            {
+                if (sub.ImageIndex >= ICON_VAR) ShowAndHilightNode(sub, IsMach(sub.Tag as string, text));
+                if (sub.Nodes.Count > 0) HilightDeclarationInGroup(sub.Nodes, text);
             }
         }
 
@@ -824,6 +898,7 @@ namespace ASCompletion
             string text = findProcTxt.Text;
             if (text == searchInvitation) text = "";
             HighlightAllMachingDeclaration(text.ToUpper());
+            clearButton.Enabled = text.Length > 0;
         }
 
         // Display informative text in the search field
@@ -844,7 +919,17 @@ namespace ASCompletion
             {
                 findProcTxt.Text = searchInvitation;
                 findProcTxt.ForeColor = System.Drawing.SystemColors.GrayText;
+                clearButton.Enabled = false;
             }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            findProcTxt.Text = "";
+            FindProcTxtLeave(null, null);
+            outlineTree.Focus();
+            if (PluginBase.MainForm.CurrentDocument.IsEditable)
+                PluginBase.MainForm.CurrentDocument.SciControl.Focus();
         }
 
         /// <summary>
@@ -865,6 +950,7 @@ namespace ASCompletion
                         outlineTree.SelectedNode = node;
                         delayedClassTreeSelect(null, null);
                     }
+                    findProcTxt.Text = "";
                 }
             }
             else if (e.KeyCode == Keys.Escape)
@@ -895,6 +981,27 @@ namespace ASCompletion
             return null;
         }
         #endregion
+
+        private void sortDropDown_DropDownOpening(object sender, EventArgs e)
+        {
+            noneItem.Checked = settings.SortingMode == OutlineSorting.None;
+            sortedItem.Checked = settings.SortingMode == OutlineSorting.Sorted;
+            sortedByKindItem.Checked = settings.SortingMode == OutlineSorting.SortedByKind;
+            sortedGroupItem.Checked = settings.SortingMode == OutlineSorting.SortedGroup;
+            sortedSmartItem.Checked = settings.SortingMode == OutlineSorting.SortedSmart;
+        }
+
+        private void sortDropDown_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripMenuItem item = e.ClickedItem as ToolStripMenuItem;
+            if (item == null || item.Checked) return;
+            if (item == noneItem) settings.SortingMode = OutlineSorting.None;
+            else if (item == sortedItem) settings.SortingMode = OutlineSorting.Sorted;
+            else if (item == sortedByKindItem) settings.SortingMode = OutlineSorting.SortedByKind;
+            else if (item == sortedGroupItem) settings.SortingMode = OutlineSorting.SortedGroup;
+            else if (item == sortedSmartItem) settings.SortingMode = OutlineSorting.SortedSmart;
+            RefreshView(ASContext.Context.CurrentModel);
+        }
 
     }
 

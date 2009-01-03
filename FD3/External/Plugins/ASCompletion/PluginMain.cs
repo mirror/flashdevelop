@@ -48,6 +48,7 @@ namespace ASCompletion
             EventType.ProcessEnd |
             EventType.ProcessArgs;
         private List<ToolStripItem> menuItems;
+        private ToolStripItem quickBuildItem;
         private int currentPos;
         private string currentDoc;
         private bool started;
@@ -228,6 +229,7 @@ namespace ASCompletion
                     case EventType.FileSwitch:
                         if (!doc.IsEditable)
                         {
+                            currentDoc = "";
                             SetItemsEnabled(false);
                             return;
                         }
@@ -536,8 +538,8 @@ namespace ASCompletion
                 image = pluginUI.GetIcon(PluginUI.ICON_QUICK_BUILD);
                 k = settingObject.QuickBuild;
                 if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                item = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), k);
-                menu.DropDownItems.Add(item);
+                quickBuildItem = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), k);
+                menu.DropDownItems.Add(quickBuildItem);
                 menuItems.Add(item);
 
                 menu.DropDownItems.Add(new ToolStripSeparator());

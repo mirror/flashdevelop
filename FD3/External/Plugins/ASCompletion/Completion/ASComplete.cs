@@ -455,6 +455,9 @@ namespace ASCompletion.Completion
                     return;
                 }
             }
+            // nice output
+            model.Members.Sort();
+            foreach (ClassModel aClass in model.Classes) aClass.Members.Sort();
             string src = model.GenerateIntrinsic(false);
             ASContext.MainForm.CreateEditableDocument(dummyFile, src, 65001);
         }

@@ -2712,4 +2712,10 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashLogViewer.Description.KeepPopupTopMost" xml:space="preserve">
     <value>Keeps the popup window as the top most of all windows.</value>
   </data>
+  <data name="ASCompletion.Outline.Search" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="ASCompletion.Outline.SortingMode" xml:space="preserve">
+    <value>Sorting mode</value>
+  </data>
 </root>
