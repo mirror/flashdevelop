@@ -17,7 +17,7 @@ namespace MXMLCompletionBuilder
         static Regex reMatchEffects = new Regex("^\\s*\\[Effect\\((name=)?\"([^\"]+)\"", RegexOptions.Multiline);
         static Regex reMatchExcludes = new Regex("^\\s*\\[Exclude\\((name=)?\"([^\"]+)\"", RegexOptions.Multiline);
         static Regex reMatchDefaultProperty = new Regex("^\\s*\\[DefaultProperty\\(\"([^\"]+)\"", RegexOptions.Multiline);
-        static Regex reMatchIncludes = new Regex("^\\s*include \"([^\"]+)\";", RegexOptions.Multiline);
+        static Regex reMatchIncludes = new Regex("^\\s*include \"([^\"]+)\"", RegexOptions.Multiline);
 
         static private string inputFile;
         static private string outputFile;
@@ -355,7 +355,10 @@ namespace MXMLCompletionBuilder
 
                 List<string> inc = new List<string>();
                 inc.Add("id");
-                foreach (TypeInfos subInfos in infos.includes) if (!subInfos.isEmpty) inc.Add("@" + subInfos.name);
+                foreach (TypeInfos subInfos in infos.includes)
+                {
+                    if (!subInfos.isEmpty) inc.Add("@" + subInfos.name);
+                }
                 List<string> ats = new List<string>();
                 foreach (string at in infos.members) if (infos.excludes.IndexOf(at) < 0) ats.Add(at);
                 foreach (string at in infos.events) ats.Add(at + ":e");
@@ -498,7 +501,13 @@ namespace MXMLCompletionBuilder
             {
                 TypeInfos subInfos = GetSubGroup(m.Groups[1].Value, fileName);
                 if (subInfos == null) continue;
-                else infos.includes.Add(subInfos);
+                else
+                {
+                    foreach (string p in subInfos.events) infos.events.Add(p);
+                    foreach (string p in subInfos.styles) infos.styles.Add(p);
+                    foreach (string p in subInfos.effects) infos.effects.Add(p);
+                    foreach (string p in subInfos.members) infos.members.Add(p);
+                }
             }
             return true;
         }
@@ -512,6 +521,7 @@ namespace MXMLCompletionBuilder
             string fileName = Path.Combine(Path.GetDirectoryName(fromFile), relPath);
             TypeInfos infos = new TypeInfos(name);
             infos.isAbstract = true;
+            infos.ignore = true;
             ReadMetaData(fileName, infos);
             groups[name] = infos;
             return infos;
