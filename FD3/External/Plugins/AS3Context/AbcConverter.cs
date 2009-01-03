@@ -246,7 +246,15 @@ namespace AS3Context
         {
             if (qname == null) return "*";
             int p = qname.LastIndexOf('.');
-            if (p < 0 || qname.IndexOf('<') > 0) return qname;
+            int q = qname.LastIndexOf('<');
+            if (q > 0)
+            {
+                p = qname.IndexOf('>', q);
+                if (p <= q) return qname;
+                else
+                    return qname.Substring(0, q + 1) + ImportType(qname.Substring(q + 1, p - q - 1)) + qname.Substring(p);
+            }
+            if (p < 0) return qname;
             if (imports.ContainsKey(qname)) return imports[qname];
             string cname = qname.Substring(p + 1);
             imports[qname] = cname;

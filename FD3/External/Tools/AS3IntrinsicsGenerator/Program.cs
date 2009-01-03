@@ -44,6 +44,7 @@ namespace AS3IntrinsicsGenerator
             GenerateIntrinsics("FP9", context.Classpath[3]);
             GenerateIntrinsics("FP10", context.Classpath[2]);
             GenerateIntrinsics("AIR", context.Classpath[1]);
+            GenerateIntrinsics("AIR", context.Classpath[0]);
 
             Console.WriteLine("Done.");
         }
