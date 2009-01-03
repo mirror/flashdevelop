@@ -549,7 +549,9 @@ namespace ASCompletion.Model
                     {
                         inType = false;
                         inValue = false;
+                        inGeneric = false;
                         valueLength = 0;
+                        length = 0;
                         context = 0;
                     }
                     else if (c1 == '{') paramBraceCount++;
