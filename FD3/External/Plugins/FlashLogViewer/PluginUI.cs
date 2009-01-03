@@ -280,7 +280,7 @@ namespace FlashLogViewer
         {
             Size size = new Size();
             size.Height = this.filterComboBox.Height;
-            size.Width = this.toolStrip.Width - 268;
+            size.Width = this.toolStrip.Width - 269;
             this.filterComboBox.Size = size;
         }
 
