@@ -1,12 +1,11 @@
-﻿package flash.display 
+package flash.display
 {
-	public final class GradientType 
+	/// The GradientType class provides values for the type parameter in the beginGradientFill() and lineGradientStyle() methods of the flash.display.Graphics class.
+	public class GradientType extends Object
 	{
 		/// Value used to specify a linear gradient fill.
-		public static const LINEAR:String = "linear";
-		
-		/// Value used to specify a radial gradient fill.7
-		public static const RADIAL:String = "radial";
+		public static const LINEAR : String;
+		/// Value used to specify a radial gradient fill.
+		public static const RADIAL : String;
 	}
-	
 }

@@ -1,17 +1,11 @@
-package flash.text 
+package flash.text
 {
-	public final class TextColorType 
+	/// The TextColorType class provides color values for the flash.text.TextRenderer class.
+	public class TextColorType extends Object
 	{
-		/**
-		 * Used in the colorType parameter in the setAdvancedAntiAliasingTable() method.
-		 *  Use the syntax TextColorType.DARK_COLOR.
-		 */
-		public static const DARK_COLOR:String = "dark";
-		/**
-		 * Used in the colorType parameter in the setAdvancedAntiAliasingTable() method.
-		 *  Use the syntax TextColorType.LIGHT_COLOR.
-		 */
-		public static const LIGHT_COLOR:String = "light";
+		/// Used in the colorType parameter in the setAdvancedAntiAliasingTable() method.
+		public static const DARK_COLOR : String;
+		/// Used in the colorType parameter in the setAdvancedAntiAliasingTable() method.
+		public static const LIGHT_COLOR : String;
 	}
-	
 }

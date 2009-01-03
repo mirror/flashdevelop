@@ -1,21 +1,18 @@
 package flash.html
 {
 	/// An HTMLHistoryItem object describes a location in the navigation history of an HTMLLoader object.
-	public class HTMLHistoryItem
+	public class HTMLHistoryItem extends Object
 	{
-		/// [AIR] The URL of the HTML page.
-		public var url:String;
+		/// [AIR] Indicates whether the HTML page includes POST data.
+		public function get isPost () : Boolean;
 
 		/// [AIR] The original URL of the HTML page, before any redirects.
-		public var originalUrl:String;
-
-		/// [AIR] Indicates whether the HTML page includes POST data.
-		public var isPost:Boolean;
+		public function get originalUrl () : String;
 
 		/// [AIR] The title of the HTML page.
-		public var title:String;
+		public function get title () : String;
 
+		/// [AIR] The URL of the HTML page.
+		public function get url () : String;
 	}
-
 }
-

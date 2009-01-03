@@ -1,36 +1,28 @@
-package 
+package
 {
 	/// The Object class is at the root of the ActionScript class hierarchy.
-	public class Object
+	public class Object extends *
 	{
-		/// A reference to the prototype object of a class or function object.
-		public var prototype:Object;
-
-		/// A reference to the class object or constructor function for a given object instance.
-		public var constructor:Function;
-
-		/// Creates an Object object and stores a reference to the object's constructor method in the object's constructor property.
-		public function Object();
+		public static const length : int;
 
 		/// Indicates whether an object has a specified property defined.
-		public function hasOwnProperty(name:String):Boolean;
+		public function hasOwnProperty (V:*) : Boolean;
 
-		/// Indicates whether the specified property exists and is enumerable.
-		public function propertyIsEnumerable(name:String):Boolean;
+		public static function init () : *;
 
 		/// Indicates whether an instance of the Object class is in the prototype chain of the object specified as the parameter.
-		public function isPrototypeOf(theClass:Object):Boolean;
+		public function isPrototypeOf (V:*) : Boolean;
 
-		/// Sets the availability of a dynamic property for loop operations.
-		public function setPropertyIsEnumerable(name:String, isEnum:Boolean=true):void;
+		/// Creates an Object object and stores a reference to the object's constructor method in the object's constructor property.
+		public function Object ();
 
-		/// Returns the string representation of the specified object.
-		public function toString():String;
+		/// Indicates whether the specified property exists and is enumerable.
+		public function propertyIsEnumerable (V:*) : Boolean;
 
-		/// Returns the primitive value of the specified object.
-		public function valueOf():Object;
+		public function toString () : String;
 
+		public function valueOf () : Object;
+
+		public function setPropertyIsEnumerable (name:String, isEnum:Boolean = true) : void;
 	}
-
 }
-

@@ -1,17 +1,15 @@
-﻿package flash.display 
+package flash.display
 {
-	public final class BitmapDataChannel 
+	/// The BitmapDataChannel class is an enumeration of constant values that indicate which channel to use: red, blue, green, or alpha transparency.
+	public class BitmapDataChannel extends Object
 	{
 		/// The alpha channel.
-		public static const ALPHA:uint = 8;
-		
+		public static const ALPHA : uint;
 		/// The blue channel.
-		public static const BLUE:uint = 4;
-		
+		public static const BLUE : uint;
 		/// The green channel.
-		public static const GREEN:uint = 2;
-		
+		public static const GREEN : uint;
 		/// The red channel.
-		public static const RED:uint = 1;
+		public static const RED : uint;
 	}
 }

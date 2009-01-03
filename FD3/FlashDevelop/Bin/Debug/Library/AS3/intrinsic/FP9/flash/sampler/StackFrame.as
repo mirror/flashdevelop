@@ -1,21 +1,16 @@
 package flash.sampler
 {
 	/// The StackFrame class provides access to the properties of a data block containing a function.
-	public class StackFrame
+	public class StackFrame extends Object
 	{
-		/// The function name in the stack frame.
-		public static const name:String;
-
 		/// The file name of the SWF file being debugged.
-		public static const file:String;
-
+		public const file : String;
 		/// The line number for the function in the SWF file being debugged.
-		public static const line:uint;
+		public const line : uint;
+		/// The function name in the stack frame.
+		public const name : String;
 
 		/// Converts the StackFrame to a string of its properties.
-		public function toString():String;
-
+		public function toString () : String;
 	}
-
 }
-

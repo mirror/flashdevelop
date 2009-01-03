@@ -1,15 +1,13 @@
-package flash.events 
+package flash.events
 {
-	public final class EventPhase 
+	/// The EventPhase class provides values for the eventPhase property of the Event class.
+	public class EventPhase extends Object
 	{
 		/// The target phase, which is the second phase of the event flow.
-		public static const AT_TARGET:uint = 2;
-		
+		public static const AT_TARGET : uint;
 		/// The bubbling phase, which is the third phase of the event flow.
-		public static const BUBBLING_PHASE:uint = 3;
-		
+		public static const BUBBLING_PHASE : uint;
 		/// The capturing phase, which is the first phase of the event flow.
-		public static const CAPTURING_PHASE:uint = 1;
+		public static const CAPTURING_PHASE : uint;
 	}
-	
 }

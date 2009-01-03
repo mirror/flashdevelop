@@ -1,17 +1,11 @@
-package flash.text 
+package flash.text
 {
-	public final class FontType 
+	/// The FontType class contains the enumerated constants "embedded" and "device" for the fontType property of the Font class.
+	public class FontType extends Object
 	{
-		/**
-		 * Indicates that this is a device font.
-		 *  The SWF file renders fonts with those installed on the system.
-		 */
-		public static const DEVICE:String = "device";
-		/**
-		 * Indicates that this is an embedded font.
-		 *  Font outlines are embedded in the published SWF file.
-		 */
-		public static const EMBEDDED:String = "embedded";
+		/// Indicates that this is a device font.
+		public static const DEVICE : String;
+		/// Indicates that this is an embedded font.
+		public static const EMBEDDED : String;
 	}
-	
 }

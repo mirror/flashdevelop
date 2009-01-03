@@ -1,19 +1,11 @@
-package flash.printing 
+package flash.printing
 {
-	public final class PrintJobOrientation 
+	/// This class provides values that are used by the PrintJob.orientation property for the image position of a printed page.
+	public class PrintJobOrientation extends Object
 	{
-		/**
-		 * The landscape (horizontal) image orientation for printing.
-		 *  This constant is used with the PrintJob.orientation property.
-		 *  Use the syntax PrintJobOrientation.LANDSCAPE.
-		 */
-		public static const LANDSCAPE:String = "landscape";
-		/**
-		 * The portrait (vertical) image orientation for printing.
-		 *  This constant is used with the PrintJob.orientation property.
-		 *  Use the syntax PrintJobOrientation.PORTRAIT.
-		 */
-		public static const PORTRAIT:String = "portrait";
+		/// The landscape (horizontal) image orientation for printing.
+		public static const LANDSCAPE : String;
+		/// The portrait (vertical) image orientation for printing.
+		public static const PORTRAIT : String;
 	}
-	
 }

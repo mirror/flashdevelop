@@ -1,19 +1,13 @@
-package flash.filters 
+package flash.filters
 {
-	public final class BitmapFilterType 
+	/// The BitmapFilterType class contains values to set the type of a BitmapFilter.
+	public class BitmapFilterType extends Object
 	{
-		/**
-		 * Defines the setting that applies a filter to the entire area of an object.
-		 */
-		public static const FULL:String = "full";
-		/**
-		 * Defines the setting that applies a filter to the inner area of an object.
-		 */
-		public static const INNER:String = "inner";
-		/**
-		 * Defines the setting that applies a filter to the outer area of an object.
-		 */
-		public static const OUTER:String = "outer";
+		/// Defines the setting that applies a filter to the entire area of an object.
+		public static const FULL : String;
+		/// Defines the setting that applies a filter to the inner area of an object.
+		public static const INNER : String;
+		/// Defines the setting that applies a filter to the outer area of an object.
+		public static const OUTER : String;
 	}
-	
 }

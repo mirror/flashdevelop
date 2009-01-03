@@ -1,21 +1,13 @@
-package flash.text 
+package flash.text
 {
-	public final class TextDisplayMode 
+	/// The TextDisplayMode class contains values that control the subpixel anti-aliasing of the advanced anti-aliasing system.
+	public class TextDisplayMode extends Object
 	{
-		/**
-		 * Forces Flash Player to display grayscale anti-aliasing. While this setting
-		 *  avoids text coloring, some users may think it appears blurry.
-		 */
-		public static const CRT:String = "crt";
-		/**
-		 * Allows Flash Player to choose LCD or CRT mode.
-		 */
-		public static const DEFAULT:String = "default";
-		/**
-		 * Forces Flash Player to use LCD subpixel anti-aliasing. Depending on the font and
-		 *  the hardware, this setting can result in much higher resolution text or text coloring.
-		 */
-		public static const LCD:String = "lcd";
+		/// Forces Flash Player to display grayscale anti-aliasing.
+		public static const CRT : String;
+		/// Allows Flash Player to choose LCD or CRT mode.
+		public static const DEFAULT : String;
+		/// Forces Flash Player to use LCD subpixel anti-aliasing.
+		public static const LCD : String;
 	}
-	
 }

@@ -1,30 +1,31 @@
 package flash.media
 {
+	import flash.events.EventDispatcher;
+	import flash.media.SoundTransform;
+
+	/**
+	 * Dispatched when a sound has finished playing.
+	 * @eventType flash.events.Event.SOUND_COMPLETE
+	 */
+	[Event(name="soundComplete", type="flash.events.Event.SOUND_COMPLETE")] 
+
 	/// The SoundChannel class controls a sound in an application.
-	public class SoundChannel extends flash.events.EventDispatcher
+	public class SoundChannel extends EventDispatcher
 	{
-		/** 
-		 * Dispatched when a sound has finished playing.
-		 * @eventType flash.events.Event.SOUND_COMPLETE
-		 */
-		[Event(name="soundComplete", type="flash.events.Event")]
+		/// The current amplitude (volume) of the left channel, from 0 (silent) to 1 (full amplitude).
+		public function get leftPeak () : Number;
 
 		/// When the sound is playing, the position property indicates the current point that is being played in the sound file.
-		public var position:Number;
-
-		/// The SoundTransform object assigned to the sound channel.
-		public var soundTransform:flash.media.SoundTransform;
-
-		/// The current amplitude (volume) of the left channel, from 0 (silent) to 1 (full amplitude).
-		public var leftPeak:Number;
+		public function get position () : Number;
 
 		/// The current amplitude (volume) of the right channel, from 0 (silent) to 1 (full amplitude).
-		public var rightPeak:Number;
+		public function get rightPeak () : Number;
+
+		/// The SoundTransform object assigned to the sound channel.
+		public function get soundTransform () : SoundTransform;
+		public function set soundTransform (sndTransform:SoundTransform) : void;
 
 		/// Stops the sound playing in the channel.
-		public function stop():void;
-
+		public function stop () : void;
 	}
-
 }
-

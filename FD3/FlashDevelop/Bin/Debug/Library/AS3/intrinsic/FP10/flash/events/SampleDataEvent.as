@@ -1,24 +1,25 @@
 package flash.events
 {
+	import flash.utils.ByteArray;
+	import flash.events.Event;
+
 	/// Dispatched when the player requests new audio data.
-	public class SampleDataEvent extends flash.events.Event
+	public class SampleDataEvent extends Event
 	{
-		/// The position of the data in the audio stream.
-		public var position:Number;
+		public static const SAMPLE_DATA : String = "sampleData";
 
 		/// The data in the audio stream.
-		public var data:flash.utils.ByteArray;
+		public function get data () : ByteArray;
+		public function set data (thedata:ByteArray) : void;
 
-		/// [FP10] Creates an event object that contains information about audio data events.
-		public function SampleDataEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false, theposition:Number=0, thedata:flash.utils.ByteArray=null);
+		/// The position of the data in the audio stream.
+		public function get position () : Number;
+		public function set position (theposition:Number) : void;
 
-		/// [FP10] Creates a copy of the SampleDataEvent object and sets each property's value to match that of the original.
-		public function clone():flash.events.Event;
+		/// Creates a copy of the SampleDataEvent object and sets each property's value to match that of the original.
+		public function clone () : Event;
 
-		/// [FP10] Returns a string that contains all the properties of the SampleDataEvent object.
-		public function toString():String;
-
+		/// Returns a string that contains all the properties of the SampleDataEvent object.
+		public function toString () : String;
 	}
-
 }
-

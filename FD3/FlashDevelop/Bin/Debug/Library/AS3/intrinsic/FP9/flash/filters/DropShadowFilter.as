@@ -1,48 +1,55 @@
 package flash.filters
 {
+	import flash.filters.BitmapFilter;
+
 	/// The DropShadowFilter class lets you add a drop shadow to display objects.
-	public class DropShadowFilter extends flash.filters.BitmapFilter
+	public class DropShadowFilter extends BitmapFilter
 	{
-		/// The offset distance for the shadow, in pixels.
-		public var distance:Number;
+		/// The alpha transparency value for the shadow color.
+		public function get alpha () : Number;
+		public function set alpha (value:Number) : void;
 
 		/// The angle of the shadow.
-		public var angle:Number;
-
-		/// The color of the shadow.
-		public var color:uint;
-
-		/// The alpha transparency value for the shadow color.
-		public var alpha:Number;
+		public function get angle () : Number;
+		public function set angle (value:Number) : void;
 
 		/// The amount of horizontal blur.
-		public var blurX:Number;
+		public function get blurX () : Number;
+		public function set blurX (value:Number) : void;
 
 		/// The amount of vertical blur.
-		public var blurY:Number;
+		public function get blurY () : Number;
+		public function set blurY (value:Number) : void;
+
+		/// The color of the shadow.
+		public function get color () : uint;
+		public function set color (value:uint) : void;
+
+		/// The offset distance for the shadow, in pixels.
+		public function get distance () : Number;
+		public function set distance (value:Number) : void;
 
 		/// Indicates whether or not the object is hidden.
-		public var hideObject:Boolean;
+		public function get hideObject () : Boolean;
+		public function set hideObject (value:Boolean) : void;
 
 		/// Indicates whether or not the shadow is an inner shadow.
-		public var inner:Boolean;
+		public function get inner () : Boolean;
+		public function set inner (value:Boolean) : void;
 
 		/// Applies a knockout effect (true), which effectively makes the object's fill transparent and reveals the background color of the document.
-		public var knockout:Boolean;
+		public function get knockout () : Boolean;
+		public function set knockout (value:Boolean) : void;
 
 		/// The number of times to apply the filter.
-		public var quality:int;
+		public function get quality () : int;
+		public function set quality (value:int) : void;
 
 		/// The strength of the imprint or spread.
-		public var strength:Number;
-
-		/// Creates a new DropShadowFilter instance with the specified parameters.
-		public function DropShadowFilter(distance:Number=4.0, angle:Number=45, color:uint=0, alpha:Number=1.0, blurX:Number=4.0, blurY:Number=4.0, strength:Number=1.0, quality:int=1, inner:Boolean=false, knockout:Boolean=false, hideObject:Boolean=false);
+		public function get strength () : Number;
+		public function set strength (value:Number) : void;
 
 		/// Returns a copy of this filter object.
-		public function clone():flash.filters.BitmapFilter;
-
+		public function clone () : BitmapFilter;
 	}
-
 }
-

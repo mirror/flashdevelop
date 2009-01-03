@@ -1,18 +1,15 @@
-package flash.text 
+package flash.text
 {
-	public final class FontStyle 
+	/// The FontStyle class provides values for the TextRenderer class.
+	public class FontStyle extends Object
 	{
-		/// Defines the bold style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method. Use the syntax FontStyle.BOLD.
-		public static const BOLD:String = "bold";
-		
-		/// Defines the combined bold and italic style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method. Use the syntax FontStyle.BOLD_ITALIC.
-		public static const BOLD_ITALIC:String = "boldItalic";
-		
-		/// Defines the italic style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method. Use the syntax FontStyle.ITALIC.
-		public static const ITALIC:String = "italic";
-		
-		/// Defines the plain style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method. Use the syntax FontStyle.REGULAR.
-		public static const REGULAR:String = "regular";
+		/// Defines the bold style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method.
+		public static const BOLD : String;
+		/// Defines the combined bold and italic style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method.
+		public static const BOLD_ITALIC : String;
+		/// Defines the italic style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method.
+		public static const ITALIC : String;
+		/// Defines the plain style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method.
+		public static const REGULAR : String;
 	}
-	
 }

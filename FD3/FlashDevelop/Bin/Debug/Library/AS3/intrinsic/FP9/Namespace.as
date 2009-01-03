@@ -1,27 +1,23 @@
-package 
+package
 {
 	/// The Namespace class contains methods and properties for defining and working with namespaces.
-	public class Namespace
+	public class Namespace extends Object
 	{
+		public static const length : *;
+
 		/// The prefix of the namespace.
-		public var prefix:*;
+		public function get prefix () : *;
 
 		/// The Uniform Resource Identifier (URI) of the namespace.
-		public var uri:String;
-
-		/// Creates a Namespace object, given the uriValue.
-		public function Namespace(uriValue:*);
+		public function get uri () : String;
 
 		/// Creates a Namespace object, given the prefixValue and uriValue.
-		public function Namespace(prefixValue:*, uriValue:*);
+		public function Namespace (prefix:*, uri:*);
 
 		/// Equivalent to the Namespace.uri property.
-		public function toString():String;
+		public function toString () : String;
 
 		/// Equivalent to the Namespace.uri property.
-		public function valueOf():String;
-
+		public function valueOf () : String;
 	}
-
 }
-

@@ -1,12 +1,13 @@
 package flash.security
 {
+	import flash.utils.IDataInput;
+
 	/// IURIDereferencer defines an interface for objects that resolve URIs in an XML signature.
-	public class IURIDereferencer
+	public interface IURIDereferencer extends *
 	{
 		/// [AIR] Resolves and dereferences the specified URI.
-		public function dereference(uri:String):flash.utils.IDataInput;
+		public function dereference (uri:String) : IDataInput;
 
+		public function IURIDereferencer ();
 	}
-
 }
-

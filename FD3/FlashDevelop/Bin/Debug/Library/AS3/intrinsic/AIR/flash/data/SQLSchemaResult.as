@@ -1,24 +1,18 @@
 package flash.data
 {
 	/// A SQLSchemaResult instance contains the information resulting from a call to the SQLConnection.loadSchema() method.
-	public class SQLSchemaResult
+	public class SQLSchemaResult extends Object
 	{
 		/// [AIR] An array of SQLIndexSchema instances requested in a call to SQLConnection.loadSchema().
-		public var indices:Array;
+		public function get indices () : Array;
 
 		/// [AIR] An array of SQLTableSchema instances requested in a call to SQLConnection.loadSchema().
-		public var tables:Array;
+		public function get tables () : Array;
 
 		/// [AIR] An array of SQLTriggerSchema instances requested in a call to SQLConnection.loadSchema().
-		public var triggers:Array;
+		public function get triggers () : Array;
 
 		/// [AIR] An array of SQLViewSchema instances requested in a call to SQLConnection.loadSchema().
-		public var views:Array;
-
-		/// [AIR] Creates a SQLSchemaResult instance.
-		public function SQLSchemaResult(tables:Array, views:Array, indices:Array, triggers:Array);
-
+		public function get views () : Array;
 	}
-
 }
-

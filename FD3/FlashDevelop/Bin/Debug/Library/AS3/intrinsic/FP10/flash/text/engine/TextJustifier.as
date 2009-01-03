@@ -1,24 +1,21 @@
 package flash.text.engine
 {
+	import flash.text.engine.TextJustifier;
+
 	/// The TextJustifier class is an abstract base class for the justifier types that you can apply to a TextBlock, specifically the EastAsianJustifier and SpaceJustifier classes.
-	public class TextJustifier
+	public class TextJustifier extends Object
 	{
-		/// Specifies the locale to determine the justification rules for the text in a text block.
-		public var locale:String;
-
 		/// Specifies the line justification for the text in a text block.
-		public var lineJustification:String;
+		public function get lineJustification () : String;
+		public function set lineJustification (value:String) : void;
 
-		/// [FP10] Calling the new TextJustifier() constructor throws an ArgumentError exception.
-		public function TextJustifier(locale:String, lineJustification:String);
+		/// Specifies the locale to determine the justification rules for the text in a text block.
+		public function get locale () : String;
 
-		/// [FP10] Constructs a cloned copy of the TextJustifier.
-		public function clone():flash.text.engine.TextJustifier;
+		/// Constructs a cloned copy of the TextJustifier.
+		public function clone () : TextJustifier;
 
-		/// [FP10] Constructs a default TextJustifier subclass appropriate to the specified locale.
-		public static function getJustifierForLocale(locale:String):flash.text.engine.TextJustifier;
-
+		/// Constructs a default TextJustifier subclass appropriate to the specified locale.
+		public static function getJustifierForLocale (locale:String) : TextJustifier;
 	}
-
 }
-

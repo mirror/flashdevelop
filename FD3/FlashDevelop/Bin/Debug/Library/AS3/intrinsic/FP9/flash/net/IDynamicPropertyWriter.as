@@ -1,12 +1,13 @@
 package flash.net
 {
+	import flash.net.IDynamicPropertyOutput;
+
 	/// This interface is used with the IDynamicPropertyOutput interface to control the serialization of dynamic properties of dynamic objects.
-	public class IDynamicPropertyWriter
+	public interface IDynamicPropertyWriter extends *
 	{
+		public function IDynamicPropertyWriter ();
+
 		/// Writes the name and value of an IDynamicPropertyOutput object to an object with dynamic properties.
-		public function writeDynamicProperties(obj:Object, output:flash.net.IDynamicPropertyOutput):void;
-
+		public function writeDynamicProperties (obj:Object, output:IDynamicPropertyOutput) : void;
 	}
-
 }
-

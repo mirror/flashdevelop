@@ -1,63 +1,70 @@
 package flash.display
 {
+	import flash.events.EventDispatcher;
+	import flash.display.NativeMenuItem;
+	import flash.display.NativeMenu;
+
+	/**
+	 * Dispatched by this NativeMenuItem object immediately before the menu containing the item is displayed.
+	 * @eventType flash.events.Event.DISPLAYING
+	 */
+	[Event(name="displaying", type="flash.events.Event.DISPLAYING")] 
+
+	/**
+	 * Dispatched whenever a menu item is selected by the user.
+	 * @eventType flash.events.Event.SELECT
+	 */
+	[Event(name="select", type="flash.events.Event.SELECT")] 
+
 	/// The NativeMenuItem class represents a single item in a menu.
-	public class NativeMenuItem extends flash.events.EventDispatcher
+	public class NativeMenuItem extends EventDispatcher
 	{
-		/** 
-		 * [AIR] Dispatched by this NativeMenuItem object immediately before the menu containing the item is displayed.
-		 * @eventType flash.events.Event.DISPLAYING
-		 */
-		[Event(name="displaying", type="flash.events.Event")]
-
-		/** 
-		 * [AIR] Dispatched whenever a menu item is selected by the user.
-		 * @eventType flash.events.Event.SELECT
-		 */
-		[Event(name="select", type="flash.events.Event")]
-
-		/// [AIR] The menu that contains this item.
-		public var menu:flash.display.NativeMenu;
-
-		/// [AIR] The name of this menu item.
-		public var name:String;
-
-		/// [AIR] Reports whether this item is a menu separator line.
-		public var isSeparator:Boolean;
-
-		/// [AIR] Controls whether this menu item is enabled.
-		public var enabled:Boolean;
-
 		/// [AIR] Controls whether this menu item displays a checkmark.
-		public var checked:Boolean;
-
-		/// [AIR] The display string of this menu item.
-		public var label:String;
-
-		/// [AIR] The key equivalent for this menu item.
-		public var keyEquivalent:String;
-
-		/// [AIR] The array of key codes for the key equivalent modifiers.
-		public var keyEquivalentModifiers:Array;
-
-		/// [AIR] The position of the mnemonic character in the menu item label.
-		public var mnemonicIndex:int;
-
-		/// [AIR] The submenu associated with this menu item.
-		public var submenu:flash.display.NativeMenu;
+		public function get checked () : Boolean;
+		public function set checked (isChecked:Boolean) : void;
 
 		/// [AIR] An arbitrary data object associated with this menu item.
-		public var data:Object;
+		public function get data () : Object;
+		public function set data (data:Object) : void;
 
-		/// [AIR] Creates a new NativeMenuItem object.
-		public function NativeMenuItem(label:String, isSeparator:Boolean=false);
+		/// [AIR] Controls whether this menu item is enabled.
+		public function get enabled () : Boolean;
+		public function set enabled (isSeparator:Boolean) : void;
+
+		/// [AIR] Reports whether this item is a menu separator line.
+		public function get isSeparator () : Boolean;
+
+		/// [AIR] The key equivalent for this menu item.
+		public function get keyEquivalent () : String;
+		public function set keyEquivalent (keyEquivalent:String) : void;
+
+		/// [AIR] The array of key codes for the key equivalent modifiers.
+		public function get keyEquivalentModifiers () : Array;
+		public function set keyEquivalentModifiers (modifiers:Array) : void;
+
+		/// [AIR] The display string of this menu item.
+		public function get label () : String;
+		public function set label (label:String) : void;
+
+		/// [AIR] The menu that contains this item.
+		public function get menu () : NativeMenu;
+
+		/// [AIR] The position of the mnemonic character in the menu item label.
+		public function get mnemonicIndex () : int;
+		public function set mnemonicIndex (index:int) : void;
+
+		/// [AIR] The name of this menu item.
+		public function get name () : String;
+		public function set name (name:String) : void;
+
+		/// [AIR] The submenu associated with this menu item.
+		public function get submenu () : NativeMenu;
+		public function set submenu (submenu:NativeMenu) : void;
 
 		/// [AIR] Creates a copy of the NativeMenuItem object.
-		public function clone():flash.display.NativeMenuItem;
+		public function clone () : NativeMenuItem;
 
 		/// [AIR] Returns a string containing all the properties of the NativeMenuItem object.
-		public function toString():String;
-
+		public function toString () : String;
 	}
-
 }
-

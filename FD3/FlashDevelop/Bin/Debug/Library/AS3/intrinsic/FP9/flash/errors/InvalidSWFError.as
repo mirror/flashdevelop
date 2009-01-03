@@ -1,6 +1,5 @@
-package flash.errors 
+package flash.errors
 {
-	public dynamic class InvalidSWFError extends Error 
-	{
-	}
+	public class InvalidSWFError extends Error
+	{	}
 }

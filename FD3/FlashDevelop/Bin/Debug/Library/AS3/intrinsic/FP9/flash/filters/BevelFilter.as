@@ -1,51 +1,59 @@
 package flash.filters
 {
+	import flash.filters.BitmapFilter;
+
 	/// The BevelFilter class lets you add a bevel effect to display objects.
-	public class BevelFilter extends flash.filters.BitmapFilter
+	public class BevelFilter extends BitmapFilter
 	{
-		/// The offset distance of the bevel.
-		public var distance:Number;
-
 		/// The angle of the bevel.
-		public var angle:Number;
-
-		/// The highlight color of the bevel.
-		public var highlightColor:uint;
-
-		/// The alpha transparency value of the highlight color.
-		public var highlightAlpha:Number;
-
-		/// The shadow color of the bevel.
-		public var shadowColor:uint;
-
-		/// The alpha transparency value of the shadow color.
-		public var shadowAlpha:Number;
+		public function get angle () : Number;
+		public function set angle (value:Number) : void;
 
 		/// The amount of horizontal blur, in pixels.
-		public var blurX:Number;
+		public function get blurX () : Number;
+		public function set blurX (value:Number) : void;
 
 		/// The amount of vertical blur, in pixels.
-		public var blurY:Number;
+		public function get blurY () : Number;
+		public function set blurY (value:Number) : void;
+
+		/// The offset distance of the bevel.
+		public function get distance () : Number;
+		public function set distance (value:Number) : void;
+
+		/// The alpha transparency value of the highlight color.
+		public function get highlightAlpha () : Number;
+		public function set highlightAlpha (value:Number) : void;
+
+		/// The highlight color of the bevel.
+		public function get highlightColor () : uint;
+		public function set highlightColor (value:uint) : void;
 
 		/// Applies a knockout effect (true), which effectively makes the object's fill transparent and reveals the background color of the document.
-		public var knockout:Boolean;
+		public function get knockout () : Boolean;
+		public function set knockout (value:Boolean) : void;
 
 		/// The number of times to apply the filter.
-		public var quality:int;
+		public function get quality () : int;
+		public function set quality (value:int) : void;
+
+		/// The alpha transparency value of the shadow color.
+		public function get shadowAlpha () : Number;
+		public function set shadowAlpha (value:Number) : void;
+
+		/// The shadow color of the bevel.
+		public function get shadowColor () : uint;
+		public function set shadowColor (value:uint) : void;
 
 		/// The strength of the imprint or spread.
-		public var strength:Number;
+		public function get strength () : Number;
+		public function set strength (value:Number) : void;
 
 		/// The placement of the bevel on the object.
-		public var type:String;
-
-		/// Initializes a new BevelFilter instance with the specified parameters.
-		public function BevelFilter(distance:Number=4.0, angle:Number=45, highlightColor:uint=0xFFFFFF, highlightAlpha:Number=1.0, shadowColor:uint=0x000000, shadowAlpha:Number=1.0, blurX:Number=4.0, blurY:Number=4.0, strength:Number=1, quality:int=1, type:String=inner, knockout:Boolean=false);
+		public function get type () : String;
+		public function set type (value:String) : void;
 
 		/// Returns a copy of this filter object.
-		public function clone():flash.filters.BitmapFilter;
-
+		public function clone () : BitmapFilter;
 	}
-
 }
-

@@ -1,7 +1,5 @@
-package flash.display 
+package flash.display
 {
-	public final class MorphShape extends DisplayObject 
-	{
-	}
-	
+	public class MorphShape extends DisplayObject
+	{	}
 }

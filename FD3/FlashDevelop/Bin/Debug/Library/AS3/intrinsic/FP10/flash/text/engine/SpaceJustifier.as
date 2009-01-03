@@ -1,18 +1,15 @@
 package flash.text.engine
 {
+	import flash.text.engine.TextJustifier;
+
 	/// The SpaceJustifier class represents properties that control the justification options for text lines in a text block.
-	public class SpaceJustifier extends flash.text.engine.TextJustifier
+	public class SpaceJustifier extends TextJustifier
 	{
 		/// Specifies whether to use letter spacing during justification.
-		public var letterSpacing:Boolean;
+		public function get letterSpacing () : Boolean;
+		public function set letterSpacing (value:Boolean) : void;
 
-		/// [FP10] Creates a SpaceJustifier object.
-		public function SpaceJustifier(locale:String=en, lineJustification:String=unjustified, letterSpacing:Boolean=false);
-
-		/// [FP10] Constructs a cloned copy of the SpaceJustifier.
-		public function clone():flash.text.engine.TextJustifier;
-
+		/// Constructs a cloned copy of the SpaceJustifier.
+		public function clone () : TextJustifier;
 	}
-
 }
-

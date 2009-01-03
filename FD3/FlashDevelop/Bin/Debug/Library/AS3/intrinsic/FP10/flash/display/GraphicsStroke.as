@@ -1,33 +1,29 @@
 package flash.display
 {
+	import flash.display.IGraphicsFill;
+
 	/// Defines a line style or stroke.
-	public class GraphicsStroke
+	public class GraphicsStroke extends Object implements IGraphicsStroke, IGraphicsData
 	{
-		/// Indicates the thickness of the line in points; valid values are 0-255.
-		public var thickness:Number;
-
-		/// Specifies whether to hint strokes to full pixels.
-		public var pixelHinting:Boolean;
-
-		/// Indicates the limit at which a miter is cut off.
-		public var miterLimit:Number;
-
 		/// Specifies the instance containing data for filling a stroke.
-		public var fill:flash.display.IGraphicsFill;
+		public var fill : IGraphicsFill;
+		/// Indicates the limit at which a miter is cut off.
+		public var miterLimit : Number;
+		/// Specifies whether to hint strokes to full pixels.
+		public var pixelHinting : Boolean;
+		/// Indicates the thickness of the line in points; valid values are 0-255.
+		public var thickness : Number;
 
 		/// Specifies the type of caps at the end of lines.
-		public var caps:String;
+		public function get caps () : String;
+		public function set caps (value:String) : void;
 
 		/// Specifies the type of joint appearance used at angles.
-		public var joints:String;
+		public function get joints () : String;
+		public function set joints (value:String) : void;
 
 		/// Specifies the stroke thickness scaling.
-		public var scaleMode:String;
-
-		/// [FP10] Creates a new GraphicsStroke object.
-		public function GraphicsStroke(thickness:Number=unknown, pixelHinting:Boolean=false, scaleMode:String=normal, caps:String=none, joints:String=round, miterLimit:Number=3.0, fill:flash.display.IGraphicsFill=null);
-
+		public function get scaleMode () : String;
+		public function set scaleMode (value:String) : void;
 	}
-
 }
-

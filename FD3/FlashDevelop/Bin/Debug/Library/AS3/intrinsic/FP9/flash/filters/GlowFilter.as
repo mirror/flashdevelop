@@ -1,39 +1,43 @@
 package flash.filters
 {
-	/// The GlowFilter class lets you apply a glow effect to display objects.
-	public class GlowFilter extends flash.filters.BitmapFilter
-	{
-		/// The color of the glow.
-		public var color:uint;
+	import flash.filters.BitmapFilter;
 
+	/// The GlowFilter class lets you apply a glow effect to display objects.
+	public class GlowFilter extends BitmapFilter
+	{
 		/// The alpha transparency value for the color.
-		public var alpha:Number;
+		public function get alpha () : Number;
+		public function set alpha (value:Number) : void;
 
 		/// The amount of horizontal blur.
-		public var blurX:Number;
+		public function get blurX () : Number;
+		public function set blurX (value:Number) : void;
 
 		/// The amount of vertical blur.
-		public var blurY:Number;
+		public function get blurY () : Number;
+		public function set blurY (value:Number) : void;
+
+		/// The color of the glow.
+		public function get color () : uint;
+		public function set color (value:uint) : void;
 
 		/// Specifies whether the glow is an inner glow.
-		public var inner:Boolean;
+		public function get inner () : Boolean;
+		public function set inner (value:Boolean) : void;
 
 		/// Specifies whether the object has a knockout effect.
-		public var knockout:Boolean;
+		public function get knockout () : Boolean;
+		public function set knockout (value:Boolean) : void;
 
 		/// The number of times to apply the filter.
-		public var quality:int;
+		public function get quality () : int;
+		public function set quality (value:int) : void;
 
 		/// The strength of the imprint or spread.
-		public var strength:Number;
-
-		/// Initializes a new GlowFilter instance with the specified parameters.
-		public function GlowFilter(color:uint=0xFF0000, alpha:Number=1.0, blurX:Number=6.0, blurY:Number=6.0, strength:Number=2, quality:int=1, inner:Boolean=false, knockout:Boolean=false);
+		public function get strength () : Number;
+		public function set strength (value:Number) : void;
 
 		/// Returns a copy of this filter object.
-		public function clone():flash.filters.BitmapFilter;
-
+		public function clone () : BitmapFilter;
 	}
-
 }
-

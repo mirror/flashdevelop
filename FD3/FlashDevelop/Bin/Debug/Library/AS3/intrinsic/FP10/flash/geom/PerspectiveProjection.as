@@ -1,24 +1,24 @@
 package flash.geom
 {
+	import flash.geom.Point;
+	import flash.geom.Matrix3D;
+
 	/// The PerspectiveProjection class provides an easy way to assign or modify the perspective transformations of a display object and all of its children.
-	public class PerspectiveProjection
+	public class PerspectiveProjection extends Object
 	{
 		/// Specifies an angle, as a degree between 0 and 180, for the field of view in three dimensions.
-		public var fieldOfView:Number;
-
-		/// A two-dimensional point representing the center of the projection, the vanishing point for the display object.
-		public var projectionCenter:flash.geom.Point;
+		public function get fieldOfView () : Number;
+		public function set fieldOfView (fieldOfViewAngleInDegrees:Number) : void;
 
 		/// The distance between the eye or the viewpoint's origin (0,0,0) and the display object located in the z axis.
-		public var focalLength:Number;
+		public function get focalLength () : Number;
+		public function set focalLength (value:Number) : void;
 
-		/// [FP10] Creates an instance of a PerspectiveProjection object.
-		public function PerspectiveProjection();
+		/// A two-dimensional point representing the center of the projection, the vanishing point for the display object.
+		public function get projectionCenter () : Point;
+		public function set projectionCenter (p:Point) : void;
 
-		/// [FP10] Returns the underlying Matrix3D object of the display object.
-		public function toMatrix3D():flash.geom.Matrix3D;
-
+		/// Returns the underlying Matrix3D object of the display object.
+		public function toMatrix3D () : Matrix3D;
 	}
-
 }
-

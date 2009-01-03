@@ -1,7 +1,7 @@
-﻿package flash.display 
+package flash.display
 {
-	public interface IBitmapDrawable 
+	public interface IBitmapDrawable extends *
 	{
+		public function IBitmapDrawable ();
 	}
-	
 }
