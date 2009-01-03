@@ -14,19 +14,19 @@ package flash.display
 	 * Dispatched when the Stage object enters, or leaves, full-screen mode.
 	 * @eventType flash.events.FullScreenEvent.FULL_SCREEN
 	 */
-	[Event(name="fullScreen", type="flash.events.FullScreenEvent.FULL_SCREEN")] 
+	[Event(name="fullScreen", type="flash.events.FullScreenEvent")] 
 
 	/**
 	 * Dispatched when the scaleMode property of the Stage object is set to StageScaleMode.NO_SCALE and the SWF file is resized.
 	 * @eventType flash.events.Event.RESIZE
 	 */
-	[Event(name="resize", type="flash.events.Event.RESIZE")] 
+	[Event(name="resize", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched by the Stage object when the mouse pointer moves out of the stage area.
 	 * @eventType flash.events.Event.MOUSE_LEAVE
 	 */
-	[Event(name="mouseLeave", type="flash.events.Event.MOUSE_LEAVE")] 
+	[Event(name="mouseLeave", type="flash.events.Event")] 
 
 	/// The Stage class represents the main drawing area.
 	public class Stage extends DisplayObjectContainer

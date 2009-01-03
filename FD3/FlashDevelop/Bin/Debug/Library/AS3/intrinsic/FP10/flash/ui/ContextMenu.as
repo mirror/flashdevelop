@@ -10,7 +10,7 @@ package flash.ui
 	 * Dispatched when a user first generates a context menu but before the contents of the context menu are displayed.
 	 * @eventType flash.events.ContextMenuEvent.MENU_SELECT
 	 */
-	[Event(name="menuSelect", type="flash.events.ContextMenuEvent.MENU_SELECT")] 
+	[Event(name="menuSelect", type="flash.events.ContextMenuEvent")] 
 
 	/// The ContextMenu class provides control over the items in the Flash Player context menu.
 	public class ContextMenu extends EventDispatcher

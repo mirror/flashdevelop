@@ -7,7 +7,7 @@ package flash.media
 	 * Dispatched when a sound has finished playing.
 	 * @eventType flash.events.Event.SOUND_COMPLETE
 	 */
-	[Event(name="soundComplete", type="flash.events.Event.SOUND_COMPLETE")] 
+	[Event(name="soundComplete", type="flash.events.Event")] 
 
 	/// The SoundChannel class controls a sound in an application.
 	public class SoundChannel extends EventDispatcher

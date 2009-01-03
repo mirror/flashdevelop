@@ -11,43 +11,43 @@ package flash.desktop
 	 * Dispatched when the operating system detects mouse or keyboard activity after an idle period.
 	 * @eventType flash.events.Event.USER_PRESENT
 	 */
-	[Event(name="userPresent", type="flash.events.Event.USER_PRESENT")] 
+	[Event(name="userPresent", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when the user has been idle for the period of time specified by the idleThreshold property.
 	 * @eventType flash.events.Event.USER_IDLE
 	 */
-	[Event(name="userIdle", type="flash.events.Event.USER_IDLE")] 
+	[Event(name="userIdle", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when either a new network connection becomes available or an existing network connection is lost.
 	 * @eventType flash.events.Event.NETWORK_CHANGE
 	 */
-	[Event(name="networkChange", type="flash.events.Event.NETWORK_CHANGE")] 
+	[Event(name="networkChange", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when the application exit sequence is started.
 	 * @eventType flash.events.Event.EXITING
 	 */
-	[Event(name="exiting", type="flash.events.Event.EXITING")] 
+	[Event(name="exiting", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when the desktop focus is switched to a different application.
 	 * @eventType flash.events.Event.DEACTIVATE
 	 */
-	[Event(name="deactivate", type="flash.events.Event.DEACTIVATE")] 
+	[Event(name="deactivate", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when this application becomes the active desktop application.
 	 * @eventType flash.events.Event.ACTIVATE
 	 */
-	[Event(name="activate", type="flash.events.Event.ACTIVATE")] 
+	[Event(name="activate", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when an application is invoked.
 	 * @eventType flash.events.InvokeEvent.INVOKE
 	 */
-	[Event(name="invoke", type="flash.events.InvokeEvent.INVOKE")] 
+	[Event(name="invoke", type="flash.events.InvokeEvent")] 
 
 	/// The NativeApplication class represents this AIR application.
 	public class NativeApplication extends EventDispatcher

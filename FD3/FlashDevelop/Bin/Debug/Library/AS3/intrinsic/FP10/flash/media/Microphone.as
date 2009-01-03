@@ -8,13 +8,13 @@ package flash.media
 	 * Dispatched when a microphone reports its status.
 	 * @eventType flash.events.StatusEvent.STATUS
 	 */
-	[Event(name="status", type="flash.events.StatusEvent.STATUS")] 
+	[Event(name="status", type="flash.events.StatusEvent")] 
 
 	/**
 	 * Dispatched when a microphone begins or ends a session.
 	 * @eventType flash.events.ActivityEvent.ACTIVITY
 	 */
-	[Event(name="activity", type="flash.events.ActivityEvent.ACTIVITY")] 
+	[Event(name="activity", type="flash.events.ActivityEvent")] 
 
 	/// Use the Microphone class to capture audio from a microphone attached to a computer running Flash Player.
 	public class Microphone extends EventDispatcher

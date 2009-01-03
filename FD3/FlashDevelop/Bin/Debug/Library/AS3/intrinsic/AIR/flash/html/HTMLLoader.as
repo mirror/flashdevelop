@@ -15,43 +15,43 @@ package flash.html
 	 * Signals that the HTML DOM has been created in response to a load operation.
 	 * @eventType flash.events.Event.HTML_DOM_INITIALIZE
 	 */
-	[Event(name="htmlDOMInitialize", type="flash.events.Event.HTML_DOM_INITIALIZE")] 
+	[Event(name="htmlDOMInitialize", type="flash.events.Event")] 
 
 	/**
 	 * Signals that an uncaught JavaScript exception occurred in the HTMLLoader object.
 	 * @eventType flash.events.HTMLUncaughtScriptExceptionEvent.UNCAUGHT_SCRIPT_EXCEPTION
 	 */
-	[Event(name="uncaughtScriptException", type="flash.events.HTMLUncaughtScriptExceptionEvent.UNCAUGHT_SCRIPT_EXCEPTION")] 
+	[Event(name="uncaughtScriptException", type="flash.events.HTMLUncaughtScriptExceptionEvent")] 
 
 	/**
 	 * Signals that the scrollH or scrollV property has been changed by the HTMLLoader object.
 	 * @eventType flash.events.Event.SCROLL
 	 */
-	[Event(name="scroll", type="flash.events.Event.SCROLL")] 
+	[Event(name="scroll", type="flash.events.Event")] 
 
 	/**
 	 * Signals that one or both of the contentWidth and contentHeight properties of the HTMLLoader object has changed.
 	 * @eventType flash.events.Event.HTML_BOUNDS_CHANGE
 	 */
-	[Event(name="htmlBoundsChange", type="flash.events.Event.HTML_BOUNDS_CHANGE")] 
+	[Event(name="htmlBoundsChange", type="flash.events.Event")] 
 
 	/**
 	 * Signals that the location property of the HTMLLoader object has changed.
 	 * @eventType flash.events.Event.LOCATION_CHANGE
 	 */
-	[Event(name="locationChange", type="flash.events.Event.LOCATION_CHANGE")] 
+	[Event(name="locationChange", type="flash.events.Event")] 
 
 	/**
 	 * Signals that the rendering of content in the HTMLLoader object is fully up to date.
 	 * @eventType flash.events.Event.HTML_RENDER
 	 */
-	[Event(name="htmlRender", type="flash.events.Event.HTML_RENDER")] 
+	[Event(name="htmlRender", type="flash.events.Event")] 
 
 	/**
 	 * Signals that the last load operation requested by loadString or load method has completed.
 	 * @eventType flash.events.Event.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.Event.COMPLETE")] 
+	[Event(name="complete", type="flash.events.Event")] 
 
 	/// The HTMLLoader class defines a type of display object that is a container for HTML content.
 	public class HTMLLoader extends Sprite

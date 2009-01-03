@@ -7,13 +7,13 @@ package flash.events
 	 * [broadcast event] Dispatched when Flash Player loses operating system focus and is becoming inactive.
 	 * @eventType flash.events.Event.DEACTIVATE
 	 */
-	[Event(name="deactivate", type="flash.events.Event.DEACTIVATE")] 
+	[Event(name="deactivate", type="flash.events.Event")] 
 
 	/**
 	 * [broadcast event] Dispatched when Flash Player gains operating system focus and becomes active.
 	 * @eventType flash.events.Event.ACTIVATE
 	 */
-	[Event(name="activate", type="flash.events.Event.ACTIVATE")] 
+	[Event(name="activate", type="flash.events.Event")] 
 
 	/// The EventDispatcher class implements the IEventDispatcher interface and is the base class for the DisplayObject class.
 	public class EventDispatcher extends Object implements IEventDispatcher

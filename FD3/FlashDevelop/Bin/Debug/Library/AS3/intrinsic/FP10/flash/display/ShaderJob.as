@@ -7,7 +7,7 @@ package flash.display
 	 * Dispatched when the ShaderJob finishes processing the data using the shader.
 	 * @eventType flash.events.ShaderEvent.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.ShaderEvent.COMPLETE")] 
+	[Event(name="complete", type="flash.events.ShaderEvent")] 
 
 	/// A ShaderJob instance is used to execute a shader operation in the background.
 	public class ShaderJob extends EventDispatcher

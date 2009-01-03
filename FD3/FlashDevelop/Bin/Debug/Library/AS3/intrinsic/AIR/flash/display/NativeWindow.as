@@ -12,61 +12,61 @@ package flash.display
 	 * Dispatched by this NativeWindow object after the window has been deactivated.
 	 * @eventType flash.events.Event.DEACTIVATE
 	 */
-	[Event(name="deactivate", type="flash.events.Event.DEACTIVATE")] 
+	[Event(name="deactivate", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched by this NativeWindow object after the window has been activated.
 	 * @eventType flash.events.Event.ACTIVATE
 	 */
-	[Event(name="activate", type="flash.events.Event.ACTIVATE")] 
+	[Event(name="activate", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched by this NativeWindow object after the window has been closed.
 	 * @eventType flash.events.Event.CLOSE
 	 */
-	[Event(name="close", type="flash.events.Event.CLOSE")] 
+	[Event(name="close", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched by this NativeWindow object immediately before the window is to be closed.
 	 * @eventType flash.events.Event.CLOSING
 	 */
-	[Event(name="closing", type="flash.events.Event.CLOSING")] 
+	[Event(name="closing", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched by this NativeWindow object after the window's displayState property has changed.
 	 * @eventType flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE
 	 */
-	[Event(name="displayStateChange", type="flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE")] 
+	[Event(name="displayStateChange", type="flash.events.NativeWindowDisplayStateEvent")] 
 
 	/**
 	 * Dispatched by this NativeWindow object immediately before the window changes its display state.
 	 * @eventType flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING
 	 */
-	[Event(name="displayStateChanging", type="flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING")] 
+	[Event(name="displayStateChanging", type="flash.events.NativeWindowDisplayStateEvent")] 
 
 	/**
 	 * Dispatched by this NativeWindow object after the window has been resized.
 	 * @eventType flash.events.NativeWindowBoundsEvent.RESIZE
 	 */
-	[Event(name="resize", type="flash.events.NativeWindowBoundsEvent.RESIZE")] 
+	[Event(name="resize", type="flash.events.NativeWindowBoundsEvent")] 
 
 	/**
 	 * Dispatched by this NativeWindow object immediately before the window is to be resized on the desktop.
 	 * @eventType flash.events.NativeWindowBoundsEvent.RESIZING
 	 */
-	[Event(name="resizing", type="flash.events.NativeWindowBoundsEvent.RESIZING")] 
+	[Event(name="resizing", type="flash.events.NativeWindowBoundsEvent")] 
 
 	/**
 	 * Dispatched by this NativeWindow object after the window has been moved on the desktop.
 	 * @eventType flash.events.NativeWindowBoundsEvent.MOVE
 	 */
-	[Event(name="move", type="flash.events.NativeWindowBoundsEvent.MOVE")] 
+	[Event(name="move", type="flash.events.NativeWindowBoundsEvent")] 
 
 	/**
 	 * Dispatched by the NativeWindow object immediately before the window is to be moved on the desktop.
 	 * @eventType flash.events.NativeWindowBoundsEvent.MOVING
 	 */
-	[Event(name="moving", type="flash.events.NativeWindowBoundsEvent.MOVING")] 
+	[Event(name="moving", type="flash.events.NativeWindowBoundsEvent")] 
 
 	/// The NativeWindow class provides an interface for creating and controlling native desktop windows.
 	public class NativeWindow extends EventDispatcher

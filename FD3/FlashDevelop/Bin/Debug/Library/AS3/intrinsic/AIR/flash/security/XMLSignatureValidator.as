@@ -8,13 +8,13 @@ package flash.security
 	 * Dispatched if verification cannot complete because of errors.
 	 * @eventType flash.events.ErrorEvent.ERROR
 	 */
-	[Event(name="error", type="flash.events.ErrorEvent.ERROR")] 
+	[Event(name="error", type="flash.events.ErrorEvent")] 
 
 	/**
 	 * Dispatched when verification is complete.
 	 * @eventType flash.events.Event.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.Event.COMPLETE")] 
+	[Event(name="complete", type="flash.events.Event")] 
 
 	/// The XMLSignatureValidator class validates whether an XML signature file is well formed, unmodified, and, optionally, whether it is signed using a key linked to a trusted digital certificate.
 	public class XMLSignatureValidator extends EventDispatcher

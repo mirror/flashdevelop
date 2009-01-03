@@ -16,49 +16,49 @@ package flash.display
 	 * [broadcast event] Dispatched when the display list is about to be updated and rendered.
 	 * @eventType flash.events.Event.RENDER
 	 */
-	[Event(name="render", type="flash.events.Event.RENDER")] 
+	[Event(name="render", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a display object is about to be removed from the display list, either directly or through the removal of a sub tree in which the display object is contained.
 	 * @eventType flash.events.Event.REMOVED_FROM_STAGE
 	 */
-	[Event(name="removedFromStage", type="flash.events.Event.REMOVED_FROM_STAGE")] 
+	[Event(name="removedFromStage", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a display object is about to be removed from the display list.
 	 * @eventType flash.events.Event.REMOVED
 	 */
-	[Event(name="removed", type="flash.events.Event.REMOVED")] 
+	[Event(name="removed", type="flash.events.Event")] 
 
 	/**
 	 * [broadcast event] Dispatched when the playhead is exiting the current frame.
 	 * @eventType flash.events.Event.EXIT_FRAME
 	 */
-	[Event(name="exitFrame", type="flash.events.Event.EXIT_FRAME")] 
+	[Event(name="exitFrame", type="flash.events.Event")] 
 
 	/**
 	 * [broadcast event] Dispatched after the constructors of frame display objects have run but before frame scripts have run.
 	 * @eventType flash.events.Event.FRAME_CONSTRUCTED
 	 */
-	[Event(name="frameConstructed", type="flash.events.Event.FRAME_CONSTRUCTED")] 
+	[Event(name="frameConstructed", type="flash.events.Event")] 
 
 	/**
 	 * [broadcast event] Dispatched when the playhead is entering a new frame.
 	 * @eventType flash.events.Event.ENTER_FRAME
 	 */
-	[Event(name="enterFrame", type="flash.events.Event.ENTER_FRAME")] 
+	[Event(name="enterFrame", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a display object is added to the on stage display list, either directly or through the addition of a sub tree in which the display object is contained.
 	 * @eventType flash.events.Event.ADDED_TO_STAGE
 	 */
-	[Event(name="addedToStage", type="flash.events.Event.ADDED_TO_STAGE")] 
+	[Event(name="addedToStage", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a display object is added to the display list.
 	 * @eventType flash.events.Event.ADDED
 	 */
-	[Event(name="added", type="flash.events.Event.ADDED")] 
+	[Event(name="added", type="flash.events.Event")] 
 
 	/// The DisplayObject class is the base class for all objects that can be placed on the display list.
 	public class DisplayObject extends EventDispatcher implements IBitmapDrawable

@@ -8,19 +8,19 @@ package flash.net
 	 * Dispatched when a remote shared object has been updated by the server.
 	 * @eventType flash.events.SyncEvent.SYNC
 	 */
-	[Event(name="sync", type="flash.events.SyncEvent.SYNC")] 
+	[Event(name="sync", type="flash.events.SyncEvent")] 
 
 	/**
 	 * Dispatched when a SharedObject instance is reporting its status or error condition.
 	 * @eventType flash.events.NetStatusEvent.NET_STATUS
 	 */
-	[Event(name="netStatus", type="flash.events.NetStatusEvent.NET_STATUS")] 
+	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
 
 	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */
-	[Event(name="asyncError", type="flash.events.AsyncErrorEvent.ASYNC_ERROR")] 
+	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
 	/// The SharedObject class is used to read and store limited amounts of data on a user's computer or on a server.
 	public class SharedObject extends EventDispatcher

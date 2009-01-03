@@ -186,7 +186,8 @@ namespace AS3IntrinsicsGenerator
                 ASMetaData meta = new ASMetaData("Event");
                 if (ev.Comment != null)
                     meta.Comments = "\n\t * " + ev.Comment + "\n\t * @eventType " + ev.EventType;
-                meta.ParseParams(String.Format("name=\"{0}\", type=\"{1}\"", ev.Name, ev.EventType));
+                string type = ev.EventType.Substring(0, ev.EventType.LastIndexOf('.'));
+                meta.ParseParams(String.Format("name=\"{0}\", type=\"{1}\"", ev.Name, type));
                 aFile.MetaDatas.Add(meta);
             }
         }

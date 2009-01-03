@@ -6,31 +6,31 @@ package flash.net
 	 * Dispatched if a call to the XMLSocket.connect() method attempts to connect either to a server outside the caller's security sandbox or to a port lower than 1024.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */
-	[Event(name="securityError", type="flash.events.SecurityErrorEvent.SECURITY_ERROR")] 
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
 
 	/**
 	 * Dispatched when an input/output error occurs that causes a send or receive operation to fail.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched after raw data is sent or received.
 	 * @eventType flash.events.DataEvent.DATA
 	 */
-	[Event(name="data", type="flash.events.DataEvent.DATA")] 
+	[Event(name="data", type="flash.events.DataEvent")] 
 
 	/**
 	 * Dispatched after a successful call to the XMLSocket.connect() method.
 	 * @eventType flash.events.Event.CONNECT
 	 */
-	[Event(name="connect", type="flash.events.Event.CONNECT")] 
+	[Event(name="connect", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when the server closes the socket connection.
 	 * @eventType flash.events.Event.CLOSE
 	 */
-	[Event(name="close", type="flash.events.Event.CLOSE")] 
+	[Event(name="close", type="flash.events.Event")] 
 
 	/// The XMLSocket class implements client sockets that let the computer that is running Flash Player communicate with a server computer identified by an IP address or domain name.
 	public class XMLSocket extends EventDispatcher

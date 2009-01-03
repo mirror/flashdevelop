@@ -8,43 +8,43 @@ package flash.filesystem
 	 * Dispatched when a directory list is available as a result of a call to the getDirectoryListingAsync() method.
 	 * @eventType flash.events.FileListEvent.DIRECTORY_LISTING
 	 */
-	[Event(name="directoryListing", type="flash.events.FileListEvent.DIRECTORY_LISTING")] 
+	[Event(name="directoryListing", type="flash.events.FileListEvent")] 
 
 	/**
 	 * Dispatched when the user selects files from the dialog box opened by a call to the browseForOpenMultiple() method.
 	 * @eventType flash.events.FileListEvent.SELECT_MULTIPLE
 	 */
-	[Event(name="selectMultiple", type="flash.events.FileListEvent.SELECT_MULTIPLE")] 
+	[Event(name="selectMultiple", type="flash.events.FileListEvent")] 
 
 	/**
 	 * Dispatched when the user selects a file or directory from a file- or directory-browsing dialog box.
 	 * @eventType flash.events.Event.SELECT
 	 */
-	[Event(name="select", type="flash.events.Event.SELECT")] 
+	[Event(name="select", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when an operation violates a security constraint.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */
-	[Event(name="securityError", type="flash.events.SecurityErrorEvent.SECURITY_ERROR")] 
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
 
 	/**
 	 * Dispatched when an error occurs during an asynchronous file operation.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when an asynchronous operation is complete.
 	 * @eventType flash.events.Event.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.Event.COMPLETE")] 
+	[Event(name="complete", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a pending asynchronous operation is canceled.
 	 * @eventType flash.events.Event.CANCEL
 	 */
-	[Event(name="cancel", type="flash.events.Event.CANCEL")] 
+	[Event(name="cancel", type="flash.events.Event")] 
 
 	/// A File object represents a path to a file or directory.
 	public class File extends FileReference

@@ -12,43 +12,43 @@ package flash.display
 	 * Dispatched when a network request is made over HTTP and Flash Player can detect the HTTP status code.
 	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
 	 */
-	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent.HTTP_STATUS")] 
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
 
 	/**
 	 * Dispatched by a LoaderInfo object whenever a loaded object is removed by using the unload() method of the Loader object, or when a second load is performed by the same Loader object and the original content is removed prior to the load beginning.
 	 * @eventType flash.events.Event.UNLOAD
 	 */
-	[Event(name="unload", type="flash.events.Event.UNLOAD")] 
+	[Event(name="unload", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when data is received as the download operation progresses.
 	 * @eventType flash.events.ProgressEvent.PROGRESS
 	 */
-	[Event(name="progress", type="flash.events.ProgressEvent.PROGRESS")] 
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
 
 	/**
 	 * Dispatched when a load operation starts.
 	 * @eventType flash.events.Event.OPEN
 	 */
-	[Event(name="open", type="flash.events.Event.OPEN")] 
+	[Event(name="open", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when an input or output error occurs that causes a load operation to fail.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when the properties and methods of a loaded SWF file are accessible and ready for use.
 	 * @eventType flash.events.Event.INIT
 	 */
-	[Event(name="init", type="flash.events.Event.INIT")] 
+	[Event(name="init", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when data has loaded successfully.
 	 * @eventType flash.events.Event.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.Event.COMPLETE")] 
+	[Event(name="complete", type="flash.events.Event")] 
 
 	/// The LoaderInfo class provides information about a loaded SWF file or a loaded image file (JPEG, GIF, or PNG).
 	public class LoaderInfo extends EventDispatcher

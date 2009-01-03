@@ -8,31 +8,31 @@ package flash.filesystem
 	 * Signals that the end of the stream has been reached.
 	 * @eventType flash.events.Event.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.Event.COMPLETE")] 
+	[Event(name="complete", type="flash.events.Event")] 
 
 	/**
 	 * Signals that buffered data has been written to the file.
 	 * @eventType flash.events.OutputProgressEvent.OUTPUT_PROGRESS
 	 */
-	[Event(name="outputProgress", type="flash.events.OutputProgressEvent.OUTPUT_PROGRESS")] 
+	[Event(name="outputProgress", type="flash.events.OutputProgressEvent")] 
 
 	/**
 	 * Signals the availability of new data on the stream.
 	 * @eventType flash.events.ProgressEvent.PROGRESS
 	 */
-	[Event(name="progress", type="flash.events.ProgressEvent.PROGRESS")] 
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
 
 	/**
 	 * Indicates that an error occurred during an asynchronous file I/O operation.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Indicates that the stream has been closed by an explicit call to the close() method.
 	 * @eventType flash.events.Event.CLOSE
 	 */
-	[Event(name="close", type="flash.events.Event.CLOSE")] 
+	[Event(name="close", type="flash.events.Event")] 
 
 	/// A FileStream object is used to read and write files.
 	public class FileStream extends EventDispatcher implements IDataInput, IDataOutput

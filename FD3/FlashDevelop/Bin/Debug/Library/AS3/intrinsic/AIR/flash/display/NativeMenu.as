@@ -10,13 +10,13 @@ package flash.display
 	 * Dispatched by this NativeMenu object immediately before the menu is to be displayed.
 	 * @eventType flash.events.Event.DISPLAYING
 	 */
-	[Event(name="displaying", type="flash.events.Event.DISPLAYING")] 
+	[Event(name="displaying", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched by this NativeMenu object when one of its menu items or an item in one of its descendant submenus is selected.
 	 * @eventType flash.events.Event.SELECT
 	 */
-	[Event(name="select", type="flash.events.Event.SELECT")] 
+	[Event(name="select", type="flash.events.Event")] 
 
 	/// The NativeMenu class contains methods and properties for defining menus.
 	public class NativeMenu extends EventDispatcher

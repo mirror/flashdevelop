@@ -7,25 +7,25 @@ package flash.net
 	 * Dispatched when a NetConnection object is reporting its status or error condition.
 	 * @eventType flash.events.NetStatusEvent.NET_STATUS
 	 */
-	[Event(name="netStatus", type="flash.events.NetStatusEvent.NET_STATUS")] 
+	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
 
 	/**
 	 * Dispatched if a call to NetConnection.call() attempts to connect to a server outside the caller's security sandbox.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */
-	[Event(name="securityError", type="flash.events.SecurityErrorEvent.SECURITY_ERROR")] 
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
 
 	/**
 	 * Dispatched when an input or output error occurs that causes a network operation to fail.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */
-	[Event(name="asyncError", type="flash.events.AsyncErrorEvent.ASYNC_ERROR")] 
+	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
 	/// The NetConnection class creates a bidirectional connection between Flash Player and a Flash Media Server application or between Flash Player and an application server running Flash Remoting.
 	public class NetConnection extends EventDispatcher

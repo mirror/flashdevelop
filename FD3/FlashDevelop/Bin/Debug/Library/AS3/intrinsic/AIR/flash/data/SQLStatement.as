@@ -9,13 +9,13 @@ package flash.data
 	 * Dispatched when an error occurs during an operation.
 	 * @eventType flash.events.SQLErrorEvent.ERROR
 	 */
-	[Event(name="error", type="flash.events.SQLErrorEvent.ERROR")] 
+	[Event(name="error", type="flash.events.SQLErrorEvent")] 
 
 	/**
 	 * Dispatched when an execute() or next() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.RESULT
 	 */
-	[Event(name="result", type="flash.events.SQLEvent.RESULT")] 
+	[Event(name="result", type="flash.events.SQLEvent")] 
 
 	/// A SQLStatement instance is used to execute a SQL statement against a local SQL database that is open through a SQLConnection instance.
 	public class SQLStatement extends EventDispatcher

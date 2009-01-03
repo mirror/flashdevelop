@@ -13,55 +13,55 @@ package flash.net
 	 * Establishes a listener to respond when a NetStream object has completely played a stream.
 	 * @eventType flash.events.
 	 */
-	[Event(name="onPlayStatus", type="flash.events.")] 
+	[Event(name="onPlayStatus", type="flash.events")] 
 
 	/**
 	 * Establishes a listener to respond when an embedded cue point is reached while playing a video file.
 	 * @eventType flash.events.
 	 */
-	[Event(name="onCuePoint", type="flash.events.")] 
+	[Event(name="onCuePoint", type="flash.events")] 
 
 	/**
 	 * Establishes a listener to respond when Flash Player receives text data embedded in a media file that is playing.
 	 * @eventType flash.events.
 	 */
-	[Event(name="onTextData", type="flash.events.")] 
+	[Event(name="onTextData", type="flash.events")] 
 
 	/**
 	 * Establishes a listener to respond when Flash Player receives image data as a byte array embedded in a media file that is playing.
 	 * @eventType flash.events.
 	 */
-	[Event(name="onImageData", type="flash.events.")] 
+	[Event(name="onImageData", type="flash.events")] 
 
 	/**
 	 * Establishes a listener to respond when Flash Player receives descriptive information embedded in the video being played.
 	 * @eventType flash.events.
 	 */
-	[Event(name="onMetaData", type="flash.events.")] 
+	[Event(name="onMetaData", type="flash.events")] 
 
 	/**
 	 * Establishes a listener to respond when Flash Player receives information specific to Adobe Extensible Metadata Platform (XMP) embedded in the video being played.
 	 * @eventType flash.events.
 	 */
-	[Event(name="onXMPData", type="flash.events.")] 
+	[Event(name="onXMPData", type="flash.events")] 
 
 	/**
 	 * Dispatched when a NetStream object is reporting its status or error condition.
 	 * @eventType flash.events.NetStatusEvent.NET_STATUS
 	 */
-	[Event(name="netStatus", type="flash.events.NetStatusEvent.NET_STATUS")] 
+	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
 
 	/**
 	 * Dispatched when an input or output error occurs that causes a network operation to fail.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */
-	[Event(name="asyncError", type="flash.events.AsyncErrorEvent.ASYNC_ERROR")] 
+	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
 	/// The NetStream class opens a one-way streaming connection between Flash Player and Flash Media Server, or between Flash Player and the local file system.
 	public class NetStream extends EventDispatcher

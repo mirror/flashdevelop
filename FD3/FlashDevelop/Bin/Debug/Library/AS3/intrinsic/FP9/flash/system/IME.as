@@ -6,7 +6,7 @@ package flash.system
 	 * Dispatched when a user has completed an input method editor (IME) composition and the reading string is available.
 	 * @eventType flash.events.IMEEvent.IME_COMPOSITION
 	 */
-	[Event(name="imeComposition", type="flash.events.IMEEvent.IME_COMPOSITION")] 
+	[Event(name="imeComposition", type="flash.events.IMEEvent")] 
 
 	/// The IME class lets you directly manipulate the operating system's input method editor (IME) in the Flash Player application that is running on a client computer.
 	public class IME extends EventDispatcher

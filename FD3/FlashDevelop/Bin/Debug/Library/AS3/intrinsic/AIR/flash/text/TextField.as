@@ -11,25 +11,25 @@ package flash.text
 	 * Flash Player dispatches the textInput event when a user enters one or more characters of text.
 	 * @eventType flash.events.TextEvent.TEXT_INPUT
 	 */
-	[Event(name="textInput", type="flash.events.TextEvent.TEXT_INPUT")] 
+	[Event(name="textInput", type="flash.events.TextEvent")] 
 
 	/**
 	 * Dispatched by a TextField object after the user scrolls.
 	 * @eventType flash.events.Event.SCROLL
 	 */
-	[Event(name="scroll", type="flash.events.Event.SCROLL")] 
+	[Event(name="scroll", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a user clicks a hyperlink in an HTML-enabled text field, where the URL begins with "event:".
 	 * @eventType flash.events.TextEvent.LINK
 	 */
-	[Event(name="link", type="flash.events.TextEvent.LINK")] 
+	[Event(name="link", type="flash.events.TextEvent")] 
 
 	/**
 	 * Dispatched after a control value is modified, unlike the textInput event, which is dispatched before the value is modified.
 	 * @eventType flash.events.Event.CHANGE
 	 */
-	[Event(name="change", type="flash.events.Event.CHANGE")] 
+	[Event(name="change", type="flash.events.Event")] 
 
 	/// The TextField class is used to create display objects for text display and input.
 	public class TextField extends InteractiveObject

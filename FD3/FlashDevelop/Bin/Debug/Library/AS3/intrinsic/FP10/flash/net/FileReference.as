@@ -8,61 +8,61 @@ package flash.net
 	 * Dispatched after data is received from the server after a successful upload.
 	 * @eventType flash.events.DataEvent.UPLOAD_COMPLETE_DATA
 	 */
-	[Event(name="uploadCompleteData", type="flash.events.DataEvent.UPLOAD_COMPLETE_DATA")] 
+	[Event(name="uploadCompleteData", type="flash.events.DataEvent")] 
 
 	/**
 	 * Dispatched if a call to the upload() or uploadUnencoded() method attempts to access data over HTTP and Adobe AIR is able to detect and return the status code for the request.
 	 * @eventType flash.events.HTTPStatusEvent.HTTP_RESPONSE_STATUS
 	 */
-	[Event(name="httpResponseStatus", type="flash.events.HTTPStatusEvent.HTTP_RESPONSE_STATUS")] 
+	[Event(name="httpResponseStatus", type="flash.events.HTTPStatusEvent")] 
 
 	/**
 	 * Dispatched when an upload fails and an HTTP status code is available to describe the failure.
 	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
 	 */
-	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent.HTTP_STATUS")] 
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
 
 	/**
 	 * Dispatched when the user selects a file for upload or download from the file-browsing dialog box.
 	 * @eventType flash.events.Event.SELECT
 	 */
-	[Event(name="select", type="flash.events.Event.SELECT")] 
+	[Event(name="select", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a call to the FileReference.upload() or FileReference.download() method tries to upload a file to a server or get a file from a server that is outside the caller's security sandbox.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */
-	[Event(name="securityError", type="flash.events.SecurityErrorEvent.SECURITY_ERROR")] 
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
 
 	/**
 	 * Dispatched periodically during the file upload or download operation.
 	 * @eventType flash.events.ProgressEvent.PROGRESS
 	 */
-	[Event(name="progress", type="flash.events.ProgressEvent.PROGRESS")] 
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
 
 	/**
 	 * Dispatched when an upload or download operation starts.
 	 * @eventType flash.events.Event.OPEN
 	 */
-	[Event(name="open", type="flash.events.Event.OPEN")] 
+	[Event(name="open", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when the upload or download fails.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when download is complete or when upload generates an HTTP status code of 200.
 	 * @eventType flash.events.Event.COMPLETE
 	 */
-	[Event(name="complete", type="flash.events.Event.COMPLETE")] 
+	[Event(name="complete", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when a file upload or download is canceled through the file-browsing dialog box by the user.
 	 * @eventType flash.events.Event.CANCEL
 	 */
-	[Event(name="cancel", type="flash.events.Event.CANCEL")] 
+	[Event(name="cancel", type="flash.events.Event")] 
 
 	/// The FileReference class provides a means to upload and download files between a user's computer and a server.
 	public class FileReference extends EventDispatcher

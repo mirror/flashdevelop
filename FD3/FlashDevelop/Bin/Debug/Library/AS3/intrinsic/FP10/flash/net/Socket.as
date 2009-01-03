@@ -7,31 +7,31 @@ package flash.net
 	 * Dispatched if a call to Socket.connect() attempts to connect either to a server outside the caller's security sandbox or to a port lower than 1024.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */
-	[Event(name="securityError", type="flash.events.SecurityErrorEvent.SECURITY_ERROR")] 
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
 
 	/**
 	 * Dispatched when a socket has received data.
 	 * @eventType flash.events.ProgressEvent.SOCKET_DATA
 	 */
-	[Event(name="socketData", type="flash.events.ProgressEvent.SOCKET_DATA")] 
+	[Event(name="socketData", type="flash.events.ProgressEvent")] 
 
 	/**
 	 * Dispatched when an input/output error occurs that causes a send or load operation to fail.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")] 
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when a network connection has been established.
 	 * @eventType flash.events.Event.CONNECT
 	 */
-	[Event(name="connect", type="flash.events.Event.CONNECT")] 
+	[Event(name="connect", type="flash.events.Event")] 
 
 	/**
 	 * Dispatched when the server closes the socket connection.
 	 * @eventType flash.events.Event.CLOSE
 	 */
-	[Event(name="close", type="flash.events.Event.CLOSE")] 
+	[Event(name="close", type="flash.events.Event")] 
 
 	/// The Socket class enables ActionScript code to make socket connections and to read and write raw binary data.
 	public class Socket extends EventDispatcher implements IDataInput, IDataOutput

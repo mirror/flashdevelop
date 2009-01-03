@@ -9,97 +9,97 @@ package flash.data
 	 * Dispatched when data in any table in any of the connected databases changes as a result of a SQL UPDATE command.
 	 * @eventType flash.events.SQLUpdateEvent.UPDATE
 	 */
-	[Event(name="update", type="flash.events.SQLUpdateEvent.UPDATE")] 
+	[Event(name="update", type="flash.events.SQLUpdateEvent")] 
 
 	/**
 	 * Dispatched when a loadSchema() method call's operation completes successfully and the schema results are ready.
 	 * @eventType flash.events.SQLEvent.SCHEMA
 	 */
-	[Event(name="schema", type="flash.events.SQLEvent.SCHEMA")] 
+	[Event(name="schema", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when a rollback() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.ROLLBACK
 	 */
-	[Event(name="rollback", type="flash.events.SQLEvent.ROLLBACK")] 
+	[Event(name="rollback", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when an openAsync() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.OPEN
 	 */
-	[Event(name="open", type="flash.events.SQLEvent.OPEN")] 
+	[Event(name="open", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when data in any table in any of the connected databases changes as a result of a SQL INSERT command.
 	 * @eventType flash.events.SQLUpdateEvent.INSERT
 	 */
-	[Event(name="insert", type="flash.events.SQLUpdateEvent.INSERT")] 
+	[Event(name="insert", type="flash.events.SQLUpdateEvent")] 
 
 	/**
 	 * Dispatched when any of the SQLConnection object's asynchronous operations results in an error.
 	 * @eventType flash.events.SQLErrorEvent.ERROR
 	 */
-	[Event(name="error", type="flash.events.SQLErrorEvent.ERROR")] 
+	[Event(name="error", type="flash.events.SQLErrorEvent")] 
 
 	/**
 	 * Dispatched when a detach() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.DETACH
 	 */
-	[Event(name="detach", type="flash.events.SQLEvent.DETACH")] 
+	[Event(name="detach", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when data in any table in any of the connected databases changes as a result of a SQL DELETE command.
 	 * @eventType flash.events.SQLUpdateEvent.DELETE
 	 */
-	[Event(name="delete", type="flash.events.SQLUpdateEvent.DELETE")] 
+	[Event(name="delete", type="flash.events.SQLUpdateEvent")] 
 
 	/**
 	 * Dispatched when a deanalyze() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.DEANALYZE
 	 */
-	[Event(name="deanalyze", type="flash.events.SQLEvent.DEANALYZE")] 
+	[Event(name="deanalyze", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when a commit() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.COMMIT
 	 */
-	[Event(name="commit", type="flash.events.SQLEvent.COMMIT")] 
+	[Event(name="commit", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when a close() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.CLOSE
 	 */
-	[Event(name="close", type="flash.events.SQLEvent.CLOSE")] 
+	[Event(name="close", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when a compact() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.COMPACT
 	 */
-	[Event(name="compact", type="flash.events.SQLEvent.COMPACT")] 
+	[Event(name="compact", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when a cancel() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.CANCEL
 	 */
-	[Event(name="cancel", type="flash.events.SQLEvent.CANCEL")] 
+	[Event(name="cancel", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when a begin() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.BEGIN
 	 */
-	[Event(name="begin", type="flash.events.SQLEvent.BEGIN")] 
+	[Event(name="begin", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when an attach() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.ATTACH
 	 */
-	[Event(name="attach", type="flash.events.SQLEvent.ATTACH")] 
+	[Event(name="attach", type="flash.events.SQLEvent")] 
 
 	/**
 	 * Dispatched when an analyze() operation completes successfully.
 	 * @eventType flash.events.SQLEvent.ANALYZE
 	 */
-	[Event(name="analyze", type="flash.events.SQLEvent.ANALYZE")] 
+	[Event(name="analyze", type="flash.events.SQLEvent")] 
 
 	/// A SQLConnection instance is used to manage the creation of and connection to local SQL database files (local databases).
 	public class SQLConnection extends EventDispatcher
