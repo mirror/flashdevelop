@@ -134,7 +134,7 @@ namespace ASCompletion
         {
             Size size = new Size();
             size.Height = this.findProcTxt.Height;
-            size.Width = this.toolStrip.Width - 65;
+            size.Width = this.toolStrip.Width - 66;
             this.findProcTxt.Size = size;
         }
 

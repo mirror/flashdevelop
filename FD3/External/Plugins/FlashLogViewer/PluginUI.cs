@@ -26,6 +26,7 @@ namespace FlashLogViewer
         private ToolStripLabel filterLabel;
         private ToolStripButton toggleButton;
         private ToolStripButton topMostButton;
+        private ToolStripButton clearFilterButton;
         private ToolStripSeparator toolStripSeparator;
         private ToolStripComboBox filterComboBox;
         private ToolStripComboBox logComboBox;
@@ -59,6 +60,7 @@ namespace FlashLogViewer
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toggleButton = new System.Windows.Forms.ToolStripButton();
             this.topMostButton = new System.Windows.Forms.ToolStripButton();
+            this.clearFilterButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.viewLabel = new System.Windows.Forms.ToolStripLabel();
             this.logComboBox = new System.Windows.Forms.ToolStripComboBox();
@@ -72,7 +74,7 @@ namespace FlashLogViewer
             // 
             this.toolStrip.CanOverflow = false;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.toggleButton, this.topMostButton, this.toolStripSeparator, this.viewLabel, this.logComboBox, this.filterLabel, this.filterComboBox });
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toggleButton, this.topMostButton, this.toolStripSeparator, this.viewLabel, this.logComboBox, this.filterLabel, this.filterComboBox, this.clearFilterButton });
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip.Location = new System.Drawing.Point(1, 0);
             this.toolStrip.Name = "toolStrip";
@@ -88,6 +90,16 @@ namespace FlashLogViewer
             this.toggleButton.Name = "toggleButton";
             this.toggleButton.Size = new System.Drawing.Size(23, 26);
             this.toggleButton.Click += new System.EventHandler(this.ToggleButtonClick);
+            // 
+            // clearFilterButton
+            // 
+            this.clearFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clearFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(1);
+            this.clearFilterButton.Name = "clearFilterButton";
+            this.clearFilterButton.Size = new System.Drawing.Size(23, 26);
+            this.clearFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.clearFilterButton.Click += new System.EventHandler(this.ClearFilterButtonClick);
             // 
             // topMostButton
             // 
@@ -217,6 +229,8 @@ namespace FlashLogViewer
             this.imageList.Images.Add(PluginBase.MainForm.FindImage("151"));
             this.imageList.Images.Add(PluginBase.MainForm.FindImage("147"));
             this.imageList.Images.Add(PluginBase.MainForm.FindImage("56|8|2|4"));
+            this.imageList.Images.Add(PluginBase.MainForm.FindImage("153"));
+            this.clearFilterButton.Image = this.imageList.Images[3];
             this.topMostButton.Image = this.imageList.Images[2];
             this.toggleButton.Image = this.imageList.Images[1];
         }
@@ -231,6 +245,7 @@ namespace FlashLogViewer
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CopyOutput"), null, new EventHandler(this.CopyOutput)));
             menu.Items.Add(new ToolStripSeparator());
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.WrapText"), null, new EventHandler(this.WrapText)));
+            this.clearFilterButton.ToolTipText = TextHelper.GetString("ToolTip.ClearFilterText");
             this.topMostButton.ToolTipText = TextHelper.GetString("ToolTip.PopupToTopMost");
             this.toggleButton.ToolTipText = TextHelper.GetString("ToolTip.StartTracking");
             this.logTextBox.ContextMenuStrip = menu;
@@ -265,8 +280,17 @@ namespace FlashLogViewer
         {
             Size size = new Size();
             size.Height = this.filterComboBox.Height;
-            size.Width = this.toolStrip.Width - 241;
+            size.Width = this.toolStrip.Width - 268;
             this.filterComboBox.Size = size;
+        }
+
+        /// <summary>
+        /// Clears the filter control text
+        /// </summary>
+        private void ClearFilterButtonClick(Object sender, System.EventArgs e)
+        {
+            this.filterComboBox.Text = "";
+            if (this.tracking) this.RefreshDisplay(true);
         }
 
         /// <summary>
@@ -356,7 +380,7 @@ namespace FlashLogViewer
             this.refreshTimer.Enabled = this.tracking;
             this.toggleButton.Image = this.imageList.Images[(enable ? 0 : 1)];
             this.toggleButton.ToolTipText = (enable ? TextHelper.GetString("ToolTip.StopTracking") : TextHelper.GetString("ToolTip.StartTracking"));
-            this.logComboBox.Enabled = this.filterComboBox.Enabled = enable;
+            this.logComboBox.Enabled = this.filterComboBox.Enabled = this.clearFilterButton.Enabled = enable;
             if (enable) this.RefreshDisplay(true);
         }
 

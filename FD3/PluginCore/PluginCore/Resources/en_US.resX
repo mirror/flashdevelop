@@ -2716,7 +2716,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Search...</value>
   </data>
   <data name="ASCompletion.Outline.SortingMode" xml:space="preserve">
-    <value>Sorting mode</value>
+    <value>Sorting Mode</value>
   </data>
   <data name="FlashLogViewer.Description.RegexError" xml:space="preserve">
     <value>Allows you to customize the capture regex of error lines.</value>
@@ -2726,5 +2726,8 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashLogViewer.Category.Regex" xml:space="preserve">
     <value>Regex</value>
+  </data>
+  <data name="FlashLogViewer.ToolTip.ClearFilterText" xml:space="preserve">
+    <value>Clear Filter Text</value>
   </data>
 </root>
