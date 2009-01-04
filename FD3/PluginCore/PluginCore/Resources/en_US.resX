@@ -297,7 +297,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Exploring...</value>
   </data>
   <data name="ASCompletion.Info.FindType" xml:space="preserve">
-    <value>Find type:</value>
+    <value>Find Type:</value>
   </data>
   <data name="ASCompletion.Info.InheritanceLoop" xml:space="preserve">
     <value>Inheritance loop detected between {0} and {1}.</value>
@@ -2747,5 +2747,11 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ASCompletion.Outline.SortNone" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="ASCompletion.Title.SaveIntrinsicAs" xml:space="preserve">
+    <value>Save Intrinsic File As...</value>
+  </data>
+  <data name="ASCompletion.Title.SelectIntrinsicTargetFolder" xml:space="preserve">
+    <value>Select Target Intrinsic File Folder...</value>
   </data>
 </root>

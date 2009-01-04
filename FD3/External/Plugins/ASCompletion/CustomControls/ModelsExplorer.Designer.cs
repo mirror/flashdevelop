@@ -104,7 +104,7 @@ namespace ASCompletion
             this.rebuildButton,
             this.searchButton});
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 2, 2, 2);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
             this.toolStrip.Size = new System.Drawing.Size(383, 25);
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.Top;
             this.toolStrip.TabIndex = 2;

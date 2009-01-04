@@ -106,6 +106,18 @@ namespace ASCompletion
             refreshButton.Image = PluginBase.MainForm.FindImage("24");
             rebuildButton.Image = PluginBase.MainForm.FindImage("153");
             toolStrip.Renderer = new DockPanelStripRenderer();
+            this.Resize += new EventHandler(PluginUIResize);
+        }
+
+        /// <summary>
+        /// After resize, resizes the filter control to max size
+        /// </summary>
+        private void PluginUIResize(Object sender, EventArgs e)
+        {
+            Size size = new Size();
+            size.Height = this.filterTextBox.Height;
+            size.Width = this.toolStrip.Width - 149;
+            this.filterTextBox.Size = size;
         }
 
         private void outlineContextMenuStrip_Opening(object sender, CancelEventArgs e)
@@ -554,7 +566,7 @@ namespace ASCompletion
                 if (theModel == null)
                     return;
 
-                saveFileDialog.Title = "Save intrinsic file as...";
+                saveFileDialog.Title = TextHelper.GetString("Title.SaveIntrinsicAs");
                 saveFileDialog.FileName = Path.GetFileName(filename);
                 saveFileDialog.DefaultExt = Path.GetExtension(filename);
                 if (PluginBase.CurrentProject != null)
@@ -573,7 +585,7 @@ namespace ASCompletion
             }
             else
             {
-                folderBrowserDialog.Description = "Select target folder to generate intrinsic files";
+                folderBrowserDialog.Description = TextHelper.GetString("Title.SelectIntrinsicTargetFolder");
                 if (PluginBase.CurrentProject != null)
                     folderBrowserDialog.SelectedPath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
