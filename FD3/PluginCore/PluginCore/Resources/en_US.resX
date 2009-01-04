@@ -2730,4 +2730,22 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashLogViewer.ToolTip.ClearFilterText" xml:space="preserve">
     <value>Clear Filter Text</value>
   </data>
+  <data name="ASCompletion.Outline.ClearSearchText" xml:space="preserve">
+    <value>Clear Search Text</value>
+  </data>
+  <data name="ASCompletion.Outline.SortDefault" xml:space="preserve">
+    <value>Sorted</value>
+  </data>
+  <data name="ASCompletion.Outline.SortedByKind" xml:space="preserve">
+    <value>Sorted By Kind</value>
+  </data>
+  <data name="ASCompletion.Outline.SortedGroup" xml:space="preserve">
+    <value>Sorted Group</value>
+  </data>
+  <data name="ASCompletion.Outline.SortedSmart" xml:space="preserve">
+    <value>Sorted Smart</value>
+  </data>
+  <data name="ASCompletion.Outline.SortNone" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>

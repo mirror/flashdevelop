@@ -140,6 +140,12 @@ namespace ASCompletion
 
         private void InitializeTexts()
         {
+            this.noneItem.Text = TextHelper.GetString("Outline.SortNone");
+            this.sortedItem.Text = TextHelper.GetString("Outline.SortDefault");
+            this.sortedByKindItem.Text = TextHelper.GetString("Outline.SortedByKind");
+            this.sortedSmartItem.Text = TextHelper.GetString("Outline.SortedSmart");
+            this.sortedGroupItem.Text = TextHelper.GetString("Outline.SortedGroup");
+            clearButton.Text = TextHelper.GetString("Outline.ClearSearchText");
             sortDropDown.Text = TextHelper.GetString("Outline.SortingMode");
             searchInvitation = TextHelper.GetString("Outline.Search");
             FindProcTxtLeave(null, null);
