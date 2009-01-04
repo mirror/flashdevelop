@@ -260,16 +260,26 @@ namespace ProjectManager.Controls.TreeView
             foreach (LibraryAsset asset in (project as AS3Project).SwcLibraries)
             {
                 if (!asset.IsSwc) continue;
+                // check if SWC is inside the project or inside a classpath
                 string absolute = asset.Path;
                 if (!Path.IsPathRooted(absolute))
                     absolute = project.GetAbsolutePath(asset.Path);
+                bool showNode = true;
                 if (absolute.StartsWith(project.Directory))
-                    continue;
-
-                SwfFileNode swcNode = new SwfFileNode(absolute);
-                Nodes.Add(swcNode);
-                swcNode.Refresh(true);
-                ShowRootLines = true;
+                    showNode = false;
+                foreach (string path in project.AbsoluteClasspaths)
+                    if (absolute.StartsWith(path))
+                    {
+                        showNode = false;
+                        break;
+                    }
+                if (showNode)
+                {
+                    SwfFileNode swcNode = new SwfFileNode(absolute);
+                    Nodes.Add(swcNode);
+                    swcNode.Refresh(true);
+                    ShowRootLines = true;
+                }
             }
 
 			// restore tree state
