@@ -74,7 +74,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Win32\Scrolling.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\PluginCore\PluginCore.csproj">

@@ -9,7 +9,6 @@ using PluginCore.Localization;
 using System.Text.RegularExpressions;
 using WeifenLuo.WinFormsUI.Docking;
 using PluginCore.Utilities;
-using FlashLogViewer.Win32;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using PluginCore;
@@ -160,6 +159,7 @@ namespace FlashLogViewer
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.WordWrap = false;
+            this.logTextBox.Enter += new System.EventHandler(this.LogTextBoxEnter);
             // 
             // PluginUI
             //
@@ -174,6 +174,14 @@ namespace FlashLogViewer
             this.PerformLayout();
 
 		}
+
+        /// <summary>
+        /// Hack around text box bug...
+        /// </summary>
+        private void LogTextBoxEnter(Object sender, EventArgs e)
+        {
+            this.logTextBox.ScrollToCaret();
+        }
 
 		#endregion
 
@@ -366,8 +374,9 @@ namespace FlashLogViewer
             this.logTextBox.Rtf = rtf.ToString();
             if (forceScroll)
             {
+                // Hack around text box bug...
                 this.logTextBox.AppendText("\n");
-                Scrolling.ScrollToBottom(logTextBox);
+                this.logTextBox.ScrollToCaret();
             }
         }
 
