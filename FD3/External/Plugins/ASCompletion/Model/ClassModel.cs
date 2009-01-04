@@ -446,7 +446,8 @@ namespace ASCompletion.Model
         {
             if (comment == null) return "";
             comment = comment.Trim();
-            if (comment.IndexOf('\n') > 0)
+            if (comment.Length == 0) return "";
+            if (comment.StartsWith("*") || comment.IndexOf('\n') > 0 || comment.IndexOf('\r') > 0)
                 return tab + "/**\n" + tab + " " + comment +"\n" + tab + " */\n";
             else return tab + "/// " + comment + "\n";
         }
