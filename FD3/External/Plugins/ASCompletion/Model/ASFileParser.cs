@@ -601,7 +601,8 @@ namespace ASCompletion.Model
 
 					// end of value
 					if ( paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && paramTempCount == 0
-					    && (c1 == ',' || c1 == ';' || c1 == '}' || (inParams && c1 == ')') || inType) )
+					    && (c1 == ',' || c1 == ';' || c1 == '}' || c1 == '\r' || c1 == '\n' 
+                            || (inParams && c1 == ')') || inType) )
 					{
 						inValue = false;
                         inGeneric = false;
@@ -676,6 +677,11 @@ namespace ASCompletion.Model
 					else if (version > 2 && (curMember.Flags & FlagType.Variable) > 0)
 					{
                         curMember.Value = param;
+                        if (inConst)
+                        {
+                            context = 0;
+                            inConst = false;
+                        }
 					}
 					//
 					valueLength = 0;
