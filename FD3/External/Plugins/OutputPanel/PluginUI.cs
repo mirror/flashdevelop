@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using WeifenLuo.WinFormsUI;
-using OutputPanel.Win32;
 using PluginCore.Managers;
 using PluginCore.Localization;
 using PluginCore;
@@ -15,10 +14,9 @@ namespace OutputPanel
 {
 	public class PluginUI : DockPanelControl
 	{
+        private Int32 logCount;
         private RichTextBox textLog;
-        private System.Timers.Timer scrollTimer;
 		private PluginMain pluginMain;
-		private Int32 logCount;
 		
 		public PluginUI(PluginMain pluginMain)
 		{
@@ -37,16 +35,8 @@ namespace OutputPanel
 		/// </summary>
 		private void InitializeComponent() 
         {
-            this.scrollTimer = new System.Timers.Timer();
             this.textLog = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollTimer)).BeginInit();
             this.SuspendLayout();
-            // 
-            // scrollTimer
-            // 
-            this.scrollTimer.Interval = 10;
-            this.scrollTimer.SynchronizingObject = this;
-            this.scrollTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.ScrollTimerElapsed);
             // 
             // textLog
             // 
@@ -68,7 +58,6 @@ namespace OutputPanel
             this.Name = "PluginUI";
             this.Controls.Add(this.textLog);
             this.Size = new System.Drawing.Size(280, 352);
-            ((System.ComponentModel.ISupportInitialize)(this.scrollTimer)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -200,24 +189,14 @@ namespace OutputPanel
                         this.textLog.SelectionColor = (message.IndexOf("Warning") >= 0) ? Color.Orange : Color.Red;
 						break;
 				}
-				this.textLog.AppendText(message + "\r\n");
+				this.textLog.AppendText(message + "\n");
+                this.textLog.ScrollToCaret();
 			}
 			this.logCount = log.Count;
-			this.scrollTimer.Enabled = true;
-		}
-		
-        /// <summary>
-        /// Scrolling fix on RichTextBox
-        /// </summary> 
-		private void ScrollTimerElapsed(Object sender, System.Timers.ElapsedEventArgs e)
-		{
-        	this.scrollTimer.Enabled = false;
             if (this.pluginMain.PluginSettings.ShowOnProcessEnd)
             {
                 this.DisplayOutput();
             }
-            Scrolling.ScrollToBottom(this.textLog);
-            Scrolling.ScrollToLeft(this.textLog);
 		}
 
 		#endregion

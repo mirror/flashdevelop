@@ -91,7 +91,8 @@ namespace FlashLogViewer
             this.toggleButton.Click += new System.EventHandler(this.ToggleButtonClick);
             // 
             // clearFilterButton
-            // 
+            //
+            this.clearFilterButton.Enabled = false;
             this.clearFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.clearFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearFilterButton.Margin = new System.Windows.Forms.Padding(1);
@@ -159,7 +160,6 @@ namespace FlashLogViewer
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.WordWrap = false;
-            this.logTextBox.Enter += new System.EventHandler(this.LogTextBoxEnter);
             // 
             // PluginUI
             //
@@ -175,14 +175,6 @@ namespace FlashLogViewer
 
 		}
 
-        /// <summary>
-        /// Hack around text box bug...
-        /// </summary>
-        private void LogTextBoxEnter(Object sender, EventArgs e)
-        {
-            this.logTextBox.ScrollToCaret();
-        }
-
 		#endregion
 
         #region Methods And Event Handlers
@@ -193,6 +185,16 @@ namespace FlashLogViewer
         public Settings Settings
         {
             get { return (Settings)this.pluginMain.Settings; }
+        }
+
+        /// <summary>
+        /// Ensures the update interval is valid and gets it
+        /// </summary>
+        public Int32 GetUpdateInterval()
+        {
+            Int32 interval = this.Settings.UpdateInterval;
+            if (interval == 0) this.Settings.UpdateInterval = interval = 100;
+            return interval;
         }
 
         /// <summary>
@@ -270,13 +272,10 @@ namespace FlashLogViewer
             this.filterLabel.Font = PluginBase.Settings.DefaultFont;
             this.logComboBox.FlatStyle = PluginBase.Settings.ComboBoxFlatStyle;
             this.filterComboBox.FlatStyle = PluginBase.Settings.ComboBoxFlatStyle;
-            this.filterLabel.Font = PluginBase.Settings.DefaultFont;
-            this.viewLabel.Font = PluginBase.Settings.DefaultFont;
-            this.logTextBox.Font = PluginBase.Settings.ConsoleFont;
             this.toolStrip.Renderer = new DockPanelStripRenderer();
             this.refreshTimer = new Timer();
-            this.refreshTimer.Interval = 100;
             this.refreshTimer.Enabled = false;
+            this.refreshTimer.Interval = this.GetUpdateInterval();
             this.refreshTimer.Tick += new EventHandler(this.RefreshTimerTick);
             this.refreshTimer.Start();
         }
@@ -354,7 +353,7 @@ namespace FlashLogViewer
             foreach (String line in logLines)
             {
                 String colorTbl = "\\cf0 ";
-                if (Settings.ColourWarnings)
+                if (this.Settings.ColourWarnings)
                 {
                     // Warning
                     r = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
@@ -387,6 +386,7 @@ namespace FlashLogViewer
         {
             this.tracking = enable;
             this.refreshTimer.Enabled = this.tracking;
+            this.refreshTimer.Interval = this.GetUpdateInterval();
             this.toggleButton.Image = this.imageList.Images[(enable ? 0 : 1)];
             this.toggleButton.ToolTipText = (enable ? TextHelper.GetString("ToolTip.StopTracking") : TextHelper.GetString("ToolTip.StartTracking"));
             this.logComboBox.Enabled = this.filterComboBox.Enabled = this.clearFilterButton.Enabled = enable;
@@ -503,18 +503,22 @@ namespace FlashLogViewer
         /// </summary>
         private String GetLogFileContents()
         {
-            String contents = "";
-            StringBuilder contentsBuilder = new StringBuilder();
-            StreamReader sr = File.OpenText(this.curLogFile);
-            String s = sr.ReadLine();
-            while (s != null)
+            try
             {
-                if (this.PassesFilter(s)) contentsBuilder.AppendLine(s);
-                s = sr.ReadLine();
+                String contents = "";
+                StringBuilder contentsBuilder = new StringBuilder();
+                StreamReader sr = File.OpenText(this.curLogFile);
+                String s = sr.ReadLine();
+                while (s != null)
+                {
+                    if (this.PassesFilter(s)) contentsBuilder.AppendLine(s);
+                    s = sr.ReadLine();
+                }
+                sr.Close();
+                contents = contentsBuilder.ToString();
+                return contents.TrimEnd(null);
             }
-            sr.Close();
-            contents = contentsBuilder.ToString();
-            return contents.TrimEnd(null);
+            catch { return ""; }
         }
 
         /// <summary>
@@ -522,15 +526,12 @@ namespace FlashLogViewer
         /// </summary>
         private Boolean PassesFilter(String logLine)
         {
-            Regex filter;
+            Regex filter = new Regex("");
             try
             {
                 filter = new Regex(this.filterComboBox.Text, RegexOptions.IgnoreCase);
             }
-            catch (Exception)
-            {
-                filter = new Regex("");
-            }
+            catch {}
             return filter.IsMatch(logLine);
         }
 

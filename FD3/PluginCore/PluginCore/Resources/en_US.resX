@@ -2754,4 +2754,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Title.SelectIntrinsicTargetFolder" xml:space="preserve">
     <value>Select Target Intrinsic File Folder...</value>
   </data>
+  <data name="FlashLogViewer.Description.UpdateInterval" xml:space="preserve">
+    <value>Specifies the frequency of the log file checking.</value>
+  </data>
 </root>

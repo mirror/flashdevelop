@@ -21,6 +21,7 @@ namespace FlashLogViewer
         private StartType trackingStartType = StartType.Manually;
         private Boolean keepPopupTopMost = true;
         private Boolean colourWarnings = true;
+        private Int32 updateInterval = 100;
 
         /// <summary> 
         /// Get or sets the flashLogFile.
@@ -82,6 +83,18 @@ namespace FlashLogViewer
         {
             get { return this.trackingStartType; }
             set { this.trackingStartType = value; }
+        }
+
+        /// <summary> 
+        /// Get or sets the updateInterval.
+        /// </summary>
+        [DefaultValue(100)]
+        [DisplayName("Update Interval")]
+        [LocalizedDescription("FlashLogViewer.Description.UpdateInterval")]
+        public Int32 UpdateInterval
+        {
+            get { return this.updateInterval; }
+            set { this.updateInterval = value; }
         }
 
         /// <summary> 

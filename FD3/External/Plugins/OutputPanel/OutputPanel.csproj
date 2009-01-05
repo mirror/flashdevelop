@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EF8EE44C-62B2-4744-85CB-278E1F37D418}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -71,7 +71,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Win32\Scrolling.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\PluginCore\PluginCore.csproj">
