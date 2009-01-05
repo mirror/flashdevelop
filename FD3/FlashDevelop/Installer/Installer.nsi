@@ -41,6 +41,7 @@ RequestExecutionLevel admin
 
 ; Required props
 SetCompressor /SOLID lzma
+CRCCheck on
 XPStyle on
 
 ; Installer details
@@ -100,7 +101,7 @@ InstType "un.Full"
 ; Functions
 
 Function GetDotNETVersion
-
+	
 	Push $0
 	Push $1
 	System::Call "mscoree::GetCORVersion(w .r0, i ${NSIS_MAX_STRLEN}, *i) i .r1"
@@ -108,12 +109,12 @@ Function GetDotNETVersion
 	StrCpy $0 "not_found"
 	Pop $1
 	Exch $0
-  
+	
 FunctionEnd
 
 
 Function GetFlashVersion
-
+	
 	Push $0
 	ClearErrors
 	ReadRegStr $0 HKLM "Software\Macromedia\FlashPlayer" "CurrentVersion"
@@ -124,44 +125,44 @@ Function GetFlashVersion
 	StrCpy $0 "not_found"
 	${WordReplace} $0 "," "." "+" $1
 	Exch $1
-
+	
 FunctionEnd
 
 Function GetJavaVersion
-
+	
 	Push $0
 	ClearErrors
 	ReadRegStr $0 HKLM "Software\JavaSoft\Java Runtime Environment" "CurrentVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
-
+	
 FunctionEnd
 
 Function GetFDVersion
-
+	
 	Push $0
 	ClearErrors
 	ReadRegStr $0 HKLM Software\FlashDevelop "CurrentVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
-
+	
 FunctionEnd
 
 Function GetFDInstDir
-
+	
 	Push $0
 	ClearErrors
 	ReadRegStr $0 HKLM Software\FlashDevelop ""
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
-
+	
 FunctionEnd
 
 Function GetNeedsReset
-
+	
 	Call GetFDVersion
 	Pop $1
 	Push $2
@@ -175,7 +176,7 @@ Function GetNeedsReset
 	StrCpy $2 "is_ok"
 	${EndIf}
 	Exch $2
-
+	
 FunctionEnd
 
 Function .onInit
@@ -186,7 +187,7 @@ Function .onInit
 	StrCmp $0 0 +3
 	MessageBox MB_OK|MB_ICONSTOP "The FlashDevelop ${VERSION} installer is already running."
 	Abort
-
+	
 	Call GetDotNETVersion
 	Pop $0
 	${If} $0 == "not_found"
@@ -199,7 +200,7 @@ Function .onInit
 	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop. You have $0."
 	Abort
 	${EndIf}
-
+	
 	Call GetFDInstDir
 	Pop $0
 	Call GetNeedsReset
@@ -209,7 +210,7 @@ Function .onInit
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable or you may miss new features if updated. You should backup you custom setting files and do a full uninstall before installing this one. After install customize the new setting files."
 	${EndIf}
 	${EndIf}
-
+	
 	Call GetFlashVersion
 	Pop $0
 	${If} $0 == "not_found"
@@ -220,7 +221,7 @@ Function .onInit
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player 9 (ActiveX for IE) before installing FlashDevelop. You have $0."
 	${EndIf}
 	${EndIf}
-
+	
 	Call GetJavaVersion
 	Pop $0
 	${If} $0 == "not_found"
@@ -231,7 +232,7 @@ Function .onInit
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Java Runtime 1.6 before installing FlashDevelop. You have $0."
 	${EndIf}
 	${EndIf}
-
+	
 FunctionEnd
 
 ;--------------------------------
@@ -239,13 +240,29 @@ FunctionEnd
 ; Install Sections
 
 Section "FlashDevelop" Main
-
+	
 	SectionIn 1 2 3 RO
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
+	
+	SetOverwrite off
 
+	IfFileExists "$INSTDIR\.local" +4 0
+	RMDir /r "$INSTDIR\Settings"
+	RMDir /r "$INSTDIR\Snippets"
+	RMDir /r "$INSTDIR\Templates"
+	
+	SetOutPath "$INSTDIR\Settings"
+	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
+	
+	SetOutPath "$INSTDIR\Snippets"
+	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
+	
+	SetOutPath "$INSTDIR\Templates"
+	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
+	
 SectionEnd
 
 Section "Registry Modifications" RegistryMods
@@ -256,7 +273,7 @@ Section "Registry Modifications" RegistryMods
 	
 	Delete "$INSTDIR\.multi"
 	Delete "$INSTDIR\.local"
-
+	
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
 	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
 	DeleteRegKey /ifempty HKCU "Software\Classes\Applications\FlashDevelop.exe"
@@ -266,25 +283,25 @@ Section "Registry Modifications" RegistryMods
 	!insertmacro APP_ASSOCIATE "as2proj" "FlashDevelop.AS2Project" "FlashDevelop AS2 Project" "${WIN32RES},2" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "as3proj" "FlashDevelop.AS3Project" "FlashDevelop AS3 Project" "${WIN32RES},2" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "docproj" "FlashDevelop.DocProject" "FlashDevelop Docs Project" "${WIN32RES},2" "" "${ASDOCGEN}"
-
+	
 	!insertmacro APP_ASSOCIATE "fdt" "FlashDevelop.Template" "FlashDevelop Template File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "fda" "FlashDevelop.Arguments" "FlashDevelop Argument File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "fds" "FlashDevelop.Snippet" "FlashDevelop Snippet File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "fdb" "FlashDevelop.Binary" "FlashDevelop Binary File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "fdl" "FlashDevelop.Layout" "FlashDevelop Layout File" "${WIN32RES},1" "" "${EXECUTABLE}"
-
+	
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Project" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.HaXeProject" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.AS2Project" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.AS3Project" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.DocProject" "ShellNew"
-
+	
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Template" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Arguments" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Snippet" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Binary" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Layout" "ShellNew"
-
+	
 	CreateDirectory "$SMPROGRAMS\FlashDevelop"
 	CreateShortCut "$SMPROGRAMS\FlashDevelop\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
 	WriteINIStr "$SMPROGRAMS\FlashDevelop\Documentation.url" "InternetShortcut" "URL" "http://www.flashdevelop.org/wikidocs/"
@@ -308,71 +325,46 @@ Section "Registry Modifications" RegistryMods
 	WriteRegStr HKLM "Software\FlashDevelop" "CurrentVersion" ${VERSION}-${BUILD}
 	WriteRegStr HKLM "Software\FlashDevelop" "" $INSTDIR
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
-
+	
 	!insertmacro UPDATEFILEASSOC
-
+	
 SectionEnd
 
 Section "Quick Launch Shortcut" QuickShortcut
-
+	
 	SectionIn 1	
 	SetOverwrite on
-
+	
 	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-
+	
 SectionEnd
 
 Section "Desktop Shortcut" DesktopShortcut
-
+	
 	SectionIn 1
 	SetOverwrite on
-
+	
 	CreateShortCut "$DESKTOP\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-
+	
 SectionEnd
 
 Section "Multi Instance Mode" MultiInstanceMode
 	
 	SetOverwrite on
-
+	
 	SetOutPath "$INSTDIR"
 	File ..\Bin\Debug\.multi
-
+	
 SectionEnd
 
 Section "Standalone Mode" StandaloneMode
-
+	
 	SectionIn 2
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
 	File ..\Bin\Debug\.local
-
-SectionEnd
-
-Section # InstSettings
-
-	SectionIn 1 2 3 RO
-	SetOverwrite on
 	
-	; If standalone is checked, don't overwrite settings
-	SectionGetFlags ${StandaloneMode} $0
-	IntOp $0 ${SF_SELECTED} | ${SF_RO}
-	SetOverwrite off
-	
-	; If standalone flag file is present, don't overwrite settings
-	IfFileExists "$INSTDIR\.local" 0 +2
-	SetOverwrite off
-	
-	SetOutPath "$INSTDIR\Settings"
-	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
-
-	SetOutPath "$INSTDIR\Snippets"
-	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
-
-	SetOutPath "$INSTDIR\Templates"
-	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
-
 SectionEnd
 
 ;--------------------------------
@@ -396,7 +388,7 @@ Section "un.FlashDevelop" UninstMain
 	
 	SectionIn 1 2 RO
 	SetShellVarContext all
-
+	
 	RMDir /r "$INSTDIR\Docs"
 	RMDir /r "$INSTDIR\Library"
 	RMDir /r "$INSTDIR\Plugins"
@@ -424,20 +416,20 @@ Section "un.FlashDevelop" UninstMain
 	!insertmacro APP_UNASSOCIATE "as2proj" "FlashDevelop.AS2Project"
 	!insertmacro APP_UNASSOCIATE "as3proj" "FlashDevelop.AS3Project"
 	!insertmacro APP_UNASSOCIATE "docproj" "FlashDevelop.DocProject"
-
+	
 	!insertmacro APP_UNASSOCIATE "fdt" "FlashDevelop.Template"
 	!insertmacro APP_UNASSOCIATE "fda" "FlashDevelop.Arguments"
 	!insertmacro APP_UNASSOCIATE "fds" "FlashDevelop.Snippet"
 	!insertmacro APP_UNASSOCIATE "fdb" "FlashDevelop.Binary"
 	!insertmacro APP_UNASSOCIATE "fdl" "FlashDevelop.Layout"
-
+	
 	DeleteRegKey /ifempty HKLM "Software\FlashDevelop"
 	DeleteRegKey /ifempty HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop"
-
+	
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
 	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
 	DeleteRegKey /ifempty HKCU "Software\Classes\Applications\FlashDevelop.exe"
-
+	
 	!insertmacro UPDATEFILEASSOC
 	
 SectionEnd
@@ -445,7 +437,7 @@ SectionEnd
 Section /o "un.Settings" UninstSettings
 	
 	SectionIn 2
-
+	
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
 	RMDir /r "$INSTDIR\Snippets"
@@ -453,7 +445,7 @@ Section /o "un.Settings" UninstSettings
 	RMDir /r "$LOCALAPPDATA\FlashDevelop"
 	RMDir /r "$SMPROGRAMS\FlashDevelop"
 	RMDir "$INSTDIR"
-
+	
 SectionEnd
 
 ;--------------------------------
