@@ -246,18 +246,6 @@ Section "FlashDevelop" Main
 	SetOutPath "$INSTDIR"
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
 
-	SetOverwrite off
-	SetOutPath "$INSTDIR\Settings"
-	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
-
-	SetOverwrite off
-	SetOutPath "$INSTDIR\Snippets"
-	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
-
-	SetOverwrite off
-	SetOutPath "$INSTDIR\Templates"
-	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
-
 SectionEnd
 
 Section "Registry Modifications" RegistryMods
@@ -354,11 +342,36 @@ SectionEnd
 
 Section "Standalone Mode" StandaloneMode
 
-	SectionIn 2	
+	SectionIn 2
 	SetOverwrite on
-
+	
 	SetOutPath "$INSTDIR"
 	File ..\Bin\Debug\.local
+
+SectionEnd
+
+Section # InstSettings
+
+	SectionIn 1 2 3 RO
+	SetOverwrite on
+	
+	; If standalone is checked, don't overwrite settings
+	SectionGetFlags ${StandaloneMode} $0
+	IntOp $0 ${SF_SELECTED} | ${SF_RO}
+	SetOverwrite off
+	
+	; If standalone flag file is present, don't overwrite settings
+	IfFileExists "$INSTDIR\.local" 0 +2
+	SetOverwrite off
+	
+	SetOutPath "$INSTDIR\Settings"
+	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
+
+	SetOutPath "$INSTDIR\Snippets"
+	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
+
+	SetOutPath "$INSTDIR\Templates"
+	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
 
 SectionEnd
 
