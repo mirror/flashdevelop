@@ -35,6 +35,9 @@ namespace FlashLogViewer
         private ImageList imageList;
         private String curLogFile;
         private Form popupForm;
+        private Regex reError;
+        private Regex reWarning;
+        private Regex reFilter;
         
 		public PluginUI(PluginMain pluginMain)
 		{
@@ -346,7 +349,6 @@ namespace FlashLogViewer
         /// </summary>
         public void RefreshDisplay(Boolean forceScroll)
         {
-            Regex r;
             String logContents = this.GetLogFileContents();
             String[] logLines = logContents.Split('\n');
             StringBuilder rtf = new StringBuilder("{\\rtf\\ansi{\\colortbl;\\red0\\green0\\blue0;\\red255\\green140\\blue0;\\red255\\green0\\blue0;}");
@@ -355,12 +357,8 @@ namespace FlashLogViewer
                 String colorTbl = "\\cf0 ";
                 if (this.Settings.ColourWarnings)
                 {
-                    // Warning
-                    r = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
-                    if (r.IsMatch(line)) colorTbl = "\\cf2 ";
-                    // Error
-                    r = new Regex(this.Settings.RegexError, RegexOptions.IgnoreCase);
-                    if (r.IsMatch(line)) colorTbl = "\\cf3 ";
+                    if (reWarning != null && reWarning.IsMatch(line)) colorTbl = "\\cf2 ";
+                    if (reError != null && reError.IsMatch(line)) colorTbl = "\\cf3 ";
                 }
                 // escape special rtf characters
                 String formattedLine = line;
@@ -449,6 +447,25 @@ namespace FlashLogViewer
         {
             this.tracking = !this.tracking;
             this.EnableTracking(this.tracking);
+            if (this.tracking)
+            {
+                try
+                {
+                    this.reError = new Regex(this.Settings.RegexError ?? "Error", RegexOptions.IgnoreCase);
+                }
+                catch 
+                {
+                    ErrorManager.ShowInfo("FlashLogViewer: RegexError is invalid: " + this.Settings.RegexError);
+                }
+                try
+                {
+                    this.reWarning = new Regex(this.Settings.RegexWarning ?? "Warning", RegexOptions.IgnoreCase);
+                }
+                catch 
+                {
+                    ErrorManager.ShowInfo("FlashLogViewer: RegexWarning is invalid: " + this.Settings.RegexWarning);
+                }
+            }
         }
 
         /// <summary>
@@ -495,6 +512,19 @@ namespace FlashLogViewer
         /// </summary>
         private void FilterTextBoxTextChanged(Object sender, EventArgs e)
         {
+            if (filterComboBox.Text.Length == 0) this.reFilter = null;
+            else
+            {
+                try
+                {
+                    this.reFilter = new Regex(filterComboBox.Text, RegexOptions.IgnoreCase);
+                    this.filterComboBox.ForeColor = SystemColors.ControlText;
+                }
+                catch 
+                {
+                    this.filterComboBox.ForeColor = Color.Red;
+                }
+            }
             this.RefreshDisplay(false);
         }
 
@@ -526,13 +556,8 @@ namespace FlashLogViewer
         /// </summary>
         private Boolean PassesFilter(String logLine)
         {
-            Regex filter = new Regex("");
-            try
-            {
-                filter = new Regex(this.filterComboBox.Text, RegexOptions.IgnoreCase);
-            }
-            catch {}
-            return filter.IsMatch(logLine);
+            if (reFilter == null) return true;
+            else return reFilter.IsMatch(logLine);
         }
 
         #endregion
