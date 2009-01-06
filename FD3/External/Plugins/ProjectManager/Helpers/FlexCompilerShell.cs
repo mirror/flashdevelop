@@ -163,8 +163,12 @@ namespace ProjectManager.Helpers
             lastCompileID = 0;
             lastArguments = null;
             // this will free up our error-reading thread as well.
-            if (process != null && !process.HasExited)
-                process.Kill();
+            try
+            {
+                if (process != null && !process.HasExited)
+                    process.Kill();
+            }
+            catch { }
         }
 
         #region FCSH Output Parsing
