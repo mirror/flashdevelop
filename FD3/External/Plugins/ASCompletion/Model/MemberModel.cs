@@ -136,7 +136,8 @@ namespace ASCompletion.Model
 		{
 			if (!(obj is MemberModel)) 
 				return false;
-			return Name.Equals( ((MemberModel)obj).Name );
+            MemberModel to = (MemberModel)obj;
+			return Name == to.Name && Flags == to.Flags;
 		}
 		
 		public override int GetHashCode() 
@@ -316,9 +317,9 @@ namespace ASCompletion.Model
                 added = false;
                 while (index < items.Count)
                 {
-                    if (m.CompareTo(items[index]) <= 0)
+                    if (m.Name.CompareTo(items[index].Name) <= 0)
                     {
-                        if (!m.Equals(items[index])) items.Insert(index, m);
+                        if (m.Name != items[index].Name) items.Insert(index, m);
                         else if ((items[index].Flags & FlagType.Setter) > 0)
                         {
                             items.RemoveAt(index);
@@ -374,9 +375,9 @@ namespace ASCompletion.Model
 				added = false;
 				while (index < items.Count)
 				{
-					if (m.CompareTo(items[index]) <= 0)
+					if (m.Name.CompareTo(items[index].Name) <= 0)
 					{
-                        if (!m.Equals(items[index])) items.Insert(index, m);
+                        if (m.Name != items[index].Name) items.Insert(index, m);
                         else if ((items[index].Flags & FlagType.Setter) > 0)
                         {
                             items.RemoveAt(index);

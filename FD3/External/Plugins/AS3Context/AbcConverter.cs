@@ -123,9 +123,11 @@ namespace AS3Context
                         {
                             MemberModel ctor = result[0];
                             ctor.Flags |= FlagType.Constructor;
+                            ctor.Access = Visibility.Public;
                             ctor.Type = type.Type;
                             ctor.Namespace = "public";
                             type.Members.Merge(result);
+                            type.Constructor = ctor.Name;
                         }
                         result = null;
                         temp = null;
@@ -263,14 +265,10 @@ namespace AS3Context
 
         private static void SetDefaultValue(MemberModel member, object value)
         {
-            MemberModel paramValueMember = new MemberModel();
-
-            if (value == null) paramValueMember.Comments = "null";
-            else if (value is string) paramValueMember.Comments = '"' + value.ToString() + '"';
-            else if (value is bool) paramValueMember.Comments = value.ToString().ToLower();
-            else paramValueMember.Comments = "" + value;
-		    member.Parameters = new List<MemberModel>();
-		    member.Parameters.Add(paramValueMember);
+            if (value == null) member.Value = "null";
+            else if (value is string) member.Value = '"' + value.ToString() + '"';
+            else if (value is bool) member.Value = value.ToString().ToLower();
+            else member.Value = value.ToString();
         }
     }
 }
