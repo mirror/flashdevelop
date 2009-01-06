@@ -173,7 +173,7 @@ package flash.display
 		public function addChildAt (child:DisplayObject, index:int) : DisplayObject;
 
 		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
-		public function addEventListener (type:String, listener:Function, useCapture:Boolean, priority:int, useWeakReference:Boolean) : void;
+		public function addEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
 		/// Dispatches an event into the event flow.
 		public function dispatchEvent (event:Event) : Boolean;
@@ -192,6 +192,8 @@ package flash.display
 
 		/// Changes the position of an existing child in the display object container.
 		public function setChildIndex (child:DisplayObject, index:int) : void;
+
+		public function Stage ();
 
 		/// Swaps the z-order (front-to-back order) of the child objects at the two specified index positions in the child list.
 		public function swapChildrenAt (index1:int, index2:int) : void;

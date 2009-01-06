@@ -28,12 +28,12 @@ package
 		public function get source () : String;
 
 		/// Performs a search for the regular expression on the given string str.
-		public function exec (s:String) : *;
+		public function exec (s:String = "") : *;
 
 		/// Lets you construct a regular expression from two strings.
-		public function RegExp (pattern:*, options:*);
+		public function RegExp (pattern:* = null, options:* = null);
 
 		/// Tests for the match of the regular expression in the given string str.
-		public function test (s:String) : Boolean;
+		public function test (s:String = "") : Boolean;
 	}
 }

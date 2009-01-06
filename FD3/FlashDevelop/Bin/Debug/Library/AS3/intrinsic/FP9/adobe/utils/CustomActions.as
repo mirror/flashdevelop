@@ -6,6 +6,8 @@ package adobe.utils
 		/// Returns an Array object containing the names of all the custom actions that are registered with the Flash authoring tool.
 		public static function get actionsList () : Array;
 
+		public function CustomActions ();
+
 		/// Reads the contents of the custom action XML definition file named name.
 		public static function getActions (name:String) : String;
 

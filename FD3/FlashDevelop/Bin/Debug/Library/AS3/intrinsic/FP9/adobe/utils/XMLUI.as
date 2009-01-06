@@ -14,5 +14,7 @@ package adobe.utils
 
 		/// Modifies the value of the specified property of the current XMLUI dialog.
 		public static function setProperty (name:String, value:String) : void;
+
+		public function XMLUI ();
 	}
 }

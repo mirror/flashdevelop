@@ -11,5 +11,7 @@ package flash.display
 		public static const GREEN : uint;
 		/// The red channel.
 		public static const RED : uint;
+
+		public function BitmapDataChannel ();
 	}
 }

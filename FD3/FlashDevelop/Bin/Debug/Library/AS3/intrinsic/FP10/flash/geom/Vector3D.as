@@ -48,13 +48,13 @@ package flash.geom
 		public function dotProduct (a:Vector3D) : Number;
 
 		/// Determines whether two Vector3D objects are equal by comparing the x, y, and z elements of the current Vector3D object with a specified Vector3D object.
-		public function equals (toCompare:Vector3D, allFour:Boolean) : Boolean;
+		public function equals (toCompare:Vector3D = null, allFour:Boolean = false) : Boolean;
 
 		/// Increments the current Vector3D object by another Vector3D object.
 		public function incrementBy (a:Vector3D) : void;
 
 		/// Compares the elements of the current Vector3D object with the elements of a specified Vector3D object to determine whether they are nearly equal.
-		public function nearEquals (toCompare:Vector3D, tolerance:Number, allFour:Boolean) : Boolean;
+		public function nearEquals (toCompare:Vector3D = null, tolerance:Number = null, allFour:Boolean = false) : Boolean;
 
 		/// Sets the current Vector3D object to its inverse.
 		public function negate () : void;
@@ -73,5 +73,8 @@ package flash.geom
 
 		/// Returns a string representation of the current Vector3D object.
 		public function toString () : String;
+
+		/// Creates an instance of a Vector3D object.
+		public function Vector3D (x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 0);
 	}
 }

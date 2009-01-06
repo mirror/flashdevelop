@@ -7,5 +7,7 @@ package flash.text.engine
 		public static const CFF : String;
 		/// Sets rendering mode to the rendering mode that is used in Flash Player 7 and earlier.
 		public static const NORMAL : String;
+
+		public function RenderingMode ();
 	}
 }

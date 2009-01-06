@@ -13,5 +13,8 @@ package flash.display
 		/// Specifies whether to render triangles that face in a given direction.
 		public function get culling () : String;
 		public function set culling (value:String) : void;
+
+		/// Creates a new GraphicsTrianglePath object.
+		public function GraphicsTrianglePath (vertices:Vector.<Number> = null, indices:Vector.<int> = null, uvtData:Vector.<Number> = null, culling:String = "none");
 	}
 }

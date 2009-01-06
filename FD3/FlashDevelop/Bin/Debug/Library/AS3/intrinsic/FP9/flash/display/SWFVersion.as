@@ -21,5 +21,7 @@ package flash.display
 		public static const FLASH8 : uint;
 		/// SWF file format version 9.0.
 		public static const FLASH9 : uint;
+
+		public function SWFVersion ();
 	}
 }

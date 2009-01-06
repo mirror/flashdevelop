@@ -9,5 +9,7 @@ package flash.text.engine
 		public static const ALL_INCLUDING_LAST : String;
 		/// Directs the text engine to generate unjustified lines.
 		public static const UNJUSTIFIED : String;
+
+		public function LineJustification ();
 	}
 }

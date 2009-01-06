@@ -7,5 +7,7 @@ package flash.text.engine
 		public static const HORIZONTAL_STEM : String;
 		/// No hinting is applied.
 		public static const NONE : String;
+
+		public function CFFHinting ();
 	}
 }

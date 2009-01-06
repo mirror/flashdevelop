@@ -60,16 +60,16 @@ package
 		public static function defaultSettings () : Object;
 
 		/// Returns all descendants (children, grandchildren, great-grandchildren, and so on) of the XML object that have the given name parameter.
-		public function descendants (name:*) : XMLList;
+		public function descendants (name:* = "*") : XMLList;
 
 		/// Lists the elements of an XML object.
-		public function elements (name:*) : XMLList;
+		public function elements (name:* = "*") : XMLList;
 
 		/// Checks to see whether the XML object contains complex content.
 		public function hasComplexContent () : Boolean;
 
 		/// Checks to see whether the object has the property specified by the p parameter.
-		public function hasOwnProperty (P:*) : Boolean;
+		public function hasOwnProperty (P:* = null) : Boolean;
 
 		/// Checks to see whether the XML object contains simple content.
 		public function hasSimpleContent () : Boolean;
@@ -92,7 +92,7 @@ package
 		public function name () : Object;
 
 		/// If no parameter is provided, gives the namespace associated with the qualified name of this XML object.
-		public function namespace (prefix:*) : *;
+		public function namespace (prefix:* = null) : *;
 
 		/// Lists namespace declarations associated with the XML object in the context of its parent.
 		public function namespaceDeclarations () : Array;
@@ -112,10 +112,10 @@ package
 		public function prependChild (value:*) : XML;
 
 		/// If a name parameter is provided, lists all the children of the XML object that contain processing instructions with that name.
-		public function processingInstructions (name:*) : XMLList;
+		public function processingInstructions (name:* = "*") : XMLList;
 
 		/// Checks whether the property p is in the set of properties that can be iterated in a for..in statement applied to the XML object.
-		public function propertyIsEnumerable (P:*) : Boolean;
+		public function propertyIsEnumerable (P:* = null) : Boolean;
 
 		/// Removes the given namespace for this object and all descendants.
 		public function removeNamespace (ns:*) : XML;
@@ -138,7 +138,7 @@ package
 		public function setNotification (f:Function) : *;
 
 		/// Sets values for the following XML properties: ignoreComments, ignoreProcessingInstructions, ignoreWhitespace, prettyIndent, and prettyPrinting.
-		public static function setSettings (o:Object) : void;
+		public static function setSettings (o:Object = null) : void;
 
 		/// Retrieves the following properties: ignoreComments, ignoreProcessingInstructions, ignoreWhitespace, prettyIndent, and prettyPrinting.
 		public static function settings () : Object;
@@ -156,6 +156,6 @@ package
 		public function valueOf () : XML;
 
 		/// Creates a new XML object.
-		public function XML (value:*);
+		public function XML (value:* = null);
 	}
 }

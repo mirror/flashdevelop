@@ -13,5 +13,7 @@ package flash.xml
 
 		public function get value () : String;
 		public function set value (v:String) : void;
+
+		public function XMLTag ();
 	}
 }

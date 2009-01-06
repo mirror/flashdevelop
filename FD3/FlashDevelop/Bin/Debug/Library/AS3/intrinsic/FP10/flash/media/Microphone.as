@@ -68,13 +68,15 @@ package flash.media
 		public function get useEchoSuppression () : Boolean;
 
 		/// Returns a reference to a Microphone object for capturing audio.
-		public static function getMicrophone (index:int) : Microphone;
+		public static function getMicrophone (index:int = -1) : Microphone;
+
+		public function Microphone ();
 
 		/// Routes audio captured by a microphone to the local speakers.
-		public function setLoopBack (state:Boolean) : void;
+		public function setLoopBack (state:Boolean = true) : void;
 
 		/// Sets the minimum input level that should be considered sound and (optionally) the amount of silent time signifying that silence has actually begun.
-		public function setSilenceLevel (silenceLevel:Number, timeout:int) : void;
+		public function setSilenceLevel (silenceLevel:Number = null, timeout:int = -1) : void;
 
 		/// Specifies whether to use the echo suppression feature of the audio codec.
 		public function setUseEchoSuppression (useEchoSuppression:Boolean) : void;

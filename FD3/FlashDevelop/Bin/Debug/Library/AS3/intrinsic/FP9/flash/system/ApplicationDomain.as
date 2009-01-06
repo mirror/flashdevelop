@@ -11,6 +11,9 @@ package flash.system
 		/// Gets the parent domain of this application domain.
 		public function get parentDomain () : ApplicationDomain;
 
+		/// Creates a new application domain.
+		public function ApplicationDomain (parentDomain:ApplicationDomain = null);
+
 		/// Gets a public definition from the specified application domain.
 		public function getDefinition (name:String) : Object;
 

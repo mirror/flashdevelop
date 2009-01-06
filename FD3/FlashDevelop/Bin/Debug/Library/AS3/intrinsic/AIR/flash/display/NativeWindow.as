@@ -175,6 +175,9 @@ package flash.display
 		/// [AIR] Minimizes this window.
 		public function minimize () : void;
 
+		/// [AIR] Creates a new NativeWindow instance and a corresponding operating system window.
+		public function NativeWindow (initOptions:NativeWindowInitOptions);
+
 		/// [AIR] Triggers a visual cue through the operating system that an event of interest has occurred.
 		public function notifyUser (type:String) : void;
 
@@ -197,6 +200,6 @@ package flash.display
 		public function startMove () : Boolean;
 
 		/// [AIR] Starts a system-controlled resize operation of this window.
-		public function startResize (edgeOrCorner:String) : Boolean;
+		public function startResize (edgeOrCorner:String = "BR") : Boolean;
 	}
 }

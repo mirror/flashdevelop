@@ -7,5 +7,8 @@ package flash.desktop
 	{
 		/// [AIR] Updates the currently running application with the version of the application contained in the specified AIR file.
 		public function update (airFile:File, version:String) : void;
+
+		/// [AIR] The constructor function for the Updater class.
+		public function Updater ();
 	}
 }

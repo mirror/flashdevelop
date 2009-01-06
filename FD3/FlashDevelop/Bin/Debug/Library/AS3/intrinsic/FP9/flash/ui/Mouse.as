@@ -6,6 +6,8 @@ package flash.ui
 		/// Hides the pointer.
 		public static function hide () : void;
 
+		public function Mouse ();
+
 		/// Displays the pointer.
 		public static function show () : void;
 	}

@@ -42,6 +42,9 @@ package flash.net
 		/// Prepares a LocalConnection object to receive commands from a send() command (called the sending LocalConnection object).
 		public function connect (connectionName:String) : void;
 
+		/// Creates a LocalConnection object.
+		public function LocalConnection ();
+
 		/// Invokes the method named methodName on a connection opened with the connect(<code>connectionName<code>) method (the receiving LocalConnection object).
 		public function send (connectionName:String, methodName:String) : void;
 	}

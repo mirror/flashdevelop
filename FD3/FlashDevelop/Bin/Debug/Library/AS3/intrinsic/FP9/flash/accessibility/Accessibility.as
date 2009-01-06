@@ -8,7 +8,9 @@ package flash.accessibility
 		/// Indicates whether a screen reader is currently active and the player is communicating with it.
 		public static function get active () : Boolean;
 
-		public static function sendEvent (source:DisplayObject, childID:uint, eventType:uint, nonHTML:Boolean) : void;
+		public function Accessibility ();
+
+		public static function sendEvent (source:DisplayObject = null, childID:uint = null, eventType:uint = null, nonHTML:Boolean = false) : void;
 
 		/// Tells Flash Player to apply any accessibility changes made by using the DisplayObject.accessibilityProperties property.
 		public static function updateProperties () : void;

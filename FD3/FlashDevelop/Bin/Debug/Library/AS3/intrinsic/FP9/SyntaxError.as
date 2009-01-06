@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new SyntaxError object.
-		public function SyntaxError (message:*, id:*);
+		public function SyntaxError (message:* = "", id:* = 0);
 	}
 }

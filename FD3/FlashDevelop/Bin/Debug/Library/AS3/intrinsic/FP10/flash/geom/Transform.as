@@ -37,5 +37,7 @@ package flash.geom
 
 		/// Returns a Matrix3D object, which can transform the space of a specified display object in relation to the current display object's space.
 		public function getRelativeMatrix3D (relativeTo:DisplayObject) : Matrix3D;
+
+		public function Transform (displayObject:DisplayObject);
 	}
 }

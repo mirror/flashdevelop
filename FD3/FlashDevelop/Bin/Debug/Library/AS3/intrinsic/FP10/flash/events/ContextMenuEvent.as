@@ -26,6 +26,9 @@ package flash.events
 		/// Creates a copy of the ContextMenuEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for ContextMenuEvent objects.
+		public function ContextMenuEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, mouseTarget:InteractiveObject = null, contextMenuOwner:InteractiveObject = null);
+
 		/// Returns a string that contains all the properties of the ContextMenuEvent object.
 		public function toString () : String;
 	}

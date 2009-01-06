@@ -45,5 +45,8 @@ package flash.filters
 
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
+
+		/// Initializes a DisplacementMapFilter instance.
+		public function DisplacementMapFilter (mapBitmap:BitmapData = null, mapPoint:Point = null, componentX:uint = 0, componentY:uint = 0, scaleX:Number = 0, scaleY:Number = 0, mode:String = "wrap", color:uint = 0, alpha:Number = 0);
 	}
 }

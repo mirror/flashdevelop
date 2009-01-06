@@ -15,5 +15,7 @@ package flash.net
 		/// Allows greater control over the serialization of dynamic properties of dynamic objects.
 		public static function get dynamicPropertyWriter () : IDynamicPropertyWriter;
 		public static function set dynamicPropertyWriter (object:IDynamicPropertyWriter) : void;
+
+		public function ObjectEncoding ();
 	}
 }

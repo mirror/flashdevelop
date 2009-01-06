@@ -110,5 +110,7 @@ package flash.ui
 
 		/// Specifies whether the last key pressed is accessible by other SWF files.
 		public static function isAccessible () : Boolean;
+
+		public function Keyboard ();
 	}
 }

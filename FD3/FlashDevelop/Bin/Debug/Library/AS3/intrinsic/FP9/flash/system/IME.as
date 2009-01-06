@@ -24,6 +24,8 @@ package flash.system
 		/// Instructs the IME to select the first candidate for the current composition string.
 		public static function doConversion () : void;
 
+		public function IME ();
+
 		/// Sets the IME composition string.
 		public static function setCompositionString (composition:String) : void;
 	}

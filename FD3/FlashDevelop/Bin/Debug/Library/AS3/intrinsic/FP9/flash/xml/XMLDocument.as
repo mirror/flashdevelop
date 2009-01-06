@@ -25,5 +25,8 @@ package flash.xml
 
 		/// Returns a string representation of the XML object.
 		public function toString () : String;
+
+		/// Creates a new XMLDocument object.
+		public function XMLDocument (source:String = null);
 	}
 }

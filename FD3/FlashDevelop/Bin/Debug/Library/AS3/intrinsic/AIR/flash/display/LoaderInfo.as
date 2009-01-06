@@ -120,5 +120,7 @@ package flash.display
 
 		/// Returns the LoaderInfo object associated with a SWF file defined as an object.
 		public static function getLoaderInfoByDefinition (object:Object) : LoaderInfo;
+
+		public function LoaderInfo ();
 	}
 }

@@ -22,9 +22,11 @@ package authoring
 
 		public function get Type () : uint;
 
+		public function authObject (key:uint);
+
 		public function BlendingMode () : String;
 
-		public function Bounds (flags:uint, minFrame:int, maxFrame:int) : Rectangle;
+		public function Bounds (flags:uint = null, minFrame:int = -16000, maxFrame:int = 16000) : Rectangle;
 
 		public function CacheAsBitmap () : Boolean;
 

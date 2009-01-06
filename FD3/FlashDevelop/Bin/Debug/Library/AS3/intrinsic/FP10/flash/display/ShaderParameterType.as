@@ -33,5 +33,7 @@ package flash.display
 		public static const MATRIX3X3 : String;
 		/// Indicates that the shader parameter is defined as a float4x4 value, equivalent to a 4-by-4 matrix.
 		public static const MATRIX4X4 : String;
+
+		public function ShaderParameterType ();
 	}
 }

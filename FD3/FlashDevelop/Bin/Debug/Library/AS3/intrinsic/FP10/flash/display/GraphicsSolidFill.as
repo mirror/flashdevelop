@@ -7,5 +7,8 @@ package flash.display
 		public var alpha : Number;
 		/// The color of the fill.
 		public var color : uint;
+
+		/// Creates a new GraphicsSolidFill object.
+		public function GraphicsSolidFill (color:uint = 0, alpha:Number = 1);
 	}
 }

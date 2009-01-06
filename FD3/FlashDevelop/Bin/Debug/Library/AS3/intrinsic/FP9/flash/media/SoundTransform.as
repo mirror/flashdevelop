@@ -26,5 +26,8 @@ package flash.media
 		/// The volume, ranging from 0 (silent) to 1 (full volume).
 		public function get volume () : Number;
 		public function set volume (volume:Number) : void;
+
+		/// Creates a SoundTransform object.
+		public function SoundTransform (vol:Number = 1, panning:Number = 0);
 	}
 }

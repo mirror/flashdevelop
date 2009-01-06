@@ -26,5 +26,8 @@ package flash.ui
 
 		/// Creates and returns a copy of the specified ContextMenuItem object.
 		public function clone () : NativeMenuItem;
+
+		/// Creates a new ContextMenuItem object that can be added to the ContextMenu.customItems array.
+		public function ContextMenuItem (caption:String = null, separatorBefore:Boolean = false, enabled:Boolean = true, visible:Boolean = true);
 	}
 }

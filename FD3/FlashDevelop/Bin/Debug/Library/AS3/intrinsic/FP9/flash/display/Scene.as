@@ -11,5 +11,7 @@ package flash.display
 
 		/// The number of frames in the scene.
 		public function get numFrames () : int;
+
+		public function Scene (name:String, labels:Array, numFrames:int);
 	}
 }

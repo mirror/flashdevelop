@@ -16,5 +16,8 @@ package flash.display
 		/// The precision of math operations performed by the shader.
 		public function get precisionHint () : String;
 		public function set precisionHint (p:String) : void;
+
+		/// Creates a new Shader instance.
+		public function Shader (code:ByteArray = null);
 	}
 }

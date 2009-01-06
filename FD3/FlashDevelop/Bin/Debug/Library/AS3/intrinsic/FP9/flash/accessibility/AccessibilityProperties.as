@@ -15,5 +15,8 @@ package flash.accessibility
 		public var shortcut : String;
 		/// If true, excludes this display object from accessible presentation.
 		public var silent : Boolean;
+
+		/// Creates a new AccessibilityProperties object.
+		public function AccessibilityProperties ();
 	}
 }

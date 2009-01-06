@@ -9,5 +9,7 @@ package flash.text.engine
 		public static const LINING : String;
 		/// Used to specify old style digit case.
 		public static const OLD_STYLE : String;
+
+		public function DigitCase ();
 	}
 }

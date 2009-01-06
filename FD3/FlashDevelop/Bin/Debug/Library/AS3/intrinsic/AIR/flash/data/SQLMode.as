@@ -9,5 +9,7 @@ package flash.data
 		public static const READ : String;
 		/// [AIR] Indicates that the connection is opened for updates but a new database file is not created if the specified file doesn't exist.
 		public static const UPDATE : String;
+
+		public function SQLMode ();
 	}
 }

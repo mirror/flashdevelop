@@ -33,5 +33,7 @@ package flash.display
 		public static const SHADER : String;
 		/// Subtracts the values of the constituent colors in the display object from the values of the backgroundcolor, applying a floor of 0.
 		public static const SUBTRACT : String;
+
+		public function BlendMode ();
 	}
 }

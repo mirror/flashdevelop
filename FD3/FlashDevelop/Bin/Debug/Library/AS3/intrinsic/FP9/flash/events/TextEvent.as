@@ -17,6 +17,9 @@ package flash.events
 		/// Creates a copy of the TextEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for TextEvent objects.
+		public function TextEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
+
 		/// Returns a string that contains all the properties of the TextEvent object.
 		public function toString () : String;
 	}

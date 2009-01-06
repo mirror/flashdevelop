@@ -9,5 +9,8 @@ package flash.events
 		public var files : Array;
 		/// [AIR] The FileListEvent.SELECT_MULTIPLE constant defines the value of the type property of the event object for a selectMultiple event.
 		public static const SELECT_MULTIPLE : String = "selectMultiple";
+
+		/// [AIR] The constructor function for a FileListEvent object.
+		public function FileListEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, files:Array = null);
 	}
 }

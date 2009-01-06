@@ -13,6 +13,9 @@ package flash.events
 		/// Creates a copy of the TimerEvent object and sets each property's value to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for TimerEvent objects.
+		public function TimerEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false);
+
 		/// Returns a string that contains all the properties of the TimerEvent object.
 		public function toString () : String;
 

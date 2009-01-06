@@ -15,5 +15,7 @@ package flash.display
 		public static const WIDE_LINE_TO : int;
 		/// Specifies a "move to" drawing command, but uses two sets of coordinates (four values) instead of one set.
 		public static const WIDE_MOVE_TO : int;
+
+		public function GraphicsPathCommand ();
 	}
 }

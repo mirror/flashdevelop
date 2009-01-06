@@ -27,5 +27,8 @@ package flash.display
 		/// A value from the GradientType class that specifies which gradient type to use.
 		public function get type () : String;
 		public function set type (value:String) : void;
+
+		/// Creates a new GraphicsGradientFill object.
+		public function GraphicsGradientFill (type:String = "linear", colors:Array = null, alphas:Array = null, ratios:Array = null, matrix:* = null, spreadMethod:* = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0);
 	}
 }

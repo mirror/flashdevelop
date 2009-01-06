@@ -11,5 +11,8 @@ package flash.data
 
 		/// [AIR] Returns the entire text of the SQL statement that was used to create this schema object.
 		public function get sql () : String;
+
+		/// [AIR] Creates a SQLSchema instance.
+		public function SQLSchema (database:String, name:String, sql:String);
 	}
 }

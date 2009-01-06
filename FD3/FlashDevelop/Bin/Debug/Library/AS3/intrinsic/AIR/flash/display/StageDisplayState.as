@@ -9,5 +9,7 @@ package flash.display
 		public static const FULL_SCREEN_INTERACTIVE : String;
 		/// Specifies that the Stage is in normal mode.
 		public static const NORMAL : String;
+
+		public function StageDisplayState ();
 	}
 }

@@ -9,5 +9,7 @@ package flash.display
 		public static const MITER : String;
 		/// Specifies round joints in the joints parameter of the flash.display.Graphics.lineStyle() method.
 		public static const ROUND : String;
+
+		public function JointStyle ();
 	}
 }

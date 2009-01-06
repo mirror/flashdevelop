@@ -61,5 +61,7 @@ package flash.desktop
 
 		/// [AIR] The current display width of the icon in pixels.
 		public function get width () : int;
+
+		public function SystemTrayIcon ();
 	}
 }

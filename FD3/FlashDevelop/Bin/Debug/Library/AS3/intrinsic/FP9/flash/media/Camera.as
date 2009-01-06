@@ -63,8 +63,10 @@ package flash.media
 		/// The current capture width, in pixels.
 		public function get width () : int;
 
+		public function Camera ();
+
 		/// Returns a reference to a Camera object for capturing video.
-		public static function getCamera (name:String) : Camera;
+		public static function getCamera (name:String = null) : Camera;
 
 		public function setCursor (value:Boolean) : void;
 
@@ -72,13 +74,13 @@ package flash.media
 		public function setKeyFrameInterval (keyFrameInterval:int) : void;
 
 		/// Specifies whether to use a compressed video stream for a local view of the camera.
-		public function setLoopback (compress:Boolean) : void;
+		public function setLoopback (compress:Boolean = false) : void;
 
 		/// Sets the camera capture mode to the native mode that best meets the specified requirements.
-		public function setMode (width:int, height:int, fps:Number, favorArea:Boolean) : void;
+		public function setMode (width:int = null, height:int = null, fps:Number = null, favorArea:Boolean = true) : void;
 
 		/// Specifies how much motion is required to dispatch the activity event.
-		public function setMotionLevel (motionLevel:int, timeout:int) : void;
+		public function setMotionLevel (motionLevel:int = null, timeout:int = 2000) : void;
 
 		/// Sets the maximum amount of bandwidth per second or the required picture quality of the current outgoing video feed.
 		public function setQuality (bandwidth:int, quality:int) : void;

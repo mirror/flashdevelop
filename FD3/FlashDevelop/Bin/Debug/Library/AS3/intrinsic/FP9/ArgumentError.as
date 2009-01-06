@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates an ArgumentError object.
-		public function ArgumentError (message:*, id:*);
+		public function ArgumentError (message:* = "", id:* = 0);
 	}
 }

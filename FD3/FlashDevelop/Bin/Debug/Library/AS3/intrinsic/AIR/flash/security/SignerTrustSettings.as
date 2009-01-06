@@ -9,5 +9,7 @@ package flash.security
 		public static const PLAYLIST_SIGNING : String;
 		/// [AIR] The certificate is trusted for signing in general.
 		public static const SIGNING : String;
+
+		public function SignerTrustSettings ();
 	}
 }

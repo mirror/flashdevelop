@@ -13,5 +13,8 @@ package flash.net
 		public static const SWAP : *;
 		/// Switches from playing one stream to another stream, typically with streams of the same content.
 		public static const SWITCH : *;
+
+		/// The NetStreamPlayTransitions class specifies the valid strings that you can use with the NetStreamPlayOptions.transition property.
+		public function NetStreamPlayTransitions ();
 	}
 }

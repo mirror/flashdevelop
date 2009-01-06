@@ -13,7 +13,9 @@ package flash.text
 		public function get fontType () : String;
 
 		/// Specifies whether to provide a list of the currently available embedded fonts.
-		public static function enumerateFonts (enumerateDeviceFonts:Boolean) : Array;
+		public static function enumerateFonts (enumerateDeviceFonts:Boolean = false) : Array;
+
+		public function Font ();
 
 		/// Specifies whether a provided string can be displayed using the currently assigned font.
 		public function hasGlyphs (str:String) : Boolean;

@@ -180,6 +180,8 @@ package flash.display
 		public function get z () : Number;
 		public function set z (value:Number) : void;
 
+		public function DisplayObject ();
+
 		/// Returns a rectangle that defines the area of the display object relative to the coordinate system of the targetCoordinateSpace object.
 		public function getBounds (targetCoordinateSpace:DisplayObject) : Rectangle;
 
@@ -196,7 +198,7 @@ package flash.display
 		public function hitTestObject (obj:DisplayObject) : Boolean;
 
 		/// Evaluates the display object to see if it overlaps or intersects with a point specified by x and y.
-		public function hitTestPoint (x:Number, y:Number, shapeFlag:Boolean) : Boolean;
+		public function hitTestPoint (x:Number = null, y:Number = null, shapeFlag:Boolean = false) : Boolean;
 
 		/// Converts a three-dimensional point of the three-dimensional display object's (local) coordinates to a two-dimensional point in the Stage (global) coordinates.
 		public function local3DToGlobal (point3d:Vector3D) : Point;

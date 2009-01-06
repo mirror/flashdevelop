@@ -19,5 +19,7 @@ package flash.system
 		public static const KOREAN : String;
 		/// The string "UNKNOWN", which can be returned by a call to the IME.conversionMode property.
 		public static const UNKNOWN : String;
+
+		public function IMEConversionMode ();
 	}
 }

@@ -51,12 +51,15 @@ package flash.net
 		/// Controls whether the downloaded data is received as text (URLLoaderDataFormat.TEXT), raw binary data (URLLoaderDataFormat.BINARY), or URL-encoded variables (URLLoaderDataFormat.VARIABLES).
 		public var dataFormat : String;
 
-		public function addEventListener (type:String, listener:Function, useCapture:Boolean, priority:int, useWeakReference:Boolean) : void;
+		public function addEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
 		/// Closes the load operation in progress.
 		public function close () : void;
 
 		/// Sends and loads data from the specified URL.
 		public function load (request:URLRequest) : void;
+
+		/// Creates a URLLoader object.
+		public function URLLoader (request:URLRequest = null);
 	}
 }

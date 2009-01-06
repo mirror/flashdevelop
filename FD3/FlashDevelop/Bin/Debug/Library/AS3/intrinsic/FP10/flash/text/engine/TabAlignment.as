@@ -11,5 +11,7 @@ package flash.text.engine
 		public static const END : String;
 		/// Positions the start of the tabbed text at the tab stop.
 		public static const START : String;
+
+		public function TabAlignment ();
 	}
 }

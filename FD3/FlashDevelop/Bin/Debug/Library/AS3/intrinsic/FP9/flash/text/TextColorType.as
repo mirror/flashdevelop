@@ -7,5 +7,7 @@ package flash.text
 		public static const DARK_COLOR : String;
 		/// Used in the colorType parameter in the setAdvancedAntiAliasingTable() method.
 		public static const LIGHT_COLOR : String;
+
+		public function TextColorType ();
 	}
 }

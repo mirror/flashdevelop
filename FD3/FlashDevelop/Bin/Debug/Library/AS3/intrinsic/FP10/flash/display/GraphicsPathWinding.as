@@ -7,5 +7,7 @@ package flash.display
 		public static const EVEN_ODD : String;
 		/// Establishes the non-zero winding type.
 		public static const NON_ZERO : String;
+
+		public function GraphicsPathWinding ();
 	}
 }

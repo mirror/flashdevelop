@@ -53,6 +53,9 @@ package flash.filters
 		public function get type () : String;
 		public function set type (value:String) : void;
 
+		/// Initializes a new BevelFilter instance with the specified parameters.
+		public function BevelFilter (distance:Number = 4, angle:Number = 45, highlightColor:uint = 16777215, highlightAlpha:Number = 1, shadowColor:uint = 0, shadowAlpha:Number = 1, blurX:Number = 4, blurY:Number = 4, strength:Number = 1, quality:int = 1, type:String = "inner", knockout:Boolean = false);
+
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
 	}

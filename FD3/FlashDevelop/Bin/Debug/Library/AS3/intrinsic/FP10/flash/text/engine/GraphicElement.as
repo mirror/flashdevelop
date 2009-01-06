@@ -18,5 +18,8 @@ package flash.text.engine
 		/// The DisplayObject to be used as a graphic for the GraphicElement.
 		public function get graphic () : DisplayObject;
 		public function set graphic (value:DisplayObject) : void;
+
+		/// Creates a new GraphicElement instance.
+		public function GraphicElement (graphic:DisplayObject = null, elementWidth:Number = 15, elementHeight:Number = 15, elementFormat:ElementFormat = null, eventMirror:EventDispatcher = null, textRotation:String = "rotate0");
 	}
 }

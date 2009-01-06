@@ -11,10 +11,10 @@ package
 		public function set prototype (p:*) : void;
 
 		/// Specifies the object instance on which the Function is called.
-		public function apply (thisArg:*, argArray:*) : *;
+		public function apply (thisArg:* = null, argArray:* = null) : *;
 
 		/// Invokes this Function.
-		public function call (thisArg:*) : *;
+		public function call (thisArg:* = null) : *;
 
 		public function Function ();
 	}

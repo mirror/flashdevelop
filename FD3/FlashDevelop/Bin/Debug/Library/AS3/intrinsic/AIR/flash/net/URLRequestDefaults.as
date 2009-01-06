@@ -29,5 +29,7 @@ package flash.net
 
 		/// [AIR] Sets default user and password credentials for a selected host.
 		public static function setLoginCredentialsForHost (hostname:String, user:String, password:String) : *;
+
+		public function URLRequestDefaults ();
 	}
 }

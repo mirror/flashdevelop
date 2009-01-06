@@ -26,5 +26,8 @@ package flash.display
 		/// [AIR] Specifies the type of the window to be created.
 		public function get type () : String;
 		public function set type (value:String) : void;
+
+		/// [AIR] Creates a new NativeWindowInitOptions object.
+		public function NativeWindowInitOptions ();
 	}
 }

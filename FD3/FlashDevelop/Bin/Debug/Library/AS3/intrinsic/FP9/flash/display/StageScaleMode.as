@@ -11,5 +11,7 @@ package flash.display
 		public static const NO_SCALE : String;
 		/// Specifies that the entire application be visible in the specified area without distortion while maintaining the original aspect ratio of the application.
 		public static const SHOW_ALL : String;
+
+		public function StageScaleMode ();
 	}
 }

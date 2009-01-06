@@ -77,5 +77,8 @@ package flash.text
 		/// Indicates the target URL for the text in this text format.
 		public function get url () : String;
 		public function set url (value:String) : void;
+
+		/// Creates a TextFormat object with the specified properties.
+		public function TextFormat (font:String = null, size:Object = null, color:Object = null, bold:Object = null, italic:Object = null, underline:Object = null, url:String = null, target:String = null, align:String = null, leftMargin:Object = null, rightMargin:Object = null, indent:Object = null, leading:Object = null);
 	}
 }

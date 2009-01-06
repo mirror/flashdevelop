@@ -25,5 +25,7 @@ package flash.html
 		public var x : Number;
 		/// [AIR] Specifies the desired initial y position of the new window on the screen.
 		public var y : Number;
+
+		public function HTMLWindowCreateOptions ();
 	}
 }

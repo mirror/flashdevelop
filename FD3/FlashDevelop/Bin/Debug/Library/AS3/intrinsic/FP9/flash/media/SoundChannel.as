@@ -25,6 +25,8 @@ package flash.media
 		public function get soundTransform () : SoundTransform;
 		public function set soundTransform (sndTransform:SoundTransform) : void;
 
+		public function SoundChannel ();
+
 		/// Stops the sound playing in the channel.
 		public function stop () : void;
 	}

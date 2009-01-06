@@ -9,5 +9,7 @@ package flash.display
 		public static const DEFAULT_ON : String;
 		/// Color correction is not supported by the host environment.
 		public static const UNSUPPORTED : String;
+
+		public function ColorCorrectionSupport ();
 	}
 }

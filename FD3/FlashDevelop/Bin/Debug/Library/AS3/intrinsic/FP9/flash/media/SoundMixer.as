@@ -18,7 +18,9 @@ package flash.media
 		public static function areSoundsInaccessible () : Boolean;
 
 		/// Takes a snapshot of the current sound wave and places it into the specified ByteArray object.
-		public static function computeSpectrum (outputArray:ByteArray, FFTMode:Boolean, stretchFactor:int) : void;
+		public static function computeSpectrum (outputArray:ByteArray = null, FFTMode:Boolean = false, stretchFactor:int = 0) : void;
+
+		public function SoundMixer ();
 
 		/// Stops all sounds currently playing.
 		public static function stopAll () : void;

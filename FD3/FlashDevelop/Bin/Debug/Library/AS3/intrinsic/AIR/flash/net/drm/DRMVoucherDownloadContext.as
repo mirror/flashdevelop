@@ -11,6 +11,8 @@ package flash.net.drm
 
 		public function download (inMetadata:DRMContentData) : void;
 
+		public function DRMVoucherDownloadContext ();
+
 		public function onSessionComplete () : void;
 
 		public function onSessionError () : void;

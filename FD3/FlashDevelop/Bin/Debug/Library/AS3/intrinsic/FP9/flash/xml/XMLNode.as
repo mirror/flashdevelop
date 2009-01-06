@@ -61,5 +61,8 @@ package flash.xml
 
 		/// Evaluates the specified XMLNode object, constructs a textual representation of the XML structure, including the node, children, and attributes, and returns the result as a string.
 		public function toString () : String;
+
+		/// Creates a new XMLNode object.
+		public function XMLNode (type:uint, value:String);
 	}
 }

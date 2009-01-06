@@ -8,5 +8,7 @@ package flash.desktop
 		public function get height () : int;
 
 		public function get width () : int;
+
+		public function NativeWindowIcon ();
 	}
 }

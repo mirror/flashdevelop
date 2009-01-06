@@ -21,6 +21,9 @@ package flash.text
 		/// Adds a new style with the specified name to the style sheet object.
 		public function setStyle (styleName:String, styleObject:Object) : void;
 
+		/// Creates a new StyleSheet object.
+		public function StyleSheet ();
+
 		/// Extends the CSS parsing capability.
 		public function transform (formatObject:Object) : TextFormat;
 	}

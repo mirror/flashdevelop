@@ -7,5 +7,8 @@ package flash.display
 	{
 		/// Specifies the Graphics object belonging to this Shape object, where vector drawing commands can occur.
 		public function get graphics () : Graphics;
+
+		/// Creates a new Shape object.
+		public function Shape ();
 	}
 }

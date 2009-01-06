@@ -5,6 +5,8 @@ package flash.data
 	/// The EncryptedLocalStore class provides methods for setting and getting objects in the encrypted local data store for an AIR application.
 	public class EncryptedLocalStore extends Object
 	{
+		public function EncryptedLocalStore ();
+
 		/// [AIR] Returns the data for the item with the given name in the encrypted local store.
 		public static function getItem (name:String) : ByteArray;
 
@@ -15,6 +17,6 @@ package flash.data
 		public static function reset () : void;
 
 		/// [AIR] Sets the item with the given name to the provided ByteArray data.
-		public static function setItem (name:String, data:ByteArray, stronglyBound:Boolean) : void;
+		public static function setItem (name:String = null, data:ByteArray = null, stronglyBound:Boolean = false) : void;
 	}
 }

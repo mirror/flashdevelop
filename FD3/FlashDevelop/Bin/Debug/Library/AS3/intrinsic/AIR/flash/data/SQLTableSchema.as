@@ -5,5 +5,8 @@ package flash.data
 	{
 		/// [AIR] An array of SQLColumnSchema instances containing schema information for this table's columns.
 		public function get columns () : Array;
+
+		/// [AIR] Creates a SQLTableSchema instance.
+		public function SQLTableSchema (database:String, name:String, sql:String, columns:Array);
 	}
 }

@@ -8,5 +8,8 @@ package flash.net
 
 		/// Returns a string containing all enumerable variables, in the MIME content encoding application/x-www-form-urlencoded.
 		public function toString () : String;
+
+		/// Creates a new URLVariables object.
+		public function URLVariables (source:String = null);
 	}
 }

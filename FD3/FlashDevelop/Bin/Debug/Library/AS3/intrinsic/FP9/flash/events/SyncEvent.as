@@ -15,6 +15,9 @@ package flash.events
 		/// Creates a copy of the SyncEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for SyncEvent objects.
+		public function SyncEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, changeList:Array = null);
+
 		/// Returns a string that contains all the properties of the SyncEvent object.
 		public function toString () : String;
 	}

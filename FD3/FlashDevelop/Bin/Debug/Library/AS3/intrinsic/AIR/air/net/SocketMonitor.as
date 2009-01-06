@@ -9,6 +9,9 @@ package air.net
 		/// [AIR] The port being monitored.
 		public function get port () : int;
 
+		/// [AIR] Creates a SocketMonitor object for a specified TCP endpoint.
+		public function SocketMonitor (host:String, port:int);
+
 		/// [AIR] Returns the string representation of the specified object.
 		public function toString () : String;
 	}

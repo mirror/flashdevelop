@@ -21,6 +21,9 @@ package flash.net
 		public function get fileList () : Array;
 
 		/// Displays a file-browsing dialog box that lets the user select local files to upload.
-		public function browse (typeFilter:Array) : Boolean;
+		public function browse (typeFilter:Array = null) : Boolean;
+
+		/// Creates a new FileReferenceList object.
+		public function FileReferenceList ();
 	}
 }

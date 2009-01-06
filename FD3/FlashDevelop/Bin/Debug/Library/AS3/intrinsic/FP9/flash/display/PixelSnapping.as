@@ -9,5 +9,7 @@ package flash.display
 		public static const AUTO : String;
 		/// A constant value used in the pixelSnapping property of a Bitmap object to specify that no pixel snapping occurs.
 		public static const NEVER : String;
+
+		public function PixelSnapping ();
 	}
 }

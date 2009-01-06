@@ -17,5 +17,7 @@ package flash.external
 
 		/// Calls a function in the container.
 		public static function call (functionName:String) : *;
+
+		public function ExternalInterface ();
 	}
 }

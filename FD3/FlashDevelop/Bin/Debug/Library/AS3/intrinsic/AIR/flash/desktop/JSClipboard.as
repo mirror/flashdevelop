@@ -27,6 +27,8 @@ package flash.desktop
 
 		public function getData (mimeType:String) : Object;
 
+		public function JSClipboard (writable:Boolean = null, forDragging:Boolean = null, clipboard:Clipboard = null, dragOptions:NativeDragOptions = null);
+
 		public function setData (mimeType:String, data:Object) : Boolean;
 
 		public static function urisFromURIList (uriList:String) : Array;

@@ -7,5 +7,7 @@ package flash.utils
 		public static const DEFLATE : String;
 		/// [AIR] Defines the string to use for the zlib compression algorithm.
 		public static const ZLIB : String;
+
+		public function CompressionAlgorithm ();
 	}
 }

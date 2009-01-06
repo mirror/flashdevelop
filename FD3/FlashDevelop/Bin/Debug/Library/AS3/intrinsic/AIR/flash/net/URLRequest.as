@@ -50,5 +50,8 @@ package flash.net
 		/// [AIR] Specifies the user-agent string to be used in the HTTP request.
 		public function get userAgent () : String;
 		public function set userAgent (value:String) : void;
+
+		/// Creates a URLRequest object.
+		public function URLRequest (url:String = null);
 	}
 }

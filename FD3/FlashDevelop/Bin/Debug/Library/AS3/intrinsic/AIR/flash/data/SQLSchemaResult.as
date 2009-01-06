@@ -14,5 +14,8 @@ package flash.data
 
 		/// [AIR] An array of SQLViewSchema instances requested in a call to SQLConnection.loadSchema().
 		public function get views () : Array;
+
+		/// [AIR] Creates a SQLSchemaResult instance.
+		public function SQLSchemaResult (tables:Array, views:Array, indices:Array, triggers:Array);
 	}
 }

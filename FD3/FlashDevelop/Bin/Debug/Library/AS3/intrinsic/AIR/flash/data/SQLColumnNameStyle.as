@@ -9,5 +9,7 @@ package flash.data
 		public static const LONG : String;
 		/// [AIR] Indicates that column names returned from a SELECT statement use short-column-name format.
 		public static const SHORT : String;
+
+		public function SQLColumnNameStyle ();
 	}
 }

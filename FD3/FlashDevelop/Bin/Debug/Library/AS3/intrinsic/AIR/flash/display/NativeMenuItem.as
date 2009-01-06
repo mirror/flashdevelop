@@ -64,6 +64,9 @@ package flash.display
 		/// [AIR] Creates a copy of the NativeMenuItem object.
 		public function clone () : NativeMenuItem;
 
+		/// [AIR] Creates a new NativeMenuItem object.
+		public function NativeMenuItem (label:String = "", isSeparator:Boolean = false);
+
 		/// [AIR] Returns a string containing all the properties of the NativeMenuItem object.
 		public function toString () : String;
 	}

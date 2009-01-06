@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new EvalError object.
-		public function EvalError (message:*, id:*);
+		public function EvalError (message:* = "", id:* = 0);
 	}
 }

@@ -76,7 +76,7 @@ package flash.net
 		public function readByte () : int;
 
 		/// Reads length bytes of data from the stream.
-		public function readBytes (bytes:ByteArray, offset:uint, length:uint) : void;
+		public function readBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
 
 		/// Reads an IEEE 754 double-precision floating-point number from the stream.
 		public function readDouble () : Number;
@@ -110,5 +110,7 @@ package flash.net
 
 		/// Reads a sequence of length UTF-8 bytes from the stream, and returns a string.
 		public function readUTFBytes (length:uint) : String;
+
+		public function URLStream ();
 	}
 }

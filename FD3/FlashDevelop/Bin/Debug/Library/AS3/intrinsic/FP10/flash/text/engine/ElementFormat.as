@@ -82,6 +82,9 @@ package flash.text.engine
 		/// Constructs an unlocked, cloned copy of the ElementFormat.
 		public function clone () : ElementFormat;
 
+		/// Creates an ElementFormat object.
+		public function ElementFormat (fontDescription:FontDescription = null, fontSize:Number = 12, color:uint = 0, alpha:Number = 1, textRotation:String = "auto", dominantBaseline:String = "roman", alignmentBaseline:String = "useDominantBaseline", baselineShift:Number = 0, kerning:String = "on", trackingRight:Number = 0, trackingLeft:Number = 0, locale:String = "en", breakOpportunity:String = "auto", digitCase:String = "default", digitWidth:String = "default", ligatureLevel:String = "common", typographicCase:String = "default");
+
 		/// Returns a FontMetrics object with properties which describe the emBox, strikethrough position, strikethrough thickness, underline position, and underline thickness for the font specified by fontDescription and fontSize.
 		public function getFontMetrics () : FontMetrics;
 	}

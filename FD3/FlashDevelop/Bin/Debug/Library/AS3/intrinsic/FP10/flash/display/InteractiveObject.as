@@ -176,5 +176,8 @@ package flash.display
 		/// Specifies the tab ordering of objects in a SWF file.
 		public function get tabIndex () : int;
 		public function set tabIndex (index:int) : void;
+
+		/// Calling the new InteractiveObject() constructor throws an ArgumentError exception.
+		public function InteractiveObject ();
 	}
 }

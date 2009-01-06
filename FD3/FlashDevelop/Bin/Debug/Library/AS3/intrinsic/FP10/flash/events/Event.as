@@ -93,6 +93,9 @@ package flash.events
 		/// Duplicates an instance of an Event subclass.
 		public function clone () : Event;
 
+		/// Used to create new Event object.
+		public function Event (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false);
+
 		/// A utility function for implementing the toString() method in custom ActionScript 3.0 Event classes.
 		public function formatToString (className:String) : String;
 

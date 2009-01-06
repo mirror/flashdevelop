@@ -48,6 +48,9 @@ package flash.ui
 
 		public function containsItem (item:NativeMenuItem) : Boolean;
 
+		/// Creates a ContextMenu object.
+		public function ContextMenu ();
+
 		public function display (stage:Stage, stageX:Number, stageY:Number) : void;
 
 		public function getItemAt (index:int) : NativeMenuItem;

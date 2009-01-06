@@ -16,5 +16,8 @@ package flash.events
 
 		/// [AIR] Creates a copy of the HTMLUncaughtScriptExceptionEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
+
+		/// [AIR] Creates an HTMLUncaughtScriptExceptionEvent object to pass as a parameter to event listeners.
+		public function HTMLUncaughtScriptExceptionEvent (exceptionValue:*);
 	}
 }

@@ -19,6 +19,9 @@ package flash.events
 		/// Creates a copy of the StatusEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for StatusEvent objects.
+		public function StatusEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, code:String = "", level:String = "");
+
 		/// Returns a string that contains all the properties of the StatusEvent object.
 		public function toString () : String;
 	}

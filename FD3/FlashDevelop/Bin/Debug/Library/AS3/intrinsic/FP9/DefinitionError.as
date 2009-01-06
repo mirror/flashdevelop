@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new DefinitionError object.
-		public function DefinitionError (message:*, id:*);
+		public function DefinitionError (message:* = "", id:* = 0);
 	}
 }

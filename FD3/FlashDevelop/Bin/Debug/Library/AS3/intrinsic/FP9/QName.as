@@ -12,7 +12,7 @@ package
 		public function get uri () : *;
 
 		/// Creates a QName object that is a copy of another QName object.
-		public function QName (namespace:*, name:*);
+		public function QName (namespace:* = null, name:* = null);
 
 		/// Returns a string composed of the URI, and the local name for the QName object, separated by "::".
 		public function toString () : String;

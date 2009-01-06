@@ -11,5 +11,8 @@ package flash.text.engine
 
 		/// Constructs a cloned copy of the EastAsianJustifier.
 		public function clone () : TextJustifier;
+
+		/// Creates a EastAsianJustifier object.
+		public function EastAsianJustifier (locale:String = "ja", lineJustification:String = "allButLast", justificationStyle:String = "pushInKinsoku");
 	}
 }

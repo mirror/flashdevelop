@@ -46,5 +46,8 @@ package flash.net
 
 		/// Converts the XML object or data specified in the object parameter to a string and transmits it to the server, followed by a zero (0) byte.
 		public function send (object:*) : void;
+
+		/// Creates a new XMLSocket object.
+		public function XMLSocket (host:String = null, port:int = 0);
 	}
 }

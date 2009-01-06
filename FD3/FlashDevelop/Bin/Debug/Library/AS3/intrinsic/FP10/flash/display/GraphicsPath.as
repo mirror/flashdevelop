@@ -15,6 +15,9 @@ package flash.display
 		/// Adds a new "curveTo" command to the commands vector and new coordinates to the data vector.
 		public function curveTo (controlX:Number, controlY:Number, anchorX:Number, anchorY:Number) : void;
 
+		/// Creates a new GraphicsPath object.
+		public function GraphicsPath (commands:Vector.<int> = null, data:Vector.<Number> = null, winding:String = "evenOdd");
+
 		/// Adds a new "lineTo" command to the commands vector and new coordinates to the data vector.
 		public function lineTo (x:Number, y:Number) : void;
 

@@ -9,5 +9,7 @@ package flash.net
 		public static const TEXT : String;
 		/// Specifies that downloaded data is received as URL-encoded variables.
 		public static const VARIABLES : String;
+
+		public function URLLoaderDataFormat ();
 	}
 }

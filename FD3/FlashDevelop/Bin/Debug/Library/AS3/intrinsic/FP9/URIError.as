@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new URIError object.
-		public function URIError (message:*, id:*);
+		public function URIError (message:* = "", id:* = 0);
 	}
 }

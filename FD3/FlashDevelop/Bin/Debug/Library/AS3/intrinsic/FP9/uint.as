@@ -10,19 +10,19 @@ package
 		public static const MIN_VALUE : uint;
 
 		/// Returns a string representation of the number in exponential notation.
-		public function toExponential (p:*) : String;
+		public function toExponential (p:* = 0) : String;
 
 		/// Returns a string representation of the number in fixed-point notation.
-		public function toFixed (p:*) : String;
+		public function toFixed (p:* = 0) : String;
 
 		/// Returns a string representation of the number either in exponential notation or in fixed-point notation.
-		public function toPrecision (p:*) : String;
+		public function toPrecision (p:* = 0) : String;
 
 		/// Returns the string representation of a uint object.
-		public function toString (radix:*) : String;
+		public function toString (radix:* = 10) : String;
 
 		/// Creates a new uint object.
-		public function uint (value:*);
+		public function uint (value:* = 0);
 
 		/// Returns the primitive uint type value of the specified uint object.
 		public function valueOf () : uint;

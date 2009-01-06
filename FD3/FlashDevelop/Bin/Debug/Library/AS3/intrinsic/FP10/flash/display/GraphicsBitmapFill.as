@@ -14,5 +14,8 @@ package flash.display
 		public var repeat : Boolean;
 		/// Specifies whether to apply a smoothing algorithm to the bitmap image.
 		public var smooth : Boolean;
+
+		/// Creates a new GraphicsBitmapFill object.
+		public function GraphicsBitmapFill (bitmapData:BitmapData = null, matrix:Matrix = null, repeat:Boolean = true, smooth:Boolean = false);
 	}
 }

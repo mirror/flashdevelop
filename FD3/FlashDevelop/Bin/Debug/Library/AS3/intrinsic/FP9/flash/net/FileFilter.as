@@ -14,5 +14,8 @@ package flash.net
 		/// A list of Macintosh file types.
 		public function get macType () : String;
 		public function set macType (value:String) : void;
+
+		/// Creates a new FileFilter instance.
+		public function FileFilter (description:String = null, extension:String = null, macType:String = null);
 	}
 }

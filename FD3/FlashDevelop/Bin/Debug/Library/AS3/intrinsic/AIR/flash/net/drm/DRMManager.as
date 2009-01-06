@@ -9,6 +9,8 @@ package flash.net.drm
 	{
 		public function authenticate (serverURL:String, domain:String, username:String, password:String) : void;
 
+		public function DRMManager ();
+
 		public static function getDRMManager () : DRMManager;
 
 		public function loadVoucher (contentData:DRMContentData, setting:String) : void;

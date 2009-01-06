@@ -13,5 +13,7 @@ package flash.text.engine
 		public static const ROTATE_270 : String;
 		/// Specifies a 90 degree clockwise rotation.
 		public static const ROTATE_90 : String;
+
+		public function TextRotation ();
 	}
 }

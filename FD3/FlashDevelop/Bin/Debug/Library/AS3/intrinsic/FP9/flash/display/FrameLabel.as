@@ -8,5 +8,7 @@ package flash.display
 
 		/// The name of the label.
 		public function get name () : String;
+
+		public function FrameLabel (name:String, frame:int);
 	}
 }

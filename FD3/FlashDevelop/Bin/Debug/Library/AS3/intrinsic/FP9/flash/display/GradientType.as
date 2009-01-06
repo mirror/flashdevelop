@@ -7,5 +7,7 @@ package flash.display
 		public static const LINEAR : String;
 		/// Value used to specify a radial gradient fill.
 		public static const RADIAL : String;
+
+		public function GradientType ();
 	}
 }

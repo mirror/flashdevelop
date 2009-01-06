@@ -51,5 +51,8 @@ package flash.filters
 
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
+
+		/// Creates a new DropShadowFilter instance with the specified parameters.
+		public function DropShadowFilter (distance:Number = 4, angle:Number = 45, color:uint = 0, alpha:Number = 1, blurX:Number = 4, blurY:Number = 4, strength:Number = 1, quality:int = 1, inner:Boolean = false, knockout:Boolean = false, hideObject:Boolean = false);
 	}
 }

@@ -7,5 +7,8 @@ package flash.media
 		public var bufferTime : Number;
 		/// Specifies whether Flash Player should try to download a URL policy file from the loaded sound's server before beginning to load the sound.
 		public var checkPolicyFile : Boolean;
+
+		/// Creates a new sound loader context object.
+		public function SoundLoaderContext (bufferTime:Number = 1000, checkPolicyFile:Boolean = false);
 	}
 }

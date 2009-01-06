@@ -23,6 +23,8 @@ package flash.desktop
 		public static function acceptDragDrop (target:InteractiveObject) : void;
 
 		/// [AIR] Starts a drag-and-drop operation.
-		public static function doDrag (dragInitiator:InteractiveObject, clipboard:Clipboard, dragImage:BitmapData, offset:Point, allowedActions:NativeDragOptions) : void;
+		public static function doDrag (dragInitiator:InteractiveObject = null, clipboard:Clipboard = null, dragImage:BitmapData = null, offset:Point = null, allowedActions:NativeDragOptions = null) : void;
+
+		public function NativeDragManager ();
 	}
 }

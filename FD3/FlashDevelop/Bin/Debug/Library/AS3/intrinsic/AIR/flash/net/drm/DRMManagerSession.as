@@ -14,6 +14,8 @@ package flash.net.drm
 
 		public function checkStatus () : uint;
 
+		public function DRMManagerSession ();
+
 		public function getLastError () : uint;
 
 		public function getLastSubErrorID () : uint;

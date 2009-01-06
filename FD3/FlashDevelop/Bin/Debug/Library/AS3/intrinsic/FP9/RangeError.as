@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new RangeError object.
-		public function RangeError (message:*, id:*);
+		public function RangeError (message:* = "", id:* = 0);
 	}
 }

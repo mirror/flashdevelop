@@ -10,6 +10,8 @@ package flash.desktop
 		/// [AIR] A drop target is allowed to move the dragged data.
 		public var allowMove : Boolean;
 
+		public function NativeDragOptions ();
+
 		/// [AIR] Returns the string representation of the specified object.
 		public function toString () : String;
 	}

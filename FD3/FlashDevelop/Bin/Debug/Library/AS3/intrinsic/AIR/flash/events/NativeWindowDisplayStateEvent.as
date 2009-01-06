@@ -19,6 +19,9 @@ package flash.events
 		/// [AIR] Creates a copy of the NativeWindowDisplayStateEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Creates an Event object with specific information relevant to window display state events.
+		public function NativeWindowDisplayStateEvent (type:String = null, bubbles:Boolean = true, cancelable:Boolean = false, beforeDisplayState:String = "", afterDisplayState:String = "");
+
 		/// [AIR] Returns a string that contains all the properties of the NativeWindowDisplayStateEvent object.
 		public function toString () : String;
 	}

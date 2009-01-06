@@ -11,5 +11,7 @@ package flash.ui
 		public static const RIGHT : uint;
 		/// Indicates the key activation is not distinguished as the left or right version of the key, and did not originate on the numeric keypad (or did not originate with a virtual key corresponding to the numeric keypad).
 		public static const STANDARD : uint;
+
+		public function KeyLocation ();
 	}
 }

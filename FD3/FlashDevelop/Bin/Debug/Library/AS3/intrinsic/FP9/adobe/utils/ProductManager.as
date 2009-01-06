@@ -10,8 +10,10 @@ package adobe.utils
 
 		public function get running () : Boolean;
 
-		public function download (caption:String, fileName:String, pathElements:Array) : Boolean;
+		public function download (caption:String = null, fileName:String = null, pathElements:Array = null) : Boolean;
 
-		public function launch (parameters:String) : Boolean;
+		public function launch (parameters:String = null) : Boolean;
+
+		public function ProductManager (name:String);
 	}
 }

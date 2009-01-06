@@ -9,5 +9,8 @@ package flash.text
 		public var insideCutoff : Number;
 		/// The outside cutoff value, below which densities are set to zero.
 		public var outsideCutoff : Number;
+
+		/// Creates a new CSMSettings object which stores stroke values for custom anti-aliasing settings.
+		public function CSMSettings (fontSize:Number, insideCutoff:Number, outsideCutoff:Number);
 	}
 }

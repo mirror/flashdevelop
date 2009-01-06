@@ -9,5 +9,7 @@ package flash.display
 		public static const OFF : String;
 		/// Turns on color correction regardless of the player host environment, if available.
 		public static const ON : String;
+
+		public function ColorCorrection ();
 	}
 }

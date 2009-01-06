@@ -31,5 +31,7 @@ package flash.system
 
 		/// Replaces the contents of the Clipboard with a specified text string.
 		public static function setClipboard (string:String) : void;
+
+		public function System ();
 	}
 }

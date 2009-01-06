@@ -19,6 +19,8 @@ package flash.security
 
 		public function addTimestampingRootRaw (cert:ByteArray) : void;
 
+		public function CryptContext ();
+
 		public function getDataTBVStatus () : uint;
 
 		public function getIDStatus () : uint;

@@ -10,6 +10,8 @@ package flash.net.drm
 
 		public function checkStatus () : uint;
 
+		public function DRMAuthenticationContext ();
+
 		public function onSessionComplete () : void;
 
 		public function onSessionError () : void;

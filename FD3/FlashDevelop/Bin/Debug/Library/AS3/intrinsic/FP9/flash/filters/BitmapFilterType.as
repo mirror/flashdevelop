@@ -9,5 +9,7 @@ package flash.filters
 		public static const INNER : String;
 		/// Defines the setting that applies a filter to the outer area of an object.
 		public static const OUTER : String;
+
+		public function BitmapFilterType ();
 	}
 }

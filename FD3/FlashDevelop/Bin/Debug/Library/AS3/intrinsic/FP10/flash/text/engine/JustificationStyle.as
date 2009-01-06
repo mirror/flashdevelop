@@ -9,5 +9,7 @@ package flash.text.engine
 		public static const PUSH_IN_KINSOKU : String;
 		/// Bases justification on expanding the line.
 		public static const PUSH_OUT_ONLY : String;
+
+		public function JustificationStyle ();
 	}
 }

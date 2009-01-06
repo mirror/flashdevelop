@@ -11,5 +11,8 @@ package flash.filters
 
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
+
+		/// Initializes a new ColorMatrixFilter instance.
+		public function ColorMatrixFilter (matrix:Array = null);
 	}
 }

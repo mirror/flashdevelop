@@ -12,5 +12,7 @@ package flash.xml
 		/// Specifies that the node is a text node.
 		public static const TEXT_NODE : uint;
 		public static const XML_DECLARATION : uint;
+
+		public function XMLNodeType ();
 	}
 }

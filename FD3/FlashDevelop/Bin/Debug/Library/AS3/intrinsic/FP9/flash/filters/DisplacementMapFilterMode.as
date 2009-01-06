@@ -11,5 +11,7 @@ package flash.filters
 		public static const IGNORE : String;
 		/// Wraps the displacement value to the other side of the source image.
 		public static const WRAP : String;
+
+		public function DisplacementMapFilterMode ();
 	}
 }

@@ -38,10 +38,13 @@ package flash.display
 		public function addFrameScript (frame:int, method:Function) : void;
 
 		/// Starts playing the SWF file at the specified frame.
-		public function gotoAndPlay (frame:Object, scene:String) : void;
+		public function gotoAndPlay (frame:Object = null, scene:String = null) : void;
 
 		/// Brings the playhead to the specified frame of the movie clip and stops it there.
-		public function gotoAndStop (frame:Object, scene:String) : void;
+		public function gotoAndStop (frame:Object = null, scene:String = null) : void;
+
+		/// Creates a new MovieClip instance.
+		public function MovieClip ();
 
 		/// Sends the playhead to the next frame and stops it.
 		public function nextFrame () : void;

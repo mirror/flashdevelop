@@ -20,5 +20,8 @@ package flash.data
 
 		/// [AIR] Indicates whether this column is the primary key column (or one of the primary key columns in a composite key) for its associated table.
 		public function get primaryKey () : Boolean;
+
+		/// [AIR] Constructs a SQLColumnSchema instance.
+		public function SQLColumnSchema (name:String, primaryKey:Boolean, allowNull:Boolean, autoIncrement:Boolean, dataType:String, defaultCollationType:String);
 	}
 }

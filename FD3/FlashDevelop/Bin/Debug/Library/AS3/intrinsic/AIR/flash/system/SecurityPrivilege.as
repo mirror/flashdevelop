@@ -13,5 +13,7 @@ package flash.system
 		public static const HTTP_ALL : *;
 		public static const SCREEN : *;
 		public static const WINDOW : *;
+
+		public function SecurityPrivilege ();
 	}
 }

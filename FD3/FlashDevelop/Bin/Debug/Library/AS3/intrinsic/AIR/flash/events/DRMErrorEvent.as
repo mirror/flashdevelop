@@ -18,6 +18,9 @@ package flash.events
 		/// [AIR] Creates a copy of the DRMErrorEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Creates an Event object that contains specific information about DRM error events.
+		public function DRMErrorEvent (type:String = "drmError", bubbles:Boolean = false, cancelable:Boolean = false, inErrorDetail:String = "", inErrorCode:int = 0, insubErrorID:int = 0, inMetadata:DRMContentData = null);
+
 		/// [AIR] Returns a string that contains all the properties of the DRMErrorEvent object.
 		public function toString () : String;
 	}

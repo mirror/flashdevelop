@@ -5,5 +5,7 @@ package flash.security
 		public static const NEVER : String;
 		public static const VALID_IDENTITY : String;
 		public static const VALID_OR_UNKNOWN_IDENTITY : String;
+
+		public function ReferencesValidationSetting ();
 	}
 }

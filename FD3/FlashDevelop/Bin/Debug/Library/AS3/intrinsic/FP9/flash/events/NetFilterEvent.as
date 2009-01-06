@@ -10,6 +10,8 @@ package flash.events
 
 		public function clone () : Event;
 
+		public function NetFilterEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, header:ByteArray = null, data:ByteArray = null);
+
 		public function toString () : String;
 	}
 }

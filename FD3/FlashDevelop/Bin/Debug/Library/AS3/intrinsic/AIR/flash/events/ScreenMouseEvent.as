@@ -21,6 +21,9 @@ package flash.events
 		/// [AIR] Creates a copy of the ScreenMouseEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Constructor for ScreenMouseEvent objects.
+		public function ScreenMouseEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, screenX:Number = null, screenY:Number = null, ctrlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false, buttonDown:Boolean = false, commandKey:Boolean = false, controlKey:Boolean = false);
+
 		/// [AIR] Returns a string that contains all the properties of the ScreenMouseEvent object.
 		public function toString () : String;
 	}

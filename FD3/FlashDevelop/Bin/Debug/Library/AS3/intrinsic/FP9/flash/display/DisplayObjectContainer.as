@@ -33,6 +33,9 @@ package flash.display
 		/// Determines whether the specified display object is a child of the DisplayObjectContainer instance or the instance itself.
 		public function contains (child:DisplayObject) : Boolean;
 
+		/// Calling the new DisplayObjectContainer() constructor throws an ArgumentError exception.
+		public function DisplayObjectContainer ();
+
 		/// Returns the child display object instance that exists at the specified index.
 		public function getChildAt (index:int) : DisplayObject;
 

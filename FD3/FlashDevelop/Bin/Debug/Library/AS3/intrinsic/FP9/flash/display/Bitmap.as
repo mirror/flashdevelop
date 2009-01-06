@@ -16,5 +16,8 @@ package flash.display
 		/// Controls whether or not the bitmap is smoothed when scaled.
 		public function get smoothing () : Boolean;
 		public function set smoothing (value:Boolean) : void;
+
+		/// Initializes a Bitmap object to refer to the specified BitmapData object.
+		public function Bitmap (bitmapData:BitmapData = null, pixelSnapping:String = "auto", smoothing:Boolean = false);
 	}
 }

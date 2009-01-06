@@ -11,5 +11,7 @@ package flash.filesystem
 		public static const UPDATE : String;
 		/// [AIR] Used for a file to be opened in write-only mode.
 		public static const WRITE : String;
+
+		public function FileMode ();
 	}
 }

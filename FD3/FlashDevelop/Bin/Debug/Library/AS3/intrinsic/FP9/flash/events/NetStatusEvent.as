@@ -15,6 +15,9 @@ package flash.events
 		/// Creates a copy of the NetStatusEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for NetStatusEvent objects.
+		public function NetStatusEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, info:Object = null);
+
 		/// Returns a string that contains all the properties of the NetStatusEvent object.
 		public function toString () : String;
 	}

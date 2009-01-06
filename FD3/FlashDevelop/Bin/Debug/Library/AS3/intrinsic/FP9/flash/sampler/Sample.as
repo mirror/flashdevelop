@@ -7,5 +7,7 @@ package flash.sampler
 		public const stack : Array;
 		/// The microseconds that define the duration of the Sample instance.
 		public const time : Number;
+
+		public function Sample ();
 	}
 }

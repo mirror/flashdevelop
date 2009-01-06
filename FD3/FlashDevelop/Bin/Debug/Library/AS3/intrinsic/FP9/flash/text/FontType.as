@@ -7,5 +7,7 @@ package flash.text
 		public static const DEVICE : String;
 		/// Indicates that this is an embedded font.
 		public static const EMBEDDED : String;
+
+		public function FontType ();
 	}
 }

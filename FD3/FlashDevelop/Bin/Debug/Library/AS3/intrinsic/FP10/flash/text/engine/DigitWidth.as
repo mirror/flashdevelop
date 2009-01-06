@@ -9,5 +9,7 @@ package flash.text.engine
 		public static const PROPORTIONAL : String;
 		/// Used to specify tabular digit width.
 		public static const TABULAR : String;
+
+		public function DigitWidth ();
 	}
 }

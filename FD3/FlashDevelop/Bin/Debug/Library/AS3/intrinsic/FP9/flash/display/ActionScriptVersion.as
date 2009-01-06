@@ -7,5 +7,7 @@ package flash.display
 		public static const ACTIONSCRIPT2 : uint;
 		/// ActionScript language version 3.0.
 		public static const ACTIONSCRIPT3 : uint;
+
+		public function ActionScriptVersion ();
 	}
 }

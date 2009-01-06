@@ -9,5 +9,7 @@ package flash.filters
 		public static const LOW : int;
 		/// Defines the medium quality filter setting.
 		public static const MEDIUM : int;
+
+		public function BitmapFilterQuality ();
 	}
 }

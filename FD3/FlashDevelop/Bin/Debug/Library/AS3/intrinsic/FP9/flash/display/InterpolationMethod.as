@@ -7,5 +7,7 @@ package flash.display
 		public static const LINEAR_RGB : String;
 		/// Specifies that the RGB interpolation method should be used.
 		public static const RGB : String;
+
+		public function InterpolationMethod ();
 	}
 }

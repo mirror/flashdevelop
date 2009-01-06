@@ -21,6 +21,9 @@ package flash.text.engine
 		/// Returns the index of the element specified by the element parameter.
 		public function getElementIndex (element:ContentElement) : int;
 
+		/// Creates a new GroupElement instance.
+		public function GroupElement (elements:Vector.<ContentElement> = null, elementFormat:ElementFormat = null, eventMirror:EventDispatcher = null, textRotation:String = "rotate0");
+
 		/// Replaces the range of elements that the beginIndex and endIndex parameters specify with a new GroupElement containing those elements.
 		public function groupElements (beginIndex:int, endIndex:int) : GroupElement;
 

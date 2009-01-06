@@ -81,7 +81,7 @@ package flash.net
 		public function get usingTLS () : Boolean;
 
 		/// Adds a context header to the Action Message Format (AMF) packet structure.
-		public function addHeader (operation:String, mustUnderstand:Boolean, param:Object) : void;
+		public function addHeader (operation:String = null, mustUnderstand:Boolean = false, param:Object = null) : void;
 
 		/// Invokes a command or method on Flash Media Server or on an application server running Flash Remoting.
 		public function call (command:String, responder:Responder) : void;
@@ -91,5 +91,8 @@ package flash.net
 
 		/// Creates a bidirectional connection between Flash Player and a Flash Media Server application.
 		public function connect (command:String) : void;
+
+		/// Creates a NetConnection object.
+		public function NetConnection ();
 	}
 }

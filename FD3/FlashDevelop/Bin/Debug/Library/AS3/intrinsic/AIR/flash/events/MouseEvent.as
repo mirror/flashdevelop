@@ -87,6 +87,9 @@ package flash.events
 		/// Creates a copy of the MouseEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for MouseEvent objects.
+		public function MouseEvent (type:String = null, bubbles:Boolean = true, cancelable:Boolean = false, localX:Number = null, localY:Number = null, relatedObject:InteractiveObject = null, ctrlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false, buttonDown:Boolean = false, delta:int = 0, commandKey:Boolean = false, controlKey:Boolean = false, clickCount:int = 0);
+
 		/// Returns a string that contains all the properties of the MouseEvent object.
 		public function toString () : String;
 

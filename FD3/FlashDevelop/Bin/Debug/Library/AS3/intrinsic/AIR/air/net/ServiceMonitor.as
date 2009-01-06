@@ -28,6 +28,9 @@ package air.net
 		/// [AIR] Adds public ServiceMonitor methods to a JavaScript constructor function's prototype.
 		public static function makeJavascriptSubclass (constructorFunction:Object) : void;
 
+		/// [AIR] Creates a ServiceMonitor object.
+		public function ServiceMonitor ();
+
 		/// [AIR] Starts the service monitor.
 		public function start () : void;
 

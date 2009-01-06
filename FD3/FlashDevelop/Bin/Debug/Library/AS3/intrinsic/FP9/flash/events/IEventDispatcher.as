@@ -6,7 +6,7 @@ package flash.events
 	public interface IEventDispatcher extends *
 	{
 		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
-		public function addEventListener (type:String, listener:Function, useCapture:Boolean, priority:int, useWeakReference:Boolean) : void;
+		public function addEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
 		/// Dispatches an event into the event flow.
 		public function dispatchEvent (event:Event) : Boolean;
@@ -17,7 +17,7 @@ package flash.events
 		public function IEventDispatcher ();
 
 		/// Removes a listener from the EventDispatcher object.
-		public function removeEventListener (type:String, listener:Function, useCapture:Boolean) : void;
+		public function removeEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false) : void;
 
 		/// Checks whether an event listener is registered with this EventDispatcher object or any of its ancestors for the specified event type.
 		public function willTrigger (type:String) : Boolean;

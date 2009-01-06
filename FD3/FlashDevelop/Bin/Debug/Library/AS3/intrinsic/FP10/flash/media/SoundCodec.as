@@ -7,5 +7,7 @@ package flash.media
 		public static const NELLYMOSER : String;
 		/// Specifies that the Speex codec be used for compressing audio.
 		public static const SPEEX : String;
+
+		public function SoundCodec ();
 	}
 }

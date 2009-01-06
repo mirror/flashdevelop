@@ -9,5 +9,7 @@ package flash.geom
 		public static const EULER_ANGLES : String;
 		/// The quaternion orientation uses complex numbers.
 		public static const QUATERNION : String;
+
+		public function Orientation3D ();
 	}
 }

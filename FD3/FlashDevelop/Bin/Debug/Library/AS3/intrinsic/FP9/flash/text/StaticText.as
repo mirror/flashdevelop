@@ -7,5 +7,7 @@ package flash.text
 	{
 		/// Returns the current text of the static text field.
 		public function get text () : String;
+
+		public function StaticText ();
 	}
 }

@@ -17,6 +17,9 @@ package flash.html
 		/// [AIR] The function called when JavaScript code in the HTMLLoader object calls the window.open() method.
 		public function createWindow (windowCreateOptions:HTMLWindowCreateOptions) : HTMLLoader;
 
+		/// [AIR] Creates an HTMLHost object.
+		public function HTMLHost (defaultBehaviors:Boolean = true);
+
 		/// [AIR] The function called when JavaScript code in the HTMLLoader object sets the window.location property.
 		public function updateLocation (locationURL:String) : void;
 

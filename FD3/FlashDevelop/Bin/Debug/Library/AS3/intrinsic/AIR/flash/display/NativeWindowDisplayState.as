@@ -9,5 +9,7 @@ package flash.display
 		public static const MINIMIZED : String;
 		/// [AIR] The normal display state.
 		public static const NORMAL : String;
+
+		public function NativeWindowDisplayState ();
 	}
 }

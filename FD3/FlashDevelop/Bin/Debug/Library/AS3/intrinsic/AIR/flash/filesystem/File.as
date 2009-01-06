@@ -109,10 +109,10 @@ package flash.filesystem
 		public function browseForDirectory (title:String) : void;
 
 		/// [AIR] Displays the Open File dialog box, in which the user can select a file to open.
-		public function browseForOpen (title:String, typeFilter:Array) : void;
+		public function browseForOpen (title:String = null, typeFilter:Array = null) : void;
 
 		/// [AIR] Displays the Open File dialog box, in which the user can select one or more files to open.
-		public function browseForOpenMultiple (title:String, typeFilter:Array) : void;
+		public function browseForOpenMultiple (title:String = null, typeFilter:Array = null) : void;
 
 		/// [AIR] Displays the Save File dialog box, in which the user can select a file destination.
 		public function browseForSave (title:String) : void;
@@ -127,10 +127,10 @@ package flash.filesystem
 		public function clone () : File;
 
 		/// [AIR] Copies the file or directory at the location specified by this File object to the location specified by the newLocation parameter.
-		public function copyTo (newLocation:FileReference, overwrite:Boolean) : void;
+		public function copyTo (newLocation:FileReference = null, overwrite:Boolean = false) : void;
 
 		/// [AIR] Begins copying the file or directory at the location specified by this File object to the location specified by the destination parameter.
-		public function copyToAsync (newLocation:FileReference, overwrite:Boolean) : void;
+		public function copyToAsync (newLocation:FileReference = null, overwrite:Boolean = false) : void;
 
 		/// [AIR] Creates the specified directory and any necessary parent directories.
 		public function createDirectory () : void;
@@ -142,16 +142,19 @@ package flash.filesystem
 		public static function createTempFile () : File;
 
 		/// [AIR] Deletes the directory.
-		public function deleteDirectory (deleteDirectoryContents:Boolean) : void;
+		public function deleteDirectory (deleteDirectoryContents:Boolean = false) : void;
 
 		/// [AIR] Deletes the directory asynchronously.
-		public function deleteDirectoryAsync (deleteDirectoryContents:Boolean) : void;
+		public function deleteDirectoryAsync (deleteDirectoryContents:Boolean = false) : void;
 
 		/// [AIR] Deletes the file.
 		public function deleteFile () : void;
 
 		/// [AIR] Deletes the file asynchronously.
 		public function deleteFileAsync () : void;
+
+		/// [AIR] The constructor function for the File class.
+		public function File (path:String = null);
 
 		/// [AIR] Returns an array of File objects corresponding to files and directories in the directory represented by this File object.
 		public function getDirectoryListing () : Array;
@@ -160,16 +163,16 @@ package flash.filesystem
 		public function getDirectoryListingAsync () : void;
 
 		/// [AIR] Finds the relative path between two File paths.
-		public function getRelativePath (ref:FileReference, useDotDot:Boolean) : String;
+		public function getRelativePath (ref:FileReference = null, useDotDot:Boolean = false) : String;
 
 		/// [AIR] Returns an array of File objects, listing the file system root directories.
 		public static function getRootDirectories () : Array;
 
 		/// [AIR] Moves the file or directory at the location specified by this File object to the location specified by the destination parameter.
-		public function moveTo (newLocation:FileReference, overwrite:Boolean) : void;
+		public function moveTo (newLocation:FileReference = null, overwrite:Boolean = false) : void;
 
 		/// [AIR] Begins moving the file or directory at the location specified by this File object to the location specified by the newLocation parameter.
-		public function moveToAsync (newLocation:FileReference, overwrite:Boolean) : void;
+		public function moveToAsync (newLocation:FileReference = null, overwrite:Boolean = false) : void;
 
 		/// [AIR] Moves a file or directory to the trash.
 		public function moveToTrash () : void;

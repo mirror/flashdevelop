@@ -10,12 +10,14 @@ package flash.trace
 		public static const METHODS_WITH_ARGS : int;
 		public static const OFF : int;
 
-		public static function getLevel (target:int) : int;
+		public static function getLevel (target:int = 2) : int;
 
 		public static function getListener () : Function;
 
-		public static function setLevel (l:int, target:int) : *;
+		public static function setLevel (l:int = null, target:int = 2) : *;
 
 		public static function setListener (f:Function) : *;
+
+		public function Trace ();
 	}
 }

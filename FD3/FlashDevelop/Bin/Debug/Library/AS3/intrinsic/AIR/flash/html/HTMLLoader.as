@@ -161,7 +161,7 @@ package flash.html
 		public function contains (child:DisplayObject) : Boolean;
 
 		/// [AIR] Creates a new NativeWindow object that contains an HTMLLoader object.
-		public static function createRootWindow (visible:Boolean, windowInitOptions:NativeWindowInitOptions, scrollBarsVisible:Boolean, bounds:Rectangle) : HTMLLoader;
+		public static function createRootWindow (visible:Boolean = true, windowInitOptions:NativeWindowInitOptions = null, scrollBarsVisible:Boolean = true, bounds:Rectangle = null) : HTMLLoader;
 
 		public function getChildAt (index:int) : DisplayObject;
 
@@ -182,6 +182,9 @@ package flash.html
 
 		/// [AIR] Navigates the specified number of steps in the browser history.
 		public function historyGo (steps:int) : void;
+
+		/// [AIR] Creates an HTMLLoader object.
+		public function HTMLLoader ();
 
 		/// [AIR] Loads the HTMLLoader object with data from the site specified by the urlRequestToLoad parameter.
 		public function load (urlRequestToLoad:URLRequest) : void;

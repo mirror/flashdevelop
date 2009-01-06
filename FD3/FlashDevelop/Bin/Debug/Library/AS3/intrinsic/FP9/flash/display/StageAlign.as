@@ -19,5 +19,7 @@ package flash.display
 		public static const TOP_LEFT : String;
 		/// Specifies that the Stage is aligned in the top-right corner.
 		public static const TOP_RIGHT : String;
+
+		public function StageAlign ();
 	}
 }

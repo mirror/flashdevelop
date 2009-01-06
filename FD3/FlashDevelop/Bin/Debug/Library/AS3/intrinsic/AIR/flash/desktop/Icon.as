@@ -8,5 +8,7 @@ package flash.desktop
 		/// [AIR] The icon image as an array of BitmapData objects of different sizes.
 		public function get bitmaps () : Array;
 		public function set bitmaps (ba:Array) : void;
+
+		public function Icon ();
 	}
 }

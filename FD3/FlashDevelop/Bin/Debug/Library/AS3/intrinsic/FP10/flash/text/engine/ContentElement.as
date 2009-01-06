@@ -39,5 +39,8 @@ package flash.text.engine
 		/// The rotation to apply to the element as a unit.
 		public function get textRotation () : String;
 		public function set textRotation (value:String) : void;
+
+		/// Calling the new ContentElement() constructor throws an ArgumentError exception.
+		public function ContentElement (elementFormat:ElementFormat = null, eventMirror:EventDispatcher = null, textRotation:String = "rotate0");
 	}
 }

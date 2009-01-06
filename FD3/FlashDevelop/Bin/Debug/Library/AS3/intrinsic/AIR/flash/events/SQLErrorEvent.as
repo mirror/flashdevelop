@@ -15,6 +15,9 @@ package flash.events
 		/// [AIR] Creates a copy of the SQLErrorEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Used to create new SQLErrorEvent object.
+		public function SQLErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, error:SQLError = null);
+
 		/// [AIR] Returns a string that contains all the properties of the SQLErrorEvent object.
 		public function toString () : String;
 	}

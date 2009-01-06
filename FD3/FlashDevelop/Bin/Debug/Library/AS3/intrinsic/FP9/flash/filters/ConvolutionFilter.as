@@ -43,5 +43,8 @@ package flash.filters
 
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
+
+		/// Initializes a ConvolutionFilter instance with the specified parameters.
+		public function ConvolutionFilter (matrixX:Number = 0, matrixY:Number = 0, matrix:Array = null, divisor:Number = 1, bias:Number = 0, preserveAlpha:Boolean = true, clamp:Boolean = true, color:uint = 0, alpha:Number = 0);
 	}
 }

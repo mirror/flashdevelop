@@ -17,5 +17,7 @@ package flash.media
 		public var track : String;
 		/// The year of the recording; corresponds to the ID3 2.0 tag TYER.
 		public var year : String;
+
+		public function ID3Info ();
 	}
 }

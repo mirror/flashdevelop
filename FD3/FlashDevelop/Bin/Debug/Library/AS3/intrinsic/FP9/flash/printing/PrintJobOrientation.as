@@ -7,5 +7,7 @@ package flash.printing
 		public static const LANDSCAPE : String;
 		/// The portrait (vertical) image orientation for printing.
 		public static const PORTRAIT : String;
+
+		public function PrintJobOrientation ();
 	}
 }

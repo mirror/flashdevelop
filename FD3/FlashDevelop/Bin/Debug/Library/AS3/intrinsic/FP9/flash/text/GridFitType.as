@@ -9,5 +9,7 @@ package flash.text
 		public static const PIXEL : String;
 		/// Fits strong horizontal and vertical lines to the sub-pixel grid on LCD monitors.
 		public static const SUBPIXEL : String;
+
+		public function GridFitType ();
 	}
 }

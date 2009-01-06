@@ -9,5 +9,7 @@ package flash.net.drm
 		public function get licenseID () : String;
 
 		public function get serverURL () : String;
+
+		public function DRMContentData ();
 	}
 }

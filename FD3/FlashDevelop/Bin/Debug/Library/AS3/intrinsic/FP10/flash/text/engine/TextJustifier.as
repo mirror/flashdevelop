@@ -17,5 +17,8 @@ package flash.text.engine
 
 		/// Constructs a default TextJustifier subclass appropriate to the specified locale.
 		public static function getJustifierForLocale (locale:String) : TextJustifier;
+
+		/// Calling the new TextJustifier() constructor throws an ArgumentError exception.
+		public function TextJustifier (locale:String, lineJustification:String);
 	}
 }

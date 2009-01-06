@@ -17,5 +17,7 @@ package flash.text.engine
 		public static const ROMAN : String;
 		/// Specifies that the alignmentBaseline is the same as the dominantBaseline.
 		public static const USE_DOMINANT_BASELINE : String;
+
+		public function TextBaseline ();
 	}
 }

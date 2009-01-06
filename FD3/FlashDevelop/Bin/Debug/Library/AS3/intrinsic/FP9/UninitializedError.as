@@ -4,6 +4,6 @@ package
 	{
 		public static const length : int;
 
-		public function UninitializedError (message:*, id:*);
+		public function UninitializedError (message:* = "", id:* = 0);
 	}
 }

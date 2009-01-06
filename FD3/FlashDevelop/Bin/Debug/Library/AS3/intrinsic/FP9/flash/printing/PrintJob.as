@@ -24,7 +24,10 @@ package flash.printing
 		public function get paperWidth () : int;
 
 		/// Sends the specified Sprite object as a single page to the print spooler.
-		public function addPage (sprite:Sprite, printArea:Rectangle, options:PrintJobOptions, frameNum:int) : void;
+		public function addPage (sprite:Sprite = null, printArea:Rectangle = null, options:PrintJobOptions = null, frameNum:int = 0) : void;
+
+		/// Creates a PrintJob object that you can use to print one or more pages.
+		public function PrintJob ();
 
 		/// Sends spooled pages to the printer after PrintJob.start() and PrintJob.addPage() have been successful.
 		public function send () : void;

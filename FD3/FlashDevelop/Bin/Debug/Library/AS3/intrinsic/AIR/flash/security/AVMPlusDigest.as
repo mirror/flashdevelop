@@ -4,6 +4,8 @@ package flash.security
 
 	public class AVMPlusDigest extends Object
 	{
+		public function AVMPlusDigest ();
+
 		public function FinishDigest (inDigestToCompare:String) : uint;
 
 		public function Init (algorithm:uint) : void;

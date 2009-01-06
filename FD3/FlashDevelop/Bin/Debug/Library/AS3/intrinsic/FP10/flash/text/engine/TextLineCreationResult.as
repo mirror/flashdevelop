@@ -11,5 +11,7 @@ package flash.text.engine
 		public static const INSUFFICIENT_WIDTH : String;
 		/// Indicates the line was successfully broken.
 		public static const SUCCESS : String;
+
+		public function TextLineCreationResult ();
 	}
 }

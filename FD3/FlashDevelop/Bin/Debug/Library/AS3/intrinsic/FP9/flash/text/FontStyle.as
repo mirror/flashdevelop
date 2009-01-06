@@ -11,5 +11,7 @@ package flash.text
 		public static const ITALIC : String;
 		/// Defines the plain style of a font for the fontStyle parameter in the setAdvancedAntiAliasingTable() method.
 		public static const REGULAR : String;
+
+		public function FontStyle ();
 	}
 }

@@ -7,5 +7,7 @@ package flash.desktop
 		public static const CRITICAL : String;
 		/// [AIR] Specifies that a notification alert is informational in nature and the user can safely ignore it.
 		public static const INFORMATIONAL : String;
+
+		public function NotificationType ();
 	}
 }

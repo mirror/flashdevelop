@@ -4,5 +4,7 @@ package flash.text
 	{
 		public static const BLOCK : String;
 		public static const INLINE : String;
+
+		public function TextFormatDisplay ();
 	}
 }

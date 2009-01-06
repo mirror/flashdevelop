@@ -9,5 +9,7 @@ package flash.display
 		public static const NORMAL : String;
 		/// [AIR] A utility window.
 		public static const UTILITY : String;
+
+		public function NativeWindowType ();
 	}
 }

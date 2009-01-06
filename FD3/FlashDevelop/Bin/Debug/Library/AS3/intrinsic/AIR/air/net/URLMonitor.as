@@ -14,5 +14,8 @@ package air.net
 
 		/// [AIR] Returns the string representation of the specified object.
 		public function toString () : String;
+
+		/// [AIR] Creates a URLMonitor Object for a specified HTTP- or HTTPS-based service.
+		public function URLMonitor (urlRequest:URLRequest = null, acceptableStatusCodes:Array = null);
 	}
 }

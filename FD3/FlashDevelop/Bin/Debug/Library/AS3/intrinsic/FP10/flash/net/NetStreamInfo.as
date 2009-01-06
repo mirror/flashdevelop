@@ -60,6 +60,9 @@ package flash.net
 		/// Specifies the rate at which the NetStream video buffer is filled in bytes per second.
 		public function get videoBytesPerSecond () : Number;
 
+		/// For internal use only; not recommended for use.
+		public function NetStreamInfo (curBPS:Number, byteCount:Number, maxBPS:Number, audioBPS:Number, audioByteCount:Number, videoBPS:Number, videoByteCount:Number, dataBPS:Number, dataByteCount:Number, playbackBPS:Number, droppedFrames:Number, audioBufferByteLength:Number, videoBufferByteLength:Number, dataBufferByteLength:Number, audioBufferLength:Number, videoBufferLength:Number, dataBufferLength:Number, srtt:Number, audioLossRate:Number);
+
 		/// Returns a text value listing the properties of this NetStreamInfo object.
 		public function toString () : String;
 	}

@@ -56,5 +56,8 @@ package flash.net
 
 		/// Sends and loads data from the specified URL.
 		public function load (request:URLRequest) : void;
+
+		/// Creates a URLLoader object.
+		public function URLLoader (request:URLRequest = null);
 	}
 }

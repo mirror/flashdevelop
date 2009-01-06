@@ -36,6 +36,9 @@ package flash.text.engine
 		/// Constructs an unlocked, cloned copy of the FontDescription.
 		public function clone () : FontDescription;
 
+		/// Creates a FontDescription object.
+		public function FontDescription (fontName:String = "_serif", fontWeight:String = "normal", fontPosture:String = "normal", fontLookup:String = "device", renderingMode:String = "cff", cffHinting:String = "horizontalStem");
+
 		/// Returns true if an embedded font is available with the specified fontName, fontWeight, and fontPosture where Font.fontType is flash.text.FontType.EMBEDDED_CFF.
 		public static function isFontCompatible (fontName:String, fontWeight:String, fontPosture:String) : Boolean;
 	}

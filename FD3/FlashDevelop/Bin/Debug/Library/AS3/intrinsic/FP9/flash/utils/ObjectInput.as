@@ -12,11 +12,13 @@ package flash.utils
 		public function get objectEncoding () : uint;
 		public function set objectEncoding (version:uint) : void;
 
+		public function ObjectInput ();
+
 		public function readBoolean () : Boolean;
 
 		public function readByte () : int;
 
-		public function readBytes (bytes:ByteArray, offset:uint, length:uint) : void;
+		public function readBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
 
 		public function readDouble () : Number;
 

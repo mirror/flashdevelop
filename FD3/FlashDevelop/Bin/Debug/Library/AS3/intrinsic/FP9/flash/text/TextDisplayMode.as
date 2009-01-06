@@ -9,5 +9,7 @@ package flash.text
 		public static const DEFAULT : String;
 		/// Forces Flash Player to use LCD subpixel anti-aliasing.
 		public static const LCD : String;
+
+		public function TextDisplayMode ();
 	}
 }

@@ -25,6 +25,9 @@ package flash.events
 		/// Creates a copy of the ShaderEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Creates a ShaderEvent object to pass to event listeners.
+		public function ShaderEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, bitmap:BitmapData = null, array:ByteArray = null, vector:Vector.<Number> = null);
+
 		/// Returns a string that contains all the properties of the ShaderEvent object.
 		public function toString () : String;
 	}

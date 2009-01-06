@@ -7,5 +7,7 @@ package flash.system
 	{
 		/// Gets the current security domain.
 		public static function get currentDomain () : SecurityDomain;
+
+		public function SecurityDomain ();
 	}
 }

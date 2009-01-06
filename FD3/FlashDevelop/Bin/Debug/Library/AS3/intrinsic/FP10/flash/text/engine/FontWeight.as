@@ -7,5 +7,7 @@ package flash.text.engine
 		public static const BOLD : String;
 		/// Used to indicate normal font weight.
 		public static const NORMAL : String;
+
+		public function FontWeight ();
 	}
 }

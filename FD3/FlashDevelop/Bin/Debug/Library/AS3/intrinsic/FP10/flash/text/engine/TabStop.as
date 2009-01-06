@@ -14,5 +14,8 @@ package flash.text.engine
 		/// The position of the tab stop, in pixels, relative to the start of the text line.
 		public function get position () : Number;
 		public function set position (value:Number) : void;
+
+		/// Creates a new TabStop.
+		public function TabStop (alignment:String = "start", position:Number = 0, decimalAlignmentToken:String = "");
 	}
 }

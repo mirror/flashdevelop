@@ -17,6 +17,9 @@ package flash.filters
 		public function get quality () : int;
 		public function set quality (value:int) : void;
 
+		/// Initializes the filter.
+		public function BlurFilter (blurX:Number = 4, blurY:Number = 4, quality:int = 1);
+
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
 	}

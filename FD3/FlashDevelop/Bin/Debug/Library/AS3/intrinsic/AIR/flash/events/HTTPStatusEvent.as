@@ -24,6 +24,9 @@ package flash.events
 		/// Creates a copy of the HTTPStatusEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for HTTPStatusEvent objects.
+		public function HTTPStatusEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, status:int = 0);
+
 		/// Returns a string that contains all the properties of the HTTPStatusEvent object.
 		public function toString () : String;
 	}

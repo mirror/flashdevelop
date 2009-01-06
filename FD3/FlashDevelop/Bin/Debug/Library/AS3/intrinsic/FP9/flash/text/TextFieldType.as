@@ -7,5 +7,7 @@ package flash.text
 		public static const DYNAMIC : String;
 		/// Used to specify an input TextField.
 		public static const INPUT : String;
+
+		public function TextFieldType ();
 	}
 }

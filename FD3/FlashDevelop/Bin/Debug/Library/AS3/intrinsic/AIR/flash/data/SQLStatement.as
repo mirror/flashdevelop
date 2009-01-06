@@ -45,12 +45,15 @@ package flash.data
 		public function clearParameters () : void;
 
 		/// [AIR] Executes the SQL in the text property against the database that is connected to the SQLConnection object in the sqlConnection property.
-		public function execute (prefetch:int, responder:Responder) : void;
+		public function execute (prefetch:int = -1, responder:Responder = null) : void;
 
 		/// [AIR] Provides access to a SQLResult object containing the results of the statement execution, including any result rows from a SELECT statement, and other information about the statement execution for all executed statements.
 		public function getResult () : SQLResult;
 
 		/// [AIR] Retrieves the next portion of a SELECT statement's result set.
-		public function next (prefetch:int, responder:Responder) : void;
+		public function next (prefetch:int = -1, responder:Responder = null) : void;
+
+		/// [AIR] Creates a SQLStatement instance.
+		public function SQLStatement ();
 	}
 }

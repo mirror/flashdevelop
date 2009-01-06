@@ -15,5 +15,8 @@ package flash.net
 		public var streamName : String;
 		/// The mode in which streamName is played or transitioned to.
 		public var transition : String;
+
+		/// Creates a NetStreamPlayOptions object to specify the options that are passed to the NetStream.play2() method.
+		public function NetStreamPlayOptions ();
 	}
 }

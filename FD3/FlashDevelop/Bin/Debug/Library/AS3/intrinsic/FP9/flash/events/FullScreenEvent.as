@@ -14,6 +14,9 @@ package flash.events
 		/// Creates a copy of a FullScreenEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for FullScreenEvent objects.
+		public function FullScreenEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, fullScreen:Boolean = false);
+
 		/// Returns a string that contains all the properties of the FullScreenEvent object.
 		public function toString () : String;
 	}

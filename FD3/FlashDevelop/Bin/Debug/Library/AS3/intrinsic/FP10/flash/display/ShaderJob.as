@@ -34,7 +34,10 @@ package flash.display
 		/// Cancels the currently running shader operation.
 		public function cancel () : void;
 
+		/// A ShaderJob instance is used to execute a shader operation in the background.
+		public function ShaderJob (shader:Shader = null, target:Object = null, width:int = 0, height:int = 0);
+
 		/// Starts a background shader operation.
-		public function start (waitForCompletion:Boolean) : void;
+		public function start (waitForCompletion:Boolean = false) : void;
 	}
 }

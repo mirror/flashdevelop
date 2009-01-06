@@ -34,6 +34,9 @@ package flash.geom
 		/// Offsets the Point object by the specified amount.
 		public function offset (dx:Number, dy:Number) : void;
 
+		/// Creates a new point.
+		public function Point (x:Number = 0, y:Number = 0);
+
 		/// Converts a pair of polar coordinates to a Cartesian point coordinate.
 		public static function polar (len:Number, angle:Number) : Point;
 

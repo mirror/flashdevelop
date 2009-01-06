@@ -6,7 +6,7 @@ package
 		public static const length : int;
 
 		/// Creates a Boolean object with the specified value.
-		public function Boolean (value:*);
+		public function Boolean (value:* = null);
 
 		/// Returns the string representation ("true" or "false") of the Boolean object.
 		public function toString () : String;

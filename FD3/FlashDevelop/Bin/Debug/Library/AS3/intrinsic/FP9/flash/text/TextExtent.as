@@ -8,5 +8,7 @@ package flash.text
 		public var textFieldHeight : Number;
 		public var textFieldWidth : Number;
 		public var width : Number;
+
+		public function TextExtent (width:Number, height:Number, textFieldWidth:Number, textFieldHeight:Number, ascent:Number, descent:Number);
 	}
 }

@@ -11,5 +11,7 @@ package flash.security
 		public static const NEVER : String;
 		/// [AIR] Check certificate revocation if the certificate includes revocation information.
 		public static const REQUIRED_IF_AVAILABLE : String;
+
+		public function RevocationCheckSettings ();
 	}
 }

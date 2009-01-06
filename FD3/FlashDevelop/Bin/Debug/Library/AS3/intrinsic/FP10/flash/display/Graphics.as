@@ -10,16 +10,16 @@ package flash.display
 	public class Graphics extends Object
 	{
 		/// Begins a bitmap filled shape.
-		public function beginBitmapFill (bitmap:BitmapData, matrix:Matrix, repeat:Boolean, smooth:Boolean) : void;
+		public function beginBitmapFill (bitmap:BitmapData = null, matrix:Matrix = null, repeat:Boolean = true, smooth:Boolean = false) : void;
 
 		/// Specifies a single-color fill.
-		public function beginFill (color:uint, alpha:Number) : void;
+		public function beginFill (color:uint = null, alpha:Number = 1) : void;
 
 		/// Specifies a gradient fill.
-		public function beginGradientFill (type:String, colors:Array, alphas:Array, ratios:Array, matrix:Matrix, spreadMethod:String, interpolationMethod:String, focalPointRatio:Number) : void;
+		public function beginGradientFill (type:String = null, colors:Array = null, alphas:Array = null, ratios:Array = null, matrix:Matrix = null, spreadMethod:String = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0) : void;
 
 		/// Specifies a shader fill.
-		public function beginShaderFill (shader:Shader, matrix:Matrix) : void;
+		public function beginShaderFill (shader:Shader = null, matrix:Matrix = null) : void;
 
 		/// Clears the graphics that were drawn to this Graphics object, and resets fill and line style settings.
 		public function clear () : void;
@@ -40,33 +40,35 @@ package flash.display
 		public function drawGraphicsData (graphicsData:Vector.<IGraphicsData>) : void;
 
 		/// Submits a series of commands for drawing.
-		public function drawPath (commands:Vector.<int>, data:Vector.<Number>, winding:String) : void;
+		public function drawPath (commands:Vector.<int> = null, data:Vector.<Number> = null, winding:String = "evenOdd") : void;
 
 		/// Draws a round rectangle.
 		public function drawRect (x:Number, y:Number, width:Number, height:Number) : void;
 
 		/// Draws a round rectangle.
-		public function drawRoundRect (x:Number, y:Number, width:Number, height:Number, ellipseWidth:Number, ellipseHeight:Number) : void;
+		public function drawRoundRect (x:Number = null, y:Number = null, width:Number = null, height:Number = null, ellipseWidth:Number = null, ellipseHeight:Number = null) : void;
 
 		public function drawRoundRectComplex (x:Number, y:Number, width:Number, height:Number, topLeftRadius:Number, topRightRadius:Number, bottomLeftRadius:Number, bottomRightRadius:Number) : void;
 
 		/// Renders a set of triangles, typically to distort bitmaps and give them a three-dimensional appearance.
-		public function drawTriangles (vertices:Vector.<Number>, indices:Vector.<int>, uvtData:Vector.<Number>, culling:String) : void;
+		public function drawTriangles (vertices:Vector.<Number> = null, indices:Vector.<int> = null, uvtData:Vector.<Number> = null, culling:String = "none") : void;
 
 		/// Applies a fill to the lines and curves.
 		public function endFill () : void;
 
+		public function Graphics ();
+
 		/// Specifies a bitmap to use for the line stroke when drawing lines.
-		public function lineBitmapStyle (bitmap:BitmapData, matrix:Matrix, repeat:Boolean, smooth:Boolean) : void;
+		public function lineBitmapStyle (bitmap:BitmapData = null, matrix:Matrix = null, repeat:Boolean = true, smooth:Boolean = false) : void;
 
 		/// Specifies a gradient to use for the stroke when drawing lines.
-		public function lineGradientStyle (type:String, colors:Array, alphas:Array, ratios:Array, matrix:Matrix, spreadMethod:String, interpolationMethod:String, focalPointRatio:Number) : void;
+		public function lineGradientStyle (type:String = null, colors:Array = null, alphas:Array = null, ratios:Array = null, matrix:Matrix = null, spreadMethod:String = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0) : void;
 
 		/// Specifies a shader to use for the line stroke when drawing lines.
-		public function lineShaderStyle (shader:Shader, matrix:Matrix) : void;
+		public function lineShaderStyle (shader:Shader = null, matrix:Matrix = null) : void;
 
 		/// Specifies a line style that Flash uses for drawing lines.
-		public function lineStyle (thickness:Number, color:uint, alpha:Number, pixelHinting:Boolean, scaleMode:String, caps:String, joints:String, miterLimit:Number) : void;
+		public function lineStyle (thickness:Number = null, color:uint = 0, alpha:Number = 1, pixelHinting:Boolean = false, scaleMode:String = "normal", caps:String = null, joints:String = null, miterLimit:Number = 3) : void;
 
 		/// Draws a line from the current drawing position to (x, y).
 		public function lineTo (x:Number, y:Number) : void;

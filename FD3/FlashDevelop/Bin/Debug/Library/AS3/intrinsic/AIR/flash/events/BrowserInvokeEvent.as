@@ -23,6 +23,9 @@ package flash.events
 		/// [AIR] The security domain for the content in the browser, such as "www.adobe.com" or "www.example.org".
 		public function get securityDomain () : String;
 
+		/// [AIR] The constructor function for the BrowserInvokeEvent class.
+		public function BrowserInvokeEvent (type:String, bubbles:Boolean, cancelable:Boolean, arguments:Array, sandboxType:String, securityDomain:String, isHTTPS:Boolean, isUserEvent:Boolean);
+
 		/// [AIR] Creates a new copy of this event.
 		public function clone () : Event;
 	}

@@ -17,5 +17,7 @@ package flash.text.engine
 		public static const TITLE : String;
 		/// Specifies that all characters use uppercase glyphs on output.
 		public static const UPPERCASE : String;
+
+		public function TypographicCase ();
 	}
 }

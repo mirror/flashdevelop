@@ -9,5 +9,7 @@ package flash.display
 		public static const NONE : String;
 		/// Specifies culling of all triangles facing away from the current view point.
 		public static const POSITIVE : String;
+
+		public function TriangleCulling ();
 	}
 }

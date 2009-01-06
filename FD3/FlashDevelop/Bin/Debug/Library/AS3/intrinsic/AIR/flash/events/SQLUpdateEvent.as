@@ -20,5 +20,8 @@ package flash.events
 
 		/// [AIR] Creates a copy of the SQLUpdateEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
+
+		/// [AIR] Used to create new SQLUpdateEvent object.
+		public function SQLUpdateEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, table:String = null, rowID:Number = 0);
 	}
 }

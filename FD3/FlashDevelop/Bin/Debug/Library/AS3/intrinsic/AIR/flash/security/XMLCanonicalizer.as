@@ -5,5 +5,7 @@ package flash.security
 		public function CanonicalizeXML (xml:XML) : String;
 
 		public function CanonicalizeXMLList (xmlList:XMLList) : String;
+
+		public function XMLCanonicalizer ();
 	}
 }

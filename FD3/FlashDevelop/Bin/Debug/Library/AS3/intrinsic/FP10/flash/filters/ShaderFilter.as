@@ -24,5 +24,8 @@ package flash.filters
 		/// The growth in pixels on the top side of the target object.
 		public function get topExtension () : int;
 		public function set topExtension (v:int) : void;
+
+		/// Creates a new shader filter.
+		public function ShaderFilter (shader:Shader = null);
 	}
 }

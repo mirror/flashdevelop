@@ -16,5 +16,7 @@ package flash.text
 
 		/// Sets a custom continuous stroke modulation (CSM) lookup table for a font.
 		public static function setAdvancedAntiAliasingTable (fontName:String, fontStyle:String, colorType:String, advancedAntiAliasingTable:Array) : void;
+
+		public function TextRenderer ();
 	}
 }

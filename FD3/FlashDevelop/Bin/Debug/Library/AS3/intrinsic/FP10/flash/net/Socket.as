@@ -70,7 +70,7 @@ package flash.net
 		public function readByte () : int;
 
 		/// Reads the number of data bytes specified by the length parameter from the socket.
-		public function readBytes (bytes:ByteArray, offset:uint, length:uint) : void;
+		public function readBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
 
 		/// Reads an IEEE 754 double-precision floating-point number from the socket.
 		public function readDouble () : Number;
@@ -105,6 +105,9 @@ package flash.net
 		/// Reads the number of UTF-8 data bytes specified by the length parameter from the socket, and returns a string.
 		public function readUTFBytes (length:uint) : String;
 
+		/// Creates a new Socket object.
+		public function Socket (host:String = null, port:int = 0);
+
 		/// Writes a Boolean value to the socket.
 		public function writeBoolean (value:Boolean) : void;
 
@@ -112,7 +115,7 @@ package flash.net
 		public function writeByte (value:int) : void;
 
 		/// Writes a sequence of bytes from the specified byte array.
-		public function writeBytes (bytes:ByteArray, offset:uint, length:uint) : void;
+		public function writeBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
 
 		/// Writes an IEEE 754 double-precision floating-point number to the socket.
 		public function writeDouble (value:Number) : void;

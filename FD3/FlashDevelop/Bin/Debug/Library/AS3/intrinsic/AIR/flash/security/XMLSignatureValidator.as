@@ -63,5 +63,8 @@ package flash.security
 
 		/// [AIR] Verifies the specified signature.
 		public function verify (signature:XML) : void;
+
+		/// [AIR] Creates an XMLSignatureValidator object.
+		public function XMLSignatureValidator ();
 	}
 }

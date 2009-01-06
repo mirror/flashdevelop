@@ -14,5 +14,7 @@ package flash.html
 
 		/// [AIR] The URL of the HTML page.
 		public function get url () : String;
+
+		public function HTMLHistoryItem (url:String, originalUrl:String, isPost:Boolean, title:String);
 	}
 }

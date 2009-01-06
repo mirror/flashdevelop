@@ -24,5 +24,7 @@ package flash.geom
 
 		/// A Rectangle object that defines the bounding rectangle of the display object on the stage.
 		public function get pixelBounds () : Rectangle;
+
+		public function Transform (displayObject:DisplayObject);
 	}
 }

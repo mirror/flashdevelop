@@ -24,5 +24,7 @@ package flash.display
 
 		/// [AIR] Returns the (possibly empty) set of screens that intersect the provided rectangle.
 		public static function getScreensForRectangle (rect:Rectangle) : Array;
+
+		public function Screen ();
 	}
 }

@@ -12,6 +12,9 @@ package flash.events
 		public function get activating () : Boolean;
 		public function set activating (value:Boolean) : void;
 
+		/// Constructor for ActivityEvent objects.
+		public function ActivityEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, activating:Boolean = false);
+
 		/// Creates a copy of an ActivityEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 

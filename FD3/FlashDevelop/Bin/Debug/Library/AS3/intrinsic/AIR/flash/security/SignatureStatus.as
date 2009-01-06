@@ -9,5 +9,7 @@ package flash.security
 		public static const UNKNOWN : String;
 		/// [AIR] Valid status.
 		public static const VALID : String;
+
+		public function SignatureStatus ();
 	}
 }

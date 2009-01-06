@@ -28,5 +28,7 @@ package flash.errors
 		public static const ROLLBACK : String;
 		/// [AIR] Indicates that the SQLConnection.loadSchema() method was called.
 		public static const SCHEMA : String;
+
+		public function SQLErrorOperation ();
 	}
 }

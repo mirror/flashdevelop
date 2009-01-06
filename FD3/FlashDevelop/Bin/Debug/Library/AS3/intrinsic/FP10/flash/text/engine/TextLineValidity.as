@@ -11,5 +11,7 @@ package flash.text.engine
 		public static const STATIC : String;
 		/// Specifies that the text line is valid.
 		public static const VALID : String;
+
+		public function TextLineValidity ();
 	}
 }

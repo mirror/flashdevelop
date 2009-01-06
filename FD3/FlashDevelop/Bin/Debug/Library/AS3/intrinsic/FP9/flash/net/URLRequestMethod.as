@@ -7,5 +7,7 @@ package flash.net
 		public static const GET : String;
 		/// Specifies that the URLRequest object is a POST.
 		public static const POST : String;
+
+		public function URLRequestMethod ();
 	}
 }

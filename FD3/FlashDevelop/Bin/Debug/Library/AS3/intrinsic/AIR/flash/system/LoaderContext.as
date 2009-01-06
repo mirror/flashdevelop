@@ -13,5 +13,8 @@ package flash.system
 		public var checkPolicyFile : Boolean;
 		/// Specifies the security domain to use for a Loader.load() operation.
 		public var securityDomain : SecurityDomain;
+
+		/// Creates a new LoaderContext object, with the specified settings.
+		public function LoaderContext (checkPolicyFile:Boolean = false, applicationDomain:ApplicationDomain = null, securityDomain:SecurityDomain = null);
 	}
 }

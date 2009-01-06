@@ -7,5 +7,7 @@ package flash.html.script
 		public function nextNameIndex (lastIndex:int) : int;
 
 		public function nextValue (index:int) : *;
+
+		public function PropertyEnumHelper (enumPropertiesClosure:Function, getPropertyClosure:Function);
 	}
 }

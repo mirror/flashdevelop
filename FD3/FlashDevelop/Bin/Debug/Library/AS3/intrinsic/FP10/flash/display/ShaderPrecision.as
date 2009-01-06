@@ -7,5 +7,7 @@ package flash.display
 		public static const FAST : String;
 		/// Represents full precision mode.
 		public static const FULL : String;
+
+		public function ShaderPrecision ();
 	}
 }

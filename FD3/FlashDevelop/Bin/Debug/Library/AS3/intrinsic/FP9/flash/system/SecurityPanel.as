@@ -17,5 +17,7 @@ package flash.system
 		public static const PRIVACY : String;
 		/// When passed to Security.showSettings(), displays the Settings Manager (in a separate browser window).
 		public static const SETTINGS_MANAGER : String;
+
+		public function SecurityPanel ();
 	}
 }

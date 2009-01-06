@@ -13,5 +13,7 @@ package flash.html
 		public static const ERROR_PREFERRED_READER_TOO_OLD : int;
 		/// [AIR] A sufficient version (8.1 or later) of Adobe Reader is detected and PDF content can be loaded in an HTMLLoader object.
 		public static const STATUS_OK : int;
+
+		public function HTMLPDFCapability ();
 	}
 }

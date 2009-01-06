@@ -7,5 +7,7 @@ package flash.text
 		public static const ADVANCED : String;
 		/// Sets anti-aliasing to the anti-aliasing that is used in Flash Player 7 and earlier.
 		public static const NORMAL : String;
+
+		public function AntiAliasType ();
 	}
 }

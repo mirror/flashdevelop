@@ -63,6 +63,8 @@ package flash.display
 		/// [AIR] Gets the position of the specified item.
 		public function getItemIndex (item:NativeMenuItem) : int;
 
+		public function NativeMenu ();
+
 		/// [AIR] Removes all items fromt the menu.
 		public function removeAllItems () : void;
 

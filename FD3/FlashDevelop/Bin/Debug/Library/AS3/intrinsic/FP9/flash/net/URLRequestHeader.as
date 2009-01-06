@@ -7,5 +7,8 @@ package flash.net
 		public var name : String;
 		/// The value associated with the name property (such as text/plain).
 		public var value : String;
+
+		/// Creates a new URLRequestHeader object that encapsulates a single HTTP request header.
+		public function URLRequestHeader (name:String = "", value:String = "");
 	}
 }

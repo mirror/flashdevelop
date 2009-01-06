@@ -33,7 +33,9 @@ package flash.system
 		/// Loads a URL policy file from a location specified by the url parameter.
 		public static function loadPolicyFile (url:String) : void;
 
+		public function Security ();
+
 		/// Displays the Security Settings panel in Flash Player.
-		public static function showSettings (panel:String) : void;
+		public static function showSettings (panel:String = "default") : void;
 	}
 }

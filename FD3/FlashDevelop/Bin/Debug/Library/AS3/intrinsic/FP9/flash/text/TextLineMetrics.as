@@ -15,5 +15,8 @@ package flash.text
 		public var width : Number;
 		/// The x value is the left position of the first character in pixels.
 		public var x : Number;
+
+		/// Contains information about the text position and measurements of a line of text in a text field.
+		public function TextLineMetrics (x:Number, width:Number, height:Number, ascent:Number, descent:Number, leading:Number);
 	}
 }

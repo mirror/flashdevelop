@@ -39,5 +39,8 @@ package flash.filters
 
 		/// Returns a copy of this filter object.
 		public function clone () : BitmapFilter;
+
+		/// Initializes a new GlowFilter instance with the specified parameters.
+		public function GlowFilter (color:uint = 16711680, alpha:Number = 1, blurX:Number = 6, blurY:Number = 6, strength:Number = 2, quality:int = 1, inner:Boolean = false, knockout:Boolean = false);
 	}
 }

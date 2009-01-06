@@ -23,5 +23,8 @@ package flash.text.engine
 		public var underlineOffset : Number;
 		/// The underlineThickness value is the suggested thickness for an underline.
 		public var underlineThickness : Number;
+
+		/// Creates a FontMetrics object.
+		public function FontMetrics (emBox:Rectangle, strikethroughOffset:Number, strikethroughThickness:Number, underlineOffset:Number, underlineThickness:Number, subscriptOffset:Number, subscriptScale:Number, superscriptOffset:Number, superscriptScale:Number);
 	}
 }

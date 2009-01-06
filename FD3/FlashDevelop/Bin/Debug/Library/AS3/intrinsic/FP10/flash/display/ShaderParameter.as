@@ -12,5 +12,8 @@ package flash.display
 		/// The value or values that are passed in as the parameter value to the shader.
 		public function get value () : Array;
 		public function set value (v:Array) : void;
+
+		/// Creates a ShaderParameter instance.
+		public function ShaderParameter ();
 	}
 }

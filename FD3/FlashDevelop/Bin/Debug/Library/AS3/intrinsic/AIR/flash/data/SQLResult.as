@@ -14,5 +14,8 @@ package flash.data
 
 		/// [AIR] Indicates how many rows were affected by the operation.
 		public function get rowsAffected () : Number;
+
+		/// [AIR] Creates a SQLResult instance.
+		public function SQLResult (data:Array = null, rowsAffected:Number = 0, complete:Boolean = true, rowID:Number = 0);
 	}
 }

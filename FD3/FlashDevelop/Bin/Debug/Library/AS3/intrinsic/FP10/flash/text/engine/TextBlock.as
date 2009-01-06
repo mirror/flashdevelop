@@ -61,7 +61,7 @@ package flash.text.engine
 		public function get textLineCreationResult () : String;
 
 		/// Instructs the text block to create a line of text from its content, beginning at the point specified by the previousLine parameter and breaking at the point specified by the width parameter.
-		public function createTextLine (previousLine:TextLine, width:Number, lineOffset:Number, fitSomething:Boolean) : TextLine;
+		public function createTextLine (previousLine:TextLine = null, width:Number = 1000000, lineOffset:Number = 0, fitSomething:Boolean = false) : TextLine;
 
 		/// Dumps the underlying contents of the TextBlock as an XML string.
 		public function dump () : String;
@@ -83,5 +83,8 @@ package flash.text.engine
 
 		/// Removes a range of text lines from the list of lines maintained by the TextBlock.
 		public function releaseLines (firstLine:TextLine, lastLine:TextLine) : void;
+
+		/// Creates a TextBlock object
+		public function TextBlock (content:ContentElement = null, tabStops:Vector.<TabStop> = null, textJustifier:TextJustifier = null, lineRotation:String = "rotate0", baselineZero:String = "roman", bidiLevel:int = 0, applyNonLinearFontScaling:Boolean = true, baselineFontDescription:FontDescription = null, baselineFontSize:Number = 12);
 	}
 }

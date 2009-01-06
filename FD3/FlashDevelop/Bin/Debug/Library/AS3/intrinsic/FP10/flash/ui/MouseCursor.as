@@ -13,5 +13,7 @@ package flash.ui
 		public static const HAND : String;
 		/// Used to specify that the I-beam cursor should be used.
 		public static const IBEAM : String;
+
+		public function MouseCursor ();
 	}
 }

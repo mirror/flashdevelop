@@ -9,5 +9,7 @@ package flash.display
 		public static const ROUND : String;
 		/// Used to specify square caps in the caps parameter of the flash.display.Graphics.lineStyle() method.
 		public static const SQUARE : String;
+
+		public function CapsStyle ();
 	}
 }

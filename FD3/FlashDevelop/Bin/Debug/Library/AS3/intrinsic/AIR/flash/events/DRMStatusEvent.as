@@ -46,6 +46,9 @@ package flash.events
 		/// [AIR] Creates a copy of the DRMStatusEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Creates an Event object that contains specific information about DRM status events.
+		public function DRMStatusEvent (type:String = "drmStatus", bubbles:Boolean = false, cancelable:Boolean = false, inPolicies:Object = null, inDetail:String = "", inAvailableOffline:Boolean = false, inAnonymous:Boolean = false, inVoucherEndDate:int = 0, inOfflineLeasePeriod:int = 0, inMetadata:DRMContentData = null, inVoucher:DRMVoucher = null, inLocal:Boolean = false);
+
 		/// [AIR] Returns a string that contains all the properties of the DRMStatusEvent object.
 		public function toString () : String;
 	}

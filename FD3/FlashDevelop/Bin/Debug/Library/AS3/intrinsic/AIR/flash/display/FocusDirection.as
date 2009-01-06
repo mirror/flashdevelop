@@ -9,5 +9,7 @@ package flash.display
 		public static const NONE : String;
 		/// [AIR] Indicates that focus should be given to the object at the beginning of the reading order.
 		public static const TOP : String;
+
+		public function FocusDirection ();
 	}
 }

@@ -79,6 +79,9 @@ package flash.geom
 		/// Adjusts the location of the Rectangle object using a Point object as a parameter.
 		public function offsetPoint (point:Point) : void;
 
+		/// Creates a new Rectangle object with the top-left corner specified by the x and y parameters and with the specified width and height.
+		public function Rectangle (x:Number = 0, y:Number = 0, width:Number = 0, height:Number = 0);
+
 		/// Sets all properties to 0.
 		public function setEmpty () : void;
 

@@ -28,6 +28,9 @@ package flash.utils
 		public function get position () : uint;
 		public function set position (offset:uint) : void;
 
+		/// Creates a ByteArray instance representing a packed array of bytes, so that you can use the methods and properties in this class to optimize your data storage and stream.
+		public function ByteArray ();
+
 		/// Clears the contents of the byte array and resets the length and position properties to 0.
 		public function clear () : void;
 
@@ -47,7 +50,7 @@ package flash.utils
 		public function readByte () : int;
 
 		/// Reads the number of data bytes, specified by the length parameter, from the byte stream.
-		public function readBytes (bytes:ByteArray, offset:uint, length:uint) : void;
+		public function readBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
 
 		/// Reads an IEEE 754 double-precision (64-bit) floating-point number from the byte stream.
 		public function readDouble () : Number;
@@ -95,7 +98,7 @@ package flash.utils
 		public function writeByte (value:int) : void;
 
 		/// Writes a sequence of length bytes from the specified byte array, bytes, starting offset (zero-based index) bytes into the byte stream.
-		public function writeBytes (bytes:ByteArray, offset:uint, length:uint) : void;
+		public function writeBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
 
 		/// Writes an IEEE 754 double-precision (64-bit) floating-point number to the byte stream.
 		public function writeDouble (value:Number) : void;

@@ -37,5 +37,8 @@ package flash.display
 		/// A Boolean value that, when set to true, indicates whether Flash Player displays the hand cursor when the mouse rolls over a button.
 		public function get useHandCursor () : Boolean;
 		public function set useHandCursor (value:Boolean) : void;
+
+		/// Creates a new SimpleButton instance.
+		public function SimpleButton (upState:DisplayObject = null, overState:DisplayObject = null, downState:DisplayObject = null, hitTestState:DisplayObject = null);
 	}
 }

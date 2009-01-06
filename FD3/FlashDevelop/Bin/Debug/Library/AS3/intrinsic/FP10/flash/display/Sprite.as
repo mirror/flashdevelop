@@ -31,8 +31,11 @@ package flash.display
 		public function get useHandCursor () : Boolean;
 		public function set useHandCursor (value:Boolean) : void;
 
+		/// Creates a new Sprite instance.
+		public function Sprite ();
+
 		/// Lets the user drag the specified sprite.
-		public function startDrag (lockCenter:Boolean, bounds:Rectangle) : void;
+		public function startDrag (lockCenter:Boolean = false, bounds:Rectangle = null) : void;
 
 		/// Ends the startDrag() method.
 		public function stopDrag () : void;

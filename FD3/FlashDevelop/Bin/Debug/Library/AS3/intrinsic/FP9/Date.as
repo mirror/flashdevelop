@@ -75,7 +75,7 @@ package
 		public function get timezoneOffset () : Number;
 
 		/// Constructs a new Date object that holds the specified date and time.
-		public function Date (year:*, month:*, date:*, hours:*, minutes:*, seconds:*, ms:*);
+		public function Date (year:* = null, month:* = null, date:* = null, hours:* = null, minutes:* = null, seconds:* = null, ms:* = null);
 
 		/// Returns the day of the month (an integer from 1 to 31) specified by a Date object according to local time.
 		public function getDate () : Number;
@@ -135,49 +135,49 @@ package
 		public static function parse (s:*) : Number;
 
 		/// Sets the day of the month, according to local time, and returns the new time in milliseconds.
-		public function setDate (date:*) : Number;
+		public function setDate (date:* = null) : Number;
 
 		/// Sets the year, according to local time, and returns the new time in milliseconds.
-		public function setFullYear (year:*, month:*, date:*) : Number;
+		public function setFullYear (year:* = null, month:* = null, date:* = null) : Number;
 
 		/// Sets the hour, according to local time, and returns the new time in milliseconds.
-		public function setHours (hour:*, min:*, sec:*, ms:*) : Number;
+		public function setHours (hour:* = null, min:* = null, sec:* = null, ms:* = null) : Number;
 
 		/// Sets the milliseconds, according to local time, and returns the new time in milliseconds.
-		public function setMilliseconds (ms:*) : Number;
+		public function setMilliseconds (ms:* = null) : Number;
 
 		/// Sets the minutes, according to local time, and returns the new time in milliseconds.
-		public function setMinutes (min:*, sec:*, ms:*) : Number;
+		public function setMinutes (min:* = null, sec:* = null, ms:* = null) : Number;
 
 		/// Sets the month and optionally the day of the month, according to local time, and returns the new time in milliseconds.
-		public function setMonth (month:*, date:*) : Number;
+		public function setMonth (month:* = null, date:* = null) : Number;
 
 		/// Sets the seconds, according to local time, and returns the new time in milliseconds.
-		public function setSeconds (sec:*, ms:*) : Number;
+		public function setSeconds (sec:* = null, ms:* = null) : Number;
 
 		/// Sets the date in milliseconds since midnight on January 1, 1970, and returns the new time in milliseconds.
-		public function setTime (t:*) : Number;
+		public function setTime (t:* = null) : Number;
 
 		/// Sets the day of the month, in universal time (UTC), and returns the new time in milliseconds.
-		public function setUTCDate (date:*) : Number;
+		public function setUTCDate (date:* = null) : Number;
 
 		/// Sets the year, in universal time (UTC), and returns the new time in milliseconds.
-		public function setUTCFullYear (year:*, month:*, date:*) : Number;
+		public function setUTCFullYear (year:* = null, month:* = null, date:* = null) : Number;
 
 		/// Sets the hour, in universal time (UTC), and returns the new time in milliseconds.
-		public function setUTCHours (hour:*, min:*, sec:*, ms:*) : Number;
+		public function setUTCHours (hour:* = null, min:* = null, sec:* = null, ms:* = null) : Number;
 
 		/// Sets the milliseconds, in universal time (UTC), and returns the new time in milliseconds.
-		public function setUTCMilliseconds (ms:*) : Number;
+		public function setUTCMilliseconds (ms:* = null) : Number;
 
 		/// Sets the minutes, in universal time (UTC), and returns the new time in milliseconds.
-		public function setUTCMinutes (min:*, sec:*, ms:*) : Number;
+		public function setUTCMinutes (min:* = null, sec:* = null, ms:* = null) : Number;
 
 		/// Sets the month, and optionally the day, in universal time(UTC) and returns the new time in milliseconds.
-		public function setUTCMonth (month:*, date:*) : Number;
+		public function setUTCMonth (month:* = null, date:* = null) : Number;
 
 		/// Sets the seconds, and optionally the milliseconds, in universal time (UTC) and returns the new time in milliseconds.
-		public function setUTCSeconds (sec:*, ms:*) : Number;
+		public function setUTCSeconds (sec:* = null, ms:* = null) : Number;
 
 		/// Returns a string representation of the day and date only, and does not include the time or timezone.
 		public function toDateString () : String;
@@ -201,7 +201,7 @@ package
 		public function toUTCString () : String;
 
 		/// Returns the number of milliseconds between midnight on January 1, 1970, universal time, and the time specified in the parameters.
-		public static function UTC (year:*, month:*, date:*, hours:*, minutes:*, seconds:*, ms:*) : Number;
+		public static function UTC (year:* = null, month:* = null, date:* = 1, hours:* = 0, minutes:* = 0, seconds:* = 0, ms:* = 0) : Number;
 
 		/// Returns the number of milliseconds since midnight January 1, 1970, universal time, for a Date object.
 		public function valueOf () : Number;

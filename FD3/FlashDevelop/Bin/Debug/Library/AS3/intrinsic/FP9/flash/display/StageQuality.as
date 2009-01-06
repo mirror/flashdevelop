@@ -11,5 +11,7 @@ package flash.display
 		public static const LOW : String;
 		/// Specifies medium rendering quality: graphics are anti-aliased using a 2 x 2 pixel grid, but bitmaps are not smoothed.
 		public static const MEDIUM : String;
+
+		public function StageQuality ();
 	}
 }

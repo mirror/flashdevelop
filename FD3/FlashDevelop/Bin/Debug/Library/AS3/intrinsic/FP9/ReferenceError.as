@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new ReferenceError object.
-		public function ReferenceError (message:*, id:*);
+		public function ReferenceError (message:* = "", id:* = 0);
 	}
 }

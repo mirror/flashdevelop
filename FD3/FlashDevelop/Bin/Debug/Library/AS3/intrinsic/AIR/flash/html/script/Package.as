@@ -13,5 +13,7 @@ package flash.html.script
 		public function hasProperty (name:*) : Boolean;
 
 		public function nextNameIndex (index:int) : int;
+
+		public function Package (parent:Package, packageName:String, appDomain:ApplicationDomain);
 	}
 }

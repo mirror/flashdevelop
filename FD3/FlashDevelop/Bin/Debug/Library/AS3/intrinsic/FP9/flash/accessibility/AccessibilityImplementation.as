@@ -9,6 +9,8 @@ package flash.accessibility
 
 		public function accDoDefaultAction (childID:uint) : void;
 
+		public function AccessibilityImplementation ();
+
 		public function accLocation (childID:uint) : *;
 
 		public function accSelect (operation:uint, childID:uint) : void;

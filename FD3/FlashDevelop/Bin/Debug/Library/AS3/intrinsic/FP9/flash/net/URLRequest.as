@@ -26,5 +26,8 @@ package flash.net
 		/// The URL to be requested.
 		public function get url () : String;
 		public function set url (value:String) : void;
+
+		/// Creates a URLRequest object.
+		public function URLRequest (url:String = null);
 	}
 }

@@ -24,6 +24,9 @@ package flash.events
 		/// [AIR] Creates a copy of the NativeWindowBoundsEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Creates an Event object with specific information relevant to window bounds events.
+		public function NativeWindowBoundsEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, beforeBounds:Rectangle = null, afterBounds:Rectangle = null);
+
 		/// [AIR] Returns a string that contains all the properties of the NativeWindowBoundsEvent object.
 		public function toString () : String;
 	}

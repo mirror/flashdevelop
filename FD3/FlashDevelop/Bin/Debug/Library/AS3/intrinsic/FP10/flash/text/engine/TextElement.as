@@ -11,5 +11,8 @@ package flash.text.engine
 
 		/// Replaces the range of characters that the beginIndex and endIndex parameters specify with the contents of the newText parameter.
 		public function replaceText (beginIndex:int, endIndex:int, newText:String) : void;
+
+		/// Creates a new TextElement instance.
+		public function TextElement (text:String = null, elementFormat:ElementFormat = null, eventMirror:EventDispatcher = null, textRotation:String = "rotate0");
 	}
 }

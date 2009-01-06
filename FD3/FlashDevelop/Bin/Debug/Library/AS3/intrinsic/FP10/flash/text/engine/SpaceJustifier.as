@@ -11,5 +11,8 @@ package flash.text.engine
 
 		/// Constructs a cloned copy of the SpaceJustifier.
 		public function clone () : TextJustifier;
+
+		/// Creates a SpaceJustifier object.
+		public function SpaceJustifier (locale:String = "en", lineJustification:String = "unjustified", letterSpacing:Boolean = false);
 	}
 }

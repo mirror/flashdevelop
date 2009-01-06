@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new SecurityError object.
-		public function SecurityError (message:*, id:*);
+		public function SecurityError (message:* = "", id:* = 0);
 	}
 }

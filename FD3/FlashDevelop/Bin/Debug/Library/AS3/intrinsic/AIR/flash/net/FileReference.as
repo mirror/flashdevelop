@@ -92,22 +92,25 @@ package flash.net
 		public function get type () : String;
 
 		/// [AIR] Displays a file-browsing dialog box that lets the user select a file to upload.
-		public function browse (typeFilter:Array) : Boolean;
+		public function browse (typeFilter:Array = null) : Boolean;
 
 		/// Cancels any ongoing upload or download.
 		public function cancel () : void;
 
 		/// Opens a dialog box that lets the user download a file from a remote server.
-		public function download (request:URLRequest, defaultFileName:String) : void;
+		public function download (request:URLRequest = null, defaultFileName:String = null) : void;
+
+		/// Creates a new FileReference object.
+		public function FileReference ();
 
 		/// Starts the load of a local file.
 		public function load () : void;
 
 		/// Opens a dialog box that lets the user save a file to the local filesystem.
-		public function save (data:*, defaultFileName:String) : void;
+		public function save (data:* = null, defaultFileName:String = null) : void;
 
 		/// Starts the upload of a file to a remote server.
-		public function upload (request:URLRequest, uploadDataFieldName:String, testUpload:Boolean) : void;
+		public function upload (request:URLRequest = null, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false) : void;
 
 		/// [AIR] Starts the upload of a file to a remote server without encoding.
 		public function uploadUnencoded (request:URLRequest) : void;

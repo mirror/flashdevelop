@@ -23,5 +23,8 @@ package flash.ui
 		public var zoom : Boolean;
 
 		public function clone () : ContextMenuBuiltInItems;
+
+		/// Creates a new ContextMenuBuiltInItems object so that you can set the properties for Flash Player to display or hide each menu item.
+		public function ContextMenuBuiltInItems ();
 	}
 }

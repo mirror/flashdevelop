@@ -16,19 +16,19 @@ package
 		public static const POSITIVE_INFINITY : Number;
 
 		/// Creates a Number with the specified value.
-		public function Number (value:*);
+		public function Number (value:* = 0);
 
 		/// Returns a string representation of the number in exponential notation.
-		public function toExponential (p:*) : String;
+		public function toExponential (p:* = 0) : String;
 
 		/// Returns a string representation of the number in fixed-point notation.
-		public function toFixed (p:*) : String;
+		public function toFixed (p:* = 0) : String;
 
 		/// Returns a string representation of the number either in exponential notation or in fixed-point notation.
-		public function toPrecision (p:*) : String;
+		public function toPrecision (p:* = 0) : String;
 
 		/// Returns the string representation of this Number using the specified radix parameter as the numeric base.
-		public function toString (radix:*) : String;
+		public function toString (radix:* = 10) : String;
 
 		/// Returns the primitive value type of the specified Number object.
 		public function valueOf () : Number;

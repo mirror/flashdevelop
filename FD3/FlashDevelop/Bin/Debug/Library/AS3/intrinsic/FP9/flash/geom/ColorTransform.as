@@ -26,6 +26,9 @@ package flash.geom
 		public function get color () : uint;
 		public function set color (newColor:uint) : void;
 
+		/// Creates a ColorTransform object for a display object.
+		public function ColorTransform (redMultiplier:Number = 1, greenMultiplier:Number = 1, blueMultiplier:Number = 1, alphaMultiplier:Number = 1, redOffset:Number = 0, greenOffset:Number = 0, blueOffset:Number = 0, alphaOffset:Number = 0);
+
 		/// Concatenates the ColorTranform object specified by the second parameter with the current ColorTransform object and sets the current object as the result, which is an additive combination of the two color transformations.
 		public function concat (second:ColorTransform) : void;
 

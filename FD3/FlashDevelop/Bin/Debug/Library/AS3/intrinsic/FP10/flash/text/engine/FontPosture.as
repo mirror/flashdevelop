@@ -7,5 +7,7 @@ package flash.text.engine
 		public static const ITALIC : String;
 		/// Used to indicate normal font posture.
 		public static const NORMAL : String;
+
+		public function FontPosture ();
 	}
 }

@@ -21,6 +21,9 @@ package flash.events
 		/// Creates a copy of the ProgressEvent object and sets each property's value to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for ProgressEvent objects.
+		public function ProgressEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:Number = 0, bytesTotal:Number = 0);
+
 		/// Returns a string that contains all the properties of the ProgressEvent object.
 		public function toString () : String;
 	}

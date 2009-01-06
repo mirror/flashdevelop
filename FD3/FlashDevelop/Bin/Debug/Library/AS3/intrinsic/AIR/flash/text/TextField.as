@@ -217,13 +217,13 @@ package flash.text
 		public function getRawText () : String;
 
 		/// Returns a TextFormat object.
-		public function getTextFormat (beginIndex:int, endIndex:int) : TextFormat;
+		public function getTextFormat (beginIndex:int = -1, endIndex:int = -1) : TextFormat;
 
-		public function getTextRuns (beginIndex:int, endIndex:int) : Array;
+		public function getTextRuns (beginIndex:int = 0, endIndex:int = 2147483647) : Array;
 
-		public function getXMLText (beginIndex:int, endIndex:int) : String;
+		public function getXMLText (beginIndex:int = 0, endIndex:int = 2147483647) : String;
 
-		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean) : void;
+		public function insertXMLText (beginIndex:int = null, endIndex:int = null, richText:String = null, pasting:Boolean = false) : void;
 
 		/// Returns true if an embedded font is available with the specified fontName and fontStyle where Font.fontType is flash.text.FontType.EMBEDDED.
 		public static function isFontCompatible (fontName:String, fontStyle:String) : Boolean;
@@ -238,6 +238,9 @@ package flash.text
 		public function setSelection (beginIndex:int, endIndex:int) : void;
 
 		/// Applies text formatting.
-		public function setTextFormat (format:TextFormat, beginIndex:int, endIndex:int) : void;
+		public function setTextFormat (format:TextFormat = null, beginIndex:int = -1, endIndex:int = -1) : void;
+
+		/// Creates a new TextField instance.
+		public function TextField ();
 	}
 }

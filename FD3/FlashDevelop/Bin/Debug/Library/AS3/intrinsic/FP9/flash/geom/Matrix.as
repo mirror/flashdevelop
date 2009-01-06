@@ -26,10 +26,10 @@ package flash.geom
 		public function concat (m:Matrix) : void;
 
 		/// Creates a Matrix with scaling, rotation, and translation values.
-		public function createBox (scaleX:Number, scaleY:Number, rotation:Number, tx:Number, ty:Number) : void;
+		public function createBox (scaleX:Number = null, scaleY:Number = null, rotation:Number = 0, tx:Number = 0, ty:Number = 0) : void;
 
 		/// Creates the specific style of matrix expected by the beginGradientFill() method of the Graphics class.
-		public function createGradientBox (width:Number, height:Number, rotation:Number, tx:Number, ty:Number) : void;
+		public function createGradientBox (width:Number = null, height:Number = null, rotation:Number = 0, tx:Number = 0, ty:Number = 0) : void;
 
 		/// Given a point in the pretransform coordinate space, returns the coordinates of that point after the transformation occurs.
 		public function deltaTransformPoint (point:Point) : Point;
@@ -39,6 +39,9 @@ package flash.geom
 
 		/// Performs the opposite transformation of the original matrix.
 		public function invert () : void;
+
+		/// Creates a new two-dimensional Matrix object.
+		public function Matrix (a:Number = 1, b:Number = 0, c:Number = 0, d:Number = 1, tx:Number = 0, ty:Number = 0);
 
 		/// Applies a rotation transformation to the Matrix object.
 		public function rotate (angle:Number) : void;

@@ -8,5 +8,7 @@ package flash.display
 		public static const NONE : String;
 		/// [AIR] The standard chrome for the host operating system.
 		public static const STANDARD : String;
+
+		public function NativeWindowSystemChrome ();
 	}
 }

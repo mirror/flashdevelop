@@ -32,6 +32,9 @@ package flash.events
 		/// [AIR] Creates a copy of this NativeDragEvent object.
 		public function clone () : Event;
 
+		/// [AIR] Creates an Event object with specific information relevant to native drag-and-drop events.
+		public function NativeDragEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = true, localX:Number = null, localY:Number = null, relatedObject:InteractiveObject = null, clipboard:Clipboard = null, allowedActions:NativeDragOptions = null, dropAction:String = null, controlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false, commandKey:Boolean = false);
+
 		/// [AIR] Formats the properties of this NativeDragEvent object as a string.
 		public function toString () : String;
 	}

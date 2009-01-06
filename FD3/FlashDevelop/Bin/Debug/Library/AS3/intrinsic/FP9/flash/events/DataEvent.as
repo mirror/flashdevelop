@@ -17,6 +17,9 @@ package flash.events
 		/// Creates a copy of the DataEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for DataEvent objects.
+		public function DataEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, data:String = "");
+
 		/// Returns a string that contains all the properties of the DataEvent object.
 		public function toString () : String;
 	}

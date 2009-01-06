@@ -7,5 +7,7 @@ package flash.data
 		public static const BINARY : String;
 		/// [AIR] Indicates that the column is defined to use the NOCASE collation sequence.
 		public static const NO_CASE : String;
+
+		public function SQLCollationType ();
 	}
 }

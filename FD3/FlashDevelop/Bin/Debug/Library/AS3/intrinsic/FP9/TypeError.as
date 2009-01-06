@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new TypeError object.
-		public function TypeError (message:*, id:*);
+		public function TypeError (message:* = "", id:* = 0);
 	}
 }

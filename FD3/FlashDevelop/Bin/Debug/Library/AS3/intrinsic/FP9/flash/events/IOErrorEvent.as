@@ -14,6 +14,9 @@ package flash.events
 		/// Creates a copy of the IOErrorEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;
 
+		/// Constructor for IOErrorEvent objects.
+		public function IOErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
+
 		/// Returns a string that contains all the properties of the IOErrorEvent object.
 		public function toString () : String;
 	}

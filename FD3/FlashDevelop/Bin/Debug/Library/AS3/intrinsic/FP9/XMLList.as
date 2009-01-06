@@ -34,16 +34,16 @@ package
 		public function copy () : XMLList;
 
 		/// Returns all descendants (children, grandchildren, great-grandchildren, and so on) of the XML object that have the given name parameter.
-		public function descendants (name:*) : XMLList;
+		public function descendants (name:* = "*") : XMLList;
 
 		/// Calls the elements() method of each XML object.
-		public function elements (name:*) : XMLList;
+		public function elements (name:* = "*") : XMLList;
 
 		/// Checks whether the XMLList object contains complex content.
 		public function hasComplexContent () : Boolean;
 
 		/// Checks for the property specified by p.
-		public function hasOwnProperty (P:*) : Boolean;
+		public function hasOwnProperty (P:* = null) : Boolean;
 
 		/// Checks whether the XMLList object contains simple content.
 		public function hasSimpleContent () : Boolean;
@@ -60,7 +60,7 @@ package
 
 		public function name () : Object;
 
-		public function namespace (prefix:*) : *;
+		public function namespace (prefix:* = null) : *;
 
 		public function namespaceDeclarations () : Array;
 
@@ -75,10 +75,10 @@ package
 		public function prependChild (value:*) : XML;
 
 		/// If a name parameter is provided, lists all the children of the XMLList object that contain processing instructions with that name.
-		public function processingInstructions (name:*) : XMLList;
+		public function processingInstructions (name:* = "*") : XMLList;
 
 		/// Checks whether the property p is in the set of properties that can be iterated in a for..in statement applied to the XMLList object.
-		public function propertyIsEnumerable (P:*) : Boolean;
+		public function propertyIsEnumerable (P:* = null) : Boolean;
 
 		public function removeNamespace (ns:*) : XML;
 
@@ -105,6 +105,6 @@ package
 		public function valueOf () : XMLList;
 
 		/// Creates a new XMLList object.
-		public function XMLList (value:*);
+		public function XMLList (value:* = null);
 	}
 }

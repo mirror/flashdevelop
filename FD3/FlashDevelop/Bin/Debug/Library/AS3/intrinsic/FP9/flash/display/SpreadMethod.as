@@ -9,5 +9,7 @@ package flash.display
 		public static const REFLECT : String;
 		/// Specifies that the gradient use the repeat spread method.
 		public static const REPEAT : String;
+
+		public function SpreadMethod ();
 	}
 }

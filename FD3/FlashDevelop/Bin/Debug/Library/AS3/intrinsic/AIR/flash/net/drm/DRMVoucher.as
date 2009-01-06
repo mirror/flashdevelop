@@ -15,5 +15,7 @@ package flash.net.drm
 		public function get voucherEndDate () : Date;
 
 		public function get voucherStartDate () : Date;
+
+		public function DRMVoucher ();
 	}
 }

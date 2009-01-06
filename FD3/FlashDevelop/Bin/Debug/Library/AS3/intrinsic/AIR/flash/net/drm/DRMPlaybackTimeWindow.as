@@ -7,5 +7,7 @@ package flash.net.drm
 		public function get period () : uint;
 
 		public function get startDate () : Date;
+
+		public function DRMPlaybackTimeWindow (length:uint, start:uint, end:uint);
 	}
 }

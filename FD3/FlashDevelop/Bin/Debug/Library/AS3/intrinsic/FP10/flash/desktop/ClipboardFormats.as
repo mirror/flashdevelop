@@ -9,5 +9,7 @@ package flash.desktop
 		public static const RICH_TEXT_FORMAT : String;
 		/// String data.
 		public static const TEXT_FORMAT : String;
+
+		public function ClipboardFormats ();
 	}
 }

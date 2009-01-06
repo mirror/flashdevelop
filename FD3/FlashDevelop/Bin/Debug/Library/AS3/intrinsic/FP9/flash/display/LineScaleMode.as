@@ -11,5 +11,7 @@ package flash.display
 		public static const NORMAL : String;
 		/// With this setting used as the scaleMode parameter of the lineStyle() method, the thickness of the line scales only horizontally.
 		public static const VERTICAL : String;
+
+		public function LineScaleMode ();
 	}
 }

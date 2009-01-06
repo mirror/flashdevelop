@@ -30,6 +30,8 @@ package flash.utils
 		/// Allows enumeration of the proxied object's properties by index number to retrieve property values.
 		flash_proxy function nextValue (index:int) : *;
 
+		flash_proxy function Proxy ();
+
 		/// Overrides a call to change a property's value.
 		flash_proxy function setProperty (name:*, value:*) : void;
 	}

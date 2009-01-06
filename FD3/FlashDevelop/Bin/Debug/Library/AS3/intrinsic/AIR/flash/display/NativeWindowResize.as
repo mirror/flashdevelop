@@ -21,5 +21,7 @@ package flash.display
 		public static const TOP_LEFT : String;
 		/// [AIR] The top-right corner of the window.
 		public static const TOP_RIGHT : String;
+
+		public function NativeWindowResize ();
 	}
 }

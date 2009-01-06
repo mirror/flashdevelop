@@ -11,5 +11,7 @@ package flash.text.engine
 		public static const AUTO : String;
 		/// Treats no characters in the ContentElement object as line break opportunities.
 		public static const NONE : String;
+
+		public function BreakOpportunity ();
 	}
 }

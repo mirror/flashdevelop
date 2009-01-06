@@ -6,6 +6,6 @@ package
 		public static const length : int;
 
 		/// Creates a new VerifyError object.
-		public function VerifyError (message:*, id:*);
+		public function VerifyError (message:* = "", id:* = 0);
 	}
 }

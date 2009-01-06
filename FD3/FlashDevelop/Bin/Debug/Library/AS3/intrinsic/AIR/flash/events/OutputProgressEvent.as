@@ -19,6 +19,9 @@ package flash.events
 		/// [AIR] Creates a copy of the OutputProgressEvent object and sets each property's value to match that of the original.
 		public function clone () : Event;
 
+		/// [AIR] Constructor for OutputProgressEvent objects.
+		public function OutputProgressEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, bytesPending:Number = 0, bytesTotal:Number = 0);
+
 		/// [AIR] Returns a string that contains all the properties of the OutputProgressEvent object.
 		public function toString () : String;
 	}

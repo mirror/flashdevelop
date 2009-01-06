@@ -11,5 +11,7 @@ package flash.desktop
 		public static const MOVE : String;
 		/// [AIR] Defines the string to use when no action is specified.
 		public static const NONE : String;
+
+		public function NativeDragActions ();
 	}
 }

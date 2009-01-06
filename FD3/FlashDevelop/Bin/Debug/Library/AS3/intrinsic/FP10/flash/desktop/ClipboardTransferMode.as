@@ -11,5 +11,7 @@ package flash.desktop
 		public static const ORIGINAL_ONLY : String;
 		/// The Clipboard object should return a reference if available and a copy if not.
 		public static const ORIGINAL_PREFERRED : String;
+
+		public function ClipboardTransferMode ();
 	}
 }

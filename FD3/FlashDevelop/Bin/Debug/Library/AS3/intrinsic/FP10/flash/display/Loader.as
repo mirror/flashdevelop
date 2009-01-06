@@ -23,10 +23,13 @@ package flash.display
 		public function close () : void;
 
 		/// Loads a SWF file or image file into a DisplayObject that is a child of this Loader instance.
-		public function load (request:URLRequest, context:LoaderContext) : void;
+		public function load (request:URLRequest = null, context:LoaderContext = null) : void;
 
 		/// Loads from binary data stored in a ByteArray object.
-		public function loadBytes (bytes:ByteArray, context:LoaderContext) : void;
+		public function loadBytes (bytes:ByteArray = null, context:LoaderContext = null) : void;
+
+		/// Creates a Loader object that you can use to load files, such as SWF, JPEG, GIF, or PNG files.
+		public function Loader ();
 
 		public function removeChild (child:DisplayObject) : DisplayObject;
 
@@ -38,6 +41,6 @@ package flash.display
 		public function unload () : void;
 
 		/// Attempts to unload child SWF file contents and stops the execution of commands from loaded SWF files.
-		public function unloadAndStop (gc:Boolean) : void;
+		public function unloadAndStop (gc:Boolean = true) : void;
 	}
 }

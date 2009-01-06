@@ -9,5 +9,7 @@ package flash.text.engine
 		public static const OFF : String;
 		/// Used to indicate kerning is enabled.
 		public static const ON : String;
+
+		public function Kerning ();
 	}
 }

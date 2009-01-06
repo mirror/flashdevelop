@@ -9,5 +9,7 @@ package flash.data
 		public static const EXCLUSIVE : String;
 		/// [AIR] Specifies the immediate locking transaction option.
 		public static const IMMEDIATE : String;
+
+		public function SQLTransactionLockType ();
 	}
 }

@@ -17,5 +17,8 @@ package flash.ui
 		public var selectAll : Boolean;
 
 		public function clone () : ContextMenuClipboardItems;
+
+		/// Creates a new ContextMenuClipboardItems object so that you can set the properties for Flash Player to enable or disable each menu item.
+		public function ContextMenuClipboardItems ();
 	}
 }

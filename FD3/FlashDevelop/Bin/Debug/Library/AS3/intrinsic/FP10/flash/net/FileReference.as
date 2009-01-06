@@ -92,15 +92,18 @@ package flash.net
 		public function cancel () : void;
 
 		/// Opens a dialog box that lets the user download a file from a remote server.
-		public function download (request:URLRequest, defaultFileName:String) : void;
+		public function download (request:URLRequest = null, defaultFileName:String = null) : void;
+
+		/// Creates a new FileReference object.
+		public function FileReference ();
 
 		/// Starts the load of a local file.
 		public function load () : void;
 
 		/// Opens a dialog box that lets the user save a file to the local filesystem.
-		public function save (data:*, defaultFileName:String) : void;
+		public function save (data:* = null, defaultFileName:String = null) : void;
 
 		/// Starts the upload of a file to a remote server.
-		public function upload (request:URLRequest, uploadDataFieldName:String, testUpload:Boolean) : void;
+		public function upload (request:URLRequest = null, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false) : void;
 	}
 }

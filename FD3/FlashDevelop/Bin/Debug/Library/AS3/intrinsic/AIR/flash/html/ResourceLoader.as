@@ -6,5 +6,7 @@ package flash.html
 	public class ResourceLoader extends Object
 	{
 		public function cancel () : void;
+
+		public function ResourceLoader (urlReq:URLRequest, htmlControl:HTMLLoader);
 	}
 }

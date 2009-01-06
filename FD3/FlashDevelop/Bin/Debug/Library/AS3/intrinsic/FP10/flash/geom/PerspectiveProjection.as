@@ -18,6 +18,9 @@ package flash.geom
 		public function get projectionCenter () : Point;
 		public function set projectionCenter (p:Point) : void;
 
+		/// Creates an instance of a PerspectiveProjection object.
+		public function PerspectiveProjection ();
+
 		/// Returns the underlying Matrix3D object of the display object.
 		public function toMatrix3D () : Matrix3D;
 	}

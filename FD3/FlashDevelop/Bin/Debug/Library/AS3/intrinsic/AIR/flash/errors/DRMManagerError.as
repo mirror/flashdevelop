@@ -4,6 +4,8 @@ package flash.errors
 	{
 		public function get subErrorID () : int;
 
+		public function DRMManagerError (message:String, id:int, subErrorID:int);
+
 		public function toString () : String;
 	}
 }

@@ -26,5 +26,7 @@ package flash.text.engine
 
 		/// The TextLine containing this mirror region.
 		public function get textLine () : TextLine;
+
+		public function TextLineMirrorRegion ();
 	}
 }

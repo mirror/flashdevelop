@@ -10,5 +10,7 @@ package flash.sampler
 
 		/// The NewObjectSample object if it still exists.
 		public function get object () : *;
+
+		public function NewObjectSample ();
 	}
 }

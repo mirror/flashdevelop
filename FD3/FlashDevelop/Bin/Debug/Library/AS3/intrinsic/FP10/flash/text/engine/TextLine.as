@@ -114,5 +114,7 @@ package flash.text.engine
 
 		/// Returns the first TextLineMirrorRegion on the line whose mirror property matches that specified by the mirror parameter, or null if no match exists.
 		public function getMirrorRegion (mirror:EventDispatcher) : TextLineMirrorRegion;
+
+		public function TextLine ();
 	}
 }

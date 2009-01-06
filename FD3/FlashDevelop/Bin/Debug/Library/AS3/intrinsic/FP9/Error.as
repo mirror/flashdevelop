@@ -13,7 +13,7 @@ package
 		public function get errorID () : int;
 
 		/// Creates a new Error instance with the specified error message.
-		public function Error (message:*, id:*);
+		public function Error (message:* = "", id:* = 0);
 
 		public static function getErrorMessage (index:int) : String;
 

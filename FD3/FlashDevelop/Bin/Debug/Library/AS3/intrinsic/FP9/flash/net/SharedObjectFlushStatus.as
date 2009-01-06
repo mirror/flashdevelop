@@ -7,5 +7,7 @@ package flash.net
 		public static const FLUSHED : String;
 		/// Indicates that the user is being prompted to increase disk space for the shared object before the flush can occur.
 		public static const PENDING : String;
+
+		public function SharedObjectFlushStatus ();
 	}
 }

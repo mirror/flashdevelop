@@ -13,5 +13,7 @@ package flash.text.engine
 		public static const NONE : String;
 		/// Used to specify uncommon ligatures.
 		public static const UNCOMMON : String;
+
+		public function LigatureLevel ();
 	}
 }

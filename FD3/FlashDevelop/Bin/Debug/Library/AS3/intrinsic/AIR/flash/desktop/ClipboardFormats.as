@@ -15,5 +15,7 @@ package flash.desktop
 		public static const TEXT_FORMAT : String;
 		/// [AIR] A URL string (AIR only).
 		public static const URL_FORMAT : String;
+
+		public function ClipboardFormats ();
 	}
 }

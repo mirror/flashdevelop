@@ -9,5 +9,7 @@ package flash.text
 		public static const EMBEDDED : String;
 		/// Indicates that this is an embedded CFF font.
 		public static const EMBEDDED_CFF : String;
+
+		public function FontType ();
 	}
 }

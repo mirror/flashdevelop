@@ -7,5 +7,7 @@ package flash.sampler
 		public const id : Number;
 		/// The size of the DeleteObjectSample object before it is deleted.
 		public const size : Number;
+
+		public function DeleteObjectSample ();
 	}
 }

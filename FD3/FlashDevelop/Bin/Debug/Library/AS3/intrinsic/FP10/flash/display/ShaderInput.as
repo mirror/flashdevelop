@@ -20,5 +20,8 @@ package flash.display
 		/// The width of the shader input.
 		public function get width () : int;
 		public function set width (value:int) : void;
+
+		/// Creates a ShaderInput instance.
+		public function ShaderInput ();
 	}
 }

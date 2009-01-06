@@ -29,5 +29,8 @@ package flash.media
 
 		/// Clears the image currently displayed in the Video object (not the video stream).
 		public function clear () : void;
+
+		/// Creates a new Video instance.
+		public function Video (width:int = 320, height:int = 240);
 	}
 }

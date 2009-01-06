@@ -10,19 +10,19 @@ package
 		public static const MIN_VALUE : int;
 
 		/// Constructor; creates a new int object.
-		public function int (value:*);
+		public function int (value:* = 0);
 
 		/// Returns a string representation of the number in exponential notation.
-		public function toExponential (p:*) : String;
+		public function toExponential (p:* = 0) : String;
 
 		/// Returns a string representation of the number in fixed-point notation.
-		public function toFixed (p:*) : String;
+		public function toFixed (p:* = 0) : String;
 
 		/// Returns a string representation of the number either in exponential notation or in fixed-point notation.
-		public function toPrecision (p:*) : String;
+		public function toPrecision (p:* = 0) : String;
 
 		/// Returns the string representation of an int object.
-		public function toString (radix:*) : String;
+		public function toString (radix:* = 10) : String;
 
 		/// Returns the primitive value of the specified int object.
 		public function valueOf () : int;

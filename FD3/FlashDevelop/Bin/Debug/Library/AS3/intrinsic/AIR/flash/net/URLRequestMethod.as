@@ -15,5 +15,7 @@ package flash.net
 		public static const POST : String;
 		/// [AIR] Specifies that the URLRequest object is a PUT.
 		public static const PUT : String;
+
+		public function URLRequestMethod ();
 	}
 }

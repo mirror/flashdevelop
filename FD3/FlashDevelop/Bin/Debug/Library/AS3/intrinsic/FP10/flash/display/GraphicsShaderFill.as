@@ -10,5 +10,8 @@ package flash.display
 		public var matrix : Matrix;
 		/// The shader to use for the fill.
 		public var shader : Shader;
+
+		/// Creates a new GraphicsShaderFill object.
+		public function GraphicsShaderFill (shader:Shader = null, matrix:Matrix = null);
 	}
 }

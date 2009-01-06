@@ -38,6 +38,9 @@ package flash.ui
 		/// Creates a copy of the specified ContextMenu object.
 		public function clone () : ContextMenu;
 
+		/// Creates a ContextMenu object.
+		public function ContextMenu ();
+
 		/// Hides all built-in menu items (except Settings) in the specified ContextMenu object.
 		public function hideBuiltInItems () : void;
 	}

@@ -15,6 +15,9 @@ package flash.errors
 		/// [AIR] A value indicating the operation that was being attempted when the error occurred.
 		public function get operation () : String;
 
+		/// [AIR] Creates a SQLError instance that can be thrown or used with a SQLErrorEvent instance's error property.
+		public function SQLError (operation:String = null, details:String = "", message:String = "", id:int = 0, detailID:int = -1, detailArgs:Array = null);
+
 		/// [AIR] Returns the string "Error" by default or the value contained in Error.message property, if defined.
 		public function toString () : String;
 	}

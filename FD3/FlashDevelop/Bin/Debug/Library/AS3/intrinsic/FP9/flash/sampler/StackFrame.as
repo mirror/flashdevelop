@@ -10,6 +10,8 @@ package flash.sampler
 		/// The function name in the stack frame.
 		public const name : String;
 
+		public function StackFrame ();
+
 		/// Converts the StackFrame to a string of its properties.
 		public function toString () : String;
 	}

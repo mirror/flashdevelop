@@ -9,5 +9,7 @@ package flash.events
 		public static const BUBBLING_PHASE : uint;
 		/// The capturing phase, which is the first phase of the event flow.
 		public static const CAPTURING_PHASE : uint;
+
+		public function EventPhase ();
 	}
 }

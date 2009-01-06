@@ -20,6 +20,8 @@ package flash.desktop
 		public function get width () : int;
 
 		/// [AIR] Notifies the user that an event has occurred that may require attention.
-		public function bounce (priority:String) : void;
+		public function bounce (priority:String = "informational") : void;
+
+		public function DockIcon ();
 	}
 }
