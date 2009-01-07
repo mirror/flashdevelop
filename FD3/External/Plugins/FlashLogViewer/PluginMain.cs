@@ -145,7 +145,7 @@ namespace FlashLogViewer
         /// </summary>
         public void InitBasics()
         {
-            String dataPath = Path.Combine(PathHelper.DataDir, "TracePanel");
+            String dataPath = Path.Combine(PathHelper.DataDir, "FlashLogViewer");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
