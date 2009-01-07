@@ -17,6 +17,7 @@ namespace FlashLogViewer
 {
 	public class PluginUI : DockPanelControl
     {
+        private Form popupForm;
         private Boolean tracking;
         private Timer refreshTimer;
         private ToolStrip toolStrip;
@@ -34,10 +35,9 @@ namespace FlashLogViewer
         private PluginMain pluginMain;
         private ImageList imageList;
         private String curLogFile;
-        private Form popupForm;
-        private Regex reError;
         private Regex reWarning;
         private Regex reFilter;
+        private Regex reError;
         
 		public PluginUI(PluginMain pluginMain)
 		{
@@ -48,6 +48,7 @@ namespace FlashLogViewer
             this.InitializeContextMenu();
             this.InitializeGraphics();
             this.InitializeControls();
+            this.UpdateMainRegexes();
 		}
 
 		#region Windows Forms Designer Generated Code
@@ -357,8 +358,8 @@ namespace FlashLogViewer
                 String colorTbl = "\\cf0 ";
                 if (this.Settings.ColourWarnings)
                 {
-                    if (reWarning != null && reWarning.IsMatch(line)) colorTbl = "\\cf2 ";
-                    if (reError != null && reError.IsMatch(line)) colorTbl = "\\cf3 ";
+                    if (reWarning.IsMatch(line)) colorTbl = "\\cf2 ";
+                    if (reError.IsMatch(line)) colorTbl = "\\cf3 ";
                 }
                 // escape special rtf characters
                 String formattedLine = line;
@@ -388,7 +389,12 @@ namespace FlashLogViewer
             this.toggleButton.Image = this.imageList.Images[(enable ? 0 : 1)];
             this.toggleButton.ToolTipText = (enable ? TextHelper.GetString("ToolTip.StopTracking") : TextHelper.GetString("ToolTip.StartTracking"));
             this.logComboBox.Enabled = this.filterComboBox.Enabled = this.clearFilterButton.Enabled = enable;
-            if (enable) this.RefreshDisplay(true);
+            if (enable)
+            {
+                this.UpdateMainRegexes();
+                this.RefreshDisplay(true);
+            }
+
         }
 
         /// <summary>
@@ -447,25 +453,6 @@ namespace FlashLogViewer
         {
             this.tracking = !this.tracking;
             this.EnableTracking(this.tracking);
-            if (this.tracking)
-            {
-                try
-                {
-                    this.reError = new Regex(this.Settings.RegexError ?? "Error", RegexOptions.IgnoreCase);
-                }
-                catch 
-                {
-                    ErrorManager.ShowInfo("FlashLogViewer: RegexError is invalid: " + this.Settings.RegexError);
-                }
-                try
-                {
-                    this.reWarning = new Regex(this.Settings.RegexWarning ?? "Warning", RegexOptions.IgnoreCase);
-                }
-                catch 
-                {
-                    ErrorManager.ShowInfo("FlashLogViewer: RegexWarning is invalid: " + this.Settings.RegexWarning);
-                }
-            }
         }
 
         /// <summary>
@@ -520,10 +507,7 @@ namespace FlashLogViewer
                     this.reFilter = new Regex(filterComboBox.Text, RegexOptions.IgnoreCase);
                     this.filterComboBox.ForeColor = SystemColors.ControlText;
                 }
-                catch 
-                {
-                    this.filterComboBox.ForeColor = Color.Red;
-                }
+                catch { this.filterComboBox.ForeColor = Color.Red; }
             }
             this.RefreshDisplay(false);
         }
@@ -549,6 +533,31 @@ namespace FlashLogViewer
                 return contents.TrimEnd(null);
             }
             catch { return ""; }
+        }
+
+        /// <summary>
+        /// Updates the regexes from setting and ensures their validity
+        /// </summary>
+        private void UpdateMainRegexes()
+        {
+            try
+            {
+                this.reError = new Regex(this.Settings.RegexError, RegexOptions.IgnoreCase);
+            }
+            catch 
+            { 
+                this.Settings.RegexError = "Error #";
+                this.reError = new Regex(this.Settings.RegexError, RegexOptions.IgnoreCase);
+            }
+            try
+            {
+                this.reWarning = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
+            }
+            catch 
+            { 
+                this.Settings.RegexError = "Warning: ";
+                this.reWarning = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
+            }
         }
 
         /// <summary>
