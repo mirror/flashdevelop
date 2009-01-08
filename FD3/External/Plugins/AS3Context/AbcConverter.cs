@@ -143,7 +143,7 @@ namespace AS3Context
                     // imports
                     foreach (string import in imports.Keys)
                     {
-                        model.Imports.Add(new MemberModel(import, import, FlagType.Import, 0));
+                        model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
                     }
                 }
             }
