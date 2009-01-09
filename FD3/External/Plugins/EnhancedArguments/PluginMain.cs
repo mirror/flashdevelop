@@ -116,6 +116,8 @@ namespace EnhancedArguments
                     // Cast event as TextEvent
 					TextEvent te = e as TextEvent;
 
+                    if (te.Value.IndexOf("$$(") < 0) return;
+
                     //Special Arguments
                     if (reSpecialArgs.IsMatch(te.Value))
                         te.Value = reSpecialArgs.Replace(te.Value, new MatchEvaluator(ReplaceSpecialArgs));
