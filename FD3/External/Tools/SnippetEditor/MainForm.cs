@@ -20,7 +20,6 @@ namespace SnippetEditor
         private System.Windows.Forms.TextBox contentsTextBox;
         private System.Windows.Forms.ListBox snippetListBox;
         private System.Windows.Forms.FolderBrowserDialog browseDialog;
-        private System.Windows.Forms.ToolStripButton currentButton;
         private System.Windows.Forms.ComboBox insertComboBox;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button closeButton;
@@ -280,19 +279,6 @@ namespace SnippetEditor
         }
 
         /// <summary>
-        /// Selects the correct syntax and refreshes the form
-        /// </summary>
-        private void SelectSyntax(Object sender, EventArgs e)
-        {
-            if (currentButton != null) currentButton.Checked = false;
-            this.EnableAllControls();
-            this.currentButton = sender as ToolStripButton;
-            this.currentButton.Checked = true;
-            this.currentSyntax = this.currentButton.Text;
-            this.UpdateSnippetList();
-        }
-
-        /// <summary>
         /// Shows the activated snippet's contents
         /// </summary>
         private void SnippetListBoxSelectedIndexChanged(Object sender, EventArgs e)
@@ -402,11 +388,8 @@ namespace SnippetEditor
                 String[] files = Directory.GetFiles(folderPath);
                 Int32 fileCount = files.Length;
                 this.snippets.Add(folderName, files);
-                ToolStripButton btn = new ToolStripButton(folderName);
-                btn.Click += new EventHandler(this.SelectSyntax);
                 TabPage tabPage = new TabPage();
                 tabPage.Text = folderName;
-                tabPage.Click += new EventHandler(this.SelectSyntax);
                 tab.Controls.Add(tabPage);
             }
             if (!foundSome)
