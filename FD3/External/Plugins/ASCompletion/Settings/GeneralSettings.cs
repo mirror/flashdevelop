@@ -165,7 +165,7 @@ namespace ASCompletion.Settings
         private string spacedChars = DEFAULT_SPACEDCHARS;
         private string addSpaceAfter = DEFAULT_ADDSPACEAFTER;
 
-        [DisplayName("Generate Private Declarations")]
+        [DisplayName("Generate Protected Declarations")]
         [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.GenerateProtectedDeclarations"),
         DefaultValue(DEFAULT_GENERATE_PROTECTED)]
         public bool GenerateProtectedDeclarations
