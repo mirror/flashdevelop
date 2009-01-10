@@ -11,6 +11,7 @@ using PluginCore.Helpers;
 using ScintillaNet;
 using PluginCore;
 using System.Text.RegularExpressions;
+using FlashDevelop.Dialogs;
 
 namespace FlashDevelop.Utilities
 {
@@ -21,7 +22,15 @@ namespace FlashDevelop.Utilities
         /// </summary>
         private static Regex reTabs = new Regex("^\\t+", RegexOptions.Multiline | RegexOptions.Compiled);
         private static Regex reArgs = new Regex("\\$\\(([a-z]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
+        
+        /// <summary>
+        /// Regexes and variabled for enhanced arguments
+        /// </summary>
+        private static Dictionary<String, String> userArgs;
+        private static Regex reUserArgs = new Regex("\\$\\$\\(([a-z0-9]+)\\=?([^\\)]+)?\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex reSpecialArgs = new Regex("\\$\\$\\(\\#([a-z]+)\\#=?([^\\)]+)?\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex reEnvArgs = new Regex("\\$\\$\\(\\%([a-z]+)\\%\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        
         /// <summary>
         /// Gets the FlashDevelop root directory
 		/// </summary>
@@ -274,6 +283,7 @@ namespace FlashDevelop.Utilities
                 if (!Globals.Settings.UseTabs) result = reTabs.Replace(result, new MatchEvaluator(ReplaceTabs));
                 result = reArgs.Replace(result, new MatchEvaluator(ReplaceVars));
                 if (!dispatch || result.IndexOf('$') < 0) return result;
+                result = ReplaceArgsWithGUI(result); // Show replace gui...
                 TextEvent te = new TextEvent(EventType.ProcessArgs, result);
                 EventManager.DispatchEvent(Globals.MainForm, te);
                 return te.Value;
@@ -332,6 +342,70 @@ namespace FlashDevelop.Utilities
                 return "$(" + name + ")";
             }
             else return match.Value;
+        }
+        
+        /// <summary>
+        /// Replaces the enchanced arguments with gui
+        /// </summary>
+        private static String ReplaceArgsWithGUI(String args)
+        {
+            if (args.IndexOf("$$(") < 0) return args;
+            if (reEnvArgs.IsMatch(args)) // Environmental arguments
+            {
+                args = reEnvArgs.Replace(args, new MatchEvaluator(ReplaceEnvArgs));
+            }
+            if (reSpecialArgs.IsMatch(args)) // Special arguments
+            {
+                args = reSpecialArgs.Replace(args, new MatchEvaluator(ReplaceSpecialArgs));
+            }
+            if (reUserArgs.IsMatch(args)) // User arguments
+			{
+                ArgReplaceDialog rvd = new ArgReplaceDialog(args, reUserArgs);
+				if (rvd.ShowDialog() == DialogResult.OK)
+				{
+					userArgs = rvd.Dictionary;
+                    args = reUserArgs.Replace(args, new MatchEvaluator(ReplaceUserArgs));
+				}
+			}
+            return args;
+        }
+
+        /// <summary>
+        /// Match evaluator for User Arguments
+        /// </summary>
+        private static String ReplaceUserArgs(Match match)
+        {
+            if (match.Groups.Count > 0) return userArgs[match.Groups[1].Value];
+            else return match.Value;
+        }
+
+        /// <summary>
+        /// Match evaluator for Environment Variables
+        /// </summary>
+        private static String ReplaceEnvArgs(Match match)
+        {
+            if (match.Groups.Count > 0) return Environment.GetEnvironmentVariable(match.Groups[1].Value);
+            else return match.Value;
+        }
+
+        /// <summary>
+        /// Match evaluator for Special Arguments
+        /// </summary>
+        private static String ReplaceSpecialArgs(Match match)
+        {
+            if (match.Groups.Count > 0)
+            {
+                switch (match.Groups[1].Value.ToUpper())
+                {
+                    case "DATETIME":
+                    {
+                        String dateFormat = "";
+                        if (match.Groups.Count == 3) dateFormat = match.Groups[2].Value;
+                        return (DateTime.Now.ToString(dateFormat));
+                    }
+                }
+            }
+            return match.Value;
         }
 
 	}
