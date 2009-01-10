@@ -20,6 +20,10 @@ namespace EnhancedArguments.Controls
 		public ArgEditor(String arg, String[] values)
 		{
 			InitializeComponent();
+
+			this.arg.Font = PluginCore.PluginBase.Settings.DefaultFont;
+			argValue.Font = PluginCore.PluginBase.Settings.EditorFont;
+			
             this.arg.Text = arg;
             if (values.Length > 0)
             {
