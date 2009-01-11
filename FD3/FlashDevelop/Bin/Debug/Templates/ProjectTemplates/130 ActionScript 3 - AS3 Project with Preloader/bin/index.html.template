@@ -9,7 +9,8 @@
 	
 	<script src="js/swfobject.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		var flashvars = {};
+		var flashvars = {
+		};
 		var params = {
 			menu: "false",
 			scale: "noScale",
@@ -17,7 +18,10 @@
 			allowScriptAccess: "always",
 			bgcolor: "#FFFFFF"
 		};
-		swfobject.embedSWF("$(ProjectID).swf", "altContent", "100%", "100%", "9.0.0", "expressInstall.swf", flashvars, params);
+		var attributes = {
+			id:"$(ProjectID)"
+		};
+		swfobject.embedSWF("$(ProjectID).swf", "altContent", "100%", "100%", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
 	</script>
 	<style>
 		html, body { height:100%; }
