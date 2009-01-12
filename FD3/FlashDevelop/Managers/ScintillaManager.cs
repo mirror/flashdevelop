@@ -32,9 +32,18 @@ namespace FlashDevelop.Managers
             Bitmap breakPoint = new Bitmap(ResourceHelper.GetStream("BreakpointIcon.bmp"));
             XpmBookmark = ScintillaNet.XPM.ConvertToXPM(bookmark, "#00FF00");
             XpmBreakPoint = ScintillaNet.XPM.ConvertToXPM(breakPoint, "#00FF00");
+            LoadConfiguration();
+        }
+
+        /// <summary>
+        /// Loads the syntax and refreshes scintilla settings.
+        /// </summary>
+        public static void LoadConfiguration()
+        {
             SciConfigUtil = new ConfigurationUtility(Assembly.GetExecutingAssembly());
-		    SciConfig = (Scintilla)SciConfigUtil.LoadConfiguration(typeof(Scintilla), FileNameHelper.Scintilla);
+            SciConfig = (Scintilla)SciConfigUtil.LoadConfiguration(typeof(Scintilla), FileNameHelper.Scintilla);
             ScintillaControl.Configuration = SciConfig;
+            MainForm.Instance.ApplyAllSettings();
         }
 
         /// <summary>

@@ -89,6 +89,7 @@ namespace PluginCore
         #region IMainForm Methods
 
         void RefreshUI();
+        void RefreshSciConfig();
         void ClearTemporaryFiles(String file);
         void ShowSettingsDialog(String itemName);
         void ShowErrorDialog(Object sender, Exception ex);

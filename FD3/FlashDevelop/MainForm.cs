@@ -1402,6 +1402,14 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Refreshes the scintilla configuration
+        /// </summary>
+        public void RefreshSciConfig()
+        {
+            ScintillaManager.LoadConfiguration();
+        }
+
+        /// <summary>
         /// Processes the argument string variables
         /// </summary>
         public String ProcessArgString(String args, bool dispatch)

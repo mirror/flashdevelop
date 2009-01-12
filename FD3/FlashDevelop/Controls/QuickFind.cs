@@ -216,7 +216,6 @@ namespace FlashDevelop.Controls
         /// </summary>
         public void FindNextButtonClick(Object sender, EventArgs e)
         {
-            this.UpdateFindText();
             if (this.findTextBox.Text.Trim() != "")
             {
                 this.FindNext(this.findTextBox.Text, false);
@@ -228,7 +227,6 @@ namespace FlashDevelop.Controls
         /// </summary>
         public void FindPrevButtonClick(Object sender, EventArgs e)
         {
-            this.UpdateFindText();
             if (this.findTextBox.Text.Trim() != "")
             {
                 this.FindPrev(this.findTextBox.Text, false);

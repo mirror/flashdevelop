@@ -398,10 +398,10 @@ namespace FlashDevelop.Dialogs
 		/// <summary>
 		/// Finds the next result based on direction
 		/// </summary>
-		public void FindNext(Boolean forward)
+		public void FindNext(Boolean forward, Boolean update)
 		{
-            this.UpdateFindText();
             this.currentMatch = null;
+            if (update) this.UpdateFindText();
             if (Globals.SciControl == null) return;
             ScintillaControl sci = Globals.SciControl;
             List<SearchMatch> matches = this.GetResults(sci);
@@ -433,13 +433,17 @@ namespace FlashDevelop.Dialogs
             }
             this.SelectText();
 		}
+        public void FindNext(Boolean forward)
+        {
+            this.FindNext(forward, true);
+        }
 
 		/// <summary>
 		/// Finds the next result specified by user input
 		/// </summary>
         private void FindNextButtonClick(Object sender, System.EventArgs e)
         {
-            this.FindNext(true);
+            this.FindNext(true, false);
 		}
 		
 		/// <summary>
@@ -447,7 +451,7 @@ namespace FlashDevelop.Dialogs
 		/// </summary>
         private void FindPrevButtonClick(Object sender, System.EventArgs e)
 		{
-            this.FindNext(false);
+            this.FindNext(false, false);
 		}
 
         /// <summary>
