@@ -108,6 +108,7 @@ namespace ASCompletion
 
             toolStrip.Renderer = new DockPanelStripRenderer();
             toolStrip.Padding = new Padding(2, 1, 2, 2);
+            sortDropDown.Font = PluginBase.Settings.DefaultFont;
             sortDropDown.Image = PluginBase.MainForm.FindImage("444");
             clearButton.Image = PluginBase.MainForm.FindImage("153");
             clearButton.Alignment = ToolStripItemAlignment.Right;

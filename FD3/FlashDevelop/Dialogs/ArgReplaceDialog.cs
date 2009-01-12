@@ -9,6 +9,7 @@ using FlashDevelop.Controls;
 using System.ComponentModel;
 using System.Windows.Forms;
 using PluginCore.Managers;
+using PluginCore.Localization;
 
 namespace FlashDevelop.Dialogs
 {
@@ -27,7 +28,9 @@ namespace FlashDevelop.Dialogs
             this.text = text;
             this.regex = regex;
             this.InitializeComponent();
-			this.BuildInterface();
+            this.ApplyLocalizedTexts();
+            this.InitializeInterface();
+            this.Font = Globals.Settings.DefaultFont;
             if (this.argsPanel.Controls.Count == 0)
             {
                 this.Close();
@@ -56,14 +59,14 @@ namespace FlashDevelop.Dialogs
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPanel.Location = new System.Drawing.Point(0, 34);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(192, 28);
+            this.bottomPanel.Size = new System.Drawing.Size(192, 35);
             this.bottomPanel.TabIndex = 1;
             // 
             // cancelButton
             // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(18, 0);
+            this.cancelButton.Location = new System.Drawing.Point(23, 0);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 1;
@@ -75,7 +78,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(100, 0);
+            this.okButton.Location = new System.Drawing.Point(95, 0);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -91,7 +94,7 @@ namespace FlashDevelop.Dialogs
             this.argsPanel.Location = new System.Drawing.Point(0, 0);
             this.argsPanel.Name = "argsPanel";
             this.argsPanel.Size = new System.Drawing.Size(192, 34);
-            this.argsPanel.Padding = new Padding(3);
+            this.argsPanel.Padding = new System.Windows.Forms.Padding(2, 12, 7, 7);
             this.argsPanel.TabIndex = 2;
             // 
             // ArgReplaceDialog
@@ -99,18 +102,19 @@ namespace FlashDevelop.Dialogs
             this.AutoSize = true;
             this.ShowIcon = false;
             this.AutoScroll = true;
-            this.ControlBox = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.ShowInTaskbar = false;
             this.AcceptButton = this.okButton;
             this.CancelButton = this.cancelButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(192, 62);
+            this.ClientSize = new System.Drawing.Size(202, 62);
             this.Controls.Add(this.argsPanel);
             this.Controls.Add(this.bottomPanel);
             this.Name = "ArgReplaceDialog";
-            this.Text = "Replace Variables";
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Text = " Replace Variables";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Activated += new System.EventHandler(this.OnDialogActivated);
             this.bottomPanel.ResumeLayout(false);
@@ -122,11 +126,29 @@ namespace FlashDevelop.Dialogs
         #endregion
 
         #region Methods And Event Handlers
+        
+        /// <summary>
+        /// Accessor for the dictionary
+        /// </summary>
+        public Dictionary<String, String> Dictionary
+        {
+            get { return this.argDictionary; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ApplyLocalizedTexts()
+        {
+            this.Text = " " + TextHelper.GetString("Title.ArgReplaceDialog");
+            this.cancelButton.Text = TextHelper.GetString("Label.Cancel");
+            this.okButton.Text = TextHelper.GetString("Label.Ok");
+        }
 
         /// <summary>
         /// Create arg editor controls to edit arguments
         /// </summary>
-		private void BuildInterface()
+        private void InitializeInterface()
 		{
             String value;
             String argument;
@@ -185,14 +207,6 @@ namespace FlashDevelop.Dialogs
 		{
             this.argsPanel.Controls[0].Focus();
 		}
-
-		/// <summary>
-		/// Returns Dictionary of the Arguments and Values
-		/// </summary>
-		public Dictionary<String, String> Dictionary
-		{
-			get { return this.argDictionary; }
-        }
 
         #endregion
 
