@@ -143,7 +143,7 @@ namespace AS3Context
             // special features
             if (exPath.Length > 0 && exPath.StartsWith("AIR;"))
             {
-                exPath = exPath.Substring(5);
+                exPath = exPath.Substring(4);
                 hasAIRSupport = true;
             }
             else hasAIRSupport = false;
