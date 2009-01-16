@@ -7,7 +7,7 @@ using System.Resources;
 // Change them to the information which is associated with the assembly you compile.
 [assembly: AssemblyTitle("FlashDevelop 3")]
 [assembly: AssemblyDescription("FlashDevelop is an open source script editor.")]
-[assembly: AssemblyProduct("FlashDevelop 3.0.0 RC1 for Microsoft.NET 2.0 Runtime")]
+[assembly: AssemblyProduct("FlashDevelop 3.0.0 RC2 for Microsoft.NET 2.0 Runtime")]
 [assembly: AssemblyCopyright("FlashDevelop.org 2005-2008")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyConfiguration("")]

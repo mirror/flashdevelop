@@ -9,7 +9,7 @@
 
 ; Define version info
 !define VERSION "3.0.0"
-!define BUILD "RC1"
+!define BUILD "RC2"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
@@ -312,9 +312,9 @@ Section "Registry Modifications" RegistryMods
 	DeleteRegKey /ifempty HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product"
 	
 	; Write uninstall section keys
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "InstallLocation" "$INSTDIR"	
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "DisplayVersion" "${VERSION}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "InstallLocation" "$INSTDIR"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "Publisher" "FlashDevelop.org"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "DisplayVersion" "${VERSION}-${BUILD}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "DisplayName" "FlashDevelop ${VERSION}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "Comments" "Thank you for using FlashDevelop."
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop" "HelpLink" "http://www.flashdevelop.org/community/"
