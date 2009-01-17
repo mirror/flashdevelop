@@ -11,6 +11,7 @@ namespace OutputPanel
     {
         private Boolean showOnOutput = false;
         private Boolean showOnProcessEnd = false;
+        private Boolean wrapOutput = false;
 
         /// <summary> 
         /// Get and sets the alwaysShow
@@ -32,6 +33,17 @@ namespace OutputPanel
         {
             get { return this.showOnProcessEnd; }
             set { this.showOnProcessEnd = value; }
+        }
+
+        /// <summary> 
+        /// Get and sets the wrapOutput
+        /// </summary>
+        [DisplayName("Wrap Output")]
+        [LocalizedDescription("OutputPanel.Description.WrapOutput"), DefaultValue(false)]
+        public Boolean WrapOutput
+        {
+            get { return this.wrapOutput; }
+            set { this.wrapOutput = value; }
         }
 
     }

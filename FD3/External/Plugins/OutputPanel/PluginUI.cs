@@ -17,6 +17,7 @@ namespace OutputPanel
         private Int32 logCount;
         private RichTextBox textLog;
 		private PluginMain pluginMain;
+        private ToolStripMenuItem wrapTextItem;
 		
 		public PluginUI(PluginMain pluginMain)
 		{
@@ -75,10 +76,12 @@ namespace OutputPanel
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ClearOutput"), null, new EventHandler(this.ClearOutput)));
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CopyOutput"), null, new EventHandler(this.CopyOutput)));
             menu.Items.Add(new ToolStripSeparator());
-            menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.WrapText"), null, new EventHandler(this.WrapText)));
+            wrapTextItem = new ToolStripMenuItem(TextHelper.GetString("Label.WrapText"), null, new EventHandler(this.WrapText));
+            menu.Items.Add(wrapTextItem);
             menu.Font = PluginBase.Settings.DefaultFont;
             this.textLog.Font = PluginBase.Settings.ConsoleFont;
             this.textLog.ContextMenuStrip = menu;
+            this.ApplyWrapText();
         }
 
         /// <summary>
@@ -94,9 +97,18 @@ namespace OutputPanel
         /// </summary>
         private void WrapText(Object sender, System.EventArgs e)
         {
-            ToolStripMenuItem button = (ToolStripMenuItem)sender;
-            button.Checked = !button.Checked;
-            this.textLog.WordWrap = button.Checked;
+            this.pluginMain.PluginSettings.WrapOutput = !this.pluginMain.PluginSettings.WrapOutput;
+            this.pluginMain.SaveSettings();
+            this.ApplyWrapText();
+        }
+
+        /// <summary>
+        /// Applies the wrapping in the control
+        /// </summary>
+        public void ApplyWrapText()
+        {
+            this.wrapTextItem.Checked = this.pluginMain.PluginSettings.WrapOutput;
+            this.textLog.WordWrap = this.pluginMain.PluginSettings.WrapOutput;
         }
 
         /// <summary>

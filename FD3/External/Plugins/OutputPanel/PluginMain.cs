@@ -121,6 +121,9 @@ namespace OutputPanel
                 case EventType.Trace:
                     this.pluginUI.AddTraces();
                     break;
+                case EventType.SettingChanged:
+                    this.pluginUI.ApplyWrapText();
+                    break;
             }
 		}
 		
@@ -167,7 +170,7 @@ namespace OutputPanel
         /// </summary>
         public void AddEventHandlers()
         {
-            EventType eventMask = EventType.ProcessStart | EventType.ProcessEnd | EventType.Trace;
+            EventType eventMask = EventType.ProcessStart | EventType.ProcessEnd | EventType.Trace | EventType.SettingChanged;
             EventManager.AddEventHandler(this, eventMask);
         }
 

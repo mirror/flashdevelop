@@ -1415,6 +1415,9 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   <data name="OutputPanel.Description.ShowOnProcessEnd" xml:space="preserve">
     <value>Open the panel after the captured process has finished.</value>
   </data>
+  <data name="OutputPanel.Description.WrapOutput" xml:space="preserve">
+    <value>Wraps text output.</value>
+  </data>
   <data name="OutputPanel.Info.Description" xml:space="preserve">
     <value>Adds a output panel for debug messages to FlashDevelop.</value>
   </data>
