@@ -283,10 +283,10 @@ namespace FlashDevelop.Utilities
                 if (!Globals.Settings.UseTabs) result = reTabs.Replace(result, new MatchEvaluator(ReplaceTabs));
                 result = reArgs.Replace(result, new MatchEvaluator(ReplaceVars));
                 if (!dispatch || result.IndexOf('$') < 0) return result;
-                result = ReplaceArgsWithGUI(result); // Show replace gui...
                 TextEvent te = new TextEvent(EventType.ProcessArgs, result);
                 EventManager.DispatchEvent(Globals.MainForm, te);
-                return te.Value;
+                result = ReplaceArgsWithGUI(te.Value);
+                return result;
             }
             catch (Exception ex)
             {
