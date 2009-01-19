@@ -347,7 +347,7 @@ namespace FileExplorer
         /// </summary>
         private void Initialize(Object sender, System.EventArgs e)
         {
-            String path = "C:\\";
+            String path = PathHelper.AppDir;
             String pathToCheck = this.pluginMain.Settings.FilePath;
             if (Directory.Exists(pathToCheck)) path = pathToCheck;
             this.listViewSorter.SortColumn = this.pluginMain.Settings.SortColumn;
