@@ -285,6 +285,7 @@ namespace FileExplorer
         private void InitializeGraphics()
         {
             this.imageList = new ImageList();
+            this.imageList.ImageSize = GetSmallIconSize();
             this.imageList.ColorDepth = ColorDepth.Depth32Bit;
             this.syncronizeButton.Image = PluginBase.MainForm.FindImage("203|9|-3|-3");
             this.browseButton.Image = PluginBase.MainForm.FindImage("203");
@@ -1097,9 +1098,10 @@ namespace FileExplorer
         private int ExtractIconIfNecessary(String path)
         {
             Icon icon;
+            Size size = GetSmallIconSize();
             if (File.Exists(path)) icon = IconExtractor.GetFileIcon(path, false, true);
             else icon = IconExtractor.GetFolderIcon(path, false, true);
-            Image image = ImageKonverter.ImageResize(icon.ToBitmap(), 16, 16);
+            Image image = ImageKonverter.ImageResize(icon.ToBitmap(), size.Width, size.Height);
             this.imageList.Images.Add(image); icon.Dispose(); image.Dispose();
             return this.imageList.Images.Count - 1;
         }
@@ -1112,8 +1114,20 @@ namespace FileExplorer
             this.imageList.Images.Clear();
             this.imageList.Dispose();
             this.imageList = new ImageList();
+            this.imageList.ImageSize = GetSmallIconSize();
             this.imageList.ColorDepth = ColorDepth.Depth32Bit;
             this.fileView.SmallImageList = this.imageList;
+        }
+        
+        /// <summary>
+        /// Gets the small icon size. High dpi has slightly bigger icons
+        /// </summary>
+        /// <returns></returns>
+        private Size GetSmallIconSize()
+        {
+            Size size = SystemInformation.SmallIconSize;
+            if (size.Width > 16) return new Size(18, 18);
+            else return size;
         }
 
         #endregion
