@@ -327,7 +327,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
-            if (project.HasLibraries) menu.Add(Insert, 0);
+            menu.Add(Insert, 0);
             if (project.HasLibraries) menu.Add(AddLibrary, 2, addLibrary);
             if (addLibrary) menu.Add(LibraryOptions, 2);
             AddFileItems(menu, path);
