@@ -42,7 +42,7 @@ namespace ProjectManager
         // These are string arrays because they are only edited by the propertygrid (which deals with them nicely)
         string[] excludedFileTypes = new string[] { ".p", ".abc", ".bak", ".tmp" };
         string[] excludedDirectories = new string[] { "obj", ".svn", "_svn", ".cvs", "_cvs", "cvs", "_sgbak" };
-        string[] executableFileTypes = new string[] { ".exe", ".lnk", ".fla", ".doc", ".pps", ".psd", ".png", ".jpg", ".gif", ".xls", ".docproj" };
+        string[] executableFileTypes = new string[] { ".exe", ".lnk", ".fla", ".doc", ".pps", ".psd", ".png", ".jpg", ".gif", ".xls", ".docproj", ".ttf", ".wav", ".mp3" };
 
         #region Properties
         [Browsable(false)]

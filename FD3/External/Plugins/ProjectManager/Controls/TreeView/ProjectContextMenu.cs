@@ -324,9 +324,10 @@ namespace ProjectManager.Controls.TreeView
         private void AddOtherResourceItems(MergableMenu menu, string path)
         {
             bool addLibrary = project.HasLibraries && project.IsLibraryAsset(path);
-            if (project.HasLibraries) menu.Add(Insert, 0);
+            menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
+            if (project.HasLibraries) menu.Add(Insert, 0);
             if (project.HasLibraries) menu.Add(AddLibrary, 2, addLibrary);
             if (addLibrary) menu.Add(LibraryOptions, 2);
             AddFileItems(menu, path);
@@ -336,13 +337,13 @@ namespace ProjectManager.Controls.TreeView
         {
             bool addLibrary = project.HasLibraries && project.IsLibraryAsset(path);
             menu.Add(Open, 0);
+            menu.Add(Execute, 0);
+            menu.Add(ShellMenu, 0);
             if (addLibrary)
             {
                 LibraryAsset asset = project.GetAsset(path);
                 if (asset.SwfMode == SwfAssetMode.Library) menu.Add(Insert, 0);
             }
-            menu.Add(Execute, 0);
-            menu.Add(ShellMenu, 0);
             if (project.HasLibraries) menu.Add(AddLibrary, 2, addLibrary);
             if (addLibrary) menu.Add(LibraryOptions, 2);
             AddFileItems(menu, path);

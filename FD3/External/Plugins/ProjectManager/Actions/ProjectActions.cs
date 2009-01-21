@@ -232,6 +232,7 @@ namespace ProjectManager.Actions
 
         public void InsertFile(IMainForm mainForm, Project project, string path, GenericNode node)
 		{
+            if (!mainForm.CurrentDocument.IsEditable) return;
             string nodeType = (node != null) ? node.GetType().ToString() : null;
             string export = (node != null && node is ExportNode) ? (node as ExportNode).Export : null;
             string textToInsert = project.GetInsertFileText(mainForm.CurrentDocument.FileName, path, export, nodeType);
