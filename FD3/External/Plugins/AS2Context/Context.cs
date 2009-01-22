@@ -699,6 +699,7 @@ namespace AS2Context
                         MessageBar.ShowWarning(msg);
                         return;
                     }
+                    else MessageBar.HideWarning();
                 }
                 if (!pClass.IsVoid())
                 {
@@ -713,6 +714,7 @@ namespace AS2Context
                                 + "\n" + cFile.FileName;
                             MessageBar.ShowWarning(msg);
                         }
+                        else MessageBar.HideWarning();
                     }
                 }
             }
