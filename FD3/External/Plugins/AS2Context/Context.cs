@@ -857,7 +857,7 @@ namespace AS2Context
                 }
             }
 			// result
-            if (pModel.Imports.Count > 0)
+            if (pModel.Imports.Count > 0 || pModel.Members.Count > 0)
 			{
                 pModel.Imports.Sort();
 				return pModel;

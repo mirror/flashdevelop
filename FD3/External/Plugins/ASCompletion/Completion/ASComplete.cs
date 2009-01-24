@@ -1761,15 +1761,37 @@ namespace ASCompletion.Completion
                 }
             imports = null;
 
-            // package-level types
+            // package-level types & declarations
             if (context.Features.hasPackages && inFile.Package.Length > 0)
             {
-                ClassModel friendClass = context.GetModel(inFile.Package, token, inFile.Package);
-                if (!friendClass.IsVoid())
+                FileModel inPackage = context.ResolvePackage(inFile.Package, false);
+                if (inPackage != null)
                 {
-                    result.Type = friendClass;
-                    result.IsStatic = (p < 0);
-                    return result;
+                    foreach (MemberModel friend in inPackage.Imports)
+                    {
+                        if (friend.Name == token)
+                        {
+                            ClassModel friendClass = context.GetModel(inFile.Package, token, inFile.Package);
+                            if (!friendClass.IsVoid())
+                            {
+                                result.Type = friendClass;
+                                result.IsStatic = (p < 0);
+                                return result;
+                            }
+                            break;
+                        }
+                    }
+                    foreach (MemberModel friend in inPackage.Members)
+                    {
+                        if (friend.Name == token)
+                        {
+                            result.Member = friend;
+                            result.Type = (p < 0 && (friend.Flags & FlagType.Function) > 0)
+                                ? context.ResolveType("Function", null)
+                                : context.ResolveType(friend.Type, friend.InFile);
+                            return result;
+                        }
+                    }
                 }
             }
 
