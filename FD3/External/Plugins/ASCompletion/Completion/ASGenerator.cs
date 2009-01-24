@@ -693,10 +693,26 @@ namespace ASCompletion.Completion
 
         public static void GenerateEventHandler(string name, string type, MemberModel afterMethod, int position)
         {
-            string acc = GetPrivateAccessor(afterMethod);
-            string decl = BlankLine + String.Format(GetTemplate("EventHandler"),
-                acc, name, type, ASContext.Context.Features.voidKey);
-            InsertCode(position, decl);
+            ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
+            Sci.BeginUndoAction();
+            try
+            {
+                if (type == "Event")
+                {
+                    List<string> typesUsed = new List<string>();
+                    typesUsed.Add("flash.events.Event");
+                    position += AddImportsByName(typesUsed, null, Sci.LineFromPosition(position));
+                    Sci.SetSel(position, position);
+                }
+                string acc = GetPrivateAccessor(afterMethod);
+                string decl = BlankLine + String.Format(GetTemplate("EventHandler"),
+                    acc, name, type, ASContext.Context.Features.voidKey);
+                InsertCode(position, decl);
+            }
+            finally
+            {
+                Sci.EndUndoAction();
+            }
         }
 
         public static void GenerateGetter(string name, MemberModel member, int position)
@@ -1049,7 +1065,7 @@ namespace ASCompletion.Completion
             int curLine = sci.LineFromPosition(position);
 
             string fullPath = CleanType(member.Type); // ((member.Flags & FlagType.Class) > 0) ? member.Type : member.Name;
-            string statement = "import " + fullPath + ";" + ASComplete.GetNewLineMarker(sci.EOLMode);
+            string statement = "import " + fullPath + ";\n";
 
             // locate insertion point
             int line = (ASContext.Context.InPrivateSection) ? cFile.PrivateSectionIndex : 0;
