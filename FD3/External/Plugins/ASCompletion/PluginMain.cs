@@ -231,6 +231,7 @@ namespace ASCompletion
                         {
                             currentDoc = "";
                             SetItemsEnabled(false);
+                            ASContext.SetCurrentFile(null, true);
                             return;
                         }
                         currentDoc = doc.FileName;
@@ -239,8 +240,9 @@ namespace ASCompletion
                         bool ignoreFile = !doc.IsEditable;
                         ASContext.SetCurrentFile(doc, ignoreFile);
                         // UI
-                        Boolean enableItems = ASContext.Context.IsFileValid && !doc.IsUntitled;
+                        bool enableItems = ASContext.Context.IsFileValid && !doc.IsUntitled;
                         SetItemsEnabled(enableItems);
+                        pluginUI.OutlineTree.Enabled = ASContext.Context.CurrentModel != null;
                         return;
 
                     // some commands work all the time
@@ -731,7 +733,6 @@ namespace ASCompletion
 		private void SetItemsEnabled(bool enabled)
 		{
             foreach (ToolStripItem item in menuItems) item.Enabled = enabled;
-            pluginUI.OutlineTree.Enabled = enabled;
         }
 
         #endregion

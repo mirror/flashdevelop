@@ -190,8 +190,6 @@ namespace ASCompletion.Context
                 {
                     cFile = FileModel.Ignore;
                     cLine = -1;
-                    // default context
-                    ASContext.Context = null;
                     return;
                 }
                 else
@@ -356,11 +354,16 @@ namespace ASCompletion.Context
             context.CurrentFile = null;
 
             // check document
-            string filename = doc.FileName ?? "";
-            if (doPathNormalization)
-                filename = filename.Replace(dirAltSeparator, dirSeparator);
-            FileModel.Ignore.FileName = filename;
+            string filename = "";
+            if (doc != null && doc.FileName != null)
+            {
+                filename = doc.FileName;
+                if (doPathNormalization)
+                    filename = filename.Replace(dirAltSeparator, dirSeparator);
+            }
+            else shouldIgnore = true;
 
+            FileModel.Ignore.FileName = filename;
             // find the doc context(s)
             if (!shouldIgnore)
             {

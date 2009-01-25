@@ -786,6 +786,28 @@ namespace ASCompletion
             }
             return rst;
         }
+
+        private void sortDropDown_DropDownOpening(object sender, EventArgs e)
+        {
+            noneItem.Checked = settings.SortingMode == OutlineSorting.None;
+            sortedItem.Checked = settings.SortingMode == OutlineSorting.Sorted;
+            sortedByKindItem.Checked = settings.SortingMode == OutlineSorting.SortedByKind;
+            sortedGroupItem.Checked = settings.SortingMode == OutlineSorting.SortedGroup;
+            sortedSmartItem.Checked = settings.SortingMode == OutlineSorting.SortedSmart;
+        }
+
+        private void sortDropDown_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripMenuItem item = e.ClickedItem as ToolStripMenuItem;
+            if (item == null || item.Checked) return;
+            if (item == noneItem) settings.SortingMode = OutlineSorting.None;
+            else if (item == sortedItem) settings.SortingMode = OutlineSorting.Sorted;
+            else if (item == sortedByKindItem) settings.SortingMode = OutlineSorting.SortedByKind;
+            else if (item == sortedGroupItem) settings.SortingMode = OutlineSorting.SortedGroup;
+            else if (item == sortedSmartItem) settings.SortingMode = OutlineSorting.SortedSmart;
+            if (ASContext.Context.CurrentModel != null) RefreshView(ASContext.Context.CurrentModel);
+        }
+
         #endregion
 
         #region tree_items_selection
@@ -1000,28 +1022,6 @@ namespace ASCompletion
             return null;
         }
         #endregion
-
-        private void sortDropDown_DropDownOpening(object sender, EventArgs e)
-        {
-            noneItem.Checked = settings.SortingMode == OutlineSorting.None;
-            sortedItem.Checked = settings.SortingMode == OutlineSorting.Sorted;
-            sortedByKindItem.Checked = settings.SortingMode == OutlineSorting.SortedByKind;
-            sortedGroupItem.Checked = settings.SortingMode == OutlineSorting.SortedGroup;
-            sortedSmartItem.Checked = settings.SortingMode == OutlineSorting.SortedSmart;
-        }
-
-        private void sortDropDown_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            ToolStripMenuItem item = e.ClickedItem as ToolStripMenuItem;
-            if (item == null || item.Checked) return;
-            if (item == noneItem) settings.SortingMode = OutlineSorting.None;
-            else if (item == sortedItem) settings.SortingMode = OutlineSorting.Sorted;
-            else if (item == sortedByKindItem) settings.SortingMode = OutlineSorting.SortedByKind;
-            else if (item == sortedGroupItem) settings.SortingMode = OutlineSorting.SortedGroup;
-            else if (item == sortedSmartItem) settings.SortingMode = OutlineSorting.SortedSmart;
-            if (ASContext.Context.CurrentModel != null) RefreshView(ASContext.Context.CurrentModel);
-        }
-
     }
 
     #region Custom structures
