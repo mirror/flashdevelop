@@ -186,7 +186,7 @@ namespace ASCompletion.Completion
 			{
 				c = (char)Sci.CharAt(position);
 				sb.Append(c);
-				if ((c == '(') || (c == ';') || (c == '{')) break;
+				if (c == '(' || c == ';' || c == '{' || c == '}') break;
 				position++;
 			}
 			string signature = sb.ToString();
@@ -198,7 +198,7 @@ namespace ASCompletion.Completion
 				{
 					c = (char)Sci.CharAt(position);
 					sb.Append(c);
-					if ((c == ';') || (c == '{')) break;
+					if (c == ';' || c == '{') break;
 					position++;
 				}
 				signature = sb.ToString();
