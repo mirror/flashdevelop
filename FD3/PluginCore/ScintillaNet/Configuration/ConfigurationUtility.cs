@@ -29,6 +29,8 @@ namespace ScintillaNet.Configuration
         protected virtual Stream OpenFile(string filename, ConfigFile parent)
         {
 			System.IO.Stream res;
+            filename = filename.Replace("$(AppDir)", PathHelper.AppDir);
+            filename = filename.Replace("$(UserAppDir)", PathHelper.UserAppDir);
             filename = filename.Replace("$(BaseDir)", PathHelper.BaseDir);
             if (System.IO.File.Exists(filename))
 			{

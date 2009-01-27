@@ -10,24 +10,13 @@ namespace FlashDevelop.Helpers
     class FileNameHelper
     {
         /// <summary>
-        /// Path to the file state directory
+        /// Path to the system image file
         /// </summary>
-        public static String FileStateDir
+        public static String Images
         {
             get
             {
-                return Path.Combine(PathHelper.SettingDir, "FileStates");
-            }
-        }
-
-        /// <summary>
-        /// Path to the recovery directory
-        /// </summary>
-        public static String RecoveryDir
-        {
-            get
-            {
-                return Path.Combine(PathHelper.SettingDir, "Recovery");
+                return GetSettingFile("Images.png");
             }
         }
 
@@ -38,7 +27,7 @@ namespace FlashDevelop.Helpers
         {
             get
             {
-                return Path.Combine(PathHelper.SettingDir, "ToolBar.xml");
+                return GetSettingFile("ToolBar.xml");
             }
         }
 
@@ -49,7 +38,40 @@ namespace FlashDevelop.Helpers
         {
             get 
             {
-                return Path.Combine(PathHelper.SettingDir, "MainMenu.xml");
+                return GetSettingFile("MainMenu.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the scintilla config file
+        /// </summary>
+        public static String Scintilla
+        {
+            get
+            {
+                return GetSettingFile("ScintillaNET.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the scintilla menu file
+        /// </summary>
+        public static String ScintillaMenu
+        {
+            get
+            {
+                return GetSettingFile("ScintillaMenu.xml");
+            }
+        }
+
+        /// <summary>
+        /// Path to the tab menu file
+        /// </summary>
+        public static String TabMenu
+        {
+            get
+            {
+                return GetSettingFile("TabMenu.xml");
             }
         }
 
@@ -80,9 +102,9 @@ namespace FlashDevelop.Helpers
         /// </summary>
         public static String LayoutData
         {
-            get 
+            get
             {
-                return Path.Combine(PathHelper.SettingDir, "LayoutData.fdl"); 
+                return Path.Combine(PathHelper.SettingDir, "LayoutData.fdl");
             }
         }
 
@@ -98,47 +120,37 @@ namespace FlashDevelop.Helpers
         }
 
         /// <summary>
-        /// Path to the scintilla config file
+        /// Path to the recovery directory
         /// </summary>
-        public static String Scintilla
+        public static String RecoveryDir
         {
             get
             {
-                return Path.Combine(PathHelper.SettingDir, "ScintillaNET.xml");
+                return Path.Combine(PathHelper.SettingDir, "Recovery");
             }
         }
 
         /// <summary>
-        /// Path to the scintilla menu file
+        /// Path to the file state directory
         /// </summary>
-        public static String ScintillaMenu
+        public static String FileStateDir
         {
             get
             {
-                return Path.Combine(PathHelper.SettingDir, "ScintillaMenu.xml");
+                return Path.Combine(PathHelper.SettingDir, "FileStates");
             }
         }
-
+        
         /// <summary>
-        /// Path to the tab menu file
+        /// Selects correct setting file from user dir or app dir.
         /// </summary>
-        public static String TabMenu
+        public static String GetSettingFile(String file)
         {
-            get
-            {
-                return Path.Combine(PathHelper.SettingDir, "TabMenu.xml");
-            }
-        }
-
-        /// <summary>
-        /// Path to the system image file
-        /// </summary>
-        public static String Images
-        {
-            get
-            {
-                return Path.Combine(PathHelper.SettingDir, "Images.png");
-            }
+            Boolean standalone = Globals.MainForm.StandaloneMode;
+            String appDirSettingFile = Path.Combine(Path.Combine(PathHelper.AppDir, "Settings"), file);
+            String userDirSettingFile = Path.Combine(Path.Combine(PathHelper.UserAppDir, "Settings"), file);
+            if (!standalone && File.Exists(userDirSettingFile)) return userDirSettingFile;
+            else return appDirSettingFile;
         }
 
     }

@@ -172,6 +172,8 @@ Function GetNeedsReset
 	StrCpy $2 "do_reset"
 	${ElseIf} $1 == "3.0.0-Beta9"
 	StrCpy $2 "do_reset"
+	${ElseIf} $1 == "3.0.0-RC1"
+	StrCpy $2 "do_reset"
 	${Else}
 	StrCpy $2 "is_ok"
 	${EndIf}
@@ -348,7 +350,7 @@ Section "Desktop Shortcut" DesktopShortcut
 	
 SectionEnd
 
-Section "Multi Instance Mode" MultiInstanceMode
+Section "Multi Instance Mode *" MultiInstanceMode
 	
 	SetOverwrite on
 	
@@ -357,7 +359,7 @@ Section "Multi Instance Mode" MultiInstanceMode
 	
 SectionEnd
 
-Section "Standalone Mode" StandaloneMode
+Section "Standalone Mode *" StandaloneMode
 	
 	SectionIn 2
 	SetOverwrite on
@@ -374,8 +376,8 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${Main} "Installs the main program and other required files."
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
-!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Run as standalone application instead of installing user-related files to the user's application data directory. WARNING: Standard users might not be able to run FlashDevelop in standalone mode."
-!insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed."
+!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to run FlashDevelop in standalone mode and upgrading needs manual work."
+!insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END

@@ -195,6 +195,10 @@ namespace FlashDevelop.Dialogs
                             if (Directory.Exists(data)) Directory.Delete(data, true);
                             else File.Delete(data);
                         }
+                        else if (command.Action.ToLower() == "create")
+                        {
+                            Directory.CreateDirectory(data);
+                        }
                     }
                     count++;
                     Int32 percent = (100 * count) / total;
