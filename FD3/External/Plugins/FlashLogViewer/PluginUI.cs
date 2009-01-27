@@ -212,23 +212,35 @@ namespace FlashLogViewer
             String flashPlayerDir = Path.Combine(macromediaDir, "Flash Player");
             String flashLogDir = Path.Combine(flashPlayerDir, "Logs");
             String mmConfigFile = Path.Combine(userDir, "mm.cfg");
-            if (!File.Exists(this.Settings.FlashLogFile))
+            try
             {
-                if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
-                this.Settings.FlashLogFile = Path.Combine(flashLogDir, "flashlog.txt");
-                FileHelper.WriteFile(this.Settings.FlashLogFile, "", Encoding.Default);
+                if (!File.Exists(this.Settings.FlashLogFile))
+                {
+                    if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
+                    this.Settings.FlashLogFile = Path.Combine(flashLogDir, "flashlog.txt");
+                    FileHelper.WriteFile(this.Settings.FlashLogFile, "", Encoding.Default);
+                }
             }
-            if (!File.Exists(this.Settings.PolicyLogFile)) 
+            catch { } // No errors please...
+            try
             {
-                if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
-                this.Settings.PolicyLogFile = Path.Combine(flashLogDir, "policyfiles.txt");
-                FileHelper.WriteFile(this.Settings.PolicyLogFile, "", Encoding.Default);
+                if (!File.Exists(this.Settings.PolicyLogFile))
+                {
+                    if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
+                    this.Settings.PolicyLogFile = Path.Combine(flashLogDir, "policyfiles.txt");
+                    FileHelper.WriteFile(this.Settings.PolicyLogFile, "", Encoding.Default);
+                }
             }
-            if (!File.Exists(mmConfigFile))
+            catch { } // No errors please...
+            try
             {
-                String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\n";
-                FileHelper.WriteFile(mmConfigFile, contents, Encoding.Default);
+                if (!File.Exists(mmConfigFile))
+                {
+                    String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\n";
+                    FileHelper.WriteFile(mmConfigFile, contents, Encoding.Default);
+                }
             }
+            catch { } // No errors please...
             this.curLogFile = this.Settings.FlashLogFile;
         }
 
