@@ -364,13 +364,13 @@ namespace ScintillaNet
                             String info;
                             if (theType == null)
                             {
-                                info = String.Format("Lexer '{0}' ({1}) unknwon", lang.lexer.name, lang.lexer.key);
+                                info = String.Format("Lexer '{0}' ({1}) unknown.", lang.lexer.name, lang.lexer.key);
                                 ErrorManager.ShowWarning(info, ex);
                                 break;
                             }
                             else
                             {
-                                info = String.Format("Style '{0}' in syntax file is not used by lexer '{1}'", usestyle.name, theType.Name);
+                                info = String.Format("Style '{0}' in syntax file is not used by lexer '{1}'.", usestyle.name, theType.Name);
                                 ErrorManager.ShowWarning(info, ex);
                             }
                         }
