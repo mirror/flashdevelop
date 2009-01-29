@@ -397,8 +397,6 @@ Section "un.FlashDevelop" UninstMain
 	RMDir /r "$INSTDIR\StartPage"
 	RMDir /r "$INSTDIR\Tools"
 	
-	Delete "$INSTDIR\.multi"
-	Delete "$INSTDIR\.local"
 	Delete "$INSTDIR\FirstRun.fdb"
 	Delete "$INSTDIR\Exceptions.log"
 	Delete "$INSTDIR\FlashDevelop.exe"
@@ -439,6 +437,9 @@ SectionEnd
 Section /o "un.Settings" UninstSettings
 	
 	SectionIn 2
+	
+	Delete "$INSTDIR\.multi"
+	Delete "$INSTDIR\.local"
 	
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
