@@ -75,6 +75,7 @@ namespace ScintillaNet.Configuration
 				return false;
 			}
 		}
+
 		public bool HasEolFilled
 		{
 			get
@@ -92,8 +93,11 @@ namespace ScintillaNet.Configuration
             {
 				if (font != null) return true;
 				StyleClass p = ParentClass;
-				if (p != null) return p.HasFontName;
-                else if (p.FontName == "setting-defined") return true;
+                if (p != null)
+                {
+                    if (p.FontName == "setting-defined") return true;
+                    else return p.HasFontName;
+                }
 				return false;
 			}
         }
@@ -104,8 +108,11 @@ namespace ScintillaNet.Configuration
             {
 				if (size != null) return true;
 				StyleClass p = ParentClass;
-				if (p != null) return p.HasFontSize;
-                else if (p.FontName == "setting-defined") return true;
+                if (p != null)
+                {
+                    if (p.FontName == "setting-defined") return true;
+                    else return p.HasFontSize;
+                }
 				return false;
 			}
         }
@@ -148,7 +155,6 @@ namespace ScintillaNet.Configuration
                     else return p.FontName;
                 }
 				return "Courier New";
-
             }
         }
 
@@ -167,7 +173,7 @@ namespace ScintillaNet.Configuration
                     }
                     else return p.FontSize;
                 }
-				return 9;
+				return Int32.Parse("9f", NumberStyles.Float);
 			}
         }
 
@@ -212,7 +218,6 @@ namespace ScintillaNet.Configuration
 				StyleClass p = ParentClass;
 				if (p != null) return p.IsBold;
 				return false;
-
 			}
 		}
 
@@ -224,7 +229,6 @@ namespace ScintillaNet.Configuration
 				StyleClass p = ParentClass;
 				if (p  != null) return p.IsEolFilled;
 				return false;
-
 			}
 		}
 
