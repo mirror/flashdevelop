@@ -38,6 +38,9 @@ namespace ScintillaNet.Configuration
         [XmlAttributeAttribute("inherit-style")]
         public string inheritstyle;
 
+        [NonSerialized]
+        public Language language;
+
         public StyleClass(){}
         
         public StyleClass ParentClass
@@ -52,20 +55,11 @@ namespace ScintillaNet.Configuration
 				// Caution: It is not programmatically guaranteed that there is a default.
                 if (!name.Equals("default"))
                 {
-                    try
+                    if (language != null)
                     {
-                        if (_parent.filename != null)
-                        {
-                            String filename = Path.GetFileNameWithoutExtension(this._parent.filename);
-                            Language language = _parent.MasterScintilla.GetLanguage(filename.ToLower());
-                            if (language != null)
-                            {
-                                StyleClass defaultCls = language.usestyles[0]; // First should be default...
-                                if (defaultCls != null) return defaultCls;
-                            }
-                        }
+                        StyleClass defaultCls = language.usestyles[0]; // First should be default...
+                        if (defaultCls != null) return defaultCls;
                     }
-                    catch { }
                     return _parent.MasterScintilla.GetStyleClass("default");
                 }
 				return null;

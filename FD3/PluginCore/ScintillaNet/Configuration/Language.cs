@@ -73,6 +73,7 @@ namespace ScintillaNet.Configuration
             }
             for (int i = 0; i<usestyles.Length; i++)
             {
+                usestyles[i].language = this;
                 usestyles[i].init(utility, _parent);
             }
             if (lexer != null) lexer.init(utility, _parent);
