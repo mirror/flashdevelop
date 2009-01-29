@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime;
@@ -47,9 +48,26 @@ namespace ScintillaNet.Configuration
 				{
 					return _parent.MasterScintilla.GetStyleClass(inheritstyle);
 				}
-				// If it has no parent, the default class will be the parent.
-				// Caution: it is not programmatically guaranteed that there is a default.
-				if (!name.Equals("default")) return _parent.MasterScintilla.GetStyleClass("default");
+				// Get the parent class. It should be either language's own default or global default
+				// Caution: It is not programmatically guaranteed that there is a default.
+                if (!name.Equals("default"))
+                {
+                    try
+                    {
+                        if (_parent.filename != null)
+                        {
+                            String filename = Path.GetFileNameWithoutExtension(this._parent.filename);
+                            Language language = _parent.MasterScintilla.GetLanguage(filename.ToLower());
+                            if (language != null)
+                            {
+                                StyleClass defaultCls = language.usestyles[0]; // First should be default...
+                                if (defaultCls != null) return defaultCls;
+                            }
+                        }
+                    }
+                    catch { }
+                    return _parent.MasterScintilla.GetStyleClass("default");
+                }
 				return null;
 			}
         }
