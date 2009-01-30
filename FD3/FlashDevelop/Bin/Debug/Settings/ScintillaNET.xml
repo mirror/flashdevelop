@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<includes>
-		<include file="$(AppDir)\Settings\Languages\AS2.xml" />
-		<include file="$(AppDir)\Settings\Languages\AS3.xml" />
-		<include file="$(AppDir)\Settings\Languages\CSS.xml" />
-		<include file="$(AppDir)\Settings\Languages\HaXe.xml" />
-		<include file="$(AppDir)\Settings\Languages\HTML.xml" />
-		<include file="$(AppDir)\Settings\Languages\JScript.xml" />
-		<include file="$(AppDir)\Settings\Languages\Python.xml" />
-		<include file="$(AppDir)\Settings\Languages\Text.xml" />
-		<include file="$(AppDir)\Settings\Languages\XML.xml" />
+		<include file="Languages\AS2.xml" />
+		<include file="Languages\AS3.xml" />
+		<include file="Languages\CSS.xml" />
+		<include file="Languages\HaXe.xml" />
+		<include file="Languages\HTML.xml" />
+		<include file="Languages\JScript.xml" />
+		<include file="Languages\Python.xml" />
+		<include file="Languages\Text.xml" />
+		<include file="Languages\XML.xml" />
 	</includes>
 	<globals>
 		<value name="default-fore">0x000000</value>
