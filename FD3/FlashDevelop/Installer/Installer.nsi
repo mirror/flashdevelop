@@ -248,14 +248,7 @@ Section "FlashDevelop" Main
 	
 	SetOutPath "$INSTDIR"
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
-	
-	SetOverwrite off
 
-	IfFileExists "$INSTDIR\.local" +4 0
-	RMDir /r "$INSTDIR\Settings"
-	RMDir /r "$INSTDIR\Snippets"
-	RMDir /r "$INSTDIR\Templates"
-	
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
 	
@@ -266,6 +259,26 @@ Section "FlashDevelop" Main
 	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
 	
 SectionEnd
+
+Section "Quick Launch Shortcut" QuickShortcut
+	
+	SectionIn 1	
+	SetOverwrite on
+	
+	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
+	
+SectionEnd
+
+Section "Desktop Shortcut" DesktopShortcut
+	
+	SectionIn 1
+	SetOverwrite on
+	
+	CreateShortCut "$DESKTOP\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
+	
+SectionEnd
+
+SectionGroup "Advanced"
 
 Section "Registry Modifications" RegistryMods
 	
@@ -332,25 +345,7 @@ Section "Registry Modifications" RegistryMods
 	
 SectionEnd
 
-Section "Quick Launch Shortcut" QuickShortcut
-	
-	SectionIn 1	
-	SetOverwrite on
-	
-	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-	
-SectionEnd
-
-Section "Desktop Shortcut" DesktopShortcut
-	
-	SectionIn 1
-	SetOverwrite on
-	
-	CreateShortCut "$DESKTOP\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-	
-SectionEnd
-
-Section "Multi Instance Mode *" MultiInstanceMode
+Section "Multi Instance Mode" MultiInstanceMode
 	
 	SetOverwrite on
 	
@@ -359,7 +354,7 @@ Section "Multi Instance Mode *" MultiInstanceMode
 	
 SectionEnd
 
-Section "Standalone Mode *" StandaloneMode
+Section "Standalone Mode" StandaloneMode
 	
 	SectionIn 2
 	SetOverwrite on
@@ -369,6 +364,8 @@ Section "Standalone Mode *" StandaloneMode
 	
 SectionEnd
 
+SectionGroupEnd
+
 ;--------------------------------
 
 ; Install section strings
@@ -376,7 +373,7 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${Main} "Installs the main program and other required files."
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
-!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to run FlashDevelop in standalone mode and upgrading needs manual work."
+!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to use standalone mode and when upgrading you need to manually backup setting files."
 !insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
