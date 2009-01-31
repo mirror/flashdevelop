@@ -247,24 +247,20 @@ Section "FlashDevelop" Main
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets "..\Bin\Debug\*.*"
 	
 	SetOverwrite off
 	
-	IfFileExists "$INSTDIR\.local" +5 0
+	IfFileExists "$INSTDIR\.local" +4 0
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
 	RMDir /r "$INSTDIR\Snippets"
-	RMDir /r "$INSTDIR\Templates"
 
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
 	
 	SetOutPath "$INSTDIR\Snippets"
 	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
-	
-	SetOutPath "$INSTDIR\Templates"
-	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
 	
 SectionEnd
 
@@ -400,6 +396,7 @@ Section "un.FlashDevelop" UninstMain
 	RMDir /r "$INSTDIR\Library"
 	RMDir /r "$INSTDIR\Plugins"
 	RMDir /r "$INSTDIR\StartPage"
+	RMDir /r "$INSTDIR\Templates"
 	RMDir /r "$INSTDIR\Tools"
 	
 	Delete "$INSTDIR\FirstRun.fdb"
@@ -449,7 +446,6 @@ Section /o "un.Settings" UninstSettings
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
 	RMDir /r "$INSTDIR\Snippets"
-	RMDir /r "$INSTDIR\Templates"
 	RMDir /r "$LOCALAPPDATA\FlashDevelop"
 	RMDir /r "$SMPROGRAMS\FlashDevelop"
 	RMDir "$INSTDIR"
@@ -462,7 +458,7 @@ SectionEnd
 
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${UninstMain} "Uninstalls the main program, other required files and registry modifications."
-!insertmacro MUI_DESCRIPTION_TEXT ${UninstSettings} "Uninstalls all settings, snippets and templates from the install directory and user's application data directory."
+!insertmacro MUI_DESCRIPTION_TEXT ${UninstSettings} "Uninstalls all settings and snippets from the install directory and user's application data directory."
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_END
 
 ;--------------------------------

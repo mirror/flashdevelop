@@ -66,6 +66,7 @@ namespace PluginCore.Helpers
                 return Path.Combine(BaseDir, "Data");
             }
         }
+
         /// <summary>
         /// Path to the snippets directory
         /// </summary>
@@ -78,17 +79,6 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
-        /// Path to the templates directory
-        /// </summary>
-        public static String TemplateDir
-        {
-            get
-            {
-                return Path.Combine(BaseDir, "Templates");
-            }
-        }
-
-        /// <summary>
         /// Path to the settings directory
         /// </summary>
         public static String SettingDir
@@ -96,6 +86,17 @@ namespace PluginCore.Helpers
             get
             {
                 return Path.Combine(BaseDir, "Settings");
+            }
+        }
+
+        /// <summary>
+        /// Path to the templates directory
+        /// </summary>
+        public static String TemplateDir
+        {
+            get
+            {
+                return Path.Combine(AppDir, "Templates");
             }
         }
 
