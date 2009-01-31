@@ -1,11 +1,11 @@
 using System;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using System.Drawing.Design;
 using PluginCore.Localization;
-using System.Xml.Serialization;
 
 namespace FdbPlugin
 {
@@ -47,8 +47,29 @@ namespace FdbPlugin
         private Color breakPointEnableLineColor = Color.Yellow;
         private Color breakPointDisableLineColor = Color.Gray;
 
-        public event PathChangedEventHandler PathChangedEvent = null;
-        public event FlexSDKLocaleChangedEventHandler FlexSDKLocaleChangedEvent = null;
+        [NonSerialized]
+        private PathChangedEventHandler pathChangedEvent = null;
+
+        [NonSerialized]
+        private FlexSDKLocaleChangedEventHandler flexSDKLocaleChangedEvent = null;
+
+        // We need to create events "manually" so that the list of delegates is not serialized
+        // along with the class!
+        public event PathChangedEventHandler PathChangedEvent
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            add { pathChangedEvent = (PathChangedEventHandler)Delegate.Combine(pathChangedEvent, value); }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            remove { pathChangedEvent = (PathChangedEventHandler)Delegate.Remove(pathChangedEvent, value); }
+        }
+
+        public event FlexSDKLocaleChangedEventHandler FlexSDKLocaleChangedEvent
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            add { flexSDKLocaleChangedEvent = (FlexSDKLocaleChangedEventHandler)Delegate.Combine(flexSDKLocaleChangedEvent, value); }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            remove { flexSDKLocaleChangedEvent = (FlexSDKLocaleChangedEventHandler)Delegate.Remove(flexSDKLocaleChangedEvent, value); }
+        }
 
         [LocalizedCategory("FdbPlugin.Category.View")]
         [LocalizedDescription("FdbPlugin.Description.DebugLineColor")] 
@@ -212,8 +233,8 @@ namespace FdbPlugin
             {
                 if (value == this.flexSdkLocale) return;
                 this.flexSdkLocale = value;
-                if (FlexSDKLocaleChangedEvent != null)
-                    FlexSDKLocaleChangedEvent(this.flexSdkLocale);
+                if (flexSDKLocaleChangedEvent != null)
+                    flexSDKLocaleChangedEvent(this.flexSdkLocale);
             }
         }
 
@@ -243,7 +264,7 @@ namespace FdbPlugin
         [Browsable(false)]
         private void FireChanged()
         {
-            if (PathChangedEvent != null) PathChangedEvent(debugFlashPlayerPath);
+            if (pathChangedEvent != null) pathChangedEvent(debugFlashPlayerPath);
         }
 
     }
