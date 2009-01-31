@@ -247,7 +247,16 @@ Section "FlashDevelop" Main
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
+
+	SetOutPath "$INSTDIR\Settings"
+	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
+	
+	SetOutPath "$INSTDIR\Snippets"
+	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
+	
+	SetOutPath "$INSTDIR\Templates"
+	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
 	
 SectionEnd
 
