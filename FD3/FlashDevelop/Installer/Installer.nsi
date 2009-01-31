@@ -248,6 +248,14 @@ Section "FlashDevelop" Main
 	
 	SetOutPath "$INSTDIR"
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
+	
+	SetOverwrite off
+	
+	IfFileExists "$INSTDIR\.local" +5 0
+	RMDir /r "$INSTDIR\Data"
+	RMDir /r "$INSTDIR\Settings"
+	RMDir /r "$INSTDIR\Snippets"
+	RMDir /r "$INSTDIR\Templates"
 
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
@@ -373,7 +381,7 @@ SectionGroupEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${Main} "Installs the main program and other required files."
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
-!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to use standalone mode and when upgrading you need to manually backup setting files."
+!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to use standalone mode and upgrading needs some manual work."
 !insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
