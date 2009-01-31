@@ -267,6 +267,7 @@ namespace FlashLogViewer
         private void InitializeContextMenu()
         {
             ContextMenuStrip menu = new ContextMenuStrip();
+            menu.Font = PluginBase.Settings.DefaultFont;
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ClearLog"), null, new EventHandler(this.ClearOutput)));
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CopyOutput"), null, new EventHandler(this.CopyOutput)));
             menu.Items.Add(new ToolStripSeparator());
