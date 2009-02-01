@@ -14,11 +14,8 @@ namespace ProjectManager.Projects
             get
             {
                 string altpath = PluginMain.Settings.AlternateTemplateDir;
-
-                if (altpath != null && altpath.Length > 0)
-                    return altpath;
-                else
-                    return Path.Combine(PathHelper.TemplateDir, "ProjectTemplates");
+                if (altpath != null && altpath.Length > 0) return altpath;
+                else return PathHelper.ProjectsDir;
             }
         }
 

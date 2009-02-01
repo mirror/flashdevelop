@@ -96,7 +96,18 @@ namespace PluginCore.Helpers
         {
             get
             {
-                return Path.Combine(AppDir, "Templates");
+                return Path.Combine(BaseDir, "Templates");
+            }
+        }
+
+        /// <summary>
+        /// Path to the project templates directory
+        /// </summary>
+        public static String ProjectsDir
+        {
+            get
+            {
+                return Path.Combine(AppDir, "Projects");
             }
         }
 
