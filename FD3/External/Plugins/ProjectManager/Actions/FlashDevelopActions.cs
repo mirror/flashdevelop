@@ -8,6 +8,7 @@ using PluginCore.Utilities;
 using PluginCore;
 using ProjectManager.Helpers;
 using System.Windows.Forms;
+using PluginCore.Localization;
 
 namespace ProjectManager.Actions
 {
@@ -35,12 +36,12 @@ namespace ProjectManager.Actions
         {
             if (nameAsked) return;
             nameAsked = true;
-
             foreach (Argument arg in PluginBase.Settings.CustomArguments)
             {
                 if (arg.Key == "DefaultUser" && arg.Value == "...")
                 {
-                    LineEntryDialog prompt = new LineEntryDialog("Template configuration: enter your name", "Author", "");
+                    String caption = TextHelper.GetString("Title.AuthorName");
+                    LineEntryDialog prompt = new LineEntryDialog(caption, "Author", "");
                     if (prompt.ShowDialog() == DialogResult.OK)
                     {
                         arg.Value = prompt.Line;
@@ -48,5 +49,7 @@ namespace ProjectManager.Actions
                 }
             }
         }
+
     }
+
 }
