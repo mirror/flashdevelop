@@ -1020,7 +1020,7 @@ namespace ASCompletion.Model
 					}
 
                     // metadata
-                    else if (c1 == '[' && version == 3)
+                    else if (!inValue && c1 == '[' && version == 3)
                     {
                         LookupMeta(ref ba, ref i);
                     }
