@@ -879,9 +879,10 @@ namespace ASCompletion.Completion
             FlagType flags = member.Flags;
             string acc = "";
             string decl = "";
-            /*if (features.hasNamespaces && member.Namespace != null && member.Namespace.Length > 0) 
-                acc = member.Namespace; else*/
-            if ((member.Access & Visibility.Public) > 0) acc = features.publicKey;
+            if (features.hasNamespaces && member.Namespace != null
+                && member.Namespace.Length > 0 && member.Namespace != "internal")
+                acc = member.Namespace;
+            else if ((member.Access & Visibility.Public) > 0) acc = features.publicKey;
             else if ((member.Access & Visibility.Internal) > 0) acc = features.internalKey;
             else if ((member.Access & Visibility.Protected) > 0) acc = features.protectedKey;
             else if ((member.Access & Visibility.Private) > 0) acc = features.privateKey;
@@ -1027,11 +1028,15 @@ namespace ASCompletion.Completion
                     continue;
                 MemberModel import = null;
                 ClassModel aClass = context.ResolveType(type, fromFile);
-                if (aClass.InFile.Package.Length == 0)
-                    continue;
                 if (!aClass.IsVoid())
                 {
+                    if (aClass.InFile.Package.Length == 0)
+                        continue;
                     import = new MemberModel(aClass.Name, CleanType(aClass.Type), aClass.Flags, aClass.Access);
+                }
+                else if (type.IndexOf('.') > 0)
+                {
+                    import = new MemberModel(type.Substring(type.LastIndexOf('.') + 1), type, FlagType.Import, Visibility.Public);
                 }
                 else
                 {
@@ -1039,6 +1044,8 @@ namespace ASCompletion.Completion
                     foreach (MemberModel member in allKnown)
                         if (member.Name == type)
                         {
+                            if (member.InFile.Package.Length == 0) 
+                                break;
                             import = member.Clone() as MemberModel;
                             if ((import.Flags & FlagType.Class) == 0) import.Type = import.Name;
                             import.Type = CleanType(import.Type);
