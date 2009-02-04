@@ -2425,6 +2425,7 @@ namespace ASCompletion.Completion
                 {
                     braceCount++;
                 }
+                else if (c == '?') return ComaExpression.AnonymousObject;
                 position--;
             }
             return ComaExpression.None;
