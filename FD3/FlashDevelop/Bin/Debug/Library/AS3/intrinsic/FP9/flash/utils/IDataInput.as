@@ -16,8 +16,6 @@ package flash.utils
 		public function get objectEncoding () : uint;
 		public function set objectEncoding (version:uint) : void;
 
-		public function IDataInput ();
-
 		/// Reads a Boolean value from the byte stream or byte array.
 		public function readBoolean () : Boolean;
 
