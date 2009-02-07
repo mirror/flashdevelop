@@ -2118,7 +2118,7 @@ namespace ASCompletion.Completion
                     expression.ContextFunction = expression.ContextMember;
                     expression.FunctionOffset = expression.ContextMember.LineFrom;
 
-                    Match mStart = Regex.Match(body, "(\\)|[a-z0-9*])\\s*{", RegexOptions.IgnoreCase);
+                    Match mStart = Regex.Match(body, "(\\)|[a-z0-9*.,-<>])\\s*{", RegexOptions.IgnoreCase);
                     if (mStart.Success)
                     {
                         // cleanup function body & offset

@@ -251,10 +251,10 @@ namespace ASCompletion.Model
 			inParams = false;
 			inEnum = false;
             inTypedef = false;
-            inGeneric = false;
 			inValue = false;
             inConst = false;
-			inType = false;
+            inType = false;
+            inGeneric = false;
 
 			bool addChar = false;
 			int evalToken = 0;
@@ -1009,6 +1009,7 @@ namespace ASCompletion.Model
                                 inValue = true;
                                 inConst = (curMember.Flags & FlagType.Constant) > 0;
                                 inType = false;
+                                inGeneric = false;
                                 paramBraceCount = 0;
                                 paramParCount = 0;
                                 paramSqCount = 0;
@@ -1327,10 +1328,10 @@ namespace ASCompletion.Model
                         inParams = false;
                         inEnum = false;
                         inTypedef = false;
-                        inGeneric = false;
                         inValue = false;
                         inConst = false;
                         inType = false;
+                        inGeneric = false;
                         valueMember = null;
                         foundColon = false;
                         if (curNamespace == "internal") curNamespace = "";
