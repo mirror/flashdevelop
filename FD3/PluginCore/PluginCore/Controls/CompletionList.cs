@@ -623,19 +623,19 @@ namespace PluginCore.Controls
         /// <summary>
         /// 
         /// </summary> 
-        static public void ReplaceText(ScintillaControl sci, char trigger)
+        static public bool ReplaceText(ScintillaControl sci, char trigger)
 		{
-            ReplaceText(sci, "", trigger);
+            return ReplaceText(sci, "", trigger);
 		}
 
         /// <summary>
         /// 
         /// </summary> 
-		static public void ReplaceText(ScintillaControl sci, String tail, char trigger)
+		static public bool ReplaceText(ScintillaControl sci, String tail, char trigger)
 		{
             String triggers = PluginBase.Settings.InsertionTriggers ?? "";
             if (triggers.Length > 0 && Regex.Unescape(triggers).IndexOf(trigger) < 0)
-                return;
+                return false;
 
             ICompletionListItem item = null;
             if (completionList.SelectedIndex >= 0) 
@@ -657,8 +657,10 @@ namespace PluginCore.Controls
                     sci.ReplaceSel(replace);
                     if (OnInsert != null) OnInsert(sci, startPos, replace, trigger, item);
                     if (tail.Length > 0) sci.ReplaceSel(tail);
+                    return true;
                 }
 			}
+            return false;
         }
 		
 		#endregion
@@ -726,11 +728,19 @@ namespace PluginCore.Controls
 					return true;
 					
 				case Keys.Enter:
-                    ReplaceText(sci, '\n');
+                    if (!ReplaceText(sci, '\n'))
+                    {
+                        CompletionList.Hide();
+                        return false;
+                    }
                     return true;
 
                 case Keys.Tab:
-					ReplaceText(sci, '\t');
+                    if (!ReplaceText(sci, '\t'))
+                    {
+                        CompletionList.Hide();
+                        return false;
+                    }
 					return true;
 					
 				case Keys.Space:
