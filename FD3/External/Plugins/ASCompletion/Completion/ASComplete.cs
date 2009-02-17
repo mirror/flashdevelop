@@ -98,7 +98,7 @@ namespace ASCompletion.Completion
                                 return HandleColonCompletion(Sci, "", autoHide);
                             break;
                         }
-                        if (word == "class" || word == "package") 
+                        if (word == "class" || word == "package" || word == "interface") 
                             return false;
                         // new/extends/instanceof/...
                         if (features.HasTypePreKey(word))
@@ -1206,7 +1206,7 @@ namespace ASCompletion.Completion
 			if (dotIndex < 0)
 			{
                 string word = expr.WordBefore;
-                if (word == "class" || word == "package")
+                if (word == "class" || word == "package" || word == "interface")
                     return false;
                 // new/extends/implements
                 if (features.HasTypePreKey(word))
