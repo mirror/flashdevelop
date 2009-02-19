@@ -247,7 +247,8 @@ namespace ProjectManager.Controls
                         {
                             path = project.GetRelativePath(path);
                             // remove default classpath if you add a subfolder in the classpath
-                            if (listBox.Items.Count == 1 && (listBox.Items[0] as ClasspathEntry).Classpath == ".")
+                            if (!path.StartsWith("..") && listBox.Items.Count == 1 
+                                && (listBox.Items[0] as ClasspathEntry).Classpath == ".")
                                 listBox.Items.Clear();
                         }
 					}
