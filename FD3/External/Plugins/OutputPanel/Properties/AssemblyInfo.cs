@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyProduct("OutputPanel")]
-[assembly: AssemblyCopyright("FlashDevelop.org 2005-2008")]
+[assembly: AssemblyCopyright("FlashDevelop.org 2005-2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("2.0.0.0")]

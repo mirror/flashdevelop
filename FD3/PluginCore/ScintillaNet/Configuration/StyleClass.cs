@@ -105,11 +105,7 @@ namespace ScintillaNet.Configuration
             {
 				if (font != null) return true;
 				StyleClass p = ParentClass;
-                if (p != null)
-                {
-                    if (p.FontName == "setting-defined") return true;
-                    else return p.HasFontName;
-                }
+                if (p != null) return p.HasFontName;
 				return false;
 			}
         }
@@ -120,11 +116,7 @@ namespace ScintillaNet.Configuration
             {
 				if (size != null) return true;
 				StyleClass p = ParentClass;
-                if (p != null)
-                {
-                    if (p.FontName == "setting-defined") return true;
-                    else return p.HasFontSize;
-                }
+                if (p != null) return p.HasFontSize;
 				return false;
 			}
         }
@@ -157,15 +149,7 @@ namespace ScintillaNet.Configuration
             {
 				if (font != null) return ResolveString(font);
 				StyleClass p = ParentClass;
-                if (p != null) 
-                {
-                    if (p.FontName == "setting-defined")
-                    {
-                        Font sfont = PluginCore.PluginBase.Settings.EditorFont;
-                        return sfont.Name;
-                    }
-                    else return p.FontName;
-                }
+                if (p != null) return p.FontName;
 				return "Courier New";
             }
         }
@@ -176,15 +160,7 @@ namespace ScintillaNet.Configuration
             {
 				if (size != null) return ResolveNumber(size);
 				StyleClass p = ParentClass;
-                if (p != null)
-                {
-                    if (p.FontName == "setting-defined")
-                    {
-                        Font sfont = PluginCore.PluginBase.Settings.EditorFont;
-                        return (Int32)sfont.SizeInPoints;
-                    }
-                    else return p.FontSize;
-                }
+                if (p != null) return p.FontSize;
 				return Int32.Parse("9f", NumberStyles.Float);
 			}
         }

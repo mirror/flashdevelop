@@ -48,7 +48,7 @@
 	<languages>
 		<language name="css">
 			<lexer name="css" style-bits="7" />
-			<editor-style caret-fore="default-caret-fore" caretline-back="default-caretline-back" selection-fore="default-selection-fore" selection-back="default-selection-back" />
+			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
 			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-]]></character-class>
 			<comment-start><![CDATA[/*]]></comment-start>
 			<comment-end><![CDATA[*/]]></comment-end>			
@@ -58,7 +58,7 @@
 				<keyword key="1" class="css-pseudoclasses" />
 			</use-keywords>
 			<use-styles>
-				<style name="default" inherit-style="default" />
+				<style name="default" fore="0x000000" back="0xffffff" size="9" font="Courier New" />
 				<style name="tag" fore="0x800000" />
 				<style name="class" fore="0x800000" />
 				<style name="pseudoclass" fore="0x800000" />
@@ -75,13 +75,13 @@
 				<style name="singlestring" fore="0x0000ff" />
 				<style name="identifier2" />
 				<style name="attribute" />
-				<style name="gdefault" inherit-style="gdefault" />
-				<style name="linenumber" inherit-style="linenumber" />
-				<style name="bracelight" inherit-style="bracelight" />
-				<style name="bracebad" inherit-style="bracebad" />
-				<style name="controlchar" inherit-style="controlchar" />
-				<style name="indentguide" inherit-style="indentguide" />
-				<style name="lastpredefined" inherit-style="lastpredefined" />
+				<style name="gdefault" />
+				<style name="linenumber" fore="0x666666" />
+				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" bold="true" />
+				<style name="bracebad" bold="true" />
+				<style name="controlchar" fore="0xffffff" />
+				<style name="indentguide" fore="0xc0c0c0" />
+				<style name="lastpredefined" fore="0x666666" />
 			</use-styles>
 		</language>
 	</languages>

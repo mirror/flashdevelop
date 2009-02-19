@@ -30,6 +30,7 @@ namespace FlashDevelop.Dialogs
             this.InitializeComponent();
             this.ApplyLocalizedTexts();
             this.InitializeInterface();
+            this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
             if (this.argsPanel.Controls.Count == 0)
             {

@@ -24,6 +24,7 @@ using FlashDevelop.Dialogs;
 using FlashDevelop.Settings;
 using WeifenLuo.WinFormsUI;
 using WeifenLuo.WinFormsUI.Docking;
+using ICSharpCode.SharpZipLib.Zip;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
@@ -527,6 +528,11 @@ namespace FlashDevelop
                     return null;
                 }
                 else return null;
+            }
+            else if (file.EndsWith(".fdz"))
+            {
+                this.CallCommand("ExtractZip", file);
+                return null;
             }
             try
             {
@@ -2060,6 +2066,14 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Opens the edit syntax dialog
+        /// </summary>
+        public void EditSyntax(Object sender, System.EventArgs e)
+        {
+            EditorDialog.Show();
+        }
+
+        /// <summary>
         /// Opens the about dialog
         /// </summary>
         public void About(Object sender, System.EventArgs e)
@@ -2116,6 +2130,41 @@ namespace FlashDevelop
                 this.isFullScreen = true;
             }
             ButtonManager.UpdateFlaggedButtons();
+        }
+
+        /// <summary>
+        /// Extracts a zip file by extending paths with fd args
+        /// </summary>
+        public void ExtractZip(Object sender, System.EventArgs e)
+        {
+            try
+            {
+                ZipEntry entry = null;
+                ToolStripItem button = (ToolStripItem)sender;
+                String zipFile = (((ItemData)button.Tag).Tag);
+                ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open));
+                while ((entry = zis.GetNextEntry()) != null)
+                {
+                    Int32 size = 2048;
+                    Byte[] data = new Byte[2048];
+                    String fdpath = this.ProcessArgString(entry.Name, false);
+                    FileStream extracted = new FileStream(fdpath, FileMode.Create);
+                    while (true)
+                    {
+                        size = zis.Read(data, 0, data.Length);
+                        if (size > 0) extracted.Write(data, 0, size);
+                        else break;
+                    }
+                    extracted.Close();
+                    extracted.Dispose();
+                }
+                String message = TextHelper.GetString("Info.ZipExtractDone");
+                ErrorManager.ShowInfo(String.Format(message, "\n", zipFile));
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
         }
 
         /// <summary>

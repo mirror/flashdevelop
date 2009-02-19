@@ -3,11 +3,11 @@
 	<languages>
 		<language name="text">
 			<lexer name="cpp" style-bits="7" />
-			<editor-style caret-fore="default-caret-fore" caretline-back="default-caretline-back" selection-fore="default-selection-fore" selection-back="default-selection-back" />
+			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
 			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789]]></character-class>
 			<file-extensions>*</file-extensions>
 			<use-styles>
-				<style name="default" inherit-style="default" />
+				<style name="default" fore="0x000000" back="0xffffff" size="9" font="Courier New" />
 				<style name="comment" />
 				<style name="commentline" />
 				<style name="commentdoc" />
@@ -27,13 +27,13 @@
 				<style name="commentdockeyword" />
 				<style name="commentdockeyworderror" />
 				<style name="globalclass" />
-				<style name="gdefault" inherit-style="gdefault" />
-				<style name="linenumber" inherit-style="linenumber" />
-				<style name="bracelight" inherit-style="bracelight" />
-				<style name="bracebad" inherit-style="bracebad" />
-				<style name="controlchar" inherit-style="controlchar" />
-				<style name="indentguide" inherit-style="indentguide" />
-				<style name="lastpredefined" inherit-style="lastpredefined" />
+				<style name="gdefault" />
+				<style name="linenumber" fore="0x666666" />
+				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" bold="true" />
+				<style name="bracebad" bold="true" />
+				<style name="controlchar" fore="0xffffff" />
+				<style name="indentguide" fore="0xc0c0c0" />
+				<style name="lastpredefined" fore="0x666666" />
 			</use-styles>
 		</language>
 	</languages>

@@ -281,16 +281,6 @@ namespace FlashDevelop.Settings
             set { this.uiRenderMode = value; }
         }
 
-        [DisplayName("UI Editor Font")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.EditorFont")]
-        [DefaultValue(typeof(Font), "Courier New, 8.75pt")]
-        public Font EditorFont
-        {
-            get { return this.editorFont; }
-            set { this.editorFont = value; }
-        }
-
         [DisplayName("UI Console Font")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.ConsoleFont")]

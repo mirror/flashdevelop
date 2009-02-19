@@ -195,7 +195,6 @@ namespace PluginCore
     {
         #region ISettings Properties
 
-        Font EditorFont { get; set; }
         Font DefaultFont { get; set; }
         Font ConsoleFont { get; set; }
         Color HighlightAllColor { get; set; }

@@ -312,6 +312,7 @@ Section "Registry Modifications" RegistryMods
 	!insertmacro APP_ASSOCIATE "fds" "FlashDevelop.Snippet" "FlashDevelop Snippet File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "fdb" "FlashDevelop.Binary" "FlashDevelop Binary File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "fdl" "FlashDevelop.Layout" "FlashDevelop Layout File" "${WIN32RES},1" "" "${EXECUTABLE}"
+	!insertmacro APP_ASSOCIATE "fdz" "FlashDevelop.Zip" "FlashDevelop Zip File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Project" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.HaXeProject" "ShellNew"
@@ -324,6 +325,7 @@ Section "Registry Modifications" RegistryMods
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Snippet" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Binary" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Layout" "ShellNew"
+	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Zip" "ShellNew"
 	
 	CreateDirectory "$SMPROGRAMS\FlashDevelop"
 	CreateShortCut "$SMPROGRAMS\FlashDevelop\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
@@ -428,6 +430,7 @@ Section "un.FlashDevelop" UninstMain
 	!insertmacro APP_UNASSOCIATE "fds" "FlashDevelop.Snippet"
 	!insertmacro APP_UNASSOCIATE "fdb" "FlashDevelop.Binary"
 	!insertmacro APP_UNASSOCIATE "fdl" "FlashDevelop.Layout"
+	!insertmacro APP_UNASSOCIATE "fdz" "FlashDevelop.Zip"
 	
 	DeleteRegKey /ifempty HKLM "Software\FlashDevelop"
 	DeleteRegKey /ifempty HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\FlashDevelop"

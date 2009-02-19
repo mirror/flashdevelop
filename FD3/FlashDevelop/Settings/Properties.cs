@@ -26,7 +26,6 @@ namespace FlashDevelop.Settings
         private CommentBlockStyle commentBlockStyle = CommentBlockStyle.Indented;
         private FlatStyle comboBoxFlatStyle = FlatStyle.Popup;
         private Font consoleFont = new Font("Courier New", 8.75F);
-        private Font editorFont = new Font("Courier New", 8.75F);
         private Font defaultFont = new Font("Tahoma", 8.25F);
         private Color markerForegroundColor = Color.White;
         private Color markerBackgroundColor = Color.Gray;

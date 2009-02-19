@@ -2655,9 +2655,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="TaskListPanel.Info.InvalidFile" xml:space="preserve">
     <value>The file could not be found. The task list will be refreshed.</value>
   </data>
-  <data name="FlashDevelop.Description.EditorFont" xml:space="preserve">
-    <value>Global default font of the editor component.</value>
-  </data>
   <data name="FlashDevelop.Description.PrintMarginColumn" xml:space="preserve">
     <value>Shows the print margin on the right where the text should be kept.</value>
   </data>
@@ -2765,5 +2762,53 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ProjectManager.Title.AuthorName" xml:space="preserve">
     <value>Template Configuration: Enter Your Name</value>
+  </data>
+  <data name="FlashDevelop.Label.SyntaxColoring" xml:space="preserve">
+    <value>&amp;Syntax Coloring...</value>
+  </data>
+  <data name="FlashDevelop.Info.Background" xml:space="preserve">
+    <value>Background:</value>
+  </data>
+  <data name="FlashDevelop.Info.Bold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="FlashDevelop.Info.Font" xml:space="preserve">
+    <value>Font:</value>
+  </data>
+  <data name="FlashDevelop.Info.Foreground" xml:space="preserve">
+    <value>Foreground:</value>
+  </data>
+  <data name="FlashDevelop.Info.Italic" xml:space="preserve">
+    <value>Italics</value>
+  </data>
+  <data name="FlashDevelop.Info.ZipFilter" xml:space="preserve">
+    <value>FlashDevelop Zip Files|*.fdz</value>
+  </data>
+  <data name="FlashDevelop.Info.ItemPreview" xml:space="preserve">
+    <value>Item Preview</value>
+  </data>
+  <data name="FlashDevelop.Info.SampleText" xml:space="preserve">
+    <value>Sample Text</value>
+  </data>
+  <data name="FlashDevelop.Info.SaveCurrentLanguage" xml:space="preserve">
+    <value>Do you want to save the current language?</value>
+  </data>
+  <data name="FlashDevelop.Info.ItemSettings" xml:space="preserve">
+    <value>Item Settings</value>
+  </data>
+  <data name="FlashDevelop.Info.Size" xml:space="preserve">
+    <value>Size:</value>
+  </data>
+  <data name="FlashDevelop.Label.ExportFiles" xml:space="preserve">
+    <value>Export Files...</value>
+  </data>
+  <data name="FlashDevelop.Title.SyntaxEditDialog" xml:space="preserve">
+    <value>Syntax Coloring</value>
+  </data>
+  <data name="FlashDevelop.Title.SyntaxExportDialog" xml:space="preserve">
+    <value>Export Syntax Files</value>
+  </data>
+  <data name="FlashDevelop.Info.ZipExtractDone" xml:space="preserve">
+    <value>The following zip file was extracted succesfully:{0}{1}</value>
   </data>
 </root>
