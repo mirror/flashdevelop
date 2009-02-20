@@ -2139,27 +2139,33 @@ namespace FlashDevelop
         {
             try
             {
-                ZipEntry entry = null;
                 ToolStripItem button = (ToolStripItem)sender;
                 String zipFile = (((ItemData)button.Tag).Tag);
-                ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open));
-                while ((entry = zis.GetNextEntry()) != null)
+                if (!File.Exists(zipFile)) return; // Cancel on missing file...
+                String caption = TextHelper.GetString("Title.ConfirmDialog");
+                String message = TextHelper.GetString("Info.ZipConfirmExtract") + "\n" + zipFile;
+                if (MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    Int32 size = 2048;
-                    Byte[] data = new Byte[2048];
-                    String fdpath = this.ProcessArgString(entry.Name, false);
-                    FileStream extracted = new FileStream(fdpath, FileMode.Create);
-                    while (true)
+                    ZipEntry entry = null;
+                    ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open));
+                    while ((entry = zis.GetNextEntry()) != null)
                     {
-                        size = zis.Read(data, 0, data.Length);
-                        if (size > 0) extracted.Write(data, 0, size);
-                        else break;
+                        Int32 size = 2048;
+                        Byte[] data = new Byte[2048];
+                        String fdpath = this.ProcessArgString(entry.Name, false);
+                        FileStream extracted = new FileStream(fdpath, FileMode.Create);
+                        while (true)
+                        {
+                            size = zis.Read(data, 0, data.Length);
+                            if (size > 0) extracted.Write(data, 0, size);
+                            else break;
+                        }
+                        extracted.Close();
+                        extracted.Dispose();
                     }
-                    extracted.Close();
-                    extracted.Dispose();
+                    String finish = TextHelper.GetString("Info.ZipExtractDone");
+                    ErrorManager.ShowInfo(finish);
                 }
-                String message = TextHelper.GetString("Info.ZipExtractDone");
-                ErrorManager.ShowInfo(String.Format(message, "\n", zipFile));
             }
             catch (Exception ex)
             {

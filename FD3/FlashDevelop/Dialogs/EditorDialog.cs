@@ -17,11 +17,14 @@ namespace FlashDevelop.Dialogs
 {
     public class EditorDialog : Form
     {
-		private String languageFile;
+        private String languageFile;
         private XmlDocument languageDoc;
+        private XmlElement editorStyleNode;
         private XmlElement defaultStyleNode;
         private XmlElement currentStyleNode;
         private Boolean isItemSaved = true;
+        private Boolean isEditorSaved = true;
+        private Boolean isLoadingEditor = false;
         private Boolean isLanguageSaved = true;
         private Boolean isLoadingItem = false;
         private System.Windows.Forms.Label sizeLabel;
@@ -32,8 +35,20 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.ListView itemListView;
         private System.Windows.Forms.ColorDialog colorDialog;
-        private System.Windows.Forms.GroupBox settingsGroupBox;
-        private System.Windows.Forms.GroupBox previewGroupBox;
+        private System.Windows.Forms.GroupBox itemGroupBox;
+        private System.Windows.Forms.GroupBox languageGroupBox;
+        private System.Windows.Forms.Label caretForeLabel;
+        private System.Windows.Forms.Label caretlineBackLabel;
+        private System.Windows.Forms.Label selectionForeLabel;
+        private System.Windows.Forms.Label selectionBackLabel;
+        private System.Windows.Forms.Button caretForeButton;
+        private System.Windows.Forms.Button caretlineBackButton;
+        private System.Windows.Forms.Button selectionForeButton;
+        private System.Windows.Forms.Button selectionBackButton;
+        private System.Windows.Forms.TextBox caretForeTextBox;
+        private System.Windows.Forms.TextBox caretlineBackTextBox;
+        private System.Windows.Forms.TextBox selectionForeTextBox;
+        private System.Windows.Forms.TextBox selectionBackTextBox;
         private System.Windows.Forms.Label sampleTextLabel;
         private System.Windows.Forms.ComboBox fontSizeComboBox;
         private System.Windows.Forms.ComboBox fontNameComboBox;
@@ -71,7 +86,7 @@ namespace FlashDevelop.Dialogs
             this.cancelButton = new System.Windows.Forms.Button();
             this.itemListView = new System.Windows.Forms.ListView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.itemGroupBox = new System.Windows.Forms.GroupBox();
             this.italicsCheckBox = new System.Windows.Forms.CheckBox();
             this.backgroundButton = new System.Windows.Forms.Button();
             this.foregroundButton = new System.Windows.Forms.Button();
@@ -80,17 +95,29 @@ namespace FlashDevelop.Dialogs
             this.foregroundTextBox = new System.Windows.Forms.TextBox();
             this.fontSizeComboBox = new System.Windows.Forms.ComboBox();
             this.fontNameComboBox = new System.Windows.Forms.ComboBox();
-            this.sizeLabel = new System.Windows.Forms.Label();
+            this.caretForeButton = new System.Windows.Forms.Button();
+            this.caretlineBackButton = new System.Windows.Forms.Button();
+            this.selectionBackButton = new System.Windows.Forms.Button();
+            this.selectionForeButton = new System.Windows.Forms.Button();
+            this.caretForeTextBox = new System.Windows.Forms.TextBox();
+            this.caretlineBackTextBox = new System.Windows.Forms.TextBox();
+            this.selectionForeTextBox = new System.Windows.Forms.TextBox();
+            this.selectionBackTextBox = new System.Windows.Forms.TextBox();
             this.backgroundLabel = new System.Windows.Forms.Label();
             this.foregroundLabel = new System.Windows.Forms.Label();
-            this.fontLabel = new System.Windows.Forms.Label();
-            this.previewGroupBox = new System.Windows.Forms.GroupBox();
+            this.languageGroupBox = new System.Windows.Forms.GroupBox();
             this.sampleTextLabel = new System.Windows.Forms.Label();
             this.languageDropDown = new System.Windows.Forms.ComboBox();
             this.exportButton = new System.Windows.Forms.Button();
             this.columnHeader = new System.Windows.Forms.ColumnHeader();
-            this.settingsGroupBox.SuspendLayout();
-            this.previewGroupBox.SuspendLayout();
+            this.selectionBackLabel = new System.Windows.Forms.Label();
+            this.selectionForeLabel = new System.Windows.Forms.Label();
+            this.caretlineBackLabel = new System.Windows.Forms.Label();
+            this.caretForeLabel = new System.Windows.Forms.Label();
+            this.sizeLabel = new System.Windows.Forms.Label();
+            this.fontLabel = new System.Windows.Forms.Label();
+            this.itemGroupBox.SuspendLayout();
+            this.languageGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // okButton
@@ -140,25 +167,26 @@ namespace FlashDevelop.Dialogs
             this.itemListView.Columns.Add(this.columnHeader);
             // 
             // settingsGroupBox
-            // 
-            this.settingsGroupBox.Controls.Add(this.italicsCheckBox);
-            this.settingsGroupBox.Controls.Add(this.backgroundButton);
-            this.settingsGroupBox.Controls.Add(this.foregroundButton);
-            this.settingsGroupBox.Controls.Add(this.boldCheckBox);
-            this.settingsGroupBox.Controls.Add(this.backgroundTextBox);
-            this.settingsGroupBox.Controls.Add(this.foregroundTextBox);
-            this.settingsGroupBox.Controls.Add(this.fontSizeComboBox);
-            this.settingsGroupBox.Controls.Add(this.fontNameComboBox);
-            this.settingsGroupBox.Controls.Add(this.sizeLabel);
-            this.settingsGroupBox.Controls.Add(this.backgroundLabel);
-            this.settingsGroupBox.Controls.Add(this.foregroundLabel);
-            this.settingsGroupBox.Controls.Add(this.fontLabel);
-            this.settingsGroupBox.Location = new System.Drawing.Point(204, 9);
-            this.settingsGroupBox.Name = "settingsGroupBox";
-            this.settingsGroupBox.Size = new System.Drawing.Size(372, 112);
-            this.settingsGroupBox.TabIndex = 6;
-            this.settingsGroupBox.TabStop = false;
-            this.settingsGroupBox.Text = "Item Settings";
+            //
+            this.itemGroupBox.Controls.Add(this.sampleTextLabel);
+            this.itemGroupBox.Controls.Add(this.italicsCheckBox);
+            this.itemGroupBox.Controls.Add(this.backgroundButton);
+            this.itemGroupBox.Controls.Add(this.foregroundButton);
+            this.itemGroupBox.Controls.Add(this.boldCheckBox);
+            this.itemGroupBox.Controls.Add(this.backgroundTextBox);
+            this.itemGroupBox.Controls.Add(this.foregroundTextBox);
+            this.itemGroupBox.Controls.Add(this.fontSizeComboBox);
+            this.itemGroupBox.Controls.Add(this.fontNameComboBox);
+            this.itemGroupBox.Controls.Add(this.sizeLabel);
+            this.itemGroupBox.Controls.Add(this.backgroundLabel);
+            this.itemGroupBox.Controls.Add(this.foregroundLabel);
+            this.itemGroupBox.Controls.Add(this.fontLabel);
+            this.itemGroupBox.Location = new System.Drawing.Point(204, 121);
+            this.itemGroupBox.Name = "settingsGroupBox";
+            this.itemGroupBox.Size = new System.Drawing.Size(372, 208);
+            this.itemGroupBox.TabIndex = 6;
+            this.itemGroupBox.TabStop = false;
+            this.itemGroupBox.Text = "Item Style";
             // 
             // italicsCheckBox
             // 
@@ -181,7 +209,7 @@ namespace FlashDevelop.Dialogs
             this.backgroundButton.Size = new System.Drawing.Size(28, 23);
             this.backgroundButton.TabIndex = 7;
             this.backgroundButton.UseVisualStyleBackColor = true;
-            this.backgroundButton.Click += new System.EventHandler(this.ItemBackgroundPickerClick);
+            this.backgroundButton.Click += new System.EventHandler(this.ItemBackgroundButtonClick);
             // 
             // foregroundButton
             // 
@@ -190,7 +218,7 @@ namespace FlashDevelop.Dialogs
             this.foregroundButton.Size = new System.Drawing.Size(28, 23);
             this.foregroundButton.TabIndex = 7;
             this.foregroundButton.UseVisualStyleBackColor = true;
-            this.foregroundButton.Click += new System.EventHandler(this.ItemForegroundPickerClick);
+            this.foregroundButton.Click += new System.EventHandler(this.ItemForegroundButtonClick);
             // 
             // boldCheckBox
             // 
@@ -225,7 +253,7 @@ namespace FlashDevelop.Dialogs
             // fontSizeComboBox
             // 
             this.fontSizeComboBox.FormattingEnabled = true;
-            this.fontSizeComboBox.Items.AddRange(new object[] {"", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"});
+            this.fontSizeComboBox.Items.AddRange(new object[] { "", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" });
             this.fontSizeComboBox.Location = new System.Drawing.Point(269, 35);
             this.fontSizeComboBox.Name = "fontSizeComboBox";
             this.fontSizeComboBox.Size = new System.Drawing.Size(92, 22);
@@ -278,23 +306,134 @@ namespace FlashDevelop.Dialogs
             this.fontLabel.TabIndex = 0;
             this.fontLabel.Text = "Font:";
             // 
-            // previewGroupBox
+            // caretForeButton
             // 
-            this.previewGroupBox.Controls.Add(this.sampleTextLabel);
-            this.previewGroupBox.Location = new System.Drawing.Point(204, 125);
-            this.previewGroupBox.Name = "previewGroupBox";
-            this.previewGroupBox.Size = new System.Drawing.Size(372, 204);
-            this.previewGroupBox.TabIndex = 6;
-            this.previewGroupBox.TabStop = false;
-            this.previewGroupBox.Text = "Item Preview";
+            this.caretForeButton.Location = new System.Drawing.Point(151, 31);
+            this.caretForeButton.Name = "caretForeButton";
+            this.caretForeButton.Size = new System.Drawing.Size(28, 23);
+            this.caretForeButton.TabIndex = 0;
+            this.caretForeButton.Click += new EventHandler(this.CaretForeButtonClick);
+            // 
+            // caretlineBackButton
+            // 
+            this.caretlineBackButton.Location = new System.Drawing.Point(151, 72);
+            this.caretlineBackButton.Name = "caretlineBackButton";
+            this.caretlineBackButton.Size = new System.Drawing.Size(28, 23);
+            this.caretlineBackButton.TabIndex = 3;
+            this.caretlineBackButton.Click += new EventHandler(this.CaretlineBackButtonClick);
+            // 
+            // selectionBackButton
+            // 
+            this.selectionBackButton.Location = new System.Drawing.Point(329, 72);
+            this.selectionBackButton.Name = "selectionBackButton";
+            this.selectionBackButton.Size = new System.Drawing.Size(28, 23);
+            this.selectionBackButton.TabIndex = 6;
+            this.selectionBackButton.Click += new EventHandler(this.SelectionBackButtonClick);
+            // 
+            // selectionForeButton
+            // 
+            this.selectionForeButton.Location = new System.Drawing.Point(329, 31);
+            this.selectionForeButton.Name = "selectionForeButton";
+            this.selectionForeButton.Size = new System.Drawing.Size(28, 23);
+            this.selectionForeButton.TabIndex = 9;
+            this.selectionForeButton.Click += new EventHandler(this.SelectionForeButtonClick);
+            // 
+            // caretForeTextBox
+            // 
+            this.caretForeTextBox.Location = new System.Drawing.Point(12, 35);
+            this.caretForeTextBox.Name = "caretForeTextBox";
+            this.caretForeTextBox.Size = new System.Drawing.Size(132, 25);
+            this.caretForeTextBox.TabIndex = 2;
+            this.caretForeTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            // 
+            // caretlineBackTextBox
+            // 
+            this.caretlineBackTextBox.Location = new System.Drawing.Point(12, 76);
+            this.caretlineBackTextBox.Name = "caretlineBackTextBox";
+            this.caretlineBackTextBox.Size = new System.Drawing.Size(132, 25);
+            this.caretlineBackTextBox.TabIndex = 5;
+            this.caretlineBackTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            // 
+            // selectionForeTextBox
+            // 
+            this.selectionForeTextBox.Location = new System.Drawing.Point(190, 35);
+            this.selectionForeTextBox.Name = "selectionForeTextBox";
+            this.selectionForeTextBox.Size = new System.Drawing.Size(132, 25);
+            this.selectionForeTextBox.TabIndex = 11;
+            this.selectionForeTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            // 
+            // selectionBackTextBox
+            // 
+            this.selectionBackTextBox.Location = new System.Drawing.Point(190, 76);
+            this.selectionBackTextBox.Name = "selectionBackTextBox";
+            this.selectionBackTextBox.Size = new System.Drawing.Size(132, 25);
+            this.selectionBackTextBox.TabIndex = 8;
+            this.selectionBackTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            // 
+            // caretForeLabel
+            //
+            this.caretForeLabel.AutoSize = true;
+            this.caretForeLabel.Location = new System.Drawing.Point(9, 18);
+            this.caretForeLabel.Name = "caretForeLabel";
+            this.caretForeLabel.Size = new System.Drawing.Size(35, 16);
+            this.caretForeLabel.TabIndex = 1;
+            this.caretForeLabel.Text = "Caret foreground:";
+            // 
+            // caretlineBackLabel
+            //
+            this.caretlineBackLabel.AutoSize = true;
+            this.caretlineBackLabel.Location = new System.Drawing.Point(9, 58);
+            this.caretlineBackLabel.Name = "caretlineBackLabel";
+            this.caretlineBackLabel.Size = new System.Drawing.Size(35, 16);
+            this.caretlineBackLabel.TabIndex = 4;
+            this.caretlineBackLabel.Text = "Caret line background:";
+            // 
+            // selectionBackLabel
+            //
+            this.selectionBackLabel.AutoSize = true;
+            this.selectionBackLabel.Location = new System.Drawing.Point(187, 58);
+            this.selectionBackLabel.Name = "selectionBackLabel";
+            this.selectionBackLabel.Size = new System.Drawing.Size(35, 16);
+            this.selectionBackLabel.TabIndex = 7;
+            this.selectionBackLabel.Text = "Selection background:";
+            // 
+            // selectionForeLabel
+            //
+            this.selectionForeLabel.AutoSize = true;
+            this.selectionForeLabel.Location = new System.Drawing.Point(187, 18);
+            this.selectionForeLabel.Name = "selectionForeLabel";
+            this.selectionForeLabel.Size = new System.Drawing.Size(35, 16);
+            this.selectionForeLabel.TabIndex = 10;
+            this.selectionForeLabel.Text = "Selection foreground:";
+            // 
+            // previewGroupBox
+            //
+            this.languageGroupBox.Controls.Add(this.caretForeButton);
+            this.languageGroupBox.Controls.Add(this.caretForeLabel);
+            this.languageGroupBox.Controls.Add(this.caretForeTextBox);
+            this.languageGroupBox.Controls.Add(this.caretlineBackButton);
+            this.languageGroupBox.Controls.Add(this.caretlineBackLabel);
+            this.languageGroupBox.Controls.Add(this.caretlineBackTextBox);
+            this.languageGroupBox.Controls.Add(this.selectionBackButton);
+            this.languageGroupBox.Controls.Add(this.selectionBackLabel);
+            this.languageGroupBox.Controls.Add(this.selectionBackTextBox);
+            this.languageGroupBox.Controls.Add(this.selectionForeButton);
+            this.languageGroupBox.Controls.Add(this.selectionForeLabel);
+            this.languageGroupBox.Controls.Add(this.selectionForeTextBox);
+            this.languageGroupBox.Location = new System.Drawing.Point(204, 9);
+            this.languageGroupBox.Name = "previewGroupBox";
+            this.languageGroupBox.Size = new System.Drawing.Size(372, 107);
+            this.languageGroupBox.TabIndex = 6;
+            this.languageGroupBox.TabStop = false;
+            this.languageGroupBox.Text = "Editor Style";
             // 
             // sampleTextLabel
             //
             this.sampleTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.sampleTextLabel.BackColor = System.Drawing.Color.White;
-            this.sampleTextLabel.Location = new System.Drawing.Point(12, 18);
+            this.sampleTextLabel.Location = new System.Drawing.Point(12, 110);
             this.sampleTextLabel.Name = "sampleTextLabel";
-            this.sampleTextLabel.Size = new System.Drawing.Size(347, 174);
+            this.sampleTextLabel.Size = new System.Drawing.Size(347, 85);
             this.sampleTextLabel.TabIndex = 0;
             this.sampleTextLabel.Text = "Sample Text";
             this.sampleTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -325,8 +464,8 @@ namespace FlashDevelop.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(589, 372);
-            this.Controls.Add(this.previewGroupBox);
-            this.Controls.Add(this.settingsGroupBox);
+            this.Controls.Add(this.languageGroupBox);
+            this.Controls.Add(this.itemGroupBox);
             this.Controls.Add(this.languageDropDown);
             this.Controls.Add(this.itemListView);
             this.Controls.Add(this.exportButton);
@@ -337,9 +476,9 @@ namespace FlashDevelop.Dialogs
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Name = "EditorDialog";
             this.Text = " Editor Coloring";
-            this.settingsGroupBox.ResumeLayout(false);
-            this.settingsGroupBox.PerformLayout();
-            this.previewGroupBox.ResumeLayout(false);
+            this.itemGroupBox.ResumeLayout(false);
+            this.itemGroupBox.PerformLayout();
+            this.languageGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -360,6 +499,7 @@ namespace FlashDevelop.Dialogs
         /// Constant xml file style paths
         /// </summary>
         private const String stylePath = "Scintilla/languages/language/use-styles/style";
+        private const String editorStylePath = "Scintilla/languages/language/editor-style";
         private const String defaultStylePath = "Scintilla/languages/language/use-styles/style[@name='default']";
 
         /// <summary>
@@ -374,11 +514,15 @@ namespace FlashDevelop.Dialogs
             this.Text = " " + TextHelper.GetString("Title.SyntaxEditDialog");
             this.boldCheckBox.Text = TextHelper.GetString("Info.Bold");
             this.italicsCheckBox.Text = TextHelper.GetString("Info.Italic");
-            this.settingsGroupBox.Text = TextHelper.GetString("Info.ItemSettings");
-            this.previewGroupBox.Text = TextHelper.GetString("Info.ItemPreview");
+            this.itemGroupBox.Text = TextHelper.GetString("Info.ItemStyle");
+            this.languageGroupBox.Text = TextHelper.GetString("Info.EditorStyle");
             this.foregroundLabel.Text = TextHelper.GetString("Info.Foreground");
             this.backgroundLabel.Text = TextHelper.GetString("Info.Background");
             this.sampleTextLabel.Text = TextHelper.GetString("Info.SampleText");
+            this.caretForeLabel.Text = TextHelper.GetString("Info.CaretFore");
+            this.caretlineBackLabel.Text = TextHelper.GetString("Info.CaretLineBack");
+            this.selectionBackLabel.Text = TextHelper.GetString("Info.SelectionBack");
+            this.selectionForeLabel.Text = TextHelper.GetString("Info.SelectionFore");
             this.cancelButton.Text = TextHelper.GetString("Label.Cancel");
             this.fontLabel.Text = TextHelper.GetString("Info.Font");
             this.sizeLabel.Text = TextHelper.GetString("Info.Size");
@@ -401,9 +545,11 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void PopulateControls()
         {
+            Image colorImage = PluginBase.MainForm.FindImage("328");
             this.exportButton.Image = PluginBase.MainForm.FindImage("328|9|3|3");
-            this.foregroundButton.Image = PluginBase.MainForm.FindImage("328");
-            this.backgroundButton.Image = PluginBase.MainForm.FindImage("328");
+            this.foregroundButton.Image = this.backgroundButton.Image = colorImage;
+            this.caretForeButton.Image = this.caretlineBackButton.Image = colorImage;
+            this.selectionForeButton.Image = this.selectionBackButton.Image = colorImage;
             String[] languageFiles = Directory.GetFiles(this.LangDir, "*.xml");
             foreach (String language in languageFiles)
             {
@@ -425,10 +571,14 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void LoadLanguage(String newLanguage, Boolean promptToSave)
         {
-			if (!isLanguageSaved && promptToSave) this.PromptToSaveLanguage();
-			this.languageDoc = new XmlDocument();
+            if (!this.isLanguageSaved && promptToSave)
+            {
+                this.PromptToSaveLanguage();
+            }
+            this.languageDoc = new XmlDocument();
             this.languageFile = Path.Combine(this.LangDir, newLanguage + ".xml");
             this.languageDoc.Load(languageFile);
+            this.LoadEditorStyles();
             this.defaultStyleNode = this.languageDoc.SelectSingleNode(defaultStylePath) as XmlElement;
             XmlNodeList styles = this.languageDoc.SelectNodes(stylePath);
             this.itemListView.Items.Clear();
@@ -510,14 +660,45 @@ namespace FlashDevelop.Dialogs
             else this.currentStyleNode.RemoveAttribute("italics");
             this.isItemSaved = true;
         }
+        
+        /// <summary>
+        /// Load the editor style items
+        /// </summary>
+        private void LoadEditorStyles()
+        {
+            this.isLoadingEditor = true;
+            this.editorStyleNode = this.languageDoc.SelectSingleNode(editorStylePath) as XmlElement;
+            this.caretForeTextBox.Text = this.editorStyleNode.Attributes["caret-fore"].Value;
+            this.caretlineBackTextBox.Text = this.editorStyleNode.Attributes["caretline-back"].Value;
+            this.selectionBackTextBox.Text = this.editorStyleNode.Attributes["selection-back"].Value;
+            this.selectionForeTextBox.Text = this.editorStyleNode.Attributes["selection-fore"].Value;
+            this.isLoadingEditor = false;
+            this.isEditorSaved = true;
+        }
+
+        /// <summary>
+        /// Saves the editor style items
+        /// </summary>
+        private void SaveEditorStyles()
+        {
+            if (this.caretForeTextBox.Text != "") this.editorStyleNode.SetAttribute("caret-fore", this.caretForeTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("caret-fore");
+            if (this.caretlineBackTextBox.Text != "") this.editorStyleNode.SetAttribute("caretline-back", this.caretlineBackTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("caretline-back");
+            if (this.selectionForeTextBox.Text != "") this.editorStyleNode.SetAttribute("selection-fore", this.selectionForeTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("selection-fore");
+            if (this.selectionBackTextBox.Text != "") this.editorStyleNode.SetAttribute("selection-back", this.selectionBackTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("selection-back");
+            this.isEditorSaved = true;
+        }
 
         /// <summary>
         /// Updates the Sample Item from settings in dialog
         /// </summary>
         private void UpdateSampleText()
         {
-			try
-			{
+            try
+            {
                 FontStyle fs = FontStyle.Regular;
                 String fontName = this.fontNameComboBox.Text;
                 if (fontName == "") fontName = this.defaultStyleNode.Attributes["font"].Value;
@@ -547,26 +728,26 @@ namespace FlashDevelop.Dialogs
                 this.sampleTextLabel.Font = new Font(fontName, float.Parse(fontSize), fs);
                 this.sampleTextLabel.ForeColor = ColorTranslator.FromHtml(foreColor);
                 this.sampleTextLabel.BackColor = ColorTranslator.FromHtml(backColor);
-			}
-			catch (Exception)
-			{
+            }
+            catch (Exception)
+            {
                 this.sampleTextLabel.Font = PluginBase.Settings.ConsoleFont;
                 this.sampleTextLabel.Text = "Preview not available...";
-			}
+            }
         }
 
         /// <summary>
         /// Asks the user to save the changes
         /// </summary>
-		private void PromptToSaveLanguage()
-		{
+        private void PromptToSaveLanguage()
+        {
             String message = TextHelper.GetString("Info.SaveCurrentLanguage");
             String caption = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
             if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 this.SaveCurrentLanguage();
             }
-		}
+        }
 
         /// <summary>
         /// After item has been changed, update controls
@@ -583,7 +764,7 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// When color has been selected, update controls
         /// </summary>
-        private void ItemForegroundPickerClick(Object sender, EventArgs e)
+        private void ItemForegroundButtonClick(Object sender, EventArgs e)
         {
             this.colorDialog.Color = ColorTranslator.FromHtml(this.foregroundTextBox.Text);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
@@ -595,7 +776,7 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// When color has been selected, update controls
         /// </summary>
-        private void ItemBackgroundPickerClick(Object sender, EventArgs e)
+        private void ItemBackgroundButtonClick(Object sender, EventArgs e)
         {
             this.colorDialog.Color = ColorTranslator.FromHtml(this.backgroundTextBox.Text);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
@@ -605,7 +786,55 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// When item has been changed, update controls
+        /// When color has been selected, update controls
+        /// </summary>
+        private void SelectionForeButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.selectionForeTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.selectionForeTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void SelectionBackButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.selectionBackTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.selectionBackTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void CaretlineBackButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.caretlineBackTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.caretlineBackTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void CaretForeButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.caretForeTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.caretForeTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When style item has been changed, update controls
         /// </summary>
         private void LanguageItemChanged(Object sender, EventArgs e)
         {
@@ -619,11 +848,25 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
+        /// When editor item has been changed, update controls
+        /// </summary>
+        private void EditorItemChanged(Object sender, EventArgs e)
+        {
+            if (!this.isLoadingEditor)
+            {
+                this.isLanguageSaved = false;
+                this.saveButton.Enabled = true;
+                this.isEditorSaved = false;
+            }
+        }
+
+        /// <summary>
         /// Saves the current modified language
         /// </summary>
-		private void SaveCurrentLanguage()
-		{
+        private void SaveCurrentLanguage()
+        {
             if (!this.isItemSaved) this.SaveCurrentItem();
+            if (!this.isEditorSaved) this.SaveEditorStyles();
             XmlTextWriter xmlWriter = new XmlTextWriter(this.languageFile, Encoding.UTF8);
             xmlWriter.Formatting = Formatting.Indented;
             xmlWriter.IndentChar = '\t';
@@ -631,16 +874,17 @@ namespace FlashDevelop.Dialogs
             this.languageDoc.Save(xmlWriter);
             this.saveButton.Enabled = false;
             this.isLanguageSaved = true;
+            this.isEditorSaved = true;
             xmlWriter.Close();
-		}
+        }
 
         /// <summary>
         /// After index has been changed, load the selected language
         /// </summary>
         private void LanguagesSelectedIndexChanged(Object sender, EventArgs e)
-		{
+        {
             this.LoadLanguage(this.languageDropDown.Text, true);
-		}
+        }
 
         /// <summary>
         /// Opens the export settings dialog
@@ -670,11 +914,11 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Closes the dialog and saves changes
         /// </summary>
-		private void OkButtonClick(Object sender, EventArgs e)
-		{
+        private void OkButtonClick(Object sender, EventArgs e)
+        {
             if (!this.isLanguageSaved) this.SaveCurrentLanguage();
             Globals.MainForm.RefreshSciConfig();
-			this.Close();
+            this.Close();
         }
 
         /// <summary>

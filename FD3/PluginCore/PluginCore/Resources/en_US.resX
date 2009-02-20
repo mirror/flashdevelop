@@ -2784,8 +2784,8 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.ZipFilter" xml:space="preserve">
     <value>FlashDevelop Zip Files|*.fdz</value>
   </data>
-  <data name="FlashDevelop.Info.ItemPreview" xml:space="preserve">
-    <value>Item Preview</value>
+  <data name="FlashDevelop.Info.EditorStyle" xml:space="preserve">
+    <value>Editor Style</value>
   </data>
   <data name="FlashDevelop.Info.SampleText" xml:space="preserve">
     <value>Sample Text</value>
@@ -2793,8 +2793,8 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.SaveCurrentLanguage" xml:space="preserve">
     <value>Do you want to save the current language?</value>
   </data>
-  <data name="FlashDevelop.Info.ItemSettings" xml:space="preserve">
-    <value>Item Settings</value>
+  <data name="FlashDevelop.Info.ItemStyle" xml:space="preserve">
+    <value>Item Style</value>
   </data>
   <data name="FlashDevelop.Info.Size" xml:space="preserve">
     <value>Size:</value>
@@ -2809,6 +2809,21 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Export Syntax Files</value>
   </data>
   <data name="FlashDevelop.Info.ZipExtractDone" xml:space="preserve">
-    <value>The following zip file was extracted succesfully:{0}{1}</value>
+    <value>The zip file was extracted succesfully.</value>
+  </data>
+  <data name="FlashDevelop.Info.CaretFore" xml:space="preserve">
+    <value>Caret foreground:</value>
+  </data>
+  <data name="FlashDevelop.Info.CaretLineBack" xml:space="preserve">
+    <value>Caret line background:</value>
+  </data>
+  <data name="FlashDevelop.Info.SelectionBack" xml:space="preserve">
+    <value>Selection background:</value>
+  </data>
+  <data name="FlashDevelop.Info.SelectionFore" xml:space="preserve">
+    <value>Selection foreground:</value>
+  </data>
+  <data name="FlashDevelop.Info.ZipConfirmExtract" xml:space="preserve">
+    <value>Can the following zip file be extracted:</value>
   </data>
 </root>

@@ -137,7 +137,7 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// 
+        /// Applies the localized texts to the form
         /// </summary>
         private void ApplyLocalizedTexts()
         {
