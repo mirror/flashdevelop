@@ -667,11 +667,27 @@ namespace FlashDevelop.Dialogs
         private void LoadEditorStyles()
         {
             this.isLoadingEditor = true;
+            this.caretForeTextBox.Text = "";
+            this.caretlineBackTextBox.Text = "";
+            this.selectionBackTextBox.Text = "";
+            this.selectionForeTextBox.Text = "";
             this.editorStyleNode = this.languageDoc.SelectSingleNode(editorStylePath) as XmlElement;
-            this.caretForeTextBox.Text = this.editorStyleNode.Attributes["caret-fore"].Value;
-            this.caretlineBackTextBox.Text = this.editorStyleNode.Attributes["caretline-back"].Value;
-            this.selectionBackTextBox.Text = this.editorStyleNode.Attributes["selection-back"].Value;
-            this.selectionForeTextBox.Text = this.editorStyleNode.Attributes["selection-fore"].Value;
+            if (this.currentStyleNode.Attributes["caret-fore"] != null)
+            {
+                this.caretForeTextBox.Text = this.editorStyleNode.Attributes["caret-fore"].Value;
+            }
+            if (this.currentStyleNode.Attributes["caretline-back"] != null)
+            {
+                this.caretlineBackTextBox.Text = this.editorStyleNode.Attributes["caretline-back"].Value;
+            }
+            if (this.currentStyleNode.Attributes["selection-back"] != null)
+            {
+                this.selectionBackTextBox.Text = this.editorStyleNode.Attributes["selection-back"].Value;
+            }
+            if (this.currentStyleNode.Attributes["selection-fore"] != null)
+            {
+                this.selectionForeTextBox.Text = this.editorStyleNode.Attributes["selection-fore"].Value;
+            }
             this.isLoadingEditor = false;
             this.isEditorSaved = true;
         }
