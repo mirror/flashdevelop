@@ -265,10 +265,11 @@ namespace FlashDevelop.Docking
                 if (codepage == -1) return; // If the files is locked, stop.
                 Encoding encoding = Encoding.GetEncoding(codepage);
                 String contents = FileHelper.ReadFile(this.FileName, encoding);
+                this.SciControl.IsReadOnly = false;
                 this.SciControl.Encoding = encoding;
                 this.SciControl.CodePage = ScintillaManager.SelectCodePage(codepage);
-                this.SciControl.IsReadOnly = FileHelper.FileIsReadOnly(this.FileName);
                 this.SciControl.Text = contents;
+                this.SciControl.IsReadOnly = FileHelper.FileIsReadOnly(this.FileName);
                 this.SciControl.SetSel(position, position);
                 this.SciControl.EmptyUndoBuffer();
                 this.SciControl.Focus();
