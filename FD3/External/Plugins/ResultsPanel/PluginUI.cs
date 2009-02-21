@@ -426,7 +426,12 @@ namespace ResultsPanel
                 {
                     this.AddSquiggle(this.entriesView.Items[i]);
                 }
-                this.entriesView.EnsureVisible(0);
+                if (this.Settings.ScrollToBottom)
+                {
+                    Int32 last = this.entriesView.Items.Count - 1;
+                    this.entriesView.EnsureVisible(last);
+                }
+                else this.entriesView.EnsureVisible(0);
                 this.nextEntry.Enabled = true;
                 this.previousEntry.Enabled = true;
             }

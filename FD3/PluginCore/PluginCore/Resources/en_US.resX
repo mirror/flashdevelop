@@ -2829,4 +2829,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Info.CouldNotBeRecycled" xml:space="preserve">
     <value>Could not be recycled:</value>
   </data>
+  <data name="ResultsPanel.Description.ScrollToBottom" xml:space="preserve">
+    <value>Scrolls the result view to the bottom on new results.</value>
+  </data>
 </root>
