@@ -292,7 +292,8 @@ namespace ProjectManager.Actions
                 {
                     if (!FileHelper.Recycle(path))
                     {
-                        throw new Exception("Could not be recycled: " + path);
+                        String error = TextHelper.GetString("Info.CouldNotBeRecycled");
+                        throw new Exception(error + " " + path);
                     }
                     OnFileDeleted(path);
                 }
@@ -327,7 +328,8 @@ namespace ProjectManager.Actions
                         {
                             if (!FileHelper.Recycle(path))
                             {
-                                throw new Exception("Could not be recycled: " + path);
+                                String error = TextHelper.GetString("Info.CouldNotBeRecycled");
+                                throw new Exception(error + " " + path);
                             }
                             OnFileDeleted(path);
                         }
@@ -399,6 +401,17 @@ namespace ProjectManager.Actions
 
                 toPath = Path.Combine(toPath, Path.GetFileName(fromPath));
 
+                if (!ConfirmOverwrite(toPath)) return;
+
+                if (File.Exists(toPath) || Directory.Exists(toPath))
+                {
+                    if (!FileHelper.Recycle(toPath))
+                    {
+                        String message = TextHelper.GetString("Info.CouldNotBeRecycled");
+                        throw new Exception(message + " " + toPath);
+                    }
+                }
+
                 OnFileCreated(toPath);
 
                 if (Directory.Exists(fromPath)) Directory.Move(fromPath, toPath);
@@ -406,6 +419,7 @@ namespace ProjectManager.Actions
 
                 OnFileMoved(fromPath, toPath);
             }
+            catch (UserCancelException){}
             catch (Exception exception)
             {
                 ErrorManager.ShowError(exception);
@@ -446,8 +460,7 @@ namespace ProjectManager.Actions
                     }
                 }
 
-                if (!ConfirmOverwrite(toPath))
-                    return;
+                if (!ConfirmOverwrite(toPath)) return;
 
                 OnFileCreated(toPath);
 

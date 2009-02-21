@@ -2826,4 +2826,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.ZipConfirmExtract" xml:space="preserve">
     <value>Can the following zip file be extracted:</value>
   </data>
+  <data name="ProjectManager.Info.CouldNotBeRecycled" xml:space="preserve">
+    <value>Could not be recycled:</value>
+  </data>
 </root>
