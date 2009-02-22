@@ -112,6 +112,17 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Path to the user project templates directory
+        /// </summary>
+        public static String UserProjectsDir
+        {
+            get
+            {
+                return Path.Combine(UserAppDir, "Projects");
+            }
+        }
+
+        /// <summary>
         /// Path to the library directory
         /// </summary>
         public static String LibraryDir

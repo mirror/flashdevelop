@@ -9,6 +9,7 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
+using FlashDevelop.Utilities;
 using PluginCore.Localization;
 using PluginCore.Helpers;
 using PluginCore;
@@ -562,8 +563,19 @@ namespace FlashDevelop.Dialogs
             {
                 this.fontNameComboBox.Items.Add(font.Name);
             }
-            this.languageDropDown.SelectedIndex = 0;
-            this.columnHeader.Width = -1;
+            Boolean foundSyntax = false;
+            String curSyntax = ArgsProcessor.GetCurSyntax();
+            foreach (Object item in this.languageDropDown.Items)
+            {
+                if (item.ToString().ToLower() == curSyntax)
+                {
+                    this.languageDropDown.SelectedItem = item;
+                    foundSyntax = true;
+                    break;
+                }
+            }
+            if (!foundSyntax) this.languageDropDown.SelectedIndex = 0;
+            this.columnHeader.Width = -2;
         }
 
         /// <summary>

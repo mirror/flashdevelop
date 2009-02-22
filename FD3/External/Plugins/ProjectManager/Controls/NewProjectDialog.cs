@@ -12,6 +12,7 @@ using ProjectManager.Helpers;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore;
+using System.Collections.Generic;
 
 namespace ProjectManager.Controls
 {
@@ -304,7 +305,7 @@ namespace ProjectManager.Controls
             this.InitializeLocalization();
 
 			imageList.Images.Add(Icons.Project.Img);
-			defaultProjectImage = Path.Combine(ProjectPaths.ProjectTemplatesDirectory,"Default.png");
+			defaultProjectImage = Path.Combine(ProjectPaths.ProjectTemplatesDirectory, "Default.png");
 			projectListView.Items.Clear();
 
 			if (!Directory.Exists(ProjectPaths.ProjectTemplatesDirectory))
@@ -315,7 +316,8 @@ namespace ProjectManager.Controls
 			}
 
             ListViewGroup group = null;
-			foreach (string templateDir in Directory.GetDirectories(ProjectPaths.ProjectTemplatesDirectory))
+            List<String> templateDirs = ProjectPaths.GetAllProjectDirs();
+            foreach (string templateDir in templateDirs)
 			{
                 // skip hidden folders (read: version control)
                 if ((File.GetAttributes(templateDir) & FileAttributes.Hidden) != 0) continue;

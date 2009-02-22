@@ -142,7 +142,7 @@ namespace FlashDevelop.Dialogs
                 item.Checked = true;
                 this.itemListView.Items.Add(item);
             }
-            this.columnHeader.Width = -1;
+            this.columnHeader.Width = -2;
         }
 
         /// <summary>

@@ -2139,9 +2139,17 @@ namespace FlashDevelop
         {
             try
             {
+                String zipFile = "";
+                Boolean silentInstall = false;
                 ToolStripItem button = (ToolStripItem)sender;
-                String zipFile = (((ItemData)button.Tag).Tag);
-                if (!File.Exists(zipFile)) return; // Cancel on missing file...
+                String[] chunks = (((ItemData)button.Tag).Tag).Split(';');
+                if (chunks.Length > 1) 
+                {
+                    zipFile = chunks[0];
+                    silentInstall = chunks[1] == "true";
+                }
+                else zipFile = chunks[0];
+                if (!File.Exists(zipFile)) return; // Skip missing file...
                 String caption = TextHelper.GetString("Title.ConfirmDialog");
                 String message = TextHelper.GetString("Info.ZipConfirmExtract") + "\n" + zipFile;
                 if (MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)

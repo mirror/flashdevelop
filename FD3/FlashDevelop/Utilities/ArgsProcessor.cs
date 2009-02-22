@@ -34,7 +34,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the FlashDevelop root directory
 		/// </summary>
-        private static String GetAppDir()
+        public static String GetAppDir()
 		{
 			return PathHelper.AppDir;
 		}
@@ -42,7 +42,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the users FlashDevelop directory
         /// </summary>
-        private static String GetUserAppDir()
+        public static String GetUserAppDir()
         {
             return PathHelper.UserAppDir;
         }
@@ -50,7 +50,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the data file directory
         /// </summary>
-        private static String GetBaseDir()
+        public static String GetBaseDir()
         {
             return PathHelper.BaseDir;
         }
@@ -58,7 +58,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the selected text
 		/// </summary>
-        private static String GetSelText()
+        public static String GetSelText()
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             else return Globals.SciControl.SelText;
@@ -67,7 +67,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the current file
 		/// </summary>
-        private static String GetCurFile()
+        public static String GetCurFile()
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             else return Globals.CurrentDocument.FileName;
@@ -76,7 +76,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the current file's path or last active path
 		/// </summary>
-        private static String GetCurDir()
+        public static String GetCurDir()
 		{
             if (!Globals.CurrentDocument.IsEditable) return Globals.MainForm.WorkingDirectory;
             else return Path.GetDirectoryName(GetCurFile());
@@ -85,7 +85,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the name of the current file
 		/// </summary>
-        private static String GetCurFilename()
+        public static String GetCurFilename()
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             else return Path.GetFileName(GetCurFile());
@@ -94,7 +94,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the timestamp
         /// </summary>
-        private static String GetTimestamp()
+        public static String GetTimestamp()
         {
             return DateTime.Now.ToString("g");
         }
@@ -102,7 +102,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the current word
 		/// </summary>
-        private static String GetCurWord()
+        public static String GetCurWord()
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             String curWord = Globals.SciControl.GetWordFromPosition(Globals.SciControl.CurrentPos);
@@ -113,7 +113,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the desktop path
 		/// </summary>
-        private static String GetDesktopDir()
+        public static String GetDesktopDir()
 		{
 			return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 		}
@@ -121,7 +121,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the system path
 		/// </summary>
-        private static String GetSystemDir()
+        public static String GetSystemDir()
 		{
 			return Environment.GetFolderPath(Environment.SpecialFolder.System);
 		}
@@ -129,7 +129,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the program files path
 		/// </summary>
-        private static String GetProgramsDir()
+        public static String GetProgramsDir()
 		{
 			return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 		}
@@ -137,7 +137,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the users personal files path
 		/// </summary>
-        private static String GetPersonalDir()
+        public static String GetPersonalDir()
 		{
 			return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 		}
@@ -153,7 +153,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the user selected file for opening
 		/// </summary>
-        private static String GetOpenFile()
+        public static String GetOpenFile()
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
 			ofd.InitialDirectory = GetCurDir();
@@ -165,7 +165,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the user selected file for saving
 		/// </summary>
-        private static String GetSaveFile()
+        public static String GetSaveFile()
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.InitialDirectory = GetCurDir();
@@ -176,7 +176,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the user selected folder
 		/// </summary>
-		private static String GetOpenDir()
+        public static String GetOpenDir()
 		{
 			FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.RootFolder = Environment.SpecialFolder.MyComputer;
@@ -187,7 +187,7 @@ namespace FlashDevelop.Utilities
 		/// <summary>
 		/// Gets the clipboard text
 		/// </summary>
-		private static String GetClipboard()
+        public static String GetClipboard()
 		{
 			IDataObject cbdata = Clipboard.GetDataObject();
 			if (cbdata.GetDataPresent("System.String", true)) 
@@ -200,7 +200,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the comment block indent
         /// </summary>
-        private static String GetCBI()
+        public static String GetCBI()
         {
             CommentBlockStyle cbs = Globals.Settings.CommentBlockStyle;
             if (cbs == CommentBlockStyle.Indented) return " ";
@@ -210,7 +210,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the current syntax based on project or current file.
         /// </summary>
-        private static String GetCurSyntax()
+        public static String GetCurSyntax()
         {
             if (PluginBase.CurrentProject != null)
             {
@@ -250,7 +250,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Gets the line intendation from the text
         /// </summary>
-        private static String GetLineIndentation(String text, Int32 position)
+        public static String GetLineIndentation(String text, Int32 position)
         {
             Char c;
             Int32 startPos = position;
@@ -298,7 +298,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Match evaluator for tabs
         /// </summary>
-        private static String ReplaceTabs(Match match)
+        public static String ReplaceTabs(Match match)
         {
             return new String(' ', match.Length * Globals.Settings.IndentSize);
         }
@@ -306,7 +306,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Match evaluator for vars
         /// </summary>
-        private static String ReplaceVars(Match match)
+        public static String ReplaceVars(Match match)
         {
             if (match.Groups.Count > 0)
             {
@@ -347,7 +347,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Replaces the enchanced arguments with gui
         /// </summary>
-        private static String ReplaceArgsWithGUI(String args)
+        public static String ReplaceArgsWithGUI(String args)
         {
             if (args.IndexOf("$$(") < 0) return args;
             if (reEnvArgs.IsMatch(args)) // Environmental arguments
@@ -373,7 +373,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Match evaluator for User Arguments
         /// </summary>
-        private static String ReplaceUserArgs(Match match)
+        public static String ReplaceUserArgs(Match match)
         {
             if (match.Groups.Count > 0) return userArgs[match.Groups[1].Value];
             else return match.Value;
@@ -382,7 +382,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Match evaluator for Environment Variables
         /// </summary>
-        private static String ReplaceEnvArgs(Match match)
+        public static String ReplaceEnvArgs(Match match)
         {
             if (match.Groups.Count > 0) return Environment.GetEnvironmentVariable(match.Groups[1].Value);
             else return match.Value;
@@ -391,7 +391,7 @@ namespace FlashDevelop.Utilities
         /// <summary>
         /// Match evaluator for Special Arguments
         /// </summary>
-        private static String ReplaceSpecialArgs(Match match)
+        public static String ReplaceSpecialArgs(Match match)
         {
             if (match.Groups.Count > 0)
             {
