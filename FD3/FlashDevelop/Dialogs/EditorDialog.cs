@@ -156,7 +156,7 @@ namespace FlashDevelop.Dialogs
             //
             this.itemListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.itemListView.MultiSelect = false;
-            this.itemListView.FullRowSelect = true;
+            this.itemListView.HideSelection = false;
             this.itemListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.itemListView.Location = new System.Drawing.Point(12, 40);
             this.itemListView.Name = "itemListView";
@@ -927,8 +927,8 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void SaveButtonClick(Object sender, EventArgs e)
         {
-            Globals.MainForm.RefreshSciConfig();
             this.SaveCurrentLanguage();
+            Globals.MainForm.RefreshSciConfig();
         }
 
         /// <summary>

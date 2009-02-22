@@ -60,6 +60,7 @@ namespace FlashDevelop.Managers
                 sci.ConfigurationLanguage = language;
             }
             sci.Colourise(0, -1);
+            sci.Refresh();
         }
 
         /// <summary>
@@ -166,7 +167,6 @@ namespace FlashDevelop.Managers
             sci.StyleResetDefault();
             sci.ClearDocumentStyle();
             sci.ConfigurationLanguage = lang;
-            sci.StyleBits = 7;
             sci.Colourise(0, -1);
             sci.Refresh();
             ButtonManager.UpdateFlaggedButtons();
@@ -261,6 +261,10 @@ namespace FlashDevelop.Managers
                         sci.AddIgnoredKeys(keys);
                     }
                 }
+                String lang = sci.ConfigurationLanguage;
+                sci.ConfigurationLanguage = lang;
+                sci.Colourise(0, -1);
+                sci.Refresh();
             }
             catch (Exception ex)
             {
