@@ -47,7 +47,7 @@ XPStyle on
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
 VIAddVersionKey "ProductName" "FlashDevelop Installer"
-VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2008"
+VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2009"
 VIAddVersionKey "FileDescription" "FlashDevelop Installer"
 VIAddVersionKey "ProductVersion" "3.0.0.0"
 VIAddVersionKey "FileVersion" "3.0.0.0"
