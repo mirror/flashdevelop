@@ -34,7 +34,7 @@ namespace ScintillaNet.Configuration
             filename = filename.Replace("$(BaseDir)", PathHelper.BaseDir);
             if (System.IO.File.Exists(filename))
 			{
-                res = new System.IO.FileStream(filename, System.IO.FileMode.Open);
+                res = new System.IO.FileStream(filename, FileMode.Open, FileAccess.Read);
 			}
 			else
 			{
