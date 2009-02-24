@@ -62,7 +62,7 @@ namespace FlashDevelop.Dialogs
             this.cancelButton.Location = new System.Drawing.Point(12, 327);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(85, 23);
-            this.cancelButton.TabIndex = 1;
+            this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
@@ -82,13 +82,15 @@ namespace FlashDevelop.Dialogs
             this.itemListView.Location = new System.Drawing.Point(12, 12);
             this.itemListView.Name = "itemListView";
             this.itemListView.Size = new System.Drawing.Size(212, 310);
-            this.itemListView.TabIndex = 2;
+            this.itemListView.TabIndex = 3;
             this.itemListView.View = System.Windows.Forms.View.Details;
             this.itemListView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.itemListView.Columns.Add(this.columnHeader);
             // 
             // ExportDialog
-            // 
+            //
+            this.AcceptButton = this.okButton;
+            this.CancelButton = this.cancelButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(235, 361);

@@ -2832,4 +2832,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ResultsPanel.Description.ScrollToBottom" xml:space="preserve">
     <value>Scrolls the result view to the bottom on new results.</value>
   </data>
+  <data name="FlashDevelop.Label.Apply" xml:space="preserve">
+    <value>&amp;Apply</value>
+  </data>
 </root>
