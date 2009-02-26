@@ -199,6 +199,7 @@
     <Compile Include="CodeFlow\IActionExaminer.cs" />
     <Compile Include="CodeFlow\InvocationExaminer.cs" />
     <Compile Include="Data\Abc.cs" />
+    <Compile Include="Data\AbcDump.cs" />
     <Compile Include="Data\ClipActionRec.cs" />
     <Compile Include="Data\RecordHeader.cs" />
     <Compile Include="Data\Swf.cs" />

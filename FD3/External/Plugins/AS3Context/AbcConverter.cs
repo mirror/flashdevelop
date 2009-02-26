@@ -26,16 +26,17 @@ namespace AS3Context
             privateClasses.Version = 3;
             privateClasses.Package = "private";
             genericTypes = new Dictionary<string, FileModel>();
+            imports = new Dictionary<string, string>();
 
             foreach (Abc abc in abcs)
             {
+                // types
                 foreach (Traits trait in abc.classes)
                 {
                     Traits instance = trait.itraits;
                     if (instance == null)
                         continue;
-
-                    imports = new Dictionary<string, string>();
+                    imports.Clear();
 
                     FileModel model = new FileModel("");
                     model.Context = context;
@@ -135,15 +136,66 @@ namespace AS3Context
 
                     if (type.Access == Visibility.Private)
                     {
-                        type.InFile = privateClasses;
-                        privateClasses.Classes.Add(type);
+                        model = privateClasses;
+                        type.InFile = model;
                     }
-                    else if (model.Classes.Count > 0) path.AddFile(model);
-
-                    // imports
-                    foreach (string import in imports.Keys)
+                    if (model.Classes.Count > 0)
                     {
-                        model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
+                        path.AddFile(model);
+
+                        foreach (string import in imports.Keys)
+                        {
+                            model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
+                        }
+                    }
+                }
+
+                // packages
+                if (abc.scripts == null) continue;
+                foreach (Traits trait in abc.scripts)
+                {
+                    FileModel model = null;
+                    foreach (MemberInfo info in trait.members)
+                    {
+                        if (info.kind == TraitMember.Class) 
+                            continue;
+
+                        MemberModel member = GetMember(info, 0);
+                        if (member == null) continue;
+
+                        if (model == null)
+                        {
+                            imports.Clear();
+                            string package = info.name.uri ?? "";
+                            string filename = package.Length > 0 ? "package.as" : "toplevel.as";
+                            filename = Path.Combine(package.Replace('.', Path.DirectorySeparatorChar), filename);
+                            filename = Path.Combine(path.Path, filename);
+                            if (path.HasFile(filename)) 
+                                model = path.GetFile(filename);
+                            else
+                            {
+                                model = new FileModel("");
+                                model.Context = context;
+                                model.Package = package;
+                                model.FileName = filename;
+                                model.Version = 3;
+                                path.AddFile(model);
+                            }
+                        }
+                        else if (info.name.uri != model.Package)
+                            continue;
+
+                        member.InFile = model;
+                        member.IsPackageLevel = true;
+                        model.Members.Add(member);
+                    }
+
+                    if (model != null)
+                    {
+                        foreach (string import in imports.Keys)
+                        {
+                            model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
+                        }
                     }
                 }
             }
@@ -151,7 +203,7 @@ namespace AS3Context
             if (privateClasses.Classes.Count > 0) path.AddFile(privateClasses);
         }
 
-        private static MemberList GetMembers(List<MemberInfo> abcMembers, FlagType baseType, QName instName)
+        private static MemberList GetMembers(List<MemberInfo> abcMembers, FlagType baseFlags, QName instName)
         {
             MemberList list = new MemberList();
             string package = instName.uri;
@@ -159,19 +211,14 @@ namespace AS3Context
 
             foreach (MemberInfo info in abcMembers)
             {
-                MemberModel member = new MemberModel();
-                member.Name = info.name.localName;
-                member.Flags = baseType;
-
+                MemberModel member = GetMember(info, baseFlags);
+                if (member == null) continue;
+                
                 string uri = info.name.uri ?? "";
                 if (uri.Length > 0)
                 {
-                    if (uri == "private")
-                    {
+                    if (uri == "private") 
                         continue;
-                        //member.Access = Visibility.Private;
-                        //member.Namespace = "private";
-                    }
                     else if (uri == protect)
                     {
                         member.Access = Visibility.Protected;
@@ -189,53 +236,62 @@ namespace AS3Context
                         member.Namespace = "public";
                     }
                 }
-                else
-                {
-                    member.Access = Visibility.Public;
-                    member.Namespace = "public";
-                }
-
-                if (info is SlotInfo)
-                {
-                    SlotInfo slot = info as SlotInfo;
-                    member.Flags |= FlagType.Variable;
-                    if (slot.kind == TraitMember.Const) member.Flags |= FlagType.Constant;
-                    member.Type = ImportType(slot.type);
-                }
-
-                else if (info is MethodInfo)
-                {
-                    switch (info.kind)
-                    {
-                        case TraitMember.Setter: member.Flags |= FlagType.Setter; break;
-                        case TraitMember.Getter: member.Flags |= FlagType.Getter; break;
-                        default: member.Flags |= FlagType.Function; break;
-                    }
-                    MethodInfo method = info as MethodInfo;
-                    QName type = method.returnType;
-                    member.Type = ImportType(type);
-                    
-                    member.Parameters = new List<MemberModel>();
-                    int n = method.paramTypes.Length;
-                    int defaultValues = (method.optionalValues != null) ? n-method.optionalValues.Length : n;
-                    for (int i = 0; i < n; i++)
-                    {
-                        MemberModel param = new MemberModel();
-                        param.Name = (method.paramNames != null) ? method.paramNames[i] : "param" + i;
-                        type = method.paramTypes[i];
-                        param.Type = ImportType(type);
-
-                        if (i >= defaultValues) 
-                            SetDefaultValue(param, method.optionalValues[i - defaultValues]);
-
-                        member.Parameters.Add(param);
-                    }
-                }
-                else continue;
-
                 list.Add(member);
             }
             return list;
+        }
+
+        private static MemberModel GetMember(MemberInfo info, FlagType baseFlags)
+        {
+            MemberModel member = new MemberModel();
+            member.Name = info.name.localName;
+            member.Flags = baseFlags;
+            member.Access = Visibility.Public;
+            member.Namespace = "public";
+
+            if (info is SlotInfo)
+            {
+                SlotInfo slot = info as SlotInfo;
+                member.Flags |= FlagType.Variable;
+                if (slot.kind == TraitMember.Const) member.Flags |= FlagType.Constant;
+                if (slot.value is Namespace)
+                {
+                    member.Flags |= FlagType.Namespace;
+                    member.Value = '"' + (slot.value as Namespace).uri + '"';
+                }
+                member.Type = ImportType(slot.type);
+            }
+
+            else if (info is MethodInfo)
+            {
+                switch (info.kind)
+                {
+                    case TraitMember.Setter: member.Flags |= FlagType.Setter; break;
+                    case TraitMember.Getter: member.Flags |= FlagType.Getter; break;
+                    default: member.Flags |= FlagType.Function; break;
+                }
+                MethodInfo method = info as MethodInfo;
+                QName type = method.returnType;
+                member.Type = ImportType(type);
+
+                member.Parameters = new List<MemberModel>();
+                int n = method.paramTypes.Length;
+                int defaultValues = (method.optionalValues != null) ? n - method.optionalValues.Length : n;
+                for (int i = 0; i < n; i++)
+                {
+                    MemberModel param = new MemberModel();
+                    param.Name = (method.paramNames != null) ? method.paramNames[i] : "param" + i;
+                    type = method.paramTypes[i];
+                    param.Type = ImportType(type);
+
+                    if (i >= defaultValues)
+                        SetDefaultValue(param, method.optionalValues[i - defaultValues]);
+
+                    member.Parameters.Add(param);
+                }
+            }
+            else return null;
+            return member;
         }
 
         private static string ImportType(QName type)
@@ -266,7 +322,7 @@ namespace AS3Context
         private static void SetDefaultValue(MemberModel member, object value)
         {
             if (value == null) member.Value = "null";
-            else if (value is string) member.Value = '"' + value.ToString() + '"';
+            else if (value is string && value.ToString() != "undefined") member.Value = '"' + value.ToString() + '"';
             else if (value is bool) member.Value = value.ToString().ToLower();
             else member.Value = value.ToString();
         }

@@ -143,6 +143,7 @@ namespace SwfOp.Data
         callinterface = 0x4D,
         callsupervoid = 0x4E,
         callpropvoid = 0x4F,
+	    applytype = 0x53,
         newobject = 0x55,
         newarray = 0x56,
         newactivation = 0x57,
@@ -269,10 +270,10 @@ namespace SwfOp.Data
         }
     }
 
-    public class LabelInfo : Dictionary<int, string>
+    public class LabelInfo : Dictionary<long, string>
     {
         public int count;
-        string labelFor(int target)
+        public string labelFor(long target)
         {
             if (ContainsKey(target))
                 return this[target];
@@ -294,13 +295,14 @@ namespace SwfOp.Data
         public object[] optionalValues;
         public string[] paramNames;
         public QName returnType;
-        /*public int local_count;
+        // body
+        public int local_count;
         public int max_scope;
         public int max_stack;
         public int code_length;
         public byte[] code;
-        public List<Traits> activation;
-        public bool anon;*/
+        public Traits activation;
+        public bool anon;
     }
 
     public class Namespace
@@ -437,28 +439,29 @@ namespace SwfOp.Data
 
     public class Abc
     {
-        int magic;
-        //int major;
-		//int minor;
-        MetaData[] metadata;
+        #region ABC data
+        internal int magic;
+        internal MetaData[] metadata;
 
-        object[][] defaults;
-        object[] const_values;
-        object[] ints;
-        object[] uints;
-        object[] doubles;
-        object[] strings;
-        object[] namespaces;
-        object[] nssets;
-        object[] names;
+        internal object[] const_values;
+        internal int[] ints;
+        internal uint[] uints;
+        internal double[] doubles;
+        internal string[] strings;
+        internal Namespace[] namespaces;
+        internal Namespace[][] nssets;
+        internal QName[] names;
                 
-        MethodInfo[] methods;
+        internal MethodInfo[] methods;
         public Traits[] instances;
         public Traits[] classes;
-        object[] scripts;
+        public Traits[] scripts;
+        internal long methodBodiesPosition;
+        internal bool methodBodiesParsed;
 
-		Namespace publicNs = new Namespace("");
-        Namespace anyNs = new Namespace("*");
+		internal Namespace publicNs = new Namespace("");
+        internal Namespace anyNs = new Namespace("*");
+        #endregion
 
         public Abc(BinaryReader br)
         {
@@ -471,40 +474,25 @@ namespace SwfOp.Data
 
             // constants pool
             parseCpool(br);
-
-            defaults = new object[0x1C][];
-            defaults[(int)ConstantKind.Utf8] = strings;
-            defaults[(int)ConstantKind.Int] = ints;
-            defaults[(int)ConstantKind.UInt] = uints;
-            defaults[(int)ConstantKind.Double] = doubles;
-            defaults[(int)ConstantKind.Int] = ints;
             const_values = new object[13];
             const_values[10] = false;
             const_values[11] = true;
             const_values[12] = null;
-            defaults[(int)ConstantKind.False] = const_values;
-            defaults[(int)ConstantKind.True] = const_values;
-            defaults[(int)ConstantKind.Namespace] = namespaces;
-            defaults[(int)ConstantKind.PrivateNs] = namespaces;
-            defaults[(int)ConstantKind.PackageNs] = namespaces;
-            defaults[(int)ConstantKind.PackageInternalNs] = namespaces;
-            defaults[(int)ConstantKind.ProtectedNs] = namespaces;
-            defaults[(int)ConstantKind.StaticProtectedNs] = namespaces;
-            defaults[(int)ConstantKind.StaticProtectedNs2] = namespaces;
-            defaults[(int)ConstantKind.Null] = const_values;
-            
+           
 			parseMethodInfos(br);
 			parseMetadataInfos(br);
 			parseInstanceInfos(br);
 			parseClassInfos(br);
-			//parseScriptInfos(br);
-			//parseMethodBodies(br);
+			parseScriptInfos(br);
+
+            // store read position for optional parseMethodBodies() call
+            methodBodiesPosition = br.BaseStream.Position;
         }
 
         /// <summary>
         /// Reading Flash 9 multi-byte integer encoding
         /// </summary>
-        int readU32(BinaryReader br)
+        static public int readU32(BinaryReader br)
         {
             int result = br.ReadByte();
             if ((result & 0x00000080) == 0)
@@ -521,7 +509,7 @@ namespace SwfOp.Data
             return result & 0x0fffffff | br.ReadByte() << 28;
         }
 
-        string readUTFBytes(BinaryReader br)
+        static public string readUTFBytes(BinaryReader br)
         {
             int len = readU32(br);
             byte[] buffer = new byte[len];
@@ -540,21 +528,21 @@ namespace SwfOp.Data
 
 			// ints
 			n = readU32(br);
-            ints = new object[n];
+            ints = new int[n];
             if (n > 0) ints[0] = 0;
 			for (int i=1; i < n; i++)
 				ints[i] = readU32(br);
 
 			// uints
 			n = readU32(br);
-            uints = new object[n];
+            uints = new uint[n];
             if (n > 0) uints[0] = 0;
 			for (int i=1; i < n; i++)
 				uints[i] = (uint)readU32(br);
 
 			// doubles
 			n = readU32(br);
-            doubles = new object[n];
+            doubles = new double[n];
             if (n > 0) doubles[0] = double.NaN;
 			for (int i=1; i < n; i++)
 				doubles[i] = br.ReadDouble();
@@ -565,7 +553,7 @@ namespace SwfOp.Data
 
 			// strings
 			n = readU32(br);
-            strings = new object[n];
+            strings = new string[n];
             if (n > 0) strings[0] = "";
             for (int i = 1; i < n; i++)
                 strings[i] = readUTFBytes(br); //br.ReadString()
@@ -576,7 +564,7 @@ namespace SwfOp.Data
 
 			// namespaces
 			n = readU32(br);
-            namespaces = new object[n];
+            namespaces = new Namespace[n];
             if (n > 0) namespaces[0] = publicNs;
 			for (int i=1; i < n; i++)
 			switch ((ConstantKind)br.ReadSByte())
@@ -601,23 +589,23 @@ namespace SwfOp.Data
             
 			// namespace sets
 			n = readU32(br);
-            nssets = new object[n];
+            nssets = new Namespace[n][];
             if (n > 0) nssets[0] = null;
-			for (int i=1; i < n; i++)
-			{
-				int count = readU32(br);
+            for (int i = 1; i < n; i++)
+            {
+                int count = readU32(br);
                 Namespace[] nsset = new Namespace[count];
                 nssets[i] = nsset;
                 for (int j = 0; j < count; j++)
                     nsset[j] = (Namespace)namespaces[readU32(br)];
-			}
+            }
 
 			//Console.WriteLine("Cpool nssets count "+ n +" size "+(br.BaseStream.Position-start)+" "+(int)(100*(br.BaseStream.Position-start)/br.BaseStream.Length)+" %");
             start = br.BaseStream.Position;
 
 			// multinames
 			n = readU32(br);
-            names = new object[n];
+            names = new QName[n];
             if (n > 0) names[0] = null;
 			namespaces[0] = anyNs;
 			strings[0] = "*";
@@ -717,13 +705,7 @@ namespace SwfOp.Data
 							// kind is ignored, default value is based on type
 							m.optionalValues[k] = null;
 						}
-						else
-						{
-                            if ((int)kind >= defaults.Length || index >= defaults[(int)kind].Length)
-                                Console.WriteLine("-- Error: parameter kind index overflow [" + kind + ", method_id " + i + "]");
-                            else
-                                m.optionalValues[k] = defaults[(int)kind][index];
-						}
+						else m.optionalValues[k] = getDefaultValue(kind, index);
 					}
 				}
 				if ((m.flags & MethodFlags.HasParamNames) > 0)
@@ -740,6 +722,30 @@ namespace SwfOp.Data
 			}
 			//Console.WriteLine("MethodInfo count " +method_count+ " size "+(br.BaseStream.Position-start)+" "+(int)(100*(br.BaseStream.Position-start)/br.BaseStream.Length)+" %");
 		}
+
+        private object getDefaultValue(ConstantKind kind, int index)
+        {
+            switch(kind)
+            {
+                case ConstantKind.Utf8: return strings[index];
+                case ConstantKind.Int: return ints[index];
+                case ConstantKind.UInt: return uints[index];
+                case ConstantKind.Double: return doubles[index];
+                case ConstantKind.False:
+                case ConstantKind.True:
+                case ConstantKind.Null: return const_values[index];
+                case ConstantKind.Namespace:
+                case ConstantKind.PrivateNs:
+                case ConstantKind.PackageNs:
+                case ConstantKind.PackageInternalNs:
+                case ConstantKind.ProtectedNs:
+                case ConstantKind.StaticProtectedNs:
+                case ConstantKind.StaticProtectedNs2: return namespaces[index];
+                default:
+                    Console.WriteLine("-- Error: unknown kind [" + kind + "]");
+                    return null;
+            }
+        }
 
         private void parseMetadataInfos(BinaryReader br)
 		{
@@ -820,7 +826,7 @@ namespace SwfOp.Data
                             slot.type = (QName)names[readU32(br)];
 						    int index = readU32(br);
 						    if (index > 0)
-							    slot.value = defaults[br.ReadByte()][index];
+							    slot.value = getDefaultValue((ConstantKind)br.ReadByte(), index);
 					    }
 					    else // (kind == TraitMember.Class)
 					    {
@@ -884,21 +890,74 @@ namespace SwfOp.Data
 		{
 			long start = br.BaseStream.Position;
 			int count = readU32(br);
-            scripts = new object[count];
-			for (int i=0; i < count; i++)
-	        {
-	        	Traits t = new Traits();
-				scripts[i] = t;
-	        	t.name = new QName("script" + i);
-	        	t.baseName = (QName)names[0]; // Object
-	        	t.init = (MethodInfo)methods[readU32(br)];
-	        	t.init.name = new QName(t.name.localName + "$init");
-				t.init.kind = TraitMember.Method;
+            scripts = new Traits[count];
+            for (int i = 0; i < count; i++)
+            {
+                Traits t = new Traits();
+                scripts[i] = t;
+                t.name = new QName("script" + i);
+                t.baseName = (QName)names[0]; // Object
+                t.init = (MethodInfo)methods[readU32(br)];
+                t.init.name = new QName(t.name.localName + "$init");
+                t.init.kind = TraitMember.Method;
 
-	        	parseTraits(br, t);
-	        }
+                parseTraits(br, t);
+            }
             //Console.WriteLine("ScriptInfo size " + (br.BaseStream.Position - start) + " " + (int)(100 * (br.BaseStream.Position - start) / br.BaseStream.Length) + " %");
 		}
+
+        /// <summary>
+        /// Call this method to extract the methods information & bytecode
+        /// </summary>
+        /// <param name="data">AbcTag raw data</param>
+        public void parseMethodBodies(byte[] data)
+        {
+            if (methodBodiesParsed)
+                return;
+            methodBodiesParsed = true;
+
+            MemoryStream ms = new MemoryStream(data);
+            BinaryReader br = new BinaryReader(ms);
+            long start = methodBodiesPosition;
+            br.BaseStream.Position = start;
+
+            int count = readU32(br);
+            if (count > methods.Length)
+            {
+                Console.WriteLine("Invalid method bodies count.");
+                return;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                MethodInfo m = methods[readU32(br)];
+                if (m == null)
+                {
+                    Console.WriteLine("Invalid method body index");
+                    continue;
+                }
+                m.max_stack = readU32(br);
+                m.local_count = readU32(br);
+                int initScopeDepth = readU32(br);
+                int maxScopeDepth = readU32(br);
+                m.max_scope = maxScopeDepth - initScopeDepth;
+                int code_length = readU32(br);
+                m.code = br.ReadBytes(code_length);
+                int ex_count = readU32(br);
+                for (int j = 0; j < ex_count; j++)
+                {
+                    int from = readU32(br);
+                    int to = readU32(br);
+                    int target = readU32(br);
+                    QName type = (QName)names[readU32(br)];
+                    //if (magic >= (46<<16|16))
+                    QName name = (QName)names[readU32(br)];
+                }
+                m.activation = new Traits();
+                parseTraits(br, m.activation);
+                //Console.Write(AbcDump.dumpMethod(this, m, "", ""));
+            }
+            //Console.WriteLine("MethodBodies size " + (br.BaseStream.Position - start) + " " + (int)(100 * (br.BaseStream.Position - start) / br.BaseStream.Length) + " %");
+        }
         #endregion
     }
 }

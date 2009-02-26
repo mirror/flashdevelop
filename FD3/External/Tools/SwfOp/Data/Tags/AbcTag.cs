@@ -28,6 +28,7 @@ namespace SwfOp.Data.Tags
             try
             {
                 _abc = new Abc(br);
+                //_abc.parseMethodBodies(_data);
             }
             catch (Exception ex)
             {
