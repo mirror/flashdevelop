@@ -657,8 +657,8 @@ namespace PluginCore.Controls
                     sci.ReplaceSel(replace);
                     if (OnInsert != null) OnInsert(sci, startPos, replace, trigger, item);
                     if (tail.Length > 0) sci.ReplaceSel(tail);
-                    return true;
                 }
+                return true;
 			}
             return false;
         }
