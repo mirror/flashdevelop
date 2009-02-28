@@ -1072,7 +1072,7 @@ namespace ASCompletion.Completion
             int curLine = sci.LineFromPosition(position);
 
             string fullPath = CleanType(member.Type); // ((member.Flags & FlagType.Class) > 0) ? member.Type : member.Name;
-            string statement = "import " + fullPath + ";\n";
+            string statement = "import " + fullPath + ";" + ASComplete.GetNewLineMarker(sci.EOLMode);
 
             // locate insertion point
             int line = (ASContext.Context.InPrivateSection) ? cFile.PrivateSectionIndex : 0;
