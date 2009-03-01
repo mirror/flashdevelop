@@ -48,7 +48,6 @@
 	<languages>
 		<language name="css">
 			<lexer name="css" style-bits="7" />
-			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
 			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-]]></character-class>
 			<comment-start><![CDATA[/*]]></comment-start>
 			<comment-end><![CDATA[*/]]></comment-end>			
@@ -57,6 +56,8 @@
 				<keyword key="0" class="css-keywords" />
 				<keyword key="1" class="css-pseudoclasses" />
 			</use-keywords>
+			<!-- COLORING_START -->
+			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
 			<use-styles>
 				<style name="default" fore="0x000000" back="0xffffff" size="9" font="Courier New" />
 				<style name="tag" fore="0x800000" />
@@ -83,6 +84,7 @@
 				<style name="indentguide" fore="0xc0c0c0" />
 				<style name="lastpredefined" fore="0x666666" />
 			</use-styles>
+			<!-- COLORING_END -->
 		</language>
 	</languages>
 </Scintilla>

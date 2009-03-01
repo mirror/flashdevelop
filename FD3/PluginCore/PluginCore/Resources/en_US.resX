@@ -2835,4 +2835,13 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Label.Apply" xml:space="preserve">
     <value>&amp;Apply</value>
   </data>
+  <data name="FlashDevelop.Info.RevertSettingsFiles" xml:space="preserve">
+    <value>Do you want to revert the entire language setting files [Yes] or just the other language configuration without the coloring settings [No]?</value>
+  </data>
+  <data name="FlashDevelop.Label.RevertFiles" xml:space="preserve">
+    <value>Revert Files...</value>
+  </data>
+  <data name="FlashDevelop.Info.ColoringTagsMissing" xml:space="preserve">
+    <value>Your language setting file is probably missing coloring start and end comments.</value>
+  </data>
 </root>

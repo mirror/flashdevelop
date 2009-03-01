@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using FlashDevelop.Utilities;
 using PluginCore.Localization;
+using PluginCore.Managers;
 using PluginCore.Helpers;
 using PluginCore;
 
@@ -31,6 +32,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label sizeLabel;
         private System.Windows.Forms.Label fontLabel;
         private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button revertButton;
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.Button cancelButton;
@@ -84,6 +86,7 @@ namespace FlashDevelop.Dialogs
         {
             this.okButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
+            this.revertButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.itemListView = new System.Windows.Forms.ListView();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
@@ -457,6 +460,14 @@ namespace FlashDevelop.Dialogs
             this.exportButton.Location = new System.Drawing.Point(204, 338);
             this.exportButton.Click += new System.EventHandler(this.ExportLanguagesClick);
             // 
+            // revertButton
+            //
+            this.revertButton.Name = "revertButton";
+            this.revertButton.TabIndex = 9;
+            this.revertButton.Size = new System.Drawing.Size(30, 23);
+            this.revertButton.Location = new System.Drawing.Point(244, 338);
+            this.revertButton.Click += new System.EventHandler(this.RevertLanguagesClick);
+            // 
             // EditorDialog
             //
             this.MaximizeBox = false;
@@ -471,6 +482,7 @@ namespace FlashDevelop.Dialogs
             this.Controls.Add(this.itemGroupBox);
             this.Controls.Add(this.languageDropDown);
             this.Controls.Add(this.itemListView);
+            this.Controls.Add(this.revertButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.applyButton);
@@ -501,6 +513,12 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Constant xml file style paths
         /// </summary>
+        private const String coloringStart = "<!-- COLORING_START -->";
+        private const String coloringEnd = "<!-- COLORING_END -->";
+
+        /// <summary>
+        /// Constant xml file style paths
+        /// </summary>
         private const String stylePath = "Scintilla/languages/language/use-styles/style";
         private const String editorStylePath = "Scintilla/languages/language/editor-style";
         private const String defaultStylePath = "Scintilla/languages/language/use-styles/style[@name='default']";
@@ -514,6 +532,7 @@ namespace FlashDevelop.Dialogs
             this.languageDropDown.Font = Globals.Settings.DefaultFont;
             this.languageDropDown.FlatStyle = Globals.Settings.ComboBoxFlatStyle;
             tooltip.SetToolTip(this.exportButton, TextHelper.GetString("Label.ExportFiles"));
+            tooltip.SetToolTip(this.revertButton, TextHelper.GetString("Label.RevertFiles"));
             this.Text = " " + TextHelper.GetString("Title.SyntaxEditDialog");
             this.boldCheckBox.Text = TextHelper.GetString("Info.Bold");
             this.italicsCheckBox.Text = TextHelper.GetString("Info.Italic");
@@ -531,6 +550,10 @@ namespace FlashDevelop.Dialogs
             this.fontLabel.Text = TextHelper.GetString("Info.Font");
             this.sizeLabel.Text = TextHelper.GetString("Info.Size");
             this.okButton.Text = TextHelper.GetString("Label.Ok");
+            if (Globals.MainForm.StandaloneMode)
+            {
+                this.revertButton.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -549,6 +572,7 @@ namespace FlashDevelop.Dialogs
         private void PopulateControls()
         {
             Image colorImage = PluginBase.MainForm.FindImage("328");
+            this.revertButton.Image = PluginBase.MainForm.FindImage("55|1|3|3");
             this.exportButton.Image = PluginBase.MainForm.FindImage("328|9|3|3");
             this.foregroundButton.Image = this.backgroundButton.Image = colorImage;
             this.caretForeButton.Image = this.caretlineBackButton.Image = colorImage;
@@ -914,6 +938,68 @@ namespace FlashDevelop.Dialogs
         private void LanguagesSelectedIndexChanged(Object sender, EventArgs e)
         {
             this.LoadLanguage(this.languageDropDown.Text, true);
+        }
+
+        /// <summary>
+        /// Opens the revert settings dialog
+        /// </summary>
+        private void RevertLanguagesClick(Object sender, EventArgs e)
+        {
+            String caption = TextHelper.GetString("Title.ConfirmDialog");
+            String message = TextHelper.GetString("Info.RevertSettingsFiles");
+            String appSettingDir = Path.Combine(PathHelper.AppDir, "Settings");
+            String appLanguageDir = Path.Combine(appSettingDir, "Languages");
+            DialogResult result = MessageBox.Show(message, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.Yes)
+            {
+                this.Enabled = false;
+                FolderHelper.CopyFolder(appLanguageDir, this.LangDir);
+                this.LoadLanguage(this.languageDropDown.Text, true);
+                if (this.itemListView.SelectedIndices.Count > 0)
+                {
+                    String language = this.itemListView.SelectedItems[0].Text;
+                    this.LoadLanguageItem(language);
+                }
+                this.Enabled = true;
+            }
+            else if (result == DialogResult.No)
+            {
+                this.Enabled = false;
+                String[] userFiles = Directory.GetFiles(this.LangDir);
+                foreach (String userFile in userFiles)
+                {
+                    String appFile = Path.Combine(appLanguageDir, Path.GetFileName(userFile));
+                    if (File.Exists(appFile))
+                    {
+                        try
+                        {
+                            String appFileContents = FileHelper.ReadFile(appFile);
+                            String userFileContents = FileHelper.ReadFile(userFile);
+                            Int32 appFileColoringStart = appFileContents.IndexOf(coloringStart);
+                            Int32 appFileColoringEnd = appFileContents.IndexOf(coloringEnd);
+                            Int32 userFileColoringStart = userFileContents.IndexOf(coloringStart);
+                            Int32 userFileColoringEnd = userFileContents.IndexOf(coloringEnd);
+                            String replaceTarget = appFileContents.Substring(appFileColoringStart, appFileColoringEnd - appFileColoringStart);
+                            String replaceContent = userFileContents.Substring(userFileColoringStart, userFileColoringEnd - userFileColoringStart);
+                            String finalContent = appFileContents.Replace(replaceTarget, replaceContent);
+                            FileHelper.WriteFile(userFile, finalContent, Encoding.UTF8);
+                        }
+                        catch (Exception ex)
+                        {
+                            this.Enabled = true;
+                            String desc = TextHelper.GetString("Info.ColoringTagsMissing");
+                            ErrorManager.ShowError(desc, ex);
+                        }
+                    }
+                }
+                this.LoadLanguage(this.languageDropDown.Text, true);
+                if (this.itemListView.SelectedIndices.Count > 0)
+                {
+                    String language = this.itemListView.SelectedItems[0].Text;
+                    this.LoadLanguageItem(language);
+                }
+                this.Enabled = true;
+            }
         }
 
         /// <summary>

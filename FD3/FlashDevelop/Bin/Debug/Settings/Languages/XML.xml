@@ -36,7 +36,6 @@
 	<languages>
 		<language name="xml">
 			<lexer name="xml" style-bits="7" />
-			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
 			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-_$]]></character-class>
 			<file-extensions>xml,xsl,svg,xul,xsd,dtd,xslt,axl,xrc,rdf,mxml,sxml,asml,fdb</file-extensions>
 			<comment-start><![CDATA[<!--]]></comment-start>
@@ -46,6 +45,8 @@
 				<keyword key="4" class="php-keywords" />
 				<keyword key="5" class="sgml-and-dtd-keywords" />
 			</use-keywords>
+			<!-- COLORING_START -->
+			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
 			<use-styles>
 				<style name="default" fore="0x000000" back="0xffffff" size="9" font="Courier New" />
 				<style name="tag" fore="0x000099" />
@@ -166,6 +167,7 @@
 				<style name="indentguide" fore="0xc0c0c0" />
 				<style name="lastpredefined" fore="0x666666" />
 			</use-styles>
+			<!-- COLORING_END -->
 		</language>
 	</languages>
 </Scintilla>
