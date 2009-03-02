@@ -2836,7 +2836,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Apply</value>
   </data>
   <data name="FlashDevelop.Info.RevertSettingsFiles" xml:space="preserve">
-    <value>Do you want to revert the entire language setting files [Yes] or just the other language configuration without the coloring settings [No]?</value>
+    <value>Do you want to revert the entire language setting files [Yes] or just the other language configuration, keeping your coloring settings [No]?</value>
   </data>
   <data name="FlashDevelop.Label.RevertFiles" xml:space="preserve">
     <value>Revert Files...</value>
