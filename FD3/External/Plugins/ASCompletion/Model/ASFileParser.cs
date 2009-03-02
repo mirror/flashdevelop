@@ -931,12 +931,14 @@ namespace ASCompletion.Model
                                     curModifiers -= FlagType.Getter;
                                     EvalToken(true, false, i);
                                     curMethod = curMember;
+                                    context = FlagType.Variable;
                                 }
                                 else if ((curModifiers & FlagType.Setter) > 0)
                                 {
                                     curModifiers -= FlagType.Setter;
                                     EvalToken(true, false, i);
                                     curMethod = curMember;
+                                    context = FlagType.Variable;
                                 }
                                 else
                                 {
