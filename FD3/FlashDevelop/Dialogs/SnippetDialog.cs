@@ -91,16 +91,17 @@ namespace FlashDevelop.Dialogs
             this.contentsTextBox.Multiline = true;
             this.contentsTextBox.Name = "contentsTextBox";
             this.contentsTextBox.Size = new System.Drawing.Size(453, 279);
-            this.contentsTextBox.TabIndex = 5;
+            this.contentsTextBox.TabIndex = 8;
             this.contentsTextBox.WordWrap = false;
             this.contentsTextBox.TextChanged += new System.EventHandler(this.ToggleCreate);
             // 
             // deleteButton
             //
+            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.deleteButton.Location = new System.Drawing.Point(331, 338);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(85, 23);
-            this.deleteButton.TabIndex = 10;
+            this.deleteButton.TabIndex = 3;
             this.deleteButton.Text = "&Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
@@ -110,14 +111,14 @@ namespace FlashDevelop.Dialogs
             this.snippetNameTextBox.Location = new System.Drawing.Point(151, 26);
             this.snippetNameTextBox.Name = "snippetNameTextBox";
             this.snippetNameTextBox.Size = new System.Drawing.Size(140, 19);
-            this.snippetNameTextBox.TabIndex = 3;
+            this.snippetNameTextBox.TabIndex = 6;
             this.snippetNameTextBox.TextChanged += new System.EventHandler(this.ToggleCreate);
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.nameLabel.Location = new System.Drawing.Point(153, 8);
+            this.nameLabel.Location = new System.Drawing.Point(151, 8);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(85, 13);
             this.nameLabel.TabIndex = 0;
@@ -144,15 +145,16 @@ namespace FlashDevelop.Dialogs
             this.snippetListView.Location = new System.Drawing.Point(12, 53);
             this.snippetListView.Name = "snippetListBox";
             this.snippetListView.Size = new System.Drawing.Size(130, 309);
-            this.snippetListView.TabIndex = 2;
+            this.snippetListView.TabIndex = 5;
             this.snippetListView.SelectedIndexChanged += new System.EventHandler(this.SnippetListViewSelectedIndexChanged);
             // 
             // saveButton
             //
+            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.saveButton.Location = new System.Drawing.Point(425, 338);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(85, 23);
-            this.saveButton.TabIndex = 6;
+            this.saveButton.TabIndex = 2;
             this.saveButton.Text = "&Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.SaveButtonClick);
@@ -160,7 +162,7 @@ namespace FlashDevelop.Dialogs
             // exportButton
             //
             this.exportButton.Name = "exportButton";
-            this.exportButton.TabIndex = 8;
+            this.exportButton.TabIndex = 9;
             this.exportButton.Size = new System.Drawing.Size(30, 23);
             this.exportButton.Location = new System.Drawing.Point(150, 338);
             this.exportButton.Click += new System.EventHandler(this.ExportButtonClick);
@@ -187,10 +189,11 @@ namespace FlashDevelop.Dialogs
             // 
             // closeButton
             //
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.closeButton.Location = new System.Drawing.Point(519, 338);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 23);
-            this.closeButton.TabIndex = 7;
+            this.closeButton.TabIndex = 1;
             this.closeButton.Text = "&Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.CloseButtonClick);
@@ -200,7 +203,7 @@ namespace FlashDevelop.Dialogs
             this.revertButton.Location = new System.Drawing.Point(188, 338);
             this.revertButton.Name = "revertButton";
             this.revertButton.Size = new System.Drawing.Size(30, 23);
-            this.revertButton.TabIndex = 9;
+            this.revertButton.TabIndex = 10;
             this.revertButton.UseVisualStyleBackColor = true;
             this.revertButton.Click += new System.EventHandler(this.RevertButtonClick);
             // 
@@ -212,7 +215,7 @@ namespace FlashDevelop.Dialogs
             this.insertComboBox.MaxDropDownItems = 15;
             this.insertComboBox.Name = "insertComboBox";
             this.insertComboBox.Size = new System.Drawing.Size(305, 21);
-            this.insertComboBox.TabIndex = 4;
+            this.insertComboBox.TabIndex = 7;
             this.insertComboBox.SelectedIndexChanged += new System.EventHandler(this.InsertComboBoxSelectedIndexChanged);
             // 
             // SnippetDialog
@@ -265,8 +268,8 @@ namespace FlashDevelop.Dialogs
         private void InitializeGraphics()
         {
             ImageList imageList = new ImageList();
-            this.revertButton.Image = PluginBase.MainForm.FindImage("342|1|3|-4");
-            this.exportButton.Image = PluginBase.MainForm.FindImage("342|9|3|-3");
+            this.revertButton.Image = PluginBase.MainForm.FindImage("342|24|3|3");
+            this.exportButton.Image = PluginBase.MainForm.FindImage("342|9|3|3");
             imageList.Images.Add(PluginBase.MainForm.FindImage("341"));
             this.snippetListView.SmallImageList = imageList;
         }
@@ -340,9 +343,8 @@ namespace FlashDevelop.Dialogs
         {
             try
             {
-                if (this.snippetNameTextBox.Text.Length == 0) return;
-                else this.WriteFile(this.snippetNameTextBox.Text, this.contentsTextBox.Text);
                 this.saveButton.Enabled = false;
+                this.WriteFile(this.snippetNameTextBox.Text, this.contentsTextBox.Text);
             }
             catch (Exception ex)
             {
@@ -514,8 +516,8 @@ namespace FlashDevelop.Dialogs
             String caption = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
             if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                this.WriteFile(this.snippetNameTextBox.Text, this.contentsTextBox.Text);
                 this.saveButton.Enabled = false;
+                this.WriteFile(this.snippetNameTextBox.Text, this.contentsTextBox.Text);
             }
         }
         /// <summary>

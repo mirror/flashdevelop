@@ -64,7 +64,8 @@ namespace FlashDevelop.Dialogs
             this.bottomPanel.TabIndex = 1;
             // 
             // cancelButton
-            // 
+            //
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(23, 0);
@@ -76,7 +77,8 @@ namespace FlashDevelop.Dialogs
             this.cancelButton.Click += new System.EventHandler(this.OkButtonClick);
             // 
             // okButton
-            // 
+            //
+            this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Location = new System.Drawing.Point(95, 0);

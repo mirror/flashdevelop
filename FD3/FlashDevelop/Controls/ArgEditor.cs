@@ -38,8 +38,9 @@ namespace FlashDevelop.Controls
             this.SuspendLayout();
             // 
             // argLabel
-            // 
-            this.argLabel.Location = new System.Drawing.Point(0, 0);
+            //
+            this.argLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.argLabel.Location = new System.Drawing.Point(0, 2);
             this.argLabel.Margin = new System.Windows.Forms.Padding(0);
             this.argLabel.Name = "argLabel";
             this.argLabel.Size = new System.Drawing.Size(50, 22);

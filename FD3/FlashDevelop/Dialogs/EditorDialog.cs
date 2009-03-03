@@ -134,7 +134,8 @@ namespace FlashDevelop.Dialogs
             this.saveFileDialog.Filter = "FlashDevelop Zip Files|*.fdz";
             // 
             // okButton
-            // 
+            //
+            this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.okButton.Location = new System.Drawing.Point(318, 338);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(80, 23);
@@ -145,6 +146,7 @@ namespace FlashDevelop.Dialogs
             // 
             // applyButton
             //
+            this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.applyButton.Enabled = false;
             this.applyButton.Location = new System.Drawing.Point(497, 338);
             this.applyButton.Name = "applyButton";
@@ -155,7 +157,8 @@ namespace FlashDevelop.Dialogs
             this.applyButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
             // cancelButton
-            // 
+            //
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cancelButton.Location = new System.Drawing.Point(408, 338);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(80, 23);
@@ -194,6 +197,7 @@ namespace FlashDevelop.Dialogs
             this.itemGroupBox.Controls.Add(this.backgroundLabel);
             this.itemGroupBox.Controls.Add(this.foregroundLabel);
             this.itemGroupBox.Controls.Add(this.fontLabel);
+            this.itemGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.itemGroupBox.Location = new System.Drawing.Point(204, 121);
             this.itemGroupBox.Name = "settingsGroupBox";
             this.itemGroupBox.Size = new System.Drawing.Size(372, 208);
@@ -286,7 +290,8 @@ namespace FlashDevelop.Dialogs
             // sizeLabel
             // 
             this.sizeLabel.AutoSize = true;
-            this.sizeLabel.Location = new System.Drawing.Point(266, 18);
+            this.sizeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.sizeLabel.Location = new System.Drawing.Point(269, 18);
             this.sizeLabel.Name = "sizeLabel";
             this.sizeLabel.Size = new System.Drawing.Size(31, 16);
             this.sizeLabel.TabIndex = 3;
@@ -295,32 +300,35 @@ namespace FlashDevelop.Dialogs
             // backgroundLabel
             // 
             this.backgroundLabel.AutoSize = true;
-            this.backgroundLabel.Location = new System.Drawing.Point(138, 62);
+            this.backgroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.backgroundLabel.Location = new System.Drawing.Point(141, 62);
             this.backgroundLabel.Name = "backgroundLabel";
             this.backgroundLabel.Size = new System.Drawing.Size(75, 16);
             this.backgroundLabel.TabIndex = 8;
             this.backgroundLabel.Text = "Background:";
             // 
             // foregroundLabel
-            // 
+            //
+            this.foregroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.foregroundLabel.AutoSize = true;
-            this.foregroundLabel.Location = new System.Drawing.Point(9, 62);
+            this.foregroundLabel.Location = new System.Drawing.Point(12, 62);
             this.foregroundLabel.Name = "foregroundLabel";
             this.foregroundLabel.Size = new System.Drawing.Size(73, 16);
             this.foregroundLabel.TabIndex = 5;
             this.foregroundLabel.Text = "Foreground:";
             // 
             // fontLabel
-            // 
+            //
+            this.fontLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.fontLabel.AutoSize = true;
-            this.fontLabel.Location = new System.Drawing.Point(9, 18);
+            this.fontLabel.Location = new System.Drawing.Point(12, 18);
             this.fontLabel.Name = "fontLabel";
             this.fontLabel.Size = new System.Drawing.Size(35, 16);
             this.fontLabel.TabIndex = 1;
             this.fontLabel.Text = "Font:";
             // 
             // caretForeButton
-            // 
+            //
             this.caretForeButton.Location = new System.Drawing.Point(151, 31);
             this.caretForeButton.Name = "caretForeButton";
             this.caretForeButton.Size = new System.Drawing.Size(28, 23);
@@ -386,7 +394,8 @@ namespace FlashDevelop.Dialogs
             // caretForeLabel
             //
             this.caretForeLabel.AutoSize = true;
-            this.caretForeLabel.Location = new System.Drawing.Point(9, 18);
+            this.caretForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.caretForeLabel.Location = new System.Drawing.Point(12, 18);
             this.caretForeLabel.Name = "caretForeLabel";
             this.caretForeLabel.Size = new System.Drawing.Size(35, 16);
             this.caretForeLabel.TabIndex = 1;
@@ -395,7 +404,8 @@ namespace FlashDevelop.Dialogs
             // caretlineBackLabel
             //
             this.caretlineBackLabel.AutoSize = true;
-            this.caretlineBackLabel.Location = new System.Drawing.Point(9, 58);
+            this.caretlineBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.caretlineBackLabel.Location = new System.Drawing.Point(12, 58);
             this.caretlineBackLabel.Name = "caretlineBackLabel";
             this.caretlineBackLabel.Size = new System.Drawing.Size(35, 16);
             this.caretlineBackLabel.TabIndex = 4;
@@ -404,7 +414,8 @@ namespace FlashDevelop.Dialogs
             // selectionBackLabel
             //
             this.selectionBackLabel.AutoSize = true;
-            this.selectionBackLabel.Location = new System.Drawing.Point(187, 58);
+            this.selectionBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.selectionBackLabel.Location = new System.Drawing.Point(190, 58);
             this.selectionBackLabel.Name = "selectionBackLabel";
             this.selectionBackLabel.Size = new System.Drawing.Size(35, 16);
             this.selectionBackLabel.TabIndex = 10;
@@ -413,7 +424,8 @@ namespace FlashDevelop.Dialogs
             // selectionForeLabel
             //
             this.selectionForeLabel.AutoSize = true;
-            this.selectionForeLabel.Location = new System.Drawing.Point(187, 18);
+            this.selectionForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.selectionForeLabel.Location = new System.Drawing.Point(190, 18);
             this.selectionForeLabel.Name = "selectionForeLabel";
             this.selectionForeLabel.Size = new System.Drawing.Size(35, 16);
             this.selectionForeLabel.TabIndex = 7;
@@ -433,6 +445,7 @@ namespace FlashDevelop.Dialogs
             this.languageGroupBox.Controls.Add(this.selectionForeButton);
             this.languageGroupBox.Controls.Add(this.selectionForeLabel);
             this.languageGroupBox.Controls.Add(this.selectionForeTextBox);
+            this.languageGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.languageGroupBox.Location = new System.Drawing.Point(204, 9);
             this.languageGroupBox.Name = "previewGroupBox";
             this.languageGroupBox.Size = new System.Drawing.Size(372, 107);
@@ -444,7 +457,7 @@ namespace FlashDevelop.Dialogs
             //
             this.sampleTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.sampleTextLabel.BackColor = System.Drawing.Color.White;
-            this.sampleTextLabel.Location = new System.Drawing.Point(12, 110);
+            this.sampleTextLabel.Location = new System.Drawing.Point(15, 110);
             this.sampleTextLabel.Name = "sampleTextLabel";
             this.sampleTextLabel.Size = new System.Drawing.Size(347, 85);
             this.sampleTextLabel.TabIndex = 13;
@@ -582,8 +595,8 @@ namespace FlashDevelop.Dialogs
         private void PopulateControls()
         {
             Image colorImage = PluginBase.MainForm.FindImage("328");
-            this.revertButton.Image = PluginBase.MainForm.FindImage("55|1|3|3");
-            this.exportButton.Image = PluginBase.MainForm.FindImage("328|9|3|3");
+            this.revertButton.Image = PluginBase.MainForm.FindImage("55|24|3|3");
+            this.exportButton.Image = PluginBase.MainForm.FindImage("55|9|3|3");
             this.foregroundButton.Image = this.backgroundButton.Image = colorImage;
             this.caretForeButton.Image = this.caretlineBackButton.Image = colorImage;
             this.selectionForeButton.Image = this.selectionBackButton.Image = colorImage;
