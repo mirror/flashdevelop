@@ -292,7 +292,7 @@ namespace ProjectManager.Actions
                 {
                     if (!FileHelper.Recycle(path))
                     {
-                        String error = TextHelper.GetString("Info.CouldNotBeRecycled");
+                        String error = TextHelper.GetString("FlashDevelop.Info.CouldNotBeRecycled");
                         throw new Exception(error + " " + path);
                     }
                     OnFileDeleted(path);
@@ -328,7 +328,7 @@ namespace ProjectManager.Actions
                         {
                             if (!FileHelper.Recycle(path))
                             {
-                                String error = TextHelper.GetString("Info.CouldNotBeRecycled");
+                                String error = TextHelper.GetString("FlashDevelop.Info.CouldNotBeRecycled");
                                 throw new Exception(error + " " + path);
                             }
                             OnFileDeleted(path);
@@ -407,7 +407,7 @@ namespace ProjectManager.Actions
                 {
                     if (!FileHelper.Recycle(toPath))
                     {
-                        String message = TextHelper.GetString("Info.CouldNotBeRecycled");
+                        String message = TextHelper.GetString("FlashDevelop.Info.CouldNotBeRecycled");
                         throw new Exception(message + " " + toPath);
                     }
                 }

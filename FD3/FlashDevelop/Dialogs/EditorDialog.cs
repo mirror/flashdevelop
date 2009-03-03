@@ -8,6 +8,7 @@ using System.Xml.XPath;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
+using ICSharpCode.SharpZipLib.Zip;
 using System.Collections.Generic;
 using FlashDevelop.Utilities;
 using PluginCore.Localization;
@@ -52,6 +53,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.TextBox caretlineBackTextBox;
         private System.Windows.Forms.TextBox selectionForeTextBox;
         private System.Windows.Forms.TextBox selectionBackTextBox;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.Label sampleTextLabel;
         private System.Windows.Forms.ComboBox fontSizeComboBox;
         private System.Windows.Forms.ComboBox fontNameComboBox;
@@ -71,9 +73,9 @@ namespace FlashDevelop.Dialogs
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
             this.InitializeComponent();
-            this.PopulateControls();
+            this.ApplyLocalizedTexts();
             this.InitializeGraphics();
-            this.InitializeTexts();
+            this.PopulateControls();
         }
 
         #region Windows Form Designer Generated Code
@@ -107,6 +109,7 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackTextBox = new System.Windows.Forms.TextBox();
             this.selectionForeTextBox = new System.Windows.Forms.TextBox();
             this.selectionBackTextBox = new System.Windows.Forms.TextBox();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.backgroundLabel = new System.Windows.Forms.Label();
             this.foregroundLabel = new System.Windows.Forms.Label();
             this.languageGroupBox = new System.Windows.Forms.GroupBox();
@@ -123,6 +126,12 @@ namespace FlashDevelop.Dialogs
             this.itemGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // saveFileDialog
+            //
+            this.saveFileDialog.AddExtension = true;
+            this.saveFileDialog.DefaultExt = "fdz";
+            this.saveFileDialog.Filter = "FlashDevelop Zip Files|*.fdz";
             // 
             // okButton
             // 
@@ -524,15 +533,16 @@ namespace FlashDevelop.Dialogs
         private const String defaultStylePath = "Scintilla/languages/language/use-styles/style[@name='default']";
 
         /// <summary>
-        /// Initializes the localized texts
+        /// Applies the localized texts to the form
         /// </summary>
-        private void InitializeTexts()
+        private void ApplyLocalizedTexts()
         {
             ToolTip tooltip = new ToolTip();
             this.languageDropDown.Font = Globals.Settings.DefaultFont;
             this.languageDropDown.FlatStyle = Globals.Settings.ComboBoxFlatStyle;
             tooltip.SetToolTip(this.exportButton, TextHelper.GetString("Label.ExportFiles"));
             tooltip.SetToolTip(this.revertButton, TextHelper.GetString("Label.RevertFiles"));
+            this.saveFileDialog.Filter = TextHelper.GetString("Info.ZipFilter");
             this.Text = " " + TextHelper.GetString("Title.SyntaxEditDialog");
             this.boldCheckBox.Text = TextHelper.GetString("Info.Bold");
             this.italicsCheckBox.Text = TextHelper.GetString("Info.Italic");
@@ -1007,7 +1017,20 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void ExportLanguagesClick(Object sender, EventArgs e)
         {
-            ExportDialog.CreateDialog(this.LangDir).ShowDialog();
+            if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                String xmlFile = "";
+                String[] langFiles = Directory.GetFiles(this.LangDir);
+                ZipFile zipFile = ZipFile.Create(this.saveFileDialog.FileName);
+                zipFile.BeginUpdate();
+                foreach (String langFile in langFiles)
+                {
+                    xmlFile = Path.GetFileName(langFile);
+                    zipFile.Add(langFile, "$(BaseDir)\\Settings\\Languages\\" + xmlFile);
+                }
+                zipFile.CommitUpdate();
+                zipFile.Close();
+            }
         }
 
         /// <summary>

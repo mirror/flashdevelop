@@ -1238,8 +1238,8 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   <data name="FlashDevelop.Label.Snippet" xml:space="preserve">
     <value>&amp;Snippet</value>
   </data>
-  <data name="FlashDevelop.Label.SnippetEditor" xml:space="preserve">
-    <value>&amp;Snippet Editor...</value>
+  <data name="FlashDevelop.Label.CodeSnippets" xml:space="preserve">
+    <value>&amp;Code Snippets...</value>
   </data>
   <data name="FlashDevelop.Label.SOReader" xml:space="preserve">
     <value>&amp;SharedObject Reader...</value>
@@ -2826,9 +2826,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.ZipConfirmExtract" xml:space="preserve">
     <value>Can the following zip file be extracted:</value>
   </data>
-  <data name="ProjectManager.Info.CouldNotBeRecycled" xml:space="preserve">
-    <value>Could not be recycled:</value>
-  </data>
   <data name="ResultsPanel.Description.ScrollToBottom" xml:space="preserve">
     <value>Scrolls the result view to the bottom on new results.</value>
   </data>
@@ -2843,5 +2840,32 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Info.ColoringTagsMissing" xml:space="preserve">
     <value>Your language setting file is probably missing coloring start and end comments.</value>
+  </data>
+  <data name="FlashDevelop.Info.ConfirmSnippetDelete" xml:space="preserve">
+    <value>Do you really want to delete this snippet?</value>
+  </data>
+  <data name="FlashDevelop.Info.InsertInstruction" xml:space="preserve">
+    <value>Insert instruction:</value>
+  </data>
+  <data name="FlashDevelop.Info.SelectSnippetLocation" xml:space="preserve">
+    <value>Select your snippets directory location...</value>
+  </data>
+  <data name="FlashDevelop.Info.SnippetName" xml:space="preserve">
+    <value>Snippet name:</value>
+  </data>
+  <data name="FlashDevelop.Info.Snippets" xml:space="preserve">
+    <value>Snippets:</value>
+  </data>
+  <data name="FlashDevelop.Title.SnippetDialog" xml:space="preserve">
+    <value>Code Snippets</value>
+  </data>
+  <data name="FlashDevelop.Info.CouldNotBeRecycled" xml:space="preserve">
+    <value>Could not be recycled:</value>
+  </data>
+  <data name="FlashDevelop.Info.SaveCurrentSnippet" xml:space="preserve">
+    <value>Do you want to save the current snippet?</value>
+  </data>
+  <data name="FlashDevelop.Info.RevertSnippetFiles" xml:space="preserve">
+    <value>Do you really want to revert all snippet files to defaults?</value>
   </data>
 </root>

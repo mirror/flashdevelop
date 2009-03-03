@@ -69,9 +69,9 @@ namespace FlashDevelop.Dialogs
             // 
             // keyTextBox
             // 
-            this.keyTextBox.Location = new System.Drawing.Point(17, 38);
+            this.keyTextBox.Location = new System.Drawing.Point(14, 35);
             this.keyTextBox.Name = "keyTextBox";
-            this.keyTextBox.Size = new System.Drawing.Size(300, 21);
+            this.keyTextBox.Size = new System.Drawing.Size(308, 21);
             this.keyTextBox.TabIndex = 2;
             this.keyTextBox.TextChanged += new System.EventHandler(this.TextBoxTextChange);
             // 
@@ -82,7 +82,7 @@ namespace FlashDevelop.Dialogs
             this.argsListView.Location = new System.Drawing.Point(12, 12);
             this.argsListView.MultiSelect = false;
             this.argsListView.Name = "argsListView";
-            this.argsListView.Size = new System.Drawing.Size(182, 307);
+            this.argsListView.Size = new System.Drawing.Size(182, 277);
             this.argsListView.TabIndex = 1;
             this.argsListView.UseCompatibleStateImageBehavior = false;
             this.argsListView.View = System.Windows.Forms.View.Details;
@@ -94,7 +94,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.valueLabel.AutoSize = true;
             this.valueLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.valueLabel.Location = new System.Drawing.Point(18, 70);
+            this.valueLabel.Location = new System.Drawing.Point(14, 60);
             this.valueLabel.Name = "valueLabel";
             this.valueLabel.Size = new System.Drawing.Size(37, 13);
             this.valueLabel.TabIndex = 3;
@@ -109,7 +109,7 @@ namespace FlashDevelop.Dialogs
             this.detailsGroupBox.Location = new System.Drawing.Point(207, 6);
             this.detailsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.detailsGroupBox.Name = "detailsGroupBox";
-            this.detailsGroupBox.Size = new System.Drawing.Size(335, 343);
+            this.detailsGroupBox.Size = new System.Drawing.Size(335, 313);
             this.detailsGroupBox.TabIndex = 4;
             this.detailsGroupBox.TabStop = false;
             this.detailsGroupBox.Text = " Details";
@@ -118,7 +118,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.keyLabel.AutoSize = true;
             this.keyLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.keyLabel.Location = new System.Drawing.Point(18, 23);
+            this.keyLabel.Location = new System.Drawing.Point(14, 17);
             this.keyLabel.Name = "keyLabel";
             this.keyLabel.Size = new System.Drawing.Size(29, 13);
             this.keyLabel.TabIndex = 1;
@@ -131,10 +131,10 @@ namespace FlashDevelop.Dialogs
             this.valueTextBox.AcceptsReturn = true;
             this.valueTextBox.Font = Globals.Settings.ConsoleFont;
             this.valueTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.valueTextBox.Location = new System.Drawing.Point(17, 85);
+            this.valueTextBox.Location = new System.Drawing.Point(14, 77);
             this.valueTextBox.Multiline = true;
             this.valueTextBox.Name = "valueTextBox";
-            this.valueTextBox.Size = new System.Drawing.Size(300, 240);
+            this.valueTextBox.Size = new System.Drawing.Size(308, 223);
             this.valueTextBox.TabIndex = 4;
             this.valueTextBox.TextChanged += new System.EventHandler(this.TextBoxTextChange);
             // 
@@ -142,7 +142,7 @@ namespace FlashDevelop.Dialogs
             //
             this.infoLabel.AutoSize = true;
             this.infoLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.infoLabel.Location = new System.Drawing.Point(34, 361);
+            this.infoLabel.Location = new System.Drawing.Point(34, 331);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(357, 13);
             this.infoLabel.TabIndex = 5;
@@ -151,7 +151,7 @@ namespace FlashDevelop.Dialogs
             // closeButton
             //
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.closeButton.Location = new System.Drawing.Point(443, 356);
+            this.closeButton.Location = new System.Drawing.Point(443, 326);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(100, 23);
             this.closeButton.TabIndex = 7;
@@ -162,7 +162,7 @@ namespace FlashDevelop.Dialogs
             // infoPictureBox
             //
             this.infoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.infoPictureBox.Location = new System.Drawing.Point(13, 360);
+            this.infoPictureBox.Location = new System.Drawing.Point(13, 330);
             this.infoPictureBox.Name = "infoPictureBox";
             this.infoPictureBox.Size = new System.Drawing.Size(16, 16);
             this.infoPictureBox.TabIndex = 7;
@@ -171,7 +171,7 @@ namespace FlashDevelop.Dialogs
             // addButton
             //
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.addButton.Location = new System.Drawing.Point(11, 326);
+            this.addButton.Location = new System.Drawing.Point(11, 296);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(87, 23);
             this.addButton.TabIndex = 2;
@@ -182,7 +182,7 @@ namespace FlashDevelop.Dialogs
             // deleteButton
             //
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.deleteButton.Location = new System.Drawing.Point(108, 326);
+            this.deleteButton.Location = new System.Drawing.Point(108, 296);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(87, 23);
             this.deleteButton.TabIndex = 3;
@@ -196,7 +196,7 @@ namespace FlashDevelop.Dialogs
             this.AcceptButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 393);
+            this.ClientSize = new System.Drawing.Size(554, 360);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.infoLabel);

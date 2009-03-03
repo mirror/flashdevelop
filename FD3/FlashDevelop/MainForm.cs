@@ -2066,6 +2066,14 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Opens the edit snippet dialog
+        /// </summary>
+        public void EditSnippets(Object sender, System.EventArgs e)
+        {
+            SnippetDialog.Show();
+        }
+
+        /// <summary>
         /// Opens the edit syntax dialog
         /// </summary>
         public void EditSyntax(Object sender, System.EventArgs e)

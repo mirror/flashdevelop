@@ -27,7 +27,7 @@ namespace FlashDevelop.Dialogs
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
             this.InitializeComponent();
-            this.InitializeTexts();
+            this.ApplyLocalizedTexts();
         }
 
         #region Windows Form Designer Generated Code
@@ -121,9 +121,9 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Initializes the localized texts
+        /// Applies the localized texts to the form
         /// </summary>
-        private void InitializeTexts()
+        private void ApplyLocalizedTexts()
         {
             this.Text = TextHelper.GetString("Title.SyntaxExportDialog");
             this.saveFileDialog.Filter = TextHelper.GetString("Info.ZipFilter");

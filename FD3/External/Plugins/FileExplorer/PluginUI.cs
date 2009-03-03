@@ -994,7 +994,8 @@ namespace FileExplorer
                         String path = this.fileView.SelectedItems[i].Tag.ToString();
                         if (!FileHelper.Recycle(path))
                         {
-                            throw new Exception("Could not be recycled: " + path);
+                            String error = TextHelper.GetString("FlashDevelop.Info.CouldNotBeRecycled");
+                            throw new Exception(error + " " + path);
                         }
                         DocumentManager.CloseDocuments(path);
                     }

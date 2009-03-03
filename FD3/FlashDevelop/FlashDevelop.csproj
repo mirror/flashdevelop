@@ -78,7 +78,7 @@
     <Compile Include="Dialogs\EditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\ExportDialog.cs">
+    <Compile Include="Dialogs\SnippetDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Managers\MarkerManager.cs" />
@@ -170,6 +170,7 @@
     <EmbeddedResource Include="Resources\QuickFindClose.png" />
     <EmbeddedResource Include="Resources\QuickFindNext.png" />
     <EmbeddedResource Include="Resources\QuickFindPrev.png" />
+    <EmbeddedResource Include="Resources\SnippetVars.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
