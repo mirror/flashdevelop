@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using PluginCore.Localization;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore;
@@ -190,6 +191,28 @@ namespace PluginCore.Helpers
                 ErrorManager.ShowError(ex);
                 return -1;
             }
+        }
+        
+        /// <summary>
+        /// Checks for available space from the target drive and prompts if the space is out
+        /// </summary>
+        public static DialogResult CheckForAvailableSpace(String file, String text)
+        {
+            try
+            {
+                DriveInfo driveInfo = new DriveInfo(file);
+                if (driveInfo.AvailableFreeSpace <= text.Length)
+                {
+                    String caption = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
+                    String message = TextHelper.GetString("PluginCore.Info.AvailableSpaceCheck");
+                    if (MessageBox.Show(String.Format(message, driveInfo.VolumeLabel), caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return DialogResult.Cancel;
+                    }
+                }
+            }
+            catch {}
+            return DialogResult.None;
         }
 
     }

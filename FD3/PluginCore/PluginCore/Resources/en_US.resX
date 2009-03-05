@@ -2868,4 +2868,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.RevertSnippetFiles" xml:space="preserve">
     <value>Do you really want to revert all snippet files to defaults?</value>
   </data>
+  <data name="PluginCore.Info.AvailableSpaceCheck" xml:space="preserve">
+    <value>Your drive ({0}) seems to have run out of available space. Should the file be saved anyway? This might corrupt the file.</value>
+  </data>
 </root>
