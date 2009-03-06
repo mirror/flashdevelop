@@ -1,8 +1,8 @@
 Known issues:
+
 - Projects located on shared drives (completion problems, SWC parsing crash,...)
 - Very limited FlexBuilder projects support
 - Some completion/generator problems with SWCs
-- Selecting several FLA files and pressing <Enter>: execution not properly queued
 
 Code refactoring plans:
 
@@ -13,6 +13,7 @@ Code refactoring plans:
 - For more, we need a complete AST
 
 Flex compilation improvements:
+
 - Conditional compilation constants in projects (http://livedocs.adobe.com/flex/3/html/compilers_21.html)
 - SWF metadata options in projects (title, description, ..)
 - Link-report/excludes options in projects
@@ -20,12 +21,10 @@ Flex compilation improvements:
 
 Completion improvements:
 
-- Configure completion list's insertion trigger characters
 - ASCompletion exclusions settings
 - Better completion support for timeline code
 - Smarter function generator (detect parameters type)
 - Option to generate get/set after the private var
-- Show event types after addEventListener(
 - Add an option to use only package imports (com.domain.package.*)
 - Inheritance level browsing with completion lists?
 - Inheritance explorer: display a type's super & sub classes
@@ -35,17 +34,13 @@ Snippets improvements:
 - More arguments (http://www.flashdevelop.org/community/viewtopic.php?f=5&t=3661)
 - Arguments operations (uppercase, lowercase, substr, repeat,...)
 - Argument to generate import declarations
-- Tabbing in placeholder arguments (as in Eclipse, Textmate,...)
 
 Future features:
 
-- Installer(?) and update process for thirdparty plugins
-- Back/forward buttons to navigate in code (like in VS)
 - Xml beautifier/checker
+- Back/forward buttons to navigate in code (like in VS)
 - Other language completion & projects (JS, etc)
 - Finish haXe projects support (platforms, directives, makefile)
 - Bandwidth simulation? (would "just" require a custom http server)
-- Centralize few ScintillaNET global settings...
-- TortoiseSVN/CVS/VSS Context menu integration
 - Filtering/tabs to results panel? (all, errors, info, todo)
 - Open file from selected text in code

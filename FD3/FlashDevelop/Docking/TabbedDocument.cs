@@ -197,7 +197,6 @@ namespace FlashDevelop.Docking
         public void Save(String file)
         {
             if (!this.IsEditable) return;
-            if (FileHelper.CheckForAvailableSpace(file, this.SciControl.Text) == DialogResult.Cancel) return;
             if (!this.IsUntitled && FileHelper.FileIsReadOnly(this.FileName))
             {
                 String dlgTitle = TextHelper.GetString("Title.ConfirmDialog");
