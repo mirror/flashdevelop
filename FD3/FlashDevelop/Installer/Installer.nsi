@@ -405,6 +405,7 @@ Section "un.FlashDevelop" UninstMain
 	RMDir /r "$INSTDIR\Projects"
 	RMDir /r "$INSTDIR\Tools"
 	
+	Delete "$INSTDIR\README.txt"
 	Delete "$INSTDIR\FirstRun.fdb"
 	Delete "$INSTDIR\Exceptions.log"
 	Delete "$INSTDIR\FlashDevelop.exe"
