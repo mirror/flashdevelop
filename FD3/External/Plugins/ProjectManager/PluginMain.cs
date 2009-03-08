@@ -155,6 +155,7 @@ namespace ProjectManager
             menus.ConfigurationSelector.SelectedIndexChanged += delegate 
             {
                 pluginUI.IsTraceDisabled = menus.ConfigurationSelector.SelectedIndex == 1;
+                if (project != null) project.TraceEnabled = !pluginUI.IsTraceDisabled;
             };
             
             menus.ProjectMenu.NewProject.Click += delegate { NewProject(); };

@@ -133,6 +133,7 @@ namespace ProjectManager
             {
                 TreeBar.ShowHidden.Checked = project.ShowHiddenPaths;
                 IsTraceDisabled = !PluginMain.Settings.GetPrefs(project).EnableTrace;
+                project.TraceEnabled = !IsTraceDisabled;
                 NoOutput = project.NoOutput;
             }
         }
