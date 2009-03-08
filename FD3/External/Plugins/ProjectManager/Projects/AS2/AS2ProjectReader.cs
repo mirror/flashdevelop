@@ -85,14 +85,13 @@ namespace ProjectManager.Projects.AS2
                 asset.UpdatePath = OSPath(GetAttribute("update")); // could be null
                 asset.FontGlyphs = GetAttribute("glyphs"); // could be null
 
-
                 if (mode != null)
                     asset.SwfMode = (SwfAssetMode)Enum.Parse(typeof(SwfAssetMode), mode, true);
 
                 if (asset.SwfMode == SwfAssetMode.Shared)
                     asset.Sharepoint = GetAttribute("sharepoint"); // could be null
 
-                if (asset.IsImage && (GetAttribute("bitmap") != null))
+                if (asset.IsImage && GetAttribute("bitmap") != null)
                     asset.BitmapLinkage = Boolean.Parse(GetAttribute("bitmap"));
 
                 Read();

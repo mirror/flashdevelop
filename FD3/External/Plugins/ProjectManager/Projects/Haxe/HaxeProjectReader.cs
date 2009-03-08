@@ -94,6 +94,9 @@ namespace ProjectManager.Projects.Haxe
                 if (asset.SwfMode == SwfAssetMode.Shared)
                     asset.Sharepoint = GetAttribute("sharepoint"); // could be null
 
+                if (asset.IsImage && GetAttribute("bitmap") != null)
+                    asset.BitmapLinkage = Boolean.Parse(GetAttribute("bitmap"));
+
                 Read();
             }
             ReadEndElement();

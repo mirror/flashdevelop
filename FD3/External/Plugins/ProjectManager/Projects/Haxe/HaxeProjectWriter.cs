@@ -55,6 +55,9 @@ namespace ProjectManager.Projects.Haxe
                     WriteStartElement("asset");
                     WriteAttributeString("path", asset.Path);
 
+                    if (asset.IsImage)
+                        WriteAttributeString("bitmap", asset.BitmapLinkage.ToString());
+
                     if (asset.ManualID != null)
                         WriteAttributeString("id", asset.ManualID);
 
