@@ -190,7 +190,7 @@ namespace ASCompletion
                     rootNodes = node.Nodes;
 
                     packages = new Dictionary<string, TreeNodeCollection>();
-                    lock (path.Files)
+                    lock (path.Files.Values)
                     {
                         foreach (FileModel model in path.Files.Values)
                         {
@@ -236,6 +236,7 @@ namespace ASCompletion
         /// <param name="model">Model information</param>
         private void AddModel(TreeNodeCollection nodes, FileModel model)
         {
+            if (model.Classes != null)
             foreach (ClassModel aClass in model.Classes) if (aClass.IndexType == null)
             {
                 TypeTreeNode node = new TypeTreeNode(aClass);
