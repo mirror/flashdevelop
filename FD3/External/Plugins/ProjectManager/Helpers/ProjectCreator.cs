@@ -11,6 +11,7 @@ using PluginCore;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using PluginCore.Utilities;
+using PluginCore.Managers;
 
 namespace ProjectManager.Helpers
 {
@@ -44,19 +45,41 @@ namespace ProjectManager.Helpers
                 packageDot = packageName + ".";
                 packageSlash = packagePath + "\\";
             }
-            arguments = PluginBase.MainForm.Settings.CustomArguments;
             
             string projectTemplate = FindProjectTemplate(templateDirectory);
             string projectPath = Path.Combine(projectLocation,
                 projectName + Path.GetExtension(projectTemplate));
 
-			Directory.CreateDirectory(projectLocation);
+            // notify & let a plugin handle project creation
+            Hashtable para = new Hashtable();
+            para["template"] = projectTemplate;
+            para["location"] = projectLocation;
+            para["project"] = projectPath;
+            para["id"] = projectId;
+            para["package"] = packageName;
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.CreateProject, para);
+            EventManager.DispatchEvent(this, de);
 
-			// manually copy important files
-			CopyFile(projectTemplate,projectPath);
+            if (!de.Handled)
+            {
+                arguments = PluginBase.MainForm.Settings.CustomArguments;
 
-			CopyProjectFiles(templateDirectory,projectLocation,true);
-			return ProjectLoader.Load(projectPath);
+                Directory.CreateDirectory(projectLocation);
+
+                // manually copy important files
+                CopyFile(projectTemplate, projectPath);
+
+                CopyProjectFiles(templateDirectory, projectLocation, true);
+            }
+
+            if (File.Exists(projectPath))
+            {
+                de = new DataEvent(EventType.Command, ProjectManagerEvents.ProjectCreated, para);
+                EventManager.DispatchEvent(this, de);
+
+                return ProjectLoader.Load(projectPath);
+            }
+            else return null;
 		}
 
         public static string FindProjectTemplate(string templateDirectory)

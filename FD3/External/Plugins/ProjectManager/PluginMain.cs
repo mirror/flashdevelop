@@ -45,6 +45,8 @@ namespace ProjectManager
         public const string FileMapping = "ProjectManager.FileMapping";
         public const string TreeSelectionChanged = "ProjectManager.TreeSelectionChanged";
         public const string OpenVirtualFile = "ProjectManager.OpenVirtualFile";
+        public const string CreateProject = "ProjectManager.CreateProject";
+        public const string ProjectCreated = "ProjectManager.ProjectCreated";
     }
 
 	public class PluginMain : IPlugin
