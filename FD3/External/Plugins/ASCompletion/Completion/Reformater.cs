@@ -250,12 +250,17 @@ namespace ASCompletion.Completion
 
                     if (options.BraceAfterLine && c == '{')
                     {
-                        if (c2 == ' ' && i > 3) c2 = txt[i - 3];
-                        if (Char.IsLetterOrDigit(c2) || c2 == ')')
+                        string start = txt.Substring(0, i - 1).Trim();
+                        char prevC = start[start.Length - 1];
+                        string end = txt.Substring(i).Trim();
+                        if (end.Length == 0)
                         {
-                            sb.Append(options.Newline).Append(indentation).Append('{');
-                            needSpace = false;
-                            continue;
+                            if (Char.IsLetterOrDigit(prevC) || prevC == ')')
+                            {
+                                sb.Append(options.Newline).Append(indentation).Append('{');
+                                needSpace = false;
+                                continue;
+                            }
                         }
                     }
                 }
