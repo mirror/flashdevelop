@@ -178,7 +178,6 @@ namespace ScintillaNet
                     CaretLineBack = lang.editorstyle.CaretLineBackgroundColor;
                     SetSelBack(true, lang.editorstyle.SelectionBackgroundColor);
                     SetSelFore(true, lang.editorstyle.SelectionForegroundColor);
-                    EdgeColour = lang.editorstyle.EdgeBackgroundColor;
                 }
                 if (lang.characterclass != null)
                 {

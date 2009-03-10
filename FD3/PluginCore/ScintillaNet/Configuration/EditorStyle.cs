@@ -18,9 +18,6 @@ namespace ScintillaNet.Configuration
 
 		[XmlAttributeAttribute("selection-back")]
 		public string selectionback;
-		
-		[XmlAttributeAttribute("edge-back")]
-		public string edgeback;
 
 		public int ResolveColor(string aColor)
 		{
@@ -100,18 +97,6 @@ namespace ScintillaNet.Configuration
 				if (selectionback != null && selectionback.Length > 0)
 				{
 					return ResolveColor(selectionback);
-				}
-				return ResolveColor("0x000000");
-			}
-		}
-		
-		public int EdgeBackgroundColor
-		{
-			get
-			{
-				if (edgeback != null && edgeback.Length > 0)
-				{
-					return ResolveColor(edgeback);
 				}
 				return ResolveColor("0x000000");
 			}
