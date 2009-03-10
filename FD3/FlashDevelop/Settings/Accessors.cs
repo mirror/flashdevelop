@@ -400,6 +400,16 @@ namespace FlashDevelop.Settings
         }
 
         [DefaultValue(false)]
+        [DisplayName("Automaticly Reload Modified Files")]
+        [LocalizedCategory("FlashDevelop.Category.Features")]
+        [LocalizedDescription("FlashDevelop.Description.AutoReloadModifiedFiles")]
+        public Boolean AutoReloadModifiedFiles
+        {
+            get { return this.autoReloadModifiedFiles; }
+            set { this.autoReloadModifiedFiles = value; }
+        }
+
+        [DefaultValue(false)]
         [DisplayName("Use Sequential Tabbing")]
         [LocalizedCategory("FlashDevelop.Category.Features")]
         [LocalizedDescription("FlashDevelop.Description.SequentialTabbing")]

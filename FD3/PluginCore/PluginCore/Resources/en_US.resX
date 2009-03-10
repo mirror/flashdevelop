@@ -2871,4 +2871,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.PrintMarginColor" xml:space="preserve">
     <value>Color of the shown print margin.</value>
   </data>
+  <data name="FlashDevelop.Description.AutoReloadModifiedFiles" xml:space="preserve">
+    <value>Reloads externally modified files without prompting.</value>
+  </data>
 </root>

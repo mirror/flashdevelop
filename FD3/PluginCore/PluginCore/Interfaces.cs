@@ -211,6 +211,7 @@ namespace PluginCore
         FlatStyle ComboBoxFlatStyle { get; set; }
         String DefaultFileExtension { get; set; }
         String LatestDialogPath { get; set; }
+        Boolean AutoReloadModifiedFiles { get; set; }
         Boolean UseListViewGrouping { get; set; }
         Boolean RedirectFilesResults { get; set; }
         Boolean ApplyFileExtension { get; set; }

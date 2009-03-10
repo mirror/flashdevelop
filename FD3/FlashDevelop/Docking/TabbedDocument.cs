@@ -183,11 +183,15 @@ namespace FlashDevelop.Docking
         private void OnFileChangeTimerTick(Object sender, EventArgs e)
         {
             this.fileChangeTimer.Stop();
-            String dlgTitle = TextHelper.GetString("Title.InfoDialog");
-            String message = TextHelper.GetString("Info.FileIsModifiedOutside");
-            if (MessageBox.Show(Globals.MainForm, message, " " + dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (Globals.Settings.AutoReloadModifiedFiles) this.Reload(false); 
+            else
             {
-                this.Reload(false);
+                String dlgTitle = TextHelper.GetString("Title.InfoDialog");
+                String message = TextHelper.GetString("Info.FileIsModifiedOutside");
+                if (MessageBox.Show(Globals.MainForm, message, " " + dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    this.Reload(false);
+                }
             }
         }
 
