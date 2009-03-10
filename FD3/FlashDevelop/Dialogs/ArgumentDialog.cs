@@ -269,7 +269,7 @@ namespace FlashDevelop.Dialogs
         private void InitializeItemGroups()
         {
             String argumentHeader = TextHelper.GetString("Group.Arguments");
-            this.argumentGroup = new ListViewGroup("Arguments", HorizontalAlignment.Left);
+            this.argumentGroup = new ListViewGroup(argumentHeader, HorizontalAlignment.Left);
             this.argsListView.Groups.Add(this.argumentGroup);
         }
 
