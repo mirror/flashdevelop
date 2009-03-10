@@ -247,6 +247,7 @@ namespace FlashDevelop.Managers
                 * Adjust the print margin
                 */
                 sci.EdgeColumn = Globals.Settings.PrintMarginColumn;
+                sci.EdgeColour = DataConverter.ColorToInt32(Globals.Settings.PrintMarginColor);
                 if (sci.EdgeColumn > 0) sci.EdgeMode = 1;
                 else sci.EdgeMode = 0;
                 /**
@@ -292,6 +293,7 @@ namespace FlashDevelop.Managers
             sci.DocPointer = 187541976;
             sci.EndAtLastLine = 1;
             sci.EdgeColumn = 0;
+            sci.EdgeColour = 1;
             sci.EdgeMode = 0;
             sci.IsHScrollBar = true;
             sci.IsMouseDownCaptures = true;

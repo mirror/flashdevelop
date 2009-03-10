@@ -32,6 +32,7 @@ namespace FlashDevelop.Settings
         private Color bookmarkLineColor = Color.Yellow;
         private Color modifiedLineColor = Color.Yellow;
         private Color highlightAllColor = Color.Blue;
+        private Color printMarginColor = Color.Black;
         private Int32 tabWidth = 4;
         private Int32 indentSize = 4;
         private Int32 caretPeriod = 500;

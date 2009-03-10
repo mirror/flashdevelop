@@ -121,6 +121,16 @@ namespace FlashDevelop.Settings
             set { this.printMarginColumn = value; }
         }
 
+        [DisplayName("Print Margin Color")]
+        [DefaultValue(typeof(Color), "Black")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.PrintMarginColor")]
+        public Color PrintMarginColor
+        {
+            get { return this.printMarginColor; }
+            set { this.printMarginColor = value; }
+        }
+
         [DefaultValue(false)]
         [DisplayName("View EOL Characters")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
