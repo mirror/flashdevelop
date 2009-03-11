@@ -931,21 +931,20 @@ namespace ProjectManager
         /// </summary>
         private void TreeShowShellMenu()
         {
-            Int32 count = Tree.SelectedPaths.Length;
-            if (count == 0) return;
-            FileInfo[] selectedPathsAndFiles = new FileInfo[count];
-            ShellContextMenu scm = new ShellContextMenu();
             String parentDir = null;
-            for (Int32 i = 0; i < count; i++)
+            ShellContextMenu scm = new ShellContextMenu();
+            List<FileInfo> selectedPathsAndFiles = new List<FileInfo>();
+            for (Int32 i = 0; i < Tree.SelectedPaths.Length; i++)
             {
                 String path = Tree.SelectedPaths[i];
-                if (parentDir == null) parentDir = Path.GetDirectoryName(path); // only select files in the same directory
+                // only select files in the same directory
+                if (parentDir == null) parentDir = Path.GetDirectoryName(path);
                 else if (Path.GetDirectoryName(path) != parentDir) continue;
-                selectedPathsAndFiles[i] = new FileInfo(path);
+                selectedPathsAndFiles.Add(new FileInfo(path));
             }
             this.pluginUI.Menu.Hide(); /* Hide default menu */
             Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
-            scm.ShowContextMenu(selectedPathsAndFiles, location);
+            scm.ShowContextMenu(selectedPathsAndFiles.ToArray(), location);
         }
 
         #endregion

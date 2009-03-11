@@ -1,4 +1,3 @@
-
 Instructions for distributing your application:
 
 1. Creating a self-signed certificate:

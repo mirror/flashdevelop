@@ -1,4 +1,4 @@
-class PreloadStatus
+﻿class PreloadStatus
 {
 	var bytesLoaded:Number;
 	var bytesTotal:Number;

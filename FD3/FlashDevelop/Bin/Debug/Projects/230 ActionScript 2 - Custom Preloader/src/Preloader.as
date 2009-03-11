@@ -1,4 +1,4 @@
-class Preloader
+﻿class Preloader
 {
 	// this will cause our initialization code to execute on frame 1 automatically
 	private static var initted:Boolean = init();
