@@ -244,6 +244,25 @@ namespace ASCompletion.Context
 
         #endregion
 
+        #region Custom code completion
+        /// <summary>
+        /// Let contexts handle code completion
+        /// </summary>
+        /// <param name="sci">Scintilla control</param>
+        /// <param name="expression">Completion context</param>
+        /// <param name="autoHide">Auto-started completion (is false when pressing Ctrl+Space)</param>
+        /// <returns>Null (not handled) or member list</returns>
+        MemberList ResolveDotContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide);
+
+        /// <summary>
+        /// Let contexts resolve function at give position
+        /// </summary>
+        /// <param name="sci">Scintilla control</param>
+        /// <param name="expression">Completion context</param>
+        /// <returns>Null (not handled) or function signature</returns>
+        MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression);
+        #endregion
+
         #region Properties
 
         IContextSettings Settings { get; }

@@ -1188,6 +1188,31 @@ namespace ASCompletion.Context
 
         #endregion
 
+        #region Custom code completion
+        /// <summary>
+        /// Let contexts handle code completion
+        /// </summary>
+        /// <param name="sci">Scintilla control</param>
+        /// <param name="expression">Completion context</param>
+        /// <param name="autoHide">Auto-started completion (is false when pressing Ctrl+Space)</param>
+        /// <returns>Null (not handled) or member list</returns>
+        public virtual MemberList ResolveDotContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Let contexts handle code completion
+        /// </summary>
+        /// <param name="sci">Scintilla control</param>
+        /// <param name="expression">Completion context</param>
+        /// <returns>Null (not handled) or function signature</returns>
+        public virtual MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression)
+        {
+            return null;
+        }
+        #endregion
+
         #region plugin commands
         /// <summary>
         /// Delete current class's cached file of the compiler

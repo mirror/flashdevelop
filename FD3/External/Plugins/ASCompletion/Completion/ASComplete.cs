@@ -79,7 +79,7 @@ namespace ASCompletion.Completion
 				switch (Value)
 				{
 					case '.':
-                        if (features.dot == "." || !autoHide) 
+                        if (features.dot == "." || !autoHide)
                             return HandleDotCompletion(Sci, autoHide);
                         break;
 
@@ -1051,12 +1051,26 @@ namespace ASCompletion.Completion
 			if (expr.Value == null || expr.Value.Length == 0
 			    || (expr.WordBefore == "function" && expr.Separator == ' '))
 				return false;
+
 			// Context
-            expr.LocalVars = ParseLocalVars(expr);
-            FileModel aFile = ASContext.Context.CurrentModel;
-			ClassModel aClass = ASContext.Context.CurrentClass;
-			// Expression before cursor
-            ASResult result = EvalExpression(expr.Value, expr, aFile, aClass, true, true);
+            IASContext ctx = ASContext.Context;
+            ASResult result;
+
+            // custom completion
+            MemberModel customMethod = ctx.ResolveFunctionContext(Sci, expr);
+            if (customMethod != null)
+            {
+                result = new ASResult();
+                result.Member = customMethod;
+            }
+            else
+            {
+                FileModel aFile = ctx.CurrentModel;
+                ClassModel aClass = ctx.CurrentClass;
+                // Expression before cursor
+                expr.LocalVars = ParseLocalVars(expr);
+                result = EvalExpression(expr.Value, expr, aFile, aClass, true, true);
+            }
 
 			// Show calltip
 			if (!result.IsNull())
@@ -1066,7 +1080,7 @@ namespace ASCompletion.Completion
 				{
                     if (result.Type == null) 
                         return true;
-					string constructor = ASContext.GetLastStringToken(result.Type.Name,".");
+					string constructor = ASContext.GetLastStringToken(result.Type.Name, ".");
 					result.Member = method = result.Type.Members.Search(constructor, FlagType.Constructor, 0);
 					if (method == null)
 						return true;
@@ -1241,22 +1255,35 @@ namespace ASCompletion.Completion
                 }
 			}
 
-            // current model
-            bool outOfDate = (expr.Separator == ':') ? ASContext.Context.UnsetOutOfDate() : false;
-            FileModel cFile = ASContext.Context.CurrentModel;
-            ClassModel cClass = ASContext.Context.CurrentClass;
+            string tail = (dotIndex >= 0) ? expr.Value.Substring(dotIndex + features.dot.Length) : expr.Value;
+            
+            // custom completion
+            MemberList items = ASContext.Context.ResolveDotContext(Sci, expr, autoHide);
+            if (items != null)
+            {
+                List<ICompletionListItem> customList = new List<ICompletionListItem>();
+                foreach (MemberModel member in items)
+                    customList.Add(new MemberItem(member));
+                CompletionList.Show(customList, autoHide, tail);
+                return true;
+            }
 
-			// Context
-			expr.LocalVars = ParseLocalVars(expr);
-			ASResult result;
-			ClassModel tmpClass;
+            // Context
+            ASResult result;
+            ClassModel tmpClass;
+            IASContext ctx = ASContext.Context;
+            bool outOfDate = (expr.Separator == ':') ? ctx.UnsetOutOfDate() : false;
+            FileModel cFile = ctx.CurrentModel;
+            ClassModel cClass = ctx.CurrentClass;
+
+            expr.LocalVars = ParseLocalVars(expr);
 			if (dotIndex > 0)
 			{
 				// Expression before cursor
                 result = EvalExpression(expr.Value, expr, cFile, cClass, false, false);
                 if (result.IsNull())
                 {
-                    if (outOfDate) ASContext.Context.SetOutOfDate();
+                    if (outOfDate) ctx.SetOutOfDate();
                     return true;
                 }
                 if (autoHide && features.hasE4X && IsXmlType(result.Type))
@@ -1270,16 +1297,12 @@ namespace ASCompletion.Completion
 			}
 			MemberList mix = new MemberList();
 			// local vars are the first thing to try
-			if ((result.IsNull() || (dotIndex < 0)) && expr.ContextFunction != null)
-				mix.Merge(expr.LocalVars);
-
-			// TODO merge sub classes
-			//if (tmpClass.InFile.TryAsPackage != null)
+            if ((result.IsNull() || (dotIndex < 0)) && expr.ContextFunction != null)
+                mix.Merge(expr.LocalVars);
 
 			// get all members
 			FlagType mask = 0;
             // members visibility
-            IASContext ctx = ASContext.Context;
             ClassModel curClass = cClass;
             curClass.ResolveExtends();
             Visibility acc = ctx.TypesAffinity(curClass, tmpClass);
@@ -1332,7 +1355,6 @@ namespace ASCompletion.Completion
             List<ICompletionListItem> list = new List<ICompletionListItem>();
 			foreach(MemberModel member in mix)
                 list.Add(new MemberItem(member));
-            string tail = (dotIndex >= 0) ? expr.Value.Substring(dotIndex + features.dot.Length) : expr.Value;
 			CompletionList.Show(list, autoHide, tail);
             if (outOfDate) ctx.SetOutOfDate();
 			return true;
