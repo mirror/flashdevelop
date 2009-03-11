@@ -10,6 +10,9 @@ using PluginCore.Localization;
 using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore;
+using ASCompletion.Completion;
+using System.Collections;
+using System.Windows.Forms;
 
 namespace HaXeContext
 {
@@ -427,6 +430,126 @@ namespace HaXeContext
             if (settings.LazyClasspathExploration && flashVersion == 9 && name == "flash") 
                 name = "flash9";
             return base.ResolvePackage(name, lazyMode);
+        }
+        #endregion
+
+        #region Custom code completion
+        /// <summary>
+        /// Let contexts handle code completion
+        /// </summary>
+        /// <param name="sci">Scintilla control</param>
+        /// <param name="expression">Completion context</param>
+        /// <param name="autoHide">Auto-started completion (is false when pressing Ctrl+Space)</param>
+        /// <returns>Null (not handled) or member list</returns>
+        public override MemberList ResolveDotContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
+        {
+            // auto-started completion, can be ignored for performance
+            if (autoHide && !expression.Value.EndsWith(".")) 
+                return new MemberList();
+
+            MemberList list = new MemberList();
+
+            HaXeCompletion hc = new HaXeCompletion( sci );
+            ArrayList al = hc.getList();
+            if (al == null) 
+                return null; // haxe.exe not found
+            
+            string outputType = al[0].ToString();
+
+            if( outputType == "error" )
+            {
+                // TODO : Show error tip
+                string err = al[1].ToString();
+                sci.CallTipShow(sci.CurrentPos, err);
+                
+            }
+            else if (outputType == "list")
+            {
+                foreach (ArrayList i in al[ 1 ] as ArrayList)
+                {
+                    string var = i[0].ToString();
+                    string type = i[1].ToString();
+                    string desc = i[2].ToString();
+                    FlagType flag = FlagType.Variable;
+                    if (type.IndexOf(":") != -1)
+                        flag = FlagType.Function;
+
+                    MemberModel member = new MemberModel();
+                    member.Name = var;
+                    member.Flags = flag;
+                    member.Access = Visibility.Public;
+
+                    if (flag == FlagType.Variable)
+                        member.Type = type;
+                    else
+                    {
+                        Array a = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+                        type = a.GetValue( a.Length - 1 ).ToString();
+                        member.Parameters = new List<MemberModel>();
+                        int j = 0;
+                        while ( j < a.Length - 1 ) 
+                        {
+                            MemberModel param = new MemberModel(a.GetValue( j ).ToString(), "", FlagType.ParameterVar, Visibility.Public);
+                            member.Parameters.Add(param);
+                            j++;
+                        }
+                         member.Type = type;
+                    }
+                    list.Add(member);
+                }
+            }
+                        
+            return list;
+        }
+        
+        /// <summary>
+        /// Let contexts handle code completion
+        /// </summary>
+        /// <param name="sci">Scintilla control</param>
+        /// <param name="expression">Completion context</param>
+        /// <returns>Null (not handled) or function signature</returns>
+        public override MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression)
+        {
+            string[] parts = expression.Value.Split('.');
+            string name = parts[parts.Length - 1];
+            
+            MemberModel member = new MemberModel();
+
+            HaXeCompletion hc = new HaXeCompletion( sci );
+            ArrayList al = hc.getList();
+            if (al == null)
+                return null; // haxe.exe not found
+
+            string outputType = al[0].ToString();
+
+            if (outputType == "type" )
+            {
+                member.Name = name;
+                member.Flags = FlagType.Function;
+                member.Access = Visibility.Public;
+
+                var type = al[1].ToString();
+
+                Array a = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+                type = a.GetValue(a.Length - 1).ToString();
+                member.Parameters = new List<MemberModel>();
+                int j = 0;
+                while (j < a.Length - 1)
+                {
+                    MemberModel param = new MemberModel(a.GetValue(j).ToString(), "", FlagType.ParameterVar, Visibility.Public);
+                    member.Parameters.Add(param);
+                    j++;
+                }
+                member.Type = type;
+            }
+            else if ( outputType == "error" )
+            {
+                // TODO : Show error tip
+                string err = al[1].ToString();
+                sci.CallTipShow(sci.CurrentPos, err);
+            }
+                        
+            return member;
         }
         #endregion
 
