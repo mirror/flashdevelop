@@ -29,6 +29,7 @@ using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using PluginCore.Controls;
+using CSScriptLibrary;
 using ScintillaNet;
 using PluginCore;
 
@@ -36,7 +37,7 @@ using PluginCore;
 
 namespace FlashDevelop
 {
-    class MainForm : Form, IMainForm
+    public class MainForm : Form, IMainForm
     {
         #region Constructor
 
@@ -2941,6 +2942,28 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Executes the specified C# Script file
+        /// </summary>
+        public void ExecuteScript(Object sender, EventArgs e)
+        {
+            ToolStripItem button = (ToolStripItem)sender;
+            String file = this.ProcessArgString(((ItemData)button.Tag).Tag);
+            if (File.Exists(file))
+            {
+                try
+                {
+                    Host host = new Host();
+                    host.ExecuteScript(file);
+                }
+                catch (Exception ex)
+                {
+                    String message = TextHelper.GetString("Info.CouldNotExecuteScript");
+                    ErrorManager.ShowWarning(message + "\n" + ex.Message, null);
+                }
+            }
+        }
+
+        /// <summary>
         /// Outputs the supplied argument string
         /// </summary>
         public void Debug(Object sender, EventArgs e)
@@ -2954,5 +2977,19 @@ namespace FlashDevelop
         #endregion
 
     }
+
+    #region Script Host
+
+    public class Host : MarshalByRefObject
+    {
+        public void ExecuteScript(String script)
+        {
+            CSScript.ShareHostRefAssemblies = true;
+            AsmHelper helper = new AsmHelper(CSScript.Load(script, null, true));
+            helper.Invoke("*.Execute");
+        }
+    }
+
+    #endregion
 
 }

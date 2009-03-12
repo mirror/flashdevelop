@@ -7,7 +7,7 @@ using PluginCore;
 
 namespace FlashDevelop
 {
-    class Globals
+    public class Globals
     {
         /// <summary>
         /// Quick reference to MainForm 
