@@ -18,11 +18,13 @@ namespace HaXeContext
     class HaXeCompletion
     {
         Process p;
+        int position;
         ScintillaNet.ScintillaControl sci;
 
-        public HaXeCompletion(ScintillaNet.ScintillaControl sci)
+        public HaXeCompletion(ScintillaNet.ScintillaControl sci, int position)
         {
             this.sci = sci;
+            this.position = position;
         }
 
         private void startProcess()
@@ -50,7 +52,7 @@ namespace HaXeContext
                 addi += " " + i;
 
             string file = PluginBase.MainForm.CurrentDocument.FileName;
-            Int32 pos = sci.CurrentPos;
+            Int32 pos = position; // sci.CurrentPos;
             if (sci.Encoding == System.Text.Encoding.UTF8)
                 pos += 3; // BOM
 
@@ -120,7 +122,7 @@ namespace HaXeContext
             
             for (int i = 0; i < lines.Length; i++)
             {
-                String l = lines[i].Trim('\r');
+                String l = lines[i].Trim();
                 
                 if (l.Length == 0)
                     continue;

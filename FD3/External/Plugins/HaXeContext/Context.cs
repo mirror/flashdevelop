@@ -449,9 +449,9 @@ namespace HaXeContext
 
             MemberList list = new MemberList();
 
-            HaXeCompletion hc = new HaXeCompletion( sci );
+            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position);
             ArrayList al = hc.getList();
-            if (al == null) 
+            if (al == null || al.Count == 0) 
                 return null; // haxe.exe not found
             
             string outputType = al[0].ToString();
@@ -515,9 +515,9 @@ namespace HaXeContext
             
             MemberModel member = new MemberModel();
 
-            HaXeCompletion hc = new HaXeCompletion( sci );
+            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position);
             ArrayList al = hc.getList();
-            if (al == null)
+            if (al == null || al.Count == 0)
                 return null; // haxe.exe not found
 
             string outputType = al[0].ToString();
