@@ -52,7 +52,7 @@ namespace HaXeContext
                 addi += " " + i;
 
             string file = PluginBase.MainForm.CurrentDocument.FileName;
-            Int32 pos = position; // sci.CurrentPos;
+            Int32 pos = position + 1; // sci.CurrentPos;
             if (sci.Encoding == System.Text.Encoding.UTF8)
                 pos += 3; // BOM
 
