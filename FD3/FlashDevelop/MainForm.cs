@@ -2986,7 +2986,9 @@ namespace FlashDevelop
         {
             CSScript.ShareHostRefAssemblies = true;
             AsmHelper helper = new AsmHelper(CSScript.Load(script, null, true));
+            helper.CachingEnabled = false;
             helper.Invoke("*.Execute");
+            helper.Dispose();
         }
     }
 

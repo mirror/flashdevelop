@@ -209,9 +209,10 @@ namespace MacroManager
                     PluginBase.MainForm.CallCommand(parts[0], parts[1]);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorManager.ShowError(ex);
+                String message = "Couldn't run the macro. Please check the syntax.";
+                ErrorManager.ShowWarning(message, null);
             }
         }
 
