@@ -53,12 +53,12 @@ namespace HaXeContext
 
             string file = PluginBase.MainForm.CurrentDocument.FileName;
             Int32 pos = position + 1; // sci.CurrentPos;
+            // locate a . or (
+            while (pos > 1 && sci.CharAt(pos - 1) != '.' && sci.CharAt(pos - 1) != '(')
+                pos--;
+
             if (sci.Encoding == System.Text.Encoding.UTF8)
                 pos += 3; // BOM
-
-            // locate a . or (
-            while (pos > 1 && sci.CharAt(pos - 1) != '.' && sci.CharAt(pos - 1) != '(') 
-                pos--;
 
             string target = "";
 
