@@ -208,8 +208,9 @@ namespace FlashDevelop.Dialogs
             }
             catch (Exception ex)
             {
-                ErrorManager.AddToLog("Init failed.", ex);
                 e.Result = false;
+                ErrorManager.AddToLog("Init failed.", ex);
+                this.worker.CancelAsync();
             }
         }
 
