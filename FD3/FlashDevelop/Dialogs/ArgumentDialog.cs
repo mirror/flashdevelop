@@ -20,6 +20,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.TextBox keyTextBox;
         private System.Windows.Forms.TextBox valueTextBox;
         private System.Windows.Forms.ListView argsListView;
+        private System.Windows.Forms.ToolStripItem exportItem;
         private System.Windows.Forms.ColumnHeader columnHeader;
         private System.Windows.Forms.ListViewGroup argumentGroup;
         private System.Windows.Forms.PictureBox infoPictureBox;
@@ -80,7 +81,7 @@ namespace FlashDevelop.Dialogs
             this.argsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.argsListView.HideSelection = false;
             this.argsListView.Location = new System.Drawing.Point(12, 12);
-            this.argsListView.MultiSelect = false;
+            this.argsListView.MultiSelect = true;
             this.argsListView.Name = "argsListView";
             this.argsListView.Size = new System.Drawing.Size(182, 277);
             this.argsListView.TabIndex = 1;
@@ -243,9 +244,20 @@ namespace FlashDevelop.Dialogs
         private void InitializeContextMenu()
         {
             ContextMenuStrip contextMenu = new ContextMenuStrip();
+            contextMenu.Opening += new CancelEventHandler(this.ContextMenuOpening);
             contextMenu.Items.Add(TextHelper.GetString("Label.ImportArguments"), null, this.ImportArguments);
-            contextMenu.Items.Add(TextHelper.GetString("Label.ExportArguments"), null, this.ExportArguments);
+            this.exportItem = new ToolStripMenuItem(TextHelper.GetString("Label.ExportArguments"), null, this.ExportArguments);
+            contextMenu.Items.Add(this.exportItem); // Add export item
             this.argsListView.ContextMenuStrip = contextMenu;
+        }
+
+        /// <summary>
+        /// Hides the export item if there are no items selected
+        /// </summary>
+        private void ContextMenuOpening(Object sender, CancelEventArgs e)
+        {
+            if (this.argsListView.SelectedItems.Count == 0) this.exportItem.Visible = false;
+            else this.exportItem.Visible = true;
         }
 
         /// <summary>
@@ -339,21 +351,14 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void DeleteButtonClick(Object sender, EventArgs e)
         {
-            ListViewItem item = this.argsListView.SelectedItems[0];
-            Int32 previousIndex = item.Index - 1;
-            this.argsListView.Items.Remove(item);
+            foreach (ListViewItem item in this.argsListView.SelectedItems)
+            {
+                this.argsListView.Items.Remove(item);
+            }
             if (this.argsListView.Items.Count > 0)
             {
-                if (previousIndex >= 0 && previousIndex <= this.argsListView.Items.Count - 1)
-                {
-                    item = this.argsListView.Items[previousIndex];
-                    item.Selected = true;
-                }
-                else
-                {
-                    item = this.argsListView.Items[0];
-                    item.Selected = true;
-                }
+                ListViewItem item = this.argsListView.Items[0];
+                item.Selected = true;
             }
         }
 
@@ -370,10 +375,9 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void ArgsListViewSelectedIndexChanged(Object sender, EventArgs e)
         {
-            if (this.argsListView.SelectedIndices.Count > 0)
+            if (this.argsListView.SelectedItems.Count == 1)
             {
                 this.keyTextBox.Enabled = true;
-                this.deleteButton.Enabled = true;
                 this.valueTextBox.Enabled = true;
                 ListViewItem item = this.argsListView.SelectedItems[0];
                 Argument argument = item.Tag as Argument;
@@ -386,10 +390,11 @@ namespace FlashDevelop.Dialogs
             {
                 this.keyTextBox.Text = "";
                 this.valueTextBox.Text = "";
-                this.deleteButton.Enabled = false;
                 this.valueTextBox.Enabled = false;
                 this.keyTextBox.Enabled = false;
             }
+            if (this.argsListView.SelectedItems.Count == 0) this.deleteButton.Enabled = false;
+            else this.deleteButton.Enabled = true;
         }
 
         /// <summary>
@@ -399,7 +404,7 @@ namespace FlashDevelop.Dialogs
         {
             if (this.keyTextBox.Text == "") return;
             String message = TextHelper.GetString("Info.Argument");
-            if (this.argsListView.SelectedIndices.Count > 0)
+            if (this.argsListView.SelectedItems.Count == 1)
             {
                 ListViewItem item = this.argsListView.SelectedItems[0];
                 Argument argument = item.Tag as Argument;
@@ -420,7 +425,7 @@ namespace FlashDevelop.Dialogs
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 List<Argument> arguments = new List<Argument>();
-                foreach (ListViewItem item in this.argsListView.Items)
+                foreach (ListViewItem item in this.argsListView.SelectedItems)
                 {
                     arguments.Add((Argument)item.Tag);
                 }
@@ -438,10 +443,12 @@ namespace FlashDevelop.Dialogs
             ofd.InitialDirectory = Globals.MainForm.WorkingDirectory;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                this.SaveCustomArguments();
                 List<Argument> arguments = new List<Argument>();
                 Object argumentsObject = ObjectSerializer.Deserialize(ofd.FileName, arguments);
                 arguments = (List<Argument>)argumentsObject;
-                this.PopulateArgumentList(arguments);
+                Globals.Settings.CustomArguments.AddRange(arguments);
+                this.PopulateArgumentList(Globals.Settings.CustomArguments);
             }
         }
 

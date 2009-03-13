@@ -16,6 +16,7 @@ namespace MacroManager
         private Label infoLabel;
         private ListView listView;
         private PictureBox pictureBox;
+        private ToolStripItem exportItem;
         private PropertyGrid propertyGrid;
         private ColumnHeader columnHeader;
         private ListViewGroup macroGroup;
@@ -70,7 +71,7 @@ namespace MacroManager
             this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.listView.Location = new System.Drawing.Point(12, 12);
             this.listView.Name = "listView";
-            this.listView.MultiSelect = false;
+            this.listView.MultiSelect = true;
             this.listView.HideSelection = false;
             this.listView.View = System.Windows.Forms.View.Details;
             this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
@@ -200,9 +201,20 @@ namespace MacroManager
         private void InitializeContextMenu()
         {
             ContextMenuStrip contextMenu = new ContextMenuStrip();
+            contextMenu.Opening += new CancelEventHandler(this.ContextMenuOpening);
             contextMenu.Items.Add(TextHelper.GetString("Label.ImportMacros"), null, this.ImportMacros);
-            contextMenu.Items.Add(TextHelper.GetString("Label.ExportMacros"), null, this.ExportMacros);
+            this.exportItem = new ToolStripMenuItem(TextHelper.GetString("Label.ExportMacros"), null, this.ExportMacros);
+            contextMenu.Items.Add(this.exportItem); // Add export item
             this.listView.ContextMenuStrip = contextMenu;
+        }
+
+        /// <summary>
+        /// Hides the export item if there are no items selected
+        /// </summary>
+        private void ContextMenuOpening(Object sender, CancelEventArgs e)
+        {
+            if (this.listView.SelectedItems.Count == 0) this.exportItem.Visible = false;
+            else this.exportItem.Visible = true;
         }
 
         /// <summary>
@@ -273,25 +285,18 @@ namespace MacroManager
         }
 
         /// <summary>
-        /// Deletes the delected macro from the list
+        /// Deletes the delected macro[s] from the list
         /// </summary>
         private void DeleteButtonClick(Object sender, EventArgs e)
         {
-            ListViewItem item = this.listView.SelectedItems[0];
-            Int32 previousIndex = item.Index - 1;
-            this.listView.Items.Remove(item);
+            foreach (ListViewItem item in this.listView.SelectedItems)
+            {
+                this.listView.Items.Remove(item);
+            }
             if (this.listView.Items.Count > 0)
             {
-                if (previousIndex >= 0 && previousIndex <= this.listView.Items.Count - 1)
-                {
-                    item = this.listView.Items[previousIndex];
-                    item.Selected = true;
-                }
-                else
-                {
-                    item = this.listView.Items[0];
-                    item.Selected = true;
-                }
+                ListViewItem item = this.listView.Items[0];
+                item.Selected = true;
             }
         }
 
@@ -300,17 +305,14 @@ namespace MacroManager
         /// </summary>
         private void ListViewIndexChanged(Object sender, EventArgs e)
         {
-            if (this.listView.SelectedIndices.Count > 0)
+            if (this.listView.SelectedIndices.Count == 1)
             {
                 ListViewItem item = this.listView.SelectedItems[0];
                 this.propertyGrid.SelectedObject = item.Tag;
-                this.deleteButton.Enabled = true;
             }
-            else
-            {
-                this.propertyGrid.SelectedObject = null;
-                this.deleteButton.Enabled = false;
-            }
+            else this.propertyGrid.SelectedObject = null;
+            if (this.listView.SelectedItems.Count == 0) this.deleteButton.Enabled = false;
+            else this.deleteButton.Enabled = true;
         }
 
         /// <summary>
@@ -318,7 +320,7 @@ namespace MacroManager
         /// </summary>
         private void PropertyValueChanged(Object sender, PropertyValueChangedEventArgs e)
         {
-            if (this.listView.SelectedIndices.Count > 0)
+            if (this.listView.SelectedIndices.Count == 1)
             {
                 ListViewItem item = this.listView.SelectedItems[0];
                 item.Text = ((Macro)item.Tag).Label;
@@ -344,7 +346,7 @@ namespace MacroManager
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 List<Macro> macros = new List<Macro>();
-                foreach (ListViewItem item in this.listView.Items)
+                foreach (ListViewItem item in this.listView.SelectedItems)
                 {
                     macros.Add((Macro)item.Tag);
                 }
@@ -362,10 +364,12 @@ namespace MacroManager
             ofd.InitialDirectory = PluginBase.MainForm.WorkingDirectory;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                this.SaveUserMacros();
                 List<Macro> macros = new List<Macro>();
                 Object macrosObject = ObjectSerializer.Deserialize(ofd.FileName, macros);
                 macros = (List<Macro>)macrosObject;
-                this.PopulateMacroList(macros);
+                this.pluginMain.Macros.AddRange(macros);
+                this.PopulateMacroList(this.pluginMain.Macros);
             }
         }
 
