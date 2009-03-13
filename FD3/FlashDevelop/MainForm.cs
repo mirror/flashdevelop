@@ -2953,7 +2953,7 @@ namespace FlashDevelop
                 Host host = new Host();
                 String[] args = file.Split(new Char[1]{';'});
                 if (args[0] == "Internal") host.ExecuteScriptInternal(args[1], false);
-                if (args[0] == "Development") host.ExecuteScriptInternal(args[1], true);
+                else if (args[0] == "Development") host.ExecuteScriptInternal(args[1], true);
                 else host.ExecuteScriptExternal(file);
             }
             catch (Exception ex)
