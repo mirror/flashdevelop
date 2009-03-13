@@ -2952,7 +2952,8 @@ namespace FlashDevelop
             {
                 Host host = new Host();
                 String[] args = file.Split(new Char[1]{';'});
-                if (args[0] == "Internal") host.ExecuteScriptInternal(args[1]);
+                if (args[0] == "Internal") host.ExecuteScriptInternal(args[1], false);
+                if (args[0] == "Development") host.ExecuteScriptInternal(args[1], true);
                 else host.ExecuteScriptExternal(file);
             }
             catch (Exception ex)
@@ -2997,10 +2998,10 @@ namespace FlashDevelop
         /// Executes the script and adds it to the current app domain
         /// NOTE: This locks the assembly script file
         /// </summary>
-        public void ExecuteScriptInternal(String script)
+        public void ExecuteScriptInternal(String script, Boolean random)
         {
-            String random = Path.GetTempFileName();
-            AsmHelper helper = new AsmHelper(CSScript.Load(script, random, false, null));
+            String file = random ? Path.GetTempFileName() : null;
+            AsmHelper helper = new AsmHelper(CSScript.Load(script, file, false, null));
             helper.Invoke("FDScript.Execute");
         }
 
