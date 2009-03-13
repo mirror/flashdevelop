@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Localization;
+using PluginCore.Utilities;
 using PluginCore;
 
 namespace MacroManager
@@ -29,6 +30,7 @@ namespace MacroManager
             this.Font = PluginBase.Settings.DefaultFont;
             this.InitializeComponent();
             this.InitializeItemGroups();
+            this.InitializeContextMenu();
             this.ApplyLocalizedTexts();
             this.InitializeGraphics();
         }
@@ -187,8 +189,20 @@ namespace MacroManager
         /// </summary>
         private void InitializeItemGroups()
         {
-            this.macroGroup = new ListViewGroup("Macros", HorizontalAlignment.Left);
+            String macroGroup = TextHelper.GetString("Group.Macros");
+            this.macroGroup = new ListViewGroup(macroGroup, HorizontalAlignment.Left);
             this.listView.Groups.Add(this.macroGroup);
+        }
+
+        /// <summary>
+        /// Initializes the import/export context menu
+        /// </summary>
+        private void InitializeContextMenu()
+        {
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+            contextMenu.Items.Add(TextHelper.GetString("Label.ImportMacros"), null, this.ImportMacros);
+            contextMenu.Items.Add(TextHelper.GetString("Label.ExportMacros"), null, this.ExportMacros);
+            this.listView.ContextMenuStrip = contextMenu;
         }
 
         /// <summary>
@@ -196,7 +210,11 @@ namespace MacroManager
         /// </summary>
         private void ApplyLocalizedTexts()
         {
-            this.Text = " Macros";
+            this.addButton.Text = TextHelper.GetString("Label.Add");
+            this.closeButton.Text = TextHelper.GetString("Label.Close");
+            this.deleteButton.Text = TextHelper.GetString("Label.Delete");
+            this.infoLabel.Text = TextHelper.GetString("Info.MacrosTakeEffect");
+            this.Text = " " + TextHelper.GetString("Title.MacroDialog");
         }
 
         /// <summary>
@@ -247,8 +265,9 @@ namespace MacroManager
         /// </summary>
         private void AddButtonClick(Object sender, EventArgs e)
         {
-            ListViewItem item = new ListViewItem("Untitled", 0);
-            item.Tag = new Macro("Untitled", new string[0], Keys.None);
+            String untitled = TextHelper.GetString("Info.Untitled");
+            ListViewItem item = new ListViewItem(untitled, 0);
+            item.Tag = new Macro(untitled, new String[0], Keys.None);
             this.macroGroup.Items.Add(item);
             this.listView.Items.Add(item);
         }
@@ -312,6 +331,42 @@ namespace MacroManager
         private void CloseButtonClick(Object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// Exports the current macro list into a file
+        /// </summary>
+        private void ExportMacros(Object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = TextHelper.GetString("Info.MacroFilter") + "|*.fdm";
+            sfd.InitialDirectory = PluginBase.MainForm.WorkingDirectory;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                List<Macro> macros = new List<Macro>();
+                foreach (ListViewItem item in this.listView.Items)
+                {
+                    macros.Add((Macro)item.Tag);
+                }
+                ObjectSerializer.Serialize(sfd.FileName, macros);
+            }
+        }
+
+        /// <summary>
+        /// Imports an macro list from a file
+        /// </summary>
+        private void ImportMacros(Object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = TextHelper.GetString("Info.MacroFilter") + "|*.fdm";
+            ofd.InitialDirectory = PluginBase.MainForm.WorkingDirectory;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                List<Macro> macros = new List<Macro>();
+                Object macrosObject = ObjectSerializer.Deserialize(ofd.FileName, macros);
+                macros = (List<Macro>)macrosObject;
+                this.PopulateMacroList(macros);
+            }
         }
 
         /// <summary>

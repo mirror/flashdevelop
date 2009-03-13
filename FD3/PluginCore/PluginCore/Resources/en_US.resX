@@ -2875,6 +2875,54 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Reloads externally modified files without prompting.</value>
   </data>
   <data name="FlashDevelop.Info.CouldNotExecuteScript" xml:space="preserve">
-    <value>The script could not executed properly:</value>
+    <value>The script could not be executed properly:</value>
+  </data>
+  <data name="MacroManager.Description.UserMacros" xml:space="preserve">
+    <value>List of currently available macros.</value>
+  </data>
+  <data name="MacroManager.Group.Macros" xml:space="preserve">
+    <value>Macros</value>
+  </data>
+  <data name="MacroManager.Info.CouldNotRunMacro" xml:space="preserve">
+    <value>Couldn't run the macro. Please check the syntax.</value>
+  </data>
+  <data name="MacroManager.Info.Description" xml:space="preserve">
+    <value>Adds simple macro capacilities to FlashDevelop.</value>
+  </data>
+  <data name="MacroManager.Info.MacroFilter" xml:space="preserve">
+    <value>FlashDevelop Macros (*.fdm)</value>
+  </data>
+  <data name="MacroManager.Info.MacrosTakeEffect" xml:space="preserve">
+    <value>Macros will take effect soon as you edit them successfully.</value>
+  </data>
+  <data name="MacroManager.Info.Untitled" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="MacroManager.Label.Add" xml:space="preserve">
+    <value>&amp;Add</value>
+  </data>
+  <data name="MacroManager.Label.Close" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="MacroManager.Label.Delete" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="MacroManager.Label.EditMacros" xml:space="preserve">
+    <value>&amp;Edit Macros...</value>
+  </data>
+  <data name="MacroManager.Label.ExportMacros" xml:space="preserve">
+    <value>&amp;Export Macros...</value>
+  </data>
+  <data name="MacroManager.Label.ImportMacros" xml:space="preserve">
+    <value>&amp;Import Macros...</value>
+  </data>
+  <data name="MacroManager.Label.Macros" xml:space="preserve">
+    <value>&amp;Macros</value>
+  </data>
+  <data name="MacroManager.Title.MacroDialog" xml:space="preserve">
+    <value>Macros</value>
+  </data>
+  <data name="MacroManager.Description.EditShortcut" xml:space="preserve">
+    <value>Shortcut of the "Edit Macros" menu item.</value>
   </data>
 </root>

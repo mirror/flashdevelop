@@ -124,7 +124,7 @@ namespace MacroManager
         /// </summary>
         private void InitBasics()
         {
-            //this.pluginDesc = TextHelper.GetString("Info.Description");
+            this.pluginDesc = TextHelper.GetString("Info.Description");
             String dataPath = Path.Combine(PathHelper.DataDir, "MacroManager");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
@@ -137,12 +137,13 @@ namespace MacroManager
         {
             MenuStrip mainMenu = PluginBase.MainForm.MenuStrip;
             this.macroMenuItem = new ToolStripMenuItem();
-            this.macroMenuItem.Text = "Macros";
+            this.macroMenuItem.Text = TextHelper.GetString("Label.Macros");
             this.editMenuItem = new ToolStripMenuItem();
-            this.editMenuItem.Text = "&Edit Macros...";
+            this.editMenuItem.Text = TextHelper.GetString("Label.EditMacros");
             this.editMenuItem.Click += new EventHandler(this.EditMenuItemClick);
             Int32 index = mainMenu.Items.Count - 2;
             mainMenu.Items.Insert(index, this.macroMenuItem);
+            PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.EditShortcut);
         }
 
         /// <summary>
@@ -211,7 +212,7 @@ namespace MacroManager
             }
             catch (Exception)
             {
-                String message = "Couldn't run the macro. Please check the syntax.";
+                String message = TextHelper.GetString("Info.CouldNotRunMacro");
                 ErrorManager.ShowWarning(message, null);
             }
         }
