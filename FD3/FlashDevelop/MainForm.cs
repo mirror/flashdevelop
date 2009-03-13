@@ -2990,7 +2990,7 @@ namespace FlashDevelop
         {
             using (AsmHelper helper = new AsmHelper(CSScript.Compile(script, null, true), null, true))
             {
-                helper.Invoke("FDScript.Execute");
+                helper.Invoke("*.Execute");
             }
         }
 
@@ -3002,7 +3002,7 @@ namespace FlashDevelop
         {
             String file = random ? Path.GetTempFileName() : null;
             AsmHelper helper = new AsmHelper(CSScript.Load(script, file, false, null));
-            helper.Invoke("FDScript.Execute");
+            helper.Invoke("*.Execute");
         }
 
     }

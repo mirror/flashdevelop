@@ -42,7 +42,7 @@ namespace PluginCore.Managers
             }
             String title = TextHelper.GetString("FlashDevelop.Title.WarningDialog");
             MessageBox.Show(PluginBase.MainForm, info, " " + title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            if (OutputIsEnabled) AddToLog(info, exception);
+            if (OutputIsEnabled && exception != null) AddToLog(info, exception);
         }
 
         /// <summary>

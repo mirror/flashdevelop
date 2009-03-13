@@ -103,6 +103,19 @@ namespace MacroManager
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
+            if (e.Type == EventType.UIStarted)
+            {
+                try
+                {
+                    String[] entries = this.settingObject.InitialMacro;
+                    foreach (String entry in entries)
+                    {
+                        String[] parts = entry.Split(new Char[1]{'|'});
+                        PluginBase.MainForm.CallCommand(parts[0], parts[1]);
+                    }
+                }
+                catch {}
+            }
             if (e.Type == EventType.ApplySettings)
             {
                 this.UpdateMenuShortcut();
@@ -132,6 +145,7 @@ namespace MacroManager
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             EventManager.AddEventHandler(this, EventType.ApplySettings);
+            EventManager.AddEventHandler(this, EventType.UIStarted);
         }
 
         /// <summary>
@@ -185,9 +199,13 @@ namespace MacroManager
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
+            if (this.settingObject.InitialMacro == null)
+            {
+                this.settingObject.InitialMacro = new String[0];
+            }
             if (this.settingObject.UserMacros.Count == 0)
             {
-                Macro macro = new Macro("Hello World!", new String[1] {"Debug|HelloWorld!"}, Keys.None);
+                Macro macro = new Macro("Hello World!", new String[1]{"Debug|HelloWorld!"}, Keys.None);
                 this.settingObject.UserMacros.Add(macro);
             }
         }
@@ -223,7 +241,7 @@ namespace MacroManager
                 ToolStripMenuItem macroItem = sender as ToolStripMenuItem;
                 foreach (String entry in ((Macro)macroItem.Tag).Entries)
                 {
-                    String[] parts = entry.Split(new char[1] {'|'});
+                    String[] parts = entry.Split(new Char[1]{'|'});
                     PluginBase.MainForm.CallCommand(parts[0], parts[1]);
                 }
             }

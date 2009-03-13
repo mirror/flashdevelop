@@ -20,4 +20,5 @@
 	<separator />
 	<button label="Label.CommandPrompt" click="RunProcess" tag="cmd.exe" image="57" />
 	<button label="Label.WindowsExplorer" click="RunProcess" tag="explorer.exe;/e,$(Quote)$(WorkingDir)$(Quote)" image="46" />
+	<button label="Label.CodeSnippets" click="EditSnippets" image="341|5|2|2" />
 </toolbar>
