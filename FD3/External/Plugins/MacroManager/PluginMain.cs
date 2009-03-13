@@ -103,7 +103,10 @@ namespace MacroManager
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-            // Nothing here...
+            if (e.Type == EventType.ApplySettings)
+            {
+                this.UpdateMenuShortcut();
+            }
 		}
 		
 		#endregion
@@ -128,6 +131,7 @@ namespace MacroManager
             String dataPath = Path.Combine(PathHelper.DataDir, "MacroManager");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            EventManager.AddEventHandler(this, EventType.ApplySettings);
         }
 
         /// <summary>
@@ -141,10 +145,8 @@ namespace MacroManager
             this.editMenuItem = new ToolStripMenuItem();
             this.editMenuItem.Text = TextHelper.GetString("Label.EditMacros");
             this.editMenuItem.Click += new EventHandler(this.EditMenuItemClick);
-            this.editMenuItem.ShortcutKeys = this.settingObject.EditShortcut;
             Int32 index = mainMenu.Items.Count - 2;
             mainMenu.Items.Insert(index, this.macroMenuItem);
-            PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.EditShortcut);
         }
 
         /// <summary>
@@ -168,6 +170,7 @@ namespace MacroManager
             }
             this.macroMenuItem.DropDownItems.Add(new ToolStripSeparator());
             this.macroMenuItem.DropDownItems.Add(this.editMenuItem);
+            this.UpdateMenuShortcut();
         }
 
         /// <summary>
@@ -195,6 +198,19 @@ namespace MacroManager
         private void SaveSettings()
         {
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
+        }
+
+        /// <summary>
+        /// Updates the edit macros menu item shortcut
+        /// </summary>
+        private void UpdateMenuShortcut()
+        {
+            Keys shortcut = this.settingObject.EditShortcut;
+            if (!PluginBase.MainForm.IgnoredKeys.Contains(shortcut))
+            {
+                PluginBase.MainForm.IgnoredKeys.Add(shortcut);
+            }
+            this.editMenuItem.ShortcutKeys = shortcut;
         }
 
         /// <summary>
