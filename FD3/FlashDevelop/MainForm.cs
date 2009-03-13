@@ -2948,18 +2948,17 @@ namespace FlashDevelop
         {
             ToolStripItem button = (ToolStripItem)sender;
             String file = this.ProcessArgString(((ItemData)button.Tag).Tag);
-            if (File.Exists(file))
+            try
             {
-                try
-                {
-                    Host host = new Host();
-                    host.ExecuteScript(file);
-                }
-                catch (Exception ex)
-                {
-                    String message = TextHelper.GetString("Info.CouldNotExecuteScript");
-                    ErrorManager.ShowWarning(message + "\n" + ex.Message, null);
-                }
+                Host host = new Host();
+                String[] args = file.Split(new Char[1]{';'});
+                if (args[0] == "Internal") host.ExecuteScriptInternal(args[1]);
+                else host.ExecuteScriptExternal(file);
+            }
+            catch (Exception ex)
+            {
+                String message = TextHelper.GetString("Info.CouldNotExecuteScript");
+                ErrorManager.ShowWarning(message + "\r\n" + ex.Message, null);
             }
         }
 
@@ -2982,14 +2981,29 @@ namespace FlashDevelop
 
     public class Host : MarshalByRefObject
     {
-        public void ExecuteScript(String script)
+        /// <summary>
+        /// Executes the script in a seperate appdomain and then unloads it
+        /// NOTE: This is more suitable for one pass processes
+        /// </summary>
+        public void ExecuteScriptExternal(String script)
         {
-            CSScript.ShareHostRefAssemblies = true;
-            AsmHelper helper = new AsmHelper(CSScript.Load(script, null, true));
-            helper.CachingEnabled = false;
-            helper.Invoke("*.Execute");
-            helper.Dispose();
+            using (AsmHelper helper = new AsmHelper(CSScript.Compile(script, null, true), null, true))
+            {
+                helper.Invoke("FDScript.Execute");
+            }
         }
+
+        /// <summary>
+        /// Executes the script and adds it to the current app domain
+        /// NOTE: This locks the assembly script file
+        /// </summary>
+        public void ExecuteScriptInternal(String script)
+        {
+            String random = Path.GetTempFileName();
+            AsmHelper helper = new AsmHelper(CSScript.Load(script, random, false, null));
+            helper.Invoke("FDScript.Execute");
+        }
+
     }
 
     #endregion
