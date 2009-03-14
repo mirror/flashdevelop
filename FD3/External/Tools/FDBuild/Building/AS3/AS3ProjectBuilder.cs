@@ -167,8 +167,7 @@ namespace ProjectManager.Building.AS3
             // this serves two purposes - randomize the filename, so two identically-named
             // projects don't get the same temp build target, and also provide an extra
             // method of forcing a recompile after a project modification.
-            long modified = File.GetLastWriteTime(project.ProjectPath).Ticks;
-            string tempFileName = project.Name + modified;
+            string tempFileName = project.Name + Guid.NewGuid();
             string tempPath = "obj";
             string tempFile = Path.Combine(tempPath, tempFileName);
             File.Create(tempFile).Close();
