@@ -85,7 +85,8 @@ namespace FlashDevelop.Dialogs
             this.saveFileDialog.Filter = "FlashDevelop Zip Files|*.fdz";
             // 
             // contentsTextBox
-            // 
+            //
+            this.contentsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.contentsTextBox.AcceptsTab = true;
             this.contentsTextBox.AcceptsReturn = true;
             this.contentsTextBox.Font = new System.Drawing.Font("Courier New", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -100,6 +101,7 @@ namespace FlashDevelop.Dialogs
             // 
             // addButton
             //
+            this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.addButton.Location = new System.Drawing.Point(254, 338);
             this.addButton.Name = "addButton";
@@ -111,6 +113,7 @@ namespace FlashDevelop.Dialogs
             // 
             // deleteButton
             //
+            this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.deleteButton.Location = new System.Drawing.Point(343, 338);
             this.deleteButton.Name = "deleteButton";
@@ -150,6 +153,7 @@ namespace FlashDevelop.Dialogs
             // 
             // snippetListView
             //
+            this.snippetListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.snippetListView.MultiSelect = false;
             this.snippetListView.HideSelection = false;
             this.snippetListView.Columns.Add(this.columnHeader);
@@ -164,6 +168,7 @@ namespace FlashDevelop.Dialogs
             // 
             // saveButton
             //
+            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.saveButton.Location = new System.Drawing.Point(431, 338);
             this.saveButton.Name = "saveButton";
@@ -175,6 +180,7 @@ namespace FlashDevelop.Dialogs
             // 
             // exportButton
             //
+            this.exportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.exportButton.Name = "exportButton";
             this.exportButton.TabIndex = 9;
             this.exportButton.Size = new System.Drawing.Size(30, 23);
@@ -203,6 +209,7 @@ namespace FlashDevelop.Dialogs
             // 
             // closeButton
             //
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.closeButton.Location = new System.Drawing.Point(519, 338);
             this.closeButton.Name = "closeButton";
@@ -214,6 +221,7 @@ namespace FlashDevelop.Dialogs
             // 
             // revertButton
             //
+            this.revertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.revertButton.Location = new System.Drawing.Point(188, 338);
             this.revertButton.Name = "revertButton";
             this.revertButton.Size = new System.Drawing.Size(30, 23);
@@ -223,6 +231,7 @@ namespace FlashDevelop.Dialogs
             // 
             // insertComboBox
             //
+            this.insertComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.insertComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.insertComboBox.FormattingEnabled = true;
             this.insertComboBox.Location = new System.Drawing.Point(299, 25);
@@ -234,6 +243,7 @@ namespace FlashDevelop.Dialogs
             // 
             // SnippetDialog
             //
+            this.ShowIcon = false;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
             this.ShowInTaskbar = false;
@@ -242,6 +252,7 @@ namespace FlashDevelop.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 372);
+            this.MinimumSize = new System.Drawing.Size(615, 372);
             this.Controls.Add(this.languageDropDown);
             this.Controls.Add(this.insertComboBox);
             this.Controls.Add(this.closeButton);
@@ -257,7 +268,7 @@ namespace FlashDevelop.Dialogs
             this.Controls.Add(this.languageLabel);
             this.Controls.Add(this.nameLabel);
             this.Name = "SnippetDialog";
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " Snippet Editor";
             this.ResumeLayout(false);
