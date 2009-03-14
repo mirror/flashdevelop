@@ -2928,4 +2928,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="MacroManager.Description.InitialMacro" xml:space="preserve">
     <value>Macro that will executed when FlashDevelop has initialized.</value>
   </data>
+  <data name="MacroManager.Label.MakeAsInitMacro" xml:space="preserve">
+    <value>&amp;Make As Initial Macro</value>
+  </data>
 </root>

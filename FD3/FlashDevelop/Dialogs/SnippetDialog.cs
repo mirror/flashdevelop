@@ -36,6 +36,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button addButton;
         private System.String currentSyntax;
         private System.Int32 folderCount;
 
@@ -57,6 +58,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void InitializeComponent()
         {
+            this.addButton = new System.Windows.Forms.Button();
             this.exportButton = new System.Windows.Forms.Button();
             this.columnHeader = new System.Windows.Forms.ColumnHeader();
             this.contentsTextBox = new System.Windows.Forms.TextBox();
@@ -85,6 +87,7 @@ namespace FlashDevelop.Dialogs
             // contentsTextBox
             // 
             this.contentsTextBox.AcceptsTab = true;
+            this.contentsTextBox.AcceptsReturn = true;
             this.contentsTextBox.Font = new System.Drawing.Font("Courier New", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contentsTextBox.Location = new System.Drawing.Point(151, 53);
             this.contentsTextBox.ScrollBars = ScrollBars.Vertical;
@@ -95,12 +98,23 @@ namespace FlashDevelop.Dialogs
             this.contentsTextBox.WordWrap = false;
             this.contentsTextBox.TextChanged += new System.EventHandler(this.ToggleCreate);
             // 
+            // addButton
+            //
+            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.addButton.Location = new System.Drawing.Point(254, 338);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(80, 23);
+            this.addButton.TabIndex = 3;
+            this.addButton.Text = "&Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.AddButtonClick);
+            // 
             // deleteButton
             //
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.deleteButton.Location = new System.Drawing.Point(331, 338);
+            this.deleteButton.Location = new System.Drawing.Point(343, 338);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(85, 23);
+            this.deleteButton.Size = new System.Drawing.Size(80, 23);
             this.deleteButton.TabIndex = 3;
             this.deleteButton.Text = "&Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -151,9 +165,9 @@ namespace FlashDevelop.Dialogs
             // saveButton
             //
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.saveButton.Location = new System.Drawing.Point(425, 338);
+            this.saveButton.Location = new System.Drawing.Point(431, 338);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(85, 23);
+            this.saveButton.Size = new System.Drawing.Size(80, 23);
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "&Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -235,6 +249,7 @@ namespace FlashDevelop.Dialogs
             this.Controls.Add(this.snippetListView);
             this.Controls.Add(this.contentsTextBox);
             this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.addButton);
             this.Controls.Add(this.revertButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.deleteButton);
@@ -293,6 +308,7 @@ namespace FlashDevelop.Dialogs
             this.deleteButton.Text = TextHelper.GetString("Label.Delete");
             this.closeButton.Text = TextHelper.GetString("Label.Close");
             this.saveButton.Text = TextHelper.GetString("Label.Save");
+            this.addButton.Text = TextHelper.GetString("Label.Add");
             if (Globals.MainForm.StandaloneMode)
             {
                 this.revertButton.Enabled = false;
@@ -378,7 +394,11 @@ namespace FlashDevelop.Dialogs
                     }
                 }
             }
-            this.saveButton.Enabled = true;
+            if (this.snippetNameTextBox.Text.Length > 0)
+            {
+                this.saveButton.Enabled = true;
+            }
+            else this.saveButton.Enabled = false;
         }
 
         /// <summary>
@@ -443,6 +463,11 @@ namespace FlashDevelop.Dialogs
         {
             try
             {
+                Int32 selectedIndex = 0;
+                if (this.snippetListView.SelectedIndices.Count > 0)
+                {
+                    selectedIndex = this.snippetListView.SelectedIndices[0];
+                }
                 this.snippetListView.BeginUpdate();
                 this.snippetListView.Items.Clear();
                 String path = Path.Combine(this.SnippetDir, this.currentSyntax);
@@ -455,8 +480,14 @@ namespace FlashDevelop.Dialogs
                 this.snippetListView.EndUpdate();
                 if (this.snippetListView.Items.Count > 0)
                 {
-                    this.snippetListView.Items[0].Selected = true;
+                    try { this.snippetListView.Items[selectedIndex].Selected = true; }
+                    catch 
+                    { 
+                        Int32 last = this.snippetListView.Items.Count - 1;
+                        this.snippetListView.Items[last].Selected = true;
+                    }
                 }
+                else this.snippetListView.Select();
             }
             catch (Exception ex)
             {
@@ -520,6 +551,18 @@ namespace FlashDevelop.Dialogs
                 this.WriteFile(this.snippetNameTextBox.Text, this.contentsTextBox.Text);
             }
         }
+
+        /// <summary>
+        /// Clears the texts to present a creation of a new item
+        /// </summary>
+        private void AddButtonClick(Object sender, EventArgs e)
+        {
+            this.contentsTextBox.Text = "";
+            this.snippetNameTextBox.Text = "";
+            this.deleteButton.Enabled = false;
+            this.saveButton.Enabled = false;
+        }
+
         /// <summary>
         /// Opens the revert settings dialog
         /// </summary>

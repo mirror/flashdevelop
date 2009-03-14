@@ -127,12 +127,11 @@ namespace MacroManager
         #region Custom Methods
         
         /// <summary>
-        /// List that contains the macros
+        /// Accessor for the settings
         /// </summary>
-        public List<Macro> Macros
+        public Settings AppSettings
         {
-            get { return this.settingObject.UserMacros; }
-            set { this.settingObject.UserMacros = value; }
+            get { return this.settingObject; }
         }
 
         /// <summary>

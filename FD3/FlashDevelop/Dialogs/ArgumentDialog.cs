@@ -313,6 +313,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void PopulateArgumentList(List<Argument> arguments)
         {
+            this.argsListView.BeginUpdate();
             this.argsListView.Items.Clear();
             String message = TextHelper.GetString("Info.Argument");
             foreach (Argument argument in arguments)
@@ -323,6 +324,7 @@ namespace FlashDevelop.Dialogs
                 this.argsListView.Items.Add(item);
                 this.argumentGroup.Items.Add(item);
             }
+            this.argsListView.EndUpdate();
             if (this.argsListView.Items.Count > 0)
             {
                 ListViewItem item = this.argsListView.Items[0];
@@ -341,25 +343,42 @@ namespace FlashDevelop.Dialogs
             String undefined = TextHelper.GetString("Info.Undefined");
             item.ImageIndex = 0; argument.Key = undefined;
             item.Text = message + " $(" + undefined + ")";
-            item.Tag = argument; item.Selected = true;
             this.argsListView.Items.Add(item);
             this.argumentGroup.Items.Add(item);
+            foreach (ListViewItem other in this.argsListView.Items)
+            {
+                other.Selected = false;
+            }
+            item.Tag = argument; 
+            item.Selected = true;
         }
 
         /// <summary>
-        /// Removes the select argument
+        /// Removes the selected arguments
         /// </summary>
         private void DeleteButtonClick(Object sender, EventArgs e)
         {
+            Int32 selectedIndex = 0;
+            if (this.argsListView.SelectedIndices.Count > 0)
+            {
+                selectedIndex = this.argsListView.SelectedIndices[0];
+            }
+            this.argsListView.BeginUpdate();
             foreach (ListViewItem item in this.argsListView.SelectedItems)
             {
                 this.argsListView.Items.Remove(item);
             }
+            this.argsListView.EndUpdate();
             if (this.argsListView.Items.Count > 0)
             {
-                ListViewItem item = this.argsListView.Items[0];
-                item.Selected = true;
+                try { this.argsListView.Items[selectedIndex].Selected = true; }
+                catch
+                {
+                    Int32 last = this.argsListView.Items.Count - 1;
+                    this.argsListView.Items[last].Selected = true;
+                }
             }
+            else this.argsListView.Select();
         }
 
         /// <summary>

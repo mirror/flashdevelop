@@ -17,6 +17,7 @@ namespace MacroManager
         private ListView listView;
         private PictureBox pictureBox;
         private ToolStripItem exportItem;
+        private ToolStripItem makeAsInit;
         private PropertyGrid propertyGrid;
         private ColumnHeader columnHeader;
         private ListViewGroup macroGroup;
@@ -204,7 +205,9 @@ namespace MacroManager
             contextMenu.Opening += new CancelEventHandler(this.ContextMenuOpening);
             contextMenu.Items.Add(TextHelper.GetString("Label.ImportMacros"), null, this.ImportMacros);
             this.exportItem = new ToolStripMenuItem(TextHelper.GetString("Label.ExportMacros"), null, this.ExportMacros);
+            this.makeAsInit = new ToolStripMenuItem(TextHelper.GetString("Label.MakeAsInitMacro"), null, this.MakeAsInitMacro);
             contextMenu.Items.Add(this.exportItem); // Add export item
+            contextMenu.Items.Add(this.makeAsInit); // Add makeAsInit item
             this.listView.ContextMenuStrip = contextMenu;
         }
 
@@ -215,6 +218,8 @@ namespace MacroManager
         {
             if (this.listView.SelectedItems.Count == 0) this.exportItem.Visible = false;
             else this.exportItem.Visible = true;
+            if (this.listView.SelectedItems.Count == 1) this.makeAsInit.Visible = true;
+            else this.makeAsInit.Visible = false;
         }
 
         /// <summary>
@@ -234,7 +239,7 @@ namespace MacroManager
         /// </summary>
         private void LoadUserMacros()
         {
-            List<Macro> macros = this.pluginMain.Macros;
+            List<Macro> macros = this.pluginMain.AppSettings.UserMacros;
             this.PopulateMacroList(macros);
         }
 
@@ -249,7 +254,7 @@ namespace MacroManager
                 Macro macro = item.Tag as Macro;
                 macros.Add(macro);
             }
-            this.pluginMain.Macros = macros;
+            this.pluginMain.AppSettings.UserMacros = macros;
         }
 
         /// <summary>
@@ -257,6 +262,7 @@ namespace MacroManager
         /// </summary>
         private void PopulateMacroList(List<Macro> macros)
         {
+            this.listView.BeginUpdate();
             this.listView.Items.Clear();
             foreach (Macro macro in macros)
             {
@@ -265,6 +271,7 @@ namespace MacroManager
                 this.macroGroup.Items.Add(item);
                 this.listView.Items.Add(item);
             }
+            this.listView.EndUpdate();
             if (this.listView.Items.Count > 0)
             {
                 ListViewItem item = this.listView.Items[0];
@@ -368,9 +375,18 @@ namespace MacroManager
                 List<Macro> macros = new List<Macro>();
                 Object macrosObject = ObjectSerializer.Deserialize(ofd.FileName, macros);
                 macros = (List<Macro>)macrosObject;
-                this.pluginMain.Macros.AddRange(macros);
-                this.PopulateMacroList(this.pluginMain.Macros);
+                this.pluginMain.AppSettings.UserMacros.AddRange(macros);
+                this.PopulateMacroList(this.pluginMain.AppSettings.UserMacros);
             }
+        }
+
+        /// <summary>
+        /// Makes the currently selected macro as init macro.
+        /// </summary>
+        private void MakeAsInitMacro(Object sender, EventArgs e)
+        {
+            Macro macro = (Macro)this.listView.SelectedItems[0].Tag;
+            this.pluginMain.AppSettings.InitialMacro = macro.Entries;
         }
 
         /// <summary>
