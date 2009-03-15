@@ -12,218 +12,92 @@ using System.Collections;
 
 namespace FdbPlugin
 {
-    #region public structures
-
-    public class NotFindSourceException : ApplicationException
-    {
-        public string CurrentFileName;
-        public string PreFileFullPath;
-        public int PreLine;
-
-        private string msg;
-        public NotFindSourceException(string currentFileName, string preFileFullPath, int preLine)
-        {
-            CurrentFileName = currentFileName;
-            PreFileFullPath = preFileFullPath;
-            PreLine = preLine;
-
-            msg = string.Format("{0} not find", currentFileName);
-        }
-        public override string Message
-        {
-            get
-            {
-                return msg;
-            }
-        }
-        public override string ToString()
-        {
-            return msg;
-        }
-    } 
-
-    public class FdbMsg
-    {
-        public string filefillpath;
-        public string filename;
-        public int line;
-        public List<string> output;
-        public bool ismove;
-
-        public void SetParam(string filefillpath, string filename, int line, bool ismove)
-        {
-            this.filefillpath = filefillpath;
-            this.filename = filename;
-            this.line = line;
-            this.ismove = ismove;
-        }
-    }
-    public class PrintArg : EventArgs
-    {
-        public string valname;
-        public List<string> output;
-        public object option;
-
-        public PrintArg(string valname, List<string> output)
-        {
-            this.valname = valname;
-            this.output = new List<string>(output);
-            this.option = null;
-        }
-
-        public PrintArg(string valname, List<string> output, object option)
-        {
-            this.valname = valname;
-            this.output = new List<string>(output);
-            this.option = option;
-        }
-    }
-
     public delegate void ContinueEventHandler(object sender, FdbMsg e);
     public delegate void PrintEventHandler(object sender, PrintArg e);
     public delegate void fdbEventHandler(object sender);
     public delegate void TraceEventHandler(object sender, string trace);
 
-    public enum FdbState
-    {
-        INIT,
-        START,
-        PRELOAD,
-        STOP,
-        PAUSE,
-        PAUSE_SET_BREAKPOINT,
-        CONTINUE,
-        BREAK,
-        STEP,
-        NEXT,
-        WAIT,
-        UNLOAD,
-        EXCEPTION,
-        CONDITIONERROR
-    }
-    #endregion
-
     public class FdbWrapper
     {
-        #region internal structures
+        public event ContinueEventHandler ContinueEvent;
+        public event PrintEventHandler PrintEvent;
+        public event ContinueEventHandler LocalValuesEvent;
+        public event fdbEventHandler StopEvent;
+        public event TraceEventHandler TraceEvent;
+        public event fdbEventHandler PauseEvent;
+        public event fdbEventHandler ExceptionEvent;
+        public event fdbEventHandler PauseNotRespondEvent;
+        public event fdbEventHandler StartadlEvent;
+        public event fdbEventHandler ConditionErrorEvent;
+        public event PrintEventHandler InfoStackEvent;
+        public event ContinueEventHandler MoveFrameEvent;
 
-        class FdbBreakPointInfo
+        #region public properties
+
+        public BreakPointManager breakPointManager = null;
+
+        // UI command to execute when fdb prompt is ready
+        public string PushCommand;
+        public PrintPushArgs PushPrintParams;
+
+        public string Outputfilefullpath
         {
-            private string filefullpath;
-            private string filename;
-            private string breakpointnum;
-            private int breakpointline;
-
-            public FdbBreakPointInfo(string filefullpath, string filename, string breakpointnum, int breakpointline)
-            {
-                this.filefullpath = filefullpath;
-                this.filename = filename;
-                this.breakpointnum = breakpointnum;
-                this.breakpointline = breakpointline;
-            }
-            public string FileFullPath
-            {
-                get { return this.filefullpath; }
-                set { this.filefullpath = value; }
-            }
-            public string Filename
-            {
-                get { return this.filename; }
-                set { this.filename = value; }
-            }
-            public string BreakPointNum
-            {
-                get { return this.breakpointnum; }
-                set { this.breakpointnum = value; }
-            }
-            public int BreakPoinLine
-            {
-                get { return this.breakpointline; }
-                set { this.breakpointline = value; }
-            }
+            get { return this.outputfilefullpath; }
+            set { this.outputfilefullpath = value; }
         }
 
-        class CurrentFileInfo:ICloneable
+        public ProjectManager.Projects.Project CurrentProject
         {
-            public string filefullpath;
-            public string filename;
-            public string function;
-            public int line;
-
-            public void SetParam(string filefullpath, string filename, string function, int line)
+            get { return this.currentProject; }
+            set
             {
-                this.filefullpath = filefullpath;
-                this.filename = filename;
-                this.function = function;
-                this.line = line;
-            }
+                this.currentProject = value;
+                if (currentProject == null)
+                    return;
 
-            public void Clear()
-            {
-                this.filefullpath = string.Empty;
-                this.filename = string.Empty;
-                this.function = string.Empty;
-                this.line = 0;
-            }
-
-            #region ICloneable ãƒ¡ãƒ³ãƒ
-
-            public object Clone()
-            {
-                return this.MemberwiseClone();
-            }
-
-            #endregion
-        }
-
-        class SrcFileInfo
-        {
-            public string num;
-            public string filefullpath;
-            public List<FunctionInfo> functionInfoList;
-
-            public SrcFileInfo(string num, string filefullpath)
-            {
-                this.num = num;
-                this.filefullpath = filefullpath;
-                functionInfoList = new List<FunctionInfo>();
-            }
-
-            public void SortFunction()
-            {
-                functionInfoList.Sort(delegate(FunctionInfo x, FunctionInfo y)
+                if (currentProject.TestMovieCommand != null && currentProject.TestMovieCommand.Contains("adl.exe"))
                 {
-                    return y.startline - x.startline;
-                });
-            }
-
-            public string GetFunction(int line)
-            {
-                foreach (FunctionInfo info in functionInfoList)
-                {
-                    if (info.startline <= line)
-                    {
-                        return info.functionname;
-                    }
+                    projectType = ProjectType.AIR;
                 }
-                return string.Empty;
+                else
+                {
+                    projectType = ProjectType.AS3;
+                }
             }
         }
 
-        class FunctionInfo
+        public IContextSettings CurrentSettings
         {
-            public string functionname;
-            public int startline;
-
-            public FunctionInfo(string functionname, int startline)
+            get { return this.currentSettings; }
+            set
             {
-                this.functionname = functionname;
-                this.startline = startline;
+                this.currentSettings = value;
+
+                AS3Context.AS3Settings as3setting = AS3Context.PluginMain.Settings;
+                fdbexefile = System.IO.Path.Combine(as3setting.FlexSDK, @"bin\fdb.exe");
             }
         }
 
-        #endregion 
-        
+        public bool IsDebugStart
+        {
+            get
+            {
+                if (process == null)
+                    return false;
+                else
+                    return isDebugStart;
+            }
+        }
+
+        public FdbState State
+        {
+            get { return currentfdbState; }
+        }
+
+        #endregion
+
+        #region private properties
+
         private const bool VERBOSE = false;
 
         private CurrentFileInfo currentFileInfo = new CurrentFileInfo();
@@ -237,24 +111,10 @@ namespace FdbPlugin
         private ProjectManager.Projects.Project currentProject;
         private IContextSettings currentSettings;
 
-        public BreakPointManager breakPointManager = null;
-
         private string fdbexefile;
         private string checkstart = string.Empty;
         private string checkend = string.Empty;
         private string outputfilefullpath;
-        public event ContinueEventHandler ContinueEvent = null;
-        public event PrintEventHandler PrintEvent = null;
-        public event ContinueEventHandler LocalValuesEvent = null;
-        public event fdbEventHandler StopEvent = null;
-        public event TraceEventHandler TraceEvent = null;
-        public event fdbEventHandler PauseEvent = null;
-        public event fdbEventHandler ExceptionEvent = null;
-        public event fdbEventHandler PuaseNotRespondEvent = null; 
-        public event fdbEventHandler StartadlEvent = null;
-        public event fdbEventHandler ConditionErrorEvent = null;
-        public event PrintEventHandler InfoStackEvent = null;
-        public event ContinueEventHandler MoveFrameEvent = null;
 
         //test
         enum ProjectType
@@ -276,6 +136,8 @@ namespace FdbPlugin
 
         //key:srcfile num
         private Dictionary<string, SrcFileInfo> srcFileInfoDic = new Dictionary<string, SrcFileInfo>();
+
+        #endregion
 
         #region regular expressions
 
@@ -331,8 +193,6 @@ namespace FdbPlugin
         //add
         static Regex RegexDelPrompt = new Regex(@"^(\(fdb\) )", RegexOptions.Compiled);
 
-
-
         //(fdb) [trace] ....
         static Regex RegexTrace = null;
         
@@ -361,63 +221,9 @@ namespace FdbPlugin
 
         static Regex RegexFinishError = null;
 
-        #endregion
-
         static string UnknownCommandFormat = null;// = "Unknown command '{0}', ignoring it";
- 
-        public string Outputfilefullpath
-        {
-            get { return this.outputfilefullpath; }
-            set { this.outputfilefullpath = value; }
-        }
 
-        public ProjectManager.Projects.Project CurrentProject
-        {
-            get { return this.currentProject; }
-            set
-            {
-                this.currentProject = value;
-                if (currentProject == null)
-                    return;
-
-                if (currentProject.TestMovieCommand != null && currentProject.TestMovieCommand.Contains("adl.exe"))
-                {
-                    projectType = ProjectType.AIR;                  
-                }
-                else
-                {
-                    projectType = ProjectType.AS3;
-                }
-            }
-        }
-
-        public IContextSettings CurrentSettings
-        {
-            get { return this.currentSettings; }
-            set
-            {
-                this.currentSettings = value;
-
-                AS3Context.AS3Settings as3setting = AS3Context.PluginMain.Settings;
-                fdbexefile = System.IO.Path.Combine(as3setting.FlexSDK, @"bin\fdb.exe");
-            }
-        }
-
-        public bool IsDebugStart
-        {
-            get 
-            {     
-                if (process == null)
-                    return false;
-                else
-                    return isDebugStart;
-            }
-        }
-
-        public FdbState State
-        {
-            get { return currentfdbState; }
-        }
+        #endregion
 
         public FdbWrapper()
         {
@@ -430,8 +236,8 @@ namespace FdbPlugin
 
             execdic.Add(getendtcmd("NonCmd"), exit_Non);
             execdic.Add(getendtcmd("info locals"), exit_infolocals);
-            execdic.Add(getendtcmd("print"), exit_Non);          
-            execdic.Add(getendtcmd("clearbreakpoint"), exit_ClearBreakPoint);            
+            execdic.Add(getendtcmd("print"), exit_Non);
+            execdic.Add(getendtcmd("clearbreakpoint"), exit_ClearBreakPoint);
             execdic.Add(getendtcmd("show files"), exit_showfiles);
             execdic.Add(getendtcmd("info functions"), exit_infofunctions);
             execdic.Add(getendtcmd("cf"), exit_cf);
@@ -451,6 +257,9 @@ namespace FdbPlugin
             execdic.Add(getendtcmd("break"), exit_Non);
         }
 
+        /// <summary>
+        /// Main loop
+        /// </summary>
         public void Start()
         {
             isprepause = false;
@@ -476,8 +285,8 @@ namespace FdbPlugin
             {
                 if (currentfdbState == FdbState.INIT)
                 {
-                    Thread.Sleep(50);
-                    Application.DoEvents();
+                    Thread.Sleep(10);
+                    //Application.DoEvents();
                 }
                 else
                     break;
@@ -485,9 +294,9 @@ namespace FdbPlugin
 
             FdbPluginTrace.TraceInfo("fdbState.START");
 
-            if (!RegexCheckStart.IsMatch(bufferlist[0]))
+            if (bufferlist.Count == 0 || !RegexCheckStart.IsMatch(bufferlist[0]))
             {
-                throw new Exception("FlexSDK Locate is not correct\nSet FlexSDKLocale at FdbPlugin setting");
+                throw new Exception("Unable to start Flex SDK interactive debugger (fdb).");
             }
 
             cmd_showfiles();
@@ -520,7 +329,7 @@ namespace FdbPlugin
                 //disp
                 cmd_Display("stop_breakpoint");
 
-                cmd_Countnue();
+                cmd_Continue();
                 waitCommandFinish();
 
                 FdbPluginTrace.TraceInfo("start cmd_Countnue() end");
@@ -548,22 +357,80 @@ namespace FdbPlugin
                         cmd_Condition(breakPointConditionList);
                         waitSomeCommandFinish();
                     }
-                    cmd_Countnue();
+                    cmd_Continue();
                     waitCommandFinish();
                     FdbPluginTrace.TraceInfo("start preload cmd_Countnue() end");
                 }
 
-                if (currentfdbState == FdbState.EXCEPTION
+                HandleExecutionBreak();
+                /*if (currentfdbState == FdbState.EXCEPTION
                     || currentfdbState == FdbState.BREAK)
                 {
-                    FdbPluginTrace.TraceInfo("fdbState.EXCEPTION");
-
                     UpDateCurrentFileInfo();
+
                     FdbMsg msg = new FdbMsg();
                     msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, false);
                     if (ContinueEvent != null)
                         ContinueEvent(this, msg);
+                }*/
+            }
+
+            FdbPluginTrace.TraceInfo("fdbWrapper.Start() end");
+            FdbPluginTrace.TraceInfo("fdbWrapper.State = " + State.ToString());
+
+            PushCommand = "Start";
+            while (true)
+            {
+                if (PushCommand != null)
+                {
+                    string cmd = PushCommand;
+                    PushCommand = null;
+                    switch (cmd)
+                    {
+                        case "Start": break;
+                        case "ExceptionContinue": ExceptionContinue(); continue;
+                        case "Next": Next(); break;
+                        case "Step": Step(); break;
+                        case "Continue": Continue(); continue;
+                        case "Pause": Pause(); continue;
+                        case "Finish": Finish(); break;
+                        case "Stop": return;
+                        case "Print": Print(PushPrintParams); PushPrintParams = null; break;
+                        case "HandleStopBreak":
+                        case "HandleException":
+                        case "HandleBreak":
+                            HandleExecutionBreak(); break;
+                    }
+
+                    if (State != FdbState.CONDITIONERROR
+                        && State != FdbState.PAUSE_SET_BREAKPOINT
+                        && State != FdbState.CONTINUE
+                        && State != FdbState.UNLOAD)
+                    {
+                        UpdateInfos();
+                    }
                 }
+                else
+                {
+                    Thread.Sleep(10);
+                    continue;
+                }
+            }
+        }
+
+        private void HandleExecutionBreak()
+        {
+            if (currentfdbState == FdbState.EXCEPTION
+                || currentfdbState == FdbState.NEXT
+                || currentfdbState == FdbState.STEP
+                || currentfdbState == FdbState.BREAK)
+            {
+                CurrentFileInfo cinfo = currentFileInfo != null ? (CurrentFileInfo)currentFileInfo.Clone() : null;
+                UpDateCurrentFileInfo();
+                FdbMsg msg = new FdbMsg();
+                msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, isScopeJump(cinfo, currentFileInfo));
+                if (ContinueEvent != null)
+                    ContinueEvent(this, msg);
             }
         }
 
@@ -604,8 +471,12 @@ namespace FdbPlugin
 
                 if (closeprocess == null)
                 {
-                    process.StandardInput.WriteLine("quit");
-                    process.StandardInput.WriteLine("y");
+                    try
+                    {
+                        process.StandardInput.WriteLine("quit");
+                        process.StandardInput.WriteLine("y");
+                    }
+                    catch { }
                 }
                 else
                 {
@@ -675,9 +546,9 @@ namespace FdbPlugin
             if (ExceptionEvent != null)
                 ExceptionEvent(this);
             writeEndCommand(getendtcmd("continue"));
-            waitCommandFinish();
+            //waitCommandFinish();
 
-            if (currentfdbState == FdbState.EXCEPTION)
+            /*if (currentfdbState == FdbState.EXCEPTION)
             {
                 CurrentFileInfo cinfo = (CurrentFileInfo)currentFileInfo.Clone();
                 UpDateCurrentFileInfo();
@@ -686,12 +557,13 @@ namespace FdbPlugin
                 msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, isScopeJump(cinfo, currentFileInfo));
                 if (ContinueEvent != null)
                     ContinueEvent(this, msg);
-            }
+            }*/
         }
 
         private Boolean isScopeJump(CurrentFileInfo c1, CurrentFileInfo c2)
         {
-            return (c1.filefullpath != c2.filefullpath || c1.function != c2.function) ? true : false;
+            if (c1 == null) return false;
+            return c1.filefullpath != c2.filefullpath || c1.function != c2.function;
         }
 
         public void Continue()
@@ -708,26 +580,15 @@ namespace FdbPlugin
             cmd_Condition(breakPointConditionList);
             waitSomeCommandFinish();
 
-            cmd_Countnue();
-            waitCommandFinish();
-
-            if (currentfdbState == FdbState.EXCEPTION
-                || currentfdbState == FdbState.BREAK)
-            {
-                CurrentFileInfo cinfo = (CurrentFileInfo)currentFileInfo.Clone();
-                UpDateCurrentFileInfo();
-                FdbMsg msg = new FdbMsg();
-                msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, isScopeJump(cinfo, currentFileInfo));
-                if (ContinueEvent != null)
-                    ContinueEvent(this, msg);
-            }
+            cmd_Continue();
+            //waitCommandFinish();
         }
 
         public void Step()
         {
             CurrentFileInfo cinfo = (CurrentFileInfo)currentFileInfo.Clone(); 
 
-            currentfdbState = FdbState.STEP;
+            //currentfdbState = FdbState.STEP;
             cmd_Step();
             waitCommandFinish();
 
@@ -746,7 +607,8 @@ namespace FdbPlugin
                 waitCommandFinish();
             }
 
-            if (currentfdbState == FdbState.EXCEPTION 
+            HandleExecutionBreak();
+            /*if (currentfdbState == FdbState.EXCEPTION 
                 || currentfdbState == FdbState.STEP
                 || currentfdbState == FdbState.BREAK)
             {
@@ -756,18 +618,21 @@ namespace FdbPlugin
                 msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, isScopeJump(cinfo, currentFileInfo));
                 if (ContinueEvent != null)
                     ContinueEvent(this, msg);
-            }
+            }*/
+
+            UpdateInfos();
         }
 
         public void Next()
         {
             CurrentFileInfo cinfo = (CurrentFileInfo)currentFileInfo.Clone();
 
-            currentfdbState = FdbState.NEXT;
+            //currentfdbState = FdbState.NEXT;
             cmd_Next();
             waitCommandFinish();
 
-            if (currentfdbState == FdbState.EXCEPTION
+            HandleExecutionBreak();
+            /*if (currentfdbState == FdbState.EXCEPTION
                 || currentfdbState == FdbState.NEXT
                 || currentfdbState == FdbState.BREAK)
             {
@@ -777,16 +642,31 @@ namespace FdbPlugin
                 msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, isScopeJump(cinfo, currentFileInfo));
                 if (ContinueEvent != null)
                     ContinueEvent(this, msg);
-            }
+            }*/
+
+            UpdateInfos();
+        }
+
+        private void UpdateInfos()
+        {
+            InfoLocals();
+            FdbPluginTrace.TraceInfo("Step() fdbWrapper.InfoLocals(); end");
+            //UpdatelocalVariablesLeaf();
+            FdbPluginTrace.TraceInfo("Step() UpdatelocalVariablesLeaf(); end");
+
+            /*if (stackframePanel.DockState != DockState.Hidden)
+            {
+                fdbWrapper.InfoStack();
+            }*/
         }
 
         public void InfoLocals()
         {
-            waitCommandFinish();
+            //waitCommandFinish();
             switch (currentfdbState)
             {
                 case FdbState.START:
-                    cmd_Countnue();
+                    //cmd_Continue();
                     break;
                 case FdbState.UNLOAD:
                 case FdbState.PAUSE:
@@ -816,6 +696,8 @@ namespace FdbPlugin
             msg.SetParam(currentFileInfo.filefullpath, currentFileInfo.filename, currentFileInfo.line, isScopeJump(cinfo, currentFileInfo));
             if (ContinueEvent != null)
                 ContinueEvent(this, msg);
+
+            //UpdateInfos();
         }
 
         public void DeleteAllBreakPoints()
@@ -912,8 +794,8 @@ namespace FdbPlugin
                     else if (RegexNotRespond.IsMatch(e.Data)
                         && currentfdbState == FdbState.PAUSE)
                     {
-                        if (PuaseNotRespondEvent != null)
-                            PuaseNotRespondEvent(this);
+                        if (PauseNotRespondEvent != null)
+                            PauseNotRespondEvent(this);
                     }
                     else if (RegexLoadSWForFrame.IsMatch(e.Data))
                     {
@@ -985,8 +867,8 @@ namespace FdbPlugin
             {
                 if (isprocess && currentfdbState != FdbState.UNLOAD)
                 {
-                    Thread.Sleep(50);
-                    Application.DoEvents();
+                    Thread.Sleep(10);
+                    //Application.DoEvents();
                 }
                 else
                     break;
@@ -999,8 +881,8 @@ namespace FdbPlugin
             {
                 if (issomecmd > 0)
                 {
-                    Thread.Sleep(50);
-                    Application.DoEvents();
+                    Thread.Sleep(10);
+                    //Application.DoEvents();
                 }
                 else
                 {
@@ -1042,8 +924,8 @@ namespace FdbPlugin
             {
                 if (!outputstart && currentfdbState != FdbState.UNLOAD)
                 {
-                    Thread.Sleep(50);
-                    Application.DoEvents();
+                    Thread.Sleep(10);
+                    //Application.DoEvents();
                 }
                 else
                     break;
@@ -1061,8 +943,8 @@ namespace FdbPlugin
             {
                 if (!outputend && isprocess)
                 {
-                    Thread.Sleep(50);
-                    Application.DoEvents();
+                    Thread.Sleep(10);
+                    //Application.DoEvents();
                 }
                 else
                     break;
@@ -1077,12 +959,12 @@ namespace FdbPlugin
             process.StandardInput.WriteLine(cmd);
         }
 
-        private void inputCommad(string cmd)
+        private void inputCommand(string cmd)
         {
-            inputCommad(cmd, cmd);
+            inputCommand(cmd, cmd);
         }
 
-        private void inputCommad(string cmd, string start_endCmd)
+        private void inputCommand(string cmd, string start_endCmd)
         {
             if (currentfdbState == FdbState.UNLOAD)
             {
@@ -1094,7 +976,7 @@ namespace FdbPlugin
             writeEndCommand(getendtcmd(start_endCmd));
         }
 
-        private void inputCommad_WithoutEndCommad(string cmd)
+        private void inputCommand_WithoutEndCommand(string cmd)
         {
             if (currentfdbState == FdbState.UNLOAD)
             {
@@ -1105,7 +987,7 @@ namespace FdbPlugin
             writeCommand(cmd);
         }
 
-        private void inputCommad_NotWaitOutput(string cmd, string start_endCmd)
+        private void inputCommand_NotWaitOutput(string cmd, string start_endCmd)
         {
             if (currentfdbState == FdbState.UNLOAD)
             {
@@ -1189,16 +1071,16 @@ namespace FdbPlugin
 
         private void cmd_ClearBreakPoint(string srcfilenum, int line)
         {
-            inputCommad_NotWaitOutput(string.Format("clear #{0}:{1}", srcfilenum, line), "clearbreakpoint");
+            inputCommand_NotWaitOutput(string.Format("clear #{0}:{1}", srcfilenum, line), "clearbreakpoint");
         }
         private void exit_ClearBreakPoint()
         {
             issomecmd--;
         }
-        private void cmd_Countnue()
+        private void cmd_Continue()
         {
             currentfdbState = FdbState.CONTINUE;
-            inputCommad_WithoutEndCommad("continue");
+            inputCommand_WithoutEndCommand("continue");
         }
         private bool isunload = false;
         private void exit_Continue()
@@ -1214,6 +1096,7 @@ namespace FdbPlugin
             else if (RegexStopBreakPoint.IsMatch(buf))
             {
                 currentfdbState = FdbState.BREAK;
+                PushCommand = "HandleStopBreak";
             }
             else if (RegexException.IsMatch(buf))
             {
@@ -1222,28 +1105,30 @@ namespace FdbPlugin
                 {
                     TraceEvent(this, s);
                 }
+                PushCommand = "HandleException";
             }
             else
             {
                 currentfdbState = FdbState.BREAK;
+                PushCommand = "HandleBreak";
             }
         }
 
         private void cmd_Step()
         {
             currentfdbState = FdbState.STEP;
-            inputCommad_WithoutEndCommad("step");
+            inputCommand_WithoutEndCommand("step");
         }
 
         private void cmd_Next()
         {
             currentfdbState = FdbState.NEXT;
-            inputCommad_WithoutEndCommad("next");
+            inputCommand_WithoutEndCommand("next");
         }
 
         private void cmd_Finish()
         {
-            inputCommad_WithoutEndCommad("finish");
+            inputCommand_WithoutEndCommand("finish");
         }
 
         private void exit_Non()
@@ -1251,6 +1136,17 @@ namespace FdbPlugin
         }
 
         List<string> LocalExpandUpDateBuffer = new List<string>();
+
+        public void Print(PrintPushArgs printPush)
+        {
+            if (printPush == null) 
+                return;
+            if (printPush.objnames != null)
+                Print(printPush.sender, printPush.objnames, printPush.option);
+            else 
+                Print(printPush.sender, printPush.objname, printPush.option);
+        }
+
         public void Print(object sender, string objname)
         {
             cmd_Print(sender, objname, null);
@@ -1276,7 +1172,7 @@ namespace FdbPlugin
                     exit_Print(objname);
                 };
 
-                inputCommad(string.Format("print {0}", objname), "print");
+                inputCommand(string.Format("print {0}", objname), "print");
             }
             waitSomeCommandFinish();
             if (PrintEvent != null)
@@ -1295,7 +1191,7 @@ namespace FdbPlugin
                 exit_Print(sender, objname, option);
             };
 
-            inputCommad(string.Format("print {0}", objname), "print");
+            inputCommand(string.Format("print {0}", objname), "print");
         }
 
         private void exit_Print(object sender, string objname, object option)
@@ -1369,7 +1265,7 @@ namespace FdbPlugin
 
         private void cmd_InfoLocals()
         {
-            inputCommad("info locals");
+            inputCommand("info locals");
         }
         private void exit_infolocals()
         {
@@ -1403,7 +1299,7 @@ namespace FdbPlugin
                 arg += " " + breakpointnum;
             }
 
-            inputCommad_NotWaitOutput("delete" + arg, "delete");
+            inputCommand_NotWaitOutput("delete" + arg, "delete");
         }
         private void exit_DeleteBreakPoint()
         {
@@ -1427,8 +1323,8 @@ namespace FdbPlugin
             {
                 if (!outputstart && currentfdbState != FdbState.UNLOAD)
                 {
-                    Thread.Sleep(50);
-                    Application.DoEvents();
+                    Thread.Sleep(10);
+                    //Application.DoEvents();
                 }
                 else
                     break;
@@ -1504,7 +1400,7 @@ namespace FdbPlugin
         private void cmd_infofunctions(string num)
         {
             waitCommandFinish();
-            inputCommad(string.Format("info functions #{0}", num), "info functions");
+            inputCommand(string.Format("info functions #{0}", num), "info functions");
         }
         private void exit_infofunctions()
         {
@@ -1545,7 +1441,7 @@ namespace FdbPlugin
 
         private void cmd_showfiles()
         {
-            inputCommad("show files");
+            inputCommand("show files");
         }
         private void exit_showfiles()
         {
@@ -1584,7 +1480,7 @@ namespace FdbPlugin
             }
             if (sfinfo == null)
             {
-                throw new NotFindSourceException(currentFileInfo.filename, prefullpath, preline);
+                throw new SourceNotFoundException(currentFileInfo.filename, prefullpath, preline);
             }
             if (sfinfo.functionInfoList.Count == 0)
             {
@@ -1597,7 +1493,7 @@ namespace FdbPlugin
 
         private void cmd_cf()
         {
-            inputCommad("cf");
+            inputCommand("cf");
         }
         private void exit_cf()
         {
@@ -1645,12 +1541,12 @@ namespace FdbPlugin
         {
             cmd_infostack();
         }
-//(fdb) info stack
-//#0   this = [Object 16655873, class='Test1'].Test1() at Test1.as:13
-//#1   this = [Object 15965089, class='Test0'].Test0() at Test0.as:42
+        //(fdb) info stack
+        //#0   this = [Object 16655873, class='Test1'].Test1() at Test1.as:13
+        //#1   this = [Object 15965089, class='Test0'].Test0() at Test0.as:42
         private void cmd_infostack()
         {
-            inputCommad("info stack");
+            inputCommand("info stack");
         }
 
         public void FrameInfo(string stackinfo)
@@ -1662,13 +1558,14 @@ namespace FdbPlugin
                 cmd_frame(framenum);
             }
         }
-//(fdb) frame 0
-//#0   Test1() at Test1.as#2:13
-//(fdb) frame 1
-//#1   Test0() at Test0.as#1:42
+
+        //(fdb) frame 0
+        //#0   Test1() at Test1.as#2:13
+        //(fdb) frame 1
+        //#1   Test0() at Test0.as#1:42
         private void cmd_frame(string framenum)
         {
-            inputCommad(string.Format("frame {0}", framenum), "frame");
+            inputCommand(string.Format("frame {0}", framenum), "frame");
         }
 
         private void exit_frame()

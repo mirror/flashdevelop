@@ -38,6 +38,7 @@
             // _tree
             // 
             this._tree.BackColor = System.Drawing.SystemColors.Window;
+            this._tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._tree.Columns.Add(this.NametreeColumn);
             this._tree.Columns.Add(this.ValuetreeColumn);
             this._tree.DefaultToolTipProvider = null;
@@ -52,7 +53,7 @@
             this._tree.NodeControls.Add(this.ValuenodeTextBox);
             this._tree.SelectedNode = null;
             this._tree.ShowNodeToolTips = true;
-            this._tree.Size = new System.Drawing.Size(282, 143);
+            this._tree.Size = new System.Drawing.Size(282, 155);
             this._tree.TabIndex = 0;
             this._tree.Text = "treeViewAdv1";
             this._tree.UseColumns = true;
@@ -87,11 +88,11 @@
             // 
             // DataTreeControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._tree);
             this.Name = "DataTreeControl";
-            this.Size = new System.Drawing.Size(282, 143);
+            this.Size = new System.Drawing.Size(282, 155);
             this.ResumeLayout(false);
 
         }

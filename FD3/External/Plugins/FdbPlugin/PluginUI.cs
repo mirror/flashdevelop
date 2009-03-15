@@ -46,40 +46,48 @@ namespace FdbPlugin
         }
 
         private static Char[] chTrims = { '.' };
-        #region SetDataInterface ãƒ¡ãƒ³ãƒ
+
+        #region SetDataInterface 
 
         public void SetData(string name, List<string> datalist, object option)
         {
             treeControl.Tree.BeginUpdate();
-
-            if ((string)option == "expand")
+            try
             {
-                DataNode node = treeControl.GetNode(name.Trim(chTrims));
-                if (node.Nodes.Count > 0) return;
-                foreach (String data in datalist)
+                if ((string)option == "expand")
                 {
-                    Match m = RegexManager.RegexNameValue.Match(data);
-                    node.Nodes.Add(new DataNode(m.Groups["name"].Value, m.Groups["value"].Value));
-                }
-            }
-            else
-            {
-                foreach (string buf in datalist)
-                {
-                    Match m = RegexManager.RegexNameValue.Match(buf);
-                    string objname = m.Groups["name"].Value.Trim();
-                    string objvalue = m.Groups["value"].Value.Trim();
-
-                    DataNode node = treeControl.GetNode(objname.Trim(chTrims));
-                    if (node != null)
+                    DataNode node = treeControl.GetNode(name.Trim(chTrims));
+                    if (node.Nodes.Count > 0) return;
+                    foreach (String data in datalist)
                     {
-                        node.Value = objvalue;
+                        Match m = RegexManager.RegexNameValue.Match(data);
+                        node.Nodes.Add(new DataNode(m.Groups["name"].Value, m.Groups["value"].Value));
+                    }
+                }
+                else
+                {
+                    foreach (string buf in datalist)
+                    {
+                        Match m = RegexManager.RegexNameValue.Match(buf);
+                        string objname = m.Groups["name"].Value.Trim();
+                        string objvalue = m.Groups["value"].Value.Trim();
+
+                        DataNode node = treeControl.GetNode(objname.Trim(chTrims));
+                        if (node != null)
+                        {
+                            node.Value = objvalue;
+                        }
                     }
                 }
             }
-
-            treeControl.Tree.EndUpdate();
+            finally
+            {
+                treeControl.Tree.EndUpdate();
+            }
             treeControl.Enabled = true;
+
+            if ((string)option == "expand") 
+                treeControl.Focus();
         }
 
         public Control TargetControl

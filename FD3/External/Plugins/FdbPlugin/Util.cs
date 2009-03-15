@@ -16,11 +16,11 @@ namespace FdbPlugin
         {
             string extName = System.IO.Path.GetExtension(fileName);
             RegistryKey regKey = Registry.ClassesRoot.OpenSubKey(extName);
-            if (regKey == null) throw new Exception("Not Find Associate .swf");
+            if (regKey == null) throw new Exception("Could not find application associated with SWF files.");
             string fileType = (string)regKey.GetValue("");
             regKey.Close();
             RegistryKey regKey2 = Registry.ClassesRoot.OpenSubKey(string.Format(@"{0}\shell\{1}\command", fileType, extra));
-            if (regKey2 == null) throw new Exception("Not Find Associate .swf");
+            if (regKey2 == null) throw new Exception("Could not find application associated with SWF files.");
             string command = (string)regKey2.GetValue("");
             regKey2.Close();
             return command;

@@ -162,26 +162,7 @@ namespace FdbPlugin
         [LocalizedDescription("FdbPlugin.Description.DebugFlashPlayerPath")]
         public String DebugFlashPlayerPath
         {
-            get 
-            { 
-                String cmd;
-                try
-                {
-                    cmd = Util.FindAssociatedExecutableFile(".swf", "open");
-                    debugFlashPlayerPath = Util.GetAssociateAppFullPath(cmd);
-
-                    if (debugFlashPlayerPath != null && debugFlashPlayerPath != string.Empty)
-                    {
-                        debugFlashPlayerPath = debugFlashPlayerPath.Trim().Trim(new char[] { '"' });
-                    }
-                    return debugFlashPlayerPath; 
-                }
-                catch
-                {
-                    debugFlashPlayerPath = String.Empty;
-                    return debugFlashPlayerPath; 
-                }
-            }
+            get { return debugFlashPlayerPath; }
             set
             {
                 if (value == debugFlashPlayerPath) return;
@@ -209,8 +190,8 @@ namespace FdbPlugin
         }
 
         [LocalizedCategory("FdbPlugin.Category.Misc")]
-        [Description("Tarce Log(Require restart FlashDevelop)"), DefaultValue(false)]
-        public bool IsTraceLog
+        [Description("Enable debugger logging (requires restart)"), DefaultValue(false)]
+        public bool EnableLogging
         {
             get { return this.isTraceLog; }
             set { this.isTraceLog = value; }

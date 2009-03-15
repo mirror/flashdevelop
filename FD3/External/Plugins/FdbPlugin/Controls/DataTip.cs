@@ -215,10 +215,11 @@ namespace FdbPlugin.Controls
 
             dataTipControl.DataTree.Tree.Columns[0].Width = nameMaxW+8;// nameMaxW + dataTreeControl.Tree.Indent + 16;
             dataTipControl.DataTree.Tree.Columns[1].Width = valueMaxW;// valueMaxW + dataTreeControl.Tree.Indent;
-            this.Width = dataTipControl.DataTree.Tree.Columns[0].Width + dataTipControl.DataTree.Tree.Columns[1].Width;
+            this.Width = dataTipControl.DataTree.Tree.Columns[0].Width + dataTipControl.DataTree.Tree.Columns[1].Width + 16;
 
             curRawCount += datalist.Count;
             DataTipAutoSize(curRawCount, toolTip.Location);
+            dataTipControl.Focus();
 
             if (UpDateDataFinishEvent != null)
                 UpDateDataFinishEvent();

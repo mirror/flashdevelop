@@ -29,7 +29,7 @@ namespace FdbPlugin
             init();
 
             this.pluginMain = pluginMain;
-            this.pluginMain.FdbWrapper.ConditionErrorEvent += new fdbEventHandler(FdbWrapper_ConditionErrorEvent);
+            PluginMain.debugManager.FdbWrapper.ConditionErrorEvent += new fdbEventHandler(FdbWrapper_ConditionErrorEvent);
             this.breakPointManager = breakPointManager;
             this.breakPointManager.ChangeBreakPointEvent += new ChangeBreakPointEventHandler(breakPointManager_ChangeBreakPointEvent);
             this.breakPointManager.UpDateBreakPointEvent += new UpDateBreakPointEventHandler(breakPointManager_UpDateBreakPointEvent);
@@ -85,6 +85,8 @@ namespace FdbPlugin
 
             this.ColumnBreakPointEnable.HeaderText = "Enable";
             this.ColumnBreakPointEnable.Name = "Enable";
+            this.ColumnBreakPointEnable.Width = 50;
+            this.ColumnBreakPointEnable.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
 
             this.ColumnBreakPointFilePath.HeaderText = "FilePath";
             this.ColumnBreakPointFilePath.Name = "FilePath";
@@ -103,11 +105,11 @@ namespace FdbPlugin
 
             this.dgv.AllowUserToAddRows = false;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            ColumnBreakPointEnable,
-            this.ColumnBreakPointFilePath,
-            this.ColumnBreakPointFileName,
-            this.ColumnBreakPointLine,
-            this.ColumnBreakPointExp});
+                ColumnBreakPointEnable,
+                this.ColumnBreakPointFilePath,
+                this.ColumnBreakPointFileName,
+                this.ColumnBreakPointLine,
+                this.ColumnBreakPointExp});
 
             defaultColor = dgv.Rows[dgv.Rows.Add()].DefaultCellStyle.BackColor;
             dgv.Rows.Clear();
@@ -119,6 +121,9 @@ namespace FdbPlugin
 
         void dgv_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
+
             if (dgv.Rows[e.RowIndex].Cells["Enable"].ColumnIndex == e.ColumnIndex)
             {
                 Boolean enable = !(Boolean)dgv.Rows[e.RowIndex].Cells["Enable"].Value;
@@ -126,10 +131,10 @@ namespace FdbPlugin
                 int line = int.Parse((string)dgv.Rows[e.RowIndex].Cells["Line"].Value);
                 int marker = enable ? 3 : 4;
 
-                ITabbedDocument doc = pluginMain.GetDocument(filefullpath);
+                ITabbedDocument doc = ScintillaHelper.GetDocument(filefullpath);
                 if (doc != null)
                 {
-                    pluginMain.ToggleMarker(doc.SciControl, 4, line - 1);
+                    ScintillaHelper.ToggleMarker(doc.SciControl, 4, line - 1);
 
                     Int32 lineMask = doc.SciControl.MarkerGet(line - 1);
                     Boolean m = (lineMask & (1 << 4)) == 0 ? true : false;
@@ -144,16 +149,22 @@ namespace FdbPlugin
 
         void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
+
             if (dgv.Rows[e.RowIndex].Cells["Line"].ColumnIndex == e.ColumnIndex)
             {
                 string filename = (string)dgv.Rows[e.RowIndex].Cells["FilePath"].Value;
                 int line = int.Parse((string)dgv.Rows[e.RowIndex].Cells["Line"].Value);
-                pluginMain.ActiveDocument(filename, line - 1, true);
+                ScintillaHelper.ActiveDocument(filename, line - 1, true);
             }
         }
 
         void dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
+
             if (dgv.Rows[e.RowIndex].Cells["Exp"].ColumnIndex == e.ColumnIndex)
             {
                 dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = defaultColor;
