@@ -12,7 +12,6 @@ namespace MacroManager
     {
         private Keys editShortcut = Keys.Control|Keys.F10;
         private List<Macro> userMacros = new List<Macro>();
-        private String[] initialMacro = new String[0];
 
         /// <summary> 
         /// Get and sets the editShortcut
@@ -24,17 +23,6 @@ namespace MacroManager
         {
             get { return this.editShortcut; }
             set { this.editShortcut = value; }
-        }
-
-        /// <summary> 
-        /// Get and sets the initialMacro
-        /// </summary>
-        [DisplayName("Initial Macro")]
-        [LocalizedDescription("MacroManager.Description.InitialMacro")]
-        public String[] InitialMacro
-        {
-            get { return this.initialMacro; }
-            set { this.initialMacro = value; }
         }
 
         /// <summary> 

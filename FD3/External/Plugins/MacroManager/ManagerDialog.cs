@@ -17,7 +17,6 @@ namespace MacroManager
         private ListView listView;
         private PictureBox pictureBox;
         private ToolStripItem exportItem;
-        private ToolStripItem makeAsInit;
         private PropertyGrid propertyGrid;
         private ColumnHeader columnHeader;
         private ListViewGroup macroGroup;
@@ -59,7 +58,7 @@ namespace MacroManager
             // propertyGrid
             // 
             this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.propertyGrid.HelpVisible = false;
+            this.propertyGrid.HelpVisible = true;
             this.propertyGrid.Location = new System.Drawing.Point(182, 12);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.Size = new System.Drawing.Size(355, 299);
@@ -205,9 +204,7 @@ namespace MacroManager
             contextMenu.Opening += new CancelEventHandler(this.ContextMenuOpening);
             contextMenu.Items.Add(TextHelper.GetString("Label.ImportMacros"), null, this.ImportMacros);
             this.exportItem = new ToolStripMenuItem(TextHelper.GetString("Label.ExportMacros"), null, this.ExportMacros);
-            this.makeAsInit = new ToolStripMenuItem(TextHelper.GetString("Label.MakeAsInitMacro"), null, this.MakeAsInitMacro);
             contextMenu.Items.Add(this.exportItem); // Add export item
-            contextMenu.Items.Add(this.makeAsInit); // Add makeAsInit item
             this.listView.ContextMenuStrip = contextMenu;
         }
 
@@ -218,8 +215,6 @@ namespace MacroManager
         {
             if (this.listView.SelectedItems.Count == 0) this.exportItem.Visible = false;
             else this.exportItem.Visible = true;
-            if (this.listView.SelectedItems.Count == 1) this.makeAsInit.Visible = true;
-            else this.makeAsInit.Visible = false;
         }
 
         /// <summary>
@@ -286,7 +281,7 @@ namespace MacroManager
         {
             String untitled = TextHelper.GetString("Info.Untitled");
             ListViewItem item = new ListViewItem(untitled, 0);
-            item.Tag = new Macro(untitled, new String[0], Keys.None);
+            item.Tag = new Macro(untitled, new String[0], Keys.None, false);
             this.macroGroup.Items.Add(item);
             this.listView.Items.Add(item);
         }
@@ -378,15 +373,6 @@ namespace MacroManager
                 this.pluginMain.AppSettings.UserMacros.AddRange(macros);
                 this.PopulateMacroList(this.pluginMain.AppSettings.UserMacros);
             }
-        }
-
-        /// <summary>
-        /// Makes the currently selected macro as init macro.
-        /// </summary>
-        private void MakeAsInitMacro(Object sender, EventArgs e)
-        {
-            Macro macro = (Macro)this.listView.SelectedItems[0].Tag;
-            this.pluginMain.AppSettings.InitialMacro = macro.Entries;
         }
 
         /// <summary>

@@ -2925,10 +2925,16 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="MacroManager.Description.EditShortcut" xml:space="preserve">
     <value>Shortcut of the "Edit Macros" menu item.</value>
   </data>
-  <data name="MacroManager.Description.InitialMacro" xml:space="preserve">
-    <value>Macro that will executed when FlashDevelop has initialized.</value>
+  <data name="MacroManager.Description.AutoRun" xml:space="preserve">
+    <value>Runs the macro automaticly when FlashDevelop starts.</value>
   </data>
-  <data name="MacroManager.Label.MakeAsInitMacro" xml:space="preserve">
-    <value>&amp;Make As Initial Macro</value>
+  <data name="MacroManager.Description.Entries" xml:space="preserve">
+    <value>Individual commands of the macro.</value>
+  </data>
+  <data name="MacroManager.Description.Label" xml:space="preserve">
+    <value>Menu label of the macro.</value>
+  </data>
+  <data name="MacroManager.Description.Shortcut" xml:space="preserve">
+    <value>Menu key shortcut of the macro.</value>
   </data>
 </root>

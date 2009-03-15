@@ -107,14 +107,22 @@ namespace MacroManager
             {
                 try
                 {
-                    String[] entries = this.settingObject.InitialMacro;
-                    foreach (String entry in entries)
+                    foreach (Macro macro in this.settingObject.UserMacros)
                     {
-                        String[] parts = entry.Split(new Char[1]{'|'});
-                        PluginBase.MainForm.CallCommand(parts[0], parts[1]);
+                        if (macro.AutoRun)
+                        {
+                            foreach (String entry in macro.Entries)
+                            {
+                                String[] parts = entry.Split(new Char[1] { '|' });
+                                PluginBase.MainForm.CallCommand(parts[0], parts[1]);
+                            }
+                        }
                     }
                 }
-                catch {}
+                catch (Exception ex) 
+                {
+                    ErrorManager.AddToLog("Macro AutoRun Failed.", ex);
+                }
             }
             if (e.Type == EventType.ApplySettings)
             {
@@ -198,13 +206,9 @@ namespace MacroManager
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
-            if (this.settingObject.InitialMacro == null)
-            {
-                this.settingObject.InitialMacro = new String[0];
-            }
             if (this.settingObject.UserMacros.Count == 0)
             {
-                Macro macro = new Macro("Hello World!", new String[1]{"Debug|HelloWorld!"}, Keys.None);
+                Macro macro = new Macro("Hello World!", new String[1]{"Debug|HelloWorld!"}, Keys.None, false);
                 this.settingObject.UserMacros.Add(macro);
             }
         }
@@ -270,18 +274,21 @@ namespace MacroManager
         private String label = String.Empty;
         private String[] entries = new String[0];
         private Keys shortcut = Keys.None;
+        private Boolean autoRun = false;
 
         public Macro() {}
-        public Macro(String label, String[] entries, Keys shortcut) 
+        public Macro(String label, String[] entries, Keys shortcut, Boolean autoRun) 
         {
             this.Label = label;
             this.entries = entries;
             this.shortcut = shortcut;
+            this.autoRun = autoRun;
         }
 
         /// <summary>
         /// Gets and sets the label
-        /// </summary> 
+        /// </summary>
+        [LocalizedDescription("MacroManager.Description.Label")]
         public String Label
         {
             get { return this.label; }
@@ -290,7 +297,8 @@ namespace MacroManager
 
         /// <summary>
         /// Gets and sets the entries
-        /// </summary> 
+        /// </summary>
+        [LocalizedDescription("MacroManager.Description.Entries")]
         public String[] Entries
         {
             get { return this.entries; }
@@ -298,8 +306,19 @@ namespace MacroManager
         }
 
         /// <summary>
+        /// Gets and sets the autoRun
+        /// </summary>
+        [LocalizedDescription("MacroManager.Description.AutoRun")]
+        public Boolean AutoRun
+        {
+            get { return this.autoRun; }
+            set { this.autoRun = value; }
+        }
+
+        /// <summary>
         /// Gets and sets the shortcut
-        /// </summary> 
+        /// </summary>
+        [LocalizedDescription("MacroManager.Description.Shortcut")]
         public Keys Shortcut
         {
             get { return this.shortcut; }
