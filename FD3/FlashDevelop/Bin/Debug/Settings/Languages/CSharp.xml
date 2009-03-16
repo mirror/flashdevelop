@@ -10,7 +10,7 @@
 			unsafe ushort using var virtual volatile void while where yield
 		</keyword-class>
 		<keyword-class name="csharp-additional-keywords">
-			Boolean Byte Char DateTime Decimal Double Int16 Int32 Int64 IntPtr SByte Single UInt16 UInt32 UInt64 UIntPtr Void
+			Boolean Byte Char DateTime Decimal Double Int16 Int32 Int64 IntPtr SByte Single UInt16 UInt32 UInt64 UIntPtr Void Object
 		</keyword-class>
 	</keyword-classes>
 	<languages>
