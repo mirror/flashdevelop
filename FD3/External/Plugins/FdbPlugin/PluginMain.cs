@@ -283,6 +283,8 @@ namespace FdbPlugin
             String dataPath = Path.Combine(PathHelper.DataDir, "FdbPlugin");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            String bkPath = Path.Combine(dataPath, "Breakpoints");
+            if (!Directory.Exists(bkPath)) Directory.CreateDirectory(bkPath);
             this.pluginImage = PluginBase.MainForm.FindImage("51");
 
             PluginBase.MainForm.BreakpointsEnabled = true;

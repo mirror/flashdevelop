@@ -35,7 +35,7 @@ namespace FdbPlugin
             if (linesAdded != 0)
             {
                 int modline = sender.LineFromPosition(position);
-                PluginMain.breakPointManager.UpDateBrekPoint(sender.FileName, modline, linesAdded);
+                PluginMain.breakPointManager.UpDateBreakPoint(sender.FileName, modline, linesAdded);
             }
         }
 

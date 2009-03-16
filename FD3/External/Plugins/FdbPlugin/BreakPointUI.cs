@@ -47,7 +47,7 @@ namespace FdbPlugin
 
         void FdbWrapper_ConditionErrorEvent(object sender)
         {
-            BreakPointCondition[] CondErrorAry = this.breakPointManager.GetErrorAry();
+            BreakPointCondition[] CondErrorAry = this.breakPointManager.GetErrorsArray();
             foreach (BreakPointCondition cond in CondErrorAry)
             {
                 int index = ItemIndex(cond.FileFullPath, cond.Line+1);

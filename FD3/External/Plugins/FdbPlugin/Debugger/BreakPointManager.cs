@@ -5,138 +5,14 @@ using ScintillaNet;
 using System.Xml.Serialization;
 using System.IO;
 using PluginCore;
+using PluginCore.Helpers;
+using PluginCore.Utilities;
 
 namespace FdbPlugin
 {
     public delegate void ChangeBreakPointEventHandler(object sender, BreakPointArgs e);
     public delegate void UpDateBreakPointEventHandler(object sender, UpDateBreakPointArgs e);
     public delegate void ConditionErrorEventHandler(object sender, BreakPointArgs e);
-    public class BreakPointArgs : EventArgs
-    {
-        public string FileFullPath;
-        public int Line;
-        public string Exp; 
-        public Boolean IsDelete;
-        public Boolean Enable;
-
-        public BreakPointArgs(string filefullpath, int line, string exp, Boolean isdelete, Boolean enable)
-        {
-            FileFullPath = filefullpath;
-            Line = line; 
-            Exp = exp;
-            IsDelete = isdelete;
-            Enable = enable;
-        }
-    }
-
-    public class UpDateBreakPointArgs : EventArgs
-    {
-        public string FileFullPath;
-        public int OldLine;
-        public int NewLine;
-
-        public UpDateBreakPointArgs(string filefullpath, int oldline, int newline)
-        {
-            FileFullPath = filefullpath;
-            OldLine = oldline; 
-            NewLine = newline; 
-        }
-    }
-
-    public class BreakPointInfo
-    {
-        private string fileFullPath;
-        private int line;
-        private Boolean isdelete;
-        private Boolean enable;
-        private string exp;
-
-        public string FileFullPath
-        {
-            get { return fileFullPath; }
-            set { fileFullPath = value; }
-        }
-        public int Line
-        {
-            get { return line; }
-            set { line = value; }
-        }
-        public Boolean IsDelete
-        {
-            get { return isdelete; }
-            set { isdelete = value; }
-        }
-        public Boolean Enable
-        {
-            get { return enable; }
-            set { enable = value; }
-        }
-        public string Exp
-        {
-            get { return exp; }
-            set { exp = value; }
-        }
-
-        public BreakPointInfo()
-        {
-        }
-
-        public BreakPointInfo(string fileFullPath, int line, string exp, Boolean isdelete, Boolean enable)
-        {
-            this.fileFullPath = fileFullPath;
-            this.line = line;
-            this.exp = exp;
-            this.isdelete = isdelete;
-            this.enable = enable;
-        }
-    }
-
-    public class BreakPointCondition
-    {
-        private string breakpointNum;
-        private string fileFullPath;
-        private int line;
-        private string exp;
-
-        public string BreakPointNum
-        {
-            get { return breakpointNum; }
-            set { breakpointNum = value; }
-        }
-        public string FileFullPath
-        {
-            get { return fileFullPath; }
-            set { fileFullPath = value; }
-        }
-        public int Line
-        {
-            get { return line; }
-            set { line = value; }
-        }
-        public string Exp
-        {
-            get { return exp; }
-            set { exp = value; }
-        }
-
-        public BreakPointCondition()
-        {
-        }
-
-        public BreakPointCondition(string fileFullPath, int line, string exp)
-        {
-            this.fileFullPath = fileFullPath;
-            this.line = line;
-            this.exp = exp;
-        }
-        public BreakPointCondition(string breakpointNum, string fileFullPath, int line, string exp)
-        {
-            this.breakpointNum = breakpointNum;
-            this.fileFullPath = fileFullPath;
-            this.line = line;
-            this.exp = exp;
-        }
-    }
 
     public class BreakPointManager
     {
@@ -148,8 +24,6 @@ namespace FdbPlugin
         private List<string> srcFileList = new List<string>();
 
         private IProject project;
-        private string projectFileDir;
-        private const string savefilename = "BreakPoints.xml";
         private string saveFileFullPath;
 
         Boolean isAccess = true;
@@ -170,10 +44,17 @@ namespace FdbPlugin
                 {
                     project = value;
                     this.ClearAll();
-                    projectFileDir = Path.GetDirectoryName(project.ProjectPath);
-                    saveFileFullPath = Path.Combine(projectFileDir, savefilename);
+                    saveFileFullPath = GetBreakpointsFile(project.ProjectPath);
                 }
             }
+        }
+
+        private string GetBreakpointsFile(string path)
+        {
+            string pluginDir = Path.Combine(PathHelper.DataDir, "FdbPlugin");
+            string cacheDir = Path.Combine(pluginDir, "Breakpoints");
+            string hashFileName = HashCalculator.CalculateSHA1(path);
+            return Path.Combine(cacheDir, hashFileName + ".xml");
         }
 
         public void InitBreakPoints()
@@ -509,7 +390,7 @@ namespace FdbPlugin
             get { return errorlist.Count == 0 ? false : true; }
         }
 
-        internal BreakPointCondition[] GetErrorAry()
+        internal BreakPointCondition[] GetErrorsArray()
         {
            return errorlist.ToArray();
         }
@@ -591,7 +472,7 @@ namespace FdbPlugin
             }
         }
 
-        public void UpDateBrekPoint(string filefullpath, int line, int linesAdded)
+        public void UpDateBreakPoint(string filefullpath, int line, int linesAdded)
         {
             foreach (BreakPointInfo info in breakPointList)
             {
@@ -612,7 +493,7 @@ namespace FdbPlugin
         {
             if (project != null)
             {
-                Uri u1 = new Uri(projectFileDir);
+                Uri u1 = new Uri(project.ProjectPath);
                 foreach (BreakPointInfo info in breakPointList)
                 {
                     Uri u2 = new Uri(u1, info.FileFullPath);
@@ -628,7 +509,7 @@ namespace FdbPlugin
             {
                 breakPointList = Util.SerializeXML<List<BreakPointInfo>>.LoadFile(saveFileFullPath);
 
-                Uri u1 = new Uri(projectFileDir);
+                Uri u1 = new Uri(project.ProjectPath);
                 foreach (BreakPointInfo info in breakPointList)
                 {
                     Uri u2 = new Uri(u1, info.FileFullPath);
@@ -641,4 +522,135 @@ namespace FdbPlugin
             }
         }
     }
+
+    #region internal models
+
+    public class BreakPointArgs : EventArgs
+    {
+        public string FileFullPath;
+        public int Line;
+        public string Exp;
+        public Boolean IsDelete;
+        public Boolean Enable;
+
+        public BreakPointArgs(string filefullpath, int line, string exp, Boolean isdelete, Boolean enable)
+        {
+            FileFullPath = filefullpath;
+            Line = line;
+            Exp = exp;
+            IsDelete = isdelete;
+            Enable = enable;
+        }
+    }
+
+    public class UpDateBreakPointArgs : EventArgs
+    {
+        public string FileFullPath;
+        public int OldLine;
+        public int NewLine;
+
+        public UpDateBreakPointArgs(string filefullpath, int oldline, int newline)
+        {
+            FileFullPath = filefullpath;
+            OldLine = oldline;
+            NewLine = newline;
+        }
+    }
+
+    public class BreakPointInfo
+    {
+        private string fileFullPath;
+        private int line;
+        private Boolean isdelete;
+        private Boolean enable;
+        private string exp;
+
+        public string FileFullPath
+        {
+            get { return fileFullPath; }
+            set { fileFullPath = value; }
+        }
+        public int Line
+        {
+            get { return line; }
+            set { line = value; }
+        }
+        public Boolean IsDelete
+        {
+            get { return isdelete; }
+            set { isdelete = value; }
+        }
+        public Boolean Enable
+        {
+            get { return enable; }
+            set { enable = value; }
+        }
+        public string Exp
+        {
+            get { return exp; }
+            set { exp = value; }
+        }
+
+        public BreakPointInfo()
+        {
+        }
+
+        public BreakPointInfo(string fileFullPath, int line, string exp, Boolean isdelete, Boolean enable)
+        {
+            this.fileFullPath = fileFullPath;
+            this.line = line;
+            this.exp = exp;
+            this.isdelete = isdelete;
+            this.enable = enable;
+        }
+    }
+
+    public class BreakPointCondition
+    {
+        private string breakpointNum;
+        private string fileFullPath;
+        private int line;
+        private string exp;
+
+        public string BreakPointNum
+        {
+            get { return breakpointNum; }
+            set { breakpointNum = value; }
+        }
+        public string FileFullPath
+        {
+            get { return fileFullPath; }
+            set { fileFullPath = value; }
+        }
+        public int Line
+        {
+            get { return line; }
+            set { line = value; }
+        }
+        public string Exp
+        {
+            get { return exp; }
+            set { exp = value; }
+        }
+
+        public BreakPointCondition()
+        {
+        }
+
+        public BreakPointCondition(string fileFullPath, int line, string exp)
+        {
+            this.fileFullPath = fileFullPath;
+            this.line = line;
+            this.exp = exp;
+        }
+        public BreakPointCondition(string breakpointNum, string fileFullPath, int line, string exp)
+        {
+            this.breakpointNum = breakpointNum;
+            this.fileFullPath = fileFullPath;
+            this.line = line;
+            this.exp = exp;
+        }
+    }
+
+    #endregion
 }
