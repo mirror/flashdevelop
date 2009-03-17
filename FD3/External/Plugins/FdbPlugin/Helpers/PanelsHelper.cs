@@ -35,7 +35,7 @@ namespace FdbPlugin
             pluginUI.TreeControl.Tree.Expanding += new EventHandler<Aga.Controls.Tree.TreeViewAdvEventArgs>(LocalVariablesTreeExpanding);
 
             breakPointUI = new BreakPointUI(pluginMain, PluginMain.breakPointManager);
-            breakPointUI.Text = "BreakPointList";
+            breakPointUI.Text = "Breakpoints";
             breakPointPanel = PluginBase.MainForm.CreateDockablePanel(breakPointUI, breakPointGuid, pluginImage, DockState.Hidden);
 
             stackframeUI = new StackframeUI(pluginMain, MenusHelper.imageList);

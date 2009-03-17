@@ -73,9 +73,20 @@ namespace FdbPlugin
         private void init()
         {
             this.dgv = new DataGridView();
-            this.dgv.BorderStyle = BorderStyle.None;
-            this.dgv.Font = PluginBase.Settings.DefaultFont;
             this.dgv.Dock = DockStyle.Fill;
+            this.dgv.BorderStyle = BorderStyle.None;
+            this.dgv.BackgroundColor = SystemColors.Window;
+            this.dgv.Font = PluginBase.Settings.DefaultFont;
+            this.dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            this.dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            this.dgv.EnableHeadersVisualStyles = true;
+            this.dgv.RowHeadersVisible = false;
+
+            DataGridViewCellStyle viewStyle = new DataGridViewCellStyle();
+            viewStyle.Padding = new Padding(1);
+            this.dgv.ColumnHeadersDefaultCellStyle = viewStyle;
 
             this.ColumnBreakPointEnable = new DataGridViewCheckBoxColumn();
             this.ColumnBreakPointFilePath = new DataGridViewTextBoxColumn();
@@ -85,14 +96,14 @@ namespace FdbPlugin
 
             this.ColumnBreakPointEnable.HeaderText = "Enable";
             this.ColumnBreakPointEnable.Name = "Enable";
-            this.ColumnBreakPointEnable.Width = 50;
             this.ColumnBreakPointEnable.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.ColumnBreakPointEnable.Width = 70;
 
-            this.ColumnBreakPointFilePath.HeaderText = "FilePath";
+            this.ColumnBreakPointFilePath.HeaderText = "Path";
             this.ColumnBreakPointFilePath.Name = "FilePath";
             this.ColumnBreakPointFilePath.ReadOnly = true;
 
-            this.ColumnBreakPointFileName.HeaderText = "FileName";
+            this.ColumnBreakPointFileName.HeaderText = "File";
             this.ColumnBreakPointFileName.Name = "FileName";
             this.ColumnBreakPointFileName.ReadOnly = true;
 
@@ -105,7 +116,7 @@ namespace FdbPlugin
 
             this.dgv.AllowUserToAddRows = false;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-                ColumnBreakPointEnable,
+                this.ColumnBreakPointEnable,
                 this.ColumnBreakPointFilePath,
                 this.ColumnBreakPointFileName,
                 this.ColumnBreakPointLine,

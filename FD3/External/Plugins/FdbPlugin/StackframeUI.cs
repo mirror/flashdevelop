@@ -23,7 +23,7 @@ namespace FdbPlugin
             lv = new ListView();
             this.imageColumnHeader = new ColumnHeader();
             this.imageColumnHeader.Text = string.Empty;
-            this.imageColumnHeader.Width = 16;
+            this.imageColumnHeader.Width = 20;
 
             this.frameColumnHeader = new ColumnHeader();
             this.frameColumnHeader.Text = string.Empty;
@@ -32,6 +32,7 @@ namespace FdbPlugin
             this.imageColumnHeader,
             this.frameColumnHeader});
             lv.FullRowSelect = true;
+            lv.BorderStyle = BorderStyle.None;
             lv.Dock = System.Windows.Forms.DockStyle.Fill;
 
             lv.SmallImageList = imageList;

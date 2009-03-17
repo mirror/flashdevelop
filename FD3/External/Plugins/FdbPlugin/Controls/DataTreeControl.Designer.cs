@@ -36,7 +36,8 @@
             this.SuspendLayout();
             // 
             // _tree
-            // 
+            //
+            this._tree.UseColumns = true;
             this._tree.BackColor = System.Drawing.SystemColors.Window;
             this._tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._tree.Columns.Add(this.NametreeColumn);
@@ -44,8 +45,8 @@
             this._tree.DefaultToolTipProvider = null;
             this._tree.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tree.DragDropMarkColor = System.Drawing.Color.Black;
-            this._tree.GridLineStyle = ((Aga.Controls.Tree.GridLineStyle)((Aga.Controls.Tree.GridLineStyle.Horizontal | Aga.Controls.Tree.GridLineStyle.Vertical)));
-            this._tree.LineColor = System.Drawing.SystemColors.ControlDark;
+            this._tree.GridLineStyle = Aga.Controls.Tree.GridLineStyle.HorizontalAndVertical;
+            this._tree.LineColor = System.Drawing.SystemColors.Control;
             this._tree.Location = new System.Drawing.Point(0, 0);
             this._tree.Model = null;
             this._tree.Name = "_tree";

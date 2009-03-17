@@ -44,6 +44,7 @@ namespace FdbPlugin.Controls
             this.Controls.Add(_tree);
 
             _contextMenuStrip = new ContextMenuStrip();
+            _contextMenuStrip.Font = PluginBase.Settings.DefaultFont;
             _tree.ContextMenuStrip = _contextMenuStrip;
             copyMenuItem = new ToolStripMenuItem("Copy", null, new EventHandler(this.CopyItemClick));
             viewerMenuItem = new ToolStripMenuItem("Viewer", null, new EventHandler(this.ViewerItemClick));

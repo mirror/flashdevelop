@@ -38,8 +38,8 @@ namespace FdbPlugin
             imageList.Images.Add("Finish", Resource.Finish);
 
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("FdbPlugin.Label.ViewLocalVariablesPanelMenuItem"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem("BreakPointList", pluginImage, new EventHandler(this.OpenBreakPointPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem("Local Variables", pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem("Breakpoints", pluginImage, new EventHandler(this.OpenBreakPointPanel)));
             viewMenu.DropDownItems.Add(new ToolStripMenuItem("Stackframe", pluginImage, new EventHandler(this.OpenStackframePanel)));
 
             //Menu           
@@ -64,12 +64,11 @@ namespace FdbPlugin
 
             ToolStripSeparator spMenu = new ToolStripSeparator();
 
-            ToggleBreakPointMenu = new ToolStripMenuItem("ToggleBreakPoint", null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), settingObject.ToggleBreakPoint);
-            DeleteAllBreakPointsMenu = new ToolStripMenuItem("DeleteAllBreakPoints", null, new EventHandler(ScintillaHelper.DeleteAllBreakPoints_Click), settingObject.Finish);
-            ToggleBreakPointEnableMenu = new ToolStripMenuItem("ToggleBreakPointEnable", null, new EventHandler(ScintillaHelper.ToggleBreakPointEnable_Click), settingObject.ToggleBreakPointEnable);
-
-            DisableAllBreakPointsMenu = new ToolStripMenuItem("DisableAllBreakPoints", null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
-            EnableAllBreakPointsMenu = new ToolStripMenuItem("EnableAllBreakPoints", null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
+            ToggleBreakPointMenu = new ToolStripMenuItem("Toggle Breakpoint", null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), settingObject.ToggleBreakPoint);
+            DeleteAllBreakPointsMenu = new ToolStripMenuItem("Delete All Breakpoints", null, new EventHandler(ScintillaHelper.DeleteAllBreakPoints_Click), settingObject.Finish);
+            ToggleBreakPointEnableMenu = new ToolStripMenuItem("Toggle Breakpoint Enabled", null, new EventHandler(ScintillaHelper.ToggleBreakPointEnable_Click), settingObject.ToggleBreakPointEnable);
+            DisableAllBreakPointsMenu = new ToolStripMenuItem("Disable All Breakpoints", null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
+            EnableAllBreakPointsMenu = new ToolStripMenuItem("Enable All Breakpoints", null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
 
 
             List<ToolStripItem> items = new List<ToolStripItem>(new ToolStripItem[] { StartMenu, StartNoDebugMenu, PauseMenu, StopMenu, ContinueMenu, StepMenu, NextMenu, FinishMenu, KillfdbMenu, 
@@ -111,7 +110,7 @@ namespace FdbPlugin
             StartNoDebugButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 
             //contextmenu
-            QuickWatchItem = new ToolStripMenuItem("QuickWatch", null, delegate
+            QuickWatchItem = new ToolStripMenuItem("Quick Watch", null, delegate
             {
                 string exp = PluginBase.MainForm.CurrentDocument.SciControl.SelText;
                 PanelsHelper.quickWatchForm.Exp = exp;
