@@ -158,6 +158,12 @@ namespace FlashViewer
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
+            // Try to find player path from: Tools/flexsdk/
+            if (this.settingObject.PlayerPath == null || this.settingObject.PlayerPath == String.Empty)
+            {
+                String playerPath = Path.Combine(PathHelper.ToolDir, @"flexsdk\runtimes\player\10\win\FlashPlayer.exe");
+                if (File.Exists(playerPath)) this.settingObject.PlayerPath = playerPath;
+            }
         }
 
         /// <summary>
@@ -377,7 +383,6 @@ namespace FlashViewer
                 ErrorManager.ShowError(ex);
             }
         }
-
 
 		#endregion
 

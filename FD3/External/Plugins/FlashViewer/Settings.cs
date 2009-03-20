@@ -13,11 +13,19 @@ namespace FlashViewer
     {
         private static Settings instance;
         private String playerPath = String.Empty;
-        private ViewStyle displayStyle = ViewStyle.Document;
+        private ViewStyle displayStyle = ViewStyle.External;
 
         public Settings()
         {
             instance = this;
+        }
+
+        /// <summary>
+        /// Gets the singleton instance of the class
+        /// </summary> 
+        public static Settings GetInstance()
+        {
+            return instance;
         }
 
         /// <summary> 
@@ -36,19 +44,11 @@ namespace FlashViewer
         /// Get and sets the displayStyle
         /// </summary>
         [DisplayName("Movie Display Style")]
-        [LocalizedDescription("FlashViewer.Description.DisplayStyle"), DefaultValue(ViewStyle.Document)]
+        [LocalizedDescription("FlashViewer.Description.DisplayStyle"), DefaultValue(ViewStyle.External)]
         public ViewStyle DisplayStyle 
         {
             get { return this.displayStyle; }
             set { this.displayStyle = value; }
-        }
-
-        /// <summary>
-        /// Gets the singleton instance of the class
-        /// </summary> 
-        public static Settings GetInstance()
-        {
-            return instance;
         }
 
     }

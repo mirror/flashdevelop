@@ -1,14 +1,14 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.ComponentModel;
-using System.IO;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using PluginCore.Localization;
 using PluginCore.Helpers;
 using PluginCore.Managers;
 using PluginCore.Utilities;
 using AS3Context.Compiler;
-using System.Text.RegularExpressions;
 using PluginCore;
 
 namespace AS3Context
@@ -224,7 +224,11 @@ namespace AS3Context
                 settingObject = (AS3Settings)obj;
             }
             if (settingObject.AS3ClassPath == null) settingObject.AS3ClassPath = @"Library\AS3\intrinsic";
-            if (settingObject.FlexSDK == null) settingObject.FlexSDK = @"C:\flex_sdk_3";
+            if (settingObject.FlexSDK == null || settingObject.FlexSDK == String.Empty)
+            {
+                String includedSDK = Path.Combine(PathHelper.ToolDir, "flexsdk");
+                if (Directory.Exists(includedSDK)) settingObject.FlexSDK = includedSDK;
+            }
             settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
