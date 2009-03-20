@@ -178,15 +178,18 @@ namespace MacroManager
             this.macroMenuItem.DropDownItems.Clear();
             foreach (Macro macro in this.settingObject.UserMacros)
             {
-                ToolStripMenuItem macroItem = new ToolStripMenuItem();
-                macroItem.Click += new EventHandler(this.MacroMenuItemClick);
-                macroItem.ShortcutKeys = macro.Shortcut;
-                macroItem.Text = macro.Label; 
-                macroItem.Tag = macro;
-                this.macroMenuItem.DropDownItems.Add(macroItem);
-                if (!PluginBase.MainForm.IgnoredKeys.Contains(macro.Shortcut))
+                if (!macro.AutoRun)
                 {
-                    PluginBase.MainForm.IgnoredKeys.Add(macro.Shortcut);
+                    ToolStripMenuItem macroItem = new ToolStripMenuItem();
+                    macroItem.Click += new EventHandler(this.MacroMenuItemClick);
+                    macroItem.ShortcutKeys = macro.Shortcut;
+                    macroItem.Text = macro.Label;
+                    macroItem.Tag = macro;
+                    this.macroMenuItem.DropDownItems.Add(macroItem);
+                    if (!PluginBase.MainForm.IgnoredKeys.Contains(macro.Shortcut))
+                    {
+                        PluginBase.MainForm.IgnoredKeys.Add(macro.Shortcut);
+                    }
                 }
             }
             this.macroMenuItem.DropDownItems.Add(new ToolStripSeparator());

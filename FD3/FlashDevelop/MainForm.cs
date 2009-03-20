@@ -1350,6 +1350,15 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Lets you update menu items using the flag functionality
+        /// </summary>
+        public void AutoUpdateMenuItem(ToolStripItem item, String action)
+        {
+            Boolean value = ButtonManager.ValidateFlagAction(item, action);
+            ButtonManager.ExecuteFlagAction(item, action, value);
+        }
+
+        /// <summary>
         /// Finds the specified composed/ready image
         /// </summary>
         public Image FindImage(String data)

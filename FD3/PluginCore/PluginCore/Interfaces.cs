@@ -93,6 +93,7 @@ namespace PluginCore
         void ClearTemporaryFiles(String file);
         void ShowSettingsDialog(String itemName);
         void ShowErrorDialog(Object sender, Exception ex);
+        void AutoUpdateMenuItem(ToolStripItem item, String action);
         void FileFromTemplate(String templatePath, String newFilePath);
         DockContent OpenEditableDocument(String file, Boolean restoreFileState);
         DockContent OpenEditableDocument(String file);
