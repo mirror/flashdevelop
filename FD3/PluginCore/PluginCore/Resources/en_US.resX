@@ -2926,7 +2926,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Shortcut of the "Edit Macros" menu item.</value>
   </data>
   <data name="MacroManager.Description.AutoRun" xml:space="preserve">
-    <value>Runs the macro automaticly when FlashDevelop starts.</value>
+    <value>Runs the macro automaticly when FlashDevelop starts. If enabled, the menu item will not be shown.</value>
   </data>
   <data name="MacroManager.Description.Entries" xml:space="preserve">
     <value>Individual commands of the macro.</value>

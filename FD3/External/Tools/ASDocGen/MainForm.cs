@@ -265,6 +265,7 @@ namespace ASDocGen
             this.extraOptionsTextBox.Name = "extraOptionsTextBox";
             this.extraOptionsTextBox.Size = new System.Drawing.Size(290, 50);
             this.extraOptionsTextBox.TabIndex = 8;
+            this.extraOptionsTextBox.Font = SystemFonts.MenuFont;
             this.extraOptionsTextBox.TextChanged += new System.EventHandler(this.UpdateProjectIsModified);
             // 
             // extraOptionsLabel
@@ -387,6 +388,7 @@ namespace ASDocGen
             this.classpathListBox.Location = new System.Drawing.Point(14, 146);
             this.classpathListBox.Name = "classpathListBox";
             this.classpathListBox.Size = new System.Drawing.Size(383, 56);
+            this.classpathListBox.Font = SystemFonts.MenuFont;
             this.classpathListBox.TabIndex = 5;
             // 
             // tabControl
