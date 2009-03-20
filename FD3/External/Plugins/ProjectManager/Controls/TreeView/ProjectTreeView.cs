@@ -264,6 +264,7 @@ namespace ProjectManager.Controls.TreeView
                 string absolute = asset.Path;
                 if (!Path.IsPathRooted(absolute))
                     absolute = project.GetAbsolutePath(asset.Path);
+
                 bool showNode = true;
                 if (absolute.StartsWith(project.Directory))
                     showNode = false;
@@ -273,6 +274,13 @@ namespace ProjectManager.Controls.TreeView
                         showNode = false;
                         break;
                     }
+                foreach (string path in PluginMain.Settings.GlobalClasspaths)
+                    if (absolute.StartsWith(path))
+                    {
+                        showNode = false;
+                        break;
+                    }
+
                 if (showNode)
                 {
                     SwfFileNode swcNode = new SwfFileNode(absolute);
