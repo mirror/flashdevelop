@@ -9,6 +9,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using ASCompletion.Settings;
 using System.Collections;
+using PluginCore.PluginCore.Helpers;
+using PluginCore.Helpers;
 
 namespace FdbPlugin
 {
@@ -69,13 +71,7 @@ namespace FdbPlugin
         public IContextSettings CurrentSettings
         {
             get { return this.currentSettings; }
-            set
-            {
-                this.currentSettings = value;
-
-                AS3Context.AS3Settings as3setting = AS3Context.PluginMain.Settings;
-                fdbexefile = System.IO.Path.Combine(as3setting.FlexSDK, @"bin\fdb.exe");
-            }
+            set { this.currentSettings = value; }
         }
 
         public bool IsDebugStart
@@ -104,6 +100,9 @@ namespace FdbPlugin
         private bool outputstart = false;
         private bool outputend = false;
         private List<string> bufferlist = new List<string>();
+        private string flexSDKPath;
+        private string fdbPath;
+        private Hashtable jvmConfig;
         private Process process;
         private bool isDebugStart = false;
         private bool isprocess = false;
@@ -111,7 +110,6 @@ namespace FdbPlugin
         private ProjectManager.Projects.Project currentProject;
         private IContextSettings currentSettings;
 
-        private string fdbexefile;
         private string checkstart = string.Empty;
         private string checkend = string.Empty;
         private string outputfilefullpath;
@@ -265,6 +263,8 @@ namespace FdbPlugin
             isprepause = false;
             isunload = false;
             bufferlist.Clear();
+
+            initFlexSDK();
 
             currentfdbState = FdbState.INIT;
             if (projectType == ProjectType.AIR)
@@ -707,6 +707,23 @@ namespace FdbPlugin
             FdbPluginTrace.TraceInfo("DeleteAllBreakPoints() cmd_Delete(); end");
         }
 
+        private bool initFlexSDK()
+        {
+            flexSDKPath = AS3Context.PluginMain.Settings.FlexSDK;
+
+            flexSDKPath = PathHelper.ResolvePath(flexSDKPath, Path.GetDirectoryName(currentProject.ProjectPath));
+            if (flexSDKPath != null && Directory.Exists(flexSDKPath))
+            {
+                if (flexSDKPath.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
+                    flexSDKPath = Path.GetDirectoryName(flexSDKPath);
+
+                fdbPath = Path.Combine(flexSDKPath, "lib\\fdb.jar");
+                jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
+                return true;
+            }
+            else return false;
+        }
+
         private void ProcessStart()
         {
             ProcessStart(null);
@@ -715,11 +732,13 @@ namespace FdbPlugin
         private void ProcessStart(string outputfile)
         {
             process = new Process();
-            process.StartInfo.FileName = fdbexefile;
-            if (outputfile != null)
-            {
-                process.StartInfo.Arguments = outputfile;
-            }
+            
+            process.StartInfo.FileName = JvmConfigHelper.GetJavaEXE(jvmConfig);
+            string args = process.StartInfo.Arguments = jvmConfig["java.args"] +
+                " -Dapplication.home=\"" + flexSDKPath + "\" -jar \"" + fdbPath + "\" ";
+            if (outputfile != null) args += outputfile;
+            process.StartInfo.Arguments = args;
+
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;

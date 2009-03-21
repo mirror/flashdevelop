@@ -118,11 +118,10 @@ namespace AS3Context
                         string workDir = (PluginBase.CurrentProject != null)
                             ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
                             : Environment.CurrentDirectory;
-                        e.Handled = FlexDebugger.Start(
-                            workDir,
-                            (settingObject as AS3Settings).FlexSDK,
-                            null
-                        );
+                        
+                        string flexSdk = (settingObject as AS3Settings).FlexSDK;
+
+                        e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
                     }
                 }
                 return;
@@ -257,6 +256,11 @@ namespace AS3Context
             string deflang = System.Globalization.CultureInfo.CurrentUICulture.Name;
             deflang = deflang.Substring(0, 2);
             string basePath = flashPath ?? @"C:\Program Files\Adobe\Adobe Flash CS3";
+
+            // CS4 default configuration
+            if (Directory.Exists(basePath + "\\Common\\Configuration\\ActionScript 3.0"))
+                return basePath + "\\Common\\Configuration\\";
+
             // default language
             if (Directory.Exists(basePath + deflang + "\\Configuration\\ActionScript 3.0"))
             {

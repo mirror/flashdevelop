@@ -6,6 +6,8 @@ using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
 using PluginCore.Helpers;
+using System.Collections;
+using PluginCore.PluginCore.Helpers;
 
 namespace AS3Context.Compiler
 {
@@ -18,20 +20,20 @@ namespace AS3Context.Compiler
         public event LineEvent OnError;
         public event LineEvent OnTrace;
 
-        public void Run(string projectPath, string flex2Path)
+        public void Run(string projectPath, string flexSDKPath)
         {
-            flex2Path = PathHelper.ResolvePath(flex2Path, projectPath);
-            string fdbPath;
-            if (flex2Path != null && Directory.Exists(flex2Path))
+            flexSDKPath = PathHelper.ResolvePath(flexSDKPath, projectPath);
+            if (flexSDKPath != null && Directory.Exists(flexSDKPath))
             {
-                if (flex2Path.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
-                    flex2Path = Path.GetDirectoryName(flex2Path);
-                fdbPath = Path.Combine(flex2Path, "lib\\fdb.jar");
+                if (flexSDKPath.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
+                    flexSDKPath = Path.GetDirectoryName(flexSDKPath);
             }
             else return;
 
+            Hashtable jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
+
             if (process == null || process.HasExited)
-                Initialize(flex2Path, fdbPath, projectPath);
+                Initialize(flexSDKPath, jvmConfig, projectPath);
         }
 
         public void PushCommand(string cmd)
@@ -60,10 +62,11 @@ namespace AS3Context.Compiler
         bool interactive;
         bool connected;
 
-        bool Initialize(string flex2Path, string fdbPath, string projectPath)
+        bool Initialize(string flexSDKPath, Hashtable jvmConfig, string projectPath)
         {
             cmdQueue = new Queue<string>();
 
+            string fdbPath = Path.Combine(flexSDKPath, "lib\\fdb.jar");
             if (!File.Exists(fdbPath))
             {
                 process = null;
@@ -77,9 +80,9 @@ namespace AS3Context.Compiler
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.FileName = "java.exe";
-            process.StartInfo.Arguments = "-Xmx384m -Dsun.io.useCanonCaches=false -Duser.language=en " +
-                "-Dapplication.home=\"" + flex2Path + "\" -jar \"" + fdbPath + "\"";
+            process.StartInfo.FileName = JvmConfigHelper.GetJavaEXE(jvmConfig);
+            process.StartInfo.Arguments = jvmConfig["java.args"] +
+                " -Dapplication.home=\"" + flexSDKPath + "\" -jar \"" + fdbPath + "\"";
             process.StartInfo.WorkingDirectory = workingDir;
             process.Start();
 

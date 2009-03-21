@@ -14,6 +14,8 @@ using PluginCore.Managers;
 using PluginCore.Utilities;
 using PluginCore.Localization;
 using ASCompletion.Model;
+using System.Collections;
+using PluginCore.PluginCore.Helpers;
 
 namespace AS3Context.Compiler
 {
@@ -94,6 +96,7 @@ namespace AS3Context.Compiler
 		private ProcessRunner mxmlcRunner;
 		private string builtSWF;
         private bool debugMode;
+        private Hashtable jvmConfig;
 
         public void CheckAS3(string filename, string flexPath)
         {
@@ -141,6 +144,8 @@ namespace AS3Context.Compiler
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
                 return;
             }
+
+            jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexPath, "bin\\jvm.config"));
 			
 			try
 			{
@@ -170,19 +175,19 @@ namespace AS3Context.Compiler
 			}
 		}
 
-        public void RunMxmlc(string cmd, string flex2Path)
+        public void RunMxmlc(string cmd, string flexPath)
 		{
             if (running) return;
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-            flex2Path = PathHelper.ResolvePath(flex2Path, basePath);
+            flexPath = PathHelper.ResolvePath(flexPath, basePath);
 
-            if (flex2Path != null && Directory.Exists(flex2Path))
+            if (flexPath != null && Directory.Exists(flexPath))
             {
-                if (flex2Path.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
-                    flex2Path = Path.GetDirectoryName(flex2Path);
-                mxmlcPath = Path.Combine(Path.Combine(flex2Path, "lib"), "mxmlc.jar");
+                if (flexPath.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
+                    flexPath = Path.GetDirectoryName(flexPath);
+                mxmlcPath = Path.Combine(Path.Combine(flexPath, "lib"), "mxmlc.jar");
             }
 			if (mxmlcPath == null || !File.Exists(mxmlcPath)) 
             {
@@ -202,13 +207,15 @@ namespace AS3Context.Compiler
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
                 return;
             }
+
+            jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexPath, "bin\\jvm.config"));
 			
 			try
 			{
                 running = true;
 				EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
 				
-				if (mxmlcRunner == null || !mxmlcRunner.IsRunning) StartMxmlcRunner(flex2Path);
+				if (mxmlcRunner == null || !mxmlcRunner.IsRunning) StartMxmlcRunner(flexPath);
 				
 				//cmd = mainForm.ProcessArgString(cmd);
 				TraceManager.Add("MxmlcShell command: "+cmd, -1);
@@ -372,13 +379,14 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartAscRunner()
 		{
-            string cmd = "-classpath \"" + ascPath + ";" + flexShellsPath + "\" -Duser.language=en AscShell";
+            string cmd = "-Duser.language=en -Duser.region=US"
+                + " -classpath \"" + ascPath + ";" + flexShellsPath + "\" AscShell";
             TraceManager.Add("Syntax checking process starting: java " + cmd, -1);
 			// run asc shell
 			ascRunner = new ProcessRunner();
             ascRunner.WorkingDirectory = Path.GetDirectoryName(ascPath);
             ascRunner.RedirectInput = true;
-            ascRunner.Run("java", cmd, true);
+            ascRunner.Run(JvmConfigHelper.GetJavaEXE(jvmConfig), cmd, true);
             ascRunner.Output += ascRunner_Output;
             ascRunner.Error += ascRunner_Error;
             errorState = 0;
@@ -390,13 +398,14 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartMxmlcRunner(string flex2Path)
 		{
-            string cmd = "-classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" -Duser.language=en MxmlcShell";
+            string cmd = jvmConfig["java.args"] 
+                + " -classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" MxmlcShell";
             TraceManager.Add("Flex compiler process starting: java " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();
             mxmlcRunner.WorkingDirectory = Path.Combine(flex2Path, "frameworks");
             mxmlcRunner.RedirectInput = true;
-			mxmlcRunner.Run("java", cmd, true);
+            mxmlcRunner.Run(JvmConfigHelper.GetJavaEXE(jvmConfig), cmd, true);
             mxmlcRunner.Output += mxmlcRunner_Output;
             mxmlcRunner.Error += mxmlcRunner_Error;
             errorState = 0;

@@ -64,7 +64,7 @@ namespace PluginCore.Controls
             tempoTip.Interval = 800;
             
 			completionList = new ListBox();
-            completionList.Font = new System.Drawing.Font(PluginCore.PluginBase.Settings.DefaultFont, FontStyle.Regular);
+            completionList.Font = new System.Drawing.Font(PluginBase.Settings.DefaultFont, FontStyle.Regular);
 			completionList.Visible = false;
 			completionList.Location = new Point(400,200);
             completionList.ItemHeight = completionList.Font.Height + 2;

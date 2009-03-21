@@ -262,6 +262,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PluginCore\Controls\ShellContextMenu.cs" />
+    <Compile Include="PluginCore\Helpers\JvmConfigHelper.cs" />
     <Compile Include="PluginCore\Helpers\ProcessHelper.cs" />
     <Compile Include="PluginCore\Helpers\ResourceHelper.cs" />
     <Compile Include="PluginCore\Helpers\SnippetHelper.cs" />
