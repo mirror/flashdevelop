@@ -51,7 +51,7 @@
 			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-]]></character-class>
 			<comment-start><![CDATA[/*]]></comment-start>
 			<comment-end><![CDATA[*/]]></comment-end>			
-			<file-extensions>css</file-extensions>
+			<file-extensions>css,hss</file-extensions>
 			<use-keywords>
 				<keyword key="0" class="css-keywords" />
 				<keyword key="1" class="css-pseudoclasses" />
