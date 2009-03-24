@@ -448,7 +448,7 @@ namespace HaXeContext
                 return new MemberList();
 
             MemberList list = new MemberList();
-
+           
             HaXeCompletion hc = new HaXeCompletion(sci, expression.Position);
             ArrayList al = hc.getList();
             if (al == null || al.Count == 0) 
@@ -458,10 +458,9 @@ namespace HaXeContext
 
             if( outputType == "error" )
             {
-                // TODO : Show error tip
                 string err = al[1].ToString();
                 sci.CallTipShow(sci.CurrentPos, err);
-                
+                sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
             }
             else if (outputType == "list")
             {
@@ -470,35 +469,60 @@ namespace HaXeContext
                     string var = i[0].ToString();
                     string type = i[1].ToString();
                     string desc = i[2].ToString();
+
                     FlagType flag = FlagType.Variable;
-                    if (type.IndexOf(":") != -1)
-                        flag = FlagType.Function;
 
                     MemberModel member = new MemberModel();
                     member.Name = var;
-                    member.Flags = flag;
                     member.Access = Visibility.Public;
-
-                    if (flag == FlagType.Variable)
-                        member.Type = type;
+                    
+                    // Package or Class
+                    if (type == "")
+                    {
+                        string bl = var.Substring( 0, 1 );
+                        if (bl == bl.ToLower())
+                            flag = FlagType.Package;
+                        else
+                            flag = FlagType.Class;
+                    }
+                    // Function or Variable
                     else
                     {
-                        Array a = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
-                        type = a.GetValue( a.Length - 1 ).ToString();
-                        member.Parameters = new List<MemberModel>();
-                        int j = 0;
-                        while ( j < a.Length - 1 ) 
+                        Array types = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+
+                        // Function
+                        if (types.Length > 1)
                         {
-                            MemberModel param = new MemberModel(a.GetValue( j ).ToString(), "", FlagType.ParameterVar, Visibility.Public);
-                            member.Parameters.Add(param);
-                            j++;
+                            flag = FlagType.Function;
+
+                            // Function's arguments
+                            member.Parameters = new List<MemberModel>();
+                            int j = 0;
+                            while (j < types.Length - 1)
+                            {
+                                MemberModel param = new MemberModel(types.GetValue(j).ToString(), "", FlagType.ParameterVar, Visibility.Public);
+                                member.Parameters.Add(param);
+                                j++;
+                            }
+
+                            // Function's return type
+                            member.Type = types.GetValue(types.Length - 1).ToString();
                         }
-                         member.Type = type;
+                        // Variable
+                        else
+                        {
+                            flag = FlagType.Variable;
+                            // Variable's type
+                            member.Type = type;
+                        }    
+                       
                     }
-                    list.Add(member);
+                                        
+                    member.Flags = flag;
+                    
+                   list.Add(member);
                 }
             }
-                        
             return list;
         }
         
@@ -515,6 +539,17 @@ namespace HaXeContext
             
             MemberModel member = new MemberModel();
 
+            // Do not show error
+            string val = expression.Value;
+            if (val == "for" || 
+                val == "while" ||
+                val == "if" ||
+                val == "switch" ||
+                val == "function" ||
+                val == "catch" ||
+                val == "trace")
+                return null;
+
             HaXeCompletion hc = new HaXeCompletion(sci, expression.Position);
             ArrayList al = hc.getList();
             if (al == null || al.Count == 0)
@@ -530,26 +565,34 @@ namespace HaXeContext
 
                 var type = al[1].ToString();
 
-                Array a = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
-                type = a.GetValue(a.Length - 1).ToString();
+                Array types = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Function's arguments
                 member.Parameters = new List<MemberModel>();
                 int j = 0;
-                while (j < a.Length - 1)
+                while (j < types.Length - 1)
                 {
-                    MemberModel param = new MemberModel(a.GetValue(j).ToString(), "", FlagType.ParameterVar, Visibility.Public);
+                    MemberModel param = new MemberModel(types.GetValue(j).ToString(), "", FlagType.ParameterVar, Visibility.Public);
                     member.Parameters.Add(param);
                     j++;
                 }
-                member.Type = type;
+                // Function's return type
+                member.Type = types.GetValue(types.Length - 1).ToString();
             }
             else if ( outputType == "error" )
             {
-                // TODO : Show error tip
                 string err = al[1].ToString();
                 sci.CallTipShow(sci.CurrentPos, err);
+                sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
             }
                         
             return member;
+        }
+
+        void removeTip(ScintillaNet.ScintillaControl sender, int ch)
+        {
+            sender.CallTipCancel();
+            sender.CharAdded -= removeTip;
         }
         #endregion
 

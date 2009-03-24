@@ -20,12 +20,14 @@ namespace HaXeContext
         int position;
         ScintillaNet.ScintillaControl sci;
         ArrayList tips;
+        int nbErrors;
          
         public HaXeCompletion(ScintillaNet.ScintillaControl sci, int position)
         {
             this.sci = sci;
             this.position = position;
             tips = new ArrayList();
+            nbErrors = 0;
         }
 
         private void initProcess()
@@ -39,33 +41,7 @@ namespace HaXeContext
             
             HaxeProject hp = (PluginBase.CurrentProject as HaxeProject);
             HaxeOptions co = hp.CompilerOptions;
-
-            // Classes "Always Compile"
-            string classesToCompile = "";
-            foreach (string ctc in hp.CompileTargets)
-            {
-                Array path = ctc.Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
-                string cl = path.GetValue(path.Length - 1).ToString();
-                classesToCompile += " " + cl;
-            }
-
-            // output file 
-            string output = "\"" + hp.OutputPath + "\"";
-
-            // Check compiler command call consistency
-            if (classesToCompile == "")
-            {
-                tips.Add("error");
-                tips.Add("No class to compile");
-                return;
-            }
-            else if (output == "\"\"")
-            {
-                tips.Add("error");
-                tips.Add("Undefined output file");
-                return;
-            }
-
+            
             // Project and Global classpath
             string cp = "";
             foreach (string i in ProjectManager.PluginMain.Settings.GlobalClasspaths)
@@ -84,7 +60,7 @@ namespace HaXeContext
                 addi += " " + i;
 
             // Current file
-            string file = "\"" + PluginBase.MainForm.CurrentDocument.FileName + "\"";
+            string file = PluginBase.MainForm.CurrentDocument.FileName;
 
             // Locate carret position
             Int32 pos = position + 1; // sci.CurrentPos;
@@ -95,6 +71,7 @@ namespace HaXeContext
                 pos += 3; // BOM
 
             // Define the haXe target
+            string output = "output";
             string target = "";
             int version = hp.MovieOptions.Version;
             if (version < 11)
@@ -107,11 +84,32 @@ namespace HaXeContext
             else if (version == 12)
                 target = "-neko " + output;
 
+            
+            // Get the current class edited
+            int start = file.LastIndexOf("\\") + 1;
+            int end = file.LastIndexOf(".");
+            string package = Context.Context.CurrentModel.Package;
+            string classToCheck = "";
+            string libToAdd = "";
+            if (package != "")
+            {
+                classToCheck = Context.Context.CurrentModel.Package + "." + file.Substring(start, end - start);
+                libToAdd = file.Split(new string[] { "\\" + String.Join("\\", classToCheck.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries)) }, StringSplitOptions.RemoveEmptyEntries).GetValue(0).ToString();
+                cp += " -cp \"" + libToAdd + "\"";
+            }
+            else
+                classToCheck = file.Substring(start, end - start);
+            
+            /*Debug.WriteLine(file);
+            Debug.WriteLine(classToCheck);
+            Debug.WriteLine(cp);
+            Debug.WriteLine(libToAdd);*/
+
             // Build haXe command
-            string hxml = target + " " + classesToCompile + cp + libs + addi;
+            string hxml = target + " " + classToCheck + cp + libs + addi;
 
             // Build haXe built-in completion command
-            string args = hxml + " --display " + file + "@" + pos.ToString();
+            string args = hxml + " --display \"" + file + "\"@" + pos.ToString();
 
             // compiler path
             string haxePath = Environment.GetEnvironmentVariable("HAXEPATH");
@@ -199,13 +197,17 @@ namespace HaXeContext
 
                     break;
                 }
-                // Or get the errors
+                // Or get the errors (5 max)
                 else
                 {
-                    if (error == "")
+                    if (nbErrors == 0)
                         error += l;
-                    else
+                    else if (nbErrors < 5)
                         error += "\n" + l;
+                    else if (nbErrors == 5)
+                        error += "\n...";
+
+                    nbErrors++;
                 }
             }
             p.Close();
