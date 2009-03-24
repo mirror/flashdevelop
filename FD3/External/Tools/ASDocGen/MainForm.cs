@@ -590,13 +590,21 @@ namespace ASDocGen
         }
 
         /// <summary>
+        /// Gets the application directory of the executable.
+        /// </summary>
+        private String AppDir
+        {
+            get { return Path.GetDirectoryName(Application.ExecutablePath); }
+        }
+
+        /// <summary>
         /// Gets the path to the default classes directory of MTASC.
         /// </summary>
         private String MtascStdDir
         {
             get 
             {
-                String parentDir = Directory.GetParent(this.AppDirectory).FullName;
+                String parentDir = Directory.GetParent(this.AppDir).FullName;
                 return Path.Combine(parentDir, @"mtasc\std");
             }
         }
@@ -608,25 +616,28 @@ namespace ASDocGen
         {
             get 
             {
-                String parentDir = Directory.GetParent(this.AppDirectory).FullName;
+                String parentDir = Directory.GetParent(this.AppDir).FullName;
                 return Path.Combine(parentDir, @"mtasc\std8");
             }
         }
 
         /// <summary>
-        /// Gets the application directory of the executable.
+        /// Gets the path to the setting directory.
         /// </summary>
-        private String AppDirectory
+        private String SettingDir
         {
-            get { return Path.GetDirectoryName(Application.ExecutablePath); }
-        }
-
-        /// <summary>
-        /// Gets the path to the setting file.
-        /// </summary>
-        private String SettingFile
-        {
-            get { return Path.Combine(this.AppDirectory, "Settings.xml"); }
+            get 
+            {
+                String local = Path.Combine(this.AppDir, @"..\..\.local");
+                if (!File.Exists(local))
+                {
+                    String userAppDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    String asDocGenDataDir = Path.Combine(userAppDir, @"FlashDevelop\Data\ASDocGen\");
+                    if (!Directory.Exists(asDocGenDataDir)) Directory.CreateDirectory(asDocGenDataDir);
+                    return asDocGenDataDir;
+                }
+                else return this.AppDir;
+            }
         }
 
         /// <summary>
@@ -725,19 +736,20 @@ namespace ASDocGen
         {
             this.appSettings = new Settings();
             this.activeProject = new Project();
-            if (File.Exists(this.SettingFile))
+            String settingFile = Path.Combine(this.SettingDir, "Settings.xml");
+            if (File.Exists(settingFile))
             {
-                Object settings = ObjectSerializer.Deserialize(this.SettingFile, this.appSettings);
+                Object settings = ObjectSerializer.Deserialize(settingFile, this.appSettings);
                 this.appSettings = (Settings)settings;
                 // Try to find asdoc path from: Tools/flexsdk/
-                if (this.appSettings.asdocLocation == null || this.appSettings.asdocLocation == String.Empty)
+                if (String.IsNullOrEmpty(this.appSettings.asdocLocation))
                 {
-                    String parentDir = Directory.GetParent(this.AppDirectory).FullName;
+                    String parentDir = Directory.GetParent(this.AppDir).FullName;
                     String asdocPath = Path.Combine(parentDir, @"flexsdk\bin\asdoc.exe");
                     if (File.Exists(asdocPath)) this.appSettings.asdocLocation = asdocPath;
                 }
             }
-            else ObjectSerializer.Serialize(this.SettingFile, this.appSettings);
+            else ObjectSerializer.Serialize(settingFile, this.appSettings);
         }
 
         /// <summary>
@@ -748,7 +760,8 @@ namespace ASDocGen
             this.appSettings.copyCustomFiles = this.filesCheckBox.Checked;
             this.appSettings.as2apiLocation = this.as2apiLocationTextBox.Text;
             this.appSettings.asdocLocation = this.asdocLocationTextBox.Text;
-            ObjectSerializer.Serialize(this.SettingFile, this.appSettings);
+            String settingFile = Path.Combine(this.SettingDir, "Settings.xml");
+            ObjectSerializer.Serialize(settingFile, this.appSettings);
             this.SettingsAreModified = false;
         }
 
@@ -840,7 +853,7 @@ namespace ASDocGen
         /// </summary>
         private void DocumentationLabelClick(Object sender, EventArgs e)
         {
-            String helpDir = Path.Combine(this.AppDirectory, "Help");
+            String helpDir = Path.Combine(this.AppDir, "Help");
             Process.Start(Path.Combine(helpDir, "index.html"));
         }
 
@@ -1077,7 +1090,7 @@ namespace ASDocGen
                         contents += " -help advanced";
                     }
                 }
-                String batFile = Path.Combine(this.AppDirectory, "ASDocGen.bat");
+                String batFile = Path.Combine(this.SettingDir, "ASDocGen.bat");
                 File.WriteAllText(batFile, ArgsProcessor.Process(contents));
                 this.SetControlsEnabled(false);
                 this.outputTextBox.Text = "";
@@ -1096,7 +1109,7 @@ namespace ASDocGen
         {
             try
             {
-                String filesDir = Path.Combine(this.AppDirectory, "Files");
+                String filesDir = Path.Combine(this.AppDir, "Files");
                 if (Directory.Exists(filesDir))
                 {
                     String[] files = Directory.GetFiles(filesDir);
@@ -1124,7 +1137,9 @@ namespace ASDocGen
         /// </summary>
         private void RunProcess(String file)
         {
-            this.processRunner.Run(file);
+            String projectDir = this.saveFileDialog.FileName;
+            if (String.IsNullOrEmpty(projectDir)) projectDir = AppDir;
+            this.processRunner.Run(file, projectDir);
         }
 
         /// <summary>

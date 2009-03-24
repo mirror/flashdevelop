@@ -14,13 +14,14 @@ namespace ASDocGen.Utilities
         /// <summary>
         /// Runs a process with the specified file.
         /// </summary>
-        public void Run(String file)
+        public void Run(String file, String dir)
         {
             try
             {
                 this.process = new Process();
                 this.process.EnableRaisingEvents = true;
                 this.process.StartInfo.FileName = file;
+                this.process.StartInfo.WorkingDirectory = dir;
                 this.process.StartInfo.CreateNoWindow = true;
                 this.process.StartInfo.UseShellExecute = false;
                 this.process.StartInfo.RedirectStandardError = true;
