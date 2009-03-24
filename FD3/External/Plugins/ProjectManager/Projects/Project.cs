@@ -46,7 +46,7 @@ namespace ProjectManager.Projects
 			this.path = path;
             this.compilerOptions = compilerOptions;
 
-            TestMovieBehavior = TestMovieBehavior.NewTab;
+            TestMovieBehavior = TestMovieBehavior.Default;
 
 			classpaths = new PathCollection();
 			compileTargets = new PathCollection();

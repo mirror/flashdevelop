@@ -225,6 +225,7 @@ namespace AS3Context
             get { return disableLiveChecking; }
             set { disableLiveChecking = value; }
         }
+
         #endregion
 
         [Browsable(false)]

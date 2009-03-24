@@ -597,7 +597,7 @@ namespace ASDocGen
             get 
             {
                 String parentDir = Directory.GetParent(this.AppDirectory).FullName;
-                return Path.Combine(parentDir, "mtasc\\std");
+                return Path.Combine(parentDir, @"mtasc\std");
             }
         }
 
@@ -609,7 +609,7 @@ namespace ASDocGen
             get 
             {
                 String parentDir = Directory.GetParent(this.AppDirectory).FullName;
-                return Path.Combine(parentDir, "mtasc\\std8");
+                return Path.Combine(parentDir, @"mtasc\std8");
             }
         }
 
@@ -729,6 +729,13 @@ namespace ASDocGen
             {
                 Object settings = ObjectSerializer.Deserialize(this.SettingFile, this.appSettings);
                 this.appSettings = (Settings)settings;
+                // Try to find asdoc path from: Tools/flexsdk/
+                if (this.appSettings.asdocLocation == null || this.appSettings.asdocLocation == String.Empty)
+                {
+                    String parentDir = Directory.GetParent(this.AppDirectory).FullName;
+                    String asdocPath = Path.Combine(parentDir, @"flexsdk\bin\asdoc.exe");
+                    if (File.Exists(asdocPath)) this.appSettings.asdocLocation = asdocPath;
+                }
             }
             else ObjectSerializer.Serialize(this.SettingFile, this.appSettings);
         }

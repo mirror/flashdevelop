@@ -121,6 +121,12 @@ namespace AS3Context
                         
                         string flexSdk = (settingObject as AS3Settings).FlexSDK;
 
+                        // if the default sdk is not defined ask for project sdk
+                        if (flexSdk == null || flexSdk == String.Empty)
+                        {
+                            flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
+                        }
+
                         e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
                     }
                 }

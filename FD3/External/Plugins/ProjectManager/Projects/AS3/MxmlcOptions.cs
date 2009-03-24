@@ -3,6 +3,8 @@ using System.Text;
 using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Localization;
+using System.Windows.Forms.Design;
+using System.Drawing.Design;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -131,6 +133,7 @@ namespace ProjectManager.Projects.AS3
         [LocalizedCategory("ProjectManager.Category.Advanced")]
         [DisplayName("Custom Path to Flex SDK")]
         [LocalizedDescription("ProjectManager.Description.CustomSDK")]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
         [DefaultValue("")]
         public string CustomSDK { get { return customSDK; } set { customSDK = value; } }
 
