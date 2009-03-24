@@ -21,6 +21,7 @@ namespace ProjectManager.Controls.TreeView
     public class ProjectContextMenu : ContextMenuStrip
     {
         Project project;
+        ProjectTreeView projectTree;
         static Image newFolderImg = Icons.Overlay(Icons.Folder.Img, Icons.BulletAdd.Img, 5, -3);
         public ToolStripMenuItem AddMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Add"));
         public ToolStripMenuItem AddNewFolder = new ToolStripMenuItem(TextHelper.GetString("Label.NewFolder"), newFolderImg);
@@ -47,6 +48,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem CloseProject = new ToolStripMenuItem(TextHelper.GetString("Label.CloseProject"));
         public ToolStripMenuItem Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"), Icons.Options.Img);
         public ToolStripMenuItem ShellMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"));
+        public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
         public event FileAddHandler AddFileFromTemplate;
 
         public ProjectContextMenu()
@@ -60,6 +62,12 @@ namespace ProjectManager.Controls.TreeView
         {
             get { return project; }
             set { project = value; }
+        }
+
+        public ProjectTreeView ProjectTree
+        {
+            get { return projectTree; }
+            set { projectTree = value; }
         }
 
         public Boolean Contains(string menuName)
@@ -394,7 +402,17 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
+            if (IsBuildable(path) && projectTree.SelectedPaths.Length == 1) menu.Add(BuildProjectFile, 0);
             AddFileItems(menu, path);
+        }
+
+        private bool IsBuildable(String path)
+        {
+            String ext = Path.GetExtension(path).ToLower();
+            if (FileInspector.IsAS2Project(path, ext)) return true;
+            else if (FileInspector.IsAS3Project(path, ext)) return true;
+            else if (FileInspector.IsHaxeProject(path, ext)) return true;
+            else return false;
         }
 
         #endregion

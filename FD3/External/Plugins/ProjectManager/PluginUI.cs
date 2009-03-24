@@ -67,6 +67,8 @@ namespace ProjectManager
             panel.Controls.Add(tree);
             panel.Controls.Add(treeBar);
 
+            menu.ProjectTree = tree;
+
             #endregion
 
             #region Instructions

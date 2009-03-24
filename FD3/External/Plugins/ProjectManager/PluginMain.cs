@@ -216,6 +216,7 @@ namespace ProjectManager
             pluginUI.Menu.CloseProject.Click += delegate { CloseProject(false); };
             pluginUI.Menu.Properties.Click += delegate { OpenProjectProperties(); };
             pluginUI.Menu.ShellMenu.Click += delegate { TreeShowShellMenu(); };
+            pluginUI.Menu.BuildProjectFile.Click += delegate { BackgroundBuild(); };
 
             Tree.MovePath += fileActions.Move;
             Tree.CopyPath += fileActions.Copy;
@@ -945,6 +946,12 @@ namespace ProjectManager
             this.pluginUI.Menu.Hide(); /* Hide default menu */
             Point location = new Point(this.pluginUI.Menu.Bounds.Left, this.pluginUI.Menu.Bounds.Top);
             scm.ShowContextMenu(selectedPathsAndFiles.ToArray(), location);
+        }
+
+        private void BackgroundBuild()
+        {
+            Project project = ProjectLoader.Load(Tree.SelectedPath);
+            this.buildActions.Build(project, false, true);
         }
 
         #endregion

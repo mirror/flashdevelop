@@ -2937,4 +2937,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="MacroManager.Description.Shortcut" xml:space="preserve">
     <value>Menu key shortcut of the macro.</value>
   </data>
+  <data name="ProjectManager.Label.BuildProjectFile" xml:space="preserve">
+    <value>&amp;Build Project File</value>
+  </data>
 </root>
