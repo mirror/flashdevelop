@@ -1072,7 +1072,8 @@ namespace ASCompletion.Completion
             int curLine = sci.LineFromPosition(position);
 
             string fullPath = CleanType(member.Type); // ((member.Flags & FlagType.Class) > 0) ? member.Type : member.Name;
-            string statement = "import " + fullPath + ";" + ASComplete.GetNewLineMarker(sci.EOLMode);
+            string nl = ASComplete.GetNewLineMarker(sci.EOLMode);
+            string statement = "import " + fullPath + ";" + nl;
 
             // locate insertion point
             int line = (ASContext.Context.InPrivateSection) ? cFile.PrivateSectionIndex : 0;
@@ -1140,7 +1141,7 @@ namespace ASCompletion.Completion
             sci.LineScroll(0, firstLine - sci.FirstVisibleLine + 1);
 
             ASContext.Context.RefreshContextCache(fullPath);
-            return sci.GetLine(line).Length + 1;
+            return sci.GetLine(line).Length + nl.Length - 1;
         }
         #endregion
 
