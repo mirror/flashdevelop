@@ -641,6 +641,19 @@ namespace ASDocGen
         }
 
         /// <summary>
+        /// Gets the path to the project or app directory.
+        /// </summary>
+        private String WorkingDir
+        {
+            get 
+            {
+                String projDir = Path.GetDirectoryName(this.saveFileDialog.FileName);
+                if (Directory.Exists(projDir)) return projDir;
+                else return this.AppDir;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets if the project is modified.
         /// </summary>
         private Boolean ProjectIsModified
@@ -1137,9 +1150,7 @@ namespace ASDocGen
         /// </summary>
         private void RunProcess(String file)
         {
-            String projectDir = this.saveFileDialog.FileName;
-            if (String.IsNullOrEmpty(projectDir)) projectDir = AppDir;
-            this.processRunner.Run(file, projectDir);
+            this.processRunner.Run(file, this.WorkingDir);
         }
 
         /// <summary>
