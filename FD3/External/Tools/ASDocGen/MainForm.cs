@@ -997,7 +997,7 @@ namespace ASDocGen
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 String path = ofd.FileName;
-                Regex nameRegex = new Regex(@"[\w\d -]+\.");
+                Regex nameRegex = new Regex(@"[\w\d\(\) -]+\.");
                 FileStream project = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
                 MatchCollection matches = nameRegex.Matches(path);
                 XmlDocument projXml = new XmlDocument(); projXml.Load(project);
