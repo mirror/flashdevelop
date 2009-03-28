@@ -415,6 +415,7 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
 	Delete "$INSTDIR\PluginCore.dll"
 	Delete "$INSTDIR\SciLexer.dll"
+	Delete "$INSTDIR\Scripting.dll"
 	Delete "$INSTDIR\SwfOp.dll"
 	
 	Delete $INSTDIR\Uninstall.exe	
