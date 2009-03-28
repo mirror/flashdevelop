@@ -1078,7 +1078,10 @@ namespace WeifenLuo.WinFormsUI.Docking
             Rectangle rectText = rectIcon;
 
             // CHANGED - NICK
-            rectText.Y += 1;
+            rectText.Y += 2;
+
+            // CHANGED - MIKA
+            if (Font.SizeInPoints <= 8F) rectText.Y -= 1;
 
             if (DockPane.DockPanel.ShowDocumentIcon)
             {

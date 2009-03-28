@@ -55,51 +55,59 @@ namespace ProjectManager.Actions
 
         public void AddFileFromTemplate(Project project, string inDirectory, string templatePath)
         {
-            // the template could be named something like "MXML.fdt", or maybe "Class.as.fdt"
-            string fileName = Path.GetFileNameWithoutExtension(templatePath);
-            string extension = "";
-            string caption = TextHelper.GetString("Label.AddNew") + " ";
-
-            if (fileName.IndexOf('.') > -1)
+            try
             {
-                // it's something like Class.as.fdt
-                extension = Path.GetExtension(fileName); // .as
-                caption += Path.GetFileNameWithoutExtension(fileName);
-                fileName = TextHelper.GetString("Label.New") + Path.GetFileNameWithoutExtension(fileName).Replace(" ", ""); // just Class
+                // the template could be named something like "MXML.fdt", or maybe "Class.as.fdt"
+                string fileName = Path.GetFileNameWithoutExtension(templatePath);
+                string extension = "";
+                string caption = TextHelper.GetString("Label.AddNew") + " ";
+
+                if (fileName.IndexOf('.') > -1)
+                {
+                    // it's something like Class.as.fdt
+                    extension = Path.GetExtension(fileName); // .as
+                    caption += Path.GetFileNameWithoutExtension(fileName);
+                    fileName = TextHelper.GetString("Label.New") + Path.GetFileNameWithoutExtension(fileName).Replace(" ", ""); // just Class
+                }
+                else
+                {
+                    // something like MXML.fdt
+                    extension = "." + fileName.ToLower();
+                    caption += fileName + " " + TextHelper.GetString("Label.File");
+                    fileName = TextHelper.GetString("Label.NewFile");
+                }
+
+                // let plugins handle the file creation
+                Hashtable info = new Hashtable();
+                info["templatePath"] = templatePath;
+                info["inDirectory"] = inDirectory;
+                DataEvent de = new DataEvent(EventType.Command, "ProjectManager.CreateNewFile", info);
+                EventManager.DispatchEvent(this, de);
+                if (de.Handled) return;
+
+                LineEntryDialog dialog = new LineEntryDialog(caption, TextHelper.GetString("Label.FileName"), fileName + extension);
+                dialog.SelectRange(0, fileName.Length);
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    FlashDevelopActions.CheckAuthorName();
+
+                    string newFilePath = Path.Combine(inDirectory, dialog.Line);
+                    if (!Path.HasExtension(newFilePath) && extension != ".ext")
+                        newFilePath = Path.ChangeExtension(newFilePath, extension);
+
+                    if (!ConfirmOverwrite(newFilePath)) return;
+
+                    // save this so when we are asked to process args, we know what file it's talking about
+                    lastFileFromTemplate = newFilePath;
+
+                    mainForm.FileFromTemplate(templatePath, newFilePath);
+                }
             }
-            else
+            catch (UserCancelException) { }
+            catch (Exception exception)
             {
-                // something like MXML.fdt
-                extension = "." + fileName.ToLower();
-                caption += fileName + " " + TextHelper.GetString("Label.File");
-                fileName = TextHelper.GetString("Label.NewFile");
-            }
-
-            // let plugins handle the file creation
-            Hashtable info = new Hashtable();
-            info["templatePath"] = templatePath;
-            info["inDirectory"] = inDirectory;
-            DataEvent de = new DataEvent(EventType.Command, "ProjectManager.CreateNewFile", info);
-            EventManager.DispatchEvent(this, de);
-            if (de.Handled) return;
-
-            LineEntryDialog dialog = new LineEntryDialog(caption, TextHelper.GetString("Label.FileName"), fileName + extension);
-            dialog.SelectRange(0, fileName.Length);
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                FlashDevelopActions.CheckAuthorName();
-
-                string newFilePath = Path.Combine(inDirectory, dialog.Line);
-                if (!Path.HasExtension(newFilePath) && extension != ".ext")
-                    newFilePath = Path.ChangeExtension(newFilePath, extension);
-
-                if (!ConfirmOverwrite(newFilePath)) return;
-
-                // save this so when we are asked to process args, we know what file it's talking about
-                lastFileFromTemplate = newFilePath;
-
-                mainForm.FileFromTemplate(templatePath, newFilePath);
+                ErrorManager.ShowError(exception);
             }
         }
 
