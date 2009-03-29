@@ -759,7 +759,11 @@ namespace ASDocGen
                 {
                     String parentDir = Directory.GetParent(this.AppDir).FullName;
                     String asdocPath = Path.Combine(parentDir, @"flexsdk\bin\asdoc.exe");
-                    if (File.Exists(asdocPath)) this.appSettings.asdocLocation = asdocPath;
+                    if (File.Exists(asdocPath))
+                    {
+                        this.appSettings.asdocLocation = asdocPath;
+                        ObjectSerializer.Serialize(settingFile, this.appSettings);
+                    }
                 }
             }
             else ObjectSerializer.Serialize(settingFile, this.appSettings);
