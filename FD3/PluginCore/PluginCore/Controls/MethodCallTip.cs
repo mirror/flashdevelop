@@ -133,6 +133,25 @@ namespace PluginCore.Controls
                 case Keys.Add:
                     return false;
 
+                case Keys.Up:
+                    sci.LineUp();
+                    return false;
+                case Keys.Down:
+                    sci.LineDown();
+                    return false;
+                case Keys.Up | Keys.Shift:
+                    sci.LineUpExtend();
+                    return false;
+                case Keys.Down | Keys.Shift:
+                    sci.LineDownExtend();
+                    return false;
+                case Keys.Left | Keys.Shift:
+                    sci.CharLeftExtend();
+                    return false;
+                case Keys.Right | Keys.Shift:
+                    sci.CharRightExtend();
+                    return false;
+
                 case Keys.Right:
                     if (!CompletionList.Active)
                     {

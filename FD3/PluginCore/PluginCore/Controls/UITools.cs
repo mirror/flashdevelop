@@ -363,11 +363,11 @@ namespace PluginCore.Controls
 			ScintillaControl sci = (ScintillaControl)lockedSciControl.Target;
 			// chars
 			string ks = key.ToString();
-			if ((ks.Length == 1) || ks.EndsWith(", Shift") || ks.StartsWith("NumPad"))
+            if (ks.Length == 1 /*|| ks.EndsWith(", Shift")*/ || ks.StartsWith("NumPad"))
 			{
 				return false;
 			}
-			
+
 			// toggle "long-description"
 			if (key == Keys.F1)
 			{
@@ -378,7 +378,7 @@ namespace PluginCore.Controls
 			}
 			
 			// switches
-			else if (((key & Keys.ShiftKey) == Keys.ShiftKey) || ((key & Keys.ControlKey) == Keys.ControlKey) || ((key & Keys.Menu) == Keys.Menu))
+			else if ((key & Keys.ShiftKey) == Keys.ShiftKey || (key & Keys.ControlKey) == Keys.ControlKey || (key & Keys.Menu) == Keys.Menu)
 			{
 				return false;
 			}
