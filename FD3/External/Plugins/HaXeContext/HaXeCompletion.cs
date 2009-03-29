@@ -83,7 +83,8 @@ namespace HaXeContext
                 target = "-js " + output;
             else if (version == 12)
                 target = "-neko " + output;
-
+            else if (version == 13)
+                target = "-php " + output;
             
             // Get the current class edited
             int start = file.LastIndexOf("\\") + 1;

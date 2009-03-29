@@ -115,6 +115,10 @@ namespace HaXeContext
         {
             get { return flashVersion == 12; }
         }
+        public bool IsPhpTarget
+        {
+            get { return flashVersion == 13; }
+        }
 
         /// <summary>
         /// Classpathes & classes cache initialisation
@@ -153,6 +157,11 @@ namespace HaXeContext
                 lang = "neko";
                 features.Directives.Add(lang);
             }
+            else if (IsPhpTarget)
+            {
+                lang = "php";
+                features.Directives.Add(lang);
+            }
             else
             {
                 features.Directives.Add("flash");
@@ -175,7 +184,7 @@ namespace HaXeContext
                     if (!std.WasExplored && !Settings.LazyClasspathExploration)
                     {
                         PathExplorer stdExplorer = new PathExplorer(this, std);
-                        stdExplorer.HideDirectories(new string[] { "flash", "flash9", "js", "neko" });
+                        stdExplorer.HideDirectories(new string[] { "flash", "flash9", "js", "neko", "php" });
                         stdExplorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
                         stdExplorer.Run();
                     }
@@ -619,6 +628,7 @@ namespace HaXeContext
 
             if (IsJavaScriptTarget) output = "-js ";
             else if (IsNekoTarget) output = "-neko ";
+            else if (IsPhpTarget) output = "-php ";
 
             RunCMD(output + "\"" + TemporaryOutputFile + "\" " + hxsettings.HaXeCheckParameters);
         }
