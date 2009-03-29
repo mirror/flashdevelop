@@ -32,6 +32,10 @@ namespace ProjectManager.Projects.Haxe
         {
             get { return MovieOptions.Version == 12; }
         }
+        public bool IsPhpOutput
+        {
+            get { return MovieOptions.Version == 13; }
+        }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
         {

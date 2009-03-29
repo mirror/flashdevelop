@@ -828,7 +828,9 @@ namespace ProjectManager.Controls
 			{
                 project.NoOutput = noOutputCheckBox.Checked;
 				project.OutputPath = outputSwfBox.Text;
-                if (project.OutputPath.Length > 0 && Path.GetExtension(project.OutputPath).Length == 0)
+                if (project.OutputPath.Length > 0 
+                    && Path.GetExtension(project.OutputPath).Length == 0
+                    && (project.Language == "as2" || project.Language == "as3"))
                 {
                     project.OutputPath += ".swf";
                 }

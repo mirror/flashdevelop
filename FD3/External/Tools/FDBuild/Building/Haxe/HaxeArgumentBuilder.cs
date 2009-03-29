@@ -81,6 +81,7 @@ namespace ProjectManager.Building.Haxe
             if (project.IsFlashOutput) Add("-swf", "\"" + path + "\"");
             else if (project.IsJavacriptOutput) Add("-js", "\"" + path + "\"");
             else if (project.IsNekoOutput) Add("-neko", "\"" + path + "\"");
+            else if (project.IsPhpOutput) Add("-php", "\"" + path + "\"");
         }
 
         public void AddOptions(bool noTrace)
