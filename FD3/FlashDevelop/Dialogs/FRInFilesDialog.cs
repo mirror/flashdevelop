@@ -294,9 +294,9 @@ namespace FlashDevelop.Dialogs
             // browseButton
             // 
             this.browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.browseButton.Location = new System.Drawing.Point(311, 137);
+            this.browseButton.Location = new System.Drawing.Point(311, 136);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(26, 25);
+            this.browseButton.Size = new System.Drawing.Size(26, 24);
             this.browseButton.TabIndex = 5;
             this.browseButton.Click += new System.EventHandler(this.BrowseButtonClick);
             // 

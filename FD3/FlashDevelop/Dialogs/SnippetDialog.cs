@@ -94,7 +94,7 @@ namespace FlashDevelop.Dialogs
             this.contentsTextBox.ScrollBars = ScrollBars.Vertical;
             this.contentsTextBox.Multiline = true;
             this.contentsTextBox.Name = "contentsTextBox";
-            this.contentsTextBox.Size = new System.Drawing.Size(453, 279);
+            this.contentsTextBox.Size = new System.Drawing.Size(453, 299);
             this.contentsTextBox.TabIndex = 8;
             this.contentsTextBox.WordWrap = false;
             this.contentsTextBox.TextChanged += new System.EventHandler(this.ToggleCreate);
@@ -103,7 +103,7 @@ namespace FlashDevelop.Dialogs
             //
             this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.addButton.Location = new System.Drawing.Point(254, 338);
+            this.addButton.Location = new System.Drawing.Point(254, 358);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(80, 23);
             this.addButton.TabIndex = 3;
@@ -115,7 +115,7 @@ namespace FlashDevelop.Dialogs
             //
             this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.deleteButton.Location = new System.Drawing.Point(343, 338);
+            this.deleteButton.Location = new System.Drawing.Point(343, 358);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(80, 23);
             this.deleteButton.TabIndex = 3;
@@ -162,7 +162,7 @@ namespace FlashDevelop.Dialogs
             this.snippetListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.snippetListView.Location = new System.Drawing.Point(12, 53);
             this.snippetListView.Name = "snippetListBox";
-            this.snippetListView.Size = new System.Drawing.Size(130, 309);
+            this.snippetListView.Size = new System.Drawing.Size(130, 329);
             this.snippetListView.TabIndex = 5;
             this.snippetListView.SelectedIndexChanged += new System.EventHandler(this.SnippetListViewSelectedIndexChanged);
             // 
@@ -170,7 +170,7 @@ namespace FlashDevelop.Dialogs
             //
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.saveButton.Location = new System.Drawing.Point(431, 338);
+            this.saveButton.Location = new System.Drawing.Point(431, 358);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(80, 23);
             this.saveButton.TabIndex = 2;
@@ -184,7 +184,7 @@ namespace FlashDevelop.Dialogs
             this.exportButton.Name = "exportButton";
             this.exportButton.TabIndex = 9;
             this.exportButton.Size = new System.Drawing.Size(30, 23);
-            this.exportButton.Location = new System.Drawing.Point(150, 338);
+            this.exportButton.Location = new System.Drawing.Point(150, 358);
             this.exportButton.Click += new System.EventHandler(this.ExportButtonClick);
             // 
             // insertLabel
@@ -211,7 +211,7 @@ namespace FlashDevelop.Dialogs
             //
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.closeButton.Location = new System.Drawing.Point(519, 338);
+            this.closeButton.Location = new System.Drawing.Point(519, 358);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 23);
             this.closeButton.TabIndex = 1;
@@ -222,7 +222,7 @@ namespace FlashDevelop.Dialogs
             // revertButton
             //
             this.revertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.revertButton.Location = new System.Drawing.Point(188, 338);
+            this.revertButton.Location = new System.Drawing.Point(188, 358);
             this.revertButton.Name = "revertButton";
             this.revertButton.Size = new System.Drawing.Size(30, 23);
             this.revertButton.TabIndex = 10;
@@ -251,8 +251,8 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 372);
-            this.MinimumSize = new System.Drawing.Size(615, 372);
+            this.ClientSize = new System.Drawing.Size(615, 392);
+            this.MinimumSize = new System.Drawing.Size(615, 392);
             this.Controls.Add(this.languageDropDown);
             this.Controls.Add(this.insertComboBox);
             this.Controls.Add(this.closeButton);

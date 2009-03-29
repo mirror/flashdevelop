@@ -210,7 +210,7 @@ namespace FlashDevelop.Dialogs
             this.italicsCheckBox.AutoSize = true;
             this.italicsCheckBox.Checked = true;
             this.italicsCheckBox.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.italicsCheckBox.Location = new System.Drawing.Point(272, 84);
+            this.italicsCheckBox.Location = new System.Drawing.Point(272, 85);
             this.italicsCheckBox.Name = "italicsCheckBox";
             this.italicsCheckBox.Size = new System.Drawing.Size(57, 18);
             this.italicsCheckBox.TabIndex = 12;
@@ -242,7 +242,7 @@ namespace FlashDevelop.Dialogs
             this.boldCheckBox.AutoSize = true;
             this.boldCheckBox.Checked = true;
             this.boldCheckBox.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.boldCheckBox.Location = new System.Drawing.Point(272, 65);
+            this.boldCheckBox.Location = new System.Drawing.Point(272, 66);
             this.boldCheckBox.Name = "boldCheckBox";
             this.boldCheckBox.Size = new System.Drawing.Size(51, 20);
             this.boldCheckBox.TabIndex = 11;
@@ -253,7 +253,7 @@ namespace FlashDevelop.Dialogs
             // 
             // backgroundTextBox
             // 
-            this.backgroundTextBox.Location = new System.Drawing.Point(141, 81);
+            this.backgroundTextBox.Location = new System.Drawing.Point(141, 80);
             this.backgroundTextBox.Name = "backgroundTextBox";
             this.backgroundTextBox.Size = new System.Drawing.Size(81, 22);
             this.backgroundTextBox.TabIndex = 9;
@@ -261,7 +261,7 @@ namespace FlashDevelop.Dialogs
             // 
             // foregroundTextBox
             // 
-            this.foregroundTextBox.Location = new System.Drawing.Point(12, 81);
+            this.foregroundTextBox.Location = new System.Drawing.Point(12, 80);
             this.foregroundTextBox.Name = "foregroundTextBox";
             this.foregroundTextBox.Size = new System.Drawing.Size(81, 22);
             this.foregroundTextBox.TabIndex = 6;
@@ -301,7 +301,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.backgroundLabel.AutoSize = true;
             this.backgroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.backgroundLabel.Location = new System.Drawing.Point(141, 62);
+            this.backgroundLabel.Location = new System.Drawing.Point(141, 63);
             this.backgroundLabel.Name = "backgroundLabel";
             this.backgroundLabel.Size = new System.Drawing.Size(75, 16);
             this.backgroundLabel.TabIndex = 8;
@@ -311,7 +311,7 @@ namespace FlashDevelop.Dialogs
             //
             this.foregroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.foregroundLabel.AutoSize = true;
-            this.foregroundLabel.Location = new System.Drawing.Point(12, 62);
+            this.foregroundLabel.Location = new System.Drawing.Point(12, 63);
             this.foregroundLabel.Name = "foregroundLabel";
             this.foregroundLabel.Size = new System.Drawing.Size(73, 16);
             this.foregroundLabel.TabIndex = 5;
@@ -329,7 +329,7 @@ namespace FlashDevelop.Dialogs
             // 
             // caretForeButton
             //
-            this.caretForeButton.Location = new System.Drawing.Point(151, 31);
+            this.caretForeButton.Location = new System.Drawing.Point(151, 32);
             this.caretForeButton.Name = "caretForeButton";
             this.caretForeButton.Size = new System.Drawing.Size(28, 23);
             this.caretForeButton.TabIndex = 3;
@@ -337,7 +337,7 @@ namespace FlashDevelop.Dialogs
             // 
             // caretlineBackButton
             // 
-            this.caretlineBackButton.Location = new System.Drawing.Point(151, 72);
+            this.caretlineBackButton.Location = new System.Drawing.Point(151, 74);
             this.caretlineBackButton.Name = "caretlineBackButton";
             this.caretlineBackButton.Size = new System.Drawing.Size(28, 23);
             this.caretlineBackButton.TabIndex = 6;
@@ -345,7 +345,7 @@ namespace FlashDevelop.Dialogs
             // 
             // selectionBackButton
             // 
-            this.selectionBackButton.Location = new System.Drawing.Point(329, 72);
+            this.selectionBackButton.Location = new System.Drawing.Point(329, 74);
             this.selectionBackButton.Name = "selectionBackButton";
             this.selectionBackButton.Size = new System.Drawing.Size(28, 23);
             this.selectionBackButton.TabIndex = 12;
@@ -353,7 +353,7 @@ namespace FlashDevelop.Dialogs
             // 
             // selectionForeButton
             // 
-            this.selectionForeButton.Location = new System.Drawing.Point(329, 31);
+            this.selectionForeButton.Location = new System.Drawing.Point(329, 32);
             this.selectionForeButton.Name = "selectionForeButton";
             this.selectionForeButton.Size = new System.Drawing.Size(28, 23);
             this.selectionForeButton.TabIndex = 9;
@@ -405,7 +405,7 @@ namespace FlashDevelop.Dialogs
             //
             this.caretlineBackLabel.AutoSize = true;
             this.caretlineBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.caretlineBackLabel.Location = new System.Drawing.Point(12, 58);
+            this.caretlineBackLabel.Location = new System.Drawing.Point(12, 60);
             this.caretlineBackLabel.Name = "caretlineBackLabel";
             this.caretlineBackLabel.Size = new System.Drawing.Size(35, 16);
             this.caretlineBackLabel.TabIndex = 4;
@@ -415,7 +415,7 @@ namespace FlashDevelop.Dialogs
             //
             this.selectionBackLabel.AutoSize = true;
             this.selectionBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.selectionBackLabel.Location = new System.Drawing.Point(190, 58);
+            this.selectionBackLabel.Location = new System.Drawing.Point(190, 60);
             this.selectionBackLabel.Name = "selectionBackLabel";
             this.selectionBackLabel.Size = new System.Drawing.Size(35, 16);
             this.selectionBackLabel.TabIndex = 10;
@@ -448,7 +448,7 @@ namespace FlashDevelop.Dialogs
             this.languageGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.languageGroupBox.Location = new System.Drawing.Point(204, 9);
             this.languageGroupBox.Name = "previewGroupBox";
-            this.languageGroupBox.Size = new System.Drawing.Size(372, 107);
+            this.languageGroupBox.Size = new System.Drawing.Size(372, 108);
             this.languageGroupBox.TabIndex = 6;
             this.languageGroupBox.TabStop = false;
             this.languageGroupBox.Text = "Editor Style";
@@ -457,7 +457,7 @@ namespace FlashDevelop.Dialogs
             //
             this.sampleTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.sampleTextLabel.BackColor = System.Drawing.Color.White;
-            this.sampleTextLabel.Location = new System.Drawing.Point(15, 110);
+            this.sampleTextLabel.Location = new System.Drawing.Point(13, 110);
             this.sampleTextLabel.Name = "sampleTextLabel";
             this.sampleTextLabel.Size = new System.Drawing.Size(347, 85);
             this.sampleTextLabel.TabIndex = 13;
