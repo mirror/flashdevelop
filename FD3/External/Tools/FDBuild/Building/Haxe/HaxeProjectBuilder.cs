@@ -50,13 +50,14 @@ namespace ProjectManager.Building.Haxe
             try
             {
                 if (File.Exists(tempFile)) File.Delete(tempFile);
+                string output = project.FixDebugReleasePath(project.OutputPathAbsolute);
 
                 HaxeArgumentBuilder haxe = new HaxeArgumentBuilder(project);
                 haxe.AddLibraries(project.CompilerOptions.Libraries);
                 haxe.AddClassPaths(extraClasspaths);
                 haxe.AddHeader();
                 haxe.AddCompileTargets();
-                haxe.AddOutput(tempFile);
+                haxe.AddOutput(project.IsPhpOutput ? output : tempFile);
                 haxe.AddOptions(noTrace);
 
                 string haxeArgs = haxe.ToString();
@@ -67,8 +68,8 @@ namespace ProjectManager.Building.Haxe
                     throw new BuildException("Build halted with errors (haxe.exe).");
 
                 // if we get here, the build was successful
-                string output = project.FixDebugReleasePath(project.OutputPathAbsolute);
-                File.Copy(tempFile, output, true);
+                if (!project.IsPhpOutput)
+                    File.Copy(tempFile, output, true);
             }
             finally { File.Delete(tempFile); }
         }
