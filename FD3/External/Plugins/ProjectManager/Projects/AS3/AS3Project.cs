@@ -23,9 +23,9 @@ namespace ProjectManager.Projects.AS3
             get 
             {
                 if (FileInspector.IsFlexBuilderProject(ProjectPath))
-                    return Path.GetFileName(Path.GetDirectoryName(ProjectPath)).Replace(' ', '-');
+                    return Path.GetFileName(Path.GetDirectoryName(ProjectPath));
                 else
-                    return Path.GetFileNameWithoutExtension(ProjectPath).Replace(' ', '-'); 
+                    return Path.GetFileNameWithoutExtension(ProjectPath); 
             } 
         }
 

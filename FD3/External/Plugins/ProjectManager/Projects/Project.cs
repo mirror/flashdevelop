@@ -83,7 +83,7 @@ namespace ProjectManager.Projects
 		#region Simple Properties
 
 		public string ProjectPath { get { return path; } }
-        public virtual string Name { get { return Path.GetFileNameWithoutExtension(path).Replace(' ', '-'); } }
+        public virtual string Name { get { return Path.GetFileNameWithoutExtension(path); } }
 		public string Directory { get { return Path.GetDirectoryName(path); } }
         public Boolean TraceEnabled { set { traceEnabled = value; } get { return traceEnabled; } }
 		

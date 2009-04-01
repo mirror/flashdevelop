@@ -58,9 +58,10 @@ namespace FDBuild.Building
                 if (!Directory.Exists("obj"))
                     Directory.CreateDirectory("obj");
 
-                string backupLibraryPath = Path.Combine("obj", project.Name + "Library.old");
-                string relLibraryPath = Path.Combine("obj", project.Name + "Library.xml");
-                string backupSwfPath = Path.Combine("obj", project.Name + "Resources.swf");
+                string projectName = project.Name.Replace(" ", "");
+                string backupLibraryPath = Path.Combine("obj", projectName + "Library.old");
+                string relLibraryPath = Path.Combine("obj", projectName + "Library.xml");
+                string backupSwfPath = Path.Combine("obj", projectName + "Resources.swf");
                 string arguments = string.Format("simple \"{0}\" \"{1}\"",
                     relLibraryPath, project.OutputPath);
 

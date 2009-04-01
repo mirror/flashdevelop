@@ -90,9 +90,10 @@ namespace ProjectManager.Building.AS3
                 //create new config file
 
                 // create compiler configuration file
-                string backupConfig = Path.Combine(objDir, project.Name + "Config.old");
-                string configFileTmp = Path.Combine(objDir, project.Name + "Config.tmp");
-                string configFile = Path.Combine(objDir, project.Name + "Config.xml");
+                string projectName = project.Name.Replace(" ", "");
+                string backupConfig = Path.Combine(objDir, projectName + "Config.old");
+                string configFileTmp = Path.Combine(objDir, projectName + "Config.tmp");
+                string configFile = Path.Combine(objDir, projectName + "Config.xml");
 
                 // backup the old Config.xml to Config.old so we can reference it
                 if (File.Exists(configFile))
@@ -167,8 +168,9 @@ namespace ProjectManager.Building.AS3
             // this serves two purposes - randomize the filename, so two identically-named
             // projects don't get the same temp build target, and also provide an extra
             // method of forcing a recompile after a project modification.
+            string projectName = project.Name.Replace(" ", "");
             long modified = File.GetLastWriteTime(project.ProjectPath).Ticks;
-            string tempFileName = project.Name + modified;
+            string tempFileName = projectName + modified;
             string tempPath = "obj";
             string tempFile = Path.Combine(tempPath, tempFileName);
             File.Create(tempFile).Close();
