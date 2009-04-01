@@ -754,19 +754,22 @@ namespace ASDocGen
             {
                 Object settings = ObjectSerializer.Deserialize(settingFile, this.appSettings);
                 this.appSettings = (Settings)settings;
-                // Try to find asdoc path from: Tools/flexsdk/
-                if (String.IsNullOrEmpty(this.appSettings.asdocLocation))
+            }
+            // Try to find asdoc path from: Tools/flexsdk/
+            if (String.IsNullOrEmpty(this.appSettings.asdocLocation))
+            {
+                String parentDir = Directory.GetParent(this.AppDir).FullName;
+                String asdocPath = Path.Combine(parentDir, @"flexsdk\bin\asdoc.exe");
+                if (File.Exists(asdocPath))
                 {
-                    String parentDir = Directory.GetParent(this.AppDir).FullName;
-                    String asdocPath = Path.Combine(parentDir, @"flexsdk\bin\asdoc.exe");
-                    if (File.Exists(asdocPath))
-                    {
-                        this.appSettings.asdocLocation = Path.GetDirectoryName(asdocPath);
-                        ObjectSerializer.Serialize(settingFile, this.appSettings);
-                    }
+                    this.appSettings.asdocLocation = Path.GetDirectoryName(asdocPath);
+                    ObjectSerializer.Serialize(settingFile, this.appSettings);
                 }
             }
-            else ObjectSerializer.Serialize(settingFile, this.appSettings);
+            if (!File.Exists(settingFile))
+            {
+                ObjectSerializer.Serialize(settingFile, this.appSettings);
+            }
         }
 
         /// <summary>

@@ -19,6 +19,7 @@ namespace FlashLogViewer
         private String regexError = "Error #";
         private String regexWarning = "Warning: ";
         private StartType trackingStartType = StartType.Manually;
+        private Boolean useRtfFormatting = true;
         private Boolean keepPopupTopMost = true;
         private Boolean colourWarnings = true;
         private Int32 updateInterval = 100;
@@ -71,6 +72,18 @@ namespace FlashLogViewer
         {
             get { return this.keepPopupTopMost; }
             set { this.keepPopupTopMost = value; }
+        }
+
+        /// <summary> 
+        /// Get or sets the useRtfFormatting.
+        /// </summary>
+        [DefaultValue(true)]
+        [DisplayName("Use Rtf Formatting")]
+        [LocalizedDescription("FlashLogViewer.Description.UseRtfFormatting")]
+        public Boolean UseRtfFormatting
+        {
+            get { return this.useRtfFormatting; }
+            set { this.useRtfFormatting = value; }
         }
 
         /// <summary> 

@@ -363,31 +363,51 @@ namespace FlashLogViewer
         /// </summary>
         public void RefreshDisplay(Boolean forceScroll)
         {
+            this.logTextBox.Clear();
             String logContents = this.GetLogFileContents();
             String[] logLines = logContents.Split('\n');
-            StringBuilder rtf = new StringBuilder("{\\rtf\\ansi{\\colortbl;\\red0\\green0\\blue0;\\red255\\green140\\blue0;\\red255\\green0\\blue0;}");
-            foreach (String line in logLines)
+            if (this.Settings.UseRtfFormatting)
             {
-                String colorTbl = "\\cf0 ";
-                if (this.Settings.ColourWarnings)
+                StringBuilder rtf = new StringBuilder("{\\rtf\\ansi{\\colortbl;\\red0\\green0\\blue0;\\red255\\green140\\blue0;\\red255\\green0\\blue0;}");
+                foreach (String line in logLines)
                 {
-                    if (reWarning.IsMatch(line)) colorTbl = "\\cf2 ";
-                    if (reError.IsMatch(line)) colorTbl = "\\cf3 ";
+                    String colorTbl = "\\cf0 ";
+                    if (this.Settings.ColourWarnings)
+                    {
+                        if (reWarning.IsMatch(line)) colorTbl = "\\cf2 ";
+                        if (reError.IsMatch(line)) colorTbl = "\\cf3 ";
+                    }
+                    // escape special rtf characters
+                    String formattedLine = line;
+                    formattedLine = formattedLine.Replace("\\", "\\\\");
+                    formattedLine = formattedLine.Replace("{", "\\{");
+                    formattedLine = formattedLine.Replace("}", "\\}");
+                    rtf.Append(colorTbl + formattedLine + "\\par");
                 }
-                // escape special rtf characters
-                String formattedLine = line;
-                formattedLine = formattedLine.Replace("\\", "\\\\");
-                formattedLine = formattedLine.Replace("{", "\\{");
-                formattedLine = formattedLine.Replace("}", "\\}");
-                rtf.Append(colorTbl + formattedLine + "\\par");
-            }
-            rtf.Append("}");
-            this.logTextBox.Rtf = rtf.ToString();
-            if (forceScroll)
+                rtf.Append("}");
+                this.logTextBox.Rtf = rtf.ToString();
+                if (forceScroll)
+                {
+                    // Hack around text box bug...
+                    this.logTextBox.AppendText("\n");
+                    this.logTextBox.ScrollToCaret();
+                }
+            } 
+            else 
             {
-                // Hack around text box bug...
-                this.logTextBox.AppendText("\n");
-                this.logTextBox.ScrollToCaret();
+                foreach (String line in logLines)
+                {
+                    Int32 start = this.logTextBox.TextLength;
+                    this.logTextBox.Select(start, 0);
+                    if (this.Settings.ColourWarnings && reWarning.IsMatch(line)) this.logTextBox.SelectionColor = Color.Orange;
+                    else if (this.Settings.ColourWarnings && reError.IsMatch(line)) this.logTextBox.SelectionColor = Color.Red;
+                    else this.logTextBox.SelectionColor = Color.Black;
+                    this.logTextBox.AppendText(line + "\n");
+                }
+                if (forceScroll)
+                {
+                    this.logTextBox.ScrollToCaret();
+                }
             }
         }
 
@@ -512,7 +532,7 @@ namespace FlashLogViewer
         /// </summary>
         private void FilterTextBoxTextChanged(Object sender, EventArgs e)
         {
-            if (filterComboBox.Text.Length == 0) this.reFilter = null;
+            if (this.filterComboBox.Text.Length == 0) this.reFilter = null;
             else
             {
                 try

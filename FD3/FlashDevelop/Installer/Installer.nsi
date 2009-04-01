@@ -247,7 +247,7 @@ Section "FlashDevelop" Main
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x Settings /x Snippets /x Templates "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x "..\Bin\Debug\Settings\" /x "..\Bin\Debug\Snippets\" /x "..\Bin\Debug\Templates\" "..\Bin\Debug\*.*"
 	
 	SetOverwrite off
 	
@@ -406,7 +406,13 @@ Section "un.FlashDevelop" UninstMain
 	RMDir /r "$INSTDIR\StartPage"
 	RMDir /r "$INSTDIR\Projects"
 	RMDir /r "$INSTDIR\Tools"
-	
+
+	IfFileExists "$INSTDIR\.local" +5 0
+	RMDir /r "$INSTDIR\Data"
+	RMDir /r "$INSTDIR\Settings"
+	RMDir /r "$INSTDIR\Snippets"
+	RMDir /r "$INSTDIR\Templates"
+
 	Delete "$INSTDIR\README.txt"
 	Delete "$INSTDIR\FirstRun.fdb"
 	Delete "$INSTDIR\Exceptions.log"
@@ -418,10 +424,11 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\Scripting.dll"
 	Delete "$INSTDIR\SwfOp.dll"
 	
-	Delete $INSTDIR\Uninstall.exe	
+	Delete "$INSTDIR\Uninstall.exe"	
 	Delete "$DESKTOP\FlashDevelop.lnk"
 	Delete "$QUICKLAUNCH\FlashDevelop.lnk"
 	RMDir /r "$SMPROGRAMS\FlashDevelop"
+	RMDir "$INSTDIR"
 	
 	!insertmacro APP_UNASSOCIATE "fdp" "FlashDevelop.Project"
 	!insertmacro APP_UNASSOCIATE "hxproj" "FlashDevelop.HaXeProject"
