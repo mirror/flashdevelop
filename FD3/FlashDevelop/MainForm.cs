@@ -2178,7 +2178,7 @@ namespace FlashDevelop
                     {
                         Int32 size = 2048;
                         Byte[] data = new Byte[2048];
-                        String fdpath = this.ProcessArgString(entry.Name, false);
+                        String fdpath = this.ProcessArgString(entry.Name, false).Replace("/", "\\");
                         FileStream extracted = new FileStream(fdpath, FileMode.Create);
                         while (true)
                         {
