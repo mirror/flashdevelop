@@ -2179,15 +2179,19 @@ namespace FlashDevelop
                         Int32 size = 2048;
                         Byte[] data = new Byte[2048];
                         String fdpath = this.ProcessArgString(entry.Name, false).Replace("/", "\\");
-                        FileStream extracted = new FileStream(fdpath, FileMode.Create);
-                        while (true)
+                        if (Path.HasExtension(fdpath))
                         {
-                            size = zis.Read(data, 0, data.Length);
-                            if (size > 0) extracted.Write(data, 0, size);
-                            else break;
+                            FileStream extracted = new FileStream(fdpath, FileMode.Create);
+                            while (true)
+                            {
+                                size = zis.Read(data, 0, data.Length);
+                                if (size > 0) extracted.Write(data, 0, size);
+                                else break;
+                            }
+                            extracted.Close();
+                            extracted.Dispose();
                         }
-                        extracted.Close();
-                        extracted.Dispose();
+                        else Directory.CreateDirectory(fdpath);
                     }
                     String finish = TextHelper.GetString("Info.ZipExtractDone");
                     ErrorManager.ShowInfo(finish);
