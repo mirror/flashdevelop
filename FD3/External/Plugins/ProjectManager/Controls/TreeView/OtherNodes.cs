@@ -18,7 +18,7 @@ namespace ProjectManager.Controls.TreeView
 		public override void Refresh(bool recursive)
 		{
 			base.Refresh(recursive);
-            Text = Project.Name + " (" + Project.Language.ToUpper() + ")";
+            Text = Path.GetFileNameWithoutExtension(Project.ProjectPath) + " (" + Project.Language.ToUpper() + ")";
 			ImageIndex = Icons.Project.Index;
 			SelectedImageIndex = ImageIndex;
 			NodeFont = new System.Drawing.Font(PluginCore.PluginBase.Settings.DefaultFont, FontStyle.Bold);
