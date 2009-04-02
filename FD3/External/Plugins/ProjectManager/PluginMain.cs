@@ -800,10 +800,6 @@ namespace ProjectManager
 
         private void TreeOpenItems()
         {
-            if (Tree.SelectedNode != null)
-            {
-                Tree.RefreshNode(Tree.SelectedNode);
-            }
             foreach (string path in Tree.SelectedPaths)
             {
                 openFileQueue.Enqueue(path);
