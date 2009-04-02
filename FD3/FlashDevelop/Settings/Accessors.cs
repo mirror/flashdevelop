@@ -385,6 +385,16 @@ namespace FlashDevelop.Settings
             set { this.tabWidth = value; }
         }
 
+        [DefaultValue(true)]
+        [DisplayName("Use Tab Characters")]
+        [LocalizedCategory("FlashDevelop.Category.Indenting")]
+        [LocalizedDescription("FlashDevelop.Description.UseTabs")]
+        public Boolean UseTabs
+        {
+            get { return this.useTabs; }
+            set { this.useTabs = value; }
+        }
+
         #endregion
 
         #region Features
@@ -417,16 +427,6 @@ namespace FlashDevelop.Settings
         {
             get { return this.sequentialTabbing; }
             set { this.sequentialTabbing = value; }
-        }
-
-        [DefaultValue(true)]
-        [DisplayName("Use Tab Characters")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.UseTabs")]
-        public Boolean UseTabs
-        {
-            get { return this.useTabs; }
-            set { this.useTabs = value; }
         }
 
         [DefaultValue(false)]
