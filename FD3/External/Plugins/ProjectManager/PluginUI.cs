@@ -13,8 +13,8 @@ using ProjectManager.Controls;
 using ProjectManager.Controls.TreeView;
 using ProjectManager.Projects;
 using PluginCore.Localization;
-using PluginCore;
 using PluginCore.Managers;
+using PluginCore;
 
 namespace ProjectManager
 {
@@ -190,9 +190,13 @@ namespace ProjectManager
         /// </summary>
         public void WatchParentOf(String path)
         {
-            String parent = Path.GetDirectoryName(path);
-            WatcherNode node = tree.NodeMap[parent] as WatcherNode;
-            if (node != null) node.UpdateLater();
+            try
+            {
+                String parent = Path.GetDirectoryName(path);
+                WatcherNode node = tree.NodeMap[parent] as WatcherNode;
+                if (node != null) node.UpdateLater();
+            }
+            catch { }
         }
 
         /// <summary>

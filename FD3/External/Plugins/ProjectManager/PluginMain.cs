@@ -752,8 +752,7 @@ namespace ProjectManager
 
         private void SettingChanged(string setting)
         {
-            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" 
-                || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths")
+            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths")
             {
                 Tree.RebuildTree(true);
             }

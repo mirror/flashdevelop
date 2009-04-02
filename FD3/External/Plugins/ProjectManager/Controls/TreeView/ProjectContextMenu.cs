@@ -1,9 +1,9 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
 using ProjectManager.Projects;
@@ -362,9 +362,9 @@ namespace ProjectManager.Controls.TreeView
             bool addLibrary = project.IsLibraryAsset(path);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
-            menu.Add(AddLibrary, 2, addLibrary);
+            if (!this.IsExternalSwc(path)) menu.Add(AddLibrary, 2, addLibrary);
             if (addLibrary) menu.Add(LibraryOptions, 2);
-            AddFileItems(menu, path);
+            if (!this.IsExternalSwc(path)) AddFileItems(menu, path);
         }
 
         private void AddProjectOutputItems(MergableMenu menu, ProjectOutputNode node)
@@ -413,6 +413,24 @@ namespace ProjectManager.Controls.TreeView
             else if (FileInspector.IsAS3Project(path, ext)) return true;
             else if (FileInspector.IsHaxeProject(path, ext)) return true;
             else return false;
+        }
+
+        private bool IsExternalSwc(string file)
+        {
+            if (!Path.IsPathRooted(file))
+            {
+                file = project.GetAbsolutePath(file);
+            }
+            if (file.StartsWith(project.Directory)) return false;
+            foreach (string path in project.AbsoluteClasspaths)
+            {
+                if (file.StartsWith(path)) return false;
+            }
+            foreach (string path in PluginMain.Settings.GlobalClasspaths)
+            {
+                if (file.StartsWith(path)) return false;
+            }
+            return true;
         }
 
         #endregion

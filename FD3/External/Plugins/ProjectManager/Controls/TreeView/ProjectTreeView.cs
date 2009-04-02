@@ -281,7 +281,7 @@ namespace ProjectManager.Controls.TreeView
                         break;
                     }
 
-                if (showNode)
+                if (showNode && File.Exists(absolute))
                 {
                     SwfFileNode swcNode = new SwfFileNode(absolute);
                     Nodes.Add(swcNode);
