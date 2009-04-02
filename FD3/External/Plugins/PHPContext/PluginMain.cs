@@ -147,7 +147,7 @@ namespace PHPContext
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (ContextSettings)obj;
             }
-            if (this.settingObject.LanguageDefinitions == null) this.settingObject.LanguageDefinitions = @"Library\PHP\Intrinsic";
+            if (this.settingObject.LanguageDefinitions == null) this.settingObject.LanguageDefinitions = @"Library\PHP\intrinsic";
             this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 

@@ -18,8 +18,7 @@ namespace PHPContext
         #region IContextSettings Documentation
 
         const string LANGUAGE_WEBSITE = "http://php.net/manual";
-        const string DEFAULT_DOC_COMMAND = 
-            "http://www.google.com/search?q=$(ItmTypPkg)+$(ItmTypName)+$(ItmName)+site:" + LANGUAGE_WEBSITE;
+        const string DEFAULT_DOC_COMMAND = "http://www.google.com/search?q=$(ItmTypPkg)+$(ItmTypName)+$(ItmName)+site:" + LANGUAGE_WEBSITE;
         protected string documentationCommandLine = DEFAULT_DOC_COMMAND;
 
         [DisplayName("Documentation Command Line")]
@@ -159,6 +158,7 @@ namespace PHPContext
         private string intrinsicPath;
 
         [DisplayName("Intrinsic Definitions")]
+        [DefaultValue("Library\\PHP\\intrinsic")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("PHPContext.Description.IntrinsicDefinitions")]
         public string LanguageDefinitions
         {
