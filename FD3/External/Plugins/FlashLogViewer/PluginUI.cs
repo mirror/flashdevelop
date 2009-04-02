@@ -366,7 +366,7 @@ namespace FlashLogViewer
             this.logTextBox.Clear();
             String logContents = this.GetLogFileContents();
             String[] logLines = logContents.Split('\n');
-            if (this.Settings.UseRtfFormatting)
+            if (!this.Settings.DisableRtfFormatting)
             {
                 StringBuilder rtf = new StringBuilder("{\\rtf\\ansi{\\colortbl;\\red0\\green0\\blue0;\\red255\\green140\\blue0;\\red255\\green0\\blue0;}");
                 foreach (String line in logLines)
