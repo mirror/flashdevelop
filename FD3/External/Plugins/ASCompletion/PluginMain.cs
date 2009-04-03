@@ -46,6 +46,7 @@ namespace ASCompletion
             EventType.Keys |
             EventType.Command |
             EventType.ProcessEnd |
+            EventType.ApplySettings |
             EventType.ProcessArgs;
         private List<ToolStripItem> menuItems;
         private ToolStripItem quickBuildItem;
@@ -225,6 +226,7 @@ namespace ASCompletion
                         }
                         break;
 
+                    case EventType.ApplySettings:
                     case EventType.SyntaxChange:
                     case EventType.FileSwitch:
                         if (!doc.IsEditable)
