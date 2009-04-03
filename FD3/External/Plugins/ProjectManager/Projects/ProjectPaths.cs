@@ -34,10 +34,14 @@ namespace ProjectManager.Projects
 			for (int j = i; j < b.Length; j++)
 				relPath.Add(b[j]);
 
-			string relativePath = 
-				string.Join(slash.ToString(), relPath.ToArray(typeof(string)) as string[]);
+			string relativePath = string.Join(slash.ToString(), relPath.ToArray(typeof(string)) as string[]);
+            string special = (relativePath.Length > 0) ? relativePath : "."; // special case
 
-			return (relativePath.Length > 0) ? relativePath : "."; // special case
+            if (special.StartsWith("..") && special.Contains(":")) // invalid relative path...
+            {
+                special = Path.GetFullPath(path);
+            }
+			return special;
 		}
 
 		public static string GetAbsolutePath(string baseDirectory, string path)

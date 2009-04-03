@@ -362,9 +362,14 @@ namespace ProjectManager.Controls.TreeView
             bool addLibrary = project.IsLibraryAsset(path);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
-            if (!this.IsExternalSwc(path)) menu.Add(AddLibrary, 2, addLibrary);
+            menu.Add(AddLibrary, 2, addLibrary);
             if (addLibrary) menu.Add(LibraryOptions, 2);
             if (!this.IsExternalSwc(path)) AddFileItems(menu, path);
+            else
+            {
+                menu.Add(Copy, 1);
+                menu.Add(Delete, 1);
+            }
         }
 
         private void AddProjectOutputItems(MergableMenu menu, ProjectOutputNode node)

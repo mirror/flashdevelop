@@ -220,11 +220,7 @@ namespace ProjectManager
                 Rename((e.Node as GenericNode).BackingPath, e.Label);
             }
             else e.CancelEdit = true;
-            // We need to delay enabling the node...
-            Timer timer = new Timer();
-            timer.Interval = 500;
-            timer.Tick += delegate { this.isEditingLabel = false; timer.Stop(); };
-            timer.Start();
+            isEditingLabel = false;
         }
 
         /// <summary>

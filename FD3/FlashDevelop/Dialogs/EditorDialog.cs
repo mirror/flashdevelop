@@ -1023,6 +1023,7 @@ namespace FlashDevelop.Dialogs
                 }
                 this.Enabled = true;
             }
+            Globals.MainForm.RefreshSciConfig();
         }
 
         /// <summary>
