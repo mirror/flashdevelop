@@ -144,7 +144,6 @@ namespace ProjectManager.Controls.TreeView
 			try
 			{
 				Tree.BeginUpdate();
-                Tree.RefreshTree();
                 String[] paths = this.changedPaths.ToArray();
                 this.changedPaths.Clear();
                 Tree.RefreshTree(paths);
