@@ -2940,7 +2940,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Label.BuildProjectFile" xml:space="preserve">
     <value>&amp;Build Project File</value>
   </data>
-  <data name="FlashLogViewer.Description.DisableRtfFormatting" xml:space="preserve">
-    <value>Disables RTF formatting with the text diplay. RTF formatting is faster but it doesn't show all accented characters properly.</value>
+  <data name="MacroManager.Description.Image" xml:space="preserve">
+    <value>Intenal image key of the macro menu item.</value>
   </data>
 </root>

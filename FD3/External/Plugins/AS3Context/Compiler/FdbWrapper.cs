@@ -81,9 +81,10 @@ namespace AS3Context.Compiler
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.FileName = JvmConfigHelper.GetJavaEXE(jvmConfig);
-            process.StartInfo.Arguments = jvmConfig["java.args"] +
-                " -Dapplication.home=\"" + flexSDKPath + "\" -jar \"" + fdbPath + "\"";
+            process.StartInfo.Arguments = jvmConfig["java.args"] + "  -Dfile.encoding=UTF-8 -Dapplication.home=\"" + flexSDKPath + "\" -jar \"" + fdbPath + "\"";
             process.StartInfo.WorkingDirectory = workingDir;
+            process.StartInfo.StandardErrorEncoding = Encoding.UTF8;
+            process.StartInfo.StandardOutputEncoding = Encoding.UTF8;
             process.Start();
 
             process.Exited += process_Exited;

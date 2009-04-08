@@ -182,6 +182,7 @@ namespace MacroManager
                 {
                     ToolStripMenuItem macroItem = new ToolStripMenuItem();
                     macroItem.Click += new EventHandler(this.MacroMenuItemClick);
+                    macroItem.Image = PluginBase.MainForm.FindImage(macro.Image);
                     macroItem.ShortcutKeys = macro.Shortcut;
                     macroItem.Text = macro.Label;
                     macroItem.Tag = macro;
@@ -211,7 +212,7 @@ namespace MacroManager
             }
             if (this.settingObject.UserMacros.Count == 0)
             {
-                Macro macro = new Macro("Hello World!", new String[1]{"Debug|HelloWorld!"}, Keys.None, false);
+                Macro macro = new Macro("Hello World!", new String[1]{"Debug|HelloWorld!"}, String.Empty, Keys.None, false);
                 this.settingObject.UserMacros.Add(macro);
             }
         }
@@ -274,15 +275,17 @@ namespace MacroManager
     [Serializable]
     public class Macro
     {
+        private String image = String.Empty;
         private String label = String.Empty;
         private String[] entries = new String[0];
         private Keys shortcut = Keys.None;
         private Boolean autoRun = false;
 
         public Macro() {}
-        public Macro(String label, String[] entries, Keys shortcut, Boolean autoRun) 
+        public Macro(String label, String[] entries, String image, Keys shortcut, Boolean autoRun) 
         {
             this.Label = label;
+            this.image = image;
             this.entries = entries;
             this.shortcut = shortcut;
             this.autoRun = autoRun;
@@ -296,6 +299,16 @@ namespace MacroManager
         {
             get { return this.label; }
             set { this.label = value; }
+        }
+
+        /// <summary>
+        /// Gets and sets the image
+        /// </summary>
+        [LocalizedDescription("MacroManager.Description.Image")]
+        public String Image
+        {
+            get { return this.image; }
+            set { this.image = value; }
         }
 
         /// <summary>
