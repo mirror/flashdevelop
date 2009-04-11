@@ -182,10 +182,13 @@ namespace MacroManager
                 {
                     ToolStripMenuItem macroItem = new ToolStripMenuItem();
                     macroItem.Click += new EventHandler(this.MacroMenuItemClick);
-                    macroItem.Image = PluginBase.MainForm.FindImage(macro.Image);
                     macroItem.ShortcutKeys = macro.Shortcut;
                     macroItem.Text = macro.Label;
                     macroItem.Tag = macro;
+                    if (!String.IsNullOrEmpty(macro.Image))
+                    {
+                        macroItem.Image = PluginBase.MainForm.FindImage(macro.Image);
+                    }
                     this.macroMenuItem.DropDownItems.Add(macroItem);
                     if (!PluginBase.MainForm.IgnoredKeys.Contains(macro.Shortcut))
                     {
