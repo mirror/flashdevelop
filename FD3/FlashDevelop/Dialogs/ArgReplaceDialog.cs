@@ -68,7 +68,7 @@ namespace FlashDevelop.Dialogs
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(23, 0);
+            this.cancelButton.Location = new System.Drawing.Point(45, 1);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 1;
@@ -81,7 +81,7 @@ namespace FlashDevelop.Dialogs
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(95, 0);
+            this.okButton.Location = new System.Drawing.Point(76, 1);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -97,7 +97,7 @@ namespace FlashDevelop.Dialogs
             this.argsPanel.Location = new System.Drawing.Point(0, 0);
             this.argsPanel.Name = "argsPanel";
             this.argsPanel.Size = new System.Drawing.Size(192, 34);
-            this.argsPanel.Padding = new System.Windows.Forms.Padding(2, 12, 7, 7);
+            this.argsPanel.Padding = new System.Windows.Forms.Padding(2, 10, 7, 5);
             this.argsPanel.TabIndex = 2;
             // 
             // ArgReplaceDialog
@@ -112,7 +112,7 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.cancelButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(202, 62);
+            this.ClientSize = new System.Drawing.Size(242, 62);
             this.Controls.Add(this.argsPanel);
             this.Controls.Add(this.bottomPanel);
             this.Name = "ArgReplaceDialog";

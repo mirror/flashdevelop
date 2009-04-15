@@ -251,8 +251,8 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 392);
-            this.MinimumSize = new System.Drawing.Size(615, 392);
+            this.ClientSize = new System.Drawing.Size(615, 393);
+            this.MinimumSize = new System.Drawing.Size(615, 393);
             this.Controls.Add(this.languageDropDown);
             this.Controls.Add(this.insertComboBox);
             this.Controls.Add(this.closeButton);

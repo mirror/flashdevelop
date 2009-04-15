@@ -215,8 +215,10 @@ namespace MacroManager
             }
             if (this.settingObject.UserMacros.Count == 0)
             {
-                Macro macro = new Macro("Hello World!", new String[1]{"Debug|HelloWorld!"}, String.Empty, Keys.None, false);
-                this.settingObject.UserMacros.Add(macro);
+                Macro execScript = new Macro("&Execute Script", new String[1] { "ExecuteScript|$(OpenFile)" }, String.Empty, Keys.None, false);
+                Macro runSelected = new Macro("&Run Selected Text", new String[1] { "RunProcess|$(SelText)" }, String.Empty, Keys.None, false);
+                this.settingObject.UserMacros.Add(execScript);
+                this.settingObject.UserMacros.Add(runSelected);
             }
         }
 
@@ -251,8 +253,12 @@ namespace MacroManager
                 ToolStripMenuItem macroItem = sender as ToolStripMenuItem;
                 foreach (String entry in ((Macro)macroItem.Tag).Entries)
                 {
-                    String[] parts = entry.Split(new Char[1]{'|'});
-                    PluginBase.MainForm.CallCommand(parts[0], parts[1]);
+                    if (entry.IndexOf('|') != -1)
+                    {
+                        String[] parts = entry.Split(new Char[1]{'|'});
+                        PluginBase.MainForm.CallCommand(parts[0], parts[1]);
+                    }
+                    else PluginBase.MainForm.CallCommand(entry, "");
                 }
             }
             catch (Exception)
@@ -271,6 +277,7 @@ namespace MacroManager
         }
 
 		#endregion
+
     }
         
     #region Custom Types

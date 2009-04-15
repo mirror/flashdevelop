@@ -223,7 +223,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.backgroundButton.Location = new System.Drawing.Point(229, 77);
             this.backgroundButton.Name = "backgroundButton";
-            this.backgroundButton.Size = new System.Drawing.Size(28, 23);
+            this.backgroundButton.Size = new System.Drawing.Size(28, 24);
             this.backgroundButton.TabIndex = 10;
             this.backgroundButton.UseVisualStyleBackColor = true;
             this.backgroundButton.Click += new System.EventHandler(this.ItemBackgroundButtonClick);
@@ -232,7 +232,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.foregroundButton.Location = new System.Drawing.Point(100, 77);
             this.foregroundButton.Name = "foregroundButton";
-            this.foregroundButton.Size = new System.Drawing.Size(28, 23);
+            this.foregroundButton.Size = new System.Drawing.Size(28, 24);
             this.foregroundButton.TabIndex = 7;
             this.foregroundButton.UseVisualStyleBackColor = true;
             this.foregroundButton.Click += new System.EventHandler(this.ItemForegroundButtonClick);
@@ -331,7 +331,7 @@ namespace FlashDevelop.Dialogs
             //
             this.caretForeButton.Location = new System.Drawing.Point(151, 32);
             this.caretForeButton.Name = "caretForeButton";
-            this.caretForeButton.Size = new System.Drawing.Size(28, 23);
+            this.caretForeButton.Size = new System.Drawing.Size(28, 24);
             this.caretForeButton.TabIndex = 3;
             this.caretForeButton.Click += new EventHandler(this.CaretForeButtonClick);
             // 
@@ -339,7 +339,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.caretlineBackButton.Location = new System.Drawing.Point(151, 74);
             this.caretlineBackButton.Name = "caretlineBackButton";
-            this.caretlineBackButton.Size = new System.Drawing.Size(28, 23);
+            this.caretlineBackButton.Size = new System.Drawing.Size(28, 24);
             this.caretlineBackButton.TabIndex = 6;
             this.caretlineBackButton.Click += new EventHandler(this.CaretlineBackButtonClick);
             // 
@@ -347,7 +347,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.selectionBackButton.Location = new System.Drawing.Point(329, 74);
             this.selectionBackButton.Name = "selectionBackButton";
-            this.selectionBackButton.Size = new System.Drawing.Size(28, 23);
+            this.selectionBackButton.Size = new System.Drawing.Size(28, 24);
             this.selectionBackButton.TabIndex = 12;
             this.selectionBackButton.Click += new EventHandler(this.SelectionBackButtonClick);
             // 
@@ -355,7 +355,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.selectionForeButton.Location = new System.Drawing.Point(329, 32);
             this.selectionForeButton.Name = "selectionForeButton";
-            this.selectionForeButton.Size = new System.Drawing.Size(28, 23);
+            this.selectionForeButton.Size = new System.Drawing.Size(28, 24);
             this.selectionForeButton.TabIndex = 9;
             this.selectionForeButton.Click += new EventHandler(this.SelectionForeButtonClick);
             // 
@@ -499,7 +499,7 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.cancelButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 372);
+            this.ClientSize = new System.Drawing.Size(589, 373);
             this.Controls.Add(this.languageGroupBox);
             this.Controls.Add(this.itemGroupBox);
             this.Controls.Add(this.languageDropDown);
