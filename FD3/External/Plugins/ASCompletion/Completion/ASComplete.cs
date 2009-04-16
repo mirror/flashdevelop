@@ -1158,7 +1158,8 @@ namespace ASCompletion.Completion
             List<ICompletionListItem> list = new List<ICompletionListItem>();
             foreach (ASMetaData meta in events)
             {
-                string name = '"' + meta.Params["name"] + '"';
+                string name = meta.Params["name"];
+                Regex reName = new Regex("[\"']" + name + "[\"']");
                 string type = meta.Params["type"];
                 string comments = meta.Comments;
                 FlagType flags = FlagType.Variable | FlagType.Constant;
@@ -1175,7 +1176,7 @@ namespace ASCompletion.Completion
                     if (evClass.IsVoid()) continue;
                     foreach (MemberModel member in evClass.Members)
                     {
-                        if (member.Value == name)
+                        if (reName.IsMatch(member.Value))
                         {
                             name = evClass.Name + '.' + member.Name;
                             flags = member.Flags;
