@@ -66,8 +66,8 @@ VIProductVersion "3.0.0.0"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_FINISHPAGE_RUN "${EXECUTABLE}"
 !define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
-!define MUI_FINISHPAGE_LINK "View Readme"
-!define MUI_FINISHPAGE_LINK_LOCATION "$INSTDIR\Docs\index.html"
+!define MUI_FINISHPAGE_LINK "See how to install the Flex SDK >"
+!define MUI_FINISHPAGE_LINK_LOCATION "http://www.flashdevelop.org/wikidocs/index.php?title=Configuration#Installing_the_SDK"
 
 ;--------------------------------
 
