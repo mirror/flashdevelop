@@ -2032,11 +2032,7 @@ namespace FlashDevelop
         /// </summary>
         public void FindNext(Object sender, System.EventArgs e)
         {
-            if (this.quickFind.Visible)
-            {
-                this.quickFind.FindNextButtonClick(null, null);
-            }
-            else this.frInDocDialog.FindNext(true);
+            this.frInDocDialog.FindNext(true);
         }
 
         /// <summary>
@@ -2044,11 +2040,7 @@ namespace FlashDevelop
         /// </summary>
         public void FindPrevious(Object sender, System.EventArgs e)
         {
-            if (this.quickFind.Visible)
-            {
-                this.quickFind.FindPrevButtonClick(null, null);
-            }
-            else this.frInDocDialog.FindNext(false);
+            this.frInDocDialog.FindNext(false);
         }
 
         /// <summary>
