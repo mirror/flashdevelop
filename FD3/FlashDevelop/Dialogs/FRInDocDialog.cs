@@ -364,6 +364,16 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
+        /// Set the case of the text to search
+        /// </summary>
+        public void SetMatchCase(Boolean matchCase)
+        {
+            this.matchCaseCheckBox.CheckedChanged -= new EventHandler(this.LookupChanged);
+            this.matchCaseCheckBox.Checked = matchCase; // Change the value...
+            this.matchCaseCheckBox.CheckedChanged += new EventHandler(this.LookupChanged);
+        }
+
+        /// <summary>
         /// Set the text to search
         /// </summary>
         public void SetFindText(String text)
@@ -560,6 +570,10 @@ namespace FlashDevelop.Dialogs
             {
                 this.lookupIsDirty = true;
                 this.currentMatch = null;
+            }
+            if (sender == this.matchCaseCheckBox)
+            {
+                Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
             }
         }
 

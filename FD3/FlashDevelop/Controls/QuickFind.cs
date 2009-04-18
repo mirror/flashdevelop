@@ -101,6 +101,7 @@ namespace FlashDevelop.Controls
             this.matchCaseHost.Margin = new Padding(0, 2, 6, 1);
             this.matchCaseCheckBox.Text = TextHelper.GetString("Label.MatchCase");
             this.matchCaseCheckBox.BackColor = Color.Transparent;
+            this.matchCaseCheckBox.CheckedChanged += new EventHandler(this.MatchCaseCheckBoxCheckedChanged);
             //
             // nextButton
             //
@@ -190,6 +191,16 @@ namespace FlashDevelop.Controls
         }
 
         /// <summary>
+        /// Set the case of the text to search
+        /// </summary>
+        public void SetMatchCase(Boolean matchCase)
+        {
+            this.matchCaseCheckBox.CheckedChanged -= new EventHandler(this.MatchCaseCheckBoxCheckedChanged);
+            this.matchCaseCheckBox.Checked = matchCase; // Change the value...
+            this.matchCaseCheckBox.CheckedChanged += new EventHandler(this.MatchCaseCheckBoxCheckedChanged);
+        }
+
+        /// <summary>
         /// Set the text to search
         /// </summary>
         public void SetFindText(String text)
@@ -243,6 +254,14 @@ namespace FlashDevelop.Controls
             {
                 this.findTextBox.Text = sci.SelText;
             }
+        }
+
+        /// <summary>
+        /// Update the match case globally if it's changed
+        /// </summary>
+        private void MatchCaseCheckBoxCheckedChanged(Object sender, EventArgs e)
+        {
+            Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
         }
 
         /// <summary>

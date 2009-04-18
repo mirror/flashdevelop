@@ -1559,6 +1559,15 @@ namespace FlashDevelop
             if (sender != this.frInDocDialog) this.frInDocDialog.SetFindText(text);
         }
 
+        /// <summary>
+        /// Sets the case setting to find globally
+        /// </summary>
+        public void SetMatchCase(Object sender, Boolean matchCase)
+        {
+            if (sender != this.quickFind) this.quickFind.SetMatchCase(matchCase);
+            if (sender != this.frInDocDialog) this.frInDocDialog.SetMatchCase(matchCase);
+        }
+
         #endregion
 
         #region Click Handlers
