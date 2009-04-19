@@ -2073,7 +2073,7 @@ namespace ASCompletion.Completion
                     if ((mask & FlagType.Static) > 0 && tmpClass.InFile.Version != 2) break; // only AS2 inherit static members
                     tmpClass = tmpClass.Extends;
 
-                    if (acc == 0 && !tmpClass.IsVoid())
+                    if (acc == 0 && !tmpClass.IsVoid() && tmpClass.InFile.Version == 3)
                     {
                         acc = Visibility.Public | Visibility.Protected;
                         if (inClass.InFile.Package == tmpClass.InFile.Package) acc |= Visibility.Internal;

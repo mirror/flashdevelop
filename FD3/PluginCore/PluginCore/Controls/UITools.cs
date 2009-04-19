@@ -363,7 +363,7 @@ namespace PluginCore.Controls
 			ScintillaControl sci = (ScintillaControl)lockedSciControl.Target;
 			// chars
 			string ks = key.ToString();
-            if (ks.Length == 1 /*|| ks.EndsWith(", Shift")*/ || ks.StartsWith("NumPad"))
+            if (ks.Length == 1 || (ks.EndsWith(", Shift") && ks.IndexOf(',') == 1) || ks.StartsWith("NumPad"))
 			{
 				return false;
 			}
