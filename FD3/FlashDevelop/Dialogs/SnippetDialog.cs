@@ -641,7 +641,8 @@ namespace FlashDevelop.Dialogs
         public static new void Show()
         {
             SnippetDialog snippetDialog = new SnippetDialog();
-            snippetDialog.ShowDialog();
+            snippetDialog.CenterToParent();
+            snippetDialog.Show(Globals.MainForm);
         }
 
         #endregion
