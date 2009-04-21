@@ -53,7 +53,7 @@ namespace FlashLogViewer
         /// Get or sets the colourWarnings.
         /// </summary>
         [DefaultValue(true)]
-        [DisplayName("Colour Warnings")]
+        [DisplayName("Colorize Warnings")]
         [LocalizedDescription("FlashLogViewer.Description.ColourWarnings")]
         public Boolean ColourWarnings
         {
@@ -65,7 +65,7 @@ namespace FlashLogViewer
         /// Get or sets the keepPopupTopMost.
         /// </summary>
         [DefaultValue(true)]
-        [DisplayName("Keep Popup Top Most")]
+        [DisplayName("Keep Popup On Top")]
         [LocalizedDescription("FlashLogViewer.Description.KeepPopupTopMost")]
         public Boolean KeepPopupTopMost
         {

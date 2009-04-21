@@ -17,7 +17,7 @@ namespace ResultsPanel
         private Keys previousError = DEFAULT_PREVIOUSERROR;
         private Boolean scrollToBottom = false;
 
-        [DisplayName("ScrollToBottom")]
+        [DisplayName("Scroll To Bottom")]
         [LocalizedDescription("ResultsPanel.Description.ScrollToBottom"), DefaultValue(false)]
         public Boolean ScrollToBottom
         {
