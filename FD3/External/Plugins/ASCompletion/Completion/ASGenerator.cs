@@ -739,7 +739,7 @@ namespace ASCompletion.Completion
             foreach (string autoRemove in ASContext.CommonSettings.EventListenersAutoRemove)
             {
                 string test = autoRemove.Trim();
-                if (test.Length > 0 && test.IndexOf(':') > 0 && test.EndsWith(colonName)) 
+                if (test.Length > 0 && test.IndexOf(':') >= 0 && test.EndsWith(colonName)) 
                     return test.Split(':')[0];
             }
             return null;
