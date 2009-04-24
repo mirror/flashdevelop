@@ -369,6 +369,25 @@ namespace ASCompletion.Settings
             set { lastASVersion = value; }
         }
         #endregion
+
+        #region Generator
+
+        static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
+              ":Event.ADDED_TO_STAGE", ":Event.REMOVED_FROM_STAGE",
+              "e.target:Event.COMPLETE", "e.target:Event.INIT"
+        };
+
+        string[] eventListenersAutoRemove;
+
+        [DisplayName("Event Listeners Auto-remove")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
+        public string[] EventListenersAutoRemove
+        {
+            get { return eventListenersAutoRemove ?? DEFAULT_EVENTAUTOREMOVE; }
+            set { eventListenersAutoRemove = value; }
+        }
+
+        #endregion
     }
 
 }

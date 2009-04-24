@@ -448,8 +448,12 @@ namespace ASCompletion.Model
             comment = comment.Trim();
             if (comment.Length == 0) return "";
             if (comment.StartsWith("*") || comment.IndexOf('\n') > 0 || comment.IndexOf('\r') > 0)
-                return tab + "/**\n" + tab + " " + comment +"\n" + tab + " */\n";
-            else return tab + "/// " + comment + "\n";
+            {
+                if (comment.IndexOf('\n') < 0) comment = comment.Replace("\r", "\r\n");
+                else if (comment.IndexOf('\r') < 0) comment = comment.Replace("\n", "\r\n");
+                return tab + "/**\r\n" + tab + " " + comment + "\r\n" + tab + " */\r\n";
+            }
+            else return tab + "/// " + comment + "\r\n";
         }
         #endregion
     }

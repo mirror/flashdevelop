@@ -25,6 +25,7 @@ namespace ASCompletion.Completion
 
         static private string contextToken;
         static private string contextParam;
+        static private Match contextMatch;
         static private MemberModel contextMember;
         static private bool firstVar;
 
@@ -47,6 +48,7 @@ namespace ASCompletion.Completion
                 return;
             int line = Sci.LineFromPosition(position);
             contextToken = Sci.GetWordFromPosition(position);
+            contextMatch = null;
             FoundDeclaration found = GetDeclarationAtLine(Sci, line);
             string text = Sci.GetLine(line);
 
@@ -67,6 +69,7 @@ namespace ASCompletion.Completion
                     Match m = Regex.Match(text, String.Format(patternVarDecl, found.member.Name, contextToken));
                     if (m.Success)
                     {
+                        contextMatch = m;
                         ClassModel type = ASContext.Context.ResolveType(contextToken, ASContext.Context.CurrentModel);
                         if (type.IsVoid() && CheckAutoImport(found))
                             return;
@@ -85,6 +88,7 @@ namespace ASCompletion.Completion
                         Match m = Regex.Match(text, String.Format(patternEvent, contextToken), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
+                            contextMatch = m;
                             contextParam = CheckEventType(m.Groups["event"].Value);
                             ShowEventList(found);
                             return;
@@ -92,6 +96,7 @@ namespace ASCompletion.Completion
                         m = Regex.Match(text, String.Format(patternDelegate, contextToken), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
+                            contextMatch = m;
                             ShowDelegateList(found);
                             return;
                         }
@@ -120,7 +125,11 @@ namespace ASCompletion.Completion
                     if (!CheckAutoImport(found))
                     {
                         Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
-                        if (m.Success) ShowNewMethodList(found);
+                        if (m.Success)
+                        {
+                            contextMatch = m;
+                            ShowNewMethodList(found);
+                        }
                         else ShowNewVarList(found);
                     }
                     return;
@@ -707,12 +716,33 @@ namespace ASCompletion.Completion
                 string acc = GetPrivateAccessor(afterMethod);
                 string decl = BlankLine + String.Format(GetTemplate("EventHandler"),
                     acc, name, type, ASContext.Context.Features.voidKey);
+                
+                string eventName = contextMatch.Groups["event"].Value;
+                string autoRemove = AddRemoveEvent(eventName);
+                if (autoRemove != null)
+                {
+                    if (autoRemove.Length > 0) autoRemove += ".";
+                    string remove = String.Format("{0}removeEventListener({1}, {2});\n\t$(EntryPoint)", autoRemove, eventName, name);
+                    decl = decl.Replace("$(EntryPoint)", remove);
+                }
                 InsertCode(position, decl);
             }
             finally
             {
                 Sci.EndUndoAction();
             }
+        }
+
+        private static string AddRemoveEvent(string eventName)
+        {
+            string colonName = ":" + eventName;
+            foreach (string autoRemove in ASContext.CommonSettings.EventListenersAutoRemove)
+            {
+                string test = autoRemove.Trim();
+                if (test.Length > 0 && test.IndexOf(':') > 0 && test.EndsWith(colonName)) 
+                    return test.Split(':')[0];
+            }
+            return null;
         }
 
         public static void GenerateGetter(string name, MemberModel member, int position)
