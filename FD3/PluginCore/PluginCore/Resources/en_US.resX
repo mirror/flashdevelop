@@ -2943,4 +2943,10 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="MacroManager.Description.Image" xml:space="preserve">
     <value>Intenal image key of the macro menu item.</value>
   </data>
+  <data name="ASCompletion.Category.Generation" xml:space="preserve">
+    <value>Code Generation</value>
+  </data>
+  <data name="ASCompletion.Description.EventListenersAutoRemove" xml:space="preserve">
+    <value>Automatically generate removeEventListener code for events specified.</value>
+  </data>
 </root>
