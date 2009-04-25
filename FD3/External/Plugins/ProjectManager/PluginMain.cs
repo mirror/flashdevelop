@@ -310,7 +310,9 @@ namespace ProjectManager
                     }
                     else if (de.Action == ProjectManagerCommands.OpenProject)
                     {
-                        OpenProject();
+                        if (de.Data != null && File.Exists((string)de.Data))
+                            projectActions.OpenProjectSilent((string)de.Data);
+                        else OpenProject();
                         e.Handled = true;
                     }
                     else if (de.Action == ProjectManagerCommands.SendProject)
@@ -322,6 +324,7 @@ namespace ProjectManager
                     {
                         if (project != null)
                         {
+                            AutoSelectConfiguration((string)de.Data);
                             BuildProject();
                             e.Handled = true;
                         }
@@ -330,6 +333,7 @@ namespace ProjectManager
                     {
                         if (project != null)
                         {
+                            AutoSelectConfiguration((string)de.Data);
                             TestMovie();
                             e.Handled = true;
                         }
@@ -357,6 +361,7 @@ namespace ProjectManager
                     {
                         if (project != null)
                         {
+                            AutoSelectConfiguration((string)de.Data);
                             TestMovie();
                             e.Handled = true;
                         }
@@ -368,6 +373,16 @@ namespace ProjectManager
                     break;
             }
 		}
+
+        private void AutoSelectConfiguration(string configuration)
+        {
+            if (configuration != null)
+            {
+                int newIdx = menus.ConfigurationSelector.Items.IndexOf(configuration);
+                if (newIdx >= 0)
+                    menus.ConfigurationSelector.SelectedIndex = newIdx;
+            }
+        }
 
         private bool HandleKeyEvent(KeyEvent ke)
         {
