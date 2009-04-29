@@ -583,12 +583,22 @@ namespace TaskListPanel
         /// </summary>
         private void MoveToPosition(ScintillaControl sci, Int32 position)
         {
-            position = sci.MBSafePosition(position); // scintilla indexes are in 8bits
-            Int32 line = sci.LineFromPosition(position);
-            sci.EnsureVisible(line);
-            sci.GotoPos(position);
-            sci.SetSel(position, sci.LineEndPosition(line));
-            sci.Focus();
+            try
+            {
+                position = sci.MBSafePosition(position); // scintilla indexes are in 8bits
+                Int32 line = sci.LineFromPosition(position);
+                sci.EnsureVisible(line);
+                sci.GotoPos(position);
+                sci.SetSel(position, sci.LineEndPosition(line));
+                sci.Focus();
+            }
+            catch 
+            {
+                String message = TextHelper.GetString("Info.InvalidItem");
+                ErrorManager.ShowInfo(message);
+                this.RemoveInvalidItems();
+                this.RefreshProject();
+            }
         }
 
         /// <summary>

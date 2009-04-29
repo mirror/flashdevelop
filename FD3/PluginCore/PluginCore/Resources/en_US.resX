@@ -2949,4 +2949,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Description.EventListenersAutoRemove" xml:space="preserve">
     <value>Automatically generate removeEventListener code for events specified.</value>
   </data>
+  <data name="TaskListPanel.Info.InvalidItem" xml:space="preserve">
+    <value>The selected item could not be found. The task list will be refreshed.</value>
+  </data>
 </root>
