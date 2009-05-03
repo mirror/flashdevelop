@@ -2744,18 +2744,31 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Box-comments the selected text
+        /// Box-comments or uncomments the selected text
         /// </summary>
         public void CommentSelection(Object sender, System.EventArgs e)
         {
             ScintillaControl sci = Globals.SciControl;
             Int32 selEnd = sci.SelectionEnd;
             Int32 selStart = sci.SelectionStart;
-            Int32 curPos = sci.CurrentPos;
-            if (sci.SelText.Length > 0)
+            String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
+            String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
+            if (sci.SelText.StartsWith(commentStart) && sci.SelText.EndsWith(commentEnd))
             {
-                String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
-                String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
+                sci.BeginUndoAction();
+                try
+                {
+                    Int32 indexLenght = sci.SelText.Length - commentStart.Length - commentEnd.Length;
+                    String withoutComment = sci.SelText.Substring(commentStart.Length, indexLenght);
+                    sci.ReplaceSel(withoutComment);
+                }
+                finally
+                {
+                    sci.EndUndoAction();
+                }
+            }
+            else
+            {
                 sci.BeginUndoAction();
                 try
                 {
