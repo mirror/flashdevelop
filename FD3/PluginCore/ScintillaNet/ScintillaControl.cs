@@ -4596,6 +4596,7 @@ namespace ScintillaNet
             char character = (char)CharAt(position);
             if (character == '{' || character == '(' || character == '[')
             {
+                this.Colourise(0, -1);
                 if (!this.PositionIsOnComment(position))
                 {
                     int bracePosStart = position;
@@ -4621,7 +4622,8 @@ namespace ScintillaNet
 				}
 				if (character == '{' || character == '}' || character == '(' || character == ')' || character == '[' || character == ']')
 				{
-					if (!this.PositionIsOnComment(position))
+                    this.Colourise(0, -1); 
+                    if (!this.PositionIsOnComment(position))
 					{
 						int bracePosStart = position;
 						int bracePosEnd = BraceMatch(position);
@@ -4683,6 +4685,7 @@ namespace ScintillaNet
                             if (tempText.IndexOf("//") > 0) // remove comment at end of line
                             {
                                 int slashes = this.MBSafeTextLength(tempText.Substring(0, tempText.IndexOf("//") + 1));
+                                this.Colourise(0, -1); 
                                 if (this.PositionIsOnComment(slashes))
                                     tempText = tempText.Substring(0, tempText.IndexOf("//")).Trim();
                             }
@@ -4871,19 +4874,12 @@ namespace ScintillaNet
 		/// </summary>
 		public bool PositionIsOnComment(int position)
 		{
-			Colourise(0, -1);
 			return PositionIsOnComment(position, Lexer);
 		}
 		public bool PositionIsOnComment(int position, int lexer)
 		{
 			int style = BaseStyleAt(position);
-			if ((lexer == 2 || lexer == 21)
-			    && style == 1
-			    || style == 12)
-			{
-				return true; // python or lisp
-			}
-			else if ((Lexer == 3 || lexer == 18 || lexer == 25 || lexer == 27)
+			if ((lexer == 3 || lexer == 18 || lexer == 25 || lexer == 27)
 			    && style == 1
 			    || style == 2 
 			    || style == 3
@@ -4912,13 +4908,24 @@ namespace ScintillaNet
 		        || style == 125)
 			{
 				return true; // html or xml
+            }
+            else if ((lexer == 38)
+                && style == 9)
+            {
+                return true; // css
+            }
+            else if ((lexer == 2 || lexer == 21)
+			    && style == 1
+			    || style == 12)
+			{
+				return true; // python or lisp
 			}
 			else if ((lexer == 6 || lexer == 22 || lexer == 45 || lexer == 62)
 			    && style == 2)
 			{
 				return true; // perl, bash, clarion/clw or ruby
 			}
-			else if ((Lexer == 7)
+			else if ((lexer == 7)
 			    && style == 1
 				|| style == 2 
 				|| style == 3
@@ -5017,11 +5024,6 @@ namespace ScintillaNet
 			    && style == 3)
 			{
 				return true; // smalltalk
-			}
-			else if ((lexer == 38) 
-			    && style == 9)
-			{
-				return true; // css
 			}
 			return false;
 		}
