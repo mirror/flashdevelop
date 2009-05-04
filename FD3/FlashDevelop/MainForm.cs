@@ -2589,7 +2589,6 @@ namespace FlashDevelop
             Int32 position = sci.CurrentPos;
             Int32 curLine = sci.LineFromPosition(position);
             Int32 endLine = sci.LineFromPosition(sci.SelectionEnd);
-            
             List<List<String>> lineLists = new List<List<String>>();
             List<String> curList = new List<String>();
             lineLists.Add(curList);
@@ -2767,7 +2766,7 @@ namespace FlashDevelop
                     sci.EndUndoAction();
                 }
             }
-            else
+            else if (sci.SelText.Length > 0)
             {
                 sci.BeginUndoAction();
                 try
@@ -2780,6 +2779,7 @@ namespace FlashDevelop
                     sci.EndUndoAction();
                 }
             }
+            else { /* Uncomment from current position here */ }
         }
 
         /// <summary>
