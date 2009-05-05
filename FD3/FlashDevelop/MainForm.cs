@@ -2752,6 +2752,45 @@ namespace FlashDevelop
             Int32 selStart = sci.SelectionStart;
             String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
             String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
+            if (sci.SelText.StartsWith(commentStart) && sci.SelText.EndsWith(commentEnd))
+            {
+                sci.BeginUndoAction();
+                try
+                {
+                    Int32 indexLenght = sci.SelText.Length - commentStart.Length - commentEnd.Length;
+                    String withoutComment = sci.SelText.Substring(commentStart.Length, indexLenght);
+                    sci.ReplaceSel(withoutComment);
+                }
+                finally
+                {
+                    sci.EndUndoAction();
+                }
+            }
+            else if (sci.SelText.Length > 0)
+            {
+                sci.BeginUndoAction();
+                try
+                {
+                    sci.InsertText(selStart, commentStart);
+                    sci.InsertText(selEnd + commentStart.Length, commentEnd);
+                }
+                finally
+                {
+                    sci.EndUndoAction();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Uncomments a comment block from current position
+        /// </summary>
+        public void UncommentBlock(Object sender, System.EventArgs e)
+        {
+            ScintillaControl sci = Globals.SciControl;
+            Int32 selEnd = sci.SelectionEnd;
+            Int32 selStart = sci.SelectionStart;
+            String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
+            String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
             if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) || sci.PositionIsOnComment(selEnd - 1)) || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
             {
                 sci.BeginUndoAction();
@@ -2761,11 +2800,10 @@ namespace FlashDevelop
                     Int32 scrollTop = sci.FirstVisibleLine;
                     Int32 initPos = sci.CurrentPos;
                     Int32 start = selStart;
-                    Int32 lexer = sci.Lexer; // for fast PositionIsOnComment calls
-                    while (start > 0 && sci.PositionIsOnComment(start, lexer)) start--;
+                    while (start > 0 && sci.PositionIsOnComment(start)) start--;
                     Int32 end = selEnd;
                     Int32 length = sci.TextLength;
-                    while (end < length && sci.PositionIsOnComment(end, lexer)) end++;
+                    while (end < length && sci.PositionIsOnComment(end)) end++;
                     sci.SetSel(start + 1, end);
                     String selText = sci.SelText;
                     if (selText.StartsWith(commentStart) && selText.EndsWith(commentEnd))
@@ -2784,19 +2822,6 @@ namespace FlashDevelop
                     {
                         sci.LineScroll(0, scrollTop - sci.FirstVisibleLine);
                     }
-                }
-                finally
-                {
-                    sci.EndUndoAction();
-                }
-            }
-            else if (sci.SelText.Length > 0) // comment block
-            {
-                sci.BeginUndoAction();
-                try
-                {
-                    sci.InsertText(selStart, commentStart);
-                    sci.InsertText(selEnd + commentStart.Length, commentEnd);
                 }
                 finally
                 {

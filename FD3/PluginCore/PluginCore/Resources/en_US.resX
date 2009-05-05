@@ -1218,10 +1218,10 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Save &amp;As...</value>
   </data>
   <data name="FlashDevelop.Label.SaveAsSnippet" xml:space="preserve">
-    <value>Save As &amp;Snippet...</value>
+    <value>Save As Snippet...</value>
   </data>
   <data name="FlashDevelop.Label.SaveAsTemplate" xml:space="preserve">
-    <value>Save As &amp;Template...</value>
+    <value>Save As Template...</value>
   </data>
   <data name="FlashDevelop.Label.Search" xml:space="preserve">
     <value>&amp;Search</value>
@@ -1281,7 +1281,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>&amp;Transpose Lines</value>
   </data>
   <data name="FlashDevelop.Label.UncommentLine" xml:space="preserve">
-    <value>Uncomment Li&amp;ne</value>
+    <value>Uncomment Line</value>
   </data>
   <data name="FlashDevelop.Label.Undo" xml:space="preserve">
     <value>&amp;Undo</value>
@@ -2951,5 +2951,8 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="TaskListPanel.Info.InvalidItem" xml:space="preserve">
     <value>The selected item could not be found. The task list will be refreshed.</value>
+  </data>
+  <data name="FlashDevelop.Label.UncommentBlock" xml:space="preserve">
+    <value>Uncomment Block</value>
   </data>
 </root>
