@@ -2752,10 +2752,7 @@ namespace FlashDevelop
             Int32 selStart = sci.SelectionStart;
             String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
             String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
-            
-            // uncomment block
-            if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) || sci.PositionIsOnComment(selEnd - 1))
-                || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
+            if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) || sci.PositionIsOnComment(selEnd - 1)) || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
             {
                 sci.BeginUndoAction();
                 try
@@ -2763,18 +2760,14 @@ namespace FlashDevelop
                     if (!sci.PositionIsOnComment(selStart)) selStart--;
                     Int32 scrollTop = sci.FirstVisibleLine;
                     Int32 initPos = sci.CurrentPos;
-
                     Int32 start = selStart;
                     Int32 lexer = sci.Lexer; // for fast PositionIsOnComment calls
-                    while (start > 0 && sci.PositionIsOnComment(start, lexer))
-                        start--;
+                    while (start > 0 && sci.PositionIsOnComment(start, lexer)) start--;
                     Int32 end = selEnd;
                     Int32 length = sci.TextLength;
-                    while (end < length && sci.PositionIsOnComment(end, lexer))
-                        end++;
+                    while (end < length && sci.PositionIsOnComment(end, lexer)) end++;
                     sci.SetSel(start + 1, end);
                     String selText = sci.SelText;
-
                     if (selText.StartsWith(commentStart) && selText.EndsWith(commentEnd))
                     {
                         sci.SetSel(end - commentEnd.Length, end);
@@ -2782,24 +2775,22 @@ namespace FlashDevelop
                         sci.SetSel(start + 1, start + commentStart.Length + 1);
                         sci.ReplaceSel("");
                         // fix caret pos
-                        if (initPos > end - commentEnd.Length)
-                            initPos = end - commentEnd.Length;
-                        if (initPos <= start + commentStart.Length)
-                            initPos = start + 1;
+                        if (initPos > end - commentEnd.Length) initPos = end - commentEnd.Length;
+                        if (initPos <= start + commentStart.Length) initPos = start + 1;
                         else initPos -= commentStart.Length;
                     }
                     sci.SetSel(initPos, initPos);
-                    // fix page scrolling
-                    if (scrollTop != sci.FirstVisibleLine)
+                    if (scrollTop != sci.FirstVisibleLine) // fix page scrolling
+                    {
                         sci.LineScroll(0, scrollTop - sci.FirstVisibleLine);
+                    }
                 }
                 finally
                 {
                     sci.EndUndoAction();
                 }
             }
-            // comment block
-            else if (sci.SelText.Length > 0)
+            else if (sci.SelText.Length > 0) // comment block
             {
                 sci.BeginUndoAction();
                 try
@@ -2812,7 +2803,6 @@ namespace FlashDevelop
                     sci.EndUndoAction();
                 }
             }
-            else { /* Let plugins do smart commenting, like an html tag and it's content */ }
         }
 
         /// <summary>
