@@ -767,7 +767,9 @@ namespace ProjectManager
 
         private void SettingChanged(string setting)
         {
-            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths")
+            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" 
+                || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths"
+                || setting == "GlobalClasspath")
             {
                 Tree.RebuildTree(true);
             }
@@ -938,8 +940,7 @@ namespace ProjectManager
 
         public void TreeRefreshSelectedNode()
         {
-            //Tree.RefreshNode(Tree.SelectedNode);
-            Tree.RebuildTree(true);
+            Tree.Refresh();
         }
 
         /// <summary>
