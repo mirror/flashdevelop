@@ -2941,7 +2941,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Build Project File</value>
   </data>
   <data name="MacroManager.Description.Image" xml:space="preserve">
-    <value>Intenal image key of the macro menu item.</value>
+    <value>Internal image key of the macro menu item.</value>
   </data>
   <data name="ASCompletion.Category.Generation" xml:space="preserve">
     <value>Code Generation</value>

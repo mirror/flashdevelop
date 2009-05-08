@@ -3063,6 +3063,7 @@ namespace FlashDevelop
         /// </summary>
         public void ExecuteScriptExternal(String script)
         {
+            if (!File.Exists(script)) return;
             using (AsmHelper helper = new AsmHelper(CSScript.Compile(script, null, true), null, true))
             {
                 helper.Invoke("*.Execute");
@@ -3075,6 +3076,7 @@ namespace FlashDevelop
         /// </summary>
         public void ExecuteScriptInternal(String script, Boolean random)
         {
+            if (!File.Exists(script)) return;
             String file = random ? Path.GetTempFileName() : null;
             AsmHelper helper = new AsmHelper(CSScript.Load(script, file, false, null));
             helper.Invoke("*.Execute");
