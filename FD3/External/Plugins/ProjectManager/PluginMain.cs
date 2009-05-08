@@ -938,7 +938,8 @@ namespace ProjectManager
 
         public void TreeRefreshSelectedNode()
         {
-            Tree.RefreshNode(Tree.SelectedNode);
+            //Tree.RefreshNode(Tree.SelectedNode);
+            Tree.RebuildTree(true);
         }
 
         /// <summary>
