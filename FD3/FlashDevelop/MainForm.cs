@@ -1459,8 +1459,11 @@ namespace FlashDevelop
                     if (File.Exists(file)) this.OpenEditableDocument(file);
                 }
             }
-            Win32.ShowWindow(this.Handle, Win32.SW_SHOWMINIMIZED);
-            Win32.ShowWindow(this.Handle, Win32.SW_RESTORE);
+            if (Win32.IsIconic(this.Handle))
+            {
+                Win32.ShowWindowAsync(this.Handle, Win32.SW_RESTORE);
+            }
+            Win32.SetForegroundWindow(this.Handle);
         }
 
         /// <summary>
