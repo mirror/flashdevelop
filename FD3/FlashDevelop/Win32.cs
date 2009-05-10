@@ -13,13 +13,7 @@ namespace FlashDevelop
         public const UInt32 SWP_SHOWWINDOW = 64;
 
         [DllImport("user32.dll")]
-        public static extern Boolean IsIconic(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        public static extern Boolean ShowWindowAsync(IntPtr hWnd, Int32 nCmdShow);
-
-        [DllImport("user32.dll")]
-        public static extern Boolean SetForegroundWindow(IntPtr hWnd);
+        public static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
 
         [DllImport("user32.dll")]
         public static extern void SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, Int32 x, Int32 y, Int32 width, Int32 height, UInt32 flags);
