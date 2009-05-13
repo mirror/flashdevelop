@@ -64,8 +64,6 @@ VIProductVersion "3.0.0.0"
 !define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the installation of $(^NameDA).\r\n\r\nIt is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.\r\n\r\nTo get everything out of FlashDevelop you should have Java 1.6 Runtime and Flash 9 Player (ActiveX for IE) installed.\r\n\r\n$_CLICK"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
-!define MUI_FINISHPAGE_RUN "${EXECUTABLE}"
-!define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
 !define MUI_FINISHPAGE_LINK "See how to install the Flex SDK >"
 !define MUI_FINISHPAGE_LINK_LOCATION "http://www.flashdevelop.org/wikidocs/index.php?title=Configuration#Installing_the_SDK"
 
