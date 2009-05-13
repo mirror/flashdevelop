@@ -54,6 +54,7 @@ namespace FlashDevelop
             this.InitializeSmartDialogs();
             this.InitializeMainForm();
             this.InitializeGraphics();
+            this.InitModifiedTimer();
         }
 
         /// <summary>
@@ -1170,7 +1171,7 @@ namespace FlashDevelop
             ITabbedDocument document = DocumentManager.FindDocument(sender);
             if (document != null && document.IsEditable)
             {
-                this.OnDocumentModify(document);
+                this.ModifiedChanged(document);
                 if (this.appSettings.ViewModifiedLines)
                 {
                     Int32 flags = sender.ModEventMask;
@@ -1318,6 +1319,55 @@ namespace FlashDevelop
             TextEvent te2 = new TextEvent(EventType.FileSave, document.FileName);
             EventManager.DispatchEvent(this, te2);
             ButtonManager.UpdateFlaggedButtons();
+        }
+
+        #endregion
+
+        #region Event Filtering
+
+        private System.Boolean modifiedNeeded;
+        private System.Windows.Forms.Timer modifiedTimer;
+
+        /// <summary>
+        /// Initializes the modified event timer
+        /// </summary>
+        private void InitModifiedTimer()
+        {
+            this.modifiedNeeded = false;
+            this.modifiedTimer = new System.Windows.Forms.Timer();
+            this.modifiedTimer.Tick += this.ModifiedTimerTick;
+            this.modifiedTimer.Interval = 10;
+        }
+
+        /// <summary>
+        /// After the delay, calls the update method
+        /// </summary>
+        private void ModifiedTimerTick(Object sender, EventArgs e)
+        {
+            this.modifiedTimer.Enabled = false;
+            this.UpdateModified();
+        }
+
+        /// <summary>
+        /// Starts the timer to filter the modify events
+        /// </summary>
+        private void ModifiedChanged(ITabbedDocument document)
+        {
+            this.modifiedNeeded = true;
+            this.modifiedTimer.Enabled = false;
+            this.modifiedTimer.Tag = document;
+            this.modifiedTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// After the delay, calls the update modified method
+        /// </summary>
+        private void UpdateModified()
+        {
+            if (!this.modifiedNeeded) return;
+            this.modifiedTimer.Enabled = false;
+            this.OnDocumentModify(this.modifiedTimer.Tag as ITabbedDocument);
+            this.modifiedNeeded = false;
         }
 
         #endregion
