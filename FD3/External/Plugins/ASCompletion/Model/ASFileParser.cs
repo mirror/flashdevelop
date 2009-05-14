@@ -430,47 +430,60 @@ namespace ASCompletion.Model
 						}
 						break;
 
-                    // Handle a /// comment
+                    // We are inside a /// comment
                     case 4:
-                        // End of line.  We may have reached code.
-                        if (c1 == 10 || c1 == 13)
                         {
-                            inCode = true;
-                            matching = 5;
-                        }
-                        break;
+                            bool end = false;
+                            bool skipAhead = false;
 
-                    // Handle the first characters on the line following a /// comment
-                    case 5:
-                        // We are still in /// matching mode.  Quit out if we see anything other than a ///.
-                        if (c1 == '/')
-                        {
-                            if (i + 2 < len)
+                            // See if we just ended a line
+                            if (2 <= i && (ba[i - 2] == 10 || ba[i - 2] == 13))
                             {
-                                if (ba[i] == '/' && ba[i + 1] == '/')
+                                // Check ahead to the next line, see if it has a /// comment on it too.
+                                // If it does, we want to continue the comment with that line.  If it
+                                // doesn't, then this comment is finished and we will set end to true.
+                                for (int j = i+1; j < len; ++j)
                                 {
-                                    inCode = false;
-                                    ++i;
-                                    ++i;
-                                    matching = 4;
-                                    continue;
+                                    // Skip whitespace
+                                    char twoBack = ba[j-2];
+                                    if (' ' != twoBack && '\t' != twoBack)
+                                    {
+                                        if ('/' == twoBack && '/' == ba[j-1] && '/' == ba[j])
+                                        {
+                                            // There is a comment ahead.  Move up to it so we can gather the
+                                            // rest of the comment
+                                            i = j+1;
+                                            skipAhead = true;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            // Not a comment!  We're done!
+                                            end = true;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        if (c1 == ' ')
-                        {
-                            continue;
-                        }
+                            if (end)
+                            {
+                                // The comment is over and we want to write it out
+                                lastComment = (commentLength > 0) ? new string(commentBuffer, 0, commentLength).Trim() : null;
+                                commentLength = 0;
+                                inCode = true;
+                                matching = 0;
 
-                        // Comment ended
-                        lastComment = (commentLength > 0) ? new string(commentBuffer, 0, commentLength) : null;
-                        commentLength = 0;
-                        matching = 0;
-                        inCode = true;
-
-                        // Back up one so we get other matches
-                        --i;
-                        continue;
+                                // Back up i so we can start gathering comments from right after the line break
+                                --i;
+                                continue;
+                            }
+                            if (skipAhead)
+                            {
+                                // We just hit another /// and are skipping up to right after it.
+                                continue;
+                            }
+                            break;
+                        }
 				}
 
 				/* LINE/COLUMN NUMBER */

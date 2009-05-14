@@ -819,7 +819,12 @@ namespace ProjectManager
         {
             if (Tree.SelectedNode != null)
             {
-                Tree.RefreshNode(Tree.SelectedNode);
+                try
+                {
+                    GenericNode node = Tree.SelectedNode.Parent as GenericNode;
+                    node.Refresh(false);
+                }
+                catch {}
             }
             foreach (string path in Tree.SelectedPaths)
             {
