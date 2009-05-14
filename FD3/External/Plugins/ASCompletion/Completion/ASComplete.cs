@@ -1176,7 +1176,7 @@ namespace ASCompletion.Completion
                     if (evClass.IsVoid()) continue;
                     foreach (MemberModel member in evClass.Members)
                     {
-                        if (reName.IsMatch(member.Value))
+                        if (member.Value != null && reName.IsMatch(member.Value))
                         {
                             name = evClass.Name + '.' + member.Name;
                             flags = member.Flags;
