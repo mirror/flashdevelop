@@ -134,10 +134,10 @@ namespace PluginCore.Controls
                     return false;
 
                 case Keys.Up:
-                    sci.LineUp();
+                    if (!CompletionList.Active) sci.LineUp();
                     return false;
                 case Keys.Down:
-                    sci.LineDown();
+                    if (!CompletionList.Active) sci.LineDown();
                     return false;
                 case Keys.Up | Keys.Shift:
                     sci.LineUpExtend();
