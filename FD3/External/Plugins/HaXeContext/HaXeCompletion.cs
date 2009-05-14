@@ -67,8 +67,22 @@ namespace HaXeContext
             // locate a . or (
             while (pos > 1 && sci.CharAt(pos - 1) != '.' && sci.CharAt(pos - 1) != '(')
                 pos--;
-            if (sci.Encoding == System.Text.Encoding.UTF8)
-                pos += 3; // BOM
+
+            try
+            {
+                Byte[] bom = new Byte[4];
+                FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
+                if (fs.CanSeek)
+                {
+                    fs.Read(bom, 0, 4);
+                    fs.Close();
+                    if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf)
+                    {
+                        pos += 3; // Skip BOM
+                    }
+                }
+            }
+            catch {}
 
             // Define the haXe target
             string output = "output";
