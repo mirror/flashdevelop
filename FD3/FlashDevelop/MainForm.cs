@@ -305,11 +305,17 @@ namespace FlashDevelop
             get
             {
                 List<ITabbedDocument> documents = new List<ITabbedDocument>();
-                foreach (IDockContent document in this.dockPanel.Documents)
+                foreach (DockPane pane in Globals.MainForm.DockPanel.Panes)
                 {
-                    if (document is TabbedDocument)
+                    if (pane.DockState == DockState.Document)
                     {
-                        documents.Add(document as TabbedDocument);
+                        foreach (IDockContent content in pane.Contents)
+                        {
+                            if (content is TabbedDocument)
+                            {
+                                documents.Add(content as TabbedDocument);
+                            }
+                        }
                     }
                 }
                 return documents.ToArray();
