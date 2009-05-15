@@ -817,15 +817,6 @@ namespace ProjectManager
 
         private void TreeOpenItems()
         {
-            if (Tree.SelectedNode != null)
-            {
-                try
-                {
-                    GenericNode node = Tree.SelectedNode.Parent as GenericNode;
-                    node.Refresh(false);
-                }
-                catch {}
-            }
             foreach (string path in Tree.SelectedPaths)
             {
                 openFileQueue.Enqueue(path);
@@ -837,7 +828,9 @@ namespace ProjectManager
         {
             if (openFileQueue.Count > 0)
             {
-                OpenFile(openFileQueue.Dequeue() as string);
+                String file = openFileQueue.Dequeue() as String;
+                if (!File.Exists(file)) return;
+                OpenFile(file);
             }
         }
 

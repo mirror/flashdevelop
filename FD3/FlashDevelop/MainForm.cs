@@ -71,7 +71,7 @@ namespace FlashDevelop
         private void OnUnhandledException(Object sender, UnhandledExceptionEventArgs e)
         {
             Exception exception = new Exception(e.ExceptionObject.ToString());
-            ErrorManager.AddToLog("Unhandled exception:", exception);
+            ErrorManager.AddToLog("Unhandled exception: ", exception);
         }
 
         #endregion
