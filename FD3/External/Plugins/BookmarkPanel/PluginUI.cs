@@ -518,20 +518,17 @@ namespace BookmarkPanel
         }
 
         /// <summary>
-        /// Return all the markers from a scintilla document
+        /// Return all the bookmark markers from a scintilla document
         /// </summary>
         private List<Int32> GetMarkers(ScintillaControl sci)
         {
             Int32 line = -1;
-            Int32 maxLine = 0;
             List<Int32> markerLines = new List<Int32>();
-            Int32 mask = sci.GetMarginMaskN(0);
             while (line < sci.LineCount)
             {
-                line = sci.MarkerNext(line + 1, mask);
+                line = sci.MarkerNext(line + 1, 1);
                 if (line < 0) break;
                 markerLines.Add(line);
-                maxLine = Math.Max(maxLine, line);
             }
             return markerLines;
         }
@@ -569,11 +566,7 @@ namespace BookmarkPanel
                 {
                     if (document.IsEditable && document.FileName == entry.Key)
                     {
-                        Int32 mask = document.SciControl.GetMarginMaskN(0);
-                        for (Int32 i = 0; i < 32; i++)
-                        {
-                            if ((mask & (1 << i)) > 0) document.SciControl.MarkerDelete(entry.Value, i);
-                        }
+                        document.SciControl.MarkerDelete(entry.Value, 0);
                     }
                 }
             }

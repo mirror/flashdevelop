@@ -46,7 +46,10 @@ namespace ProjectManager.Controls
 		public static FDImage HiddenFile;
         public static FDImage BlankFile;
 		public static FDImage Project;
-		public static FDImage Classpath;
+		public static FDImage ProjectClasspath;
+        public static FDImage Classpath;
+        public static FDImage ProjectClasspathError;
+        public static FDImage ClasspathError;
 		public static FDImage Font;
 		public static FDImage ImageResource;
 		public static FDImage ActionScript;
@@ -99,7 +102,10 @@ namespace ProjectManager.Controls
             HiddenFile = GetResource("Icons.HiddenFile.png");
             BlankFile = GetResource("Icons.BlankPage.png");
             Project = Get(274);
-			Classpath = Get(98);
+            ProjectClasspath = Get(828);
+            Classpath = Get("828|15|2|5");
+            ProjectClasspathError = Get ("828|6|3|3");
+            ClasspathError = Get("828|6|3|3");
 			Font = Get(408);
 			ImageResource = Get(336);
             ActionScript = GetResource("Icons.ActionscriptFile.png");

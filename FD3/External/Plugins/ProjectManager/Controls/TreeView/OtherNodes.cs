@@ -28,32 +28,78 @@ namespace ProjectManager.Controls.TreeView
 
 	public class ClasspathNode : WatcherNode
 	{
+        public string classpath;
+
 		public ClasspathNode(Project project, string classpath, string text) : base(classpath)
 		{
 			isDraggable = false;
 			isRenamable = false;
 
+            this.classpath = classpath;
+
             // shorten text
             char sep = Path.DirectorySeparatorChar;
             string[] parts = text.Split(sep);
+            string label = "";
+
             if (parts.Length > 0)
             {
                 int index = parts.Length - 1;
-                text = parts[index--];
-                while (index >= 0 && text.Length < 30 && parts[index] != "..")
-                    text = parts[index--] + sep + text;
+                label = parts[parts.Length - 1];
             }
 
-			Text = text;
+            Text = label;
             ToolTipText = classpath;
 		}
 
 		public override void Refresh(bool recursive)
 		{
+
 			base.Refresh(recursive);
 
-			ImageIndex = Icons.Classpath.Index;
+            base.isInvalid = !Directory.Exists(BackingPath);
+
+            if (!isInvalid)
+            {
+                ImageIndex = Icons.Classpath.Index;
+            }
+            else
+            {
+                ImageIndex = Icons.ClasspathError.Index;
+            }
+
 			SelectedImageIndex = ImageIndex;
 		}
 	}
+
+    public class ProjectClasspathNode : ClasspathNode
+    {
+        public ProjectClasspathNode(Project project, string classpath, string text) : base(project, classpath, text)
+        {
+            if (text != Text)
+            {
+                ToolTipText = text;
+            }
+            else
+            {
+                ToolTipText = "";
+            }
+        }
+
+        public override void Refresh(bool recursive)
+        {
+            base.Refresh(recursive);
+
+            if (!IsInvalid)
+            {
+                ImageIndex = Icons.ProjectClasspath.Index;
+            }
+            else
+            {
+                ImageIndex = Icons.ProjectClasspathError.Index;
+            }
+
+            SelectedImageIndex = ImageIndex;
+        }
+    }
 }

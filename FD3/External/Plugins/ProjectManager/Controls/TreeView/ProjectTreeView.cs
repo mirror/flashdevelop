@@ -32,6 +32,7 @@ namespace ProjectManager.Controls.TreeView
 			Instance = this;
 			MultiSelect = true;
             nodeMap = new Dictionary<string, GenericNode>();
+            ShowNodeToolTips = true;
 		}
 
 		public void Select(string path)
@@ -231,29 +232,46 @@ namespace ProjectManager.Controls.TreeView
 			Nodes.Add(projectNode);
 			projectNode.Refresh(true);
 			projectNode.Expand();
-			
-			ArrayList classpaths = new ArrayList();
 
-			if (PluginMain.Settings.ShowProjectClasspaths)
-				classpaths.AddRange(project.Classpaths);
+            ArrayList projectClasspaths = new ArrayList();
+            ArrayList globalClasspaths = new ArrayList();
+
+            if (PluginMain.Settings.ShowProjectClasspaths)
+                projectClasspaths.AddRange(project.Classpaths);
 
 			if (PluginMain.Settings.ShowGlobalClasspaths)
-				classpaths.AddRange(PluginMain.Settings.GlobalClasspaths);
+                globalClasspaths.AddRange(PluginMain.Settings.GlobalClasspaths);
 
-			// add external classpaths at the top level also
-			foreach (string classpath in classpaths)
-			{
-				string absolute = classpath;
-				if (!Path.IsPathRooted(absolute))
-					absolute = project.GetAbsolutePath(classpath);
-				if (absolute.StartsWith(project.Directory))
-					continue;
+            ClasspathNode cpNode;
 
-				ClasspathNode cpNode = new ClasspathNode(project,absolute,classpath);
-				Nodes.Add(cpNode);
-				cpNode.Refresh(true);
-				ShowRootLines = true;
-			}
+            foreach (string projectClasspath in projectClasspaths)
+            {
+                string absolute = projectClasspath;
+                if (!Path.IsPathRooted(absolute))
+                    absolute = project.GetAbsolutePath(projectClasspath);
+                if (absolute.StartsWith(project.Directory))
+                    continue;
+
+                cpNode = new ProjectClasspathNode(project, absolute, projectClasspath);
+                Nodes.Add(cpNode);
+                cpNode.Refresh(true);
+                ShowRootLines = true;
+            }
+
+            foreach (string globalClasspath in globalClasspaths)
+            {
+                string absolute = globalClasspath;
+                if (!Path.IsPathRooted(absolute))
+                    absolute = project.GetAbsolutePath(globalClasspath);
+                if (absolute.StartsWith(project.Directory))
+                    continue;
+
+                cpNode = new ClasspathNode(project, absolute, globalClasspath);
+                Nodes.Add(cpNode);
+                cpNode.Refresh(true);
+                ShowRootLines = true;
+            }
+
 
             // add external libraries at the top level also
             if (project is AS3Project)
