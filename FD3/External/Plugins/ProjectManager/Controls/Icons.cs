@@ -102,10 +102,10 @@ namespace ProjectManager.Controls
             HiddenFile = GetResource("Icons.HiddenFile.png");
             BlankFile = GetResource("Icons.BlankPage.png");
             Project = Get(274);
-            ProjectClasspath = Get(274);
-            Classpath = Get(523);
-            ProjectClasspathError = Get("274|6|3|3");
-            ClasspathError = Get("523|6|3|3");
+            ProjectClasspath = Get(98);
+            Classpath = Get(98);
+            ProjectClasspathError = Get("98|6|3|3");
+            ClasspathError = Get("98|6|3|3");
 			Font = Get(408);
 			ImageResource = Get(336);
             ActionScript = GetResource("Icons.ActionscriptFile.png");
