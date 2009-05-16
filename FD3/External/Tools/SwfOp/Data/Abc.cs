@@ -695,8 +695,8 @@ namespace SwfOp.Data
 				{
 					// has_optional
 					int optional_count = readU32(br);
-                    m.optionalValues = new object[param_count];
-					for(int k = param_count-optional_count; k < param_count; k++)//++k)
+                    m.optionalValues = new object[optional_count];
+					for(int k = 0; k < optional_count; k++)
 					{
 						int index = readU32(br);    // optional value index
 						ConstantKind kind = (ConstantKind)br.ReadSByte(); // kind byte for each default value
