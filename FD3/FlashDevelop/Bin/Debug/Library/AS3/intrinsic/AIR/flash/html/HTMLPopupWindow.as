@@ -1,5 +1,7 @@
 package flash.html
 {
+	import flash.display.NativeWindow;
+	import flash.events.Event;
 	import flash.html.HTMLLoader;
 
 	public class HTMLPopupWindow extends Object

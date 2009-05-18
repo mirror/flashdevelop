@@ -28,7 +28,7 @@ package flash.display
 		public function applyFilter (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, filter:BitmapFilter) : void;
 
 		/// Creates a BitmapData object with a specified width and height.
-		public function BitmapData (width:int = null, height:int = null, transparent:Boolean = true, fillColor:uint = 4294967295);
+		public function BitmapData (width:int, height:int, transparent:Boolean = true, fillColor:uint = 4294967295);
 
 		/// Returns a new BitmapData object with an exact copy of the original bitmap.
 		public function clone () : BitmapData;
@@ -43,13 +43,13 @@ package flash.display
 		public function copyChannel (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, sourceChannel:uint, destChannel:uint) : void;
 
 		/// Provides a fast routine to perform pixel manipulation between images with no stretching, rotation, or color effects.
-		public function copyPixels (sourceBitmapData:BitmapData = null, sourceRect:Rectangle = null, destPoint:Point = null, alphaBitmapData:BitmapData = null, alphaPoint:Point = null, mergeAlpha:Boolean = false) : void;
+		public function copyPixels (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, alphaBitmapData:BitmapData = null, alphaPoint:Point = null, mergeAlpha:Boolean = false) : void;
 
 		/// Frees memory that is used to store the BitmapData object.
 		public function dispose () : void;
 
 		/// Draws the source display object onto the bitmap image, using the Flash Player vector renderer.
-		public function draw (source:IBitmapDrawable = null, matrix:Matrix = null, colorTransform:ColorTransform = null, blendMode:String = null, clipRect:Rectangle = null, smoothing:Boolean = false) : void;
+		public function draw (source:IBitmapDrawable, matrix:Matrix = null, colorTransform:ColorTransform = null, blendMode:String = null, clipRect:Rectangle = null, smoothing:Boolean = false) : void;
 
 		/// Fills a rectangular area of pixels with a specified ARGB color.
 		public function fillRect (rect:Rectangle, color:uint) : void;
@@ -61,7 +61,7 @@ package flash.display
 		public function generateFilterRect (sourceRect:Rectangle, filter:BitmapFilter) : Rectangle;
 
 		/// Determines a rectangular region that either fully encloses all pixels of a specified color within the bitmap image (if the findColor parameter is set to true) or fully encloses all pixels that do not include the specified color (if the findColor parameter is set to false).
-		public function getColorBoundsRect (mask:uint = null, color:uint = null, findColor:Boolean = true) : Rectangle;
+		public function getColorBoundsRect (mask:uint, color:uint, findColor:Boolean = true) : Rectangle;
 
 		/// Returns an integer representing a RGB pixel value from a BitmapData object at a specific point.
 		public function getPixel (x:int, y:int) : uint;
@@ -73,7 +73,7 @@ package flash.display
 		public function getPixels (rect:Rectangle) : ByteArray;
 
 		/// Performs pixel-level hit detection between one bitmap image and a point, rectangle, or other bitmap image.
-		public function hitTest (firstPoint:Point = null, firstAlphaThreshold:uint = null, secondObject:Object = null, secondBitmapDataPoint:Point = null, secondAlphaThreshold:uint = 1) : Boolean;
+		public function hitTest (firstPoint:Point, firstAlphaThreshold:uint, secondObject:Object, secondBitmapDataPoint:Point = null, secondAlphaThreshold:uint = 1) : Boolean;
 
 		/// Locks an image so that any objects that reference the BitmapData object, such as Bitmap objects, are not updated when this BitmapData object changes.
 		public function lock () : void;
@@ -82,16 +82,16 @@ package flash.display
 		public function merge (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, redMultiplier:uint, greenMultiplier:uint, blueMultiplier:uint, alphaMultiplier:uint) : void;
 
 		/// Fills an image with pixels representing random noise.
-		public function noise (randomSeed:int = null, low:uint = 0, high:uint = 255, channelOptions:uint = 7, grayScale:Boolean = false) : void;
+		public function noise (randomSeed:int, low:uint = 0, high:uint = 255, channelOptions:uint = 7, grayScale:Boolean = false) : void;
 
 		/// Remaps the color channel values in an image that has up to four arrays of color palette data, one for each channel.
-		public function paletteMap (sourceBitmapData:BitmapData = null, sourceRect:Rectangle = null, destPoint:Point = null, redArray:Array = null, greenArray:Array = null, blueArray:Array = null, alphaArray:Array = null) : void;
+		public function paletteMap (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, redArray:Array = null, greenArray:Array = null, blueArray:Array = null, alphaArray:Array = null) : void;
 
 		/// Generates a Perlin noise image.
-		public function perlinNoise (baseX:Number = null, baseY:Number = null, numOctaves:uint = null, randomSeed:int = null, stitch:Boolean = null, fractalNoise:Boolean = null, channelOptions:uint = 7, grayScale:Boolean = false, offsets:Array = null) : void;
+		public function perlinNoise (baseX:Number, baseY:Number, numOctaves:uint, randomSeed:int, stitch:Boolean, fractalNoise:Boolean, channelOptions:uint = 7, grayScale:Boolean = false, offsets:Array = null) : void;
 
 		/// Performs a pixel dissolve either from a source image to a destination image or by using the same image.
-		public function pixelDissolve (sourceBitmapData:BitmapData = null, sourceRect:Rectangle = null, destPoint:Point = null, randomSeed:int = 0, numPixels:int = 0, fillColor:uint = 0) : int;
+		public function pixelDissolve (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, randomSeed:int = 0, numPixels:int = 0, fillColor:uint = 0) : int;
 
 		/// Scrolls an image by a certain (x, y) pixel amount.
 		public function scroll (x:int, y:int) : void;
@@ -106,7 +106,7 @@ package flash.display
 		public function setPixels (rect:Rectangle, inputByteArray:ByteArray) : void;
 
 		/// Tests pixel values in an image against a specified threshold and sets pixels that pass the test to new color values.
-		public function threshold (sourceBitmapData:BitmapData = null, sourceRect:Rectangle = null, destPoint:Point = null, operation:String = null, threshold:uint = null, color:uint = 0, mask:uint = 4294967295, copySource:Boolean = false) : uint;
+		public function threshold (sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, operation:String, threshold:uint, color:uint = 0, mask:uint = 4294967295, copySource:Boolean = false) : uint;
 
 		/// Unlocks an image so that any objects that reference the BitmapData object, such as Bitmap objects, are updated when this BitmapData object changes.
 		public function unlock (changeRect:Rectangle = null) : void;

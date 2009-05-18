@@ -2,9 +2,12 @@ package flash.desktop
 {
 	import flash.events.EventDispatcher;
 	import flash.desktop.NativeApplication;
+	import flash.events.KeyboardEvent;
 	import flash.display.NativeWindow;
 	import flash.display.NativeMenu;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	import flash.desktop.InteractiveIcon;
 
 	/**
@@ -111,7 +114,7 @@ package flash.desktop
 		public function activate (window:NativeWindow = null) : void;
 
 		/// [AIR] Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
-		public function addEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
+		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
 		/// [AIR] Invokes an internal delete command on the focused display object.
 		public function clear () : Boolean;
@@ -145,7 +148,7 @@ package flash.desktop
 		public function removeAsDefaultApplication (extension:String) : void;
 
 		/// [AIR] Removes a listener from the EventDispatcher object.
-		public function removeEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false) : void;
+		public function removeEventListener (type:String, listener:Function, useCapture:Boolean = false) : void;
 
 		/// [AIR] Invokes an internal selectAll command on the focused display object.
 		public function selectAll () : Boolean;

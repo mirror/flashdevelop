@@ -32,6 +32,6 @@ package flash.ui
 		public function clone () : ContextMenuItem;
 
 		/// Creates a new ContextMenuItem object that can be added to the ContextMenu.customItems array.
-		public function ContextMenuItem (caption:String = null, separatorBefore:Boolean = false, enabled:Boolean = true, visible:Boolean = true);
+		public function ContextMenuItem (caption:String, separatorBefore:Boolean = false, enabled:Boolean = true, visible:Boolean = true);
 	}
 }

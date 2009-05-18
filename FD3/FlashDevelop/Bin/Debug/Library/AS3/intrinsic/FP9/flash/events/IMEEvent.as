@@ -12,7 +12,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for IMEEvent objects.
-		public function IMEEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
+		public function IMEEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
 
 		/// Returns a string that contains all the properties of the IMEEvent object.
 		public function toString () : String;

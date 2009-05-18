@@ -19,6 +19,6 @@ package flash.events
 		public function clone () : Event;
 
 		/// [AIR] The constructor function for the InvokeEvent class.
-		public function InvokeEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, dir:File = null, argv:Array = null);
+		public function InvokeEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, dir:File = null, argv:Array = null);
 	}
 }

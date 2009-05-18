@@ -53,7 +53,7 @@ package flash.net
 		public function close () : void;
 
 		/// Connects to a remote shared object on a server through a specified NetConnection object.
-		public function connect (myConnection:NetConnection = null, params:String = null) : void;
+		public function connect (myConnection:NetConnection, params:String = null) : void;
 
 		public static function deleteAll (url:String) : int;
 
@@ -63,10 +63,10 @@ package flash.net
 		public static function getDiskUsage (url:String) : int;
 
 		/// Returns a reference to a locally persistent shared object that is only available to the current client.
-		public static function getLocal (name:String = null, localPath:String = null, secure:Boolean = false) : SharedObject;
+		public static function getLocal (name:String, localPath:String = null, secure:Boolean = false) : SharedObject;
 
 		/// Returns a reference to a shared object on Flash Media Server that multiple clients can access.
-		public static function getRemote (name:String = null, remotePath:String = null, persistence:Object = false, secure:Boolean = false) : SharedObject;
+		public static function getRemote (name:String, remotePath:String = null, persistence:Object = false, secure:Boolean = false) : SharedObject;
 
 		/// Broadcasts a message to all clients connected to a remote shared object, including the client that sent the message.
 		public function send () : void;
@@ -75,7 +75,7 @@ package flash.net
 		public function setDirty (propertyName:String) : void;
 
 		/// Updates the value of a property in a shared object and indicates to the server that the value of the property has changed.
-		public function setProperty (propertyName:String = null, value:Object = null) : void;
+		public function setProperty (propertyName:String, value:Object = null) : void;
 
 		public function SharedObject ();
 	}

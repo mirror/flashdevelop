@@ -11,6 +11,6 @@ package flash.events
 		public static const SELECT_MULTIPLE : String = "selectMultiple";
 
 		/// [AIR] The constructor function for a FileListEvent object.
-		public function FileListEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, files:Array = null);
+		public function FileListEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, files:Array = null);
 	}
 }

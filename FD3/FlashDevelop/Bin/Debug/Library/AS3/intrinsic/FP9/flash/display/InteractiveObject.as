@@ -117,6 +117,36 @@ package flash.display
 	 */
 	[Event(name="focusIn", type="flash.events.FocusEvent")] 
 
+	/**
+	 * Dispatched when the user activates the platform specific accelerator key combination for a select all operation or selects 'Select All' from the text context menu.
+	 * @eventType flash.events.Event.SELECT_ALL
+	 */
+	[Event(name="selectAll", type="flash.events.Event")] 
+
+	/**
+	 * Dispatched when the user activates the platform specific accelerator key combination for a paste operation or selects 'Paste' from the text context menu.
+	 * @eventType flash.events.Event.PASTE
+	 */
+	[Event(name="paste", type="flash.events.Event")] 
+
+	/**
+	 * Dispatched when the user activates the platform specific accelerator key combination for a cut operation or selects 'Cut' from the text context menu.
+	 * @eventType flash.events.Event.CUT
+	 */
+	[Event(name="cut", type="flash.events.Event")] 
+
+	/**
+	 * Dispatched when the user activates the platform specific accelerator key combination for a copy operation or selects 'Copy' from the text context menu.
+	 * @eventType flash.events.Event.COPY
+	 */
+	[Event(name="copy", type="flash.events.Event")] 
+
+	/**
+	 * Dispatched when the user selects 'Clear' (or 'Delete') from the text context menu.
+	 * @eventType flash.events.Event.CLEAR
+	 */
+	[Event(name="clear", type="flash.events.Event")] 
+
 	/// The InteractiveObject class is the abstract base class for all display objects with which the user can interact, using the mouse and keyboard.
 	public class InteractiveObject extends DisplayObject
 	{

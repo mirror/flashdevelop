@@ -1,6 +1,10 @@
 package air.net
 {
 	import flash.events.EventDispatcher;
+	import air.net.ServiceMonitor;
+	import flash.utils.Timer;
+	import flash.events.Event;
+	import flash.events.TimerEvent;
 
 	/**
 	 * Indicates that the service status has changed.

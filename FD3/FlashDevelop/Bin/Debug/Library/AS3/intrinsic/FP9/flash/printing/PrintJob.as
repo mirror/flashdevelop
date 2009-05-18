@@ -1,8 +1,8 @@
 package flash.printing
 {
 	import flash.events.EventDispatcher;
-	import flash.display.Sprite;
 	import flash.geom.Rectangle;
+	import flash.display.Sprite;
 	import flash.printing.PrintJobOptions;
 
 	/// The PrintJob class lets you create content and print it to one or more pages.
@@ -24,7 +24,7 @@ package flash.printing
 		public function get paperWidth () : int;
 
 		/// Sends the specified Sprite object as a single page to the print spooler.
-		public function addPage (sprite:Sprite = null, printArea:Rectangle = null, options:PrintJobOptions = null, frameNum:int = 0) : void;
+		public function addPage (sprite:Sprite, printArea:Rectangle = null, options:PrintJobOptions = null, frameNum:int = 0) : void;
 
 		/// Creates a PrintJob object that you can use to print one or more pages.
 		public function PrintJob ();

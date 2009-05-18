@@ -21,7 +21,7 @@ package flash.geom
 		public function append (lhs:Matrix3D) : void;
 
 		/// Appends an incremental rotation to a Matrix3D object.
-		public function appendRotation (degrees:Number = null, axis:Vector3D = null, pivotPoint:Vector3D = null) : void;
+		public function appendRotation (degrees:Number, axis:Vector3D, pivotPoint:Vector3D = null) : void;
 
 		/// Appends an incremental scale change along the x, y, and z axes to a Matrix3D object.
 		public function appendScale (xScale:Number, yScale:Number, zScale:Number) : void;
@@ -54,13 +54,13 @@ package flash.geom
 		public function Matrix3D (v:Vector.<Number> = null);
 
 		/// Rotates the display object so that it faces a specified position.
-		public function pointAt (pos:Vector3D = null, at:Vector3D = null, up:Vector3D = null) : void;
+		public function pointAt (pos:Vector3D, at:Vector3D = null, up:Vector3D = null) : void;
 
 		/// Prepends a matrix by multiplying the current Matrix3D object by another Matrix3D object.
 		public function prepend (rhs:Matrix3D) : void;
 
 		/// Prepends an incremental rotation to a Matrix3D object.
-		public function prependRotation (degrees:Number = null, axis:Vector3D = null, pivotPoint:Vector3D = null) : void;
+		public function prependRotation (degrees:Number, axis:Vector3D, pivotPoint:Vector3D = null) : void;
 
 		/// Prepends an incremental scale change along the x, y, and z axes to a Matrix3D object.
 		public function prependScale (xScale:Number, yScale:Number, zScale:Number) : void;
@@ -69,7 +69,7 @@ package flash.geom
 		public function prependTranslation (x:Number, y:Number, z:Number) : void;
 
 		/// Sets the transformation matrix's translation, rotation, and scale settings.
-		public function recompose (components:Vector.<Vector3D> = null, orientationStyle:String = "eulerAngles") : Boolean;
+		public function recompose (components:Vector.<Vector3D>, orientationStyle:String = "eulerAngles") : Boolean;
 
 		/// Uses the transformation matrix to transform a Vector3D object from one space coordinate to another.
 		public function transformVector (v:Vector3D) : Vector3D;

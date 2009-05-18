@@ -22,6 +22,6 @@ package flash.events
 		public function clone () : Event;
 
 		/// [AIR] Used to create new SQLUpdateEvent object.
-		public function SQLUpdateEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, table:String = null, rowID:Number = 0);
+		public function SQLUpdateEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, table:String = null, rowID:Number = 0);
 	}
 }

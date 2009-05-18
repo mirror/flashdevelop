@@ -41,6 +41,6 @@ package flash.utils
 		public function stop () : void;
 
 		/// Constructs a new Timer object with the specified delay and repeatCount states.
-		public function Timer (delay:Number = null, repeatCount:int = 0);
+		public function Timer (delay:Number, repeatCount:int = 0);
 	}
 }

@@ -2,6 +2,7 @@ package flash.display
 {
 	import flash.events.EventDispatcher;
 	import flash.display.Stage;
+	import flash.events.KeyboardEvent;
 	import flash.display.NativeMenuItem;
 	import flash.display.NativeMenu;
 	import flash.events.MouseEvent;

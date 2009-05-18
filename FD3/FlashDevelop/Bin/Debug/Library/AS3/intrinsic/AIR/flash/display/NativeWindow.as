@@ -5,8 +5,8 @@ package flash.display
 	import flash.display.NativeWindow;
 	import flash.geom.Rectangle;
 	import flash.display.NativeMenu;
-	import flash.display.Stage;
 	import flash.display.NativeWindowInitOptions;
+	import flash.display.Stage;
 
 	/**
 	 * Dispatched by this NativeWindow object after the window has been deactivated.
@@ -144,13 +144,13 @@ package flash.display
 		/// [AIR] Reports the window type setting used to create this window.
 		public function get type () : String;
 
-		/// [AIR] Specifies whether this window is visible.
-		public function get visible () : Boolean;
-		public function set visible (value:Boolean) : void;
-
 		/// [AIR] The width of this window in pixels.
 		public function get width () : Number;
 		public function set width (value:Number) : void;
+
+		/// [AIR] Specifies whether this window is visible.
+		public function get visible () : Boolean;
+		public function set visible (value:Boolean) : void;
 
 		/// [AIR] The horizontal axis coordinate of this window's top left corner relative to the origin of the operating system desktop.
 		public function get x () : Number;

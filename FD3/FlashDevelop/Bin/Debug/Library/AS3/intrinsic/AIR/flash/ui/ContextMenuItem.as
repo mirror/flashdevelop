@@ -1,7 +1,9 @@
 package flash.ui
 {
 	import flash.display.NativeMenuItem;
+	import flash.events.ContextMenuEvent;
 	import flash.ui.ContextMenuItem;
+	import flash.display.InteractiveObject;
 
 	/**
 	 * Dispatched when a user selects an item from a context menu.
@@ -28,6 +30,6 @@ package flash.ui
 		public function clone () : NativeMenuItem;
 
 		/// Creates a new ContextMenuItem object that can be added to the ContextMenu.customItems array.
-		public function ContextMenuItem (caption:String = null, separatorBefore:Boolean = false, enabled:Boolean = true, visible:Boolean = true);
+		public function ContextMenuItem (caption:String, separatorBefore:Boolean = false, enabled:Boolean = true, visible:Boolean = true);
 	}
 }

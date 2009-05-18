@@ -17,6 +17,6 @@ package flash.data
 		public static function reset () : void;
 
 		/// [AIR] Sets the item with the given name to the provided ByteArray data.
-		public static function setItem (name:String = null, data:ByteArray = null, stronglyBound:Boolean = false) : void;
+		public static function setItem (name:String, data:ByteArray, stronglyBound:Boolean = false) : void;
 	}
 }

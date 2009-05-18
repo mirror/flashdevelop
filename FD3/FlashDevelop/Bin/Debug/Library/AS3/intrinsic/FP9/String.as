@@ -21,10 +21,10 @@ package
 		public static function fromCharCode () : String;
 
 		/// Searches the string and returns the position of the first occurrence of val found at or after startIndex within the calling string.
-		public function indexOf (s:String = "undefined", i:Number = 0) : int;
+		public function indexOf (s:String = undefined, i:Number = 0) : int;
 
 		/// Searches the string from right to left and returns the index of the last occurrence of val found before startIndex.
-		public function lastIndexOf (s:String = "undefined", i:Number = 2147483647) : int;
+		public function lastIndexOf (s:String = undefined, i:Number = 2147483647) : int;
 
 		/// Compares the sort order of two or more strings and returns the result of the comparison as an integer.
 		public function localeCompare (other:String = null) : int;

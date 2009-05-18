@@ -1,14 +1,33 @@
 package flash.html
 {
 	import flash.display.Sprite;
+	import flash.desktop.JSClipboard;
+	import flash.desktop.Clipboard;
+	import flash.desktop.NativeDragOptions;
+	import flash.display.BitmapData;
 	import flash.html.HTMLLoader;
 	import flash.display.NativeWindowInitOptions;
 	import flash.geom.Rectangle;
+	import flash.geom.Matrix;
+	import flash.events.KeyboardEvent;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.html.HTMLWindowCreateOptions;
 	import flash.display.DisplayObject;
+	import flash.events.TimerEvent;
+	import flash.html.script.Package;
+	import flash.net.URLRequest;
+	import flash.utils.Timer;
+	import flash.html.__HTMLScriptObject;
+	import flash.events.FocusEvent;
 	import flash.system.ApplicationDomain;
 	import flash.geom.Point;
-	import flash.net.URLRequest;
+	import flash.display.NativeMenu;
+	import flash.events.NativeDragEvent;
+	import flash.html.HTMLPopupWindow;
 	import flash.html.HTMLHistoryItem;
+	import flash.display.Bitmap;
+	import flash.events.TextEvent;
 	import flash.html.HTMLHost;
 
 	/**

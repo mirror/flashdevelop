@@ -38,7 +38,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for FocusEvent objects.
-		public function FocusEvent (type:String = null, bubbles:Boolean = true, cancelable:Boolean = false, relatedObject:InteractiveObject = null, shiftKey:Boolean = false, keyCode:uint = 0, direction:String = "none");
+		public function FocusEvent (type:String, bubbles:Boolean = true, cancelable:Boolean = false, relatedObject:InteractiveObject = null, shiftKey:Boolean = false, keyCode:uint = 0, direction:String = "none");
 
 		/// Returns a string that contains all the properties of the FocusEvent object.
 		public function toString () : String;

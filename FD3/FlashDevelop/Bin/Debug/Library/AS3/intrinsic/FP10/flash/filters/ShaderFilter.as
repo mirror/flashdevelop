@@ -1,5 +1,6 @@
 package flash.filters
 {
+	import flash.geom.Rectangle;
 	import flash.display.Shader;
 
 	/// The ShaderFilter class applies a filter by executing a shader on the object being filtered.

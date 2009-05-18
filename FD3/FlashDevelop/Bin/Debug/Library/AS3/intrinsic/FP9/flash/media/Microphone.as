@@ -64,7 +64,7 @@ package flash.media
 		public function setLoopBack (state:Boolean = true) : void;
 
 		/// Sets the minimum input level that should be considered sound and (optionally) the amount of silent time signifying that silence has actually begun.
-		public function setSilenceLevel (silenceLevel:Number = null, timeout:int = -1) : void;
+		public function setSilenceLevel (silenceLevel:Number, timeout:int = -1) : void;
 
 		/// Specifies whether to use the echo suppression feature of the audio codec.
 		public function setUseEchoSuppression (useEchoSuppression:Boolean) : void;

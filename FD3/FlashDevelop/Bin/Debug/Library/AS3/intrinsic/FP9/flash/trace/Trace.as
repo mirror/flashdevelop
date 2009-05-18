@@ -14,7 +14,7 @@ package flash.trace
 
 		public static function getListener () : Function;
 
-		public static function setLevel (l:int = null, target:int = 2) : *;
+		public static function setLevel (l:int, target:int = 2) : *;
 
 		public static function setListener (f:Function) : *;
 

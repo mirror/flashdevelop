@@ -2,8 +2,13 @@ package flash.net.drm
 {
 	import flash.events.EventDispatcher;
 	import flash.net.drm.DRMManager;
+	import flash.events.DRMStatusEvent;
+	import flash.events.DRMErrorEvent;
 	import flash.net.drm.DRMContentData;
+	import flash.net.drm.DRMVoucher;
 	import flash.utils.ByteArray;
+	import flash.events.DRMAuthenticationCompleteEvent;
+	import flash.events.DRMAuthenticationErrorEvent;
 
 	public class DRMManager extends EventDispatcher
 	{

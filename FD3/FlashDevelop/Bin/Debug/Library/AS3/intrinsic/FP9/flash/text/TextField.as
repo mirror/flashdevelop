@@ -223,7 +223,7 @@ package flash.text
 
 		public function getXMLText (beginIndex:int = 0, endIndex:int = 2147483647) : String;
 
-		public function insertXMLText (beginIndex:int = null, endIndex:int = null, richText:String = null, pasting:Boolean = false) : void;
+		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void;
 
 		/// Replaces the current selection with the contents of the value parameter.
 		public function replaceSelectedText (value:String) : void;
@@ -235,7 +235,7 @@ package flash.text
 		public function setSelection (beginIndex:int, endIndex:int) : void;
 
 		/// Applies text formatting.
-		public function setTextFormat (format:TextFormat = null, beginIndex:int = -1, endIndex:int = -1) : void;
+		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void;
 
 		/// Creates a new TextField instance.
 		public function TextField ();

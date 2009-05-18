@@ -18,7 +18,7 @@ package flash.utils
 
 		public function readByte () : int;
 
-		public function readBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
+		public function readBytes (bytes:ByteArray, offset:uint = 0, length:uint = 0) : void;
 
 		public function readDouble () : Number;
 

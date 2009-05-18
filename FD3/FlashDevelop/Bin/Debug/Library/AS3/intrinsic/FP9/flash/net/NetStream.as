@@ -3,8 +3,10 @@ package flash.net
 	import flash.events.EventDispatcher;
 	import flash.media.Microphone;
 	import flash.media.SoundTransform;
-	import flash.media.Camera;
 	import flash.net.NetConnection;
+	import flash.media.Camera;
+	import flash.net.NetStream;
+	import flash.net.Responder;
 
 	/**
 	 * Establishes a listener to respond when a NetStream object has completely played a stream.
@@ -110,7 +112,7 @@ package flash.net
 		public function attachAudio (microphone:Microphone) : void;
 
 		/// Starts capturing video from a camera, or stops capturing if theCamera is set to null.
-		public function attachCamera (theCamera:Camera = null, snapshotMilliseconds:int = -1) : void;
+		public function attachCamera (theCamera:Camera, snapshotMilliseconds:int = -1) : void;
 
 		/// Stops playing all data on the stream, sets the time property to 0, and makes the stream available for another use.
 		public function close () : void;

@@ -26,7 +26,7 @@ package authoring
 
 		public function BlendingMode () : String;
 
-		public function Bounds (flags:uint = null, minFrame:int = -16000, maxFrame:int = 16000) : Rectangle;
+		public function Bounds (flags:uint, minFrame:int = -16000, maxFrame:int = 16000) : Rectangle;
 
 		public function CacheAsBitmap () : Boolean;
 

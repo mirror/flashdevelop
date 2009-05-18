@@ -16,6 +16,8 @@ package flash.utils
 		public function get objectEncoding () : uint;
 		public function set objectEncoding (version:uint) : void;
 
+		public function IDataInput ();
+
 		/// Reads a Boolean value from the byte stream or byte array.
 		public function readBoolean () : Boolean;
 
@@ -23,7 +25,7 @@ package flash.utils
 		public function readByte () : int;
 
 		/// Reads the number of data bytes, specified by the length parameter, from the byte stream or byte array.
-		public function readBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
+		public function readBytes (bytes:ByteArray, offset:uint = 0, length:uint = 0) : void;
 
 		/// Reads an IEEE 754 double-precision floating point number from the byte stream or byte array.
 		public function readDouble () : Number;

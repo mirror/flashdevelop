@@ -11,7 +11,7 @@ package flash.events
 		public var error : Error;
 
 		/// Constructor for AsyncErrorEvent objects.
-		public function AsyncErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "", error:Error = null);
+		public function AsyncErrorEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "", error:Error = null);
 
 		/// Creates a copy of the AsyncErrorEvent object and sets the value of each property to match that of the original.
 		public function clone () : Event;

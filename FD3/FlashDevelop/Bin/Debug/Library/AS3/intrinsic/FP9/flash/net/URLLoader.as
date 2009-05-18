@@ -1,6 +1,9 @@
 package flash.net
 {
 	import flash.events.EventDispatcher;
+	import flash.events.ProgressEvent;
+	import flash.net.URLStream;
+	import flash.events.Event;
 	import flash.net.URLRequest;
 
 	/**

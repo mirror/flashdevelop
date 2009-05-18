@@ -2,8 +2,10 @@ package flash.net.drm
 {
 	import flash.events.EventDispatcher;
 	import flash.net.drm.DRMContentData;
-	import flash.net.drm.DRMVoucher;
 	import flash.utils.ByteArray;
+	import flash.net.drm.DRMVoucher;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 
 	public class DRMManagerSession extends EventDispatcher
 	{

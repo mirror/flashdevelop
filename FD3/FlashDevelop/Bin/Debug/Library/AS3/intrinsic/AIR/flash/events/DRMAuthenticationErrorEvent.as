@@ -17,6 +17,6 @@ package flash.events
 
 		public function clone () : Event;
 
-		public function DRMAuthenticationErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, inDetail:String = "", inErrorID:int = 0, inSubErrorID:int = 0, inServerURL:String = null, inDomain:String = null);
+		public function DRMAuthenticationErrorEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, inDetail:String = "", inErrorID:int = 0, inSubErrorID:int = 0, inServerURL:String = null, inDomain:String = null);
 	}
 }

@@ -4,6 +4,6 @@ package flash.net
 	public class Responder extends Object
 	{
 		/// Creates a new Responder object.
-		public function Responder (result:Function = null, status:Function = null);
+		public function Responder (result:Function, status:Function = null);
 	}
 }

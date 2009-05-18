@@ -20,7 +20,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Creates an event object that contains information about audio data events.
-		public function SampleDataEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, theposition:Number = 0, thedata:ByteArray = null);
+		public function SampleDataEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, theposition:Number = 0, thedata:ByteArray = null);
 
 		/// Returns a string that contains all the properties of the SampleDataEvent object.
 		public function toString () : String;

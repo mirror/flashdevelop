@@ -12,7 +12,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for ErrorEvent objects.
-		public function ErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
+		public function ErrorEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
 
 		/// Returns a string that contains all the properties of the ErrorEvent object.
 		public function toString () : String;

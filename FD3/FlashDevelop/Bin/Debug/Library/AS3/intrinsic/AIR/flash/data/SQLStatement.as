@@ -2,8 +2,8 @@ package flash.data
 {
 	import flash.events.EventDispatcher;
 	import flash.data.SQLConnection;
-	import flash.data.SQLResult;
 	import flash.net.Responder;
+	import flash.data.SQLResult;
 
 	/**
 	 * Dispatched when an error occurs during an operation.

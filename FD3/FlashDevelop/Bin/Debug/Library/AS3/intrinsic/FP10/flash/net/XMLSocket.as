@@ -1,6 +1,10 @@
 package flash.net
 {
 	import flash.events.EventDispatcher;
+	import flash.utils.ByteArray;
+	import flash.net.Socket;
+	import flash.events.ProgressEvent;
+	import flash.events.Event;
 
 	/**
 	 * Dispatched if a call to the XMLSocket.connect() method attempts to connect either to a server outside the caller's security sandbox or to a port lower than 1024.

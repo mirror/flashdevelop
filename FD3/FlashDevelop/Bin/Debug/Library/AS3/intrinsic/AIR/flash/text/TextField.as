@@ -5,6 +5,7 @@ package flash.text
 	import flash.geom.Rectangle;
 	import flash.text.StyleSheet;
 	import flash.text.TextFormat;
+	import flash.events.NativeDragEvent;
 	import flash.text.TextLineMetrics;
 
 	/**
@@ -223,7 +224,7 @@ package flash.text
 
 		public function getXMLText (beginIndex:int = 0, endIndex:int = 2147483647) : String;
 
-		public function insertXMLText (beginIndex:int = null, endIndex:int = null, richText:String = null, pasting:Boolean = false) : void;
+		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void;
 
 		/// Returns true if an embedded font is available with the specified fontName and fontStyle where Font.fontType is flash.text.FontType.EMBEDDED.
 		public static function isFontCompatible (fontName:String, fontStyle:String) : Boolean;
@@ -238,7 +239,7 @@ package flash.text
 		public function setSelection (beginIndex:int, endIndex:int) : void;
 
 		/// Applies text formatting.
-		public function setTextFormat (format:TextFormat = null, beginIndex:int = -1, endIndex:int = -1) : void;
+		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void;
 
 		/// Creates a new TextField instance.
 		public function TextField ();

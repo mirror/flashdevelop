@@ -2,7 +2,12 @@ package flash.security
 {
 	import flash.events.EventDispatcher;
 	import flash.security.IURIDereferencer;
+	import flash.utils.IDataInput;
+	import flash.security.XMLCanonicalizer;
 	import flash.utils.ByteArray;
+	import flash.security.CryptContext;
+	import flash.security.XMLSignatureEnvelopedTransformer;
+	import flash.security.AVMPlusDigest;
 
 	/**
 	 * Dispatched if verification cannot complete because of errors.

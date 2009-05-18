@@ -2,9 +2,9 @@ package flash.ui
 {
 	import flash.events.EventDispatcher;
 	import flash.ui.ContextMenuBuiltInItems;
+	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuClipboardItems;
 	import flash.net.URLRequest;
-	import flash.ui.ContextMenu;
 
 	/**
 	 * Dispatched when a user first generates a context menu but before the contents of the context menu are displayed.

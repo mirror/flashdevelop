@@ -1,7 +1,10 @@
 package flash.net
 {
 	import flash.events.EventDispatcher;
+	import flash.net.URLStream;
 	import flash.net.URLRequest;
+	import flash.events.ProgressEvent;
+	import flash.events.Event;
 
 	/**
 	 * Dispatched if a call to URLLoader.load() attempts to access data over HTTP and the current Flash Player environment is able to detect and return the status code for the request.
@@ -51,7 +54,7 @@ package flash.net
 		/// Controls whether the downloaded data is received as text (URLLoaderDataFormat.TEXT), raw binary data (URLLoaderDataFormat.BINARY), or URL-encoded variables (URLLoaderDataFormat.VARIABLES).
 		public var dataFormat : String;
 
-		public function addEventListener (type:String = null, listener:Function = null, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
+		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
 		/// Closes the load operation in progress.
 		public function close () : void;

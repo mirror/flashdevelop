@@ -18,7 +18,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for TextEvent objects.
-		public function TextEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
+		public function TextEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
 
 		/// Returns a string that contains all the properties of the TextEvent object.
 		public function toString () : String;

@@ -2,6 +2,8 @@ package flash.display
 {
 	import flash.display.LoaderInfo;
 	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
+	import flash.system.SecurityDomain;
 	import flash.system.LoaderContext;
 	import flash.display.DisplayObject;
 	import flash.utils.ByteArray;
@@ -23,10 +25,10 @@ package flash.display
 		public function close () : void;
 
 		/// Loads a SWF file or image file into a DisplayObject that is a child of this Loader instance.
-		public function load (request:URLRequest = null, context:LoaderContext = null) : void;
+		public function load (request:URLRequest, context:LoaderContext = null) : void;
 
 		/// Loads from binary data stored in a ByteArray object.
-		public function loadBytes (bytes:ByteArray = null, context:LoaderContext = null) : void;
+		public function loadBytes (bytes:ByteArray, context:LoaderContext = null) : void;
 
 		/// Creates a Loader object that you can use to load files, such as SWF, JPEG, GIF, or PNG files.
 		public function Loader ();

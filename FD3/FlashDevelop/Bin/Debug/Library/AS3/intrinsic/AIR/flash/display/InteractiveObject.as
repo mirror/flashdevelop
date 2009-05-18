@@ -1,7 +1,10 @@
 package flash.display
 {
 	import flash.accessibility.AccessibilityImplementation;
+	import flash.display.NativeMenuItem;
 	import flash.display.NativeMenu;
+	import flash.events.MouseEvent;
+	import flash.ui.ContextMenuClipboardItems;
 
 	/**
 	 * Dispatched when the value of the object's tabIndex property changes.

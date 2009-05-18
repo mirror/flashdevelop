@@ -16,13 +16,13 @@ package flash.text
 		public function getSelectedText (includeLineEndings:Boolean = false) : String;
 
 		/// Returns a string that contains all the characters specified by the beginIndex and endIndex parameters.
-		public function getText (beginIndex:int = null, endIndex:int = null, includeLineEndings:Boolean = false) : String;
+		public function getText (beginIndex:int, endIndex:int, includeLineEndings:Boolean = false) : String;
 
 		/// Returns an array of objects that contains information about a run of text.
 		public function getTextRunInfo (beginIndex:int, endIndex:int) : Array;
 
 		/// Lets you determine which character within a TextSnapshot object is on or near the specified x, y coordinates of the movie clip containing the text in the TextSnapshot object.
-		public function hitTestTextNearPos (x:Number = null, y:Number = null, maxDistance:Number = 0) : Number;
+		public function hitTestTextNearPos (x:Number, y:Number, maxDistance:Number = 0) : Number;
 
 		/// Specifies the color to use when highlighting characters that have been selected with the  setSelected() method.
 		public function setSelectColor (hexColor:uint = 16776960) : void;

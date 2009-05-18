@@ -1,10 +1,10 @@
 package flash.display
 {
 	import flash.events.EventDispatcher;
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.accessibility.AccessibilityProperties;
-	import flash.display.DisplayObject;
 	import flash.display.Shader;
 	import flash.display.DisplayObjectContainer;
 	import flash.geom.Vector3D;
@@ -160,13 +160,13 @@ package flash.display
 		public function get transform () : Transform;
 		public function set transform (value:Transform) : void;
 
-		/// Whether or not the display object is visible.
-		public function get visible () : Boolean;
-		public function set visible (value:Boolean) : void;
-
 		/// Indicates the width of the display object, in pixels.
 		public function get width () : Number;
 		public function set width (value:Number) : void;
+
+		/// Whether or not the display object is visible.
+		public function get visible () : Boolean;
+		public function set visible (value:Boolean) : void;
 
 		/// Indicates the x coordinate of the DisplayObject instance relative to the local coordinates of the parent DisplayObjectContainer.
 		public function get x () : Number;
@@ -198,7 +198,7 @@ package flash.display
 		public function hitTestObject (obj:DisplayObject) : Boolean;
 
 		/// Evaluates the display object to see if it overlaps or intersects with a point specified by x and y.
-		public function hitTestPoint (x:Number = null, y:Number = null, shapeFlag:Boolean = false) : Boolean;
+		public function hitTestPoint (x:Number, y:Number, shapeFlag:Boolean = false) : Boolean;
 
 		/// Converts a three-dimensional point of the three-dimensional display object's (local) coordinates to a two-dimensional point in the Stage (global) coordinates.
 		public function local3DToGlobal (point3d:Vector3D) : Point;

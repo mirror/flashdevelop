@@ -77,10 +77,10 @@ package flash.media
 		public function setLoopback (compress:Boolean = false) : void;
 
 		/// Sets the camera capture mode to the native mode that best meets the specified requirements.
-		public function setMode (width:int = null, height:int = null, fps:Number = null, favorArea:Boolean = true) : void;
+		public function setMode (width:int, height:int, fps:Number, favorArea:Boolean = true) : void;
 
 		/// Specifies how much motion is required to dispatch the activity event.
-		public function setMotionLevel (motionLevel:int = null, timeout:int = 2000) : void;
+		public function setMotionLevel (motionLevel:int, timeout:int = 2000) : void;
 
 		/// Sets the maximum amount of bandwidth per second or the required picture quality of the current outgoing video feed.
 		public function setQuality (bandwidth:int, quality:int) : void;

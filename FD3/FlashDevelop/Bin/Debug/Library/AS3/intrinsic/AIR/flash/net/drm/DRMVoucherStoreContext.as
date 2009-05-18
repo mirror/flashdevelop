@@ -1,5 +1,6 @@
 package flash.net.drm
 {
+	import flash.net.drm.DRMVoucher;
 	import flash.net.drm.DRMContentData;
 
 	public class DRMVoucherStoreContext extends DRMManagerSession

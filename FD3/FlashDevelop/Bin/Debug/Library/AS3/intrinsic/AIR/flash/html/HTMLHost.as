@@ -3,6 +3,7 @@ package flash.html
 	import flash.html.HTMLLoader;
 	import flash.geom.Rectangle;
 	import flash.html.HTMLWindowCreateOptions;
+	import flash.display.NativeWindow;
 
 	/// An HTMLHost object defines behaviors of an HTMLLoader object for user interface elements that can be controlled by setting various properties or by calling various methods of the window object of the HTML page.
 	public class HTMLHost extends Object

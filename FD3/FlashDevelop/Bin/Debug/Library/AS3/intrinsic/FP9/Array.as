@@ -26,25 +26,25 @@ package
 		public function concat () : Array;
 
 		/// Executes a test function on each item in the array until an item is reached that returns false for the specified function.
-		public function every (callback:Function = null, thisObject:* = null) : Boolean;
+		public function every (callback:Function, thisObject:* = null) : Boolean;
 
 		/// Executes a test function on each item in the array and constructs a new array for all items that return true for the specified function.
-		public function filter (callback:Function = null, thisObject:* = null) : Array;
+		public function filter (callback:Function, thisObject:* = null) : Array;
 
 		/// Executes a function on each item in the array.
-		public function forEach (callback:Function = null, thisObject:* = null) : void;
+		public function forEach (callback:Function, thisObject:* = null) : void;
 
 		/// Searches for an item in an array by using strict equality (===) and returns the index position of the item.
-		public function indexOf (searchElement:* = null, fromIndex:* = 0) : int;
+		public function indexOf (searchElement:*, fromIndex:* = 0) : int;
 
 		/// Converts the elements in an array to strings.
 		public function join (sep:* = null) : String;
 
 		/// Searches for an item in an array, working backward from the last item, and returns the index position of the matching item using strict equality (===).
-		public function lastIndexOf (searchElement:* = null, fromIndex:* = 2147483647) : int;
+		public function lastIndexOf (searchElement:*, fromIndex:* = 2147483647) : int;
 
 		/// Executes a function on each item in an array, and constructs a new array of items corresponding to the results of the function on each item in the original array.
-		public function map (callback:Function = null, thisObject:* = null) : Array;
+		public function map (callback:Function, thisObject:* = null) : Array;
 
 		/// Removes the last element from an array and returns the value of that element.
 		public function pop () : *;
@@ -62,13 +62,13 @@ package
 		public function slice (A:* = 0, B:* = 4294967295) : Array;
 
 		/// Executes a test function on each item in the array until an item is reached that returns true.
-		public function some (callback:Function = null, thisObject:* = null) : Boolean;
+		public function some (callback:Function, thisObject:* = null) : Boolean;
 
 		/// Sorts the elements in an array.
 		public function sort () : *;
 
 		/// Sorts the elements in an array according to one or more fields in the array.
-		public function sortOn (names:* = null, options:* = 0) : *;
+		public function sortOn (names:*, options:* = 0) : *;
 
 		/// Adds elements to and removes elements from an array.
 		public function splice () : *;

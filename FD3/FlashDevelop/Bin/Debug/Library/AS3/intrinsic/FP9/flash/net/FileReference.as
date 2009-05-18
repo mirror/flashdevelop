@@ -84,19 +84,16 @@ package flash.net
 		/// The file type.
 		public function get type () : String;
 
-		/// Displays a file-browsing dialog box that lets the user select a file to upload.
-		public function browse (typeFilter:Array = null) : Boolean;
-
 		/// Cancels any ongoing upload or download.
 		public function cancel () : void;
 
 		/// Opens a dialog box that lets the user download a file from a remote server.
-		public function download (request:URLRequest = null, defaultFileName:String = null) : void;
+		public function download (request:URLRequest, defaultFileName:String = null) : void;
 
 		/// Creates a new FileReference object.
 		public function FileReference ();
 
 		/// Starts the upload of a file to a remote server.
-		public function upload (request:URLRequest = null, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false) : void;
+		public function upload (request:URLRequest, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false) : void;
 	}
 }

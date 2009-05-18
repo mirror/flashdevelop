@@ -35,7 +35,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// [AIR] Creates an Event object that contains specific information about DRM authentication events.
-		public function DRMAuthenticateEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, header:String = "", userPrompt:String = "", passPrompt:String = "", urlPrompt:String = "", authenticationType:String = "", netstream:NetStream = null);
+		public function DRMAuthenticateEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, header:String = "", userPrompt:String = "", passPrompt:String = "", urlPrompt:String = "", authenticationType:String = "", netstream:NetStream = null);
 
 		/// [AIR] Returns a string that contains all the properties of the DRMAuthenticateEvent object.
 		public function toString () : String;

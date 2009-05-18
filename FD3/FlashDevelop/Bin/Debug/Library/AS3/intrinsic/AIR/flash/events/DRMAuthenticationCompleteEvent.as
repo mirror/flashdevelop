@@ -18,6 +18,6 @@ package flash.events
 
 		public function clone () : Event;
 
-		public function DRMAuthenticationCompleteEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, inServerURL:String = null, inDomain:String = null, inToken:ByteArray = null);
+		public function DRMAuthenticationCompleteEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, inServerURL:String = null, inDomain:String = null, inToken:ByteArray = null);
 	}
 }

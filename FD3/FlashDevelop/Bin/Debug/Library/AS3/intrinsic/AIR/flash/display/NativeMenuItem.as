@@ -1,8 +1,9 @@
 package flash.display
 {
 	import flash.events.EventDispatcher;
-	import flash.display.NativeMenuItem;
 	import flash.display.NativeMenu;
+	import flash.events.KeyboardEvent;
+	import flash.display.NativeMenuItem;
 
 	/**
 	 * Dispatched by this NativeMenuItem object immediately before the menu containing the item is displayed.

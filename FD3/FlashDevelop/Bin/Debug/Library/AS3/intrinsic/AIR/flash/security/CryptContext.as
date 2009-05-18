@@ -1,7 +1,9 @@
 package flash.security
 {
 	import flash.events.EventDispatcher;
+	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
+	import flash.events.Event;
 
 	public class CryptContext extends EventDispatcher
 	{

@@ -16,7 +16,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// [AIR] Used to create new SQLErrorEvent object.
-		public function SQLErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, error:SQLError = null);
+		public function SQLErrorEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, error:SQLError = null);
 
 		/// [AIR] Returns a string that contains all the properties of the SQLErrorEvent object.
 		public function toString () : String;

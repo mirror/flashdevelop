@@ -1,5 +1,7 @@
 package flash.net.drm
 {
+	import flash.utils.ByteArray;
+
 	public class DRMContentData extends Object
 	{
 		public function get authenticationMethod () : String;

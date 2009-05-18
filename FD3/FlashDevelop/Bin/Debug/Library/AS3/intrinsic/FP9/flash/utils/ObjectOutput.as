@@ -16,7 +16,7 @@ package flash.utils
 
 		public function writeByte (value:int) : void;
 
-		public function writeBytes (bytes:ByteArray = null, offset:uint = 0, length:uint = 0) : void;
+		public function writeBytes (bytes:ByteArray, offset:uint = 0, length:uint = 0) : void;
 
 		public function writeDouble (value:Number) : void;
 

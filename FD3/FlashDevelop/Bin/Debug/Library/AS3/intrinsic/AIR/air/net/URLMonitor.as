@@ -1,6 +1,7 @@
 package air.net
 {
 	import flash.net.URLRequest;
+	import flash.net.URLStream;
 
 	/// The URLMonitor class monitors availablity of an HTTP- or HTTPS-based service.
 	public class URLMonitor extends ServiceMonitor
@@ -16,6 +17,6 @@ package air.net
 		public function toString () : String;
 
 		/// [AIR] Creates a URLMonitor Object for a specified HTTP- or HTTPS-based service.
-		public function URLMonitor (urlRequest:URLRequest = null, acceptableStatusCodes:Array = null);
+		public function URLMonitor (urlRequest:URLRequest, acceptableStatusCodes:Array = null);
 	}
 }

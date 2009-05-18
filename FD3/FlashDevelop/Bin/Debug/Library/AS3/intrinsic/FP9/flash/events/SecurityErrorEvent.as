@@ -12,7 +12,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for SecurityErrorEvent objects.
-		public function SecurityErrorEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
+		public function SecurityErrorEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "");
 
 		/// Returns a string that contains all the properties of the SecurityErrorEvent object.
 		public function toString () : String;

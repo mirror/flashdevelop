@@ -16,6 +16,6 @@ package flash.net
 		public function set macType (value:String) : void;
 
 		/// Creates a new FileFilter instance.
-		public function FileFilter (description:String = null, extension:String = null, macType:String = null);
+		public function FileFilter (description:String, extension:String, macType:String = null);
 	}
 }

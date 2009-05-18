@@ -1,5 +1,7 @@
 package air.net
 {
+	import flash.net.Socket;
+
 	/// A SocketMonitor object monitors availablity of a TCP endpoint.
 	public class SocketMonitor extends ServiceMonitor
 	{

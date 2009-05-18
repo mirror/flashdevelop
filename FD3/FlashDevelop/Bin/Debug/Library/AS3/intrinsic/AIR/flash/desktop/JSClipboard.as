@@ -27,7 +27,7 @@ package flash.desktop
 
 		public function getData (mimeType:String) : Object;
 
-		public function JSClipboard (writable:Boolean = null, forDragging:Boolean = null, clipboard:Clipboard = null, dragOptions:NativeDragOptions = null);
+		public function JSClipboard (writable:Boolean, forDragging:Boolean, clipboard:Clipboard = null, dragOptions:NativeDragOptions = null);
 
 		public function setData (mimeType:String, data:Object) : Boolean;
 

@@ -38,7 +38,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for KeyboardEvent objects.
-		public function KeyboardEvent (type:String = null, bubbles:Boolean = true, cancelable:Boolean = false, charCode:uint = 0, keyCode:uint = 0, keyLocation:uint = 0, ctrlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false);
+		public function KeyboardEvent (type:String, bubbles:Boolean = true, cancelable:Boolean = false, charCode:uint = 0, keyCode:uint = 0, keyLocation:uint = 0, ctrlKey:Boolean = false, altKey:Boolean = false, shiftKey:Boolean = false);
 
 		/// Returns a string that contains all the properties of the KeyboardEvent object.
 		public function toString () : String;

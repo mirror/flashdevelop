@@ -22,7 +22,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// Constructor for ProgressEvent objects.
-		public function ProgressEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:uint = 0, bytesTotal:uint = 0);
+		public function ProgressEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, bytesLoaded:uint = 0, bytesTotal:uint = 0);
 
 		/// Returns a string that contains all the properties of the ProgressEvent object.
 		public function toString () : String;

@@ -29,6 +29,18 @@ package flash.display
 	[Event(name="removed", type="flash.events.Event")] 
 
 	/**
+	 * [broadcast event] Dispatched when the playhead is exiting the current frame.
+	 * @eventType flash.events.Event.EXIT_FRAME
+	 */
+	[Event(name="exitFrame", type="flash.events.Event")] 
+
+	/**
+	 * [broadcast event] Dispatched after the constructors of frame display objects have run but before frame scripts have run.
+	 * @eventType flash.events.Event.FRAME_CONSTRUCTED
+	 */
+	[Event(name="frameConstructed", type="flash.events.Event")] 
+
+	/**
 	 * [broadcast event] Dispatched when the playhead is entering a new frame.
 	 * @eventType flash.events.Event.ENTER_FRAME
 	 */
@@ -127,13 +139,13 @@ package flash.display
 		public function get transform () : Transform;
 		public function set transform (value:Transform) : void;
 
-		/// Whether or not the display object is visible.
-		public function get visible () : Boolean;
-		public function set visible (value:Boolean) : void;
-
 		/// Indicates the width of the display object, in pixels.
 		public function get width () : Number;
 		public function set width (value:Number) : void;
+
+		/// Whether or not the display object is visible.
+		public function get visible () : Boolean;
+		public function set visible (value:Boolean) : void;
 
 		/// Indicates the x coordinate of the DisplayObject instance relative to the local coordinates of the parent DisplayObjectContainer.
 		public function get x () : Number;
@@ -158,7 +170,7 @@ package flash.display
 		public function hitTestObject (obj:DisplayObject) : Boolean;
 
 		/// Evaluates the display object to see if it overlaps or intersects with a point specified by x and y.
-		public function hitTestPoint (x:Number = null, y:Number = null, shapeFlag:Boolean = false) : Boolean;
+		public function hitTestPoint (x:Number, y:Number, shapeFlag:Boolean = false) : Boolean;
 
 		/// Converts the point object from the display object's (local) coordinates to the Stage (global) coordinates.
 		public function localToGlobal (point:Point) : Point;

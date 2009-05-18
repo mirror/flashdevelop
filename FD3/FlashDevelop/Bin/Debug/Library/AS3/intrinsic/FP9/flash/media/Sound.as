@@ -68,7 +68,7 @@ package flash.media
 		public function close () : void;
 
 		/// Initiates loading of an external MP3 file from the specified URL.
-		public function load (stream:URLRequest = null, context:SoundLoaderContext = null) : void;
+		public function load (stream:URLRequest, context:SoundLoaderContext = null) : void;
 
 		/// Generates a new SoundChannel object to play back the sound.
 		public function play (startTime:Number = 0, loops:int = 0, sndTransform:SoundTransform = null) : SoundChannel;

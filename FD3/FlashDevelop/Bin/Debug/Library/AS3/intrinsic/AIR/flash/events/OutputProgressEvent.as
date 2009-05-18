@@ -20,7 +20,7 @@ package flash.events
 		public function clone () : Event;
 
 		/// [AIR] Constructor for OutputProgressEvent objects.
-		public function OutputProgressEvent (type:String = null, bubbles:Boolean = false, cancelable:Boolean = false, bytesPending:Number = 0, bytesTotal:Number = 0);
+		public function OutputProgressEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false, bytesPending:Number = 0, bytesTotal:Number = 0);
 
 		/// [AIR] Returns a string that contains all the properties of the OutputProgressEvent object.
 		public function toString () : String;
