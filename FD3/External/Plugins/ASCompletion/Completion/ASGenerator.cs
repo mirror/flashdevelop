@@ -1171,7 +1171,8 @@ namespace ASCompletion.Completion
             sci.LineScroll(0, firstLine - sci.FirstVisibleLine + 1);
 
             ASContext.Context.RefreshContextCache(fullPath);
-            return sci.GetLine(line).Length + nl.Length - 1;
+            if (sci.EOLMode == 2) return sci.GetLine(line).Length + nl.Length;
+            else return sci.GetLine(line).Length + nl.Length - 1;
         }
         #endregion
 
