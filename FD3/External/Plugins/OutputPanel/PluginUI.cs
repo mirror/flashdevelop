@@ -17,6 +17,7 @@ namespace OutputPanel
         private Int32 logCount;
         private RichTextBox textLog;
 		private PluginMain pluginMain;
+        private System.Timers.Timer scrollTimer;
         private ToolStripMenuItem wrapTextItem;
 		
 		public PluginUI(PluginMain pluginMain)
@@ -36,8 +37,15 @@ namespace OutputPanel
 		/// </summary>
 		private void InitializeComponent() 
         {
+            this.scrollTimer = new System.Timers.Timer();
             this.textLog = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
+            // 
+            // scrollTimer
+            // 
+            this.scrollTimer.Interval = 10;
+            this.scrollTimer.SynchronizingObject = this;
+            this.scrollTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.ScrollTimerElapsed);
             // 
             // textLog
             // 
@@ -202,14 +210,23 @@ namespace OutputPanel
 						break;
 				}
 				this.textLog.AppendText(message + "\n");
-                this.textLog.ScrollToCaret();
 			}
 			this.logCount = log.Count;
+            this.scrollTimer.Enabled = true;
+		}
+
+        /// <summary>
+        /// Scrolling fix on RichTextBox
+        /// </summary> 
+        private void ScrollTimerElapsed(Object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.scrollTimer.Enabled = false;
             if (this.pluginMain.PluginSettings.ShowOnProcessEnd)
             {
                 this.DisplayOutput();
             }
-		}
+            this.textLog.ScrollToCaret();
+        }
 
 		#endregion
 
