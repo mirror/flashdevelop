@@ -3036,8 +3036,18 @@ namespace ScintillaNet
 		public void Copy()
 		{
 			SPerform(2178, 0, 0);
-		}	
-						
+		}
+
+        /// <summary>
+        /// Copy the selection to the clipboard as RTF.
+        /// </summary>
+        public void CopyRTF()
+        {
+            Language language = ScintillaControl.Configuration.GetLanguage(this.configLanguage);
+            String conversion = RTF.GetConversion(language, this, this.SelectionStart, this.SelectionEnd);
+            Clipboard.SetText(conversion, TextDataFormat.Rtf);
+        }
+			
 		/// <summary>
 		/// Paste the contents of the clipboard into the document replacing the selection.
 		/// </summary>
