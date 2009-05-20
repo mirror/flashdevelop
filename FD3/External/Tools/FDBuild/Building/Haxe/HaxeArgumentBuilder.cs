@@ -96,6 +96,7 @@ namespace ProjectManager.Building.Haxe
             }
             if (options.Verbose) Add("-v");
             if (noTrace) Add("--no-traces");
+            else Add("-debug");
 
             if (options.Directives != "")
             {
