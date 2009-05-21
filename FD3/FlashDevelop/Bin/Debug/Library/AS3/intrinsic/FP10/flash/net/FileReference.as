@@ -88,6 +88,9 @@ package flash.net
 		/// The file type.
 		public function get type () : String;
 
+		/// Displays a file-browsing dialog box that lets the user select a file to upload.
+		public function browse (typeFilter:Array = null) : Boolean;
+
 		/// Cancels any ongoing upload or download.
 		public function cancel () : void;
 

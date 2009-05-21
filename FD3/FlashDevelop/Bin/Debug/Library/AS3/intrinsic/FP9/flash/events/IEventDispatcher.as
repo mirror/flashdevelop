@@ -14,8 +14,6 @@ package flash.events
 		/// Checks whether the EventDispatcher object has any listeners registered for a specific type of event.
 		public function hasEventListener (type:String) : Boolean;
 
-		public function IEventDispatcher ();
-
 		/// Removes a listener from the EventDispatcher object.
 		public function removeEventListener (type:String, listener:Function, useCapture:Boolean = false) : void;
 

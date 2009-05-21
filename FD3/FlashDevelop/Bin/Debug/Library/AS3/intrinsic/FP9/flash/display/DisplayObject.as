@@ -26,19 +26,7 @@ package flash.display
 	 * Dispatched when a display object is about to be removed from the display list.
 	 * @eventType flash.events.Event.REMOVED
 	 */
-	[Event(name="removed", type="flash.events.Event")] 
-
-	/**
-	 * [broadcast event] Dispatched when the playhead is exiting the current frame.
-	 * @eventType flash.events.Event.EXIT_FRAME
-	 */
-	[Event(name="exitFrame", type="flash.events.Event")] 
-
-	/**
-	 * [broadcast event] Dispatched after the constructors of frame display objects have run but before frame scripts have run.
-	 * @eventType flash.events.Event.FRAME_CONSTRUCTED
-	 */
-	[Event(name="frameConstructed", type="flash.events.Event")] 
+	[Event(name="removed", type="flash.events.Event")]
 
 	/**
 	 * [broadcast event] Dispatched when the playhead is entering a new frame.

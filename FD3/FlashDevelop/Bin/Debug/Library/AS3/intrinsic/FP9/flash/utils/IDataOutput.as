@@ -13,8 +13,6 @@ package flash.utils
 		public function get objectEncoding () : uint;
 		public function set objectEncoding (version:uint) : void;
 
-		public function IDataOutput ();
-
 		/// Writes a Boolean value.
 		public function writeBoolean (value:Boolean) : void;
 
