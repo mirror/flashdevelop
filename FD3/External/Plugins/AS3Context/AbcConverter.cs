@@ -108,6 +108,15 @@ namespace AS3Context
 
                     if (type.Flags == FlagType.Interface)
                     {
+                        // TODO properly support interface multiple inheritance
+                        type.ExtendsType = null;
+                        if (type.Implements != null && type.Implements.Count > 0)
+                        {
+                            type.ExtendsType = type.Implements[0];
+                            type.Implements.RemoveAt(0);
+                            if (type.Implements.Count == 0) type.Implements = null;
+                        }
+
                         foreach (MemberModel member in type.Members)
                         {
                             member.Access = Visibility.Public;
@@ -116,7 +125,7 @@ namespace AS3Context
                     }
 
                     // constructor
-                    if (instance.init != null)
+                    if (instance.init != null && type.Flags != FlagType.Interface)
                     {
                         List<MemberInfo> temp = new List<MemberInfo>(new MemberInfo[] { instance.init });
                         MemberList result = GetMembers(temp, 0, instance.name);
@@ -133,6 +142,7 @@ namespace AS3Context
                         result = null;
                         temp = null;
                     }
+                    else type.Constructor = type.Name;
 
                     if (type.Access == Visibility.Private)
                     {

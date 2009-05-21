@@ -1173,11 +1173,15 @@ namespace ASCompletion.Completion
                         eventTypes.Add(type, evClass);
                     }
                     else evClass = eventTypes[type];
-                    if (evClass.IsVoid()) continue;
+                    if (evClass.IsVoid()) 
+                        continue;
+                    
+                    bool typeFound = false;
                     foreach (MemberModel member in evClass.Members)
                     {
                         if (member.Value != null && reName.IsMatch(member.Value))
                         {
+                            typeFound = true;
                             name = evClass.Name + '.' + member.Name;
                             flags = member.Flags;
                             acc = member.Access;
@@ -1186,6 +1190,9 @@ namespace ASCompletion.Completion
                             break;
                         }
                     }
+
+                    if (!typeFound) 
+                        name = '"' + name + '"';
                     list.Add(new EventItem(name, evClass, comments));
                 }
             }

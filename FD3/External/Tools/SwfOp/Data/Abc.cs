@@ -320,6 +320,12 @@ namespace SwfOp.Data
             this.prefix = prefix;
         }
 
+        public string ToTypeNamespace()
+        {
+            if (prefix == null) return uri;
+            else return prefix;
+        }
+
         public override string ToString()
         {
             return "[Namespace "+prefix+":"+uri+"]";
@@ -334,6 +340,23 @@ namespace SwfOp.Data
             : base(localName)
         {
             this.nsset = nsset;
+        }
+
+        public override string ToTypeString()
+        {
+            string qname = base.ToTypeString();
+            string tempUri = uri;
+            if (tempUri == null)
+            {
+                if (nsset != null && nsset.Length > 0)
+                    tempUri = nsset[0].ToTypeNamespace();
+            }
+            return (tempUri != null && tempUri.Length > 0) ? tempUri + "." + qname : qname;
+        }
+
+        public override string ToString()
+        {
+            return ToTypeString();
         }
     }
 

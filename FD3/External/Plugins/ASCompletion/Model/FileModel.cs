@@ -27,7 +27,7 @@ namespace ASCompletion.Model
 
     public class ASMetaData: IComparable
     {
-        static private Regex reNameTypeParams = new Regex("\"(?<name>[^\"]+)\"\\s*,\\s*type\\s*=\\s*\"(?<type>[^\"]+)\"", RegexOptions.Compiled);
+        static private Regex reNameTypeParams = new Regex("([\"'])(?<name>[^\\1]+)\\1\\s*,\\s*type\\s*=\\s*([\"'])(?<type>[^\\2]+)\\2", RegexOptions.Compiled);
 
         public int LineFrom;
         public int LineTo;
@@ -40,7 +40,7 @@ namespace ASCompletion.Model
 
         public ASMetaData(string name)
         {
-            Name = name;
+            Name = name.Trim();
         }
 
         public void ParseParams(string raw)
