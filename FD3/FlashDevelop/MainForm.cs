@@ -663,7 +663,7 @@ namespace FlashDevelop
             }
             else
             {
-                Object obj = ObjectSerializer.Deserialize(FileNameHelper.SettingData, this.appSettings);
+                Object obj = ObjectSerializer.Deserialize(FileNameHelper.SettingData, this.appSettings, false);
                 this.appSettings = (SettingObject)obj;
             }
             SettingObject.EnsureValidity(this.appSettings);

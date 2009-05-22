@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Text;
+using System.Drawing;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -87,12 +88,27 @@ namespace PluginCore.Utilities
         /// <summary>
         /// Deserializes the specified object from a binary file
         /// </summary>
-        public static Object Deserialize(String file, Object obj)
+        public static Object Deserialize(String file, Object obj, Boolean checkValidity)
         {
             try
             {
                 fileDates.Add(new FileDate(file));
-                return InternalDeserialize(file, obj.GetType());
+                Object settings = InternalDeserialize(file, obj.GetType());
+                if (checkValidity)
+                {
+                    Object defaults = Activator.CreateInstance(obj.GetType());
+                    PropertyInfo[] properties = settings.GetType().GetProperties();
+                    foreach (PropertyInfo property in properties)
+                    {
+                        Object current = GetValue(settings, property.Name);
+                        if (current == null || (current is Color && (Color)current == Color.Empty))
+                        {
+                            Object value = GetValue(defaults, property.Name);
+                            SetValue(settings, property.Name, value);
+                        }
+                    }
+                }
+                return settings;
             }
             catch (Exception ex)
             {
@@ -100,11 +116,15 @@ namespace PluginCore.Utilities
                 return obj;
             }
         }
+        public static Object Deserialize(String file, Object obj)
+        {
+            return Deserialize(file, obj, true);
+        }
 
         /// <summary>
         /// Fixes some common issues when serializing
         /// </summary>
-        static Object InternalDeserialize(String file, Type type)
+        private static Object InternalDeserialize(String file, Type type)
         {
             FileInfo info = new FileInfo(file);
             if (!info.Exists)
@@ -122,6 +142,41 @@ namespace PluginCore.Utilities
                 {
                     return formatter.Deserialize(stream);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Sets a value of a setting
+        /// </summary>
+        public static void SetValue(Object obj, String name, Object value)
+        {
+            try
+            {
+                Type type = obj.GetType();
+                PropertyInfo info = type.GetProperty(name);
+                info.SetValue(obj, value, null);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets a value of a setting as an object
+        /// </summary>
+        public static Object GetValue(Object obj, String name)
+        {
+            try
+            {
+                Type type = obj.GetType();
+                PropertyInfo info = type.GetProperty(name);
+                return info.GetValue(obj, null);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+                return null;
             }
         }
 
