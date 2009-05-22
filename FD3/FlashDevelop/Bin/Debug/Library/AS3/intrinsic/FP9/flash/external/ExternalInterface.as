@@ -1,6 +1,6 @@
 package flash.external
 {
-	/// The ExternalInterface class is the External API, an application programming interface that enables straightforward communication between ActionScript and the Flash Player container&#8211; for example, an HTML page with JavaScript.
+	/// The ExternalInterface class is the External API, an application programming interface that enables straightforward communication between ActionScript and the Flash Player container - for example, an HTML page with JavaScript.
 	public class ExternalInterface extends Object
 	{
 		/// Indicates whether the external interface should attempt to pass ActionScript exceptions to the current browser and JavaScript exceptions to Flash Player.

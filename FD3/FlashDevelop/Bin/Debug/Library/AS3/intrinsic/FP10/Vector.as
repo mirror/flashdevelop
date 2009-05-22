@@ -1,6 +1,6 @@
 package 
 {
-	/// The Vector class lets you access and manipulate a vector &#8212; an array whose elements all have the same data type.
+	/// The Vector class lets you access and manipulate a vector - an array whose elements all have the same data type.
 	public class Vector.<T>
 	{
 		/// The range of valid indices available in the Vector.
