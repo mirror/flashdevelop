@@ -2955,4 +2955,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Label.UncommentBlock" xml:space="preserve">
     <value>Uncomment Block</value>
   </data>
+  <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
+    <value>Directory names to filter when the name for the classpath is being resolved.</value>
+  </data>
 </root>

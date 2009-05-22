@@ -43,6 +43,7 @@ namespace ProjectManager
         string[] excludedFileTypes = new string[] { ".p", ".abc", ".bak", ".tmp" };
         string[] excludedDirectories = new string[] { "obj", ".svn", "_svn", ".cvs", "_cvs", "cvs", "_sgbak" };
         string[] executableFileTypes = new string[] { ".exe", ".lnk", ".fla", ".doc", ".pps", ".psd", ".png", ".jpg", ".gif", ".xls", ".docproj", ".ttf", ".wav", ".mp3", ".ppt" };
+        string[] filteredDirectoryNames = new string[] { "src", "source", "sources", "as", "as2", "as3", "actionscript", "flash", "classes", "trunk", "svn" };
 
         #region Properties
         [Browsable(false)]
@@ -125,6 +126,15 @@ namespace ProjectManager
             get { return excludedDirectories; }
             set { excludedDirectories = value; FireChanged("ExcludedDirectories"); }
 		}
+
+        [DisplayName("Filtered Directory Names")]
+        [LocalizedDescription("ProjectManager.Description.FilteredDirectoryNames")]
+        [LocalizedCategory("ProjectManager.Category.Exclusions")]
+        public string[] FilteredDirectoryNames
+        {
+            get { return filteredDirectoryNames; }
+            set { filteredDirectoryNames = value; FireChanged("FilteredDirectoryNames"); }
+        }
 
         [DisplayName("Show Project Classpaths")]
         [LocalizedDescription("ProjectManager.Description.ShowProjectClasspaths")]

@@ -38,14 +38,26 @@ namespace ProjectManager.Controls.TreeView
             this.classpath = classpath;
 
             // shorten text
+            string[] excludes = PluginMain.Settings.FilteredDirectoryNames;
             char sep = Path.DirectorySeparatorChar;
             string[] parts = text.Split(sep);
             string label = "";
 
             if (parts.Length > 0)
             {
-                int index = parts.Length - 1;
-                label = parts[parts.Length - 1];
+                for (int i = parts.Length - 1; i > 0; --i)
+                {
+                    String part = parts[i] as String;
+                    if (Array.IndexOf(excludes, part) == -1)
+                    {
+                        label = part;
+                        break;
+                    }
+                }
+                if (label == "")
+                {
+                    label = parts[parts.Length - 1];
+                }
             }
 
             Text = label;
