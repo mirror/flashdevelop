@@ -82,7 +82,7 @@
 		<button label="Label.CommentLine" click="CommentLine" shortcut="Control|Q" flags="Enable:IsEditable" />
 		<button label="Label.UncommentLine" click="UncommentLine" shortcut="Control|Shift|Q" flags="Enable:IsEditable" />
 		<button label="Label.CommentSelection" click="CommentSelection" shortcut="Control|Shift|B" flags="Enable:IsEditable|HasSelection" />
-		<button label="Label.UncommentBlock" click="UncommentBlock" shortcut="Control|Alt|F" flags="Enable:IsEditable" />
+		<button label="Label.UncommentBlock" click="UncommentBlock" shortcut="Control|Shift|U" flags="Enable:IsEditable" />
 		<separator />
 		<button label="Label.SaveAsTemplate" click="SaveAsTemplate" flags="Enable:IsEditable|Enable:HasSelection" />
 		<button label="Label.SaveAsSnippet" click="SaveAsSnippet" flags="Enable:IsEditable|Enable:HasSelection" />
