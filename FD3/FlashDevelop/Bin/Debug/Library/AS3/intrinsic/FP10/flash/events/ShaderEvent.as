@@ -18,7 +18,7 @@ package flash.events
 		public function get byteArray () : ByteArray;
 		public function set byteArray (bArray:ByteArray) : void;
 
-		/// The Vector.&lt;Number&gt; object that was passed to the ShaderJob.start() method.
+		/// The Vector.<Number> object that was passed to the ShaderJob.start() method.
 		public function get vector () : Vector.<Number>;
 		public function set vector (v:Vector.<Number>) : void;
 

@@ -12,7 +12,7 @@ package flash.display
 	/// A ShaderJob instance is used to execute a shader operation in the background.
 	public class ShaderJob extends EventDispatcher
 	{
-		/// The height of the result data in the target if it is a ByteArray or Vector.&lt;Number&gt; instance.
+		/// The height of the result data in the target if it is a ByteArray or Vector.<Number> instance.
 		public function get height () : int;
 		public function set height (v:int) : void;
 
@@ -27,7 +27,7 @@ package flash.display
 		public function get target () : Object;
 		public function set target (s:Object) : void;
 
-		/// The width of the result data in the target if it is a ByteArray or Vector.&lt;Number&gt; instance.
+		/// The width of the result data in the target if it is a ByteArray or Vector.<Number> instance.
 		public function get width () : int;
 		public function set width (v:int) : void;
 

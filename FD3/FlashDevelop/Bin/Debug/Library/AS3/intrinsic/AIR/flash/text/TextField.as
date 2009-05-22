@@ -191,7 +191,7 @@ package flash.text
 		/// The zero-based index value of the character.
 		public function getFirstCharInParagraph (charIndex:int) : int;
 
-		/// Returns a DisplayObject reference for the given id, for an image or SWF file that has been added to an HTML-formatted text field by using an &lt;img&gt; tag.
+		/// Returns a DisplayObject reference for the given id, for an image or SWF file that has been added to an HTML-formatted text field by using an <img> tag.
 		public function getImageReference (id:String) : DisplayObject;
 
 		/// The zero-based index value of the line at a specified point.

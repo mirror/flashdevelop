@@ -61,7 +61,7 @@ package
 		/// Returns val1 to the power of val2.
 		public static function pow (x:Number, y:Number) : Number;
 
-		/// Returns a pseudo-random number n, where 0 &lt;= n &lt; 1.
+		/// Returns a pseudo-random number n, where 0 <= n < 1.
 		public static function random () : Number;
 
 		/// Returns the value of parameter val rounded up or down to the nearest integer.
