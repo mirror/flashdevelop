@@ -3,7 +3,7 @@ package flash.events
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches MouseEvent objects into the event flow whenever mouse events occur.
+	/// Flash Player dispatches MouseEvent objects into the event flow whenever mouse events occur.
 	public class MouseEvent extends Event
 	{
 		/// Defines the value of the type property of a click event object.

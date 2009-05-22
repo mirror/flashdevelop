@@ -86,7 +86,7 @@ package flash.system
 		/// A URL-encoded string that specifies values for each Capabilities property.
 		public static function get serverString () : String;
 
-		/// Specifies the Flash Player or Adobe&#xAE; AIR platform and version information.
+		/// Specifies the Flash Player or Adobe AIR platform and version information.
 		public static function get version () : String;
 
 		public function Capabilities ();

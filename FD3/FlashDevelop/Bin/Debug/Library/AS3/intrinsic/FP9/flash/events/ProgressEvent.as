@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches ProgressEvent objects when a load operation has begun or a socket has received data.
+	/// Flash Player dispatches ProgressEvent objects when a load operation has begun or a socket has received data.
 	public class ProgressEvent extends Event
 	{
 		/// Defines the value of the type property of a progress event object.

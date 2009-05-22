@@ -2,7 +2,7 @@ package flash.desktop
 {
 	import flash.display.NativeMenu;
 
-	/// The DockIcon class represents the MacOS X&#xAE;-style dock icon.
+	/// The DockIcon class represents the MacOS X-style dock icon.
 	public class DockIcon extends InteractiveIcon
 	{
 		/// [AIR] The icon image as an array of BitmapData objects of different sizes.

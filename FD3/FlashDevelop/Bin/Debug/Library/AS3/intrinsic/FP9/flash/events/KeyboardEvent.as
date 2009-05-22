@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches KeyboardEvent objects in response to user input through a keyboard.
+	/// Flash Player dispatches KeyboardEvent objects in response to user input through a keyboard.
 	public class KeyboardEvent extends Event
 	{
 		/// Defines the value of the type property of a keyDown event object.

@@ -38,7 +38,7 @@ package flash.desktop
 	 */
 	[Event(name="mouseDown", type="flash.events.MouseEvent")] 
 
-	/// The SystemTrayIcon class represents the style of icon that is used in the Windows taskbar&#xAE; notification area (system tray).
+	/// The SystemTrayIcon class represents the style of icon that is used in the Windows taskbar notification area (system tray).
 	public class SystemTrayIcon extends InteractiveIcon
 	{
 		/// [AIR] The permitted length of the system tray icon tooltip.

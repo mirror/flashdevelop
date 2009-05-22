@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches TextEvent objects when a user enters text in a text field or clicks a hyperlink in an HTML-enabled text field.
+	/// Flash Player dispatches TextEvent objects when a user enters text in a text field or clicks a hyperlink in an HTML-enabled text field.
 	public class TextEvent extends Event
 	{
 		/// Defines the value of the type property of a link event object.

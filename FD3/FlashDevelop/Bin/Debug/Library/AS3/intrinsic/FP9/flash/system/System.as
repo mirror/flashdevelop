@@ -8,7 +8,7 @@ package flash.system
 		/// The currently installed system IME.
 		public static function get ime () : IME;
 
-		/// The amount of memory (in bytes) currently in use by Adobe&#xAE; Flash&#xAE; Player.
+		/// The amount of memory (in bytes) currently in use by Adobe Flash Player.
 		public static function get totalMemory () : uint;
 
 		/// A Boolean value that tells Flash Player which code page to use to interpret external text files.

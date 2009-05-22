@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches IMEEvent objects when a user enters text using an input method editor (IME).
+	/// Flash Player dispatches IMEEvent objects when a user enters text using an input method editor (IME).
 	public class IMEEvent extends TextEvent
 	{
 		/// Defines the value of the type property of an imeComposition event object.

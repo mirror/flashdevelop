@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches ErrorEvent objects when an error causes a network operation to fail.
+	/// Flash Player dispatches ErrorEvent objects when an error causes a network operation to fail.
 	public class ErrorEvent extends TextEvent
 	{
 		/// Defines the value of the type property of an error event object.

@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches DataEvent objects when raw data has completed loading into Flash Player.
+	/// Flash Player dispatches DataEvent objects when raw data has completed loading into Flash Player.
 	public class DataEvent extends TextEvent
 	{
 		/// Defines the value of the type property of a data event object.

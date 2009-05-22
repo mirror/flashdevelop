@@ -3,7 +3,7 @@ package flash.events
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches FocusEvent objects when the user changes the focus from one object in the display list to another.
+	/// Flash Player dispatches FocusEvent objects when the user changes the focus from one object in the display list to another.
 	public class FocusEvent extends Event
 	{
 		/// Defines the value of the type property of a focusIn event object.

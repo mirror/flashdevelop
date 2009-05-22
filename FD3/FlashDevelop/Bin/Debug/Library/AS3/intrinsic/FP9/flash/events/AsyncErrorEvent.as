@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches an AsyncErrorEvent when an exception is thrown from native asynchronous code, which could be from, for example, LocalConnection, NetConnection, SharedObject, or NetStream.
+	/// Flash Player dispatches an AsyncErrorEvent when an exception is thrown from native asynchronous code, which could be from, for example, LocalConnection, NetConnection, SharedObject, or NetStream.
 	public class AsyncErrorEvent extends ErrorEvent
 	{
 		/// The AsyncErrorEvent.ASYNC_ERROR constant defines the value of the type property of an asyncError event object.

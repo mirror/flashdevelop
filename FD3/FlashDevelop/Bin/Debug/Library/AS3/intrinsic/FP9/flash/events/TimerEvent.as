@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash&#xAE; Player dispatches TimerEvent objects whenever a Timer object reaches the interval specified by the Timer.delay property.
+	/// Flash Player dispatches TimerEvent objects whenever a Timer object reaches the interval specified by the Timer.delay property.
 	public class TimerEvent extends Event
 	{
 		/// Defines the value of the type property of a timer event object.
