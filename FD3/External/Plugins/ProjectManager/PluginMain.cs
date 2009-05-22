@@ -266,6 +266,7 @@ namespace ProjectManager
                         if (File.Exists(cpath)) cpath = Path.GetDirectoryName(cpath);
 
                         vars.AddVar("CompilerPath", cpath);
+                        vars.AddVar("CompilerConfiguration", menus.ConfigurationSelector.Text);
                         vars.AddVar("BuildConfiguration", pluginUI.IsTraceDisabled ? "release" : "debug");
                         vars.AddVar("BuildIPC", buildActions.IPCName);
 
