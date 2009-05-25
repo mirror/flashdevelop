@@ -271,6 +271,7 @@ namespace AS3Context
             foreach (MemberModel member in all)
             {
                 string type = member.Type;
+                if (type == null) continue;
                 bool baseType = type.IndexOf('.') < 0;
                 if (anyMatch && baseType)
                 {

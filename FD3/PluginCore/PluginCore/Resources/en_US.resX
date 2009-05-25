@@ -2121,7 +2121,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Custom</value>
   </data>
   <data name="StartPage.Description.CloseOnProjectOpen" xml:space="preserve">
-    <value>Closes the start page when a project is opened. If show start page insead of untitled document is also true start page will remain open if it is the only window opened.</value>
+    <value>Closes the start page when a project is opened. If show start page instead of untitled document is also true start page will remain open if it is the only window opened.</value>
   </data>
   <data name="StartPage.Description.CustomRssFeed" xml:space="preserve">
     <value>URL of the custom RSS feed to use.</value>
