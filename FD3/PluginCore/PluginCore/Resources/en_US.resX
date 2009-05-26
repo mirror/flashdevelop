@@ -1152,7 +1152,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>&amp;Position</value>
   </data>
   <data name="FlashDevelop.Label.PrevBookmark" xml:space="preserve">
-    <value>Pr&amp;ev Bookmark</value>
+    <value>Pr&amp;evious Bookmark</value>
   </data>
   <data name="FlashDevelop.Label.Previous" xml:space="preserve">
     <value>&amp;Previous</value>
