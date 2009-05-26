@@ -270,8 +270,8 @@ namespace AS3Context
             MemberList all = context.GetAllProjectClasses();
             foreach (MemberModel member in all)
             {
-                string type = member.Type;
-                if (type == null) continue;
+                string type = member.Type ?? "*";
+                
                 bool baseType = type.IndexOf('.') < 0;
                 if (anyMatch && baseType)
                 {

@@ -626,6 +626,7 @@ namespace ASCompletion.Context
             if (completionCache.IsDirty && ASContext.Context == this)
             {
                 GetVisibleExternalElements(true);
+                UpdateCurrentFile(true);
             }
         }
 
@@ -694,7 +695,19 @@ namespace ASCompletion.Context
                 {
                     // TODO  More precise text modifications tracking
                     int line = sender.LineFromPosition(position);
-                    if (line > cMember.LineFrom && line <= cMember.LineTo) return;
+                    if (line > cMember.LineFrom && line <= cMember.LineTo)
+                    {
+                        // file AS3 in MXML ranges
+                        if (cFile.InlinedRanges != null)
+                        {
+                            foreach (InlineRange range in cFile.InlinedRanges)
+                            {
+                                if (range.Start > position) range.Start += length;
+                                if (range.End > position) range.End += length;
+                            }
+                        }
+                        return;
+                    }
                     /*string fbody = "";
                     for (int i = cMember.LineFrom; i <= cMember.LineTo; i++)
                     {
