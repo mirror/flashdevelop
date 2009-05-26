@@ -126,7 +126,7 @@ namespace StartPage
                                     // it broadcasts this event so we'll wait a little bit before refreshing
                                     Timer timer = new Timer();
                                     timer.Interval = 100;
-                                    timer.Tick += delegate { this.startPageWebBrowser.SendProjectInfo(); timer.Stop(); };
+                                    timer.Tick += delegate { timer.Stop(); if (!this.startPageWebBrowser.IsDisposed) this.startPageWebBrowser.SendProjectInfo(); };
                                     timer.Start();
                                 }
                             }
