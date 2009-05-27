@@ -2958,4 +2958,67 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
     <value>Directory names to filter when the name for the classpath is being resolved.</value>
   </data>
+  <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
+    <value>The package '{0}' does not match the file path:</value>
+  </data>
+  <data name="AS2Context.Info.TypeDontMatchFileName" xml:space="preserve">
+    <value>The type '{0}' does not match the file name:</value>
+  </data>
+  <data name="AS3Context.Info.AscDone" xml:space="preserve">
+    <value>Asc Done</value>
+  </data>
+  <data name="AS3Context.Info.AscRunning" xml:space="preserve">
+    <value>Asc Running</value>
+  </data>
+  <data name="AS3Context.Info.CapturingTracesWithFDB" xml:space="preserve">
+    <value>[Capturing traces with FDB]</value>
+  </data>
+  <data name="AS3Context.Info.ExceptionWhileParsing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AS3Context.Info.FailedToLaunchFBD" xml:space="preserve">
+    <value>[Failed to launch FBD]</value>
+  </data>
+  <data name="AS3Context.Info.MxmlcDone" xml:space="preserve">
+    <value>Mxmlc Done</value>
+  </data>
+  <data name="AS3Context.Info.MxmlcRunning" xml:space="preserve">
+    <value>Mxmlc Running</value>
+  </data>
+  <data name="AS3Context.Info.StartAscRunner" xml:space="preserve">
+    <value>Syntax checking process starting:</value>
+  </data>
+  <data name="AS3Context.Info.StartMxmlcRunner" xml:space="preserve">
+    <value>Flex compiler process starting:</value>
+  </data>
+  <data name="ASCompletion.Info.CallingFlashIDE" xml:space="preserve">
+    <value>Calling Flash IDE</value>
+  </data>
+  <data name="ASCompletion.Info.DeclarationTemplate" xml:space="preserve">
+    <value>Declaration template</value>
+  </data>
+  <data name="ASCompletion.Info.EventConstant" xml:space="preserve">
+    <value>Event constant</value>
+  </data>
+  <data name="ASCompletion.Info.GeneratorTemplate" xml:space="preserve">
+    <value>Generator template</value>
+  </data>
+  <data name="ASCompletion.Info.SearchInvitation" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="ASCompletion.Info.SWCConversionException" xml:space="preserve">
+    <value>SWC conversion exception.</value>
+  </data>
+  <data name="XMLCompletion.Info.Attribute" xml:space="preserve">
+    <value>Attribute</value>
+  </data>
+  <data name="XMLCompletion.Info.EffectAttribute" xml:space="preserve">
+    <value>Effect attribute</value>
+  </data>
+  <data name="XMLCompletion.Info.EventAttribute" xml:space="preserve">
+    <value>Event attribute</value>
+  </data>
+  <data name="XMLCompletion.Info.StylingAttribute" xml:space="preserve">
+    <value>Styling attribute</value>
+  </data>
 </root>

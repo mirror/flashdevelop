@@ -5,6 +5,7 @@ using PluginCore;
 using System.Windows.Forms;
 using PluginCore.Managers;
 using System.IO;
+using PluginCore.Localization;
 
 namespace AS3Context.Compiler
 {
@@ -26,12 +27,12 @@ namespace AS3Context.Compiler
                 if (PluginMain.Settings.VerboseFDB)
                     debugger.OnOutput += new LineEvent(debugger_OnOutput);
                 debugger.Run(projectPath, flex2Path);
-                TraceManager.AddAsync("[Capturing traces with FDB]");
+                TraceManager.AddAsync(TextHelper.GetString("Info.CapturingTracesWithFDB"));
                 return true;
             }
             catch
             {
-                TraceManager.AddAsync("[Failed to launch FBD]", 3);
+                TraceManager.AddAsync(TextHelper.GetString("Info.FailedToLaunchFBD"), 3);
             }
             return false;
         }

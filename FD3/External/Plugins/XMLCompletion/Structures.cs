@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using ScintillaNet;
 using PluginCore;
 using System.Collections.Generic;
+using PluginCore.Localization;
 
 namespace XMLCompletion
 {
@@ -156,29 +157,29 @@ namespace XMLCompletion
                 if (ic == "s" || ic == "style")
                 {
                     this.icon = XMLComplete.StyleAttributeIcon;
-                    this.desc = "Styling attribute";
+                    this.desc = TextHelper.GetString("Info.StylingAttribute");
                 }
                 else if (ic == "e" || ic == "event")
                 {
                     this.icon = XMLComplete.EventAttributeIcon;
-                    this.desc = "Event attribute";
+                    this.desc = TextHelper.GetString("Info.EventAttribute");
                 }
                 else if (ic == "x" || ic == "effect")
                 {
                     this.icon = XMLComplete.EffectAttributeIcon;
-                    this.desc = "Effect attribute";
+                    this.desc = TextHelper.GetString("Info.EffectAttribute");
                 }
                 else
                 {
                     this.icon = XMLComplete.HtmlAttributeIcon;
-                    this.desc = "Attribute";
+                    this.desc = TextHelper.GetString("Info.Attribute");
                 }
                 name = name.Substring(0, p);
             }
             else
             {
                 this.icon = XMLComplete.HtmlAttributeIcon;
-                this.desc = "Attribute";
+                this.desc = TextHelper.GetString("Info.Attribute");
             }
             this.label = name;
         }

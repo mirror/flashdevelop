@@ -122,7 +122,7 @@ namespace ASCompletion.Model
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "SWC Conversion Exception");
+                            MessageBox.Show(ex.Message, TextHelper.GetString("Info.SWCConversionException"));
                         }
                 }
                 else

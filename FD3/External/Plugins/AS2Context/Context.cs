@@ -694,8 +694,8 @@ namespace AS2Context
                     string fullpath = Path.GetDirectoryName(cFile.FileName);
                     if (!fullpath.ToUpper().EndsWith(pathname.ToUpper()))
                     {
-                        string msg = String.Format("The package '{0}' does not match the file path:", package)
-                            + "\n" + cFile.FileName;
+                        string org = TextHelper.GetString("Info.PackageDontMatchFilePath");
+                        string msg = String.Format(org, package) + "\n" + cFile.FileName;
                         MessageBar.ShowWarning(msg);
                         return;
                     }
@@ -710,8 +710,8 @@ namespace AS2Context
                         string filename = cname.Replace('.', Path.DirectorySeparatorChar) + Path.GetExtension(cFile.FileName);
                         if (!cFile.FileName.ToUpper().EndsWith(filename.ToUpper()))
                         {
-                            string msg = String.Format("The type '{0}' does not match the file name:", cname)
-                                + "\n" + cFile.FileName;
+                            string org = TextHelper.GetString("Info.TypeDontMatchFileName");
+                            string msg = String.Format(org, cname) + "\n" + cFile.FileName;
                             MessageBar.ShowWarning(msg);
                         }
                         else MessageBar.HideWarning();

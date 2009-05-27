@@ -74,7 +74,7 @@ namespace ASCompletion.Commands
             }
 
             // execution
-            ASContext.SetStatusText("Calling Flash IDE");
+            ASContext.SetStatusText(TextHelper.GetString("Info.CallingFlashIDE"));
             PluginBase.MainForm.CallCommand("SaveAllModified", null);
             EventManager.DispatchEvent(null, new NotifyEvent(EventType.ProcessStart));
             if (args != null) ProcessHelper.StartAsync(pathToIDE, args);

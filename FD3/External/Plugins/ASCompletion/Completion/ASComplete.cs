@@ -16,6 +16,7 @@ using ASCompletion.Model;
 using ASCompletion.Context;
 using System.IO;
 using PluginCore.Helpers;
+using PluginCore.Localization;
 
 namespace ASCompletion.Completion
 {
@@ -3064,7 +3065,7 @@ namespace ASCompletion.Completion
         }
         public string Description
         {
-            get { return "Declaration template"; }
+            get { return TextHelper.GetString("Info.DeclarationTemplate"); }
         }
 
         public System.Drawing.Bitmap Icon
@@ -3103,7 +3104,7 @@ namespace ASCompletion.Completion
         {
             get 
             {
-                if (!ASContext.CommonSettings.SmartTipsEnabled) return "Event const";
+                if (!ASContext.CommonSettings.SmartTipsEnabled) return TextHelper.GetString("Info.EventConstant");
                 if (cb == null) cb = ASDocumentation.ParseComment(comments ?? name);
                 string tip = (UITools.Manager.ShowDetails) ? ASDocumentation.GetTipFullDetails(cb, null) : ASDocumentation.GetTipShortDetails(cb, null);
                 // remove paragraphs from comments

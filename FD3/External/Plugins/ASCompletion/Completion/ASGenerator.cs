@@ -1322,7 +1322,7 @@ namespace ASCompletion.Completion
         }
         public string Description
         {
-            get { return "Generator template"; }
+            get { return TextHelper.GetString("Info.GeneratorTemplate"); }
         }
 
         public System.Drawing.Bitmap Icon

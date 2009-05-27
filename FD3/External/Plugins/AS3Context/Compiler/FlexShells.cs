@@ -157,8 +157,8 @@ namespace AS3Context.Compiler
                 if (src == null)
                 {
                     silentChecking = false;
-                    TraceManager.Add("Checking: " + filename, -1);
-                    ASContext.SetStatusText("Asc Running");
+                    //TraceManager.Add("Checking: " + filename, -1);
+                    ASContext.SetStatusText(TextHelper.GetString("Info.AscRunning"));
                     ascRunner.HostedProcess.StandardInput.WriteLine(filename);
                 }
                 else
@@ -218,9 +218,9 @@ namespace AS3Context.Compiler
 				if (mxmlcRunner == null || !mxmlcRunner.IsRunning) StartMxmlcRunner(flexPath);
 				
 				//cmd = mainForm.ProcessArgString(cmd);
-				TraceManager.Add("MxmlcShell command: "+cmd, -1);
-				
-				ASContext.SetStatusText("Mxmlc Running");
+				//TraceManager.Add("MxmlcShell command: "+cmd, -1);
+
+                ASContext.SetStatusText(TextHelper.GetString("Info.MxmlcRunning"));
 				notificationSent = false;
 				mxmlcRunner.HostedProcess.StandardInput.WriteLine(cmd);
 			}
@@ -381,7 +381,7 @@ namespace AS3Context.Compiler
 		{
             string cmd = "-Duser.language=en -Duser.region=US"
                 + " -classpath \"" + ascPath + ";" + flexShellsPath + "\" AscShell";
-            TraceManager.Add("Syntax checking process starting: java " + cmd, -1);
+            TraceManager.Add(TextHelper.GetString("Info.StartAscRunner") + " java " + cmd, -1);
 			// run asc shell
 			ascRunner = new ProcessRunner();
             ascRunner.WorkingDirectory = Path.GetDirectoryName(ascPath);
@@ -400,7 +400,7 @@ namespace AS3Context.Compiler
 		{
             string cmd = jvmConfig["java.args"] 
                 + " -classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" MxmlcShell";
-            TraceManager.Add("Flex compiler process starting: java " + cmd, -1);
+            TraceManager.Add(TextHelper.GetString("Info.StartMxmlcRunner") + " java " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();
             mxmlcRunner.WorkingDirectory = Path.Combine(flex2Path, "frameworks");
@@ -473,7 +473,7 @@ namespace AS3Context.Compiler
 	        		notificationSent = true;
                     TraceManager.Add("Done(1)", -2);
                     EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(1)"));
-                    ASContext.SetStatusText("Asc Done");
+                    ASContext.SetStatusText(TextHelper.GetString("Info.AscDone"));
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "ResultsPanel.ShowResults", null));
 	        	}
         	}
@@ -540,7 +540,7 @@ namespace AS3Context.Compiler
                     running = false;
                     TraceManager.Add(line, -2);
         			notificationSent = true;
-	        		ASContext.SetStatusText("Mxmlc Done");
+	        		ASContext.SetStatusText(TextHelper.GetString("Info.MxmlcDone"));
                     EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, line));
 	        		if (Regex.IsMatch(line, "Done\\([1-9]"))
 	        		{

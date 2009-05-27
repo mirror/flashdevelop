@@ -223,7 +223,8 @@ namespace AS3Context
             }
             catch (Exception ex)
             {
-                TraceManager.AddAsync("Exception while parsing: " + path.Path);
+                string message = TextHelper.GetString("Info.ExceptionWhileParsing");
+                TraceManager.AddAsync(message + " " + path.Path);
                 TraceManager.AddAsync(ex.Message);
             }
         }

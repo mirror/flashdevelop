@@ -943,7 +943,7 @@ namespace ASCompletion
         }
 
         // Display informative text in the search field
-        private string searchInvitation = "Search...";
+        private string searchInvitation = TextHelper.GetString("Info.SearchInvitation");
 
         void FindProcTxtEnter(object sender, System.EventArgs e)
         {
