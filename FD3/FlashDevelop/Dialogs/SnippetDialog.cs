@@ -513,7 +513,8 @@ namespace FlashDevelop.Dialogs
         {
             try
             {
-                Stream stream = ResourceHelper.GetStream("SnippetVars.txt");
+                String locale = Globals.Settings.LocaleVersion.ToString();
+                Stream stream = ResourceHelper.GetStream(String.Format("SnippetVars.{0}.txt", locale));
                 String contents = new StreamReader(stream).ReadToEnd();
                 String[] varLines = contents.Split(new Char[1]{'\n'}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (String line in varLines)
