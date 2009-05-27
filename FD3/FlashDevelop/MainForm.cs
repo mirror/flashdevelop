@@ -1115,7 +1115,6 @@ namespace FlashDevelop
         /// </summary>
         public void OnScintillaControlUpdateControl(ScintillaControl sci)
         {
-            if (this.InvokeRequired) return;
             this.UpdateUIChanged(sci);
         }
 
@@ -1126,10 +1125,7 @@ namespace FlashDevelop
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke((MethodInvoker)delegate 
-                { 
-                    this.OnScintillaControlDropFiles(null, data);
-                });
+                this.BeginInvoke((MethodInvoker)delegate { this.OnScintillaControlDropFiles(null, data); });
                 return;
             }
             this.Activate(); this.Focus();
@@ -1274,6 +1270,11 @@ namespace FlashDevelop
         /// </summary>
         public void OnUpdateUI(ScintillaControl sci)
         {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((MethodInvoker)delegate { this.OnUpdateUI(sci); });
+                return;
+            }
             ITabbedDocument document = DocumentManager.FindDocument(sci);
             if (document != null && document.IsEditable)
             {
