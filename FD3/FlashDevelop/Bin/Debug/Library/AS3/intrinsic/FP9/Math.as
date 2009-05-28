@@ -33,7 +33,7 @@ package
 		public static function atan (x:Number) : Number;
 
 		/// Returns the angle of the point y/x in radians, when measured counterclockwise from a circle's x axis.
-		public static function atan2 (x:Number, y:Number) : Number;
+		public static function atan2 (y:Number, x:Number) : Number;
 
 		/// Returns the ceiling of the specified number or expression.
 		public static function ceil (x:Number) : Number;
