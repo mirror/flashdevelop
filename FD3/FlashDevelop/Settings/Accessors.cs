@@ -132,7 +132,7 @@ namespace FlashDevelop.Settings
         }
 
         [DisplayName("Fold Margin Color")]
-        [DefaultValue(typeof(Color), "WhiteSmoke")]
+        [DefaultValue(typeof(Color), "Linen")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.FoldMarginColor")]
         public Color FoldMarginColor

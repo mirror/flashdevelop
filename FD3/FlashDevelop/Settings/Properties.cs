@@ -27,7 +27,7 @@ namespace FlashDevelop.Settings
         private FlatStyle comboBoxFlatStyle = FlatStyle.Popup;
         private Font consoleFont = new Font("Courier New", 8.75F);
         private Font defaultFont = new Font("Tahoma", 8.25F);
-        private Color foldMarginColor = Color.WhiteSmoke;
+        private Color foldMarginColor = Color.Linen;
         private Color foldMarginHighlightColor = Color.WhiteSmoke;
         private Color markerForegroundColor = Color.White;
         private Color markerBackgroundColor = Color.Gray;
