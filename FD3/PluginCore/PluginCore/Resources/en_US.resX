@@ -3021,4 +3021,10 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="XMLCompletion.Info.StylingAttribute" xml:space="preserve">
     <value>Styling attribute</value>
   </data>
+  <data name="FlashDevelop.Description.FoldMarginColor" xml:space="preserve">
+    <value>Color of the editor fold margin.</value>
+  </data>
+  <data name="FlashDevelop.Description.FoldMarginHighlightColor" xml:space="preserve">
+    <value>Hightlight color of the editor fold margin.</value>
+  </data>
 </root>

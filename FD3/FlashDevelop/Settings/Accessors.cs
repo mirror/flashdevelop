@@ -131,6 +131,26 @@ namespace FlashDevelop.Settings
             set { this.printMarginColor = value; }
         }
 
+        [DisplayName("Fold Margin Color")]
+        [DefaultValue(typeof(Color), "WhiteSmoke")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.FoldMarginColor")]
+        public Color FoldMarginColor
+        {
+            get { return this.foldMarginColor; }
+            set { this.foldMarginColor = value; }
+        }
+
+        [DisplayName("Fold Margin Highlight Color")]
+        [DefaultValue(typeof(Color), "WhiteSmoke")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.FoldMarginHighlightColor")]
+        public Color FoldMarginHighlightColor
+        {
+            get { return this.foldMarginHighlightColor; }
+            set { this.foldMarginHighlightColor = value; }
+        }
+
         [DefaultValue(false)]
         [DisplayName("View EOL Characters")]
         [LocalizedCategory("FlashDevelop.Category.Display")]

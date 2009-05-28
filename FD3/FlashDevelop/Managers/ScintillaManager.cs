@@ -224,6 +224,8 @@ namespace FlashDevelop.Managers
                 sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
                 sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
                 sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
+                sci.SetFoldMarginHiColour(true, DataConverter.ColorToInt32(Globals.Settings.FoldMarginHighlightColor));
+                sci.SetFoldMarginColour(true, DataConverter.ColorToInt32(Globals.Settings.FoldMarginColor));
                 /** 
                 * Set correct line number margin width
                 */
