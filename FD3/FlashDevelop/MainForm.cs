@@ -2889,24 +2889,29 @@ namespace FlashDevelop
         public void UncommentBlock(Object sender, System.EventArgs e)
         {
             ScintillaControl sci = Globals.SciControl;
+            sci.Colourise(0, -1); // update coloring
             Int32 selEnd = sci.SelectionEnd;
             Int32 selStart = sci.SelectionStart;
             String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
             String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
-            if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) || sci.PositionIsOnComment(selEnd - 1)) || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
+            if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) 
+                || sci.PositionIsOnComment(selEnd - 1)) || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
             {
                 sci.BeginUndoAction();
                 try
                 {
-                    if (!sci.PositionIsOnComment(selStart)) selStart--;
+                    Int32 lexer = sci.Lexer;
+                    // find selection bounds
+                    if (!sci.PositionIsOnComment(selStart, lexer)) selStart--;
                     Int32 scrollTop = sci.FirstVisibleLine;
                     Int32 initPos = sci.CurrentPos;
                     Int32 start = selStart;
-                    while (start > 0 && sci.PositionIsOnComment(start)) start--;
+                    while (start > 0 && sci.PositionIsOnComment(start, lexer)) start--;
                     Int32 end = selEnd;
                     Int32 length = sci.TextLength;
-                    while (end < length && sci.PositionIsOnComment(end)) end++;
+                    while (end < length && sci.PositionIsOnComment(end, lexer)) end++;
                     sci.SetSel(start + 1, end);
+                    // remove comment
                     String selText = sci.SelText;
                     if (selText.StartsWith(commentStart) && selText.EndsWith(commentEnd))
                     {

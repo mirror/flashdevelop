@@ -4881,19 +4881,13 @@ namespace ScintillaNet
 		/// </summary>
 		public bool PositionIsOnComment(int position)
 		{
-			this.Colourise(0, -1);
+			//this.Colourise(0, -1); // disabled because brings performance issues
 			return PositionIsOnComment(position, this.Lexer);
 		}
 		public bool PositionIsOnComment(int position, int lexer)
 		{
 			int style = BaseStyleAt(position);
-			if ((lexer == 2 || lexer == 21)
-			    && style == 1
-			    || style == 12)
-			{
-				return true; // python or lisp
-			}
-			else if ((lexer == 3 || lexer == 18 || lexer == 25 || lexer == 27)
+			if ((lexer == 3 || lexer == 18 || lexer == 25 || lexer == 27)
 			    && style == 1
 			    || style == 2 
 			    || style == 3
@@ -4922,6 +4916,12 @@ namespace ScintillaNet
 		        || style == 125)
 			{
 				return true; // html or xml
+			}
+			else if ((lexer == 2 || lexer == 21)
+			    && style == 1
+			    || style == 12)
+			{
+				return true; // python or lisp
 			}
 			else if ((lexer == 6 || lexer == 22 || lexer == 45 || lexer == 62)
 			    && style == 2)

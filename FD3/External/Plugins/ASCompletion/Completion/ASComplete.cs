@@ -1394,10 +1394,11 @@ namespace ASCompletion.Completion
                 }
                 // try member
                 string currentLine = sci.GetLine(sci.LineFromPosition(sci.CurrentPos));
-                Match mVarNew = Regex.Match(currentLine, "\\s*(?<name>[a-z_$][a-z._$0-9]*)([: ]*)(?<type>[a-z.0-9]*)\\s*=\\s*new\\s", RegexOptions.IgnoreCase);
+                Match mVarNew = Regex.Match(currentLine, "\\s*(?<name>[a-z_$][a-z._$0-9]*)(?<decl>[: ]*)(?<type>[a-z.0-9<>]*)\\s*=\\s*new\\s", RegexOptions.IgnoreCase);
                 if (mVarNew.Success)
                 {
-                    ASResult result = EvalExpression(mVarNew.Groups["name"].Value, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
+                    string name = mVarNew.Groups["name"].Value;
+                    ASResult result = EvalExpression(name, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
                     if (result != null && result.Member != null && result.Member.Type != null) // Might be missing or wrongly typed member
                     {
                         CompletionList.SelectItem(result.Member.Type);
