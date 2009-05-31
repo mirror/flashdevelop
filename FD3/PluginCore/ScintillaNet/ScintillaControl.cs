@@ -4878,10 +4878,10 @@ namespace ScintillaNet
 
 		/// <summary>
 		/// Checks that if the specified position is on comment.
+        /// NOTE: You may need to manually update coloring: "sci.Colourise(0, -1);"
 		/// </summary>
 		public bool PositionIsOnComment(int position)
 		{
-			//this.Colourise(0, -1); // disabled because brings performance issues
 			return PositionIsOnComment(position, this.Lexer);
 		}
 		public bool PositionIsOnComment(int position, int lexer)

@@ -2894,8 +2894,7 @@ namespace FlashDevelop
             Int32 selStart = sci.SelectionStart;
             String commentEnd = ScintillaManager.GetCommentEnd(sci.ConfigurationLanguage);
             String commentStart = ScintillaManager.GetCommentStart(sci.ConfigurationLanguage);
-            if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) 
-                || sci.PositionIsOnComment(selEnd - 1)) || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
+            if ((sci.PositionIsOnComment(selStart) && (sci.PositionIsOnComment(selEnd)) || sci.PositionIsOnComment(selEnd - 1)) || (selEnd == selStart && sci.PositionIsOnComment(selStart - 1)))
             {
                 sci.BeginUndoAction();
                 try
