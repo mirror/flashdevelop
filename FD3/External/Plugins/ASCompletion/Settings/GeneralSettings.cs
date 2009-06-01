@@ -373,8 +373,8 @@ namespace ASCompletion.Settings
         #region Generator
 
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
-              ":Event.ADDED_TO_STAGE", ":Event.REMOVED_FROM_STAGE",
-              "e.target:Event.COMPLETE", "e.target:Event.INIT"
+              "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
+              "//e.target:Event.COMPLETE", "//e.target:Event.INIT"
         };
 
         string[] eventListenersAutoRemove;

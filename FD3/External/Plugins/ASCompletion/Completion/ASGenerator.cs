@@ -735,12 +735,17 @@ namespace ASCompletion.Completion
 
         private static string AddRemoveEvent(string eventName)
         {
-            string colonName = ":" + eventName;
             foreach (string autoRemove in ASContext.CommonSettings.EventListenersAutoRemove)
             {
                 string test = autoRemove.Trim();
-                if (test.Length > 0 && test.IndexOf(':') >= 0 && test.EndsWith(colonName)) 
-                    return test.Split(':')[0];
+                if (test.Length == 0 || test.StartsWith("//")) continue;
+                int colonPos = test.IndexOf(':');
+                if (colonPos >= 0) test = test.Substring(colonPos + 1);
+                if (test == eventName)
+                {
+                    if (colonPos < 0) return "";
+                    else return autoRemove.Trim().Substring(0, colonPos);
+                }
             }
             return null;
         }
