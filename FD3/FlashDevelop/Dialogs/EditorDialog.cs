@@ -41,6 +41,18 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.GroupBox itemGroupBox;
         private System.Windows.Forms.GroupBox languageGroupBox;
+        private System.Windows.Forms.Label markerForeLabel;
+        private System.Windows.Forms.Label markerBackLabel;
+        private System.Windows.Forms.Label marginForeLabel;
+        private System.Windows.Forms.Label marginBackLabel;
+        private System.Windows.Forms.Button markerForeButton;
+        private System.Windows.Forms.Button markerBackButton;
+        private System.Windows.Forms.Button marginForeButton;
+        private System.Windows.Forms.Button marginBackButton;
+        private System.Windows.Forms.TextBox markerForeTextBox;
+        private System.Windows.Forms.TextBox markerBackTextBox;
+        private System.Windows.Forms.TextBox marginForeTextBox;
+        private System.Windows.Forms.TextBox marginBackTextBox;
         private System.Windows.Forms.Label caretForeLabel;
         private System.Windows.Forms.Label caretlineBackLabel;
         private System.Windows.Forms.Label selectionForeLabel;
@@ -91,8 +103,10 @@ namespace FlashDevelop.Dialogs
             this.revertButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.itemListView = new System.Windows.Forms.ListView();
+            this.columnHeader = new System.Windows.Forms.ColumnHeader();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.itemGroupBox = new System.Windows.Forms.GroupBox();
+            this.sampleTextLabel = new System.Windows.Forms.Label();
             this.italicsCheckBox = new System.Windows.Forms.CheckBox();
             this.backgroundButton = new System.Windows.Forms.Button();
             this.foregroundButton = new System.Windows.Forms.Button();
@@ -101,6 +115,10 @@ namespace FlashDevelop.Dialogs
             this.foregroundTextBox = new System.Windows.Forms.TextBox();
             this.fontSizeComboBox = new System.Windows.Forms.ComboBox();
             this.fontNameComboBox = new System.Windows.Forms.ComboBox();
+            this.sizeLabel = new System.Windows.Forms.Label();
+            this.backgroundLabel = new System.Windows.Forms.Label();
+            this.foregroundLabel = new System.Windows.Forms.Label();
+            this.fontLabel = new System.Windows.Forms.Label();
             this.caretForeButton = new System.Windows.Forms.Button();
             this.caretlineBackButton = new System.Windows.Forms.Button();
             this.selectionBackButton = new System.Windows.Forms.Button();
@@ -109,81 +127,91 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackTextBox = new System.Windows.Forms.TextBox();
             this.selectionForeTextBox = new System.Windows.Forms.TextBox();
             this.selectionBackTextBox = new System.Windows.Forms.TextBox();
+            this.marginForeButton = new System.Windows.Forms.Button();
+            this.marginBackButton = new System.Windows.Forms.Button();
+            this.markerBackButton = new System.Windows.Forms.Button();
+            this.markerForeButton = new System.Windows.Forms.Button();
+            this.marginForeTextBox = new System.Windows.Forms.TextBox();
+            this.marginBackTextBox = new System.Windows.Forms.TextBox();
+            this.markerForeTextBox = new System.Windows.Forms.TextBox();
+            this.markerBackTextBox = new System.Windows.Forms.TextBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.backgroundLabel = new System.Windows.Forms.Label();
-            this.foregroundLabel = new System.Windows.Forms.Label();
             this.languageGroupBox = new System.Windows.Forms.GroupBox();
-            this.sampleTextLabel = new System.Windows.Forms.Label();
-            this.languageDropDown = new System.Windows.Forms.ComboBox();
-            this.exportButton = new System.Windows.Forms.Button();
-            this.columnHeader = new System.Windows.Forms.ColumnHeader();
+            this.caretForeLabel = new System.Windows.Forms.Label();
+            this.caretlineBackLabel = new System.Windows.Forms.Label();
             this.selectionBackLabel = new System.Windows.Forms.Label();
             this.selectionForeLabel = new System.Windows.Forms.Label();
-            this.caretlineBackLabel = new System.Windows.Forms.Label();
-            this.caretForeLabel = new System.Windows.Forms.Label();
-            this.sizeLabel = new System.Windows.Forms.Label();
-            this.fontLabel = new System.Windows.Forms.Label();
+            this.marginForeLabel = new System.Windows.Forms.Label();
+            this.marginBackLabel = new System.Windows.Forms.Label();
+            this.markerBackLabel = new System.Windows.Forms.Label();
+            this.markerForeLabel = new System.Windows.Forms.Label();
+            this.languageDropDown = new System.Windows.Forms.ComboBox();
+            this.exportButton = new System.Windows.Forms.Button();
             this.itemGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // saveFileDialog
-            //
-            this.saveFileDialog.AddExtension = true;
-            this.saveFileDialog.DefaultExt = "fdz";
-            this.saveFileDialog.Filter = "FlashDevelop Zip Files|*.fdz";
-            // 
             // okButton
-            //
+            // 
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.okButton.Location = new System.Drawing.Point(318, 338);
+            this.okButton.Location = new System.Drawing.Point(371, 453);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(80, 23);
+            this.okButton.Size = new System.Drawing.Size(93, 28);
             this.okButton.TabIndex = 1;
             this.okButton.Text = "&OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.OkButtonClick);
             // 
             // applyButton
-            //
-            this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            // 
             this.applyButton.Enabled = false;
-            this.applyButton.Location = new System.Drawing.Point(497, 338);
+            this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.applyButton.Location = new System.Drawing.Point(580, 453);
             this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(80, 23);
+            this.applyButton.Size = new System.Drawing.Size(93, 28);
             this.applyButton.TabIndex = 3;
             this.applyButton.Text = "&Apply";
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
+            // revertButton
+            // 
+            this.revertButton.Location = new System.Drawing.Point(285, 453);
+            this.revertButton.Name = "revertButton";
+            this.revertButton.Size = new System.Drawing.Size(35, 28);
+            this.revertButton.TabIndex = 9;
+            this.revertButton.Click += new System.EventHandler(this.RevertLanguagesClick);
+            // 
             // cancelButton
-            //
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancelButton.Location = new System.Drawing.Point(408, 338);
+            this.cancelButton.Location = new System.Drawing.Point(476, 453);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(80, 23);
+            this.cancelButton.Size = new System.Drawing.Size(93, 28);
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
             // 
             // itemListView
-            //
-            this.itemListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
-            this.itemListView.MultiSelect = false;
-            this.itemListView.HideSelection = false;
-            this.itemListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.itemListView.Location = new System.Drawing.Point(12, 40);
-            this.itemListView.Name = "itemListView";
-            this.itemListView.Size = new System.Drawing.Size(182, 322);
-            this.itemListView.TabIndex = 5;
-            this.itemListView.View = System.Windows.Forms.View.Details;
+            // 
             this.itemListView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.itemListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
+            this.itemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.columnHeader});
+            this.itemListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.itemListView.HideSelection = false;
+            this.itemListView.Location = new System.Drawing.Point(14, 49);
+            this.itemListView.MultiSelect = false;
+            this.itemListView.Name = "itemListView";
+            this.itemListView.Size = new System.Drawing.Size(212, 431);
+            this.itemListView.TabIndex = 5;
+            this.itemListView.UseCompatibleStateImageBehavior = false;
+            this.itemListView.View = System.Windows.Forms.View.Details;
             this.itemListView.SelectedIndexChanged += new System.EventHandler(this.ItemsSelectedIndexChanged);
-            this.itemListView.Columns.Add(this.columnHeader);
             // 
             // itemGroupBox
-            //
+            // 
             this.itemGroupBox.Controls.Add(this.sampleTextLabel);
             this.itemGroupBox.Controls.Add(this.italicsCheckBox);
             this.itemGroupBox.Controls.Add(this.backgroundButton);
@@ -198,21 +226,32 @@ namespace FlashDevelop.Dialogs
             this.itemGroupBox.Controls.Add(this.foregroundLabel);
             this.itemGroupBox.Controls.Add(this.fontLabel);
             this.itemGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.itemGroupBox.Location = new System.Drawing.Point(204, 121);
-            this.itemGroupBox.Name = "settingsGroupBox";
-            this.itemGroupBox.Size = new System.Drawing.Size(372, 208);
+            this.itemGroupBox.Location = new System.Drawing.Point(238, 240);
+            this.itemGroupBox.Name = "itemGroupBox";
+            this.itemGroupBox.Size = new System.Drawing.Size(434, 205);
             this.itemGroupBox.TabIndex = 7;
             this.itemGroupBox.TabStop = false;
             this.itemGroupBox.Text = "Item Style";
+            // 
+            // sampleTextLabel
+            // 
+            this.sampleTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)| System.Windows.Forms.AnchorStyles.Right)));
+            this.sampleTextLabel.BackColor = System.Drawing.Color.White;
+            this.sampleTextLabel.Location = new System.Drawing.Point(15, 131);
+            this.sampleTextLabel.Name = "sampleTextLabel";
+            this.sampleTextLabel.Size = new System.Drawing.Size(405, 60);
+            this.sampleTextLabel.TabIndex = 13;
+            this.sampleTextLabel.Text = "Sample Text";
+            this.sampleTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // italicsCheckBox
             // 
             this.italicsCheckBox.AutoSize = true;
             this.italicsCheckBox.Checked = true;
             this.italicsCheckBox.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.italicsCheckBox.Location = new System.Drawing.Point(272, 85);
+            this.italicsCheckBox.Location = new System.Drawing.Point(317, 101);
             this.italicsCheckBox.Name = "italicsCheckBox";
-            this.italicsCheckBox.Size = new System.Drawing.Size(57, 18);
+            this.italicsCheckBox.Size = new System.Drawing.Size(58, 20);
             this.italicsCheckBox.TabIndex = 12;
             this.italicsCheckBox.Text = "Italics";
             this.italicsCheckBox.ThreeState = true;
@@ -221,18 +260,18 @@ namespace FlashDevelop.Dialogs
             // 
             // backgroundButton
             // 
-            this.backgroundButton.Location = new System.Drawing.Point(229, 77);
+            this.backgroundButton.Location = new System.Drawing.Point(267, 90);
             this.backgroundButton.Name = "backgroundButton";
-            this.backgroundButton.Size = new System.Drawing.Size(28, 24);
+            this.backgroundButton.Size = new System.Drawing.Size(33, 30);
             this.backgroundButton.TabIndex = 10;
             this.backgroundButton.UseVisualStyleBackColor = true;
             this.backgroundButton.Click += new System.EventHandler(this.ItemBackgroundButtonClick);
             // 
             // foregroundButton
             // 
-            this.foregroundButton.Location = new System.Drawing.Point(100, 77);
+            this.foregroundButton.Location = new System.Drawing.Point(117, 90);
             this.foregroundButton.Name = "foregroundButton";
-            this.foregroundButton.Size = new System.Drawing.Size(28, 24);
+            this.foregroundButton.Size = new System.Drawing.Size(33, 30);
             this.foregroundButton.TabIndex = 7;
             this.foregroundButton.UseVisualStyleBackColor = true;
             this.foregroundButton.Click += new System.EventHandler(this.ItemForegroundButtonClick);
@@ -242,9 +281,9 @@ namespace FlashDevelop.Dialogs
             this.boldCheckBox.AutoSize = true;
             this.boldCheckBox.Checked = true;
             this.boldCheckBox.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.boldCheckBox.Location = new System.Drawing.Point(272, 66);
+            this.boldCheckBox.Location = new System.Drawing.Point(317, 79);
             this.boldCheckBox.Name = "boldCheckBox";
-            this.boldCheckBox.Size = new System.Drawing.Size(51, 20);
+            this.boldCheckBox.Size = new System.Drawing.Size(50, 20);
             this.boldCheckBox.TabIndex = 11;
             this.boldCheckBox.Text = "Bold";
             this.boldCheckBox.ThreeState = true;
@@ -253,27 +292,27 @@ namespace FlashDevelop.Dialogs
             // 
             // backgroundTextBox
             // 
-            this.backgroundTextBox.Location = new System.Drawing.Point(141, 80);
+            this.backgroundTextBox.Location = new System.Drawing.Point(164, 94);
             this.backgroundTextBox.Name = "backgroundTextBox";
-            this.backgroundTextBox.Size = new System.Drawing.Size(81, 22);
+            this.backgroundTextBox.Size = new System.Drawing.Size(94, 23);
             this.backgroundTextBox.TabIndex = 9;
             this.backgroundTextBox.TextChanged += new System.EventHandler(this.LanguageItemChanged);
             // 
             // foregroundTextBox
             // 
-            this.foregroundTextBox.Location = new System.Drawing.Point(12, 80);
+            this.foregroundTextBox.Location = new System.Drawing.Point(14, 94);
             this.foregroundTextBox.Name = "foregroundTextBox";
-            this.foregroundTextBox.Size = new System.Drawing.Size(81, 22);
+            this.foregroundTextBox.Size = new System.Drawing.Size(94, 23);
             this.foregroundTextBox.TabIndex = 6;
             this.foregroundTextBox.TextChanged += new System.EventHandler(this.LanguageItemChanged);
             // 
             // fontSizeComboBox
             // 
             this.fontSizeComboBox.FormattingEnabled = true;
-            this.fontSizeComboBox.Items.AddRange(new object[] { "", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" });
-            this.fontSizeComboBox.Location = new System.Drawing.Point(269, 35);
+            this.fontSizeComboBox.Items.AddRange(new object[] {"","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"});
+            this.fontSizeComboBox.Location = new System.Drawing.Point(314, 42);
             this.fontSizeComboBox.Name = "fontSizeComboBox";
-            this.fontSizeComboBox.Size = new System.Drawing.Size(92, 22);
+            this.fontSizeComboBox.Size = new System.Drawing.Size(107, 24);
             this.fontSizeComboBox.TabIndex = 4;
             this.fontSizeComboBox.TextChanged += new System.EventHandler(this.LanguageItemChanged);
             // 
@@ -281,9 +320,9 @@ namespace FlashDevelop.Dialogs
             // 
             this.fontNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fontNameComboBox.FormattingEnabled = true;
-            this.fontNameComboBox.Location = new System.Drawing.Point(12, 35);
+            this.fontNameComboBox.Location = new System.Drawing.Point(14, 42);
             this.fontNameComboBox.Name = "fontNameComboBox";
-            this.fontNameComboBox.Size = new System.Drawing.Size(245, 24);
+            this.fontNameComboBox.Size = new System.Drawing.Size(285, 24);
             this.fontNameComboBox.TabIndex = 2;
             this.fontNameComboBox.SelectedIndexChanged += new System.EventHandler(this.LanguageItemChanged);
             // 
@@ -291,9 +330,9 @@ namespace FlashDevelop.Dialogs
             // 
             this.sizeLabel.AutoSize = true;
             this.sizeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.sizeLabel.Location = new System.Drawing.Point(269, 18);
+            this.sizeLabel.Location = new System.Drawing.Point(314, 21);
             this.sizeLabel.Name = "sizeLabel";
-            this.sizeLabel.Size = new System.Drawing.Size(31, 16);
+            this.sizeLabel.Size = new System.Drawing.Size(32, 16);
             this.sizeLabel.TabIndex = 3;
             this.sizeLabel.Text = "Size:";
             // 
@@ -301,138 +340,167 @@ namespace FlashDevelop.Dialogs
             // 
             this.backgroundLabel.AutoSize = true;
             this.backgroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.backgroundLabel.Location = new System.Drawing.Point(141, 63);
+            this.backgroundLabel.Location = new System.Drawing.Point(164, 74);
             this.backgroundLabel.Name = "backgroundLabel";
             this.backgroundLabel.Size = new System.Drawing.Size(75, 16);
             this.backgroundLabel.TabIndex = 8;
             this.backgroundLabel.Text = "Background:";
             // 
             // foregroundLabel
-            //
-            this.foregroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            // 
             this.foregroundLabel.AutoSize = true;
-            this.foregroundLabel.Location = new System.Drawing.Point(12, 63);
+            this.foregroundLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.foregroundLabel.Location = new System.Drawing.Point(14, 74);
             this.foregroundLabel.Name = "foregroundLabel";
-            this.foregroundLabel.Size = new System.Drawing.Size(73, 16);
+            this.foregroundLabel.Size = new System.Drawing.Size(75, 16);
             this.foregroundLabel.TabIndex = 5;
             this.foregroundLabel.Text = "Foreground:";
             // 
             // fontLabel
-            //
-            this.fontLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            // 
             this.fontLabel.AutoSize = true;
-            this.fontLabel.Location = new System.Drawing.Point(12, 18);
+            this.fontLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.fontLabel.Location = new System.Drawing.Point(14, 21);
             this.fontLabel.Name = "fontLabel";
             this.fontLabel.Size = new System.Drawing.Size(35, 16);
             this.fontLabel.TabIndex = 1;
             this.fontLabel.Text = "Font:";
             // 
             // caretForeButton
-            //
-            this.caretForeButton.Location = new System.Drawing.Point(151, 32);
+            // 
+            this.caretForeButton.Location = new System.Drawing.Point(176, 37);
             this.caretForeButton.Name = "caretForeButton";
-            this.caretForeButton.Size = new System.Drawing.Size(28, 24);
+            this.caretForeButton.Size = new System.Drawing.Size(33, 30);
             this.caretForeButton.TabIndex = 3;
-            this.caretForeButton.Click += new EventHandler(this.CaretForeButtonClick);
+            this.caretForeButton.Click += new System.EventHandler(this.CaretForeButtonClick);
             // 
             // caretlineBackButton
             // 
-            this.caretlineBackButton.Location = new System.Drawing.Point(151, 74);
+            this.caretlineBackButton.Location = new System.Drawing.Point(176, 86);
             this.caretlineBackButton.Name = "caretlineBackButton";
-            this.caretlineBackButton.Size = new System.Drawing.Size(28, 24);
+            this.caretlineBackButton.Size = new System.Drawing.Size(33, 30);
             this.caretlineBackButton.TabIndex = 6;
-            this.caretlineBackButton.Click += new EventHandler(this.CaretlineBackButtonClick);
+            this.caretlineBackButton.Click += new System.EventHandler(this.CaretlineBackButtonClick);
             // 
             // selectionBackButton
             // 
-            this.selectionBackButton.Location = new System.Drawing.Point(329, 74);
+            this.selectionBackButton.Location = new System.Drawing.Point(386, 86);
             this.selectionBackButton.Name = "selectionBackButton";
-            this.selectionBackButton.Size = new System.Drawing.Size(28, 24);
+            this.selectionBackButton.Size = new System.Drawing.Size(33, 30);
             this.selectionBackButton.TabIndex = 12;
-            this.selectionBackButton.Click += new EventHandler(this.SelectionBackButtonClick);
+            this.selectionBackButton.Click += new System.EventHandler(this.SelectionBackButtonClick);
             // 
             // selectionForeButton
             // 
-            this.selectionForeButton.Location = new System.Drawing.Point(329, 32);
+            this.selectionForeButton.Location = new System.Drawing.Point(386, 37);
             this.selectionForeButton.Name = "selectionForeButton";
-            this.selectionForeButton.Size = new System.Drawing.Size(28, 24);
+            this.selectionForeButton.Size = new System.Drawing.Size(33, 30);
             this.selectionForeButton.TabIndex = 9;
-            this.selectionForeButton.Click += new EventHandler(this.SelectionForeButtonClick);
+            this.selectionForeButton.Click += new System.EventHandler(this.SelectionForeButtonClick);
             // 
             // caretForeTextBox
             // 
-            this.caretForeTextBox.Location = new System.Drawing.Point(12, 35);
+            this.caretForeTextBox.Location = new System.Drawing.Point(14, 40);
             this.caretForeTextBox.Name = "caretForeTextBox";
-            this.caretForeTextBox.Size = new System.Drawing.Size(132, 25);
+            this.caretForeTextBox.Size = new System.Drawing.Size(153, 23);
             this.caretForeTextBox.TabIndex = 2;
-            this.caretForeTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            this.caretForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // caretlineBackTextBox
             // 
-            this.caretlineBackTextBox.Location = new System.Drawing.Point(12, 76);
+            this.caretlineBackTextBox.Location = new System.Drawing.Point(14, 90);
             this.caretlineBackTextBox.Name = "caretlineBackTextBox";
-            this.caretlineBackTextBox.Size = new System.Drawing.Size(132, 25);
+            this.caretlineBackTextBox.Size = new System.Drawing.Size(153, 23);
             this.caretlineBackTextBox.TabIndex = 5;
-            this.caretlineBackTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            this.caretlineBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // selectionForeTextBox
             // 
-            this.selectionForeTextBox.Location = new System.Drawing.Point(190, 35);
+            this.selectionForeTextBox.Location = new System.Drawing.Point(224, 40);
             this.selectionForeTextBox.Name = "selectionForeTextBox";
-            this.selectionForeTextBox.Size = new System.Drawing.Size(132, 25);
+            this.selectionForeTextBox.Size = new System.Drawing.Size(153, 23);
             this.selectionForeTextBox.TabIndex = 8;
-            this.selectionForeTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            this.selectionForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // selectionBackTextBox
             // 
-            this.selectionBackTextBox.Location = new System.Drawing.Point(190, 76);
+            this.selectionBackTextBox.Location = new System.Drawing.Point(224, 90);
             this.selectionBackTextBox.Name = "selectionBackTextBox";
-            this.selectionBackTextBox.Size = new System.Drawing.Size(132, 25);
+            this.selectionBackTextBox.Size = new System.Drawing.Size(153, 23);
             this.selectionBackTextBox.TabIndex = 11;
-            this.selectionBackTextBox.TextChanged += new EventHandler(this.EditorItemChanged);
+            this.selectionBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
-            // caretForeLabel
-            //
-            this.caretForeLabel.AutoSize = true;
-            this.caretForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.caretForeLabel.Location = new System.Drawing.Point(12, 18);
-            this.caretForeLabel.Name = "caretForeLabel";
-            this.caretForeLabel.Size = new System.Drawing.Size(35, 16);
-            this.caretForeLabel.TabIndex = 1;
-            this.caretForeLabel.Text = "Caret foreground:";
+            // marginForeButton
             // 
-            // caretlineBackLabel
-            //
-            this.caretlineBackLabel.AutoSize = true;
-            this.caretlineBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.caretlineBackLabel.Location = new System.Drawing.Point(12, 60);
-            this.caretlineBackLabel.Name = "caretlineBackLabel";
-            this.caretlineBackLabel.Size = new System.Drawing.Size(35, 16);
-            this.caretlineBackLabel.TabIndex = 4;
-            this.caretlineBackLabel.Text = "Caret line background:";
+            this.marginForeButton.Location = new System.Drawing.Point(176, 136);
+            this.marginForeButton.Name = "marginForeButton";
+            this.marginForeButton.Size = new System.Drawing.Size(33, 30);
+            this.marginForeButton.TabIndex = 3;
+            this.marginForeButton.Click += new System.EventHandler(this.MarginForeButtonClick);
             // 
-            // selectionBackLabel
-            //
-            this.selectionBackLabel.AutoSize = true;
-            this.selectionBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.selectionBackLabel.Location = new System.Drawing.Point(190, 60);
-            this.selectionBackLabel.Name = "selectionBackLabel";
-            this.selectionBackLabel.Size = new System.Drawing.Size(35, 16);
-            this.selectionBackLabel.TabIndex = 10;
-            this.selectionBackLabel.Text = "Selection background:";
+            // marginBackButton
             // 
-            // selectionForeLabel
-            //
-            this.selectionForeLabel.AutoSize = true;
-            this.selectionForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.selectionForeLabel.Location = new System.Drawing.Point(190, 18);
-            this.selectionForeLabel.Name = "selectionForeLabel";
-            this.selectionForeLabel.Size = new System.Drawing.Size(35, 16);
-            this.selectionForeLabel.TabIndex = 7;
-            this.selectionForeLabel.Text = "Selection foreground:";
+            this.marginBackButton.Location = new System.Drawing.Point(176, 186);
+            this.marginBackButton.Name = "marginBackButton";
+            this.marginBackButton.Size = new System.Drawing.Size(33, 30);
+            this.marginBackButton.TabIndex = 6;
+            this.marginBackButton.Click += new System.EventHandler(this.MarginBackButtonClick);
             // 
-            // previewGroupBox
-            //
+            // markerBackButton
+            // 
+            this.markerBackButton.Location = new System.Drawing.Point(386, 186);
+            this.markerBackButton.Name = "markerBackButton";
+            this.markerBackButton.Size = new System.Drawing.Size(33, 30);
+            this.markerBackButton.TabIndex = 12;
+            this.markerBackButton.Click += new System.EventHandler(this.MarkerBackButtonClick);
+            // 
+            // markerForeButton
+            // 
+            this.markerForeButton.Location = new System.Drawing.Point(386, 136);
+            this.markerForeButton.Name = "markerForeButton";
+            this.markerForeButton.Size = new System.Drawing.Size(33, 30);
+            this.markerForeButton.TabIndex = 9;
+            this.markerForeButton.Click += new System.EventHandler(this.MarkerForeButtonClick);
+            // 
+            // marginForeTextBox
+            // 
+            this.marginForeTextBox.Location = new System.Drawing.Point(14, 140);
+            this.marginForeTextBox.Name = "marginForeTextBox";
+            this.marginForeTextBox.Size = new System.Drawing.Size(153, 23);
+            this.marginForeTextBox.TabIndex = 2;
+            this.marginForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // marginBackTextBox
+            // 
+            this.marginBackTextBox.Location = new System.Drawing.Point(14, 190);
+            this.marginBackTextBox.Name = "marginBackTextBox";
+            this.marginBackTextBox.Size = new System.Drawing.Size(153, 23);
+            this.marginBackTextBox.TabIndex = 5;
+            this.marginBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // markerForeTextBox
+            // 
+            this.markerForeTextBox.Location = new System.Drawing.Point(224, 140);
+            this.markerForeTextBox.Name = "markerForeTextBox";
+            this.markerForeTextBox.Size = new System.Drawing.Size(153, 23);
+            this.markerForeTextBox.TabIndex = 8;
+            this.markerForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // markerBackTextBox
+            // 
+            this.markerBackTextBox.Location = new System.Drawing.Point(224, 190);
+            this.markerBackTextBox.Name = "markerBackTextBox";
+            this.markerBackTextBox.Size = new System.Drawing.Size(153, 23);
+            this.markerBackTextBox.TabIndex = 11;
+            this.markerBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "fdz";
+            this.saveFileDialog.Filter = "FlashDevelop Zip Files|*.fdz";
+            // 
+            // languageGroupBox
+            // 
             this.languageGroupBox.Controls.Add(this.caretForeButton);
             this.languageGroupBox.Controls.Add(this.caretForeLabel);
             this.languageGroupBox.Controls.Add(this.caretForeTextBox);
@@ -445,61 +513,131 @@ namespace FlashDevelop.Dialogs
             this.languageGroupBox.Controls.Add(this.selectionForeButton);
             this.languageGroupBox.Controls.Add(this.selectionForeLabel);
             this.languageGroupBox.Controls.Add(this.selectionForeTextBox);
+            this.languageGroupBox.Controls.Add(this.marginForeButton);
+            this.languageGroupBox.Controls.Add(this.marginForeLabel);
+            this.languageGroupBox.Controls.Add(this.marginForeTextBox);
+            this.languageGroupBox.Controls.Add(this.marginBackButton);
+            this.languageGroupBox.Controls.Add(this.marginBackLabel);
+            this.languageGroupBox.Controls.Add(this.marginBackTextBox);
+            this.languageGroupBox.Controls.Add(this.markerBackButton);
+            this.languageGroupBox.Controls.Add(this.markerBackLabel);
+            this.languageGroupBox.Controls.Add(this.markerBackTextBox);
+            this.languageGroupBox.Controls.Add(this.markerForeButton);
+            this.languageGroupBox.Controls.Add(this.markerForeLabel);
+            this.languageGroupBox.Controls.Add(this.markerForeTextBox);
             this.languageGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.languageGroupBox.Location = new System.Drawing.Point(204, 9);
-            this.languageGroupBox.Name = "previewGroupBox";
-            this.languageGroupBox.Size = new System.Drawing.Size(372, 108);
+            this.languageGroupBox.Location = new System.Drawing.Point(238, 10);
+            this.languageGroupBox.Name = "languageGroupBox";
+            this.languageGroupBox.Size = new System.Drawing.Size(434, 228);
             this.languageGroupBox.TabIndex = 6;
             this.languageGroupBox.TabStop = false;
             this.languageGroupBox.Text = "Editor Style";
             // 
-            // sampleTextLabel
-            //
-            this.sampleTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.sampleTextLabel.BackColor = System.Drawing.Color.White;
-            this.sampleTextLabel.Location = new System.Drawing.Point(13, 110);
-            this.sampleTextLabel.Name = "sampleTextLabel";
-            this.sampleTextLabel.Size = new System.Drawing.Size(347, 85);
-            this.sampleTextLabel.TabIndex = 13;
-            this.sampleTextLabel.Text = "Sample Text";
-            this.sampleTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // caretForeLabel
+            // 
+            this.caretForeLabel.AutoSize = true;
+            this.caretForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.caretForeLabel.Location = new System.Drawing.Point(14, 20);
+            this.caretForeLabel.Name = "caretForeLabel";
+            this.caretForeLabel.Size = new System.Drawing.Size(105, 16);
+            this.caretForeLabel.TabIndex = 1;
+            this.caretForeLabel.Text = "Caret foreground:";
+            // 
+            // caretlineBackLabel
+            // 
+            this.caretlineBackLabel.AutoSize = true;
+            this.caretlineBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.caretlineBackLabel.Location = new System.Drawing.Point(14, 70);
+            this.caretlineBackLabel.Name = "caretlineBackLabel";
+            this.caretlineBackLabel.Size = new System.Drawing.Size(130, 16);
+            this.caretlineBackLabel.TabIndex = 4;
+            this.caretlineBackLabel.Text = "Caret line background:";
+            // 
+            // selectionBackLabel
+            // 
+            this.selectionBackLabel.AutoSize = true;
+            this.selectionBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.selectionBackLabel.Location = new System.Drawing.Point(224, 70);
+            this.selectionBackLabel.Name = "selectionBackLabel";
+            this.selectionBackLabel.Size = new System.Drawing.Size(127, 16);
+            this.selectionBackLabel.TabIndex = 10;
+            this.selectionBackLabel.Text = "Selection background:";
+            // 
+            // selectionForeLabel
+            // 
+            this.selectionForeLabel.AutoSize = true;
+            this.selectionForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.selectionForeLabel.Location = new System.Drawing.Point(224, 20);
+            this.selectionForeLabel.Name = "selectionForeLabel";
+            this.selectionForeLabel.Size = new System.Drawing.Size(124, 16);
+            this.selectionForeLabel.TabIndex = 7;
+            this.selectionForeLabel.Text = "Selection foreground:";
+            // 
+            // marginForeLabel
+            // 
+            this.marginForeLabel.AutoSize = true;
+            this.marginForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.marginForeLabel.Location = new System.Drawing.Point(14, 120);
+            this.marginForeLabel.Name = "marginForeLabel";
+            this.marginForeLabel.Size = new System.Drawing.Size(113, 16);
+            this.marginForeLabel.TabIndex = 1;
+            this.marginForeLabel.Text = "Margin foreground:";
+            // 
+            // marginBackLabel
+            // 
+            this.marginBackLabel.AutoSize = true;
+            this.marginBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.marginBackLabel.Location = new System.Drawing.Point(14, 170);
+            this.marginBackLabel.Name = "marginBackLabel";
+            this.marginBackLabel.Size = new System.Drawing.Size(116, 16);
+            this.marginBackLabel.TabIndex = 4;
+            this.marginBackLabel.Text = "Margin background:";
+            // 
+            // markerBackLabel
+            // 
+            this.markerBackLabel.AutoSize = true;
+            this.markerBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.markerBackLabel.Location = new System.Drawing.Point(224, 170);
+            this.markerBackLabel.Name = "markerBackLabel";
+            this.markerBackLabel.Size = new System.Drawing.Size(116, 16);
+            this.markerBackLabel.TabIndex = 10;
+            this.markerBackLabel.Text = "Marker background:";
+            // 
+            // markerForeLabel
+            // 
+            this.markerForeLabel.AutoSize = true;
+            this.markerForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.markerForeLabel.Location = new System.Drawing.Point(224, 120);
+            this.markerForeLabel.Name = "markerForeLabel";
+            this.markerForeLabel.Size = new System.Drawing.Size(113, 16);
+            this.markerForeLabel.TabIndex = 7;
+            this.markerForeLabel.Text = "Marker foreground:";
             // 
             // languageDropDown
             // 
             this.languageDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.languageDropDown.Location = new System.Drawing.Point(14, 15);
             this.languageDropDown.MaxLength = 200;
             this.languageDropDown.Name = "languageDropDown";
+            this.languageDropDown.Size = new System.Drawing.Size(212, 24);
             this.languageDropDown.TabIndex = 4;
-            this.languageDropDown.Location = new System.Drawing.Point(12, 12);
-            this.languageDropDown.Size = new System.Drawing.Size(182, 23);
             this.languageDropDown.SelectedIndexChanged += new System.EventHandler(this.LanguagesSelectedIndexChanged);
             // 
             // exportButton
-            //
+            // 
+            this.exportButton.Location = new System.Drawing.Point(238, 453);
             this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(35, 28);
             this.exportButton.TabIndex = 8;
-            this.exportButton.Size = new System.Drawing.Size(30, 23);
-            this.exportButton.Location = new System.Drawing.Point(204, 338);
             this.exportButton.Click += new System.EventHandler(this.ExportLanguagesClick);
             // 
-            // revertButton
-            //
-            this.revertButton.Name = "revertButton";
-            this.revertButton.TabIndex = 9;
-            this.revertButton.Size = new System.Drawing.Size(30, 23);
-            this.revertButton.Location = new System.Drawing.Point(244, 338);
-            this.revertButton.Click += new System.EventHandler(this.RevertLanguagesClick);
-            // 
             // EditorDialog
-            //
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.ShowInTaskbar = false;
+            // 
             this.AcceptButton = this.okButton;
-            this.CancelButton = this.cancelButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 373);
+            this.CancelButton = this.cancelButton;
+            this.ClientSize = new System.Drawing.Size(687, 495);
             this.Controls.Add(this.languageGroupBox);
             this.Controls.Add(this.itemGroupBox);
             this.Controls.Add(this.languageDropDown);
@@ -510,14 +648,18 @@ namespace FlashDevelop.Dialogs
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.okButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditorDialog";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " Editor Coloring";
             this.itemGroupBox.ResumeLayout(false);
             this.itemGroupBox.PerformLayout();
             this.languageGroupBox.ResumeLayout(false);
+            this.languageGroupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion
@@ -568,6 +710,10 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackLabel.Text = TextHelper.GetString("Info.CaretLineBack");
             this.selectionBackLabel.Text = TextHelper.GetString("Info.SelectionBack");
             this.selectionForeLabel.Text = TextHelper.GetString("Info.SelectionFore");
+            this.marginForeLabel.Text = TextHelper.GetString("Info.MarginFore");
+            this.marginBackLabel.Text = TextHelper.GetString("Info.MarginBack");
+            this.markerBackLabel.Text = TextHelper.GetString("Info.MarkerBack");
+            this.markerForeLabel.Text = TextHelper.GetString("Info.MarkerFore");
             this.cancelButton.Text = TextHelper.GetString("Label.Cancel");
             this.applyButton.Text = TextHelper.GetString("Label.Apply");
             this.fontLabel.Text = TextHelper.GetString("Info.Font");
@@ -600,6 +746,8 @@ namespace FlashDevelop.Dialogs
             this.foregroundButton.Image = this.backgroundButton.Image = colorImage;
             this.caretForeButton.Image = this.caretlineBackButton.Image = colorImage;
             this.selectionForeButton.Image = this.selectionBackButton.Image = colorImage;
+            this.marginBackButton.Image = this.marginForeButton.Image = colorImage;
+            this.markerBackButton.Image = this.markerForeButton.Image = colorImage;
             String[] languageFiles = Directory.GetFiles(this.LangDir, "*.xml");
             foreach (String language in languageFiles)
             {
@@ -732,6 +880,10 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackTextBox.Text = "";
             this.selectionBackTextBox.Text = "";
             this.selectionForeTextBox.Text = "";
+            this.markerForeTextBox.Text = "";
+            this.markerBackTextBox.Text = "";
+            this.marginForeTextBox.Text = "";
+            this.marginBackTextBox.Text = "";
             this.editorStyleNode = this.languageDoc.SelectSingleNode(editorStylePath) as XmlElement;
             if (this.editorStyleNode.Attributes["caret-fore"] != null)
             {
@@ -748,6 +900,22 @@ namespace FlashDevelop.Dialogs
             if (this.editorStyleNode.Attributes["selection-fore"] != null)
             {
                 this.selectionForeTextBox.Text = this.editorStyleNode.Attributes["selection-fore"].Value;
+            }
+            if (this.editorStyleNode.Attributes["margin-fore"] != null)
+            {
+                this.marginForeTextBox.Text = this.editorStyleNode.Attributes["margin-fore"].Value;
+            }
+            if (this.editorStyleNode.Attributes["margin-back"] != null)
+            {
+                this.marginBackTextBox.Text = this.editorStyleNode.Attributes["margin-back"].Value;
+            }
+            if (this.editorStyleNode.Attributes["marker-fore"] != null)
+            {
+                this.markerForeTextBox.Text = this.editorStyleNode.Attributes["marker-fore"].Value;
+            }
+            if (this.editorStyleNode.Attributes["marker-back"] != null)
+            {
+                this.markerBackTextBox.Text = this.editorStyleNode.Attributes["marker-back"].Value;
             }
             this.isLoadingEditor = false;
             this.isEditorSaved = true;
@@ -766,6 +934,14 @@ namespace FlashDevelop.Dialogs
             else this.editorStyleNode.RemoveAttribute("selection-fore");
             if (this.selectionBackTextBox.Text != "") this.editorStyleNode.SetAttribute("selection-back", this.selectionBackTextBox.Text);
             else this.editorStyleNode.RemoveAttribute("selection-back");
+            if (this.marginForeTextBox.Text != "") this.editorStyleNode.SetAttribute("margin-fore", this.marginForeTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("margin-fore");
+            if (this.marginBackTextBox.Text != "") this.editorStyleNode.SetAttribute("margin-back", this.marginBackTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("margin-back");
+            if (this.markerForeTextBox.Text != "") this.editorStyleNode.SetAttribute("marker-fore", this.markerForeTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("marker-fore");
+            if (this.markerBackTextBox.Text != "") this.editorStyleNode.SetAttribute("marker-back", this.markerBackTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("marker-back");
             this.isEditorSaved = true;
         }
 
@@ -907,6 +1083,54 @@ namespace FlashDevelop.Dialogs
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 this.caretForeTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void MarkerBackButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.markerBackTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.markerBackTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void MarkerForeButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.markerForeTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.markerForeTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+        
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void MarginBackButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.marginForeTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.marginBackTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+        
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void MarginForeButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.marginForeTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.marginForeTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
             }
         }
 

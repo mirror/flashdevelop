@@ -208,24 +208,6 @@ namespace FlashDevelop.Managers
                 */
                 sci.MarkerSetBack(0, DataConverter.ColorToInt32(Globals.Settings.BookmarkLineColor));
                 sci.MarkerSetBack(2, DataConverter.ColorToInt32(Globals.Settings.ModifiedLineColor));
-                Int32 markerForegroundColor = DataConverter.ColorToInt32(Globals.Settings.MarkerForegroundColor);
-                Int32 markerBackgroundColor = DataConverter.ColorToInt32(Globals.Settings.MarkerBackgroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerForegroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerForegroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerForegroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerForegroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerForegroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
-                sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
-                sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
-                sci.SetFoldMarginHiColour(true, DataConverter.ColorToInt32(Globals.Settings.FoldMarginHighlightColor));
-                sci.SetFoldMarginColour(true, DataConverter.ColorToInt32(Globals.Settings.FoldMarginColor));
                 /** 
                 * Set correct line number margin width
                 */
@@ -347,22 +329,6 @@ namespace FlashDevelop.Managers
             sci.MarkerDefine(2, ScintillaNet.Enums.MarkerSymbol.Fullrect);
             sci.MarkerSetBack(2, DataConverter.ColorToInt32(Globals.Settings.ModifiedLineColor));
             sci.MarkerSetBack(0, DataConverter.ColorToInt32(Globals.Settings.BookmarkLineColor));
-            Int32 markerForegroundColor = DataConverter.ColorToInt32(Globals.Settings.MarkerForegroundColor);
-            Int32 markerBackgroundColor = DataConverter.ColorToInt32(Globals.Settings.MarkerBackgroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerForegroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerForegroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerForegroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerForegroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerForegroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
-            sci.MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
-            sci.MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.Folder, ScintillaNet.Enums.MarkerSymbol.BoxPlus);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, ScintillaNet.Enums.MarkerSymbol.BoxMinus);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, ScintillaNet.Enums.MarkerSymbol.VLine);

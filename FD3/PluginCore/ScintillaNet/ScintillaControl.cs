@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using ScintillaNet.Configuration;
 using System.Drawing.Printing;
+using PluginCore.Managers;
 using System.Drawing;
 using System.Text;
-using PluginCore.Managers;
 
 namespace ScintillaNet
 {
@@ -178,6 +178,24 @@ namespace ScintillaNet
                     CaretLineBack = lang.editorstyle.CaretLineBackgroundColor;
                     SetSelBack(true, lang.editorstyle.SelectionBackgroundColor);
                     SetSelFore(true, lang.editorstyle.SelectionForegroundColor);
+                    SetFoldMarginHiColour(true, lang.editorstyle.MarginForegroundColor);
+                    SetFoldMarginColour(true, lang.editorstyle.MarginBackgroundColor);
+                    Int32 markerForegroundColor = lang.editorstyle.MarkerForegroundColor;
+                    Int32 markerBackgroundColor = lang.editorstyle.MarkerBackgroundColor;
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerForegroundColor);
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerForegroundColor);
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerForegroundColor);
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerForegroundColor);
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerForegroundColor);
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
+                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
+                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
                 }
                 if (lang.characterclass != null)
                 {

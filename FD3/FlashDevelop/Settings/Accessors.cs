@@ -131,26 +131,6 @@ namespace FlashDevelop.Settings
             set { this.printMarginColor = value; }
         }
 
-        [DisplayName("Fold Margin Color")]
-        [DefaultValue(typeof(Color), "Linen")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.FoldMarginColor")]
-        public Color FoldMarginColor
-        {
-            get { return this.foldMarginColor; }
-            set { this.foldMarginColor = value; }
-        }
-
-        [DisplayName("Fold Margin Highlight Color")]
-        [DefaultValue(typeof(Color), "WhiteSmoke")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.FoldMarginHighlightColor")]
-        public Color FoldMarginHighlightColor
-        {
-            get { return this.foldMarginHighlightColor; }
-            set { this.foldMarginHighlightColor = value; }
-        }
-
         [DefaultValue(false)]
         [DisplayName("View EOL Characters")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
@@ -259,26 +239,6 @@ namespace FlashDevelop.Settings
         {
             get { return this.highlightAllColor; }
             set { this.highlightAllColor = value; }
-        }
-
-        [DisplayName("Marker Foreground Color")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.MarkerForegroundColor")]
-        [DefaultValue(typeof(Color), "White")]
-        public Color MarkerForegroundColor
-        {
-            get { return this.markerForegroundColor; }
-            set { this.markerForegroundColor = value; }
-        }
-
-        [DisplayName("Marker Background Color")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.MarkerBackgroundColor")]
-        [DefaultValue(typeof(Color), "Gray")]
-        public Color MarkerBackgroundColor
-        {
-            get { return this.markerBackgroundColor; }
-            set { this.markerBackgroundColor = value; }
         }
 
         [DisplayName("ComboBox Flat Style")]

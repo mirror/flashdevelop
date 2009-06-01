@@ -19,6 +19,18 @@ namespace ScintillaNet.Configuration
 		[XmlAttributeAttribute("selection-back")]
 		public string selectionback;
 
+        [XmlAttributeAttribute("marker-fore")]
+        public string markerfore;
+
+        [XmlAttributeAttribute("marker-back")]
+        public string markerback;
+
+        [XmlAttributeAttribute("margin-fore")]
+        public string marginfore;
+
+        [XmlAttributeAttribute("margin-back")]
+        public string marginback;
+
 		public int ResolveColor(string aColor)
 		{
 			if (aColor != null)
@@ -101,7 +113,55 @@ namespace ScintillaNet.Configuration
 				return ResolveColor("0x000000");
 			}
 		}
-		
+
+        public int MarkerBackgroundColor
+        {
+            get
+            {
+                if (markerback != null && markerback.Length > 0)
+                {
+                    return ResolveColor(markerback);
+                }
+                return ResolveColor("0x808080");
+            }
+        }
+
+        public int MarkerForegroundColor
+        {
+            get
+            {
+                if (markerfore != null && markerfore.Length > 0)
+                {
+                    return ResolveColor(markerfore);
+                }
+                return ResolveColor("0xffffff");
+            }
+        }
+
+        public int MarginForegroundColor
+        {
+            get
+            {
+                if (marginfore != null && marginfore.Length > 0)
+                {
+                    return ResolveColor(marginfore);
+                }
+                return ResolveColor("0xf5f5f5");
+            }
+        }
+
+        public int MarginBackgroundColor
+        {
+            get
+            {
+                if (markerback != null && markerback.Length > 0)
+                {
+                    return ResolveColor(markerback);
+                }
+                return ResolveColor("0xfaf0e6");
+            }
+        }
+
 	}
 	
 }

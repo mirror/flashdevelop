@@ -611,12 +611,6 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   <data name="FlashDevelop.Description.LocaleVersion" xml:space="preserve">
     <value>Current locale of the program. Requires restart.</value>
   </data>
-  <data name="FlashDevelop.Description.MarkerBackgroundColor" xml:space="preserve">
-    <value>Background color of the common markers.</value>
-  </data>
-  <data name="FlashDevelop.Description.MarkerForegroundColor" xml:space="preserve">
-    <value>Foreground color of the common markers.</value>
-  </data>
   <data name="FlashDevelop.Description.MoveCursorAfterComment" xml:space="preserve">
     <value>Moves the cursor after the line is commented.</value>
   </data>
@@ -3021,10 +3015,16 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="XMLCompletion.Info.StylingAttribute" xml:space="preserve">
     <value>Styling attribute</value>
   </data>
-  <data name="FlashDevelop.Description.FoldMarginColor" xml:space="preserve">
-    <value>Color of the editor fold margin.</value>
+  <data name="FlashDevelop.Info.MarginBack" xml:space="preserve">
+    <value>Margin background:</value>
   </data>
-  <data name="FlashDevelop.Description.FoldMarginHighlightColor" xml:space="preserve">
-    <value>Hightlight color of the editor fold margin.</value>
+  <data name="FlashDevelop.Info.MarginFore" xml:space="preserve">
+    <value>Margin foreground:</value>
+  </data>
+  <data name="FlashDevelop.Info.MarkerBack" xml:space="preserve">
+    <value>Marker background:</value>
+  </data>
+  <data name="FlashDevelop.Info.MarkerFore" xml:space="preserve">
+    <value>Marker foreground:</value>
   </data>
 </root>
