@@ -54,7 +54,6 @@ namespace FlashDevelop
             this.InitializeSmartDialogs();
             this.InitializeMainForm();
             this.InitializeGraphics();
-            this.InitializeTimers();
         }
 
         /// <summary>
@@ -1115,7 +1114,27 @@ namespace FlashDevelop
         /// </summary>
         public void OnScintillaControlUpdateControl(ScintillaControl sci)
         {
-            this.UpdateUIChanged(sci);
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((MethodInvoker)delegate { this.OnScintillaControlUpdateControl(sci); });
+                return;
+            }
+            ITabbedDocument document = DocumentManager.FindDocument(sci);
+            if (document != null && document.IsEditable)
+            {
+                Int32 column = sci.Column(sci.CurrentPos) + 1;
+                Int32 line = sci.LineFromPosition(sci.CurrentPos) + 1;
+                String statusText = " " + TextHelper.GetString("Info.StatusText");
+                String file = PathHelper.GetCompactPath(sci.FileName);
+                String eol = (sci.EOLMode == 0) ? "CR+LF" : ((sci.EOLMode == 1) ? "CR" : "LF");
+                String encoding = ButtonManager.GetActiveEncodingName();
+                this.toolStripStatusLabel.Text = String.Format(statusText, line, column, eol, encoding, file);
+            }
+            else this.toolStripStatusLabel.Text = " ";
+            this.OnUpdateMainFormDialogTitle();
+            ButtonManager.UpdateFlaggedButtons();
+            NotifyEvent ne = new NotifyEvent(EventType.UIRefresh);
+            EventManager.DispatchEvent(this, ne);
         }
 
         /// <summary>
@@ -1158,7 +1177,7 @@ namespace FlashDevelop
             ITabbedDocument document = DocumentManager.FindDocument(sender);
             if (document != null && document.IsEditable)
             {
-                this.ModifiedChanged(document);
+                this.OnDocumentModify(document);
                 if (this.appSettings.ViewModifiedLines)
                 {
                     Int32 flags = sender.ModEventMask;
@@ -1266,34 +1285,6 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Updates the MainForms ui automaticly
-        /// </summary>
-        public void OnUpdateUI(ScintillaControl sci)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke((MethodInvoker)delegate { this.OnUpdateUI(sci); });
-                return;
-            }
-            ITabbedDocument document = DocumentManager.FindDocument(sci);
-            if (document != null && document.IsEditable)
-            {
-                Int32 column = sci.Column(sci.CurrentPos) + 1;
-                Int32 line = sci.LineFromPosition(sci.CurrentPos) + 1;
-                String statusText = " " + TextHelper.GetString("Info.StatusText");
-                String file = PathHelper.GetCompactPath(sci.FileName);
-                String eol = (sci.EOLMode == 0) ? "CR+LF" : ((sci.EOLMode == 1) ? "CR" : "LF");
-                String encoding = ButtonManager.GetActiveEncodingName();
-                this.toolStripStatusLabel.Text = String.Format(statusText, line, column, eol, encoding, file);
-            }
-            else this.toolStripStatusLabel.Text = " ";
-            this.OnUpdateMainFormDialogTitle();
-            ButtonManager.UpdateFlaggedButtons();
-            NotifyEvent ne = new NotifyEvent(EventType.UIRefresh);
-            EventManager.DispatchEvent(this, ne);
-        }
-
-        /// <summary>
         /// Sets the current document unmodified and updates it
         /// </summary>
         public void OnDocumentReload(ITabbedDocument document)
@@ -1315,8 +1306,6 @@ namespace FlashDevelop
                 TextEvent te = new TextEvent(EventType.FileModify, document.FileName);
                 EventManager.DispatchEvent(this, te);
             }
-            ButtonManager.UpdateFlaggedButtons();
-
         }
 
         /// <summary>
@@ -1334,92 +1323,6 @@ namespace FlashDevelop
             TextEvent te2 = new TextEvent(EventType.FileSave, document.FileName);
             EventManager.DispatchEvent(this, te2);
             ButtonManager.UpdateFlaggedButtons();
-        }
-
-        #endregion
-
-        #region Event Filtering
-
-        private System.Boolean modifiedNeeded;
-        private System.Boolean updateUiNeeded;
-        private System.Windows.Forms.Timer modifiedTimer;
-        private System.Windows.Forms.Timer updateUiTimer;
-
-        /// <summary>
-        /// Initializes the modified event timer
-        /// </summary>
-        private void InitializeTimers()
-        {
-            this.modifiedNeeded = false;
-            this.updateUiNeeded = false;
-            this.modifiedTimer = new System.Windows.Forms.Timer();
-            this.modifiedTimer.Tick += this.ModifiedTimerTick;
-            this.modifiedTimer.Interval = 10;
-            this.updateUiTimer = new System.Windows.Forms.Timer();
-            this.updateUiTimer.Tick += this.UpdateUiTimerTick;
-            this.updateUiTimer.Interval = 10;
-        }
-
-        /// <summary>
-        /// After the delay, calls the update method
-        /// </summary>
-        private void ModifiedTimerTick(Object sender, EventArgs e)
-        {
-            this.modifiedTimer.Enabled = false;
-            this.UpdateModified();
-        }
-
-        /// <summary>
-        /// Starts the timer to filter the modify events
-        /// </summary>
-        private void ModifiedChanged(ITabbedDocument document)
-        {
-            this.modifiedNeeded = true;
-            this.modifiedTimer.Enabled = false;
-            this.modifiedTimer.Tag = document;
-            this.modifiedTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// After the delay, calls the update modified method
-        /// </summary>
-        private void UpdateModified()
-        {
-            if (!this.modifiedNeeded) return;
-            this.modifiedTimer.Enabled = false;
-            this.OnDocumentModify(this.modifiedTimer.Tag as ITabbedDocument);
-            this.modifiedNeeded = false;
-        }
-
-        /// <summary>
-        /// After the delay, calls the update ui method
-        /// </summary>
-        private void UpdateUiTimerTick(Object sender, EventArgs e)
-        {
-            this.modifiedTimer.Enabled = false;
-            this.UpdateUpdateUI();
-        }
-
-        /// <summary>
-        /// Starts the timer to filter the update ui events
-        /// </summary>
-        private void UpdateUIChanged(ScintillaControl sci)
-        {
-            this.updateUiNeeded = true;
-            this.updateUiTimer.Enabled = false;
-            this.updateUiTimer.Tag = sci;
-            this.updateUiTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// After the delay, calls the update ui method
-        /// </summary>
-        private void UpdateUpdateUI()
-        {
-            if (!this.updateUiNeeded) return;
-            this.updateUiTimer.Enabled = false;
-            this.OnUpdateUI(this.updateUiTimer.Tag as ScintillaControl);
-            this.updateUiNeeded = false;
         }
 
         #endregion
