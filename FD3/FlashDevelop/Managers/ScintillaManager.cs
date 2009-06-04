@@ -112,10 +112,7 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static Int32 SelectCodePage(Int32 codepage)
         {
-            if (codepage == 65001 || codepage == 1201 || codepage == 1200)
-            {
-                return 65001;
-            }
+            if (codepage == 65001 || codepage == 1201 || codepage == 1200) return 65001;
             else return 0; // Disable multibyte support
         }
 

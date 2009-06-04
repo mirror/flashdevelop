@@ -2179,7 +2179,7 @@ namespace FlashDevelop
                 if (MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     ZipEntry entry = null;
-                    ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open));
+                    ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open, FileAccess.Read));
                     while ((entry = zis.GetNextEntry()) != null)
                     {
                         Int32 size = 2048;

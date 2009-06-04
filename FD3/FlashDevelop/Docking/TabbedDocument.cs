@@ -126,10 +126,14 @@ namespace FlashDevelop.Docking
             set 
             {
                 if (!this.IsEditable) return;
-                this.isModified = value; // Set
-                this.Text = Path.GetFileName(this.FileName);
-                if (this.isModified) this.Text += "*";
-                this.UpdateToolTipText();
+                if (this.isModified != value)
+                {
+                    this.isModified = value;
+                    this.Text = Path.GetFileName(this.FileName);
+                    if (this.isModified) this.Text += "*";
+                    ButtonManager.UpdateFlaggedButtons();
+                    this.UpdateToolTipText();
+                }
             }
         }
 
