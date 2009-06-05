@@ -139,7 +139,6 @@ namespace ASCompletion.Settings
 
         #region Helpers
 
-        const bool DEFAULT_GENERATE_PROTECTED = false;
         const bool DEFAULT_DISABLE_CLOSEBRACE = false;
         const bool DEFAULT_DISABLE_REFORMAT = false;
         const bool DEFAULT_REFORMAT_BRACES = false;
@@ -152,7 +151,6 @@ namespace ASCompletion.Settings
         const string DEFAULT_SPACEDCHARS = ",;{}*+-=/%<>|&!^";
         const string DEFAULT_ADDSPACEAFTER = "if for while do catch with";
 
-        private bool generateProtectedDeclarations = DEFAULT_GENERATE_PROTECTED;
         private bool disableAutoCloseBraces = DEFAULT_DISABLE_CLOSEBRACE;
         private bool disableCodeReformat = DEFAULT_DISABLE_REFORMAT;
         private bool reformatBraces = DEFAULT_REFORMAT_BRACES;
@@ -164,15 +162,6 @@ namespace ASCompletion.Settings
         private string compactChars = DEFAULT_COMPACTCHARS;
         private string spacedChars = DEFAULT_SPACEDCHARS;
         private string addSpaceAfter = DEFAULT_ADDSPACEAFTER;
-
-        [DisplayName("Generate Protected Declarations")]
-        [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.GenerateProtectedDeclarations"),
-        DefaultValue(DEFAULT_GENERATE_PROTECTED)]
-        public bool GenerateProtectedDeclarations
-        {
-            get { return generateProtectedDeclarations; }
-            set { generateProtectedDeclarations = value; }
-        }
 
         [DisplayName("Disable Auto-Close Braces")]
         [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableAutoCloseBraces"), 
@@ -372,12 +361,14 @@ namespace ASCompletion.Settings
 
         #region Generator
 
+        const bool DEFAULT_GENERATE_PROTECTED = false;
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
               "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
               "//e.target:Event.COMPLETE", "//e.target:Event.INIT"
         };
 
-        string[] eventListenersAutoRemove;
+        private bool generateProtectedDeclarations = DEFAULT_GENERATE_PROTECTED;
+        private string[] eventListenersAutoRemove;
 
         [DisplayName("Event Listeners Auto-remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -385,6 +376,15 @@ namespace ASCompletion.Settings
         {
             get { return eventListenersAutoRemove ?? DEFAULT_EVENTAUTOREMOVE; }
             set { eventListenersAutoRemove = value; }
+        }
+
+        [DisplayName("Generate Protected Declarations")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.GenerateProtectedDeclarations"),
+        DefaultValue(DEFAULT_GENERATE_PROTECTED)]
+        public bool GenerateProtectedDeclarations
+        {
+            get { return generateProtectedDeclarations; }
+            set { generateProtectedDeclarations = value; }
         }
 
         #endregion
