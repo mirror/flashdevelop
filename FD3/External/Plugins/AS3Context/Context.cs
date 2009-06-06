@@ -631,7 +631,7 @@ namespace AS3Context
         /// <param name="append">Additional comiler switches</param>
         public override void RunCMD(string append)
         {
-            if (!IsFileValid || MainForm.CurrentDocument.IsUntitled || CurrentModel.Version != 3)
+            if (!IsCompilationTarget())
             {
                 MessageBar.ShowWarning(TextHelper.GetString("Info.InvalidClass"));
                 return;
@@ -641,12 +641,17 @@ namespace AS3Context
             FlexShells.Instance.RunMxmlc(command, as3settings.FlexSDK);
         }
 
+        private bool IsCompilationTarget()
+        {
+            return (!MainForm.CurrentDocument.IsUntitled && CurrentModel.Version >= 3);
+        }
+
         /// <summary>
         /// Calls RunCMD with additional parameters taken from the classes @mxmlc doc tag
         /// </summary>
         public override bool BuildCMD(bool failSilently)
         {
-            if (!IsFileValid || MainForm.CurrentDocument.IsUntitled || CurrentModel.Version != 3)
+            if (!IsCompilationTarget())
             {
                 MessageBar.ShowWarning(TextHelper.GetString("Info.InvalidClass"));
                 return false;
