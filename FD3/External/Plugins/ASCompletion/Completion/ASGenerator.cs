@@ -910,7 +910,18 @@ namespace ASCompletion.Completion
             if (isProxy) typesUsed.Add("flash.utils.flash_proxy");
             bool isAS2Event = ASContext.Context.Settings.LanguageId == "AS2" && member.Name.StartsWith("on");
             bool isObjectMethod = ofClass.QualifiedName == "Object";
-            
+
+            int line = Sci.LineFromPosition(position);
+            string currentText = Sci.GetLine(line);
+            int startPos = currentText.Length;
+            GetStartPos(currentText, ref startPos, features.privateKey);
+            GetStartPos(currentText, ref startPos, features.protectedKey);
+            GetStartPos(currentText, ref startPos, features.internalKey);
+            GetStartPos(currentText, ref startPos, features.publicKey);
+            GetStartPos(currentText, ref startPos, features.staticKey);
+            GetStartPos(currentText, ref startPos, features.overrideKey);
+            startPos += Sci.PositionFromLine(line);
+
             FlagType flags = member.Flags;
             string acc = "";
             string decl = "";
@@ -921,10 +932,12 @@ namespace ASCompletion.Completion
             else if ((member.Access & Visibility.Internal) > 0) acc = features.internalKey;
             else if ((member.Access & Visibility.Protected) > 0) acc = features.protectedKey;
             else if ((member.Access & Visibility.Private) > 0) acc = features.privateKey;
-            string currentText = Sci.GetLine(Sci.LineFromPosition(position));
-            if (currentText.IndexOf(acc) >= 0) acc = "";
-            if ((flags & FlagType.Static) > 0 && currentText.IndexOf(features.staticKey) < 0) 
-                acc = features.staticKey + " " + acc;
+
+            bool isStatic = (flags & FlagType.Static) > 0;
+            if (isStatic) acc = features.staticKey + " " + acc;
+
+            if (!isProxy && !isAS2Event && !isObjectMethod) 
+                acc = features.overrideKey + " " + acc;
 
             if ((flags & (FlagType.Getter | FlagType.Setter)) > 0)
             {
@@ -950,7 +963,7 @@ namespace ASCompletion.Completion
                     string tpl = GetTemplate("Setter");
                     if (decl.Length > 0)
                     {
-                        decl += "\n\noverride ";
+                        decl += "\n\n";
                         tpl = tpl.Replace("$(EntryPoint)", "");
                     }
                     decl += String.Format(tpl,
@@ -981,19 +994,22 @@ namespace ASCompletion.Completion
             {
                 if (ASContext.Context.Settings.GenerateImports && typesUsed.Count > 0)
                 {
-                    int offset = AddImportsByName(typesUsed, ofClass.InFile, Sci.LineFromPosition(position));
+                    int offset = AddImportsByName(typesUsed, ofClass.InFile, line);
                     position += offset;
+                    startPos += offset;
                 }
-                int len = member.Name.Length;
-                if (!features.hasOverride || isObjectMethod)
-                {
-                    position -= features.overrideKey.Length + 1;
-                    len += features.overrideKey.Length + 1;
-                }
-                Sci.SetSel(position, position + len);
-                InsertCode(position, decl);
+
+                Sci.SetSel(startPos, position + member.Name.Length);
+                InsertCode(startPos, decl);
             }
             finally { Sci.EndUndoAction(); }
+        }
+
+        private static void GetStartPos(string currentText, ref int startPos, string keyword)
+        {
+            if (keyword == null) return;
+            int p = currentText.IndexOf(keyword);
+            if (p > 0 && p < startPos) startPos = p;
         }
 
         private static string FormatType(string type)
