@@ -66,9 +66,8 @@ namespace FlashDevelop.Dialogs
             // cancelButton
             //
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(45, 1);
+            this.cancelButton.Location = new System.Drawing.Point(60, 1);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 1;
@@ -79,9 +78,8 @@ namespace FlashDevelop.Dialogs
             // okButton
             //
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(76, 1);
+            this.okButton.Location = new System.Drawing.Point(147, 1);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -112,7 +110,7 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.cancelButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(242, 62);
+            this.ClientSize = new System.Drawing.Size(282, 62);
             this.Controls.Add(this.argsPanel);
             this.Controls.Add(this.bottomPanel);
             this.Name = "ArgReplaceDialog";

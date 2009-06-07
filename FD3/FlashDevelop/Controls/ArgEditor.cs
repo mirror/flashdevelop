@@ -43,7 +43,7 @@ namespace FlashDevelop.Controls
             this.argLabel.Location = new System.Drawing.Point(0, 3);
             this.argLabel.Margin = new System.Windows.Forms.Padding(0);
             this.argLabel.Name = "argLabel";
-            this.argLabel.Size = new System.Drawing.Size(65, 22);
+            this.argLabel.Size = new System.Drawing.Size(100, 22);
             this.argLabel.TabIndex = 0;
             this.argLabel.Text = "Argument";
             this.argLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -51,9 +51,9 @@ namespace FlashDevelop.Controls
             // argValues
             //
             this.argValues.FormattingEnabled = true;
-            this.argValues.Location = new System.Drawing.Point(70, 1);
+            this.argValues.Location = new System.Drawing.Point(105, 1);
             this.argValues.Name = "argValues";
-            this.argValues.Size = new System.Drawing.Size(140, 22);
+            this.argValues.Size = new System.Drawing.Size(160, 22);
             this.argValues.TabIndex = 1;
             // 
             // ArgEditor
@@ -64,7 +64,7 @@ namespace FlashDevelop.Controls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "ArgEditor";
-            this.Size = new System.Drawing.Size(230, 25);
+            this.Size = new System.Drawing.Size(270, 25);
             this.ResumeLayout(false);
 
         }
