@@ -622,6 +622,11 @@ namespace ASCompletion.Context
 
         void cacheRefreshTimer_Tick(object sender, EventArgs e)
         {
+            if (plugin.Panel.InvokeRequired)
+            {
+                plugin.Panel.BeginInvoke((MethodInvoker)delegate { cacheRefreshTimer_Tick(sender, e); });
+                return;
+            }
             cacheRefreshTimer.Stop();
             if (completionCache.IsDirty && ASContext.Context == this)
             {

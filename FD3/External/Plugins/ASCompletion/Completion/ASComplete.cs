@@ -2191,7 +2191,8 @@ namespace ASCompletion.Completion
             StringBuilder sb = new StringBuilder();
             StringBuilder sbSub = new StringBuilder();
             int subCount = 0;
-			char c;
+			char c = ' ';
+            char c2;
             int startPos = position;
             int braceCount = 0;
             int sqCount = 0;
@@ -2211,6 +2212,7 @@ namespace ASCompletion.Completion
                 }
                 else if (!IsCommentStyle(style))
                 {
+                    c2 = c;
                     c = (char)Sci.CharAt(position);
                     // end of regex literal
                     if (inRegex)
@@ -2249,10 +2251,6 @@ namespace ASCompletion.Completion
                             expression.Separator = ';';
                             break;
                         }
-                    }
-                    else if (c == '>' && hasGenerics)
-                    {
-                        genCount++;
                     }
                     // ignore sub-expressions (method calls' parameters)
                     else if (c == '(')
@@ -2293,6 +2291,12 @@ namespace ASCompletion.Completion
                             sbSub = new StringBuilder();
                         }
                         braceCount++;
+                    }
+                    else if (c == '>' && hasGenerics)
+                    {
+                        if (c2 == '.' || c2 == '(')
+                            genCount++;
+                        else break;
                     }
                     if (braceCount > 0 || sqCount > 0 || genCount > 0) 
                     {
