@@ -193,7 +193,7 @@ namespace DataEncoder
                 TypeData typeData = this.GetFileObjectType(file);
                 XmlSerializer xs = new XmlSerializer(typeData.Type);
                 settings = xs.Deserialize(stream);
-                ObjectSerializer.ForcedSerialize(file, settings);
+                ObjectSerializer.Serialize(file, settings);
                 stream.Close();
             }
             catch (Exception ex)

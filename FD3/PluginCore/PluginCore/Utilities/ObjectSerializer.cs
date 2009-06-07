@@ -15,7 +15,6 @@ namespace PluginCore.Utilities
 {
     public class ObjectSerializer
     {
-        private static List<FileDate> fileDates = new List<FileDate>();
         private static BinaryFormatter formatter = new BinaryFormatter();
 
         static ObjectSerializer()
@@ -47,33 +46,6 @@ namespace PluginCore.Utilities
         {
             try
             {
-                DateTime modified = File.GetLastWriteTime(file);
-                foreach (FileDate fileDate in fileDates)
-                {
-                    if (fileDate.Path == file && fileDate.Time.CompareTo(modified) < 0) return;
-                }
-                using (FileStream stream = File.Create(file))
-                {
-                    formatter.Serialize(stream, obj);
-                }
-                foreach (FileDate fileDate in fileDates)
-                {
-                    if (fileDate.Path == file) fileDate.Time = File.GetLastWriteTime(file);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-            }
-        }
-
-        /// <summary>
-        /// Forces the serialization to a binary file without any file info checks
-        /// </summary>
-        public static void ForcedSerialize(String file, Object obj)
-        {
-            try
-            {
                 using (FileStream stream = File.Create(file))
                 {
                     formatter.Serialize(stream, obj);
@@ -92,7 +64,6 @@ namespace PluginCore.Utilities
         {
             try
             {
-                fileDates.Add(new FileDate(file));
                 Object settings = InternalDeserialize(file, obj.GetType());
                 if (checkValidity)
                 {
@@ -178,19 +149,6 @@ namespace PluginCore.Utilities
                 ErrorManager.ShowError(ex);
                 return null;
             }
-        }
-
-    }
-
-    public class FileDate
-    {
-        public String Path;
-        public DateTime Time;
-
-        public FileDate(String file)
-        {
-            this.Path = file;
-            this.Time = File.GetLastWriteTime(file);
         }
 
     }
