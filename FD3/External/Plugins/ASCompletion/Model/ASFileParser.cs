@@ -617,9 +617,13 @@ namespace ASCompletion.Model
 					    && (c1 == ',' || c1 == ';' || c1 == '}' || c1 == '\r' || c1 == '\n' 
                             || (inParams && c1 == ')') || inType) )
 					{
+                        if (!inValue || c1 != ',')
+                        {
+                            length = 0;
+                            context = 0;
+                        }
 						inValue = false;
                         inGeneric = false;
-						length = 0;
                         if (inType && valueLength < VALUE_BUFFER) valueBuffer[valueLength++] = c1;
 					}
 
@@ -718,6 +722,7 @@ namespace ASCompletion.Model
 						hadWS = false;
 						hadDot = true;
 						addChar = true;
+                        if (!inValue && context == FlagType.Variable && !foundColon) context = 0;
 					}
 					else continue;
                 }
@@ -915,13 +920,14 @@ namespace ASCompletion.Model
 					
 					else if (c1 == '(')
 					{
-                        // haXe properties
-                        if (!inValue && haXe && context == FlagType.Variable && curMember != null && valueLength == 0)
-                        {
-                            curMember.Flags -= FlagType.Variable;
-                            curMember.Flags |= FlagType.Getter | FlagType.Setter;
-                            context = FlagType.Function;
-                        }
+                        if (!inValue && context == FlagType.Variable)
+                            if (haXe && curMember != null && valueLength == 0) // haXe properties
+                            {
+                                curMember.Flags -= FlagType.Variable;
+                                curMember.Flags |= FlagType.Getter | FlagType.Setter;
+                                context = FlagType.Function;
+                            }
+                            else context = 0;
 
 						// beginning of method parameters
                         if (context == FlagType.Function)
