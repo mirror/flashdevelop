@@ -48,6 +48,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button findButton;
         private PluginCore.FRService.FRRunner runner;
+        private PluginCore.IProject lastProject;
 
         public FRInFilesDialog()
         {
@@ -837,7 +838,16 @@ namespace FlashDevelop.Dialogs
         private void UpdateDialogArguments()
         {
             ITabbedDocument document = Globals.CurrentDocument;
-            if (this.folderComboBox.Text == "" || !Globals.MainForm.WorkingDirectory.StartsWith(this.folderComboBox.Text))
+            if (PluginBase.CurrentProject != null)
+            {
+                String path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
+                if (String.IsNullOrEmpty(this.folderComboBox.Text) || (lastProject != null && lastProject != PluginBase.CurrentProject))
+                {
+                    this.folderComboBox.Text = path;
+                }
+                lastProject = PluginBase.CurrentProject;
+            }
+            else if (String.IsNullOrEmpty(this.folderComboBox.Text) || !Globals.MainForm.WorkingDirectory.StartsWith(this.folderComboBox.Text))
             {
                 this.folderComboBox.Text = Globals.MainForm.WorkingDirectory;
             }
