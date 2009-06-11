@@ -370,7 +370,7 @@ namespace ASCompletion.Settings
         private bool generateProtectedDeclarations = DEFAULT_GENERATE_PROTECTED;
         private string[] eventListenersAutoRemove;
 
-        [DisplayName("Event Listeners Auto-remove")]
+        [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
         public string[] EventListenersAutoRemove
         {
