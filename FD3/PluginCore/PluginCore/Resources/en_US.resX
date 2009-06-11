@@ -1185,7 +1185,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>&amp;Regular Expression Toolkit</value>
   </data>
   <data name="FlashDevelop.Label.RegularExpressions" xml:space="preserve">
-    <value>&amp;Regular expressions</value>
+    <value>Re&amp;gular expressions</value>
   </data>
   <data name="FlashDevelop.Label.ReleaseNotes" xml:space="preserve">
     <value>&amp;Release Notes...</value>

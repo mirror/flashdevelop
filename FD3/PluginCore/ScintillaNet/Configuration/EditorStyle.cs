@@ -154,9 +154,9 @@ namespace ScintillaNet.Configuration
         {
             get
             {
-                if (markerback != null && markerback.Length > 0)
+                if (marginback != null && marginback.Length > 0)
                 {
-                    return ResolveColor(markerback);
+                    return ResolveColor(marginback);
                 }
                 return ResolveColor("0xfaf0e6");
             }
