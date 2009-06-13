@@ -114,13 +114,14 @@ namespace PluginCore.Controls
         /// </summary> 
         static public void Show(List<ICompletionListItem> itemList, Boolean autoHide, String select)
 		{
-			if (select.Length > 0)
-			{
-				ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
+            if (select.Length > 0)
+            {
+                ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
                 if (!doc.IsEditable) return;
                 ScintillaControl sci = doc.SciControl;
-				currentWord = select;
-			}
+                currentWord = select;
+            }
+            else currentWord = null;
 			Show(itemList, autoHide);
 		}
 
