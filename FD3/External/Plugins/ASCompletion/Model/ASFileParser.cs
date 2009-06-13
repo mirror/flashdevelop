@@ -617,7 +617,7 @@ namespace ASCompletion.Model
 					    && (c1 == ',' || c1 == ';' || c1 == '}' || c1 == '\r' || c1 == '\n' 
                             || (inParams && c1 == ')') || inType) )
 					{
-                        if (!inValue || c1 != ',')
+                        if (!inType && (!inValue || c1 != ','))
                         {
                             length = 0;
                             context = 0;
