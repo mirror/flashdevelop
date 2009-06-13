@@ -93,9 +93,10 @@ namespace HaXeContext
         public void Dispose()
         {
             this.SaveSettings();
-
             if (Context.TemporaryOutputFile != null && File.Exists(Context.TemporaryOutputFile))
+            {
                 File.Delete(Context.TemporaryOutputFile);
+            }
         }
 
         /// <summary>
@@ -148,7 +149,11 @@ namespace HaXeContext
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (HaXeSettings)obj;
             }
-            if (this.settingObject.HaXePath == null) this.settingObject.HaXePath = @"C:\Program Files\Motion-Twin\haxe"; // default values
+            if (this.settingObject.HaXePath == null) // default values
+            {
+                string eVariable = System.Environment.GetEnvironmentVariable("HAXEPATH");
+                settingObject.HaXePath = eVariable ?? @"C:\Program Files\Motion-Twin\haxe";
+            }
             this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
