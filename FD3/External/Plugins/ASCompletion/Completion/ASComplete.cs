@@ -129,7 +129,7 @@ namespace ASCompletion.Completion
                         {
                             char c0 = (char)Sci.CharAt(position - 2);
                             bool result = false;
-                            if (c0 == '.' || Char.IsLetterOrDigit(c0))
+                            if (c0 == '.' /*|| Char.IsLetterOrDigit(c0)*/)
                                 return HandleColonCompletion(Sci, "", autoHide);
                             return result;
                         }
