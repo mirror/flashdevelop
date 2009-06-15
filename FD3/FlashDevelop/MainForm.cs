@@ -2839,6 +2839,28 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Toggles the line comment in a smart way
+        /// </summary>
+        public void ToggleLineComment(Object sender, System.EventArgs e)
+        {
+            ScintillaControl sci = Globals.SciControl;
+            Int32 startLine = sci.LineFromPosition(sci.SelectionStart);
+            String lineComment = ScintillaManager.GetLineComment(sci.ConfigurationLanguage);
+            if (sci.GetLine(startLine).Trim().StartsWith(lineComment)) this.UncommentLine(null, null);
+            else this.CommentLine(null, null);
+        }
+
+        /// <summary>
+        /// Toggles the block comment in a smart way
+        /// </summary>
+        public void ToggleBlockComment(Object sender, System.EventArgs e)
+        {
+            ScintillaControl sci = Globals.SciControl;
+            if (sci.SelText.Length > 0) this.CommentSelection(null, null);
+            else this.UncommentBlock(null, null);
+        }
+
+        /// <summary>
         /// Calls a ScintillaControl command
         /// </summary>
         public void ScintillaCommand(Object sender, System.EventArgs e)

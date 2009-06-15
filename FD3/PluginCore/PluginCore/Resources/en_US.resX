@@ -941,11 +941,9 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   <data name="FlashDevelop.Label.CommandPrompt" xml:space="preserve">
     <value>&amp;Command Prompt</value>
   </data>
-  <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
-    <value>Comment Li&amp;ne</value>
-  </data>
-  <data name="FlashDevelop.Label.CommentSelection" xml:space="preserve">
-    <value>Co&amp;mment Selection</value>
+  <data name="FlashDevelop.Label.LineComment" xml:space="preserve">
+    <value>Li&amp;ne Comment</value>
+    <comment>3.1</comment>
   </data>
   <data name="FlashDevelop.Label.CompareFiles" xml:space="preserve">
     <value>&amp;Compare Files...</value>
@@ -1273,9 +1271,6 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   </data>
   <data name="FlashDevelop.Label.TransposeLines" xml:space="preserve">
     <value>&amp;Transpose Lines</value>
-  </data>
-  <data name="FlashDevelop.Label.UncommentLine" xml:space="preserve">
-    <value>Uncomment Line</value>
   </data>
   <data name="FlashDevelop.Label.Undo" xml:space="preserve">
     <value>&amp;Undo</value>
@@ -2946,9 +2941,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="TaskListPanel.Info.InvalidItem" xml:space="preserve">
     <value>The selected item could not be found. The task list will be refreshed.</value>
   </data>
-  <data name="FlashDevelop.Label.UncommentBlock" xml:space="preserve">
-    <value>Uncomment Block</value>
-  </data>
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
     <value>Directory names to filter when the name for the classpath is being resolved.</value>
   </data>
@@ -3026,5 +3018,9 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Info.MarkerFore" xml:space="preserve">
     <value>Marker foreground:</value>
+  </data>
+  <data name="FlashDevelop.Label.BlockComment" xml:space="preserve">
+    <value>Block Co&amp;mment</value>
+    <comment>3.1</comment>
   </data>
 </root>

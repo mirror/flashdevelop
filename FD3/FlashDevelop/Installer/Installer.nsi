@@ -8,8 +8,8 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "3.0.0"
-!define BUILD "RTM"
+!define VERSION "3.1.0"
+!define BUILD "Beta"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
