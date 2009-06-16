@@ -2164,6 +2164,7 @@ namespace FlashDevelop
             {
                 String zipFile = "";
                 Boolean silentInstall = false;
+                Boolean requiresRestart = false;
                 ToolStripItem button = (ToolStripItem)sender;
                 String[] chunks = (((ItemData)button.Tag).Tag).Split(';');
                 if (chunks.Length > 1) 
@@ -2186,6 +2187,11 @@ namespace FlashDevelop
                         String fdpath = this.ProcessArgString(entry.Name, false).Replace("/", "\\");
                         if (Path.HasExtension(fdpath))
                         {
+                            if (File.Exists(fdpath) && Path.GetExtension(fdpath) == ".dll")
+                            {
+                                fdpath += ".new";
+                                requiresRestart = true;
+                            }
                             FileStream extracted = new FileStream(fdpath, FileMode.Create);
                             while (true)
                             {
@@ -2199,6 +2205,7 @@ namespace FlashDevelop
                         else Directory.CreateDirectory(fdpath);
                     }
                     String finish = TextHelper.GetString("Info.ZipExtractDone");
+                    if (requiresRestart) finish += "\n" + TextHelper.GetString("Info.RequiresRestart");
                     ErrorManager.ShowInfo(finish);
                 }
             }
@@ -3077,6 +3084,14 @@ namespace FlashDevelop
             String args = this.ProcessArgString(((ItemData)button.Tag).Tag);
             if (args == String.Empty) ErrorManager.ShowError(new Exception("Debug"));
             else ErrorManager.ShowInfo(args);
+        }
+
+        /// <summary>
+        /// Restarts FlashDevelop
+        /// </summary>
+        public void Restart(Object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
         #endregion

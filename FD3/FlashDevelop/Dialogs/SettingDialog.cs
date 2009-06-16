@@ -162,7 +162,7 @@ namespace FlashDevelop.Dialogs
             // helpLabel
             //
             this.helpLabel.AutoSize = true;
-            this.helpLabel.Location = new System.Drawing.Point(369, 11);
+            this.helpLabel.Location = new System.Drawing.Point(369, 10);
             this.helpLabel.Name = "helpLabel";
             this.helpLabel.Size = new System.Drawing.Size(28, 13);
             this.helpLabel.TabIndex = 9;

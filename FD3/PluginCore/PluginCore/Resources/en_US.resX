@@ -3023,4 +3023,24 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Block Co&amp;mment</value>
     <comment>3.1</comment>
   </data>
+  <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
+    <value>Comment Li&amp;ne</value>
+  </data>
+  <data name="FlashDevelop.Label.CommentSelection" xml:space="preserve">
+    <value>Co&amp;mment Selection</value>
+  </data>
+  <data name="FlashDevelop.Label.UncommentBlock" xml:space="preserve">
+    <value>Uncomment Block</value>
+  </data>
+  <data name="FlashDevelop.Label.UncommentLine" xml:space="preserve">
+    <value>Uncomment Line</value>
+  </data>
+  <data name="FlashDevelop.Info.RequiresRestart" xml:space="preserve">
+    <value>To apply all changes, you need to restart FlashDevelop.</value>
+    <comment>3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.Restart" xml:space="preserve">
+    <value>Res&amp;tart</value>
+    <comment>3.1</comment>
+  </data>
 </root>

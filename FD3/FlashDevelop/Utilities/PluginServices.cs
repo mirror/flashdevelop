@@ -26,6 +26,7 @@ namespace FlashDevelop.Utilities
 		/// </summary>
         public static void FindPlugins(String path)
 		{
+            EnsureUpdatedPlugins(path);
             foreach (String fileOn in Directory.GetFiles(path, "*.dll"))
 			{
                 String name = Path.GetFileNameWithoutExtension(fileOn);
@@ -36,6 +37,19 @@ namespace FlashDevelop.Utilities
                 }
 			}
 		}
+
+        /// <summary>
+        /// Ensures that the plugins are updated before init
+        /// </summary>
+        public static void EnsureUpdatedPlugins(String path)
+        {
+            foreach (String newFile in Directory.GetFiles(path, "*.new"))
+            {
+                String pluginFile = Path.GetFileNameWithoutExtension(newFile);
+                if (File.Exists(pluginFile)) File.Delete(pluginFile);
+                File.Move(newFile, pluginFile);
+            }
+        }
 
         /// <summary>
         /// Finds a plugin from the plugin collection
