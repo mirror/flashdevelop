@@ -85,7 +85,11 @@ namespace PluginCore.Controls
             bool hasListUp = !CompletionList.Active || CompletionList.listUp;
             if (currentLine > sci.LineFromPosition(memberPos) || !hasListUp) toolTip.Top = p.Y - toolTip.Height + sci.Top;
             else toolTip.Top = p.Y + UITools.Manager.LineHeight(sci) + sci.Top;
-            // show
+            // Keep on control area
+            if (toolTip.Right > ((Form)PluginBase.MainForm).ClientRectangle.Right)
+            {
+                toolTip.Left = ((Form)PluginBase.MainForm).ClientRectangle.Right - toolTip.Width;
+            }
             toolTip.Show();
             toolTip.BringToFront();
         }

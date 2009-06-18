@@ -79,7 +79,7 @@ namespace PluginCore.Controls
 		#endregion
 		
 		#region Public List Properties
-		
+
         /// <summary>
         /// Is the control active? 
         /// </summary> 
@@ -235,7 +235,11 @@ namespace PluginCore.Controls
 			cl.Left = coord.X-20 + sci.Left;
 			if (listUp) cl.Top = coord.Y-cl.Height + sci.Top;
             else cl.Top = coord.Y + UITools.Manager.LineHeight(sci) + sci.Top;
-			//
+            // Keep on control area
+            if (cl.Right > ((Form)PluginBase.MainForm).ClientRectangle.Right)
+            {
+                cl.Left = ((Form)PluginBase.MainForm).ClientRectangle.Right - cl.Width;
+            }
 			if (!cl.Visible)
 			{
 				cl.Show();
@@ -340,7 +344,9 @@ namespace PluginCore.Controls
             tempoTip.Stop();
 			if (currentItem == null || faded) return;
             UITools.Tip.Text = currentItem.Description;
-            UITools.Tip.Location = new Point(completionList.Left + completionList.Width, completionList.Top);
+            Boolean outOfBounds = completionList.Right + UITools.Tip.Size.Width > ((Form)PluginBase.MainForm).ClientRectangle.Right;
+            if (outOfBounds) UITools.Tip.Location = new Point(completionList.Left - UITools.Tip.Size.Width, completionList.Top);
+            else UITools.Tip.Location = new Point(completionList.Right, completionList.Top);
             //UITools.Tip.AutoSize();
             UITools.Tip.Show();
 		}

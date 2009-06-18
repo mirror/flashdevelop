@@ -22,13 +22,19 @@ namespace PluginCore.Controls
 		{
 			get { return toolTip.Visible; }
 		}
-		
+
+        public Size Size
+        {
+            get { return toolTip.Size; }
+            set { toolTip.Size = value; }
+        }
+
 		public Point Location
 		{
 			get { return toolTip.Location;  }
 			set { toolTip.Location = value; }
 		}
-		
+
 		public string Text 
 		{
 			get { return toolTipRTB.Text; }
@@ -114,6 +120,10 @@ namespace PluginCore.Controls
             //ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
 			Point mousePos = ((Form)PluginBase.MainForm).PointToClient(Control.MousePosition);
             toolTip.Left = mousePos.X;// +sci.Left;
+            if (toolTip.Right > ((Form)PluginBase.MainForm).ClientRectangle.Right)
+            {
+                toolTip.Left -= (toolTip.Right - ((Form)PluginBase.MainForm).ClientRectangle.Right);
+            }
             toolTip.Top = mousePos.Y - toolTip.Height - 10;// +sci.Top;
 			toolTip.Show();
 			toolTip.BringToFront();
