@@ -294,9 +294,14 @@ namespace AS3Context
                     type = method.paramTypes[i];
                     param.Type = ImportType(type);
 
-                    if (i >= defaultValues)
+                    if (param.Name[0] == '.' && param.Type == "Array") // ...rest
+                    {
+                        param.Type = "";
+                    }
+                    else if (i >= defaultValues)
+                    {
                         SetDefaultValue(param, method.optionalValues[i - defaultValues]);
-
+                    }
                     member.Parameters.Add(param);
                 }
             }

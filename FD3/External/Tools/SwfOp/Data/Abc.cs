@@ -708,17 +708,29 @@ namespace SwfOp.Data
                 methods[i] = m;
 				int param_count = readU32(br);
 				m.returnType = (QName)names[readU32(br)];
-				m.paramTypes = new QName[param_count];
+                m.paramTypes = new QName[param_count];
 				for (int j=0; j < param_count; j++)
                     m.paramTypes[j] = (QName)names[readU32(br)];
 				m.debugName = (string)strings[readU32(br)];
                 m.flags = (MethodFlags)br.ReadSByte();
 
+                if ((m.flags & MethodFlags.NeedRest) > 0)
+                {
+                    QName[] temp = m.paramTypes;
+                    m.paramTypes = new QName[param_count + 1];
+                    temp.CopyTo(m.paramTypes, 0);
+                    m.paramTypes[param_count] = new QName("Array");
+                }
 				if ((m.flags & MethodFlags.HasOptional) > 0)
 				{
 					// has_optional
 					int optional_count = readU32(br);
-                    m.optionalValues = new object[optional_count];
+                    if ((m.flags & MethodFlags.NeedRest) > 0)
+                    {
+                        m.optionalValues = new object[optional_count + 1];
+                        m.optionalValues[optional_count] = null;
+                    }
+                    else m.optionalValues = new object[optional_count];
 					for(int k = 0; k < optional_count; k++)
 					{
 						int index = readU32(br);    // optional value index
@@ -734,7 +746,12 @@ namespace SwfOp.Data
 				if ((m.flags & MethodFlags.HasParamNames) > 0)
 				{
 					// has_paramnames
-                    m.paramNames = new string[param_count];
+                    if ((m.flags & MethodFlags.NeedRest) > 0)
+                    {
+                        m.paramNames = new string[param_count + 1];
+                        m.paramNames[param_count] = "...rest";
+                    }
+                    else m.paramNames = new string[param_count];
 					for(int k = 0; k < param_count; k++)//++k)
                     {
                         int index = readU32(br);
