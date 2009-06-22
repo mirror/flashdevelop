@@ -6,7 +6,7 @@ package flash.html.script
 
 	public class Package extends Proxy
 	{
-		public function callProperty (name:*) : *;
+		public function callProperty (name:*, ...rest) : *;
 
 		public function getProperty (name:*) : *;
 

@@ -25,10 +25,10 @@ package flash.system
 		public static function get sandboxType () : String;
 
 		/// Lets SWF files and HTML files access objects and variables in the calling SWF file.
-		public static function allowDomain () : void;
+		public static function allowDomain (...rest) : void;
 
 		/// Lets SWF and HTML files hosted using the HTTPS protocol, access objects and variables in the calling SWF file.
-		public static function allowInsecureDomain () : void;
+		public static function allowInsecureDomain (...rest) : void;
 
 		/// Loads a URL policy file from a location specified by the url parameter.
 		public static function loadPolicyFile (url:String) : void;

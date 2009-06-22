@@ -14,7 +14,7 @@ package
 		public function apply (thisArg:* = null, argArray:* = null) : *;
 
 		/// Invokes this Function.
-		public function call (thisArg:* = null) : *;
+		public function call (thisArg:* = null, ...rest) : *;
 
 		public function Function ();
 	}

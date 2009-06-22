@@ -20,10 +20,10 @@ package
 		public function set length (newLength:uint) : void;
 
 		/// Lets you create an array that contains the specified elements.
-		public function Array ();
+		public function Array (...rest);
 
 		/// Concatenates the elements specified in the parameters.
-		public function concat () : Array;
+		public function concat (...rest) : Array;
 
 		/// Executes a test function on each item in the array until an item is reached that returns false for the specified function.
 		public function every (callback:Function, thisObject:* = null) : Boolean;
@@ -50,7 +50,7 @@ package
 		public function pop () : *;
 
 		/// Adds one or more elements to the end of an array and returns the new length of the array.
-		public function push () : uint;
+		public function push (...rest) : uint;
 
 		/// Reverses the array in place.
 		public function reverse () : Array;
@@ -65,15 +65,15 @@ package
 		public function some (callback:Function, thisObject:* = null) : Boolean;
 
 		/// Sorts the elements in an array.
-		public function sort () : *;
+		public function sort (...rest) : *;
 
 		/// Sorts the elements in an array according to one or more fields in the array.
-		public function sortOn (names:*, options:* = 0) : *;
+		public function sortOn (names:*, options:* = 0, ...rest) : *;
 
 		/// Adds elements to and removes elements from an array.
-		public function splice () : *;
+		public function splice (...rest) : *;
 
 		/// Adds one or more elements to the beginning of an array and returns the new length of the array.
-		public function unshift () : uint;
+		public function unshift (...rest) : uint;
 	}
 }

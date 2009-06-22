@@ -31,10 +31,10 @@ package flash.net
 		public function get domain () : String;
 
 		/// Specifies one or more domains that can send LocalConnection calls to this LocalConnection instance.
-		public function allowDomain () : void;
+		public function allowDomain (...rest) : void;
 
 		/// Specifies one or more domains that can send LocalConnection calls to this LocalConnection object.
-		public function allowInsecureDomain () : void;
+		public function allowInsecureDomain (...rest) : void;
 
 		/// Closes (disconnects) a LocalConnection object.
 		public function close () : void;
@@ -46,6 +46,6 @@ package flash.net
 		public function LocalConnection ();
 
 		/// Invokes the method named methodName on a connection opened with the connect(<code>connectionName<code>) method (the receiving LocalConnection object).
-		public function send (connectionName:String, methodName:String) : void;
+		public function send (connectionName:String, methodName:String, ...rest) : void;
 	}
 }

@@ -3,6 +3,8 @@ package flash.net
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.events.SecurityErrorEvent;
+	import flash.utils.IDataInput;
+	import flash.utils.IDataOutput;
 	import flash.utils.Timer;
 	import flash.utils.ByteArray;
 

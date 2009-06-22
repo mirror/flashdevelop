@@ -3,7 +3,7 @@ package flash.utils
 	import flash.utils.ByteArray;
 
 	/// The IDataOutput interface provides a set of methods for writing binary data.
-	public interface IDataOutput extends *
+	public interface IDataOutput
 	{
 		/// The byte order for the data, either the "bigEndian" or "littleEndian" constant from the Endian class.
 		public function get endian () : String;

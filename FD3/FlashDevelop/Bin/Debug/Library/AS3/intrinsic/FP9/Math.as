@@ -53,10 +53,10 @@ package
 		public function Math ();
 
 		/// Evaluates parameters val1 and val2 and returns the larger value.
-		public static function max (x:Number = null, y:Number = null) : Number;
+		public static function max (x:Number = null, y:Number = null, ...rest) : Number;
 
 		/// Evaluates parameters val1 and val2 and returns the smaller value.
-		public static function min (x:Number = null, y:Number = null) : Number;
+		public static function min (x:Number = null, y:Number = null, ...rest) : Number;
 
 		/// Returns val1 to the power of val2.
 		public static function pow (x:Number, y:Number) : Number;

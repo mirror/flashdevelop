@@ -1,7 +1,6 @@
 package flash.display
 {
-	public interface IGraphicsData extends *
+	public interface IGraphicsData
 	{
-		public function IGraphicsData ();
 	}
 }

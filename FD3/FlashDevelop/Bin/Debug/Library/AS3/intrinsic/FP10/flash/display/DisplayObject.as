@@ -1,6 +1,7 @@
 package flash.display
 {
 	import flash.events.EventDispatcher;
+	import flash.display.IBitmapDrawable;
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;

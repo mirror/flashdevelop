@@ -1,7 +1,6 @@
 package flash.display
 {
-	public interface IDrawCommand extends *
+	public interface IDrawCommand
 	{
-		public function IDrawCommand ();
 	}
 }

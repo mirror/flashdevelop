@@ -4,7 +4,7 @@ package flash.utils
 	import flash.utils.IDataOutput;
 
 	/// The IExternalizable interface provides control over serialization of a class as it is encoded into a data stream.
-	public interface IExternalizable extends *
+	public interface IExternalizable
 	{
 		/// A class implements this method to decode itself from a data stream by calling the methods of the IDataInput interface.
 		public function readExternal (input:IDataInput) : void;

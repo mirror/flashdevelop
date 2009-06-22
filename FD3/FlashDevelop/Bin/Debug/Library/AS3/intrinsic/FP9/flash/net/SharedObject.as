@@ -69,7 +69,7 @@ package flash.net
 		public static function getRemote (name:String, remotePath:String = null, persistence:Object = false, secure:Boolean = false) : SharedObject;
 
 		/// Broadcasts a message to all clients connected to a remote shared object, including the client that sent the message.
-		public function send () : void;
+		public function send (...rest) : void;
 
 		/// Indicates to the server that the value of a property in the shared object has changed.
 		public function setDirty (propertyName:String) : void;

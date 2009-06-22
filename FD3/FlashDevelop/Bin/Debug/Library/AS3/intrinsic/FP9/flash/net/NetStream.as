@@ -124,7 +124,7 @@ package flash.net
 		public function pause () : void;
 
 		/// Begins playback of video files.
-		public function play () : void;
+		public function play (...rest) : void;
 
 		/// Sends streaming audio, video, and text messages from a client to Flash Media Server, optionally recording the stream during transmission.
 		public function publish (name:String = null, type:String = null) : void;
@@ -145,7 +145,7 @@ package flash.net
 		public function seek (offset:Number) : void;
 
 		/// Sends a message on a published stream to all subscribing clients.
-		public function send (handlerName:String) : void;
+		public function send (handlerName:String, ...rest) : void;
 
 		/// Pauses or resumes playback of a stream.
 		public function togglePause () : void;

@@ -4,7 +4,7 @@ package flash.utils
 	public class Proxy extends Object
 	{
 		/// Overrides the behavior of an object property that can be called as a function.
-		flash_proxy function callProperty (name:*) : *;
+		flash_proxy function callProperty (name:*, ...rest) : *;
 
 		/// Overrides the request to delete a property.
 		flash_proxy function deleteProperty (name:*) : Boolean;

@@ -3,7 +3,7 @@ package flash.events
 	import flash.events.Event;
 
 	/// The IEventDispatcher interface defines methods for adding or removing event listeners, checks whether specific types of event listeners are registered, and dispatches events.
-	public interface IEventDispatcher extends *
+	public interface IEventDispatcher
 	{
 		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
 		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;

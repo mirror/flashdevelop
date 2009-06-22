@@ -201,7 +201,7 @@ package
 		public function toUTCString () : String;
 
 		/// Returns the number of milliseconds between midnight on January 1, 1970, universal time, and the time specified in the parameters.
-		public static function UTC (year:*, month:*, date:* = 1, hours:* = 0, minutes:* = 0, seconds:* = 0, ms:* = 0) : Number;
+		public static function UTC (year:*, month:*, date:* = 1, hours:* = 0, minutes:* = 0, seconds:* = 0, ms:* = 0, ...rest) : Number;
 
 		/// Returns the number of milliseconds since midnight January 1, 1970, universal time, for a Date object.
 		public function valueOf () : Number;

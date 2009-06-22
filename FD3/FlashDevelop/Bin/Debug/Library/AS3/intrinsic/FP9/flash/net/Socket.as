@@ -2,6 +2,8 @@ package flash.net
 {
 	import flash.events.EventDispatcher;
 	import flash.utils.ByteArray;
+	import flash.utils.IDataInput;
+	import flash.utils.IDataOutput;
 
 	/**
 	 * Dispatched if a call to Socket.connect() attempts to connect either to a server outside the caller's security sandbox or to a port lower than 1024.

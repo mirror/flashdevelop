@@ -1,7 +1,6 @@
 package flash.display
 {
-	public interface IGraphicsStroke extends *
+	public interface IGraphicsStroke
 	{
-		public function IGraphicsStroke ();
 	}
 }

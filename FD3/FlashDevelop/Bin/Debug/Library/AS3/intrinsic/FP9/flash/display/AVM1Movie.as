@@ -8,6 +8,6 @@ package flash.display
 
 		public function AVM1Movie ();
 
-		public function call (functionName:String) : *;
+		public function call (functionName:String, ...rest) : *;
 	}
 }

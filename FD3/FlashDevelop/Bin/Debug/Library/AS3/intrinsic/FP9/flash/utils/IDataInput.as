@@ -3,7 +3,7 @@ package flash.utils
 	import flash.utils.ByteArray;
 
 	/// The IDataInput interface provides a set of methods for reading binary data.
-	public interface IDataInput extends *
+	public interface IDataInput
 	{
 		/// Returns the number of bytes of data available for reading in the input buffer.
 		public function get bytesAvailable () : uint;

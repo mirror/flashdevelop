@@ -1,7 +1,6 @@
 package flash.display
 {
-	public interface IGraphicsPath extends *
+	public interface IGraphicsPath
 	{
-		public function IGraphicsPath ();
 	}
 }

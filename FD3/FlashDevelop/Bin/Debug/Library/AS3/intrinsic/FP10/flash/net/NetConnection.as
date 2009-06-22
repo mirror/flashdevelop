@@ -84,13 +84,13 @@ package flash.net
 		public function addHeader (operation:String, mustUnderstand:Boolean = false, param:Object = null) : void;
 
 		/// Invokes a command or method on Flash Media Server or on an application server running Flash Remoting.
-		public function call (command:String, responder:Responder) : void;
+		public function call (command:String, responder:Responder, ...rest) : void;
 
 		/// Closes the connection that was opened locally or to the server and dispatches a netStatus event with a code property of NetConnection.Connect.Closed.
 		public function close () : void;
 
 		/// Creates a bidirectional connection between Flash Player and a Flash Media Server application.
-		public function connect (command:String) : void;
+		public function connect (command:String, ...rest) : void;
 
 		/// Creates a NetConnection object.
 		public function NetConnection ();

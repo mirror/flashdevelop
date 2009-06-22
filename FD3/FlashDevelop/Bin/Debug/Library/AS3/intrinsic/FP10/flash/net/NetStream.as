@@ -153,7 +153,7 @@ package flash.net
 		public function pause () : void;
 
 		/// Begins playback of video files.
-		public function play () : void;
+		public function play (...rest) : void;
 
 		/// Begins playback of media files, with several options for playback.
 		public function play2 (param:NetStreamPlayOptions) : void;
@@ -177,7 +177,7 @@ package flash.net
 		public function seek (offset:Number) : void;
 
 		/// Sends a message on a published stream to all subscribing clients.
-		public function send (handlerName:String) : void;
+		public function send (handlerName:String, ...rest) : void;
 
 		/// Pauses or resumes playback of a stream.
 		public function togglePause () : void;

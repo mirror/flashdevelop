@@ -15,10 +15,10 @@ package
 		public function charCodeAt (i:Number = 0) : Number;
 
 		/// Appends the supplied arguments to the end of the String object, converting them to strings if necessary, and returns the resulting string.
-		public function concat () : String;
+		public function concat (...rest) : String;
 
 		/// Returns a string comprising the characters represented by the Unicode character codes in the parameters.
-		public static function fromCharCode () : String;
+		public static function fromCharCode (...rest) : String;
 
 		/// Searches the string and returns the position of the first occurrence of val found at or after startIndex within the calling string.
 		public function indexOf (s:String = undefined, i:Number = 0) : int;

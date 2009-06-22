@@ -97,7 +97,7 @@ package flash.events
 		public function Event (type:String, bubbles:Boolean = false, cancelable:Boolean = false);
 
 		/// A utility function for implementing the toString() method in custom ActionScript 3.0 Event classes.
-		public function formatToString (className:String) : String;
+		public function formatToString (className:String, ...rest) : String;
 
 		/// Checks whether the preventDefault() method has been called on the event.
 		public function isDefaultPrevented () : Boolean;

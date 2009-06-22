@@ -1,6 +1,7 @@
 package flash.display
 {
 	import flash.events.EventDispatcher;
+	import flash.display.IBitmapDrawable;
 	import flash.geom.Transform;
 	import flash.display.Stage;
 	import flash.geom.Point;
@@ -26,7 +27,7 @@ package flash.display
 	 * Dispatched when a display object is about to be removed from the display list.
 	 * @eventType flash.events.Event.REMOVED
 	 */
-	[Event(name="removed", type="flash.events.Event")]
+	[Event(name="removed", type="flash.events.Event")] 
 
 	/**
 	 * [broadcast event] Dispatched when the playhead is entering a new frame.

@@ -16,7 +16,7 @@ package flash.external
 		public static function addCallback (functionName:String, closure:Function) : void;
 
 		/// Calls a function in the container.
-		public static function call (functionName:String) : *;
+		public static function call (functionName:String, ...rest) : *;
 
 		public function ExternalInterface ();
 	}

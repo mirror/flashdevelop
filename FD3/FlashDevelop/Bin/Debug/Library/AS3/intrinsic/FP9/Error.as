@@ -20,6 +20,6 @@ package
 		/// Returns the call stack for an error in a readable form.
 		public function getStackTrace () : String;
 
-		public static function throwError (type:Class, index:uint) : *;
+		public static function throwError (type:Class, index:uint, ...rest) : *;
 	}
 }
