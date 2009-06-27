@@ -43,7 +43,7 @@ namespace OutputPanel
             // 
             // scrollTimer
             // 
-            this.scrollTimer.Interval = 10;
+            this.scrollTimer.Interval = 50;
             this.scrollTimer.SynchronizingObject = this;
             this.scrollTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.ScrollTimerElapsed);
             // 
@@ -211,7 +211,7 @@ namespace OutputPanel
 				}
 				this.textLog.AppendText(message + "\n");
 			}
-			this.logCount = log.Count;
+            this.logCount = log.Count;
             this.scrollTimer.Enabled = true;
 		}
 
