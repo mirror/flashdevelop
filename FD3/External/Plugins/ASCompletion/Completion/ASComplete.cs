@@ -1379,26 +1379,32 @@ namespace ASCompletion.Completion
             {
                 ASExpr expr = GetExpression(sci, sci.CurrentPos);
                 if (expr.Value == null) return;
+                IASContext ctx = ASContext.Context;
+
                 // try local var
                 expr.LocalVars = ParseLocalVars(expr);
                 foreach (MemberModel localVar in expr.LocalVars)
                 {
-                    if (localVar.LineTo == ASContext.Context.CurrentLine)
+                    if (localVar.LineTo == ctx.CurrentLine)
                     {
                         if (localVar.Type != null) // Might be non typed var
                         {
-                            CompletionList.SelectItem(localVar.Type);
+                            string typeName = localVar.Type;
+                            ClassModel aClass = ctx.ResolveType(typeName, ctx.CurrentModel);
+                            if (!aClass.IsVoid()) typeName = aClass.QualifiedName;
+                            CompletionList.SelectItem(typeName);
                         }
                         return;
                     }
                 }
+
                 // try member
                 string currentLine = sci.GetLine(sci.LineFromPosition(sci.CurrentPos));
                 Match mVarNew = Regex.Match(currentLine, "\\s*(?<name>[a-z_$][a-z._$0-9]*)(?<decl>[: ]*)(?<type>[a-z.0-9<>]*)\\s*=\\s*new\\s", RegexOptions.IgnoreCase);
                 if (mVarNew.Success)
                 {
                     string name = mVarNew.Groups["name"].Value;
-                    ASResult result = EvalExpression(name, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
+                    ASResult result = EvalExpression(name, expr, ctx.CurrentModel, ctx.CurrentClass, true, false);
                     if (result != null && result.Member != null && result.Member.Type != null) // Might be missing or wrongly typed member
                     {
                         CompletionList.SelectItem(result.Member.Type);
