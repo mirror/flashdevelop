@@ -206,7 +206,7 @@ namespace ASCompletion.Completion
                     ContextFeatures features = ASContext.Context.Features;
                     if (tail.IndexOf(features.dot) < 0 && features.HasTypePreKey(tail)) tail = "";
                     // display the full project classes list
-                    HandleAllClassesCompletion(Sci, tail, false);
+                    HandleAllClassesCompletion(Sci, tail, false, true);
                     return true;
                 }
                 else return false;
@@ -1414,7 +1414,7 @@ namespace ASCompletion.Completion
                 && ASContext.Context.Settings.CompletionListAllTypes)
             {
                 // show all project classes
-                HandleAllClassesCompletion(Sci, tail, true);
+                HandleAllClassesCompletion(Sci, tail, true, true);
                 SelectTypedNewMember(Sci);
                 return true;
             }
@@ -1441,7 +1441,7 @@ namespace ASCompletion.Completion
                 && ASContext.Context.Settings.CompletionListAllTypes)
             {
                 // show all project classes
-                HandleAllClassesCompletion(Sci, "", false);
+                HandleAllClassesCompletion(Sci, "", false, false);
             }
             else
             {
@@ -1519,7 +1519,7 @@ namespace ASCompletion.Completion
                 && ASContext.Context.Settings.CompletionListAllTypes)
             {
                 // show all project classes
-                HandleAllClassesCompletion(Sci, tail, true);
+                HandleAllClassesCompletion(Sci, tail, true, false);
             }
             else
             {
@@ -1544,20 +1544,44 @@ namespace ASCompletion.Completion
         /// Display the full project classes list
         /// </summary>
         /// <param name="Sci"></param>
-        static private void HandleAllClassesCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool classesOnly)
+        static private void HandleAllClassesCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool classesOnly, bool showClassVars)
         {
             MemberList known = ASContext.Context.GetAllProjectClasses();
             if (known.Count == 0) return;
-            
+
+            // get local Class vars
+            if (showClassVars)
+            {
+                MemberList found = new MemberList();
+
+                ASExpr expr = GetExpression(Sci, Sci.CurrentPos);
+                if (expr.Value != null)
+                {
+                    MemberList locals = ParseLocalVars(expr);
+                    foreach (MemberModel local in locals)
+                        if (local.Type == "Class")
+                            found.Add(local);
+                }
+
+                if (found.Count > 0)
+                {
+                    found.Sort();
+                    found.Merge(known);
+                    known = found;
+                }
+            }
+
             List<ICompletionListItem> list = new List<ICompletionListItem>();
             string prev = null;
             FlagType mask = (classesOnly) ? FlagType.Class | FlagType.Interface : (FlagType)uint.MaxValue;
             foreach (MemberModel member in known)
             {
-                if ((member.Flags & mask) == 0 || prev == member.Name) continue;
+                if ((member.Flags & mask) == 0 || prev == member.Name) 
+                    if (!showClassVars || member.Type != "Class") continue;
                 prev = member.Name;
                 list.Add(new MemberItem(member));
             }
+
             CompletionList.Show(list, false, tail);
         }
 		#endregion
