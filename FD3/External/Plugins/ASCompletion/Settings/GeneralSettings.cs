@@ -362,6 +362,7 @@ namespace ASCompletion.Settings
         #region Generator
 
         const bool DEFAULT_GENERATE_PROTECTED = false;
+        const bool DEFAULT_GENERATE_STARTWITHMODIFIERS = false;
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
               "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
               "//e.target:Event.COMPLETE", "//e.target:Event.INIT"
@@ -369,6 +370,7 @@ namespace ASCompletion.Settings
 
         private bool generateProtectedDeclarations = DEFAULT_GENERATE_PROTECTED;
         private string[] eventListenersAutoRemove;
+        private bool startWithModifiers;
 
         [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -385,6 +387,15 @@ namespace ASCompletion.Settings
         {
             get { return generateProtectedDeclarations; }
             set { generateProtectedDeclarations = value; }
+        }
+        
+        [DisplayName("Start Declarations With Access Modifiers")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.StartWithModifiers"),
+        DefaultValue(DEFAULT_GENERATE_STARTWITHMODIFIERS)]
+        public bool StartWithModifiers
+        {
+            get { return startWithModifiers; }
+            set { startWithModifiers = value; }
         }
 
         #endregion

@@ -22,6 +22,7 @@ namespace ASCompletion.Completion
         const string patternMethod = @"{0}\s*\(";
         const string BlankLine = "$(Boundary)\n\n";
         const string NewLine = "$(Boundary)\n";
+        static private Regex reModifier = new Regex("[a-z \t]*(public |private |protected )", RegexOptions.Compiled);
 
         static private string contextToken;
         static private string contextParam;
@@ -1206,11 +1207,29 @@ namespace ASCompletion.Completion
             Sci.BeginUndoAction();
             try
             {
+                if (ASContext.CommonSettings.StartWithModifiers)
+                    src = FixModifiersLocation(src);
+
                 int len = SnippetHelper.InsertSnippetText(Sci, position, src);
                 UpdateLookupPosition(position, len);
                 AddLookupPosition();
             }
             finally { Sci.EndUndoAction(); }
+        }
+
+        private static string FixModifiersLocation(string src)
+        {
+            string[] lines = src.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                Match m = reModifier.Match(line);
+                if (m.Success)
+                {
+                    lines[i] = m.Groups[1].Value + line.Remove(m.Groups[1].Index, m.Groups[1].Length);
+                }
+            }
+            return String.Join("\n", lines);
         }
 
         private static void UpdateLookupPosition(int position, int delta)

@@ -3043,4 +3043,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Res&amp;tart</value>
     <comment>3.1</comment>
   </data>
+  <data name="ASCompletion.Description.StartWithModifiers" xml:space="preserve">
+    <value>Generated declarations should always begin with access modifiers (ie. always before "static" or "override").</value>
+  </data>
 </root>
