@@ -120,6 +120,8 @@ namespace OutputPanel
                     break;
                 case EventType.Trace:
                     this.pluginUI.AddTraces();
+                    if (this.settingObject.ShowOnOutput && !this.pluginPanel.Visible)
+                        OpenPanel(null, null);
                     break;
                 case EventType.SettingChanged:
                     this.pluginUI.ApplyWrapText();
