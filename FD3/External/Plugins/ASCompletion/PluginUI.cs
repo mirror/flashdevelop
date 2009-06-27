@@ -539,7 +539,8 @@ namespace ASCompletion
                     {
                         node = new TreeNode("Regions", ICON_PACKAGE, ICON_PACKAGE);
                         folders.Add(node);
-                        AddRegions(node.Nodes, aFile.Regions);
+                        //AddRegions(node.Nodes, aFile.Regions);
+                        AddRegionsExtended(node.Nodes, aFile);
                     }
                 }
 
@@ -652,6 +653,63 @@ namespace ASCompletion
             {
                 MemberTreeNode node = new MemberTreeNode(member, ICON_PACKAGE);
                 tree.Add(node);
+            }
+        }
+
+        private void AddRegionsExtended(TreeNodeCollection tree, FileModel aFile)
+        {
+            int endRegion = 0;
+            int index = 0;
+            MemberModel region = null;
+            MemberList regions = aFile.Regions;
+            int count = regions.Count;
+            for (index = 0; index < count; ++index)
+            {
+                region = regions[index];
+                MemberTreeNode node = new MemberTreeNode(region, ICON_PACKAGE);
+                tree.Add(node);
+
+                endRegion = (index + 1 < count) ? regions[index + 1].LineFrom : int.MaxValue;
+
+                MemberList regionMembers = new MemberList();
+                foreach (MemberModel import in aFile.Imports)
+                {
+                    if (import.LineFrom >= region.LineFrom &&
+                        import.LineTo <= endRegion)
+                    {
+                        regionMembers.Add(import);
+                    }
+                }
+
+                foreach (MemberModel fileMember in aFile.Members)
+                {
+                    if (fileMember.LineFrom >= region.LineFrom &&
+                        fileMember.LineTo <= endRegion)
+                    {
+                        regionMembers.Add(fileMember);
+                    }
+                }
+
+                foreach (ClassModel cls in aFile.Classes)
+                {
+                    if (cls.LineFrom <= region.LineFrom)
+                    {
+                        foreach (MemberModel clsMember in cls.Members)
+                        {
+                            if (clsMember.LineFrom >= region.LineFrom &&
+                                clsMember.LineTo <= endRegion)
+                            {
+                                regionMembers.Add(clsMember);
+                            }
+                        }
+                    }
+                    else if (cls.LineFrom >= region.LineFrom &&
+                             cls.LineTo <= endRegion)
+                    {
+                        regionMembers.Add(cls);
+                    }
+                }
+                AddMembers(node.Nodes, regionMembers);
             }
         }
 
