@@ -266,19 +266,6 @@ Section "FlashDevelop" Main
 	
 SectionEnd
 
-Section "Start Menu Group" StartMenuGroup
-	
-	SectionIn 1	
-	SetOverwrite on
-	
-	CreateDirectory "$SMPROGRAMS\FlashDevelop"
-	CreateShortCut "$SMPROGRAMS\FlashDevelop\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-	WriteINIStr "$SMPROGRAMS\FlashDevelop\Documentation.url" "InternetShortcut" "URL" "http://www.flashdevelop.org/wikidocs/"
-	WriteINIStr "$SMPROGRAMS\FlashDevelop\Community.url" "InternetShortcut" "URL" "http://www.flashdevelop.org/community/"
-	CreateShortCut "$SMPROGRAMS\FlashDevelop\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
-	
-SectionEnd
-
 Section "Quick Launch Shortcut" QuickShortcut
 	
 	SectionIn 1	
@@ -298,6 +285,19 @@ Section "Desktop Shortcut" DesktopShortcut
 SectionEnd
 
 SectionGroup "Advanced"
+
+Section "Start Menu Group" StartMenuGroup
+	
+	SectionIn 1 3	
+	SetOverwrite on
+	
+	CreateDirectory "$SMPROGRAMS\FlashDevelop"
+	CreateShortCut "$SMPROGRAMS\FlashDevelop\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
+	WriteINIStr "$SMPROGRAMS\FlashDevelop\Documentation.url" "InternetShortcut" "URL" "http://www.flashdevelop.org/wikidocs/"
+	WriteINIStr "$SMPROGRAMS\FlashDevelop\Community.url" "InternetShortcut" "URL" "http://www.flashdevelop.org/community/"
+	CreateShortCut "$SMPROGRAMS\FlashDevelop\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
+	
+SectionEnd
 
 Section "Registry Modifications" RegistryMods
 	

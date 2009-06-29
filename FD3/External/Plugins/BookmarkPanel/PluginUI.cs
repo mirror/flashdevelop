@@ -215,7 +215,6 @@ namespace BookmarkPanel
         {
             this.columnLine.Text = TextHelper.GetString("ColumnHeader.Line");
             this.columnText.Text = TextHelper.GetString("ColumnHeader.Text");
-            this.removeBookmarksItem.Text = TextHelper.GetString("ToolTip.RemoveBookmarks");
             this.searchButton.ToolTipText = TextHelper.GetString("ToolTip.SearchBookmarks");
             this.contextMenuStrip.Font = PluginBase.Settings.DefaultFont;
             this.statusLabel.Font = PluginBase.Settings.DefaultFont;
