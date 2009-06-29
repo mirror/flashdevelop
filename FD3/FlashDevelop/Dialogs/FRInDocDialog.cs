@@ -615,8 +615,9 @@ namespace FlashDevelop.Dialogs
         private String GetReplaceText(SearchMatch match)
         {
             String replace = this.replaceComboBox.Text;
-            if (!this.escapedCheckBox.Checked) return replace;
-            else return FRSearch.Unescape(replace, match);
+            if (this.escapedCheckBox.Checked) replace = FRSearch.Unescape(replace);
+            if (this.useRegexCheckBox.Checked) replace = FRSearch.ExpandGroups(replace, match);
+            return replace;
         }
 
         /// <summary>

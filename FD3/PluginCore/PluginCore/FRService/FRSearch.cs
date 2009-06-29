@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace PluginCore.FRService
 {
@@ -37,9 +38,11 @@ namespace PluginCore.FRService
         public int Line;
         public string Value;
 
-        public SearchGroup(int index)
+        public SearchGroup(int index, int length, string value)
         {
             Index = index;
+            Length = length;
+            Value = value;
         }
     }
 
@@ -56,17 +59,7 @@ namespace PluginCore.FRService
         /// <returns>Regex-safe text</returns>
         static public string Escape(string pattern)
         {
-            string result = "";
-            char c;
-            int i = 0;
-            while (i < pattern.Length)
-            {
-                c = pattern[i++];
-                if (c == '\\' || c == '[' || c ==']' || c == '(' || c == ')' || c == '.' || c == '-' || c == '+' | c == '*' || c == '^' || c == '$') 
-                    result += "\\";
-                result += c;
-            }
-            return result;
+            return Regex.Escape(pattern);
         }
 
         /// <summary>
@@ -74,16 +67,6 @@ namespace PluginCore.FRService
         /// </summary>
         /// <param name="text">Text to unescape</param>
         static public string Unescape(string text)
-        {
-            return Unescape(text, null);
-        }
-
-        /// <summary>
-        /// Replace escaped characters in replacement text
-        /// </summary>
-        /// <param name="escapedText">Text to unescape</param>
-        /// <param name="match">Search result (for reinjecting sub-matches)</param>
-        static public string Unescape(string text, SearchMatch match)
         {
             int p = text.IndexOf('\\');
             if (p < 0) return text;
@@ -100,13 +83,24 @@ namespace PluginCore.FRService
                     else if (c == 'n') result += '\n';
                     else if (c == 't') result += '\t';
                     else if (c == 'v') result += '\v';
-                    else if (match != null && c >= '0' && c <= '9' && match.Groups.Length > int.Parse(c.ToString()))
-                        result += match.Groups[int.Parse(c.ToString())].Value;
                     else result += c;
                 }
                 else result += text[i];
             }
             return result;
+        }
+
+        /// <summary>
+        /// Replace regular expressions groups in replacement text
+        /// </summary>
+        /// <param name="escapedText">Text to expand</param>
+        /// <param name="match">Search result (for reinjecting groups)</param>
+        static public string ExpandGroups(string text, SearchMatch match)
+        {
+            if (text.IndexOf('$') < 0) return text;
+            for (int i = 0; i < match.Groups.Length; i++)
+                text = text.Replace("$" + i, match.Groups[i].Value);
+            return text;
         }
 
         /// <summary>
@@ -145,6 +139,19 @@ namespace PluginCore.FRService
                 c2 = c1;
             }
             return lines;
+        }
+
+        static public void ExtractResultsLineText(List<SearchMatch> results, string src)
+        {
+            if (results == null) 
+                return;
+            int len = src.Length;
+            foreach (SearchMatch sm in results)
+            {
+                if (sm.LineStart > len || sm.LineEnd > len) 
+                    break;
+                sm.LineText = src.Substring(sm.LineStart, sm.LineEnd - sm.LineStart);
+            }
         }
 
         /** TODO : needs something like SearchOptions flags to be functional
@@ -244,7 +251,8 @@ namespace PluginCore.FRService
             SearchMatch match = matches[matchIndex];
 
             // replace text
-            if (isEscaped) replacement = Unescape(replacement, match);
+            if (isEscaped) replacement = Unescape(replacement);
+            if (isRegex) replacement = ExpandGroups(replacement, match);
             src = src.Substring(0, match.Index) + replacement + src.Substring(match.Index + match.Length);
 
             // update next matches
@@ -263,7 +271,8 @@ namespace PluginCore.FRService
             {
                 sb.Append(src.Substring(lastIndex, match.Index - lastIndex));
                 // replace text
-                if (isEscaped) replacement = Unescape(replacement, match);
+                if (isEscaped) replacement = Unescape(replacement);
+                if (isRegex) replacement = ExpandGroups(replacement, match);
                 sb.Append(replacement);
                 lastIndex = match.Index + match.Length;
             }
@@ -336,6 +345,14 @@ namespace PluginCore.FRService
                 needParsePattern = true;
             }
         }
+        public bool CopyFullLineContext
+        {
+            get { return copyFullLineContext; }
+            set
+            {
+                copyFullLineContext = value;
+            }
+        }
         #endregion
 
         #region Public Search Methods
@@ -400,66 +417,63 @@ namespace PluginCore.FRService
 
         #region Internal Parser Configuration
 
-        bool needParsePattern = true;
-        SearchToken[] search;
-        int groupCount;
-        List<int> groupStarts;
-        List<int> groupEnds;
-        string pattern;
-        bool noCase;
-        bool wholeWord;
-        bool isRegex;
-        bool isEscaped;
-        bool singleLine;
-        bool returnAllMatches;
-        SearchFilter filter;
+        private bool needParsePattern = true;
+        private Regex operation;
+        private int groupCount;
+        private List<int> groupStarts;
+        private List<int> groupEnds;
+        private string pattern;
+        private bool noCase;
+        private bool wholeWord;
+        private bool isRegex;
+        private bool isEscaped;
+        private bool singleLine;
+        private bool returnAllMatches;
+        private bool copyFullLineContext = true;
+        private SearchFilter filter;
 
-        const char CHAR_TO = (char)14;
-        const char CHAR_DIGIT = (char)15;
-        const char CHAR_NONDIGIT = (char)16;
-        const char CHAR_SPACE = (char)17;
-        const char CHAR_NONSPACE = (char)18;
-        const char CHAR_WORD = (char)19;
-        const char CHAR_NONWORD = (char)20;
-        const char CHAR_BACKREFERENCE = (char)21;
         #endregion
 
         #region Internal Search Methods
 
+        private void BuildRegex(string pattern)
+        {
+            if (isEscaped) pattern = Unescape(pattern);
+            if (!isRegex) pattern = Regex.Escape(pattern);
+            if (wholeWord) pattern = "\\b" + pattern + "\\b";
+            
+            RegexOptions options = RegexOptions.None;
+            if (!singleLine) options |= RegexOptions.Multiline;
+            if (noCase) options |= RegexOptions.IgnoreCase;
+            
+            operation = new Regex(pattern, options);
+        }
+
         private List<SearchMatch> SearchSource(string src, int startIndex, int startLine)
         {
-            // intialize search tokens
-            if (needParsePattern) BuildSearchTokens(pattern);
-            else
-            {
-                foreach (SearchToken tokClean in search)
-                {
-                    if (tokClean.type == SearchType.BackReference) tokClean.chars = null;
-                }
-            }
-            ////Debug.WriteLine(src);
-            //Debug.WriteLine("Filter: " + filter);
+            List<SearchMatch> results = new List<SearchMatch>();
 
-            // source seek
+            // raw search results
+            if (needParsePattern) BuildRegex(pattern);
+            MatchCollection matches = operation.Matches(src, startIndex);
+            if (matches.Count == 0) 
+                return results;
+
+            // index sources
             int len = src.Length;
-            long backtrackLimit = len * 10;
-            int pos = startIndex;
+            int pos = startIndex - 1;
             int line = startLine;
             List<int> lineStart = new List<int>();
-            for(int i=0; i<startLine; i++) lineStart.Add(0);
-            char c;
-            // matching 
-            List<SearchMatch> results = new List<SearchMatch>();
-            SearchMatch match;
-            int tok_count = search.Length;
-            int tok_i = 0;
-            SearchToken token = (SearchToken)search[tok_i];
-            bool nextToken = false;
-            bool noMatch = false;
-            bool hadWS = true;
-            bool hasLD = false;
+            for (int i = 0; i < startLine; i++) lineStart.Add(startIndex);
+            char c = ' ';
             bool hadNL = false;
-            // filter
+
+            int matchIndex = 0;
+            int matchCount = matches.Count;
+            Match match = matches[0];
+            int nextPos = match.Index;
+
+            // filters
             bool inComments = (filter & SearchFilter.InCodeComments) > 0;
             bool outComments = (filter & SearchFilter.OutsideCodeComments) > 0;
             bool filterComments = inComments || outComments;
@@ -469,21 +483,11 @@ namespace PluginCore.FRService
             bool filterLiterals = inLiterals || outLiterals;
             int literalMatch = 0;
 
-            // comparison mode
-            StringComparison compType = (noCase) ? StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture;
-            
-            // fast first lookup
-            if (token.type == SearchType.Text)
-            {
-                int p = src.IndexOf(new string(token.chars), compType);
-                if (p < 0) return results;
-            }
-
             while (pos < len)
             {
-                c = src[pos++];
+                c = src[++pos];
 
-                //// LINE NUMBER /// </summary>
+                // counting lines
                 hadNL = false;
                 if (c == '\n')
                 {
@@ -492,7 +496,7 @@ namespace PluginCore.FRService
                 }
                 else if (c == '\r')
                 {
-                    if (pos < len && src[pos] != '\n')
+                    if (pos < len - 1 && src[pos + 1] != '\n')
                     {
                         line++;
                         hadNL = true;
@@ -500,11 +504,10 @@ namespace PluginCore.FRService
                 }
                 if (hadNL)
                 {
-                    if (lineStart.Count >= line) lineStart[line-1] = pos;
-                    else lineStart.Add(pos);
+                    lineStart.Add(pos + 1);
                 }
 
-                //// FILTERS
+                // filters
                 if (filterComments)
                 {
                     if (commentMatch == 0)
@@ -521,8 +524,8 @@ namespace PluginCore.FRService
                     {
                         if (hadNL) commentMatch = 0;
                     }
-                    if ((inComments && commentMatch == 0)
-                        || (outComments && commentMatch > 0)) continue;
+                    if ((inComments && commentMatch == 0) || (outComments && commentMatch > 0)) 
+                        continue;
                 }
                 else if (filterLiterals)
                 {
@@ -532,733 +535,74 @@ namespace PluginCore.FRService
                         else if (c == '\'') literalMatch = 2;
                     }
                     else if (pos > 1)
-                    if (literalMatch == 1)
-                    {
-                        if (src[pos-2] != '\\' && c == '"') literalMatch = 0;
-                    }
-                    else if (literalMatch == 2)
-                    {
-                        if (src[pos - 2] != '\\' && c == '\'') literalMatch = 0;
-                    }
-                    if ((inLiterals && literalMatch == 0)
-                        || (outLiterals && literalMatch > 0)) continue;
-                }
-
-                //// WHOLE WORDS
-                if (wholeWord && tok_i == 0 && token.matched == 0 && token.tpos == 0)
-                {
-                    hasLD = c == '_' || c == '$' || Char.IsLetterOrDigit(c);
-                    if (!hadWS && hasLD) continue;
-                    hadWS = !hasLD;
-                }
-
-                //// MATCHING
-                if (token.matched == 0 && token.tpos == 0)
-                {
-                    token.line = line;
-                    token.lineStart = lineStart[line-1];
-                    token.index = pos - 1;
-                }
-
-                //Debug.Write(c);
-                ////Debug.Write("["+new string(token.chars)+"]");
-                switch (token.type)
-                {
-                    // match text
-                    case SearchType.Text:
-                        if (String.Compare(c.ToString(), token.chars[token.tpos].ToString(), compType) == 0)
+                        if (literalMatch == 1)
                         {
-                            token.tpos++;
-                            if (token.tpos == token.len)
-                            {
-                                token.matched++;
-                                token.tpos = 0;
-                                if (token.isGreed || token.matched == token.maxRepeat) nextToken = true;
-                            }
+                            if (src[pos - 2] != '\\' && c == '"') literalMatch = 0;
                         }
-                        else
+                        else if (literalMatch == 2)
                         {
-                            if (tok_i == 0 && token.tpos == 0) continue;
-                            noMatch = true;
+                            if (src[pos - 2] != '\\' && c == '\'') literalMatch = 0;
                         }
+                    if ((inLiterals && literalMatch == 0) || (outLiterals && literalMatch > 0)) 
+                        continue;
+                }
+
+                // wait for next match
+                while (pos > nextPos)
+                {
+                    if (++matchIndex == matchCount)
+                    {
+                        match = null;
                         break;
-
-                    // match in collection
-                    case SearchType.CharIn:
-                        if (CollectionMatch(c, token.chars, token.len) == token.len)
-                        {
-                            noMatch = true;
-                        }
-                        else
-                        {
-                            token.matched++;
-                            if (token.isGreed || token.matched == token.maxRepeat) nextToken = true;
-                        }
-                        break;
-
-                    // match NOT in collection
-                    case SearchType.CharNotIn:
-                        if (CollectionMatch(c, token.chars, token.len) < token.len)
-                        {
-                            noMatch = true;
-                        }
-                        else
-                        {
-                            token.matched++;
-                            if (token.isGreed || token.matched == token.maxRepeat) nextToken = true;
-                        }
-                        break;
-
-                    // match any char
-                    case SearchType.AnyChar:
-                        //Debug.Write(".");
-                        if (singleLine || (c != '\r' && c != '\n'))
-                        {
-                            token.matched++;
-                            if (token.isGreed || token.matched == token.maxRepeat) nextToken = true;
-                        }
-                        else noMatch = true;
-                        break;
-
-                    // match a previously matched group
-                    case SearchType.BackReference:
-                        if (token.chars == null)
-                        {
-                            SearchToken temp;
-                            int tempIndex = 0;
-                            for (int i = 0; i < tok_i; i++)
-                            {
-                                temp = search[i];
-                                if (groupStarts[token.backReferenceIndex] == i)
-                                {
-                                    tempIndex = temp.index;
-                                }
-                                if (groupEnds[token.backReferenceIndex] == i)
-                                {
-                                    token.chars = src.Substring(tempIndex, temp.getLength()).ToCharArray();
-                                    token.len = token.chars.Length;
-                                    //Debug.Write("\\" + token.index + "=" + new string(token.chars));
-                                    break;
-                                }
-                            }
-                        }
-                        if (c == token.chars[token.tpos])
-                        {
-                            token.tpos++;
-                            if (token.tpos == token.len)
-                            {
-                                token.matched++;
-                                token.tpos = 0;
-                                if (token.isGreed || token.matched == token.maxRepeat) nextToken = true;
-                            }
-                        }
-                        else noMatch = true;
-                        break;
+                    }
+                    match = matches[matchIndex];
+                    nextPos = match.Index;
                 }
+                if (match == null) 
+                    break;
+                if (pos < nextPos) 
+                    continue;
 
-                // end of source reached, but still search tokens to match
-                if (pos == len && tok_i < tok_count - 1)
+                // store match data
+                SearchMatch sm = new SearchMatch();
+                sm.Index = match.Index;
+                sm.Value = match.Value;
+                sm.Length = match.Length;
+                sm.Line = line;
+                sm.LineStart = sm.LineEnd = lineStart[line - 1];
+                sm.Column = match.Index - sm.LineStart;
+
+                int gcount = match.Groups.Count;
+                sm.Groups = new SearchGroup[gcount];
+                for (int i = 0; i < gcount; i++)
                 {
-                    // force to got to next search token?
-                    for (int i = tok_i + 1; i < tok_count; i++)
-                        if (search[i].minRepeat != 0)
-                        {
-                            //Debug.Write("BACK");
-                            noMatch = true;
-                            break;
-                        }
+                    Group group = match.Groups[i];
+                    sm.Groups[i] = new SearchGroup(group.Index, group.Length, group.Value);
                 }
+                results.Add(sm);
 
-            matchCancelled:
-                // search token NOT matched
-                if (noMatch)
-                {
-                    if (--backtrackLimit == 0)
-                    {
-                        throw new Exception("Regex engine infinite loop detected.");
-                    }
-                    noMatch = false;
+                if (!returnAllMatches)
+                    break;
+            }
+            // last line end
+            while (pos < len && c != '\r' && c != '\n') 
+                c = src[pos++];
+            lineStart.Add(pos - 1);
 
-                    // stopping multiple matching
-                    if (token.matched >= token.minRepeat && !token.backtrack)
-                    {
-                        //Debug.Write(".");
-                        pos = token.index + token.getLength();
-                        nextToken = true;
-                    }
-                    else
-                    {
-                        // search backtracking
-                        while (tok_i > 0)
-                        {
-                            token = search[tok_i - 1];
-                            // revert whildcard
-                            if (!token.isGreed)
-                            {
-                                if (token.matched > token.minRepeat)
-                                {
-                                    //Debug.Write("-");
-                                    token.matched--;
-                                    token.backtrack = true;
-                                    pos = token.index + token.getLength();
-                                    break;
-                                }
-                                else if (!token.backtrack)
-                                {
-                                    //Debug.Write("<");
-                                    token.backtrack = true;
-                                    pos = token.index + token.getLength();
-                                    tok_i--;
-                                    break;
-                                }
-                            }
-                            // continue "greedy" match
-                            else if (token.matched < token.maxRepeat)
-                            {
-                                //Debug.Write(">");
-                                pos = token.index + token.getLength();
-                                token.backtrack = true;
-                                tok_i--;
-                                break;
-                            }
-                            tok_i--;
-                            //Debug.Write("-" + tok_i);
-                        }
-                        token = search[tok_i];
-                        // reset search
-                        if (tok_i == 0)
-                        {
-                            //Debug.WriteIf(token.matched > 0, "<<\n");
-                            pos = token.index + 1;
-                            token.matched = 0;
-                            token.tpos = 0;
-                            token.backtrack = false;
-                        }
-                        // fix line number
-                        while (pos < lineStart[lineStart.Count - 1])
-                        {
-                            lineStart.RemoveAt(lineStart.Count - 1);
-                            line = lineStart.Count;
-                        }
-                    }
-                }
-
-                // search token matched
-                if (nextToken)
-                {
-                    //Debug.Write('!');
-                    nextToken = false;
-
-                    // next token
-                    while (++tok_i < tok_count)
-                    {
-                        token = search[tok_i];
-                        token.matched = 0;
-                        token.tpos = 0;
-                        token.backtrack = false;
-                        if (token.isGreed && token.minRepeat == 0) token.index = pos - 1;
-                        else break;
-                    }
-                    // matched the whole search pattern?
-                    if (tok_i == tok_count)
-                    {
-                        // whole word check
-                        if (wholeWord && pos < len)
-                        {
-                            char c2 = src[pos];
-                            if (c2 == '_' || c2 == '$' || char.IsLetterOrDigit(c2))
-                            {
-                                //Debug.WriteLine("!W!");
-                                noMatch = true;
-                                tok_i--;
-                                token = search[tok_i];
-                                token.matched--;
-                                goto matchCancelled;
-                            }
-                        }
-
-                        //Debug.Write("$$MATCHED " + token.index + ",");
-                        SearchGroup[] groups = new SearchGroup[groupCount + 1];
-                        SearchGroup group;
-                        int index = search[0].index;
-                        int length = 0;
-                        int tokLength;
-                        groups[0] = new SearchGroup(index);
-
-                        for (int i = 0; i < tok_count; i++)
-                        {
-                            token = search[i];
-                            tokLength = token.getLength();
-                            for (int gi = 0; gi <= groupCount; gi++)
-                            {
-                                if (groupStarts[gi] == i)
-                                {
-                                    //Debug.Write("\n?" + gi);
-                                    groups[gi] = new SearchGroup(index + length);
-                                }
-                                if (groupEnds[gi] == i)
-                                {
-                                    group = groups[gi];
-                                    //Debug.Write("\n$" + gi);
-                                    group.Length = index + length + tokLength - group.Index;
-                                    group.Value = src.Substring(group.Index, group.Length);
-                                    //Debug.Write("='" + group.Value + "'");
-                                }
-                            }
-                            //Debug.Write("+" + tokLength);
-                            //Debug.Write("(" + (index + length) + "/" + token.index + ")");
-                            length += tokLength;
-                            // clear backreferences
-                            if (token.type == SearchType.BackReference) token.chars = null;
-                        }
-                        groups[0].Length = length;
-
-                        // store result
-                        match = new SearchMatch();
-                        match.Index = index;
-                        match.Length = groups[0].Length;
-                        match.Value = groups[0].Value;
-                        match.Groups = groups;
-                        match.Line = line;
-                        match.LineStart = search[0].lineStart;
-                        match.Column = match.Index - match.LineStart;
-                        //
-                        int le;
-                        for (le = pos-1; le < len; le++)
-                            if (src[le] == '\r' || src[le] == '\n')
-                                break;
-                        match.LineEnd = le;
-                        if (match.LineEnd > match.LineStart && match.LineEnd < src.Length)
-                            match.LineText = src.Substring(match.LineStart, match.LineEnd - match.LineStart);
-                        else match.LineText = match.Value;
-                        //
-                        results.Add(match);
-                        if (!returnAllMatches) return results;
-
-                        // reset search
-                        //Debug.Write(length + " $$");
-                        tok_i = 0;
-                        token = search[0];
-                        token.matched = 0;
-                        token.tpos = 0;
-                        token.backtrack = false;
-                    }
-                }
+            // extract line texts
+            int maxLine = lineStart.Count;
+            foreach(SearchMatch sm in results)
+            {
+                int endIndex = sm.Index + sm.Length;
+                int endLine = sm.Line + 1;
+                while (endLine < maxLine && lineStart[endLine - 1] < endIndex)
+                    endLine++;
+                sm.LineEnd = lineStart[endLine - 1];
             }
             return results;
         }
 
-        static bool SpecialMatch(char c, char special)
-        {
-            switch (special)
-            {
-                case CHAR_DIGIT:
-                    if (char.IsDigit(c)) return true;
-                    break;
-                case CHAR_NONDIGIT:
-                    if (!char.IsDigit(c)) return true;
-                    break;
-                case CHAR_SPACE:
-                    if (char.IsWhiteSpace(c)) return true;
-                    break;
-                case CHAR_NONSPACE:
-                    if (!char.IsWhiteSpace(c)) return true;
-                    break;
-                case CHAR_WORD:
-                    if (char.IsLetter(c)) return true; ;
-                    break;
-                case CHAR_NONWORD:
-                    if (!char.IsLetter(c)) return true;
-                    break;
-            }
-            return false;
-        }
-
-        static int CollectionMatch(char c, char[] chars, int len)
-        {
-            char c2;
-            for (int i = 0; i < len; i++)
-            {
-                c2 = chars[i];
-                if (c2 == CHAR_TO)
-                {
-                    if (c > chars[i - 1] && c <= chars[i + 1]) return i;
-                    else i++;
-                }
-                else if (c2 > CHAR_TO && c2 <= CHAR_NONWORD)
-                {
-                    if (SpecialMatch(c, c2)) return i;
-                }
-                else if (c == c2) return i;
-            }
-            return len;
-        }
         #endregion
 
-        #region Internal Pattern Parsing
-
-        void BuildSearchTokens(string pattern)
-        {
-            List<SearchToken> tokens = new List<SearchToken>();
-
-            int i = 0;
-            int len = Math.Min(pattern.Length, 1023);
-            char c;
-            bool escaped = false;
-
-            char[] buffer = new char[1024];
-            int bi = 0;
-
-            bool inGroup = false;
-            bool setInGroup = false;
-            List<int> groups = new List<int>();
-            groupCount = 0;
-            groupStarts = new List<int>();
-            groupEnds = new List<int>();
-            groupStarts.Add(0);
-            groupEnds.Add(0);
-
-            bool ignoreToken = false;
-            bool inText = true;
-            bool setInText = true;
-            bool addToken = false;
-            int setMinRepeat = 1;
-            int setMaxRepeat = 1;
-            bool setGreed = false;
-            SearchToken lastToken = null;
-
-            while (i < len)
-            {
-                c = pattern[i++];
-                ////Debug.Write(c);
-
-                //// CHARACTER ESCAPING /// </summary>
-
-                if (isEscaped && c == '\\' && i < len)
-                {
-                    c = pattern[i++];
-                    escaped = true;
-                    switch (c)
-                    {
-                        case '0': c = (char)0; break;
-                        case 'n': c = '\n'; break;
-                        case 'r': c = '\r'; break;
-                        case 't': c = '\t'; break;
-                        case 'b': c = '\b'; break;
-                        case 'v': c = '\v'; break;
-                        case 'f': c = '\f'; break;
-                        // TODO  Ctrl+? char 'cX'
-                        // TODO  UNICODE char 'uXXXX'
-                        // TODO  HEXA char 'hXX'
-                        default: escaped = false; break;
-                    }
-                    if (!escaped && isRegex)// && !inText)
-                    {
-                        escaped = true;
-                        switch (c)
-                        {
-                            case 'd': c = (char)CHAR_DIGIT; break;
-                            case 'D': c = (char)CHAR_NONDIGIT; break;
-                            case 's': c = (char)CHAR_SPACE; break;
-                            case 'S': c = (char)CHAR_NONSPACE; break;
-                            case 'w': c = (char)CHAR_WORD; break;
-                            case 'W': c = (char)CHAR_NONWORD; break;
-                            // TODO  Word boundaries /b /B
-
-                            case '1': // backreferences
-                            case '2':
-                            case '3':
-                            case '4':
-                            case '5':
-                            case '6':
-                            case '7':
-                            case '8':
-                            case '9':
-                                if (bi > 0)
-                                {
-                                    i--;
-                                    addToken = true;
-                                }
-                                else
-                                {
-                                    addToken = false;
-                                    lastToken = new SearchToken(SearchType.BackReference);
-                                    lastToken.backReferenceIndex = int.Parse(c.ToString());
-                                    tokens.Add(lastToken);
-                                    bi++;
-                                    ignoreToken = true;
-                                }
-                                break;
-                            default: escaped = false; break;
-                        }
-                    }
-                }
-
-                //// REGEX TOKENS /// </summary>
-
-                if (!escaped && isRegex)
-                {
-                    switch (c)
-                    {
-                        //// GROUPS /// </summary>
-                        case '(':
-                            if (inText)
-                            {
-                                addToken = true;
-                                setInGroup = true;
-                            }
-                            break;
-                        case ')':
-                            if (groups.Count > 0 && inText)
-                            {
-                                addToken = true;
-                                int index = (bi == 0) ? tokens.Count - 1 : tokens.Count;
-                                groupEnds[groups[groups.Count - 1]] = index;
-                                //Debug.WriteLine("--" + groups[groups.Count - 1] + " " + index);
-                                groups.RemoveAt(groups.Count - 1);
-                            }
-                            break;
-
-                        //// CHAR COLLECTION /// </summary>
-                        case '[':
-                            if (i < len && pattern[i] != ']')
-                            {
-                                addToken = true;
-                                setInText = false;
-                            }
-                            break;
-                        case ']':
-                            if (!inText)
-                            {
-                                addToken = true;
-                                setInText = true;
-                            }
-                            break;
-                        case '.':
-                            if (inText)
-                            {
-                                if (bi > 0)
-                                {
-                                    i--;
-                                    addToken = true;
-                                }
-                                else
-                                {
-                                    addToken = false;
-                                    lastToken = new SearchToken(SearchType.AnyChar);
-                                    tokens.Add(lastToken);
-                                    bi++;
-                                    ignoreToken = true;
-                                }
-                                break;
-                            }
-                            break;
-                        case '-':
-                            if (!inText && bi > 0 && i < len)
-                            {
-                                int charFrom = (int)buffer[bi - 1];
-                                c = pattern[i++];
-                                int charTo = (int)c;
-                                if (c == ']' || charTo < charFrom)
-                                {
-                                    c = '-';
-                                    i--;
-                                    break;
-                                }
-                                buffer[bi++] = (char)CHAR_TO;
-                            }
-                            break;
-                    }
-
-                    if (i < len)
-                    {
-                        char c2 = pattern[i];
-                        bool foundModifier = false;
-                        switch (c2)
-                        {
-                            case '+':
-                                setMaxRepeat = int.MaxValue;
-                                foundModifier = true;
-                                break;
-                            case '-':
-                                if (inText || setInText)
-                                {
-                                    setMinRepeat = 0;
-                                    setMaxRepeat = int.MaxValue;
-                                    setGreed = true;
-                                    foundModifier = true;
-                                }
-                                break;
-                            case '*':
-                                setMinRepeat = 0;
-                                setMaxRepeat = int.MaxValue;
-                                foundModifier = true;
-                                break;
-                            case '?':
-                                setMinRepeat = 0;
-                                setMaxRepeat = 1;
-                                foundModifier = true;
-                                break;
-                        }
-                        // if in text:
-                        // - remove last char added,
-                        // - make it a simple text match
-                        // - next char will get the modifiers
-                        if (foundModifier)
-                        {
-                            if (ignoreToken)
-                            {
-                                lastToken.minRepeat = setMinRepeat;
-                                lastToken.maxRepeat = setMaxRepeat;
-                                lastToken.isGreed = setGreed;
-                            }
-                            else if (inText && !addToken)
-                            {
-                                addToken = true;
-                                if (bi > 0)
-                                {
-                                    i -= 2;
-                                    setMinRepeat = 1;
-                                    setMaxRepeat = 1;
-                                    setGreed = false;
-                                }
-                                else buffer[bi++] = c;
-                            }
-                            i++;
-                        }
-                    }
-                }
-                else escaped = false;
-
-                if (ignoreToken)
-                {
-                    ignoreToken = false;
-                    bi = 0;
-                    inText = true;
-                    setMinRepeat = 1;
-                    setMaxRepeat = 1;
-                    setGreed = false;
-                }
-                else if (addToken)
-                {
-                    addToken = false;
-                    if (bi > 0)
-                    {
-                        lastToken = new SearchToken(inText, new String(buffer, 0, bi));
-                        lastToken.minRepeat = setMinRepeat;
-                        lastToken.maxRepeat = setMaxRepeat;
-                        lastToken.isGreed = setGreed;
-                        tokens.Add(lastToken);
-                        bi = 0;
-                    }
-                    inText = setInText;
-                    inGroup = setInGroup;
-                    if (setInGroup)
-                    {
-                        setInGroup = false;
-                        groupCount++;
-                        groups.Add(groupCount);
-                        groupStarts.Add(tokens.Count);
-                        groupEnds.Add(tokens.Count);
-                        //Debug.WriteLine("++" + groups[groups.Count - 1] + " " + tokens.Count);
-                    }
-                    setMinRepeat = 1;
-                    setMaxRepeat = 1;
-                    setGreed = false;
-                }
-                else buffer[bi++] = c;
-            }
-
-            if (bi > 0)
-            {
-                lastToken = new SearchToken(inText, new String(buffer, 0, bi));
-                lastToken.minRepeat = setMinRepeat;
-                lastToken.maxRepeat = setMaxRepeat;
-                lastToken.isGreed = setGreed;
-                tokens.Add(lastToken);
-            }
-            groupEnds[0] = tokens.Count - 1;
-            for (i = 0; i < groupCount + 1; i++)
-            {
-                //Debug.WriteLine("group " + i + ": " + groupStarts[i] + "/" + groupEnds[i]);
-            }
-            // only one token, is must match one char at least
-            if (tokens.Count == 1 && lastToken.minRepeat == 0)
-            {
-                lastToken.minRepeat = 1;
-            }
-
-            // make SearchToken array
-            search = new SearchToken[tokens.Count];
-            for (i = 0; i < tokens.Count; i++)
-            {
-                search[i] = (SearchToken)tokens[i];
-                //Debug.WriteLine(search[i].ToString());
-            }
-        }
-        #endregion
-
-        #region Internal Structures
-
-        enum SearchType
-        {
-            Text,
-            CharIn,
-            CharNotIn,
-            AnyChar,
-            BackReference,
-            LineStart,
-            LineEnd
-        }
-        class SearchToken
-        {
-            public SearchType type;
-            public int len;
-            public char[] chars;
-            public int minRepeat = 1;
-            public int maxRepeat = 1;
-            public bool isGreed;
-
-            public int matched;
-            public bool backtrack;
-            public int tpos;
-            public int line;
-            public int lineStart;
-            public int index;
-            public int backReferenceIndex;
-
-            public SearchToken(SearchType type)
-            {
-                this.type = type;
-            }
-            public SearchToken(bool isText, string token)
-            {
-                if (isText) type = SearchType.Text;
-                else if (token.Length > 1 && token[0] == '^') type = SearchType.CharNotIn;
-                else type = SearchType.CharIn;
-                //
-                len = token.Length;
-                chars = token.ToCharArray();
-            }
-
-            public int getLength()
-            {
-                return (type == SearchType.Text | type == SearchType.BackReference) ? len * matched : matched;
-            }
-
-            public override string ToString()
-            {
-                return "[Token: '" + new string(chars) + "', " + type + ", " + minRepeat + "-" + maxRepeat + "]";
-            }
-        }
-        #endregion
-
-        /**
-        static FRSearch()
-        {
-            TextWriterTraceListener listener = new TextWriterTraceListener(System.Console.Out);
-            Debug.Listeners.Add(listener);
-        }
-        */
     }
 }

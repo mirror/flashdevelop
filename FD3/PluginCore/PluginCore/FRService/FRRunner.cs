@@ -60,7 +60,10 @@ namespace PluginCore.FRService
                 FRSearch search = configuration.GetSearch();
                 foreach (String file in files)
                 {
-                    results[file] = search.Matches(configuration.GetSource(file));
+                    String src = configuration.GetSource(file);
+                    List<SearchMatch> matches = search.Matches(src);
+                    FRSearch.ExtractResultsLineText(matches, src);
+                    results[file] = matches;
                 }
                 return results;
             }
@@ -242,6 +245,7 @@ namespace PluginCore.FRService
                                 src = search.ReplaceAll(src, replacement, matches);
                                 configuration.SetSource(file, src);
                             }
+                            else FRSearch.ExtractResultsLineText(matches, src);
                             matches = null;
 
                             // progress

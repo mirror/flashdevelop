@@ -48,18 +48,9 @@ namespace PluginCore.Managers
         {
             lock (asyncQueue)
             {
-                int count = asyncQueue.Count;
-                if (count < MAX_QUEUE)
-                {
-                    asyncQueue.Add(traceItem);
-                    asyncTimer.Start();
-                }
-                else if (count == MAX_QUEUE)
-                {
-                    asyncQueue.Add(new TraceItem(OVERFLOW, 4));
-                    asyncTimer.Stop();
-                    asyncTimer.Start();
-                }
+                // no overflow check for sync traces
+                asyncQueue.Add(traceItem);
+                asyncTimer.Start();
             }
         }
 
