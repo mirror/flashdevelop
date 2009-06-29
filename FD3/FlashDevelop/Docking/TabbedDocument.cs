@@ -129,10 +129,9 @@ namespace FlashDevelop.Docking
                 if (this.isModified != value)
                 {
                     this.isModified = value;
-                    this.Text = Path.GetFileName(this.FileName);
-                    if (this.isModified) this.Text += "*";
                     ButtonManager.UpdateFlaggedButtons();
                     this.UpdateToolTipText();
+                    this.UpdateTabText();
                 }
             }
         }
@@ -244,6 +243,7 @@ namespace FlashDevelop.Docking
                 else Globals.MainForm.OnFileSave(this, false);
             }
             this.UpdateToolTipText();
+            this.UpdateTabText();
         }
         public void Save()
         {
@@ -351,6 +351,15 @@ namespace FlashDevelop.Docking
         {
             if (!this.IsEditable) this.ToolTipText = "";
             else this.ToolTipText = this.FileName;
+        }
+
+        /// <summary>
+        /// Updates the document's tab text
+        /// </summary>
+        private void UpdateTabText()
+        {
+            this.Text = Path.GetFileName(this.FileName);
+            if (this.isModified) this.Text += "*";
         }
 
         /// <summary>

@@ -46,8 +46,12 @@ namespace FlashDevelop.Utilities
             foreach (String newFile in Directory.GetFiles(path, "*.new"))
             {
                 String pluginFile = Path.GetFileNameWithoutExtension(newFile);
-                if (File.Exists(pluginFile)) File.Delete(pluginFile);
-                File.Move(newFile, pluginFile);
+                if (File.Exists(pluginFile))
+                {
+                    File.Copy(newFile, pluginFile, true);
+                    File.Delete(newFile);
+                }
+                else File.Move(newFile, pluginFile);
             }
         }
 
