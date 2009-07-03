@@ -155,10 +155,12 @@ namespace ProjectManager.Projects
 
 		protected string OSPath(string path)
 		{
-			if (path != null)
-				return path.Replace('\\',System.IO.Path.DirectorySeparatorChar);
-			else
-				return null;
+            if (path != null)
+            {
+                path = path.Replace('/', System.IO.Path.DirectorySeparatorChar);
+                path = path.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+            }
+            return path;
 		}
 	}
 }
