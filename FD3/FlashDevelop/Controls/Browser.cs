@@ -51,12 +51,7 @@ namespace FlashDevelop.Controls
             // 
             this.toolStrip.CanOverflow = false;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backButton,
-            this.forwardButton,
-            this.refreshButton,
-            this.addressComboBox,
-            this.goButton});
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.backButton, this.forwardButton, this.refreshButton, this.addressComboBox, this.goButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(2, 1, 2, 2);
@@ -118,6 +113,7 @@ namespace FlashDevelop.Controls
             // webBrowser
             //
             this.webBrowser.AllowWebBrowserDrop = true;
+            this.webBrowser.ScriptErrorsSuppressed = true;
             this.webBrowser.WebBrowserShortcutsEnabled = false;
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.Location = new System.Drawing.Point(0, 25);
