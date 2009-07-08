@@ -2299,7 +2299,7 @@ namespace ASCompletion.Completion
                             expression.Separator = ';';
                             int testPos = position - 1;
                             string testWord = GetWordLeft(Sci, ref testPos); // anonymous function
-                            string testWord2 = GetWordLeft(Sci, ref testPos); // regular function
+                            string testWord2 = GetWordLeft(Sci, ref testPos) ?? "null"; // regular function
                             if (testWord == features.functionKey || testWord == "catch"
                                 || testWord2 == features.functionKey
                                 || testWord2 == features.getKey || testWord2 == features.setKey) 
