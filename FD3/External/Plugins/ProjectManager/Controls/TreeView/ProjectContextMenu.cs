@@ -399,7 +399,7 @@ namespace ProjectManager.Controls.TreeView
 
         private void AddFileItems(MergableMenu menu, string path)
         {
-            AddFileItems(menu, path, false);
+            AddFileItems(menu, path, true);
         }
 
         private void AddGenericFileItems(MergableMenu menu, string path)

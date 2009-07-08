@@ -1224,7 +1224,8 @@ namespace ASCompletion.Completion
 
 			// complete keyword
             if (expr.WordBefore != null &&
-                (expr.WordBefore == features.varKey || expr.WordBefore == features.functionKey || expr.WordBefore == features.constKey))
+                (expr.WordBefore == features.varKey || expr.WordBefore == features.functionKey || expr.WordBefore == features.constKey 
+                || expr.WordBefore == features.getKey || expr.WordBefore == features.setKey))
                 return false;
 			if (dotIndex < 0)
 			{
@@ -2299,8 +2300,9 @@ namespace ASCompletion.Completion
                             int testPos = position - 1;
                             string testWord = GetWordLeft(Sci, ref testPos); // anonymous function
                             string testWord2 = GetWordLeft(Sci, ref testPos); // regular function
-                            if (testWord == ASContext.Context.Features.functionKey || testWord == "catch"
-                                || testWord2 == ASContext.Context.Features.functionKey) 
+                            if (testWord == features.functionKey || testWord == "catch"
+                                || testWord2 == features.functionKey
+                                || testWord2 == features.getKey || testWord2 == features.setKey) 
                             {
                                 expression.Separator = ',';
                                 expression.coma = ComaExpression.FunctionDeclaration;

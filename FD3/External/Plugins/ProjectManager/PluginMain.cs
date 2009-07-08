@@ -47,6 +47,8 @@ namespace ProjectManager
         public const string OpenVirtualFile = "ProjectManager.OpenVirtualFile";
         public const string CreateProject = "ProjectManager.CreateProject";
         public const string ProjectCreated = "ProjectManager.ProjectCreated";
+        public const string FileMoved = "ProjectManager.FileMoved";
+        public const string FilePasted = "ProjectManager.FilePasted";
     }
 
 	public class PluginMain : IPlugin
@@ -177,6 +179,7 @@ namespace ProjectManager
             fileActions.OpenFile += OpenFile;
             fileActions.FileDeleted += FileDeleted;
             fileActions.FileMoved += FileMoved;
+            fileActions.FileCopied += FilePasted;
 
             projectActions = new ProjectActions(pluginUI);
 
@@ -759,6 +762,21 @@ namespace ProjectManager
             pluginUI.WatchParentOf(fromPath);
             pluginUI.WatchParentOf(toPath);
             project.Save();
+
+            Hashtable data = new Hashtable();
+            data["fromPath"] = fromPath;
+            data["toPath"] = toPath;
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.FileMoved, data);
+            EventManager.DispatchEvent(this, de);
+        }
+
+        private void FilePasted(string fromPath, string toPath)
+        {
+            Hashtable data = new Hashtable();
+            data["fromPath"] = fromPath;
+            data["toPath"] = toPath;
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.FilePasted, data);
+            EventManager.DispatchEvent(this, de);
         }
 
         public void PropertiesClick(object sender, EventArgs e)

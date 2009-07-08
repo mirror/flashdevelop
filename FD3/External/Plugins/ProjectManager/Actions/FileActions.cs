@@ -32,6 +32,7 @@ namespace ProjectManager.Actions
         public event FileNameHandler OpenFile;
         public event FileNameHandler FileDeleted;
         public event FileMovedHandler FileMoved;
+        public event FileMovedHandler FileCopied;
 
         public FileActions(IMainForm mainForm, FlashDevelopActions fdActions)
         {
@@ -251,6 +252,9 @@ namespace ProjectManager.Actions
 
         public void PasteFromClipboard(string toPath)
         {
+            if (File.Exists(toPath)) 
+                toPath = Path.GetDirectoryName(toPath);
+
             DataObject o = Clipboard.GetDataObject() as DataObject;
             if (o.GetDataPresent(DataFormats.FileDrop))
             {
@@ -452,20 +456,31 @@ namespace ProjectManager.Actions
                 // create copies of a file
                 if (toPath == fromPath)
                 {
-                    toPath = Path.Combine(
+                    string copyPath = Path.Combine(
                         Path.GetDirectoryName(toPath),
                         String.Format(TextHelper.GetString("Label.CopyOf"), Path.GetFileNameWithoutExtension(fromPath))
                         ) + Path.GetExtension(fromPath);
 
                     int copies = 1;
-                    while (File.Exists(toPath))
+                    while (File.Exists(copyPath))
                     {
                         copies++;
-                        toPath = Path.Combine(
+                        copyPath = Path.Combine(
                             Path.GetDirectoryName(toPath),
                             String.Format(TextHelper.GetString("Label.CopyOf") + " ({1})", Path.GetFileNameWithoutExtension(fromPath), copies)
                             ) + Path.GetExtension(fromPath);
                     }
+
+                    // offer to choose the new name
+                    string title = String.Format("Duplicating '{0}':", Path.GetFileName(toPath));
+                    string label = "New name:";
+                    string suggestion = Path.GetFileNameWithoutExtension(copyPath);
+                    LineEntryDialog askName = new LineEntryDialog(title, label, suggestion);
+                    DialogResult choice = askName.ShowDialog();
+                    if (choice == DialogResult.OK && askName.Line.Trim().Length > 0)
+                        copyPath = Path.Combine(Path.GetDirectoryName(toPath), askName.Line.Trim()) + Path.GetExtension(toPath);
+                    else throw new UserCancelException();
+                    toPath = copyPath;
                 }
 
                 if (!ConfirmOverwrite(toPath)) return;
@@ -474,6 +489,8 @@ namespace ProjectManager.Actions
 
                 if (Directory.Exists(fromPath)) CopyDirectory(fromPath, toPath);
                 else File.Copy(fromPath, toPath, true);
+
+                OnFilePasted(fromPath, toPath);
             }
             catch (UserCancelException uex)
             {
@@ -567,6 +584,12 @@ namespace ProjectManager.Actions
         {
             if (FileMoved != null)
                 FileMoved(fromPath, toPath);
+        }
+
+        private void OnFilePasted(string fromPath, string toPath)
+        {
+            if (FileCopied != null)
+                FileCopied(fromPath, toPath);
         }
 
         private void OnFileDeleted(string path)
