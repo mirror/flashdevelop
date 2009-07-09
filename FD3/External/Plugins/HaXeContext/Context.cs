@@ -452,6 +452,9 @@ namespace HaXeContext
         /// <returns>Null (not handled) or member list</returns>
         public override MemberList ResolveDotContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
+            if (hxsettings.DisableCompilerCompletion)
+                return null;
+
             // auto-started completion, can be ignored for performance
             if (autoHide && !expression.Value.EndsWith(".")) 
                 return new MemberList();
@@ -543,6 +546,9 @@ namespace HaXeContext
         /// <returns>Null (not handled) or function signature</returns>
         public override MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression)
         {
+            if (hxsettings.DisableCompilerCompletion)
+                return null;
+
             string[] parts = expression.Value.Split('.');
             string name = parts[parts.Length - 1];
             

@@ -48,7 +48,7 @@ namespace ProjectManager.Controls.TreeView
                 for (int i = parts.Length - 1; i > 0; --i)
                 {
                     String part = parts[i] as String;
-                    if (Array.IndexOf(excludes, part) == -1)
+                    if (part != "." && part != ".." && Array.IndexOf(excludes, part) == -1)
                     {
                         label = part;
                         break;

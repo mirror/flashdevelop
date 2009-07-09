@@ -156,10 +156,12 @@ namespace HaXeContext
 
         const int DEFAULT_FLASHVERSION = 9;
         const string DEFAULT_HAXECHECKPARAMS = "";
+        const bool DEFAULT_DISABLECOMPILERCOMPLETION = false;
 
         private int flashVersion = 9;
         private string hxPath;
         private string haXeCheckParameters = DEFAULT_HAXECHECKPARAMS;
+        private bool disableCompilerCompletion = DEFAULT_DISABLECOMPILERCOMPLETION;
 
         [DisplayName("Default Flash Version")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.DefaultFlashVersion"), DefaultValue(DEFAULT_FLASHVERSION)]
@@ -196,6 +198,14 @@ namespace HaXeContext
         {
             get { return haXeCheckParameters; }
             set { haXeCheckParameters = value; }
+        }
+
+        [DisplayName("Disable Compiler-based Completion")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.DisableCompilerCompletion"), DefaultValue(DEFAULT_DISABLECOMPILERCOMPLETION)]
+        public bool DisableCompilerCompletion
+        {
+            get { return disableCompilerCompletion; }
+            set { disableCompilerCompletion = value; }
         }
 
         #endregion
