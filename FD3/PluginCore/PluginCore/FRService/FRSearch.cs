@@ -419,9 +419,6 @@ namespace PluginCore.FRService
 
         private bool needParsePattern = true;
         private Regex operation;
-        private int groupCount;
-        private List<int> groupStarts;
-        private List<int> groupEnds;
         private string pattern;
         private bool noCase;
         private bool wholeWord;

@@ -472,13 +472,15 @@ namespace ProjectManager.Actions
                     }
 
                     // offer to choose the new name
-                    string title = String.Format("Duplicating '{0}':", Path.GetFileName(toPath));
-                    string label = "New name:";
+                    string label = TextHelper.GetString("Info.NewDuplicateName");
+                    string title = String.Format(TextHelper.GetString("Info.DuplicatingFile"), Path.GetFileName(toPath));
                     string suggestion = Path.GetFileNameWithoutExtension(copyPath);
                     LineEntryDialog askName = new LineEntryDialog(title, label, suggestion);
                     DialogResult choice = askName.ShowDialog();
                     if (choice == DialogResult.OK && askName.Line.Trim().Length > 0)
+                    {
                         copyPath = Path.Combine(Path.GetDirectoryName(toPath), askName.Line.Trim()) + Path.GetExtension(toPath);
+                    }
                     else throw new UserCancelException();
                     toPath = copyPath;
                 }

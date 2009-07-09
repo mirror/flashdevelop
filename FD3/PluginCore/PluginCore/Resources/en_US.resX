@@ -943,7 +943,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   </data>
   <data name="FlashDevelop.Label.LineComment" xml:space="preserve">
     <value>Li&amp;ne Comment</value>
-    <comment>3.1</comment>
+    <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CompareFiles" xml:space="preserve">
     <value>&amp;Compare Files...</value>
@@ -3021,7 +3021,7 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Label.BlockComment" xml:space="preserve">
     <value>Block Co&amp;mment</value>
-    <comment>3.1</comment>
+    <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
     <value>Comment Li&amp;ne</value>
@@ -3037,13 +3037,21 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Info.RequiresRestart" xml:space="preserve">
     <value>To apply all changes, you need to restart FlashDevelop.</value>
-    <comment>3.1</comment>
+    <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.Restart" xml:space="preserve">
     <value>Res&amp;tart</value>
-    <comment>3.1</comment>
+    <comment>Added after 3.0.0</comment>
   </data>
   <data name="ASCompletion.Description.StartWithModifiers" xml:space="preserve">
     <value>Generated declarations should always begin with access modifiers (ie. always before "static" or "override").</value>
+  </data>
+  <data name="ProjectManager.Info.DuplicatingFile" xml:space="preserve">
+    <value>Duplicating '{0}':</value>
+    <comment>Added after 3.0.1</comment>
+  </data>
+  <data name="ProjectManager.Info.NewDuplicateName" xml:space="preserve">
+    <value>New name:</value>
+    <comment>Added after 3.0.1</comment>
   </data>
 </root>
