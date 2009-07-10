@@ -839,6 +839,7 @@ namespace FlashDevelop
             if (this.CurrentDocument == null) return;
             this.CurrentDocument.Activate(); // Activate the current document
             TabbedDocument document = (TabbedDocument)this.CurrentDocument;
+            ButtonManager.UpdateFlaggedButtons();
             document.CheckFileChange();
         }
 
@@ -849,6 +850,7 @@ namespace FlashDevelop
         {
             if (this.CurrentDocument == null) return;
             TabbedDocument document = (TabbedDocument)this.CurrentDocument;
+            ButtonManager.UpdateFlaggedButtons();
             document.CheckFileChange();
         }
 
