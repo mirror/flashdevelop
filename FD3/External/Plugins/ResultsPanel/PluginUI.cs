@@ -26,6 +26,7 @@ namespace ResultsPanel
 		private ColumnHeader entryType;
 		private PluginMain pluginMain;
         private Int32 logCount;
+        private Timer autoShow;
 		 
         public PluginUI(PluginMain pluginMain)
 		{
@@ -36,6 +37,10 @@ namespace ResultsPanel
             this.InitializeGraphics();
             this.InitializeTexts();
             this.ApplySettings();
+
+            this.autoShow = new Timer();
+            this.autoShow.Interval = 300;
+            this.autoShow.Tick += AutoShowPanel;
 		}
 		
 		#region Windows Forms Designer Generated Code
@@ -336,6 +341,13 @@ namespace ResultsPanel
         /// </summary>
         public void DisplayOutput()
         {
+            autoShow.Stop();
+            autoShow.Start();
+        }
+
+        private void AutoShowPanel(Object sender, System.EventArgs e)
+        {
+            autoShow.Stop();
             if (this.entriesView.Items.Count > 0)
             {
                 DockContent panel = this.Parent as DockContent;
