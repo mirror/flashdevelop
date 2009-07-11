@@ -18,6 +18,7 @@ namespace ScintillaNet
 		private IntPtr hwndScintilla;
 		private bool ignoreAllKeys = false;
 		private bool isBraceMatching = true;
+        private bool useHighlightGuides = true;
 		private static Scintilla sciConfiguration = null;
 		private Enums.SmartIndent smartIndent = Enums.SmartIndent.CPP;
 		private Hashtable ignoredKeys = new Hashtable();
@@ -481,7 +482,22 @@ namespace ScintillaNet
                 isBraceMatching = value; 
             }
 		}
-		
+
+        /// <summary>
+        /// Enables the highlight guides from current position.
+        /// </summary>
+        public bool UseHighlightGuides
+        {
+            get
+            {
+                return useHighlightGuides;
+            }
+            set
+            {
+                useHighlightGuides = value;
+            }
+        }
+
 		/// <summary>
 		/// Enables the Smart Indenter so that On enter, it indents the next line.
 		/// </summary>
@@ -4646,17 +4662,30 @@ namespace ScintillaNet
 					position = CurrentPos;
 					character = (char)CharAt(position);
 				}
-				if (character == '{' || character == '}' || character == '(' || character == ')' || character == '[' || character == ']')
-				{
-					if (!this.PositionIsOnComment(position))
-					{
-						int bracePosStart = position;
-						int bracePosEnd = BraceMatch(position);
+                if (character == '{' || character == '}' || character == '(' || character == ')' || character == '[' || character == ']')
+                {
+                    if (!this.PositionIsOnComment(position))
+                    {
+                        int bracePosStart = position;
+                        int bracePosEnd = BraceMatch(position);
                         if (bracePosEnd != -1) BraceHighlight(bracePosStart, bracePosEnd);
-					} 
-					else BraceHighlight(-1, -1);
-				}
-				else BraceHighlight(-1, -1);
+                        if (useHighlightGuides)
+                        {
+                            int line = LineFromPosition(position);
+                            HighlightGuide = GetLineIndentation(line);
+                        }
+                    }
+                    else
+                    {
+                        BraceHighlight(-1, -1);
+                        HighlightGuide = 0;
+                    }
+                }
+                else
+                {
+                    BraceHighlight(-1, -1);
+                    HighlightGuide = 0;
+                }
 			}
 		}
 		

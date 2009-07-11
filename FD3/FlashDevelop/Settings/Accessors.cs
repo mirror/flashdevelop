@@ -102,7 +102,7 @@ namespace FlashDevelop.Settings
         }
 
         [DefaultValue(true)]
-        [DisplayName("View Highlight Guides")]
+        [DisplayName("Disable Highlight Guide")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.HighlightGuide")]
         public Boolean HighlightGuide
@@ -608,6 +608,15 @@ namespace FlashDevelop.Settings
         {
             get { return this.redirectFilesResults; }
             set { this.redirectFilesResults = value; }
+        }
+
+        [DisplayName("Disable Find Text Updating")]
+        [LocalizedCategory("FlashDevelop.Category.State")]
+        [LocalizedDescription("FlashDevelop.Description.DisableFindTextUpdating")]
+        public Boolean DisableFindTextUpdating
+        {
+            get { return this.disableFindTextUpdating; }
+            set { this.disableFindTextUpdating = value; }
         }
 
         [DisplayName("Latest Startup Command")]

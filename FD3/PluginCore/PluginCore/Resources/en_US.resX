@@ -591,7 +591,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>Color of the pattern highlight in the quick find control.</value>
   </data>
   <data name="FlashDevelop.Description.HighlightGuide" xml:space="preserve">
-    <value>Style of the brace highlighting.</value>
+    <value>Disables the highligh guide on current code block.</value>
   </data>
   <data name="FlashDevelop.Description.HoverDelay" xml:space="preserve">
     <value>Mouse hover tip delay.</value>
@@ -2960,7 +2960,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>[Capturing traces with FDB]</value>
   </data>
   <data name="AS3Context.Info.ExceptionWhileParsing" xml:space="preserve">
-    <value />
+    <value>Exception while parsing</value>
   </data>
   <data name="AS3Context.Info.FailedToLaunchFBD" xml:space="preserve">
     <value>[Failed to launch FBD]</value>
@@ -3056,6 +3056,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
     <value>By default, haXe code completion is populated by calling haXe compiler instead of using FlashDevelop native (but limited) haXe support.</value>
+    <comment>Added after 3.0.1</comment>
+  </data>
+  <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
+    <value>Disables the find text update when the quick find is used.</value>
     <comment>Added after 3.0.1</comment>
   </data>
 </root>

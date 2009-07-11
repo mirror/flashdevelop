@@ -215,6 +215,7 @@ namespace PluginCore
         Boolean AutoReloadModifiedFiles { get; set; }
         Boolean UseListViewGrouping { get; set; }
         Boolean RedirectFilesResults { get; set; }
+        Boolean DisableFindTextUpdating { get; set; }
         Boolean ApplyFileExtension { get; set; }
         Boolean RestoreFileStates { get; set; }
         Boolean BackSpaceUnIndents { get; set; }

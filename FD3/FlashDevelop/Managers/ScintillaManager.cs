@@ -180,7 +180,8 @@ namespace FlashDevelop.Managers
                 sci.CaretPeriod = Globals.Settings.CaretPeriod;
                 sci.CaretWidth = Globals.Settings.CaretWidth;
                 sci.EOLMode = LineEndDetector.DetectNewLineMarker(sci.Text, (Int32)Globals.Settings.EOLMode);
-                sci.HighlightGuide = Convert.ToInt32(Globals.Settings.HighlightGuide);
+                sci.IsBraceMatching = Globals.Settings.BraceMatchingEnabled;
+                sci.UseHighlightGuides = !Globals.Settings.HighlightGuide;
                 sci.Indent = Globals.Settings.IndentSize;
                 sci.SmartIndentType = Globals.Settings.SmartIndentType;
                 sci.IsBackSpaceUnIndents = Globals.Settings.BackSpaceUnIndents;

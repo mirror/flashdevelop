@@ -47,6 +47,7 @@ namespace FlashDevelop.Settings
         private String defaultFileExtension = "as";
         private Boolean autoReloadModifiedFiles = false;
         private Boolean saveUTF8WithoutBOM = false;
+        private Boolean disableFindTextUpdating = false;
         private Boolean redirectFilesResults = true;
         private Boolean useListViewGrouping = true;
         private Boolean applyFileExtension = true;
