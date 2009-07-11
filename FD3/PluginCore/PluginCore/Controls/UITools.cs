@@ -109,6 +109,7 @@ namespace PluginCore.Controls
             //
             PluginBase.MainForm.IgnoredKeys.Add(Keys.Space | Keys.Control); // complete member
             PluginBase.MainForm.IgnoredKeys.Add(Keys.Space | Keys.Control | Keys.Shift); // complete method
+            PluginBase.MainForm.DockPanel.ActivePaneChanged += new EventHandler(DockPanel_ActivePaneChanged);
             EventManager.AddEventHandler(this, eventMask);
 		}
         #endregion
@@ -116,7 +117,12 @@ namespace PluginCore.Controls
         private WeakReference lockedSciControl;
         private Point lastMousePos = new Point(0,0);
 
-		#region SciControls & MainForm Events
+        #region SciControls & MainForm Events
+
+        private void DockPanel_ActivePaneChanged(object sender, EventArgs e)
+        {
+            OnUIRefresh(null);
+        }
 
         public void HandleEvent(object sender, NotifyEvent e, HandlingPriority priority)
 		{
