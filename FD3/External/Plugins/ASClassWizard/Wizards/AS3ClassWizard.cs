@@ -46,7 +46,6 @@ namespace ASClassWizard.Wizards
 
         private void LocalizeText()
         {
-            this.errorIcon.Image = PluginBase.MainForm.FindImage("166");
             this.classLabel.Text = LocaleHelper.GetString("Wizard.Label.Name");
             this.accessLabel.Text = LocaleHelper.GetString("Wizard.Label.Modifiers");
             this.baseLabel.Text = LocaleHelper.GetString("Wizard.Label.SuperClass");
