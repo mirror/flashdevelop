@@ -121,7 +121,7 @@ namespace ASClassWizard.Wizards
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void packageBrowse_Click(object sender, EventArgs e)
         {
 
             PackageBrowser browser = new PackageBrowser();
@@ -157,19 +157,19 @@ namespace ASClassWizard.Wizards
             this.ValidateClass();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void okButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void baseBrowse_Click(object sender, EventArgs e)
         {
             ClassBrowser browser = new ClassBrowser();
             IASContext context   = ASContext.GetLanguageContext(PluginBase.CurrentProject.Language);
@@ -191,7 +191,7 @@ namespace ASClassWizard.Wizards
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button5_Click(object sender, EventArgs e)
+        private void implementBrowse_Click(object sender, EventArgs e)
         {
             ClassBrowser browser = new ClassBrowser();
             MemberList known = null;
@@ -231,7 +231,7 @@ namespace ASClassWizard.Wizards
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
+        private void interfaceRemove_Click(object sender, EventArgs e)
         {
             if (this.implementList.SelectedItem != null)
             {
@@ -248,17 +248,17 @@ namespace ASClassWizard.Wizards
             ValidateClass();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void packageBox_TextChanged(object sender, EventArgs e)
         {
             ValidateClass();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void classBox_TextChanged(object sender, EventArgs e)
         {
             ValidateClass();
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void baseBox_TextChanged(object sender, EventArgs e)
         {
             this.constructorCheck.Enabled = this.baseBox.Text != "";
             ValidateClass();

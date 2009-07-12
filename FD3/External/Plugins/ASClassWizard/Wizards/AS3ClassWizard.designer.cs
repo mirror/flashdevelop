@@ -31,7 +31,6 @@ namespace ASClassWizard.Wizards
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AS3ClassWizard));
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.constructorCheck = new System.Windows.Forms.CheckBox();
             this.superCheck = new System.Windows.Forms.CheckBox();
@@ -86,7 +85,7 @@ namespace ASClassWizard.Wizards
             this.flowLayoutPanel5.Controls.Add(this.constructorCheck);
             this.flowLayoutPanel5.Controls.Add(this.superCheck);
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(107, 206);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(106, 206);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(269, 54);
             this.flowLayoutPanel5.TabIndex = 12;
@@ -118,7 +117,7 @@ namespace ASClassWizard.Wizards
             this.flowLayoutPanel4.Controls.Add(this.implementBrowse);
             this.flowLayoutPanel4.Controls.Add(this.implementRemove);
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(379, 140);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(378, 140);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(80, 62);
@@ -132,7 +131,7 @@ namespace ASClassWizard.Wizards
             this.implementBrowse.TabIndex = 8;
             this.implementBrowse.Text = "Browse...";
             this.implementBrowse.UseVisualStyleBackColor = true;
-            this.implementBrowse.Click += new System.EventHandler(this.button5_Click);
+            this.implementBrowse.Click += new System.EventHandler(this.implementBrowse_Click);
             // 
             // implementRemove
             // 
@@ -143,37 +142,37 @@ namespace ASClassWizard.Wizards
             this.implementRemove.TabIndex = 8;
             this.implementRemove.Text = "Remove";
             this.implementRemove.UseVisualStyleBackColor = true;
-            this.implementRemove.Click += new System.EventHandler(this.button6_Click);
+            this.implementRemove.Click += new System.EventHandler(this.interfaceRemove_Click);
             // 
             // baseBox
             // 
             this.baseBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.baseBox.Enabled = false;
-            this.baseBox.Location = new System.Drawing.Point(107, 116);
+            this.baseBox.Location = new System.Drawing.Point(106, 116);
             this.baseBox.Name = "baseBox";
             this.baseBox.Size = new System.Drawing.Size(269, 20);
             this.baseBox.TabIndex = 7;
-            this.baseBox.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.baseBox.TextChanged += new System.EventHandler(this.baseBox_TextChanged);
             // 
             // classBox
             // 
             this.classBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.classBox.Location = new System.Drawing.Point(107, 32);
+            this.classBox.Location = new System.Drawing.Point(106, 32);
             this.classBox.Name = "classBox";
             this.classBox.Size = new System.Drawing.Size(269, 20);
             this.classBox.TabIndex = 1;
             this.classBox.Text = "NewClass";
-            this.classBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.classBox.TextChanged += new System.EventHandler(this.classBox_TextChanged);
             // 
             // packageBox
             // 
             this.packageBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.packageBox.Enabled = false;
-            this.packageBox.Location = new System.Drawing.Point(107, 4);
+            this.packageBox.Location = new System.Drawing.Point(106, 4);
             this.packageBox.Name = "packageBox";
             this.packageBox.Size = new System.Drawing.Size(269, 20);
             this.packageBox.TabIndex = 0;
-            this.packageBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.packageBox.TextChanged += new System.EventHandler(this.packageBox_TextChanged);
             // 
             // classLabel
             // 
@@ -200,7 +199,7 @@ namespace ASClassWizard.Wizards
             this.flowLayoutPanel2.Controls.Add(this.publicRadio);
             this.flowLayoutPanel2.Controls.Add(this.internalRadio);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(107, 59);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(106, 59);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(269, 22);
             this.flowLayoutPanel2.TabIndex = 4;
@@ -232,7 +231,7 @@ namespace ASClassWizard.Wizards
             this.flowLayoutPanel3.Controls.Add(this.dynamicCheck);
             this.flowLayoutPanel3.Controls.Add(this.finalCheck);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(107, 87);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(106, 87);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(269, 22);
             this.flowLayoutPanel3.TabIndex = 5;
@@ -296,7 +295,7 @@ namespace ASClassWizard.Wizards
             this.packageBrowse.TabIndex = 0;
             this.packageBrowse.Text = "Browse...";
             this.packageBrowse.UseVisualStyleBackColor = true;
-            this.packageBrowse.Click += new System.EventHandler(this.button3_Click);
+            this.packageBrowse.Click += new System.EventHandler(this.packageBrowse_Click);
             // 
             // baseBrowse
             // 
@@ -307,7 +306,7 @@ namespace ASClassWizard.Wizards
             this.baseBrowse.TabIndex = 6;
             this.baseBrowse.Text = "Browse...";
             this.baseBrowse.UseVisualStyleBackColor = true;
-            this.baseBrowse.Click += new System.EventHandler(this.button4_Click);
+            this.baseBrowse.Click += new System.EventHandler(this.baseBrowse_Click);
             // 
             // errorLabel
             // 
@@ -381,7 +380,7 @@ namespace ASClassWizard.Wizards
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.42382F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.57618F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel5, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.baseBrowse, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.generationLabel, 0, 6);
@@ -425,7 +424,7 @@ namespace ASClassWizard.Wizards
             // 
             this.implementList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.implementList.FormattingEnabled = true;
-            this.implementList.Location = new System.Drawing.Point(107, 143);
+            this.implementList.Location = new System.Drawing.Point(106, 143);
             this.implementList.Name = "implementList";
             this.implementList.Size = new System.Drawing.Size(269, 56);
             this.implementList.TabIndex = 7;
@@ -452,6 +451,7 @@ namespace ASClassWizard.Wizards
             this.cancelButton.TabIndex = 12;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // okButton
             // 
@@ -462,6 +462,7 @@ namespace ASClassWizard.Wizards
             this.okButton.TabIndex = 11;
             this.okButton.Text = "Ok";
             this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // AS3ClassWizard
             // 
