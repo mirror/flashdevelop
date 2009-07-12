@@ -184,6 +184,7 @@ namespace ASClassWizard.Wizards
             {
                 this.baseBox.Text = browser.SelectedClass;
             }
+            this.okButton.Focus();
         }
 
         /// <summary>
