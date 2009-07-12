@@ -611,6 +611,28 @@ namespace ASCompletion.Model
                             else paramTempCount--;
                         }
                     }
+                    else if (inValue && c1 == '/' && valueLength == 0) // lookup native regex
+                    {
+                        int itemp = i;
+                        valueBuffer[valueLength++] = '/';
+                        while (valueLength < VALUE_BUFFER && i < len)
+                        {
+                            c1 = ba[i++];
+                            if (c1 == '\n' || c1 == '\r')
+                            {
+                                valueLength = 0;
+                                i = itemp;
+                                break;
+                            }
+                            valueBuffer[valueLength++] = c1;
+                            if (c1 == '\\' && i < len)
+                            {
+                                c1 = ba[i++];
+                                valueBuffer[valueLength++] = c1;
+                            }
+                            else if (c1 == '/') break;
+                        }
+                    }
 
 					// end of value
 					if ( paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && paramTempCount == 0
