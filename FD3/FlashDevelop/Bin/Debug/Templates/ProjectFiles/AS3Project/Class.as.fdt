@@ -1,15 +1,13 @@
 package $(Package) $(CSLB){
-	
-	/**
+$(Import)	/**
 	$(CBI)* ...
 	$(CBI)* @author $(DefaultUser)
 	$(CBI)*/
-	public class $(FileName) $(CSLB){
-		
-		public function $(FileName)() $(CSLB){
-			$(EntryPoint)
+	$(Access)class $(FileName)$(Extends)$(Implements)$(CSLB){
+		public function $(FileName)($(ConstructorArguments)) $(CSLB){
+			$(Super)$(EntryPoint)
 		}
 		
 	}
-	
+
 }

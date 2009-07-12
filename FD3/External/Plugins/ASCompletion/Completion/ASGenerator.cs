@@ -313,6 +313,14 @@ namespace ASCompletion.Completion
 
         static private Regex reInsert = new Regex("\\s*([a-z])", RegexOptions.Compiled);
 
+        static public void SetJobContext(String contextToken, String contextParam, MemberModel contextMember, Match contextMatch)
+        {
+            ASGenerator.contextToken = contextToken;
+            ASGenerator.contextParam = contextParam;
+            ASGenerator.contextMember = contextMember;
+            ASGenerator.contextMatch = contextMatch;
+        }
+
         static public void GenerateJob(GeneratorJobType job, MemberModel member, ClassModel inClass)
         {
             ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
@@ -693,7 +701,7 @@ namespace ASCompletion.Completion
                 return "_" + member.Name;
         }
 
-        public static void GenerateDelegateMethod(string name, MemberModel afterMethod, int position)
+        private static void GenerateDelegateMethod(string name, MemberModel afterMethod, int position)
         {
             string acc = GetPrivateAccessor(afterMethod);
             string decl = BlankLine + String.Format(GetTemplate("Delegate"),
@@ -701,7 +709,7 @@ namespace ASCompletion.Completion
             InsertCode(position, decl);
         }
 
-        public static void GenerateEventHandler(string name, string type, MemberModel afterMethod, int position)
+        private static void GenerateEventHandler(string name, string type, MemberModel afterMethod, int position)
         {
             ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
             Sci.BeginUndoAction();
@@ -734,7 +742,7 @@ namespace ASCompletion.Completion
             }
         }
 
-        private static string AddRemoveEvent(string eventName)
+        static private string AddRemoveEvent(string eventName)
         {
             foreach (string autoRemove in ASContext.CommonSettings.EventListenersAutoRemove)
             {
@@ -751,7 +759,7 @@ namespace ASCompletion.Completion
             return null;
         }
 
-        public static void GenerateGetter(string name, MemberModel member, int position)
+        static private void GenerateGetter(string name, MemberModel member, int position)
         {
             string acc = GetPublicAccessor(member);
             string decl = BlankLine + String.Format(GetTemplate("Getter"),
@@ -759,7 +767,7 @@ namespace ASCompletion.Completion
             InsertCode(position, decl);
         }
 
-        public static void GenerateSetter(string name, MemberModel member, int position)
+        static private void GenerateSetter(string name, MemberModel member, int position)
         {
             string acc = GetPublicAccessor(member);
             string decl = BlankLine + String.Format(GetTemplate("Setter"),
@@ -767,14 +775,14 @@ namespace ASCompletion.Completion
             InsertCode(position, decl);
         }
 
-        private static string GetPrivateAccessor(MemberModel member)
+        static private string GetPrivateAccessor(MemberModel member)
         {
             string acc = GetPrivateKeyword();
             if ((member.Flags & FlagType.Static) > 0) acc = (ASContext.Context.Features.staticKey ?? "static") + " " + acc;
             return acc;
         }
 
-        private static string GetPrivateKeyword()
+        static private string GetPrivateKeyword()
         {
             string acc;
             if (GetDefaultVisibility() == Visibility.Protected)
