@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using PluginCore.Localization;
 using System.IO;
 using PluginCore.Managers;
+using ASCompletion.Settings;
 
 namespace ASCompletion.Completion
 {
@@ -335,9 +336,14 @@ namespace ASCompletion.Completion
                 case GeneratorJobType.Setter:
                 case GeneratorJobType.GetterSetter:
                     string name = GetPropertyNameFor(member);
-                    latest = FindLatest(FlagType.Getter | FlagType.Setter, inClass);
+                    
+                    PropertiesGenerationLocations location = ASContext.CommonSettings.PropertiesGenerationLocation;
+                    if (location == PropertiesGenerationLocations.AfterLastPropertyDeclaration)
+                        latest = FindLatest(FlagType.Getter | FlagType.Setter, inClass);
+                    else latest = member;
                     if (latest == null)
                         return;
+
                     Sci.BeginUndoAction();
                     try
                     {
@@ -351,7 +357,11 @@ namespace ASCompletion.Completion
                             string newName = GetNewPropertyNameFor(member);
                             if (RenameMember(Sci, member, newName)) member.Name = newName;
                         }
-                        position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+
+                        int atLine = latest.LineTo + 1;
+                        if (location == PropertiesGenerationLocations.BeforeVariableDeclaration)
+                            atLine = latest.LineTo;
+                        position = Sci.PositionFromLine(atLine) - ((Sci.EOLMode == 0) ? 2 : 1);
 
                         if (job != GeneratorJobType.Getter)
                         {
@@ -796,6 +806,25 @@ namespace ASCompletion.Completion
             string acc = ASContext.Context.Features.publicKey ?? "public";
             if ((member.Flags & FlagType.Static) > 0) acc = (ASContext.Context.Features.staticKey ?? "static") + " " + acc;
             return acc;
+        }
+
+        static private MemberModel FindMember(string name, ClassModel inClass)
+        {
+            MemberList list;
+            if (inClass == ClassModel.VoidClass)
+                list = ASContext.Context.CurrentModel.Members;
+            else list = inClass.Members;
+
+            MemberModel found = null;
+            foreach (MemberModel member in list)
+            {
+                if (member.Name == name)
+                {
+                    found = member;
+                    break;
+                }
+            }
+            return found;
         }
 
         static private MemberModel FindLatest(FlagType match, ClassModel inClass)

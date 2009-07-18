@@ -363,6 +363,8 @@ namespace ASCompletion.Settings
 
         const bool DEFAULT_GENERATE_PROTECTED = false;
         const bool DEFAULT_GENERATE_STARTWITHMODIFIERS = false;
+        const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
+
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
               "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
               "//e.target:Event.COMPLETE", "//e.target:Event.INIT"
@@ -371,6 +373,7 @@ namespace ASCompletion.Settings
         private bool generateProtectedDeclarations = DEFAULT_GENERATE_PROTECTED;
         private string[] eventListenersAutoRemove;
         private bool startWithModifiers;
+        private PropertiesGenerationLocations propertiesGenerationLocation;
 
         [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -398,7 +401,22 @@ namespace ASCompletion.Settings
             set { startWithModifiers = value; }
         }
 
+        [DisplayName("Properties Generation Location")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.PropertiesGenerationLocation"),
+        DefaultValue(DEFAULT_GENERATE_PROPERTIES)]
+        public PropertiesGenerationLocations PropertiesGenerationLocation
+        {
+            get { return propertiesGenerationLocation; }
+            set { propertiesGenerationLocation = value; }
+        }
+
         #endregion
     }
 
+    public enum PropertiesGenerationLocations
+    {
+        AfterLastPropertyDeclaration = 0,
+        AfterVariableDeclaration = 1,
+        BeforeVariableDeclaration = 2
+    }
 }
