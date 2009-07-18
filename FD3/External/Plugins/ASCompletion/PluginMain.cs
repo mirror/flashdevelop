@@ -348,10 +348,11 @@ namespace ASCompletion
                             if (Regex.IsMatch(cmdData, "\\.(swf|swc)::"))
                             {
                                 string[] path = Regex.Split(cmdData, "::");
-                                cmdData = path[0] + Path.DirectorySeparatorChar
+                                string fileName = path[0] + Path.DirectorySeparatorChar
                                     + path[1].Replace('.', Path.DirectorySeparatorChar).Replace("::", Path.DirectorySeparatorChar.ToString())
                                     + "$.as";
-                                ModelsExplorer.Instance.OpenFile(cmdData);
+                                FileModel found = ModelsExplorer.Instance.OpenFile(fileName);
+                                if (found != null) e.Handled = true;
                             }
                         }
                         break;

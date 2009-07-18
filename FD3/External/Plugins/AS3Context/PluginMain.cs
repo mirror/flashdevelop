@@ -10,6 +10,8 @@ using PluginCore.Managers;
 using PluginCore.Utilities;
 using AS3Context.Compiler;
 using PluginCore;
+using ASCompletion.Model;
+using ASCompletion.Completion;
 
 namespace AS3Context
 {
@@ -111,8 +113,13 @@ namespace AS3Context
             {
                 if (e.Type == EventType.Command)
                 {
-                    string action = (e as DataEvent).Action;
-                    if (!(settingObject as AS3Settings).DisableFDB 
+                    DataEvent de = e as DataEvent;
+                    string action = de.Action;
+                    if (action == "ProjectManager.OpenVirtualFile")
+                    {
+                        e.Handled = OpenVirtualFileModel(de.Data as String);
+                    }
+                    else if (!(settingObject as AS3Settings).DisableFDB 
                         && action == "AS3Context.StartDebugger")
                     {
                         string workDir = (PluginBase.CurrentProject != null)
@@ -189,6 +196,34 @@ namespace AS3Context
                     }
                 }
             }
+        }
+
+        private bool OpenVirtualFileModel(string virtualPath)
+        {
+            int p = virtualPath.IndexOf("::");
+            if (p < 0) return false;
+
+            string container = virtualPath.Substring(0, p);
+            string ext = Path.GetExtension(container).ToLower();
+            if (ext != ".swc" && ext != ".swf")
+                return false;
+            if (!File.Exists(container))
+                return false;
+
+            string fileName = Path.Combine(container, 
+                virtualPath.Substring(p + 2).Replace('.', Path.DirectorySeparatorChar)) + "$.as";
+            PathModel path = new PathModel(container, contextInstance);
+            SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
+            parser.Run();
+            AbcConverter.Convert(parser.Abcs, path, contextInstance);
+            
+            if (path.HasFile(fileName))
+            {
+                FileModel model = path.GetFile(fileName);
+                ASComplete.OpenVirtualFile(model);
+            }
+
+            return false;
         }
 
         #endregion

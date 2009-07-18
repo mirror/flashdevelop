@@ -98,6 +98,14 @@ namespace SwfOp
                 swf = reader.ReadSwf();
                 foreach (BaseTag tag in swf)
                 {
+                    if (tag is AbcTag)
+                    {
+                        AbcTag abcTag = tag as AbcTag;
+                        foreach (Traits trait in abcTag.abc.classes)
+                        {
+                            Console.WriteLine(trait);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

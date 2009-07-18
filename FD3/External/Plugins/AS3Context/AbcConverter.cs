@@ -11,6 +11,7 @@ namespace AS3Context
     {
         private static Dictionary<string, FileModel> genericTypes;
         private static Dictionary<string, string> imports;
+        private static bool inSWF;
 
         /// <summary>
         /// Create virtual FileModel objects from Abc bytecode
@@ -21,6 +22,7 @@ namespace AS3Context
         public static void Convert(List<Abc> abcs, PathModel path, Context context)
         {
             path.Files.Clear();
+            inSWF = Path.GetExtension(path.Path).ToLower() == ".swf";
 
             FileModel privateClasses = new FileModel(Path.Combine(path.Path, "__Private.as"));
             privateClasses.Version = 3;
@@ -290,7 +292,7 @@ namespace AS3Context
                 for (int i = 0; i < n; i++)
                 {
                     MemberModel param = new MemberModel();
-                    param.Name = (method.paramNames != null) ? method.paramNames[i] : "param" + i;
+                    param.Name = (!inSWF && method.paramNames != null) ? method.paramNames[i] : "param" + i;
                     type = method.paramTypes[i];
                     param.Type = ImportType(type);
 

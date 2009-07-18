@@ -848,8 +848,10 @@ namespace ProjectManager
             if (openFileQueue.Count > 0)
             {
                 String file = openFileQueue.Dequeue() as String;
-                if (!File.Exists(file)) return;
-                OpenFile(file);
+                if (File.Exists(file)) OpenFile(file);
+                // virtual files
+                if (file.IndexOf("::") > 0 && File.Exists(file.Substring(0, file.IndexOf("::"))))
+                    OpenFile(file);
             }
         }
 
