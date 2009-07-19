@@ -155,16 +155,20 @@ namespace OutputPanel
         public void AddTraces()
 		{
 			IList<TraceItem> log = TraceManager.TraceLog;
-            if (log.Count <= this.logCount) 
+            Int32 newCount = log.Count;
+            if (newCount <= this.logCount) 
 			{
-                this.logCount = log.Count;
+                this.logCount = newCount;
 				return;
 			}
             Int32 start;
             TraceItem entry;
             Int32 state;
             String message;
-            for (Int32 i = this.logCount; i < log.Count; i++) 
+            String newText = "";
+            Color currentColor = Color.Black;
+            Color newColor = Color.Black;
+            for (Int32 i = this.logCount; i < newCount; i++) 
 			{
 				entry = log[i];
                 state = entry.State;
@@ -180,38 +184,54 @@ namespace OutputPanel
                             message = message.Substring(2);
                     }
                 }
-				start = this.textLog.TextLength;
-				this.textLog.Select(start, 0);
 				switch (state)
 				{
                     case 0: // Info
-						this.textLog.SelectionColor = Color.Gray;
+                        newColor = Color.Gray;
 						break;
 					case 1: // Debug
-                        this.textLog.SelectionColor = Color.Black;
+                        newColor = Color.Black;
 						break;
 					case 2: // Warning
-						this.textLog.SelectionColor = Color.Orange;
+                        newColor = Color.Orange;
 						break;
 					case 3: // Error
-						this.textLog.SelectionColor = Color.Red;
+                        newColor = Color.Red;
 						break;
 					case 4: // Fatal
-						this.textLog.SelectionColor = Color.Magenta;
+                        newColor = Color.Magenta;
 						break;
 					case -1: // ProcessStart
-						this.textLog.SelectionColor = Color.Blue;
+                        newColor = Color.Blue;
 						break;
 					case -2: // ProcessEnd
-						this.textLog.SelectionColor = Color.Blue;
+                        newColor = Color.Blue;
 						break;
 					case -3: // ProcessError
-                        this.textLog.SelectionColor = (message.IndexOf("Warning") >= 0) ? Color.Orange : Color.Red;
+                        newColor = (message.IndexOf("Warning") >= 0) ? Color.Orange : Color.Red;
 						break;
 				}
-				this.textLog.AppendText(message + "\n");
+
+                if (newColor != currentColor)
+                {
+                    if (newText.Length > 0)
+                    {
+                        this.textLog.Select(this.textLog.TextLength, 0);
+                        this.textLog.SelectionColor = currentColor;
+                        this.textLog.AppendText(newText);
+                        newText = "";
+                    }
+                    currentColor = newColor;
+                }
+                newText += message + "\n";
 			}
-            this.logCount = log.Count;
+            if (newText.Length > 0)
+            {
+                this.textLog.Select(this.textLog.TextLength, 0);
+                this.textLog.SelectionColor = currentColor;
+                this.textLog.AppendText(newText);
+            }
+            this.logCount = newCount;
             this.scrollTimer.Enabled = true;
 		}
 

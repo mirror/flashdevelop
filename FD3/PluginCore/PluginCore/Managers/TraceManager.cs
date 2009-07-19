@@ -8,7 +8,7 @@ namespace PluginCore.Managers
 {
 	public class TraceManager
 	{
-        private const int MAX_QUEUE = 200;
+        private const int MAX_QUEUE = 1000;
         private const string OVERFLOW = "FlashDevelop: Trace overflow";
         private static List<TraceItem> traceLog;
         private static List<TraceItem> asyncQueue;
@@ -20,7 +20,7 @@ namespace PluginCore.Managers
             traceLog = new List<TraceItem>();
             asyncQueue = new List<TraceItem>();
             asyncTimer = new System.Timers.Timer();
-            asyncTimer.Interval = 100;
+            asyncTimer.Interval = 200;
             asyncTimer.AutoReset = false;
             asyncTimer.Elapsed += new System.Timers.ElapsedEventHandler(asyncTimer_Elapsed);
         }
