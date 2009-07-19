@@ -121,10 +121,11 @@ namespace PluginCore.Controls
 
         private void DockPanel_ActivePaneChanged(object sender, EventArgs e)
         {
-            if (CompletionList.Active)
+            if (PluginBase.MainForm.DockPanel.ActivePane != null 
+                && PluginBase.MainForm.DockPanel.ActivePane != PluginBase.MainForm.DockPanel.ActiveDocumentPane)
             {
+                OnUIRefresh(null);
             }
-            OnUIRefresh(null);
         }
 
         public void HandleEvent(object sender, NotifyEvent e, HandlingPriority priority)
