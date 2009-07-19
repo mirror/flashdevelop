@@ -121,6 +121,9 @@ namespace PluginCore.Controls
 
         private void DockPanel_ActivePaneChanged(object sender, EventArgs e)
         {
+            if (CompletionList.Active)
+            {
+            }
             OnUIRefresh(null);
         }
 

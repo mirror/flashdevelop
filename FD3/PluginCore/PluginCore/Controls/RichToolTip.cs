@@ -75,18 +75,29 @@ namespace PluginCore.Controls
 		#endregion
 		
 		#region Tip Methods
+
+        public bool AutoSize()
+        {
+            return AutoSize(0);
+        }
 		
-		public void AutoSize()
+		public bool AutoSize(int availableRightSize)
 		{
 			Graphics g = ((Form)PluginBase.MainForm).CreateGraphics();
 			SizeF textSize = g.MeasureString(toolTipRTB.Text, toolTipRTB.Font);
 			int w = (int)textSize.Width+4;
+            bool tooSmall = false;
 			
 			// tooltip larger than the window: wrap
-            if (w > ((Form)PluginBase.MainForm).Width - 20 - toolTip.Left)
+            if (w > ((Form)PluginBase.MainForm).ClientRectangle.Right - 20 - toolTip.Left)
 			{
 				toolTipRTB.WordWrap = true;
-                w = Math.Max(200, ((Form)PluginBase.MainForm).Width - 20 - toolTip.Left);
+                w = ((Form)PluginBase.MainForm).Width - 20 - toolTip.Left;
+                if (w < 300)
+                {
+                    tooSmall = true;
+                    w = Math.Max(200, availableRightSize - 20);
+                }
 				textSize = g.MeasureString(toolTipRTB.Text, toolTipRTB.Font, new Size(w, ((Form)PluginBase.MainForm).Height));
 				w = (int)textSize.Width+4;
 			}
@@ -102,6 +113,7 @@ namespace PluginCore.Controls
             }
 			toolTipRTB.Size = new Size(w, h);
             toolTip.Size = new Size(w + dw, h + dh);
+            return !tooSmall;
 		}
 		
 		public void ShowAtMouseLocation(string text)

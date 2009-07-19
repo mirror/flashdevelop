@@ -344,10 +344,9 @@ namespace PluginCore.Controls
             tempoTip.Stop();
 			if (currentItem == null || faded) return;
             UITools.Tip.Text = currentItem.Description;
-            Boolean outOfBounds = completionList.Right + UITools.Tip.Size.Width > ((Form)PluginBase.MainForm).ClientRectangle.Right;
-            if (outOfBounds) UITools.Tip.Location = new Point(completionList.Left - UITools.Tip.Size.Width, completionList.Top);
-            else UITools.Tip.Location = new Point(completionList.Right, completionList.Top);
-            //UITools.Tip.AutoSize();
+            UITools.Tip.Location = new Point(completionList.Right, completionList.Top);
+            if (!UITools.Tip.AutoSize(completionList.Left) && UITools.Tip.Size.Width > 200)
+                UITools.Tip.Location = new Point(completionList.Left - UITools.Tip.Size.Width, completionList.Top);
             UITools.Tip.Show();
 		}
 

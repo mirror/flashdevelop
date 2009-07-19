@@ -53,6 +53,7 @@ namespace ASCompletion.Completion
             contextMatch = null;
             FoundDeclaration found = GetDeclarationAtLine(Sci, line);
             string text = Sci.GetLine(line);
+            bool suggestItemDeclaration = false;
 
             ASResult resolve = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(position, true));
             // ignore automatic vars (MovieClip members)
@@ -60,6 +61,30 @@ namespace ASCompletion.Completion
             {
                 resolve.Member = null;
                 resolve.Type = null;
+            }
+
+            if (found.inClass != ClassModel.VoidClass && contextToken != null)
+            {
+                if (resolve.Member == null && resolve.Type != null
+                    && (resolve.Type.Flags & FlagType.Interface) > 0) // implement interface
+                {
+                    contextParam = resolve.Type.Type;
+                    ShowImplementInterface(found);
+                    return;
+                }
+
+                if (resolve.Member != null && !ASContext.Context.CurrentClass.IsVoid()
+                    && (resolve.Member.Flags & FlagType.LocalVar) > 0) // promote to class var
+                {
+                    contextMember = resolve.Member;
+                    ShowPromoteLocal(found);
+                }
+
+                if (resolve.Member == null && resolve.Type == null) // import declaration
+                {
+                    if (CheckAutoImport(found)) return;
+                    else suggestItemDeclaration = true;
+                }
             }
 
             if (found.member != null)
@@ -105,38 +130,18 @@ namespace ASCompletion.Completion
                     }
                 }
             }
-            if (found.inClass != ClassModel.VoidClass && contextToken != null)
+
+            if (suggestItemDeclaration)
             {
-                if (resolve.Member == null && resolve.Type != null
-                    && (resolve.Type.Flags & FlagType.Interface) > 0) // implement interface
+                Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
+                if (m.Success)
                 {
-                    contextParam = resolve.Type.Type;
-                    ShowImplementInterface(found);
-                    return;
+                    contextMatch = m;
+                    ShowNewMethodList(found);
                 }
-
-                if (resolve.Member != null && !ASContext.Context.CurrentClass.IsVoid()
-                    && (resolve.Member.Flags & FlagType.LocalVar) > 0) // promote to class var
-                {
-                    contextMember = resolve.Member;
-                    ShowPromoteLocal(found);
-                }
-
-                if (resolve.Member == null && resolve.Type == null) // declare unknown element
-                {
-                    if (!CheckAutoImport(found))
-                    {
-                        Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
-                        if (m.Success)
-                        {
-                            contextMatch = m;
-                            ShowNewMethodList(found);
-                        }
-                        else ShowNewVarList(found);
-                    }
-                    return;
-                }
+                else ShowNewVarList(found);
             }
+
             // TODO  Empty line, show generators list?
         }
 
