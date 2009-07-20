@@ -455,10 +455,11 @@ namespace ProjectManager
 
             this.project = project;
 
-            pluginUI.SetProject(project);
-            project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
             Settings.LastProject = project.ProjectPath;
             Settings.Language = project.Language;
+            pluginUI.SetProject(project);
+            project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
+
             menus.RecentProjects.AddOpenedProject(project.ProjectPath);
             menus.ConfigurationSelector.Enabled = true;
             menus.ProjectMenu.ProjectItemsEnabled = true;

@@ -1,3 +1,4 @@
-catch (e:Error)$(CSLB){
+catch (err:Error)$(CSLB){
 	$(EntryPoint)
 }
+

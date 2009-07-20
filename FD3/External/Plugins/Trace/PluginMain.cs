@@ -209,7 +209,7 @@ namespace Trace
             sci.BeginUndoAction();
 
             // Settings
-            String setAlt = (this.settingObject.AlternateFunction ?? "").Trim();
+            String setAlt = this.settingObject.AlternateFunction.Trim();
             if (setAlt == "")
                 setAlt = "MyLogger.log";
             Boolean setIns = this.settingObject.InsertNewLine;
@@ -233,11 +233,11 @@ namespace Trace
                     if (sel0.IndexOf('"') > -1)
                         sel0 = sel0.Replace("\"", "\\\"");
 
-                    String tr0 = "trace(\"";
+                    String tr0 = "trace( \"";
                     if(aternate)
-                        tr0 = setAlt + "(\"";
+                        tr0 = setAlt + "( \"";
                     String tr1 = " : \" + ";
-                    String tr2 = ");";
+                    String tr2 = " );";
                     if (setCmp)
                     {
                         tr0 = "trace(\"";
@@ -260,10 +260,10 @@ namespace Trace
 
                     if (!t.HasArguments)
                     {
-                        String tr0 = "trace(\"";
+                        String tr0 = "trace( \"";
                         if (aternate)
-                            tr0 = setAlt + "(\"";
-                        String tr1 = "\");";
+                            tr0 = setAlt + "( \"";
+                        String tr1 = "\" );";
                         if (setCmp)
                         {
                             tr0 = "trace(\"";
@@ -283,11 +283,11 @@ namespace Trace
                     }
                     else
                     {
-                        String tr0 = "trace(\"";
+                        String tr0 = "trace( \"";
                         if (aternate)
-                            tr0 = setAlt + "(\"";
+                            tr0 = setAlt + "( \"";
                         String tr1 = " > ";
-                        String tr2 = ");";
+                        String tr2 = " );";
                         if (setCmp)
                         {
                             tr0 = "trace(\"";
@@ -337,17 +337,17 @@ namespace Trace
                 {
                     if (t.WordFromPosition != "")
                     {
-                        String tr0 = "trace(\"";
+                        String tr0 = "trace( \"";
                         if (aternate)
-                            tr0 = setAlt + "(\"";
+                            tr0 = setAlt + "( \"";
                         String tr1 = " : \" + ";
-                        String tr2 = ");";
+                        String tr2 = " );";
                         if (setCmp)
                         {
                             tr0 = "trace(\"";
                             if (aternate)
                                 tr0 = setAlt + "(\"";
-                            tr1 = ": \" + ";
+                            tr1 = ": \"+";
                             tr2 = ");";
                         }
 
@@ -382,11 +382,11 @@ namespace Trace
             Boolean setIns = this.settingObject.InsertNewLine;
             Boolean setCmp = this.settingObject.CompactMode;
 
-            String tr0 = "for (var i:String in ";
-            String tr1 = ") trace(\"key : \" + i + \", value : \" + ";
+            String tr0 = "for( var i:String in ";
+            String tr1 = " ) trace( \"key : \" + i + \", value : \" + ";
             if (aternate)
-                tr1 = ") " + setAlt + "(\"key : \" + i + \", value : \" + ";
-            String tr2 = "[i]);";
+                tr1 = " ) " + setAlt + "( \"key : \" + i + \", value : \" + ";
+            String tr2 = "[ i ] );";
 
             if (setCmp)
             {
