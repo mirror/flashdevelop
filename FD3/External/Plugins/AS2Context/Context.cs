@@ -610,7 +610,13 @@ namespace AS2Context
                     string fullClass = ((package.Length > 0) ? package + "." : "") + cname;
                     string fileName = fullClass.Replace(".", dirSeparator) + ".as";
 
-                    ClassModel model = LocateClassFile(classPath[0], fileName);
+                    ClassModel model = null;
+                    try
+                    {
+                        Path.Combine(classPath[0].Path, fileName); // test path for invalid characters
+                        model = LocateClassFile(classPath[0], fileName);
+                    }
+                    catch { }
                     if (model != null) return model;
                     else return ClassModel.VoidClass;
                 }

@@ -432,7 +432,7 @@ namespace ASClassWizard
         private String AddImport(String cname, ClassModel inClass, String lineBreak)
         {
             ClassModel aClass = ASContext.Context.ResolveType(cname, inClass.InFile);
-            if (!aClass.IsVoid() && aClass.InFile.Package != "")
+            if (aClass != null && !aClass.IsVoid() && aClass.InFile.Package != "")
                 return (lastFileOptions.Language == "as3" ? "\t" : "")
                     + "import " + aClass.QualifiedName + ";" + lineBreak;
             return "";
