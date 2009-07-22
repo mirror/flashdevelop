@@ -3058,6 +3058,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>By default, haXe code completion is populated by calling haXe compiler instead of using FlashDevelop native (but limited) haXe support.</value>
     <comment>Added after 3.0.1</comment>
   </data>
+  <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
+    <value>By default haXe completion is alimented both by the haXe compiler and FlashDevelop automatic completion.</value>
+    <comment>Added after 3.0.1</comment>
+  </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
     <value>Disables the find text update when the quick find is used.</value>
     <comment>Added after 3.0.1</comment>

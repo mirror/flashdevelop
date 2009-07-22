@@ -455,9 +455,12 @@ namespace HaXeContext
             if (hxsettings.DisableCompilerCompletion)
                 return null;
 
-            // auto-started completion, can be ignored for performance
-            if (autoHide && !expression.Value.EndsWith(".")) 
-                return new MemberList();
+            // auto-started completion, can be ignored for performance (show default completion tooltip)
+            if (autoHide && !expression.Value.EndsWith("."))
+                if ( hxsettings.DisableMixedCompletion )
+                    return new MemberList();
+                else
+                    return null;
 
             MemberList list = new MemberList();
            
@@ -473,6 +476,10 @@ namespace HaXeContext
                 string err = al[1].ToString();
                 sci.CallTipShow(sci.CurrentPos, err);
                 sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
+                
+                // show default completion tooltip
+                if (!hxsettings.DisableMixedCompletion)
+                    return null;
             }
             else if (outputType == "list")
             {
