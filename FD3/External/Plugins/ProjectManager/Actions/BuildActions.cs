@@ -205,7 +205,8 @@ namespace ProjectManager.Actions
             info["language"] = project.Language;
             DataEvent de = new DataEvent(EventType.Command, "ASCompletion.GetCompilerPath", info);
             EventManager.DispatchEvent(project, de);
-            if (de.Handled && info.ContainsKey("compiler")) return PathHelper.ResolvePath(info["compiler"] as string, project.Directory);
+            if (de.Handled && info.ContainsKey("compiler")) 
+                return PathHelper.ResolvePath(info["compiler"] as string, project.Directory);
             else return null;
         }
 

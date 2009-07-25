@@ -16,7 +16,7 @@ namespace SamplePlugin
 	public class PluginMain : IPlugin
 	{
         private String pluginName = "SamplePlugin";
-        private String pluginGuid = "1f387fab-421b-42ac-a985-72a03534f731";
+        private String pluginGuid = "42ac7fab-421b-1f38-a985-72a03534f731";
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Sample plugin for the new FlashDevelop 3.";
         private String pluginAuth = "Mika Palmu";

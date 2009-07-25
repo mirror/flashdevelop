@@ -305,7 +305,7 @@ namespace ASCompletion
                                 if (info != null && info.ContainsKey("language"))
                                 {
                                     IASContext context = ASContext.GetLanguageContext(info["language"] as string);
-                                    info["compiler"] = context.GetCompilerPath();
+                                    info["compiler"] = context != null ? context.GetCompilerPath() : null;
                                 }
                                 e.Handled = true;
                             }
