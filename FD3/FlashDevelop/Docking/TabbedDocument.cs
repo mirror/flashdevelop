@@ -20,6 +20,7 @@ namespace FlashDevelop.Docking
 {
     public class TabbedDocument : DockContent, ITabbedDocument
 	{
+        private Timer focusTimer;
         private Timer backupTimer;
         private String previousText;
         private Boolean useCustomIcon;
@@ -29,8 +30,11 @@ namespace FlashDevelop.Docking
 
         public TabbedDocument()
 		{
+            this.focusTimer = new Timer();
+            this.focusTimer.Interval = 100;
             this.fileChangeTimer = new Timer();
             this.fileChangeTimer.Interval = 100;
+            this.focusTimer.Tick += new EventHandler(this.OnFocusTimer);
             this.fileChangeTimer.Tick += new EventHandler(this.OnFileChangeTimerTick);
             this.ControlAdded += new ControlEventHandler(this.DocumentControlAdded);
             this.DockPanel = Globals.MainForm.DockPanel;
@@ -137,15 +141,21 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
-        /// Activates the scintilla control too on activate
+        /// Activates the scintilla control after a delay
         /// </summary>
         public new void Activate()
         {
             base.Activate();
             if (this.IsEditable)
             {
-                this.SciControl.Focus();
+                this.focusTimer.Stop();
+                this.focusTimer.Start();
             }
+        }
+        private void OnFocusTimer(Object sender, EventArgs e)
+        {
+            this.focusTimer.Stop();
+            this.SciControl.Focus();
         }
 
         /// <summary>
