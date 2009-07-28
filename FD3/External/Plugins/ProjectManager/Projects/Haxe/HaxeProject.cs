@@ -36,6 +36,10 @@ namespace ProjectManager.Projects.Haxe
         {
             get { return MovieOptions.Version == 13; }
         }
+        public bool IsCppOutput
+        {
+            get { return MovieOptions.Version == 14; }
+        }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
         {

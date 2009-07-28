@@ -18,7 +18,8 @@ namespace ProjectManager.Projects.Haxe
                     "Flash Player 10",
                     "JavaScript",
                     "Neko",
-                    "PHP"
+                    "PHP",
+                    "C++"
                 };
             }
         }

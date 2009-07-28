@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{78101C01-E186-4954-B1DD-DEBB7905FAD8}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -48,6 +48,11 @@
   </Target>
   -->
   <ItemGroup>
+    <Reference Include="ABCpdf, Version=6.0.0.9, Culture=neutral, PublicKeyToken=a7a0b3f5184f2169" />
+    <Reference Include="PluginCore, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
+    </Reference>
     <Reference Include="SwfOp, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\SwfOp.dll</HintPath>
@@ -219,12 +224,5 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\FlashCS3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\PluginCore\PluginCore.csproj">
-      <Project>{61885F70-B4DC-4B44-852D-5D6D03F2A734}</Project>
-      <Name>PluginCore</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
 </Project>

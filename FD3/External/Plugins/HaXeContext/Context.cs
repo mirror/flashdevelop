@@ -119,6 +119,10 @@ namespace HaXeContext
         {
             get { return flashVersion == 13; }
         }
+        public bool IsCppTarget
+        {
+            get { return flashVersion == 14; }
+        }
 
         /// <summary>
         /// Classpathes & classes cache initialisation
@@ -160,6 +164,11 @@ namespace HaXeContext
             else if (IsPhpTarget)
             {
                 lang = "php";
+                features.Directives.Add(lang);
+            }
+            else if (IsCppTarget)
+            {
+                lang = "cpp";
                 features.Directives.Add(lang);
             }
             else
@@ -642,6 +651,7 @@ namespace HaXeContext
             if (IsJavaScriptTarget) output = "-js ";
             else if (IsNekoTarget) output = "-neko ";
             else if (IsPhpTarget) output = "-php ";
+            else if (IsCppTarget) output = "-cpp ";
 
             RunCMD(output + "\"" + TemporaryOutputFile + "\" " + hxsettings.HaXeCheckParameters);
         }
