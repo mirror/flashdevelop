@@ -668,13 +668,13 @@ namespace SwfOp.Data
                         break;
 
                     case ConstantKind.TypeName:
-                        QName name = (QName)names[readU32(br)];
+                        QName name = (QName)names[readU32(br)] ?? new QName("Vector");
                         int count = readU32(br);
                         QName[] parameters = new QName[count];
                         for (int j = 0; j < count; ++j)
                         {
                             int idx = readU32(br);
-                            parameters[j] = (QName)names[idx];
+                            parameters[j] = (QName)names[idx] ?? new QName("*");
                         }
                         names[i] = new ParameterizedQName(name, parameters);
                         break;
