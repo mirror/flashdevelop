@@ -480,7 +480,7 @@ namespace PluginCore.FRService
             bool filterLiterals = inLiterals || outLiterals;
             int literalMatch = 0;
 
-            while (pos < len)
+            while (pos < len - 1)
             {
                 c = src[++pos];
 
@@ -577,7 +577,6 @@ namespace PluginCore.FRService
                     sm.Groups[i] = new SearchGroup(group.Index, group.Length, group.Value);
                 }
                 results.Add(sm);
-
                 if (!returnAllMatches)
                     break;
             }
