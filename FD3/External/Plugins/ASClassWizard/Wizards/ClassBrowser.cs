@@ -7,6 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 
+using PluginCore;
+using PluginCore.Localization;
+
 using ASCompletion.Model;
 
 using ASClassWizard.Wizards;
@@ -57,15 +60,16 @@ namespace ASClassWizard.Wizards
             this.DataProvider = new List<GListBox.GListBoxItem>();
             InitializeComponent();
             InitializeLocalization();
+            this.Font = PluginBase.Settings.DefaultFont;
             this.itemList.ImageList =  ASCompletion.Context.ASContext.Panel.TreeIcons;
             CenterToParent();
         }
 
         private void InitializeLocalization()
         {
-            this.cancelButton.Text = LocaleHelper.GetString("Wizard.Button.SelectNone");
-            this.okButton.Text = LocaleHelper.GetString("Wizard.Button.Ok");
-            this.Text = LocaleHelper.GetString("Wizard.Label.OpenType");
+            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.SelectNone");
+            this.okButton.Text = TextHelper.GetString("Wizard.Button.Ok");
+            this.Text = TextHelper.GetString("Wizard.Label.OpenType");
         }
 
         private void ClassBrowser_Load(object sender, EventArgs e)

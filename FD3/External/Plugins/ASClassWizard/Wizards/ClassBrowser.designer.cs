@@ -101,7 +101,7 @@ namespace ASClassWizard.Wizards
             this.Controls.Add(this.itemList);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ClassBrowser";
             this.Text = "Open Type";
             this.Load += new System.EventHandler(this.ClassBrowser_Load);

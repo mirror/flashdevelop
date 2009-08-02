@@ -11,6 +11,7 @@ using ProjectManager.Controls;
 using ProjectManager.Projects;
 
 using PluginCore;
+using PluginCore.Localization;
 
 using ASClassWizard.Controls.TreeView;
 using ASClassWizard.Resources;
@@ -29,17 +30,17 @@ namespace ASClassWizard.Wizards
             InitializeComponent();
             LocalizeTexts();
             CenterToParent();
-
+            this.Font = PluginBase.Settings.DefaultFont;
             this.browserView.ImageList = Icons.ImageList;
             this.browserView.BeforeExpand += onBeforeExpandNode;
         }
 
         private void LocalizeTexts()
         {
-            this.inviteLabel.Text = LocaleHelper.GetString("Wizard.Label.ChosePackage");
-            this.okButton.Text = LocaleHelper.GetString("Wizard.Button.Ok");
-            this.cancelButton.Text = LocaleHelper.GetString("Wizard.Button.SelectNone");
-            this.Text = LocaleHelper.GetString("Wizard.Label.PackageSelection");
+            this.inviteLabel.Text = TextHelper.GetString("Wizard.Label.ChosePackage");
+            this.okButton.Text = TextHelper.GetString("Wizard.Button.Ok");
+            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.SelectNone");
+            this.Text = TextHelper.GetString("Wizard.Label.PackageSelection");
         }
 
         public Project Project

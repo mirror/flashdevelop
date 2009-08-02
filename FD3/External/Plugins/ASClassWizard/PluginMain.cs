@@ -35,9 +35,9 @@ namespace ASClassWizard
 	{
         private String pluginName = "ASClassWizard";
         private String pluginGuid = "a2c159c1-7d21-4483-aeb1-38d9fdc4c7f3";
-        private String pluginHelp = "www.sephiroth.it";
-        private String pluginDesc = "Actionscript class wizard for the new FlashDevelop 3.";
-        private String pluginAuth = "Alessandro Crugnola";
+        private String pluginHelp = "www.flashdevelop.org";
+        private String pluginDesc = "Provides an ActionScript class wizard for FlashDevelop.";
+        private String pluginAuth = "FlashDevelop Team";
         
         private String settingFilename;
         private Settings settingObject;
@@ -212,13 +212,7 @@ namespace ASClassWizard
 
         public void InitLocalization()
         {
-            LocaleVersion locale = PluginBase.MainForm.Settings.LocaleVersion;
-            switch (locale)
-            {
-                default : 
-                    LocaleHelper.Initialize(LocaleVersion.en_US);
-                    break;
-            }
+            this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 
         private void DisplayClassWizard(String inDirectory)

@@ -156,7 +156,9 @@ namespace FlashDevelop.Docking
         {
             this.focusTimer.Stop();
             if (this.SciControl != null)
+            {
                 this.SciControl.Focus();
+            }
         }
 
         /// <summary>

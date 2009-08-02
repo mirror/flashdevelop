@@ -3070,4 +3070,88 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Defines where new properties (getter, setter) are to be generated.</value>
     <comment>Added after 3.0.2</comment>
   </data>
+  <data name="ASClassWizard.Info.Description" xml:space="preserve">
+    <value>Provides an ActionScript class wizard for FlashDevelop</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Button.Add" xml:space="preserve">
+    <value>&amp;Add</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Button.Browse" xml:space="preserve">
+    <value>Browse...</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Button.Cancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Button.Ok" xml:space="preserve">
+    <value>&amp;Ok</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Button.Remove" xml:space="preserve">
+    <value>&amp;Remove</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Button.SelectNone" xml:space="preserve">
+    <value>&amp;Select None</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Error.InvalidClassName" xml:space="preserve">
+    <value>Class name contains invalid characters.</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.ChosePackage" xml:space="preserve">
+    <value>Choose a package folder:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.CodeGeneration" xml:space="preserve">
+    <value>Code generation:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.GenerateConstructor" xml:space="preserve">
+    <value>Generate constructor matching base class</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.GenerateInherited" xml:space="preserve">
+    <value>Generate interface methods implementations</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.Interfaces" xml:space="preserve">
+    <value>Interfaces:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.Modifiers" xml:space="preserve">
+    <value>Modifiers:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.Name" xml:space="preserve">
+    <value>Name:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.NewAs2Class" xml:space="preserve">
+    <value>New ActionScript 2 Class</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.NewAs3Class" xml:space="preserve">
+    <value>New ActionScript 3 Class</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.OpenType" xml:space="preserve">
+    <value>Open Type</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.Package" xml:space="preserve">
+    <value>Package:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.PackageSelection" xml:space="preserve">
+    <value>Package Selection</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.SuperClass" xml:space="preserve">
+    <value>Base Class:</value>
+    <comment>Added after 3.0.2</comment>
+  </data>
 </root>

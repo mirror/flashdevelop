@@ -89,7 +89,7 @@ namespace ASClassWizard.Wizards
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.browserView);
             this.Controls.Add(this.inviteLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "PackageBrowser";
             this.Load += new System.EventHandler(this.PackageBrowser_Load);
             this.ResumeLayout(false);

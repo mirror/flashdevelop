@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
 using PluginCore;
+using PluginCore.Localization;
 using ProjectManager.Projects;
 
 using ASClassWizard.Wizards;
@@ -40,26 +41,26 @@ namespace ASClassWizard.Wizards
             InitializeComponent();
             LocalizeText();
             CenterToParent();
-
+            this.Font = PluginBase.Settings.DefaultFont;
             this.errorIcon.Image = PluginMain.MainForm.FindImage("197");
         }
 
         private void LocalizeText()
         {
-            this.classLabel.Text = LocaleHelper.GetString("Wizard.Label.Name");
-            this.accessLabel.Text = LocaleHelper.GetString("Wizard.Label.Modifiers");
-            this.baseLabel.Text = LocaleHelper.GetString("Wizard.Label.SuperClass");
-            this.implementLabel.Text = LocaleHelper.GetString("Wizard.Label.Interfaces");
-            this.generationLabel.Text = LocaleHelper.GetString("Wizard.Label.CodeGeneration");
-            this.implementBrowse.Text = LocaleHelper.GetString("Wizard.Button.Add");
-            this.implementRemove.Text = LocaleHelper.GetString("Wizard.Button.Remove");
-            this.constructorCheck.Text = LocaleHelper.GetString("Wizard.Label.GenerateConstructor");
-            this.superCheck.Text = LocaleHelper.GetString("Wizard.Label.GenerateInherited");
-            this.packageLabel.Text = LocaleHelper.GetString("Wizard.Label.Package");
-            this.packageBrowse.Text = LocaleHelper.GetString("Wizard.Button.Browse");
-            this.baseBrowse.Text = LocaleHelper.GetString("Wizard.Button.Browse");
-            this.okButton.Text = LocaleHelper.GetString("Wizard.Button.Ok");
-            this.cancelButton.Text = LocaleHelper.GetString("Wizard.Button.Cancel");
+            this.classLabel.Text = TextHelper.GetString("Wizard.Label.Name");
+            this.accessLabel.Text = TextHelper.GetString("Wizard.Label.Modifiers");
+            this.baseLabel.Text = TextHelper.GetString("Wizard.Label.SuperClass");
+            this.implementLabel.Text = TextHelper.GetString("Wizard.Label.Interfaces");
+            this.generationLabel.Text = TextHelper.GetString("Wizard.Label.CodeGeneration");
+            this.implementBrowse.Text = TextHelper.GetString("Wizard.Button.Add");
+            this.implementRemove.Text = TextHelper.GetString("Wizard.Button.Remove");
+            this.constructorCheck.Text = TextHelper.GetString("Wizard.Label.GenerateConstructor");
+            this.superCheck.Text = TextHelper.GetString("Wizard.Label.GenerateInherited");
+            this.packageLabel.Text = TextHelper.GetString("Wizard.Label.Package");
+            this.packageBrowse.Text = TextHelper.GetString("Wizard.Button.Browse");
+            this.baseBrowse.Text = TextHelper.GetString("Wizard.Button.Browse");
+            this.okButton.Text = TextHelper.GetString("Wizard.Button.Ok");
+            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.Cancel");
         }
 
         public String StartupPackage
@@ -83,11 +84,11 @@ namespace ASClassWizard.Wizards
                     this.publicRadio.Enabled = false;
                     this.internalRadio.Enabled = false;
                     this.finalCheck.Enabled = false;
-                    this.titleLabel.Text = LocaleHelper.GetString("Wizard.Label.NewAs2Class");
+                    this.titleLabel.Text = TextHelper.GetString("Wizard.Label.NewAs2Class");
                 }
                 else
                 {
-                    this.titleLabel.Text = LocaleHelper.GetString("Wizard.Label.NewAs3Class");
+                    this.titleLabel.Text = TextHelper.GetString("Wizard.Label.NewAs3Class");
                 }
             }
         }
@@ -97,7 +98,7 @@ namespace ASClassWizard.Wizards
             string errorMessage = "";
 
             if (getClassName() == "" || Regex.Match(getClassName(), REG_IDENTIFIER, RegexOptions.Singleline).Success == false)
-                errorMessage = LocaleHelper.GetString("Wizard.Error.InvalidClassName");
+                errorMessage = TextHelper.GetString("Wizard.Error.InvalidClassName");
 
 
             if (errorMessage != "")

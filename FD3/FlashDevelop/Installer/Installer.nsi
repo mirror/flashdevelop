@@ -8,7 +8,7 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "3.0.2"
+!define VERSION "3.0.3"
 !define BUILD "RTM"
 
 ; The name of the installer
