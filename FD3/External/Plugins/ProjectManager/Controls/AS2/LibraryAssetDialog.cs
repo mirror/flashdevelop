@@ -428,7 +428,7 @@ namespace ProjectManager.Controls.AS2
             }
             else tabControl.TabPages.Remove(swcTabPage);
 
-            if (asset.IsImage)
+            if (asset.IsImage || asset.IsSound)
             {
                 tabControl.TabPages.Remove(swfTabPage);
                 tabControl.TabPages.Remove(fontTabPage);

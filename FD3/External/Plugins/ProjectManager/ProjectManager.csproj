@@ -48,7 +48,6 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="ABCpdf, Version=6.0.0.9, Culture=neutral, PublicKeyToken=a7a0b3f5184f2169" />
     <Reference Include="PluginCore, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>

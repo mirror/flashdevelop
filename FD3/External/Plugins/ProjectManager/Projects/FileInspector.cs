@@ -65,11 +65,16 @@ namespace ProjectManager.Projects
         public static bool IsFont(string path, string ext)
 		{
             return ext == ".ttf" || ext == ".otf";
-		}
+        }
+
+        public static bool IsSound(string path, string ext)
+        {
+            return ext == ".mp3";
+        }
 
         public static bool IsResource(string path, string ext)
 		{
-			return IsImage(path, ext) || IsSwf(path, ext) || IsFont(path, ext);
+            return IsImage(path, ext) || IsSwf(path, ext) || IsFont(path, ext) || IsSound(path, ext);
 		}
 
 		public static bool IsResource(ICollection paths)
