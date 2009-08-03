@@ -163,7 +163,10 @@ class FlashConnect {
     */
    public static function redirect() {
       Log.trace = function(v : Dynamic, ?infos : PosInfos) {
-         FlashConnect.trace(infos.fileName+":"+infos.lineNumber+": " + Std.string(v));
+         if(infos == null)
+            FlashConnect.trace(Std.string(v));
+         else
+            FlashConnect.trace(infos.fileName+":"+infos.lineNumber+": " + Std.string(v));
       };
    }
 }
