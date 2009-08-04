@@ -582,7 +582,7 @@ namespace ProjectManager
                 psi.WorkingDirectory = Path.GetDirectoryName(path);
                 ProcessHelper.StartAsync(psi);
             }
-            else if (FileInspector.IsSwf(path, Path.GetExtension(path))) OpenSwf(path);
+            else if (FileInspector.IsSwf(path, Path.GetExtension(path).ToLower())) OpenSwf(path);
             else if (path.IndexOf("::") > 0)
             {
                 DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.OpenVirtualFile, path);

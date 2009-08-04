@@ -180,7 +180,7 @@ namespace ProjectManager.Controls
         {
             if (file == null || file == string.Empty)
                 return Icons.BlankFile;
-            string ext = Path.GetExtension(file);
+            string ext = Path.GetExtension(file).ToLower();
             if (FileInspector.IsActionScript(file, ext))
                 return Icons.ActionScript;
             else if (FileInspector.IsHaxeFile(file, ext))
