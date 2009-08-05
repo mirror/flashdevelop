@@ -408,13 +408,13 @@ namespace FlashDevelop.Dialogs
 		/// <summary>
 		/// Finds the next result based on direction
 		/// </summary>
-		public void FindNext(Boolean forward, Boolean update)
+		public void FindNext(Boolean forward, Boolean update, Boolean simple)
 		{
             this.currentMatch = null;
             if (update) this.UpdateFindText();
             if (Globals.SciControl == null) return;
             ScintillaControl sci = Globals.SciControl;
-            List<SearchMatch> matches = this.GetResults(sci);
+            List<SearchMatch> matches = this.GetResults(sci, simple);
             if (matches != null && matches.Count != 0)
             {
                 FRDialogGenerics.UpdateComboBoxItems(this.findComboBox);
@@ -443,6 +443,10 @@ namespace FlashDevelop.Dialogs
             }
             this.SelectText();
 		}
+        public void FindNext(Boolean forward, Boolean update)
+        {
+            this.FindNext(forward, true, false);
+        }
         public void FindNext(Boolean forward)
         {
             this.FindNext(forward, true);
@@ -623,32 +627,39 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Gets search results for a document
         /// </summary>
-        private List<SearchMatch> GetResults(ScintillaControl sci)
+        private List<SearchMatch> GetResults(ScintillaControl sci, Boolean simple)
         {
             if (this.findComboBox.Text != String.Empty)
             {
                 String pattern = this.findComboBox.Text;
                 FRSearch search = new FRSearch(pattern);
-                search.IsEscaped = this.escapedCheckBox.Checked;
-                search.WholeWord = this.wholeWordCheckBox.Checked;
                 search.NoCase = !this.matchCaseCheckBox.Checked;
-                search.IsRegex = this.useRegexCheckBox.Checked;
                 search.Filter = SearchFilter.None;
-                if (this.lookComboBox.SelectedIndex == 2)
+                if (!simple)
                 {
-                    search.Filter = SearchFilter.OutsideCodeComments;
-                }
-                else if (this.lookComboBox.SelectedIndex == 3)
-                {
-                    search.Filter = SearchFilter.InCodeComments;
-                }
-                else if (this.lookComboBox.SelectedIndex == 4)
-                {
-                    search.Filter = SearchFilter.InStringLiterals;
+                    search.IsRegex = this.useRegexCheckBox.Checked;
+                    search.IsEscaped = this.escapedCheckBox.Checked;
+                    search.WholeWord = this.wholeWordCheckBox.Checked;
+                    if (this.lookComboBox.SelectedIndex == 2)
+                    {
+                        search.Filter = SearchFilter.OutsideCodeComments;
+                    }
+                    else if (this.lookComboBox.SelectedIndex == 3)
+                    {
+                        search.Filter = SearchFilter.InCodeComments;
+                    }
+                    else if (this.lookComboBox.SelectedIndex == 4)
+                    {
+                        search.Filter = SearchFilter.InStringLiterals;
+                    }
                 }
                 return search.Matches(sci.Text);
             }
             return null;
+        }
+        private List<SearchMatch> GetResults(ScintillaControl sci)
+        {
+            return this.GetResults(sci, false);
         }
 
         /// <summary>
