@@ -20,6 +20,7 @@ namespace ASClassWizard.Wizards
         public GListBox()
         {
             // Set owner draw mode
+            this.ItemHeight = this.Font.Height + 2;
             this.DrawMode = DrawMode.OwnerDrawFixed;
         }
 

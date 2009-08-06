@@ -45,7 +45,7 @@ namespace ASClassWizard.Wizards
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(219, 270);
+            this.cancelButton.Location = new System.Drawing.Point(220, 270);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 3;
@@ -73,7 +73,7 @@ namespace ASClassWizard.Wizards
             this.itemList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.itemList.FormattingEnabled = true;
             this.itemList.ImageList = null;
-            this.itemList.Location = new System.Drawing.Point(12, 38);
+            this.itemList.Location = new System.Drawing.Point(12, 40);
             this.itemList.Name = "itemList";
             this.itemList.Size = new System.Drawing.Size(282, 225);
             this.itemList.TabIndex = 1;
@@ -96,12 +96,12 @@ namespace ASClassWizard.Wizards
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(307, 305);
+            this.ClientSize = new System.Drawing.Size(306, 303);
             this.Controls.Add(this.filterBox);
             this.Controls.Add(this.itemList);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "ClassBrowser";
             this.Text = "Open Type";
             this.Load += new System.EventHandler(this.ClassBrowser_Load);
