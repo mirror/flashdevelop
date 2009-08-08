@@ -37,11 +37,40 @@ namespace PluginCore.Utilities
         /// </summary> 
         private void ExploreFolder(String path)
         {
-            this.knownPathes.Add(path);
-            String[] files = Directory.GetFiles(path, fileMask);
-            foreach (String file in files)
+            //Avoids performing the split if there are no semi-colons or if fileMask is null which would throw a null-object-reference exception
+            //Not sure if the fileMask NULL case is handled outside, I'll leave that for you to decide whether or not to keep
+            //I suppose if it is handled, you could just perform the split operation always.  Probably no real measurable performance impact either way.
+            if (fileMask != null && fileMask.Contains(";"))
             {
-                this.foundFiles.Add(file);
+                this.ExploreFolderWithMasks(path, fileMask.Split(new Char[1]{';'}, StringSplitOptions.RemoveEmptyEntries));
+            }
+            else
+            {
+                this.ExploreFolderWithMasks(path, new String[1] { fileMask });
+            }
+        }
+
+        /// <summary>
+        /// Explores the content of the folder using the given set of file masks.
+        /// </summary>
+        /// <param name="path">The root folder to explore.</param>
+        /// <param name="masks">A collection of file masks to match against.</param>
+        private void ExploreFolderWithMasks(String path, String[] masks)
+        {
+            this.knownPathes.Add(path);
+
+            //checks the directory for each mask provided
+            foreach (String mask in masks)
+            {
+                String[] files = Directory.GetFiles(path, mask);
+                foreach (String file in files)
+                {
+                    //prevents the addition of the same file multiple times if it happens to match multiple masks
+                    if (!this.foundFiles.Contains(file))
+                    {
+                        this.foundFiles.Add(file);
+                    }
+                }
             }
             if (!recursive) return;
             String[] dirs = Directory.GetDirectories(path);
@@ -51,7 +80,7 @@ namespace PluginCore.Utilities
                 {
                     if (!this.knownPathes.Contains(dir))
                     {
-                        this.ExploreFolder(dir);
+                        this.ExploreFolderWithMasks(dir, masks);
                     }
                 }
                 catch { /* Might be system folder.. */ };
