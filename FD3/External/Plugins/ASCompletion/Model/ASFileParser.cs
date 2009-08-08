@@ -942,7 +942,7 @@ namespace ASCompletion.Model
 					
 					else if (c1 == '(')
 					{
-                        if (!inValue && context == FlagType.Variable)
+                        if (!inValue && context == FlagType.Variable && curToken.Text != "catch")
                             if (haXe && curMember != null && valueLength == 0) // haXe properties
                             {
                                 curMember.Flags -= FlagType.Variable;
@@ -1019,7 +1019,7 @@ namespace ASCompletion.Model
                             if (curClass != null && curMember == null) curClass.Members.Add(curMethod);
                         }
 
-                        else if (curMember == null) context = 0;
+                        else if (curMember == null && curToken.Text != "catch") context = 0;
 					}
 					
 					// end of statement
@@ -1193,7 +1193,7 @@ namespace ASCompletion.Model
                 if (dotIndex > 0) token = token.Substring(dotIndex + 1);
 
 				// members
-				if (token == "var")
+				if (token == "var" || token == "catch")
 				{
 					foundKeyword = FlagType.Variable;
 				}
