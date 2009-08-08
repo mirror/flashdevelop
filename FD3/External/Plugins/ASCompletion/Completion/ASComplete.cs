@@ -105,7 +105,7 @@ namespace ASCompletion.Completion
                         if (features.HasTypePreKey(word))
 							return HandleNewCompletion(Sci, "", autoHide, word);
                         // import
-                        if (features.hasImports && word == features.importKey)
+                        if (features.hasImports && (word == features.importKey || word == features.importKeyAlt))
 							return HandleImportCompletion(Sci, "", autoHide);
                         // public/internal/private/protected/static
                         if (word == features.publicKey || word == features.internalKey
@@ -1220,7 +1220,8 @@ namespace ASCompletion.Completion
 				return true;
             ContextFeatures features = ASContext.Context.Features;
             int dotIndex = expr.Value.LastIndexOf(features.dot);
-			if (dotIndex == 0) return true;
+            if (dotIndex == 0 && expr.Separator != '"')
+                return true;
 
 			// complete keyword
             if (expr.WordBefore != null &&
@@ -1230,18 +1231,21 @@ namespace ASCompletion.Completion
 			if (dotIndex < 0)
 			{
                 string word = expr.WordBefore;
-                if (word == "class" || word == "package" || word == "interface")
-                    return false;
-                // new/extends/implements
-                if (features.HasTypePreKey(word))
-                    return HandleNewCompletion(Sci, expr.Value, autoHide, word);
-                // type
-				if (features.hasEcmaTyping && expr.Separator == ':' 
-                    && HandleColonCompletion(Sci, expr.Value, autoHide)) 
-                    return true;
-                // import
-				if (features.hasImports && word == features.importKey)
-					return HandleImportCompletion(Sci, expr.Value, autoHide);
+                if (word != null)
+                {
+                    if (word == "class" || word == "package" || word == "interface")
+                        return false;
+                    // new/extends/implements
+                    if (features.HasTypePreKey(word))
+                        return HandleNewCompletion(Sci, expr.Value, autoHide, word);
+                    // type
+                    if (features.hasEcmaTyping && expr.Separator == ':'
+                        && HandleColonCompletion(Sci, expr.Value, autoHide))
+                        return true;
+                    // import
+                    if (features.hasImports && (word == features.importKey || word == features.importKeyAlt))
+                        return HandleImportCompletion(Sci, expr.Value, autoHide);
+                }
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=') 
                     || expr.coma == ComaExpression.AnonymousObject 
@@ -1303,7 +1307,13 @@ namespace ASCompletion.Completion
 			else
 			{
 				result = new ASResult();
-				tmpClass = cClass;
+                if (expr.Separator == '"')
+                {
+                    tmpClass = ctx.ResolveType("String", null);
+                    result.Type = tmpClass;
+                    dotIndex = 1;
+                }
+                else tmpClass = cClass;
 			}
 			MemberList mix = new MemberList();
 			// local vars are the first thing to try
@@ -1613,6 +1623,7 @@ namespace ASCompletion.Completion
             if (expression.StartsWith(features.dot))
             {
                 if (expression.StartsWith(features.dot + "#")) expression = expression.Substring(1);
+                else if (context.Separator == '"') expression = '"' + expression;
                 else return notFound;
             }
 
@@ -1623,42 +1634,53 @@ namespace ASCompletion.Completion
             if (asFunction && tokens.Length == 1) token += "(";
 
 			ASResult head;
-            if (token.Length == 0) 
+            if (token.Length == 0)
                 return notFound;
+            
             else if (token.StartsWith("#"))
-			{
-				Match mSub = re_sub.Match(token);
-				if (mSub.Success)
-				{
-					string subExpr = context.SubExpressions[ Convert.ToInt16(mSub.Groups["index"].Value) ];
-					// parse sub expression
-					subExpr = subExpr.Substring(1,subExpr.Length-2).Trim();
+            {
+                Match mSub = re_sub.Match(token);
+                if (mSub.Success)
+                {
+                    string subExpr = context.SubExpressions[Convert.ToInt16(mSub.Groups["index"].Value)];
+                    // parse sub expression
+                    subExpr = subExpr.Substring(1, subExpr.Length - 2).Trim();
                     ASExpr subContext = new ASExpr(context);
-					subContext.SubExpressions = ExtractedSubex = new List<string>();
-					subExpr = re_balancedParenthesis.Replace(subExpr, new MatchEvaluator(ExtractSubex));
-					Match m = re_refineExpression.Match(subExpr);
-					if (!m.Success) return notFound;
+                    subContext.SubExpressions = ExtractedSubex = new List<string>();
+                    subExpr = re_balancedParenthesis.Replace(subExpr, new MatchEvaluator(ExtractSubex));
+                    Match m = re_refineExpression.Match(subExpr);
+                    if (!m.Success) return notFound;
                     Regex re_dot = new Regex("[\\s]*" + Regex.Escape(features.dot) + "[\\s]*");
-					subExpr = re_dot.Replace( re_whiteSpace.Replace(m.Value, " ") , features.dot).Trim();
-					int space = subExpr.LastIndexOf(' ');
+                    subExpr = re_dot.Replace(re_whiteSpace.Replace(m.Value, " "), features.dot).Trim();
+                    int space = subExpr.LastIndexOf(' ');
                     if (space > 0)
                     {
                         string trash = subExpr.Substring(0, space).TrimEnd();
                         subExpr = subExpr.Substring(space + 1);
                         if (trash.EndsWith("as")) subExpr += features.dot + "#";
                     }
-					// eval sub expression
-					head = EvalExpression(subExpr, subContext, inFile, inClass, true, false);
-					if (head.Member != null)
-						head.Type = ASContext.Context.ResolveType(head.Member.Type, head.Type.InFile);
-				}
-				else
-				{
-					token = token.Substring(token.IndexOf('~')+1);
-					head = EvalVariable(token, context, inFile, inClass);
-				}
-			}
-			else head = EvalVariable(token, context, inFile, inClass);
+                    // eval sub expression
+                    head = EvalExpression(subExpr, subContext, inFile, inClass, true, false);
+                    if (head.Member != null)
+                        head.Type = ASContext.Context.ResolveType(head.Member.Type, head.Type.InFile);
+                }
+                else
+                {
+                    token = token.Substring(token.IndexOf('~') + 1);
+                    head = EvalVariable(token, context, inFile, inClass);
+                }
+            }
+            else if (token == "\"") // literal string
+            {
+                head = new ASResult();
+                head.Type = ASContext.Context.ResolveType("String", null);
+            }
+            else if (token[0] >= '1' && token[0] <= '9') // literal number
+            {
+                head = new ASResult();
+                head.Type = ASContext.Context.ResolveType("Number", null);
+            }
+            else head = EvalVariable(token, context, inFile, inClass); // regular eval
 
 			// no head, exit
 			if (head.IsNull()) return notFound;
@@ -2398,7 +2420,8 @@ namespace ASCompletion.Completion
                     }
                     else //if (hadWS && !hadDot)
                     {
-                        expression.Separator = ';';
+                        if (c == '\'' || c == '"') expression.Separator = '"';
+                        else expression.Separator = ';';
                         break;
                     }
                 }
@@ -2847,10 +2870,10 @@ namespace ASCompletion.Completion
 
             if (expr.Separator == ' ' && expr.WordBefore != null)
             {
-                if (expr.WordBefore == features.importKey
+                if (expr.WordBefore == features.importKey || expr.WordBefore == features.importKeyAlt
                     || (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case" && expr.WordBefore != "return"))
                 {
-                    if (expr.WordBefore == features.importKey)
+                    if (expr.WordBefore == features.importKey || expr.WordBefore == features.importKeyAlt)
                         ASContext.Context.RefreshContextCache(expr.Value);
                     return true;
                 }

@@ -58,6 +58,7 @@ namespace ASCompletion.Completion
         public string voidKey;
         public string objectKey;
         public string importKey;
+        public string importKeyAlt;
         public string[] typesPreKeys = new string[] { };
         public string[] codeKeywords = new string[] { };
         public string varKey;
@@ -178,6 +179,7 @@ namespace ASCompletion.Completion
                 if (hasImplements && !foundSpecial) access.Add("implements");
 
                 if (!foundAccess && importKey != null) access.Add(importKey);
+                if (!foundAccess && importKeyAlt != null) access.Add(importKeyAlt);
             }
             access.Sort();
             return access;

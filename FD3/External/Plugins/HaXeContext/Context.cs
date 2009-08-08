@@ -80,7 +80,8 @@ namespace HaXeContext
             features.voidKey = "Void";
             features.objectKey = "Dynamic";
             features.importKey = "import";
-            features.typesPreKeys = new string[] { "import", "new", "extends", "implements" };
+            features.importKeyAlt = "using";
+            features.typesPreKeys = new string[] { "import", "new", "extends", "implements", "using" };
             features.codeKeywords = new string[] { 
                 "var", "function", "new", "delete", "cast", "return", "break", "continue",
                 "if", "else", "for", "while", "do", "switch", "case", "default", "with",

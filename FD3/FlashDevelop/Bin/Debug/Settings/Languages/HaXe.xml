@@ -2,7 +2,7 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="haxe-primary-keywords">
-			function class var if else  while do for break continue return extends implements import switch case default static 
+			function class var if else  while do for break continue return extends implements import using switch case default static 
 			public private try catch new throw extern enum in interface untyped cast package typedef override f9dynamic inline
 		</keyword-class>
 		<keyword-class name="haxe-secondary-keywords">
