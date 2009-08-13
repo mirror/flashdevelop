@@ -2097,6 +2097,12 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
   <data name="ResultsPanel.Label.CopyEntry" xml:space="preserve">
     <value>Copy &amp;Entry</value>
   </data>
+  <data name="ResultsPanel.Label.IgnoreEntry" xml:space="preserve">
+    <value>Ignore &amp;Entry</value>
+  </data>
+  <data name="ResultsPanel.Label.ClearIgnoredEntries" xml:space="preserve">
+    <value>Clear &amp;Ignored &amp; Entries</value>
+  </data>
   <data name="ResultsPanel.Label.ViewMenuItem" xml:space="preserve">
     <value>&amp;Results Panel</value>
   </data>

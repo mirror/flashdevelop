@@ -3,6 +3,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using WeifenLuo.WinFormsUI.Docking;
 using PluginCore.Localization;
@@ -19,6 +20,9 @@ namespace ResultsPanel
         private ListView entriesView;
         private ToolStripMenuItem nextEntry;
         private ToolStripMenuItem previousEntry;
+        private ToolStripMenuItem ignoreEntryContextMenuItem;
+        private ToolStripMenuItem clearIgnoredEntriesContextMenuItem;
+        private IDictionary<String, Boolean> ignoredEntries;
         private ColumnHeader entryFile;
 		private ColumnHeader entryDesc;
 		private ColumnHeader entryLine;
@@ -32,12 +36,12 @@ namespace ResultsPanel
 		{
             this.pluginMain = pluginMain;
             this.logCount = TraceManager.TraceLog.Count;
+            this.ignoredEntries = new Dictionary<String, Boolean>();
             this.InitializeComponent();
             this.InitializeContextMenu();
             this.InitializeGraphics();
             this.InitializeTexts();
             this.ApplySettings();
-
             this.autoShow = new Timer();
             this.autoShow.Interval = 300;
             this.autoShow.Tick += AutoShowPanel;
@@ -149,6 +153,11 @@ namespace ResultsPanel
             ContextMenuStrip menu = new ContextMenuStrip();
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CopyEntry"), null, new EventHandler(this.CopyTextClick)));
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ClearEntries"), null, new EventHandler(this.ClearOutputClick)));
+            this.ignoreEntryContextMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.IgnoreEntry"), null, new EventHandler(this.IgnoreEntryClick));
+            menu.Items.Add(this.ignoreEntryContextMenuItem);
+            this.clearIgnoredEntriesContextMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.ClearIgnoredEntries"), null, new EventHandler(this.ClearIgnoredEntries));
+            this.clearIgnoredEntriesContextMenuItem.Visible = false;
+            menu.Items.Add(this.clearIgnoredEntriesContextMenuItem);
             menu.Items.Add(new ToolStripSeparator());
             this.nextEntry = new ToolStripMenuItem(TextHelper.GetString("Label.NextEntry"), null, new EventHandler(this.NextEntry));
             this.nextEntry.Enabled = false;
@@ -214,6 +223,40 @@ namespace ResultsPanel
                 }
                 Clipboard.SetDataObject(copy);
             }
+        }
+
+        /// <summary>
+        /// Clears any result entries that are ignored.  Invoked from the context menu.
+        /// Note that this doesn't immediately reshow any entries that would come up.
+        /// The user must re-invoke the results panel listing again to see the ignored entries.
+        /// </summary>
+        public void ClearIgnoredEntries(Object sender, System.EventArgs e)
+        {
+            this.ignoredEntries.Clear();
+            this.clearIgnoredEntriesContextMenuItem.Visible = false;
+        }
+
+        /// <summary>
+        /// Ignores the currently selected entries.
+        /// </summary>
+        public void IgnoreEntryClick(Object sender, System.EventArgs e)
+        {
+            List<ListViewItem> newIgnoredEntries = new List<ListViewItem>();
+            foreach (ListViewItem item in this.entriesView.SelectedItems)
+            {
+                Match match = (Match)item.Tag;
+                string entryValue = match.Value;
+                if (!this.ignoredEntries.ContainsKey(entryValue))
+                {
+                    this.ignoredEntries.Add(entryValue, false);
+                    newIgnoredEntries.Add(item);
+                }
+            }
+            foreach (ListViewItem item in newIgnoredEntries)
+            {
+                this.entriesView.Items.Remove(item);
+            }
+            this.clearIgnoredEntriesContextMenuItem.Visible = (this.ignoredEntries.Count > 0);
         }
 
         /// <summary>
@@ -345,6 +388,9 @@ namespace ResultsPanel
             autoShow.Start();
         }
 
+        /// <summary>
+        /// Shows the panel
+        /// </summary>
         private void AutoShowPanel(Object sender, System.EventArgs e)
         {
             autoShow.Stop();
@@ -393,7 +439,7 @@ namespace ResultsPanel
                     }
                     match = fileEntry.Match(fileTest);
                     if (!match.Success) match = fileEntry2.Match(fileTest);
-                    if (match.Success)
+                    if (match.Success && !this.ignoredEntries.ContainsKey(match.Value))
                     {
                         string filename = match.Groups["filename"].Value;
                         if (!File.Exists(filename)) continue;

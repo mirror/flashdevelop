@@ -1294,6 +1294,7 @@ namespace FlashDevelop
             document.IsModified = false;
             this.reloadingDocument = false;
             this.OnUpdateMainFormDialogTitle();
+            if (document.IsEditable) document.SciControl.MarkerDeleteAll(2);
             ButtonManager.UpdateFlaggedButtons();
         }
 
