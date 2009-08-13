@@ -37,8 +37,15 @@ namespace ASCompletion.Completion
 		static private readonly Regex re_sub = new Regex("^#(?<index>[0-9]+)~$", ASFileParser.ro_cs);
 		#endregion
 
-		#region application_event_handlers
-		/// <summary>
+        #region completion_history
+        //stores the currently used class namespace and name
+        static private String currentClassHash = null;
+        //stores the last completed member for each class
+        static private IDictionary<String, String> completionHistory = new Dictionary<String, String>();
+        #endregion
+
+        #region application_event_handlers
+        /// <summary>
 		/// Character written in editor
 		/// </summary>
 		/// <param name="Value">Character inserted</param>
@@ -1213,6 +1220,9 @@ namespace ASCompletion.Completion
 		/// <returns>Auto-completion has been handled</returns>
 		static private bool HandleDotCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide)
 		{
+            //this method can exit at multiple points, so reset the current class now rather than later
+            currentClassHash = null;
+
 			// get expression at cursor position
 			int position = Sci.CurrentPos;
 			ASExpr expr = GetExpression(Sci, position);
@@ -1315,6 +1325,10 @@ namespace ASCompletion.Completion
                 }
                 else tmpClass = cClass;
 			}
+
+            //stores a reference to our current class.  tmpClass gets overwritten later, so we need to store the current class separately
+            ClassModel classScope = tmpClass;
+
 			MemberList mix = new MemberList();
 			// local vars are the first thing to try
             if ((result.IsNull() || (dotIndex < 0)) && expr.ContextFunction != null)
@@ -1376,6 +1390,22 @@ namespace ASCompletion.Completion
 			foreach(MemberModel member in mix)
                 list.Add(new MemberItem(member));
 			CompletionList.Show(list, autoHide, tail);
+
+            // remember the latest class resolved for completion to store later the inserted member
+            currentClassHash = classScope.QualifiedName;
+
+            // if the completion history has a matching entry, it means the user has previously completed from this class.
+            if (completionHistory.ContainsKey(currentClassHash))
+            {
+                // If the last-completed member for the class starts with the currently typed text (tail), select it!
+                // Note that if the tail is currently empty (i.e., the user has just typed the first dot), this still passes.
+                // This allows it to highlight the last-completed member instantly just by hitting the dot.
+                if (completionHistory[currentClassHash].ToLower().StartsWith(tail.ToLower()))
+                {
+                    CompletionList.SelectItem(completionHistory[currentClassHash]);
+                }
+            }
+
             if (outOfDate) ctx.SetOutOfDate();
 			return true;
 		}
@@ -1732,7 +1762,21 @@ namespace ASCompletion.Completion
                     {
                         step.inFile = step.inClass.InFile;
                     }
-                    FindMember(token, resultClass, step, mask, acc);
+
+
+                    // if the current class ends back to the starting point (classA -> classB -> classA), 
+                    // restore the private, protected, and internal member references
+                    if (curClass != null && curClass == step.Type)
+                    {
+                        // full visibility for this evaluation only
+                        Visibility selfVisibility = acc | Visibility.Private | Visibility.Protected | Visibility.Internal;
+                        FindMember(token, resultClass, step, mask, selfVisibility);
+                    }
+                    else
+                    {
+                        FindMember(token, resultClass, step, mask, acc);
+                    }
+                    
                     // handle E4X expressions
                     if (step.Type == null)
                     {
@@ -2763,6 +2807,12 @@ namespace ASCompletion.Completion
         /// </summary>
         static internal void HandleCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger, ICompletionListItem item)
         {
+            // if the current class hash was set, we want to store whatever the user selected as the last-completed member for this class.
+            if (currentClassHash != null)
+            {
+                completionHistory[currentClassHash] = text;
+            }
+
             if (!ASContext.Context.IsFileValid)
                 return;
             // let the context handle the insertion
