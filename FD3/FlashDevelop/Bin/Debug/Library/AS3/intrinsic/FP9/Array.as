@@ -59,7 +59,7 @@ package
 		public function shift () : *;
 
 		/// Returns a new array that consists of a range of elements from the original array.
-		public function slice (A:* = 0, B:* = 4294967295) : Array;
+		public function slice (startIndex:* = 0, endIndex:* = 16777215) : Array;
 
 		/// Executes a test function on each item in the array until an item is reached that returns true.
 		public function some (callback:Function, thisObject:* = null) : Boolean;
@@ -68,10 +68,10 @@ package
 		public function sort (...rest) : *;
 
 		/// Sorts the elements in an array according to one or more fields in the array.
-		public function sortOn (names:*, options:* = 0, ...rest) : *;
+		public function sortOn (names:*, options:* = null) : *;
 
 		/// Adds elements to and removes elements from an array.
-		public function splice (...rest) : *;
+		public function splice (startIndex:int, deleteCount:uint, ...rest) : *;
 
 		/// Adds one or more elements to the beginning of an array and returns the new length of the array.
 		public function unshift (...rest) : uint;
