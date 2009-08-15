@@ -233,8 +233,8 @@ namespace PluginCore.Controls
 			coord = sci.PointToScreen(coord);
 			coord = ((Form)PluginBase.MainForm).PointToClient(coord);
 			cl.Left = coord.X-20 + sci.Left;
-			if (listUp) cl.Top = coord.Y-cl.Height + sci.Top;
-            else cl.Top = coord.Y + UITools.Manager.LineHeight(sci) + sci.Top;
+			if (listUp) cl.Top = coord.Y-cl.Height;
+            else cl.Top = coord.Y + UITools.Manager.LineHeight(sci);
             // Keep on control area
             if (cl.Right > ((Form)PluginBase.MainForm).ClientRectangle.Right)
             {

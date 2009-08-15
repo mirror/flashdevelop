@@ -186,6 +186,7 @@ namespace ASCompletion.Context
             }
             set
             {
+                cacheRefreshTimer.Stop();
                 if (value == null)
                 {
                     cFile = FileModel.Ignore;
@@ -924,6 +925,8 @@ namespace ASCompletion.Context
         /// <param name="updateUI">Update outline view</param>
         public virtual void UpdateCurrentFile(bool updateUI)
         {
+            if (cFile == null || CurSciControl == null)
+                return;
             ASFileParser parser = new ASFileParser();
             parser.ParseSrc(cFile, CurSciControl.Text);
             cLine = CurSciControl.LineFromPosition(CurSciControl.CurrentPos);

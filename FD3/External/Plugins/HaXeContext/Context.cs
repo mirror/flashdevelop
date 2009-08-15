@@ -83,9 +83,9 @@ namespace HaXeContext
             features.importKeyAlt = "using";
             features.typesPreKeys = new string[] { "import", "new", "extends", "implements", "using" };
             features.codeKeywords = new string[] { 
-                "var", "function", "new", "delete", "cast", "return", "break", "continue",
+                "var", "function", "new", "cast", "return", "break", "continue", "callback",
                 "if", "else", "for", "while", "do", "switch", "case", "default", "with",
-                "null", "undefined", "true", "false", "try", "catch", "finally", "throw"
+                "null", "undefined", "true", "false", "try", "catch", "throw", "inline", "dynamic"
             };
             features.varKey = "var";
             features.functionKey = "function";
@@ -194,7 +194,7 @@ namespace HaXeContext
                     if (!std.WasExplored && !Settings.LazyClasspathExploration)
                     {
                         PathExplorer stdExplorer = new PathExplorer(this, std);
-                        stdExplorer.HideDirectories(new string[] { "flash", "flash9", "js", "neko", "php" });
+                        stdExplorer.HideDirectories(new string[] { "flash", "flash9", "js", "neko", "php", "cpp" });
                         stdExplorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
                         stdExplorer.Run();
                     }
@@ -282,7 +282,6 @@ namespace HaXeContext
                 return Visibility.Public;
         }
 
-
         /// <summary>
         /// Return the full project classes list
         /// </summary>
@@ -301,6 +300,10 @@ namespace HaXeContext
             {
                 foreach (FileModel aFile in aPath.Files.Values)
                 {
+                    string module = Path.GetFileNameWithoutExtension(aFile.FileName);
+                    string qmodule = aFile.Package.Length > 0 ? aFile.Package + "." + module : module;
+                    bool needModule = true;
+
                     if (aFile.Classes.Count > 0 && !aFile.Classes[0].IsVoid())
                         foreach (ClassModel aClass in aFile.Classes)
                         {
@@ -308,22 +311,90 @@ namespace HaXeContext
                                 && (aClass.Access == Visibility.Public
                                     || (aClass.Access == Visibility.Internal && aClass.InFile.Package == package)))
                             {
-                                item = aClass.ToMemberModel();
-                                item.Name = item.Type;
-                                fullList.Add(item);
+                                if (aClass.Name == module)
+                                {
+                                    needModule = false;
+                                    item = aClass.ToMemberModel();
+                                    if (aClass.InFile.Package != package) item.Name = item.Type;
+                                    fullList.Add(item);
+                                    break;
+                                }
                             }
                         }
+                    // HX files correspond to a "module" which should appear in code completion
+                    // (you don't import classes defined in modules but the module itself)
+                    if (needModule)
+                    {
+                        item = new MemberModel(qmodule, qmodule, FlagType.Class, Visibility.Public);
+                        fullList.Add(item);
+                    }
                 }
             }
-            // void
-            //fullList.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));
+            // display classes declared in imported modules
+            MemberList imports = ResolveImports(cFile);
+            FlagType mask = FlagType.Class | FlagType.Enum;
+            foreach (MemberModel import in imports)
+            {
+                if (!(import is ClassModel) && (import.Flags & mask) > 0)
+                {
+                    fullList.Add(import);
+                }
+            }
 
             // in cache
             fullList.Sort();
             completionCache.AllTypes = fullList;
             return fullList;
         }
-        
+
+        /// <summary>
+        /// Return imported classes list (not null)
+        /// </summary>
+        /// <param name="package">Package to explore</param>
+        /// <param name="inFile">Current file</param>
+        public override MemberList ResolveImports(FileModel inFile)
+        {
+            bool filterImports = (inFile == cFile);
+            int lineMin = (filterImports && inPrivateSection) ? inFile.PrivateSectionIndex : 0;
+            int lineMax = (filterImports && inPrivateSection) ? int.MaxValue : inFile.PrivateSectionIndex;
+            MemberList imports = new MemberList();
+            foreach (MemberModel item in inFile.Imports)
+            {
+                if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
+
+                if (item.Name != "*")
+                {
+                    if (settings.LazyClasspathExploration) imports.Add(item);
+                    else
+                    {
+                        // HX files are "modules": when imported all the classes contained are available
+                        ClassModel type = ResolveType(item.Type, null);
+                        if (!type.IsVoid())
+                        {
+                            foreach (ClassModel aClass in type.InFile.Classes)
+                            {
+                                imports.Add(aClass);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // classes matching wildcard
+                    FileModel matches = ResolvePackage(item.Type.Substring(0, item.Type.Length - 2), false);
+
+                    if (matches != null)
+                    {
+                        foreach (MemberModel import in matches.Imports)
+                            imports.Add(import);
+                        foreach (MemberModel member in matches.Members)
+                            imports.Add(member);
+                    }
+                }
+            }
+            return imports;
+        }
+
         /// <summary>
 		/// Retrieves a class model from its name
 		/// </summary>
@@ -446,7 +517,7 @@ namespace HaXeContext
         /// <returns>Package folders and types</returns>
         public override FileModel ResolvePackage(string name, bool lazyMode)
         {
-            if (settings.LazyClasspathExploration && flashVersion == 9 && name == "flash") 
+            if (settings.LazyClasspathExploration && flashVersion >= 9 && name == "flash") 
                 name = "flash9";
             return base.ResolvePackage(name, lazyMode);
         }

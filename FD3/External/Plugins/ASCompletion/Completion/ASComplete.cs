@@ -1392,10 +1392,10 @@ namespace ASCompletion.Completion
 			CompletionList.Show(list, autoHide, tail);
 
             // remember the latest class resolved for completion to store later the inserted member
-            currentClassHash = classScope.QualifiedName;
+            currentClassHash = classScope != null ? classScope.QualifiedName : null;
 
             // if the completion history has a matching entry, it means the user has previously completed from this class.
-            if (completionHistory.ContainsKey(currentClassHash))
+            if (currentClassHash != null && completionHistory.ContainsKey(currentClassHash))
             {
                 // If the last-completed member for the class starts with the currently typed text (tail), select it!
                 // Note that if the tail is currently empty (i.e., the user has just typed the first dot), this still passes.
@@ -1620,7 +1620,7 @@ namespace ASCompletion.Completion
 
             List<ICompletionListItem> list = new List<ICompletionListItem>();
             string prev = null;
-            FlagType mask = (classesOnly) ? FlagType.Class | FlagType.Interface : (FlagType)uint.MaxValue;
+            FlagType mask = (classesOnly) ? FlagType.Class | FlagType.Interface | FlagType.Enum : (FlagType)uint.MaxValue;
             foreach (MemberModel member in known)
             {
                 if ((member.Flags & mask) == 0 || prev == member.Name) 
