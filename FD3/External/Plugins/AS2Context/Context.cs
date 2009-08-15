@@ -951,7 +951,7 @@ namespace AS2Context
                 // other classes in same package
                 if (features.hasPackages && cFile.Package.Length > 0)
                 {
-                    bool qualify = Settings.CompletionShowQualifiedTypes;
+                    bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports;
                     FileModel packageElements = ResolvePackage(cFile.Package, false);
                     if (packageElements != null)
                     {
@@ -973,7 +973,8 @@ namespace AS2Context
                 // other classes in same file
                 else
                 {
-                    bool qualify = Settings.CompletionShowQualifiedTypes && cFile.Package.Length > 0;
+                    bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports 
+                        && cFile.Package.Length > 0;
                     MemberModel member;
                     foreach (ClassModel aClass in cFile.Classes)
                     {

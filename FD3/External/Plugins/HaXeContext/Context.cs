@@ -307,18 +307,20 @@ namespace HaXeContext
                     if (aFile.Classes.Count > 0 && !aFile.Classes[0].IsVoid())
                         foreach (ClassModel aClass in aFile.Classes)
                         {
+                            string tpackage = aClass.InFile.Package;
                             if (aClass.IndexType == null
                                 && (aClass.Access == Visibility.Public
-                                    || (aClass.Access == Visibility.Internal && aClass.InFile.Package == package)))
+                                    || (aClass.Access == Visibility.Internal && tpackage == package)))
                             {
                                 if (aClass.Name == module)
                                 {
                                     needModule = false;
                                     item = aClass.ToMemberModel();
-                                    if (aClass.InFile.Package != package) item.Name = item.Type;
+                                    if (tpackage != package) item.Name = item.Type;
                                     fullList.Add(item);
-                                    break;
                                 }
+                                else if (tpackage == "") fullList.Add(aClass.ToMemberModel());
+                                else if (tpackage == package) fullList.Add(aClass.ToMemberModel());
                             }
                         }
                     // HX files correspond to a "module" which should appear in code completion
@@ -330,12 +332,12 @@ namespace HaXeContext
                     }
                 }
             }
-            // display classes declared in imported modules
+            // display imported classes and classes declared in imported modules
             MemberList imports = ResolveImports(cFile);
             FlagType mask = FlagType.Class | FlagType.Enum;
             foreach (MemberModel import in imports)
             {
-                if (!(import is ClassModel) && (import.Flags & mask) > 0)
+                if ((import.Flags & mask) > 0)
                 {
                     fullList.Add(import);
                 }

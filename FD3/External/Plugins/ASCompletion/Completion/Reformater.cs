@@ -228,24 +228,21 @@ namespace ASCompletion.Completion
                     }
                     else needSpace = (c != '!' || (c2 != '(' && c2 != '['));
 
-                    if (options.isPhp)
+                    if (i < n && c == '-' && txt[i] == '>') // php dot operator, haxe function
                     {
-                        if (i < n && c == '-' && txt[i] == '>') // php dot operator
-                        {
-                            sb.Append(c).Append(txt[i]);
-                            c2 = ' ';
-                            needSpace = false;
-                            i++;
-                            continue;
-                        }
-                        else if (i < n && c2 == '.' && c == '=') // php concat operator
-                        {
-                            needSpace = false;
-                        }
-                        else if (i < n && c2 == '=' && c == '>') // php array(key => value)
-                        {
-                            needSpace = false;
-                        }
+                        sb.Append(c).Append(txt[i]);
+                        c2 = ' ';
+                        needSpace = false;
+                        i++;
+                        continue;
+                    }
+                    else if (i < n && c2 == '.' && c == '=') // php concat operator
+                    {
+                        needSpace = false;
+                    }
+                    else if (i < n && c2 == '=' && c == '>') // php array(key => value)
+                    {
+                        needSpace = false;
                     }
 
                     if (options.BraceAfterLine && c == '{')
