@@ -1705,11 +1705,6 @@ namespace ASCompletion.Completion
                 head = new ASResult();
                 head.Type = ASContext.Context.ResolveType("String", null);
             }
-            else if (token[0] >= '1' && token[0] <= '9') // literal number
-            {
-                head = new ASResult();
-                head.Type = ASContext.Context.ResolveType("Number", null);
-            }
             else head = EvalVariable(token, context, inFile, inClass); // regular eval
 
 			// no head, exit
