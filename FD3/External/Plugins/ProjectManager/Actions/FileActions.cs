@@ -415,7 +415,7 @@ namespace ProjectManager.Actions
 
                 if (!ConfirmOverwrite(toPath)) return;
 
-                if (File.Exists(toPath) || Directory.Exists(toPath))
+                if (File.Exists(toPath))
                 {
                     if (!FileHelper.Recycle(toPath))
                     {
@@ -426,7 +426,7 @@ namespace ProjectManager.Actions
 
                 OnFileCreated(toPath);
 
-                if (Directory.Exists(fromPath)) Directory.Move(fromPath, toPath);
+                if (Directory.Exists(fromPath)) MoveDirectory(fromPath, toPath);
                 else File.Move(fromPath, toPath);
 
                 OnFileMoved(fromPath, toPath);
@@ -437,6 +437,27 @@ namespace ProjectManager.Actions
                 ErrorManager.ShowError(exception);
             }
             finally { PopCurrentDirectory(); }
+        }
+
+        private void MoveDirectory(string fromPath, string toPath)
+        {
+            if (Directory.GetDirectoryRoot(fromPath) == Directory.GetDirectoryRoot(toPath)
+                && !Directory.Exists(toPath))
+            {
+                Directory.Move(fromPath, toPath);
+            }
+            else
+            {
+                try
+                {
+                    CopyDirectory(fromPath, toPath);
+                    Directory.Delete(fromPath, true);
+                }
+                catch (Exception subEx)
+                {
+                    throw;
+                }
+            }
         }
 
         public void Copy(string fromPath, string toPath)
