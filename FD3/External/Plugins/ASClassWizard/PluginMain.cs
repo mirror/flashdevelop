@@ -244,7 +244,19 @@ namespace ASClassWizard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string cPackage     = dialog.getPackage();
-                string newFilePath  = Path.ChangeExtension(Path.Combine(dialog.Directory.Replace('.', Path.DirectorySeparatorChar), dialog.getClassName()), ".as");
+                string newFilePath  = Path.ChangeExtension(Path.Combine(dialog.Directory, dialog.getClassName()), ".as");
+
+                if (File.Exists(newFilePath))
+                {
+                    string title = " " + TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
+                    string message = TextHelper.GetString("ProjectManager.Info.FolderAlreadyContainsFile");
+
+                    DialogResult result = MessageBox.Show(PluginBase.MainForm, string.Format(message, newFilePath, "\n"),
+                        title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Cancel) return;
+                }
+
                 string templatePath = Path.Combine(ProjectPaths.FileTemplatesDirectory, Path.Combine(project.GetType().Name, "Class.as.fdt"));
                 lastFileFromTemplate = newFilePath;
 
