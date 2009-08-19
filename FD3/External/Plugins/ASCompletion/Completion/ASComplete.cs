@@ -1234,13 +1234,13 @@ namespace ASCompletion.Completion
                 return true;
 
 			// complete keyword
-            if (expr.WordBefore != null &&
-                (expr.WordBefore == features.varKey || expr.WordBefore == features.functionKey || expr.WordBefore == features.constKey 
-                || expr.WordBefore == features.getKey || expr.WordBefore == features.setKey))
+            string word = expr.WordBefore;
+            if (word != null &&
+                (word == features.varKey || word == features.functionKey || word == features.constKey
+                || word == features.getKey || word == features.setKey))
                 return false;
 			if (dotIndex < 0)
 			{
-                string word = expr.WordBefore;
                 if (word != null)
                 {
                     if (word == "class" || word == "package" || word == "interface")
@@ -1257,7 +1257,7 @@ namespace ASCompletion.Completion
                         return HandleImportCompletion(Sci, expr.Value, autoHide);
                 }
                 // no completion
-                if ((expr.BeforeBody && expr.Separator != '=') 
+                if ((expr.BeforeBody && expr.Separator != '=' && expr.Separator != ':') 
                     || expr.coma == ComaExpression.AnonymousObject 
                     || expr.coma == ComaExpression.FunctionDeclaration)
                     return false;

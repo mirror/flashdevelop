@@ -75,6 +75,6 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>start "" "D:\Dev\net\FDSVN\FD3\FlashDevelop\Bin\Debug\FlashDevelop.exe"</PostBuildEvent>
+    <PostBuildEvent>start "" "C:\Production\0_Recherche\FD3\FlashDevelop\Bin\Debug\FlashDevelop.exe"</PostBuildEvent>
   </PropertyGroup>
 </Project>
