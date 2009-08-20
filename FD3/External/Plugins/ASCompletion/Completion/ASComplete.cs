@@ -1477,6 +1477,7 @@ namespace ASCompletion.Completion
 			foreach(MemberModel member in known)
 				list.Add(new MemberItem(new MemberModel(member.Type, member.Type, member.Flags, member.Access)));
 			CompletionList.Show(list, autoHide, tail);
+            SelectTypedNewMember(Sci);
 			return true;
 		}
 
