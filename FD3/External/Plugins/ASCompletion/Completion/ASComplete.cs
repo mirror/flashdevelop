@@ -1248,18 +1248,19 @@ namespace ASCompletion.Completion
                     // new/extends/implements
                     if (features.HasTypePreKey(word))
                         return HandleNewCompletion(Sci, expr.Value, autoHide, word);
-                    // type
-                    if (features.hasEcmaTyping && expr.Separator == ':'
-                        && HandleColonCompletion(Sci, expr.Value, autoHide))
-                        return true;
                     // import
                     if (features.hasImports && (word == features.importKey || word == features.importKeyAlt))
                         return HandleImportCompletion(Sci, expr.Value, autoHide);
                 }
+                // type
+                else if (features.hasEcmaTyping && expr.Separator == ':'
+                    && HandleColonCompletion(Sci, expr.Value, autoHide))
+                    return true;
+
                 // no completion
-                if ((expr.BeforeBody && expr.Separator != '=' && expr.Separator != ':') 
-                    || expr.coma == ComaExpression.AnonymousObject 
-                    || expr.coma == ComaExpression.FunctionDeclaration)
+                if ((expr.BeforeBody && expr.Separator != '=')
+                    || expr.coma == ComaExpression.AnonymousObject
+                    || expr.coma == ComaExpression.FunctionDeclaration) 
                     return false;
 
                 // complete declaration
