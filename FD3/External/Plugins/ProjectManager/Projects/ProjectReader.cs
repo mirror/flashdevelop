@@ -96,7 +96,7 @@ namespace ProjectManager.Projects
 			if (!IsEmptyElement)
 			{
 				ReadStartElement("preBuildCommand");
-				project.PreBuildEvent = OSPath(ReadString().Trim());
+				project.PreBuildEvent = ReadString().Trim();
 				ReadEndElement();
 			}
 		}
@@ -108,7 +108,7 @@ namespace ProjectManager.Projects
 			if (!IsEmptyElement)
 			{
 				ReadStartElement("postBuildCommand");
-				project.PostBuildEvent = OSPath(ReadString().Trim());
+				project.PostBuildEvent = ReadString().Trim();
 				ReadEndElement();
 			}
 		}
