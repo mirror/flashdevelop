@@ -144,7 +144,12 @@ namespace ProjectManager.Building.AS3
                 string jvmarg = VMARGS + " -Dapplication.home=\""+ sdkPath + "\" -jar \"" + fcshPath + "\"";
                 fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, jvmarg);
 
-                Console.WriteLine(output);
+                string[] lines = output.Split('\n');
+                foreach (string line in lines)
+                {
+                    if (!line.StartsWith("Recompile:") && !line.StartsWith("Reason:"))
+                        Console.Write(line);
+                }
                 foreach (string error in errors)
                     Console.Error.WriteLine(error);
 
