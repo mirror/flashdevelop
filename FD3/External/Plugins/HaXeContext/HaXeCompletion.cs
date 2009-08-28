@@ -59,6 +59,16 @@ namespace HaXeContext
             foreach (string i in co.Additional)
                 addi += " " + i;
 
+            // Compilation directives
+            string directives = "";
+            if (co.Directives != "")
+            {
+                foreach (string i in Regex.Split(co.Directives, "\\s+"))
+                {
+                    directives += " -D " + i;
+                }
+            }
+          
             // Current file
             string file = PluginBase.MainForm.CurrentDocument.FileName;
 
@@ -123,7 +133,7 @@ namespace HaXeContext
             Debug.WriteLine(libToAdd);*/
 
             // Build haXe command
-            string hxml = target + " " + classToCheck + cp + libs + addi;
+            string hxml = target + " " + classToCheck + cp + libs + addi + directives;
 
             // Build haXe built-in completion command
             string args = hxml + " --display \"" + file + "\"@" + pos.ToString();
