@@ -155,7 +155,7 @@ namespace FlashDevelop.Docking
         private void OnFocusTimer(Object sender, EventArgs e)
         {
             this.focusTimer.Stop();
-            if (this.SciControl != null)
+            if (DockPanel.ActiveContent == this && this.SciControl != null)
             {
                 this.SciControl.Focus();
             }
