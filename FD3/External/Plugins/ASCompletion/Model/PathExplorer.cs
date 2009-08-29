@@ -29,17 +29,18 @@ namespace ASCompletion.Model
         }
 
         static private Stack<PathExplorer> waiting = new Stack<PathExplorer>();
-        static private Thread explorerThread;
+        static private volatile Thread explorerThread;
         static private volatile bool stopExploration;
+        static private volatile int toWait = 1000; // initial delay before exploring the filesystem
 
         static public void StopBackgroundExploration()
         {
+            // signal to stop cleanly
+            stopExploration = true;
+
             if (explorerThread != null && explorerThread.IsAlive)
             {
                 Debug.WriteLine("Signaling to stop exploration.");
-
-                // signal to stop cleanly
-                stopExploration = true;
 
                 if (!explorerThread.Join(4000))
                 {
@@ -61,7 +62,6 @@ namespace ASCompletion.Model
         private PathModel pathModel;
 		private List<string> foundFiles;
         private List<string> explored;
-        private int toWait = 1000; // initial delay before exploring the filesystem
 
         public PathExplorer(IASContext context, PathModel pathModel)
         {
@@ -87,27 +87,50 @@ namespace ASCompletion.Model
 
 		public void Run()
 		{
-            if (explorerThread != null)
+            lock (waiting)
             {
-                lock (waiting) { waiting.Push(this); }
-                return;
+                waiting.Push(this);
+
+                if (explorerThread == null)
+                {
+                    // status
+                    NotifyProgress(TextHelper.GetString("Info.Exploring"), 0, 1);
+
+                    explorerThread = new Thread(ExploreInBackground);
+                    explorerThread.Name = "ExplorerThread";
+                    explorerThread.Priority = ThreadPriority.Lowest;
+                    explorerThread.Start();
+                }
             }
-            stopExploration = false;
-			// status
-            NotifyProgress(TextHelper.GetString("Info.Exploring"), 0, 1);
-			// worker thread
-			explorerThread = new Thread(new ThreadStart(BackgroundRun));
-			explorerThread.Priority = ThreadPriority.Lowest;
-			explorerThread.Start();
 		}
-		
+
+        private static void ExploreInBackground()
+        {
+            Thread.Sleep(toWait);
+            toWait = 10;
+
+            while (!stopExploration)
+            {
+                PathExplorer next = null;
+                
+                lock (waiting)
+                {
+                    if (waiting.Count > 0) next = waiting.Pop();
+                    else explorerThread = null;
+                }
+
+                if (next != null)
+                    next.BackgroundRun();
+                else
+                    break;
+            }
+        }
+
         /// <summary>
         /// Background search
         /// </summary>
         private void BackgroundRun()
 		{
-            Thread.Sleep(toWait);
-            toWait = 10;
             pathModel.Updating = true;
             try
             {
@@ -218,15 +241,11 @@ namespace ASCompletion.Model
             }
             finally { pathModel.Updating = false; }
 
-			// done
-			explorerThread = null;
             if (!stopExploration && OnExplorationDone != null)
-			{
+            {
                 NotifyProgress(null, 0, 0);
                 NotifyDone(pathModel.Path);
-			}
-            if (waiting.Count > 0)
-                waiting.Pop().Run();
+            }
 		}
 
         private string GetCacheFileName(string path)
