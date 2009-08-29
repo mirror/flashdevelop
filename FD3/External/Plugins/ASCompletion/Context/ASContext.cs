@@ -618,7 +618,7 @@ namespace ASCompletion.Context
                 return;
             }
             completionCache.IsDirty = true;
-            cacheRefreshTimer.Enabled = true;
+            if (!PathExplorer.IsWorking) cacheRefreshTimer.Enabled = true;
         }
 
         void cacheRefreshTimer_Tick(object sender, EventArgs e)
