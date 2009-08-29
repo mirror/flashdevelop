@@ -618,17 +618,12 @@ namespace ASCompletion.Context
                 return;
             }
             completionCache.IsDirty = true;
-            cacheRefreshTimer.Start();
+            cacheRefreshTimer.Enabled = true;
         }
 
         void cacheRefreshTimer_Tick(object sender, EventArgs e)
         {
-            if (plugin.Panel.InvokeRequired)
-            {
-                plugin.Panel.BeginInvoke((MethodInvoker)delegate { cacheRefreshTimer_Tick(sender, e); });
-                return;
-            }
-            cacheRefreshTimer.Stop();
+            cacheRefreshTimer.Enabled = false;
             if (completionCache.IsDirty && ASContext.Context == this)
             {
                 GetVisibleExternalElements(true);

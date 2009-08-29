@@ -109,20 +109,33 @@ namespace ASCompletion.Model
             Thread.Sleep(toWait);
             toWait = 10;
 
+            PathExplorer last = null;
+
             while (!stopExploration)
             {
                 PathExplorer next = null;
-                
+
                 lock (waiting)
                 {
                     if (waiting.Count > 0) next = waiting.Pop();
                     else explorerThread = null;
+
+                    // we want to call these notifications after we've processed the above
+                    // logic, so that the last PathExplorer's NotifyDone gets called after
+                    // explorerThread is null so that IsWorking is false.
+                    if (last != null && last.OnExplorationDone != null)
+                    {
+                        last.NotifyProgress(null, 0, 0);
+                        last.NotifyDone(last.pathModel.Path);
+                    }
                 }
 
                 if (next != null)
                     next.BackgroundRun();
                 else
                     break;
+
+                last = next;
             }
         }
 
@@ -240,12 +253,6 @@ namespace ASCompletion.Model
                 }
             }
             finally { pathModel.Updating = false; }
-
-            if (!stopExploration && OnExplorationDone != null)
-            {
-                NotifyProgress(null, 0, 0);
-                NotifyDone(pathModel.Path);
-            }
 		}
 
         private string GetCacheFileName(string path)
