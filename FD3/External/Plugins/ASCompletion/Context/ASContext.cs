@@ -66,7 +66,7 @@ namespace ASCompletion.Context
             features = new ContextFeatures();
             completionCache = new CompletionCache(this, null);
             cacheRefreshTimer = new Timer();
-            cacheRefreshTimer.Interval = 100;
+            cacheRefreshTimer.Interval = 1500; // delay initial refresh
             cacheRefreshTimer.Tick += new EventHandler(cacheRefreshTimer_Tick);
         }
         #endregion
@@ -186,7 +186,7 @@ namespace ASCompletion.Context
             }
             set
             {
-                cacheRefreshTimer.Stop();
+                cacheRefreshTimer.Enabled = false;
                 if (value == null)
                 {
                     cFile = FileModel.Ignore;
@@ -618,16 +618,19 @@ namespace ASCompletion.Context
                 return;
             }
             completionCache.IsDirty = true;
-            if (!PathExplorer.IsWorking) cacheRefreshTimer.Enabled = true;
+            cacheRefreshTimer.Enabled = true;
         }
 
         void cacheRefreshTimer_Tick(object sender, EventArgs e)
         {
             cacheRefreshTimer.Enabled = false;
+            cacheRefreshTimer.Interval = 100;
             if (completionCache.IsDirty && ASContext.Context == this)
             {
-                GetVisibleExternalElements(true);
+                completionCache.IsDirty = false;
                 UpdateCurrentFile(true);
+                completionCache.IsDirty = true;
+                GetVisibleExternalElements(true);
             }
         }
 

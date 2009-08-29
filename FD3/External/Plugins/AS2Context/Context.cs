@@ -369,14 +369,15 @@ namespace AS2Context
         /// <param name="package">Package to explore</param>
         /// <param name="inFile">Current file</param>
         public override MemberList ResolveImports(FileModel inFile)
-		{
+        {
             bool filterImports = (inFile == cFile);
             int lineMin = (filterImports && inPrivateSection) ? inFile.PrivateSectionIndex : 0;
             int lineMax = (filterImports && inPrivateSection) ? int.MaxValue : inFile.PrivateSectionIndex;
             MemberList imports = new MemberList();
             foreach (MemberModel item in inFile.Imports)
             {
-                if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
+                if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax))
+                    continue;
 
                 if (item.Name != "*")
                 {
