@@ -257,7 +257,7 @@ namespace ASClassWizard
                     if (result == DialogResult.Cancel) return;
                 }
 
-                string templatePath = Path.Combine(ProjectPaths.FileTemplatesDirectory, Path.Combine(project.GetType().Name, "Class.as.fdt"));
+                string templatePath = Path.Combine(ProjectPaths.FileTemplatesDirectory, Path.Combine(project.GetType().Name, "Class.as.fdt.wizard"));
                 lastFileFromTemplate = newFilePath;
 
                 lastFileOptions = new AS3ClassOptions(

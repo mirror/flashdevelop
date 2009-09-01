@@ -1,11 +1,11 @@
-$(Import)/**
+/**
 $(CBI)* ...
 $(CBI)* @author $(DefaultUser)
 $(CBI)*/
-$(Access)class $(FileNameWithPackage)$(Extends)$(Implements)$(CSLB){
+class $(FileNameWithPackage) $(CSLB){
 	
-	public function $(FileName)($(ConstructorArguments)) $(CSLB){
-		$(Super)$(EntryPoint)
+	public function $(FileName)() $(CSLB){
+		$(EntryPoint)
 	}
 	
 }
