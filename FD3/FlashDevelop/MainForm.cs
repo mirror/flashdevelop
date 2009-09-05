@@ -1122,7 +1122,7 @@ namespace FlashDevelop
                 return;
             }
             ITabbedDocument document = DocumentManager.FindDocument(sci);
-            if (document != null && document.IsEditable)
+            if (sci != null && document != null && document.IsEditable)
             {
                 Int32 column = sci.Column(sci.CurrentPos) + 1;
                 Int32 line = sci.LineFromPosition(sci.CurrentPos) + 1;
