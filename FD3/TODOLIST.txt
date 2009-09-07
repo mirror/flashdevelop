@@ -16,7 +16,6 @@ Flex compilation improvements:
 
 - Conditional compilation constants in projects (http://livedocs.adobe.com/flex/3/html/compilers_21.html)
 - SWF metadata options in projects (title, description, ..)
-- Link-report/excludes options in projects
 - Framework caching
 
 Completion improvements:
@@ -24,14 +23,12 @@ Completion improvements:
 - ASCompletion exclusions settings
 - Better completion support for timeline code
 - Smarter function generator (detect parameters type)
-- Option to generate get/set after the private var
 - Add an option to use only package imports (com.domain.package.*)
 - Inheritance level browsing with completion lists?
 - Inheritance explorer: display a type's super & sub classes
 
 Snippets improvements:
 
-- More arguments (http://www.flashdevelop.org/community/viewtopic.php?f=5&t=3661)
 - Arguments operations (uppercase, lowercase, substr, repeat,...)
 - Argument to generate import declarations
 
