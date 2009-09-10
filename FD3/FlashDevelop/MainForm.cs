@@ -675,9 +675,10 @@ namespace FlashDevelop
         public void InitializeProcessRunner()
         {
             this.processRunner = new ProcessRunner();
+            this.processRunner.RedirectInput = true;
+            this.processRunner.ProcessEnded += ProcessEnded;
             this.processRunner.Output += ProcessOutput;
             this.processRunner.Error += ProcessError;
-            this.processRunner.ProcessEnded += ProcessEnded;
         }
 
         /// <summary>
