@@ -40,8 +40,8 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static Boolean ValidateFlagAction(ToolStripItem item, String action)
         {
-            ScintillaControl sci = Globals.SciControl;
             ITabbedDocument document = Globals.CurrentDocument;
+            ScintillaControl sci = document.SciControl;
             if (action.Contains("!IsEditable"))
             {
                 if (document.IsEditable) return false;
