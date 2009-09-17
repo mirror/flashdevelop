@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using System.Windows.Forms;
@@ -271,6 +272,7 @@ namespace FlashDevelop.Settings
             set { this.uiRenderMode = value; }
         }
 
+        [XmlIgnore]
         [DisplayName("UI Console Font")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.ConsoleFont")]
@@ -281,6 +283,7 @@ namespace FlashDevelop.Settings
             set { this.consoleFont = value; }
         }
 
+        [XmlIgnore]
         [DisplayName("UI Default Font")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.DefaultFont")]

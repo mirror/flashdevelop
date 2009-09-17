@@ -125,6 +125,7 @@ namespace PluginCore.Utilities
             {
                 Type type = obj.GetType();
                 PropertyInfo info = type.GetProperty(name);
+                if (info == null) return;
                 info.SetValue(obj, value, null);
             }
             catch (Exception ex)
@@ -142,6 +143,7 @@ namespace PluginCore.Utilities
             {
                 Type type = obj.GetType();
                 PropertyInfo info = type.GetProperty(name);
+                if (info == null) return null;
                 return info.GetValue(obj, null);
             }
             catch (Exception ex)

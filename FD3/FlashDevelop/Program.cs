@@ -45,7 +45,7 @@ namespace FlashDevelop
             }
             catch (Exception ex)
             {
-                MessageBox.Show(null, "There was an unexpected problem while running FlashDevelop: " + ex.Message, "Error");
+                MessageBox.Show("There was an unexpected problem while running FlashDevelop: " + ex.Message, "Error");
             }
             finally
             {
