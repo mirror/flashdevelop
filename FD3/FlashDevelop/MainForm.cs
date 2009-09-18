@@ -1125,13 +1125,17 @@ namespace FlashDevelop
             ITabbedDocument document = DocumentManager.FindDocument(sci);
             if (sci != null && document != null && document.IsEditable)
             {
-                Int32 column = sci.Column(sci.CurrentPos) + 1;
-                Int32 line = sci.LineFromPosition(sci.CurrentPos) + 1;
-                String statusText = " " + TextHelper.GetString("Info.StatusText");
-                String file = PathHelper.GetCompactPath(sci.FileName);
-                String eol = (sci.EOLMode == 0) ? "CR+LF" : ((sci.EOLMode == 1) ? "CR" : "LF");
-                String encoding = ButtonManager.GetActiveEncodingName();
-                this.toolStripStatusLabel.Text = String.Format(statusText, line, column, eol, encoding, file);
+                try
+                {
+                    Int32 column = sci.Column(sci.CurrentPos) + 1;
+                    Int32 line = sci.LineFromPosition(sci.CurrentPos) + 1;
+                    String statusText = " " + TextHelper.GetString("Info.StatusText");
+                    String file = PathHelper.GetCompactPath(sci.FileName);
+                    String eol = (sci.EOLMode == 0) ? "CR+LF" : ((sci.EOLMode == 1) ? "CR" : "LF");
+                    String encoding = ButtonManager.GetActiveEncodingName();
+                    this.toolStripStatusLabel.Text = String.Format(statusText, line, column, eol, encoding, file);
+                }
+                catch (AccessViolationException) {} // Ignore memory errors
             }
             else this.toolStripStatusLabel.Text = " ";
             this.OnUpdateMainFormDialogTitle();
