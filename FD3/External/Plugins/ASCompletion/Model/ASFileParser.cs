@@ -744,7 +744,11 @@ namespace ASCompletion.Model
 						hadWS = false;
 						hadDot = true;
 						addChar = true;
-                        if (!inValue && context == FlagType.Variable && !foundColon) context = 0;
+                        if (!inValue && context == FlagType.Variable && !foundColon)
+                        {
+                            bool keepContext = inParams && (length == 0 || buffer[0] == '.');
+                            if (!keepContext) context = 0;
+                        }
 					}
 					else continue;
                 }
