@@ -161,7 +161,6 @@ namespace OutputPanel
                 this.logCount = newCount;
 				return;
 			}
-            Int32 start;
             TraceItem entry;
             Int32 state;
             String message;
