@@ -40,4 +40,3 @@ Future features:
 - Finish haXe projects support (platforms, directives, makefile)
 - Bandwidth simulation? (would "just" require a custom http server)
 - Filtering/tabs to results panel? (all, errors, info, todo)
-- Open file from selected text in code
