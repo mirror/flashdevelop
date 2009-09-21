@@ -2979,6 +2979,7 @@ namespace FlashDevelop
                         ProcessHelper.StartAsync(psi);
                     }
                 }
+                ButtonManager.UpdateFlaggedButtons();
             }
             catch (Exception ex)
             {
@@ -3013,6 +3014,7 @@ namespace FlashDevelop
                 String message2 = TextHelper.GetString("Info.RunningProcess");
                 TraceManager.Add(message2 + " " + args.Substring(0, position) + " " + args.Substring(position + 1), (Int32)TraceType.ProcessStart);
                 this.processRunner.Run(args.Substring(0, position), args.Substring(position + 1));
+                ButtonManager.UpdateFlaggedButtons();
             }
             catch (Exception ex)
             {
@@ -3049,6 +3051,7 @@ namespace FlashDevelop
                 TraceManager.Add(result, (Int32)TraceType.ProcessEnd);
                 TextEvent te = new TextEvent(EventType.ProcessEnd, result);
                 EventManager.DispatchEvent(this, te);
+                ButtonManager.UpdateFlaggedButtons();
             }
         }
 
@@ -3060,7 +3063,7 @@ namespace FlashDevelop
             if (this.processRunner.IsRunning)
             {
                 this.processRunner.KillProcess();
-            } 
+            }
         }
 
         /// <summary>
