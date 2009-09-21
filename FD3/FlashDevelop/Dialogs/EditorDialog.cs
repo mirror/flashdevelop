@@ -969,7 +969,7 @@ namespace FlashDevelop.Dialogs
                         if (this.defaultStyleNode.Attributes["bold"].Value == "true") fs |= FontStyle.Bold;
                     }
                 }
-                if (this.italicsCheckBox.CheckState == CheckState.Checked) fs |= FontStyle.Bold;
+                if (this.italicsCheckBox.CheckState == CheckState.Checked) fs |= FontStyle.Italic;
                 else if (this.italicsCheckBox.CheckState == CheckState.Indeterminate)
                 {
                     if (this.defaultStyleNode.Attributes["italics"] != null)
