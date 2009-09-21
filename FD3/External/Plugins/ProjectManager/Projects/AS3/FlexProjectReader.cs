@@ -39,6 +39,7 @@ namespace ProjectManager.Projects.AS3
         {
             outputPath = GetAttribute("outputFolderPath") ?? "";
             mainApp = (GetAttribute("sourceFolderPath") ?? "") + "/" + mainApp;
+            if (mainApp.StartsWith("/")) mainApp = mainApp.Substring(1);
             project.CompileTargets.Add(OSPath(mainApp.Replace('/', '\\')));
 
             project.TraceEnabled = GetAttribute("enableModuleDebug") == "true";
