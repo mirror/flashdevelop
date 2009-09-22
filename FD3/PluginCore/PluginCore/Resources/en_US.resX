@@ -3160,4 +3160,68 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Base Class:</value>
     <comment>Added after 3.0.2</comment>
   </data>
+  <data name="CodeRefactor.Info.CanOnlyEncapsulateFields" xml:space="preserve">
+    <value>Can only encapsulate fields!</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.Description" xml:space="preserve">
+    <value>Adds refactoring capabilities to FlashDevelop.</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.FindingReferences" xml:space="preserve">
+    <value>Finding References...</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.RenamingReferences" xml:space="preserve">
+    <value>Renaming References...</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.ResolvingReferences" xml:space="preserve">
+    <value>Resolving References...</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.ResolvingReferencesIn" xml:space="preserve">
+    <value>Resolving References in</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.SearchingFiles" xml:space="preserve">
+    <value>Searching Files...</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.SorryError" xml:space="preserve">
+    <value>Sorry, renaming classes or constructors is not supported.</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.Status" xml:space="preserve">
+    <value>Status:</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Info.Updating" xml:space="preserve">
+    <value>Updating</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.EncapsulateField" xml:space="preserve">
+    <value>Encapsulate Field</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.FindAllReferences" xml:space="preserve">
+    <value>Find All References</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.NewName" xml:space="preserve">
+    <value>New Name:</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.Refactor" xml:space="preserve">
+    <value>Refactor</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.Rename" xml:space="preserve">
+    <value>Rename...</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
+    <value>Rename '{0}'</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
 </root>
