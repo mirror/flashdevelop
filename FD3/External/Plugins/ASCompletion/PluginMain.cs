@@ -613,7 +613,18 @@ namespace ASCompletion
                 item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
                 menu.DropDownItems.Add(item);
                 menuItems.Add(item);
+
+                // editor items
+                ContextMenuStrip emenu = mainForm.EditorMenu;
+                if (emenu != null)
+                {
+                    item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
+                    emenu.Items.Insert(4, item);
+                    emenu.Items.Insert(5, new ToolStripSeparator());
+                    menuItems.Add(item);
+                }
             }
+
         }
 
         private void AddEventHandlers()
