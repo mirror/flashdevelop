@@ -131,7 +131,7 @@ namespace CodeRefactor
             {
                 m_RefactorMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
                 m_RefactorRenameItem = m_RefactorMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
-                m_RefactorRenameItem = m_RefactorMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllreferencesClicked));
+                m_RefactorRenameItem = m_RefactorMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
                 m_RefactorRenameItem = m_RefactorMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
                 contextMenu.Items.Insert(3, m_RefactorMenu);
             }
@@ -147,20 +147,24 @@ namespace CodeRefactor
                 Rename command = new Rename(true);
                 command.Execute();
             }
-            catch (RefactorException) { }
+            catch (TargetNotValidException ex)
+            {
+                ErrorManager.ShowInfo(ex.Message);
+            }
+            catch {}
         }
 
         /// <summary>
         /// Invoked when the user selects the "Find All References" command
         /// </summary>
-        private void FindAllreferencesClicked(Object sender, EventArgs e)
+        private void FindAllReferencesClicked(Object sender, EventArgs e)
         {
             try
             {
                 FindAllReferences command = new FindAllReferences(true);
                 command.Execute();
             }
-            catch (RefactorException) { }
+            catch {}
         }
 
         /// <summary>
@@ -173,7 +177,7 @@ namespace CodeRefactor
                 EncapsulateField command = new EncapsulateField(true);
                 command.Execute();
             }
-            catch (RefactorException) { }
+            catch {}
         }
 
 		#endregion
