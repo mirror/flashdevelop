@@ -3,7 +3,9 @@ using System.Windows.Forms;
 using CodeRefactor.Commands;
 using System.ComponentModel;
 using PluginCore.Localization;
+using CodeRefactor.Exceptions;
 using PluginCore;
+using PluginCore.Managers;
 
 namespace CodeRefactor
 {
@@ -138,42 +140,40 @@ namespace CodeRefactor
         /// <summary>
         /// Invoked when the user selects the "Rename" command
         /// </summary>
-        private void RenameClicked(object sender, EventArgs e)
+        private void RenameClicked(Object sender, EventArgs e)
         {
             try
             {
                 Rename command = new Rename(true);
                 command.Execute();
             }
-            catch (CodeRefactor.Exceptions.RefactorException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (RefactorException) { }
         }
 
         /// <summary>
         /// Invoked when the user selects the "Find All References" command
         /// </summary>
-        private void FindAllreferencesClicked(object sender, EventArgs e)
+        private void FindAllreferencesClicked(Object sender, EventArgs e)
         {
-            FindAllReferences command = new FindAllReferences(true);
-            command.Execute();
+            try
+            {
+                FindAllReferences command = new FindAllReferences(true);
+                command.Execute();
+            }
+            catch (RefactorException) { }
         }
 
         /// <summary>
         /// Invoked when the user selects the "Encapsulate Field" command
         /// </summary>
-        private void EncapsulateFieldClicked(object sender, EventArgs e)
+        private void EncapsulateFieldClicked(Object sender, EventArgs e)
         {
             try
             {
                 EncapsulateField command = new EncapsulateField(true);
                 command.Execute();
             }
-            catch (CodeRefactor.Exceptions.RefactorException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (RefactorException) { }
         }
 
 		#endregion
