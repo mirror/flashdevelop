@@ -1115,6 +1115,7 @@ namespace ASCompletion.Model
             int i0 = i;
             int line0 = line;
             int inString = 0;
+            int parCount = 0;
             bool isComplex = false;
             while (i < len)
             {
@@ -1134,7 +1135,13 @@ namespace ASCompletion.Model
                         line = line0;
                         return false;
                     }
-                    else if (c == ')') isComplex = true;
+                    else if (c == '(') parCount++;
+                    else if (c == ')')
+                    {
+                        parCount--;
+                        if (parCount < 0) return false;
+                        isComplex = true;
+                    }
                     else if (c == ']') break;
                 }
                 else if (inString == 1 && c == '"') inString = 0;
