@@ -385,6 +385,7 @@ namespace ASClassWizard
                                             if (member.Parameters != null)
                                             foreach (MemberModel param in member.Parameters)
                                             {
+                                                if (param.Name.StartsWith(".")) break;
                                                 superConstructor += (index > 0 ? ", " : "") + param.Name;
                                                 index++;
                                             }

@@ -1073,6 +1073,7 @@ namespace ASCompletion.Completion
             if (member.Parameters != null)
                 foreach (MemberModel param in member.Parameters)
                 {
+                    if (param.Name.StartsWith(".")) break;
                     args += ", " + param.Name;
                     if (!typesUsed.Contains(param.Type)) typesUsed.Add(param.Type);
                 }
