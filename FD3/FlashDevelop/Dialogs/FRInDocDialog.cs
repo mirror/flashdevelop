@@ -445,7 +445,7 @@ namespace FlashDevelop.Dialogs
 		}
         public void FindNext(Boolean forward, Boolean update)
         {
-            this.FindNext(forward, true, false);
+            this.FindNext(forward, update, false);
         }
         public void FindNext(Boolean forward)
         {
