@@ -27,10 +27,36 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-	
+
+    public enum NIMROD
+    {
+        DEFAULT = 0,
+        COMMENTLINE = 1,
+        NUMBER = 2,
+        STRING = 3,
+        CHARACTER = 4,
+        WORD = 5,
+        TRIPLE = 6,
+        TRIPLEDOUBLE = 7,
+        CLASSNAME = 8,
+        DEFNAME = 9,
+        OPERATOR = 10,
+        IDENTIFIER = 11,
+        COMMENTBLOCK = 12,
+        STRINGEOL = 13,
+        WORD2 = 14,
+        DECORATOR = 15,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
     public enum CPP
     {    
 		DEFAULT = 0,
@@ -59,598 +85,351 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum BULLANT
-    {    
-		DEFAULT = 0,
-		COMMENT = 1,
-		COMMENTLINE = 2,
-		COMMENTDOC = 3,
-		NUMBER = 4,
-		WORD = 5,
-		STRING = 6,
-		CHARACTER = 7,
-		UUID = 8,
-		PREPROCESSOR = 9,
-		OPERATOR = 10,
-		IDENTIFIER = 11,
-		STRINGEOL = 12,
-		VERBATIM = 13,
-		REGEX = 14,
-		COMMENTLINEDOC = 15,
-		WORD2 = 16,
-		COMMENTDOCKEYWORD = 17,
-		COMMENTDOCKEYWORDERROR = 18,
-		GLOBALCLASS = 19,
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        COMMENTLINE = 2,
+        COMMENTDOC = 3,
+        NUMBER = 4,
+        WORD = 5,
+        STRING = 6,
+        CHARACTER = 7,
+        UUID = 8,
+        PREPROCESSOR = 9,
+        OPERATOR = 10,
+        IDENTIFIER = 11,
+        STRINGEOL = 12,
+        VERBATIM = 13,
+        REGEX = 14,
+        COMMENTLINEDOC = 15,
+        WORD2 = 16,
+        COMMENTDOCKEYWORD = 17,
+        COMMENTDOCKEYWORDERROR = 18,
+        GLOBALCLASS = 19,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
-    public enum PASCAL
-    {    
-		DEFAULT = 0,
-		COMMENT = 1,
-		COMMENTLINE = 2,
-		COMMENTDOC = 3,
-		NUMBER = 4,
-		WORD = 5,
-		STRING = 6,
-		CHARACTER = 7,
-		UUID = 8,
-		PREPROCESSOR = 9,
-		OPERATOR = 10,
-		IDENTIFIER = 11,
-		STRINGEOL = 12,
-		VERBATIM = 13,
-		REGEX = 14,
-		COMMENTLINEDOC = 15,
-		WORD2 = 16,
-		COMMENTDOCKEYWORD = 17,
-		COMMENTDOCKEYWORDERROR = 18,
-		GLOBALCLASS = 19,
+
+    public enum D
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        COMMENTLINE = 2,
+        COMMENTDOC = 3,
+        COMMENTNESTED = 4,
+        NUMBER = 5,
+        WORD = 6,
+        WORD2 = 7,
+        WORD3 = 8,
+        TYPEDEF = 9,
+        STRING = 10,
+        STRINGEOL = 11,
+        CHARACTER = 12,
+        OPERATOR = 13,
+        IDENTIFIER = 14,
+        COMMENTLINEDOC = 15,
+        COMMENTDOCKEYWORD = 16,
+        COMMENTDOCKEYWORDERROR = 17,
+        STRINGB = 18,
+        STRINGR = 19,
+        WORD5 = 20,
+        WORD6 = 21,
+        WORD7 = 22,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum TCL
-    {    
-		DEFAULT = 0,
-		COMMENT = 1,
-		COMMENTLINE = 2,
-		COMMENTDOC = 3,
-		NUMBER = 4,
-		WORD = 5,
-		STRING = 6,
-		CHARACTER = 7,
-		UUID = 8,
-		PREPROCESSOR = 9,
-		OPERATOR = 10,
-		IDENTIFIER = 11,
-		STRINGEOL = 12,
-		VERBATIM = 13,
-		REGEX = 14,
-		COMMENTLINEDOC = 15,
-		WORD2 = 16,
-		COMMENTDOCKEYWORD = 17,
-		COMMENTDOCKEYWORDERROR = 18,
-		GLOBALCLASS = 19,
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        COMMENTLINE = 2,
+        NUMBER = 3,
+        WORD_IN_QUOTE = 4,
+        IN_QUOTE = 5,
+        OPERATOR = 6,
+        IDENTIFIER = 7,
+        SUBSTITUTION = 8,
+        SUB_BRACE = 9,
+        MODIFIER = 10,
+        EXPAND = 11,
+        WORD = 12,
+        WORD2 = 13,
+        WORD3 = 14,
+        WORD4 = 15,
+        WORD5 = 16,
+        WORD6 = 17,
+        WORD7 = 18,
+        WORD8 = 19,
+        COMMENT_BOX = 20,
+        BLOCK_COMMENT = 21,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum HTML
-    {    
-		DEFAULT = 0,
-		TAG = 1,
-		TAGUNKNOWN = 2,
-		ATTRIBUTE = 3,
-		ATTRIBUTEUNKNOWN = 4,
-		NUMBER = 5,
-		DOUBLESTRING = 6,
-		SINGLESTRING = 7,
-		OTHER = 8,
-		COMMENT = 9,
-		ENTITY = 10,
-		TAGEND = 11,
-		XMLSTART = 12,
-		XMLEND = 13,
-		SCRIPT = 14,
-		ASP = 15,
-		ASPAT = 16,
-		CDATA = 17,
-		QUESTION = 18,
-		VALUE = 19,
-		XCCOMMENT = 20,
-		SGML_DEFAULT = 21,
-		SGML_COMMAND = 22,
-		SGML_1ST_PARAM = 23,
-		SGML_DOUBLESTRING = 24,
-		SGML_SIMPLESTRING = 25,
-		SGML_ERROR = 26,
-		SGML_SPECIAL = 27,
-		SGML_ENTITY = 28,
-		SGML_COMMENT = 29,
-		SGML_1ST_PARAM_COMMENT = 30,
-		SGML_BLOCK_DEFAULT = 31,
-		J_START = 40,
-		J_DEFAULT = 41,
-		J_COMMENT = 42,
-		J_COMMENTLINE = 43,
-		J_COMMENTDOC = 44,
-		J_NUMBER = 45,
-		J_WORD = 46,
-		J_KEYWORD = 47,
-		J_DOUBLESTRING = 48,
-		J_SINGLESTRING = 49,
-		J_SYMBOLS = 50,
-		J_STRINGEOL = 51,
-		J_REGEX = 52,
-		JA_START = 55,
-		JA_DEFAULT = 56,
-		JA_COMMENT = 57,
-		JA_COMMENTLINE = 58,
-		JA_COMMENTDOC = 59,
-		JA_NUMBER = 60,
-		JA_WORD = 61,
-		JA_KEYWORD = 62,
-		JA_DOUBLESTRING = 63,
-		JA_SINGLESTRING = 64,
-		JA_SYMBOLS = 65,
-		JA_STRINGEOL = 66,
-		JA_REGEX = 67,
-		B_START = 70,
-		B_DEFAULT = 71,
-		B_COMMENTLINE = 72,
-		B_NUMBER = 73,
-		B_WORD = 74,
-		B_STRING = 75,
-		B_IDENTIFIER = 76,
-		B_STRINGEOL = 77,
-		BA_START = 80,
-		BA_DEFAULT = 81,
-		BA_COMMENTLINE = 82,
-		BA_NUMBER = 83,
-		BA_WORD = 84,
-		BA_STRING = 85,
-		BA_IDENTIFIER = 86,
-		BA_STRINGEOL = 87,
-		P_START = 90,
-		P_DEFAULT = 91,
-		P_COMMENTLINE = 92,
-		P_NUMBER = 93,
-		P_STRING = 94,
-		P_CHARACTER = 95,
-		P_WORD = 96,
-		P_TRIPLE = 97,
-		P_TRIPLEDOUBLE = 98,
-		P_CLASSNAME = 99,
-		P_DEFNAME = 100,
-		P_OPERATOR = 101,
-		P_IDENTIFIER = 102,
-		PHP_COMPLEX_VARIABLE = 104,
-		PA_START = 105,
-		PA_DEFAULT = 106,
-		PA_COMMENTLINE = 107,
-		PA_NUMBER = 108,
-		PA_STRING = 109,
-		PA_CHARACTER = 110,
-		PA_WORD = 111,
-		PA_TRIPLE = 112,
-		PA_TRIPLEDOUBLE = 113,
-		PA_CLASSNAME = 114,
-		PA_DEFNAME = 115,
-		PA_OPERATOR = 116,
-		PA_IDENTIFIER = 117,
-		PHP_DEFAULT = 118,
-		PHP_HSTRING = 119,
-		PHP_SIMPLESTRING = 120,
-		PHP_WORD = 121,
-		PHP_NUMBER = 122,
-		PHP_VARIABLE = 123,
-		PHP_COMMENT = 124,
-		PHP_COMMENTLINE = 125,
-		PHP_HSTRING_VARIABLE = 126,
-		PHP_OPERATOR = 127,
+    {
+        DEFAULT = 0,
+        TAG = 1,
+        TAGUNKNOWN = 2,
+        ATTRIBUTE = 3,
+        ATTRIBUTEUNKNOWN = 4,
+        NUMBER = 5,
+        DOUBLESTRING = 6,
+        SINGLESTRING = 7,
+        OTHER = 8,
+        COMMENT = 9,
+        ENTITY = 10,
+        TAGEND = 11,
+        XMLSTART = 12,
+        XMLEND = 13,
+        SCRIPT = 14,
+        ASP = 15,
+        ASPAT = 16,
+        CDATA = 17,
+        QUESTION = 18,
+        VALUE = 19,
+        XCCOMMENT = 20,
+        SGML_DEFAULT = 21,
+        SGML_COMMAND = 22,
+        SGML_1ST_PARAM = 23,
+        SGML_DOUBLESTRING = 24,
+        SGML_SIMPLESTRING = 25,
+        SGML_ERROR = 26,
+        SGML_SPECIAL = 27,
+        SGML_ENTITY = 28,
+        SGML_COMMENT = 29,
+        SGML_1ST_PARAM_COMMENT = 30,
+        SGML_BLOCK_DEFAULT = 31,
+        J_START = 40,
+        J_DEFAULT = 41,
+        J_COMMENT = 42,
+        J_COMMENTLINE = 43,
+        J_COMMENTDOC = 44,
+        J_NUMBER = 45,
+        J_WORD = 46,
+        J_KEYWORD = 47,
+        J_DOUBLESTRING = 48,
+        J_SINGLESTRING = 49,
+        J_SYMBOLS = 50,
+        J_STRINGEOL = 51,
+        J_REGEX = 52,
+        JA_START = 55,
+        JA_DEFAULT = 56,
+        JA_COMMENT = 57,
+        JA_COMMENTLINE = 58,
+        JA_COMMENTDOC = 59,
+        JA_NUMBER = 60,
+        JA_WORD = 61,
+        JA_KEYWORD = 62,
+        JA_DOUBLESTRING = 63,
+        JA_SINGLESTRING = 64,
+        JA_SYMBOLS = 65,
+        JA_STRINGEOL = 66,
+        JA_REGEX = 67,
+        B_START = 70,
+        B_DEFAULT = 71,
+        B_COMMENTLINE = 72,
+        B_NUMBER = 73,
+        B_WORD = 74,
+        B_STRING = 75,
+        B_IDENTIFIER = 76,
+        B_STRINGEOL = 77,
+        BA_START = 80,
+        BA_DEFAULT = 81,
+        BA_COMMENTLINE = 82,
+        BA_NUMBER = 83,
+        BA_WORD = 84,
+        BA_STRING = 85,
+        BA_IDENTIFIER = 86,
+        BA_STRINGEOL = 87,
+        P_START = 90,
+        P_DEFAULT = 91,
+        P_COMMENTLINE = 92,
+        P_NUMBER = 93,
+        P_STRING = 94,
+        P_CHARACTER = 95,
+        P_WORD = 96,
+        P_TRIPLE = 97,
+        P_TRIPLEDOUBLE = 98,
+        P_CLASSNAME = 99,
+        P_DEFNAME = 100,
+        P_OPERATOR = 101,
+        P_IDENTIFIER = 102,
+        PHP_COMPLEX_VARIABLE = 104,
+        PA_START = 105,
+        PA_DEFAULT = 106,
+        PA_COMMENTLINE = 107,
+        PA_NUMBER = 108,
+        PA_STRING = 109,
+        PA_CHARACTER = 110,
+        PA_WORD = 111,
+        PA_TRIPLE = 112,
+        PA_TRIPLEDOUBLE = 113,
+        PA_CLASSNAME = 114,
+        PA_DEFNAME = 115,
+        PA_OPERATOR = 116,
+        PA_IDENTIFIER = 117,
+        PHP_DEFAULT = 118,
+        PHP_HSTRING = 119,
+        PHP_SIMPLESTRING = 120,
+        PHP_WORD = 121,
+        PHP_NUMBER = 122,
+        PHP_VARIABLE = 123,
+        PHP_COMMENT = 124,
+        PHP_COMMENTLINE = 125,
+        PHP_HSTRING_VARIABLE = 126,
+        PHP_OPERATOR = 127,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum XML
-    {    
-		DEFAULT = 0,
-		TAG = 1,
-		TAGUNKNOWN = 2,
-		ATTRIBUTE = 3,
-		ATTRIBUTEUNKNOWN = 4,
-		NUMBER = 5,
-		DOUBLESTRING = 6,
-		SINGLESTRING = 7,
-		OTHER = 8,
-		COMMENT = 9,
-		ENTITY = 10,
-		TAGEND = 11,
-		XMLSTART = 12,
-		XMLEND = 13,
-		SCRIPT = 14,
-		ASP = 15,
-		ASPAT = 16,
-		CDATA = 17,
-		QUESTION = 18,
-		VALUE = 19,
-		XCCOMMENT = 20,
-		SGML_DEFAULT = 21,
-		SGML_COMMAND = 22,
-		SGML_1ST_PARAM = 23,
-		SGML_DOUBLESTRING = 24,
-		SGML_SIMPLESTRING = 25,
-		SGML_ERROR = 26,
-		SGML_SPECIAL = 27,
-		SGML_ENTITY = 28,
-		SGML_COMMENT = 29,
-		SGML_1ST_PARAM_COMMENT = 30,
-		SGML_BLOCK_DEFAULT = 31,
-		J_START = 40,
-		J_DEFAULT = 41,
-		J_COMMENT = 42,
-		J_COMMENTLINE = 43,
-		J_COMMENTDOC = 44,
-		J_NUMBER = 45,
-		J_WORD = 46,
-		J_KEYWORD = 47,
-		J_DOUBLESTRING = 48,
-		J_SINGLESTRING = 49,
-		J_SYMBOLS = 50,
-		J_STRINGEOL = 51,
-		J_REGEX = 52,
-		JA_START = 55,
-		JA_DEFAULT = 56,
-		JA_COMMENT = 57,
-		JA_COMMENTLINE = 58,
-		JA_COMMENTDOC = 59,
-		JA_NUMBER = 60,
-		JA_WORD = 61,
-		JA_KEYWORD = 62,
-		JA_DOUBLESTRING = 63,
-		JA_SINGLESTRING = 64,
-		JA_SYMBOLS = 65,
-		JA_STRINGEOL = 66,
-		JA_REGEX = 67,
-		B_START = 70,
-		B_DEFAULT = 71,
-		B_COMMENTLINE = 72,
-		B_NUMBER = 73,
-		B_WORD = 74,
-		B_STRING = 75,
-		B_IDENTIFIER = 76,
-		B_STRINGEOL = 77,
-		BA_START = 80,
-		BA_DEFAULT = 81,
-		BA_COMMENTLINE = 82,
-		BA_NUMBER = 83,
-		BA_WORD = 84,
-		BA_STRING = 85,
-		BA_IDENTIFIER = 86,
-		BA_STRINGEOL = 87,
-		P_START = 90,
-		P_DEFAULT = 91,
-		P_COMMENTLINE = 92,
-		P_NUMBER = 93,
-		P_STRING = 94,
-		P_CHARACTER = 95,
-		P_WORD = 96,
-		P_TRIPLE = 97,
-		P_TRIPLEDOUBLE = 98,
-		P_CLASSNAME = 99,
-		P_DEFNAME = 100,
-		P_OPERATOR = 101,
-		P_IDENTIFIER = 102,
-		PHP_COMPLEX_VARIABLE = 104,
-		PA_START = 105,
-		PA_DEFAULT = 106,
-		PA_COMMENTLINE = 107,
-		PA_NUMBER = 108,
-		PA_STRING = 109,
-		PA_CHARACTER = 110,
-		PA_WORD = 111,
-		PA_TRIPLE = 112,
-		PA_TRIPLEDOUBLE = 113,
-		PA_CLASSNAME = 114,
-		PA_DEFNAME = 115,
-		PA_OPERATOR = 116,
-		PA_IDENTIFIER = 117,
-		PHP_DEFAULT = 118,
-		PHP_HSTRING = 119,
-		PHP_SIMPLESTRING = 120,
-		PHP_WORD = 121,
-		PHP_NUMBER = 122,
-		PHP_VARIABLE = 123,
-		PHP_COMMENT = 124,
-		PHP_COMMENTLINE = 125,
-		PHP_HSTRING_VARIABLE = 126,
-		PHP_OPERATOR = 127,
+    {
+        DEFAULT = 0,
+        TAG = 1,
+        TAGUNKNOWN = 2,
+        ATTRIBUTE = 3,
+        ATTRIBUTEUNKNOWN = 4,
+        NUMBER = 5,
+        DOUBLESTRING = 6,
+        SINGLESTRING = 7,
+        OTHER = 8,
+        COMMENT = 9,
+        ENTITY = 10,
+        TAGEND = 11,
+        XMLSTART = 12,
+        XMLEND = 13,
+        SCRIPT = 14,
+        ASP = 15,
+        ASPAT = 16,
+        CDATA = 17,
+        QUESTION = 18,
+        VALUE = 19,
+        XCCOMMENT = 20,
+        SGML_DEFAULT = 21,
+        SGML_COMMAND = 22,
+        SGML_1ST_PARAM = 23,
+        SGML_DOUBLESTRING = 24,
+        SGML_SIMPLESTRING = 25,
+        SGML_ERROR = 26,
+        SGML_SPECIAL = 27,
+        SGML_ENTITY = 28,
+        SGML_COMMENT = 29,
+        SGML_1ST_PARAM_COMMENT = 30,
+        SGML_BLOCK_DEFAULT = 31,
+        J_START = 40,
+        J_DEFAULT = 41,
+        J_COMMENT = 42,
+        J_COMMENTLINE = 43,
+        J_COMMENTDOC = 44,
+        J_NUMBER = 45,
+        J_WORD = 46,
+        J_KEYWORD = 47,
+        J_DOUBLESTRING = 48,
+        J_SINGLESTRING = 49,
+        J_SYMBOLS = 50,
+        J_STRINGEOL = 51,
+        J_REGEX = 52,
+        JA_START = 55,
+        JA_DEFAULT = 56,
+        JA_COMMENT = 57,
+        JA_COMMENTLINE = 58,
+        JA_COMMENTDOC = 59,
+        JA_NUMBER = 60,
+        JA_WORD = 61,
+        JA_KEYWORD = 62,
+        JA_DOUBLESTRING = 63,
+        JA_SINGLESTRING = 64,
+        JA_SYMBOLS = 65,
+        JA_STRINGEOL = 66,
+        JA_REGEX = 67,
+        B_START = 70,
+        B_DEFAULT = 71,
+        B_COMMENTLINE = 72,
+        B_NUMBER = 73,
+        B_WORD = 74,
+        B_STRING = 75,
+        B_IDENTIFIER = 76,
+        B_STRINGEOL = 77,
+        BA_START = 80,
+        BA_DEFAULT = 81,
+        BA_COMMENTLINE = 82,
+        BA_NUMBER = 83,
+        BA_WORD = 84,
+        BA_STRING = 85,
+        BA_IDENTIFIER = 86,
+        BA_STRINGEOL = 87,
+        P_START = 90,
+        P_DEFAULT = 91,
+        P_COMMENTLINE = 92,
+        P_NUMBER = 93,
+        P_STRING = 94,
+        P_CHARACTER = 95,
+        P_WORD = 96,
+        P_TRIPLE = 97,
+        P_TRIPLEDOUBLE = 98,
+        P_CLASSNAME = 99,
+        P_DEFNAME = 100,
+        P_OPERATOR = 101,
+        P_IDENTIFIER = 102,
+        PHP_COMPLEX_VARIABLE = 104,
+        PA_START = 105,
+        PA_DEFAULT = 106,
+        PA_COMMENTLINE = 107,
+        PA_NUMBER = 108,
+        PA_STRING = 109,
+        PA_CHARACTER = 110,
+        PA_WORD = 111,
+        PA_TRIPLE = 112,
+        PA_TRIPLEDOUBLE = 113,
+        PA_CLASSNAME = 114,
+        PA_DEFNAME = 115,
+        PA_OPERATOR = 116,
+        PA_IDENTIFIER = 117,
+        PHP_DEFAULT = 118,
+        PHP_HSTRING = 119,
+        PHP_SIMPLESTRING = 120,
+        PHP_WORD = 121,
+        PHP_NUMBER = 122,
+        PHP_VARIABLE = 123,
+        PHP_COMMENT = 124,
+        PHP_COMMENTLINE = 125,
+        PHP_HSTRING_VARIABLE = 126,
+        PHP_OPERATOR = 127,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
-    public enum ASP
-    {    
-		DEFAULT = 0,
-		TAG = 1,
-		TAGUNKNOWN = 2,
-		ATTRIBUTE = 3,
-		ATTRIBUTEUNKNOWN = 4,
-		NUMBER = 5,
-		DOUBLESTRING = 6,
-		SINGLESTRING = 7,
-		OTHER = 8,
-		COMMENT = 9,
-		ENTITY = 10,
-		TAGEND = 11,
-		XMLSTART = 12,
-		XMLEND = 13,
-		SCRIPT = 14,
-		ASP = 15,
-		ASPAT = 16,
-		CDATA = 17,
-		QUESTION = 18,
-		VALUE = 19,
-		XCCOMMENT = 20,
-		SGML_DEFAULT = 21,
-		SGML_COMMAND = 22,
-		SGML_1ST_PARAM = 23,
-		SGML_DOUBLESTRING = 24,
-		SGML_SIMPLESTRING = 25,
-		SGML_ERROR = 26,
-		SGML_SPECIAL = 27,
-		SGML_ENTITY = 28,
-		SGML_COMMENT = 29,
-		SGML_1ST_PARAM_COMMENT = 30,
-		SGML_BLOCK_DEFAULT = 31,
-		J_START = 40,
-		J_DEFAULT = 41,
-		J_COMMENT = 42,
-		J_COMMENTLINE = 43,
-		J_COMMENTDOC = 44,
-		J_NUMBER = 45,
-		J_WORD = 46,
-		J_KEYWORD = 47,
-		J_DOUBLESTRING = 48,
-		J_SINGLESTRING = 49,
-		J_SYMBOLS = 50,
-		J_STRINGEOL = 51,
-		J_REGEX = 52,
-		JA_START = 55,
-		JA_DEFAULT = 56,
-		JA_COMMENT = 57,
-		JA_COMMENTLINE = 58,
-		JA_COMMENTDOC = 59,
-		JA_NUMBER = 60,
-		JA_WORD = 61,
-		JA_KEYWORD = 62,
-		JA_DOUBLESTRING = 63,
-		JA_SINGLESTRING = 64,
-		JA_SYMBOLS = 65,
-		JA_STRINGEOL = 66,
-		JA_REGEX = 67,
-		B_START = 70,
-		B_DEFAULT = 71,
-		B_COMMENTLINE = 72,
-		B_NUMBER = 73,
-		B_WORD = 74,
-		B_STRING = 75,
-		B_IDENTIFIER = 76,
-		B_STRINGEOL = 77,
-		BA_START = 80,
-		BA_DEFAULT = 81,
-		BA_COMMENTLINE = 82,
-		BA_NUMBER = 83,
-		BA_WORD = 84,
-		BA_STRING = 85,
-		BA_IDENTIFIER = 86,
-		BA_STRINGEOL = 87,
-		P_START = 90,
-		P_DEFAULT = 91,
-		P_COMMENTLINE = 92,
-		P_NUMBER = 93,
-		P_STRING = 94,
-		P_CHARACTER = 95,
-		P_WORD = 96,
-		P_TRIPLE = 97,
-		P_TRIPLEDOUBLE = 98,
-		P_CLASSNAME = 99,
-		P_DEFNAME = 100,
-		P_OPERATOR = 101,
-		P_IDENTIFIER = 102,
-		PHP_COMPLEX_VARIABLE = 104,
-		PA_START = 105,
-		PA_DEFAULT = 106,
-		PA_COMMENTLINE = 107,
-		PA_NUMBER = 108,
-		PA_STRING = 109,
-		PA_CHARACTER = 110,
-		PA_WORD = 111,
-		PA_TRIPLE = 112,
-		PA_TRIPLEDOUBLE = 113,
-		PA_CLASSNAME = 114,
-		PA_DEFNAME = 115,
-		PA_OPERATOR = 116,
-		PA_IDENTIFIER = 117,
-		PHP_DEFAULT = 118,
-		PHP_HSTRING = 119,
-		PHP_SIMPLESTRING = 120,
-		PHP_WORD = 121,
-		PHP_NUMBER = 122,
-		PHP_VARIABLE = 123,
-		PHP_COMMENT = 124,
-		PHP_COMMENTLINE = 125,
-		PHP_HSTRING_VARIABLE = 126,
-		PHP_OPERATOR = 127,
-        GDEFAULT = 32,
-        LINENUMBER = 33,
-        BRACELIGHT = 34,
-        BRACEBAD = 35,
-        CONTROLCHAR = 36,
-        INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
-    }
-    
-    public enum PHP
-    {    
-		DEFAULT = 0,
-		TAG = 1,
-		TAGUNKNOWN = 2,
-		ATTRIBUTE = 3,
-		ATTRIBUTEUNKNOWN = 4,
-		NUMBER = 5,
-		DOUBLESTRING = 6,
-		SINGLESTRING = 7,
-		OTHER = 8,
-		COMMENT = 9,
-		ENTITY = 10,
-		TAGEND = 11,
-		XMLSTART = 12,
-		XMLEND = 13,
-		SCRIPT = 14,
-		ASP = 15,
-		ASPAT = 16,
-		CDATA = 17,
-		QUESTION = 18,
-		VALUE = 19,
-		XCCOMMENT = 20,
-		SGML_DEFAULT = 21,
-		SGML_COMMAND = 22,
-		SGML_1ST_PARAM = 23,
-		SGML_DOUBLESTRING = 24,
-		SGML_SIMPLESTRING = 25,
-		SGML_ERROR = 26,
-		SGML_SPECIAL = 27,
-		SGML_ENTITY = 28,
-		SGML_COMMENT = 29,
-		SGML_1ST_PARAM_COMMENT = 30,
-		SGML_BLOCK_DEFAULT = 31,
-		J_START = 40,
-		J_DEFAULT = 41,
-		J_COMMENT = 42,
-		J_COMMENTLINE = 43,
-		J_COMMENTDOC = 44,
-		J_NUMBER = 45,
-		J_WORD = 46,
-		J_KEYWORD = 47,
-		J_DOUBLESTRING = 48,
-		J_SINGLESTRING = 49,
-		J_SYMBOLS = 50,
-		J_STRINGEOL = 51,
-		J_REGEX = 52,
-		JA_START = 55,
-		JA_DEFAULT = 56,
-		JA_COMMENT = 57,
-		JA_COMMENTLINE = 58,
-		JA_COMMENTDOC = 59,
-		JA_NUMBER = 60,
-		JA_WORD = 61,
-		JA_KEYWORD = 62,
-		JA_DOUBLESTRING = 63,
-		JA_SINGLESTRING = 64,
-		JA_SYMBOLS = 65,
-		JA_STRINGEOL = 66,
-		JA_REGEX = 67,
-		B_START = 70,
-		B_DEFAULT = 71,
-		B_COMMENTLINE = 72,
-		B_NUMBER = 73,
-		B_WORD = 74,
-		B_STRING = 75,
-		B_IDENTIFIER = 76,
-		B_STRINGEOL = 77,
-		BA_START = 80,
-		BA_DEFAULT = 81,
-		BA_COMMENTLINE = 82,
-		BA_NUMBER = 83,
-		BA_WORD = 84,
-		BA_STRING = 85,
-		BA_IDENTIFIER = 86,
-		BA_STRINGEOL = 87,
-		P_START = 90,
-		P_DEFAULT = 91,
-		P_COMMENTLINE = 92,
-		P_NUMBER = 93,
-		P_STRING = 94,
-		P_CHARACTER = 95,
-		P_WORD = 96,
-		P_TRIPLE = 97,
-		P_TRIPLEDOUBLE = 98,
-		P_CLASSNAME = 99,
-		P_DEFNAME = 100,
-		P_OPERATOR = 101,
-		P_IDENTIFIER = 102,
-		PHP_COMPLEX_VARIABLE = 104,
-		PA_START = 105,
-		PA_DEFAULT = 106,
-		PA_COMMENTLINE = 107,
-		PA_NUMBER = 108,
-		PA_STRING = 109,
-		PA_CHARACTER = 110,
-		PA_WORD = 111,
-		PA_TRIPLE = 112,
-		PA_TRIPLEDOUBLE = 113,
-		PA_CLASSNAME = 114,
-		PA_DEFNAME = 115,
-		PA_OPERATOR = 116,
-		PA_IDENTIFIER = 117,
-		PHP_DEFAULT = 118,
-		PHP_HSTRING = 119,
-		PHP_SIMPLESTRING = 120,
-		PHP_WORD = 121,
-		PHP_NUMBER = 122,
-		PHP_VARIABLE = 123,
-		PHP_COMMENT = 124,
-		PHP_COMMENTLINE = 125,
-		PHP_HSTRING_VARIABLE = 126,
-		PHP_OPERATOR = 127,
-        GDEFAULT = 32,
-        LINENUMBER = 33,
-        BRACELIGHT = 34,
-        BRACEBAD = 35,
-        CONTROLCHAR = 36,
-        INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
-    }
-        
+
     public enum PERL
     {    
 		DEFAULT = 0,
@@ -684,7 +463,17 @@ namespace ScintillaNet.Lexers
 		STRING_QX = 28,
 		STRING_QR = 29,
 		STRING_QW = 30,
-		POD_VERB = 31
+		POD_VERB = 31,
+        SUB_PROTOTYPE = 40,
+        FORMAT_IDENT = 41,
+        FORMAT = 42,
+		GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum RUBY
@@ -729,8 +518,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum VB
@@ -760,70 +548,67 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum VBSCRIPT
-    {    
-		DEFAULT = 0,
-		COMMENT = 1,
-		NUMBER = 2,
-		KEYWORD = 3,
-		STRING = 4,
-		PREPROCESSOR = 5,
-		OPERATOR = 6,
-		IDENTIFIER = 7,
-		DATE = 8,
-		STRINGEOL = 9,
-		KEYWORD2 = 10,
-		KEYWORD3 = 11,
-		KEYWORD4 = 12,
-		CONSTANT = 13,
-		ASM = 14,
-		LABEL = 15,
-		ERROR = 16,
-		HEXNUMBER = 17,
-		BINNUMBER = 18,
-		GDEFAULT = 32,
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        NUMBER = 2,
+        KEYWORD = 3,
+        STRING = 4,
+        PREPROCESSOR = 5,
+        OPERATOR = 6,
+        IDENTIFIER = 7,
+        DATE = 8,
+        STRINGEOL = 9,
+        KEYWORD2 = 10,
+        KEYWORD3 = 11,
+        KEYWORD4 = 12,
+        CONSTANT = 13,
+        ASM = 14,
+        LABEL = 15,
+        ERROR = 16,
+        HEXNUMBER = 17,
+        BINNUMBER = 18,
+        GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum POWERBASIC
-    {    
-		DEFAULT = 0,
-		COMMENT = 1,
-		NUMBER = 2,
-		KEYWORD = 3,
-		STRING = 4,
-		PREPROCESSOR = 5,
-		OPERATOR = 6,
-		IDENTIFIER = 7,
-		DATE = 8,
-		STRINGEOL = 9,
-		KEYWORD2 = 10,
-		KEYWORD3 = 11,
-		KEYWORD4 = 12,
-		CONSTANT = 13,
-		ASM = 14,
-		LABEL = 15,
-		ERROR = 16,
-		HEXNUMBER = 17,
-		BINNUMBER = 18,
-		GDEFAULT = 32,
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        NUMBER = 2,
+        KEYWORD = 3,
+        STRING = 4,
+        PREPROCESSOR = 5,
+        OPERATOR = 6,
+        IDENTIFIER = 7,
+        DATE = 8,
+        STRINGEOL = 9,
+        KEYWORD2 = 10,
+        KEYWORD3 = 11,
+        KEYWORD4 = 12,
+        CONSTANT = 13,
+        ASM = 14,
+        LABEL = 15,
+        ERROR = 16,
+        HEXNUMBER = 17,
+        BINNUMBER = 18,
+        GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum PROPERTIES
@@ -833,63 +618,61 @@ namespace ScintillaNet.Lexers
 		SECTION = 2,
 		ASSIGNMENT = 3,
 		DEFVAL = 4,
+        KEY = 5,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum LATEX
-    {    
-		DEFAULT = 0,
-		COMMAND = 1,
-		TAG = 2,
-		MATH = 3,
-		COMMENT = 4,
+    {
+        DEFAULT = 0,
+        COMMAND = 1,
+        TAG = 2,
+        MATH = 3,
+        COMMENT = 4,
         GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum LUA
-    {    
-		DEFAULT = 0,
-		COMMENT = 1,
-		COMMENTLINE = 2,
-		COMMENTDOC = 3,
-		NUMBER = 4,
-		WORD = 5,
-		STRING = 6,
-		CHARACTER = 7,
-		LITERALSTRING = 8,
-		PREPROCESSOR = 9,
-		OPERATOR = 10,
-		IDENTIFIER = 11,
-		STRINGEOL = 12,
-		WORD2 = 13,
-		WORD3 = 14,
-		WORD4 = 15,
-		WORD5 = 16,
-		WORD6 = 17,
-		WORD7 = 18,
-		WORD8 = 19,
-		GDEFAULT = 32,
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        COMMENTLINE = 2,
+        COMMENTDOC = 3,
+        NUMBER = 4,
+        WORD = 5,
+        STRING = 6,
+        CHARACTER = 7,
+        LITERALSTRING = 8,
+        PREPROCESSOR = 9,
+        OPERATOR = 10,
+        IDENTIFIER = 11,
+        STRINGEOL = 12,
+        WORD2 = 13,
+        WORD3 = 14,
+        WORD4 = 15,
+        WORD5 = 16,
+        WORD6 = 17,
+        WORD7 = 18,
+        WORD8 = 19,
+        GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum ERRORLIST
@@ -915,14 +698,14 @@ namespace ScintillaNet.Lexers
 		ABSF = 18,
 		TIDY = 19,
 		JAVA_STACK = 20,
+        VALUE = 21,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum BATCH
@@ -941,8 +724,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum MAKEFILE
@@ -960,8 +742,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum DIFF
@@ -973,6 +754,7 @@ namespace ScintillaNet.Lexers
 		POSITION = 4,
 		DELETED = 5,
 		ADDED = 6,
+        CHANGED = 7,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
@@ -1001,18 +783,17 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
-    public enum AVENUE
+    public enum AVE
     {    
         DEFAULT = 0,
         COMMENT = 1,
         NUMBER = 2,
         WORD = 3,
         STRING = 6,
-        @ENUM = 7,
+        ENUM = 7,
         STRINGEOL = 8,
         IDENTIFIER = 9,
         OPERATOR = 10,
@@ -1028,8 +809,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum ADA
@@ -1052,8 +832,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum BAAN
@@ -1075,8 +854,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum LISP
@@ -1099,8 +877,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum EIFFEL
@@ -1120,8 +897,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum EIFFELKW
@@ -1141,8 +917,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum NNCRONTAB
@@ -1164,8 +939,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum FORTH
@@ -1188,8 +962,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum MATLAB
@@ -1209,11 +982,10 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
-    public enum SOL
+
+    public enum SCRIPTOL
     {    
         DEFAULT = 0,
         WHITE = 1,
@@ -1237,8 +1009,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum ASM
@@ -1264,8 +1035,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum FORTRAN
@@ -1291,8 +1061,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum F77
@@ -1318,8 +1087,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum CSS
@@ -1341,14 +1109,18 @@ namespace ScintillaNet.Lexers
 		SINGLESTRING = 14,
 		IDENTIFIER2 = 15,
 		ATTRIBUTE = 16,
+        IDENTIFIER3 = 17,
+        PSEUDOELEMENT = 18,
+        EXTENDED_IDENTIFIER = 19,
+        EXTENDED_PSEUDOCLASS = 20,
+        EXTENDED_PSEUDOELEMENT = 21,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum POV
@@ -1376,8 +1148,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum LOUT
@@ -1399,8 +1170,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum ESCRIPT
@@ -1423,8 +1193,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum PS
@@ -1451,8 +1220,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum NSIS
@@ -1482,8 +1250,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum MMIXAL
@@ -1512,8 +1279,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum CLARION
@@ -1541,8 +1307,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum LOT
@@ -1560,8 +1325,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum YAML
@@ -1575,14 +1339,14 @@ namespace ScintillaNet.Lexers
         DOCUMENT = 6,
         TEXT = 7,
         ERROR = 8,
+        OPERATOR = 9,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum TEX
@@ -1599,8 +1363,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum METAPOST
@@ -1618,8 +1381,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum ERLANG
@@ -1645,12 +1407,11 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum OCTAVE
-    {    
+    {
         DEFAULT = 0,
         COMMENT = 1,
         COMMAND = 2,
@@ -1660,43 +1421,41 @@ namespace ScintillaNet.Lexers
         OPERATOR = 6,
         IDENTIFIER = 7,
         DOUBLEQUOTESTRING = 8,
-		GDEFAULT = 32,
+        GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
-    
+
     public enum MSSQL
     {    
         DEFAULT = 0,
         COMMENT = 1,
-        LINECOMMENT = 2,
+        LINE_COMMENT = 2,
         NUMBER = 3,
         STRING = 4,
         OPERATOR = 5,
         IDENTIFIER = 6,
         VARIABLE = 7,
-        COLUMNNAME = 8,
+        COLUMN_NAME = 8,
         STATEMENT = 9,
         DATATYPE = 10,
         SYSTABLE = 11,
-        GLOBALVARIABLE = 12,
+        GLOBAL_VARIABLE = 12,
         FUNCTION = 13,
-        STOREDPROCEDURE = 14,
-        DEFAULTPREFDATATYPE = 15,
-        COLUMNNAME2 = 16,
+        STORED_PROCEDURE = 14,
+        DEFAULT_PREF_DATATYPE = 15,
+        COLUMN_NAME_2 = 16,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum VERILOG
@@ -1721,8 +1480,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum KIX
@@ -1744,8 +1502,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum GUI4CLI
@@ -1766,8 +1523,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum SPECMAN
@@ -1794,8 +1550,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum AU3
@@ -1815,14 +1570,14 @@ namespace ScintillaNet.Lexers
 		SPECIAL = 12,
 		EXPAND = 13,
 		COMOBJ = 14,
+        UDF = 15,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum APDL
@@ -1846,8 +1601,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum BASH
@@ -1864,16 +1618,15 @@ namespace ScintillaNet.Lexers
         SCALAR = 9,
         PARAM = 10,
         BACKTICKS = 11,
-        HEREDELIM = 12,
-        HEREQ = 13,
+        HERE_DELIM = 12,
+        HERE_Q = 13,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum ASN1
@@ -1895,8 +1648,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum VHDL
@@ -1922,8 +1674,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum CAML
@@ -1949,8 +1700,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum HASKELL
@@ -1978,8 +1728,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum TADS3
@@ -2004,14 +1753,14 @@ namespace ScintillaNet.Lexers
 		USER1 = 17,
 		USER2 = 18,
 		USER3 = 19,
+        BRACE = 20,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum REBOL
@@ -2051,8 +1800,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum SQL
@@ -2085,8 +1833,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum SMALLTALK
@@ -2114,8 +1861,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum FLAGSHIP
@@ -2150,8 +1896,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
     
     public enum CSOUND
@@ -2178,8 +1923,7 @@ namespace ScintillaNet.Lexers
         BRACEBAD = 35,
         CONTROLCHAR = 36,
         INDENTGUIDE = 37,
-        LASTPREDEFINED = 39,
-        MAX = 127
+        LASTPREDEFINED = 39
     }
 
     public enum INNOSETUP 
@@ -2196,7 +1940,14 @@ namespace ScintillaNet.Lexers
         KEYWORD_USER = 9,
         STRING_DOUBLE = 10,
         STRING_SINGLE = 11,
-        IDENTIFIER = 12
+        IDENTIFIER = 12,
+		GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum OPAL
@@ -2210,7 +1961,13 @@ namespace ScintillaNet.Lexers
         STRING = 6,
         PAR = 7,
         BOOL_CONST = 8,
-        DEFAULT = 32
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum SPICE
@@ -2223,7 +1980,14 @@ namespace ScintillaNet.Lexers
         NUMBER = 5,
         DELIMITER = 6,
         VALUE = 7,
-        COMMENTLINE = 8
+        COMMENTLINE = 8,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum CMAKE
@@ -2242,7 +2006,14 @@ namespace ScintillaNet.Lexers
         IFDEFINEDEF = 11,
         MACRODEF = 12,
         STRINGVAR = 13,
-        NUMBER = 14
+        NUMBER = 14,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum GAP
@@ -2258,7 +2029,14 @@ namespace ScintillaNet.Lexers
         OPERATOR = 8,
         COMMENT = 9,
         NUMBER = 10,
-        STRINGEOL = 11
+        STRINGEOL = 11,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum PLM
@@ -2270,7 +2048,14 @@ namespace ScintillaNet.Lexers
         IDENTIFIER = 4,
         OPERATOR = 5,
         CONTROL = 6,
-        KEYWORD = 7
+        KEYWORD = 7,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum PROGRESS
@@ -2306,7 +2091,14 @@ namespace ScintillaNet.Lexers
         COMMENT3_ = 28,
         COMMENT4_ = 29,
         COMMENT5_ = 30,
-        COMMENT6_ = 31
+        COMMENT6_ = 31,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum ABAQUS
@@ -2323,7 +2115,14 @@ namespace ScintillaNet.Lexers
         SLASHCOMMAND = 9,
         STARCOMMAND = 10,
         ARGUMENT = 11,
-        FUNCTION = 12
+        FUNCTION = 12,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum ASYMPTOTE
@@ -2339,7 +2138,14 @@ namespace ScintillaNet.Lexers
         IDENTIFIER = 8,
         STRINGEOL = 9,
         COMMENTLINEDOC = 10,
-        WORD2 = 11
+        WORD2 = 11,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
     public enum R
@@ -2355,7 +2161,218 @@ namespace ScintillaNet.Lexers
         OPERATOR = 8,
         IDENTIFIER = 9,
         INFIX = 10,
-        INFIXEOL = 11
+        INFIXEOL = 11,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum MAGIK
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        HYPER_COMMENT = 16,
+        STRING = 2,
+        CHARACTER = 3,
+        NUMBER = 4,
+        IDENTIFIER = 5,
+        OPERATOR = 6,
+        FLOW = 7,
+        CONTAINER = 8,
+        BRACKET_BLOCK = 9,
+        BRACE_BLOCK = 10,
+        SQBRACKET_BLOCK = 11,
+        UNKNOWN_KEYWORD = 12,
+        KEYWORD = 13,
+        PRAGMA = 14,
+        SYMBOL = 15,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum POWERSHELL
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        STRING = 2,
+        CHARACTER = 3,
+        NUMBER = 4,
+        VARIABLE = 5,
+        OPERATOR = 6,
+        IDENTIFIER = 7,
+        KEYWORD = 8,
+        CMDLET = 9,
+        ALIAS = 10,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum MYSQL
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        COMMENTLINE = 2,
+        VARIABLE = 3,
+        SYSTEMVARIABLE = 4,
+        KNOWNSYSTEMVARIABLE = 5,
+        NUMBER = 6,
+        MAJORKEYWORD = 7,
+        KEYWORD = 8,
+        DATABASEOBJECT = 9,
+        PROCEDUREKEYWORD = 10,
+        STRING = 11,
+        SQSTRING = 12,
+        DQSTRING = 13,
+        OPERATOR = 14,
+        FUNCTION = 15,
+        IDENTIFIER = 16,
+        QUOTEDIDENTIFIER = 17,
+        USER1 = 18,
+        USER2 = 19,
+        USER3 = 20,
+        HIDDENCOMMAND = 21,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum PO
+    {
+        DEFAULT = 0,
+        COMMENT = 1,
+        MSGID = 2,
+        MSGID_TEXT = 3,
+        MSGSTR = 4,
+        MSGSTR_TEXT = 5,
+        MSGCTXT = 6,
+        MSGCTXT_TEXT = 7,
+        FUZZY = 8,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum PASCAL
+    {
+        DEFAULT = 0,
+        IDENTIFIER = 1,
+        COMMENT = 2,
+        COMMENT2 = 3,
+        COMMENTLINE = 4,
+        PREPROCESSOR = 5,
+        PREPROCESSOR2 = 6,
+        NUMBER = 7,
+        HEXNUMBER = 8,
+        WORD = 9,
+        STRING = 10,
+        STRINGEOL = 11,
+        CHARACTER = 12,
+        OPERATOR = 13,
+        ASM = 14,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum SORCUS
+    {
+        DEFAULT = 0,
+        COMMAND = 1,
+        PARAMETER = 2,
+        COMMENTLINE = 3,
+        STRING = 4,
+        STRINGEOL = 5,
+        IDENTIFIER = 6,
+        OPERATOR = 7,
+        NUMBER = 8,
+        CONSTANT = 9,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
+    }
+
+    public enum POWERPRO
+    {
+        DEFAULT = 0,
+        COMMENTBLOCK = 1,
+        COMMENTLINE = 2,
+        NUMBER = 3,
+        WORD = 4,
+        WORD2 = 5,
+        WORD3 = 6,
+        WORD4 = 7,
+        DOUBLEQUOTEDSTRING = 8,
+        SINGLEQUOTEDSTRING = 9,
+        LINECONTINUE = 10,
+        OPERATOR = 11,
+        IDENTIFIER = 12,
+        STRINGEOL = 13,
+        VERBATIM = 14,
+        ALTQUOTE = 15,
+        FUNCTION = 16,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39,
+    }
+
+    public enum SML
+    {
+        DEFAULT = 0,
+        IDENTIFIER = 1,
+        TAGNAME = 2,
+        KEYWORD = 3,
+        KEYWORD2 = 4,
+        KEYWORD3 = 5,
+        LINENUM = 6,
+        OPERATOR = 7,
+        NUMBER = 8,
+        CHAR = 9,
+        STRING = 11,
+        COMMENT = 12,
+        COMMENT1 = 13,
+        COMMENT2 = 14,
+        COMMENT3 = 15,
+        GDEFAULT = 32,
+        LINENUMBER = 33,
+        BRACELIGHT = 34,
+        BRACEBAD = 35,
+        CONTROLCHAR = 36,
+        INDENTGUIDE = 37,
+        LASTPREDEFINED = 39
     }
 
 }

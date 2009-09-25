@@ -40,5 +40,7 @@ namespace ScintillaNet
 	public delegate void MarkerChangedHandler(ScintillaControl sender, int line);
     public delegate void IndicatorClickHandler(ScintillaControl sender, int position);
     public delegate void IndicatorReleaseHandler(ScintillaControl sender, int position);
+    public delegate void AutoCCancelledHandler(ScintillaControl sender);
+    public delegate void AutoCCharDeletedHandler(ScintillaControl sender);
 
 }

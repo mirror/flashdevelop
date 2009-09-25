@@ -2,12 +2,19 @@ using System;
 using System.Windows.Forms;
 
 namespace ScintillaNet.Enums
-{	
-	public enum Position
-	{
-		Invalid = -1
-	}
-	
+{
+    public enum Position
+    {
+        Invalid = -1
+    }
+
+    public enum Status
+    {
+        Ok = 0,
+        Failure = 1,
+        BadAlloc = 2
+    }
+
 	public enum Command
 	{
 		Change = 768,
@@ -20,16 +27,6 @@ namespace ScintillaNet.Enums
 		Initial = 2000,
 		Optional = 3000,
 		Lexer = 4000
-	}
-	
-	public enum BeepType
-	{
-		Default = -1,
-		Ok = 0x00000000,
-		Information = 0x00000040,
-		Question = 0x00000020,
-		Warning = 0x00000030,
-		Error = 0x00000010
 	}
 	
 	public enum MarkerSymbol
@@ -61,6 +58,8 @@ namespace ScintillaNet.Enums
 		Arrows = 24,
 		Pixmap = 25,
 		Fullrect = 26,
+        Leftrect = 27,
+        Available = 28,
         Character = 10000
     }
     
@@ -80,7 +79,9 @@ namespace ScintillaNet.Enums
         Symbol = 0,
         Number = 1,
         Back = 2,
-        Fore = 3
+        Fore = 3,
+        Text = 4,
+        Rtext = 5
     }
     
 	public enum WhiteSpace
@@ -105,8 +106,9 @@ namespace ScintillaNet.Enums
         BraceBad = 35,
         ControlChar = 36,
         IndentGuide = 37,
+        Calltip = 38,
         LastPredefined = 39,
-        Max = 127
+        Max = 255
     }
     
     public enum CharacterSet
@@ -150,7 +152,9 @@ namespace ScintillaNet.Enums
 		Strike = 4,
 		Hidden = 5,
 		Box = 6,
-		Max = 7,
+        RoundBox = 7,
+        Container = 8,
+		Max = 31,
 		Mask0 = 0x20,
 		Mask1 = 0x40,
 		Mask2 = 0x80,
@@ -181,6 +185,13 @@ namespace ScintillaNet.Enums
         NoAlpha = 256
     }
 
+    public enum Annotation
+    {
+        Hidden = 0,
+        Standard = 1,
+        Boxed = 2
+    }
+
     public enum FindOption
     {    
         WholeWord = 2,
@@ -195,10 +206,6 @@ namespace ScintillaNet.Enums
 		Base = 0x400,
 		WhiteFlag = 0x1000,
 		HeaderFlag = 0x2000,
-		BoxHeaderFlag = 0x4000,
-		BoxFooterFlag = 0x8000,
-		Contracted = 0x10000,
-		Unindent = 0x20000,
 		NumberMask = 0x0FFF
     }
     
@@ -208,8 +215,7 @@ namespace ScintillaNet.Enums
         LineBeforeContracted = 0x0004,
         LineAfterExpanded = 0x0008,
         LineAfterContracted = 0x0010,
-        LevelNumbers = 0x0040,
-        Box = 0x0001
+        LevelNumbers = 0x0040
     }
     
     public enum Wrap
@@ -218,7 +224,14 @@ namespace ScintillaNet.Enums
         Word = 1,
 		Char = 2
     }
-    
+
+    public enum WrapIndent
+    {
+        Fixed = 0,
+        Same = 1,
+        Indent = 2
+    }
+
     public enum WrapVisualFlag
     {    
         None = 0x0000,
@@ -281,7 +294,15 @@ namespace ScintillaNet.Enums
         Rectangle = 1,
         Lines = 2
     }
-    
+
+    public enum SmartIndent
+    {
+        None = 0,
+        CPP = 1,
+        Simple = 2,
+        Custom = 3
+    }
+
     public enum ModificationFlags
     {    
 		InsertText = 0x1,
@@ -297,7 +318,13 @@ namespace ScintillaNet.Enums
 		BeforeInsert = 0x400,
 		BeforeDelete = 0x800,
 		MultiLineUndoRedo = 0x1000,
-		EventMaskAll = 0x1FFF
+        StartAction = 0x2000,
+        ChangeIndicator = 0x4000,
+        ChangeLinestate = 0x8000,
+        ChangeMargin = 0x10000,
+        ChangeAnnotation = 0x20000,
+        Container = 0x40000,
+        EventMaskAll = 0x7FFFF
     }
     
     public enum Keys
@@ -357,7 +384,9 @@ namespace ScintillaNet.Enums
 		CalltipClick = 2021,
 		AutoCSelection = 2022,
         IndicatorClick = 2023,
-        IndicatorRelease = 2024
+        IndicatorRelease = 2024,
+        AutoCCancelled = 2025,
+        AutoCCharDeleted = 2026
 	}
 	
 	public enum Lexer
@@ -447,15 +476,17 @@ namespace ScintillaNet.Enums
         ABAQUS = 84,
         ASYMPTOTE = 85,
         R = 86,
-		AUTOMATIC = 1000
+        MAGIK = 87,
+        POWERSHELL = 88,
+        MYSQL = 89,
+        PO = 90,
+        TAL = 91,
+        COBOL = 92,
+        TACL = 93,
+        SORCUS = 94,
+        POWERPRO = 95,
+        NIMROD = 96,
+        SML = 97
     }
-	
-   	public enum SmartIndent
-	{
-		None = 0,
-		CPP = 1,
-		Simple = 2,
-		Custom = 3
-	}
-   		
+
 }
