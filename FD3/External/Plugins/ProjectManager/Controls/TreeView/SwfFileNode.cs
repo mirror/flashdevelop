@@ -56,7 +56,16 @@ namespace ProjectManager.Controls.TreeView
 		{
 			ImageIndex = SelectedImageIndex = Icons.Class.Index;
 		}
-	}
+    }
+
+    public class FontExportNode : ExportNode
+    {
+        public FontExportNode(string filePath, string export)
+            : base(filePath, export)
+        {
+            ImageIndex = SelectedImageIndex = Icons.Font.Index;
+        }
+    }
 
 	public class ClassesNode : FakeNode
 	{
@@ -67,12 +76,24 @@ namespace ProjectManager.Controls.TreeView
 			ImageIndex = SelectedImageIndex = Icons.HiddenFolder.Index;
 		}
     }
+
     public class SymbolsNode : FakeNode
     {
         public SymbolsNode(string filePath)
             : base(filePath + ";__symbols__")
         {
             Text = "Symbols";
+            ForeColorRequest = Color.Gray;
+            ImageIndex = SelectedImageIndex = Icons.HiddenFolder.Index;
+        }
+    }
+
+    public class FontsNode : FakeNode
+    {
+        public FontsNode(string filePath)
+            : base(filePath + ";__fonts__")
+        {
+            Text = "Fonts";
             ForeColorRequest = Color.Gray;
             ImageIndex = SelectedImageIndex = Icons.HiddenFolder.Index;
         }
@@ -180,6 +201,9 @@ namespace ProjectManager.Controls.TreeView
                 ExportComparer symbolsComp = new ExportComparer();
                 if (parser.Symbols.Count == 1) symbolsComp.Compare(parser.Symbols[0], parser.Symbols[0]);
                 parser.Symbols.Sort(symbolsComp);
+                ExportComparer fontsComp = new ExportComparer();
+                if (parser.Fonts.Count == 1) fontsComp.Compare(parser.Fonts[0], parser.Fonts[0]);
+                parser.Fonts.Sort(fontsComp);
 
                 if (parser.Classes.Count > 0)
                 {
@@ -224,6 +248,28 @@ namespace ProjectManager.Controls.TreeView
                     }
                     Nodes.Add(node2);
                 }
+
+                if (parser.Fonts.Count > 0)
+                {
+                    FontsNode node2 = new FontsNode(BackingPath);
+                    string[] groups = new string[fontsComp.groups.Keys.Count];
+                    fontsComp.groups.Keys.CopyTo(groups, 0);
+                    Array.Sort(groups);
+                    foreach (string groupName in groups)
+                    {
+                        if (node2.Nodes.Count > 0)
+                        {
+                            SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
+                            frame.Text = groupName;
+                            node2.Nodes.Add(frame);
+                        }
+                        List<String> names = fontsComp.groups[groupName];
+                        names.Sort(); // TODO Add setting?
+                        foreach (string font in names)
+                            node2.Nodes.Add(new FontExportNode(BackingPath, font));
+                    }
+                    Nodes.Add(node2);
+                }
             }
             finally
             {
@@ -239,12 +285,12 @@ namespace ProjectManager.Controls.TreeView
 
             public int Compare(string a, string b)
             {
-                int pa = a.IndexOf(' ');
-                int pb = b.IndexOf(' ');
+                int pa = a.IndexOf(" @Frame");
+                int pb = b.IndexOf(" @Frame");
                 string endA = " ";
-                if (pa > 0) { endA = a.Substring(pa + 1); a = a.Substring(0, pa); }
+                if (pa > 0) { endA = a.Substring(pa + 2); a = a.Substring(0, pa); }
                 string endB = " ";
-                if (pb > 0) { endB = b.Substring(pb + 1); b = b.Substring(0, pb); }
+                if (pb > 0) { endB = b.Substring(pb + 2); b = b.Substring(0, pb); }
                 if (!groups.ContainsKey(endA)) groups[endA] = new List<string>();
                 if (!groups[endA].Contains(a)) groups[endA].Add(a);
                 if (!groups.ContainsKey(endB)) groups[endB] = new List<string>();

@@ -6,18 +6,20 @@ namespace SwfOp.Data.Tags
 {
     class MetaDataTag : BaseTag
     {
-        string _meta;
+        public string meta;
 
         public MetaDataTag(string meta)
         {
             _tagCode = (int)TagCodeEnum.MetaData;
-            _meta = meta;
+            this.meta = meta;
         }
 
-        public string meta
+        /// <summary>
+		/// see <see cref="SwfOp.Data.Tags.BaseTag">base class</see>
+		/// </summary>
+        public override void UpdateData(byte version)
         {
-            get { return _meta; }
-            set { _meta = value; }
+            throw new NotImplementedException();
         }
     }
 }

@@ -54,15 +54,34 @@ namespace SwfOp.IO
                 case TagCodeEnum.MetaData:
                     return ReadMetaDataTag(offset);
 
+                case TagCodeEnum.DefineFont2:
+                case TagCodeEnum.DefineFont3:
+                    return new DefineFontTag(br.ReadBytes(rh.TagLength + offset), offset, rh.TagCode);
+
+                /*case TagCodeEnum.DefineFontName:
+                    br.BaseStream.Position += offset;
+                    byte b;
+                    Console.WriteLine(tag);
+                    for (int i = 0; i < Math.Min(256, rh.TagLength); i++)
+                    {
+                        b = br.ReadByte();
+                        Console.Write((b >= 32) ? ((char)b).ToString() : "[" + b.ToString() + "]");
+                    }
+                    Console.WriteLine();
+                    br.BaseStream.Position = posBefore;
+                    return new BaseTag(br.ReadBytes(rh.TagLength + offset), rh.TagCode);*/
+                    
 				default:
                     // Dump tag
                     /*br.BaseStream.Position += offset;
                     byte b;
+                    Console.WriteLine(tag);
                     for (int i = 0; i < rh.TagLength; i++)
                     {
                         b = br.ReadByte();
-                        Console.Write((b >= 32) ? ((char)b).ToString() : b.ToString());
+                        Console.Write((b >= 32) ? ((char)b).ToString() :"[" + b.ToString() + "]");
                     }
+                    Console.WriteLine();
                     br.BaseStream.Position = posBefore;*/
                     return new BaseTag(br.ReadBytes(rh.TagLength+offset), rh.TagCode);
 			}

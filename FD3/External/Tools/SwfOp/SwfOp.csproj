@@ -209,6 +209,7 @@
     <Compile Include="Data\Tags\DefineBitsJepg2Tag.cs" />
     <Compile Include="Data\Tags\DefineBitsJpeg3Tag.cs" />
     <Compile Include="Data\Tags\DefineBitsTag.cs" />
+    <Compile Include="Data\Tags\DefineFontTag.cs" />
     <Compile Include="Data\Tags\DefineSpriteTag.cs" />
     <Compile Include="Data\Tags\DoActionTag.cs" />
     <Compile Include="Data\Tags\ExportTag.cs" />

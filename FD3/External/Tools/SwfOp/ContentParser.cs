@@ -14,9 +14,10 @@ namespace SwfOp
         public List<string> Errors;
         public List<string> Symbols;
         public List<string> Classes;
+        public List<string> Fonts;
         public List<Abc> Abcs;
         public string Filename;
-        private string frameInfo = " Frame 0";
+        private string frameInfo = " @Frame 0";
 
         public ContentParser(string filename)
         {
@@ -24,6 +25,7 @@ namespace SwfOp
             Errors = new List<string>();
             Symbols = new List<string>();
             Classes = new List<string>();
+            Fonts = new List<string>();
             Abcs = new List<Abc>();
         }
 
@@ -128,11 +130,19 @@ namespace SwfOp
                 else if ((TagCodeEnum)tag.TagCode == TagCodeEnum.ShowFrame)
                 {
                     currentFrame++;
-                    frameInfo = " Frame " + currentFrame;
+                    frameInfo = " @Frame " + currentFrame;
                 }
                 else if (tag  is FrameTag)
                 {
-                    frameInfo = " Frame " + currentFrame + ": " + (tag as FrameTag).name;
+                    frameInfo = " @Frame " + currentFrame + ": " + (tag as FrameTag).name;
+                }
+                else if (tag is DefineFontTag)
+                {
+                    DefineFontTag ftag = tag as DefineFontTag;
+                    string style = "";
+                    if (ftag.IsBold) style += "Bold ";
+                    if (ftag.IsItalics) style += "Italic ";
+                    Fonts.Add(ftag.Name + " (" + style + ftag.GlyphCount + ")" + frameInfo);
                 }
             }
         }
