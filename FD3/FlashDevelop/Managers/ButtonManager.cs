@@ -21,22 +21,18 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void UpdateFlaggedButtons()
         {
-            try
+            Int32 count = StripBarManager.Items.Count;
+            if (Globals.CurrentDocument == null) return;
+            for (Int32 i = 0; i < count; i++)
             {
-                Int32 count = StripBarManager.Items.Count;
-                if (Globals.CurrentDocument == null) return;
-                for (Int32 i = 0; i < count; i++)
+                ToolStripItem item = (ToolStripItem)StripBarManager.Items[i];
+                String[] actions = ((ItemData)item.Tag).Flags.Split('+');
+                for (Int32 j = 0; j < actions.Length; j++)
                 {
-                    ToolStripItem item = (ToolStripItem)StripBarManager.Items[i];
-                    String[] actions = ((ItemData)item.Tag).Flags.Split('+');
-                    for (Int32 j = 0; j < actions.Length; j++)
-                    {
-                        Boolean value = ValidateFlagAction(item, actions[j]);
-                        ExecuteFlagAction(item, actions[j], value);
-                    }
+                    Boolean value = ValidateFlagAction(item, actions[j]);
+                    ExecuteFlagAction(item, actions[j], value);
                 }
             }
-            catch (AccessViolationException){} // Ignore memory errors
         }
 
         /// <summary>

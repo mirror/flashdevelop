@@ -102,7 +102,7 @@ namespace FlashDevelop.Docking
             {
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl is ScintillaControl) return ctrl as ScintillaControl;
+                    if (ctrl is ScintillaControl && !this.Disposing) return ctrl as ScintillaControl;
                 }
                 return null;
             }
