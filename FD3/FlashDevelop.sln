@@ -54,8 +54,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacroManager", "External\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASClassWizard", "External\Plugins\ASClassWizard\ASClassWizard.csproj", "{A2C159C1-7D21-4483-AEB1-38D9FDC4C7F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRefactor", "External\Plugins\CodeRefactor\CodeRefactor.csproj", "{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -240,14 +238,6 @@ Global
 		{A2C159C1-7D21-4483-AEB1-38D9FDC4C7F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A2C159C1-7D21-4483-AEB1-38D9FDC4C7F3}.Release|x86.ActiveCfg = Release|x86
 		{A2C159C1-7D21-4483-AEB1-38D9FDC4C7F3}.Release|x86.Build.0 = Release|x86
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Debug|x86.ActiveCfg = Debug|x86
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Debug|x86.Build.0 = Debug|x86
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|x86.ActiveCfg = Release|x86
-		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
