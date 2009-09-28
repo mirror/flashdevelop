@@ -6,6 +6,7 @@ using ProjectManager.Projects.AS3;
 using ProjectManager.Helpers;
 using System.IO;
 using FDBuild.Building.AS3;
+using System.Collections;
 
 namespace ProjectManager.Building.AS3
 {
@@ -13,10 +14,11 @@ namespace ProjectManager.Building.AS3
     {
         AS3Project project;
         FlexCompilerShell fcsh;
-        const string VMARGS = "-Xmx384m -Dsun.io.useCanonCaches=false -Duser.language=en";
+        string VMARGS = "-Xmx384m -Xmx1024m -Dsun.io.useCanonCaches=false -Duser.language=en";
         string sdkPath;
         string mxmlcPath;
         string fcshPath;
+        Hashtable jvmConfig;
 
         public AS3ProjectBuilder(AS3Project project, string compilerPath, string ipcName)
             : base(project, compilerPath)
@@ -70,7 +72,9 @@ namespace ProjectManager.Building.AS3
             sdkPath = flexsdkPath;
             mxmlcPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "mxmlc.jar");
             fcshPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "fcsh.jar");
-
+            jvmConfig = PluginCore.PluginCore.Helpers.JvmConfigHelper.ReadConfig(Path.Combine(flexsdkPath, "bin\\jvm.config"));
+            if (jvmConfig.ContainsKey("java.args") && jvmConfig["java.args"].ToString().Trim().Length > 0)
+                VMARGS = jvmConfig["java.args"].ToString();
         }
 
         #endregion
