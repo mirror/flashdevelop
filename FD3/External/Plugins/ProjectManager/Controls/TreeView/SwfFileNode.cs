@@ -9,6 +9,7 @@ using PluginCore.Utilities;
 using PluginCore.Helpers;
 using System.ComponentModel;
 using System.Collections.Generic;
+using ProjectManager.Projects;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -102,13 +103,19 @@ namespace ProjectManager.Controls.TreeView
 	public class SwfFileNode : FileNode
 	{
 		bool explored;
+        bool explorable;
 		BackgroundWorker runner;
         SwfOp.ContentParser parser;
 
 		public SwfFileNode(string filePath) : base(filePath)
 		{
-			isRefreshable = true;
-			Nodes.Add(new WorkingNode(filePath));
+            string ext = Path.GetExtension(filePath).ToLower();
+            explorable = FileInspector.IsSwf(filePath, ext) || FileInspector.IsSwc(filePath);
+            if (explorable)
+            {
+                isRefreshable = true;
+                Nodes.Add(new WorkingNode(filePath));
+            }
 		}
 
         public bool FileExists { get { return File.Exists(BackingPath); } }
@@ -117,7 +124,7 @@ namespace ProjectManager.Controls.TreeView
 		{
 			base.Refresh (recursive);
 
-            if (!FileExists)
+            if (!FileExists || !explorable)
             {
                 Nodes.Clear(); // non-existent file can't be explored
                 return;
