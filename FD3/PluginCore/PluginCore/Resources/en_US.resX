@@ -3224,4 +3224,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Rename '{0}'</value>
     <comment>Added after 3.0.4</comment>
   </data>
+  <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
+    <value>Disables the confirmation of the replace in files operation.</value>
+  </data>
+  <data name="FlashDevelop.Info.AreYouSureToReplaceInFiles" xml:space="preserve">
+    <value>Are you sure you want to replace in files? The changes cannot be undone.</value>
+  </data>
 </root>

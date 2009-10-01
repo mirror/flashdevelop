@@ -542,6 +542,13 @@ namespace FlashDevelop.Dialogs
             Boolean recursive = this.subDirectoriesCheckBox.Checked;
             if (this.findComboBox.Text.Trim() != "")
             {
+                if (!Globals.Settings.DisableReplaceFilesConfirm)
+                {
+                    String caption = TextHelper.GetString("Title.ConfirmDialog");
+                    String message = TextHelper.GetString("Info.AreYouSureToReplaceInFiles");
+                    DialogResult result = MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    if (result == DialogResult.Cancel) return;
+                }
                 this.UpdateUIState(true);
                 FRConfiguration config = new FRConfiguration(path, mask, recursive, this.GetFRSearch());
                 config.Replacement = this.replaceComboBox.Text;

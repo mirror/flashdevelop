@@ -604,6 +604,15 @@ namespace FlashDevelop.Settings
 
         #region State
 
+        [DisplayName("Disable Replace In Files Confirm")]
+        [LocalizedCategory("FlashDevelop.Category.State")]
+        [LocalizedDescription("FlashDevelop.Description.DisableReplaceFilesConfirm")]
+        public Boolean DisableReplaceFilesConfirm
+        {
+            get { return this.disableReplaceFilesConfirm; }
+            set { this.disableReplaceFilesConfirm = value; }
+        }
+
         [DisplayName("Redirect Find In Files Results")]
         [LocalizedCategory("FlashDevelop.Category.State")]
         [LocalizedDescription("FlashDevelop.Description.RedirectFilesResults")]
