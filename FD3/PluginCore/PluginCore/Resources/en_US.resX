@@ -3230,4 +3230,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.AreYouSureToReplaceInFiles" xml:space="preserve">
     <value>Are you sure you want to replace in files? The changes cannot be undone.</value>
   </data>
+  <data name="FlashDevelop.Label.UndoClose" xml:space="preserve">
+    <value>&amp;Undo Close</value>
+  </data>
 </root>

@@ -1109,7 +1109,9 @@ namespace FlashDevelop
             {
                 if (this.appSettings.RestoreFileStates) FileStateManager.SaveFileState(document);
                 RecoveryManager.RemoveTemporaryFile(document.FileName);
+                OldTabsManager.SaveOldTabDocument(document.FileName);
             }
+            ButtonManager.UpdateFlaggedButtons();
         }
 
         /// <summary>
@@ -1726,6 +1728,14 @@ namespace FlashDevelop
                 ButtonManager.PopulateReopenMenu();
                 ErrorManager.ShowInfo(message);
             }
+        }
+
+        /// <summary>
+        /// Opens the last closed tabs if they are not open
+        /// </summary>
+        public void ReopenClosed(Object sender, System.EventArgs e)
+        {
+            OldTabsManager.OpenOldTabDocument();
         }
 
         /// <summary>

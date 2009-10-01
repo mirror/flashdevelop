@@ -74,6 +74,14 @@ namespace FlashDevelop.Managers
             {
                 if (!Globals.MainForm.HasModifiedDocuments) return false;
             }
+            if (action.Contains("!HasClosedDocs"))
+            {
+                if (OldTabsManager.OldTabs.Count > 0) return false;
+            }
+            else if (action.Contains("HasClosedDocs"))
+            {
+                if (!(OldTabsManager.OldTabs.Count > 0)) return false;
+            }
             if (action.Contains("!ProcessIsRunning"))
             {
                 if (Globals.MainForm.ProcessIsRunning) return false;
