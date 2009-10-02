@@ -20,6 +20,11 @@ namespace CodeRefactor
         private String pluginDesc = "Adds refactoring capabilities to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private ToolStripMenuItem refactorContextMenu;
+        private ToolStripMenuItem editRefactorContextMenu;
+        private ToolStripItem editEncapsulateMenuItem;
+        private ToolStripItem editReferencesMenuItem;
+        private ToolStripItem editOrganizeMenuItem;
+        private ToolStripItem editRenameMenuItem;
         private ToolStripItem encapsulateMenuItem;
         private ToolStripItem referencesMenuItem;
         private ToolStripItem organizeMenuItem;
@@ -85,7 +90,7 @@ namespace CodeRefactor
 		/// </summary>
 		public void Initialize()
 		{
-            this.AddEventHandlers();
+            this.CreateMenuItems();
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 		
@@ -108,34 +113,33 @@ namespace CodeRefactor
         #endregion
    
         #region Event Handling
-       
-        /// <summary>
-        /// Adds the required event handlers
-        /// </summary> 
-        public void AddEventHandlers()
-        {
-            PluginBase.MainForm.EditorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
-        }
 
         /// <summary>
-        /// Creates our "Refactor" menu.
-        /// TODO: Considered having this check if the currently selected item COULD be refactored, but I don't know if there's too high
-        /// a performance impact to check, especially when the user does not even intend to refactor.  Is it possible to check once 
-        /// they open the "Refactor" sub-menu?
+        /// Creates the required menu items
         /// </summary>
-        private void EditorMenuOpening(Object sender, CancelEventArgs e)
+        private void CreateMenuItems()
         {
-            ContextMenuStrip contextMenu = (ContextMenuStrip)sender;
-            if (this.refactorContextMenu == null)
+            ContextMenuStrip editorMenu = PluginBase.MainForm.EditorMenu;
+            this.refactorContextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
+            this.refactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
+            this.renameMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
+            this.organizeMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
+            this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
+            this.encapsulateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
+            editorMenu.Items.Insert(3, this.refactorContextMenu);
+            ToolStripMenuItem editMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("EditMenu");
+            if (editMenu != null)
             {
-                this.refactorContextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
-                this.refactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
-                this.renameMenuItem = refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
-                this.organizeMenuItem = refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
-                this.referencesMenuItem = refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
-                this.encapsulateMenuItem = refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
-                contextMenu.Items.Insert(3, this.refactorContextMenu);
+                editMenu.DropDownItems.Add(new ToolStripSeparator());
+                this.editRefactorContextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
+                this.editRefactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
+                this.editRenameMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
+                this.editOrganizeMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
+                this.editReferencesMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
+                this.editEncapsulateMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
+                editMenu.DropDownItems.Add(this.editRefactorContextMenu);
             }
+
         }
 
         /// <summary>
@@ -149,20 +153,27 @@ namespace CodeRefactor
                 Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
                 Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
                 Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
+                this.editRenameMenuItem.Enabled = !(isClass || isConstructor);
                 this.renameMenuItem.Enabled = !(isClass || isConstructor);
+                this.editEncapsulateMenuItem.Enabled = isVariable;
                 this.encapsulateMenuItem.Enabled = isVariable;
+                this.editReferencesMenuItem.Enabled = true;
                 this.referencesMenuItem.Enabled = true;
             }
             else
             {
                 this.renameMenuItem.Enabled = false;
+                this.editRenameMenuItem.Enabled = false;
                 this.encapsulateMenuItem.Enabled = false;
+                this.editEncapsulateMenuItem.Enabled = false;
                 this.referencesMenuItem.Enabled = false;
+                this.editReferencesMenuItem.Enabled = false;
             }
             IASContext context = ASContext.Context;
             if (context != null && context.CurrentModel != null)
             {
                 this.organizeMenuItem.Enabled = context.CurrentModel.Imports.Count > 0;
+                this.editOrganizeMenuItem.Enabled = context.CurrentModel.Imports.Count > 0;
             }
         }
 
