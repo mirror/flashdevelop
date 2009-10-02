@@ -1,18 +1,15 @@
 using System;
 using System.Collections.Generic;
-
 using CodeRefactor.Provider;
 
 namespace CodeRefactor.Commands
 {
-
     /// <summary>
     /// Basic underyling Refactoring command.  Refactoring commands can derive from this.
     /// </summary>
     /// <typeparam name="RefactorResultType">The refactoring results return type</typeparam>
     public abstract class RefactorCommand<RefactorResultType>
     {
-
         #region Events
 
         /// <summary>
@@ -24,20 +21,23 @@ namespace CodeRefactor.Commands
 
         #region Fields and Properties
 
-        private RefactorResultType m_Results;
+        private RefactorResultType results;
+        private DocumentHelper associatedDocumentHelper;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual RefactorResultType Results
         {
             get
             {
-                return m_Results;
+                return results;
             }
             protected set
             {
-                m_Results = value;
+                results = value;
             }
         }
-
-        private DocumentHelper m_AssociatedDocumentHelper;
 
         /// <summary>
         /// A DocumentHelper that keeps track of temporarily opened files.
@@ -48,15 +48,15 @@ namespace CodeRefactor.Commands
         {
             get
             {
-                if (m_AssociatedDocumentHelper == null)
+                if (associatedDocumentHelper == null)
                 {
                     this.RegisterNewDocumentHelper();
                 }
-                return m_AssociatedDocumentHelper;
+                return associatedDocumentHelper;
             }
             private set
             {
-                m_AssociatedDocumentHelper = value;
+                associatedDocumentHelper = value;
             }
         }
 
@@ -67,7 +67,7 @@ namespace CodeRefactor.Commands
         {
             get
             {
-                return m_AssociatedDocumentHelper != null;
+                return associatedDocumentHelper != null;
             }
         }
 
@@ -95,19 +95,7 @@ namespace CodeRefactor.Commands
             {
                 AssociatedDocumentHelper = new DocumentHelper();
             }
-
             return AssociatedDocumentHelper;
-        }
-
-
-
-        #endregion
-
-        #region Constructor
-
-        public RefactorCommand()
-        {
-
         }
 
         #endregion
@@ -136,7 +124,7 @@ namespace CodeRefactor.Commands
         {
             if (OnRefactorComplete != null)
             {
-                OnRefactorComplete(this, new RefactorCompleteEventArgs<RefactorResultType>(this.m_Results));
+                OnRefactorComplete(this, new RefactorCompleteEventArgs<RefactorResultType>(this.results));
             }
         }
 
@@ -158,4 +146,5 @@ namespace CodeRefactor.Commands
         #endregion
 
     }
+
 }

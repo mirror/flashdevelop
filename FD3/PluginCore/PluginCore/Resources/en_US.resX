@@ -3160,10 +3160,6 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Base Class:</value>
     <comment>Added after 3.0.2</comment>
   </data>
-  <data name="CodeRefactor.Info.CanOnlyEncapsulateFields" xml:space="preserve">
-    <value>Can only encapsulate fields!</value>
-    <comment>Added after 3.0.4</comment>
-  </data>
   <data name="CodeRefactor.Info.Description" xml:space="preserve">
     <value>Adds refactoring capabilities to FlashDevelop.</value>
     <comment>Added after 3.0.4</comment>
@@ -3186,10 +3182,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="CodeRefactor.Info.SearchingFiles" xml:space="preserve">
     <value>Searching Files...</value>
-    <comment>Added after 3.0.4</comment>
-  </data>
-  <data name="CodeRefactor.Info.SorryError" xml:space="preserve">
-    <value>Sorry, renaming classes or constructors is not supported.</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.Status" xml:space="preserve">
@@ -3232,5 +3224,9 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Label.UndoClose" xml:space="preserve">
     <value>&amp;Undo Close</value>
+  </data>
+  <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
+    <value>Organize Imports</value>
+    <comment>Added after 3.0.4</comment>
   </data>
 </root>

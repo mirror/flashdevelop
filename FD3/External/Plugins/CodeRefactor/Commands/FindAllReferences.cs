@@ -1,50 +1,37 @@
 using System;
 using System.Collections.Generic;
 using ASCompletion.Completion;
-using PluginCore;
-using PluginCore.Managers;
 using CodeRefactor.FRService;
 using CodeRefactor.Provider;
-using ScintillaNet;
 using PluginCore.Localization;
+using PluginCore.Managers;
+using ScintillaNet;
+using PluginCore;
 
 namespace CodeRefactor.Commands
 {
-
     /// <summary>
     /// Finds all references to a given declaration.
     /// </summary>
     public class FindAllReferences : RefactorCommand<IDictionary<String, List<SearchMatch>>>
     {
-
-        #region Fields and Properties
-
-        private ASResult m_CurrentTarget;
-        private Boolean m_OutputResults;
-        private Boolean m_IgnoreDeclarationSource;
-
+        private ASResult currentTarget;
+        private Boolean outputResults;
+        private Boolean ignoreDeclarationSource;
+        
         /// <summary>
         /// The current declaration target that references are being found to.
         /// </summary>
         public ASResult CurrentTarget
         {
-            get
-            {
-                return m_CurrentTarget;
-            }
+            get { return this.currentTarget; }
         }
 
-        #endregion
-
-        #region Constructors
-
         /// <summary>
-        /// A new FindAllReferences refactoring command.
-        /// Outputs found results.
+        /// A new FindAllReferences refactoring command. Outputs found results.
         /// Uses the current text location as the declaration target.
         /// </summary>
-        public FindAllReferences()
-            : this(true)
+        public FindAllReferences() : this(true)
         {
         }
 
@@ -52,31 +39,32 @@ namespace CodeRefactor.Commands
         /// A new FindAllReferences refactoring command.
         /// Uses the current text location as the declaration target.
         /// </summary>
-        /// <param name="outputResults">If true, will send the found results to the trace log and results panel</param>
-        public FindAllReferences(Boolean outputResults)
-            : this(RefactoringHelper.GetDefaultRefactorTarget(), outputResults)
+        /// <param name="output">If true, will send the found results to the trace log and results panel</param>
+        public FindAllReferences(Boolean output) : this(RefactoringHelper.GetDefaultRefactorTarget(), output)
         {
-            m_OutputResults = outputResults;
+            this.outputResults = output;
         }
 
         /// <summary>
         /// A new FindAllReferences refactoring command.
         /// </summary>
         /// <param name="target">The target declaration to find references to.</param>
-        /// <param name="outputResults">If true, will send the found results to the trace log and results panel</param>
-        public FindAllReferences(ASResult target, Boolean outputResults)
-            : this(target, outputResults, false)
+        /// <param name="output">If true, will send the found results to the trace log and results panel</param>
+        public FindAllReferences(ASResult target, Boolean output) : this(target, output, false)
         {
         }
 
-        public FindAllReferences(ASResult target, Boolean outputResults, Boolean ignoreDeclarationSource)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target">The target declaration to find references to.</param>
+        /// <param name="output">If true, will send the found results to the trace log and results panel</param>
+        public FindAllReferences(ASResult target, Boolean output, Boolean ignoreDeclarations)
         {
-            m_CurrentTarget = target;
-            m_OutputResults = outputResults;
-            m_IgnoreDeclarationSource = ignoreDeclarationSource;
+            this.currentTarget = target;
+            this.outputResults = output;
+            this.ignoreDeclarationSource = ignoreDeclarations;
         }
-
-        #endregion
 
         #region RefactorCommand Implementation
 
@@ -88,16 +76,17 @@ namespace CodeRefactor.Commands
             UserInterfaceManager.FindingReferencesDialogueMain.Show();
             UserInterfaceManager.FindingReferencesDialogueMain.SetTitle(TextHelper.GetString("Info.FindingReferences"));
             UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.SearchingFiles"));
-            RefactoringHelper.FindTargetInFiles(m_CurrentTarget, new FRProgressReportHandler(this.RunnerProgress), new FRFinishedHandler(this.FindFinished), true);
+            RefactoringHelper.FindTargetInFiles(currentTarget, new FRProgressReportHandler(this.RunnerProgress), new FRFinishedHandler(this.FindFinished), true);
         }
 
         /// <summary>
         /// Indicates if the current settings for the refactoring are valid.
         /// </summary>
-        public override bool IsValid()
+        public override Boolean IsValid()
         {
-            return this.m_CurrentTarget != null;
+            return this.currentTarget != null;
         }
+
         #endregion
 
         #region Private Helper Methods
@@ -119,18 +108,10 @@ namespace CodeRefactor.Commands
 
             UserInterfaceManager.FindingReferencesDialogueMain.Reset();
             UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferences"));
-
             // First filter out any results that don't actually point to our source declaration
-            this.Results = ResolveActualMatches(results, m_CurrentTarget);
-
-            if (this.m_OutputResults)
-            {
-                // let's report the results!
-                this.ReportResults();
-            }
-
+            this.Results = ResolveActualMatches(results, currentTarget);
+            if (this.outputResults) this.ReportResults();
             UserInterfaceManager.FindingReferencesDialogueMain.Hide();
-
             this.FireOnRefactorComplete();
         }
 
@@ -139,54 +120,35 @@ namespace CodeRefactor.Commands
         /// </summary>
         private IDictionary<String, List<SearchMatch>> ResolveActualMatches(FRResults results, ASResult target)
         {
-            
             // this will hold actual references back to the source member (some result hits could point to different members with the same name)
             IDictionary<String, List<SearchMatch>> actualMatches = new Dictionary<String, List<SearchMatch>>();
-
-
             IDictionary<String, List<SearchMatch>> initialResultsList = RefactoringHelper.GetInitialResultsList(results);
-
-            int matchesChecked = 0;
-            int totalMatches = 0;
+            int matchesChecked = 0; int totalMatches = 0;
             foreach (KeyValuePair<String, List<SearchMatch>> entry in initialResultsList)
             {
                 totalMatches += entry.Value.Count;
             }
-
             String projectPath = PluginBase.CurrentProject.ProjectPath;
-            if (projectPath == null)
-            {
-                projectPath = String.Empty;
-            }
-            else
-            {
-                projectPath = System.IO.Path.GetDirectoryName(projectPath) + "\\";
-            }
-
+            if (projectPath == null) projectPath = String.Empty;
+            else projectPath = System.IO.Path.GetDirectoryName(projectPath) + "\\";
             int projectPathLength = projectPath.Length;
-
             IDictionary<String, Boolean> filesOpenedAndUsed = new Dictionary<String, Boolean>();
             IDictionary<String, WeifenLuo.WinFormsUI.Docking.DockContent> filesOpenedDocumentReferences = new Dictionary<String, WeifenLuo.WinFormsUI.Docking.DockContent>();
-
             Boolean foundDeclarationSource = false;
             foreach (KeyValuePair<String, List<SearchMatch>> entry in initialResultsList)
             {
-                
-                string currentFileName = entry.Key;
-
+                String currentFileName = entry.Key;
                 UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferencesIn") + " \"" + (currentFileName.StartsWith(projectPath) ? currentFileName.Substring(projectPathLength) : currentFileName) + "\"");
-                
                 foreach (SearchMatch match in entry.Value)
                 {
                     // we have to open/reopen the entry's file
                     // there are issues with evaluating the declaration targets with non-open, non-current files
                     // we have to do it each time as the process of checking the declaration source can change the currently open file!
                     ScintillaControl sci = this.AssociatedDocumentHelper.LoadDocument(currentFileName);
-
                     // if the search result does point to the member source, store it
                     if (RefactoringHelper.DoesMatchPointToTarget(sci, match, target, this.AssociatedDocumentHelper))
                     {
-                        if (m_IgnoreDeclarationSource && !foundDeclarationSource && RefactoringHelper.IsMatchTheTarget(sci, match, target))
+                        if (ignoreDeclarationSource && !foundDeclarationSource && RefactoringHelper.IsMatchTheTarget(sci, match, target))
                         {
                             //ignore the declaration source
                             foundDeclarationSource = true;
@@ -200,14 +162,11 @@ namespace CodeRefactor.Commands
                             actualMatches[currentFileName].Add(match);
                         }
                     }
-
                     matchesChecked++;
                     UserInterfaceManager.FindingReferencesDialogueMain.UpdateProgress((100 * matchesChecked) / totalMatches);
                 }
             }
-
             this.AssociatedDocumentHelper.CloseTemporarilyOpenedDocuments();
-
             return actualMatches;
         }
 
@@ -216,7 +175,7 @@ namespace CodeRefactor.Commands
         /// </summary>
         private void ReportResults()
         {
-            FlashDevelop.Globals.MainForm.CallCommand("PluginCommand", "ResultsPanel.ClearResults");
+            PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ClearResults");
             foreach (KeyValuePair<String, List<SearchMatch>> entry in this.Results)
             {
                 // outputs the lines as they change
@@ -226,10 +185,11 @@ namespace CodeRefactor.Commands
                     TraceManager.Add(entry.Key + ":" + match.Line.ToString() + ": characters " + match.Column + "-" + (match.Column + match.Length) + " : " + match.LineText.Trim(), (Int32)TraceType.Info);
                 }
             }
-            FlashDevelop.Globals.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
+            PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
         }
 
         #endregion
 
     }
+
 }

@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
+using PluginCore;
 
 namespace CodeRefactor.FRService
 {
@@ -103,6 +104,9 @@ namespace CodeRefactor.FRService
 
         protected IDictionary<String, PluginCore.ITabbedDocument> m_OpenDocuments = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected string ReadCurrentFileSource(String file)
         {
             if (m_OpenDocuments == null)
@@ -115,19 +119,20 @@ namespace CodeRefactor.FRService
             }
             return FileHelper.ReadFile(file);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected void CacheOpenDocuments()
         {
             this.m_OpenDocuments = new Dictionary<String, PluginCore.ITabbedDocument>();
-            
-            foreach (PluginCore.ITabbedDocument castable in FlashDevelop.Globals.MainForm.Documents)
+            foreach (PluginCore.ITabbedDocument document in PluginBase.MainForm.Documents)
             {
-                FlashDevelop.Docking.TabbedDocument document = castable as FlashDevelop.Docking.TabbedDocument;
                 if (document.IsEditable)
                 {
                     this.m_OpenDocuments[document.FileName] = document;
                 }
             }
-
         }
 
         /*******************************************************/

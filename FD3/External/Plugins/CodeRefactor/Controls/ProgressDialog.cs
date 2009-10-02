@@ -2,21 +2,20 @@ using System;
 using System.Windows.Forms;
 using System.ComponentModel;
 using PluginCore.Localization;
-using FlashDevelop;
+using PluginCore;
 
 namespace CodeRefactor.Controls
 {
     public class ProgressDialog : Form
     {
-        private Boolean m_IsRunning = false;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.ProgressBar progressBar;
 
         public ProgressDialog()
         {
-            this.Owner = Globals.MainForm;
-            this.Font = Globals.Settings.DefaultFont;
+            this.Owner = (Form)PluginBase.MainForm;
+            this.Font = PluginBase.Settings.DefaultFont;
             this.InitializeComponent();
         }
 
@@ -42,19 +41,6 @@ namespace CodeRefactor.Controls
             this.progressBar.TabIndex = 0;
             this.progressBar.UseWaitCursor = true;
             // 
-            // closeButton
-            // 
-            this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.closeButton.Location = new System.Drawing.Point(0, 0);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(0, 0);
-            this.closeButton.TabIndex = 29;
-            this.closeButton.TabStop = false;
-            this.closeButton.UseWaitCursor = true;
-            this.closeButton.Click += new System.EventHandler(this.CloseButtonClick);
-            this.closeButton.Enabled = false;
-            // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -73,13 +59,11 @@ namespace CodeRefactor.Controls
             // 
             // FindingReferencesDialogue
             //
-            this.CancelButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 49);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.closeButton);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.ShowIcon = false;
@@ -87,30 +71,17 @@ namespace CodeRefactor.Controls
             this.Text = "Finding References...";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Load += new System.EventHandler(this.DialogLoaded);
             this.VisibleChanged += new System.EventHandler(this.VisibleChange);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.DialogClosing);
             this.Name = "FindingReferencesDialog";
             this.UseWaitCursor = true;
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
         #region Methods And Event Handlers
-
-        /// <summary>
-        /// Closes the dialog window
-        /// </summary>
-        private void CloseButtonClick(Object sender, EventArgs e)
-        {
-            //if (!this.m_IsRunning)
-            //{
-            //    this.Close();
-            //}
-        }
 
         /// <summary>
         /// 
@@ -144,17 +115,8 @@ namespace CodeRefactor.Controls
         private void DialogClosing(Object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            Globals.CurrentDocument.Activate();
+            PluginBase.MainForm.CurrentDocument.Activate();
             this.Hide();
-        }
-        
-        /// <summary>
-        /// Setups the dialog on load
-        /// </summary>
-        private void DialogLoaded(Object sender, System.EventArgs e)
-        {
-            //String message = TextHelper.GetString("Info.NoMatches");
-            //this.txtStatus.Text = String.Empty;
         }
 
         /// <summary>

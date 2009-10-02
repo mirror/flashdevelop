@@ -1,37 +1,44 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
-
-using PluginCore;
-
+using System.Windows.Forms;
+using System.Collections.Generic;
 using CodeRefactor.Commands;
 using CodeRefactor.Controls;
+using PluginCore;
 
 namespace CodeRefactor.Provider
 {
     internal static class UserInterfaceManager
     {
-        private static CodeRefactor.Controls.ProgressDialog m_FindingReferencesDialogueMain;
+        private static ProgressDialog findingReferencesDialogMain;
 
-        private static FlashDevelop.MainForm Main
+        /// <summary>
+        /// 
+        /// </summary>
+        private static Form Main
         {
             get
             {
-                return (PluginBase.MainForm as FlashDevelop.MainForm);
+                return PluginBase.MainForm as Form;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal static ProgressDialog FindingReferencesDialogueMain
         {
             get
             {
-                if (m_FindingReferencesDialogueMain == null)
+                if (findingReferencesDialogMain == null)
                 {
-                    m_FindingReferencesDialogueMain = new ProgressDialog();
-                    Main.AddOwnedForm(m_FindingReferencesDialogueMain);
+                    findingReferencesDialogMain = new ProgressDialog();
+                    Main.AddOwnedForm(findingReferencesDialogMain);
                 }
-                return m_FindingReferencesDialogueMain;
+                return findingReferencesDialogMain;
             }
         }
+
     }
+
 }

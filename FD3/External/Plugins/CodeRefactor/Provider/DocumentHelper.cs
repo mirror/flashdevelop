@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-
 using ASCompletion.Context;
-using PluginCore;
-
 using ScintillaNet;
+using PluginCore;
 
 namespace CodeRefactor.Provider
 {
-
     /// <summary>
     /// A managing class for the retrieval and closting of temporary documents.
     /// Given the current architecture of FlashDevelop, this assists 
@@ -17,12 +14,36 @@ namespace CodeRefactor.Provider
     /// </summary>
     public class DocumentHelper
     {
+        private Boolean preventClosing = false;
+        private IDictionary<String, Boolean> filesOpenedAndUsed = new Dictionary<String, Boolean>();
+        private IDictionary<String, ITabbedDocument> filesOpenedDocumentReferences = new Dictionary<String, ITabbedDocument>();
+        private IDictionary<String, ITabbedDocument> initiallyOpenedFiles;
+       
+        /// <summary>
+        /// Constructor. Creates a new helper.  Stores the current state of 
+        /// open files at this time.  Therefore, if there are temporary files 
+        /// already open, this instance will not consider those files to be 
+        /// temporary.  Consider this when managing multiple DocumentHelpers.
+        /// </summary>
+        public DocumentHelper()
+        {
+            this.initiallyOpenedFiles = this.GetOpenDocuments();
+        }
 
-        private IDictionary<String, Boolean> m_FilesOpenedAndUsed = new Dictionary<String, Boolean>();
-        private IDictionary<String, ITabbedDocument> m_FilesOpenedDocumentReferences = new Dictionary<String, ITabbedDocument>();
-        private IDictionary<String, ITabbedDocument> m_InitiallyOpenedFiles;// = new Dictionary<String, ITabbedDocument>();
-
-        private Boolean m_PreventClosing = false;
+        /// <summary>
+        /// 
+        /// </summary>
+        public Boolean PreventClosing
+        {
+            get
+            {
+                return this.preventClosing;
+            }
+            set
+            {
+                this.preventClosing = value;
+            }
+        }
 
         /// <summary>
         /// Tracks files that have been opened.
@@ -36,11 +57,11 @@ namespace CodeRefactor.Provider
         {
             get
             {
-                return m_FilesOpenedAndUsed;
+                return this.filesOpenedAndUsed;
             }
             protected set
             {
-                m_FilesOpenedAndUsed = value;
+                this.filesOpenedAndUsed = value;
             }
         }
 
@@ -52,35 +73,12 @@ namespace CodeRefactor.Provider
         {
             get
             {
-                return m_FilesOpenedDocumentReferences;
+                return this.filesOpenedDocumentReferences;
             }
             protected set
             {
-                m_FilesOpenedDocumentReferences = value;
+                this.filesOpenedDocumentReferences = value;
             }
-        }
-
-        public Boolean PreventClosing
-        {
-            get
-            {
-                return m_PreventClosing;
-            }
-            set
-            {
-                m_PreventClosing = value;
-            }
-        }
-
-        /// <summary>
-        /// Constructor. Creates a new helper.  Stores the current state of 
-        /// open files at this time.  Therefore, if there are temporary files 
-        /// already open, this instance will not consider those files to be 
-        /// temporary.  Consider this when managing multiple DocumentHelpers.
-        /// </summary>
-        public DocumentHelper()
-        {
-            m_InitiallyOpenedFiles = GetOpenDocuments();
         }
 
         /// <summary>
@@ -89,7 +87,6 @@ namespace CodeRefactor.Provider
         protected IDictionary<String, ITabbedDocument> GetOpenDocuments()
         {
             IDictionary<String, ITabbedDocument> openedFiles = new Dictionary<String, ITabbedDocument>();
-            
             foreach (ITabbedDocument openDocument in PluginBase.MainForm.Documents)
             {
                 if (openDocument.IsEditable)
@@ -97,7 +94,6 @@ namespace CodeRefactor.Provider
                     openedFiles[openDocument.FileName] = openDocument;
                 }
             }
-
             return openedFiles;
         }
 
@@ -107,18 +103,16 @@ namespace CodeRefactor.Provider
         /// </summary>
         public void MarkDocumentToKeep(String fileName)
         {
-            if (m_FilesOpenedAndUsed.ContainsKey(fileName))
+            if (this.filesOpenedAndUsed.ContainsKey(fileName))
             {
-                m_FilesOpenedAndUsed[fileName] = true;
+                this.filesOpenedAndUsed[fileName] = true;
             }
             else
             {
-                LoadDocument(fileName);
-
-                //repeat the code, but prevents accidental infinite recursion
-                if (m_FilesOpenedAndUsed.ContainsKey(fileName))
+                this.LoadDocument(fileName);
+                if (this.filesOpenedAndUsed.ContainsKey(fileName))
                 {
-                    m_FilesOpenedAndUsed[fileName] = true;
+                    this.filesOpenedAndUsed[fileName] = true;
                 }
             }
         }
@@ -131,21 +125,22 @@ namespace CodeRefactor.Provider
         public ScintillaControl LoadDocument(String fileName)
         {
             ITabbedDocument newDocument = (ITabbedDocument)PluginBase.MainForm.OpenEditableDocument(fileName);
-
-            RegisterLoadedDocument(newDocument);
-
+            this.RegisterLoadedDocument(newDocument);
             return ASContext.CurSciControl;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RegisterLoadedDocument(ITabbedDocument document)
         {
             //if it's null, it means it was already opened, or the caller sent us garbage
-            if (document != null && !m_FilesOpenedAndUsed.ContainsKey(document.FileName))
+            if (document != null && !filesOpenedAndUsed.ContainsKey(document.FileName))
             {
                 //newly opened document.  Let's store it so we can close it later if it's not part of our result set.
                 //false to indicate that it so far hasn't found any matching entries.
-                m_FilesOpenedAndUsed.Add(document.FileName, false);
-                m_FilesOpenedDocumentReferences.Add(document.FileName, document);
+                this.filesOpenedAndUsed.Add(document.FileName, false);
+                this.filesOpenedDocumentReferences.Add(document.FileName, document);
             }
         }
 
@@ -156,12 +151,11 @@ namespace CodeRefactor.Provider
         /// </summary>
         public Boolean CloseDocument(String fileName)
         {
-            if (m_FilesOpenedDocumentReferences.ContainsKey(fileName) && !m_InitiallyOpenedFiles.ContainsKey(fileName))
+            if (this.filesOpenedDocumentReferences.ContainsKey(fileName) && !this.initiallyOpenedFiles.ContainsKey(fileName))
             {
-                m_FilesOpenedDocumentReferences[fileName].Close();
-
-                m_FilesOpenedAndUsed.Remove(fileName);
-                m_FilesOpenedDocumentReferences.Remove(fileName);
+                this.filesOpenedDocumentReferences[fileName].Close();
+                this.filesOpenedAndUsed.Remove(fileName);
+                this.filesOpenedDocumentReferences.Remove(fileName);
                 return true;
             }
             return false;
@@ -175,8 +169,8 @@ namespace CodeRefactor.Provider
             if (!this.PreventClosing)
             {
                 // retrieve a list of documents to close
-                List<String> documentsToClose = new List<string>();
-                foreach (KeyValuePair<String, Boolean> openedAndUsedFile in m_FilesOpenedAndUsed)
+                List<String> documentsToClose = new List<String>();
+                foreach (KeyValuePair<String, Boolean> openedAndUsedFile in filesOpenedAndUsed)
                 {
                     // if the value is true, it means the document was flagged as permanent/changed, so we shouldn't close it
                     if (!openedAndUsedFile.Value)
@@ -184,15 +178,14 @@ namespace CodeRefactor.Provider
                         documentsToClose.Add(openedAndUsedFile.Key);
                     }
                 }
-
                 // close each document
                 foreach (String fileName in documentsToClose)
                 {
-                    CloseDocument(fileName);
+                    this.CloseDocument(fileName);
                 }
             }
         }
 
-
     }
+
 }
