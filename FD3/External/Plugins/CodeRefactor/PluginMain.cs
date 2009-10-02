@@ -20,11 +20,6 @@ namespace CodeRefactor
         private String pluginDesc = "Adds refactoring capabilities to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private ToolStripMenuItem refactorContextMenu;
-        private ToolStripMenuItem editRefactorContextMenu;
-        private ToolStripItem editEncapsulateMenuItem;
-        private ToolStripItem editReferencesMenuItem;
-        private ToolStripItem editOrganizeMenuItem;
-        private ToolStripItem editRenameMenuItem;
         private ToolStripItem encapsulateMenuItem;
         private ToolStripItem referencesMenuItem;
         private ToolStripItem organizeMenuItem;
@@ -127,19 +122,6 @@ namespace CodeRefactor
             this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             this.encapsulateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
             editorMenu.Items.Insert(3, this.refactorContextMenu);
-            ToolStripMenuItem editMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("EditMenu");
-            if (editMenu != null)
-            {
-                editMenu.DropDownItems.Add(new ToolStripSeparator());
-                this.editRefactorContextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
-                this.editRefactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
-                this.editRenameMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
-                this.editOrganizeMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
-                this.editReferencesMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
-                this.editEncapsulateMenuItem = this.editRefactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
-                editMenu.DropDownItems.Add(this.editRefactorContextMenu);
-            }
-
         }
 
         /// <summary>
@@ -147,34 +129,7 @@ namespace CodeRefactor
         /// </summary>
         private void RefactorContextMenuDropDownOpening(Object sender, EventArgs e)
         {
-            ASResult result = GetResultFromCurrentPosition();
-            if (result != null && result.Member != null)
-            {
-                Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
-                Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
-                Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
-                this.editRenameMenuItem.Enabled = !(isClass || isConstructor);
-                this.renameMenuItem.Enabled = !(isClass || isConstructor);
-                this.editEncapsulateMenuItem.Enabled = isVariable;
-                this.encapsulateMenuItem.Enabled = isVariable;
-                this.editReferencesMenuItem.Enabled = true;
-                this.referencesMenuItem.Enabled = true;
-            }
-            else
-            {
-                this.renameMenuItem.Enabled = false;
-                this.editRenameMenuItem.Enabled = false;
-                this.encapsulateMenuItem.Enabled = false;
-                this.editEncapsulateMenuItem.Enabled = false;
-                this.referencesMenuItem.Enabled = false;
-                this.editReferencesMenuItem.Enabled = false;
-            }
-            IASContext context = ASContext.Context;
-            if (context != null && context.CurrentModel != null)
-            {
-                this.organizeMenuItem.Enabled = context.CurrentModel.Imports.Count > 0;
-                this.editOrganizeMenuItem.Enabled = context.CurrentModel.Imports.Count > 0;
-            }
+            this.UpdateMenuItems();
         }
 
         /// <summary>
@@ -188,6 +143,34 @@ namespace CodeRefactor
             ASResult result = ASComplete.GetExpressionType(document.SciControl, position);
             if (result == null && result.IsNull()) return null;
             else return result;
+        }
+
+        /// <summary>
+        /// Updates the state of the menu items
+        /// </summary>
+        private void UpdateMenuItems()
+        {
+            ASResult result = GetResultFromCurrentPosition();
+            if (result != null && result.Member != null)
+            {
+                Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
+                Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
+                Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
+                this.renameMenuItem.Enabled = !(isClass || isConstructor);
+                this.encapsulateMenuItem.Enabled = isVariable;
+                this.referencesMenuItem.Enabled = true;
+            }
+            else
+            {
+                this.renameMenuItem.Enabled = false;
+                this.encapsulateMenuItem.Enabled = false;
+                this.referencesMenuItem.Enabled = false;
+            }
+            IASContext context = ASContext.Context;
+            if (context != null && context.CurrentModel != null)
+            {
+                this.organizeMenuItem.Enabled = context.CurrentModel.Imports.Count > 0;
+            }
         }
 
         /// <summary>
