@@ -131,6 +131,16 @@ namespace CodeRefactor
         {
             this.UpdateMenuItems();
         }
+        
+        /// <summary>
+        /// Gets if the language is valid for refactoring
+        /// </summary>
+        private Boolean GetLanguageIsValid()
+        {
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document != null && document.IsEditable && document.FileName.ToLower().EndsWith(".as")) return true;
+            else return false;
+        }
 
         /// <summary>
         /// Gets the result for menu updating from current position.
@@ -151,7 +161,7 @@ namespace CodeRefactor
         private void UpdateMenuItems()
         {
             ASResult result = GetResultFromCurrentPosition();
-            if (result != null && result.Member != null)
+            if (this.GetLanguageIsValid() && result != null && result.Member != null)
             {
                 Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
                 Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
@@ -169,7 +179,8 @@ namespace CodeRefactor
             IASContext context = ASContext.Context;
             if (context != null && context.CurrentModel != null)
             {
-                this.organizeMenuItem.Enabled = context.CurrentModel.Imports.Count > 0;
+                Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 0);
+                this.organizeMenuItem.Enabled = enabled;
             }
         }
 

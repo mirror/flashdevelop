@@ -51,7 +51,7 @@ namespace CodeRefactor.Commands
                     curItem = imports[i];
                     curLine = sci.LineFromPosition(sci.CurrentPos);
                     sci.InsertText(sci.CurrentPos, "import " + curItem.Type.ToString() + ";" + eol);
-                    sci.SetLineIndentation(curLine, sci.Indent);
+                    sci.SetLineIndentation(curLine, indent);
                 }
                 sci.SetSel(pos, pos);
                 sci.EndUndoAction();
