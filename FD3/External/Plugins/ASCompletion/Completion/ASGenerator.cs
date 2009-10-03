@@ -547,8 +547,9 @@ namespace ASCompletion.Completion
             StringBuilder sb = new StringBuilder(String.Format(GetTemplate("ImplementHeader"), aType.Type));
             string entry = "$(EntryPoint)";
             ASResult result = new ASResult();
-            ClassModel cClass = ASContext.Context.CurrentClass;
-            ContextFeatures features = ASContext.Context.Features;
+            IASContext context = ASContext.Context;
+            ClassModel cClass = context.CurrentClass;
+            ContextFeatures features = context.Features;
             bool canGenerate = false;
             string template = GetTemplate("ImplementPart");
 
@@ -570,10 +571,10 @@ namespace ASCompletion.Completion
                     sb.Append(decl);
                     canGenerate = true;
 
-                    if (!typesUsed.Contains(method.Type)) typesUsed.Add(method.Type);
+                    if (!typesUsed.Contains(method.Type)) typesUsed.Add(getQualifiedType(method.Type, aType));
                     if (method.Parameters != null && method.Parameters.Count > 0)
                         foreach (MemberModel param in method.Parameters)
-                            if (!typesUsed.Contains(param.Type)) typesUsed.Add(param.Type);
+                            if (!typesUsed.Contains(param.Type)) typesUsed.Add(getQualifiedType(param.Type, aType));
                 }
                 // interface inheritance
                 aType = aType.Extends;
@@ -588,13 +589,26 @@ namespace ASCompletion.Completion
                 position = Sci.CurrentPos;
                 if (ASContext.Context.Settings.GenerateImports && typesUsed.Count > 0)
                 {
-                    int offset = AddImportsByName(typesUsed, aType.InFile, Sci.LineFromPosition(position));
+                    int offset = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
                     position += offset;
                     Sci.SetSel(position, position);
                 }
                 InsertCode(position, sb.ToString());
             }
             finally { Sci.EndUndoAction(); }
+        }
+
+        private static string getQualifiedType(string type, ClassModel aType)
+        {
+            if (type.IndexOf('.') > 0) return type;
+
+            ClassModel aClass = ASContext.Context.ResolveType(type, aType.InFile);
+            if (!aClass.IsVoid())
+            {
+                if (aClass.InFile.Package.Length != 0)
+                    return aClass.QualifiedName;
+            }
+            return "*";
         }
 
         private static MemberModel NewMember(string contextToken, MemberModel calledFrom, GeneratorJobType job, FlagType kind)
@@ -734,7 +748,7 @@ namespace ASCompletion.Completion
                 {
                     List<string> typesUsed = new List<string>();
                     typesUsed.Add("flash.events.Event");
-                    position += AddImportsByName(typesUsed, null, Sci.LineFromPosition(position));
+                    position += AddImportsByName(typesUsed, Sci.LineFromPosition(position));
                     Sci.SetSel(position, position);
                 }
                 string acc = GetPrivateAccessor(afterMethod);
@@ -1026,8 +1040,8 @@ namespace ASCompletion.Completion
                 decl = acc + features.functionKey + " ";
                 bool noRet = type.Equals("void", StringComparison.OrdinalIgnoreCase);
                 type = (noRet) ? ASContext.Context.Features.voidKey : type;
-                if (!noRet) typesUsed.Add(type);
-                string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed);
+                if (!noRet) typesUsed.Add(getQualifiedType(type, ofClass));
+                string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed, ofClass);
                 decl += member.Name
                     + String.Format(GetTemplate("MethodOverride"), member.ParametersString(), type, action);
             }
@@ -1037,7 +1051,7 @@ namespace ASCompletion.Completion
             {
                 if (ASContext.Context.Settings.GenerateImports && typesUsed.Count > 0)
                 {
-                    int offset = AddImportsByName(typesUsed, ofClass.InFile, line);
+                    int offset = AddImportsByName(typesUsed, line);
                     position += offset;
                     startPos += offset;
                 }
@@ -1067,7 +1081,7 @@ namespace ASCompletion.Completion
             else return type;
         }
 
-        private static string GetSuperCall(MemberModel member, List<string> typesUsed)
+        private static string GetSuperCall(MemberModel member, List<string> typesUsed, ClassModel aType)
         {
             string args = "";
             if (member.Parameters != null)
@@ -1075,12 +1089,12 @@ namespace ASCompletion.Completion
                 {
                     if (param.Name.StartsWith(".")) break;
                     args += ", " + param.Name;
-                    if (!typesUsed.Contains(param.Type)) typesUsed.Add(param.Type);
+                    if (!typesUsed.Contains(param.Type)) typesUsed.Add(getQualifiedType(param.Type, aType));
                 }
 
             bool noRet = member.Type == null || member.Type.Length == 0 || member.Type.Equals("void", StringComparison.OrdinalIgnoreCase);
             if (!noRet && !typesUsed.Contains(member.Type))
-                typesUsed.Add(member.Type);
+                typesUsed.Add(getQualifiedType(member.Type, aType));
 
             string action = "";
             if ((member.Flags & FlagType.Function) > 0)
@@ -1112,42 +1126,19 @@ namespace ASCompletion.Completion
         /// <param name="fromFile">Resolve types to import from this other file</param>
         /// <param name="atLine">Current line in editor</param>
         /// <returns>Inserted characters count</returns>
-        private static int AddImportsByName(List<string> typesUsed, FileModel fromFile, int atLine)
+        private static int AddImportsByName(List<string> typesUsed, int atLine)
         {
             int length = 0;
             IASContext context = ASContext.Context;
             FileModel inFile = context.CurrentModel;
+            List<string> addedTypes = new List<string>();
             foreach (string type in typesUsed)
             {
-                if (type == null || type.Length == 0 || type == context.Features.voidKey || type == "*")
+                if (type == null || type.Length == 0 || type.IndexOf('.') <= 0 || addedTypes.Contains(type))
                     continue;
-                MemberModel import = null;
-                ClassModel aClass = context.ResolveType(type, fromFile);
-                if (!aClass.IsVoid())
-                {
-                    if (aClass.InFile.Package.Length == 0)
-                        continue;
-                    import = new MemberModel(aClass.Name, CleanType(aClass.Type), aClass.Flags, aClass.Access);
-                }
-                else if (type.IndexOf('.') > 0)
-                {
-                    import = new MemberModel(type.Substring(type.LastIndexOf('.') + 1), type, FlagType.Import, Visibility.Public);
-                }
-                else
-                {
-                    MemberList allKnown = context.GetAllProjectClasses();
-                    foreach (MemberModel member in allKnown)
-                        if (member.Name == type)
-                        {
-                            if (member.InFile.Package.Length == 0) 
-                                break;
-                            import = member.Clone() as MemberModel;
-                            if ((import.Flags & FlagType.Class) == 0) import.Type = import.Name;
-                            import.Type = CleanType(import.Type);
-                            break;
-                        }
-                }
-                if (import != null && !context.IsImported(import, atLine))
+                addedTypes.Add(type);
+                MemberModel import = new MemberModel(type.Substring(type.LastIndexOf('.') + 1), type, FlagType.Import, Visibility.Public);
+                if (!context.IsImported(import, atLine))
                     length += InsertImport(import, false);
             }
             return length;
