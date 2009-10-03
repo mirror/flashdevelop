@@ -792,7 +792,7 @@ namespace ASCompletion.Model
                             // haXe generics
                             else if (features.hasGenerics && c1 == '<')
                             {
-                                if (i > 2 && length > 1 && i < len - 3
+                                if (!inValue && i > 2 && length > 1 && i < len - 3
                                     && Char.IsLetterOrDigit(ba[i - 3]) && Char.IsLetter(ba[i])
                                     && (buffer[length - 1] == '.' || Char.IsLetter(buffer[length - 1])))
                                 {
@@ -1439,8 +1439,8 @@ namespace ASCompletion.Model
             else
             {
                 // when not in a class, parse if/for/while blocks
-                if (version < 2 && 
-                    (token == "if" || token == "else" || token == "for" || token == "while" || token == "do" 
+                if (version < 2 &&
+                    (token == "if" || token == "else" || token == "for" || token == "while" || token == "do"
                      || token == "switch" || token == "with" || token == "try" || token == "catch" || token == "finally"))
                 {
                     flattenNextBlock = true;
@@ -1452,6 +1452,7 @@ namespace ASCompletion.Model
                     }
                     return false;
                 }
+
                 if (inValue && valueMember != null) valueMember = null;
                 if (!evalContext) return false;
                 if (dotIndex > 0) token = curToken.Text;
