@@ -1324,9 +1324,7 @@ namespace ASCompletion.Context
 			{
 				System.IO.FileInfo info = new System.IO.FileInfo(swf);
 				string path = info.Directory.FullName;
-				string trustFile = path.Replace(dirSeparatorChar,'_').Remove(1,1);
-				while ((trustFile.Length > 100) && (trustFile.IndexOf('_') > 0)) trustFile = trustFile.Substring(trustFile.IndexOf('_'));
-				trustFile = "FlashDevelop_"+trustFile+".cfg";
+				string trustFile = "FlashDevelop.cfg";
 				Commands.CreateTrustFile.Run(trustFile, path);
 			}
 

@@ -28,7 +28,12 @@ namespace ASCompletion.Commands
                 string fixedPath = String.Format(FULLPATH, appDataDir, separator);
                 if (!Directory.Exists(fixedPath)) Directory.CreateDirectory(fixedPath);
                 string file = Path.Combine(fixedPath, name);
-                FileHelper.WriteFile(file, path, Encoding.Default);
+                if (File.Exists(file))
+                {
+                    string src = FileHelper.ReadFile(file, Encoding.Default);
+                    if (src.IndexOf(path) < 0) FileHelper.AddToFile(file, "\r\n" + path, Encoding.Default);
+                }
+                else FileHelper.WriteFile(file, path, Encoding.Default);
                 return true;
             }
             catch (Exception ex)

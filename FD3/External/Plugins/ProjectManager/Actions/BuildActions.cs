@@ -227,9 +227,7 @@ namespace ProjectManager.Actions
             string directory = Path.GetDirectoryName(project.OutputPathAbsolute);
             if (!Directory.Exists(directory))
                 return;
-            string trustFile = directory.Replace(Path.DirectorySeparatorChar, '_').Remove(1, 1);
-            while ((trustFile.Length > 100) && (trustFile.IndexOf('_') > 0)) trustFile = trustFile.Substring(trustFile.IndexOf('_'));
-            string trustParams = "FlashDevelop_" + trustFile + ".cfg;" + directory;
+            string trustParams = "FlashDevelop.cfg;" + directory;
             DataEvent de = new DataEvent(EventType.Command, "ASCompletion.CreateTrustFile", trustParams);
             EventManager.DispatchEvent(this, de);
         }
