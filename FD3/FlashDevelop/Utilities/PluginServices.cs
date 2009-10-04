@@ -45,7 +45,7 @@ namespace FlashDevelop.Utilities
         {
             foreach (String newFile in Directory.GetFiles(path, "*.new"))
             {
-                String pluginFile = Path.GetFileNameWithoutExtension(newFile);
+                String pluginFile = newFile.Substring(0, newFile.Length - 4);
                 if (File.Exists(pluginFile))
                 {
                     File.Copy(newFile, pluginFile, true);
