@@ -18,6 +18,8 @@ namespace CodeRefactor.Commands
     /// </summary>
     public class OrganizeImports : RefactorCommand<IDictionary<String, List<SearchMatch>>>
     {
+        public Boolean TruncateImports = false;
+
         /// <summary>
         /// 
         /// </summary>
@@ -41,16 +43,28 @@ namespace CodeRefactor.Commands
                 Int32 endPos = sci.PositionFromLine(endLine) + sci.LineLength(endLine);
                 sci.SetSel(startPos, endPos);
                 sci.ReplaceSel("");
+                if (this.TruncateImports)
+                {
+                    for (Int32 j = 0; j < imports.Count; j++)
+                    {
+                        MemberModel import = imports[j];
+                        String[] parts = import.Type.Split('.');
+                        if (parts.Length > 0 && parts[parts.Length - 1] != "*")
+                        {
+                            parts[parts.Length - 1] = "*";
+                        }
+                        import.Type = String.Join(".", parts);
+                    }
+                }
                 imports.Sort(comparerType);
                 imports.Reverse();
                 sci.GotoLine(line);
                 Int32 curLine = 0;
-                MemberModel curItem;
-                for (Int32 i = 0; i < imports.Count; i++)
+                List<String> uniques = this.GetUniqueImports(imports);
+                for (Int32 i = 0; i < uniques.Count; i++)
                 {
-                    curItem = imports[i];
                     curLine = sci.LineFromPosition(sci.CurrentPos);
-                    sci.InsertText(sci.CurrentPos, "import " + curItem.Type.ToString() + ";" + eol);
+                    sci.InsertText(sci.CurrentPos, "import " + uniques[i] + ";" + eol);
                     sci.SetLineIndentation(curLine, indent);
                 }
                 sci.SetSel(pos, pos);
@@ -58,7 +72,23 @@ namespace CodeRefactor.Commands
             }
             this.FireOnRefactorComplete();
         }
-        
+
+        /// <summary>
+        /// Gets the unique string list of imports
+        /// </summary>
+        private List<String> GetUniqueImports(List<MemberModel> imports)
+        {
+            List<String> results = new List<String>(); 
+            foreach (MemberModel import in imports)
+            {
+                if (!results.Contains(import.Type))
+                {
+                    results.Add(import.Type);
+                }
+            }
+            return results;
+        }
+
         /// <summary>
         /// Indicates if the current settings for the refactoring are valid.
         /// </summary>

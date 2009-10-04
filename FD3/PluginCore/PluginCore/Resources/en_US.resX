@@ -3218,15 +3218,21 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
     <value>Disables the confirmation of the replace in files operation.</value>
+    <comment>Added after 3.0.4</comment>
   </data>
   <data name="FlashDevelop.Info.AreYouSureToReplaceInFiles" xml:space="preserve">
     <value>Are you sure you want to replace in files? The changes cannot be undone.</value>
+    <comment>Added after 3.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.UndoClose" xml:space="preserve">
     <value>&amp;Undo Close</value>
   </data>
   <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
     <value>Organize Imports</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
+    <value>Truncate Imports</value>
     <comment>Added after 3.0.4</comment>
   </data>
 </root>

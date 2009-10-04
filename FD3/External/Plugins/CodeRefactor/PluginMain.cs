@@ -22,6 +22,7 @@ namespace CodeRefactor
         private ToolStripMenuItem refactorContextMenu;
         private ToolStripItem encapsulateMenuItem;
         private ToolStripItem referencesMenuItem;
+        private ToolStripItem truncateMenuItem;
         private ToolStripItem organizeMenuItem;
         private ToolStripItem renameMenuItem;
 
@@ -119,6 +120,7 @@ namespace CodeRefactor
             this.refactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
             this.renameMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
             this.organizeMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
+            this.truncateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null, new EventHandler(this.TruncateImportsClicked));
             this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             this.encapsulateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
             editorMenu.Items.Insert(3, this.refactorContextMenu);
@@ -179,8 +181,9 @@ namespace CodeRefactor
             IASContext context = ASContext.Context;
             if (context != null && context.CurrentModel != null)
             {
-                Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 0);
+                Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 1);
                 this.organizeMenuItem.Enabled = enabled;
+                this.truncateMenuItem.Enabled = enabled;
             }
         }
 
@@ -240,6 +243,23 @@ namespace CodeRefactor
             try
             {
                 OrganizeImports command = new OrganizeImports();
+                command.Execute();
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Invoked when the user selects the "Truncate Imports" command
+        /// </summary>
+        private void TruncateImportsClicked(Object sender, EventArgs e)
+        {
+            try
+            {
+                OrganizeImports command = new OrganizeImports();
+                command.TruncateImports = true;
                 command.Execute();
             }
             catch (Exception ex)
