@@ -35,14 +35,15 @@ namespace CodeRefactor.Commands
                 Int32 pos = sci.CurrentPos;
                 Int32 line = imports[0].LineFrom;
                 Int32 indent = sci.GetLineIndentation(line);
+                ImportsComparerLine comparerLine = new ImportsComparerLine();
                 ImportsComparerType comparerType = new ImportsComparerType();
                 sci.BeginUndoAction();
-                Int32 startLine = imports[0].LineFrom;
-                Int32 endLine = imports[imports.Count - 1].LineFrom;
-                Int32 startPos = sci.PositionFromLine(startLine);
-                Int32 endPos = sci.PositionFromLine(endLine) + sci.LineLength(endLine);
-                sci.SetSel(startPos, endPos);
-                sci.ReplaceSel("");
+                imports.Sort(comparerLine);
+                foreach (MemberModel import in imports)
+                {
+                    sci.GotoLine(import.LineFrom);
+                    sci.LineDelete();
+                }
                 if (this.TruncateImports)
                 {
                     for (Int32 j = 0; j < imports.Count; j++)
@@ -57,7 +58,6 @@ namespace CodeRefactor.Commands
                     }
                 }
                 imports.Sort(comparerType);
-                imports.Reverse();
                 sci.GotoLine(line);
                 Int32 curLine = 0;
                 List<String> uniques = this.GetUniqueImports(imports);
@@ -104,9 +104,20 @@ namespace CodeRefactor.Commands
     /// </summary>
     class ImportsComparerType : IComparer<MemberModel>
     {
-        public int Compare(MemberModel item1, MemberModel item2)
+        public Int32 Compare(MemberModel item1, MemberModel item2)
         {
-            return new CaseInsensitiveComparer().Compare(item1.Type, item2.Type);
+            return new CaseInsensitiveComparer().Compare(item2.Type, item1.Type);
+        }
+    }
+
+    /// <summary>
+    /// Compare import statements based on declaration line
+    /// </summary>
+    class ImportsComparerLine : IComparer<MemberModel>
+    {
+        public Int32 Compare(MemberModel item1, MemberModel item2)
+        {
+            return item2.LineFrom - item1.LineFrom;
         }
     }
 
