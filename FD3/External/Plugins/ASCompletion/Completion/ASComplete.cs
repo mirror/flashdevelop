@@ -1401,7 +1401,8 @@ namespace ASCompletion.Completion
                 // If the last-completed member for the class starts with the currently typed text (tail), select it!
                 // Note that if the tail is currently empty (i.e., the user has just typed the first dot), this still passes.
                 // This allows it to highlight the last-completed member instantly just by hitting the dot.
-                if (completionHistory[currentClassHash].ToLower().StartsWith(tail.ToLower()))
+                // Also does a check if the tail matches exactly the currently selected item; don't change it!
+                if (CompletionList.SelectedLabel != tail && completionHistory[currentClassHash].ToLower().StartsWith(tail.ToLower()))
                 {
                     CompletionList.SelectItem(completionHistory[currentClassHash]);
                 }

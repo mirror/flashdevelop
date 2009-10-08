@@ -96,6 +96,22 @@ namespace PluginCore.Controls
                 return completionList.ClientRectangle.Contains(completionList.PointToClient(Control.MousePosition));
             }
         }
+
+        /// <summary>
+        /// Retrieves the currently selected label, or null if none selected
+        /// </summary>
+        public static string SelectedLabel
+        {
+            get
+            {
+                if (completionList == null)
+                {
+                    return null;
+                }
+                ICompletionListItem selected = completionList.SelectedItem as ICompletionListItem;
+                return (selected == null) ? null : selected.Label;
+            }
+        }
 		
 		#endregion
 		
