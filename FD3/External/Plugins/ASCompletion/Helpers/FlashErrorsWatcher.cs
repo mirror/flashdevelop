@@ -16,8 +16,9 @@ namespace ASCompletion.Helpers
         private string logFile;
         private FileSystemWatcher fsWatcher;
         private Timer updater;
+
         private Regex reError = new Regex(
-            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+):(?<desc>.*)$", 
+            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>.*)$",
             RegexOptions.Compiled | RegexOptions.Multiline);
 
         public FlashErrorsWatcher()

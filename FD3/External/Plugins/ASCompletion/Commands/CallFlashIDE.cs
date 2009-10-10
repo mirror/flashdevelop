@@ -16,6 +16,7 @@ namespace ASCompletion.Commands
         private delegate void RunBackgroundInvoker(string exe, string args);
 
         static readonly private string[] MACROMEDIA_FLASHIDE_PATH = {
+            @"C:\Program Files\Adobe\Adobe Flash CS5\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS4\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS3\Flash.exe",
             @"C:\Program Files\Macromedia\Flash 8\Flash.exe",
