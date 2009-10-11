@@ -54,6 +54,11 @@ namespace ASCompletion.Model
             lock (waiting) { waiting.Clear(); }
         }
 
+        static public void ClearAll()
+        {
+            lock (waiting) { waiting.Clear(); }
+        }
+
         public event ExplorationProgressHandler OnExplorationProgress;
 		public event ExplorationDoneHandler OnExplorationDone;
         public bool UseCache;

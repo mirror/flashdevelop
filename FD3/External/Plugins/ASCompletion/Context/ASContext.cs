@@ -78,7 +78,11 @@ namespace ASCompletion.Context
         }
         static public ScintillaNet.ScintillaControl CurSciControl
         {
-            get { return PluginBase.MainForm.CurrentDocument.SciControl; }
+            get 
+            {
+                ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
+                return doc != null ? doc.SciControl : null; 
+            }
         }
 
         static public PluginUI Panel
@@ -462,9 +466,10 @@ namespace ASCompletion.Context
             validContexts.Clear();
             foreach (RegisteredContext reg in allContexts)
                 reg.Context.Reset();
-            PathExplorer.StopBackgroundExploration();
+            PathExplorer.ClearAll();
             PathModel.ClearAll();
-            System.Threading.Thread.Sleep(100);
+
+            Application.DoEvents();
 
             ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
             SetCurrentFile(doc, !doc.IsEditable); 
@@ -501,6 +506,7 @@ namespace ASCompletion.Context
         /// </summary>
         public virtual void Reset()
         {
+            cacheRefreshTimer.Enabled = false;
             if (classPath != null) classPath.Clear();
             cFile = FileModel.Ignore;
             cClass = ClassModel.VoidClass;

@@ -160,12 +160,13 @@ namespace AS3Context
                     string as3cp = PathHelper.ResolvePath(as3settings.AS3ClassPath);
                     if (Directory.Exists(as3cp))
                     {
+                        string fp9cp = Path.Combine(as3cp, "FP9");
                         string fp10cp = Path.Combine(as3cp, "FP10");
-                        if (Directory.Exists(fp10cp))
+                        if (Directory.Exists(fp9cp) && Directory.Exists(fp10cp))
                         {
                             if (hasAIRSupport) AddPath(Path.Combine(as3cp, "AIR"));
                             if (flashVersion > 9) AddPath(fp10cp);
-                            AddPath(Path.Combine(as3cp, "FP9"));
+                            AddPath(fp9cp);
                         }
                         else AddPath(as3cp);
                     }

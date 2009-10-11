@@ -525,8 +525,8 @@ namespace ASCompletion
 
         private void rebuildButton_Click(object sender, EventArgs e)
         {
+            outlineTreeView.Nodes.Clear();
             ASContext.RebuildClasspath();
-            UpdateTree();
         }
         #endregion
 
