@@ -977,7 +977,7 @@ namespace FlashDevelop
         {
             try
             {
-                if (this.CurrentDocument == null || this.CurrentDocument.SciControl == null) return;
+                if (this.CurrentDocument == null) return;
                 this.OnScintillaControlUpdateControl(this.CurrentDocument.SciControl);
                 this.quickFind.CanSearch = this.CurrentDocument.IsEditable;
                 /**
