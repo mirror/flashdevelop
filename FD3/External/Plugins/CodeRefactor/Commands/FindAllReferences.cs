@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ASCompletion.Completion;
-using CodeRefactor.FRService;
+using PluginCore.FRService;
 using CodeRefactor.Provider;
 using PluginCore.Localization;
 using PluginCore.Managers;
@@ -73,9 +73,9 @@ namespace CodeRefactor.Commands
         /// </summary>
         protected override void ExecutionImplementation()
         {
-            UserInterfaceManager.FindingReferencesDialogueMain.Show();
-            UserInterfaceManager.FindingReferencesDialogueMain.SetTitle(TextHelper.GetString("Info.FindingReferences"));
-            UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.SearchingFiles"));
+            UserInterfaceManager.ProgressDialog.Show();
+            UserInterfaceManager.ProgressDialog.SetTitle(TextHelper.GetString("Info.FindingReferences"));
+            UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.SearchingFiles"));
             RefactoringHelper.FindTargetInFiles(currentTarget, new FRProgressReportHandler(this.RunnerProgress), new FRFinishedHandler(this.FindFinished), true);
         }
 
@@ -97,7 +97,7 @@ namespace CodeRefactor.Commands
         private void RunnerProgress(Int32 percentDone)
         {
             // perhaps we should show some progress to the user, especially if there are a lot of files to check...
-            UserInterfaceManager.FindingReferencesDialogueMain.UpdateProgress(percentDone);
+            UserInterfaceManager.ProgressDialog.UpdateProgress(percentDone);
         }
 
         /// <summary>
@@ -106,12 +106,12 @@ namespace CodeRefactor.Commands
         private void FindFinished(FRResults results)
         {
 
-            UserInterfaceManager.FindingReferencesDialogueMain.Reset();
-            UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferences"));
+            UserInterfaceManager.ProgressDialog.Reset();
+            UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferences"));
             // First filter out any results that don't actually point to our source declaration
             this.Results = ResolveActualMatches(results, currentTarget);
             if (this.outputResults) this.ReportResults();
-            UserInterfaceManager.FindingReferencesDialogueMain.Hide();
+            UserInterfaceManager.ProgressDialog.Hide();
             this.FireOnRefactorComplete();
         }
 
@@ -138,7 +138,7 @@ namespace CodeRefactor.Commands
             foreach (KeyValuePair<String, List<SearchMatch>> entry in initialResultsList)
             {
                 String currentFileName = entry.Key;
-                UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferencesIn") + " \"" + (currentFileName.StartsWith(projectPath) ? currentFileName.Substring(projectPathLength) : currentFileName) + "\"");
+                UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferencesIn") + " \"" + (currentFileName.StartsWith(projectPath) ? currentFileName.Substring(projectPathLength) : currentFileName) + "\"");
                 foreach (SearchMatch match in entry.Value)
                 {
                     // we have to open/reopen the entry's file
@@ -163,7 +163,7 @@ namespace CodeRefactor.Commands
                         }
                     }
                     matchesChecked++;
-                    UserInterfaceManager.FindingReferencesDialogueMain.UpdateProgress((100 * matchesChecked) / totalMatches);
+                    UserInterfaceManager.ProgressDialog.UpdateProgress((100 * matchesChecked) / totalMatches);
                 }
             }
             this.AssociatedDocumentHelper.CloseTemporarilyOpenedDocuments();

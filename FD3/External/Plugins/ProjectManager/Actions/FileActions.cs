@@ -453,7 +453,7 @@ namespace ProjectManager.Actions
                     CopyDirectory(fromPath, toPath);
                     Directory.Delete(fromPath, true);
                 }
-                catch (Exception subEx)
+                catch (Exception)
                 {
                     throw;
                 }

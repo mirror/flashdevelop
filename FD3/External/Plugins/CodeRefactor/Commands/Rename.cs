@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using CodeRefactor.Provider;
-using CodeRefactor.FRService;
+using PluginCore.FRService;
 using ASCompletion.Completion;
 using ASCompletion.Context;
 using ASCompletion.Model;
@@ -116,15 +116,15 @@ namespace CodeRefactor.Commands
         /// </summary>
         private void OnFindAllReferencesCompleted(Object sender, RefactorCompleteEventArgs<IDictionary<string, List<SearchMatch>>> eventArgs)
         {
-            UserInterfaceManager.FindingReferencesDialogueMain.Show();
-            UserInterfaceManager.FindingReferencesDialogueMain.SetTitle(TextHelper.GetString("Info.RenamingReferences"));
+            UserInterfaceManager.ProgressDialog.Show();
+            UserInterfaceManager.ProgressDialog.SetTitle(TextHelper.GetString("Info.RenamingReferences"));
             String projectPath = PluginBase.CurrentProject.ProjectPath;
             if (projectPath == null) projectPath = String.Empty;
             else projectPath = System.IO.Path.GetDirectoryName(projectPath) + "\\";
             int projectPathLength = projectPath.Length;
             foreach (KeyValuePair<String, List<SearchMatch>> entry in eventArgs.Results)
             {
-                UserInterfaceManager.FindingReferencesDialogueMain.UpdateStatusMessage(TextHelper.GetString("Info.Updating") + " \"" + (entry.Key.StartsWith(projectPath) ? entry.Key.Substring(projectPathLength) : entry.Key) + "\"");
+                UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.Updating") + " \"" + (entry.Key.StartsWith(projectPath) ? entry.Key.Substring(projectPathLength) : entry.Key) + "\"");
                 // re-open the document and replace all the text
                 PluginBase.MainForm.OpenEditableDocument(entry.Key);
                 ScintillaControl sci = ASContext.CurSciControl;
@@ -134,7 +134,7 @@ namespace CodeRefactor.Commands
             }
             this.Results = eventArgs.Results;
             if (this.outputResults) this.ReportResults();
-            UserInterfaceManager.FindingReferencesDialogueMain.Hide();
+            UserInterfaceManager.ProgressDialog.Hide();
             this.FireOnRefactorComplete();
         }
 

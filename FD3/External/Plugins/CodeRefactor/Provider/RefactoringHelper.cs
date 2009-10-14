@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
-using CodeRefactor.FRService;
+using PluginCore.FRService;
 using ASCompletion.Completion;
 using ASCompletion.Context;
 using ASCompletion.Model;
@@ -254,6 +254,7 @@ namespace CodeRefactor.Provider
                 recursive = false;
             }
             FRConfiguration config = new FRConfiguration(path, mask, recursive, GetFRSearch(target.Member.Name));
+            config.CacheDocuments = true;
             FRRunner runner = new FRRunner();
             if (progressReportHandler != null)
             {

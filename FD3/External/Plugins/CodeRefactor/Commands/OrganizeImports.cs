@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using ASCompletion.Completion;
-using CodeRefactor.FRService;
+using PluginCore.FRService;
 using CodeRefactor.Provider;
 using PluginCore.Localization;
 using ASCompletion.Model;

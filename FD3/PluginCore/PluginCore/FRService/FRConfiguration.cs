@@ -19,6 +19,17 @@ namespace PluginCore.FRService
         protected OperationType type;
         protected FRSearch search;
         protected string replacement;
+        protected Boolean cacheDocuments;
+        protected IDictionary<String, ITabbedDocument> openDocuments = null;
+
+        /// <summary>
+        /// Enables the caching
+        /// </summary>
+        public Boolean CacheDocuments
+        {
+            get { return cacheDocuments; }
+            set { cacheDocuments = value; }
+        }
 
         /// <summary>
         /// Warning: if this property is not null, the text will be replaced when running a background search
@@ -72,7 +83,7 @@ namespace PluginCore.FRService
         }
 
         /// <summary>
-        /// 
+        /// Gets the search
         /// </summary> 
         public FRSearch GetSearch()
         {
@@ -80,9 +91,8 @@ namespace PluginCore.FRService
         }
 
         /// <summary>
-        /// Get the source
-        /// @param    file    Source file
-        /// </summary> 
+        /// Gets the source
+        /// </summary>
         public string GetSource(String file)
         {
             switch (type)
@@ -91,12 +101,40 @@ namespace PluginCore.FRService
                     return this.source;
 
                 default:
-                    return FileHelper.ReadFile(file);
+                    return ReadCurrentFileSource(file);
             }
         }
 
         /// <summary>
-        /// Update the file source (ie. write the file)
+        /// Reads the source
+        /// </summary>
+        protected string ReadCurrentFileSource(String file)
+        {
+            if (cacheDocuments)
+            {
+                if (openDocuments == null) CacheOpenDocuments();
+                if (openDocuments.ContainsKey(file)) return openDocuments[file].SciControl.Text;
+            }
+            return FileHelper.ReadFile(file);
+        }
+
+        /// <summary>
+        /// Caches the documents
+        /// </summary>
+        protected void CacheOpenDocuments()
+        {
+            this.openDocuments = new Dictionary<String, ITabbedDocument>();
+            foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
+            {
+                if (document.IsEditable)
+                {
+                    this.openDocuments[document.FileName] = document;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the file source (ie. write the file)
         /// </summary>
         public void SetSource(string file, string src)
         {
@@ -114,7 +152,7 @@ namespace PluginCore.FRService
         }
 
         /// <summary>
-        /// 
+        /// Gets the files
         /// </summary>
         public List<String> GetFiles()
         {

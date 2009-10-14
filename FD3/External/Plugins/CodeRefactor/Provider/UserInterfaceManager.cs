@@ -10,7 +10,7 @@ namespace CodeRefactor.Provider
 {
     internal static class UserInterfaceManager
     {
-        private static ProgressDialog findingReferencesDialogMain;
+        private static ProgressDialog progressDialog;
 
         /// <summary>
         /// 
@@ -26,16 +26,16 @@ namespace CodeRefactor.Provider
         /// <summary>
         /// 
         /// </summary>
-        internal static ProgressDialog FindingReferencesDialogueMain
+        internal static ProgressDialog ProgressDialog
         {
             get
             {
-                if (findingReferencesDialogMain == null)
+                if (progressDialog == null)
                 {
-                    findingReferencesDialogMain = new ProgressDialog();
-                    Main.AddOwnedForm(findingReferencesDialogMain);
+                    progressDialog = new ProgressDialog();
+                    Main.AddOwnedForm(progressDialog);
                 }
-                return findingReferencesDialogMain;
+                return progressDialog;
             }
         }
 
