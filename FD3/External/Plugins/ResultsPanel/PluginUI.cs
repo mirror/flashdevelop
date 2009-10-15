@@ -556,7 +556,7 @@ namespace ResultsPanel
             if (!match.Success) match = errorCharacters2.Match(item.SubItems[2].Text);
             if (match.Success)
 			{
-                Int32 indic = (item.ImageIndex == 0) ? (Int32)ScintillaNet.Enums.IndicatorStyle.Max : (Int32)ScintillaNet.Enums.IndicatorStyle.Squiggle;
+                Int32 indic = (item.ImageIndex == 0) ? (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox : (Int32)ScintillaNet.Enums.IndicatorStyle.Squiggle;
                 Int32 fore = (item.ImageIndex == 0) ? DataConverter.ColorToInt32(PluginBase.MainForm.Settings.HighlightAllColor) : 0x000000ff;
 				String fname = (item.SubItems[4].Text + "\\" + item.SubItems[3].Text).Replace('/','\\');
 				ITabbedDocument[] documents = PluginBase.MainForm.Documents;

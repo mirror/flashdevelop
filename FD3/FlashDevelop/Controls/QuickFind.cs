@@ -458,7 +458,7 @@ namespace FlashDevelop.Controls
                 Int32 position = start;
                 Int32 es = sci.EndStyled;
                 Int32 mask = 1 << sci.StyleBits;
-                sci.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.Max);
+                sci.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox);
                 sci.SetIndicFore(0, DataConverter.ColorToInt32(Globals.Settings.HighlightAllColor));
                 sci.StartStyling(position, mask);
                 sci.SetStyling(end - start, mask);
