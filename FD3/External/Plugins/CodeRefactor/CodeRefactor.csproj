@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\OrganizeImports.cs" />
-    <Compile Include="Commands\EncapsulateField.cs" />
     <Compile Include="Commands\FindAllReferences.cs" />
     <Compile Include="Commands\Rename.cs" />
     <Compile Include="Controls\ProgressDialog.cs">

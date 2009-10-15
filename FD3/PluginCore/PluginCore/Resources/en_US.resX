@@ -3192,10 +3192,6 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Updating</value>
     <comment>Added after 3.0.4</comment>
   </data>
-  <data name="CodeRefactor.Label.EncapsulateField" xml:space="preserve">
-    <value>Encapsulate Field</value>
-    <comment>Added after 3.0.4</comment>
-  </data>
   <data name="CodeRefactor.Label.FindAllReferences" xml:space="preserve">
     <value>Find All References</value>
     <comment>Added after 3.0.4</comment>

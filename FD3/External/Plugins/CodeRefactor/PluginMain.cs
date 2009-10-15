@@ -20,7 +20,6 @@ namespace CodeRefactor
         private String pluginDesc = "Adds refactoring capabilities to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private ToolStripMenuItem refactorContextMenu;
-        private ToolStripItem encapsulateMenuItem;
         private ToolStripItem referencesMenuItem;
         private ToolStripItem truncateMenuItem;
         private ToolStripItem organizeMenuItem;
@@ -122,7 +121,6 @@ namespace CodeRefactor
             this.organizeMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
             this.truncateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null, new EventHandler(this.TruncateImportsClicked));
             this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
-            this.encapsulateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.EncapsulateField"), null, new EventHandler(this.EncapsulateFieldClicked));
             editorMenu.Items.Insert(3, this.refactorContextMenu);
         }
 
@@ -169,13 +167,11 @@ namespace CodeRefactor
                 Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
                 Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
                 this.renameMenuItem.Enabled = !(isClass || isConstructor);
-                this.encapsulateMenuItem.Enabled = isVariable;
                 this.referencesMenuItem.Enabled = true;
             }
             else
             {
                 this.renameMenuItem.Enabled = false;
-                this.encapsulateMenuItem.Enabled = false;
                 this.referencesMenuItem.Enabled = false;
             }
             IASContext context = ASContext.Context;
@@ -211,22 +207,6 @@ namespace CodeRefactor
             try
             {
                 FindAllReferences command = new FindAllReferences(true);
-                command.Execute();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-            }
-        }
-
-        /// <summary>
-        /// Invoked when the user selects the "Encapsulate Field" command
-        /// </summary>
-        private void EncapsulateFieldClicked(Object sender, EventArgs e)
-        {
-            try
-            {
-                EncapsulateField command = new EncapsulateField();
                 command.Execute();
             }
             catch (Exception ex)
