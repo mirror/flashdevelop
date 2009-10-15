@@ -118,9 +118,9 @@ namespace CodeRefactor
             this.refactorContextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
             this.refactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
             this.renameMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
+            this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             this.organizeMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
             this.truncateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null, new EventHandler(this.TruncateImportsClicked));
-            this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             editorMenu.Items.Insert(3, this.refactorContextMenu);
         }
 
