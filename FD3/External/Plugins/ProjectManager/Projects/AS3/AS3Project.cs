@@ -59,7 +59,12 @@ namespace ProjectManager.Projects.AS3
             if (ext == ".as") { pre = "["; post = "]"; }
 
             string relPath = ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
-            if (export != null)
+            if (export != null && export.IndexOf('(') > 0)
+            {
+                string fontName = export.Substring(0, export.IndexOf('(')).Trim();
+                return String.Format("{0}Embed(source='{1}', fontFamily='{2}'){3}", pre, relPath, fontName, post);
+            }
+            else if (export != null)
                 return String.Format("{0}Embed(source='{1}', symbol='{2}'){3}", pre, relPath, export, post);
             else 
                 return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);

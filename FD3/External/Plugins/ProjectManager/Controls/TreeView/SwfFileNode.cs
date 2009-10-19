@@ -43,8 +43,7 @@ namespace ProjectManager.Controls.TreeView
 		public ExportNode(string filePath, string export) : base(filePath+"::"+export)
 		{
 			ContainingSwfPath = filePath;
-            if (export.IndexOf(' ') < 0) Export = export;
-            else Export = export.Substring(0, export.IndexOf(' '));
+            Export = export;
 			Text = export;
 			ForeColorRequest = Color.Gray;
 			ImageIndex = SelectedImageIndex = Icons.ImageResource.Index;
