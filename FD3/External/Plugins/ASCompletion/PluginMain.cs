@@ -598,7 +598,7 @@ namespace ASCompletion
                 menu.DropDownItems.Add(new ToolStripSeparator());
 
                 // goto back from declaration
-                image = mainForm.FindImage("99|9|3|-3");
+                image = mainForm.FindImage("99|1|-3|-3");
                 k = settingObject.BackFromDeclaration;
                 if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
                 item = new ToolStripMenuItem(TextHelper.GetString("Label.BackFromDeclaration"), image, new EventHandler(BackDeclaration), k);
@@ -607,7 +607,7 @@ namespace ASCompletion
                 item.Enabled = false;
 
                 // goto declaration
-                image = mainForm.FindImage("99|1|-3|-3");
+                image = mainForm.FindImage("99|9|3|-3");
                 k = settingObject.GotoDeclaration;
                 if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
                 item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
