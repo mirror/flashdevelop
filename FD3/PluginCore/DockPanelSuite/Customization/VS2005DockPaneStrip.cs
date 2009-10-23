@@ -424,18 +424,30 @@ namespace WeifenLuo.WinFormsUI.Docking
             get { return SystemPens.ControlDark; }
         }
 
+        // HACK
         private static Brush BrushToolWindowActiveBackground
         {
-            // NICK: Always use White (VS2005 behavior)
-            //get { return SystemBrushes.Control; }
-            get { return Brushes.White; }
+            get 
+            {
+                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                {
+                    return SystemBrushes.Control;
+                }
+                else return Brushes.White; 
+            }
         }
 
+        // HACK
         private static Brush BrushDocumentActiveBackground
         {
-            // NICK: Always use White (VS2005 behavior)
-            //get { return SystemBrushes.ControlLightLight; }
-            get { return Brushes.White; }
+            get 
+            {
+                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                {
+                    return SystemBrushes.ControlLightLight;
+                }
+                else return Brushes.White;  
+            }
         }
 
         private static Brush BrushDocumentInactiveBackground
@@ -579,7 +591,14 @@ namespace WeifenLuo.WinFormsUI.Docking
             // CHANGED
             if (Appearance == DockPane.AppearanceStyle.Document)
             {
-                if (BackColor != Color.FromArgb(228, 226, 213))
+                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                {
+                    if (BackColor != SystemColors.ControlLight)
+                    {
+                        BackColor = SystemColors.ControlLight;
+                    }
+                }
+                else if (BackColor != Color.FromArgb(228, 226, 213))
                 {
                     BackColor = Color.FromArgb(228, 226, 213);
                 }
@@ -1105,9 +1124,20 @@ namespace WeifenLuo.WinFormsUI.Docking
 
                 // CHANGED to eliminate line between selected tab and content - NICK
                 RectangleF r = path.GetBounds();
-                using (Pen pen = new Pen(Color.FromArgb(240, 239, 243)))
-                    g.DrawLine(pen, r.Left + 2, r.Bottom - 1, r.Right - 1, r.Bottom - 1);
-
+                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                {
+                    using (Pen pen = new Pen(SystemColors.ControlLight))
+                    {
+                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, r.Right - 1, r.Bottom - 1);
+                    }
+                }
+                else
+                {
+                    using (Pen pen = new Pen(Color.FromArgb(240, 239, 243)))
+                    {
+                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, r.Right - 1, r.Bottom - 1);
+                    }
+                }
                 if (DockPane.IsActiveDocumentPane)
                     TextRenderer.DrawText(g, tab.Content.DockHandler.TabText, BoldFont, rectText, ColorDocumentActiveText, DocumentTextFormat);
                 else

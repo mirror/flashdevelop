@@ -3231,4 +3231,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Truncate Imports</value>
     <comment>Added after 3.0.4</comment>
   </data>
+  <data name="FlashDevelop.Description.UseSystemColors" xml:space="preserve">
+    <value>Forces FlashDevelop to use only system colors in the controls.</value>
+  </data>
 </root>

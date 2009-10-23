@@ -262,6 +262,16 @@ namespace FlashDevelop.Settings
             set { this.useListViewGrouping = value; }
         }
 
+        [DefaultValue(false)]
+        [DisplayName("Use System UI Colors")]
+        [LocalizedCategory("FlashDevelop.Category.Display")]
+        [LocalizedDescription("FlashDevelop.Description.UseSystemColors")]
+        public Boolean UseSystemColors
+        {
+            get { return this.useSystemColors; }
+            set { this.useSystemColors = value; }
+        }
+
         [DisplayName("UI Render Mode")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.RenderMode")]

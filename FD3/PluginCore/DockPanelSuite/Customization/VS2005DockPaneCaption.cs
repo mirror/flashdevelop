@@ -297,13 +297,11 @@ namespace WeifenLuo.WinFormsUI.Docking
 		{
             get
             {
-                string colorScheme = VisualStyleInformation.ColorScheme;
-
-                if (colorScheme == "HomeStead" || colorScheme == "Metallic")
-                    return SystemColors.GradientInactiveCaption;
-                else
-                    // HACK - Mika
-                    return Color.FromArgb(204, 199, 186);
+                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                {
+                    return SystemColors.InactiveCaption;
+                }
+                else return Color.FromArgb(204, 199, 186);
             }
 		}
 

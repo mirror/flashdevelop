@@ -45,6 +45,7 @@ namespace FlashDevelop.Settings
         private List<String> disabledPlugins = new List<String>();
         private String latestDialogPath = Application.StartupPath;
         private String defaultFileExtension = "as";
+        private Boolean useSystemColors = false;
         private Boolean disableReplaceFilesConfirm = false;
         private Boolean autoReloadModifiedFiles = false;
         private Boolean saveUTF8WithoutBOM = false;

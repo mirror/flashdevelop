@@ -224,6 +224,7 @@ namespace PluginCore
         Boolean CaretLineVisible { get; set; }
         Boolean EnsureConsistentLineEnds { get; set; }
         Boolean EnsureLastLineEnd { get; set; }
+        Boolean UseSystemColors { get; set; }
         Boolean FoldAtElse { get; set; }
         Boolean FoldComment { get; set; }
         Boolean FoldCompact { get; set; }
