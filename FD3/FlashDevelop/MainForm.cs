@@ -1578,6 +1578,15 @@ namespace FlashDevelop
             if (sender != this.frInDocDialog) this.frInDocDialog.SetMatchCase(matchCase);
         }
 
+        /// <summary>
+        /// Sets the whole word setting to find globally
+        /// </summary>
+        public void SetWholeWord(Object sender, Boolean wholeWord)
+        {
+            if (sender != this.quickFind) this.quickFind.SetWholeWord(wholeWord);
+            if (sender != this.frInDocDialog) this.frInDocDialog.SetWholeWord(wholeWord);
+        }
+
         #endregion
 
         #region Click Handlers
@@ -2086,6 +2095,17 @@ namespace FlashDevelop
         public void FindAndReplaceInFiles(Object sender, System.EventArgs e)
         {
             this.frInFilesDialog.Show();
+        }
+
+        /// <summary>
+        /// Opens a find and replace in files dialog with a location
+        /// </summary>
+        public void FindAndReplaceInFilesFrom(Object sender, System.EventArgs e)
+        {
+            ToolStripItem button = (ToolStripItem)sender;
+            String path = ((ItemData)button.Tag).Tag;
+            this.frInFilesDialog.Show(); // Show first..
+            this.frInFilesDialog.SetFindPath(path);
         }
 
         /// <summary>

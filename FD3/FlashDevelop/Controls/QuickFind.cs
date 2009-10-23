@@ -21,10 +21,12 @@ namespace FlashDevelop.Controls
     public class QuickFind : ToolStrip, IEventHandler
     {
         private Timer highlightTimer;
+        private CheckBox wholeWordCheckBox;
         private CheckBox highlightCheckBox;
         private CheckBox matchCaseCheckBox;
         private ToolStripButton nextButton;
         private ToolStripButton closeButton;
+        private ToolStripControlHost wholeWordHost;
         private ToolStripControlHost matchCaseHost;
         private ToolStripControlHost highlightHost;
         private ToolStripButton previousButton;
@@ -65,12 +67,14 @@ namespace FlashDevelop.Controls
         public void InitializeComponent()
         {
             this.highlightTimer = new Timer();
+            this.wholeWordCheckBox = new CheckBox();
             this.matchCaseCheckBox = new CheckBox();
             this.highlightCheckBox = new CheckBox();
             this.nextButton = new ToolStripButton();
             this.closeButton = new ToolStripButton();
             this.highlightHost = new ToolStripControlHost(this.highlightCheckBox);
             this.matchCaseHost = new ToolStripControlHost(this.matchCaseCheckBox);
+            this.wholeWordHost = new ToolStripControlHost(this.wholeWordCheckBox);
             this.previousButton = new ToolStripButton();
             this.findTextBox = new EscapeTextBox();
             this.findLabel = new ToolStripLabel();
@@ -102,6 +106,13 @@ namespace FlashDevelop.Controls
             this.matchCaseCheckBox.Text = TextHelper.GetString("Label.MatchCase");
             this.matchCaseCheckBox.BackColor = Color.Transparent;
             this.matchCaseCheckBox.CheckedChanged += new EventHandler(this.MatchCaseCheckBoxCheckedChanged);
+            //
+            // wholeWordCheckBox
+            //
+            this.wholeWordHost.Margin = new Padding(0, 2, 6, 1);
+            this.wholeWordCheckBox.Text = TextHelper.GetString("Label.WholeWord");
+            this.wholeWordCheckBox.BackColor = Color.Transparent;
+            this.wholeWordCheckBox.CheckedChanged += new EventHandler(this.WholeWordCheckBoxCheckedChanged);
             //
             // nextButton
             //
@@ -142,6 +153,7 @@ namespace FlashDevelop.Controls
             this.Items.Add(this.nextButton);
             this.Items.Add(this.previousButton);
             this.Items.Add(this.matchCaseHost);
+            this.Items.Add(this.wholeWordHost);
             this.Items.Add(this.highlightHost);
             this.GripStyle = ToolStripGripStyle.Hidden;
             this.Renderer = new QuickFindRenderer();
@@ -176,6 +188,7 @@ namespace FlashDevelop.Controls
                 this.previousButton.Enabled = value;
                 this.matchCaseCheckBox.Enabled = value;
                 this.highlightCheckBox.Enabled = value;
+                this.wholeWordCheckBox.Enabled = value;
                 this.findTextBox.Enabled = value;
             }
         }
@@ -198,6 +211,16 @@ namespace FlashDevelop.Controls
             this.matchCaseCheckBox.CheckedChanged -= new EventHandler(this.MatchCaseCheckBoxCheckedChanged);
             this.matchCaseCheckBox.Checked = matchCase; // Change the value...
             this.matchCaseCheckBox.CheckedChanged += new EventHandler(this.MatchCaseCheckBoxCheckedChanged);
+        }
+
+        /// <summary>
+        /// Set the whole word prop of the text to search
+        /// </summary>
+        public void SetWholeWord(Boolean wholeWord)
+        {
+            this.wholeWordCheckBox.CheckedChanged -= new EventHandler(this.WholeWordCheckBoxCheckedChanged);
+            this.wholeWordCheckBox.Checked = wholeWord; // Change the value...
+            this.wholeWordCheckBox.CheckedChanged += new EventHandler(this.WholeWordCheckBoxCheckedChanged);
         }
 
         /// <summary>
@@ -262,6 +285,14 @@ namespace FlashDevelop.Controls
         private void MatchCaseCheckBoxCheckedChanged(Object sender, EventArgs e)
         {
             Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
+        }
+
+        /// <summary>
+        /// Update the whole word globally if it's changed
+        /// </summary>
+        private void WholeWordCheckBoxCheckedChanged(Object sender, EventArgs e)
+        {
+            Globals.MainForm.SetWholeWord(this, this.wholeWordCheckBox.Checked);
         }
 
         /// <summary>
@@ -501,6 +532,7 @@ namespace FlashDevelop.Controls
             FRSearch search = new FRSearch(pattern);
             search.Filter = SearchFilter.None;
             search.NoCase = !this.matchCaseCheckBox.Checked;
+            search.WholeWord = this.wholeWordCheckBox.Checked;
             return search.Matches(sci.Text);
         }
 

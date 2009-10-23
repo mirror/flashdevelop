@@ -916,6 +916,14 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
+        /// Sets the path to find
+        /// </summary>
+        public void SetFindPath(String path)
+        {
+            this.folderComboBox.Text = path;
+        }
+
+        /// <summary>
         /// Update the dialog args when show is called
         /// </summary>
         public new void Show()

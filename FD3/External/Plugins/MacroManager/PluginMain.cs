@@ -255,12 +255,18 @@ namespace MacroManager
                 ToolStripMenuItem macroItem = sender as ToolStripMenuItem;
                 foreach (String entry in ((Macro)macroItem.Tag).Entries)
                 {
-                    if (entry.IndexOf('|') != -1)
+                    String data = entry;
+                    if (data.StartsWith("#")) // Hardcore mode :)
                     {
-                        String[] parts = entry.Split(new Char[1]{'|'});
+                        data = PluginBase.MainForm.ProcessArgString(entry.Substring(1));
+                        if (data.Contains("$(")) return; // Invalid, don't execute..
+                    }
+                    if (data.IndexOf('|') != -1)
+                    {
+                        String[] parts = data.Split(new Char[1] { '|' });
                         PluginBase.MainForm.CallCommand(parts[0], parts[1]);
                     }
-                    else PluginBase.MainForm.CallCommand(entry, "");
+                    else PluginBase.MainForm.CallCommand(data, "");
                 }
             }
             catch (Exception)

@@ -374,6 +374,16 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
+        /// Set the whole word prop of the text to search
+        /// </summary>
+        public void SetWholeWord(Boolean wholeWord)
+        {
+            this.wholeWordCheckBox.CheckedChanged -= new EventHandler(this.LookupChanged);
+            this.wholeWordCheckBox.Checked = wholeWord; // Change the value...
+            this.wholeWordCheckBox.CheckedChanged += new EventHandler(this.LookupChanged);
+        }
+
+        /// <summary>
         /// Set the text to search
         /// </summary>
         public void SetFindText(String text)
@@ -578,6 +588,10 @@ namespace FlashDevelop.Dialogs
             if (sender == this.matchCaseCheckBox)
             {
                 Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
+            }
+            if (sender == this.wholeWordCheckBox)
+            {
+                Globals.MainForm.SetWholeWord(this, this.wholeWordCheckBox.Checked);
             }
         }
 
