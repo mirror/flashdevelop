@@ -220,6 +220,7 @@ namespace ProjectManager
             pluginUI.Menu.Properties.Click += delegate { OpenProjectProperties(); };
             pluginUI.Menu.ShellMenu.Click += delegate { TreeShowShellMenu(); };
             pluginUI.Menu.BuildProjectFile.Click += delegate { BackgroundBuild(); };
+            pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
 
             Tree.MovePath += fileActions.Move;
             Tree.CopyPath += fileActions.Copy;
@@ -988,6 +989,15 @@ namespace ProjectManager
         {
             Project project = ProjectLoader.Load(Tree.SelectedPath);
             this.buildActions.Build(project, false, true);
+        }
+
+        private void FindInFiles()
+        {
+            String path = Tree.SelectedPath;
+            if (path != null && Directory.Exists(path))
+            {
+                PluginBase.MainForm.CallCommand("FindAndReplaceInFilesFrom", path);
+            }
         }
 
         #endregion

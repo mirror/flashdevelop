@@ -49,6 +49,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"), Icons.Options.Img);
         public ToolStripMenuItem ShellMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"));
         public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
+        public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"));
         public event FileAddHandler AddFileFromTemplate;
 
         public ProjectContextMenu()
@@ -279,6 +280,7 @@ namespace ProjectManager.Controls.TreeView
             bool alwaysCompile = project.IsCompileTarget(path);
             menu.Add(AddMenu, 0);
             menu.Add(Browse, 0);
+            menu.Add(FindInFiles, 0);
             menu.Add(ShellMenu, 0);
             if (project.Language == "as2") menu.Add(AlwaysCompile, 2, alwaysCompile);
             AddFileItems(menu, path, true);
@@ -393,8 +395,8 @@ namespace ProjectManager.Controls.TreeView
             if (addPaste) menu.Add(Paste, 1);
             menu.Add(Delete, 1);
             menu.Add(Rename, 1);
-            menu.Add(HideItem, 3, hidden);
             menu.Add(ShowHidden, 3, showHidden);
+            menu.Add(HideItem, 3, hidden);
         }
 
         private void AddFileItems(MergableMenu menu, string path)
