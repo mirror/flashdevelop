@@ -571,10 +571,11 @@ namespace ASCompletion.Completion
                     sb.Append(decl);
                     canGenerate = true;
 
-                    if (!typesUsed.Contains(method.Type)) typesUsed.Add(getQualifiedType(method.Type, aType));
+                    addTypeOnce(typesUsed, getQualifiedType(method.Type, aType));
+                    
                     if (method.Parameters != null && method.Parameters.Count > 0)
                         foreach (MemberModel param in method.Parameters)
-                            if (!typesUsed.Contains(param.Type)) typesUsed.Add(getQualifiedType(param.Type, aType));
+                            addTypeOnce(typesUsed, getQualifiedType(param.Type, aType));
                 }
                 // interface inheritance
                 aType = aType.Extends;
@@ -598,8 +599,22 @@ namespace ASCompletion.Completion
             finally { Sci.EndUndoAction(); }
         }
 
+        private static void addTypeOnce(List<string> typesUsed, string qualifiedName)
+        {
+            if (!typesUsed.Contains(qualifiedName)) typesUsed.Add(qualifiedName);
+        }
+
         private static string getQualifiedType(string type, ClassModel aType)
         {
+            if (type.IndexOf('<') > 0) // Vector.<Point>
+            {
+                Match mGeneric = Regex.Match(type, "<([^>]+)>");
+                if (mGeneric.Success)
+                {
+                    return getQualifiedType(mGeneric.Groups[1].Value, aType);
+                }
+            }
+
             if (type.IndexOf('.') > 0) return type;
 
             ClassModel aClass = ASContext.Context.ResolveType(type, aType.InFile);
@@ -1089,12 +1104,11 @@ namespace ASCompletion.Completion
                 {
                     if (param.Name.StartsWith(".")) break;
                     args += ", " + param.Name;
-                    if (!typesUsed.Contains(param.Type)) typesUsed.Add(getQualifiedType(param.Type, aType));
+                    addTypeOnce(typesUsed, getQualifiedType(param.Type, aType));
                 }
 
             bool noRet = member.Type == null || member.Type.Length == 0 || member.Type.Equals("void", StringComparison.OrdinalIgnoreCase);
-            if (!noRet && !typesUsed.Contains(member.Type))
-                typesUsed.Add(getQualifiedType(member.Type, aType));
+            if (!noRet) addTypeOnce(typesUsed, getQualifiedType(member.Type, aType));
 
             string action = "";
             if ((member.Flags & FlagType.Function) > 0)
