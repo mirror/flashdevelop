@@ -271,6 +271,7 @@ namespace PluginCore.FRService
             {
                 sb.Append(src.Substring(lastIndex, match.Index - lastIndex));
                 // replace text
+                replacement = original;
                 if (isEscaped) replacement = Unescape(replacement);
                 if (isRegex) replacement = ExpandGroups(replacement, match);
                 sb.Append(replacement);
