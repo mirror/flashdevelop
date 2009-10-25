@@ -26,6 +26,7 @@ using ASClassWizard.Wizards;
 
 using System.Text.RegularExpressions;
 using ASCompletion.Completion;
+using System.Collections.Generic;
 
 #endregion
 
@@ -43,6 +44,7 @@ namespace ASClassWizard
         private Settings settingObject;
         private AS3ClassOptions lastFileOptions;
         private String lastFileFromTemplate;
+        private IASContext processContext;
         private String processOnSwitch;
 
         public static IMainForm MainForm { get { return PluginBase.MainForm; } }
@@ -161,11 +163,6 @@ namespace ASClassWizard
                     if (lastFileFromTemplate != null && project != null 
                         && (project.Language == "as3" || project.Language == "as2"))
                     {
-                        //te.Handled = true;
-                        /*BuildEventVars vars = new BuildEventVars(project);
-                        foreach (BuildEventInfo info in vars.GetVars())
-                            te.Value = te.Value.Replace("$(" + info.Name + ")", info.Value);*/
-
                         te.Value = ProcessArgs(project, te.Value);
                     }
                     
@@ -315,133 +312,142 @@ namespace ASClassWizard
 
                     if (lastFileOptions != null)
                     {
-                        Int32 eolMode = (Int32)MainForm.Settings.EOLMode;
-                        String lineBreak = LineEndDetector.GetNewLineMarker(eolMode);
-                        ClassModel cmodel;
-                        IASContext context;
-
-                        string imports = "";
-                        string extends = "";
-                        string implements = "";
-                        string access = "";
-                        string inheritedMethods = "";
-                        string paramString = "";
-                        string superConstructor = "";
-                        int index;
-
-                        context = ASContext.GetLanguageContext( lastFileOptions.Language );
-
-                        // resolve imports
-                        if (lastFileOptions.interfaces != null && lastFileOptions.interfaces.Count > 0)
-                        {
-                            implements = " implements ";
-                            string[] _implements;
-                            index = 0;
-                            foreach (string item in lastFileOptions.interfaces)
-                            {
-                                if (item.Split('.').Length > 1)
-                                    imports += (lastFileOptions.Language == "as3" ? "\t" : "") 
-                                        + "import " + item + ";" + lineBreak;
-                                _implements = item.Split('.');
-                                implements += (index > 0 ? ", " : "") + _implements[_implements.Length - 1];
-
-                                if (lastFileOptions.createInheritedMethods)
-                                {
-                                    processOnSwitch = lastFileFromTemplate; 
-                                    // let ASCompletion generate the implementations when file is opened
-                                }
-
-                                index++;
-                            }
-                        }
-
-                        if (lastFileOptions.superClass != "")
-                        {
-                            String super = lastFileOptions.superClass;
-                            if(lastFileOptions.superClass.Split('.').Length > 1)
-                                imports += (lastFileOptions.Language == "as3" ? "\t" : "")
-                                    + "import " + super + ";" + lineBreak;
-                            string[] _extends = super.Split('.');
-                            extends = " extends " + _extends[_extends.Length - 1];
-
-                            if (lastFileOptions.createConstructor)
-                            {
-                                cmodel = context.GetModel(
-                                    super.LastIndexOf('.') < 0 ? super : super.Substring(0, super.LastIndexOf('.')), 
-                                    _extends[_extends.Length - 1], 
-                                    "");
-                                if (!cmodel.IsVoid())
-                                {
-                                    foreach (MemberModel member in cmodel.Members)
-                                    {
-                                        if (member.Name == cmodel.Constructor)
-                                        {
-                                            paramString = member.ParametersString();
-                                            imports += AddImports(member, cmodel, lineBreak);
-
-                                            superConstructor = "super(";
-
-                                            index = 0;
-                                            if (member.Parameters != null)
-                                            foreach (MemberModel param in member.Parameters)
-                                            {
-                                                if (param.Name.StartsWith(".")) break;
-                                                superConstructor += (index > 0 ? ", " : "") + param.Name;
-                                                index++;
-                                            }
-                                            superConstructor += ");\n" + (lastFileOptions.Language == "as3" ? "\t\t\t" : "\t\t");
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        if (lastFileOptions.Language == "as3")
-                        {
-                            access = lastFileOptions.isPublic ? "public " : "internal ";
-                            access += lastFileOptions.isDynamic ? "dynamic " : "";
-                            access += lastFileOptions.isFinal ? "final " : "";
-                        }
-                        else
-                        {
-                            access = lastFileOptions.isDynamic ? "dynamic " : "";
-                        }
-
-                        if (imports.Length > 0)
-                            imports += (lastFileOptions.Language == "as3" ? "\t" : "") + lineBreak;
-
-                        args = args.Replace("$(Import)", imports);
-                        args = args.Replace("$(Extends)", extends);
-                        args = args.Replace("$(Implements)", implements);
-                        args = args.Replace("$(Access)", access);
-                        args = args.Replace("$(InheritedMethods)", inheritedMethods);
-                        args = args.Replace("$(ConstructorArguments)", paramString);
-                        args = args.Replace("$(Super)", superConstructor);
-
-                        lastFileFromTemplate = null;
+                        args = ProcessFileTemplate(args);
+                        lastFileOptions = null;
                     }
-
                 }
+                lastFileFromTemplate = null;
             }
             return args;
         }
 
-        private String AddImports(MemberModel member, ClassModel inClass, String lineBreak)
+        private string ProcessFileTemplate(string args)
         {
-            String imports = AddImport(member.Type, inClass, lineBreak);
-            if (member.Parameters != null)
-                foreach (MemberModel item in member.Parameters)
-                    imports += AddImport(item.Type, inClass, lineBreak);
-            return imports;
+            Int32 eolMode = (Int32)MainForm.Settings.EOLMode;
+            String lineBreak = LineEndDetector.GetNewLineMarker(eolMode);
+            ClassModel cmodel;
+
+            List<String> imports = new List<string>();
+            string extends = "";
+            string implements = "";
+            string access = "";
+            string inheritedMethods = "";
+            string paramString = "";
+            string superConstructor = "";
+            int index;
+
+            // resolve imports
+            if (lastFileOptions.interfaces != null && lastFileOptions.interfaces.Count > 0)
+            {
+                implements = " implements ";
+                string[] _implements;
+                index = 0;
+                foreach (string item in lastFileOptions.interfaces)
+                {
+                    if (item.Split('.').Length > 1) imports.Add(item);
+                    _implements = item.Split('.');
+                    implements += (index > 0 ? ", " : "") + _implements[_implements.Length - 1];
+
+                    if (lastFileOptions.createInheritedMethods)
+                    {
+                        processOnSwitch = lastFileFromTemplate; 
+                        // let ASCompletion generate the implementations when file is opened
+                    }
+
+                    index++;
+                }
+            }
+
+            if (lastFileOptions.superClass != "")
+            {
+                String super = lastFileOptions.superClass;
+                if (lastFileOptions.superClass.Split('.').Length > 1) imports.Add(super);
+                string[] _extends = super.Split('.');
+                extends = " extends " + _extends[_extends.Length - 1];
+
+                processContext = ASContext.GetLanguageContext(lastFileOptions.Language);
+
+                if (lastFileOptions.createConstructor && processContext != null)
+                {
+                    cmodel = processContext.GetModel(
+                        super.LastIndexOf('.') < 0 ? super : super.Substring(0, super.LastIndexOf('.')), 
+                        _extends[_extends.Length - 1], 
+                        "");
+                    if (!cmodel.IsVoid())
+                    {
+                        foreach (MemberModel member in cmodel.Members)
+                        {
+                            if (member.Name == cmodel.Constructor)
+                            {
+                                paramString = member.ParametersString();
+                                AddImports(imports, member, cmodel);
+
+                                superConstructor = "super(";
+
+                                index = 0;
+                                if (member.Parameters != null)
+                                foreach (MemberModel param in member.Parameters)
+                                {
+                                    if (param.Name.StartsWith(".")) break;
+                                    superConstructor += (index > 0 ? ", " : "") + param.Name;
+                                    index++;
+                                }
+                                superConstructor += ");\n" + (lastFileOptions.Language == "as3" ? "\t\t\t" : "\t\t");
+                                break;
+                            }
+                        }
+                    }
+                }
+                processContext = null;
+            }
+
+            if (lastFileOptions.Language == "as3")
+            {
+                access = lastFileOptions.isPublic ? "public " : "internal ";
+                access += lastFileOptions.isDynamic ? "dynamic " : "";
+                access += lastFileOptions.isFinal ? "final " : "";
+            }
+            else
+            {
+                access = lastFileOptions.isDynamic ? "dynamic " : "";
+            }
+
+            string importsSrc = "";
+            string prevImport = null;
+            imports.Sort();
+            foreach(string import in imports)
+                if (prevImport != import)
+                {
+                    prevImport = import;
+                    importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") 
+                        + "import " + import + ";" + lineBreak;
+                }
+            if (importsSrc.Length > 0)
+                importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") + lineBreak;
+
+            args = args.Replace("$(Import)", importsSrc);
+            args = args.Replace("$(Extends)", extends);
+            args = args.Replace("$(Implements)", implements);
+            args = args.Replace("$(Access)", access);
+            args = args.Replace("$(InheritedMethods)", inheritedMethods);
+            args = args.Replace("$(ConstructorArguments)", paramString);
+            args = args.Replace("$(Super)", superConstructor);
+            return args;
         }
 
-        private String AddImport(String cname, ClassModel inClass, String lineBreak)
+        private void AddImports(List<String> imports, MemberModel member, ClassModel inClass)
         {
-            ClassModel aClass = ASContext.Context.ResolveType(cname, inClass.InFile);
+            AddImport(imports, member.Type, inClass);
+            if (member.Parameters != null)
+                foreach (MemberModel item in member.Parameters)
+                    AddImport(imports, item.Type, inClass);
+        }
+
+        private String AddImport(List<string> imports, String cname, ClassModel inClass)
+        {
+            ClassModel aClass = processContext.ResolveType(cname, inClass.InFile);
             if (aClass != null && !aClass.IsVoid() && aClass.InFile.Package != "")
-                return (lastFileOptions.Language == "as3" ? "\t" : "")
-                    + "import " + aClass.QualifiedName + ";" + lineBreak;
+                imports.Add(aClass.QualifiedName);
             return "";
         }
 
