@@ -3235,6 +3235,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Forces FlashDevelop to use only system colors in the controls.</value>
   </data>
   <data name="ProjectManager.Label.FindHere" xml:space="preserve">
-    <value>Find Here...</value>
+    <value>Find And Replace</value>
+    <comment>Added after 3.0.5</comment>
   </data>
 </root>
