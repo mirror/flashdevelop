@@ -216,9 +216,11 @@ namespace MacroManager
             if (this.settingObject.UserMacros.Count == 0)
             {
                 Macro execScript = new Macro("&Execute Script", new String[1] { "ExecuteScript|Development;$(OpenFile)" }, String.Empty, Keys.None, false);
+                Macro execCommand = new Macro("E&xecute Command", new String[1] { "#$$(Command=RunProcess)|$$(Arguments=cmd.exe)" }, String.Empty, Keys.None, false);
                 Macro runSelected = new Macro("&Run Selected Text", new String[1] { "RunProcess|$(SelText)" }, String.Empty, Keys.None, false);
                 Macro copyTextAsRtf = new Macro("&Copy Text As RTF", new String[1] { "ScintillaCommand|CopyRTF" }, String.Empty, Keys.None, false);
                 this.settingObject.UserMacros.Add(execScript);
+                this.settingObject.UserMacros.Add(execCommand);
                 this.settingObject.UserMacros.Add(runSelected);
                 this.settingObject.UserMacros.Add(copyTextAsRtf);
             }

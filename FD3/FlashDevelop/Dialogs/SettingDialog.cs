@@ -74,7 +74,7 @@ namespace FlashDevelop.Dialogs
             this.itemListView.Location = new System.Drawing.Point(12, 12);
             this.itemListView.MultiSelect = false;
             this.itemListView.Name = "itemListView";
-            this.itemListView.Size = new System.Drawing.Size(159, 414);
+            this.itemListView.Size = new System.Drawing.Size(159, 428);
             this.itemListView.TabIndex = 1;
             this.itemListView.UseCompatibleStateImageBehavior = false;
             this.itemListView.View = System.Windows.Forms.View.Details;
@@ -87,7 +87,7 @@ namespace FlashDevelop.Dialogs
             this.itemPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.itemPropertyGrid.Location = new System.Drawing.Point(183, 54);
             this.itemPropertyGrid.Name = "itemPropertyGrid";
-            this.itemPropertyGrid.Size = new System.Drawing.Size(472, 372);
+            this.itemPropertyGrid.Size = new System.Drawing.Size(472, 386);
             this.itemPropertyGrid.TabIndex = 3;
             this.itemPropertyGrid.ToolbarVisible = false;
             this.itemPropertyGrid.PropertyValueChanged += new PropertyValueChangedEventHandler(this.PropertyValueChanged);
@@ -96,7 +96,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.closeButton.Location = new System.Drawing.Point(556, 433);
+            this.closeButton.Location = new System.Drawing.Point(556, 447);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(100, 23);
             this.closeButton.TabIndex = 4;
@@ -120,7 +120,7 @@ namespace FlashDevelop.Dialogs
             //
             this.infoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.infoPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.infoPictureBox.Location = new System.Drawing.Point(13, 437);
+            this.infoPictureBox.Location = new System.Drawing.Point(13, 451);
             this.infoPictureBox.Name = "infoPictureBox";
             this.infoPictureBox.Size = new System.Drawing.Size(16, 16);
             this.infoPictureBox.TabIndex = 5;
@@ -131,7 +131,7 @@ namespace FlashDevelop.Dialogs
             this.infoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.infoLabel.AutoSize = true;
             this.infoLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.infoLabel.Location = new System.Drawing.Point(34, 438);
+            this.infoLabel.Location = new System.Drawing.Point(34, 452);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(501, 13);
             this.infoLabel.TabIndex = 0;
@@ -176,7 +176,7 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 468);
+            this.ClientSize = new System.Drawing.Size(667, 482);
             this.Controls.Add(this.helpLabel);
             this.Controls.Add(this.disableCheckBox);
             this.Controls.Add(this.descLabel);
