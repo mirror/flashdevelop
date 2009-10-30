@@ -738,7 +738,7 @@ Alternatively, Flash CS3 can also be used for syntax checking - press "No" to co
     <value>All Files (*.*)</value>
   </data>
   <data name="FlashDevelop.Info.FileIsModifiedOutside" xml:space="preserve">
-    <value>The file has been modified externally. Do you want to reload the file?</value>
+    <value>A file has been modified externally. Do you want to reload the file:{0}{1}?</value>
   </data>
   <data name="FlashDevelop.Info.Find" xml:space="preserve">
     <value>Find:</value>
@@ -3236,6 +3236,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ProjectManager.Label.FindHere" xml:space="preserve">
     <value>Find And Replace</value>
+    <comment>Added after 3.0.5</comment>
+  </data>
+  <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
+    <value>Interval in milliseconds to check changes to open files.</value>
     <comment>Added after 3.0.5</comment>
   </data>
 </root>

@@ -24,7 +24,6 @@ namespace FlashDevelop.Docking
         private Timer backupTimer;
         private String previousText;
         private Boolean useCustomIcon;
-        private Timer fileChangeTimer;
         private Boolean isModified;
         private FileInfo fileInfo;
 
@@ -32,10 +31,7 @@ namespace FlashDevelop.Docking
 		{
             this.focusTimer = new Timer();
             this.focusTimer.Interval = 100;
-            this.fileChangeTimer = new Timer();
-            this.fileChangeTimer.Interval = 100;
             this.focusTimer.Tick += new EventHandler(this.OnFocusTimer);
-            this.fileChangeTimer.Tick += new EventHandler(this.OnFileChangeTimerTick);
             this.ControlAdded += new ControlEventHandler(this.DocumentControlAdded);
             this.DockPanel = Globals.MainForm.DockPanel;
             this.Font = Globals.Settings.DefaultFont;
@@ -176,39 +172,24 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
-        /// If the the file is changed outside fd, reload.
+        /// Checks if the the file is changed outside of fd
         /// </summary>
-        public void CheckFileChange()
+        public Boolean CheckFileChange()
         {
-            if (!this.IsEditable) return;
-            if (this.fileInfo == null) this.fileInfo = new FileInfo(this.FileName);
+            if (this.fileInfo == null)
+            {
+                this.fileInfo = new FileInfo(this.FileName);
+            }
             if (!Globals.MainForm.ClosingEntirely && File.Exists(this.FileName))
             {
                 FileInfo fi = new FileInfo(this.FileName);
                 if (this.fileInfo.LastWriteTime != fi.LastWriteTime)
                 {
                     this.fileInfo = fi;
-                    this.fileChangeTimer.Start();
+                    return true;
                 }
             }
-        }
-
-        /// <summary>
-        /// Shows the file change confirmation after a delay
-        /// </summary>
-        private void OnFileChangeTimerTick(Object sender, EventArgs e)
-        {
-            this.fileChangeTimer.Stop();
-            if (Globals.Settings.AutoReloadModifiedFiles) this.Reload(false); 
-            else
-            {
-                String dlgTitle = TextHelper.GetString("Title.InfoDialog");
-                String message = TextHelper.GetString("Info.FileIsModifiedOutside");
-                if (MessageBox.Show(Globals.MainForm, message, " " + dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    this.Reload(false);
-                }
-            }
+            return false;
         }
 
         /// <summary>

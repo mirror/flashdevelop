@@ -841,7 +841,6 @@ namespace FlashDevelop
             this.CurrentDocument.Activate(); // Activate the current document
             TabbedDocument document = (TabbedDocument)this.CurrentDocument;
             ButtonManager.UpdateFlaggedButtons();
-            document.CheckFileChange();
         }
 
         /// <summary>
@@ -852,7 +851,6 @@ namespace FlashDevelop
             if (this.CurrentDocument == null) return;
             TabbedDocument document = (TabbedDocument)this.CurrentDocument;
             ButtonManager.UpdateFlaggedButtons();
-            document.CheckFileChange();
         }
 
         /// <summary>
@@ -889,7 +887,7 @@ namespace FlashDevelop
             this.dockPanel.ActiveDocumentChanged += new EventHandler(this.OnActiveDocumentChanged);
             /**
             * Populate menus and check buttons 
-            */ 
+            */
             ButtonManager.PopulateReopenMenu();
             ButtonManager.UpdateFlaggedButtons();
             /**
@@ -922,6 +920,10 @@ namespace FlashDevelop
             * Notify plugins that the application is ready
             */
             EventManager.DispatchEvent(this, new NotifyEvent(EventType.UIStarted));
+            /**
+            * Start polling for file changes outside of the editor
+            */
+            FilePollManager.InitializePolling();
         }
 
         /// <summary>
@@ -1012,7 +1014,6 @@ namespace FlashDevelop
                     * Checks the file changes
                     */
                     TabbedDocument document = (TabbedDocument)this.CurrentDocument;
-                    document.CheckFileChange();
                     document.Activate();
                     /**
                     * Processes the opened file

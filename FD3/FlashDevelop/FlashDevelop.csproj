@@ -85,6 +85,7 @@
     <Compile Include="Dialogs\SnippetDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Managers\FilePollManager.cs" />
     <Compile Include="Managers\MarkerManager.cs" />
     <Compile Include="Managers\OldTabsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

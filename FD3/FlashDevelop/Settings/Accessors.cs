@@ -565,6 +565,15 @@ namespace FlashDevelop.Settings
             set { this.backupInterval = value; }
         }
 
+        [DefaultValue(3000)]
+        [DisplayName("File Poll Interval")]
+        [LocalizedDescription("FlashDevelop.Description.FilePollInterval")]
+        public Int32 FilePollInterval
+        {
+            get { return this.filePollInterval; }
+            set { this.filePollInterval = value; }
+        }
+
         [DisplayName("Selected Locale")]
         [DefaultValue(LocaleVersion.en_US)]
         [LocalizedDescription("FlashDevelop.Description.LocaleVersion")]
