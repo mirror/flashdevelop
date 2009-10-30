@@ -1888,6 +1888,7 @@ namespace ASCompletion.Completion
                         result.Type = (p < 0 && (item.Flags & FlagType.Function) > 0) 
                             ? context.ResolveType("Function", null) 
                             : context.ResolveType(item.Type, item.InFile);
+                        result.inFile = item.InFile;
                         return result;
                     }
                 }
