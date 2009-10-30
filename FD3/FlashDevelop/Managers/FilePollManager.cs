@@ -32,7 +32,7 @@ namespace FlashDevelop.Managers
         private static void CheckSettingValues()
         {
             Int32 interval = Globals.Settings.FilePollInterval;
-            if (interval == 0) Globals.Settings.FilePollInterval = 2000;
+            if (interval == 0) Globals.Settings.FilePollInterval = 3000;
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace FlashDevelop.Managers
         {
             try
             {
-                FilePollTimer.Stop();
+                FilePollTimer.Enabled = false;
                 ITabbedDocument[] documents = Globals.MainForm.Documents;
                 ITabbedDocument current = Globals.MainForm.CurrentDocument;
                 CheckFileChange(current); // Check the current first..
@@ -72,8 +72,7 @@ namespace FlashDevelop.Managers
                 {
                     if (document != current) CheckFileChange(document);
                 }
-                FilePollTimer.Stop();
-                FilePollTimer.Start();
+                FilePollTimer.Enabled = true;
             }
             catch { /* No errors shown here.. */ }
         }
