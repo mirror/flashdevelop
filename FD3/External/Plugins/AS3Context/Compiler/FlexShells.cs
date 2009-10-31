@@ -105,7 +105,7 @@ namespace AS3Context.Compiler
 
         public void CheckAS3(string filename, string flexPath, string src)
 		{
-            if (running || flexPath == null || flexPath == String.Empty) return;
+            if (running) return;
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
@@ -145,7 +145,7 @@ namespace AS3Context.Compiler
                 return;
             }
 
-            jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexPath, "bin\\jvm.config"));
+            jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexPath ?? "", "bin\\jvm.config"));
 			
 			try
 			{
@@ -354,7 +354,7 @@ namespace AS3Context.Compiler
         {
             string flashPath = ASContext.CommonSettings.PathToFlashIDE;
             if (flashPath == null) return null;
-            string configPath = PluginMain.FindCS3ConfigurationPath(flashPath);
+            string configPath = PluginMain.FindAuthoringConfigurationPath(flashPath);
             if (configPath == null) return null;
             string ascJar = Path.Combine(configPath, "ActionScript 3.0\\asc_authoring.jar");
             if (File.Exists(ascJar)) return ascJar;

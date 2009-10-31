@@ -174,7 +174,7 @@
   <data name="AS3Context.Info.SetFlex2OrCS3Path" xml:space="preserve">
     <value>Would you like to open the AS3 context settings to configure the path to the Flex SDK?
 
-Alternatively, Flash CS3 can also be used for syntax checking - press "No" to configure the path to Flash CS3.</value>
+Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" to configure the path to Flash CS.</value>
   </data>
   <data name="AS3Context.Title.ConfigurationRequired" xml:space="preserve">
     <value>Compiler Configuration Required</value>

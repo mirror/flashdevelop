@@ -15,6 +15,7 @@ namespace PluginCore.PluginCore.Helpers
         /// </summary>
         public static Hashtable ReadConfig(string configPath)
         {
+            if (configPath == null) configPath = "";
             if (cache.ContainsKey(configPath)) return cache[configPath];
 
             Hashtable config = new Hashtable();

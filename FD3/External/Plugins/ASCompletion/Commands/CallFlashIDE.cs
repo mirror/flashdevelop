@@ -15,25 +15,41 @@ namespace ASCompletion.Commands
     {
         private delegate void RunBackgroundInvoker(string exe, string args);
 
-        static readonly private string[] MACROMEDIA_FLASHIDE_PATH = {
+        static readonly private string[] FLASHIDE_PATH = {
             @"C:\Program Files\Adobe\Adobe Flash CS5\Flash.exe",
+            @"C:\Program Files (x86)\Adobe\Adobe Flash CS5\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS4\Flash.exe",
+            @"C:\Program Files (x86)\Adobe\Adobe Flash CS4\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS3\Flash.exe",
+            @"C:\Program Files (x86)\Adobe\Adobe Flash CS3\Flash.exe",
             @"C:\Program Files\Macromedia\Flash 8\Flash.exe",
-            @"C:\Program Files\Macromedia\Flash MX 2004\Flash.exe"
+            @"C:\Program Files (x86)\Macromedia\Flash 8\Flash.exe",
+            @"C:\Program Files\Macromedia\Flash MX 2004\Flash.exe",
+            @"C:\Program Files (x86)\Macromedia\Flash MX 2004\Flash.exe"
         };
         static private DateTime lastRun;
 
         /// <summary>
-        /// Return the directory of the most recent Flash.exe 
+        /// Return the path to the most recent Flash.exe 
         /// </summary>
         /// <returns></returns>
         static public string FindFlashIDE()
         {
+            return FindFlashIDE(false);
+        }
+
+        /// <summary>
+        /// Return the path to the most recent Flash.exe 
+        /// </summary>
+        /// <param name="AS3CapableOnly">Only AS3-capable authoring</param>
+        /// <returns></returns>
+        static public string FindFlashIDE(bool AS3CapableOnly)
+        {
             string found = null;
-            foreach (string flashexe in MACROMEDIA_FLASHIDE_PATH)
+            foreach (string flashexe in FLASHIDE_PATH)
             {
-                if (System.IO.File.Exists(flashexe))
+                if (File.Exists(flashexe)
+                    && (!AS3CapableOnly || found.IndexOf("Flash CS") > 0))
                 {
                     found = flashexe;
                     break;
@@ -49,7 +65,7 @@ namespace ASCompletion.Commands
         /// <returns>Operation successful</returns>
         static public bool Run(string pathToIDE, string cmdData)
         {
-            if (pathToIDE != null && !pathToIDE.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+            if (pathToIDE != null && Path.GetExtension(pathToIDE) == "")
                 pathToIDE = Path.Combine(pathToIDE, "Flash.exe");
             if (pathToIDE == null || !System.IO.File.Exists(pathToIDE))
             {

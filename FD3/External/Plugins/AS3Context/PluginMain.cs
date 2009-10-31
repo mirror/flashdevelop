@@ -12,6 +12,7 @@ using AS3Context.Compiler;
 using PluginCore;
 using ASCompletion.Model;
 using ASCompletion.Completion;
+using ASCompletion.Commands;
 
 namespace AS3Context
 {
@@ -292,13 +293,23 @@ namespace AS3Context
         /// <summary>
         /// Explore the possible locations for the Macromedia Flash IDE classpath
         /// </summary>
-        static public string FindCS3ConfigurationPath(string flashPath)
+        static public string FindAuthoringConfigurationPath(string flashPath)
         {
+            if (flashPath == null)
+            {
+                flashPath = CallFlashIDE.FindFlashIDE(true);
+                if (flashPath == null)
+                    return null;
+            }
+            string ext = Path.GetExtension(flashPath).ToLower();
+            if (ext == ".exe" || ext == ".bat" || ext == ".cmd")
+                flashPath = Path.GetDirectoryName(flashPath);
+            string basePath = flashPath;
+
             string deflang = System.Globalization.CultureInfo.CurrentUICulture.Name;
             deflang = deflang.Substring(0, 2);
-            string basePath = flashPath ?? @"C:\Program Files\Adobe\Adobe Flash CS3";
 
-            // CS4 default configuration
+            // CS4+ default configuration
             if (Directory.Exists(basePath + "\\Common\\Configuration\\ActionScript 3.0"))
                 return basePath + "\\Common\\Configuration\\";
 
