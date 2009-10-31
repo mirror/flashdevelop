@@ -373,42 +373,50 @@ namespace ASCompletion
             if (classModel != null && classModel != ClassModel.VoidClass)
             {
                 match = classModel.Name;
-                foreach (TreeNode node in outlineTree.Nodes[0].Nodes)
+                TreeNode found = MatchNodeText(outlineTree.Nodes[0].Nodes, match, false);
+                if (found != null)
                 {
-                    if (node.Text == match)
+                    if (memberModel != null)
                     {
-                        if (memberModel != null)
+                        match = memberModel.ToString();
+                        TreeNode foundSub = MatchNodeText(found.Nodes, match, true);
+                        if (foundSub != null)
                         {
-                            match = memberModel.ToString();
-                            foreach (TreeNode subnode in node.Nodes)
-                            {
-                                if (subnode.Text == match)
-                                {
-                                    SetHighlight(subnode);
-                                    return;
-                                }
-                            }
+                            SetHighlight(foundSub);
+                            return;
                         }
-                        SetHighlight(node);
-                        return;
                     }
+                    SetHighlight(found);
+                    return;
                 }
             }
             // file member
             else if (memberModel != null)
             {
                 match = memberModel.ToString();
-                foreach (TreeNode node in outlineTree.Nodes[0].Nodes)
+                TreeNode found = MatchNodeText(outlineTree.Nodes[0].Nodes, match, true);
+                if (found != null)
                 {
-                    if (node.Text == match)
-                    {
-                        SetHighlight(node);
-                        return;
-                    }
+                    SetHighlight(found);
+                    return;
                 }
             }
             // no match
             SetHighlight(null);
+        }
+
+        private TreeNode MatchNodeText(TreeNodeCollection nodes, string match, bool inDepth)
+        {
+            foreach(TreeNode node in nodes)
+            {
+                if (node.Text == match) return node;
+                if (node.Nodes.Count > 0)
+                {
+                    TreeNode found = MatchNodeText(node.Nodes, match, true);
+                    if (found != null) return found;
+                }
+            }
+            return null;
         }
 
         private void SetHighlight(TreeNode node)
