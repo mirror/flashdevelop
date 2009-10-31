@@ -424,7 +424,8 @@ namespace ASCompletion.Completion
                 // AS expression
                 if (c == '{')
                 {
-                    if (c2 == '=')
+                    if ((inTag && (c2 == '<' || c2 == ' ' || c2 == '=' || c2 == '/'))
+                        || isXML && (c2 == '>'))
                     {
                         inExpr = true;
                         continue;
