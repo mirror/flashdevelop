@@ -1112,7 +1112,7 @@ namespace ASDocGen
                 }
                 String batFile = Path.Combine(this.SettingDir, "ASDocGen.bat");
                 String converted = this.ChangeEncoding(contents, Encoding.UTF8, Encoding.Default);
-                File.WriteAllText(batFile, converted, Encoding.Default);
+                File.WriteAllText(batFile, ArgsProcessor.Process(converted), Encoding.Default);
                 this.SetControlsEnabled(false);
                 this.outputTextBox.Text = "";
                 this.RunProcess(batFile);
