@@ -59,6 +59,7 @@ namespace ProjectManager.Projects.AS3
             if (ext == ".as") { pre = "["; post = "]"; }
 
             string relPath = ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
+            string fileExt = Path.GetExtension(relPath).ToLower();
             if (export != null && export.IndexOf('(') > 0)
             {
                 string fontName = export.Substring(0, export.IndexOf('(')).Trim();
@@ -66,8 +67,17 @@ namespace ProjectManager.Projects.AS3
             }
             else if (export != null)
                 return String.Format("{0}Embed(source='{1}', symbol='{2}'){3}", pre, relPath, export, post);
-            else 
+            else if (FileInspector.IsImage(relPath, ext) || IsText(ext))
                 return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);
+            else if (FileInspector.IsFont(relPath, ext))
+                return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);
+            else
+                return String.Format("{0}Embed(source='{1}', mimeType='application/octet-stream'){2}", pre, relPath, post);
+        }
+
+        private bool IsText(string ext)
+        {
+            return ext == ".txt" || ext == ".xml";
         }
 
         #region SWC assets management

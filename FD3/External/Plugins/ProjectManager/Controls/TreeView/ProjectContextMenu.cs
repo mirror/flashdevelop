@@ -350,6 +350,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
+            menu.Add(Insert, 0);
             if (addLibrary)
             {
                 LibraryAsset asset = project.GetAsset(path);
@@ -410,6 +411,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
+            menu.Add(Insert, 0);
             if (IsBuildable(path) && projectTree.SelectedPaths.Length == 1) menu.Add(BuildProjectFile, 0);
             AddFileItems(menu, path);
         }
