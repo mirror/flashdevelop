@@ -7,7 +7,10 @@ namespace PluginCore.Localization
     public enum LocaleVersion
     {
         [StringValue("en_US")]
-        en_US = 0
+        en_US = 0,
+
+        [StringValue("ja_JP")]
+        ja_JP = 1
     }
 
 }
