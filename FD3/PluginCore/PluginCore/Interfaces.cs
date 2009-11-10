@@ -64,6 +64,7 @@ namespace PluginCore
 
         void Close();
         void Activate();
+        void RefreshTexts();
         void Reload(Boolean showQuestion);
         void Revert(Boolean showQuestion);
         void Save(String file);

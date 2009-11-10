@@ -339,6 +339,15 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
+        /// Refreshes the tab and tooltip texts
+        /// </summary>
+        public void RefreshTexts()
+        {
+            this.UpdateToolTipText();
+            this.UpdateTabText();
+        }
+
+        /// <summary>
         /// Updates the document's tooltip
         /// </summary>
         private void UpdateToolTipText()

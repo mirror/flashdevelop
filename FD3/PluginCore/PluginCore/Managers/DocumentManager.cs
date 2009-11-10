@@ -87,7 +87,7 @@ namespace PluginCore.Managers
                         }
                     }
                     PluginBase.MainForm.ClearTemporaryFiles(filename);
-                    document.IsModified = document.IsModified;
+                    document.RefreshTexts();
                 }
             }
             PluginBase.MainForm.RefreshUI();
