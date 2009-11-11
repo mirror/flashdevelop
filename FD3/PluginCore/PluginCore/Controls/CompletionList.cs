@@ -741,7 +741,7 @@ namespace PluginCore.Controls
 			{
 				case Keys.Back:
 					if (!UITools.CallTip.CallTipActive) sci.DeleteBack();
-					if (word.Length > 0)
+					if (word.Length > 1)
 					{
 						word = word.Substring(0, word.Length-1);
 						currentPos = sci.CurrentPos;
