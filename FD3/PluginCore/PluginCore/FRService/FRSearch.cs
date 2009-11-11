@@ -584,7 +584,8 @@ namespace PluginCore.FRService
             // last line end
             while (pos < len && c != '\r' && c != '\n') 
                 c = src[pos++];
-            lineStart.Add(pos - 1);
+            if (c == '\r' || c == '\n') pos--;
+            lineStart.Add(pos);
 
             // extract line texts
             int maxLine = lineStart.Count;
