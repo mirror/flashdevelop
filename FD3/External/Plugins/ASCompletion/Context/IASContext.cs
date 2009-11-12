@@ -260,7 +260,7 @@ namespace ASCompletion.Context
         /// <param name="sci">Scintilla control</param>
         /// <param name="expression">Completion context</param>
         /// <returns>Null (not handled) or function signature</returns>
-        MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression);
+        MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide);
         #endregion
 
         #region Properties

@@ -788,7 +788,7 @@ namespace ASCompletion
 		{
 			if (ASComplete.HasCalltip())
 			{
-				ASComplete.HandleFunctionCompletion(sci);
+				ASComplete.HandleFunctionCompletion(sci, false);
 			}
 		}
         #endregion

@@ -127,11 +127,6 @@ namespace HaXeContext
             else
                 classToCheck = file.Substring(start, end - start);
             
-            /*Debug.WriteLine(file);
-            Debug.WriteLine(classToCheck);
-            Debug.WriteLine(cp);
-            Debug.WriteLine(libToAdd);*/
-
             // Build haXe command
             string hxml = target + " " + classToCheck + cp + libs + addi + directives;
 

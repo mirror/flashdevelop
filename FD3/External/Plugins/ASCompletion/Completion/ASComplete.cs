@@ -145,7 +145,7 @@ namespace ASCompletion.Completion
 					case '(':
                     case ',':
                         if (!ASContext.CommonSettings.DisableCallTip)
-                            return HandleFunctionCompletion(Sci);
+                            return HandleFunctionCompletion(Sci, autoHide);
                         else return false;
 
 					case ')':
@@ -188,7 +188,7 @@ namespace ASCompletion.Completion
                 if (ASContext.HasContext && ASContext.Context.IsFileValid)
 				{
 					// force dot completion
-					OnChar(Sci, '.', false);
+                    OnChar(Sci, '.', false);
 					return true;
 				}
 				else return false;
@@ -198,7 +198,9 @@ namespace ASCompletion.Completion
 			{
                 if (ASContext.HasContext && ASContext.Context.IsFileValid)
 				{
-					HandleFunctionCompletion(Sci);
+					//HandleFunctionCompletion(Sci);
+                    // force function completion
+                    OnChar(Sci, '(', false);
 					return true;
 				}
 				else return false;
@@ -973,7 +975,7 @@ namespace ASCompletion.Completion
 		/// </summary>
 		/// <param name="Sci">Scintilla control</param>
 		/// <returns>Auto-completion has been handled</returns>
-		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci)
+		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide)
 		{
 			// find method
 			int position = Sci.CurrentPos - 1;
@@ -1065,7 +1067,7 @@ namespace ASCompletion.Completion
             ASResult result;
 
             // custom completion
-            MemberModel customMethod = ctx.ResolveFunctionContext(Sci, expr);
+            MemberModel customMethod = ctx.ResolveFunctionContext(Sci, expr, autoHide);
             if (customMethod != null)
             {
                 result = new ASResult();

@@ -1232,7 +1232,7 @@ namespace ASCompletion.Context
         /// <param name="sci">Scintilla control</param>
         /// <param name="expression">Completion context</param>
         /// <returns>Null (not handled) or function signature</returns>
-        public virtual MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression)
+        public virtual MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
             return null;
         }

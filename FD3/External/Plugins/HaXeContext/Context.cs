@@ -538,6 +538,9 @@ namespace HaXeContext
             if (hxsettings.DisableCompilerCompletion)
                 return null;
 
+            if (autoHide && !hxsettings.DisableCompletionOnDemand)
+                return null;
+
             // auto-started completion, can be ignored for performance (show default completion tooltip)
             if (autoHide && !expression.Value.EndsWith("."))
                 if ( hxsettings.DisableMixedCompletion )
@@ -634,9 +637,12 @@ namespace HaXeContext
         /// <param name="sci">Scintilla control</param>
         /// <param name="expression">Completion context</param>
         /// <returns>Null (not handled) or function signature</returns>
-        public override MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression)
+        public override MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
             if (hxsettings.DisableCompilerCompletion)
+                return null;
+
+            if (autoHide && !hxsettings.DisableCompletionOnDemand)
                 return null;
 
             string[] parts = expression.Value.Split('.');
