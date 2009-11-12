@@ -13,6 +13,19 @@ namespace TaskListPanel
         private Int32[] images = new Int32[] { 229, 197, 197 };
         private String[] extensions = new String[] { ".as", ".mxml", ".txt" };
         private String[] groups = new String[] { "TODO", "FIXME", "BUG" };
+        private String[] excluded = new String[0] {};
+
+        /// <summary> 
+        /// Excluded directories, ie. external libraries
+        /// </summary>
+        [DisplayName("Excluded Paths")]
+        [LocalizedDescription("TaskListPanel.Description.ExcludedPaths")]
+        [DefaultValue(new String[0] {})]
+        public String[] ExcludedPaths
+        {
+            get { return this.excluded; }
+            set { this.excluded = value; }
+        }
 
         /// <summary> 
         /// File extensions to listen for changes

@@ -3070,7 +3070,7 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
     <value>Set to false, haXe completion will be displayed only when CTRL-Space or CTRL-Shift-Space is pressed.</value>
-    <comment>Added after 3.0.5</comment>
+    <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
     <value>Disables the find text update when the quick find is used.</value>
@@ -3245,5 +3245,9 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
     <value>Interval in milliseconds to check changes to open files.</value>
     <comment>Added after 3.0.5</comment>
+  </data>
+  <data name="TaskListPanel.Description.ExcludedPaths" xml:space="preserve">
+    <value>Tasks under the excluded paths are not shown in the task list.</value>
+    <comment>Added after 3.0.6</comment>
   </data>
 </root>

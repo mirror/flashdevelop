@@ -309,11 +309,30 @@ namespace TaskListPanel
                 try
                 {
                     String projDir = PluginBase.CurrentProject.GetAbsolutePath(path);
-                    files.AddRange(this.GetFiles(projDir));
+                    if (this.shouldBeScanned(projDir))
+                    {
+                        files.AddRange(this.GetFiles(projDir));
+                    }
                 }
                 catch {}
             }
             return files;
+        }
+
+        /// <summary>
+        /// Checks if the path should be scanned for tasks
+        /// </summary>
+        private Boolean shouldBeScanned(String path)
+        {
+            Settings settings = (Settings)this.pluginMain.Settings;
+            foreach (String exclude in settings.ExcludedPaths)
+            {
+                if (Directory.Exists(exclude) && path.StartsWith(exclude))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
