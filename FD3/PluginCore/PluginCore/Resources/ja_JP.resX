@@ -3246,11 +3246,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.5</comment>
   </data>
   <data name="TaskListPanel.Description.ExcludedPaths" xml:space="preserve">
-    <value>Tasks under the excluded paths are not shown in the task list.</value>
+    <value>タスクリストから除外するパスを指定します。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
-    <value>Set to false, haXe completion will be displayed only when CTRL-Space or CTRL-Shift-Space is pressed.</value>
+    <value>False に設定すると、haXe のコード補完は Ctrl + Space または Ctrl + Shift + Space を押下したときにのみ表示されます。</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>
