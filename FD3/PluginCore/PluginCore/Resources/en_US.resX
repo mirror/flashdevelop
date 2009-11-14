@@ -3097,15 +3097,11 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Ok" xml:space="preserve">
-    <value>&amp;Ok</value>
+    <value>&amp;OK</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Remove" xml:space="preserve">
     <value>&amp;Remove</value>
-    <comment>Added after 3.0.2</comment>
-  </data>
-  <data name="ASClassWizard.Wizard.Button.SelectNone" xml:space="preserve">
-    <value>&amp;Select None</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Error.InvalidClassName" xml:space="preserve">

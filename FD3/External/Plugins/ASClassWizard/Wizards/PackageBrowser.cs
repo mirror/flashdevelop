@@ -39,7 +39,7 @@ namespace ASClassWizard.Wizards
         {
             this.inviteLabel.Text = TextHelper.GetString("Wizard.Label.ChosePackage");
             this.okButton.Text = TextHelper.GetString("Wizard.Button.Ok");
-            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.SelectNone");
+            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.Cancel");
             this.Text = TextHelper.GetString("Wizard.Label.PackageSelection");
         }
 

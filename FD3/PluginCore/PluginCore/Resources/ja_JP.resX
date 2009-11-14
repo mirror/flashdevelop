@@ -3107,10 +3107,6 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>取り除く(&amp;R)</value>
     <comment>Added after 3.0.2</comment>
   </data>
-  <data name="ASClassWizard.Wizard.Button.SelectNone" xml:space="preserve">
-    <value>選択しない(&amp;S)</value>
-    <comment>Added after 3.0.2</comment>
-  </data>
   <data name="ASClassWizard.Wizard.Error.InvalidClassName" xml:space="preserve">
     <value>クラス名に無効な文字列が含まれていません。</value>
     <comment>Added after 3.0.2</comment>

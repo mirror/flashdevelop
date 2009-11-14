@@ -67,7 +67,7 @@ namespace ASClassWizard.Wizards
 
         private void InitializeLocalization()
         {
-            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.SelectNone");
+            this.cancelButton.Text = TextHelper.GetString("Wizard.Button.Cancel");
             this.okButton.Text = TextHelper.GetString("Wizard.Button.Ok");
             this.Text = TextHelper.GetString("Wizard.Label.OpenType");
         }
