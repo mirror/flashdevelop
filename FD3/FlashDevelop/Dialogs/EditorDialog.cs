@@ -758,7 +758,7 @@ namespace FlashDevelop.Dialogs
             this.fontNameComboBox.Items.Add("");
             foreach (FontFamily font in fonts.Families)
             {
-                this.fontNameComboBox.Items.Add(font.Name);
+                this.fontNameComboBox.Items.Add(font.GetName(1033));
             }
             Boolean foundSyntax = false;
             String curSyntax = ArgsProcessor.GetCurSyntax();
