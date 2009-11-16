@@ -222,7 +222,7 @@ namespace ProjectManager.Controls
             // 
             this.statusBar.Location = new System.Drawing.Point(0, 364);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(537, 20);
+            this.statusBar.Size = new System.Drawing.Size(537, 18);
             this.statusBar.SizingGrip = false;
             this.statusBar.TabIndex = 9;
             this.statusBar.Text = "  Will create:  C:\\Documents and Settings\\Nick\\My Documents\\New Project.fdp";
@@ -260,7 +260,7 @@ namespace ProjectManager.Controls
             this.AcceptButton = this.okButton;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(537, 388);
+            this.ClientSize = new System.Drawing.Size(537, 386);
             this.Controls.Add(this.packageTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
