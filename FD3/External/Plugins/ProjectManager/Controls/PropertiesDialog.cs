@@ -154,7 +154,7 @@ namespace ProjectManager.Controls
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Location = new System.Drawing.Point(116, 316);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(75, 21);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "&OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -165,7 +165,7 @@ namespace ProjectManager.Controls
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(197, 316);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 21);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -176,16 +176,14 @@ namespace ProjectManager.Controls
             this.btnApply.Enabled = false;
             this.btnApply.Location = new System.Drawing.Point(278, 316);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.Size = new System.Drawing.Size(75, 21);
             this.btnApply.TabIndex = 3;
             this.btnApply.Text = "&Apply";
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.movieTab);
             this.tabControl.Controls.Add(this.classpathsTab);
             this.tabControl.Controls.Add(this.buildTab);
@@ -251,9 +249,7 @@ namespace ProjectManager.Controls
             // 
             // generalGroupBox
             // 
-            this.generalGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.generalGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.generalGroupBox.Controls.Add(this.widthTextBox);
             this.generalGroupBox.Controls.Add(this.outputBrowseButton);
             this.generalGroupBox.Controls.Add(this.heightTextBox);
@@ -289,7 +285,7 @@ namespace ProjectManager.Controls
             // 
             this.outputBrowseButton.Location = new System.Drawing.Point(233, 15);
             this.outputBrowseButton.Name = "outputBrowseButton";
-            this.outputBrowseButton.Size = new System.Drawing.Size(75, 23);
+            this.outputBrowseButton.Size = new System.Drawing.Size(75, 21);
             this.outputBrowseButton.TabIndex = 2;
             this.outputBrowseButton.Text = "&Browse...";
             this.outputBrowseButton.Click += new System.EventHandler(this.outputBrowseButton_Click);
@@ -334,7 +330,7 @@ namespace ProjectManager.Controls
             // 
             // framerateLabel
             // 
-            this.framerateLabel.Location = new System.Drawing.Point(16, 99);
+            this.framerateLabel.Location = new System.Drawing.Point(16, 98);
             this.framerateLabel.Name = "framerateLabel";
             this.framerateLabel.Size = new System.Drawing.Size(88, 17);
             this.framerateLabel.TabIndex = 8;
@@ -361,7 +357,7 @@ namespace ProjectManager.Controls
             // 
             // exportinLabel
             // 
-            this.exportinLabel.Location = new System.Drawing.Point(8, 18);
+            this.exportinLabel.Location = new System.Drawing.Point(8, 17);
             this.exportinLabel.Name = "exportinLabel";
             this.exportinLabel.Size = new System.Drawing.Size(96, 18);
             this.exportinLabel.TabIndex = 0;
@@ -375,7 +371,7 @@ namespace ProjectManager.Controls
             this.colorLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.colorLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.colorLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.colorLabel.Location = new System.Drawing.Point(109, 73);
+            this.colorLabel.Location = new System.Drawing.Point(109, 72);
             this.colorLabel.Name = "colorLabel";
             this.colorLabel.Size = new System.Drawing.Size(17, 16);
             this.colorLabel.TabIndex = 7;
@@ -391,7 +387,7 @@ namespace ProjectManager.Controls
             // 
             // bgcolorLabel
             // 
-            this.bgcolorLabel.Location = new System.Drawing.Point(5, 71);
+            this.bgcolorLabel.Location = new System.Drawing.Point(5, 70);
             this.bgcolorLabel.Name = "bgcolorLabel";
             this.bgcolorLabel.Size = new System.Drawing.Size(99, 18);
             this.bgcolorLabel.TabIndex = 6;
@@ -400,7 +396,7 @@ namespace ProjectManager.Controls
             // 
             // fpsLabel
             // 
-            this.fpsLabel.Location = new System.Drawing.Point(141, 102);
+            this.fpsLabel.Location = new System.Drawing.Point(141, 101);
             this.fpsLabel.Name = "fpsLabel";
             this.fpsLabel.Size = new System.Drawing.Size(32, 17);
             this.fpsLabel.TabIndex = 28;
@@ -408,8 +404,7 @@ namespace ProjectManager.Controls
             // 
             // playGroupBox
             // 
-            this.playGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.playGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.playGroupBox.Controls.Add(this.testMovieCombo);
             this.playGroupBox.Controls.Add(this.editCommandButton);
             this.playGroupBox.Location = new System.Drawing.Point(8, 216);
@@ -435,9 +430,9 @@ namespace ProjectManager.Controls
             // 
             // editCommandButton
             // 
-            this.editCommandButton.Location = new System.Drawing.Point(233, 15);
+            this.editCommandButton.Location = new System.Drawing.Point(234, 15);
             this.editCommandButton.Name = "editCommandButton";
-            this.editCommandButton.Size = new System.Drawing.Size(75, 23);
+            this.editCommandButton.Size = new System.Drawing.Size(75, 21);
             this.editCommandButton.TabIndex = 2;
             this.editCommandButton.Text = "&Edit...";
             this.editCommandButton.Visible = false;
@@ -457,9 +452,7 @@ namespace ProjectManager.Controls
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(8, 3);
             this.groupBox3.Name = "groupBox3";
@@ -472,30 +465,29 @@ namespace ProjectManager.Controls
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(4, 166);
+            this.label2.Location = new System.Drawing.Point(16, 166);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(288, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "(Project classpaths are relative to the project location)";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label2.Text = "Project classpaths are relative to the project location";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label3.Location = new System.Drawing.Point(14, 203);
+            this.label3.Location = new System.Drawing.Point(14, 204);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(313, 31);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Global classpaths are specific to your machine\r\nand are not stored in the project" +
-                " file.";
+            this.label3.Text = "Global classpaths are specific to your machine\r\nand are not stored in the project file.";
             // 
             // btnGlobalClasspaths
             // 
             this.btnGlobalClasspaths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGlobalClasspaths.Location = new System.Drawing.Point(15, 237);
             this.btnGlobalClasspaths.Name = "btnGlobalClasspaths";
-            this.btnGlobalClasspaths.Size = new System.Drawing.Size(150, 23);
+            this.btnGlobalClasspaths.Size = new System.Drawing.Size(150, 21);
             this.btnGlobalClasspaths.TabIndex = 2;
             this.btnGlobalClasspaths.Text = "&Edit Global Classpaths...";
             this.btnGlobalClasspaths.Click += new System.EventHandler(this.btnGlobalClasspaths_Click);
@@ -513,8 +505,7 @@ namespace ProjectManager.Controls
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.alwaysExecuteCheckBox);
             this.groupBox5.Controls.Add(this.postBuilderButton);
             this.groupBox5.Controls.Add(this.postBuildBox);
@@ -538,18 +529,16 @@ namespace ProjectManager.Controls
             // postBuilderButton
             // 
             this.postBuilderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.postBuilderButton.Location = new System.Drawing.Point(232, 80);
+            this.postBuilderButton.Location = new System.Drawing.Point(232, 81);
             this.postBuilderButton.Name = "postBuilderButton";
-            this.postBuilderButton.Size = new System.Drawing.Size(75, 23);
+            this.postBuilderButton.Size = new System.Drawing.Size(75, 21);
             this.postBuilderButton.TabIndex = 1;
             this.postBuilderButton.Text = "Builder...";
             this.postBuilderButton.Click += new System.EventHandler(this.postBuilderButton_Click);
             // 
             // postBuildBox
             // 
-            this.postBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.postBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.postBuildBox.Location = new System.Drawing.Point(13, 31);
             this.postBuildBox.Multiline = true;
             this.postBuildBox.Name = "postBuildBox";
@@ -559,8 +548,7 @@ namespace ProjectManager.Controls
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.preBuilderButton);
             this.groupBox4.Controls.Add(this.preBuildBox);
             this.groupBox4.Location = new System.Drawing.Point(8, 3);
@@ -575,16 +563,14 @@ namespace ProjectManager.Controls
             this.preBuilderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.preBuilderButton.Location = new System.Drawing.Point(232, 102);
             this.preBuilderButton.Name = "preBuilderButton";
-            this.preBuilderButton.Size = new System.Drawing.Size(75, 23);
+            this.preBuilderButton.Size = new System.Drawing.Size(75, 21);
             this.preBuilderButton.TabIndex = 1;
             this.preBuilderButton.Text = "Builder...";
             this.preBuilderButton.Click += new System.EventHandler(this.preBuilderButton_Click);
             // 
             // preBuildBox
             // 
-            this.preBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.preBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.preBuildBox.Location = new System.Drawing.Point(13, 30);
             this.preBuildBox.Multiline = true;
             this.preBuildBox.Name = "preBuildBox";
@@ -621,7 +607,7 @@ namespace ProjectManager.Controls
             // PropertiesDialog
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(366, 351);
+            this.ClientSize = new System.Drawing.Size(366, 348);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);

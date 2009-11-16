@@ -83,25 +83,25 @@ namespace ProjectManager.Helpers
             // 
             // titleLabel
             // 
-            this.titleLabel.Location = new System.Drawing.Point(8, 14);
+            this.titleLabel.Location = new System.Drawing.Point(8, 8);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(88, 16);
+            this.titleLabel.Size = new System.Drawing.Size(266, 16);
             this.titleLabel.TabIndex = 3;
             this.titleLabel.Text = "Enter text:";
             // 
             // lineBox
             // 
-            this.lineBox.Location = new System.Drawing.Point(79, 11);
+            this.lineBox.Location = new System.Drawing.Point(10, 24);
             this.lineBox.Name = "lineBox";
-            this.lineBox.Size = new System.Drawing.Size(192, 20);
+            this.lineBox.Size = new System.Drawing.Size(260, 20);
             this.lineBox.TabIndex = 0;
             // 
             // btnOK
             // 
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnOK.Location = new System.Drawing.Point(79, 40);
+            this.btnOK.Location = new System.Drawing.Point(68, 50);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(72, 23);
+            this.btnOK.Size = new System.Drawing.Size(72, 21);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -110,9 +110,9 @@ namespace ProjectManager.Helpers
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCancel.Location = new System.Drawing.Point(162, 40);
+            this.btnCancel.Location = new System.Drawing.Point(150, 50);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(72, 23);
+            this.btnCancel.Size = new System.Drawing.Size(72, 21);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -122,7 +122,7 @@ namespace ProjectManager.Helpers
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(282, 75);
+            this.ClientSize = new System.Drawing.Size(282, 81);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.lineBox);

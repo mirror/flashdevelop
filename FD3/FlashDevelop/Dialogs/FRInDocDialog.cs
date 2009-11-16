@@ -311,7 +311,7 @@ namespace FlashDevelop.Dialogs
             this.MinimizeBox = false;
             this.Name = "FRInDocDialog";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " Find And Replace";
             this.Load += new System.EventHandler(this.DialogLoad);
             this.VisibleChanged += new System.EventHandler(this.VisibleChange);

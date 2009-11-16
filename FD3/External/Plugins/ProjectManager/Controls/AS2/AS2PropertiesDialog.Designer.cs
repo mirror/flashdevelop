@@ -60,9 +60,9 @@ namespace ProjectManager.Controls.AS2
             // inputBrowseButton
             // 
             this.inputBrowseButton.Enabled = false;
-            this.inputBrowseButton.Location = new System.Drawing.Point(230, 167);
+            this.inputBrowseButton.Location = new System.Drawing.Point(230, 166);
             this.inputBrowseButton.Name = "inputBrowseButton";
-            this.inputBrowseButton.Size = new System.Drawing.Size(75, 23);
+            this.inputBrowseButton.Size = new System.Drawing.Size(75, 21);
             this.inputBrowseButton.TabIndex = 14;
             this.inputBrowseButton.Text = "&Browse...";
             this.inputBrowseButton.Click += new System.EventHandler(this.inputBrowseButton_Click);
@@ -78,7 +78,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // inputFileLabel
             // 
-            this.inputFileLabel.Location = new System.Drawing.Point(3, 168);
+            this.inputFileLabel.Location = new System.Drawing.Point(3, 167);
             this.inputFileLabel.Name = "inputFileLabel";
             this.inputFileLabel.Size = new System.Drawing.Size(88, 18);
             this.inputFileLabel.TabIndex = 12;
@@ -102,8 +102,7 @@ namespace ProjectManager.Controls.AS2
             this.infoLabel.TabIndex = 8;
             // 
             // AS2PropertiesDialog
-            // 
-            this.ClientSize = new System.Drawing.Size(366, 351);
+            //
             this.Name = "AS2PropertiesDialog";
             this.tabControl.ResumeLayout(false);
             this.injectionTab.ResumeLayout(false);

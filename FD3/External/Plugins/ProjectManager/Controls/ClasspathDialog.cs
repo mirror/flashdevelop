@@ -61,7 +61,7 @@ namespace ProjectManager.Controls
             this.classpathControl.Classpaths = new string[0];
             this.classpathControl.Location = new System.Drawing.Point(10, 19);
             this.classpathControl.Name = "classpathControl";
-            this.classpathControl.Size = new System.Drawing.Size(357, 130);
+            this.classpathControl.Size = new System.Drawing.Size(357, 135);
             this.classpathControl.TabIndex = 0;
             this.classpathControl.LanguageBox.SelectedIndexChanged += new System.EventHandler(this.classpathControl_IndexChanged);
             this.classpathControl.Changed += new System.EventHandler(this.classpathControl_Changed);
@@ -73,7 +73,7 @@ namespace ProjectManager.Controls
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancel.Location = new System.Drawing.Point(314, 206);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 21);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -84,7 +84,7 @@ namespace ProjectManager.Controls
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnOK.Location = new System.Drawing.Point(233, 206);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(75, 21);
             this.btnOK.TabIndex = 2;
             this.btnOK.Text = "&OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -93,9 +93,9 @@ namespace ProjectManager.Controls
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(8, 158);
+            this.label2.Location = new System.Drawing.Point(8, 165);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(358, 29);
+            this.label2.Size = new System.Drawing.Size(358, 23);
             this.label2.TabIndex = 2;
             this.label2.Text = "Global classpaths will be saved along with your FlashDevelop settings.";
             // 
@@ -105,9 +105,9 @@ namespace ProjectManager.Controls
             this.groupBox1.Controls.Add(this.classpathControl);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox1.Location = new System.Drawing.Point(13, 9);
+            this.groupBox1.Location = new System.Drawing.Point(11, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(375, 190);
+            this.groupBox1.Size = new System.Drawing.Size(377, 192);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Global Classpaths";
@@ -117,7 +117,7 @@ namespace ProjectManager.Controls
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(401, 241);
+            this.ClientSize = new System.Drawing.Size(400, 239);
             this.ControlBox = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

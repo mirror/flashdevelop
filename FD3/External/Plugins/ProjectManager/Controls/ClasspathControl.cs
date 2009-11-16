@@ -72,7 +72,7 @@ namespace ProjectManager.Controls
             this.listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox.Location = new System.Drawing.Point(0, 0);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(275, 134);
+            this.listBox.Size = new System.Drawing.Size(275, 143);
             this.listBox.TabIndex = 0;
             this.listBox.DoubleClick += new System.EventHandler(this.listBox_DoubleClick);
             this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
@@ -82,9 +82,9 @@ namespace ProjectManager.Controls
             // 
             this.btnNewClasspath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnNewClasspath.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNewClasspath.Location = new System.Drawing.Point(0, 141);
+            this.btnNewClasspath.Location = new System.Drawing.Point(0, 149);
             this.btnNewClasspath.Name = "btnNewClasspath";
-            this.btnNewClasspath.Size = new System.Drawing.Size(107, 23);
+            this.btnNewClasspath.Size = new System.Drawing.Size(107, 21);
             this.btnNewClasspath.TabIndex = 1;
             this.btnNewClasspath.Text = "&Add Classpath...";
             this.btnNewClasspath.Click += new System.EventHandler(this.btnNewClasspath_Click);
@@ -93,9 +93,9 @@ namespace ProjectManager.Controls
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemove.Location = new System.Drawing.Point(111, 141);
+            this.btnRemove.Location = new System.Drawing.Point(111, 149);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(69, 23);
+            this.btnRemove.Size = new System.Drawing.Size(69, 21);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "&Remove";
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -128,7 +128,7 @@ namespace ProjectManager.Controls
             "AS2",
             "AS3",
             "HaXe"});
-            this.langComboBox.Location = new System.Drawing.Point(187, 142);
+            this.langComboBox.Location = new System.Drawing.Point(187, 150);
             this.langComboBox.Name = "langComboBox";
             this.langComboBox.Size = new System.Drawing.Size(88, 21);
             this.langComboBox.TabIndex = 5;

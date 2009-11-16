@@ -37,11 +37,11 @@ namespace ProjectManager.Controls.AS2
 		private System.Windows.Forms.Button browseButton;
 		private System.Windows.Forms.CheckBox specifySharepointBox;
 		private System.Windows.Forms.TextBox sharepointTextBox;
-        private TabPage swcTabPage;
-        private RadioButton swcIncOption;
-        private RadioButton swcExtOption;
-        private RadioButton swcLibOption;
-        private CheckBox bitmapLinkageBox;
+        private System.Windows.Forms.TabPage swcTabPage;
+        private System.Windows.Forms.RadioButton swcIncOption;
+        private System.Windows.Forms.RadioButton swcExtOption;
+        private System.Windows.Forms.RadioButton swcLibOption;
+        private System.Windows.Forms.CheckBox bitmapLinkageBox;
 		private System.Windows.Forms.TabPage advancedTabPage;
 		
 		/// <summary>
@@ -89,7 +89,7 @@ namespace ProjectManager.Controls.AS2
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cancelButton.Location = new System.Drawing.Point(239, 202);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(75, 21);
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -100,15 +100,14 @@ namespace ProjectManager.Controls.AS2
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.okButton.Location = new System.Drawing.Point(156, 202);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.Size = new System.Drawing.Size(75, 21);
             this.okButton.TabIndex = 1;
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // autoIDBox
             // 
-            this.autoIDBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoIDBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.autoIDBox.Checked = true;
             this.autoIDBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoIDBox.Location = new System.Drawing.Point(16, 73);
@@ -120,8 +119,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // idTextBox
             // 
-            this.idTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.idTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.idTextBox.Enabled = false;
             this.idTextBox.Location = new System.Drawing.Point(34, 94);
             this.idTextBox.Name = "idTextBox";
@@ -132,9 +130,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.swfTabPage);
             this.tabControl.Controls.Add(this.swcTabPage);
             this.tabControl.Controls.Add(this.fontTabPage);
@@ -162,8 +158,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // specifySharepointBox
             // 
-            this.specifySharepointBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.specifySharepointBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.specifySharepointBox.BackColor = System.Drawing.Color.Transparent;
             this.specifySharepointBox.Location = new System.Drawing.Point(35, 81);
             this.specifySharepointBox.Name = "specifySharepointBox";
@@ -284,9 +279,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // charactersTextBox
             // 
-            this.charactersTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.charactersTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.charactersTextBox.Location = new System.Drawing.Point(35, 64);
             this.charactersTextBox.Multiline = true;
             this.charactersTextBox.Name = "charactersTextBox";
@@ -296,8 +289,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // embedTheseButton
             // 
-            this.embedTheseButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.embedTheseButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.embedTheseButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.embedTheseButton.Location = new System.Drawing.Point(16, 36);
             this.embedTheseButton.Name = "embedTheseButton";
@@ -308,8 +300,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // embedAllButton
             // 
-            this.embedAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.embedAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.embedAllButton.Checked = true;
             this.embedAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.embedAllButton.Location = new System.Drawing.Point(16, 16);
@@ -338,17 +329,16 @@ namespace ProjectManager.Controls.AS2
             // browseButton
             // 
             this.browseButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.browseButton.Location = new System.Drawing.Point(210, 36);
+            this.browseButton.Location = new System.Drawing.Point(210, 35);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(72, 23);
+            this.browseButton.Size = new System.Drawing.Size(72, 21);
             this.browseButton.TabIndex = 4;
             this.browseButton.Text = "&Browse...";
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
             // 
             // updatedTextBox
             // 
-            this.updatedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.updatedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.updatedTextBox.Enabled = false;
             this.updatedTextBox.Location = new System.Drawing.Point(34, 37);
             this.updatedTextBox.Name = "updatedTextBox";
@@ -358,8 +348,7 @@ namespace ProjectManager.Controls.AS2
             // 
             // keepUpdatedBox
             // 
-            this.keepUpdatedBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.keepUpdatedBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.keepUpdatedBox.Location = new System.Drawing.Point(16, 16);
             this.keepUpdatedBox.Name = "keepUpdatedBox";
             this.keepUpdatedBox.Size = new System.Drawing.Size(266, 18);
@@ -382,7 +371,7 @@ namespace ProjectManager.Controls.AS2
             this.AcceptButton = this.okButton;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(324, 237);
+            this.ClientSize = new System.Drawing.Size(324, 235);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);

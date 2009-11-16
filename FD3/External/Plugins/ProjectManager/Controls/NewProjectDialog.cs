@@ -106,9 +106,7 @@ namespace ProjectManager.Controls
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.projectListView);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox2.Location = new System.Drawing.Point(12, 7);
@@ -120,9 +118,7 @@ namespace ProjectManager.Controls
             // 
             // projectListView
             // 
-            this.projectListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.projectListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.projectListView.BackColor = System.Drawing.SystemColors.Control;
             this.projectListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.projectListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -132,7 +128,7 @@ namespace ProjectManager.Controls
             this.projectListView.Location = new System.Drawing.Point(7, 15);
             this.projectListView.MultiSelect = false;
             this.projectListView.Name = "projectListView";
-            this.projectListView.Size = new System.Drawing.Size(299, 192);
+            this.projectListView.Size = new System.Drawing.Size(299, 188);
             this.projectListView.SmallImageList = this.imageList;
             this.projectListView.TabIndex = 0;
             this.projectListView.UseCompatibleStateImageBehavior = false;
@@ -151,8 +147,7 @@ namespace ProjectManager.Controls
             // 
             // locationTextBox
             // 
-            this.locationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.locationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.locationTextBox.Location = new System.Drawing.Point(67, 284);
             this.locationTextBox.Name = "locationTextBox";
             this.locationTextBox.Size = new System.Drawing.Size(375, 20);
@@ -172,8 +167,7 @@ namespace ProjectManager.Controls
             // 
             // descriptionLabel
             // 
-            this.descriptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.descriptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.descriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.descriptionLabel.Location = new System.Drawing.Point(12, 231);
             this.descriptionLabel.Name = "descriptionLabel";
@@ -186,9 +180,9 @@ namespace ProjectManager.Controls
             // 
             this.browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.browseButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.browseButton.Location = new System.Drawing.Point(451, 283);
+            this.browseButton.Location = new System.Drawing.Point(451, 282);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(75, 22);
+            this.browseButton.Size = new System.Drawing.Size(75, 21);
             this.browseButton.TabIndex = 4;
             this.browseButton.Text = "&Browse...";
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
@@ -205,8 +199,7 @@ namespace ProjectManager.Controls
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.nameTextBox.Location = new System.Drawing.Point(67, 257);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(458, 20);
@@ -267,7 +260,7 @@ namespace ProjectManager.Controls
             this.AcceptButton = this.okButton;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(537, 384);
+            this.ClientSize = new System.Drawing.Size(537, 388);
             this.Controls.Add(this.packageTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
