@@ -100,7 +100,7 @@ namespace ProjectManager.Controls
             this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.previewBox.Location = new System.Drawing.Point(333, 13);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(192, 156);
+            this.previewBox.Size = new System.Drawing.Size(192, 207);
             this.previewBox.TabIndex = 5;
             this.previewBox.TabStop = false;
             // 
@@ -334,6 +334,11 @@ namespace ProjectManager.Controls
                 }
 				projectListView.Items.Add(item);
 			}
+            this.Load += new EventHandler(NewProjectDialog_Load);
+		}
+
+        void NewProjectDialog_Load(object sender, EventArgs e)
+        {
             if (projectListView.Items.Count > 0) projectListView.Items[0].Selected = true;
             else
             {
@@ -341,14 +346,14 @@ namespace ProjectManager.Controls
                 ErrorManager.ShowWarning(info, null);
             }
             nameTextBox.Text = TextHelper.GetString("Info.NewProject");
-			createDirectoryBox.Checked = PluginMain.Settings.CreateProjectDirectory;
+            createDirectoryBox.Checked = PluginMain.Settings.CreateProjectDirectory;
 
             string locationDir = PluginMain.Settings.NewProjectDefaultDirectory;
-            if (locationDir != null && locationDir.Length > 0 && Directory.Exists(locationDir)) 
+            if (locationDir != null && locationDir.Length > 0 && Directory.Exists(locationDir))
                 locationTextBox.Text = locationDir;
             else locationTextBox.Text = ProjectPaths.DefaultProjectsDirectory;
             locationTextBox.SelectionStart = locationTextBox.Text.Length;
-		}
+        }
 
 		#region Public Properties
 
@@ -477,8 +482,8 @@ namespace ProjectManager.Controls
 
 				if (previewBox.Image != null) previewBox.Image.Dispose();
 
-                if (File.Exists(projectImage)) previewBox.Image = Image.FromFile(projectImage);
-                else if (File.Exists(defaultProjectImage)) previewBox.Image = Image.FromFile(defaultProjectImage);
+                if (File.Exists(projectImage)) SetProjectImage(projectImage);
+                else if (File.Exists(defaultProjectImage)) SetProjectImage(defaultProjectImage);
                 else previewBox.Image = null;
 
                 if (File.Exists(projectDescription))
@@ -494,6 +499,17 @@ namespace ProjectManager.Controls
 			else okButton.Enabled = false;
             UpdateStatusBar();
 		}
+
+        private void SetProjectImage(String projectImage)
+        {
+            Image image = Image.FromFile(projectImage);
+            Bitmap empty = new Bitmap(this.previewBox.Width, this.previewBox.Height);
+            Graphics graphics = Graphics.FromImage(empty);
+            graphics.DrawImage(image, new Rectangle(empty.Width / 2 - image.Width / 2, empty.Height / 2 - image.Height / 2, image.Width, image.Height));
+            previewBox.Image = empty;
+            graphics.Dispose();
+            image.Dispose();
+        }
 
 		private void browseButton_Click(object sender, System.EventArgs e)
 		{
