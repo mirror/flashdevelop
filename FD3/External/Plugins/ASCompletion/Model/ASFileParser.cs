@@ -55,7 +55,7 @@ namespace ASCompletion.Model
 		static public Regex re_balancedBraces = new Regex("{[^{}]*(((?<Open>{)[^{}]*)+((?<Close-Open>})[^{}]*)+)*(?(Open)(?!))}", ro_cs);
         static public Regex re_import = new Regex("^[\\s]*import[\\s]+(?<package>[\\w.]+)", ro_cm);
 		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
-        static private Regex re_validTypeName = new Regex("^[\\w.]*$", RegexOptions.Compiled);
+        static private Regex re_validTypeName = new Regex("^(\\s*of\\s*)?(?<type>[\\w.]*)$", RegexOptions.Compiled);
         static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
 		#endregion
 
@@ -941,6 +941,7 @@ namespace ASCompletion.Model
                         {
                             curAccess = curMember.Access;
                             foundKeyword = FlagType.Variable;
+                            lastComment = null;
                         }
 					}
 					
@@ -1493,9 +1494,14 @@ namespace ASCompletion.Model
                 else curMember.Type = curToken.Text;
 				curMember.LineTo = curToken.Line;
 				// Typed Arrays
-				if (curMember.Type == "Array" && lastComment != null && re_validTypeName.IsMatch(lastComment))
+				if (curMember.Type == "Array" && lastComment != null)
 				{
-                    curMember.Type = "Array$" + lastComment.Trim();
+                    Match m = re_validTypeName.Match(lastComment);
+                    if (m.Success)
+                    {
+                        curMember.Type = "Array$" + m.Groups["type"].Value;
+                        lastComment = null;
+                    }
 				}
 			}
             else if (hadContext && (hadKeyword || inParams || inEnum || inTypedef))
@@ -1560,7 +1566,12 @@ namespace ASCompletion.Model
                                 if ((token == "Array" || token == "Proxy" || token == "flash.utils.Proxy")
                                     && lastComment != null && re_validTypeName.IsMatch(lastComment))
                                 {
-                                    token += "$" + lastComment.Trim();
+                                    Match m = re_validTypeName.Match(lastComment);
+                                    if (m.Success)
+                                    {
+                                        token += "$" + m.Groups["type"].Value;
+                                        lastComment = null;
+                                    }
                                 }
                                 curClass.ExtendsType = token;
                                 if (inTypedef) context = FlagType.TypeDef;

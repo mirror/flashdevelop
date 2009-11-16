@@ -1058,7 +1058,7 @@ namespace ASCompletion.Completion
                 if (!noRet) typesUsed.Add(getQualifiedType(type, ofClass));
                 string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed, ofClass);
                 decl += member.Name
-                    + String.Format(GetTemplate("MethodOverride"), member.ParametersString(), type, action);
+                    + String.Format(GetTemplate("MethodOverride"), member.ParametersString(true), type, action);
             }
             
             Sci.BeginUndoAction();

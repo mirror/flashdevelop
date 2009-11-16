@@ -77,17 +77,17 @@ namespace ASCompletion.Model
                 if ((Flags & FlagType.Setter) > 0)
                 {
                     if (Parameters != null && Parameters.Count > 0 && Parameters[0].Type != null && Parameters[0].Type.Length > 0)
-                        return res + " : " + Parameters[0].Type;
+                        return res + " : " + FormatType(Parameters[0].Type);
                 }
             }
             else if ((Flags & FlagType.Function) > 0)
             {
-                res += " (" + ParametersString() + ")";
+                res += " (" + ParametersString(true) + ")";
             }
 			if ((Flags & FlagType.Constructor) > 0)
 				return res;
             else if (Type != null && Type.Length > 0)
-                return res + " : " + Type;
+                return res + " : " + FormatType(Type);
             else
                 return res;
 		}
