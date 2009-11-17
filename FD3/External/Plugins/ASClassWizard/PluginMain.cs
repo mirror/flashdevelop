@@ -154,6 +154,7 @@ namespace ASClassWizard
                             ASGenerator.SetJobContext(null, cname, null, null);
                             ASGenerator.GenerateJob(GeneratorJobType.ImplementInterface, null, inClass);
                         }
+                        lastFileOptions = null;
                     }
                     break;
 
@@ -313,7 +314,7 @@ namespace ASClassWizard
                     if (lastFileOptions != null)
                     {
                         args = ProcessFileTemplate(args);
-                        lastFileOptions = null;
+                        if (processOnSwitch == null) lastFileOptions = null;
                     }
                 }
                 lastFileFromTemplate = null;
