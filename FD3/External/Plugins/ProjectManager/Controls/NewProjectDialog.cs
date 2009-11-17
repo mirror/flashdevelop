@@ -98,9 +98,9 @@ namespace ProjectManager.Controls
             // 
             this.previewBox.BackColor = System.Drawing.Color.White;
             this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.previewBox.Location = new System.Drawing.Point(333, 13);
+            this.previewBox.Location = new System.Drawing.Point(313, 13);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(192, 207);
+            this.previewBox.Size = new System.Drawing.Size(212, 207);
             this.previewBox.TabIndex = 5;
             this.previewBox.TabStop = false;
             // 
@@ -111,7 +111,7 @@ namespace ProjectManager.Controls
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox2.Location = new System.Drawing.Point(12, 7);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(313, 213);
+            this.groupBox2.Size = new System.Drawing.Size(293, 213);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Installed &Templates";
@@ -128,7 +128,7 @@ namespace ProjectManager.Controls
             this.projectListView.Location = new System.Drawing.Point(7, 15);
             this.projectListView.MultiSelect = false;
             this.projectListView.Name = "projectListView";
-            this.projectListView.Size = new System.Drawing.Size(299, 188);
+            this.projectListView.Size = new System.Drawing.Size(279, 188);
             this.projectListView.SmallImageList = this.imageList;
             this.projectListView.TabIndex = 0;
             this.projectListView.UseCompatibleStateImageBehavior = false;
@@ -169,7 +169,7 @@ namespace ProjectManager.Controls
             // 
             this.descriptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.descriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.descriptionLabel.Location = new System.Drawing.Point(12, 231);
+            this.descriptionLabel.Location = new System.Drawing.Point(12, 230);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(513, 19);
             this.descriptionLabel.TabIndex = 1;
