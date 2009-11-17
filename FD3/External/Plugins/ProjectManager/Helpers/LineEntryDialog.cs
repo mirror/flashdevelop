@@ -110,7 +110,7 @@ namespace ProjectManager.Helpers
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCancel.Location = new System.Drawing.Point(150, 50);
+            this.btnCancel.Location = new System.Drawing.Point(149, 50);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(72, 21);
             this.btnCancel.TabIndex = 2;
