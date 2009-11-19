@@ -261,6 +261,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(CloseProject, 0);
             menu.Add(AddMenu, 1);
             menu.Add(Browse, 1);
+            menu.Add(FindInFiles, 1);
             menu.Add(ShellMenu, 1);
             menu.Add(Paste, 2);
             menu.Add(ShowHidden, 3, showHidden);
