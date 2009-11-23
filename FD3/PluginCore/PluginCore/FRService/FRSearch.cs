@@ -506,43 +506,47 @@ namespace PluginCore.FRService
                 }
 
                 // filters
-                if (filterComments)
-                {
-                    if (commentMatch == 0)
-                    {
-                        if (c == '/' && pos < len)
-                            if (src[pos] == '*') commentMatch = 1;
-                            else if (src[pos] == '/') commentMatch = 2;
-                    }
-                    else if (commentMatch == 1)
-                    {
-                        if (c == '*' && src[pos] == '/') commentMatch = 0;
-                    }
-                    else if (commentMatch == 2)
-                    {
-                        if (hadNL) commentMatch = 0;
-                    }
-                    if ((inComments && commentMatch == 0) || (outComments && commentMatch > 0)) 
-                        continue;
-                }
-                else if (filterLiterals)
+                if (filterComments || filterLiterals)
                 {
                     if (literalMatch == 0)
                     {
-                        if (c == '"') literalMatch = 1;
-                        else if (c == '\'') literalMatch = 2;
+                        if (commentMatch == 0)
+                        {
+                            if (c == '/' && pos < len - 1)
+                                if (src[pos + 1] == '*') commentMatch = 1;
+                                else if (src[pos + 1] == '/') commentMatch = 2;
+                        }
+                        else if (commentMatch == 1)
+                        {
+                            if (c == '*' && pos < len - 1 && src[pos + 1] == '/') commentMatch = 0;
+                        }
+                        else if (commentMatch == 2)
+                        {
+                            if (hadNL) commentMatch = 0;
+                        }
+                        if ((inComments && commentMatch == 0) || (outComments && commentMatch > 0))
+                            continue;
                     }
-                    else if (pos > 1)
-                        if (literalMatch == 1)
+
+                    if (commentMatch == 0)
+                    {
+                        if (literalMatch == 0)
                         {
-                            if (src[pos - 2] != '\\' && c == '"') literalMatch = 0;
+                            if (c == '"') literalMatch = 1;
+                            else if (c == '\'') literalMatch = 2;
                         }
-                        else if (literalMatch == 2)
-                        {
-                            if (src[pos - 2] != '\\' && c == '\'') literalMatch = 0;
-                        }
-                    if ((inLiterals && literalMatch == 0) || (outLiterals && literalMatch > 0)) 
-                        continue;
+                        else if (pos > 1)
+                            if (literalMatch == 1)
+                            {
+                                if (src[pos - 2] != '\\' && c == '"') literalMatch = 0;
+                            }
+                            else if (literalMatch == 2)
+                            {
+                                if (src[pos - 2] != '\\' && c == '\'') literalMatch = 0;
+                            }
+                        if ((inLiterals && literalMatch == 0) || (outLiterals && literalMatch > 0))
+                            continue;
+                    }
                 }
 
                 // wait for next match
