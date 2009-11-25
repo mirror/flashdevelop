@@ -660,11 +660,11 @@ namespace FlashDevelop.Dialogs
                     }
                     else if (this.lookComboBox.SelectedIndex == 3)
                     {
-                        search.Filter = SearchFilter.InCodeComments;
+                        search.Filter = SearchFilter.InCodeComments | SearchFilter.OutsideStringLiterals;
                     }
                     else if (this.lookComboBox.SelectedIndex == 4)
                     {
-                        search.Filter = SearchFilter.InStringLiterals;
+                        search.Filter = SearchFilter.InStringLiterals | SearchFilter.OutsideCodeComments;
                     }
                 }
                 return search.Matches(sci.Text);
