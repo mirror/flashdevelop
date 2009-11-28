@@ -121,7 +121,7 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="AS2Context.Description.MMClassPath" xml:space="preserve">
-    <value>Adobe Flash IDEクラスパスへのファイルパスです。</value>
+    <value>Adobe Flash IDE クラスパスへのファイルパスです。</value>
   </data>
   <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
     <value>構文チェックのための MTASC コンパイラ設定です。</value>
@@ -202,10 +202,10 @@
     <value>補完リストでスマートテキストマッチングを使用すします。</value>
   </data>
   <data name="ASCompletion.Description.CompletionShowQualifiedTypes" xml:space="preserve">
-    <value>補完リストに、パッケージを含めたタイプ名を表示します。(例. package + type)</value>
+    <value>補完リストに、パッケージを含めたタイプ名を表示します。(例 package + type)</value>
   </data>
   <data name="ASCompletion.Description.CondenseWhitespace" xml:space="preserve">
-    <value>テキストの余計なホワイトスペースを削除します。必要なホワイトスペースだけ残します。</value>
+    <value>テキストの余計なホワイトスペースを削除します。必要なホワイトスペースだけを残します。</value>
   </data>
   <data name="ASCompletion.Description.DescriptionLinesLimit" xml:space="preserve">
     <value>表示された Tips の説明文の文字数です。</value>
@@ -908,7 +908,8 @@
     <value>Big Endian(&amp;B)</value>
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
-    <value>全てブックマーク(&amp;B)</value>
+    <value>全てマーク(&amp;B)</value>
+    <comment>全てブックマーク(&amp;B)</comment>
   </data>
   <data name="FlashDevelop.Label.Cancel" xml:space="preserve">
     <value>キャンセル</value>
@@ -979,7 +980,7 @@
     <value>行の切り取り(&amp;U)</value>
   </data>
   <data name="FlashDevelop.Label.DeleteFiles" xml:space="preserve">
-    <value>ファイルの削除(&amp;D)</value>
+    <value>削除(&amp;D)</value>
   </data>
   <data name="FlashDevelop.Label.DeleteLine" xml:space="preserve">
     <value>行の削除(&amp;D)</value>
@@ -1126,7 +1127,7 @@
     <value>次のブックマークへ(&amp;X)</value>
   </data>
   <data name="FlashDevelop.Label.NotifyLater" xml:space="preserve">
-    <value>後で通知する(&amp;N)</value>
+    <value>後で通知(&amp;N)</value>
   </data>
   <data name="FlashDevelop.Label.Ok" xml:space="preserve">
     <value>OK</value>
@@ -1135,7 +1136,7 @@
     <value>開く(&amp;O)...</value>
   </data>
   <data name="FlashDevelop.Label.OpenFiles" xml:space="preserve">
-    <value>ファイルを開く(&amp;O)</value>
+    <value>開く(&amp;O)</value>
   </data>
   <data name="FlashDevelop.Label.Options" xml:space="preserve">
     <value>オプション</value>
@@ -1274,7 +1275,7 @@
     <value>大文字に変換(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.TransposeLines" xml:space="preserve">
-    <value>行入れ替え(&amp;T)</value>
+    <value>行の入れ替え(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.Undo" xml:space="preserve">
     <value>元に戻す(&amp;U)</value>
@@ -1325,7 +1326,7 @@
     <value>情報</value>
   </data>
   <data name="FlashDevelop.Title.RecoveryDialog" xml:space="preserve">
-    <value>ファイル通知のリカバリ</value>
+    <value>リカバリファイルが見つりました</value>
   </data>
   <data name="FlashDevelop.Title.SaveChanges" xml:space="preserve">
     <value>変更を保存:</value>
@@ -1504,7 +1505,7 @@
     <value>ユーザにより定義さたコンパイラ命令を指定します。</value>
   </data>
   <data name="ProjectManager.Description.DisableMxmlMapping" xml:space="preserve">
-    <value>デフォルトでは、MXMLソースファイル ( mx:Script, mx:Style ) は、MXMLファイルの下にグループ化されます。</value>
+    <value>デフォルトでは、MXMLソースファイル( mx:Script, mx:Style )は、MXMLファイルの下にグループ化されます。</value>
   </data>
   <data name="ProjectManager.Description.ES" xml:space="preserve">
     <value>プロトタイププロパティを動的にオーバーライドできるように、ECMAScript Edition 3 のプロトタイプに基づくオブジェクトモデルを使用します。</value>
@@ -1525,7 +1526,7 @@
     <value>SWFファイルをコンパイルする際、リンク対象外とする SWC ファイルやディレクトリのリストを指定します。</value>
   </data>
   <data name="ProjectManager.Description.FlashStrict" xml:space="preserve">
-    <value>より厳格なタイプの FlashAPI 。</value>
+    <value>より厳格なタイプの Flash API です。</value>
   </data>
   <data name="ProjectManager.Description.Frame" xml:space="preserve">
     <value>ターゲットのフレームにエクスポートします( SWF 内にコードが存在しいてる場合のみ)。</value>
@@ -2039,7 +2040,7 @@
     <value>コマンドラインビルダー</value>
   </data>
   <data name="ProjectManager.Title.ConfigurationRequired" xml:space="preserve">
-    <value>コンパイラ指定が必須</value>
+    <value>コンパイラ指定が必要です</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
     <value>コマンドラインを入力</value>
@@ -2318,7 +2319,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>インジェクション</value>
   </data>
   <data name="ProjectManager.Info.InputSWF" xml:space="preserve">
-    <value>SWFファイル(&amp;I):</value>
+    <value>SWF ファイル(&amp;I):</value>
   </data>
   <data name="ProjectManager.Info.UseCodeInjection" xml:space="preserve">
     <value>コードインジェクションを有効(&amp;E)</value>
@@ -2456,7 +2457,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>デフォルトのステータスバーを表示します。</value>
   </data>
   <data name="ProjectManager.Description.MinorVersion" xml:space="preserve">
-    <value>必要に応じて明示的に Flash Player のマイナーバージョンを定義します。(例 "0.60" で "9.0.60" を指定).</value>
+    <value>必要に応じて明示的に Flash Player のマイナーバージョンを定義します。(例 "0.60" で "9.0.60" を指定)</value>
   </data>
   <data name="FlashDevelop.Label.Debug" xml:space="preserve">
     <value>デバッグ(&amp;D)</value>
@@ -2637,7 +2638,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>現在の選択範囲</value>
   </data>
   <data name="ASCompletion.Description.GenerateProtectedDeclarations" xml:space="preserve">
-    <value>デフォルトのコードジェネレーターでは 'private' で宣言しようとします。このオプションを 'True' にすると ActionScript3では 'protected' で宣言します。</value>
+    <value>デフォルトのコードジェネレーターでは 'private' で宣言しようとします。このオプションを 'True' にすると ActionScript3 では 'protected' で宣言します。</value>
   </data>
   <data name="FileExplorer.Label.ShellMenu" xml:space="preserve">
     <value>コンテキストメニュー...</value>
@@ -2667,7 +2668,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>UTF-8 にエンコードされたファイルを BOM なしで保存します。連続的に行うのであれば、Fallback Codepage で UTF-8 に設定してください。</value>
   </data>
   <data name="FlashDevelop.Label.OpenFilesIn" xml:space="preserve">
-    <value>ファイルを開く(&amp;O)</value>
+    <value>開く(&amp;O)</value>
   </data>
   <data name="FlashLogViewer.Description.ColourWarnings" xml:space="preserve">
     <value>エラーや警告を色づけして表示します。</value>
@@ -3072,7 +3073,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
-    <value>デフォルトでは、haXe のコード補完は haXe コンパイラと FlashDevelop の自動補完の両方を組み合わせてて仕様されます。</value>
+    <value>デフォルトでは、haXe のコード補完は haXe コンパイラと FlashDevelop の自動補完の両方を組み合わせて使用されます。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
@@ -3080,7 +3081,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
-    <value>どこに新しいプロパティ( getter, setter) を作成するか設定します。</value>
+    <value>どこに新しいプロパティ( getter, setter )を作成するかを設定します。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
