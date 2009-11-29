@@ -1,51 +1,50 @@
 ﻿アーギュメントを選択...
 - メイン -----------------------------------------------------------------------
-$(EntryPoint)     - 選択の開始位置
-$(ExitPoint)      - 選択の終了位置
-$(Boundary)       - すべてのテキストの境界に間を保持する
-$(CSLB)           - コーディングスタイルによって改行を入れる
-$(CBI)            - コメントブロックインデント 
+$(EntryPoint) - 選択の開始位置
+$(ExitPoint) - 選択の終了位置
+$(Boundary) - すべてのテキストの境界に間を保持する
+$(CSLB) - コーディングスタイルによって改行を入れる
+$(CBI) - コメントブロックインデント
 
 - テキスト ---------------------------------------------------------------------
-$(SelText)        - 選択済みテキスト 
-$(CurWord)        - カーソル位置の単語 
-$(CurSyntax)      - 現在の構文
-$(Clipboard)      - クリップボードを呼び出す
+$(SelText) - 選択済みテキスト
+$(CurWord) - カーソル位置の単語 
+$(CurSyntax) - 現在の構文
+$(Clipboard) - クリップボードを呼び出す
 
 - ファイル ---------------------------------------------------------------------
-$(CurFile)        - 現在のファイル 
-$(CurFilename)    - 現在のファイルの名前
-$(CurDir)         - 現在のファイルのディレクトリ
+$(CurFile) - 現在のファイル 
+$(CurFilename) - 現在のファイルの名前
+$(CurDir) - 現在のファイルのディレクトリ
 
 - ディレクトリ -----------------------------------------------------------------
-$(DesktopDir)     - デスクトップ
-$(SystemDir)      - Windows システムフォルダ
-$(ProgramsDir)    - Program Files フォルダ
-$(PersonalDir)    - マイドキュメント フォルダ
-$(WorkingDir)     - 現在の作業フォルダ
-$(AppDir)         - FlashDevelop のインストールフォルダ
-$(BaseDir)        - FlashDevelop のファイルフォルダ
-$(UserAppDir)     - FlashDevelop のユーザフォルダ
+$(DesktopDir) - デスクトップ
+$(SystemDir) - Windows システムフォルダ
+$(ProgramsDir) - Program Files フォルダ
+$(PersonalDir) - マイドキュメント フォルダ
+$(WorkingDir) - 現在の作業フォルダ
+$(AppDir) - FlashDevelop のインストールフォルダ
+$(BaseDir) - FlashDevelop のファイルフォルダ
+$(UserAppDir) - FlashDevelop のユーザフォルダ
 
 - タイプ -----------------------------------------------------------------------
-$(TypPkg)         - タイプのパッケージ
-$(TypName)        - タイプ名
-$(TypPkgName)     - パッケージ＋タイプ名
-$(TypKind)        - タイプの種類( interface, class )
+$(TypPkg) - タイプのパッケージ
+$(TypName) - タイプ名
+$(TypPkgName) - パッケージ＋タイプ名
+$(TypKind) - タイプの種類( interface, class )
 
 - メンバ -----------------------------------------------------------------------
-$(MbrName)        - 現在のメンバ、現在のメソッド
-$(MbrKind)        - メンバの種類( const, var, function )
-$(MbrTypPkg)      - メンバのタイプのパッケージ
-$(MbrTypName)     - メンバのタイプ名
-$(MbrTypePkgName) - メンバのタイプのパッケージ名
-$(MbrTypKind)     - メンバのタイプの種類( interface, class )
+$(MbrName) - 現在のメンバ、現在のメソッド
+$(MbrKind) - メンバの種類( const, var, function )
+$(MbrTypPkg) - メンバのタイプのパッケージ
+$(MbrTypName) - メンバのタイプ名
+$(MbrTypePkgName) - メンバのパッケージ＋タイプ名
+$(MbrTypKind) - メンバのタイプの種類( interface, class )
 
-- アイテム ---------------------------------------------------------------------
-$(ItmTypName)     - カーソルの位置にあるアイテムのタイプ名
-$(ItmFile)        - アイテムが宣言されたファイル
-$(ItmKind)        - アイテムの種類( const, var, function ) 
-$(ItmTypPkg)      - アイテムのタイプのパッケージ
-$(ItmTypName)     - アイテムのタイプ名
-$(ItmTypePkgName) - アイテムのタイプのパッケージ
-$(ItmTypKind)     - アイテムのタイプの種類( interface, class )
+- カーソル位置のアイテム -------------------------------------------------------
+$(ItmFile) - アイテムが宣言されたファイル
+$(ItmKind) - アイテムの種類( const, var, function ) 
+$(ItmTypPkg) - アイテムのタイプのパッケージ
+$(ItmTypName) - アイテムのタイプ名
+$(ItmTypePkgName) - アイテムのパッケージ＋タイプ名
+$(ItmTypKind) - アイテムのタイプの種類( interface, class )
