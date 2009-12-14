@@ -134,25 +134,18 @@ namespace XMLCompletion
             if (expr.Length == 0) 
                 return "";
 
-            string res = "";
-            if (expr[0] == '<') res = expr;
-            else
-            {
-                string[] parts = expr.Split('+');
-                foreach (string part in parts)
-                    res += expandExpressionPart(part);
-            }
-            int p = res.IndexOf('|');
-            res = res.Replace("|", "");
-            return res.Substring(0, p) + "$(EntryPoint)" + res.Substring(p);
+            string src = expr[0] == '<' ? expr : expandZen(expr);
+            int p = src.IndexOf('|');
+            src = src.Replace("|", "");
+            return src.Substring(0, p) + "$(EntryPoint)" + src.Substring(p);
         }
 
-        private static string expandExpressionPart(string expr)
+        private static string expandZen(string expr)
         {
             if (expr.Length == 0) 
-                throw new ZenExpandException("Empty expression found (expr1+expr2)");
+                throw new ZenExpandException("Empty expression found");
 
-            string res = "";
+            string src = "";
             string[] parts = expr.Split('>');
             Array.Reverse(parts);
             bool inline = true;
@@ -160,75 +153,83 @@ namespace XMLCompletion
             {
                 if (part.Length == 0)
                     throw new ZenExpandException("Empty sub-expression found (sub1>sub2)");
-                int multiply = 1;
-                string tag = part;
-                string mult = extractEnd('*', ref tag);
-                if (mult != null)
+
+                string subSrc = src;
+                src = "";
+                string[] sparts = part.Split('+');
+                foreach (string spart in sparts)
                 {
-                    multiply = -1;
-                    int.TryParse(mult, out multiply);
-                    if (multiply < 0) 
+                    if (spart.Length == 0)
+                        throw new ZenExpandException("Empty sub-expression part found (part1+part2)");
+
+                    int multiply = 1;
+                    string tag = spart;
+                    string mult = extractEnd('*', ref tag);
+                    if (mult != null)
+                    {
+                        multiply = -1;
+                        int.TryParse(mult, out multiply);
+                        if (multiply < 0)
                             throw new ZenExpandException("Invalid multiplier value (" + mult + ")");
-                }
-                string css = "";
-                string cssClass;
-                do
-                {
-                    cssClass = extractEnd('.', ref tag);
-                    if (cssClass != null) css = cssClass + " " + css;
-                }
-                while (cssClass != null);
-                string id = extractEnd('#', ref tag);
-
-                string attr = "";
-                if (id != null) attr += " id=\"" + id + "\"";
-                if (css.Length > 0) attr += " class=\"" + css.Trim() + "\"";
-                bool closedTag = false;
-                if (expandos.ContainsKey(tag))
-                {
-                    tag = (string)expandos[tag];
-                    if (tag[0] == '<') closedTag = true;
-                }
-                if (attribs.ContainsKey(tag)) attr += " " + (string)attribs[tag];
-                extractEnd(':', ref tag);
-
-                string temp;
-                if (closedTag)
-                {
-                    inline = false;
-                    if (tag.Length > 2 && tag[1] != '!')
-                    {
-                        int sp = tag.IndexOf(' ');
-                        temp = tag.Substring(0, sp) + attr + tag.Substring(sp);
                     }
-                    else temp = tag;
-                    res = "";
-                }
-                else 
-                {
-                    string wrapIn = "";
-                    string wrapOut = "";
-                    if (res.Length > 0 && !inline)
+                    string css = "";
+                    string cssClass;
+                    do
                     {
-                        wrapIn = "\n" + "\t";
-                        wrapOut = "\n";
-                        res = addIndent(res);
+                        cssClass = extractEnd('.', ref tag);
+                        if (cssClass != null) css = cssClass + " " + css;
                     }
-                    if (res.Length == 0) res = "|";
-                    
-                    inline = isInline(tag);
-                    string subRes = res;
-                    res = "";
-                    temp = "<" + tag + attr + ">" + wrapIn + subRes + wrapOut + "</" + tag + ">";
-                }
+                    while (cssClass != null);
+                    string id = extractEnd('#', ref tag);
 
-                for (int i = 1; i <= multiply; i++)
-                {
-                    res += temp.Replace("$", i.ToString());
-                    if (!inline) res += "\n";
+                    string attr = "";
+                    if (id != null) attr += " id=\"" + id + "\"";
+                    if (css.Length > 0) attr += " class=\"" + css.Trim() + "\"";
+                    bool closedTag = false;
+                    if (expandos.ContainsKey(tag))
+                    {
+                        tag = (string)expandos[tag];
+                        if (tag[0] == '<') closedTag = true;
+                    }
+                    if (attribs.ContainsKey(tag)) attr += " " + (string)attribs[tag];
+                    extractEnd(':', ref tag);
+
+                    string master;
+                    string temp = spart == sparts[sparts.Length - 1] ? subSrc : "";
+                    if (closedTag)
+                    {
+                        inline = true;
+                        if (tag.Length > 2 && tag[1] != '!')
+                        {
+                            int sp = tag.IndexOf(' ');
+                            master = tag.Substring(0, sp) + attr + tag.Substring(sp);
+                        }
+                        else master = tag;
+                    }
+                    else
+                    {
+                        string wrapIn = "";
+                        string wrapOut = "";
+                        if (temp.Length > 0 && !inline)
+                        {
+                            wrapIn = "\n" + "\t";
+                            wrapOut = "\n";
+                            temp = addIndent(temp);
+                        }
+                        if (temp.Length == 0) temp = "|";
+
+                        inline = sparts.Length == 1 && isInline(tag);
+                        master = "<" + tag + attr + ">" + wrapIn + temp + wrapOut + "</" + tag + ">";
+                    }
+
+                    for (int i = 1; i <= multiply; i++)
+                    {
+                        src += master.Replace("$", i.ToString());
+                        if (!inline) src += "\n";
+                    }
                 }
             }
-            return res;
+            return src;
         }
 
         private static string addIndent(string res)

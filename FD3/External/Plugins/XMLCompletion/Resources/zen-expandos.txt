@@ -1,6 +1,6 @@
 ﻿ul+			ul>li
 ol+			ol>li
-dl+			dl>dt
+dl+			dl>dt+dt
 table+		table>tr>td
 tr+			tr>td
 colgroup+	colgroup>col
@@ -11,11 +11,13 @@ optg+		optgroup>option
 cd			<![CDATA[|]]>
 cc			<!-- | -->
 cc:ie		<!--[if IE]>|<![endif]-->
+cc:ie6		<!--[if lte IE 6]>|<![endif]-->
 cc:noie		<!--[if !IE]><!-->|<!--<![endif]-->
-link:css	<link rel="stylesheet" type="text/css" href="style.css" media="all"/>
-link:print	<link rel="stylesheet" type="text/css" href="print.css" media="print"/>
-link:favicon	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-link:touch	<link rel="apple-touch-icon" href="favicon.png"/>
+link		<link rel="stylesheet" type="text/css" href="|"/>
+link:css	<link rel="stylesheet" type="text/css" href="|"/>
+link:print	<link rel="stylesheet" type="text/css" href="|" media="print"/>
+link:favicon	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico|"/>
+link:touch	<link rel="apple-touch-icon" href="favicon.png|"/>
 link:rss	<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml"/>
 link:atom	<link rel="alternate" type="application/atom+xml" title="Atom" href="atom.xml"/>
 meta:utf	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
