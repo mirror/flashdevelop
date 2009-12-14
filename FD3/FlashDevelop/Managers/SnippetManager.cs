@@ -12,6 +12,8 @@ using PluginCore.Controls;
 using PluginCore.Helpers;
 using ScintillaNet;
 using PluginCore;
+using PluginCore.Managers;
+using System.Collections;
 
 namespace FlashDevelop.Managers
 {
@@ -47,6 +49,7 @@ namespace FlashDevelop.Managers
         {
             ScintillaControl sci = Globals.SciControl;
             if (sci == null) return false;
+
             Boolean canShowList = false; 
             String snippet = null;
             if (word == null)
@@ -58,6 +61,16 @@ namespace FlashDevelop.Managers
             {
                 snippet = GetSnippet(word, sci.ConfigurationLanguage, sci.Encoding);
             }
+
+            // let plugins handle the snippet
+            Hashtable data = new Hashtable();
+            data["word"] = word;
+            data["snippet"] = snippet;
+            DataEvent de = new DataEvent(EventType.Command, "SnippetManager.Expand", data);
+            EventManager.DispatchEvent(Globals.MainForm, de);
+            if (de.Handled) return true;
+            snippet = (string)data["snippet"]; // may be replaced by a plugin
+
             if (snippet != null)
             {
                 Int32 curPos = sci.CurrentPos;

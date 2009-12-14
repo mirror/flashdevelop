@@ -36,20 +36,6 @@ namespace XMLCompletion
         private static List<ICompletionListItem> xmlBlocks;
         private static int justInsertedQuotesAt;
 
-        private class LanguageDef
-        {
-            public List<HTMLTag> KnownTags;
-            public List<string> Namespaces;
-            public string DefaultNS;
-
-            public LanguageDef(List<HTMLTag> knownTags, List<string> namespaces, string defaultNS)
-            {
-                KnownTags = knownTags;
-                Namespaces = namespaces;
-                DefaultNS = defaultNS;
-            }
-        }
-
         /// <summary>
         /// Gets or sets the current editable file
         /// </summary> 
@@ -73,9 +59,11 @@ namespace XMLCompletion
                 if (languageTags[ext] != null)
                 {
                     cType = XMLType.Known;
-                    knownTags = languageTags[ext].KnownTags;
-                    namespaces = languageTags[ext].Namespaces;
-                    defaultNS = languageTags[ext].DefaultNS;
+                    LanguageDef def = languageTags[ext];
+                    knownTags = def.KnownTags;
+                    namespaces = def.Namespaces;
+                    defaultNS = def.DefaultNS;
+                    ZenCoding.lang = def;
                     return;
                 }
                 if (lang == "xml" || lang == "html") cType = XMLType.XML;
@@ -314,8 +302,9 @@ namespace XMLCompletion
                             // Insert blank line if we pressed Enter between a tag & it's closing tag
                             Int32 indent = sci.GetLineIndentation(line2 + 1);
 							String checkStart = null;
-							if (text.EndsWith("<!--")) checkStart = "-->";
-							else if (text.EndsWith("<![CDATA[")) checkStart = "]]>";
+                            bool subIndent = true;
+							if (text.EndsWith("<!--")) { checkStart = "-->"; subIndent = false; }
+							else if (text.EndsWith("<![CDATA[")) { checkStart = "]]>"; subIndent = false; }
 							else if (ctag.Name != null) checkStart = "</"+ctag.Name;
 							if (checkStart != null)
 							{
@@ -327,7 +316,8 @@ namespace XMLCompletion
 								}
 							}
                             // Indent the code
-							sci.SetLineIndentation(line, indent+sci.Indent);
+                            if (subIndent) indent += sci.Indent;
+                            sci.SetLineIndentation(line, indent);
 							position = sci.LineIndentPosition(line);
 							sci.SetSel(position, position);
 							return;
@@ -549,6 +539,17 @@ namespace XMLCompletion
 						}						
 					}
 					break;
+
+                case '\t':
+                    if (sci.SelText == "")
+                    {
+                        ctag = GetXMLContextTag(sci, position - 2);
+                        if (ctag.Tag == null)
+                        {
+
+                        }
+                    }
+                    break;
 			}
 		}
 		
@@ -712,6 +713,19 @@ namespace XMLCompletion
 
 		#endregion
 
-	}
+    }
 
+    public class LanguageDef
+    {
+        public List<HTMLTag> KnownTags;
+        public List<string> Namespaces;
+        public string DefaultNS;
+
+        public LanguageDef(List<HTMLTag> knownTags, List<string> namespaces, string defaultNS)
+        {
+            KnownTags = knownTags;
+            Namespaces = namespaces;
+            DefaultNS = defaultNS;
+        }
+    }
 }

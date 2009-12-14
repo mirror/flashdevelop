@@ -508,7 +508,7 @@ namespace PluginCore.FRService
                 // filters
                 if (filterComments || filterLiterals)
                 {
-                    if (literalMatch == 0)
+                    if (literalMatch == 0) // discover comments if not in a literal
                     {
                         if (commentMatch == 0)
                         {
@@ -528,7 +528,7 @@ namespace PluginCore.FRService
                             continue;
                     }
 
-                    if (commentMatch == 0)
+                    if (commentMatch == 0) // discover literals if not in a comment
                     {
                         if (literalMatch == 0)
                         {

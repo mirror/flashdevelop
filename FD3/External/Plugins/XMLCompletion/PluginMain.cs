@@ -10,6 +10,7 @@ using PluginCore.Utilities;
 using PluginCore.Helpers;
 using PluginCore.Controls;
 using PluginCore;
+using System.Collections;
 
 namespace XMLCompletion
 {
@@ -111,6 +112,16 @@ namespace XMLCompletion
                 case EventType.Keys:
                     e.Handled = XMLComplete.OnShortCut(((KeyEvent)e).Value);
                     break;
+
+                case EventType.Command:
+                    DataEvent de = (DataEvent)e;
+                    if (de.Action == "SnippetManager.Expand")
+                    {
+                        Hashtable data = (Hashtable)de.Data;
+                        if (ZenCoding.expandSnippet(data))
+                            de.Handled = true;
+                    }
+                    break;
             }
 		}
 		
@@ -134,7 +145,7 @@ namespace XMLCompletion
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventType eventType = EventType.FileSwitch | EventType.SyntaxChange | EventType.Keys;
+            EventType eventType = EventType.FileSwitch | EventType.SyntaxChange | EventType.Keys | EventType.Command;
             EventManager.AddEventHandler(this, eventType);
         }
 
