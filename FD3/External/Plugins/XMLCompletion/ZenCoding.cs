@@ -102,7 +102,7 @@ namespace XMLCompletion
                         if (lastValid - 1 <= pos) break;
                         lastValid = pos + 1;
                     }
-                    else if ("abcdefghijklmnopqrstuvwxyz0123456789+*$.#:-".IndexOf(c) < 0) break;
+                    else if (!Char.IsLetterOrDigit(c) && "+*$.#:-".IndexOf(c) < 0) break;
                     pos--;
                     c = (char)sci.CharAt(pos);
                 }
@@ -196,8 +196,12 @@ namespace XMLCompletion
                 if (closedTag)
                 {
                     inline = false;
-                    int sp = tag.IndexOf(' ');
-                    temp = tag.Substring(0, sp) + attr + tag.Substring(sp);
+                    if (tag.Length > 2 && tag[1] != '!')
+                    {
+                        int sp = tag.IndexOf(' ');
+                        temp = tag.Substring(0, sp) + attr + tag.Substring(sp);
+                    }
+                    else temp = tag;
                     res = "";
                 }
                 else 

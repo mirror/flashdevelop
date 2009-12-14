@@ -20,7 +20,9 @@ link:rss	<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.
 link:atom	<link rel="alternate" type="application/atom+xml" title="Atom" href="atom.xml"/>
 meta:utf	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 meta:win	<meta http-equiv="Content-Type" content="text/html;charset=Win-1251"/>
+meta:lang	<meta http-equiv="content-language" content="en-us|" />
 meta:compat	<meta http-equiv="X-UA-Compatible" content="IE=7"/>
+meta:refresh	<meta http-equiv="refresh" content="1;url=|"/>
 img			<img src="|" alt=""/>
 param		<param name="|" value=""/>
 input		<input type="|"/>
