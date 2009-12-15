@@ -26,7 +26,7 @@ package flash.ui
 		public function get visible () : Boolean;
 		public function set visible (value:Boolean) : void;
 
-		/// Creates and returns a copy of the specified ContextMenuItem object.
+		/// Creates a copy of the NativeMenuItem object.
 		public function clone () : NativeMenuItem;
 
 		/// Creates a new ContextMenuItem object that can be added to the ContextMenu.customItems array.

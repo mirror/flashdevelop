@@ -9,60 +9,12 @@ package flash.net
 	import flash.net.Responder;
 
 	/**
-	 * Establishes a listener to respond when a NetStream object has completely played a stream.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onPlayStatus", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when an embedded cue point is reached while playing a video file.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onCuePoint", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives text data embedded in a media file that is playing.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onTextData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives image data as a byte array embedded in a media file that is playing.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onImageData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives descriptive information embedded in the video being played.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onMetaData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives information specific to Adobe Extensible Metadata Platform (XMP) embedded in the video being played.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onXMPData", type="flash.events")] 
-
-	/**
-	 * Dispatched when a NetStream object is reporting its status or error condition.
-	 * @eventType flash.events.NetStatusEvent.NET_STATUS
-	 */
-	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
-
-	/**
-	 * Dispatched when an input or output error occurs that causes a network operation to fail.
-	 * @eventType flash.events.IOErrorEvent.IO_ERROR
-	 */
-	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
-
-	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */
 	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
-	/// The NetStream class opens a one-way streaming connection between Flash Player and Flash Media Server, or between Flash Player and the local file system.
+	/// The NetStream class opens a one-way streaming connection between an AIR or Flash Player application and Flash Media Server, or between an AIR or Flash Player application and the local file system.
 	public class NetStream extends EventDispatcher
 	{
 		public function get audioCodec () : uint;
@@ -74,13 +26,13 @@ package flash.net
 		public function get bufferTime () : Number;
 		public function set bufferTime (bufferTime:Number) : void;
 
-		/// The number of bytes of data that have been loaded into Flash Player.
+		/// The number of bytes of data that have been loaded into the application.
 		public function get bytesLoaded () : uint;
 
-		/// The total size in bytes of the file being loaded into Flash Player.
+		/// The total size in bytes of the file being loaded into the application.
 		public function get bytesTotal () : uint;
 
-		/// Specifies whether Flash Player should try to download a URL policy file from the loaded video file's server before beginning to load the video file.
+		/// Specifies whether the application should try to download a cross-domain policy file from the loaded video file's server before beginning to load the video file.
 		public function get checkPolicyFile () : Boolean;
 		public function set checkPolicyFile (state:Boolean) : void;
 
@@ -123,7 +75,7 @@ package flash.net
 		/// Pauses playback of a video stream.
 		public function pause () : void;
 
-		/// Begins playback of video files.
+		/// Plays media files.
 		public function play (...rest) : void;
 
 		/// Sends streaming audio, video, and text messages from a client to Flash Media Server, optionally recording the stream during transmission.

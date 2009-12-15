@@ -3,7 +3,7 @@ package flash.events
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 
-	/// Flash Player dispatches MouseEvent objects into the event flow whenever mouse events occur.
+	/// A MouseEvent object is dispatched into the event flow whenever mouse events occur.
 	public class MouseEvent extends Event
 	{
 		/// Defines the value of the type property of a click event object.
@@ -35,7 +35,7 @@ package flash.events
 		public function get buttonDown () : Boolean;
 		public function set buttonDown (value:Boolean) : void;
 
-		/// Indicates whether the Control key is active (true) or inactive (false).
+		/// On Windows or Linux, indicates whether the Ctrl key is active (true) or inactive (false).
 		public function get ctrlKey () : Boolean;
 		public function set ctrlKey (value:Boolean) : void;
 
@@ -74,7 +74,7 @@ package flash.events
 		/// Returns a string that contains all the properties of the MouseEvent object.
 		public function toString () : String;
 
-		/// Instructs Flash Player to render after processing of this event completes, if the display list has been modified.
+		/// Instructs Flash Player or Adobe AIR to render after processing of this event completes, if the display list has been modified.
 		public function updateAfterEvent () : void;
 	}
 }

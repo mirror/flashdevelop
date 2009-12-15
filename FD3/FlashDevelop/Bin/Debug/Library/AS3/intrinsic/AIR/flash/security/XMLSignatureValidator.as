@@ -24,52 +24,53 @@ package flash.security
 	/// The XMLSignatureValidator class validates whether an XML signature file is well formed, unmodified, and, optionally, whether it is signed using a key linked to a trusted digital certificate.
 	public class XMLSignatureValidator extends EventDispatcher
 	{
-		/// [AIR] The validity status of the cryptographic signature computed over the SignedInfo element.
+		/// The validity status of the cryptographic signature computed over the SignedInfo element.
 		public function get digestStatus () : String;
 
-		/// [AIR] The validity status of the signing certificate.
+		/// The validity status of the signing certificate.
 		public function get identityStatus () : String;
 
-		/// [AIR] The validity status of the digest of all the references in the SignedInfo element.
+		/// The validity status of the data in the references in the SignedInfo element.
 		public function get referencesStatus () : String;
 
+		/// Specifies the conditions under which references are checked.
 		public function get referencesValidationSetting () : String;
 		public function set referencesValidationSetting (setting:String) : void;
 
-		/// [AIR] Specifies how certificate revocation is checked.
+		/// Specifies how certificate revocation is checked.
 		public function get revocationCheckSetting () : String;
 		public function set revocationCheckSetting (setting:String) : void;
 
-		/// [AIR] The Common Name field of the signing certificate.
+		/// The Common Name field of the signing certificate.
 		public function get signerCN () : String;
 
-		/// [AIR] The Distinguished Name field of the signing certificate.
+		/// The Distinguished Name field of the signing certificate.
 		public function get signerDN () : String;
 
-		/// [AIR] An array containing the Extended Key Usages OIDs listed in the signing certificate.
+		/// An array containing the Extended Key Usages OIDs listed in the signing certificate.
 		public function get signerExtendedKeyUsages () : Array;
 
-		/// [AIR] An array containing the trust settings of the signing certificate.
+		/// An array containing the trust settings of the signing certificate.
 		public function get signerTrustSettings () : Array;
 
-		/// [AIR] The IURIDereferencer implementation.
+		/// The IURIDereferencer implementation.
 		public function get uriDereferencer () : IURIDereferencer;
 		public function set uriDereferencer (uriDerefer:IURIDereferencer) : void;
 
-		/// [AIR] Specifies that certificates in the system trust store are used for chain building.
+		/// Specifies that certificates in the system trust store are used for chain building.
 		public function get useSystemTrustStore () : Boolean;
 		public function set useSystemTrustStore (trusted:Boolean) : void;
 
-		/// [AIR] The validity status of a verified XML signature.
+		/// The validity status of a verified XML signature.
 		public function get validityStatus () : String;
 
-		/// [AIR] Adds an x509 certificate for chain building.
+		/// Adds an x509 certificate for chain building.
 		public function addCertificate (cert:ByteArray, trusted:Boolean) : *;
 
-		/// [AIR] Verifies the specified signature.
+		/// Verifies the specified signature.
 		public function verify (signature:XML) : void;
 
-		/// [AIR] Creates an XMLSignatureValidator object.
+		/// Creates an XMLSignatureValidator object.
 		public function XMLSignatureValidator ();
 	}
 }

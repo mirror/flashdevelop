@@ -4,9 +4,9 @@ package flash.display
 	public class NativeWindowSystemChrome extends Object
 	{
 		public static const ALTERNATE : String;
-		/// [AIR] No system chrome.
+		/// No system chrome.
 		public static const NONE : String;
-		/// [AIR] The standard chrome for the host operating system.
+		/// The standard chrome for the host operating system.
 		public static const STANDARD : String;
 
 		public function NativeWindowSystemChrome ();

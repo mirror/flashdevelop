@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash Player dispatches SecurityErrorEvent objects to report the occurrence of a security error.
+	/// An object dispatches a SecurityErrorEvent object to report the occurrence of a security error.
 	public class SecurityErrorEvent extends ErrorEvent
 	{
 		/// The SecurityErrorEvent.SECURITY_ERROR constant defines the value of the type property of a securityError event object.

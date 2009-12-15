@@ -4,12 +4,6 @@ package flash.net
 	import flash.net.Responder;
 
 	/**
-	 * Dispatched when a NetConnection object is reporting its status or error condition.
-	 * @eventType flash.events.NetStatusEvent.NET_STATUS
-	 */
-	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
-
-	/**
 	 * Dispatched if a call to NetConnection.call() attempts to connect to a server outside the caller's security sandbox.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */
@@ -27,20 +21,20 @@ package flash.net
 	 */
 	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
-	/// The NetConnection class creates a bidirectional connection between Flash Player and a Flash Media Server application or between Flash Player and an application server running Flash Remoting.
+	/// The NetConnection class creates a bidirectional connection between a Flash Player or AIR an AIR application and a Flash Media Server application or between a Flash Player or AIR an AIR application and an application server running Flash Remoting.
 	public class NetConnection extends EventDispatcher
 	{
 		/// Indicates the object on which callback methods should be invoked.
 		public function get client () : Object;
 		public function set client (object:Object) : void;
 
-		/// Indicates whether Flash Player is connected to a server through a persistent RTMP connection (true) or not (false).
+		/// Indicates whether the application is connected to a server through a persistent RTMP connection (true) or not (false).
 		public function get connected () : Boolean;
 
 		/// The proxy type used to make a successful NetConnection.connect() call to Flash Media Server: "none", "HTTP", "HTTPS", or "CONNECT".
 		public function get connectedProxyType () : String;
 
-		/// The default object encoding for NetConnection objects created in the SWF file.
+		/// The default object encoding for NetConnection objects.
 		public static function get defaultObjectEncoding () : uint;
 		public static function set defaultObjectEncoding (version:uint) : void;
 
@@ -67,7 +61,7 @@ package flash.net
 		/// Closes the connection that was opened locally or to the server and dispatches a netStatus event with a code property of NetConnection.Connect.Closed.
 		public function close () : void;
 
-		/// Creates a bidirectional connection between Flash Player and a Flash Media Server application.
+		/// Creates a bidirectional connection between a Flash Player or AIR an AIR application and a Flash Media Server application.
 		public function connect (command:String, ...rest) : void;
 
 		/// Creates a NetConnection object.

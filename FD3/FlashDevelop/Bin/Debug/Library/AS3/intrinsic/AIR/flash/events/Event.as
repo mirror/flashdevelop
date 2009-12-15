@@ -5,7 +5,7 @@ package flash.events
 	/// The Event class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.
 	public class Event extends Object
 	{
-		/// The Event.ACTIVATE constant defines the value of the type property of an activate event object.
+		/// The ACTIVATE constant defines the value of the type property of an activate event object.
 		public static const ACTIVATE : String = "activate";
 		/// The Event.ADDED constant defines the value of the type property of an added event object.
 		public static const ADDED : String = "added";
@@ -15,11 +15,11 @@ package flash.events
 		public static const CANCEL : String = "cancel";
 		/// The Event.CHANGE constant defines the value of the type property of a change event object.
 		public static const CHANGE : String = "change";
-		/// Defines the value of the type property of a clear event object.
+		/// The Event.CLEAR constant efines the value of the type property of a clear event object.
 		public static const CLEAR : String = "clear";
 		/// The Event.CLOSE constant defines the value of the type property of a close event object.
 		public static const CLOSE : String = "close";
-		/// [AIR] The Event.CLOSING constant defines the value of the type property of a closing event object.
+		/// The Event.CLOSING constant defines the value of the type property of a closing event object.
 		public static const CLOSING : String = "closing";
 		/// The Event.COMPLETE constant defines the value of the type property of a complete event object.
 		public static const COMPLETE : String = "complete";
@@ -31,37 +31,37 @@ package flash.events
 		public static const CUT : String = "cut";
 		/// The Event.DEACTIVATE constant defines the value of the type property of a deactivate event object.
 		public static const DEACTIVATE : String = "deactivate";
-		/// [AIR] Defines the value of the type property of a displaying event object.
+		/// The Event.DISPLAYING constant defines the value of the type property of a displaying event object.
 		public static const DISPLAYING : String = "displaying";
 		/// The Event.ENTER_FRAME constant defines the value of the type property of an enterFrame event object.
 		public static const ENTER_FRAME : String = "enterFrame";
-		/// Defines the value of the type property of an exitFrame event object.
+		/// The Event.EXIT_FRAME constant defines the value of the type property of an exitFrame event object.
 		public static const EXIT_FRAME : String = "exitFrame";
-		/// [AIR] The Event.EXITING constant defines the value of the type property of an exiting event object.
+		/// The Event.EXITING constant defines the value of the type property of an exiting event object.
 		public static const EXITING : String = "exiting";
-		/// Defines the value of the type property of an frameConstructed event object.
+		/// The Event.FRAME_CONSTRUCTED constant defines the value of the type property of an frameConstructed event object.
 		public static const FRAME_CONSTRUCTED : String = "frameConstructed";
 		/// The Event.FULL_SCREEN constant defines the value of the type property of a fullScreen event object.
 		public static const FULLSCREEN : String = "fullscreen";
-		/// [AIR] The Event.HTML_BOUNDS_CHANGE constant defines the value of the type property of an htmlBoundsChange event object.
+		/// The Event.HTML_BOUNDS_CHANGE constant defines the value of the type property of an htmlBoundsChange event object.
 		public static const HTML_BOUNDS_CHANGE : String = "htmlBoundsChange";
-		/// [AIR] The Event.HTML_DOM_INITIALIZE constant defines the value of the type property of an htmlDOMInitialize event object.
+		/// The Event.HTML_DOM_INITIALIZE constant defines the value of the type property of an htmlDOMInitialize event object.
 		public static const HTML_DOM_INITIALIZE : String = "htmlDomInitialize";
-		/// [AIR] The Event.HTML_RENDER constant defines the value of the type property of an htmlRender event object.
+		/// The Event.HTML_RENDER constant defines the value of the type property of an htmlRender event object.
 		public static const HTML_RENDER : String = "htmlRender";
 		/// The Event.ID3 constant defines the value of the type property of an id3 event object.
 		public static const ID3 : String = "id3";
 		/// The Event.INIT constant defines the value of the type property of an init event object.
 		public static const INIT : String = "init";
-		/// [AIR] The Event.LOCATION_CHANGE constant defines the value of the type property of a locationChange event object.
+		/// The Event.LOCATION_CHANGE constant defines the value of the type property of a locationChange event object.
 		public static const LOCATION_CHANGE : String = "locationChange";
 		/// The Event.MOUSE_LEAVE constant defines the value of the type property of a mouseLeave event object.
 		public static const MOUSE_LEAVE : String = "mouseLeave";
-		/// [AIR] The Event.NETWORK_CHANGE constant defines the value of the type property of a networkChange event object.
+		/// The Event.NETWORK_CHANGE constant defines the value of the type property of a networkChange event object.
 		public static const NETWORK_CHANGE : String = "networkChange";
 		/// The Event.OPEN constant defines the value of the type property of an open event object.
 		public static const OPEN : String = "open";
-		/// Defines the value of the type property of a paste event object.
+		/// The Event.PASTE constant defines the value of the type property of a paste event object.
 		public static const PASTE : String = "paste";
 		/// The Event.REMOVED constant defines the value of the type property of a removed event object.
 		public static const REMOVED : String = "removed";
@@ -75,7 +75,7 @@ package flash.events
 		public static const SCROLL : String = "scroll";
 		/// The Event.SELECT constant defines the value of the type property of a select event object.
 		public static const SELECT : String = "select";
-		/// Defines the value of the type property of a selectAll event object.
+		/// The Event.SELECT_ALL constant defines the value of the type property of a selectAll event object.
 		public static const SELECT_ALL : String = "selectAll";
 		/// The Event.SOUND_COMPLETE constant defines the value of the type property of a soundComplete event object.
 		public static const SOUND_COMPLETE : String = "soundComplete";
@@ -87,9 +87,9 @@ package flash.events
 		public static const TAB_INDEX_CHANGE : String = "tabIndexChange";
 		/// The Event.UNLOAD constant defines the value of the type property of an unload event object.
 		public static const UNLOAD : String = "unload";
-		/// [AIR] The Event.USER_IDLE constant defines the value of the type property of a userIdle event object.
+		/// The Event.USER_IDLE constant defines the value of the type property of a userIdle event object.
 		public static const USER_IDLE : String = "userIdle";
-		/// [AIR] The Event.USER_PRESENT constant defines the value of the type property of a userPresent event object.
+		/// The Event.USER_PRESENT constant defines the value of the type property of a userPresent event object.
 		public static const USER_PRESENT : String = "userPresent";
 
 		/// Indicates whether an event is a bubbling event.

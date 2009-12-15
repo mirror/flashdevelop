@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text;
+using ProjectManager.Helpers;
 
 namespace ProjectManager.Projects
 {
-	class FileInspector
+	public class FileInspector
 	{
         public static string[] ExecutableFileTypes = null;
 
@@ -141,7 +142,13 @@ namespace ProjectManager.Projects
 
         public static bool IsProject(string path, string ext)
         {
-            return IsAS2Project(path, ext) || IsAS3Project(path, ext) || IsHaxeProject(path, ext);
+            return ProjectCreator.IsKnownProject(ext) || IsAS2Project(path, ext) || IsAS3Project(path, ext) || IsHaxeProject(path, ext);
+        }
+
+        public static bool IsCustomProject(string path, string ext)
+        {
+            return (!IsAS2Project(path, ext) && !IsAS3Project(path, ext) &&
+                !IsHaxeProject(path, ext)) && ProjectCreator.IsKnownProject(ext);
         }
 
         public static bool IsTemplate(string path, string ext)

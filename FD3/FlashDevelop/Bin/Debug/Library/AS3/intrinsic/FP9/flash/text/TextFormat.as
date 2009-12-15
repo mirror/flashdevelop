@@ -58,7 +58,7 @@ package flash.text
 		public function get rightMargin () : Object;
 		public function set rightMargin (value:Object) : void;
 
-		/// The point size of text in this text format.
+		/// The size in pixels of text in this text format.
 		public function get size () : Object;
 		public function set size (value:Object) : void;
 

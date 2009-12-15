@@ -64,7 +64,7 @@ namespace ProjectManager.Actions
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = " " + TextHelper.GetString("Title.OpenProjectDialog");
-            dialog.Filter = TextHelper.GetString("Info.ProjectsFilter");
+            dialog.Filter = ProjectCreator.GetProjectFilters();
 
             if (dialog.ShowDialog(owner) == DialogResult.OK)
                 return OpenProjectSilent(dialog.FileName);

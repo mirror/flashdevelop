@@ -72,7 +72,7 @@ package flash.text
 		public function get condenseWhite () : Boolean;
 		public function set condenseWhite (value:Boolean) : void;
 
-		/// Specifies the format applied to newly inserted text, such as text inserted with the replaceSelectedText() method or text entered by a user.
+		/// Specifies the format applied to newly inserted text, such as text entered by a user or text inserted with the replaceSelectedText() method.
 		public function get defaultTextFormat () : TextFormat;
 		public function set defaultTextFormat (format:TextFormat) : void;
 

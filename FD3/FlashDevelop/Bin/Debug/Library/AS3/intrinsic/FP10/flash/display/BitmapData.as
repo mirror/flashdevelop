@@ -9,7 +9,7 @@ package flash.display
 	import flash.geom.Matrix;
 	import flash.utils.ByteArray;
 
-	/// The BitmapData class lets you work with the data (pixels) of a Bitmap object.
+	/// The BitmapData class lets you work with the data (pixels) of a Bitmap object bitmap image.
 	public class BitmapData extends Object implements IBitmapDrawable
 	{
 		/// The height of the bitmap image in pixels.
@@ -48,7 +48,7 @@ package flash.display
 		/// Frees memory that is used to store the BitmapData object.
 		public function dispose () : void;
 
-		/// Draws the source display object onto the bitmap image, using the Flash Player vector renderer.
+		/// Draws the source display object onto the bitmap image, using the Flash Player or  AIR vector renderer.
 		public function draw (source:IBitmapDrawable, matrix:Matrix = null, colorTransform:ColorTransform = null, blendMode:String = null, clipRect:Rectangle = null, smoothing:Boolean = false) : void;
 
 		/// Fills a rectangular area of pixels with a specified ARGB color.

@@ -8,7 +8,7 @@ package flash.system
 	{
 		/// Specifies the application domain to use for the Loader.load() or Loader.loadBytes() method.
 		public var applicationDomain : ApplicationDomain;
-		/// Specifies whether Flash Player should attempt to download a URL policy file from the loaded object's server before beginning to load the object itself.
+		/// Specifies whether the application should attempt to download a URL policy file from the loaded object's server before beginning to load the object itself.
 		public var checkPolicyFile : Boolean;
 		/// Specifies the security domain to use for a Loader.load() operation.
 		public var securityDomain : SecurityDomain;

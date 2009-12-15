@@ -59,10 +59,10 @@ package flash.security
 
 		public function useSystemTrustStore (trusted:Boolean) : void;
 
-		public function VerifySigASync (sig:String, data:String) : void;
+		public function VerifySigASync (sig:String, data:String, ignoreCertTime:Boolean) : void;
 
-		public function VerifySigSync (sig:String, data:String) : void;
+		public function VerifySigSync (sig:String, data:String, ignoreCertTime:Boolean) : void;
 
-		public function verifyTimestamp (tsp:String, data:String) : void;
+		public function verifyTimestamp (tsp:String, data:String, ignoreCertTime:Boolean) : void;
 	}
 }

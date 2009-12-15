@@ -3,11 +3,11 @@ package flash.security
 	/// The SignatureStatus class defines constants used by the validityStatus property of an XMLSignatureValidator object.
 	public class SignatureStatus extends Object
 	{
-		/// [AIR] Invalid status.
+		/// Invalid status.
 		public static const INVALID : String;
-		/// [AIR] Unknown status.
+		/// Unknown status.
 		public static const UNKNOWN : String;
-		/// [AIR] Valid status.
+		/// Valid status.
 		public static const VALID : String;
 
 		public function SignatureStatus ();

@@ -5,7 +5,7 @@ package flash.events
 	/// The Event class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.
 	public class Event extends Object
 	{
-		/// The Event.ACTIVATE constant defines the value of the type property of an activate event object.
+		/// The ACTIVATE constant defines the value of the type property of an activate event object.
 		public static const ACTIVATE : String = "activate";
 		/// The Event.ADDED constant defines the value of the type property of an added event object.
 		public static const ADDED : String = "added";

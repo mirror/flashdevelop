@@ -1,5 +1,8 @@
 package flash.display
 {
+	import private.IGraphicsPath;
+	import private.IGraphicsData;
+
 	/// A collection of drawing commands and the coordinate parameters for those commands.
 	public class GraphicsPath extends Object implements IGraphicsPath, IGraphicsData
 	{

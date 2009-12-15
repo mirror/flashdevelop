@@ -11,6 +11,30 @@ package flash.net
 	import flash.net.NetStreamPlayOptions;
 
 	/**
+	 * Dispatched when the digital rights management (DRM) encrypted content begins playing (when the user is authenticated and authorized to play the content).
+	 * @eventType flash.events.DRMStatusEvent.DRM_STATUS
+	 */
+	[Event(name="drmStatus", type="flash.events.DRMStatusEvent")] 
+
+	/**
+	 * Dispatched when a NetStream object, trying to play a digital rights management (DRM) encrypted file, encounters a DRM-related error.
+	 * @eventType flash.events.DRMErrorEvent.DRM_ERROR
+	 */
+	[Event(name="drmError", type="flash.events.DRMErrorEvent")] 
+
+	/**
+	 * Dispatched when a NetStream object tries to play a digital rights management (DRM) encrypted content that requires a user credential for authentication before playing.
+	 * @eventType flash.events.DRMAuthenticateEvent.DRM_AUTHENTICATE
+	 */
+	[Event(name="drmAuthenticate", type="flash.events.DRMAuthenticateEvent")] 
+
+	/**
+	 * Establishes a listener to respond when AIR extracts DRM content metadata embedded in a media file.
+	 * @eventType flash.events.
+	 */
+	[Event(name="onDRMContentData", type="flash.events")] 
+
+	/**
 	 * Establishes a listener to respond when a NetStream object has completely played a stream.
 	 * @eventType flash.events.
 	 */
@@ -64,7 +88,13 @@ package flash.net
 	 */
 	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
-	/// The NetStream class opens a one-way streaming connection between Flash Player and Flash Media Server, or between Flash Player and the local file system.
+	/**
+	 * Dispatched when the application attempts to play content encrypted with digital rights management (DRM), by invoking the NetStream.play() method.
+	 * @eventType flash.events.StatusEvent.STATUS
+	 */
+	[Event(name="status", type="flash.events.StatusEvent")] 
+
+	/// The NetStream class opens a one-way streaming connection between an AIR or Flash Player application and Flash Media Server, or between an AIR or Flash Player application and the local file system.
 	public class NetStream extends EventDispatcher
 	{
 		/// A static object used as a parameter to the constructor for a NetStream instance.
@@ -81,13 +111,13 @@ package flash.net
 		public function get bufferTime () : Number;
 		public function set bufferTime (bufferTime:Number) : void;
 
-		/// The number of bytes of data that have been loaded into Flash Player.
+		/// The number of bytes of data that have been loaded into the application.
 		public function get bytesLoaded () : uint;
 
-		/// The total size in bytes of the file being loaded into Flash Player.
+		/// The total size in bytes of the file being loaded into the application.
 		public function get bytesTotal () : uint;
 
-		/// Specifies whether Flash Player should try to download a URL policy file from the loaded video file's server before beginning to load the video file.
+		/// Specifies whether the application should try to download a cross-domain policy file from the loaded video file's server before beginning to load the video file.
 		public function get checkPolicyFile () : Boolean;
 		public function set checkPolicyFile (state:Boolean) : void;
 
@@ -112,7 +142,7 @@ package flash.net
 		/// The number of seconds of data in the subscribing stream's buffer in live (unbuffered) mode.
 		public function get liveDelay () : Number;
 
-		/// Specifies how long to buffer messages during pause mode.
+		/// Specifies how long to buffer messages during pause mode, in seconds.
 		public function get maxPauseBufferTime () : Number;
 		public function set maxPauseBufferTime (pauseBufferTime:Number) : void;
 
@@ -152,12 +182,13 @@ package flash.net
 		/// Pauses playback of a video stream.
 		public function pause () : void;
 
-		/// Begins playback of video files.
+		/// Plays media files.
 		public function play (...rest) : void;
 
 		/// Begins playback of media files, with several options for playback.
 		public function play2 (param:NetStreamPlayOptions) : void;
 
+		/// Extracts any DRM metadata from a locally stored media file.
 		public function preloadEmbeddedData (param:NetStreamPlayOptions) : void;
 
 		/// Sends streaming audio, video, and text messages from a client to Flash Media Server, optionally recording the stream during transmission.
@@ -172,6 +203,7 @@ package flash.net
 		/// Specifies the frame rate for incoming video.
 		public function receiveVideoFPS (FPS:Number) : void;
 
+		/// Deletes all locally cached digital rights management (DRM) voucher data.
 		public static function resetDRMVouchers () : void;
 
 		/// Resumes playback of a video stream that is paused.
@@ -183,6 +215,7 @@ package flash.net
 		/// Sends a message on a published stream to all subscribing clients.
 		public function send (handlerName:String, ...rest) : void;
 
+		/// Sets the DRM authentication credentials needed for viewing the underlying encrypted content.
 		public function setDRMAuthenticationCredentials (userName:String, password:String, type:String) : void;
 
 		/// Pauses or resumes playback of a stream.

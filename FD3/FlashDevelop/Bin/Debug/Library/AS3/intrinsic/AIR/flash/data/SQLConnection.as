@@ -24,6 +24,12 @@ package flash.data
 	[Event(name="rollback", type="flash.events.SQLEvent")] 
 
 	/**
+	 * Dispatched when a reencrypt() method call's operation completes successfully.
+	 * @eventType flash.events.SQLEvent.REENCRYPT
+	 */
+	[Event(name="reencrypt", type="flash.events.SQLEvent")] 
+
+	/**
 	 * Dispatched when an openAsync() method call's operation completes successfully.
 	 * @eventType flash.events.SQLEvent.OPEN
 	 */
@@ -104,83 +110,84 @@ package flash.data
 	/// A SQLConnection instance is used to manage the creation of and connection to local SQL database files (local databases).
 	public class SQLConnection extends EventDispatcher
 	{
-		/// [AIR] Indicates whether autocompacting was enabled when the current database was originally created (the value that was specified for the autoCompact parameter in the open() or openAsync() call that created the database).
+		/// Indicates whether autocompacting was enabled when the current database was originally created (the value that was specified for the autoCompact parameter in the open() or openAsync() call that created the database).
 		public function get autoCompact () : Boolean;
 
-		/// [AIR] Provides access to the cache size for this connection, which represents the maximum number of database disk pages that are held in memory at one time.
+		/// Provides access to the cache size for this connection, which represents the maximum number of database disk pages that are held in memory at one time.
 		public function get cacheSize () : uint;
 		public function set cacheSize (value:uint) : void;
 
-		/// [AIR] Indicates how column names are reported in the result of a SELECT statement.
+		/// Indicates how column names are reported in the result of a SELECT statement.
 		public function get columnNameStyle () : String;
 		public function set columnNameStyle (value:String) : void;
 
-		/// [AIR] Indicates whether the SQLConnection instance has an open connection to a database file.
+		/// Indicates whether the SQLConnection instance has an open connection to a database file.
 		public function get connected () : Boolean;
 
-		/// [AIR] Indicates whether this connection is currently involved in a transaction.
+		/// Indicates whether this connection is currently involved in a transaction.
 		public function get inTransaction () : Boolean;
 
-		/// [AIR] The last generated row identifier created by a SQL INSERT statement.
+		/// The last generated row identifier created by a SQL INSERT statement.
 		public function get lastInsertRowID () : Number;
 
-		/// [AIR] Indicates the database page size (in bytes) that was specified when the current database was originally created (the value that was specified for the pageSize parameter in the open() or openAsync() call that created the database).
+		/// Indicates the database page size (in bytes) that was specified when the current database was originally created (the value that was specified for the pageSize parameter in the open() or openAsync() call that created the database).
 		public function get pageSize () : uint;
 
-		/// [AIR] Contains the total number of data changes that have been made since the connection to the database was opened.
+		/// Contains the total number of data changes that have been made since the connection to the database was opened.
 		public function get totalChanges () : Number;
 
-		/// [AIR] Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
+		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
 		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
-		/// [AIR] Gathers statistics about database indices and stores them in the database.
+		/// Gathers statistics about database indices and stores them in the database.
 		public function analyze (resourceName:String = null, responder:Responder = null) : void;
 
-		/// [AIR] Adds another database to the SQLConnection instance, giving the new database the specified name.
+		/// Adds another database to the SQLConnection instance, giving the new database the specified name.
 		public function attach (name:String, reference:Object = null, responder:Responder = null, encryptionKey:ByteArray = null) : void;
 
-		/// [AIR] Begins a transaction within which all SQL statements executed against the connection's database or databases are grouped.
+		/// Begins a transaction within which all SQL statements executed against the connection's database or databases are grouped.
 		public function begin (option:String = null, responder:Responder = null) : void;
 
-		/// [AIR] Aborts all SQL statements that are currently executing on databases connected to the SQLConnection instance.
+		/// Aborts all SQL statements that are currently executing on databases connected to the SQLConnection instance.
 		public function cancel (responder:Responder = null) : void;
 
-		/// [AIR] Closes the current database connection.
+		/// Closes the current database connection.
 		public function close (responder:Responder = null) : void;
 
-		/// [AIR] Commits an existing transaction, causing any actions performed by the transaction's statements to be permanently applied to the database.
+		/// Commits an existing transaction, causing any actions performed by the transaction's statements to be permanently applied to the database.
 		public function commit (responder:Responder = null) : void;
 
-		/// [AIR] Reclaims all unused space in the database.
+		/// Reclaims all unused space in the database.
 		public function compact (responder:Responder = null) : void;
 
-		/// [AIR] Removes all statistical information created by a call to the analyze() method.
+		/// Removes all statistical information created by a call to the analyze() method.
 		public function deanalyze (responder:Responder = null) : void;
 
-		/// [AIR] Detaches an additional database previously attached to the SQLConnection instance using the attach() method.
+		/// Detaches an additional database previously attached to the SQLConnection instance using the attach() method.
 		public function detach (name:String, responder:Responder = null) : void;
 
-		/// [AIR] Provides access to the result of a call to the loadSchema() method.
+		/// Provides access to the result of a call to the loadSchema() method.
 		public function getSchemaResult () : SQLSchemaResult;
 
-		/// [AIR] Loads schema information from the connected database or any attached databases.
+		/// Loads schema information from the connected database or any attached databases.
 		public function loadSchema (type:Class = null, name:String = null, database:String = "main", includeColumnSchema:Boolean = true, responder:Responder = null) : void;
 
-		/// [AIR] Opens a connection to the database file at the specified location in the file system, or creates and opens a new database file at the location, or creates and opens an in-memory database.
+		/// Opens a connection to the database file at the specified location in the file system, or creates and opens a new database file at the location, or creates and opens an in-memory database.
 		public function open (reference:Object = null, openMode:String = "create", autoCompact:Boolean = false, pageSize:int = 1024, encryptionKey:ByteArray = null) : void;
 
-		/// [AIR] Opens a connection to the database file at the specified location in the file system, or creates and opens a new database file at the location, or creates and opens an in-memory database.
+		/// Opens a connection to the database file at the specified location in the file system, or creates and opens a new database file at the location, or creates and opens an in-memory database.
 		public function openAsync (reference:Object = null, openMode:String = "create", responder:Responder = null, autoCompact:Boolean = false, pageSize:int = 1024, encryptionKey:ByteArray = null) : void;
 
+		/// Changes the encryption key of an encrypted database.
 		public function reencrypt (newEncryptionKey:ByteArray, responder:Responder = null) : void;
 
-		/// [AIR] Removes a listener from the EventDispatcher object.
+		/// Removes a listener from the EventDispatcher object.
 		public function removeEventListener (type:String, listener:Function, useCapture:Boolean = false) : void;
 
-		/// [AIR] Rolls back an existing transaction created using the begin() method, meaning all changes made by any SQL statements in the transaction are discarded.
+		/// Rolls back an existing transaction created using the begin() method, meaning all changes made by any SQL statements in the transaction are discarded.
 		public function rollback (responder:Responder = null) : void;
 
-		/// [AIR] Creates a SQLConnection instance.
+		/// Creates a SQLConnection instance.
 		public function SQLConnection ();
 	}
 }

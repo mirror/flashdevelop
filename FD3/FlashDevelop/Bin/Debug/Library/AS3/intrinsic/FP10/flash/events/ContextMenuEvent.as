@@ -3,7 +3,7 @@ package flash.events
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 
-	/// Flash Player dispatches ContextMenuEvent objects when a user generates or interacts with the context menu.
+	/// An object dispatches a ContextMenuEvent object when the user generates or interacts with the context menu.
 	public class ContextMenuEvent extends Event
 	{
 		/// Defines the value of the type property of a menuItemSelect event object.

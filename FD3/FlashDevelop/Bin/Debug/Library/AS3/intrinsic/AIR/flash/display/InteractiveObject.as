@@ -7,6 +7,54 @@ package flash.display
 	import flash.ui.ContextMenuClipboardItems;
 
 	/**
+	 * Dispatched when the user selects the context menu associated with this interactive object in an AIR application.
+	 * @eventType flash.events.MouseEvent.CONTEXT_MENU
+	 */
+	[Event(name="contextMenu", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched by the drag initiator InteractiveObject when the user releases the drag gesture.
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_COMPLETE
+	 */
+	[Event(name="nativeDragComplete", type="flash.events.NativeDragEvent")] 
+
+	/**
+	 * Dispatched during a drag operation by the InteractiveObject that is specified as the drag initiator in the DragManager.doDrag() call.
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_UPDATE
+	 */
+	[Event(name="nativeDragUpdate", type="flash.events.NativeDragEvent")] 
+
+	/**
+	 * Dispatched at the beginning of a drag operation by the InteractiveObject that is specified as the drag initiator in the DragManager.doDrag() call.
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_START
+	 */
+	[Event(name="nativeDragStart", type="flash.events.NativeDragEvent")] 
+
+	/**
+	 * Dispatched by an InteractiveObject when a drag gesture leaves its boundary.
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_EXIT
+	 */
+	[Event(name="nativeDragExit", type="flash.events.NativeDragEvent")] 
+
+	/**
+	 * Dispatched by the target InteractiveObject when a dragged object is dropped on it and the drop has been accepted with a call to DragManager.acceptDragDrop().
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_DROP
+	 */
+	[Event(name="nativeDragDrop", type="flash.events.NativeDragEvent")] 
+
+	/**
+	 * Dispatched by an InteractiveObject continually while a drag gesture remains within its boundary.
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_OVER
+	 */
+	[Event(name="nativeDragOver", type="flash.events.NativeDragEvent")] 
+
+	/**
+	 * Dispatched by an InteractiveObject when a drag gesture enters its boundary.
+	 * @eventType flash.events.NativeDragEvent.NATIVE_DRAG_ENTER
+	 */
+	[Event(name="nativeDragEnter", type="flash.events.NativeDragEvent")] 
+
+	/**
 	 * Dispatched when the value of the object's tabIndex property changes.
 	 * @eventType flash.events.Event.TAB_INDEX_CHANGE
 	 */
@@ -37,6 +85,42 @@ package flash.display
 	[Event(name="keyDown", type="flash.events.KeyboardEvent")] 
 
 	/**
+	 * Dispatched when a user releases the pointing device button over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.RIGHT_MOUSE_UP
+	 */
+	[Event(name="rightMouseUp", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses the pointing device button over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.RIGHT_MOUSE_DOWN
+	 */
+	[Event(name="rightMouseDown", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses and releases the right button of the user's pointing device over the same InteractiveObject.
+	 * @eventType flash.events.MouseEvent.RIGHT_CLICK
+	 */
+	[Event(name="rightClick", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user releases the pointing device button over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MIDDLE_MOUSE_UP
+	 */
+	[Event(name="middleMouseUp", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses the middle pointing device button over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MIDDLE_MOUSE_DOWN
+	 */
+	[Event(name="middleMouseDown", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses and releases the middle button of the user's pointing device over the same InteractiveObject.
+	 * @eventType flash.events.MouseEvent.MIDDLE_CLICK
+	 */
+	[Event(name="middleClick", type="flash.events.MouseEvent")] 
+
+	/**
 	 * Dispatched when the user moves a pointing device over an InteractiveObject instance.
 	 * @eventType flash.events.MouseEvent.ROLL_OVER
 	 */
@@ -49,19 +133,19 @@ package flash.display
 	[Event(name="rollOut", type="flash.events.MouseEvent")] 
 
 	/**
-	 * Dispatched when a mouse wheel is spun over an InteractiveObject instance in the Flash Player window.
+	 * Dispatched when a mouse wheel is spun over an InteractiveObject instance.
 	 * @eventType flash.events.MouseEvent.MOUSE_WHEEL
 	 */
 	[Event(name="mouseWheel", type="flash.events.MouseEvent")] 
 
 	/**
-	 * Dispatched when a user releases the pointing device button over an InteractiveObject instance in the Flash Player window.
+	 * Dispatched when a user releases the pointing device button over an InteractiveObject instance.
 	 * @eventType flash.events.MouseEvent.MOUSE_UP
 	 */
 	[Event(name="mouseUp", type="flash.events.MouseEvent")] 
 
 	/**
-	 * Dispatched when the user moves a pointing device over an InteractiveObject instance in the Flash Player window.
+	 * Dispatched when the user moves a pointing device over an InteractiveObject instance.
 	 * @eventType flash.events.MouseEvent.MOUSE_OVER
 	 */
 	[Event(name="mouseOver", type="flash.events.MouseEvent")] 
@@ -79,7 +163,7 @@ package flash.display
 	[Event(name="mouseMove", type="flash.events.MouseEvent")] 
 
 	/**
-	 * Dispatched when a user presses the pointing device button over an InteractiveObject instance in the Flash Player window.
+	 * Dispatched when a user presses the pointing device button over an InteractiveObject instance.
 	 * @eventType flash.events.MouseEvent.MOUSE_DOWN
 	 */
 	[Event(name="mouseDown", type="flash.events.MouseEvent")] 

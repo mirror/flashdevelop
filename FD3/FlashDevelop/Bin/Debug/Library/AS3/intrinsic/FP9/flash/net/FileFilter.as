@@ -1,6 +1,6 @@
 package flash.net
 {
-	/// The FileFilter class is used to indicate what files on the user's system are shown in the file-browsing dialog box that is displayed when FileReference.browse() or FileReferenceList.browse() is called.
+	/// The FileFilter class is used to indicate what files on the user's system are shown in the file-browsing dialog box that is displayed when the FileReference.browse() method, the FileReferenceList.browse() method is called or a browse method of a File, FileReference, or FileReferenceList object is called.
 	public class FileFilter extends Object
 	{
 		/// The description string for the filter.

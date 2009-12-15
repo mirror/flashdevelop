@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash Player dispatches NetStatusEvent objects when a NetConnection, NetStream, orSharedObject object reports its status.
+	/// A NetConnection, NetStream, or SharedObject object dispatches NetStatusEvent objects when a it reports its status.
 	public class NetStatusEvent extends Event
 	{
 		/// Defines the value of the type property of a netStatus event object.

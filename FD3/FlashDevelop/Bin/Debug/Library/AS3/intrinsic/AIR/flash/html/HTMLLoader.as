@@ -10,6 +10,7 @@ package flash.html
 	import flash.geom.Rectangle;
 	import flash.geom.Matrix;
 	import flash.events.KeyboardEvent;
+	import flash.html.HTMLHost;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.html.HTMLWindowCreateOptions;
@@ -21,14 +22,13 @@ package flash.html
 	import flash.html.__HTMLScriptObject;
 	import flash.events.FocusEvent;
 	import flash.system.ApplicationDomain;
-	import flash.geom.Point;
 	import flash.display.NativeMenu;
 	import flash.events.NativeDragEvent;
+	import flash.geom.Point;
 	import flash.html.HTMLPopupWindow;
 	import flash.html.HTMLHistoryItem;
 	import flash.display.Bitmap;
 	import flash.events.TextEvent;
-	import flash.html.HTMLHost;
 
 	/**
 	 * Signals that the HTML DOM has been created in response to a load operation.
@@ -75,97 +75,98 @@ package flash.html
 	/// The HTMLLoader class defines a type of display object that is a container for HTML content.
 	public class HTMLLoader extends Sprite
 	{
-		/// [AIR] Specifies whether authentication requests should be handled (true) or not (false) for HTTP requests issued by this object.
+		/// Specifies whether authentication requests should be handled (true) or not (false) for HTTP requests issued by this object.
 		public function get authenticate () : Boolean;
 		public function set authenticate (value:Boolean) : void;
 
-		/// [AIR] Specifies whether successful response data should be cached for HTTP requests issued by this object.
+		/// Specifies whether successful response data should be cached for HTTP requests issued by this object.
 		public function get cacheResponse () : Boolean;
 		public function set cacheResponse (value:Boolean) : void;
 
-		/// [AIR] The height, in pixels, of the HTML content.
+		/// The height, in pixels, of the HTML content.
 		public function get contentHeight () : Number;
 
-		/// [AIR] The width, in pixels, of the HTML content.
+		/// The width, in pixels, of the HTML content.
 		public function get contentWidth () : Number;
 
-		/// [AIR] Indicates whether any content in the HTMLLoader object is focusable.
+		/// Indicates whether any content in the HTMLLoader object is focusable.
 		public function get hasFocusableContent () : Boolean;
 
-		/// [AIR] Specifies the height of the rectangle of the HTML canvas that is being rendered.
+		/// Specifies the height of the rectangle of the HTML canvas that is being rendered.
 		public function get height () : Number;
 		public function set height (heightInPixels:Number) : void;
 
-		/// [AIR] The overall length of the history list, including back and forward entries.
+		/// The overall length of the history list, including back and forward entries.
 		public function get historyLength () : uint;
 
-		/// [AIR] The current position in the history list.
+		/// The current position in the history list.
 		public function get historyPosition () : uint;
 		public function set historyPosition (value:uint) : void;
 
-		/// [AIR] The HTMLHost object used to handle changes to certain user interface elements, such as the window.document.title property of the HTMLLoader object.
+		/// The HTMLHost object used to handle changes to certain user interface elements, such as the window.document.title property of the HTMLLoader object.
 		public function get htmlHost () : HTMLHost;
 		public function set htmlHost (value:HTMLHost) : void;
 
-		/// [AIR] Indicates whether the JavaScript load event corresponding to the previous call to the load() or loadString() method has been delivered to the HTML DOM in the HTMLLoader object.
+		/// Indicates whether the JavaScript load event corresponding to the previous call to the load() or loadString() method has been delivered to the HTML DOM in the HTMLLoader object.
 		public function get loaded () : Boolean;
 
-		/// [AIR] The URL for the content loaded in the HTMLLoader object.
+		/// The URL for the content loaded in the HTMLLoader object.
 		public function get location () : String;
 
-		/// [AIR] Specifies whether the HTTP protocol stack should manage cookies for this object.
+		/// Specifies whether the HTTP protocol stack should manage cookies for this object.
 		public function get manageCookies () : Boolean;
 		public function set manageCookies (value:Boolean) : void;
 
-		/// [AIR] Specifies whether navigation of the root frame of the HTML content (such as when the user clicks a link, when the window.location property is set, or when calling window.open()) results in navigation in the HTMLLoader object (false) or in the default system web browser (true).
+		/// Specifies whether navigation of the root frame of the HTML content (such as when the user clicks a link, when the window.location property is set, or when calling window.open()) results in navigation in the HTMLLoader object (false) or in the default system web browser (true).
 		public function get navigateInSystemBrowser () : Boolean;
 		public function set navigateInSystemBrowser (value:Boolean) : void;
 
 		public function get numChildren () : int;
 
-		/// [AIR] Specifies whether the background of the HTMLLoader document is opaque white (true) or not (false).
+		/// Specifies whether the background of the HTMLLoader document is opaque white (true) or not (false).
 		public function get paintsDefaultBackground () : Boolean;
 		public function set paintsDefaultBackground (newValue:Boolean) : void;
 
-		/// [AIR] The type of PDF support on the user's system, defined as an integer code value.
+		/// The type of PDF support on the user's system, defined as an integer code value.
 		public static function get pdfCapability () : int;
 
+		/// Specifies whether content loaded via the loadString() method is put in the application sandbox (true) or in a non-application sandbox (false).
 		public function get placeLoadStringContentInApplicationSandbox () : Boolean;
 		public function set placeLoadStringContentInApplicationSandbox (value:Boolean) : void;
 
-		/// [AIR] The application domain to use for the window.runtime object in JavaScript in the HTML page.
+		/// The application domain to use for the window.runtime object in JavaScript in the HTML page.
 		public function get runtimeApplicationDomain () : ApplicationDomain;
 		public function set runtimeApplicationDomain (value:ApplicationDomain) : void;
 
-		/// [AIR] The horizontal scroll position of the HTML content in the HTMLLoader object.
+		/// The horizontal scroll position of the HTML content in the HTMLLoader object.
 		public function get scrollH () : Number;
 		public function set scrollH (newScrollH:Number) : void;
 
-		/// [AIR] The vertical scroll position of the HTML content in the HTMLLoader object.
+		/// The vertical scroll position of the HTML content in the HTMLLoader object.
 		public function get scrollV () : Number;
 		public function set scrollV (newScrollV:Number) : void;
 
-		/// [AIR] The character encoding used by the HTMLLoader content if an HTML page does not specify a character encoding.
+		/// The character encoding used by the HTMLLoader content if an HTML page does not specify a character encoding.
 		public function get textEncodingFallback () : String;
 		public function set textEncodingFallback (newValue:String) : void;
 
-		/// [AIR] The character encoding used by the HTMLLoader content, overriding any setting in the HTML page.
+		/// The character encoding used by the HTMLLoader content, overriding any setting in the HTML page.
 		public function get textEncodingOverride () : String;
 		public function set textEncodingOverride (newValue:String) : void;
 
-		/// [AIR] Specifies whether the local cache should be consulted before HTTP requests issued by this object fetch data.
+		/// Specifies whether the local cache should be consulted before HTTP requests issued by this object fetch data.
 		public function get useCache () : Boolean;
 		public function set useCache (value:Boolean) : void;
 
-		/// [AIR] The user agent string to be used in any upcoming content requests from this HTMLLoader object.
+		/// The user agent string to be used in any upcoming content requests from this HTMLLoader object.
 		public function get userAgent () : String;
 		public function set userAgent (value:String) : void;
 
-		/// [AIR] Specifies the width of the rectangle of the HTML canvas that is being rendered.
+		/// Specifies the width of the rectangle of the HTML canvas that is being rendered.
 		public function get width () : Number;
 		public function set width (widthInPixels:Number) : void;
 
-		/// [AIR] The global JavaScript object for the content loaded into the HTML control.
+		/// The global JavaScript object for the content loaded into the HTML control.
 		public function get window () : Object;
 
 		public function addChild (child:DisplayObject) : DisplayObject;
@@ -174,12 +175,12 @@ package flash.html
 
 		public function areInaccessibleObjectsUnderPoint (point:Point) : Boolean;
 
-		/// [AIR] Cancels any load operation in progress.
+		/// Cancels any load operation in progress.
 		public function cancelLoad () : void;
 
 		public function contains (child:DisplayObject) : Boolean;
 
-		/// [AIR] Creates a new NativeWindow object that contains an HTMLLoader object.
+		/// Creates a new NativeWindow object that contains an HTMLLoader object.
 		public static function createRootWindow (visible:Boolean = true, windowInitOptions:NativeWindowInitOptions = null, scrollBarsVisible:Boolean = true, bounds:Rectangle = null) : HTMLLoader;
 
 		public function getChildAt (index:int) : DisplayObject;
@@ -188,30 +189,30 @@ package flash.html
 
 		public function getChildIndex (child:DisplayObject) : int;
 
-		/// [AIR] Returns the history entry at the specified position.
+		/// Returns the history entry at the specified position.
 		public function getHistoryAt (position:uint) : HTMLHistoryItem;
 
 		public function getObjectsUnderPoint (point:Point) : Array;
 
-		/// [AIR] Navigates back in the browser history, if possible.
+		/// Navigates back in the browser history, if possible.
 		public function historyBack () : void;
 
-		/// [AIR] Navigates forward in the browser history, if possible.
+		/// Navigates forward in the browser history, if possible.
 		public function historyForward () : void;
 
-		/// [AIR] Navigates the specified number of steps in the browser history.
+		/// Navigates the specified number of steps in the browser history.
 		public function historyGo (steps:int) : void;
 
-		/// [AIR] Creates an HTMLLoader object.
+		/// Creates an HTMLLoader object.
 		public function HTMLLoader ();
 
-		/// [AIR] Loads the HTMLLoader object with data from the site specified by the urlRequestToLoad parameter.
+		/// Loads the HTMLLoader object with data from the site specified by the urlRequestToLoad parameter.
 		public function load (urlRequestToLoad:URLRequest) : void;
 
-		/// [AIR] Loads the HTMLLoader object with the HTML content contained in the HTML string.
+		/// Loads the HTMLLoader object with the HTML content contained in the HTML string.
 		public function loadString (htmlContent:String) : void;
 
-		/// [AIR] Reloads the page from the current location.
+		/// Reloads the page from the current location.
 		public function reload () : void;
 
 		public function removeChild (child:DisplayObject) : DisplayObject;

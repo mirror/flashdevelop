@@ -32,7 +32,7 @@ package flash.net
 	 */
 	[Event(name="close", type="flash.events.Event")] 
 
-	/// The XMLSocket class implements client sockets that let the computer that is running Flash Player communicate with a server computer identified by an IP address or domain name.
+	/// The XMLSocket class implements client sockets that let the Flash Player or AIR application communicate with a server computer identified by an IP address or domain name.
 	public class XMLSocket extends EventDispatcher
 	{
 		/// Indicates whether this XMLSocket object is currently connected.

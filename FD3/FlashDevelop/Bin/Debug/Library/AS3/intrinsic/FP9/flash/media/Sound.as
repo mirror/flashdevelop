@@ -37,12 +37,6 @@ package flash.media
 	 */
 	[Event(name="complete", type="flash.events.Event")] 
 
-	/**
-	 * Dispatched when the player requests new audio data.
-	 * @eventType flash.events.SampleDataEvent.SAMPLE_DATA
-	 */
-	[Event(name="sampleData", type="flash.events.SampleDataEvent")] 
-
 	/// The Sound class lets you work with sound in an application.
 	public class Sound extends EventDispatcher
 	{

@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash Player dispatches StatusEvent objects when a device, such as a camera or microphone, or an object such as a LocalConnection object reports its status.
+	/// An object dispatches a StatusEvent object when a device, such as a camera or microphone, or an object such as a LocalConnection object reports its status.
 	public class StatusEvent extends Event
 	{
 		/// Defines the value of the type property of a status event object.

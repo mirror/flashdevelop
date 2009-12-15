@@ -162,9 +162,12 @@ namespace AS3Context
                     {
                         string fp9cp = Path.Combine(as3cp, "FP9");
                         string fp10cp = Path.Combine(as3cp, "FP10");
+                        string fp101cp = Path.Combine(as3cp, "FP10.1");
+                        string aircp = Path.Combine(as3cp, "AIR");
                         if (Directory.Exists(fp9cp) && Directory.Exists(fp10cp))
                         {
-                            if (hasAIRSupport) AddPath(Path.Combine(as3cp, "AIR"));
+                            if (hasAIRSupport && Directory.Exists(aircp)) AddPath(aircp);
+                            if (flashVersion > 10 && Directory.Exists(fp101cp)) AddPath(fp101cp);
                             if (flashVersion > 9) AddPath(fp10cp);
                             AddPath(fp9cp);
                         }

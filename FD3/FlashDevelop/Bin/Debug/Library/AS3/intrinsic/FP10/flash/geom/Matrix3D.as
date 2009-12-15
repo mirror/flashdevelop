@@ -3,13 +3,13 @@ package flash.geom
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 
-	/// The Matrix3D class represents a transformation matrix that determines the position and orientation of the three-dimensional display object.
+	/// The Matrix3D class represents a transformation matrix that determines the position and orientation of a three-dimensional (3D) display object.
 	public class Matrix3D extends Object
 	{
 		/// A Number that determines whether a matrix is invertible.
 		public function get determinant () : Number;
 
-		/// A Vector3D object that holds the position, the three-dimensional coordinate (x,y,z) of a display object within the transformation's frame of reference.
+		/// A Vector3D object that holds the position, the 3D coordinate (x,y,z) of a display object within the transformation's frame of reference.
 		public function get position () : Vector3D;
 		public function set position (pos:Vector3D) : void;
 

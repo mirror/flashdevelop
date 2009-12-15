@@ -3,7 +3,7 @@ package flash.events
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 
-	/// Flash Player dispatches FocusEvent objects when the user changes the focus from one object in the display list to another.
+	/// An object dispatches a FocusEvent object when the user changes the focus from one object in the display list to another.
 	public class FocusEvent extends Event
 	{
 		/// Defines the value of the type property of a focusIn event object.
@@ -15,7 +15,7 @@ package flash.events
 		/// Defines the value of the type property of a mouseFocusChange event object.
 		public static const MOUSE_FOCUS_CHANGE : String = "mouseFocusChange";
 
-		/// Indicates whether the relatedObject property was set to null for security reasons.
+		/// If true, the relatedObject property is set to null for reasons related to security sandboxes.
 		public function get isRelatedObjectInaccessible () : Boolean;
 		public function set isRelatedObjectInaccessible (value:Boolean) : void;
 

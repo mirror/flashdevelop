@@ -8,7 +8,7 @@ package flash.html
 	{
 		public function close () : void;
 
-		public function HTMLPopupWindow (owner:HTMLLoader, closePopupWindowIfNeededClosure:Function, computedFontSize:Number);
+		public function HTMLPopupWindow (owner:HTMLLoader, closePopupWindowIfNeededClosure:Function, setDeactivateClosure:Function, computedFontSize:Number);
 
 		public function isActive () : Boolean;
 	}

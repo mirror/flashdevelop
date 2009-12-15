@@ -5,6 +5,7 @@ using System.Text;
 using ProjectManager.Projects.AS2;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Projects.Haxe;
+using ProjectManager.Helpers;
 
 namespace ProjectManager.Projects
 {
@@ -13,14 +14,26 @@ namespace ProjectManager.Projects
         public static Project Load(string file)
         {
             string ext = Path.GetExtension(file).ToLower();
-            if (FileInspector.IsAS2Project(file, ext))
-                return AS2Project.Load(file);
-            else if (FileInspector.IsAS3Project(file, ext))
-                return AS3Project.Load(file);
-            else if (FileInspector.IsHaxeProject(file, ext))
-                return HaxeProject.Load(file);
+
+            if (FileInspector.IsProject(file))
+            {
+                Type projectType =
+                    ProjectCreator.GetProjectType(ProjectCreator.KeyForProjectPath(file));
+                if (projectType != null)
+                {
+                    object[] para = new object[1];
+                    para[0] = file;
+                    return (Project)projectType.GetMethod("Load").Invoke(null, para);
+                }
+                else
+                {
+                    throw new Exception("Invalid project type: " + Path.GetFileName(file));
+                }
+            }
             else
+            {
                 throw new Exception("Unknown project extension: " + Path.GetFileName(file));
+            }
         }
     }
 }

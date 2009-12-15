@@ -10,18 +10,6 @@ package flash.net
 	[Event(name="uploadCompleteData", type="flash.events.DataEvent")] 
 
 	/**
-	 * Dispatched if a call to the upload() or uploadUnencoded() method attempts to access data over HTTP and Adobe AIR is able to detect and return the status code for the request.
-	 * @eventType flash.events.HTTPStatusEvent.HTTP_RESPONSE_STATUS
-	 */
-	[Event(name="httpResponseStatus", type="flash.events.HTTPStatusEvent")] 
-
-	/**
-	 * Dispatched when an upload fails and an HTTP status code is available to describe the failure.
-	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
-	 */
-	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
-
-	/**
 	 * Dispatched when the user selects a file for upload or download from the file-browsing dialog box.
 	 * @eventType flash.events.Event.SELECT
 	 */

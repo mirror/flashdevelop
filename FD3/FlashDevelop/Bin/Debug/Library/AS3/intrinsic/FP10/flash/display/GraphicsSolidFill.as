@@ -1,5 +1,8 @@
 package flash.display
 {
+	import private.IGraphicsFill;
+	import private.IGraphicsData;
+
 	/// Defines a solid fill.
 	public class GraphicsSolidFill extends Object implements IGraphicsFill, IGraphicsData
 	{

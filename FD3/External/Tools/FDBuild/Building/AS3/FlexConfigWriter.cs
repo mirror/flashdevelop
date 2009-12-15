@@ -44,14 +44,16 @@ namespace FDBuild.Building.AS3
 
         private void AddTargetPlayer()
         {
-            if (project.CompilerOptions.MinorVersion.Length > 0)
+            int majorVersion = project.MovieOptions.Version;
+            string minorVersion = project.CompilerOptions.MinorVersion;
+            if (majorVersion == 11)
             {
-                WriteElementString("target-player", project.MovieOptions.Version + "." + project.CompilerOptions.MinorVersion);
+                majorVersion = 10;
+                minorVersion = "1.0";
             }
-            else if (project.MovieOptions.Version > 9)
-            {
-                WriteElementString("target-player", project.MovieOptions.Version + ".0.0");
-            }
+            if (minorVersion.Length == 0) minorVersion = "0.0";
+
+            WriteElementString("target-player", majorVersion + "." + minorVersion);
         }
 
         private void AddLibraries()

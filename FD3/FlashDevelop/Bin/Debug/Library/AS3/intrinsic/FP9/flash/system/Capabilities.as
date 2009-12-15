@@ -47,9 +47,7 @@ package flash.system
 		/// Specifies whether the system can (true) or cannot (false) encode a video stream, such as that coming from a web camera.
 		public static function get hasVideoEncoder () : Boolean;
 
-		public static function get isAcrobatEmbed () : Boolean;
-
-		/// Specifies whether the system is using special debugging software (true) or an officially released version (false).
+		/// Specifies whether the system is a special debugging version (true) or an officially released version (false).
 		public static function get isDebugger () : Boolean;
 
 		/// Specifies the language code of the system on which the content is running.
@@ -85,7 +83,7 @@ package flash.system
 		/// A URL-encoded string that specifies values for each Capabilities property.
 		public static function get serverString () : String;
 
-		/// Specifies the Flash Player or Adobe AIR platform and version information.
+		/// Specifies the Flash Player or Adobe® AIR platform and version information.
 		public static function get version () : String;
 
 		public function Capabilities ();

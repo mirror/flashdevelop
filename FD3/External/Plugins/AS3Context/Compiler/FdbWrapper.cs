@@ -145,6 +145,7 @@ namespace AS3Context.Compiler
                         cmdQueue.Clear();
                         running = true;
                         WriteToPrompt("run");
+                        Thread.Sleep(200);
                         if (OnStarted != null) OnStarted(null);
                     }
                     // send commands queue

@@ -73,10 +73,10 @@ package flash.net
 		/// The Macintosh creator type of the file, which is only used in Mac OS versions prior to Mac OS X.
 		public function get creator () : String;
 
-		/// The ByteArray representing the loaded file after a successful call to load().
+		/// The ByteArray object representing the data from the loaded file after a successful call to the load() method.
 		public function get data () : ByteArray;
 
-		/// [AIR] The filename extension.
+		/// The filename extension.
 		public function get extension () : String;
 
 		/// The date that the file on the local disk was last modified.
@@ -112,7 +112,7 @@ package flash.net
 		/// Starts the upload of a file to a remote server.
 		public function upload (request:URLRequest, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false) : void;
 
-		/// [AIR] Starts the upload of a file to a remote server without encoding.
+		/// Starts the upload of a file to a remote server without encoding.
 		public function uploadUnencoded (request:URLRequest) : void;
 	}
 }

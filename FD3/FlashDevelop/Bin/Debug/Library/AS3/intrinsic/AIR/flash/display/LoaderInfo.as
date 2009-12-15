@@ -9,7 +9,7 @@ package flash.display
 	import flash.display.DisplayObject;
 
 	/**
-	 * Dispatched when a network request is made over HTTP and Flash Player can detect the HTTP status code.
+	 * Dispatched when a network request is made over HTTP and an HTTP status code can be detected.
 	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
 	 */
 	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
@@ -71,6 +71,7 @@ package flash.display
 		/// Expresses the trust relationship from content (child) to the Loader (parent).
 		public function get childAllowsParent () : Boolean;
 
+		/// A object that can be set by the loaded content's code to expose properties and methods that can be accessed by code in the Loader object's sandbox.
 		public function get childSandboxBridge () : Object;
 		public function set childSandboxBridge (door:Object) : void;
 
@@ -98,6 +99,7 @@ package flash.display
 		/// Expresses the trust relationship from Loader (parent) to the content (child).
 		public function get parentAllowsChild () : Boolean;
 
+		/// A object that can be set by code in the Loader object's sandbox to expose properties and methods that can be accessed by the loaded content's code.
 		public function get parentSandboxBridge () : Object;
 		public function set parentSandboxBridge (door:Object) : void;
 

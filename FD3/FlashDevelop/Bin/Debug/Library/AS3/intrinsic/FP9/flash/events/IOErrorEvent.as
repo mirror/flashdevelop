@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash Player dispatches an IOErrorEvent object when an error causes a send or load operation to fail.
+	/// An IOErrorEvent object is dispatched when an error causes a send or load operation to fail.
 	public class IOErrorEvent extends ErrorEvent
 	{
 		public static const DISK_ERROR : String = "diskError";

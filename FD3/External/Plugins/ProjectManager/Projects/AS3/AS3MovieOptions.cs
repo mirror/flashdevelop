@@ -12,7 +12,8 @@ namespace ProjectManager.Projects.AS3
             {
                 return new string[] {
                     "Flash Player 9",
-                    "Flash Player 10"
+                    "Flash Player 10",
+                    "Flash Player 10.1"
                 };
             }
         }

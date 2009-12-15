@@ -220,6 +220,13 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue("")]
         public string LoadExterns { get { return loadExterns; } set { loadExterns = value; } }
 
+        bool staticLinkRSL = true;
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Static Link RSL")]
+        [LocalizedDescription("ProjectManager.Description.StaticLinkRSL")]
+        [DefaultValue(true)]
+        public bool StaticLinkRSL { get { return staticLinkRSL; } set { staticLinkRSL = value; } }
+
         #endregion
     }
 

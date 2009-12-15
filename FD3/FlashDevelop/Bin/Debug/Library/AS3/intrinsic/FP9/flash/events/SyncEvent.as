@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash Player dispatches SyncEvent objects when a remote SharedObject instance has been updated by the server.
+	/// An SharedObject object representing a remote shared object dispatches a SyncEvent object when the remote shared object has been updated by the server.
 	public class SyncEvent extends Event
 	{
 		/// Defines the value of the type property of a sync event object.

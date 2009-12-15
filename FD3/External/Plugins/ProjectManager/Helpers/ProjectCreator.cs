@@ -12,6 +12,9 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using PluginCore.Utilities;
 using PluginCore.Managers;
+using ProjectManager.Projects.AS2;
+using ProjectManager.Projects.AS3;
+using ProjectManager.Projects.Haxe;
 
 namespace ProjectManager.Helpers
 {
@@ -30,12 +33,16 @@ namespace ProjectManager.Helpers
         string packageSlash = "";
         List<Argument> arguments;
 
+        private static Hashtable projectTypes = new Hashtable();
+        private static bool projectTypesSet = false;
+
 		/// <summary>
 		/// Creates a new project based on the specified template directory.
 		/// </summary>
 		public Project CreateProject(string templateDirectory,
             string projectLocation, string projectName, string packageName)
 		{
+            if (!projectTypesSet) SetInitialProjectHash();
 			this.projectName = projectName;
             this.packageName = packageName;
             projectId = Regex.Replace(RemoveDiacritics(projectName), "[^a-z0-9]", "", RegexOptions.IgnoreCase);
@@ -84,21 +91,13 @@ namespace ProjectManager.Helpers
 
         public static string FindProjectTemplate(string templateDirectory)
         {
-            string path = Path.Combine(templateDirectory, "Project.fdp");
-
-            if (!File.Exists(path))
-                path = Path.Combine(templateDirectory, "Project.as2proj");
-
-            if (!File.Exists(path))
-                path = Path.Combine(templateDirectory, "Project.as3proj");
-
-            if (!File.Exists(path))
-                path = Path.Combine(templateDirectory, "Project.hxproj");
-
-            if (!File.Exists(path))
-                return null;
-
-            return path;
+            string path = "";
+            foreach (string key in projectTypes.Keys)
+            {
+                path = Path.Combine(templateDirectory, key);
+                if (File.Exists(path)) return path;
+            }
+            return null;
         }
 
 		private void CopyProjectFiles(string sourceDir, string destDir, bool filter)
@@ -189,10 +188,7 @@ namespace ProjectManager.Helpers
 		private bool ShouldSkip(string path)
 		{
 			string filename = Path.GetFileName(path).ToLower();
-			return filename == "project.fdp"
-                || filename == "project.as2proj"
-                || filename == "project.as3proj"
-                || filename == "project.hxproj"
+			return projectTypes.ContainsKey(filename)
 				|| filename == "project.txt"
 				|| filename == "project.png";
 		}
@@ -210,6 +206,66 @@ namespace ProjectManager.Helpers
             }
 
             return stringBuilder.ToString();
+        }
+
+        private static void SetInitialProjectHash()
+        {
+            projectTypes["project.fdp"] = typeof(AS2Project);
+            projectTypes["project.as2proj"] = typeof(AS2Project);
+            projectTypes["project.as3proj"] = typeof(AS3Project);
+            projectTypes["project.hxproj"] = typeof(HaxeProject);
+            projectTypesSet = true;
+        }
+
+        public static void AppendProjectType(string templateName, Type projectType)
+        {
+            if (!projectTypesSet) SetInitialProjectHash();
+            if (projectTypes.ContainsKey(templateName.ToLower())) return;
+            projectTypes[templateName] = projectType;
+        }
+
+        public static bool IsKnownProject(string ext)
+        {
+            if (!projectTypesSet) SetInitialProjectHash();
+            return projectTypes.ContainsKey("project" + ext);
+        }
+
+        public static Type GetProjectType(string key)
+        {
+            if (!projectTypesSet) SetInitialProjectHash();
+            if (projectTypes.ContainsKey(key))
+                return (Type)projectTypes[key];
+            return null;
+        }
+
+        public static string KeyForProjectPath(string path)
+        {
+            return "project" + Path.GetExtension(path).ToLower();
+        }
+
+        public static string GetProjectFilters()
+        {
+            string filters = "FlashDevelop Projects (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties";
+            
+            string desc = "|Custom Projects ";
+            string ext;
+            string parens = "(";
+            string exts = "";
+            foreach (string key in projectTypes.Keys)
+            {
+                ext = key.Replace("project", "*");
+                if (filters.IndexOf(ext) > -1) continue;
+                parens += ext + ",";
+                exts += ext + ";";
+            }
+            if (parens.Length > 1)
+            {
+                parens = parens.Substring(0, parens.Length - 1) + ")|";
+                exts = exts.Substring(0, exts.Length - 1);
+                desc += parens + exts;
+            }
+            else desc = "";
+            return filters + desc;
         }
 
         #region ArgsProcessor duplicated code

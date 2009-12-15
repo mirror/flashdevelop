@@ -87,6 +87,7 @@ namespace ProjectManager.Projects.AS3
             WriteOption("verboseStackTraces", options.VerboseStackTraces);
             WriteOption("linkReport", options.LinkReport);
             WriteOption("loadExterns", options.LoadExterns);
+            WriteOption("staticLinkRSL", options.StaticLinkRSL);
 
             WriteOption("additional", string.Join("\n", options.Additional));
             WriteOption("customSDK", options.CustomSDK);

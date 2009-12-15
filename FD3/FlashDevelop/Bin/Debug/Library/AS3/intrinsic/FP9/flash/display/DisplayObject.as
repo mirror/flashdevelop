@@ -62,7 +62,7 @@ package flash.display
 		public function get blendMode () : String;
 		public function set blendMode (value:String) : void;
 
-		/// If set to true, Flash Player caches an internal bitmap representation of the display object.
+		/// If set to true, Flash Player or Adobe AIR caches an internal bitmap representation of the display object.
 		public function get cacheAsBitmap () : Boolean;
 		public function set cacheAsBitmap (value:Boolean) : void;
 
@@ -128,13 +128,13 @@ package flash.display
 		public function get transform () : Transform;
 		public function set transform (value:Transform) : void;
 
-		/// Indicates the width of the display object, in pixels.
-		public function get width () : Number;
-		public function set width (value:Number) : void;
-
 		/// Whether or not the display object is visible.
 		public function get visible () : Boolean;
 		public function set visible (value:Boolean) : void;
+
+		/// Indicates the width of the display object, in pixels.
+		public function get width () : Number;
+		public function set width (value:Number) : void;
 
 		/// Indicates the x coordinate of the DisplayObject instance relative to the local coordinates of the parent DisplayObjectContainer.
 		public function get x () : Number;

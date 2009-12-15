@@ -28,7 +28,7 @@ package flash.system
 		/// Lets SWF and HTML files hosted using the HTTPS protocol, access objects and variables in the calling SWF file.
 		public static function allowInsecureDomain (...rest) : void;
 
-		/// Loads a URL policy file from a location specified by the url parameter.
+		/// Looks for a policy file at the location specified by the url parameter.
 		public static function loadPolicyFile (url:String) : void;
 
 		public function Security ();

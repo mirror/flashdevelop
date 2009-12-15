@@ -1,5 +1,8 @@
 package flash.display
 {
+	import private.IGraphicsPath;
+	import private.IGraphicsData;
+
 	/// Defines an ordered set of triangles that can be rendered using either (u,v) fill coordinates or a normal fill.
 	public class GraphicsTrianglePath extends Object implements IGraphicsPath, IGraphicsData
 	{

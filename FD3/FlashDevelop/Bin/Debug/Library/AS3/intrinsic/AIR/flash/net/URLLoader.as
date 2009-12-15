@@ -7,7 +7,13 @@ package flash.net
 	import flash.events.Event;
 
 	/**
-	 * Dispatched if a call to URLLoader.load() attempts to access data over HTTP and the current Flash Player environment is able to detect and return the status code for the request.
+	 * Dispatched if a call to the load() method attempts to access data over HTTP, and Adobe AIR is able to detect and return the status code for the request.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_RESPONSE_STATUS
+	 */
+	[Event(name="httpResponseStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
+	 * Dispatched if a call to URLLoader.load() attempts to access data over HTTP.
 	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
 	 */
 	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
@@ -54,6 +60,7 @@ package flash.net
 		/// Controls whether the downloaded data is received as text (URLLoaderDataFormat.TEXT), raw binary data (URLLoaderDataFormat.BINARY), or URL-encoded variables (URLLoaderDataFormat.VARIABLES).
 		public var dataFormat : String;
 
+		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
 		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
 		/// Closes the load operation in progress.

@@ -5,7 +5,7 @@ package flash.events
 	/// The Event class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.
 	public class Event extends Object
 	{
-		/// The Event.ACTIVATE constant defines the value of the type property of an activate event object.
+		/// The ACTIVATE constant defines the value of the type property of an activate event object.
 		public static const ACTIVATE : String = "activate";
 		/// The Event.ADDED constant defines the value of the type property of an added event object.
 		public static const ADDED : String = "added";
@@ -15,7 +15,7 @@ package flash.events
 		public static const CANCEL : String = "cancel";
 		/// The Event.CHANGE constant defines the value of the type property of a change event object.
 		public static const CHANGE : String = "change";
-		/// Defines the value of the type property of a clear event object.
+		/// The Event.CLEAR constant efines the value of the type property of a clear event object.
 		public static const CLEAR : String = "clear";
 		/// The Event.CLOSE constant defines the value of the type property of a close event object.
 		public static const CLOSE : String = "close";
@@ -31,9 +31,9 @@ package flash.events
 		public static const DEACTIVATE : String = "deactivate";
 		/// The Event.ENTER_FRAME constant defines the value of the type property of an enterFrame event object.
 		public static const ENTER_FRAME : String = "enterFrame";
-		/// Defines the value of the type property of an exitFrame event object.
+		/// The Event.EXIT_FRAME constant defines the value of the type property of an exitFrame event object.
 		public static const EXIT_FRAME : String = "exitFrame";
-		/// Defines the value of the type property of an frameConstructed event object.
+		/// The Event.FRAME_CONSTRUCTED constant defines the value of the type property of an frameConstructed event object.
 		public static const FRAME_CONSTRUCTED : String = "frameConstructed";
 		/// The Event.FULL_SCREEN constant defines the value of the type property of a fullScreen event object.
 		public static const FULLSCREEN : String = "fullscreen";
@@ -45,7 +45,7 @@ package flash.events
 		public static const MOUSE_LEAVE : String = "mouseLeave";
 		/// The Event.OPEN constant defines the value of the type property of an open event object.
 		public static const OPEN : String = "open";
-		/// Defines the value of the type property of a paste event object.
+		/// The Event.PASTE constant defines the value of the type property of a paste event object.
 		public static const PASTE : String = "paste";
 		/// The Event.REMOVED constant defines the value of the type property of a removed event object.
 		public static const REMOVED : String = "removed";
@@ -59,7 +59,7 @@ package flash.events
 		public static const SCROLL : String = "scroll";
 		/// The Event.SELECT constant defines the value of the type property of a select event object.
 		public static const SELECT : String = "select";
-		/// Defines the value of the type property of a selectAll event object.
+		/// The Event.SELECT_ALL constant defines the value of the type property of a selectAll event object.
 		public static const SELECT_ALL : String = "selectAll";
 		/// The Event.SOUND_COMPLETE constant defines the value of the type property of a soundComplete event object.
 		public static const SOUND_COMPLETE : String = "soundComplete";

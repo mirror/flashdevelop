@@ -8,6 +8,8 @@ package flash.system
 		/// Specifies whether access to the user's camera and microphone has been administratively prohibited (true) or allowed (false).
 		public static function get avHardwareDisable () : Boolean;
 
+		public static function get cpuArchitecture () : String;
+
 		/// Specifies whether the system supports (true) or does not support (false) communication with accessibility aids.
 		public static function get hasAccessibility () : Boolean;
 
@@ -47,16 +49,16 @@ package flash.system
 		/// Specifies whether the system can (true) or cannot (false) encode a video stream, such as that coming from a web camera.
 		public static function get hasVideoEncoder () : Boolean;
 
-		/// Specifies whether the system is using special debugging software (true) or an officially released version (false).
+		/// Specifies whether the system is a special debugging version (true) or an officially released version (false).
 		public static function get isDebugger () : Boolean;
 
-		/// [AIR] Specifies whether the player is embedded in a PDF file that is open in Acrobat 9.0 or higher (true) or not (false).
+		/// Specifies whether the player is embedded in a PDF file that is open in Acrobat 9.0 or higher (true) or not (false).
 		public static function get isEmbeddedInAcrobat () : Boolean;
 
 		/// Specifies the language code of the system on which the content is running.
 		public static function get language () : String;
 
-		/// [AIR] An array of strings that contain information about the user's preferred languages, as set through the operating system.
+		/// An array of strings that contain information about the user's preferred user interface languages, as set through the operating system.
 		public static function get languages () : Array;
 
 		/// Specifies whether read access to the user's hard disk has been administratively prohibited (true) or allowed (false).
@@ -92,7 +94,11 @@ package flash.system
 		/// A URL-encoded string that specifies values for each Capabilities property.
 		public static function get serverString () : String;
 
-		/// Specifies the Flash Player or Adobe AIR platform and version information.
+		public static function get supports32BitProcesses () : Boolean;
+
+		public static function get supports64BitProcesses () : Boolean;
+
+		/// Specifies the Flash Player or Adobe® AIR platform and version information.
 		public static function get version () : String;
 
 		public function Capabilities ();

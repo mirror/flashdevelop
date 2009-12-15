@@ -7,8 +7,6 @@ package
 		public static const CASEINSENSITIVE : uint;
 		/// Specifies descending sorting for the Array class sorting methods.
 		public static const DESCENDING : uint;
-		/// A non-negative integer specifying the number of elements in the array.
-		public static const length : int;
 		/// Specifies numeric (instead of character-string) sorting for the Array class sorting methods.
 		public static const NUMERIC : uint;
 		/// Specifies that a sort returns an array that consists of array indices.
@@ -16,6 +14,7 @@ package
 		/// Specifies the unique sorting requirement for the Array class sorting methods.
 		public static const UNIQUESORT : uint;
 
+		/// A non-negative integer specifying the number of elements in the array.
 		public function get length () : uint;
 		public function set length (newLength:uint) : void;
 
@@ -59,19 +58,19 @@ package
 		public function shift () : *;
 
 		/// Returns a new array that consists of a range of elements from the original array.
-		public function slice (startIndex:* = 0, endIndex:* = 16777215) : Array;
+		public function slice (startIndex:* = 0, endIndex:* = 4294967295) : Array;
 
 		/// Executes a test function on each item in the array until an item is reached that returns true.
 		public function some (callback:Function, thisObject:* = null) : Boolean;
 
 		/// Sorts the elements in an array.
-		public function sort (...rest) : *;
+		public function sort (...rest) : Array;
 
 		/// Sorts the elements in an array according to one or more fields in the array.
-		public function sortOn (names:*, options:* = null) : *;
+		public function sortOn (names:*, options:* = 0, ...rest) : Array;
 
 		/// Adds elements to and removes elements from an array.
-		public function splice (startIndex:int, deleteCount:uint, ...rest) : *;
+		public function splice (startIndex:int, deleteCount:uint, ...values) : Array;
 
 		/// Adds one or more elements to the beginning of an array and returns the new length of the array.
 		public function unshift (...rest) : uint;

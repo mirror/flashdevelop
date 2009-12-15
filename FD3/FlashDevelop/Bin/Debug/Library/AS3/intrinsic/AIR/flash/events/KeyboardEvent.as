@@ -2,7 +2,7 @@ package flash.events
 {
 	import flash.events.Event;
 
-	/// Flash Player dispatches KeyboardEvent objects in response to user input through a keyboard.
+	/// A KeyboardEvent object id dispatched in response to user input through a keyboard.
 	public class KeyboardEvent extends Event
 	{
 		/// Defines the value of the type property of a keyDown event object.
@@ -10,7 +10,7 @@ package flash.events
 		/// Defines the value of the type property of a keyUp event object.
 		public static const KEY_UP : String = "keyUp";
 
-		/// Indicates whether the Alt key is active (true) or inactive (false).
+		/// Indicates whether the Alt key is active (true) or inactive (false) on Windows; indicates whether the Option key is active on Mac OS.
 		public function get altKey () : Boolean;
 		public function set altKey (value:Boolean) : void;
 
@@ -18,13 +18,15 @@ package flash.events
 		public function get charCode () : uint;
 		public function set charCode (value:uint) : void;
 
+		/// Indicates whether the Command key is active (true) or inactive (false).
 		public function get commandKey () : Boolean;
 		public function set commandKey (value:Boolean) : void;
 
+		/// Indicates whether the Control key is active (true) or inactive (false).
 		public function get controlKey () : Boolean;
 		public function set controlKey (value:Boolean) : void;
 
-		/// Indicates whether the Control key is active (true) or inactive (false).
+		/// On Windows and Linux, indicates whether the Ctrl key is active (true) or inactive (false); On Mac OS, indicates whether either the Ctrl key or the Command key is active.
 		public function get ctrlKey () : Boolean;
 		public function set ctrlKey (value:Boolean) : void;
 
@@ -49,7 +51,7 @@ package flash.events
 		/// Returns a string that contains all the properties of the KeyboardEvent object.
 		public function toString () : String;
 
-		/// Instructs Flash Player to render after processing of this event completes, if the display list has been modified
+		/// Indicates that the display should be rendered after processing of this event completes, if the display list has been modified
 		public function updateAfterEvent () : void;
 	}
 }

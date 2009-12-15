@@ -2,19 +2,7 @@ package flash.utils
 {
 	import flash.events.EventDispatcher;
 
-	/**
-	 * Dispatched whenever it has completed the number of requests set by Timer.repeatCount.
-	 * @eventType flash.events.TimerEvent.TIMER_COMPLETE
-	 */
-	[Event(name="timerComplete", type="flash.events.TimerEvent")] 
-
-	/**
-	 * Dispatched whenever a Timer object reaches an interval specified according to the Timer.delay property.
-	 * @eventType flash.events.TimerEvent.TIMER
-	 */
-	[Event(name="timer", type="flash.events.TimerEvent")] 
-
-	/// The Timer class is the interface to Flash Player timers.
+	/// The Timer class is the interface to timers, which let you run code on a specified time sequence.
 	public class Timer extends EventDispatcher
 	{
 		/// The total number of times the timer has fired since it started at zero.

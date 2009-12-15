@@ -1,5 +1,7 @@
 package flash.display
 {
+	import private.IGraphicsStroke;
+	import private.IGraphicsData;
 	import flash.display.IGraphicsFill;
 
 	/// Defines a line style or stroke.
@@ -27,6 +29,6 @@ package flash.display
 		public function set scaleMode (value:String) : void;
 
 		/// Creates a new GraphicsStroke object.
-		public function GraphicsStroke (thickness:Number = NaN, pixelHinting:Boolean = false, scaleMode:String = "normal", caps:String = "none", joints:String = "round", miterLimit:Number = 3, fill:IGraphicsFill = null);
+		public function GraphicsStroke (thickness:Number = Non Numérique, pixelHinting:Boolean = false, scaleMode:String = "normal", caps:String = "none", joints:String = "round", miterLimit:Number = 3, fill:IGraphicsFill = null);
 	}
 }

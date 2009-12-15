@@ -95,7 +95,7 @@ package flash.display
 
 		public function set name (value:String) : void;
 
-		/// [AIR] A reference to the NativeWindow object containing this Stage.
+		/// A reference to the NativeWindow object containing this Stage.
 		public function get nativeWindow () : NativeWindow;
 
 		/// Returns the number of children of this object.
@@ -158,11 +158,13 @@ package flash.display
 
 		public function set transform (value:Transform) : void;
 
+		public function set visible (value:Boolean) : void;
+
 		/// Indicates the width of the display object, in pixels.
 		public function get width () : Number;
 		public function set width (value:Number) : void;
 
-		public function set visible (value:Boolean) : void;
+		public function get wmodeGPU () : Boolean;
 
 		public function set x (value:Number) : void;
 
@@ -179,7 +181,7 @@ package flash.display
 		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
 		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
-		/// [AIR] Assigns keyboard focus to an interactive object and specifies the direction focus is coming from.
+		/// Assigns keyboard focus to an interactive object and specifies the direction focus is coming from.
 		public function assignFocus (objectToFocus:InteractiveObject, direction:String) : void;
 
 		/// Dispatches an event into the event flow.

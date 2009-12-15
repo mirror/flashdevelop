@@ -154,11 +154,13 @@ package flash.display
 
 		public function set transform (value:Transform) : void;
 
+		public function set visible (value:Boolean) : void;
+
 		/// Indicates the width of the display object, in pixels.
 		public function get width () : Number;
 		public function set width (value:Number) : void;
 
-		public function set visible (value:Boolean) : void;
+		public function get wmodeGPU () : Boolean;
 
 		public function set x (value:Number) : void;
 

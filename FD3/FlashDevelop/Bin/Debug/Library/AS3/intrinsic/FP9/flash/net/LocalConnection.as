@@ -3,31 +3,19 @@ package flash.net
 	import flash.events.EventDispatcher;
 
 	/**
-	 * Dispatched when a LocalConnection object reports its status.
-	 * @eventType flash.events.StatusEvent.STATUS
-	 */
-	[Event(name="status", type="flash.events.StatusEvent")] 
-
-	/**
-	 * Dispatched if a call to LocalConnection.send() attempts to send data to a different security sandbox.
-	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
-	 */
-	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
-
-	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */
 	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
 
-	/// The LocalConnection class lets you create a LocalConnection object that can invoke a method in another LocalConnection object, either within a single SWF file or between multiple SWF files.
+	/// The LocalConnection class lets you create a LocalConnection object that can invoke a method in another LocalConnection object.
 	public class LocalConnection extends EventDispatcher
 	{
 		/// Indicates the object on which callback methods are invoked.
 		public function get client () : Object;
 		public function set client (client:Object) : void;
 
-		/// A string representing the domain of the location of the current SWF file.
+		/// A string representing the domain of the location of the current file.
 		public function get domain () : String;
 
 		/// Specifies one or more domains that can send LocalConnection calls to this LocalConnection instance.

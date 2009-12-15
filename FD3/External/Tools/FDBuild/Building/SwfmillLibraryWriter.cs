@@ -125,7 +125,7 @@ namespace ProjectManager.Building
                 {
                     WriteStartElement("place");
                     WriteAttributeString("id", GetSafeId("__importtag__"));
-                    WriteAttributeString("name", "__library__" + asset.Path);
+                    WriteAttributeString("name", "__library__" + asset.Path.Replace('\\', '/'));
                     WriteAttributeString("depth", (depth++).ToString());
                     WriteEndElement();
                 }

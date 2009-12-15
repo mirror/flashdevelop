@@ -132,6 +132,7 @@ namespace ProjectManager.Projects.AS3
                     case "verboseStackTraces": options.VerboseStackTraces = BoolValue; break;
                     case "linkReport": options.LinkReport = Value; break;
                     case "loadExterns": options.LoadExterns = Value; break;
+                    case "staticLinkRSL": options.StaticLinkRSL = BoolValue; break;
                     case "additional": options.Additional = Value.Split('\n'); break;
                     case "customSDK": options.CustomSDK = Value; break;
                 }

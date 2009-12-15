@@ -3,7 +3,7 @@ package flash.display
 	import flash.utils.ByteArray;
 	import flash.display.ShaderData;
 
-	/// A Shader instance represents a pixel shader in ActionScript.
+	/// A Shader instance represents a Pixel Bender shader kernel in ActionScript.
 	public class Shader extends Object
 	{
 		/// The raw shader bytecode for this Shader instance.

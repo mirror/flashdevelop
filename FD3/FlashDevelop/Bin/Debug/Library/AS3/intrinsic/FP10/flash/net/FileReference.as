@@ -11,18 +11,6 @@ package flash.net
 	[Event(name="uploadCompleteData", type="flash.events.DataEvent")] 
 
 	/**
-	 * Dispatched if a call to the upload() or uploadUnencoded() method attempts to access data over HTTP and Adobe AIR is able to detect and return the status code for the request.
-	 * @eventType flash.events.HTTPStatusEvent.HTTP_RESPONSE_STATUS
-	 */
-	[Event(name="httpResponseStatus", type="flash.events.HTTPStatusEvent")] 
-
-	/**
-	 * Dispatched when an upload fails and an HTTP status code is available to describe the failure.
-	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
-	 */
-	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
-
-	/**
 	 * Dispatched when the user selects a file for upload or download from the file-browsing dialog box.
 	 * @eventType flash.events.Event.SELECT
 	 */
@@ -73,7 +61,7 @@ package flash.net
 		/// The Macintosh creator type of the file, which is only used in Mac OS versions prior to Mac OS X.
 		public function get creator () : String;
 
-		/// The ByteArray representing the loaded file after a successful call to load().
+		/// The ByteArray object representing the data from the loaded file after a successful call to the load() method.
 		public function get data () : ByteArray;
 
 		/// The date that the file on the local disk was last modified.

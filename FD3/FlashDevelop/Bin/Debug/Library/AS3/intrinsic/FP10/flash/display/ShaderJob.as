@@ -3,13 +3,7 @@ package flash.display
 	import flash.events.EventDispatcher;
 	import flash.display.Shader;
 
-	/**
-	 * Dispatched when the ShaderJob finishes processing the data using the shader.
-	 * @eventType flash.events.ShaderEvent.COMPLETE
-	 */
-	[Event(name="complete", type="flash.events.ShaderEvent")] 
-
-	/// A ShaderJob instance is used to execute a shader operation in the background.
+	/// A ShaderJob instance is used to execute a shader operation in stand-alone mode.
 	public class ShaderJob extends EventDispatcher
 	{
 		/// The height of the result data in the target if it is a ByteArray or Vector.<Number> instance.
@@ -34,10 +28,10 @@ package flash.display
 		/// Cancels the currently running shader operation.
 		public function cancel () : void;
 
-		/// A ShaderJob instance is used to execute a shader operation in the background.
+		/// A ShaderJob instance is used to execute a shader operation in stand-alone mode.
 		public function ShaderJob (shader:Shader = null, target:Object = null, width:int = 0, height:int = 0);
 
-		/// Starts a background shader operation.
+		/// Starts a shader operation in synchronous or asynchronous mode, according to the value of the waitForCompletion parameter.
 		public function start (waitForCompletion:Boolean = false) : void;
 	}
 }

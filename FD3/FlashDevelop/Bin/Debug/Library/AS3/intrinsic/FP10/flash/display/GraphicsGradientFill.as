@@ -1,5 +1,7 @@
 package flash.display
 {
+	import private.IGraphicsFill;
+	import private.IGraphicsData;
 	import flash.geom.Matrix;
 
 	/// Defines a gradient fill.

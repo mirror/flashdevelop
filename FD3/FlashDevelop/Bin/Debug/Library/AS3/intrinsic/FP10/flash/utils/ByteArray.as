@@ -37,10 +37,10 @@ package flash.utils
 		/// Compresses the byte array.
 		public function compress () : void;
 
-		/// Compresses the byte array using the DEFLATE compression algorithm.
+		/// Compresses the byte array using the deflate compression algorithm.
 		public function deflate () : void;
 
-		/// Decompresses the byte array.
+		/// Decompresses the byte array using the deflate compression algorithm.
 		public function inflate () : void;
 
 		/// Reads a Boolean value from the byte stream.

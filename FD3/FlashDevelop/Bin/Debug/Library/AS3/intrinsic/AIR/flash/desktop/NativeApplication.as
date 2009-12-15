@@ -3,11 +3,11 @@ package flash.desktop
 	import flash.events.EventDispatcher;
 	import flash.desktop.NativeApplication;
 	import flash.events.KeyboardEvent;
+	import flash.utils.Timer;
 	import flash.display.NativeWindow;
 	import flash.display.NativeMenu;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	import flash.desktop.InteractiveIcon;
 
 	/**
@@ -55,105 +55,105 @@ package flash.desktop
 	/// The NativeApplication class represents this AIR application.
 	public class NativeApplication extends EventDispatcher
 	{
-		/// [AIR] The active application window.
+		/// The active application window.
 		public function get activeWindow () : NativeWindow;
 
-		/// [AIR] The contents of the application descriptor file for this AIR application.
+		/// The contents of the application descriptor file for this AIR application.
 		public function get applicationDescriptor () : XML;
 
-		/// [AIR] The application ID of this application.
+		/// The application ID of this application.
 		public function get applicationID () : String;
 
-		/// [AIR] Specifies whether the application should automatically terminate when all windows have been closed.
+		/// Specifies whether the application should automatically terminate when all windows have been closed.
 		public function get autoExit () : Boolean;
 		public function set autoExit (value:Boolean) : void;
 
-		/// [AIR] The application icon.
+		/// The application icon.
 		public function get icon () : InteractiveIcon;
 
-		/// [AIR] The number of seconds that must elapse without keyboard or mouse input before a presenceChange event is dispatched.
+		/// The number of seconds that must elapse without keyboard or mouse input before a userIdle event is dispatched.
 		public function get idleThreshold () : int;
 		public function set idleThreshold (value:int) : void;
 
-		/// [AIR] The application menu.
+		/// The application menu.
 		public function get menu () : NativeMenu;
 		public function set menu (menu:NativeMenu) : void;
 
-		/// [AIR] The singleton instance of the NativeApplication object.
+		/// The singleton instance of the NativeApplication object.
 		public static function get nativeApplication () : NativeApplication;
 
-		/// [AIR] An array containing all the open native windows of this application.
+		/// An array containing all the open native windows of this application.
 		public function get openedWindows () : Array;
 
-		/// [AIR] The publisher ID of this application.
+		/// The publisher ID of this application.
 		public function get publisherID () : String;
 
-		/// [AIR] The patch level of the runtime hosting this application.
+		/// The patch level of the runtime hosting this application.
 		public function get runtimePatchLevel () : uint;
 
-		/// [AIR] The version number of the runtime hosting this application.
+		/// The version number of the runtime hosting this application.
 		public function get runtimeVersion () : String;
 
-		/// [AIR] Specifies whether this application is automatically launched whenever the current user logs in.
+		/// Specifies whether this application is automatically launched whenever the current user logs in.
 		public function get startAtLogin () : Boolean;
 		public function set startAtLogin (startAtLogin:Boolean) : void;
 
-		/// [AIR] Indicates whether AIR supports application dock icons on the current operating system.
+		/// Indicates whether AIR supports application dock icons on the current operating system.
 		public static function get supportsDockIcon () : Boolean;
 
-		/// [AIR] Specifies whether the current operating system supports a global application menu bar.
+		/// Specifies whether the current operating system supports a global application menu bar.
 		public static function get supportsMenu () : Boolean;
 
-		/// [AIR] Specifies whether AIR supports system tray icons on the current operating system.
+		/// Specifies whether AIR supports system tray icons on the current operating system.
 		public static function get supportsSystemTrayIcon () : Boolean;
 
-		/// [AIR] The time, in seconds, since the last mouse or keyboard input.
+		/// The time, in seconds, since the last mouse or keyboard input.
 		public function get timeSinceLastUserInput () : int;
 
-		/// [AIR] Activates this application.
+		/// Activates this application.
 		public function activate (window:NativeWindow = null) : void;
 
-		/// [AIR] Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
+		/// Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
 		public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void;
 
-		/// [AIR] Invokes an internal delete command on the focused display object.
+		/// Invokes an internal delete command on the focused display object.
 		public function clear () : Boolean;
 
-		/// [AIR] Invokes an internal copy command on the focused display object.
+		/// Invokes an internal copy command on the focused display object.
 		public function copy () : Boolean;
 
-		/// [AIR] Invokes an internal cut command on the focused display object.
+		/// Invokes an internal cut command on the focused display object.
 		public function cut () : Boolean;
 
-		/// [AIR] Dispatches an event into the event flow.
+		/// Dispatches an event into the event flow.
 		public function dispatchEvent (event:Event) : Boolean;
 
-		/// [AIR] Terminates this application.
+		/// Terminates this application.
 		public function exit (errorCode:int = 0) : void;
 
-		/// [AIR] Gets the default application for opening files with the specified extension.
+		/// Gets the default application for opening files with the specified extension.
 		public function getDefaultApplication (extension:String) : String;
 
-		/// [AIR] Specifies whether this application is currently the default application for opening files with the specified extension.
+		/// Specifies whether this application is currently the default application for opening files with the specified extension.
 		public function isSetAsDefaultApplication (extension:String) : Boolean;
 
 		public function NativeApplication ();
 
-		/// [AIR] Invokes an internal paste command on the focused display object.
+		/// Invokes an internal paste command on the focused display object.
 		public function paste () : Boolean;
 
 		public function redo () : Boolean;
 
-		/// [AIR] Removes this application as the default for opening files with the specified extension.
+		/// Removes this application as the default for opening files with the specified extension.
 		public function removeAsDefaultApplication (extension:String) : void;
 
-		/// [AIR] Removes a listener from the EventDispatcher object.
+		/// Removes a listener from the EventDispatcher object.
 		public function removeEventListener (type:String, listener:Function, useCapture:Boolean = false) : void;
 
-		/// [AIR] Invokes an internal selectAll command on the focused display object.
+		/// Invokes an internal selectAll command on the focused display object.
 		public function selectAll () : Boolean;
 
-		/// [AIR] Sets this application as the default application for opening files with the specified extension.
+		/// Sets this application as the default application for opening files with the specified extension.
 		public function setAsDefaultApplication (extension:String) : void;
 
 		public function undo () : Boolean;

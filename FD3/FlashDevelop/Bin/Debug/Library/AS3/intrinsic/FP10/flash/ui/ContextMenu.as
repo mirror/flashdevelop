@@ -6,13 +6,7 @@ package flash.ui
 	import flash.ui.ContextMenuClipboardItems;
 	import flash.net.URLRequest;
 
-	/**
-	 * Dispatched when a user first generates a context menu but before the contents of the context menu are displayed.
-	 * @eventType flash.events.ContextMenuEvent.MENU_SELECT
-	 */
-	[Event(name="menuSelect", type="flash.events.ContextMenuEvent")] 
-
-	/// The ContextMenu class provides control over the items in the Flash Player context menu.
+	/// The ContextMenu class provides control over the items displayed in context menus.
 	public class ContextMenu extends EventDispatcher
 	{
 		/// An object that has the following properties of the ContextMenuBuiltInItems class: forwardAndBack, loop, play, print, quality, rewind, save, and zoom.
@@ -35,7 +29,7 @@ package flash.ui
 		public function get link () : URLRequest;
 		public function set link (value:URLRequest) : void;
 
-		/// Creates a copy of the specified ContextMenu object.
+		/// Creates a copy of the menu and all items.
 		public function clone () : ContextMenu;
 
 		/// Creates a ContextMenu object.
