@@ -3254,4 +3254,12 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>False に設定すると、haXe のコード補完は Ctrl + Space または Ctrl + Shift + Space を押下したときにのみ表示されます。</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="ProjectManager.Description.StaticLinkRSL" xml:space="preserve">
+    <value>Include Runtime Shared Libraries in the project SWF instead of loading them at run time.</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
+  <data name="XMLCompletion.Description.DisableZenCoding" xml:space="preserve">
+    <value>Disable HTML Zen Coding feature</value>
+    <comment>Added after 3.0.7</comment>
+  </data>
 </root>

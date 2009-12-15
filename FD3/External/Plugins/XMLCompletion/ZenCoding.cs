@@ -8,6 +8,7 @@ using System.IO;
 using PluginCore.Helpers;
 using PluginCore.Managers;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace XMLCompletion
 {
@@ -15,8 +16,10 @@ namespace XMLCompletion
     {
         static public LanguageDef lang;
         static private bool inited;
-        static private Hashtable expandos = new Hashtable();
-        static private Hashtable attribs = new Hashtable();
+        static private Hashtable expandos;
+        static private Hashtable attribs;
+        static private Timer delayOpenConfig;
+        static private FileSystemWatcher watcherConfig;
 
         #region initialization
         static private void init()
@@ -24,8 +27,37 @@ namespace XMLCompletion
             if (inited) return;
             inited = true;
 
+            expandos = new Hashtable();
             LoadResource("zen-expandos.txt", expandos);
+            attribs = new Hashtable();
             LoadResource("zen-attribs.txt", attribs);
+
+            if (delayOpenConfig == null) // timer for opening config files
+            {
+                delayOpenConfig = new Timer();
+                delayOpenConfig.Interval = 100;
+                delayOpenConfig.Tick += new EventHandler(delayOpenConfig_Tick);
+            }
+            if (watcherConfig == null) // watching config files changes
+            {
+                watcherConfig = new FileSystemWatcher(Path.Combine(PathHelper.DataDir, "XMLCompletion"), "zen*");
+                watcherConfig.Changed += new FileSystemEventHandler(watcherConfig_Changed);
+                watcherConfig.Created += new FileSystemEventHandler(watcherConfig_Changed);
+                watcherConfig.EnableRaisingEvents = true;
+            }
+        }
+
+        static void watcherConfig_Changed(object sender, FileSystemEventArgs e)
+        {
+            inited = false;
+        }
+
+        static void delayOpenConfig_Tick(object sender, EventArgs e)
+        {
+            delayOpenConfig.Stop();
+            string path = Path.Combine(PathHelper.DataDir, "XMLCompletion");
+            PluginBase.MainForm.OpenEditableDocument(Path.Combine(path, "zen-attribs.txt"));
+            PluginBase.MainForm.OpenEditableDocument(Path.Combine(path, "zen-expandos.txt"));
         }
 
         private static void LoadResource(string file, Hashtable table)
@@ -40,8 +72,9 @@ namespace XMLCompletion
                 foreach (string line in lines)
                 {
                     string temp = line.Trim();
-                    if (temp.Length == 0) continue;
-                    string[] parts = temp.Split(new char[] {'\t'}, 2);
+                    if (temp.Length == 0 || temp[0] == ';') 
+                        continue;
+                    string[] parts = temp.Split(new char[] {'\t', ' '}, 2);
                     if (parts.Length == 2)
                         table[parts[0].Trim()] = parts[1].Trim();
                 }
@@ -81,12 +114,14 @@ namespace XMLCompletion
         }
         #endregion
 
+        #region expansion
         static public bool expandSnippet(Hashtable data)
         {
             if (data["snippet"] == null)
             {
                 ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
                 if (sci == null) return false;
+                // extract zen expression
                 int pos = sci.CurrentPos - 1;
                 int lastValid = sci.CurrentPos;
                 char c = (char)sci.CharAt(pos);
@@ -106,6 +141,7 @@ namespace XMLCompletion
                     pos--;
                     c = (char)sci.CharAt(pos);
                 }
+                // expand
                 if (lastValid <= sci.CurrentPos)
                 {
                     sci.SetSel(lastValid, sci.CurrentPos);
@@ -116,7 +152,7 @@ namespace XMLCompletion
                     catch (ZenExpandException zex)
                     {
                         // error in expression, no snippet display
-                        Console.WriteLine(zex.Message);
+                        TraceManager.AddAsync(zex.Message);
                         return true;
                     }
                     // insert modified snippet or show snippet list
@@ -128,13 +164,20 @@ namespace XMLCompletion
 
         static public string expandExpression(string expr)
         {
-            init();
+            init(); // load config
+
+            if (expr == "zen") // show config
+            {
+                delayOpenConfig.Start();
+                return "$(EntryPoint)";
+            }
 
             if (expandos.ContainsKey(expr)) expr = (string)expandos[expr];
-            if (expr.Length == 0) 
-                return "";
+            if (expr.Length == 0)
+                return "$(EntryPoint)";
 
             string src = expr[0] == '<' ? expr : expandZen(expr);
+
             int p = src.IndexOf('|');
             src = src.Replace("|", "");
             return src.Substring(0, p) + "$(EntryPoint)" + src.Substring(p);
@@ -243,10 +286,10 @@ namespace XMLCompletion
         private static bool isInline(string tag)
         {
             return tag == "a" || tag == "span"
-                || tag == "b" || tag == "strong" || tag == "i" || tag == "em"
-                || tag == "s" || tag == "strike" || tag == "tt"
-                || tag == "big" || tag == "small"
-                || tag == "dd" || tag == "dt";
+                || tag == "b" || tag == "strong" || tag == "i" || tag == "em" || tag == "u"
+                || tag == "s" || tag == "strike" || tag == "tt" || tag == "q"
+                || tag == "big" || tag == "small" || tag == "del" || tag == "ins"
+                || tag == "var" || tag == "code" || tag == "dd" || tag == "dt";
         }
 
         private static string extractEnd(char sep, ref string part)
@@ -262,6 +305,7 @@ namespace XMLCompletion
             }
             return null;
         }
+        #endregion
     }
 
     public class ZenExpandException : Exception

@@ -115,7 +115,8 @@ namespace XMLCompletion
 
                 case EventType.Command:
                     DataEvent de = (DataEvent)e;
-                    if (de.Action == "SnippetManager.Expand")
+                    if (XMLComplete.Active && !settingObject.DisableZenCoding
+                        && de.Action == "SnippetManager.Expand")
                     {
                         Hashtable data = (Hashtable)de.Data;
                         if (ZenCoding.expandSnippet(data))

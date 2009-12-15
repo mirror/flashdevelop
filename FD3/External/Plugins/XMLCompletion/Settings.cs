@@ -9,6 +9,7 @@ namespace XMLCompletion
     [Serializable]
     public class Settings
     {
+        private Boolean disableZenCoding = false;
         private Boolean closeTags = true;
         private Boolean insertQuotes = true;
         private Boolean smartIndenter = true;
@@ -28,6 +29,17 @@ namespace XMLCompletion
         {
             get { return instance; }
             set { instance = value; }
+        }
+
+        /// <summary> 
+        /// Option to disable Zen Coding feature
+        /// </summary>
+        [DisplayName("Disable Zen Coding")]
+        [LocalizedDescription("XMLCompletion.Description.DisableZenCoding"), DefaultValue(false)]
+        public Boolean DisableZenCoding
+        {
+            get { return this.disableZenCoding; }
+            set { this.disableZenCoding = value; }
         }
 
         /// <summary> 

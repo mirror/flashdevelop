@@ -20,6 +20,9 @@ namespace XMLCompletion
 	public class XMLComplete
 	{
         #region Properties
+
+        public static bool Active { get { return cType != XMLType.Invalid; } }
+
         public static Bitmap HtmlAttributeIcon;
         public static Bitmap StyleAttributeIcon;
         public static Bitmap EventAttributeIcon;
