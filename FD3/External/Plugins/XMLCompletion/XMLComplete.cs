@@ -88,12 +88,12 @@ namespace XMLCompletion
         /**
         * Extract the tag name
         */
-		private static readonly Regex tagName = new Regex("<(?<name>[a-z][a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex tagName = new Regex("<(?<name>[a-z][-a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		
 		/**
         * Check if the text ends with a closing tag
         */
-		private static readonly Regex closingTag = new Regex("\\</[a-z][a-z0-9_:]*\\>$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+		private static readonly Regex closingTag = new Regex("\\</[a-z][-a-z0-9_:]*\\>$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
 		
         #endregion
 		
@@ -676,7 +676,7 @@ namespace XMLCompletion
 			}
 			xtag.Position = position;
 			xtag.Tag = tag.ToString();
-			Match mTag = tagName.Match(xtag.Tag+" ");
+            Match mTag = tagName.Match(xtag.Tag + " ");
 			if (mTag.Success)
 			{
 				xtag.Name = mTag.Groups["name"].Value;
