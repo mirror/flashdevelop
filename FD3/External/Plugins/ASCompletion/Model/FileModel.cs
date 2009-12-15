@@ -187,14 +187,18 @@ namespace ASCompletion.Model
 
         public ClassModel GetPublicClass()
         {
-            if (Classes != null && Classes.Count > 0)
+            if (Classes != null)
             {
                 if (Version > 3) // haXe
                 {
                     foreach (ClassModel model in Classes)
                         if ((model.Flags & (FlagType.Class | FlagType.Interface)) > 0) return model;
                 }
-                else return Classes[0];
+                else
+                {
+                    foreach (ClassModel model in Classes)
+                        if ((model.Access & (Visibility.Public | Visibility.Internal)) > 0) return model;
+                }
             }
             return ClassModel.VoidClass;
         }

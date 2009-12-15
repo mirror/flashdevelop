@@ -187,7 +187,7 @@ namespace ASCompletion.Model
             {
                 DoScheduledOperations();
 
-                lock (Files)
+                lock (Files.Values)
                 {
                     foreach (FileModel file in Files.Values)
                         if (file != null) file.Check();

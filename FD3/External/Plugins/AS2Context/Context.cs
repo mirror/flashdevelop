@@ -784,11 +784,16 @@ namespace AS2Context
                 //ErrorHandler.ShowInfo("Top-level elements class not found. Please check your Program Settings.");
 			}
 
-			topLevel.Members.Add(new MemberModel("_root", docType, FlagType.Variable, Visibility.Public));
-            topLevel.Members.Add(new MemberModel("_global", features.objectKey, FlagType.Variable, Visibility.Public));
-			topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));
-            topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable, Visibility.Public));
-            topLevel.Members.Add(new MemberModel(features.voidKey, "", FlagType.Class | FlagType.Intrinsic, Visibility.Public));
+            if (topLevel.Members.Search("_root", 0, 0) == null)
+			    topLevel.Members.Add(new MemberModel("_root", docType, FlagType.Variable, Visibility.Public));
+            if (topLevel.Members.Search("_global", 0, 0) == null)
+                topLevel.Members.Add(new MemberModel("_global", features.objectKey, FlagType.Variable, Visibility.Public));
+            if (topLevel.Members.Search("this", 0, 0) == null)
+                topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));
+            if (topLevel.Members.Search("super", 0, 0) == null)
+                topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable, Visibility.Public));
+            if (topLevel.Members.Search(features.voidKey, 0, 0) == null)
+                topLevel.Members.Add(new MemberModel(features.voidKey, "", FlagType.Class | FlagType.Intrinsic, Visibility.Public));
 			topLevel.Members.Sort();
             foreach (MemberModel member in topLevel.Members)
                 member.Flags |= FlagType.Intrinsic;
@@ -839,7 +844,16 @@ namespace AS2Context
                         if (model.Package == name)
                         {
                             foreach (ClassModel type in model.Classes)
-                                if (type.IndexType == null) pModel.Imports.Add(type.ToMemberModel());
+                            {
+                                if (type.IndexType != null) continue;
+                                MemberModel item = type.ToMemberModel();
+                                if (type.Access == Visibility.Private)
+                                {
+                                    item.Type = item.Name;
+                                    item.Access = Visibility.Private;
+                                }
+                                pModel.Imports.Add(item);
+                            }
                             foreach (MemberModel member in model.Members)
                                 pModel.Members.Add(member.Clone() as MemberModel);
                         }

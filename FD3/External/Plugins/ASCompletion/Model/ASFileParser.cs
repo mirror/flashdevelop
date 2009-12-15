@@ -1605,6 +1605,10 @@ namespace ASCompletion.Model
                                     //TODO  Error: AS3 & haXe classes are qualified by their package declaration
                                 }
 							}
+
+                            if (model.PrivateSectionIndex != 0 && curToken.Line > model.PrivateSectionIndex)
+                                curAccess = Visibility.Private;
+
 							curClass = new ClassModel();
 							model.Classes.Add(curClass);
 							curClass.InFile = model;

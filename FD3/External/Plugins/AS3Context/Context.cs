@@ -550,23 +550,19 @@ namespace AS3Context
         protected MemberList GetPrivateClasses()
         {
             MemberList list = new MemberList();
-            if (cFile.Classes.Count > 1)
-            {
-                MemberModel item;
-                for (int i = 1; i < cFile.Classes.Count; i++)
+            // private classes
+            foreach(ClassModel model in cFile.Classes)
+                if (model.Access == Visibility.Private)
                 {
-                    item = cFile.Classes[i].ToMemberModel();
-                    item.Name = item.Type;
+                    MemberModel item = model.ToMemberModel();
+                    item.Type = item.Name;
+                    item.Access = Visibility.Private;
                     list.Add(item);
                 }
-            }
-            if (cClass != null && cClass.Members.Count > 0)
-            {
+            // 'Class' members
+            if (cClass != null)
                 foreach (MemberModel member in cClass.Members)
-                {
                     if (member.Type == "Class") list.Add(member);
-                }
-            }
             return list;
         }
 
@@ -597,9 +593,12 @@ namespace AS3Context
                 //ErrorHandler.ShowInfo("Top-level elements class not found. Please check your Program Settings.");
             }
 
-            topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));
-            topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable, Visibility.Public));
-            topLevel.Members.Add(new MemberModel("void", "", FlagType.Intrinsic, Visibility.Public));
+            if (topLevel.Members.Search("this", 0, 0) == null)
+                topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));
+            if (topLevel.Members.Search("super", 0, 0) == null)
+                topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable, Visibility.Public));
+            if (topLevel.Members.Search(features.voidKey, 0, 0) == null)
+                topLevel.Members.Add(new MemberModel(features.voidKey, "", FlagType.Intrinsic, Visibility.Public));
             topLevel.Members.Sort();
             foreach (MemberModel member in topLevel.Members)
                 member.Flags |= FlagType.Intrinsic;
