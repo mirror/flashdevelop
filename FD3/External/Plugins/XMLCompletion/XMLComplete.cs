@@ -308,7 +308,14 @@ namespace XMLCompletion
                             bool subIndent = true;
 							if (text.EndsWith("<!--")) { checkStart = "-->"; subIndent = false; }
 							else if (text.EndsWith("<![CDATA[")) { checkStart = "]]>"; subIndent = false; }
-							else if (ctag.Name != null) checkStart = "</"+ctag.Name;
+                            else if (ctag.Name != null)
+                            {
+                                checkStart = "</" + ctag.Name;
+                                if (ctag.Name.ToLower() == "script" || ctag.Name.ToLower() == "style") 
+                                    subIndent = false;
+                                if (ctag.Tag.IndexOf('\r') > 0 || ctag.Tag.IndexOf('\n') > 0)
+                                    subIndent = false;
+                            }
 							if (checkStart != null)
 							{
 								text = sci.GetLine(line).TrimStart();
