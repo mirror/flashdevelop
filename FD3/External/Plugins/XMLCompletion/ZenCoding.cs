@@ -241,11 +241,12 @@ namespace XMLCompletion
                     string temp = spart == sparts[sparts.Length - 1] ? subSrc : "";
                     if (closedTag)
                     {
-                        inline = true;
+                        inline = sparts.Length == 1 && isInline(tag);
                         if (tag.Length > 2 && tag[1] != '!')
                         {
                             int sp = tag.IndexOf(' ');
-                            master = tag.Substring(0, sp) + attr + tag.Substring(sp);
+                            if (sp < 0) master = tag;
+                            else master = tag.Substring(0, sp) + attr + tag.Substring(sp);
                         }
                         else master = tag;
                     }
@@ -285,7 +286,12 @@ namespace XMLCompletion
 
         private static bool isInline(string tag)
         {
-            return tag == "a" || tag == "span"
+            if (tag.Length > 3 && tag[0] == '<') 
+            {
+                // extract tag name
+                tag = tag.Substring(1).Split(new char[] { ' ', '"', '\'', '/', '|', '>' }, 2)[0];
+            }
+            return tag == "a" || tag == "span" || tag == "br"
                 || tag == "b" || tag == "strong" || tag == "i" || tag == "em" || tag == "u"
                 || tag == "s" || tag == "strike" || tag == "tt" || tag == "q"
                 || tag == "big" || tag == "small" || tag == "del" || tag == "ins"
