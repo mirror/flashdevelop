@@ -233,6 +233,7 @@ namespace AS3Context.Compiler
         static Regex reLoad = new Regex(@"^\[SWF\] ", RegexOptions.Compiled);
         static Regex reUnload = new Regex(@"^\[UnloadSWF\] ", RegexOptions.Compiled);
         static Regex reDisconnect = new Regex(@"^Player session terminated", RegexOptions.Compiled);
+        static Regex reContinue = new Regex(@"'continue'", RegexOptions.Compiled);
 
         void MatchLine(string line)
         {
@@ -240,6 +241,7 @@ namespace AS3Context.Compiler
             {
                 // [SWF] C:\path\to\Project.swf
                 if (reLoad.IsMatch(line)) connected = true;
+                if (reContinue.IsMatch(line)) connected = true;
                 connectedEvent.Set();
             }
 
