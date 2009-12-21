@@ -74,7 +74,7 @@
 		<button label="Label.CopyLine" click="ScintillaCommand" tag="LineCopy" shortcut="Control|Shift|C" flags="Enable:IsEditable" />
 		<button label="Label.DeleteLine" click="ScintillaCommand" tag="LineDelete" shortcut="Control|Shift|D" flags="Enable:IsEditable" />
 		<button label="Label.TransposeLines" click="ScintillaCommand" tag="LineTranspose" shortcut="Control|T" flags="Enable:IsEditable" />
-		<button label="Label.DuplicateLine" click="ScintillaCommand" tag="LineDuplicate" shortcut="Control|D" flags="Enable:IsEditable" />
+		<button label="Label.DuplicateSelection" click="ScintillaCommand" tag="SelectionDuplicate" shortcut="Control|D" flags="Enable:IsEditable" />
 		<button label="Label.SortLineGroups" click="SortLineGroups" flags="Enable:IsEditable|Enable:HasSelection" />
 		<button label="Label.SortLines" click="SortLines" flags="Enable:IsEditable|Enable:HasSelection" />
 		<separator />

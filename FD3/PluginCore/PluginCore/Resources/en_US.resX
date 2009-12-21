@@ -990,8 +990,8 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
   <data name="FlashDevelop.Label.Duplicate" xml:space="preserve">
     <value>&amp;Duplicate</value>
   </data>
-  <data name="FlashDevelop.Label.DuplicateLine" xml:space="preserve">
-    <value>Duplic&amp;ate Line</value>
+  <data name="FlashDevelop.Label.DuplicateSelection" xml:space="preserve">
+    <value>Duplic&amp;ate Selection</value>
   </data>
   <data name="FlashDevelop.Label.Edit" xml:space="preserve">
     <value>&amp;Edit</value>
