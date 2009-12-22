@@ -9,41 +9,203 @@ using PluginCore.Helpers;
 using PluginCore.Managers;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using LitJson;
 
 namespace XMLCompletion
 {
+    #region zen settings
+    class ZenElementTypes
+    {
+        public Hashtable empty = new Hashtable();
+        public Hashtable block_level = new Hashtable();
+        public Hashtable inline_level = new Hashtable();
+
+        public ZenElementTypes(Hashtable def)
+        {
+            if (def == null) return;
+            if (def.ContainsKey("empty")) ParseSet(empty, (string)def["empty"]);
+            if (def.ContainsKey("block_level")) ParseSet(block_level, (string)def["block_level"]);
+            if (def.ContainsKey("inline_level")) ParseSet(inline_level, (string)def["inline_level"]);
+        }
+
+        private void ParseSet(Hashtable set, string def)
+        {
+            string[] tokens = def.Split(',');
+            foreach (string token in tokens) set[token] = true;
+        }
+    }
+
+    class ZenLang 
+    {
+        public Hashtable snippets = new Hashtable();
+        public Hashtable abbreviations = new Hashtable();
+        public string extends;
+        public ZenElementTypes element_types;
+    }
+
+    class ZenSettings
+    {
+        public Hashtable variables;
+        public Dictionary<string, ZenLang> langs = new Dictionary<string, ZenLang>();
+
+        public static ZenSettings Read(string filePath)
+        {
+            string src = File.ReadAllText(filePath);
+            src = SanitizeJSon(src);
+            JsonReader reader = new JsonReader(src);
+            return ReadZenSettings(reader);
+        }
+
+        private static ZenSettings ReadZenSettings(JsonReader reader)
+        {
+            ZenSettings settings = new ZenSettings();
+            Type objType = settings.GetType();
+
+            reader.Read();
+            if (reader.Token != JsonToken.ObjectStart)
+                return null;
+
+            string currentProp = null;
+            while (reader.Read())
+            {
+                if (reader.Token == JsonToken.ObjectEnd) break;
+                if (reader.Token == JsonToken.PropertyName)
+                    currentProp = reader.Value.ToString();
+                else if (reader.Token == JsonToken.ObjectStart)
+                {
+                    if (currentProp == "variables") settings.variables = ReadHashtable(reader);
+                    else settings.langs.Add(currentProp, ReadZenLang(reader));
+                }
+            }
+
+            foreach (ZenLang lang in settings.langs.Values)
+            {
+                if (lang.extends != null && settings.langs.ContainsKey(lang.extends))
+                    ExtendLang(lang, settings.langs[lang.extends]);
+            }
+
+            settings.variables["child"] = "";
+            return settings;
+        }
+
+        private static void ExtendLang(ZenLang lang, ZenLang lang2)
+        {
+            MergeHashtable(ref lang.abbreviations, ref lang2.abbreviations);
+            MergeHashtable(ref lang.snippets, ref lang2.snippets);
+            if (lang.element_types == null) lang.element_types = lang2.element_types;
+            else if (lang2.element_types != null)
+            {
+                MergeHashtable(ref lang.element_types.empty, ref lang2.element_types.empty);
+                MergeHashtable(ref lang.element_types.block_level, ref lang2.element_types.block_level);
+                MergeHashtable(ref lang.element_types.inline_level, ref lang2.element_types.inline_level);
+            }
+        }
+
+        private static void MergeHashtable(ref Hashtable t1, ref Hashtable t2)
+        {
+            if (t1 == null) t1 = t2.Clone() as Hashtable;
+            else if (t2 != null)
+                foreach (string key in t2.Keys)
+                    if (!t1.ContainsKey(key)) t1[key] = t2[key];
+        }
+
+        private static Hashtable ReadHashtable(JsonReader reader)
+        {
+            Hashtable table = new Hashtable();
+            string currentKey = null;
+            while (reader.Read())
+            {
+                if (reader.Token == JsonToken.ObjectEnd) break;
+                if (reader.Token == JsonToken.PropertyName) currentKey = reader.Value.ToString();
+                else if (reader.Token == JsonToken.String) table[currentKey] = reader.Value;
+            }
+            return table;
+        }
+
+        private static ZenLang ReadZenLang(JsonReader reader)
+        {
+            ZenLang lang = new ZenLang();
+            Type objType = lang.GetType();
+
+            string currentProp = null;
+            while (reader.Read())
+            {
+                if (reader.Token == JsonToken.ObjectEnd) break;
+                if (reader.Token == JsonToken.PropertyName) currentProp = reader.Value.ToString();
+                else if (reader.Token == JsonToken.String)
+                {
+                    string value = reader.Value.ToString();
+                    FieldInfo info = objType.GetField(currentProp);
+                    if (info != null) info.SetValue(lang, value);
+                }
+                else if (reader.Token == JsonToken.ObjectStart)
+                {
+                    Hashtable table = ReadHashtable(reader);
+                    if (currentProp == "element_types")
+                    {
+                        lang.element_types = new ZenElementTypes(table);
+                    }
+                    else
+                    {
+                        FieldInfo info = objType.GetField(currentProp);
+                        if (info != null) info.SetValue(lang, table);
+                    }
+                }
+            }
+            return lang;
+        }
+
+        private static string SanitizeJSon(string src)
+        {
+            src = src.Substring(src.IndexOf('{'));
+            src = src.Substring(0, src.LastIndexOf('}') + 1);
+            src = src.Replace("'\\", "'\\\\"); // escaped unicode values "\00AB"
+            src = Regex.Replace(src, "['\"]\\s*\\+\\s*['\"]", ""); // "..." + "..."
+            return src;
+        }
+    }
+    #endregion
+
     public class ZenCoding
     {
-        static public LanguageDef lang;
+        static private ZenLang lang;
         static private bool inited;
-        static private Hashtable expandos;
-        static private Hashtable attribs;
+        static private ZenSettings settings;
         static private Timer delayOpenConfig;
         static private FileSystemWatcher watcherConfig;
+        static private Regex reVariable = new Regex("\\${([-_a-z0-9]+)}", RegexOptions.IgnoreCase);
 
         #region initialization
         static private void init()
         {
-            if (inited) return;
-            inited = true;
-
-            expandos = new Hashtable();
-            LoadResource("zen-expandos.txt", expandos);
-            attribs = new Hashtable();
-            LoadResource("zen-attribs.txt", attribs);
-
-            if (delayOpenConfig == null) // timer for opening config files
+            if (!inited)
             {
-                delayOpenConfig = new Timer();
-                delayOpenConfig.Interval = 100;
-                delayOpenConfig.Tick += new EventHandler(delayOpenConfig_Tick);
+                inited = true;
+
+                LoadResource("zen_settings.js");
+
+                if (delayOpenConfig == null) // timer for opening config files
+                {
+                    delayOpenConfig = new Timer();
+                    delayOpenConfig.Interval = 100;
+                    delayOpenConfig.Tick += new EventHandler(delayOpenConfig_Tick);
+                }
+                if (watcherConfig == null) // watching config files changes
+                {
+                    watcherConfig = new FileSystemWatcher(Path.Combine(PathHelper.DataDir, "XMLCompletion"), "zen*");
+                    watcherConfig.Changed += new FileSystemEventHandler(watcherConfig_Changed);
+                    watcherConfig.Created += new FileSystemEventHandler(watcherConfig_Changed);
+                    watcherConfig.EnableRaisingEvents = true;
+                }
             }
-            if (watcherConfig == null) // watching config files changes
+            ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
+            string docType = sci != null ? sci.ConfigurationLanguage.ToLower() : null;
+            lang = null;
+            if (docType != null)
             {
-                watcherConfig = new FileSystemWatcher(Path.Combine(PathHelper.DataDir, "XMLCompletion"), "zen*");
-                watcherConfig.Changed += new FileSystemEventHandler(watcherConfig_Changed);
-                watcherConfig.Created += new FileSystemEventHandler(watcherConfig_Changed);
-                watcherConfig.EnableRaisingEvents = true;
+                if (settings.langs.ContainsKey(docType))
+                    lang = settings.langs[docType];
             }
         }
 
@@ -56,11 +218,10 @@ namespace XMLCompletion
         {
             delayOpenConfig.Stop();
             string path = Path.Combine(PathHelper.DataDir, "XMLCompletion");
-            PluginBase.MainForm.OpenEditableDocument(Path.Combine(path, "zen-attribs.txt"));
-            PluginBase.MainForm.OpenEditableDocument(Path.Combine(path, "zen-expandos.txt"));
+            PluginBase.MainForm.OpenEditableDocument(Path.Combine(path, "zen_settings.js"));
         }
 
-        private static void LoadResource(string file, Hashtable table)
+        private static void LoadResource(string file)
         {
             string path = Path.Combine(PathHelper.DataDir, "XMLCompletion");
             string filePath = Path.Combine(path, file);
@@ -68,16 +229,7 @@ namespace XMLCompletion
             {
                 if (!File.Exists(filePath) && !WriteResource(file, filePath))
                     return;
-                string[] lines = File.ReadAllLines(filePath);
-                foreach (string line in lines)
-                {
-                    string temp = line.Trim();
-                    if (temp.Length == 0 || temp[0] == ';') 
-                        continue;
-                    string[] parts = temp.Split(new char[] {'\t', ' '}, 2);
-                    if (parts.Length == 2)
-                        table[parts[0].Trim()] = parts[1].Trim();
-                }
+                settings = ZenSettings.Read(filePath);
             }
             catch (Exception ex)
             {
@@ -91,7 +243,8 @@ namespace XMLCompletion
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 Stream src = assembly.GetManifestResourceStream("XMLCompletion.Resources." + file);
-                if (src == null) return false;
+                if (src == null)
+                    return false;
 
                 String content;
                 using (StreamReader sr = new StreamReader(src))
@@ -124,9 +277,10 @@ namespace XMLCompletion
                 // extract zen expression
                 int pos = sci.CurrentPos - 1;
                 int lastValid = sci.CurrentPos;
-                char c = (char)sci.CharAt(pos);
-                while (pos > 0)
+                char c = ' ';
+                while (pos >= 0)
                 {
+                    c = (char)sci.CharAt(pos);
                     if (c <= 32)
                     {
                         lastValid = pos + 1;
@@ -139,7 +293,7 @@ namespace XMLCompletion
                     }
                     else if (!Char.IsLetterOrDigit(c) && "+*$.#:-".IndexOf(c) < 0) break;
                     pos--;
-                    c = (char)sci.CharAt(pos);
+                    if (pos < 0) lastValid = 0;
                 }
                 // expand
                 if (lastValid <= sci.CurrentPos)
@@ -147,7 +301,9 @@ namespace XMLCompletion
                     sci.SetSel(lastValid, sci.CurrentPos);
                     try
                     {
-                        data["snippet"] = expandExpression(sci.SelText);
+                        string expr = expandExpression(sci.SelText);
+                        if (expr.IndexOf("$(EntryPoint)") < 0) expr += "$(EntryPoint)";
+                        data["snippet"] = expr;
                     }
                     catch (ZenExpandException zex)
                     {
@@ -165,22 +321,27 @@ namespace XMLCompletion
         static public string expandExpression(string expr)
         {
             init(); // load config
+            if (lang == null) return "";
 
             if (expr == "zen") // show config
             {
                 delayOpenConfig.Start();
-                return "$(EntryPoint)";
+                return "";
             }
+            else if (expr.EndsWith("+"))
+            {
+                if (lang.abbreviations.ContainsKey(expr))
+                    expr = (string)lang.abbreviations[expr]; // expandos
+                else return expr;
+            }
+            if (expr.Length == 0) return "";
 
-            if (expandos.ContainsKey(expr)) expr = (string)expandos[expr];
-            if (expr.Length == 0)
-                return "$(EntryPoint)";
-
+            // process
             string src = expr[0] == '<' ? expr : expandZen(expr);
-
             int p = src.IndexOf('|');
             src = src.Replace("|", "");
-            return src.Substring(0, p) + "$(EntryPoint)" + src.Substring(p);
+            if (p < 0) return src;
+            else return src.Substring(0, p) + "$(EntryPoint)" + src.Substring(p);
         }
 
         private static string expandZen(string expr)
@@ -192,6 +353,7 @@ namespace XMLCompletion
             string[] parts = expr.Split('>');
             Array.Reverse(parts);
             bool inline = true;
+            int index = 1;
             foreach (string part in parts)
             {
                 if (part.Length == 0)
@@ -205,8 +367,11 @@ namespace XMLCompletion
                     if (spart.Length == 0)
                         throw new ZenExpandException("Empty sub-expression part found (part1+part2)");
 
+                    if (!inline && src.Length > 0) src += "\n";
+
                     int multiply = 1;
                     string tag = spart;
+                    // read multiplier
                     string mult = extractEnd('*', ref tag);
                     if (mult != null)
                     {
@@ -215,6 +380,7 @@ namespace XMLCompletion
                         if (multiply < 0)
                             throw new ZenExpandException("Invalid multiplier value (" + mult + ")");
                     }
+                    // read css classes
                     string css = "";
                     string cssClass;
                     do
@@ -223,57 +389,140 @@ namespace XMLCompletion
                         if (cssClass != null) css = cssClass + " " + css;
                     }
                     while (cssClass != null);
-                    string id = extractEnd('#', ref tag);
+                    // read ID
+                    string id = extractEnd('#', ref tag) ?? "";
+                    
+                    // build attributes
+                    string atId = id.Length > 0 ? " id=\"" + id + "\"" : "";
+                    string atClass = css.Length > 0 ? " class=\"" + css.Trim() + "\"" : "";
 
-                    string attr = "";
-                    if (id != null) attr += " id=\"" + id + "\"";
-                    if (css.Length > 0) attr += " class=\"" + css.Trim() + "\"";
+                    // build tag
+                    string tagStart = "";
+                    string tagEnd = "";
                     bool closedTag = false;
-                    if (expandos.ContainsKey(tag))
+                    
+                    // custom HTML
+                    bool customExpand = false;
+                    bool customChildIndent = false;
+                    if (lang.snippets.ContainsKey(tag))
                     {
-                        tag = (string)expandos[tag];
-                        if (tag[0] == '<') closedTag = true;
+                        tag = (string)lang.snippets[tag];
+                        customExpand = true;
                     }
-                    if (attribs.ContainsKey(tag)) attr += " " + (string)attribs[tag];
-                    extractEnd(':', ref tag);
+                    else if (lang.abbreviations.ContainsKey(tag))
+                    {
+                        tag = (string)lang.abbreviations[tag];
+                        customExpand = true;
+
+                        if (tag.Length > 2 && tag[0] == '<') // insert attributes
+                        {
+                            if (tag[1] != '!')
+                            {
+                                int sp = tag.IndexOf(' ');
+                                if (sp >= 0)
+                                {
+                                    tagStart = tag.Substring(0, sp);
+                                    tagEnd = tag.Substring(sp);
+                                    tag = tagStart;
+                                    if (atId.Length > 0)
+                                    {
+                                        if (tagEnd.IndexOf(" id=") < 0) tag += atId;
+                                        else tagEnd = tagEnd.Replace(" id=\"\"", atId);
+                                    }
+                                    if (atClass.Length > 0)
+                                    {
+                                        if (tagEnd.IndexOf(" class=") < 0) tag += atClass;
+                                        else tagEnd = tagEnd.Replace(" class=\"\"", atClass);
+                                    }
+                                    tag += tagEnd;
+                                }
+                            }
+                        }
+                    }
+                    else extractEnd(':', ref tag);
+
+                    if (customExpand)
+                    {
+                        tag = tag.Replace("\\n", "\n").Replace("\\t", "\t");
+                        if (tag.IndexOf('|') < 0) tag = tag.Replace("\"\"", "\"|\"");
+
+                        int child = tag.IndexOf("${child}");
+                        if (child > 0) customChildIndent = true;
+                        else
+                        {
+                            child = tag.IndexOf("><");
+                            if (child > 0) child++;
+                        }
+                        
+                        if (tag.IndexOf("${") >= 0) tag = ProcessVars(tag);
+
+                        if (child > 0)
+                        {
+                            tagStart = tag.Substring(0, child);
+                            tagEnd = "|" + tag.Substring(child);
+                        }
+                        else closedTag = true;
+                    }
+                    else
+                    {
+                        closedTag = lang.element_types.empty.ContainsKey(tag);
+                        if (closedTag) tag = "<" + tag + "/>";
+                    }
+
+                    if (tag.Length > 0 && tag[0] != '<')
+                    {
+                        tagStart = "<" + tag + atId + atClass + ">";
+                        tagEnd = "</" + tag + ">";
+                    }
 
                     string master;
                     string temp = spart == sparts[sparts.Length - 1] ? subSrc : "";
                     if (closedTag)
                     {
                         inline = sparts.Length == 1 && isInline(tag);
-                        if (tag.Length > 2 && tag[1] != '!')
-                        {
-                            int sp = tag.IndexOf(' ');
-                            if (sp < 0) master = tag;
-                            else master = tag.Substring(0, sp) + attr + tag.Substring(sp);
-                        }
-                        else master = tag;
+                        master = tag;
                     }
                     else
                     {
                         string wrapIn = "";
                         string wrapOut = "";
-                        if (temp.Length > 0 && !inline)
+                        if (temp.Length > 0 && (!inline || isBlock(tag)))
                         {
-                            wrapIn = "\n" + "\t";
-                            wrapOut = "\n";
+                            wrapIn = customChildIndent ? "" : "\n\t";
+                            wrapOut = customChildIndent ? "" : "\n";
                             temp = addIndent(temp);
                         }
                         if (temp.Length == 0) temp = "|";
 
                         inline = sparts.Length == 1 && isInline(tag);
-                        master = "<" + tag + attr + ">" + wrapIn + temp + wrapOut + "</" + tag + ">";
+                        master = tagStart + wrapIn + temp + wrapOut + tagEnd;
                     }
 
                     for (int i = 1; i <= multiply; i++)
                     {
-                        src += master.Replace("$", i.ToString());
-                        if (!inline) src += "\n";
+                        if (multiply > 1)
+                        {
+                            index = i;
+                            src += master.Replace("$", index.ToString());
+                        }
+                        else src += master;
+                        if (!inline && i < multiply) src += "\n";
                     }
                 }
             }
             return src;
+        }
+
+        private static string ProcessVars(string tag)
+        {
+            return reVariable.Replace(tag, VarReplacer);
+        }
+
+        private static string VarReplacer(Match m)
+        {
+            string name = m.Groups[1].Value;
+            if (settings.variables.ContainsKey(name)) return (string)settings.variables[name];
+            else return m.Value;
         }
 
         private static string addIndent(string res)
@@ -284,6 +533,11 @@ namespace XMLCompletion
             return res.Trim();
         }
 
+        private static bool isBlock(string tag)
+        {
+            return lang.element_types.block_level.ContainsKey(tag);
+        }
+
         private static bool isInline(string tag)
         {
             if (tag.Length > 3 && tag[0] == '<') 
@@ -291,11 +545,7 @@ namespace XMLCompletion
                 // extract tag name
                 tag = tag.Substring(1).Split(new char[] { ' ', '"', '\'', '/', '|', '>' }, 2)[0];
             }
-            return tag == "a" || tag == "span" || tag == "br"
-                || tag == "b" || tag == "strong" || tag == "i" || tag == "em" || tag == "u"
-                || tag == "s" || tag == "strike" || tag == "tt" || tag == "q"
-                || tag == "big" || tag == "small" || tag == "del" || tag == "ins"
-                || tag == "var" || tag == "code" || tag == "dd" || tag == "dt";
+            return lang.element_types.inline_level.ContainsKey(tag);
         }
 
         private static string extractEnd(char sep, ref string part)

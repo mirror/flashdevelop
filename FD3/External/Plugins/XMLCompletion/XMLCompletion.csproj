@@ -87,7 +87,6 @@
     <EmbeddedResource Include="Resources\mxml.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\zen-attribs.txt" />
-    <EmbeddedResource Include="Resources\zen-expandos.txt" />
+    <EmbeddedResource Include="Resources\zen_settings.js" />
   </ItemGroup>
 </Project>

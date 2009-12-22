@@ -66,7 +66,6 @@ namespace XMLCompletion
                     knownTags = def.KnownTags;
                     namespaces = def.Namespaces;
                     defaultNS = def.DefaultNS;
-                    ZenCoding.lang = def;
                     return;
                 }
                 if (lang == "xml" || lang == "html") cType = XMLType.XML;
