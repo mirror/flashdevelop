@@ -259,7 +259,7 @@
     <value>「定義元へ移動」の移動前の位置に戻る。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>カーソル位置にある要素の定義元へ移動します。</value>
+    <value>キャレット位置にある要素の定義元へ移動します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
     <value>現在のファイルをコンパイルします。この操作は、ソース内でのコンパイラの指定が必要です。</value>
@@ -482,31 +482,31 @@
     <value>XML メッセージの受信が無効です。</value>
   </data>
   <data name="FlashDevelop.Category.Controls" xml:space="preserve">
-    <value>1| 操作</value>
+    <value>Controls | 操作</value>
   </data>
   <data name="FlashDevelop.Category.Display" xml:space="preserve">
-    <value>2| 表示</value>
+    <value>Display | 表示</value>
   </data>
   <data name="FlashDevelop.Category.Editor" xml:space="preserve">
-    <value>エディタ</value>
+    <value>Editor | エディタ</value>
   </data>
   <data name="FlashDevelop.Category.Features" xml:space="preserve">
-    <value>3| 特徴</value>
+    <value>Features | 特徴</value>
   </data>
   <data name="FlashDevelop.Category.Folding" xml:space="preserve">
-    <value>4| 折りたたみ</value>
+    <value>Folding | 折りたたみ</value>
   </data>
   <data name="FlashDevelop.Category.Formatting" xml:space="preserve">
-    <value>5| フォーマット</value>
+    <value>Formatting | フォーマット</value>
   </data>
   <data name="FlashDevelop.Category.General" xml:space="preserve">
-    <value>総合</value>
+    <value>General | 総合</value>
   </data>
   <data name="FlashDevelop.Category.Indenting" xml:space="preserve">
-    <value>6| インデント</value>
+    <value>Indenting | インデント</value>
   </data>
   <data name="FlashDevelop.Category.State" xml:space="preserve">
-    <value>7| 状態</value>
+    <value>State | 状態</value>
   </data>
   <data name="FlashDevelop.Description.ApplyFileExtension" xml:space="preserve">
     <value>デフォルトの拡張子をファイル名に適用します。</value>
@@ -524,13 +524,13 @@
     <value>合致する括弧を背景色でハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretLineVisible" xml:space="preserve">
-    <value>カーソルを含む行を背景色でハイライトします。</value>
+    <value>指定色でキャレット行の背景をハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretPeriod" xml:space="preserve">
-    <value>カーソルの点滅間隔です。</value>
+    <value>キャレットの点滅間隔です。</value>
   </data>
   <data name="FlashDevelop.Description.CaretWidth" xml:space="preserve">
-    <value>カーソルの幅です。</value>
+    <value>キャレットの幅です。</value>
   </data>
   <data name="FlashDevelop.Description.CodingStyle" xml:space="preserve">
     <value>改行処理のコーディングスタイルを定義します。</value>
@@ -542,7 +542,7 @@
     <value>文字列処理のためにユーザーが定義した引数の一覧です。</value>
   </data>
   <data name="FlashDevelop.Description.DefaultCodePage" xml:space="preserve">
-    <value>デフォルトで使用する文字セットです。</value>
+    <value>デフォルトで使用する文字コードです。</value>
   </data>
   <data name="FlashDevelop.Description.DefaultFileExtension" xml:space="preserve">
     <value>デフォルトで使用するファイル拡張子です。</value>
@@ -611,7 +611,7 @@
     <value>ラインコメントする際にインデントの後にコメントします。</value>
   </data>
   <data name="FlashDevelop.Description.LocaleVersion" xml:space="preserve">
-    <value>プログラムの現在のロケールです。変更には再起動が必要です。</value>
+    <value>現在のロケールです。変更には再起動が必要です。</value>
   </data>
   <data name="FlashDevelop.Description.MoveCursorAfterComment" xml:space="preserve">
     <value>コメントした後、次の行に移動します。</value>
@@ -623,10 +623,10 @@
     <value>Common UI のレンダリング方法の設定です。再起動を必要とします。</value>
   </data>
   <data name="FlashDevelop.Description.RestoreFileSession" xml:space="preserve">
-    <value>起動時に開くファイルを初期化します。</value>
+    <value>起動時に開くファイルを復元します。</value>
   </data>
   <data name="FlashDevelop.Description.RestoreFileStates" xml:space="preserve">
-    <value>起動時にファイルの状態を初期化します。</value>
+    <value>起動時にファイルの状態を復元します。</value>
   </data>
   <data name="FlashDevelop.Description.ScrollWidth" xml:space="preserve">
     <value>ドキュメントの初期幅です。(px単位)</value>
@@ -674,13 +674,13 @@
     <value>半角スペースを記号で表示します。</value>
   </data>
   <data name="FlashDevelop.Description.WindowPosition" xml:space="preserve">
-    <value>プログラムが前回の終了時に記録した、プログラムウインドウが標準状態のときの位置です。</value>
+    <value>前回の終了時に記録した、プログラムウインドウが標準状態のときの位置です。</value>
   </data>
   <data name="FlashDevelop.Description.WindowSize" xml:space="preserve">
-    <value>プログラムが前回の終了時に記録した、プログラムウインドウが標準状態のときのサイズです。</value>
+    <value>前回の終了時に記録した、プログラムウインドウが標準状態のときのサイズです。</value>
   </data>
   <data name="FlashDevelop.Description.WindowState" xml:space="preserve">
-    <value>プログラムが前回の終了時に記録した、プログラムウインドウの状態です。</value>
+    <value>前回の終了時に記録した、プログラムウインドウの状態です。</value>
   </data>
   <data name="FlashDevelop.Description.WrapList" xml:space="preserve">
     <value>キーボードを使用して操作したときにリストをループさせます。</value>
@@ -863,7 +863,7 @@
     <value>スニペット</value>
   </data>
   <data name="FlashDevelop.Info.StatusText" xml:space="preserve">
-    <value>列: {1} | 改行コード: ({2}) | 文字コード: {3} | {4}</value>
+    <value>行: {0} | 列: {1} | 改行コード: ({2}) | 文字コード: {3} | {4}</value>
   </data>
   <data name="FlashDevelop.Info.StringsOnly" xml:space="preserve">
     <value>文字列のみ</value>
@@ -995,7 +995,7 @@
     <value>複製(&amp;D)</value>
   </data>
   <data name="FlashDevelop.Label.DuplicateSelection" xml:space="preserve">
-    <value>行の複製(&amp;A)</value>
+    <value>選択範囲の複製(&amp;A)</value>
   </data>
   <data name="FlashDevelop.Label.Edit" xml:space="preserve">
     <value>編集(&amp;E)</value>
@@ -1445,31 +1445,31 @@
     <value>ウインドウリスト</value>
   </data>
   <data name="ProjectManager.Category.Advanced" xml:space="preserve">
-    <value>高度な設定</value>
+    <value>Advanced | 高度な設定</value>
   </data>
   <data name="ProjectManager.Category.CodeInjection" xml:space="preserve">
-    <value>コードインジェクション</value>
+    <value>Code Injection | コードインジェクション</value>
   </data>
   <data name="ProjectManager.Category.CompilerOptions" xml:space="preserve">
-    <value>コンパイラ設定</value>
+    <value>Compiler Options | コンパイラ設定</value>
   </data>
   <data name="ProjectManager.Category.Exclusions" xml:space="preserve">
-    <value>2| 除外</value>
+    <value>Exclusions | 除外</value>
   </data>
   <data name="ProjectManager.Category.General" xml:space="preserve">
-    <value>総合</value>
+    <value>General | 総合</value>
   </data>
   <data name="ProjectManager.Category.GeneralOptions" xml:space="preserve">
-    <value>総合設定</value>
+    <value>General | 総合設定</value>
   </data>
   <data name="ProjectManager.Category.OtherOptions" xml:space="preserve">
-    <value>3| その他の設定</value>
+    <value>OtherOptions | その他の設定</value>
   </data>
   <data name="ProjectManager.Category.ProjectTree" xml:space="preserve">
-    <value>1| プロジェクトツリー</value>
+    <value>ProjectTree | プロジェクトツリー</value>
   </data>
   <data name="ProjectManager.Category.Trace" xml:space="preserve">
-    <value>トレース</value>
+    <value>Trace | トレース</value>
   </data>
   <data name="ProjectManager.Column.Name" xml:space="preserve">
     <value>名前</value>
@@ -1739,7 +1739,7 @@
     <value>選択された項目はごみ箱に移動されます。</value>
   </data>
   <data name="ProjectManager.Info.JsflNotFound" xml:space="preserve">
-    <value>Flash IDE スクリプト( .jsf l) が Tools¥flashide ディレクトリに見つかりませんでした。</value>
+    <value>Flash IDE スクリプト( .jsf l) が Tools\flashide ディレクトリに見つかりませんでした。</value>
   </data>
   <data name="ProjectManager.Info.NewProject" xml:space="preserve">
     <value>NewProject</value>
@@ -2119,10 +2119,10 @@
     <value>結果</value>
   </data>
   <data name="StartPage.Category.Common" xml:space="preserve">
-    <value>1| 共通</value>
+    <value>Common | 共通</value>
   </data>
   <data name="StartPage.Category.Custom" xml:space="preserve">
-    <value>2| カスタム</value>
+    <value>Custom | カスタム</value>
   </data>
   <data name="StartPage.Description.CloseOnProjectOpen" xml:space="preserve">
     <value>プロジェクトが開かれたとき、スタートページを自動的に閉じます。</value>
@@ -2278,7 +2278,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>FlashDevelop にタスク一覧パネルを追加します。</value>
   </data>
   <data name="ProjectManager.Category.Shortcuts" xml:space="preserve">
-    <value>4| ショートカット</value>
+    <value>Shortcuts | ショートカット</value>
   </data>
   <data name="ProjectManager.Description.ShortcutBuild" xml:space="preserve">
     <value>プロジェクトのビルドのショートカットキーです。</value>
@@ -2503,13 +2503,13 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ローカル変数</value>
   </data>
   <data name="FdbPlugin.Category.Misc" xml:space="preserve">
-    <value>3| その他</value>
+    <value>Misc | その他</value>
   </data>
   <data name="FdbPlugin.Category.Shortcuts" xml:space="preserve">
-    <value>2| ショートカット</value>
+    <value>Shortcuts | ショートカット</value>
   </data>
   <data name="FdbPlugin.Category.View" xml:space="preserve">
-    <value>1| ビュー</value>
+    <value>View | ビュー</value>
   </data>
   <data name="FdbPlugin.Description.AlwaysCheckDebugStop" xml:space="preserve">
     <value>デバッグの停止を常に確認します。</value>
@@ -2578,28 +2578,28 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ASCompletion エンジンに PHP のコンテキストを追加します。</value>
   </data>
   <data name="ASCompletion.Category.Common" xml:space="preserve">
-    <value>1| 共通</value>
+    <value>Common | 共通</value>
   </data>
   <data name="ASCompletion.Category.Documentation" xml:space="preserve">
-    <value>2| ドキュメンテーション</value>
+    <value>Documentation | ドキュメンテーション</value>
   </data>
   <data name="ASCompletion.Category.Language" xml:space="preserve">
-    <value>3| 言語</value>
+    <value>Language | 言語</value>
   </data>
   <data name="ASCompletion.Category.Advanced" xml:space="preserve">
-    <value>8| 高度な設定</value>
+    <value>Advanced | 高度な設定</value>
   </data>
   <data name="ASCompletion.Category.FlashIDE" xml:space="preserve">
-    <value>4| Flash IDE</value>
+    <value>Flash IDE</value>
   </data>
   <data name="ASCompletion.Category.Helpers" xml:space="preserve">
-    <value>6| ヘルパー</value>
+    <value>Helpers | ヘルパー</value>
   </data>
   <data name="ASCompletion.Category.OutlineView" xml:space="preserve">
-    <value>7| アウトラインビュー</value>
+    <value>Outline View | アウトラインビュー</value>
   </data>
   <data name="ASCompletion.Category.Shortcuts" xml:space="preserve">
-    <value>9| ショートカット</value>
+    <value>Shortcuts | ショートカット</value>
   </data>
   <data name="ASCompletion.Info.TypeDeclMissing" xml:space="preserve">
     <value>'{0}' の型宣言が見つかりません。</value>
@@ -2629,7 +2629,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>その他</value>
   </data>
   <data name="ResultsPanel.Category.Shortcuts" xml:space="preserve">
-    <value>1| ショートカット</value>
+    <value>Shortcuts | ショートカット</value>
   </data>
   <data name="ASCompletion.Description.DisableLiveSyntaxChecking" xml:space="preserve">
     <value>ライブシンタックスチェックを無効にします。</value>
@@ -2653,7 +2653,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コンパイル時に省略するシンボルが記述されたリンカーレポートを指定します。</value>
   </data>
   <data name="FlashDevelop.Description.InsertionTriggers" xml:space="preserve">
-    <value>このオプションは補完リストを決定す文字を設定できます。Tab や Enter の場合はエスケープしなければなりません。(例. \t \n) デフォルトでは A-Z0-0 以外の何でも決定になっています。</value>
+    <value>補完リストを決定する文字を設定します。Tab や Enter の場合はエスケープしなければなりません。(例. \t \n) デフォルトでは A-Z0-9 以外の全ての入力が決定になっています。</value>
   </data>
   <data name="TaskListPanel.Info.InvalidFile" xml:space="preserve">
     <value>ファイルが見つかりませんでした。タスク一覧が更新されます。</value>
@@ -2704,7 +2704,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>トラッキングの停止</value>
   </data>
   <data name="FlashLogViewer.Category.Files" xml:space="preserve">
-    <value>2| ファイル</value>
+    <value>Files | ファイル</value>
   </data>
   <data name="FlashLogViewer.Description.TrackingStartType" xml:space="preserve">
     <value>ログファイルの追跡を開始するタイミングを指定します。</value>
@@ -2728,7 +2728,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>警告を取得する正規表現を設定します。</value>
   </data>
   <data name="FlashLogViewer.Category.Regex" xml:space="preserve">
-    <value>1| 正規表現</value>
+    <value>Regex | 正規表現</value>
   </data>
   <data name="FlashLogViewer.ToolTip.ClearFilterText" xml:space="preserve">
     <value>フィルタテキストのクリア</value>
@@ -2815,10 +2815,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Zip ファイルは正常に展開されました。</value>
   </data>
   <data name="FlashDevelop.Info.CaretFore" xml:space="preserve">
-    <value>カーソル行のテキスト:</value>
+    <value>キャレット行のテキスト:</value>
   </data>
   <data name="FlashDevelop.Info.CaretLineBack" xml:space="preserve">
-    <value>カーソル行のハイライト:</value>
+    <value>キャレット行のハイライト:</value>
   </data>
   <data name="FlashDevelop.Info.SelectionBack" xml:space="preserve">
     <value>選択範囲の背景:</value>
@@ -2947,7 +2947,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>このマクロのメニューのアイコンです。</value>
   </data>
   <data name="ASCompletion.Category.Generation" xml:space="preserve">
-    <value>5| コード生成</value>
+    <value>Code Generation | コード生成</value>
   </data>
   <data name="ASCompletion.Description.EventListenersAutoRemove" xml:space="preserve">
     <value>自動的に removeEventListener をイベントハンドラー内に作成するイベントタイプのリストです。</value>
@@ -3028,7 +3028,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マージン:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerBack" xml:space="preserve">
-    <value>マーカ−の背景:</value>
+    <value>マーカ?の背景:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerFore" xml:space="preserve">
     <value>マーカー:</value>
