@@ -443,19 +443,23 @@ namespace XMLCompletion
 
                     if (customExpand)
                     {
+                        if (tag.IndexOf("${") >= 0) tag = ProcessVars(tag);
+
                         tag = tag.Replace("\\n", "\n").Replace("\\t", "\t");
                         if (tag.IndexOf('|') < 0) tag = tag.Replace("\"\"", "\"|\"");
 
                         int child = tag.IndexOf("${child}");
-                        if (child > 0) customChildIndent = true;
+                        if (child >= 0)
+                        {
+                            tag = tag.Replace("${child}", "");
+                            customChildIndent = true;
+                        }
                         else
                         {
                             child = tag.IndexOf("><");
                             if (child > 0) child++;
                         }
                         
-                        if (tag.IndexOf("${") >= 0) tag = ProcessVars(tag);
-
                         if (child > 0)
                         {
                             tagStart = tag.Substring(0, child);
@@ -521,7 +525,8 @@ namespace XMLCompletion
         private static string VarReplacer(Match m)
         {
             string name = m.Groups[1].Value;
-            if (settings.variables.ContainsKey(name)) return (string)settings.variables[name];
+            if (name != "child" && settings.variables.ContainsKey(name)) 
+                return (string)settings.variables[name];
             else return m.Value;
         }
 
