@@ -7,6 +7,30 @@ package flash.net
 	import flash.events.ProgressEvent;
 
 	/**
+	 * Dispatched if a call to URLLoader.load() attempts to access data over HTTP.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
+	 * Dispatched if a call to URLLoader.load() attempts to load data from a server outside the security sandbox.
+	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+	 */
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
+
+	/**
+	 * Dispatched if a call to URLLoader.load() results in a fatal error that terminates the download.
+	 * @eventType flash.events.IOErrorEvent.IO_ERROR
+	 */
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
+
+	/**
+	 * Dispatched when data is received as the download operation progresses.
+	 * @eventType flash.events.ProgressEvent.PROGRESS
+	 */
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
+
+	/**
 	 * Dispatched after all the received data is decoded and placed in the data property of the URLLoader object.
 	 * @eventType flash.events.Event.COMPLETE
 	 */

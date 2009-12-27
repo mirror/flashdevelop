@@ -12,6 +12,24 @@ package flash.net
 	import flash.media.SoundTransform;
 	import flash.utils.ByteArray;
 
+	/**
+	 * Dispatched when a NetStream object is reporting its status or error condition.
+	 * @eventType flash.events.NetStatusEvent.NET_STATUS
+	 */
+	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
+
+	/**
+	 * Dispatched when an input or output error occurs that causes a network operation to fail.
+	 * @eventType flash.events.IOErrorEvent.IO_ERROR
+	 */
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
+
+	/**
+	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
+	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
+	 */
+	[Event(name="asyncError", type="flash.events.AsyncErrorEvent")] 
+
 	/// The NetStream class opens a one-way streaming connection between an AIR or Flash Player application and Flash Media Server, or between an AIR or Flash Player application and the local file system.
 	public class NetStream extends EventDispatcher
 	{

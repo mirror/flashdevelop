@@ -3,6 +3,18 @@ package flash.net
 	import flash.events.EventDispatcher;
 
 	/**
+	 * Dispatched when a LocalConnection object reports its status.
+	 * @eventType flash.events.StatusEvent.STATUS
+	 */
+	[Event(name="status", type="flash.events.StatusEvent")] 
+
+	/**
+	 * Dispatched if a call to LocalConnection.send() attempts to send data to a different security sandbox.
+	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+	 */
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
+
+	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */

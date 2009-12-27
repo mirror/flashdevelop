@@ -10,6 +10,12 @@ package flash.display
 	import flash.utils.ByteArray;
 
 	/**
+	 * Dispatched when a network request is made over HTTP and an HTTP status code can be detected.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
 	 * Dispatched by a LoaderInfo object whenever a loaded object is removed by using the unload() method of the Loader object, or when a second load is performed by the same Loader object and the original content is removed prior to the load beginning.
 	 * @eventType flash.events.Event.UNLOAD
 	 */

@@ -9,6 +9,24 @@ package flash.net
 	import flash.utils.ByteArray;
 
 	/**
+	 * Dispatched if a call to Socket.connect() attempts to connect either to a server outside the caller's security sandbox or to a port lower than 1024.
+	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+	 */
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
+
+	/**
+	 * Dispatched when a socket has received data.
+	 * @eventType flash.events.ProgressEvent.SOCKET_DATA
+	 */
+	[Event(name="socketData", type="flash.events.ProgressEvent")] 
+
+	/**
+	 * Dispatched when an input/output error occurs that causes a send or load operation to fail.
+	 * @eventType flash.events.IOErrorEvent.IO_ERROR
+	 */
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
+
+	/**
 	 * Dispatched when a network connection has been established.
 	 * @eventType flash.events.Event.CONNECT
 	 */

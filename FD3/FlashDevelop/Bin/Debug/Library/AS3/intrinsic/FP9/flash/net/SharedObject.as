@@ -11,6 +11,12 @@ package flash.net
 	[Event(name="sync", type="flash.events.SyncEvent")] 
 
 	/**
+	 * Dispatched when a SharedObject instance is reporting its status or error condition.
+	 * @eventType flash.events.NetStatusEvent.NET_STATUS
+	 */
+	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
+
+	/**
 	 * Dispatched when an exception is thrown asynchronously -- that is, from native asynchronous code.
 	 * @eventType flash.events.AsyncErrorEvent.ASYNC_ERROR
 	 */

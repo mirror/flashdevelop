@@ -7,10 +7,22 @@ package flash.net
 	import flash.events.ProgressEvent;
 
 	/**
+	 * Dispatched if a call to the XMLSocket.connect() method attempts to connect either to a server outside the caller's security sandbox or to a port lower than 1024.
+	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+	 */
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
+
+	/**
 	 * Dispatched when an input/output error occurs that causes a send or receive operation to fail.
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
 	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
+
+	/**
+	 * Dispatched after raw data is sent or received.
+	 * @eventType flash.events.DataEvent.DATA
+	 */
+	[Event(name="data", type="flash.events.DataEvent")] 
 
 	/**
 	 * Dispatched after a successful call to the XMLSocket.connect() method.

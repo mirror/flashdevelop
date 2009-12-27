@@ -5,6 +5,12 @@ package flash.net
 	import flash.net.URLRequest;
 
 	/**
+	 * Dispatched when data is received as the download operation progresses.
+	 * @eventType flash.events.ProgressEvent.PROGRESS
+	 */
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
+
+	/**
 	 * Dispatched when a load operation starts.
 	 * @eventType flash.events.Event.OPEN
 	 */
@@ -15,6 +21,18 @@ package flash.net
 	 * @eventType flash.events.IOErrorEvent.IO_ERROR
 	 */
 	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
+
+	/**
+	 * Dispatched if a call to URLStream.load() attempts to access data over HTTP, and Flash Player or  Adobe AIR is able to detect and return the status code for the request.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
+	 * Dispatched if a call to URLStream.load() attempts to load data from a server outside the security sandbox.
+	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+	 */
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
 
 	/**
 	 * Dispatched when data has loaded successfully.

@@ -5,16 +5,46 @@ package flash.net
 	import flash.utils.ByteArray;
 
 	/**
+	 * Dispatched after data is received from the server after a successful upload.
+	 * @eventType flash.events.DataEvent.UPLOAD_COMPLETE_DATA
+	 */
+	[Event(name="uploadCompleteData", type="flash.events.DataEvent")] 
+
+	/**
+	 * Dispatched when an upload fails and an HTTP status code is available to describe the failure.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
 	 * Dispatched when the user selects a file for upload or download from the file-browsing dialog box.
 	 * @eventType flash.events.Event.SELECT
 	 */
 	[Event(name="select", type="flash.events.Event")] 
 
 	/**
+	 * Dispatched when a call to the FileReference.upload() or FileReference.download() method tries to upload a file to a server or get a file from a server that is outside the caller's security sandbox.
+	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+	 */
+	[Event(name="securityError", type="flash.events.SecurityErrorEvent")] 
+
+	/**
+	 * Dispatched periodically during the file upload or download operation.
+	 * @eventType flash.events.ProgressEvent.PROGRESS
+	 */
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
+
+	/**
 	 * Dispatched when an upload or download operation starts.
 	 * @eventType flash.events.Event.OPEN
 	 */
 	[Event(name="open", type="flash.events.Event")] 
+
+	/**
+	 * Dispatched when the upload or download fails.
+	 * @eventType flash.events.IOErrorEvent.IO_ERROR
+	 */
+	[Event(name="ioError", type="flash.events.IOErrorEvent")] 
 
 	/**
 	 * Dispatched when download is complete or when upload generates an HTTP status code of 200.

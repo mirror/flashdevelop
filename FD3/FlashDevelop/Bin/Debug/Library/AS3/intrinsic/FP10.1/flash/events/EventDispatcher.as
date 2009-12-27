@@ -3,6 +3,18 @@ package flash.events
 	import flash.events.IEventDispatcher;
 	import flash.events.Event;
 
+	/**
+	 * [broadcast event] Dispatched when the Flash Player or AIR application operating loses system focus and is becoming inactive.
+	 * @eventType flash.events.Event.DEACTIVATE
+	 */
+	[Event(name="deactivate", type="flash.events.Event")] 
+
+	/**
+	 * [broadcast event] Dispatched when the Flash Player or AIR application gains operating system focus and becomes active.
+	 * @eventType flash.events.Event.ACTIVATE
+	 */
+	[Event(name="activate", type="flash.events.Event")] 
+
 	/// The EventDispatcher class is the base class for all runtime classes that dispatch events.
 	public class EventDispatcher extends Object implements IEventDispatcher
 	{

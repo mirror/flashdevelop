@@ -3,6 +3,12 @@ package flash.ui
 	import flash.events.EventDispatcher;
 	import flash.ui.ContextMenuItem;
 
+	/**
+	 * Dispatched when a user selects an item from a context menu.
+	 * @eventType flash.events.ContextMenuEvent.MENU_ITEM_SELECT
+	 */
+	[Event(name="menuItemSelect", type="flash.events.ContextMenuEvent")] 
+
 	/// Use the ContextMenuItem class to create custom menu items to display in the Flash Player context menu.
 	public class ContextMenuItem extends EventDispatcher
 	{

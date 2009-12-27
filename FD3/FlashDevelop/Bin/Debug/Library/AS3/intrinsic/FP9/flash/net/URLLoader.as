@@ -7,6 +7,12 @@ package flash.net
 	import flash.net.URLRequest;
 
 	/**
+	 * Dispatched if a call to URLLoader.load() attempts to access data over HTTP.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
 	 * Dispatched if a call to URLLoader.load() attempts to load data from a server outside the security sandbox.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */

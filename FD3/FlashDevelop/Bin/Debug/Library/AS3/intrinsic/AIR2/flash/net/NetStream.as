@@ -29,48 +29,6 @@ package flash.net
 	[Event(name="drmAuthenticate", type="flash.events.DRMAuthenticateEvent")] 
 
 	/**
-	 * Establishes a listener to respond when AIR extracts DRM content metadata embedded in a media file.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onDRMContentData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when a NetStream object has completely played a stream.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onPlayStatus", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when an embedded cue point is reached while playing a video file.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onCuePoint", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives text data embedded in a media file that is playing.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onTextData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives image data as a byte array embedded in a media file that is playing.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onImageData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives descriptive information embedded in the video being played.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onMetaData", type="flash.events")] 
-
-	/**
-	 * Establishes a listener to respond when Flash Player receives information specific to Adobe Extensible Metadata Platform (XMP) embedded in the video being played.
-	 * @eventType flash.events.
-	 */
-	[Event(name="onXMPData", type="flash.events")] 
-
-	/**
 	 * Dispatched when a NetStream object is reporting its status or error condition.
 	 * @eventType flash.events.NetStatusEvent.NET_STATUS
 	 */

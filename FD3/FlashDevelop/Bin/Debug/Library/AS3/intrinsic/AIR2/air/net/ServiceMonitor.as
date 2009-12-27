@@ -6,12 +6,6 @@ package air.net
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 
-	/**
-	 * Indicates that the service status has changed.
-	 * @eventType flash.events.StatusEvent.STATUS
-	 */
-	[Event(name="status", type="flash.events.StatusEvent")] 
-
 	/// The ServiceMonitor class implements the framework for monitoring the status and availability of network services.
 	public class ServiceMonitor extends EventDispatcher
 	{

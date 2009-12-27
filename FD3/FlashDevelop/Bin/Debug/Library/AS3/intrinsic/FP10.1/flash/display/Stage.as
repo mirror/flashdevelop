@@ -12,6 +12,12 @@ package flash.display
 	import flash.ui.ContextMenu;
 
 	/**
+	 * Dispatched when the Stage object enters, or leaves, full-screen mode.
+	 * @eventType flash.events.FullScreenEvent.FULL_SCREEN
+	 */
+	[Event(name="fullScreen", type="flash.events.FullScreenEvent")] 
+
+	/**
 	 * Dispatched when the scaleMode property of the Stage object is set to StageScaleMode.NO_SCALE and the SWF file is resized.
 	 * @eventType flash.events.Event.RESIZE
 	 */

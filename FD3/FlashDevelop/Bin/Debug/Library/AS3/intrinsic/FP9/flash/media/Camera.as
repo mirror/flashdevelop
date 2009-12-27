@@ -3,6 +3,18 @@ package flash.media
 	import flash.events.EventDispatcher;
 	import flash.media.Camera;
 
+	/**
+	 * Dispatched when a camera reports its status.
+	 * @eventType flash.events.StatusEvent.STATUS
+	 */
+	[Event(name="status", type="flash.events.StatusEvent")] 
+
+	/**
+	 * Dispatched when a camera begins or ends a session.
+	 * @eventType flash.events.ActivityEvent.ACTIVITY
+	 */
+	[Event(name="activity", type="flash.events.ActivityEvent")] 
+
 	/// Use the Camera class to capture video from a camera attached to a computer running Flash Player.
 	public class Camera extends EventDispatcher
 	{
