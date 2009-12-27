@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc>
+  <components>
+    <component className="mx.builtin.Binding" name="Binding" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.builtin.Component" name="Component" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.builtin.Metadata" name="Metadata" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.builtin.Model" name="Model" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.builtin.Script" name="Script" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.builtin.Style" name="Style" uri="http://www.adobe.com/2006/mxml" />
+  </components>
+</swc>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="3.5.0" build="12683" />
+  </versions>
+  <components>
+    <component className="mx.messaging:Consumer" name="Consumer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.soap.mxml:Operation" name="WebServiceOperation" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.remoting.mxml:Operation" name="RemoteObjectOperation" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.soap.mxml:WebService" name="WebService" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.http.mxml:HTTPService" name="HTTPService" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc:CallResponder" name="CallResponder" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.messaging:MultiTopicConsumer" name="MultiTopicConsumer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.messaging:MultiTopicProducer" name="MultiTopicProducer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc:AsyncToken" name="AsyncToken" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.http:HTTPMultiService" name="HTTPMultiService" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.messaging:Producer" name="Producer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.remoting.mxml:RemoteObject" name="RemoteObject" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.rpc.http:Operation" name="HTTPOperation" uri="http://www.adobe.com/2006/mxml"  />
+  </components>
+</swc>

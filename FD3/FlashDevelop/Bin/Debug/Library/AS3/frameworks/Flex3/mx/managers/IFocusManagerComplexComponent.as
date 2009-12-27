@@ -1,18 +1,0 @@
-﻿package mx.managers
-{
-	/**
-	 *  The IFocusManagerComplexComponent interface defines the interface  *  that components that can have more than one internal focus target *  should implement in order to *  receive focus from the FocusManager.
-	 */
-	public interface IFocusManagerComplexComponent extends IFocusManagerComponent
-	{
-		/**
-		 *  A flag that indicates whether the component currently has internal	 *  focusable targets	 *
-		 */
-		public function get hasFocusableContent () : Boolean;
-
-		/**
-		 *  Called by the FocusManager when the component receives focus.	 *  The component may in turn set focus to an internal component.	 *  The components setFocus() method will still be called when focused by	 *  the mouse, but this method will be used when focus changes via the	 *  keyboard	 *	 *  @param direction "bottom" if TAB used with SHIFT key, "top" otherwise
-		 */
-		public function assignFocus (direction:String) : void;
-	}
-}
