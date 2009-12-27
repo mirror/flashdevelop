@@ -208,6 +208,17 @@ namespace AS3Context
                 SetTemporaryPath(tempPath);
             }
             FinalizeClasspath();
+
+            // read MXML catalogs for completion
+            MxmlFilter.UpdateCatalogs(classPath);
+        }
+        
+        /// <summary>
+        /// Build a list of file mask to explore the classpath
+        /// </summary>
+        public override string[] GetExplorerMask()
+        {
+            return new string[] { "*.as", "*.mxml" };
         }
 
         /// <summary>
@@ -242,26 +253,74 @@ namespace AS3Context
         }
 
         /// <summary>
+        /// Create a new file model using the default file parser
+        /// </summary>
+        /// <param name="filename">Full path</param>
+        /// <returns>File model</returns>
+        public override FileModel GetFileModel(string fileName)
+        {
+            if (fileName == null || fileName.Length == 0 || !File.Exists(fileName))
+                return new FileModel(fileName);
+
+            fileName = PathHelper.GetLongPathName(fileName);
+            if (fileName.EndsWith(".mxml", StringComparison.OrdinalIgnoreCase))
+            {
+                FileModel nFile = new FileModel(fileName);
+                nFile.Context = this;
+                nFile.HasFiltering = true;
+                ASFileParser.ParseFile(nFile);
+                return nFile;
+            }
+            else return base.GetFileModel(fileName);
+        }
+
+        private void GuessPackage(string fileName, FileModel nFile)
+        {
+            foreach(PathModel aPath in classPath)
+                if (fileName.StartsWith(aPath.Path, StringComparison.OrdinalIgnoreCase))
+                {
+                    string local = fileName.Substring(aPath.Path.Length);
+                    char sep = Path.DirectorySeparatorChar;
+                    local = local.Substring(0, local.LastIndexOf(sep)).Replace(sep, '.');
+                    nFile.Package = local.Length > 0 ? local.Substring(1) : "";
+                }
+        }
+
+        /// <summary>
         /// Build the file DOM
         /// </summary>
         /// <param name="filename">File path</param>
         protected override void GetCurrentFileModel(string fileName)
         {
-            if (fileName.EndsWith(".mxml", StringComparison.OrdinalIgnoreCase))
-            {
-                cFile = new FileModel(fileName);
-                cFile.Context = this;
+            base.GetCurrentFileModel(fileName);
+        }
+
+        /// <summary>
+        /// Refresh the file model
+        /// </summary>
+        /// <param name="updateUI">Update outline view</param>
+        public override void UpdateCurrentFile(bool updateUI)
+        {
+            if (cFile != null && cFile != FileModel.Ignore
+                && cFile.FileName.EndsWith(".mxml", StringComparison.OrdinalIgnoreCase))
                 cFile.HasFiltering = true;
-                ASFileParser parser = new ASFileParser();
-                parser.ParseSrc(cFile, CurSciControl.Text);
-                cLine = CurSciControl.LineFromPosition(CurSciControl.CurrentPos);
-                UpdateContext(cLine);
-            }
-            else
+            base.UpdateCurrentFile(updateUI);
+
+            if (cFile.HasFiltering)
             {
-                //MainForm.BreakpointsEnabled = true;
-                base.GetCurrentFileModel(fileName);
+                MxmlComplete.mxmlContext = mxmlFilterContext;
+                MxmlComplete.context = this;
             }
+        }
+
+        /// <summary>
+        /// Update the class/member context for the given line number.
+        /// Be carefull to restore the context after calling it with a custom line number
+        /// </summary>
+        /// <param name="line"></param>
+        public override void UpdateContext(int line)
+        {
+            base.UpdateContext(line);
         }
 
         /// <summary>
@@ -270,10 +329,10 @@ namespace AS3Context
         /// </summary>
         /// <param name="src"></param>
         /// <returns></returns>
-        public override string FilterSource(string src)
+        public override string FilterSource(string fileName, string src)
         {
             mxmlFilterContext = new MxmlFilterContext();
-            return MxmlFilter.FilterSource(src, mxmlFilterContext);
+            return MxmlFilter.FilterSource(Path.GetFileNameWithoutExtension(fileName), src, mxmlFilterContext);
         }
 
         /// <summary>
@@ -284,8 +343,8 @@ namespace AS3Context
         /// <returns></returns>
         public override void FilterSource(FileModel model)
         {
+            GuessPackage(model.FileName, model);
             if (mxmlFilterContext != null) MxmlFilter.FilterSource(model, mxmlFilterContext);
-            mxmlFilterContext = null;
         }
         #endregion
 

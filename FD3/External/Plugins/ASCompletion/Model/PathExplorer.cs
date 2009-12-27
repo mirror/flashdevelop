@@ -183,7 +183,7 @@ namespace ASCompletion.Model
                     else writeCache = true;
 
                     // explore filesystem (populates foundFiles)
-                    ExploreFolder(pathModel.Path, "*" + context.Settings.DefaultExtension);
+                    ExploreFolder(pathModel.Path, context.GetExplorerMask());
                     if (stopExploration) return;
 
                     // parse files
@@ -290,7 +290,7 @@ namespace ASCompletion.Model
             return (ctx != null) ? ctx.GetFileModel(filename) : null;
         }
 
-		private void ExploreFolder(string path, string mask)
+		private void ExploreFolder(string path, string[] masks)
 		{
             if (stopExploration || !Directory.Exists(path)) return;
 			explored.Add(path);
@@ -299,14 +299,16 @@ namespace ASCompletion.Model
             // The following try/catch is used to handle "There are no more files" IOException.
             // For some undocumented reason, on a networks share, and when using a mask, 
             //  Directory.GetFiles() can throw an IOException instead of returning an empty array.
-            string[] files = null;
             try
             {
-                files = Directory.GetFiles(path, mask);
+                foreach (string mask in masks)
+                {
+                    string[] files = Directory.GetFiles(path, mask);
+                    if (files != null) 
+                        foreach (string file in files) foundFiles.Add(file);
+                }
             }
-            catch {} 
-            if (files != null) 
-                foreach (string file in files) foundFiles.Add(file);
+            catch { }
 
             // explore subfolders
             string[] dirs = Directory.GetDirectories(path);
@@ -314,7 +316,7 @@ namespace ASCompletion.Model
             {
                 if (!explored.Contains(dir) && (File.GetAttributes(dir) & FileAttributes.Hidden) == 0
                     && !Path.GetFileName(dir).StartsWith("."))
-                    ExploreFolder(dir, mask);
+                    ExploreFolder(dir, masks);
             }
 		}
 	}

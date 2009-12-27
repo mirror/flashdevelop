@@ -25,9 +25,15 @@ namespace ASCompletion.Model
         }
     }
 
+    public enum ASMetaKind
+    {
+        Unknown, Event, Style, Effect, Exclude, Include, DefaultProperty, MaxChildren
+    }
+
     public class ASMetaData: IComparable
     {
-        static private Regex reNameTypeParams = new Regex("([\"'])(?<name>[^\\1]+)\\1\\s*,\\s*type\\s*=\\s*([\"'])(?<type>[^\\2]+)\\2", RegexOptions.Compiled);
+        static private Regex reNameTypeParams = 
+            new Regex("[\"']([^\"']+)[\"']\\s*,\\s*(type|event|kind)\\s*=\\s*[\"']([^\"']+)", RegexOptions.Compiled);
 
         public int LineFrom;
         public int LineTo;
@@ -35,8 +41,7 @@ namespace ASCompletion.Model
         public Dictionary<string, string> Params;
         public string RawParams;
         public string Comments;
-        public bool IsEvent;
-        public bool IsStyle;
+        public ASMetaKind Kind = ASMetaKind.Unknown;
 
         public ASMetaData(string name)
         {
@@ -47,15 +52,14 @@ namespace ASCompletion.Model
         {
             RawParams = raw;
             Params = new Dictionary<string, string>();
-            if (Name == "Event" || Name == "Style")
+            if (Enum.IsDefined(typeof(ASMetaKind), Name))
             {
+                Kind = (ASMetaKind)Enum.Parse(typeof(ASMetaKind), Name);
                 Match mParams = reNameTypeParams.Match(raw);
                 if (mParams.Success)
                 {
-                    Params.Add("name", mParams.Groups["name"].Value);
-                    Params.Add("type", mParams.Groups["type"].Value);
-                    if (Name == "Event") IsEvent = true;
-                    else if (Name == "Style") IsStyle = true;
+                    Params.Add("name", mParams.Groups[1].Value);
+                    Params.Add(mParams.Groups[2].Value, mParams.Groups[3].Value);
                 }
             }
         }
@@ -65,7 +69,7 @@ namespace ASCompletion.Model
             if (!(obj is ASMetaData))
                 throw new InvalidCastException("This object is not of type ASMetaData");
             ASMetaData meta = obj as ASMetaData;
-            if (IsEvent && meta.IsEvent)
+            if (Kind == ASMetaKind.Event && meta.Kind == ASMetaKind.Event)
                 return Params["type"].CompareTo(meta.Params["type"]);
             return Name.CompareTo(meta.Name);
         }
@@ -258,11 +262,16 @@ namespace ASCompletion.Model
             // event/style metadatas
             if (MetaDatas != null)
             {
-                foreach (ASMetaData meta in MetaDatas) if (meta.Name == "Event" || meta.Name == "Style")
-                {
-                    sb.Append(ClassModel.CommentDeclaration(meta.Comments, tab));
-                    sb.Append(tab).Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl).Append(nl);
-                }
+                foreach (ASMetaData meta in MetaDatas)
+                    if (meta.Kind == ASMetaKind.Include)
+                    {
+                        sb.Append(meta.RawParams).Append(nl);
+                    }
+                    else if (meta.Kind != ASMetaKind.Unknown)
+                    {
+                        sb.Append(ClassModel.CommentDeclaration(meta.Comments, tab));
+                        sb.Append(tab).Append('[').Append(meta.Name).Append('(').Append(meta.RawParams).Append(")] ").Append(nl).Append(nl);
+                    }
             }
 
             // members			

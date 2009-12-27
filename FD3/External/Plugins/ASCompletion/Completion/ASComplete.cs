@@ -1157,7 +1157,7 @@ namespace ASCompletion.Completion
                 if (inFile.MetaDatas != null)
                 {
                     foreach (ASMetaData meta in inFile.MetaDatas)
-                        if (meta.IsEvent) events.Add(meta);
+                        if (meta.Kind == ASMetaKind.Event) events.Add(meta);
                 }
                 ofClass = ofClass.Extends;
             }

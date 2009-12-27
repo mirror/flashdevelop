@@ -1,0 +1,105 @@
+﻿package mx.effects
+{
+	/// <mx:Parallel/>
+	public class DefaultListEffect extends mx.effects.Parallel
+	{
+		/**
+		 *  @private
+		 */
+		private var _fadeOutDuration : Number;
+		/**
+		 *  @private
+		 */
+		private var _fadeInDuration : Number;
+		/**
+		 *  @private
+		 */
+		private var _shrinkDuration : Number;
+		/**
+		 *  @private
+		 */
+		private var _growDuration : Number;
+		/**
+		 *  @private
+		 */
+		private var _removedElementOffset : Number;
+		/**
+		 *  @private
+		 */
+		private var _color : uint;
+		/// <mx:Dissolve/>
+		public var fadeOut1 : mx.effects.Dissolve;
+		/// <mx:Parallel/>
+		public var shrink : mx.effects.Parallel;
+		/// <mx:WipeUp/>
+		public var wipeUp1 : mx.effects.WipeUp;
+		/// <mx:Dissolve/>
+		public var dissolve1 : mx.effects.Dissolve;
+		/// <mx:Parallel/>
+		public var grow : mx.effects.Parallel;
+		/// <mx:Dissolve/>
+		public var fadeIn1 : mx.effects.Dissolve;
+		/// <mx:Dissolve/>
+		public var fadeOut2 : mx.effects.Dissolve;
+		/// <mx:Dissolve/>
+		public var fadeIn2 : mx.effects.Dissolve;
+
+		/**
+		 *  The duration in milliseconds of the Dissolve used for 
+	     *  fading out renderers for removed and replaced items.
+	     *
+	     *  @default 300
+		 */
+		public function get fadeOutDuration () : Number;
+		public function set fadeOutDuration (value:Number) : void;
+
+		/**
+		 *  The duration in milliseconds of the Dissolve for fading
+	     *  in renderers for added and replacing items.
+	     *
+	     *  @default 300
+		 */
+		public function get fadeInDuration () : Number;
+		public function set fadeInDuration (value:Number) : void;
+
+		/**
+		 *  The duration in milliseconds of the Resize effect
+	     *  applied to renderers for removed or replaced items.
+	     *
+	     *  @default 300
+		 */
+		public function get shrinkDuration () : Number;
+		public function set shrinkDuration (value:Number) : void;
+
+		/**
+		 *  The duration in milliseconds of the Resize effect
+	     *  applied to renderers for removed or replaced items.
+	     *
+	     *  @default 300
+		 */
+		public function get growDuration () : Number;
+		public function set growDuration (value:Number) : void;
+
+		/**
+		 *  The offset in milliseconds between the effects applied
+	     *  to the renderers representing multiple items deleted
+	     *  at the same time. If 0, all renderers will fade and shrink
+	     *  simultaneously.
+	     *
+	     *  @default 100
+		 */
+		public function get removedElementOffset () : Number;
+		public function set removedElementOffset (value:Number) : void;
+
+		/**
+		 *  Hex value that represents the color used in Dissolve effects within
+		 *  the composite data effect.
+		 *
+		 *  @default 0xFFFFFF
+		 */
+		public function get color () : Number;
+		public function set color (value:Number) : void;
+
+		public function createInstances (targets:Array = null) : Array;
+	}
+}

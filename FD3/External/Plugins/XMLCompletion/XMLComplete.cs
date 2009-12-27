@@ -339,6 +339,7 @@ namespace XMLCompletion
 					if (value == '/')
 					{
 						if ((position < 2) || ((Char)sci.CharAt(position-2) != '<')) return;
+                        ctag = new XMLContextTag();
 					}
 					else 
 					{
@@ -346,9 +347,10 @@ namespace XMLCompletion
 						if (ctag.Tag != null) return;
 					}
                     // Allow another plugin to handle this
-                    de = new DataEvent(EventType.Command, "XMLCompletion.Element", new XMLContextTag());
+                    de = new DataEvent(EventType.Command, "XMLCompletion.Element", ctag);
                     EventManager.DispatchEvent(PluginBase.MainForm, de);
                     if (de.Handled) return;
+
                     // New tag
                     if (PluginSettings.EnableXMLCompletion && cType == XMLType.Known)
 					{
@@ -373,9 +375,10 @@ namespace XMLCompletion
                     ctag = GetXMLContextTag(sci, position);
                     if (ctag.NameSpace == null) return;
                     // Allow another plugin to handle this
-                    de = new DataEvent(EventType.Command, "XMLCompletion.Namespace", new XMLContextTag());
+                    de = new DataEvent(EventType.Command, "XMLCompletion.Namespace", ctag);
                     EventManager.DispatchEvent(PluginBase.MainForm, de);
                     if (de.Handled) return;
+
                     // Show namespace's tags
                     if (PluginSettings.EnableXMLCompletion && cType == XMLType.Known)
                     {
@@ -435,6 +438,12 @@ namespace XMLCompletion
                     if (ctag.Tag != null)
                     {
                         if (InQuotes(ctag.Tag) || ctag.Tag.LastIndexOf('"') < ctag.Tag.LastIndexOf('=')) return;
+                        // Allow another plugin to handle this
+                        Object[] obj = new Object[] { ctag, "" };
+                        de = new DataEvent(EventType.Command, "XMLCompletion.Attribute", obj);
+                        EventManager.DispatchEvent(PluginBase.MainForm, de);
+                        if (de.Handled) return;
+                        
                         if (PluginSettings.EnableXMLCompletion && cType == XMLType.Known)
                         {
                             foreach (HTMLTag tag in knownTags)
@@ -451,12 +460,6 @@ namespace XMLCompletion
                                     CompletionList.Show(items, true);
                                     return;
                                 }
-                        }
-                        else // Allow another plugin to handle this
-                        {
-                            Object[] obj = new Object[] { ctag, "" };
-                            de = new DataEvent(EventType.Command, "XMLCompletion.Attribute", obj);
-                            EventManager.DispatchEvent(PluginBase.MainForm, de);
                         }
                     }
                     /*else
@@ -548,17 +551,6 @@ namespace XMLCompletion
 						}						
 					}
 					break;
-
-                case '\t':
-                    if (sci.SelText == "")
-                    {
-                        ctag = GetXMLContextTag(sci, position - 2);
-                        if (ctag.Tag == null)
-                        {
-
-                        }
-                    }
-                    break;
 			}
 		}
 		
@@ -597,6 +589,11 @@ namespace XMLCompletion
                 // Element completion
 				if (ctag.Name != null && (ctag.Tag.Length == ctag.Name.Length+1))
 				{
+                    // Allow another plugin to handle this
+                    DataEvent de = new DataEvent(EventType.Command, "XMLCompletion.Element", ctag);
+                    EventManager.DispatchEvent(PluginBase.MainForm, de);
+                    if (de.Handled) return true;
+
 					if (cType == XMLType.Known)
 					{
                         List<ICompletionListItem> items = new List<ICompletionListItem>();
@@ -609,11 +606,6 @@ namespace XMLCompletion
 						}
 						CompletionList.Show(items, false, ctag.Name);
 					}
-                    else // Allow another plugin to handle this
-					{
-                        DataEvent de = new DataEvent(EventType.Command, "XMLCompletion.Element", ctag);
-						EventManager.DispatchEvent(PluginBase.MainForm, de);
-					}
 				}
                 // Attribute completion
 				else
@@ -621,7 +613,14 @@ namespace XMLCompletion
 					if (InQuotes(ctag.Tag) || ctag.Tag.LastIndexOf('"') < ctag.Tag.LastIndexOf('=')) return true;
 					Int32 position = sci.CurrentPos - 1;
 					String word = GetWordLeft(sci, ref position);
-					if (cType == XMLType.Known)
+
+					// Allow another plugin to handle this
+					Object[] obj = new Object[]{ctag,word};
+                    DataEvent de = new DataEvent(EventType.Command, "XMLCompletion.Attribute", obj);
+                    EventManager.DispatchEvent(PluginBase.MainForm, de);
+                    if (de.Handled) return true;
+                    
+                    if (cType == XMLType.Known)
 					{
 						foreach (HTMLTag tag in knownTags)
 						if (String.Compare(tag.Tag, ctag.Name, true) == 0)
@@ -638,12 +637,6 @@ namespace XMLCompletion
 							return true;
 						}
 					}
-					else // Allow another plugin to handle this
-					{
-						Object[] obj = new Object[]{ctag,word};
-                        DataEvent de = new DataEvent(EventType.Command, "XMLCompletion.Attribute", obj);
-                        EventManager.DispatchEvent(PluginBase.MainForm, de);
-					}
 				}
 				return true;
 			}
@@ -657,7 +650,7 @@ namespace XMLCompletion
         /// <summary>
         /// Gets the xml context tag
         /// </summary> 
-		private static XMLContextTag GetXMLContextTag(ScintillaControl sci, Int32 position)
+		public static XMLContextTag GetXMLContextTag(ScintillaControl sci, Int32 position)
 		{
 			XMLContextTag xtag = new XMLContextTag();
 			if ((position == 0) || (sci == null)) return xtag;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.0.0" build="10485" />
+  </versions>
+  <components>
+    <component className="mx.messaging:Consumer" name="Consumer" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.soap.mxml:Operation" name="WebServiceOperation" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.remoting.mxml:Operation" name="RemoteObjectOperation" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.soap.mxml:WebService" name="WebService" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.http.mxml:HTTPService" name="HTTPService" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc:CallResponder" name="CallResponder" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.messaging:MultiTopicConsumer" name="MultiTopicConsumer" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.messaging:MultiTopicProducer" name="MultiTopicProducer" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc:AsyncToken" name="AsyncToken" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.http:HTTPMultiService" name="HTTPMultiService" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.messaging:Producer" name="Producer" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.remoting.mxml:RemoteObject" name="RemoteObject" uri="library://ns.adobe.com/flex/halo"  />
+    <component className="mx.rpc.http:Operation" name="HTTPOperation" uri="library://ns.adobe.com/flex/halo"  />
+  </components>
+</swc>

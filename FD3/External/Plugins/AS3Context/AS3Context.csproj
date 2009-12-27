@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0263E5F6-D5B2-4118-B12E-87F9A74DE8AF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -60,6 +60,7 @@
     <Compile Include="Compiler\FlexShells.cs" />
     <Compile Include="Compiler\FlexDebugger.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="MxmlComplete.cs" />
     <Compile Include="MxmlFilter.cs" />
     <Compile Include="PluginMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +94,10 @@
       <Project>{4EBF2653-9654-4E40-880E-0046B3D6210E}</Project>
       <Name>ASCompletion</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\XMLCompletion\XMLCompletion.csproj">
+      <Project>{556F43A0-C288-471A-8CD8-A787FC7ACA34}</Project>
+      <Name>XMLCompletion</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

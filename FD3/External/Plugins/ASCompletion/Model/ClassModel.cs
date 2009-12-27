@@ -422,7 +422,7 @@ namespace ASCompletion.Model
             }
             else if ((ft & FlagType.Variable) > 0)
             {
-                if (modifiers.Length == 0) modifiers = "local ";
+                if ((ft & FlagType.LocalVar) > 0) modifiers = "local ";
                 if ((ft & FlagType.Constant) > 0)
                 {
                     if (member.Value == null)

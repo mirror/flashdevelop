@@ -690,6 +690,14 @@ namespace ASCompletion.Context
             // To be implemented
             started = true;
         }
+
+        /// <summary>
+        /// Build a list of file mask to explore the classpath
+        /// </summary>
+        public virtual string[] GetExplorerMask()
+        {
+            return new string[] { "*" + Settings.DefaultExtension };
+        }
         #endregion
 
 		#region model caching
@@ -803,7 +811,7 @@ namespace ASCompletion.Context
         /// </summary>
         /// <param name="src"></param>
         /// <returns></returns>
-        public virtual string FilterSource(string src)
+        public virtual string FilterSource(string fileName, string src)
         {
             return src;
         }
@@ -931,6 +939,7 @@ namespace ASCompletion.Context
         {
             if (cFile == null || CurSciControl == null)
                 return;
+
             ASFileParser parser = new ASFileParser();
             parser.ParseSrc(cFile, CurSciControl.Text);
             cLine = CurSciControl.LineFromPosition(CurSciControl.CurrentPos);
@@ -972,7 +981,7 @@ namespace ASCompletion.Context
             inPrivateSection = cFile.PrivateSectionIndex > 0 && line >= cFile.PrivateSectionIndex;
 
             // rebuild completion cache
-            if (!completionCache.IsDirty &&
+            if (!completionCache.IsDirty && IsFileValid &&
                 (completionCache.Package != cFile.Package 
                 || completionCache.Classname != cFile.GetPublicClass().Name))
                 RefreshContextCache(null);
@@ -1475,6 +1484,7 @@ namespace ASCompletion.Context
     }
     #endregion
 
+    #region Completion cache
     public class CompletionCache
     {
         public string Package;
@@ -1526,4 +1536,5 @@ namespace ASCompletion.Context
             return string.Join(" ", keywords.ToArray());
         }
     }
+    #endregion
 }

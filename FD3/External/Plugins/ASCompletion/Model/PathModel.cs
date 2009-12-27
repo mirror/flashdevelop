@@ -89,7 +89,7 @@ namespace ASCompletion.Model
         public bool IsVirtual;
         private FileSystemWatcher watcher;
         private Timer updater;
-        private string ext;
+        private string[] masks;
         private string basePath;
         private List<string> toExplore;
         private List<string> toRemove;
@@ -123,7 +123,7 @@ namespace ASCompletion.Model
                         watcher = new FileSystemWatcher();
                         watcher.Path = System.IO.Path.GetDirectoryName(Path);
                         basePath = path;
-                        ext = Owner.Settings.DefaultExtension;
+                        masks = Owner.GetExplorerMask();
                         watcher.IncludeSubdirectories = true;
                         watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;
                         watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
@@ -146,7 +146,7 @@ namespace ASCompletion.Model
                 {
                     watcher = new FileSystemWatcher();
                     basePath = watcher.Path = System.IO.Path.GetDirectoryName(Path);
-                    ext = System.IO.Path.GetFileName(path);
+                    masks = new string[] { System.IO.Path.GetFileName(path) };
                     watcher.IncludeSubdirectories = false;
                     watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;
                     watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
@@ -197,13 +197,26 @@ namespace ASCompletion.Model
         }
 
         #region Watcher events
+        private bool maskMatch(string fileName)
+        {
+            foreach (string mask in masks)
+            {
+                if (mask[0] == '*')
+                {
+                    if (fileName.EndsWith(mask.Substring(1))) return true;
+                }
+                else if (fileName.EndsWith(mask)) return true;
+            }
+            return false;
+        }
+
         private void watcher_Renamed(object sender, RenamedEventArgs e)
         {
             // possibly renamed the watched folder
             if (!e.FullPath.StartsWith(basePath) && e.FullPath != Path)
                 return;
             // folder renamed: flag directory to be removed from models
-            if (!e.FullPath.EndsWith(ext))
+            if (!maskMatch(e.FullPath))
             {
                 if (Directory.Exists(e.FullPath))
                 {
@@ -242,7 +255,7 @@ namespace ASCompletion.Model
             if (!e.FullPath.StartsWith(basePath) && e.FullPath != Path)
                 return;
             // directory change: schedule for exploration
-            if (!e.FullPath.EndsWith(ext))
+            if (!maskMatch(e.FullPath))
             {
                 lock (toExplore)
                 {
@@ -276,7 +289,7 @@ namespace ASCompletion.Model
             if (!e.FullPath.StartsWith(basePath) && e.FullPath != Path)
                 return;
             // (possibly) folder deleted
-            if (!e.FullPath.EndsWith(ext))
+            if (!maskMatch(e.FullPath))
             {
                 lock (toRemove)
                 {
@@ -391,7 +404,7 @@ namespace ASCompletion.Model
             {
                 List<string> explored = new List<string>();
                 List<string> foundFiles = new List<string>();
-                ExploreFolder(path, "*" + ext, explored, foundFiles);
+                ExploreFolder(path, masks, explored, foundFiles);
                 foreach (string fileName in foundFiles)
                     if (!Files.ContainsKey(fileName.ToUpper()))
                     {
@@ -404,24 +417,29 @@ namespace ASCompletion.Model
             }
         }
 
-        private void ExploreFolder(string path, string mask, List<string> explored, List<string> foundFiles)
+        private void ExploreFolder(string path, string[] masks, List<string> explored, List<string> foundFiles)
         {
             if (!Directory.Exists(path)) return;
             explored.Add(path);
 
             // convert classes
-            string[] files = Directory.GetFiles(path, mask);
-            foreach (string file in files)
+            try
             {
-                foundFiles.Add(file);
+                foreach (string mask in masks)
+                {
+                    string[] files = Directory.GetFiles(path, mask);
+                    if (files != null)
+                        foreach (string file in files) foundFiles.Add(file);
+                }
             }
+            catch { }
 
             // explore subfolders
             string[] dirs = Directory.GetDirectories(path);
             foreach (string dir in dirs)
             {
                 if (!explored.Contains(dir) && (File.GetAttributes(dir) & FileAttributes.Hidden) == 0)
-                    ExploreFolder(dir, mask, explored, foundFiles);
+                    ExploreFolder(dir, masks, explored, foundFiles);
             }
         }
         #endregion

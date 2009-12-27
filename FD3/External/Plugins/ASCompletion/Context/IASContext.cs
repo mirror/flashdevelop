@@ -56,6 +56,11 @@ namespace ASCompletion.Context
         void CheckModel(bool onFileOpen);
 
         /// <summary>
+        /// Build a list of file mask to explore the classpath
+        /// </summary>
+        string[] GetExplorerMask();
+
+        /// <summary>
         /// Parse a packaged library file
         /// </summary>
         /// <param name="path">Models owner</param>
@@ -99,7 +104,7 @@ namespace ASCompletion.Context
         /// </summary>
         /// <param name="src"></param>
         /// <returns></returns>
-        string FilterSource(string src);
+        string FilterSource(string fileName, string src);
 
         /// <summary>
         /// Called if a FileModel needs filtering

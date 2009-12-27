@@ -187,7 +187,7 @@ namespace PHPContext
         /// </summary>
         /// <param name="src"></param>
         /// <returns></returns>
-        public override string FilterSource(string src)
+        public override string FilterSource(string fileName, string src)
         {
             phpRanges = new List<InlineRange>();
             return PhpFilter.FilterSource(src, phpRanges);

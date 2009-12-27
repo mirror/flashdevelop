@@ -26,6 +26,7 @@ namespace AS3Context
         static private AS3Settings settingObject;
         private Context contextInstance;
         private String settingFilename;
+        private bool inMXML;
 
         #region Required Properties
 
@@ -138,6 +139,21 @@ namespace AS3Context
                         e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
                     }
                 }
+                else if (e.Type == EventType.Keys)
+                {
+                    if (inMXML)
+                    {
+                        KeyEvent ke = e as KeyEvent;
+                        if (ke.Value == ASCompletion.Context.ASContext.CommonSettings.GotoDeclaration)
+                        {
+                            if (MxmlComplete.GotoDeclaration())
+                            {
+                                ke.Handled = true;
+                                ke.ProcessKey = false;
+                            }
+                        }
+                    }
+                }
                 return;
             }
 
@@ -164,6 +180,10 @@ namespace AS3Context
                     case EventType.FileSave:
                     case EventType.FileSwitch:
                         if (contextInstance != null) contextInstance.OnFileOperation(e);
+
+                        string ext = Path.GetExtension(PluginBase.MainForm.CurrentDocument.FileName);
+                        inMXML = (ext.ToLower() == ".mxml");
+                        MxmlComplete.IsDirty = true;
                         break;
                 }
                 return;
@@ -195,6 +215,26 @@ namespace AS3Context
                             }
                         }
                     }
+                    if (inMXML)
+                    {
+                        DataEvent de = e as DataEvent;
+                        if (de.Action == "XMLCompletion.Element")
+                        {
+                            de.Handled = MxmlComplete.HandleElement(de.Data);
+                        }
+                        if (de.Action == "XMLCompletion.Namespace")
+                        {
+                            de.Handled = MxmlComplete.HandleNamespace(de.Data);
+                        }
+                        else if (de.Action == "XMLCompletion.CloseElement")
+                        {
+                            de.Handled = MxmlComplete.HandleElementClose(de.Data);
+                        }
+                        else if (de.Action == "XMLCompletion.Attribute")
+                        {
+                            de.Handled = MxmlComplete.HandleAttribute(de.Data);
+                        }
+                    }
                 }
             }
         }
@@ -223,7 +263,6 @@ namespace AS3Context
                 FileModel model = path.GetFile(fileName);
                 ASComplete.OpenVirtualFile(model);
             }
-
             return false;
         }
 
@@ -249,7 +288,7 @@ namespace AS3Context
         {
             EventManager.AddEventHandler(this, EventType.UIStarted | EventType.ProcessArgs | EventType.FileSwitch | EventType.FileSave);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
-            EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.Low);
+            EventManager.AddEventHandler(this, EventType.Command | EventType.Keys, HandlingPriority.Low);
         }
 
         /// <summary>

@@ -181,7 +181,7 @@ namespace ASCompletion.Model
 
             // pre-filtering
             if (model.HasFiltering && model.Context != null)
-                ba = model.Context.FilterSource(ba);
+                ba = model.Context.FilterSource(fileModel.FileName, ba);
             model.InlinedIn = null;
             model.InlinedRanges = null;
 
@@ -342,6 +342,20 @@ namespace ASCompletion.Model
                             else if (c1 == 10 || c1 == 13) inString = 0;
                             else if ((inString == 1) && (c1 == '"')) inString = 0;
                             else if ((inString == 2) && (c1 == '\'')) inString = 0;
+
+                            // extract "include" declarations
+                            if (inString == 0 && length == 7 && context == 0)
+                            {
+                                string token = new string(buffer, 0, length);
+                                if (token == "include")
+                                {
+                                    string inc = ba.Substring(tokPos, i - tokPos);
+                                    if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
+                                    ASMetaData meta = new ASMetaData("Include");
+                                    meta.ParseParams(inc);
+                                    model.MetaDatas.Add(meta);
+                                }
+                            }
                         }
 						break;
 

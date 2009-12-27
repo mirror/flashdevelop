@@ -5,6 +5,7 @@ using ASCompletion.Model;
 using System.IO;
 using System.Text.RegularExpressions;
 using ASCompletion.Context;
+using System.Xml;
 
 namespace AS3Context
 {
@@ -13,11 +14,54 @@ namespace AS3Context
         public List<InlineRange> as3ranges = new List<InlineRange>();
         public MemberList mxmlMembers = new MemberList();
         public string baseTag = "";
+        public Dictionary<string, string> namespaces = new Dictionary<string,string>();
+        public List<MxmlCatalog> catalogs = new List<MxmlCatalog>();
+        public FileModel model;
     }
 
+    #region MXML Filter
     class MxmlFilter
     {
-        private static readonly Regex tagName = new Regex("<(?<name>[a-z][a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        static private readonly Regex tagName = new Regex("<(?<name>[a-z][a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        static private Dictionary<string, MxmlCatalog> catalogs = new Dictionary<string, MxmlCatalog>();
+        static private Dictionary<string, MxmlCatalog> archive = new Dictionary<string,MxmlCatalog>();
+
+        static public void UpdateCatalogs(List<PathModel> classpath)
+        {
+            // keep catalogs in memory
+            foreach (string key in catalogs.Keys)
+                if (!archive.ContainsKey(key)) archive[key] = catalogs[key];
+
+            // lookup catalogs
+            catalogs.Clear();
+            foreach (PathModel aPath in classpath)
+            {
+                try
+                {
+                    string[] files = Directory.GetFiles(aPath.Path, "*.xml");
+                    foreach (string file in files)
+                        if (file.EndsWith("catalog.xml")) AddCatalog(file);
+                }
+                catch { }
+            }
+        }
+
+        private static void AddCatalog(string file)
+        {
+            if (archive.ContainsKey(file))
+            {
+                catalogs[file] = archive[file];
+                return;
+            }
+            try
+            {
+                MxmlCatalog cat = new MxmlCatalog();
+                cat.Read(file);
+                catalogs[file] = cat;
+            }
+            catch (XmlException ex) { }
+        }
 
         /// <summary>
         /// Called if a FileModel needs filtering
@@ -25,12 +69,13 @@ namespace AS3Context
         /// </summary>
         /// <param name="src"></param>
         /// <returns></returns>
-        static public string FilterSource(string src, MxmlFilterContext ctx)
+        static public string FilterSource(string name, string src, MxmlFilterContext ctx)
         {
             List<InlineRange> as3ranges = ctx.as3ranges;
             MemberList mxmlMembers = ctx.mxmlMembers;
 
             StringBuilder sb = new StringBuilder();
+            sb.Append("package{");
             int len = src.Length - 8;
             int rangeStart = -1;
             int nodeStart = -1;
@@ -74,8 +119,7 @@ namespace AS3Context
                                 i += 3;
                                 continue;
                             }
-                            else if (nodeEnd > 0 && nodeStart >= 0 && src.Substring(i + 2, 7) == "[CDATA["
-                                && src.Substring(nodeStart, nodeEnd - nodeStart) == "mx:Script")
+                            else if (src[i + 2] == '[' && src.Substring(i + 2, 7) == "[CDATA[")
                             {
                                 i += 8;
                                 skip = false;
@@ -91,11 +135,16 @@ namespace AS3Context
 
                             if (firstNode && src[i + 1] != '?')
                             {
-                                string tag = GetXMLContextTag(src, src.IndexOf(' ', i));
-                                if (tag != null)
+                                int space = src.IndexOf(' ', i);
+                                string tag = GetXMLContextTag(src, space);
+                                if (tag != null && space > 0)
                                 {
                                     firstNode = false;
                                     ctx.baseTag = tag;
+                                    ReadNamespaces(ctx, src, space);
+                                    string type = MxmlComplete.ResolveType(ctx, tag);
+                                    sb.Append("public class ").Append(name)
+                                        .Append(" extends ").Append(type).Append('{');
                                 }
                             }
                         }
@@ -107,12 +156,15 @@ namespace AS3Context
                             string tag = GetXMLContextTag(src, i);
                             if (tag != null)
                             {
-                                string id = GetAttributeValue(src, i);
+                                string id = GetAttributeValue(src, ref i);
                                 if (id != null)
                                 {
                                     MemberModel member = new MemberModel(id, tag, FlagType.Variable | FlagType.Dynamic, Visibility.Public);
                                     member.LineTo = member.LineFrom = line;
+                                    string type = MxmlComplete.ResolveType(ctx, tag);
                                     mxmlMembers.Add(member);
+                                    sb.Append("public var ").Append(id)
+                                        .Append(':').Append(type).Append(';');
                                 }
                             }
                         }
@@ -139,21 +191,96 @@ namespace AS3Context
             }
             if (rangeStart >= 0 && hadNL)
                 as3ranges.Add(new InlineRange("as3", rangeStart, src.Length));
+            sb.Append("}}");
             return sb.ToString();
+        }
+
+        private static void ReadNamespaces(MxmlFilterContext ctx, string src, int i)
+        {
+            // built-in ns
+            ctx.namespaces["display"] = "flash.display.*";
+            ctx.namespaces["errors"] = "flash.errors.*";
+            ctx.namespaces["events"] = "flash.events.*";
+            ctx.namespaces["filters"] = "flash.filters.*";
+            ctx.namespaces["geom"] = "flash.geom.*";
+            ctx.namespaces["media"] = "flash.media.*";
+            ctx.namespaces["net"] = "flash.net.*";
+            ctx.namespaces["printing"] = "flash.printing.*";
+            ctx.namespaces["system"] = "flash.system.*";
+            ctx.namespaces["text"] = "flash.text.*";
+            ctx.namespaces["ui"] = "flash.ui.*";
+            ctx.namespaces["utils"] = "flash.utils.*";
+            ctx.namespaces["xml"] = "flash.xml.*";
+
+            // declared ns
+            int len = src.Length;
+            while (i < len)
+            {
+                string name = GetAttributeName(src, ref i);
+                if (name == null) break;
+                string value = GetAttributeValue(src, ref i);
+                if (value == null) break;
+                if (name.StartsWith("xmlns"))
+                {
+                    string[] qname = name.Split(':');
+                    if (qname.Length == 1) ctx.namespaces["*"] = value;
+                    else ctx.namespaces[qname[1]] = value;
+                }
+            }
+            // find catalogs
+            foreach (string ns in ctx.namespaces.Keys)
+            {
+                string uri = ctx.namespaces[ns];
+                string temp = (uri == "http://www.adobe.com/2006/mxml") ? "library://ns.adobe.com/flex/halo" : uri;
+                foreach (MxmlCatalog cat in catalogs.Values)
+                    if (cat.URI == temp)
+                    {
+                        cat.NS = ns;
+                        ctx.catalogs.Add(cat);
+                    }
+            }
+        }
+
+        /// <summary>
+        /// Get the attribute name
+        /// </summary>
+        private static string GetAttributeName(string src, ref int i)
+        {
+            string name = "";
+            char c;
+            int oldPos = 0;
+            int len = src.Length;
+            bool skip = true;
+            while (i < len)
+            {
+                c = src[i++];
+                if (c == '>') return null;
+                if (skip && c > 32) skip = false;
+                if (c == '=')
+                {
+                    if (!skip) return name;
+                    else break;
+                }
+                else if (!skip && c > 32) name += c;
+            }
+            i = oldPos;
+            return null;
         }
 
         /// <summary>
         /// Get the attribute value
         /// </summary>
-        private static string GetAttributeValue(string src, int position)
+        private static string GetAttributeValue(string src, ref int i)
         {
             string value = "";
             char c;
+            int oldPos = i;
             int len = src.Length;
             bool skip = true;
-            while (position < len)
+            while (i < len)
             {
-                c = src[position++];
+                c = src[i++];
+                if (c == 10 || c == 13) break;
                 if (c == '"')
                 {
                     if (!skip) return value;
@@ -161,6 +288,7 @@ namespace AS3Context
                 }
                 else if (!skip) value += c;
             }
+            i = oldPos;
             return null;
         }
 
@@ -196,102 +324,92 @@ namespace AS3Context
         /// <returns></returns>
         static public void FilterSource(FileModel model, MxmlFilterContext ctx)
         {
+            ctx.model = model;
             model.InlinedIn = "xml";
             model.InlinedRanges = ctx.as3ranges;
             string[] qname;
             string ns;
             string cname;
 
-            Dictionary<string, string> resolved = new Dictionary<string,string>();
-            foreach (MemberModel member in ctx.mxmlMembers)
+            if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
+            foreach (string key in ctx.namespaces.Keys)
             {
-                string tag = member.Type;
+                ASMetaData meta = new ASMetaData("Namespace");
+                meta.Params = new Dictionary<string, string>();
+                meta.Params.Add(key, ctx.namespaces[key]);
+                model.MetaDatas.Add(meta);
+            }
+
+            ClassModel aClass = model.GetPublicClass();
+            if (aClass == ClassModel.VoidClass) 
+                return;
+            aClass.Comments = "<" + ctx.baseTag + "/>";
+
+            Dictionary<string, string> resolved = new Dictionary<string,string>();
+            foreach (MemberModel mxmember in ctx.mxmlMembers)
+            {
+                string tag = mxmember.Type;
                 string type = null;
                 ns = "";
                 cname = null;
                 if (resolved.ContainsKey(tag)) type = resolved[tag];
                 else
                 {
-                    if (tag.IndexOf(':') >= 0)
-                    {
-                        qname = tag.Split(':');
-                        ns = qname[0];
-                        cname = qname[1];
-                    }
-                    type = ResolveType(model.Context, ns, cname);
+                    type = MxmlComplete.ResolveType(ctx, tag);
                     resolved[tag] = type;
                 }
-                member.Type = type ?? "Object";
-            }
-
-            // consider the inline script as a class body named after the file
-            ClassModel theClass = new ClassModel();
-            if (ctx.baseTag.IndexOf(':') > 0)
-            {
-                qname = ctx.baseTag.Split(':');
-                ns = qname[0];
-                cname = qname[1];
-                string baseType = ResolveType(model.Context, ns, cname);
-                if (baseType != null && baseType != "") theClass.ExtendsType = baseType;
-            }
-            theClass.InFile = model;
-            theClass.Name = Path.GetFileNameWithoutExtension(model.FileName);
-            theClass.Members = model.Members;
-            theClass.Members.MergeByLine(ctx.mxmlMembers);
-            if (theClass.Members.Count > 0)
-            {
-                theClass.LineFrom = theClass.Members[0].LineFrom;
-                theClass.LineTo = theClass.Members[theClass.Members.Count - 1].LineTo;
-            }
-            model.Classes.Add(theClass);
-            model.Members = new MemberList();
-            model.Version = 3;
-        }
-
-        private static string ResolveType(IASContext context, string ns, string name)
-        {
-            string package = null;
-            bool anyMatch = false;
-            bool mxMatch = false;
-            if (name == null) return null;
-            else if (ns == "mx")
-            {
-                mxMatch = true;
-            }
-            else if (ns == "display" || ns == "errors" || ns == "events" || ns == "filters" || ns == "geom"
-                || ns == "media" || ns == "net" || ns == "printing" || ns == "system" || ns == "text" 
-                || ns == "ui" || ns == "utils" || ns == "xml")
-            {
-                package = "flash." + ns + "." + name;
-            }
-            else anyMatch = true;
-            string dname = "." + name;
-
-            MemberList all = context.GetAllProjectClasses();
-            foreach (MemberModel member in all)
-            {
-                string type = member.Type ?? "*";
-                
-                bool baseType = type.IndexOf('.') < 0;
-                if (anyMatch && baseType)
+                MemberModel member = aClass.Members.Search(mxmember.Name, FlagType.Variable, Visibility.Public);
+                if (member != null)
                 {
-                    if (type == name) return type;
-                }
-                else if (anyMatch && type.EndsWith(dname)
-                    && !type.StartsWith("mx.") && !type.StartsWith("flash."))
-                {
-                    return type;
-                }
-                else if (mxMatch && baseType && type == name)
-                {
-                    return type;
-                }
-                else if (mxMatch && type.StartsWith("mx.") && type.EndsWith(dname))
-                {
-                    return type;
+                    member.Comments = "<" + tag + "/>";
+                    member.Type = type;
                 }
             }
-            return "";
         }
     }
+    #endregion
+
+    #region Catalogs
+    class MxmlCatalog : Dictionary<string, string>
+    {
+        public string URI;
+        public string NS;
+
+        public void Read(string fileName)
+        {
+            XmlReader reader = new XmlTextReader(fileName);
+            reader.MoveToContent();
+            while (reader.Read())
+            {
+                string tag = reader.Name;
+                if (tag == "components") reader.MoveToContent();
+                else if (tag == "component")
+                {
+                    string className = null;
+                    string name = null;
+                    string uri = null;
+                    if (reader.MoveToFirstAttribute())
+                        do
+                        {
+                            switch (reader.Name)
+                            {
+                                case "className": className = reader.Value; break;
+                                case "name": name = reader.Value; break;
+                                case "uri": uri = reader.Value; break;
+                            }
+                            if (!string.IsNullOrEmpty(className) && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(uri))
+                            {
+                                this[name] = className.Replace(':', '.');
+                                if (URI == null) URI = uri;
+                            }
+                        }
+                        while (reader.MoveToNextAttribute());
+                }
+            }
+
+            if (URI == "http://www.adobe.com/2006/mxml") 
+                URI = "library://ns.adobe.com/flex/halo";
+        }
+    }
+    #endregion
 }
