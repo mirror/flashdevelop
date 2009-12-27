@@ -4,6 +4,12 @@ package flash.net
 	import flash.net.Responder;
 
 	/**
+	 * Dispatched when a NetConnection object is reporting its status or error condition.
+	 * @eventType flash.events.NetStatusEvent.NET_STATUS
+	 */
+	[Event(name="netStatus", type="flash.events.NetStatusEvent")] 
+
+	/**
 	 * Dispatched if a call to NetConnection.call() attempts to connect to a server outside the caller's security sandbox.
 	 * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
 	 */

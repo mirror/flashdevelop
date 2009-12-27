@@ -3,6 +3,12 @@ package flash.display
 	import flash.events.EventDispatcher;
 	import flash.display.Shader;
 
+	/**
+	 * Dispatched when a ShaderJob that executes asynchronously finishes processing the data using the shader.
+	 * @eventType flash.events.ShaderEvent.COMPLETE
+	 */
+	[Event(name="complete", type="flash.events.ShaderEvent")] 
+
 	/// A ShaderJob instance is used to execute a shader operation in stand-alone mode.
 	public class ShaderJob extends EventDispatcher
 	{

@@ -22,6 +22,78 @@ package flash.display
 	[Event(name="tabChildrenChange", type="flash.events.Event")] 
 
 	/**
+	 * Dispatched when the user releases a key.
+	 * @eventType flash.events.KeyboardEvent.KEY_UP
+	 */
+	[Event(name="keyUp", type="flash.events.KeyboardEvent")] 
+
+	/**
+	 * Dispatched when the user presses a key.
+	 * @eventType flash.events.KeyboardEvent.KEY_DOWN
+	 */
+	[Event(name="keyDown", type="flash.events.KeyboardEvent")] 
+
+	/**
+	 * Dispatched when the user moves a pointing device over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.ROLL_OVER
+	 */
+	[Event(name="rollOver", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when the user moves a pointing device away from an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.ROLL_OUT
+	 */
+	[Event(name="rollOut", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a mouse wheel is spun over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MOUSE_WHEEL
+	 */
+	[Event(name="mouseWheel", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user releases the pointing device button over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MOUSE_UP
+	 */
+	[Event(name="mouseUp", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when the user moves a pointing device over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MOUSE_OVER
+	 */
+	[Event(name="mouseOver", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when the user moves a pointing device away from an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MOUSE_OUT
+	 */
+	[Event(name="mouseOut", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user moves the pointing device while it is over an InteractiveObject.
+	 * @eventType flash.events.MouseEvent.MOUSE_MOVE
+	 */
+	[Event(name="mouseMove", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses the pointing device button over an InteractiveObject instance.
+	 * @eventType flash.events.MouseEvent.MOUSE_DOWN
+	 */
+	[Event(name="mouseDown", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses and releases the main button of a pointing device twice in rapid succession over the same InteractiveObject when that object's doubleClickEnabled flag is set to true.
+	 * @eventType flash.events.MouseEvent.DOUBLE_CLICK
+	 */
+	[Event(name="doubleClick", type="flash.events.MouseEvent")] 
+
+	/**
+	 * Dispatched when a user presses and releases the main button of the user's pointing device over the same InteractiveObject.
+	 * @eventType flash.events.MouseEvent.CLICK
+	 */
+	[Event(name="click", type="flash.events.MouseEvent")] 
+
+	/**
 	 * Dispatched when the user attempts to change focus by using a pointer device.
 	 * @eventType flash.events.FocusEvent.MOUSE_FOCUS_CHANGE
 	 */

@@ -9,10 +9,22 @@ package flash.display
 	import flash.display.DisplayObject;
 
 	/**
+	 * Dispatched when a network request is made over HTTP and an HTTP status code can be detected.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
 	 * Dispatched by a LoaderInfo object whenever a loaded object is removed by using the unload() method of the Loader object, or when a second load is performed by the same Loader object and the original content is removed prior to the load beginning.
 	 * @eventType flash.events.Event.UNLOAD
 	 */
 	[Event(name="unload", type="flash.events.Event")] 
+
+	/**
+	 * Dispatched when data is received as the download operation progresses.
+	 * @eventType flash.events.ProgressEvent.PROGRESS
+	 */
+	[Event(name="progress", type="flash.events.ProgressEvent")] 
 
 	/**
 	 * Dispatched when a load operation starts.

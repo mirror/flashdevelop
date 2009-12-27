@@ -11,6 +11,12 @@ package flash.net
 	[Event(name="uploadCompleteData", type="flash.events.DataEvent")] 
 
 	/**
+	 * Dispatched when an upload fails and an HTTP status code is available to describe the failure.
+	 * @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+	 */
+	[Event(name="httpStatus", type="flash.events.HTTPStatusEvent")] 
+
+	/**
 	 * Dispatched when the user selects a file for upload or download from the file-browsing dialog box.
 	 * @eventType flash.events.Event.SELECT
 	 */
