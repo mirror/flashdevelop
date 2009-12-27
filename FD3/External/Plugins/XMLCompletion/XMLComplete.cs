@@ -373,7 +373,7 @@ namespace XMLCompletion
 
                 case ':':
                     ctag = GetXMLContextTag(sci, position);
-                    if (ctag.NameSpace == null) return;
+                    if (ctag.NameSpace == null || position - ctag.Position > ctag.Name.Length + 1) return;
                     // Allow another plugin to handle this
                     de = new DataEvent(EventType.Command, "XMLCompletion.Namespace", ctag);
                     EventManager.DispatchEvent(PluginBase.MainForm, de);

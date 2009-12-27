@@ -283,12 +283,12 @@ namespace AS3Context
             {
                 string uri = nss[key];
                 if (uri.EndsWith(".*"))
-                    packages.Add(uri.Substring(0, uri.LastIndexOf('.') + 1), key);
+                    packages[uri.Substring(0, uri.LastIndexOf('.') + 1)] = key;
             }
 
             foreach (MemberModel model in allClasses)
             {
-                if ((model.Flags & FlagType.Class) == 0)
+                if ((model.Flags & FlagType.Class) == 0 || (model.Flags & FlagType.Interface) != 0)
                     continue;
                 int p = model.Type.IndexOf('.');
                 string bns = p > 0 ? model.Type.Substring(0, p) : "";
