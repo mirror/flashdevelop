@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc>
+  <components>
+    <component className="fx.builtin.Binding" name="Binding" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Component" name="Component" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Metadata" name="Metadata" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Model" name="Model" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Script" name="Script" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Style" name="Style" uri="http://ns.adobe.com/mxml/2009" />
+	 
+    <component className="fx.builtin.Declarations" name="Declarations" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Definition" name="Definition" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.DesignLayer" name="DesignLayer" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Library" name="Library" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Private" name="Private" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="fx.builtin.Reparent" name="Reparent" uri="http://ns.adobe.com/mxml/2009" />
+  </components>
+</swc>

@@ -122,6 +122,33 @@ namespace AS3Context
         {
             if (!GetContext(data)) return false;
 
+            string type = ResolveType(mxmlContext, tagContext.Name);
+            ClassModel tmpClass = context.ResolveType(type, mxmlContext.model);
+            if (tmpClass.IsVoid()) return false;
+            tmpClass.ResolveExtends();
+
+            while (tmpClass != null && !tmpClass.IsVoid())
+            {
+                string qname = tmpClass.QualifiedName;
+
+                if (qname == "mx.core.UIComponent") // not a container, closing the tag
+                {
+                    ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
+                    sci.SetSel(sci.CurrentPos - 1, sci.CurrentPos);
+                    sci.ReplaceSel("/>");
+                    return true;
+                }
+                if (qname == "mx.core.Container"
+                    || qname == "spark.components.supportClasses.GroupBase"
+                    || qname == "flash.display.Sprite")
+                    return false; // is a container
+
+                if (tmpClass.InFile.MetaDatas != null)
+                    foreach (ASMetaData meta in tmpClass.InFile.MetaDatas)
+                        if (meta.Kind == ASMetaKind.DefaultProperty) return false; // accepts child tags
+
+                tmpClass = tmpClass.Extends;
+            }
             return false;
         }
 
@@ -268,7 +295,6 @@ namespace AS3Context
             return true;
         }
         #endregion
-
 
         #region tag resolution
         private static void GetAllTags()

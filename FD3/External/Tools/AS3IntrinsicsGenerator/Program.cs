@@ -285,11 +285,13 @@ namespace AS3IntrinsicsGenerator
                 if (!targetAIR && ev.IsAIR) continue;
                 if (!targetFP10 && ev.IsFP10) continue;
 
-                string type = ev.EventType.Substring(0, ev.EventType.LastIndexOf('.'));
+                int p = ev.EventType.LastIndexOf('.');
+                string type = ev.EventType.Substring(0, p);
+                string pname = ev.EventType.Substring(p + 1);
                 ClassModel eClass = getClass(type);
                 if (eClass.IsVoid()) continue;
                 string value = '"' + ev.Name + '"';
-                if (eClass.Members.Items.Any<MemberModel>(item => item.Value == value))
+                if (eClass.Members.Items.Any<MemberModel>(item => item.Name == pname))
                 {
                     ASMetaData meta = new ASMetaData("Event");
                     if (ev.Comment != null)
