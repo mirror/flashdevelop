@@ -629,7 +629,12 @@ namespace PluginCore.Controls
                     }
                     else return 3;
                 }
-                else return 5;
+                else
+                {
+                    int p4 = label.IndexOf(':');
+                    if (p4 > 0) return SmartMatch(label.Substring(p4 + 1), word, len);
+                    return 5;
+                }
             }
 
             // loose

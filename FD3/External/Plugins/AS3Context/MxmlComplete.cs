@@ -66,28 +66,36 @@ namespace AS3Context
 
         static public bool HandleElement(object data)
         {
+            if (!GetContext(data)) return false;
+
             if (!string.IsNullOrEmpty(tagContext.Name) && tagContext.Name.IndexOf(':') > 0)
                 return HandleNamespace(data);
 
-            if (!GetContext(data)) return false;
-
-            List<ICompletionListItem> items = new List<ICompletionListItem>();
+            List<ICompletionListItem> mix = new List<ICompletionListItem>();
             foreach (string ns in mxmlContext.namespaces.Keys)
             {
-                if (ns != "*") items.Add(new NamespaceItem(ns));
-
                 string uri = mxmlContext.namespaces[ns];
+                if (ns != "*") mix.Add(new NamespaceItem(ns, uri));
+
                 if (uri.StartsWith("flash.") || !allTags.ContainsKey(ns)) 
                     continue;
                 foreach (string tag in allTags[ns])
                 {
-                    if (ns == "*") items.Add(new HtmlTagItem(tag, tag));
-                    else items.Add(new HtmlTagItem(tag, ns + ":" + tag));
+                    if (ns == "*") mix.Add(new HtmlTagItem(tag, tag));
+                    else mix.Add(new HtmlTagItem(tag, ns + ":" + tag, uri));
                 }
             }
+            if (mix.Count == 0) return true;
+            mix.Sort(new MXMLListItemComparer());
 
-            if (items.Count == 0) return true;
-            items.Sort(new ListItemComparer());
+            List<ICompletionListItem> items = new List<ICompletionListItem>();
+            string previous = null;
+            foreach (ICompletionListItem item in mix)
+            {
+                if (previous == item.Label) continue;
+                previous = item.Label;
+                items.Add(item);
+            }
             if (!string.IsNullOrEmpty(tagContext.Name)) CompletionList.Show(items, false, tagContext.Name);
             else CompletionList.Show(items, true);
             return true;
@@ -101,20 +109,27 @@ namespace AS3Context
             int p = tagContext.Name.IndexOf(':');
             if (p < 0) return false;
             string ns = tagContext.Name.Substring(0, p);
-            string word = tagContext.Name.Substring(p + 1);
             if (!mxmlContext.namespaces.ContainsKey(ns)) 
                 return true;
 
+            string uri = mxmlContext.namespaces[ns];
+            List<ICompletionListItem> mix = new List<ICompletionListItem>();
+            if (allTags.ContainsKey(ns))
+                foreach (string tag in allTags[ns])
+                    mix.Add(new HtmlTagItem(tag, ns + ":" + tag, uri));
+            
+            if (mix.Count == 0) return true;
+            mix.Sort(new MXMLListItemComparer());
+            
             List<ICompletionListItem> items = new List<ICompletionListItem>();
-            foreach (string tag in allTags[ns])
+            string previous = null;
+            foreach (ICompletionListItem item in mix)
             {
-                items.Add(new HtmlTagItem(tag, tag));
+                if (previous == item.Label) continue;
+                previous = item.Label;
+                items.Add(item);
             }
-
-            if (items.Count == 0) return true;
-            items.Sort(new ListItemComparer());
-            if (!string.IsNullOrEmpty(word)) CompletionList.Show(items, false, word);
-            else CompletionList.Show(items, true);
+            CompletionList.Show(items, true, tagContext.Name ?? "");
             return true;
         }
 
@@ -131,6 +146,10 @@ namespace AS3Context
             {
                 string qname = tmpClass.QualifiedName;
 
+                if (tmpClass.InFile.MetaDatas != null)
+                    foreach (ASMetaData meta in tmpClass.InFile.MetaDatas)
+                        if (meta.Kind == ASMetaKind.DefaultProperty) return false; // accepts child tags
+
                 if (qname == "mx.core.UIComponent") // not a container, closing the tag
                 {
                     ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
@@ -142,10 +161,6 @@ namespace AS3Context
                     || qname == "spark.components.supportClasses.GroupBase"
                     || qname == "flash.display.Sprite")
                     return false; // is a container
-
-                if (tmpClass.InFile.MetaDatas != null)
-                    foreach (ASMetaData meta in tmpClass.InFile.MetaDatas)
-                        if (meta.Kind == ASMetaKind.DefaultProperty) return false; // accepts child tags
 
                 tmpClass = tmpClass.Extends;
             }
@@ -161,21 +176,22 @@ namespace AS3Context
             if (tmpClass.IsVoid()) return true;
             tmpClass.ResolveExtends();
 
-            MemberList mix = new MemberList();
+            List<ICompletionListItem> mix = new List<ICompletionListItem>();
             ClassModel curClass = mxmlContext.model.GetPublicClass();
-            FlagType mask = FlagType.Variable | FlagType.Setter;
+            FlagType mask = FlagType.Variable | FlagType.Getter;
             Visibility acc = context.TypesAffinity(curClass, tmpClass);
             List<string> excludes = new List<string>();
 
             if (tmpClass.InFile.Package != "mx.builtin") 
-                mix.Add(new MemberModel("id", "", 0, 0));
+                mix.Add(new HtmlAttributeItem("id", "String", null));
 
             while (tmpClass != null && !tmpClass.IsVoid())
             {
+                string className = tmpClass.Name;
                 foreach (MemberModel member in tmpClass.Members)
                     if ((member.Flags & FlagType.Dynamic) > 0 && (member.Flags & mask) > 0 
                         && (member.Access & acc) > 0)
-                        mix.Add(member);
+                        mix.Add(new HtmlAttributeItem(member.Name, member.Type, className));
 
                 ExploreMetadatas(tmpClass.InFile, mix, excludes);
 
@@ -185,37 +201,46 @@ namespace AS3Context
                 // members visibility
                 acc = context.TypesAffinity(curClass, tmpClass);
             }
-            mix.Sort();
-            
+            mix.Sort(new MXMLListItemComparer());
+
             List<ICompletionListItem> items = new List<ICompletionListItem>();
             string previous = null;
-            foreach (MemberModel member in mix.Items)
+            foreach (ICompletionListItem item in mix)
             {
-                if (previous == member.Name) continue;
-                previous = member.Name;
+                if (previous == item.Label) continue;
+                previous = item.Label;
                 if (excludes.Contains(previous)) continue;
-                items.Add(new HtmlAttributeItem(previous));
+                items.Add(item);
             }
 
             if (items.Count == 0) return true;
-            items.Sort(new ListItemComparer());
+            items.Sort(new MXMLListItemComparer());
             if (!string.IsNullOrEmpty(tokenContext)) CompletionList.Show(items, false, tokenContext);
             else CompletionList.Show(items, true);
             return true;
         }
 
-        private static void ExploreMetadatas(FileModel fileModel, MemberList mix, List<string> excludes)
+        private static void ExploreMetadatas(FileModel fileModel, List<ICompletionListItem> mix, List<string> excludes)
         {
             if (fileModel == null || fileModel.MetaDatas == null) 
                 return;
+            ClassModel model = fileModel.GetPublicClass();
+            string className = model.IsVoid() ? Path.GetFileNameWithoutExtension(fileModel.FileName) : model.Name;
             foreach (ASMetaData meta in fileModel.MetaDatas)
             {
                 string add = null;
+                string type = null;
                 switch (meta.Kind)
                 {
                     case ASMetaKind.Event: add = ":e"; break;
-                    case ASMetaKind.Style: add = ":s"; break;
-                    case ASMetaKind.Effect: add = ":x"; break;
+                    case ASMetaKind.Style: 
+                        add = ":s"; 
+                        if (meta.Params != null) type = meta.Params["type"]; 
+                        break;
+                    case ASMetaKind.Effect: 
+                        add = ":x";
+                        if (meta.Params != null) type = meta.Params["event"]; 
+                        break;
                     case ASMetaKind.Exclude:
                         if (meta.Params != null) excludes.Add(meta.Params["name"]);
                         break;
@@ -224,7 +249,7 @@ namespace AS3Context
                         ExploreMetadatas(incModel, mix, excludes);
                         break;
                 }
-                if (add != null) mix.Add(new MemberModel(meta.Params["name"] + add, "", 0, 0));
+                if (add != null) mix.Add(new HtmlAttributeItem(meta.Params["name"] + add, type, className));
             }
         }
 
@@ -303,13 +328,14 @@ namespace AS3Context
             MemberList allClasses = context.GetAllProjectClasses();
             Dictionary<string, string> packages = new Dictionary<string, string>();
             allTags = new Dictionary<string, List<string>>();
-            allTags["*"] = new List<string>();
 
             foreach (string key in nss.Keys)
             {
                 string uri = nss[key];
                 if (uri.EndsWith(".*"))
                     packages[uri.Substring(0, uri.LastIndexOf('.') + 1)] = key;
+                else if (uri == "*")
+                    packages["*"] = key;
             }
 
             foreach (MemberModel model in allClasses)
@@ -318,15 +344,12 @@ namespace AS3Context
                     continue;
                 int p = model.Type.IndexOf('.');
                 string bns = p > 0 ? model.Type.Substring(0, p) : "";
-                if (bns == "")
-                {
-                    allTags["*"].Add(model.Type);
-                    continue;
-                }
                 if (bns == "mx" || bns == "fx" || bns == "spark")
                     continue;
+
                 p = model.Type.LastIndexOf('.');
                 string pkg = model.Type.Substring(0, p + 1);
+                if (pkg == "") pkg = "*";
                 if (packages.ContainsKey(pkg))
                 {
                     string ns = packages[pkg];
@@ -404,5 +427,23 @@ namespace AS3Context
             return result;
         }
         #endregion
+    }
+
+    public class MXMLListItemComparer : IComparer<ICompletionListItem>
+    {
+
+        public int Compare(ICompletionListItem a, ICompletionListItem b)
+        {
+            if (a is HtmlTagItem && b is HtmlTagItem)
+            {
+                string a1 = ((HtmlTagItem)a).Name;
+                string b1 = ((HtmlTagItem)b).Name;
+                if (a.Value.StartsWith("mx:")) a1 += "z"; // push down mx: tags
+                if (b.Value.StartsWith("mx:")) b1 += "z";
+                return string.Compare(a1, b1);
+            }
+            return string.Compare(a.Label, b.Label);
+        }
+
     }
 }

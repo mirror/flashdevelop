@@ -50,4 +50,9 @@ namespace ASCompletion.Model
         DocTemplate = 1 << 29,
         CodeTemplate = 1 << 30
     }
+
+    public enum ASMetaKind
+    {
+        Unknown, Event, Style, Effect, Exclude, Include, DefaultProperty, MaxChildren
+    }
 }

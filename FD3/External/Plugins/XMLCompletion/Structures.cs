@@ -56,13 +56,32 @@ namespace XMLCompletion
 
     public class HtmlTagItem : ICompletionListItem
     {
+        private String name;
         private String tag;
         private String label;
+        private String uri;
+
+        public HtmlTagItem(String name, String tag, String uri)
+        {
+            this.name = name;
+            this.label = tag;
+            this.tag = tag;
+            this.uri = uri;
+        }
 
         public HtmlTagItem(String name, String tag)
         {
-            this.label = name;
+            this.name = name;
+            this.label = tag;
             this.tag = tag;
+        }
+
+        /// <summary>
+        /// Gets the name of the tag
+        /// </summary>
+        public String Name
+        {
+            get { return name; }
         }
 
         /// <summary>
@@ -78,7 +97,7 @@ namespace XMLCompletion
         /// </summary>
         public String Description
         {
-            get { return "Tag <" + tag + ">"; }
+            get { return "<" + tag + ">" + (uri != null ? " - " + uri : ""); }
         }
 
         /// <summary>
@@ -102,6 +121,13 @@ namespace XMLCompletion
     public class NamespaceItem : ICompletionListItem
     {
         private String label;
+        private String uri;
+
+        public NamespaceItem(String name, String uri)
+        {
+            this.label = name;
+            this.uri = uri;
+        }
 
         public NamespaceItem(String name)
         {
@@ -121,7 +147,7 @@ namespace XMLCompletion
         /// </summary>
         public String Description
         {
-            get { return "Namespace <" + label + ":"; }
+            get { return "xmlns:" + label + (uri != null ? " - " + uri : ""); }
         }
 
         /// <summary>
@@ -147,8 +173,32 @@ namespace XMLCompletion
         private String label;
         private String desc;
         private Bitmap icon;
+        private String type;
+        private String className;
+
+        public HtmlAttributeItem(String name, String type, String className)
+        {
+            setName(name);
+            this.type = type;
+            this.className = className;
+            if (icon == XMLComplete.HtmlAttributeIcon || icon == XMLComplete.StyleAttributeIcon)
+            {
+                this.desc = label;
+                if (!string.IsNullOrEmpty(type)) this.desc += " : " + type;
+            }
+            if (icon == XMLComplete.EffectAttributeIcon)
+            {
+                if (!string.IsNullOrEmpty(type)) this.desc += " > " + type;
+            }
+            if (!string.IsNullOrEmpty(className)) this.desc += " - " + className;
+        }
 
         public HtmlAttributeItem(String name)
+        {
+            setName(name);
+        }
+
+        private void setName(String name)
         {
             Int32 p = name.IndexOf(':');
             if (p > 0)
@@ -278,6 +328,8 @@ namespace XMLCompletion
 
         public int Compare(ICompletionListItem a, ICompletionListItem b)
         {
+            if (a is HtmlTagItem && b is HtmlTagItem)
+                return string.Compare(((HtmlTagItem)a).Name, ((HtmlTagItem)b).Name);
             return string.Compare(a.Label, b.Label);
         }
 

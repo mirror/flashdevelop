@@ -3005,13 +3005,13 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Attribute</value>
   </data>
   <data name="XMLCompletion.Info.EffectAttribute" xml:space="preserve">
-    <value>Effect attribute</value>
+    <value>Effect</value>
   </data>
   <data name="XMLCompletion.Info.EventAttribute" xml:space="preserve">
-    <value>Event attribute</value>
+    <value>Event</value>
   </data>
   <data name="XMLCompletion.Info.StylingAttribute" xml:space="preserve">
-    <value>Styling attribute</value>
+    <value>Style</value>
   </data>
   <data name="FlashDevelop.Info.MarginBack" xml:space="preserve">
     <value>Margin background:</value>

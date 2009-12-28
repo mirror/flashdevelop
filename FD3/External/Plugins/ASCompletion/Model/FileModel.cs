@@ -25,11 +25,6 @@ namespace ASCompletion.Model
         }
     }
 
-    public enum ASMetaKind
-    {
-        Unknown, Event, Style, Effect, Exclude, Include, DefaultProperty, MaxChildren
-    }
-
     public class ASMetaData: IComparable
     {
         static private Regex reNameTypeParams = 
