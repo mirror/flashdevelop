@@ -178,9 +178,10 @@ namespace AS3Context
 
             List<ICompletionListItem> mix = new List<ICompletionListItem>();
             ClassModel curClass = mxmlContext.model.GetPublicClass();
-            FlagType mask = FlagType.Variable | FlagType.Getter;
+            FlagType mask = FlagType.Variable | FlagType.Setter;
             Visibility acc = context.TypesAffinity(curClass, tmpClass);
             List<string> excludes = new List<string>();
+            excludes.Add("prototype");
 
             if (tmpClass.InFile.Package != "mx.builtin") 
                 mix.Add(new HtmlAttributeItem("id", "String", null));
@@ -189,9 +190,18 @@ namespace AS3Context
             {
                 string className = tmpClass.Name;
                 foreach (MemberModel member in tmpClass.Members)
-                    if ((member.Flags & FlagType.Dynamic) > 0 && (member.Flags & mask) > 0 
+                    if ((member.Flags & FlagType.Dynamic) > 0 && (member.Flags & mask) > 0
                         && (member.Access & acc) > 0)
-                        mix.Add(new HtmlAttributeItem(member.Name, member.Type, className));
+                    {
+                        string mtype = member.Type;
+                        if ((member.Flags & FlagType.Setter) > 0)
+                        {
+                            if (member.Parameters != null && member.Parameters.Count > 0)
+                                mtype = member.Parameters[0].Type;
+                            else mtype = null;
+                        }
+                        mix.Add(new HtmlAttributeItem(member.Name, mtype, className));
+                    }
 
                 ExploreMetadatas(tmpClass.InFile, mix, excludes);
 
@@ -291,7 +301,8 @@ namespace AS3Context
 
         private static bool GetContext(object data)
         {
-            if (mxmlContext == null) return false;
+            if (mxmlContext == null || mxmlContext.model == null) 
+                return false;
 
             try
             {

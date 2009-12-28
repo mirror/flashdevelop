@@ -14,5 +14,20 @@
     <component className="fx.builtin.Library" name="Library" uri="http://ns.adobe.com/mxml/2009" />
     <component className="fx.builtin.Private" name="Private" uri="http://ns.adobe.com/mxml/2009" />
     <component className="fx.builtin.Reparent" name="Reparent" uri="http://ns.adobe.com/mxml/2009" />
+
+    <component className="Array" name="Array" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Boolean" name="Boolean" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Class" name="Class" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Date" name="Date" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Function" name="Function" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="int" name="int" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Number" name="Number" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Object" name="Object" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="RegExp" name="RegExp" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="String" name="String" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="uint" name="uint" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="Vector" name="Vector" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="XML" name="XML" uri="http://ns.adobe.com/mxml/2009" />
+    <component className="XMLList" name="XMLList" uri="http://ns.adobe.com/mxml/2009" />
   </components>
 </swc>
