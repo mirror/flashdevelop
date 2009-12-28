@@ -8,6 +8,7 @@ using PluginCore;
 using PluginCore.Controls;
 using System.Text.RegularExpressions;
 using System.IO;
+using PluginCore.Helpers;
 
 namespace AS3Context
 {
@@ -138,31 +139,29 @@ namespace AS3Context
             if (!GetContext(data)) return false;
 
             string type = ResolveType(mxmlContext, tagContext.Name);
-            ClassModel tmpClass = context.ResolveType(type, mxmlContext.model);
-            if (tmpClass.IsVoid()) return false;
-            tmpClass.ResolveExtends();
+            ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
 
-            while (tmpClass != null && !tmpClass.IsVoid())
+            if (type.StartsWith("mx.builtin.") || type.StartsWith("fx.builtin.")) // special tags
             {
-                string qname = tmpClass.QualifiedName;
-
-                if (tmpClass.InFile.MetaDatas != null)
-                    foreach (ASMetaData meta in tmpClass.InFile.MetaDatas)
-                        if (meta.Kind == ASMetaKind.DefaultProperty) return false; // accepts child tags
-
-                if (qname == "mx.core.UIComponent") // not a container, closing the tag
+                if (type.EndsWith(".Script"))
                 {
-                    ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
-                    sci.SetSel(sci.CurrentPos - 1, sci.CurrentPos);
-                    sci.ReplaceSel("/>");
+                    string snip = "$(Boundary)\n\t<![CDATA[\n\t$(EntryPoint)\n\t]]>\n</" + tagContext.Name + ">";
+                    SnippetHelper.InsertSnippetText(sci, sci.CurrentPos, snip);
                     return true;
                 }
-                if (qname == "mx.core.Container"
-                    || qname == "spark.components.supportClasses.GroupBase"
-                    || qname == "flash.display.Sprite")
-                    return false; // is a container
-
-                tmpClass = tmpClass.Extends;
+                if (type.EndsWith(".Style"))
+                {
+                    string snip = "$(Boundary)";
+                    foreach (string ns in mxmlContext.namespaces.Keys)
+                    {
+                        string uri = mxmlContext.namespaces[ns];
+                        if (ns != "fx" && !uri.StartsWith("flash."))
+                            snip += String.Format("\n\t@namespace {0} \"{1}\";", ns, uri);
+                    }
+                    snip += "\n\t$(EntryPoint)\n</" + tagContext.Name + ">";
+                    SnippetHelper.InsertSnippetText(sci, sci.CurrentPos, snip);
+                    return true;
+                }
             }
             return false;
         }
@@ -411,7 +410,6 @@ namespace AS3Context
             ASResult result = new ASResult();
             ClassModel curClass = mxmlContext.model.GetPublicClass();
             ClassModel tmpClass = model;
-            FlagType mask = FlagType.Variable | FlagType.Setter;
             Visibility acc = context.TypesAffinity(curClass, tmpClass);
             List<string> excludes = new List<string>();
             tmpClass.ResolveExtends();
@@ -437,10 +435,27 @@ namespace AS3Context
             }
             return result;
         }
+
+        private bool IsContainer(ClassModel tagClass)
+        {
+            ClassModel tmpClass = tagClass;
+            while (tmpClass != null && !tmpClass.IsVoid())
+            {
+                string qname = tmpClass.QualifiedName;
+
+                if (qname == "mx.core.Container"
+                    || qname == "spark.components.supportClasses.GroupBase"
+                    || qname == "flash.display.Sprite")
+                    return true;
+
+                tmpClass = tmpClass.Extends;
+            }
+            return false;
+        }
         #endregion
     }
 
-    public class MXMLListItemComparer : IComparer<ICompletionListItem>
+    class MXMLListItemComparer : IComparer<ICompletionListItem>
     {
 
         public int Compare(ICompletionListItem a, ICompletionListItem b)

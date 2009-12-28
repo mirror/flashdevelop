@@ -197,21 +197,6 @@ namespace AS3Context
 
         private static void ReadNamespaces(MxmlFilterContext ctx, string src, int i)
         {
-            // built-in ns
-            ctx.namespaces["display"] = "flash.display.*";
-            ctx.namespaces["errors"] = "flash.errors.*";
-            ctx.namespaces["events"] = "flash.events.*";
-            ctx.namespaces["filters"] = "flash.filters.*";
-            ctx.namespaces["geom"] = "flash.geom.*";
-            ctx.namespaces["media"] = "flash.media.*";
-            ctx.namespaces["net"] = "flash.net.*";
-            ctx.namespaces["printing"] = "flash.printing.*";
-            ctx.namespaces["system"] = "flash.system.*";
-            ctx.namespaces["text"] = "flash.text.*";
-            ctx.namespaces["ui"] = "flash.ui.*";
-            ctx.namespaces["utils"] = "flash.utils.*";
-            ctx.namespaces["xml"] = "flash.xml.*";
-
             // declared ns
             int len = src.Length;
             while (i < len)

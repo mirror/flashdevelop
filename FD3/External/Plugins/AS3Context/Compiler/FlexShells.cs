@@ -105,7 +105,8 @@ namespace AS3Context.Compiler
 
         public void CheckAS3(string filename, string flexPath, string src)
 		{
-            if (running) return;
+            if (running || filename.EndsWith(".mxml")) 
+                return;
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
