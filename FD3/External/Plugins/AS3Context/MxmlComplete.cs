@@ -39,7 +39,19 @@ namespace AS3Context
 
             string type = ResolveType(mxmlContext, ctag.Name);
             ClassModel model = context.ResolveType(type, mxmlContext.model);
-            if (model.IsVoid()) return true;
+
+            if (model.IsVoid()) // try resolving tag as member of parent tag
+            {
+                parentTag = GetParentTag(sci, ctag);
+                if (parentTag.Name != null)
+                {
+                    ctag = parentTag;
+                    type = ResolveType(mxmlContext, ctag.Name);
+                    model = context.ResolveType(type, mxmlContext.model);
+                    if (model.IsVoid()) return true;
+                }
+                else return true;
+            }
 
             if (!ctag.Name.EndsWith(word))
             {
@@ -59,6 +71,7 @@ namespace AS3Context
 
         #region tag completion
         static private XMLContextTag tagContext;
+        static private XMLContextTag parentTag;
         static private string tokenContext;
         static private string checksum;
         static private Dictionary<string, List<string>> allTags;
@@ -73,12 +86,17 @@ namespace AS3Context
                 return HandleNamespace(data);
 
             List<ICompletionListItem> mix = new List<ICompletionListItem>();
+            List<string> excludes = new List<string>();
+
+            bool isContainer = AddParentAttributes(mix, excludes); // current tag attributes
+
+            if (isContainer) // container children tag
             foreach (string ns in mxmlContext.namespaces.Keys)
             {
                 string uri = mxmlContext.namespaces[ns];
                 if (ns != "*") mix.Add(new NamespaceItem(ns, uri));
 
-                if (uri.StartsWith("flash.") || !allTags.ContainsKey(ns)) 
+                if (!allTags.ContainsKey(ns)) 
                     continue;
                 foreach (string tag in allTags[ns])
                 {
@@ -86,6 +104,8 @@ namespace AS3Context
                     else mix.Add(new HtmlTagItem(tag, ns + ":" + tag, uri));
                 }
             }
+
+            // cleanup and show list
             if (mix.Count == 0) return true;
             mix.Sort(new MXMLListItemComparer());
 
@@ -95,11 +115,37 @@ namespace AS3Context
             {
                 if (previous == item.Label) continue;
                 previous = item.Label;
+                if (excludes.Contains(previous)) continue;
                 items.Add(item);
             }
             if (!string.IsNullOrEmpty(tagContext.Name)) CompletionList.Show(items, false, tagContext.Name);
             else CompletionList.Show(items, true);
+            CompletionList.MinWordLength = 0;
             return true;
+        }
+
+        private static bool AddParentAttributes(List<ICompletionListItem> mix, List<string> excludes)
+        {
+            bool isContainer = true;
+            if (parentTag.Name != null) // add parent tag members
+            {
+                if (tagContext.Closing) // closing tag, only show parent tag
+                {
+                    isContainer = false;
+                    mix.Add(new HtmlTagItem(parentTag.Name.Substring(parentTag.Name.IndexOf(':') + 1), parentTag.Name + '>'));
+                }
+                else
+                {
+                    string parentType = ResolveType(mxmlContext, parentTag.Name);
+                    ClassModel parentClass = context.ResolveType(parentType, mxmlContext.model);
+                    if (!parentClass.IsVoid())
+                    {
+                        parentClass.ResolveExtends();
+                        isContainer = GetTagAttributes(parentClass, mix, excludes, parentTag.NameSpace);
+                    }
+                }
+            }
+            return isContainer;
         }
 
         static public bool HandleNamespace(object data)
@@ -115,10 +161,15 @@ namespace AS3Context
 
             string uri = mxmlContext.namespaces[ns];
             List<ICompletionListItem> mix = new List<ICompletionListItem>();
-            if (allTags.ContainsKey(ns))
+            List<string> excludes = new List<string>();
+
+            bool isContainer = AddParentAttributes(mix, excludes); // current tag attributes
+
+            if (isContainer && allTags.ContainsKey(ns)) // container children tags
                 foreach (string tag in allTags[ns])
                     mix.Add(new HtmlTagItem(tag, ns + ":" + tag, uri));
-            
+
+            // cleanup and show list
             if (mix.Count == 0) return true;
             mix.Sort(new MXMLListItemComparer());
             
@@ -128,15 +179,19 @@ namespace AS3Context
             {
                 if (previous == item.Label) continue;
                 previous = item.Label;
+                if (excludes.Contains(previous)) continue;
                 items.Add(item);
             }
             CompletionList.Show(items, true, tagContext.Name ?? "");
+            CompletionList.MinWordLength = 0;
             return true;
         }
 
         static public bool HandleElementClose(object data)
         {
             if (!GetContext(data)) return false;
+
+            if (tagContext.Closing) return false;
 
             string type = ResolveType(mxmlContext, tagContext.Name);
             ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
@@ -155,7 +210,7 @@ namespace AS3Context
                     foreach (string ns in mxmlContext.namespaces.Keys)
                     {
                         string uri = mxmlContext.namespaces[ns];
-                        if (ns != "fx" && !uri.StartsWith("flash."))
+                        if (ns != "fx")
                             snip += String.Format("\n\t@namespace {0} \"{1}\";", ns, uri);
                     }
                     snip += "\n\t$(EntryPoint)\n</" + tagContext.Name + ">";
@@ -171,45 +226,13 @@ namespace AS3Context
             if (!GetContext(data)) return false;
 
             string type = ResolveType(mxmlContext, tagContext.Name);
-            ClassModel tmpClass = context.ResolveType(type, mxmlContext.model);
-            if (tmpClass.IsVoid()) return true;
-            tmpClass.ResolveExtends();
+            ClassModel tagClass = context.ResolveType(type, mxmlContext.model);
+            if (tagClass.IsVoid()) return true;
+            tagClass.ResolveExtends();
 
             List<ICompletionListItem> mix = new List<ICompletionListItem>();
-            ClassModel curClass = mxmlContext.model.GetPublicClass();
-            FlagType mask = FlagType.Variable | FlagType.Setter;
-            Visibility acc = context.TypesAffinity(curClass, tmpClass);
             List<string> excludes = new List<string>();
-            excludes.Add("prototype");
-
-            if (tmpClass.InFile.Package != "mx.builtin") 
-                mix.Add(new HtmlAttributeItem("id", "String", null));
-
-            while (tmpClass != null && !tmpClass.IsVoid())
-            {
-                string className = tmpClass.Name;
-                foreach (MemberModel member in tmpClass.Members)
-                    if ((member.Flags & FlagType.Dynamic) > 0 && (member.Flags & mask) > 0
-                        && (member.Access & acc) > 0)
-                    {
-                        string mtype = member.Type;
-                        if ((member.Flags & FlagType.Setter) > 0)
-                        {
-                            if (member.Parameters != null && member.Parameters.Count > 0)
-                                mtype = member.Parameters[0].Type;
-                            else mtype = null;
-                        }
-                        mix.Add(new HtmlAttributeItem(member.Name, mtype, className));
-                    }
-
-                ExploreMetadatas(tmpClass.InFile, mix, excludes);
-
-                tmpClass = tmpClass.Extends;
-                if (tmpClass != null && tmpClass.InFile.Package == "" && tmpClass.Name == "Object")
-                    break;
-                // members visibility
-                acc = context.TypesAffinity(curClass, tmpClass);
-            }
+            GetTagAttributes(tagClass, mix, excludes, null);
             mix.Sort(new MXMLListItemComparer());
 
             List<ICompletionListItem> items = new List<ICompletionListItem>();
@@ -226,10 +249,60 @@ namespace AS3Context
             items.Sort(new MXMLListItemComparer());
             if (!string.IsNullOrEmpty(tokenContext)) CompletionList.Show(items, false, tokenContext);
             else CompletionList.Show(items, true);
+            CompletionList.MinWordLength = 0;
             return true;
         }
 
-        private static void ExploreMetadatas(FileModel fileModel, List<ICompletionListItem> mix, List<string> excludes)
+        private static bool GetTagAttributes(ClassModel tagClass, List<ICompletionListItem> mix, List<string> excludes, string ns)
+        {
+            ClassModel curClass = mxmlContext.model.GetPublicClass();
+            ClassModel tmpClass = tagClass;
+            FlagType mask = FlagType.Variable | FlagType.Setter;
+            Visibility acc = context.TypesAffinity(curClass, tmpClass);
+            bool isContainer = false;
+
+            if (tmpClass.InFile.Package != "mx.builtin" && tmpClass.InFile.Package != "fx.builtin")
+                mix.Add(new HtmlAttributeItem("id", "String", null, ns));
+            else isContainer = true;
+
+            while (tmpClass != null && !tmpClass.IsVoid())
+            {
+                string className = tmpClass.Name;
+                // look for containers
+                if (!isContainer && tmpClass.Implements != null 
+                    && (tmpClass.Implements.Contains("IContainer") 
+                    || tmpClass.Implements.Contains("IVisualElementContainer")
+                    || tmpClass.Implements.Contains("IFocusManagerContainer")))
+                    isContainer = true;
+
+                foreach (MemberModel member in tmpClass.Members)
+                    if ((member.Flags & FlagType.Dynamic) > 0 && (member.Flags & mask) > 0
+                        && (member.Access & acc) > 0)
+                    {
+                        string mtype = member.Type;
+
+                        if ((member.Flags & FlagType.Setter) > 0)
+                        {
+                            if (member.Parameters != null && member.Parameters.Count > 0)
+                                mtype = member.Parameters[0].Type;
+                            else mtype = null;
+                        }
+                        mix.Add(new HtmlAttributeItem(member.Name, mtype, className, ns));
+                    }
+
+                ExploreMetadatas(tmpClass.InFile, mix, excludes, ns);
+
+                tmpClass = tmpClass.Extends;
+                if (tmpClass != null && tmpClass.InFile.Package == "" && tmpClass.Name == "Object")
+                    break;
+                // members visibility
+                acc = context.TypesAffinity(curClass, tmpClass);
+            }
+
+            return isContainer;
+        }
+
+        private static void ExploreMetadatas(FileModel fileModel, List<ICompletionListItem> mix, List<string> excludes, string ns)
         {
             if (fileModel == null || fileModel.MetaDatas == null) 
                 return;
@@ -255,10 +328,11 @@ namespace AS3Context
                         break;
                     case ASMetaKind.Include:
                         FileModel incModel = ParseInclude(fileModel, meta);
-                        ExploreMetadatas(incModel, mix, excludes);
+                        ExploreMetadatas(incModel, mix, excludes, ns);
                         break;
                 }
-                if (add != null) mix.Add(new HtmlAttributeItem(meta.Params["name"] + add, type, className));
+                if (add != null)
+                    mix.Add(new HtmlAttributeItem(meta.Params["name"] + add, type, className, ns));
             }
         }
 
@@ -281,7 +355,7 @@ namespace AS3Context
                     if (fileName[0] == '/' || fileName[0] == '\\')
                         fileName = Path.Combine(fileModel.BasePath, fileName);
                     else
-                        path = Path.Combine(Path.GetDirectoryName(fileModel.FileName), fileName);
+                        fileName = Path.Combine(Path.GetDirectoryName(fileModel.FileName), fileName);
                 }
 
                 // parse & cache
@@ -297,12 +371,18 @@ namespace AS3Context
             }
             return null;
         }
+        #endregion
 
+        #region context detection
         private static bool GetContext(object data)
         {
             if (mxmlContext == null || mxmlContext.model == null) 
                 return false;
 
+            ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
+            if (sci == null) return false;
+
+            // XmlComplete context
             try
             {
                 if (data is XMLContextTag)
@@ -319,6 +399,10 @@ namespace AS3Context
                 return false;
             }
 
+            // more context
+            parentTag = GetParentTag(sci, tagContext);
+
+            // rebuild tags cache?
             string sum = "" + context.GetAllProjectClasses().Count;
             foreach (string uri in mxmlContext.namespaces.Values)
                 sum += uri;
@@ -328,6 +412,27 @@ namespace AS3Context
                 GetAllTags();
             }
             return true;
+        }
+
+        private static XMLContextTag GetParentTag(ScintillaNet.ScintillaControl sci, XMLContextTag tag)
+        {
+            int pos = tag.Position;
+            if (pos <= 0) pos = sci.CurrentPos;
+            XMLContextTag parent;
+            Stack<string> stack = new Stack<string>();
+            do
+            {
+                parent = XMLComplete.GetXMLContextTag(sci, pos);
+                pos = parent.Position;
+                if (parent.Name != null && parent.Tag != null)
+                {
+                    if (parent.Closing) stack.Push(parent.Name);
+                    else if (!parent.Closed && (stack.Count == 0 || stack.Pop() != parent.Name)) 
+                        break;
+                }
+            }
+            while (pos > 0);
+            return parent;
         }
         #endregion
 
@@ -421,7 +526,14 @@ namespace AS3Context
                         && member.Name == word)
                     {
                         result.inFile = tmpClass.InFile;
-                        result.Member = member;
+                        if (member.LineFrom == 0) // cached model, reparse
+                        {
+                            result.inFile.OutOfDate = true;
+                            result.inFile.Check();
+                            if (result.inFile.Classes.Count > 0)
+                                result.Member = result.inFile.Classes[0].Members.Search(member.Name, member.Flags, 0);
+                        }
+                        else result.Member = member;
                         return result;
                     }
 
@@ -435,23 +547,6 @@ namespace AS3Context
             }
             return result;
         }
-
-        private bool IsContainer(ClassModel tagClass)
-        {
-            ClassModel tmpClass = tagClass;
-            while (tmpClass != null && !tmpClass.IsVoid())
-            {
-                string qname = tmpClass.QualifiedName;
-
-                if (qname == "mx.core.Container"
-                    || qname == "spark.components.supportClasses.GroupBase"
-                    || qname == "flash.display.Sprite")
-                    return true;
-
-                tmpClass = tmpClass.Extends;
-            }
-            return false;
-        }
         #endregion
     }
 
@@ -460,10 +555,10 @@ namespace AS3Context
 
         public int Compare(ICompletionListItem a, ICompletionListItem b)
         {
-            if (a is HtmlTagItem && b is HtmlTagItem)
+            if (a is IHtmlCompletionListItem && b is IHtmlCompletionListItem)
             {
-                string a1 = ((HtmlTagItem)a).Name;
-                string b1 = ((HtmlTagItem)b).Name;
+                string a1 = ((IHtmlCompletionListItem)a).Name;
+                string b1 = ((IHtmlCompletionListItem)b).Name;
                 if (a.Value.StartsWith("mx:")) a1 += "z"; // push down mx: tags
                 if (b.Value.StartsWith("mx:")) b1 += "z";
                 return string.Compare(a1, b1);

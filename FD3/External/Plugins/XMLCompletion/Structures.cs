@@ -26,6 +26,8 @@ namespace XMLCompletion
         public String Name;
         public String NameSpace;
         public Int32 Position;
+        public Boolean Closing;
+        public Boolean Closed;
     }
 
     public class HTMLTag : IComparable
@@ -54,7 +56,12 @@ namespace XMLCompletion
         }
     }
 
-    public class HtmlTagItem : ICompletionListItem
+    public interface IHtmlCompletionListItem : ICompletionListItem
+    {
+        String Name { get; }
+    }
+
+    public class HtmlTagItem : IHtmlCompletionListItem
     {
         private String name;
         private String tag;
@@ -77,7 +84,7 @@ namespace XMLCompletion
         }
 
         /// <summary>
-        /// Gets the name of the tag
+        /// Gets the name of the tag (without namespace)
         /// </summary>
         public String Name
         {
@@ -168,17 +175,30 @@ namespace XMLCompletion
 
     }
 
-    public class HtmlAttributeItem : ICompletionListItem
+    public class HtmlAttributeItem : IHtmlCompletionListItem
     {
+        private String name;
         private String label;
         private String desc;
         private Bitmap icon;
         private String type;
         private String className;
 
+        public HtmlAttributeItem(String name, String type, String className, String ns)
+        {
+            setName(name);
+            setExt(type, className);
+            if (!string.IsNullOrEmpty(ns)) label = ns + ":" + label;
+        }
+
         public HtmlAttributeItem(String name, String type, String className)
         {
             setName(name);
+            setExt(type, className);
+        }
+
+        private void setExt(String type, String className)
+        {
             this.type = type;
             this.className = className;
             if (icon == XMLComplete.HtmlAttributeIcon || icon == XMLComplete.StyleAttributeIcon)
@@ -200,7 +220,7 @@ namespace XMLCompletion
 
         private void setName(String name)
         {
-            Int32 p = name.IndexOf(':');
+            Int32 p = name.LastIndexOf(':');
             if (p > 0)
             {
                 String ic = name.Substring(p + 1);
@@ -231,7 +251,16 @@ namespace XMLCompletion
                 this.icon = XMLComplete.HtmlAttributeIcon;
                 this.desc = TextHelper.GetString("Info.Attribute");
             }
+            this.name = name;
             this.label = name;
+        }
+
+        /// <summary>
+        /// Gets the name of the item (without namespace)
+        /// </summary>
+        public String Name
+        {
+            get { return name; }
         }
 
         /// <summary>
@@ -264,6 +293,14 @@ namespace XMLCompletion
         public String Value
         {
             get { return this.label; }
+        }
+
+        /// <summary>
+        /// Gets the class name of the attribute item
+        /// </summary>
+        public String ClassName
+        {
+            get { return this.className; }
         }
     }
 

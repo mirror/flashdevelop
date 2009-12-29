@@ -431,6 +431,7 @@ namespace ASCompletion.Context
                     if (needSyntax != sci.ConfigurationLanguage)
                     {
                         sci.ConfigurationLanguage = needSyntax;
+                        
                         if (!CommonSettings.DisableKnownTypesColoring && context is ASContext)
                         {
                             // known classes colorization
@@ -456,6 +457,25 @@ namespace ASCompletion.Context
                     context.TrackTextChange(sender, position, length, linesAdded);
             }
         }
+
+        /*private static void RepaintRanges(ScintillaNet.ScintillaControl sci)
+        {
+            if (context.CurrentModel == null || context.CurrentModel.InlinedRanges == null)
+                return;
+
+            int es = sci.EndStyled;
+            int mask = (1 << sci.StyleBits) - 1;
+            int pos = 0;
+            foreach (InlineRange range in context.CurrentModel.InlinedRanges)
+            {
+                sci.StartStyling(pos, mask);
+                sci.SetStyling(range.Start - pos, 1);
+                pos = range.End;
+            }
+            sci.StartStyling(pos, mask);
+            sci.SetStyling(sci.TextLength - pos, 1);
+            sci.StartStyling(es, mask);
+        }*/
 
         /// <summary>
         /// Clear and rebuild classpath models cache

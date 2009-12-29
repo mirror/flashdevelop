@@ -43,7 +43,11 @@ namespace PluginCore.Controls
         private static String widestLabel;
         private static long showTime;
         private static ICompletionListItem defaultItem;
-
+        /// <summary>
+        /// Set to 0 after calling .Show to keep the completion list active 
+        /// when the text was erased completely (using backspace)
+        /// </summary>
+        public static Int32 MinWordLength;
 		#endregion
 		
 		#region Control Creation
@@ -176,6 +180,7 @@ namespace PluginCore.Controls
 				word = currentWord;
 				currentWord = null;
 			}
+            MinWordLength = 1;
             fullList = (word.Length == 0) || !autoHide || !PluginBase.MainForm.Settings.AutoFilterList;
 			lastIndex = 0;
 			exactMatchInList = false;
@@ -746,7 +751,7 @@ namespace PluginCore.Controls
 			{
 				case Keys.Back:
 					if (!UITools.CallTip.CallTipActive) sci.DeleteBack();
-					if (word.Length > 1)
+                    if (word.Length > MinWordLength)
 					{
 						word = word.Substring(0, word.Length-1);
 						currentPos = sci.CurrentPos;

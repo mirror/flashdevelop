@@ -87,7 +87,7 @@ namespace XMLCompletion
         /**
         * Extract the tag name
         */
-		private static readonly Regex tagName = new Regex("<(?<name>[a-z][-a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex tagName = new Regex("<[/]?(?<name>[a-z][-a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		
 		/**
         * Check if the text ends with a closing tag
@@ -340,6 +340,7 @@ namespace XMLCompletion
 					{
 						if ((position < 2) || ((Char)sci.CharAt(position-2) != '<')) return;
                         ctag = new XMLContextTag();
+                        ctag.Closing = true;
 					}
 					else 
 					{
@@ -373,7 +374,7 @@ namespace XMLCompletion
 
                 case ':':
                     ctag = GetXMLContextTag(sci, position);
-                    if (ctag.NameSpace == null || position - ctag.Position > ctag.Name.Length + 1) return;
+                    if (ctag.NameSpace == null || position - ctag.Position > ctag.Name.Length + 2) return;
                     // Allow another plugin to handle this
                     de = new DataEvent(EventType.Command, "XMLCompletion.Namespace", ctag);
                     EventManager.DispatchEvent(PluginBase.MainForm, de);
@@ -404,6 +405,8 @@ namespace XMLCompletion
                             de = new DataEvent(EventType.Command, "XMLCompletion.CloseElement", ctag);
                             EventManager.DispatchEvent(PluginBase.MainForm, de);
                             if (de.Handled) return;
+
+                            if (ctag.Closing) return;
 
 							Boolean isLeaf = false;
 							if (cType == XMLType.Known)
@@ -585,6 +588,7 @@ namespace XMLCompletion
 				{
 					ctag.Name = ctag.Tag.Substring(2);
 					ctag.Tag = "<"+ctag.Name;
+                    ctag.Closing = true;
 				}
                 // Element completion
 				if (ctag.Name != null && (ctag.Tag.Length == ctag.Name.Length+1))
@@ -662,7 +666,11 @@ namespace XMLCompletion
 			{
 				c = (Char)sci.CharAt(position);
 				tag.Insert(0, c);
-				if (c == '>') return xtag;
+                if (c == '>')
+                {
+                    xtag.Position = position;
+                    return xtag;
+                }
 				if (c == '<') break;
 				position--;
 			}
@@ -672,6 +680,8 @@ namespace XMLCompletion
 			if (mTag.Success)
 			{
 				xtag.Name = mTag.Groups["name"].Value;
+                xtag.Closing = xtag.Tag[1] == '/';
+                xtag.Closed = xtag.Tag.EndsWith("/");
 				if (xtag.Name.IndexOf(':') > 0)
 				{
 					xtag.NameSpace = xtag.Name.Substring(0, xtag.Name.IndexOf(':'));

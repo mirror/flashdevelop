@@ -32,7 +32,7 @@
     <option useResourceBundleMetadata="True" />
     <option warnings="True" />
     <option verboseStackTraces="False" />
-    <option staticLinkRSL="False" />
+    <option staticLinkRSL="True" />
     <option additional="" />
     <option customSDK="" />
   </build>
