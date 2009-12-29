@@ -135,7 +135,7 @@ namespace AS3Context
 
                             if (firstNode && src[i + 1] != '?')
                             {
-                                int space = src.IndexOf(' ', i);
+                                int space = src.IndexOfAny(new char[] { ' ', '\n' }, i);
                                 string tag = GetXMLContextTag(src, space);
                                 if (tag != null && space > 0)
                                 {
