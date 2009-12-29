@@ -54,9 +54,6 @@
   </Target>
   -->
   <ItemGroup>
-    <Compile Include="..\..\..\FlashDevelop\Bin\Debug\SimpleTemplate.cs">
-      <Link>SimpleTemplate.cs</Link>
-    </Compile>
     <Compile Include="AS2Settings.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="PluginMain.cs" />

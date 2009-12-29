@@ -60,7 +60,7 @@ namespace AS3Context
                 cat.Read(file);
                 catalogs[file] = cat;
             }
-            catch (XmlException ex) { }
+            catch (XmlException ex) { Console.WriteLine(ex.Message); }
         }
 
         /// <summary>
@@ -312,9 +312,6 @@ namespace AS3Context
             ctx.model = model;
             model.InlinedIn = "xml";
             model.InlinedRanges = ctx.as3ranges;
-            string[] qname;
-            string ns;
-            string cname;
 
             if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
             foreach (string key in ctx.namespaces.Keys)
@@ -335,8 +332,6 @@ namespace AS3Context
             {
                 string tag = mxmember.Type;
                 string type = null;
-                ns = "";
-                cname = null;
                 if (resolved.ContainsKey(tag)) type = resolved[tag];
                 else
                 {
