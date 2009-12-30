@@ -658,30 +658,46 @@ namespace XMLCompletion
 		{
 			XMLContextTag xtag = new XMLContextTag();
 			if ((position == 0) || (sci == null)) return xtag;
-			StringBuilder tag = new StringBuilder();
-            Char c = (Char)sci.CharAt(position - 1);
-			position -= 2;
-			tag.Append(c);
-			while (position >= 0)
+            string tag = "";
+            Char c = (Char)sci.CharAt(position);
+            tag += c;
+            position--;
+            c = (Char)sci.CharAt(position);
+            tag = c + tag;
+            bool inComment = false;
+            bool inCDATA = false;
+			while (position > 0)
 			{
+                position--;
 				c = (Char)sci.CharAt(position);
-				tag.Insert(0, c);
+                tag = c + tag;
+
+                if (tag == "]]>") inCDATA = true;
+                else if (tag == "-->") inComment = true;
+                
+                if (c == '<')
+                {
+                    if ((inComment && !tag.StartsWith("<!--"))
+                        || (inCDATA && !tag.StartsWith("<![CDATA[")))
+                        continue;
+                    break;
+                }
+
+                if (inCDATA || inComment) continue;
                 if (c == '>')
                 {
                     xtag.Position = position;
                     return xtag;
                 }
-				if (c == '<') break;
-				position--;
 			}
 			xtag.Position = position;
-			xtag.Tag = tag.ToString();
-            Match mTag = tagName.Match(xtag.Tag + " ");
+			xtag.Tag = tag;
+            Match mTag = tagName.Match(tag + " ");
 			if (mTag.Success)
 			{
 				xtag.Name = mTag.Groups["name"].Value;
-                xtag.Closing = xtag.Tag[1] == '/';
-                xtag.Closed = xtag.Tag.EndsWith("/");
+                xtag.Closing = tag[1] == '/';
+                xtag.Closed = tag.EndsWith("/>") || tag.EndsWith("-->") || tag.EndsWith("]]>");
 				if (xtag.Name.IndexOf(':') > 0)
 				{
 					xtag.NameSpace = xtag.Name.Substring(0, xtag.Name.IndexOf(':'));
@@ -689,6 +705,30 @@ namespace XMLCompletion
 			}
 			return xtag;
 		}
+
+        /// <summary>
+        /// Locates the parent tag of the tag provided
+        /// </summary>
+        public static XMLContextTag GetParentTag(ScintillaNet.ScintillaControl sci, XMLContextTag tag)
+        {
+            int pos = tag.Position;
+            if (pos <= 0) pos = sci.CurrentPos;
+            XMLContextTag parent;
+            Stack<string> stack = new Stack<string>();
+            do
+            {
+                parent = XMLComplete.GetXMLContextTag(sci, pos);
+                pos = parent.Position;
+                if (parent.Name != null && parent.Tag != null)
+                {
+                    if (parent.Closing) stack.Push(parent.Name);
+                    else if (!parent.Closed && (stack.Count == 0 || stack.Pop() != parent.Name))
+                        break;
+                }
+            }
+            while (pos > 0);
+            return parent;
+        }
 
         /// <summary>
         /// Gets the word from the specified position

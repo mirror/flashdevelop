@@ -42,7 +42,7 @@ namespace AS3Context
 
             if (model.IsVoid()) // try resolving tag as member of parent tag
             {
-                parentTag = GetParentTag(sci, ctag);
+                parentTag = XMLComplete.GetParentTag(sci, ctag);
                 if (parentTag.Name != null)
                 {
                     ctag = parentTag;
@@ -78,6 +78,11 @@ namespace AS3Context
         static private Regex reIncPath = new Regex("[\"']([^\"']+)", RegexOptions.Compiled);
         static private Dictionary<string, FileModel> includesCache = new Dictionary<string,FileModel>();
 
+        /// <summary>
+        /// Called 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         static public bool HandleElement(object data)
         {
             if (!GetContext(data)) return false;
@@ -106,9 +111,7 @@ namespace AS3Context
             }
 
             // cleanup and show list
-            if (mix.Count == 0) return true;
             mix.Sort(new MXMLListItemComparer());
-
             List<ICompletionListItem> items = new List<ICompletionListItem>();
             string previous = null;
             foreach (ICompletionListItem item in mix)
@@ -118,6 +121,8 @@ namespace AS3Context
                 if (excludes.Contains(previous)) continue;
                 items.Add(item);
             }
+
+            if (mix.Count == 0) return true;
             if (!string.IsNullOrEmpty(tagContext.Name)) CompletionList.Show(items, false, tagContext.Name);
             else CompletionList.Show(items, true);
             CompletionList.MinWordLength = 0;
@@ -170,9 +175,7 @@ namespace AS3Context
                     mix.Add(new HtmlTagItem(tag, ns + ":" + tag, uri));
 
             // cleanup and show list
-            if (mix.Count == 0) return true;
             mix.Sort(new MXMLListItemComparer());
-            
             List<ICompletionListItem> items = new List<ICompletionListItem>();
             string previous = null;
             foreach (ICompletionListItem item in mix)
@@ -182,6 +185,8 @@ namespace AS3Context
                 if (excludes.Contains(previous)) continue;
                 items.Add(item);
             }
+
+            if (mix.Count == 0) return true;
             CompletionList.Show(items, true, tagContext.Name ?? "");
             CompletionList.MinWordLength = 0;
             return true;
@@ -233,8 +238,9 @@ namespace AS3Context
             List<ICompletionListItem> mix = new List<ICompletionListItem>();
             List<string> excludes = new List<string>();
             GetTagAttributes(tagClass, mix, excludes, null);
-            mix.Sort(new MXMLListItemComparer());
 
+            // cleanup and show list
+            mix.Sort(new MXMLListItemComparer());
             List<ICompletionListItem> items = new List<ICompletionListItem>();
             string previous = null;
             foreach (ICompletionListItem item in mix)
@@ -246,7 +252,6 @@ namespace AS3Context
             }
 
             if (items.Count == 0) return true;
-            items.Sort(new MXMLListItemComparer());
             if (!string.IsNullOrEmpty(tokenContext)) CompletionList.Show(items, false, tokenContext);
             else CompletionList.Show(items, true);
             CompletionList.MinWordLength = 0;
@@ -400,7 +405,7 @@ namespace AS3Context
             }
 
             // more context
-            parentTag = GetParentTag(sci, tagContext);
+            parentTag = XMLComplete.GetParentTag(sci, tagContext);
 
             // rebuild tags cache?
             string sum = "" + context.GetAllProjectClasses().Count;
@@ -412,27 +417,6 @@ namespace AS3Context
                 GetAllTags();
             }
             return true;
-        }
-
-        private static XMLContextTag GetParentTag(ScintillaNet.ScintillaControl sci, XMLContextTag tag)
-        {
-            int pos = tag.Position;
-            if (pos <= 0) pos = sci.CurrentPos;
-            XMLContextTag parent;
-            Stack<string> stack = new Stack<string>();
-            do
-            {
-                parent = XMLComplete.GetXMLContextTag(sci, pos);
-                pos = parent.Position;
-                if (parent.Name != null && parent.Tag != null)
-                {
-                    if (parent.Closing) stack.Push(parent.Name);
-                    else if (!parent.Closed && (stack.Count == 0 || stack.Pop() != parent.Name)) 
-                        break;
-                }
-            }
-            while (pos > 0);
-            return parent;
         }
         #endregion
 
@@ -555,15 +539,21 @@ namespace AS3Context
 
         public int Compare(ICompletionListItem a, ICompletionListItem b)
         {
-            if (a is IHtmlCompletionListItem && b is IHtmlCompletionListItem)
+            string a1;
+            string b1;
+            if (a is IHtmlCompletionListItem)
             {
-                string a1 = ((IHtmlCompletionListItem)a).Name;
-                string b1 = ((IHtmlCompletionListItem)b).Name;
+                a1 = ((IHtmlCompletionListItem)a).Name;
                 if (a.Value.StartsWith("mx:")) a1 += "z"; // push down mx: tags
-                if (b.Value.StartsWith("mx:")) b1 += "z";
-                return string.Compare(a1, b1);
             }
-            return string.Compare(a.Label, b.Label);
+            else a1 = a.Label;
+            if (b is IHtmlCompletionListItem)
+            {
+                b1 = ((IHtmlCompletionListItem)b).Name;
+                if (b.Value.StartsWith("mx:")) b1 += "z"; // push down mx: tags
+            }
+            else b1 = b.Label;
+            return string.Compare(a1, b1);
         }
 
     }
