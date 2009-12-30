@@ -52,7 +52,7 @@ namespace ProjectManager.Building
             }
         }
 
-        public void Build(string[] extraClasspaths, bool noTrace)
+        public void Build(string[] extraClasspaths, bool debugMode, bool noPreBuild, bool noPostBuild)
         {
             Console.WriteLine("Building " + project.Name);
 
@@ -61,18 +61,18 @@ namespace ProjectManager.Building
 
             try
             {
-                if (project.PreBuildEvent.Length > 0)
+                if (!noPreBuild && project.PreBuildEvent.Length > 0)
                 {
                     Console.WriteLine("Running Pre-Build Command Line...");
-                    runner.Run(project.PreBuildEvent);
+                    runner.Run(project.PreBuildEvent, debugMode);
                 }
-                if (!project.NoOutput) DoBuild(extraClasspaths, noTrace);
+                if (!project.NoOutput) DoBuild(extraClasspaths, debugMode);
                 attempedPostBuildEvent = true;
 
-                if (project.PostBuildEvent.Length > 0)
+                if (!noPostBuild && project.PostBuildEvent.Length > 0)
                 {
                     Console.WriteLine("Running Post-Build Command Line...");
-                    runner.Run(project.PostBuildEvent);
+                    runner.Run(project.PostBuildEvent, debugMode);
                 }
             }
             finally
@@ -82,7 +82,7 @@ namespace ProjectManager.Building
                     project.PostBuildEvent.Length > 0)
                 {
                     Console.WriteLine("Running Post-Build Command Line...");
-                    runner.Run(project.PostBuildEvent);
+                    runner.Run(project.PostBuildEvent, debugMode);
                 }
             }
 

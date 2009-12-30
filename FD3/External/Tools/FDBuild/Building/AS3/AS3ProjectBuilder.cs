@@ -121,7 +121,7 @@ namespace ProjectManager.Building.AS3
                 MxmlcArgumentBuilder mxmlc = new MxmlcArgumentBuilder(project);
 
                 mxmlc.AddConfig(configFile);
-                mxmlc.AddOptions(noTrace == false, fcsh != null);
+                mxmlc.AddOptions(noTrace, fcsh != null);
                 mxmlc.AddOutput(tempFile);
 
                 string mxmlcArgs = mxmlc.ToString();

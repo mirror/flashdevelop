@@ -13,10 +13,26 @@ namespace ProjectManager.Building
 			args = new ArrayList();
         }
 
-        public void Add(string[] arguments)
+        public void Add(string[] arguments, bool noTrace)
         {
             foreach (string argument in arguments)
-                if (argument != null && argument.Length > 0) args.Add(argument);
+                if (argument != null && argument.Length > 0)
+                {
+                    string line = argument.Trim();
+                    // conditional arguments
+                    if (line.StartsWith("DEBUG:"))
+                    {
+                        if (noTrace) continue;
+                        else line = line.Substring("DEBUG:".Length).Trim();
+                    }
+                    if (line.StartsWith("RELEASE:"))
+                    {
+                        if (!noTrace) continue;
+                        else line = line.Substring("RELEASE:".Length).Trim();
+                    }
+
+                    args.Add(line);
+                }
         }
 
 		public void Add(string argument, params string[] values)

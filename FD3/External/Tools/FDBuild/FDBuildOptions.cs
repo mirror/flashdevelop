@@ -41,9 +41,15 @@ namespace FDBuild
         public string SwfmillPath;
 
         [Option("Disable tracing for this build", "notrace")]
-		public bool NoTrace = false;
+        public bool NoTrace = false;
 
-		[Option("Pause the console after building","pause")]
+        [Option("Disable execution of pre build commands", "noprebuild")]
+        public bool NoPreBuild = false;
+
+        [Option("Disable tracing for this build", "nopostbuild")]
+        public bool NoPostBuild = false;
+
+        [Option("Pause the console after building", "pause")]
 		public bool PauseAtEnd = false;
 
         [Option("Connect to FlashDevelop's remoting services using the specified IPC name", "ipc")]

@@ -101,7 +101,7 @@ namespace FDBuild
             project.TraceEnabled = !options.NoTrace;
             options.Language = project.Language.ToUpper();
             ProjectBuilder builder = ProjectBuilder.Create(project, options.IpcName, options.CompilerPath);
-            builder.Build(options.ExtraClasspaths, options.NoTrace);
+            builder.Build(options.ExtraClasspaths, options.NoTrace, options.NoPreBuild, options.NoPostBuild);
         }
 
         /// <summary>

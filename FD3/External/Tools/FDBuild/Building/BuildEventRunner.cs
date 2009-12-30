@@ -41,7 +41,7 @@ namespace ProjectManager.Building
             return result;
         }
 
-        public void Run(string buildEvents)
+        public void Run(string buildEvents, bool noTrace)
         {
             string[] events = buildEvents.Split('\n');
             if (events.Length == 0)
@@ -56,11 +56,25 @@ namespace ProjectManager.Building
 
                 if (line.Length <= 0)
                     continue; // nothing to do
+
+                // conditional execution
+                if (line.StartsWith("DEBUG:"))
+                {
+                    if (noTrace) continue;
+                    else line = line.Substring("DEBUG:".Length).Trim();
+                }
+                if (line.StartsWith("RELEASE:"))
+                {
+                    if (!noTrace) continue;
+                    else line = line.Substring("RELEASE:".Length).Trim();
+                }
+
+                // fix command line (expand variables)
                 foreach (BuildEventInfo info in infos)
                     line = line.Replace(info.FormattedName, info.Value);
                 line = project.FixDebugReleasePath(line);
-                Console.WriteLine("cmd: " + line);
 
+                Console.WriteLine("cmd: " + line);
                 string[] tokens = tokenize(line);
                 string command = tokens[0];
                 string args = tokens[1];

@@ -30,9 +30,9 @@ namespace ProjectManager.Building.AS3
             Add("-o", path);
         }
 
-        public void AddOptions(bool debug, bool incremental)
+        public void AddOptions(bool noTrace, bool incremental)
         {
-            if (debug) AddEq("-debug", "true");
+            if (!noTrace) AddEq("-debug", "true");
             if (incremental) AddEq("-incremental", "true");
 
             MxmlcOptions options = project.CompilerOptions;
@@ -45,7 +45,7 @@ namespace ProjectManager.Building.AS3
                 AddEq("-es", "true");
                 AddEq("-as3", "false");
             }
-            if (!debug && options.Optimize) AddEq("-optimize", "true");
+            if (noTrace && options.Optimize) AddEq("-optimize", "true");
             if (!options.ShowActionScriptWarnings) AddEq("-show-actionscript-warnings", "false");
             if (!options.ShowBindingWarnings) AddEq("-show-binding-warnings", "false");
             if (!options.ShowDeprecationWarnings) AddEq("-show-deprecation-warnings", "false");
@@ -55,12 +55,12 @@ namespace ProjectManager.Building.AS3
             if (!options.UseResourceBundleMetadata) AddEq("-use-resource-bundle-metadata", "false");
             if (!options.Warnings) AddEq("-warnings", "false");
             if (options.StaticLinkRSL) AddEq("-static-link-runtime-shared-libraries", "true");
-            if (debug && options.VerboseStackTraces) AddEq("-verbose-stacktraces", "true");
+            if (!noTrace && options.VerboseStackTraces) AddEq("-verbose-stacktraces", "true");
             
             if (options.LinkReport.Length > 0) AddEq("-link-report", options.LinkReport);
             if (options.LoadExterns.Length > 0) AddEq("-load-externs", options.LoadExterns);
 
-            if (options.Additional != null) Add(options.Additional);
+            if (options.Additional != null) Add(options.Additional, noTrace);
         }
 
         void AddEq(string argument, string value)

@@ -108,7 +108,7 @@ namespace ProjectManager.Building.Haxe
                 }
             }
 
-            if (options.Additional != null) Add(options.Additional);
+            if (options.Additional != null) Add(options.Additional, noTrace);
         }
 
         public void AddLibraries(string[] list)
