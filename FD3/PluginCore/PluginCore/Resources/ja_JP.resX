@@ -3262,4 +3262,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Zen Coding を無効にします。</value>
     <comment>Added after 3.0.7</comment>
   </data>
+  <data name="ProjectManager.Description.CompilerConstants" xml:space="preserve">
+    <value>Enter one compiler constant per ligne - ie: NAMESPACE::variable,value</value>
+    <comment>Added after 3.0.7</comment>
+  </data>
 </root>

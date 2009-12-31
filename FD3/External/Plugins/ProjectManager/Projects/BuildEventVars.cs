@@ -49,7 +49,7 @@ namespace ProjectManager.Projects
             infos.Add(new BuildEventInfo("ProjectName", project.Name));
             infos.Add(new BuildEventInfo("ProjectDir", project.Directory));
             infos.Add(new BuildEventInfo("ProjectPath", project.ProjectPath));
-            infos.Add(new BuildEventInfo("TimeStamp", DateTime.Now.ToString("g").Replace(" ", "_")));
+            infos.Add(new BuildEventInfo("TimeStamp", DateTime.Now.ToString("g")));
             infos.AddRange(additional);
 
             return infos.ToArray();

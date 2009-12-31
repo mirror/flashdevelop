@@ -90,6 +90,7 @@ namespace ProjectManager.Projects.AS3
             WriteOption("staticLinkRSL", options.StaticLinkRSL);
 
             WriteOption("additional", string.Join("\n", options.Additional));
+            WriteOption("compilerConstants", string.Join("\n", options.CompilerConstants));
             WriteOption("customSDK", options.CustomSDK);
 
             WriteEndElement();

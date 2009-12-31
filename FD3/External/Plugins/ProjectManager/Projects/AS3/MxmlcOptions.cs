@@ -129,6 +129,13 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue(new string[] { })]
         public string[] Additional { get { return additional; } set { additional = value; } }
 
+        string[] compilerConstants = new string[] { };
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Compiler Constants")]
+        [LocalizedDescription("ProjectManager.Description.CompilerConstants")]
+        [DefaultValue(new string[] { })]
+        public string[] CompilerConstants { get { return compilerConstants; } set { compilerConstants = value; } }
+
         string customSDK = "";
         [LocalizedCategory("ProjectManager.Category.Advanced")]
         [DisplayName("Custom Path to Flex SDK")]

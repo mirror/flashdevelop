@@ -3254,4 +3254,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Disable HTML Zen Coding feature</value>
     <comment>Added after 3.0.7</comment>
   </data>
+  <data name="ProjectManager.Description.CompilerConstants" xml:space="preserve">
+    <value>Enter one compiler constant per ligne - ie: NAMESPACE::variable,value</value>
+    <comment>Added after 3.0.7</comment>
+  </data>
 </root>

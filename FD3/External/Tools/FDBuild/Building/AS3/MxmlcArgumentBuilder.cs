@@ -12,7 +12,6 @@ namespace ProjectManager.Building.AS3
         AS3Project project;
 
         public MxmlcArgumentBuilder(AS3Project project)
-            : base(project)
         {
             this.project = project;
         }

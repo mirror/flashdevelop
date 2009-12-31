@@ -105,7 +105,7 @@ namespace ProjectManager.Building.AS3
 
                 //write "new" config to tmp 
                 FlexConfigWriter config = new FlexConfigWriter(project.GetAbsolutePath(configFileTmp));
-                config.WriteConfig(project, extraClasspaths);
+                config.WriteConfig(project, extraClasspaths, noTrace == false);
 
                 //compare tmp to current
                 bool configChanged = !File.Exists(backupConfig) || !File.Exists(configFile) || !FileComparer.IsEqual(configFileTmp, configFile);

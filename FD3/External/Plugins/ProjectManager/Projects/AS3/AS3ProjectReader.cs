@@ -134,6 +134,7 @@ namespace ProjectManager.Projects.AS3
                     case "loadExterns": options.LoadExterns = Value; break;
                     case "staticLinkRSL": options.StaticLinkRSL = BoolValue; break;
                     case "additional": options.Additional = Value.Split('\n'); break;
+                    case "compilerConstants": options.CompilerConstants = Value.Split('\n'); break;
                     case "customSDK": options.CustomSDK = Value; break;
                 }
                 Read();

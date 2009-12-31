@@ -8,12 +8,10 @@ namespace ProjectManager.Building
 	class ArgumentBuilder
 	{
 		ArrayList args;
-        BuildEventVars vars;
 
-		public ArgumentBuilder(Project project)
+		public ArgumentBuilder()
 		{
 			args = new ArrayList();
-            vars = new BuildEventVars(project);
         }
 
         public void Add(string[] arguments, bool noTrace)
@@ -51,12 +49,6 @@ namespace ProjectManager.Building
 		{
 			string[] argArray = args.ToArray(typeof(string)) as string[];
             string line = string.Join(" ", argArray);
-
-            // expand variables
-            BuildEventInfo[] infos = vars.GetVars();
-            foreach (BuildEventInfo info in infos)
-                line = line.Replace(info.FormattedName, info.Value);
-
             return line;
 		}
 	}
