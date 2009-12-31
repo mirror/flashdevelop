@@ -13,6 +13,7 @@ namespace ProjectManager.Building.Haxe
         HaxeProject project;
 
         public HaxeArgumentBuilder(HaxeProject project)
+            : base(project)
         {
             this.project = project;
         }

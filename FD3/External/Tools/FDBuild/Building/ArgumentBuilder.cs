@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Text;
+using ProjectManager.Projects;
 
 namespace ProjectManager.Building
 {
 	class ArgumentBuilder
 	{
 		ArrayList args;
+        BuildEventVars vars;
 
-		public ArgumentBuilder()
+		public ArgumentBuilder(Project project)
 		{
 			args = new ArrayList();
+            vars = new BuildEventVars(project);
         }
 
         public void Add(string[] arguments, bool noTrace)
@@ -19,6 +22,8 @@ namespace ProjectManager.Building
                 if (argument != null && argument.Length > 0)
                 {
                     string line = argument.Trim();
+                    if (line.Length == 0) 
+                        continue;
                     // conditional arguments
                     if (line.StartsWith("DEBUG:"))
                     {
@@ -45,7 +50,14 @@ namespace ProjectManager.Building
 		public override string ToString()
 		{
 			string[] argArray = args.ToArray(typeof(string)) as string[];
-			return string.Join(" ", argArray);
+            string line = string.Join(" ", argArray);
+
+            // expand variables
+            BuildEventInfo[] infos = vars.GetVars();
+            foreach (BuildEventInfo info in infos)
+                line = line.Replace(info.FormattedName, info.Value);
+
+            return line;
 		}
 	}
 }

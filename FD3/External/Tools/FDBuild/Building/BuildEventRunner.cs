@@ -68,10 +68,10 @@ namespace ProjectManager.Building
                     if (!noTrace) continue;
                     else line = line.Substring("RELEASE:".Length).Trim();
                 }
-
-                // fix command line (expand variables)
+                // expand variables
                 foreach (BuildEventInfo info in infos)
                     line = line.Replace(info.FormattedName, info.Value);
+                // bin/debug output path
                 line = project.FixDebugReleasePath(line);
 
                 Console.WriteLine("cmd: " + line);

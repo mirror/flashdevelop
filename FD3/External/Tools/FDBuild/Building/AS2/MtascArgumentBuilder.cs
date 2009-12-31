@@ -10,7 +10,8 @@ namespace ProjectManager.Building.AS2
 	{
 		AS2Project project;
 
-		public MtascArgumentBuilder(AS2Project project)
+        public MtascArgumentBuilder(AS2Project project)
+            : base(project)
 		{
 			this.project = project;
 		}
