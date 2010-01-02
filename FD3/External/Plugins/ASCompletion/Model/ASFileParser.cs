@@ -88,11 +88,7 @@ namespace ASCompletion.Model
             {
                 if (File.Exists(fileModel.FileName))
                 {
-                    using (StreamReader sr = new StreamReader(fileModel.FileName))
-                    {
-                        src = sr.ReadToEnd();
-                        sr.Close();
-                    }
+                    src = PluginCore.Helpers.FileHelper.ReadFile(fileModel.FileName);
                     ASFileParser parser = new ASFileParser();
                     fileModel.LastWriteTime = File.GetLastWriteTime(fileModel.FileName);
                     if (cachedPath != null)

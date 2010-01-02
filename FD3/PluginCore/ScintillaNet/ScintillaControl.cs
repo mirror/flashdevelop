@@ -14,6 +14,7 @@ namespace ScintillaNet // v.1.79 Some things may not be implemented
 	public class ScintillaControl : Control
 	{
 		private Encoding encoding;
+        private bool saveBOM;
 		private int directPointer;
 		private IntPtr hwndScintilla;
 		private bool ignoreAllKeys = false;
@@ -5266,7 +5267,16 @@ namespace ScintillaNet // v.1.79 Some things may not be implemented
 		{
 			set { this.encoding = value; }
 			get { return this.encoding; }
-		}
+        }
+
+        /// <summary>
+        /// Indicate that BOM characters should be written when saving
+        /// </summary>
+        public bool SaveBOM
+        {
+            set { this.saveBOM = value; }
+            get { return this.saveBOM; }
+        }
 		
 		/// <summary>
 		/// Adds a line end marker to the end of the document

@@ -224,7 +224,7 @@ namespace FlashDevelop.Docking
                 ScintillaManager.CleanUpCode(this.SciControl);
                 DataEvent de = new DataEvent(EventType.FileEncode, file, this.SciControl.Text);
                 EventManager.DispatchEvent(this, de); // Lets ask if a plugin wants to encode and save the data..
-                if (!de.Handled) FileHelper.WriteFile(file, this.SciControl.Text, this.SciControl.Encoding);
+                if (!de.Handled) FileHelper.WriteFile(file, this.SciControl.Text, this.SciControl.Encoding, this.SciControl.SaveBOM);
                 this.IsModified = false;
                 this.SciControl.SetSavePoint();
                 RecoveryManager.RemoveTemporaryFile(this.FileName);
@@ -263,7 +263,7 @@ namespace FlashDevelop.Docking
             EventManager.DispatchEvent(Globals.MainForm, te);
             if (!te.Handled)
             {
-                Int32 codepage = FileHelper.GetFileCodepage(this.FileName);
+                Int32 codepage = FileHelper.GetFileCodepage(this.FileName, true);
                 if (codepage == -1) return; // If the files is locked, stop.
                 Encoding encoding = Encoding.GetEncoding(codepage);
                 String contents = FileHelper.ReadFile(this.FileName, encoding);

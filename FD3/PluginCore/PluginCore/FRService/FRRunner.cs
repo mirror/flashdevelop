@@ -239,13 +239,16 @@ namespace PluginCore.FRService
                             src = configuration.GetSource(file);
                             results[file] = matches = search.Matches(src);
 
-                            if (replacement != null)
+                            if (matches.Count > 0)
                             {
-                                // replace text
-                                src = search.ReplaceAll(src, replacement, matches);
-                                configuration.SetSource(file, src);
+                                if (replacement != null)
+                                {
+                                    // replace text
+                                    src = search.ReplaceAll(src, replacement, matches);
+                                    configuration.SetSource(file, src);
+                                }
+                                else FRSearch.ExtractResultsLineText(matches, src);
                             }
-                            else FRSearch.ExtractResultsLineText(matches, src);
                             matches = null;
 
                             // progress

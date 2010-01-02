@@ -453,7 +453,7 @@ namespace TaskListPanel
             Hashtable itemTag;
             ListViewItem item;
             String text = String.Empty;
-            Int32 codepage = FileHelper.GetFileCodepage(path);
+            Int32 codepage = FileHelper.GetFileCodepage(path, true);
             if (codepage == -1) return; // If the file is locked, stop.
             text = FileHelper.ReadFile(path, Encoding.GetEncoding(codepage));
             MatchCollection matches = this.todoParser.Matches(text);

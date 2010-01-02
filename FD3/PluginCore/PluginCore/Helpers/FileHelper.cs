@@ -32,7 +32,7 @@ namespace PluginCore.Helpers
         public static String ReadFile(String file)
         {
             Encoding encoding;
-            Int32 codepage = GetFileCodepage(file);
+            Int32 codepage = GetFileCodepage(file, true);
             if (codepage == -1) encoding = Encoding.Default;
             else encoding = Encoding.GetEncoding(codepage);
             return ReadFile(file, encoding);
@@ -58,15 +58,23 @@ namespace PluginCore.Helpers
                 return null;
             }
         }
-
+        
         /// <summary>
         /// Writes a text file to the specified location (if UTF-8, with or without BOM)
         /// </summary>
         public static void WriteFile(String file, String text, Encoding encoding)
         {
+            WriteFile(file, text, encoding, false);
+        }
+
+        /// <summary>
+        /// Writes a text file to the specified location (if UTF-8, with or without BOM)
+        /// </summary>
+        public static void WriteFile(String file, String text, Encoding encoding, bool forceSaveBOM)
+        {
             try
             {
-                Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && PluginBase.Settings.SaveUTF8WithoutBOM);
+                Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && !forceSaveBOM && PluginBase.Settings.SaveUTF8WithoutBOM);
                 using (StreamWriter sw = useSkipBomWriter ? new StreamWriter(file, false) : new StreamWriter(file, false, encoding))
                 {
                     sw.Write(text);
@@ -147,6 +155,16 @@ namespace PluginCore.Helpers
         /// <summary>
         /// Reads the file codepage from the file data
         /// </summary>
+        public static Int32 GetFileCodepage(String file, Boolean useFallback)
+        {
+            Int32 codepage = GetFileCodepage(file);
+            if (codepage == 1252) codepage = (Int32)PluginBase.Settings.FallbackCodePage;
+            return codepage;
+        }
+
+        /// <summary>
+        /// Reads the file codepage from the file data
+        /// </summary>
         public static Int32 GetFileCodepage(String file)
         {
             try
@@ -177,12 +195,12 @@ namespace PluginCore.Helpers
                     {
                         return Encoding.BigEndianUnicode.CodePage;
                     }
-                    else return (Int32)PluginBase.Settings.FallbackCodePage;
+                    else return Encoding.Default.CodePage;
                 }
                 else
                 {
                     fs.Close();
-                    return (Int32)PluginBase.Settings.FallbackCodePage;
+                    return Encoding.Default.CodePage;
                 }
             }
             catch (Exception ex)

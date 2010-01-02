@@ -243,7 +243,6 @@ namespace ASCompletion.Model
                         else if (File.Exists(cacheFileName)) File.Delete(cacheFileName);
 
                         if (pathModel.Files.Values.Count > 0)
-                        using (StreamWriter sw = new StreamWriter(File.OpenWrite(cacheFileName)))
                         {
                             StringBuilder sb = new StringBuilder();
                             foreach (FileModel model in pathModel.Files.Values)
@@ -251,7 +250,8 @@ namespace ASCompletion.Model
                                 sb.Append("\n#file-cache ").Append(model.FileName).Append('\n');
                                 sb.Append(model.GenerateIntrinsic(true));
                             }
-                            sw.Write(sb);
+                            string src = sb.ToString();
+                            FileHelper.WriteFile(cacheFileName, src, Encoding.UTF8);
                         }
                     }
                     catch { }

@@ -143,6 +143,15 @@ namespace FlashDevelop.Managers
                     if (codepage == Encoding.Default.CodePage) codepage = 0;
                     if (((ItemData)item.Tag).Tag != codepage.ToString()) return false;
                 }
+                if (action.Contains("SaveBOM"))
+                {
+                    return document.SciControl.SaveBOM;
+                }
+                if (action.Contains("IsDefaultEncoding"))
+                {
+                    Int32 codepage = document.SciControl.Encoding.CodePage;
+                    return codepage == Encoding.Default.CodePage;
+                }
                 if (action.Contains("IsActiveEOL"))
                 {
                     Int32 eolMode = document.SciControl.EOLMode;

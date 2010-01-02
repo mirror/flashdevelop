@@ -564,7 +564,11 @@ namespace FlashDevelop
             DataEvent de = new DataEvent(EventType.FileDecode, file, null);
             EventManager.DispatchEvent(this, de); // Lets ask if a plugin wants to decode the data..
             if (!de.Handled) text = FileHelper.ReadFile(file, Encoding.GetEncoding(codepage));
-            else text = de.Data as String;
+            else
+            {
+                text = de.Data as String;
+                codepage = Encoding.UTF8.CodePage; // assume plugin always return UTF8
+            }
             try
             {
                 if (this.CurrentDocument != null && this.CurrentDocument.IsUntitled && !this.CurrentDocument.IsModified && this.Documents.Length == 1)
@@ -582,6 +586,7 @@ namespace FlashDevelop
                 createdDoc = this.CreateEditableDocument(file, text, codepage);
                 ButtonManager.AddNewReopenMenuItem(file);
             }
+
             TabbedDocument document = (TabbedDocument)createdDoc;
             document.SciControl.BeginInvoke((MethodInvoker)delegate { FileStateManager.ApplyFileState(document, restorePosition); });
             ButtonManager.UpdateFlaggedButtons();
@@ -1862,9 +1867,8 @@ namespace FlashDevelop
             if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
             {
                 String contents = Globals.SciControl.SelText;
-                Encoding encoding = Globals.SciControl.Encoding;
                 String file = this.saveFileDialog.FileName;
-                FileHelper.WriteFile(file, contents, encoding);
+                FileHelper.WriteFile(file, contents, Encoding.UTF8, true);
             }
             this.saveFileDialog.InitialDirectory = prevRootPath;
             this.saveFileDialog.Filter = prevFilter;
@@ -1885,9 +1889,8 @@ namespace FlashDevelop
             if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
             {
                 String contents = Globals.SciControl.SelText;
-                Encoding encoding = Globals.SciControl.Encoding;
                 String file = this.saveFileDialog.FileName;
-                FileHelper.WriteFile(file, contents, encoding);
+                FileHelper.WriteFile(file, contents, Encoding.UTF8, true);
             }
             this.saveFileDialog.InitialDirectory = prevRootPath;
             this.saveFileDialog.Filter = prevFilter;
@@ -2430,6 +2433,22 @@ namespace FlashDevelop
             }
         }
 
+        public void ToggleSaveBOM(Object sender, System.EventArgs e)
+        {
+            try
+            {
+                ToolStripItem button = (ToolStripItem)sender;
+                ScintillaControl sci = Globals.SciControl;
+                sci.SaveBOM = !sci.SaveBOM;
+                this.OnScintillaControlUpdateControl(sci);
+                this.OnDocumentModify(this.CurrentDocument);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
         /// <summary>
         /// Converts the encoding of the current document
         /// </summary>
@@ -2569,7 +2588,7 @@ namespace FlashDevelop
                 if (File.Exists(file))
                 {
                     Encoding to = Globals.SciControl.Encoding;
-                    Int32 codepage = FileHelper.GetFileCodepage(file);
+                    Int32 codepage = FileHelper.GetFileCodepage(file, true);
                     if (codepage == -1) return; // If the file is locked, stop.
                     Encoding from = Encoding.GetEncoding(codepage);
                     String unconverted = FileHelper.ReadFile(file, from);

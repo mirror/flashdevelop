@@ -3258,4 +3258,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Enter one compiler constant per ligne - ie: NAMESPACE::variable,value</value>
     <comment>Added after 3.0.7</comment>
   </data>
+  <data name="FlashDevelop.Label.SaveBOM" xml:space="preserve">
+    <value>&amp;Save Byte Order Mask</value>
+    <comment>Added after 3.0.7</comment>
+  </data>
 </root>
