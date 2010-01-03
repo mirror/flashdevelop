@@ -2,11 +2,11 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="as-primary-keywords">
-			class dynamic extends implements import interface new case do while else if for in switch throw intrinsic
-			private public static get set function var try catch finally while with default break continue delete return
+			class extends implements import interface new case do while else if for in switch throw 
+			get set function var try catch finally while with default break continue delete return
 		</keyword-class>
 		<keyword-class name="as-secondary-keywords">
-			arguments super this null newline Infinity NaN undefined true false _root instanceof typeof
+			null newline Infinity NaN undefined true false _root instanceof typeof
 		</keyword-class>
 		<keyword-class name="as-additional-keywords">
 			Accessibility AsBroadcaster Array BevelFilter BitmapData BitmapFilter BlurFilter Boolean Button
@@ -20,6 +20,15 @@
 		<keyword-class name="as-documentation-keywords">
 			author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link mtasc mxmlc 
 			param private return see serial serialData serialField since throws usage version
+		</keyword-class>
+		<keyword-class name="as-additional-keywords3">
+			dynamic private public static intrinsic  
+		</keyword-class>
+		<keyword-class name="as-additional-keywords4">
+			trace createEmptyMovieClip createTextField removeMovieClip swapDepths
+		</keyword-class>
+		<keyword-class name="as-additional-keywords5">
+			super this arguments
 		</keyword-class>
 	</keyword-classes>
 	<languages>
@@ -35,6 +44,9 @@
 				<keyword key="1" class="as-additional-keywords" />
 				<keyword key="2" class="as-documentation-keywords" />
 				<keyword key="3" class="as-primary-keywords" />
+				<keyword key="4" class="as-additional-keywords3" />
+				<keyword key="5" class="as-additional-keywords4" />
+				<keyword key="6" class="as-additional-keywords5" />
 			</use-keywords>
 			<!-- COLORING_START -->
 			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
@@ -55,10 +67,13 @@
 				<style name="verbatim" />
 				<style name="regex" />
 				<style name="commentlinedoc" fore="0x008000" />
-				<style name="word2" fore="0x008080" />
+				<style name="word2" fore="0x0080aa" />
+				<style name="word4" fore="0x333399" />
+				<style name="word5" fore="0x000066" />
 				<style name="commentdockeyword" fore="0x800000" />
 				<style name="commentdockeyworderror" fore="0xff0000" />
 				<style name="globalclass" fore="0x1518ff" />
+				<style name="word3" fore="0x0060ff" />
 				<style name="gdefault" />
 				<style name="linenumber" fore="0x666666" />
 				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" bold="true" />

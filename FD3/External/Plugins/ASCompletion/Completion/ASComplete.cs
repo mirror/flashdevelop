@@ -2639,21 +2639,30 @@ namespace ASCompletion.Completion
             return (style == 4) || (style == 6) || (style == 7);
         }
 
+        /// <summary>
+        /// Text is word 
+        /// </summary>
         static public bool IsTextStyle(int style)
 		{
-			return (style == 0) || (style == 4) || (style == 5) || /*(style == 6) || (style == 7) ||*/ (style == 10) || (style == 11) || (style == 16) 
-                || (style == 127);
+			return style == 11 /*identifier*/ || style == 16 /*word2 (secondary keywords: class name)*/
+                || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/;
 		}
 
-		static public bool IsTextStyleEx(int style)
+        /// <summary>
+        /// Text is word or keyword
+        /// </summary>
+        static public bool IsTextStyleEx(int style)
 		{
-            return (style == 0) || (style == 4) || (style == 5) || (style == 6) || (style == 7) || (style == 10) || (style == 11) || (style == 16) || (style == 19) 
-                || (style == 127);
+            return style == 5 /*word (secondary keywords)*/
+                || style == 11 /*identifier*/ || style == 16 /*word2 (secondary keywords: class name)*/ 
+                || style == 19 /*globalclass (primary keywords)*/ || style == 20 /*word3 (add keywords3)*/
+                || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/;
 		}
 
 		static public bool IsCommentStyle(int style)
 		{
-			return (style == 1) || (style == 2) || (style == 3) || (style == 17) || (style == 18);
+			return style == 1 || style == 2 || style == 3 /*comments*/
+                || style == 17 || style == 18 /*javadoc tags*/;
 		}
 
 		static public string GetWordLeft(ScintillaNet.ScintillaControl Sci, ref int position)

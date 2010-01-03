@@ -2,12 +2,12 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="as3-primary-keywords">
-			class dynamic extends implements import interface new case do while else if for in switch throw intrinsic
-			private public static get set function var try catch finally while with default break continue delete return
-			final each internal native override protected const namespace package include use AS3
+			class extends implements import interface new case do while else if for in switch throw 
+			get set function var try catch finally while with default break continue delete return
+			each const namespace package include use is as instanceof typeof
 		</keyword-class>
 		<keyword-class name="as3-secondary-keywords">
-			super this null Infinity NaN undefined true false is as instanceof typeof
+			null Infinity NaN undefined true false 
 		</keyword-class>
 		<keyword-class name="as3-additional-keywords">
 			void Null ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math Namespace
@@ -37,6 +37,15 @@
 			author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link mtasc mxmlc 
 			param private return see serial serialData serialField since throws usage version
 		</keyword-class>
+		<keyword-class name="as3-additional-keywords3">
+			dynamic private public static intrinsic internal native override protected AS3 final 
+		</keyword-class>
+		<keyword-class name="as3-additional-keywords4">
+			trace addEventListener removeEventListener hasListener addChild addChildAt removeChild removeChildAt
+		</keyword-class>
+		<keyword-class name="as3-additional-keywords5">
+			super this arguments
+		</keyword-class>
 	</keyword-classes>
 	<languages>
 		<language name="as3">
@@ -52,6 +61,9 @@
 				<keyword key="1" class="as3-additional-keywords" />
 				<keyword key="2" class="as3-documentation-keywords" />
 				<keyword key="3" class="as3-primary-keywords" />
+				<keyword key="4" class="as3-additional-keywords3" />
+				<keyword key="5" class="as3-additional-keywords4" />
+				<keyword key="6" class="as3-additional-keywords5" />
 			</use-keywords>
 			<!-- COLORING_START -->
 			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
@@ -72,10 +84,13 @@
 				<style name="verbatim" />
 				<style name="regex" fore="0xff00ff" />
 				<style name="commentlinedoc" fore="0x008000" />
-				<style name="word2" fore="0x008080" />
+				<style name="word2" fore="0x0080aa" />
+				<style name="word4" fore="0x333399" />
+				<style name="word5" fore="0x000099" />
 				<style name="commentdockeyword" fore="0x800000" />
 				<style name="commentdockeyworderror" fore="0xff0000" />
 				<style name="globalclass" fore="0x1518ff" />
+				<style name="word3" fore="0x0060ff" />
 				<style name="gdefault" />
 				<style name="linenumber" fore="0x666666" />
 				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" bold="true" />
