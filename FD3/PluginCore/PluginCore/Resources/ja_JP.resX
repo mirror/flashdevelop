@@ -3260,14 +3260,14 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="XMLCompletion.Description.DisableZenCoding" xml:space="preserve">
     <value>Zen Coding を無効にします。</value>
-    <comment>Added after 3.0.7</comment>
+    <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Description.CompilerConstants" xml:space="preserve">
     <value>Enter one compiler constant per ligne - ie: NAMESPACE::variable,value</value>
-    <comment>Added after 3.0.7</comment>
+    <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Label.SaveBOM" xml:space="preserve">
-    <value>&amp;Save Byte Order Mask</value>
-    <comment>Added after 3.0.7</comment>
+    <value>&amp;Save Byte Order Mark</value>
+    <comment>Added after 3.0.6</comment>
   </data>
 </root>
