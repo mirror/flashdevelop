@@ -336,11 +336,9 @@ namespace FlashDevelop.Managers
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, ScintillaNet.Enums.MarkerSymbol.TCorner);
             sci.SetYCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Jumps | ScintillaNet.Enums.CaretPolicy.Even), 0);
             sci.SetXCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Even), 0);
-            
             sci.CodePage = SelectCodePage(codepage);
             sci.Encoding = Encoding.GetEncoding(codepage);
             sci.Text = text;
-
             if (codepage != Encoding.Default.CodePage) // BOM detected
             {
                 sci.SaveBOM = true;
@@ -351,7 +349,6 @@ namespace FlashDevelop.Managers
                 sci.CodePage = SelectCodePage(65001);
                 sci.Encoding = Encoding.GetEncoding(65001);
             }
-
             sci.FileName = file; // Store the file path for future use
             sci.Modified += new ModifiedHandler(Globals.MainForm.OnScintillaControlModified);
             sci.MarginClick += new MarginClickHandler(Globals.MainForm.OnScintillaControlMarginClick);

@@ -35,6 +35,7 @@
 			<button label="Label.BigEndian" click="ChangeEncoding" tag="1201" flags="Check:IsEditable|IsActiveEncoding" />
 			<button label="Label.LittleEndian" click="ChangeEncoding" tag="1200" flags="Check:IsEditable|IsActiveEncoding" />
 			<button label="Label.UTF8" click="ChangeEncoding" tag="65001" flags="Check:IsEditable|IsActiveEncoding" />
+			<separator />
 			<button label="Label.SaveBOM" click="ToggleSaveBOM" flags="Check:IsEditable|SaveBOM+Disable:IsDefaultEncoding" />
 			<separator />
 			<menu label="Label.ConvertTextTo" name="ConvertToMenu" flags="Enable:IsEditable">

@@ -592,8 +592,8 @@ namespace FlashDevelop.Settings
             set { this.defaultFileExtension = value; }
         }
 
+        [DefaultValue(CodePage.UTF8)]
         [DisplayName("Fallback CodePage")]
-        [DefaultValue(CodePage.EightBits)]
         [LocalizedDescription("FlashDevelop.Description.FallbackCodePage")]
         public CodePage FallbackCodePage
         {
@@ -601,8 +601,8 @@ namespace FlashDevelop.Settings
             set { this.fallbackCodePage = value; }
         }
 
-        [DisplayName("Default CodePage")]
         [DefaultValue(CodePage.UTF8)]
+        [DisplayName("Default CodePage")]
         [LocalizedDescription("FlashDevelop.Description.DefaultCodePage")]
         public CodePage DefaultCodePage
         {
@@ -610,7 +610,7 @@ namespace FlashDevelop.Settings
             set { this.defaultCodePage = value; }
         }
 
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [DisplayName("Save UTF-8 Without BOM")]
         [LocalizedDescription("FlashDevelop.Description.SaveUTF8WithoutBOM")]
         public Boolean SaveUTF8WithoutBOM
