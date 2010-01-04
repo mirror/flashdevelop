@@ -471,7 +471,7 @@ namespace ASCompletion.Completion
             model.Members.Sort();
             foreach (ClassModel aClass in model.Classes) aClass.Members.Sort();
             string src = model.GenerateIntrinsic(false);
-            ASContext.MainForm.CreateEditableDocument(dummyFile, src, 65001);
+            ASContext.MainForm.CreateEditableDocument(dummyFile, src, Encoding.UTF8.CodePage);
         }
 
         static public void LocateMember(string keyword, string name, int line)

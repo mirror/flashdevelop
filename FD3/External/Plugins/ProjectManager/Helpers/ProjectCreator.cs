@@ -149,7 +149,7 @@ namespace ProjectManager.Helpers
 
                 string src = File.ReadAllText(source);
                 src = ReplaceKeywords(ProcessCodeStyleLineBreaks(src));
-                File.WriteAllText(dest, src, encoding);
+                FileHelper.WriteFile(dest, src, encoding);
 			}
 			else File.Copy(source,dest);
         }

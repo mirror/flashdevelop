@@ -555,10 +555,12 @@ namespace FlashDevelop
             }
             catch {}
             String text = String.Empty;
+            Boolean BOMDetected = false;
             if (encoding == null)
             {
                 codepage = FileHelper.GetFileCodepage(file);
                 if (codepage == -1) return null; // If the file is locked, stop.
+                else if (codepage != Encoding.Default.CodePage) BOMDetected = true;
             }
             else codepage = encoding.CodePage;
             DataEvent de = new DataEvent(EventType.FileDecode, file, null);
@@ -588,6 +590,12 @@ namespace FlashDevelop
             }
 
             TabbedDocument document = (TabbedDocument)createdDoc;
+            
+            if (BOMDetected) // honor file's BOM presence
+            {
+                document.SciControl.SaveBOM = true;
+            }
+            
             document.SciControl.BeginInvoke((MethodInvoker)delegate { FileStateManager.ApplyFileState(document, restorePosition); });
             ButtonManager.UpdateFlaggedButtons();
             return createdDoc;

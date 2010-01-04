@@ -339,11 +339,7 @@ namespace FlashDevelop.Managers
             sci.CodePage = SelectCodePage(codepage);
             sci.Encoding = Encoding.GetEncoding(codepage);
             sci.Text = text;
-            if (codepage != Encoding.Default.CodePage) // BOM detected
-            {
-                sci.SaveBOM = true;
-            }
-            else if (Globals.Settings.FallbackCodePage != CodePage.EightBits) // force encoding
+            if (Globals.Settings.FallbackCodePage != CodePage.EightBits) // force encoding
             {
                 sci.SaveBOM = !Globals.Settings.SaveUTF8WithoutBOM;
                 sci.CodePage = SelectCodePage(65001);
