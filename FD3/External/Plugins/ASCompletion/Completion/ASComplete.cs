@@ -2644,7 +2644,8 @@ namespace ASCompletion.Completion
         /// </summary>
         static public bool IsTextStyle(int style)
 		{
-			return style == 11 /*identifier*/ || style == 16 /*word2 (secondary keywords: class name)*/
+			return style == 10 /*punctuation*/ || style == 11 /*identifier*/ 
+                || style == 16 /*word2 (secondary keywords: class name)*/
                 || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/;
 		}
 
@@ -2654,7 +2655,8 @@ namespace ASCompletion.Completion
         static public bool IsTextStyleEx(int style)
 		{
             return style == 5 /*word (secondary keywords)*/
-                || style == 11 /*identifier*/ || style == 16 /*word2 (secondary keywords: class name)*/ 
+                || style == 10 /*punctuation*/ || style == 11 /*identifier*/ 
+                || style == 16 /*word2 (secondary keywords: class name)*/ 
                 || style == 19 /*globalclass (primary keywords)*/ || style == 20 /*word3 (add keywords3)*/
                 || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/;
 		}
