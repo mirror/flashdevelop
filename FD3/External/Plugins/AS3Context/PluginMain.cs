@@ -181,9 +181,13 @@ namespace AS3Context
                     case EventType.FileSwitch:
                         if (contextInstance != null) contextInstance.OnFileOperation(e);
 
-                        string ext = Path.GetExtension(PluginBase.MainForm.CurrentDocument.FileName);
-                        inMXML = (ext.ToLower() == ".mxml");
-                        MxmlComplete.IsDirty = true;
+                        if (PluginBase.MainForm.CurrentDocument.IsEditable)
+                        {
+                            string ext = Path.GetExtension(PluginBase.MainForm.CurrentDocument.FileName);
+                            inMXML = (ext.ToLower() == ".mxml");
+                            MxmlComplete.IsDirty = true;
+                        }
+                        else inMXML = false;
                         break;
                 }
                 return;
