@@ -3263,11 +3263,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Description.CompilerConstants" xml:space="preserve">
-    <value>Enter one compiler constant per ligne - ie: NAMESPACE::variable,value</value>
+    <value>グローバル定数を1行にひとつづつ定義します。これは条件付コンパイルに使用されます。 - 例: NAMESPACE::variable,value</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Label.SaveBOM" xml:space="preserve">
-    <value>&amp;Save Byte Order Mark</value>
+    <value>BOMを保存(&amp;S)</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>
