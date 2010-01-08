@@ -3109,7 +3109,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Error.InvalidClassName" xml:space="preserve">
-    <value>クラス名に無効な文字列が含まれていません。</value>
+    <value>クラス名に無効な文字列が含まれています。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.ChosePackage" xml:space="preserve">
