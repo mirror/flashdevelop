@@ -545,7 +545,7 @@ namespace ASCompletion.Model
                         valueBuffer[valueLength++] = c1;
 					continue;
 				}
-				if (braceCount > 0)
+				if (braceCount > 0 && !inValue)
 				{
 					if (c1 == '}')
 					{
@@ -577,13 +577,20 @@ namespace ASCompletion.Model
                         length = 0;
                         context = 0;
                     }
-                    else if (c1 == '{') paramBraceCount++;
-					else if (c1 == '}' && paramBraceCount > 0)
-					{
-						paramBraceCount--;
-						if (!inType && paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && valueLength < VALUE_BUFFER) 
-							valueBuffer[valueLength++] = '}';
-					}
+                    else if (c1 == '{')
+                    {
+                        paramBraceCount++;
+                        c1 = ' '; // ignore brace
+                    }
+                    else if (c1 == '}' && paramBraceCount > 0)
+                    {
+                        paramBraceCount--;
+                        if (!inType && paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && valueLength < VALUE_BUFFER)
+                        {
+                            valueBuffer[valueLength++] = '}';
+                            c1 = ';'; // stop value
+                        }
+                    }
                     else if (c1 == '(')
                     {
                         // TODO "timeline code": detect a function declaration
