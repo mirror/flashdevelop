@@ -960,6 +960,11 @@ namespace ASCompletion.Model
                             foundKeyword = FlagType.Variable;
                             lastComment = null;
                         }
+                        else if (context == FlagType.Class && prevToken.Text == "implements")
+                        {
+                            curToken.Text = "implements";
+                            foundKeyword = FlagType.Implements;
+                        }
 					}
 					
 					else if (c1 == '(')
