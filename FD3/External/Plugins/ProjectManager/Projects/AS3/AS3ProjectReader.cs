@@ -119,6 +119,7 @@ namespace ProjectManager.Projects.AS3
                     case "allowSourcePathOverlap": options.AllowSourcePathOverlap = BoolValue; break;
                     case "benchmark": options.Benchmark = BoolValue; break;
                     case "es": options.ES = BoolValue; break;
+                    case "locale": options.Locale = Value; break;
                     case "loadConfig": options.LoadConfig = Value; break;
                     case "optimize": options.Optimize = BoolValue; break;
                     case "showActionScriptWarnings": options.ShowActionScriptWarnings = BoolValue; break;

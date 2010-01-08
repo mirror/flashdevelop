@@ -74,6 +74,7 @@ namespace ProjectManager.Projects.AS3
             WriteOption("allowSourcePathOverlap", options.AllowSourcePathOverlap);
             WriteOption("benchmark", options.Benchmark);
             WriteOption("es", options.ES);
+            WriteOption("locale", options.Locale);
             WriteOption("loadConfig", options.LoadConfig);
             WriteOption("optimize", options.Optimize);
             WriteOption("showActionScriptWarnings", options.ShowActionScriptWarnings);
