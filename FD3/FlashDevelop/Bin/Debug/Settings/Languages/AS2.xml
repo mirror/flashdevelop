@@ -25,7 +25,7 @@
 			dynamic private public static intrinsic  
 		</keyword-class>
 		<keyword-class name="as-additional-keywords4">
-			trace createEmptyMovieClip createTextField removeMovieClip swapDepths
+			<!-- trace createEmptyMovieClip createTextField removeMovieClip swapDepths -->
 		</keyword-class>
 		<keyword-class name="as-additional-keywords5">
 			super this arguments
