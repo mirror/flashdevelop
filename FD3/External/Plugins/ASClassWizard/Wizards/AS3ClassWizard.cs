@@ -34,7 +34,7 @@ namespace ASClassWizard.Wizards
     {
         private string directoryPath;
         private Project project;
-        public const string REG_IDENTIFIER = "^[a-zA-Z_$][a-zA-Z0-9_$]+$";
+        public const string REG_IDENTIFIER = "^[a-zA-Z_$][a-zA-Z0-9_$]*$";
 
         public AS3ClassWizard()
         {

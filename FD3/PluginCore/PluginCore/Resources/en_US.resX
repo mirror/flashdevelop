@@ -121,7 +121,7 @@
     <value>Default Flash Player target version when no project is defined.</value>
   </data>
   <data name="AS2Context.Description.MMClassPath" xml:space="preserve">
-    <value>Path to Adobe Flash IDE classpath.</value>
+    <value>Path to Adobe Flash Professional classpath.</value>
   </data>
   <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
     <value>MTASC compiler parameters for syntax checking.</value>
@@ -130,7 +130,7 @@
     <value>Path to the MTASC compiler.</value>
   </data>
   <data name="AS2Context.Description.UseMtascIntrinsic" xml:space="preserve">
-    <value>Use MTASC compiler intrinsic classes instead of Adobe Flash IDE intrinsics. This is usually preferred as MTASC is more strict and doesn't support a few features of the Flash plugin.</value>
+    <value>Use MTASC compiler intrinsic classes instead of Adobe Flash Professional intrinsics. This is usually preferred as MTASC is more strict and doesn't support a few features of the Flash plugin.</value>
   </data>
   <data name="AS2Context.Info.FeatureMissing" xml:space="preserve">
     <value>Feature not implemented.</value>
@@ -154,7 +154,7 @@
     <value>Default Flash Player target version when no project is defined.</value>
   </data>
   <data name="AS3Context.Description.FlexSDK" xml:space="preserve">
-    <value>The path to the Flex SDK on your computer.</value>
+    <value>The path to Adobe Flex SDK on your computer.</value>
   </data>
   <data name="AS3Context.Info.CheckError" xml:space="preserve">
     <value>Error while running the AS3 syntax checking.</value>
@@ -172,9 +172,9 @@
     <value>Unable to extract compiler shell resource.</value>
   </data>
   <data name="AS3Context.Info.SetFlex2OrCS3Path" xml:space="preserve">
-    <value>Would you like to open the AS3 context settings to configure the path to the Flex SDK?
+    <value>Would you like to open the AS3 context settings to configure the path to Adobe Flex SDK?
 
-Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" to configure the path to Flash CS.</value>
+Alternatively, Adobe Flash Professional can also be used for syntax checking - press "No" to configure the path to Adobe Flash Professional.</value>
   </data>
   <data name="AS3Context.Title.ConfigurationRequired" xml:space="preserve">
     <value>Compiler Configuration Required</value>
@@ -222,7 +222,7 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>Disable automatic code formating after typing &lt;Enter&gt; or &lt;;&gt;.</value>
   </data>
   <data name="ASCompletion.Description.DisableFDB" xml:space="preserve">
-    <value>Disable hosting of the command line Flex debugger (FDB) in FlashDevelop.</value>
+    <value>Disable hosting of the command line Flex debugger (FDB) in FlashDevelop - use non-optimized compilation.</value>
   </data>
   <data name="ASCompletion.Description.DocumentationCommandLine" xml:space="preserve">
     <value>Program or URL to execute when pressing F1 for help.</value>
@@ -252,7 +252,7 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>Show imports in outline view.</value>
   </data>
   <data name="ASCompletion.Description.PathToFlashIDE" xml:space="preserve">
-    <value>Define the path to Adobe Flash IDE.</value>
+    <value>Define the path to Adobe Flash Professional.</value>
   </data>
   <data name="ASCompletion.Description.PlayAfterBuild" xml:space="preserve">
     <value>Automatically play the generated SWF after Quick Build.</value>
@@ -288,10 +288,10 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>Global language classpaths.</value>
   </data>
   <data name="ASCompletion.Info.ConfigurationRequired" xml:space="preserve">
-    <value>Flash IDE Configuration Required</value>
+    <value>Adobe Flash Professional Configuration Required</value>
   </data>
   <data name="ASCompletion.Info.ConfigureFlashPath" xml:space="preserve">
-    <value>The path to Flash.exe is not configured properly, do you want to edit your program settings?</value>
+    <value>The path to Flash.exe (Adobe Flash Professional) is not configured properly, do you want to edit your program settings?</value>
   </data>
   <data name="ASCompletion.Info.Exploring" xml:space="preserve">
     <value>Exploring...</value>
@@ -1159,7 +1159,7 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>&amp;Program Settings...</value>
   </data>
   <data name="FlashDevelop.Label.PublishMovieInFlash" xml:space="preserve">
-    <value>Publish Movie in Flash IDE</value>
+    <value>Publish Movie in Adobe Flash Professional</value>
   </data>
   <data name="FlashDevelop.Label.QuickFind" xml:space="preserve">
     <value>&amp;Quick Find...</value>
@@ -1243,7 +1243,7 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>&amp;Technical Specifications</value>
   </data>
   <data name="FlashDevelop.Label.TestMovieInFlash" xml:space="preserve">
-    <value>&amp;Test Movie In Flash IDE</value>
+    <value>&amp;Test Movie In Adobe Flash Professional</value>
   </data>
   <data name="FlashDevelop.Label.Text" xml:space="preserve">
     <value>&amp;Text</value>
@@ -1546,7 +1546,7 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>Additional classes declaration to be used by the completion engine.</value>
   </data>
   <data name="ProjectManager.Description.Keep" xml:space="preserve">
-    <value>If using Code Injection only, keeps classes compiled by the Flash IDE into the output SWF. This could cause some classes to be present two times if also compiled with FlashDevelop.</value>
+    <value>If using Code Injection only, keeps classes compiled by Adobe Flash Professional into the output SWF. This could cause some classes to be present two times if also compiled with FlashDevelop.</value>
   </data>
   <data name="ProjectManager.Description.LibraryPaths" xml:space="preserve">
     <value>Links SWC files to the resulting application SWF file. The compiler only links in those classes for the SWC file that are required.</value>
@@ -1732,7 +1732,7 @@ Alternatively, Adobe Flash CS can also be used for syntax checking - press "No" 
     <value>The selected items will be moved to the Recycle Bin.</value>
   </data>
   <data name="ProjectManager.Info.JsflNotFound" xml:space="preserve">
-    <value>Flash IDE scripts not found in Tools\flashide directory.</value>
+    <value>Adobe Flash Professional JSFL scripts not found in Tools\flashide directory.</value>
   </data>
   <data name="ProjectManager.Info.NewProject" xml:space="preserve">
     <value>New Project</value>
@@ -2302,7 +2302,7 @@ Never - the start page will not show based on startup.</value>
     <value>Open Project</value>
   </data>
   <data name="ProjectManager.Info.CodeInjection" xml:space="preserve">
-    <value>Code injection is a compilation method that is useful for maintaining a workflow in conjunction with the Flash IDE.
+    <value>Code injection is a compilation method that is useful for maintaining a workflow in conjunction with Adobe Flash Professional.
 
 If you enable injection, your source will be compiled into an existing SWF file. The input SWF will be copied first and the injected file will be your output SWF name.
 
@@ -2537,13 +2537,13 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Associate .swf files with {0}</value>
   </data>
   <data name="FdbPlugin.Info.CheckFlexSDKSetting" xml:space="preserve">
-    <value>The Flex SDK is not properly configured. See AS3Context in program settings.</value>
+    <value>Adobe Flex SDK is not properly configured. See AS3Context in program settings.</value>
   </data>
   <data name="FdbPlugin.Info.DebugWithoutCompiler" xml:space="preserve">
-    <value>Is debugging started without compile?</value>
+    <value>Start debugging without compiling the project</value>
   </data>
   <data name="FdbPlugin.Info.LanguageNotAS3" xml:space="preserve">
-    <value>Language is not Actionscript 3.</value>
+    <value>Project language is not Actionscript 3.</value>
   </data>
   <data name="FdbPlugin.Info.NoMainClass" xml:space="preserve">
     <value>This project does not have a main class.</value>
@@ -2582,7 +2582,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Advanced</value>
   </data>
   <data name="ASCompletion.Category.FlashIDE" xml:space="preserve">
-    <value>Flash IDE</value>
+    <value>Adobe Flash Professional</value>
   </data>
   <data name="ASCompletion.Category.Helpers" xml:space="preserve">
     <value>Helpers</value>
@@ -2984,7 +2984,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Flex compiler process starting:</value>
   </data>
   <data name="ASCompletion.Info.CallingFlashIDE" xml:space="preserve">
-    <value>Calling Flash IDE</value>
+    <value>Calling Adobe Flash Professional</value>
   </data>
   <data name="ASCompletion.Info.DeclarationTemplate" xml:space="preserve">
     <value>Declaration template</value>
