@@ -121,7 +121,7 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="AS2Context.Description.MMClassPath" xml:space="preserve">
-    <value>Adobe Flash IDE クラスパスへのファイルパスです。</value>
+    <value>Adobe Flash Professional クラスパスへのファイルパスです。</value>
   </data>
   <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
     <value>構文チェックのための MTASC コンパイラ設定です。</value>
@@ -130,7 +130,7 @@
     <value>MTASC コンパイラへのパスです。</value>
   </data>
   <data name="AS2Context.Description.UseMtascIntrinsic" xml:space="preserve">
-    <value>Flash IDE の組み込み関数の代わりに MTASC コンパイラ固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
+    <value>Adobe Flash Professional の組み込み関数の代わりに MTASC コンパイラ固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
   </data>
   <data name="AS2Context.Info.FeatureMissing" xml:space="preserve">
     <value>実装されていない機能。</value>
@@ -154,7 +154,7 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="AS3Context.Description.FlexSDK" xml:space="preserve">
-    <value>Flex SDK のパス</value>
+    <value>Adobe Flex SDK のパス</value>
   </data>
   <data name="AS3Context.Info.CheckError" xml:space="preserve">
     <value>AS3 の構文チェック中にエラーが見つかりました。</value>
@@ -172,7 +172,7 @@
     <value>コンパイラシェルのリソースを抽出することができません。</value>
   </data>
   <data name="AS3Context.Info.SetFlex2OrCS3Path" xml:space="preserve">
-    <value>AS3 コンテキスト設定では Flex SDK を設定しますか？Adobe Flash CS のものでも、構文チェックに利用することができます。"いいえ"を選択すると、Adobe Flash CS のパスが設定されます。</value>
+    <value>AS3 コンテキスト設定では Adobe Flex SDK を設定しますか？Adobe Flash Professional のものでも、構文チェックに利用することができます。"いいえ"を選択すると、Adobe Flash Professional のパスが設定されます。</value>
   </data>
   <data name="AS3Context.Title.ConfigurationRequired" xml:space="preserve">
     <value>コンパイラに必要な構成</value>
@@ -220,7 +220,7 @@
     <value>"Enter" や ";" を入力した後に自動的にフォーマットされる機能を無効にします。</value>
   </data>
   <data name="ASCompletion.Description.DisableFDB" xml:space="preserve">
-    <value>FlashDevelop の　コマンドライン Flex debugger (FDB) のホスト設定を無効にします。</value>
+    <value>FlashDevelop のコマンドライン Flex debugger (FDB) のホスト設定を無効にします。非最適化コンパイルを使用します。</value>
   </data>
   <data name="ASCompletion.Description.DocumentationCommandLine" xml:space="preserve">
     <value>"F1" を押したときにヘルプを実行するプログラムまたは URL です。</value>
@@ -250,7 +250,7 @@
     <value>インポートしたクラスをアウトラインビューに表示します。</value>
   </data>
   <data name="ASCompletion.Description.PathToFlashIDE" xml:space="preserve">
-    <value>Adobe Flash IDE のパスです。</value>
+    <value>Adobe Flash Professional のパスです。</value>
   </data>
   <data name="ASCompletion.Description.PlayAfterBuild" xml:space="preserve">
     <value>クイックビルドをしたあと、作成された SWF を自動的に再生します。</value>
@@ -286,10 +286,10 @@
     <value>グローバル言語クラスパスを指定します。</value>
   </data>
   <data name="ASCompletion.Info.ConfigurationRequired" xml:space="preserve">
-    <value>Flash IDE を定義する必要があります。</value>
+    <value>Adobe Flash Professional を定義する必要があります。</value>
   </data>
   <data name="ASCompletion.Info.ConfigureFlashPath" xml:space="preserve">
-    <value>Flash.exe へのパスがが正しく定義されていません。プログラム設定を編集しますか？</value>
+    <value>Flash.exe ( Adobe Flash Professional )へのパスがが正しく定義されていません。設定を変更しますか？</value>
   </data>
   <data name="ASCompletion.Info.Exploring" xml:space="preserve">
     <value>調査中...</value>
@@ -373,25 +373,25 @@
     <value>最後に閲覧したファイルのパスです。</value>
   </data>
   <data name="FileExplorer.Description.SortColumn" xml:space="preserve">
-    <value>現在アクティブなカラムです。</value>
+    <value>現在ソートの基準になっているカラムです。</value>
   </data>
   <data name="FileExplorer.Description.SortOrder" xml:space="preserve">
     <value>現在のカラムのソート順序です。</value>
   </data>
   <data name="FileExplorer.Header.Files" xml:space="preserve">
-    <value>ファイル</value>
+    <value>名前</value>
   </data>
   <data name="FileExplorer.Header.Modified" xml:space="preserve">
-    <value>変更</value>
+    <value>更新日時</value>
   </data>
   <data name="FileExplorer.Header.Size" xml:space="preserve">
     <value>サイズ</value>
   </data>
   <data name="FileExplorer.Header.Type" xml:space="preserve">
-    <value>タイプ</value>
+    <value>種類</value>
   </data>
   <data name="FileExplorer.Info.BrowseDescription" xml:space="preserve">
-    <value>フォルダを開いてフォルダ内のファイルをリストします。</value>
+    <value>ファイル一覧を表示するフォルダを開いて下さい。</value>
   </data>
   <data name="FileExplorer.Info.ConfirmDelete" xml:space="preserve">
     <value>選択した項目を削除してもよろしいですか？</value>
@@ -449,7 +449,7 @@
     <value>プロジェクトとシンクロ(&amp;S)</value>
   </data>
   <data name="FileExplorer.Label.TrustHere" xml:space="preserve">
-    <value>信頼されるパスに追加(&amp;T)</value>
+    <value>信頼するパスに追加(&amp;T)</value>
   </data>
   <data name="FileExplorer.Label.ViewMenuItem" xml:space="preserve">
     <value>ファイルエクスプローラ(&amp;F)</value>
@@ -458,7 +458,7 @@
     <value>ファイル</value>
   </data>
   <data name="FileExplorer.ToolTip.Browse" xml:space="preserve">
-    <value>ブラウズ</value>
+    <value>フォルダの参照</value>
   </data>
   <data name="FileExplorer.ToolTip.Synchronize" xml:space="preserve">
     <value>プロジェクトマネージャとシンクロ</value>
@@ -1163,7 +1163,7 @@
     <value>環境設定(&amp;P)...</value>
   </data>
   <data name="FlashDevelop.Label.PublishMovieInFlash" xml:space="preserve">
-    <value>Flash IDE でパブリッシュ</value>
+    <value>Adobe Flash Professional でパブリッシュ</value>
   </data>
   <data name="FlashDevelop.Label.QuickFind" xml:space="preserve">
     <value>クイック検索(&amp;Q)...</value>
@@ -1248,7 +1248,7 @@
     <value>技術仕様(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.TestMovieInFlash" xml:space="preserve">
-    <value>Flash IDE でパブリッシュ(&amp;T)</value>
+    <value>Adobe Flash Professional でパブリッシュ(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.Text" xml:space="preserve">
     <value>テキスト(&amp;T)</value>
@@ -1553,7 +1553,7 @@
     <value>コード補完で使用するための追加クラスを指定します。</value>
   </data>
   <data name="ProjectManager.Description.Keep" xml:space="preserve">
-    <value>入力する SWF からクラスファイルを削除しない</value>
+    <value>コードインジェクションを使用している場合、Adobe Flash Professional によってコンパイルされた SWF ファイルからクラスファイルを保持する。この場合 FlashDevelop でコンパイルした結果、一部のクラスが2つ存在することになる可能性があります。</value>
   </data>
   <data name="ProjectManager.Description.LibraryPaths" xml:space="preserve">
     <value>SWC ファイルをリンクします。コンパイラは必要とされているクラスのみリンクします。</value>
@@ -1739,7 +1739,7 @@
     <value>選択された項目はごみ箱に移動されます。</value>
   </data>
   <data name="ProjectManager.Info.JsflNotFound" xml:space="preserve">
-    <value>Flash IDE スクリプト( .jsf l) が Tools\flashide ディレクトリに見つかりませんでした。</value>
+    <value>Adobe Flash Professional JSFL スクリプト( .jsf l) が Tools\flashide ディレクトリに見つかりませんでした。</value>
   </data>
   <data name="ProjectManager.Info.NewProject" xml:space="preserve">
     <value>NewProject</value>
@@ -2245,7 +2245,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>パッケージ(&amp;P):</value>
   </data>
   <data name="FileExplorer.Info.PathTrusted" xml:space="preserve">
-    <value>Flash Player に信頼されたパスが追加されました。</value>
+    <value>Flash Player の信頼するパスに追加しました。</value>
   </data>
   <data name="ProjectManager.Label.SwcExternalLibraryOption" xml:space="preserve">
     <value>外部ライブラリ(含まれない)(&amp;E)</value>
@@ -2311,7 +2311,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>プロジェクトを開く</value>
   </data>
   <data name="ProjectManager.Info.CodeInjection" xml:space="preserve">
-    <value>コードインジェクションは Flash IDE と連携したワークフローを実現するために便利なコンパイル方法です。
+    <value>コードインジェクションは Adobe Flash Professional と連携したワークフローを実現するために便利なコンパイル方法です。
 
 有効にすると、ソースは既存の SWF ファイルにコンパイルされます。入力用 SWF ファイルはコピーされ、コードを注入されたものが出力先SWFファイルとして出力されます。インジェクションが有効な場合、アセットの埋め込みを含む多くのプロジェクトオプションを使用することができないことに注意してください。</value>
   </data>
@@ -2545,13 +2545,13 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>.swf ファイルを結合 {0}</value>
   </data>
   <data name="FdbPlugin.Info.CheckFlexSDKSetting" xml:space="preserve">
-    <value>Fles SDK の設定が正しくありません。AS3Context の設定を確認してください。</value>
+    <value>Adobe Fles SDK の設定が正しくありません。AS3Context の設定を確認してください。</value>
   </data>
   <data name="FdbPlugin.Info.DebugWithoutCompiler" xml:space="preserve">
-    <value>コンパイル無しでデバッグを開始しますか？</value>
+    <value>コンパイル無しでプロジェクトのデバッグを開始しますか？</value>
   </data>
   <data name="FdbPlugin.Info.LanguageNotAS3" xml:space="preserve">
-    <value>言語が ActionScript3 ではありあせん。</value>
+    <value>このプロジェクトの言語は ActionScript3 ではありあせん。</value>
   </data>
   <data name="FdbPlugin.Info.NoMainClass" xml:space="preserve">
     <value>このプロジェクトはメインクラスを持っていません。</value>
@@ -2590,7 +2590,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Advanced | 高度な設定</value>
   </data>
   <data name="ASCompletion.Category.FlashIDE" xml:space="preserve">
-    <value>Flash IDE</value>
+    <value>Adobe Flash Professional</value>
   </data>
   <data name="ASCompletion.Category.Helpers" xml:space="preserve">
     <value>Helpers | ヘルパー</value>
@@ -2992,7 +2992,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Flex コンパイラのプロセス開始:</value>
   </data>
   <data name="ASCompletion.Info.CallingFlashIDE" xml:space="preserve">
-    <value>Flash IDE を呼び出し中</value>
+    <value>Adobe Flash Professional を呼び出し中</value>
   </data>
   <data name="ASCompletion.Info.DeclarationTemplate" xml:space="preserve">
     <value>宣言のテンプレート</value>
