@@ -1262,8 +1262,7 @@ namespace ASCompletion.Completion
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=')
                     || expr.coma == ComaExpression.AnonymousObject
-                    || expr.coma == ComaExpression.FunctionDeclaration
-                    || expr.coma == ComaExpression.FunctionParameter) 
+                    || expr.coma == ComaExpression.FunctionDeclaration) 
                     return false;
 
                 // complete declaration
