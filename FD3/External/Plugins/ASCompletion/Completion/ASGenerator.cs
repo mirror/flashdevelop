@@ -1008,7 +1008,7 @@ namespace ASCompletion.Completion
             bool isStatic = (flags & FlagType.Static) > 0;
             if (isStatic) acc = features.staticKey + " " + acc;
 
-            if (!isProxy && !isAS2Event && !isObjectMethod) 
+            if (!isAS2Event && !isObjectMethod) 
                 acc = features.overrideKey + " " + acc;
 
             if ((flags & (FlagType.Getter | FlagType.Setter)) > 0)

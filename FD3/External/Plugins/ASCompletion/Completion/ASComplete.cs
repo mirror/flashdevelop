@@ -1262,7 +1262,8 @@ namespace ASCompletion.Completion
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=')
                     || expr.coma == ComaExpression.AnonymousObject
-                    || expr.coma == ComaExpression.FunctionDeclaration) 
+                    || expr.coma == ComaExpression.FunctionDeclaration
+                    || expr.coma == ComaExpression.FunctionParameter) 
                     return false;
 
                 // complete declaration
@@ -2506,7 +2507,9 @@ namespace ASCompletion.Completion
             int parCount = 0;
             int braceCount = 0;
             int sqCount = 0;
-            char c;
+            char c = (char)Sci.CharAt(position);
+            bool wasPar = false;
+            if (c == '{') { wasPar = true; position--; }
             while (position > minPos)
             {
                 c = (char)Sci.CharAt(position);
@@ -2534,6 +2537,7 @@ namespace ASCompletion.Completion
                 }
                 else if (c == ']')
                 {
+                    if (wasPar) return ComaExpression.None;
                     sqCount++;
                 }
                 // function declaration or parameter
@@ -2553,6 +2557,7 @@ namespace ASCompletion.Completion
                 }
                 else if (c == ')')
                 {
+                    if (wasPar) return ComaExpression.None;
                     parCount++;
                 }
                 // code block or anonymous object
@@ -2570,6 +2575,7 @@ namespace ASCompletion.Completion
                 }
                 else if (c == '}')
                 {
+                    if (wasPar) return ComaExpression.None;
                     braceCount++;
                 }
                 else if (c == '?') return ComaExpression.AnonymousObject;

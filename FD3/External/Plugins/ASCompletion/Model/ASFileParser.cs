@@ -1358,7 +1358,7 @@ namespace ASCompletion.Model
                         else if (token == "flash_proxy")
                         {
                             foundModifier = FlagType.Access;
-                            curAccess = Visibility.Internal;
+                            curAccess = Visibility.Public;
                             curNamespace = token;
                         }
                     }
@@ -1464,7 +1464,8 @@ namespace ASCompletion.Model
                 // when not in a class, parse if/for/while blocks
                 if (version < 2 &&
                     (token == "if" || token == "else" || token == "for" || token == "while" || token == "do"
-                     || token == "switch" || token == "with" || token == "try" || token == "catch" || token == "finally"))
+                     || token == "switch" || token == "with" || token == "case"
+                     || token == "try" || token == "catch" || token == "finally"))
                 {
                     flattenNextBlock = true;
                     if (token == "catch")
