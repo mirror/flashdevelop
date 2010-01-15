@@ -590,6 +590,7 @@ namespace ASCompletion.Model
                             valueBuffer[valueLength++] = '}';
                             c1 = ';'; // stop value
                         }
+                        else c1 = ' '; // ignore brace
                     }
                     else if (c1 == '(')
                     {
