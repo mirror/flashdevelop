@@ -8,8 +8,6 @@ package
 		/// Indicates whether an object has a specified property defined.
 		public function hasOwnProperty (V:* = null) : Boolean;
 
-		public static function init () : *;
-
 		/// Indicates whether an instance of the Object class is in the prototype chain of the object specified as the parameter.
 		public function isPrototypeOf (V:* = null) : Boolean;
 
