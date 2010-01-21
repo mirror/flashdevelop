@@ -3262,4 +3262,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Save Byte Order Mark</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="ProjectManager.Label.BuildProjectFiles" xml:space="preserve">
+    <value>&amp;Build Project Files</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
 </root>

@@ -20,7 +20,6 @@ namespace ProjectManager.Helpers
 		// name to associate with that process.
 		string runningProcessName;
 		string runningProcessNameRequest;
-
 		ProcessEndedHandler processEndedHandler;
 		string savedDirectory; // to save the current directory before running processes
 
@@ -29,8 +28,7 @@ namespace ProjectManager.Helpers
 			this.mainForm = mainForm;
 		}
 
-		public void StartProcess(string process, string arguments,
-			string startupDirectory, ProcessEndedHandler callback)
+		public void StartProcess(string process, string arguments, string startupDirectory, ProcessEndedHandler callback)
 		{
 			// change current directory
 			savedDirectory = Environment.CurrentDirectory;
@@ -49,8 +47,10 @@ namespace ProjectManager.Helpers
 		// which is spawned by MainForm
 		public void ProcessStartedEventCaught()
 		{
-			if (runningProcessNameRequest != null)
-				runningProcessName = runningProcessNameRequest;
+            if (runningProcessNameRequest != null)
+            {
+                runningProcessName = runningProcessNameRequest;
+            }
 		}
 
 		public void ProcessEndedEventCaught(string result)
@@ -60,15 +60,17 @@ namespace ProjectManager.Helpers
 			if (runningProcessName != null)
 			{
 				bool success = result.EndsWith("(0)");
-
-				if (processEndedHandler != null)
-					processEndedHandler.DynamicInvoke(new object[]{success});
-
+                if (processEndedHandler != null)
+                {
+                    processEndedHandler.DynamicInvoke(new object[] { success });
+                }
 				// restore current directory
 				Environment.CurrentDirectory = savedDirectory;
 				processEndedHandler = null;
 				runningProcessName = null;
 			}
 		}
+
 	}
+
 }

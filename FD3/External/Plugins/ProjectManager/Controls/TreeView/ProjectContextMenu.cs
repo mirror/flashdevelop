@@ -49,6 +49,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"), Icons.Options.Img);
         public ToolStripMenuItem ShellMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"));
         public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
+        public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"));
         public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"));
         public event FileAddHandler AddFileFromTemplate;
 
@@ -414,6 +415,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(ShellMenu, 0);
             menu.Add(Insert, 0);
             if (IsBuildable(path) && projectTree.SelectedPaths.Length == 1) menu.Add(BuildProjectFile, 0);
+            if (IsBuildable(path) && projectTree.SelectedPaths.Length > 1) menu.Add(BuildProjectFiles, 0);
             AddFileItems(menu, path);
         }
 

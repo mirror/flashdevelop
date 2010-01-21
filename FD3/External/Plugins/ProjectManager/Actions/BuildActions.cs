@@ -53,22 +53,19 @@ namespace ProjectManager.Actions
         {
             IpcChannel channel = new IpcChannel(ipcName);
             ChannelServices.RegisterChannel(channel, false);
-            RemotingConfiguration.RegisterWellKnownServiceType(
-                typeof(FlexCompilerShell), "FlexCompilerShell", WellKnownObjectMode.Singleton);
+            RemotingConfiguration.RegisterWellKnownServiceType(typeof(FlexCompilerShell), "FlexCompilerShell", WellKnownObjectMode.Singleton);
         }
 
         public bool Build(Project project, bool runOutput, bool noTrace)
         {
             // save modified files
             mainForm.CallCommand("SaveAllModified", null);
-
             string compiler = null;
             project.TraceEnabled = !noTrace;
             if (project.NoOutput)
             {
                 // get the compiler for as3 projects, or else the FDBuildCommand pre/post command in FDBuild will fail on "No Output" projects
-                if (project.Language == "as3")
-                    compiler = GetCompilerPath(project);
+                if (project.Language == "as3") compiler = GetCompilerPath(project);
                 
                 if (project.PreBuildEvent.Trim().Length == 0 && project.PostBuildEvent.Trim().Length == 0)
                 {
@@ -100,7 +97,6 @@ namespace ProjectManager.Actions
                     ErrorManager.ShowInfo(info);
                     return false;
                 }
-
                 compiler = GetCompilerPath(project);
                 if (compiler == null || (!Directory.Exists(compiler) && !File.Exists(compiler)))
                 {
@@ -122,7 +118,6 @@ namespace ProjectManager.Actions
                     return false;
                 }
             }
-
             return FDBuild(project, runOutput, noTrace, compiler);
         }
 
@@ -149,17 +144,14 @@ namespace ProjectManager.Actions
 			string fdBuildPath = Path.Combine(fdBuildDir, "fdbuild.exe");
 
 			string arguments = " -ipc " + ipcName;
-
-            if (compiler != null && compiler.Length > 0)
-                arguments += " -compiler \"" + compiler + "\"";
-
-			if (noTrace)
-				arguments += " -notrace";
-
+            if (compiler != null && compiler.Length > 0) arguments += " -compiler \"" + compiler + "\"";
+			if (noTrace) arguments += " -notrace";
             arguments += " -library \"" + PathHelper.LibraryDir + "\"";
 
             foreach (string cp in PluginMain.Settings.GlobalClasspaths)
+            {
                 arguments += " -cp \"" + Environment.ExpandEnvironmentVariables(cp) + "\"";
+            }
 			
 			arguments = arguments.Replace("\\\"", "\""); // c# console args[] bugfix
 
@@ -172,7 +164,6 @@ namespace ProjectManager.Actions
                 {
                     menus.DisabledForBuild = false;
                     menus.ConfigurationSelector.Enabled = !project.NoOutput;
-
                     if (success)
                     {
                         SetStatusBar(TextHelper.GetString("Info.BuildSucceeded"));
@@ -205,28 +196,27 @@ namespace ProjectManager.Actions
             info["language"] = project.Language;
             DataEvent de = new DataEvent(EventType.Command, "ASCompletion.GetCompilerPath", info);
             EventManager.DispatchEvent(project, de);
-            if (de.Handled && info.ContainsKey("compiler")) 
+            if (de.Handled && info.ContainsKey("compiler"))
+            {
                 return PathHelper.ResolvePath(info["compiler"] as string, project.Directory);
+            }
             else return null;
         }
 
         void OnBuildComplete(bool runOutput)
         {
-            if (BuildComplete != null)
-                BuildComplete(runOutput);
+            if (BuildComplete != null) BuildComplete(runOutput);
         }
 
         void OnBuildFailed(bool runOutput)
         {
-            if (BuildFailed != null)
-                BuildFailed(runOutput);
+            if (BuildFailed != null) BuildFailed(runOutput);
         }
 
         void AddTrustFile(Project project)
         {
             string directory = Path.GetDirectoryName(project.OutputPathAbsolute);
-            if (!Directory.Exists(directory))
-                return;
+            if (!Directory.Exists(directory)) return;
             string trustParams = "FlashDevelop.cfg;" + directory;
             DataEvent de = new DataEvent(EventType.Command, "ASCompletion.CreateTrustFile", trustParams);
             EventManager.DispatchEvent(this, de);
@@ -234,7 +224,8 @@ namespace ProjectManager.Actions
 
 		public void NotifyBuildStarted() { fdProcess.ProcessStartedEventCaught(); }
 		public void NotifyBuildEnded(string result) { fdProcess.ProcessEndedEventCaught(result); }
+        public void SetStatusBar(string text) { mainForm.StatusLabel.Text = " " + text; }
 
-		void SetStatusBar(string text) { mainForm.StatusLabel.Text = " " + text; }
 	}
+
 }

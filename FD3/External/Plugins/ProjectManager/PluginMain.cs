@@ -71,6 +71,8 @@ namespace ProjectManager
         private PluginUI pluginUI;
         private Image pluginImage;
         private Project project;
+        private Queue<String> buildQueue;
+        private Timer buildTimer;
 
         private ProjectTreeView Tree { get { return pluginUI.Tree; } }
         public static IMainForm MainForm { get { return PluginBase.MainForm; } }
@@ -220,6 +222,7 @@ namespace ProjectManager
             pluginUI.Menu.Properties.Click += delegate { OpenProjectProperties(); };
             pluginUI.Menu.ShellMenu.Click += delegate { TreeShowShellMenu(); };
             pluginUI.Menu.BuildProjectFile.Click += delegate { BackgroundBuild(); };
+            pluginUI.Menu.BuildProjectFiles.Click += delegate { BackgroundBuild(); };
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
 
             Tree.MovePath += fileActions.Move;
@@ -229,6 +232,10 @@ namespace ProjectManager
             #endregion
 
             pluginPanel = MainForm.CreateDockablePanel(pluginUI, Guid, Icons.Project.Img, DockState.DockRight);
+            buildQueue = new Queue<String>();
+            buildTimer = new Timer();
+            buildTimer.Interval = 500;
+            buildTimer.Tick += new EventHandler(OnBuildTimerTick);
         }
 		
 		public void Dispose()
@@ -692,11 +699,16 @@ namespace ProjectManager
         private void BuildComplete(bool runOutput)
         {
             BroadcastBuildComplete();
-            if (runOutput) OpenSwf(project.OutputPathAbsolute);
+            if (buildQueue.Count > 0) ProcessBuildQueue();
+            else if (runOutput)
+            {
+                OpenSwf(project.OutputPathAbsolute);
+            }
         }
 
         private void BuildFailed(bool runOutput)
         {
+            buildQueue.Clear();
             BroadcastBuildFailed();
         }
 
@@ -720,8 +732,7 @@ namespace ProjectManager
         private void ImportProject()
         {
             string imported = projectActions.ImportProject();
-            if (imported != null)
-                OpenProjectSilent(imported);
+            if (imported != null) OpenProjectSilent(imported);
         }
 
         private void OpenProjectSilent(string projectPath)
@@ -736,7 +747,9 @@ namespace ProjectManager
             EventManager.DispatchEvent(this, de);
             if (de.Handled) return;
             if (!buildActions.Build(project, true, noTrace))
+            {
                 BroadcastBuildFailed();
+            }
         }
 
         private void BuildProject() 
@@ -746,7 +759,9 @@ namespace ProjectManager
             EventManager.DispatchEvent(this, de);
             if (de.Handled) return;
             if (!buildActions.Build(project, false, noTrace))
+            {
                 BroadcastBuildFailed();
+            }
         }
 
         private void FileDeleted(string path)
@@ -764,7 +779,6 @@ namespace ProjectManager
             pluginUI.WatchParentOf(fromPath);
             pluginUI.WatchParentOf(toPath);
             project.Save();
-
             Hashtable data = new Hashtable();
             data["fromPath"] = fromPath;
             data["toPath"] = toPath;
@@ -788,9 +802,7 @@ namespace ProjectManager
 
         private void SettingChanged(string setting)
         {
-            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" 
-                || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths"
-                || setting == "GlobalClasspath")
+            if (setting == "ExcludedFileTypes" || setting == "ExcludedDirectories" || setting == "ShowProjectClasspaths" || setting == "ShowGlobalClasspaths" || setting == "GlobalClasspath")
             {
                 Tree.RebuildTree(true);
             }
@@ -851,9 +863,10 @@ namespace ProjectManager
             {
                 String file = openFileQueue.Dequeue() as String;
                 if (File.Exists(file)) OpenFile(file);
-                // virtual files
-                if (file.IndexOf("::") > 0 && File.Exists(file.Substring(0, file.IndexOf("::"))))
+                if (file.IndexOf("::") > 0 && File.Exists(file.Substring(0, file.IndexOf("::")))) // virtual files
+                {
                     OpenFile(file);
+                }
             }
         }
 
@@ -987,8 +1000,38 @@ namespace ProjectManager
 
         private void BackgroundBuild()
         {
-            Project project = ProjectLoader.Load(Tree.SelectedPath);
+            foreach (String path in Tree.SelectedPaths)
+            {
+                if (IsBuildable(path) && !buildQueue.Contains(path))
+                {
+                    buildQueue.Enqueue(path);
+                }
+            }
+            ProcessBuildQueue();
+        }
+
+        private void ProcessBuildQueue()
+        {
+            if (buildQueue.Count > 0)
+            {
+                buildTimer.Start();
+            }
+        }
+
+        void OnBuildTimerTick(Object sender, EventArgs e)
+        {
+            buildTimer.Stop();
+            Project project = ProjectLoader.Load(buildQueue.Dequeue());
             this.buildActions.Build(project, false, true);
+        }
+
+        private bool IsBuildable(String path)
+        {
+            String ext = Path.GetExtension(path).ToLower();
+            if (FileInspector.IsAS2Project(path, ext)) return true;
+            else if (FileInspector.IsAS3Project(path, ext)) return true;
+            else if (FileInspector.IsHaxeProject(path, ext)) return true;
+            else return false;
         }
 
         private void FindInFiles()

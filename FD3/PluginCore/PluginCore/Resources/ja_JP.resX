@@ -2943,6 +2943,10 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Label.BuildProjectFile" xml:space="preserve">
     <value>プロジェクトファイルをビルド(&amp;B)</value>
   </data>
+  <data name="ProjectManager.Label.BuildProjectFiles" xml:space="preserve">
+    <value>プロジェクトファイルをビルド(&amp;B)</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
   <data name="MacroManager.Description.Image" xml:space="preserve">
     <value>このマクロのメニューのアイコンです。</value>
   </data>
