@@ -1159,7 +1159,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>&amp;Program Settings...</value>
   </data>
   <data name="FlashDevelop.Label.PublishMovieInFlash" xml:space="preserve">
-    <value>Publish Movie in Adobe Flash Professional</value>
+    <value>Publish Movie in Flash IDE</value>
   </data>
   <data name="FlashDevelop.Label.QuickFind" xml:space="preserve">
     <value>&amp;Quick Find...</value>
@@ -1243,7 +1243,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>&amp;Technical Specifications</value>
   </data>
   <data name="FlashDevelop.Label.TestMovieInFlash" xml:space="preserve">
-    <value>&amp;Test Movie In Adobe Flash Professional</value>
+    <value>&amp;Test Movie In Flash IDE</value>
   </data>
   <data name="FlashDevelop.Label.Text" xml:space="preserve">
     <value>&amp;Text</value>

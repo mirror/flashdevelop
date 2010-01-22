@@ -1163,7 +1163,7 @@
     <value>環境設定(&amp;P)...</value>
   </data>
   <data name="FlashDevelop.Label.PublishMovieInFlash" xml:space="preserve">
-    <value>Adobe Flash Professional でパブリッシュ</value>
+    <value>Flash IDE でパブリッシュ</value>
   </data>
   <data name="FlashDevelop.Label.QuickFind" xml:space="preserve">
     <value>クイック検索(&amp;Q)...</value>
@@ -1248,7 +1248,7 @@
     <value>技術仕様(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.TestMovieInFlash" xml:space="preserve">
-    <value>Adobe Flash Professional でパブリッシュ(&amp;T)</value>
+    <value>Flash IDE でパブリッシュ(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.Text" xml:space="preserve">
     <value>テキスト(&amp;T)</value>
