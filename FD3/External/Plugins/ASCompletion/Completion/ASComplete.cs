@@ -2516,6 +2516,10 @@ namespace ASCompletion.Completion
                 {
                     return ComaExpression.None;
                 }
+                else if ((c == ',' || c == '=') && wasPar)
+                {
+                    return ComaExpression.AnonymousObject;
+                }
                 // var declaration
                 else if (c == ':')
                 {
