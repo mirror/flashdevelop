@@ -3266,4 +3266,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Build Project Files</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
+    <value>Disables the find option syncing between the find dialog and the quick find control.</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
 </root>

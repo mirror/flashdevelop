@@ -284,7 +284,10 @@ namespace FlashDevelop.Controls
         /// </summary>
         private void MatchCaseCheckBoxCheckedChanged(Object sender, EventArgs e)
         {
-            Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
+            if (!Globals.Settings.DisableFindOptionSync)
+            {
+                Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
+            }
         }
 
         /// <summary>
@@ -292,7 +295,10 @@ namespace FlashDevelop.Controls
         /// </summary>
         private void WholeWordCheckBoxCheckedChanged(Object sender, EventArgs e)
         {
-            Globals.MainForm.SetWholeWord(this, this.wholeWordCheckBox.Checked);
+            if (!Globals.Settings.DisableFindOptionSync)
+            {
+                Globals.MainForm.SetWholeWord(this, this.wholeWordCheckBox.Checked);
+            }
         }
 
         /// <summary>

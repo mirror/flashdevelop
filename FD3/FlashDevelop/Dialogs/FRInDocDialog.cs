@@ -585,11 +585,11 @@ namespace FlashDevelop.Dialogs
                 this.lookupIsDirty = true;
                 this.currentMatch = null;
             }
-            if (sender == this.matchCaseCheckBox)
+            if (sender == this.matchCaseCheckBox && !Globals.Settings.DisableFindOptionSync)
             {
                 Globals.MainForm.SetMatchCase(this, this.matchCaseCheckBox.Checked);
             }
-            if (sender == this.wholeWordCheckBox)
+            if (sender == this.wholeWordCheckBox && !Globals.Settings.DisableFindOptionSync)
             {
                 Globals.MainForm.SetWholeWord(this, this.wholeWordCheckBox.Checked);
             }

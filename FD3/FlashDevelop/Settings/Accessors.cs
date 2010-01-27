@@ -641,6 +641,15 @@ namespace FlashDevelop.Settings
             set { this.redirectFilesResults = value; }
         }
 
+        [DisplayName("Disable Find Option Sync")]
+        [LocalizedCategory("FlashDevelop.Category.State")]
+        [LocalizedDescription("FlashDevelop.Description.DisableFindOptionSync")]
+        public Boolean DisableFindOptionSync
+        {
+            get { return this.disableFindOptionSync; }
+            set { this.disableFindOptionSync = value; }
+        }
+
         [DisplayName("Disable Find Text Updating")]
         [LocalizedCategory("FlashDevelop.Category.State")]
         [LocalizedDescription("FlashDevelop.Description.DisableFindTextUpdating")]

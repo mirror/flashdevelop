@@ -47,6 +47,7 @@ namespace FlashDevelop.Settings
         private String latestDialogPath = Application.StartupPath;
         private String defaultFileExtension = "as";
         private Boolean useSystemColors = false;
+        private Boolean disableFindOptionSync = false;
         private Boolean disableReplaceFilesConfirm = false;
         private Boolean autoReloadModifiedFiles = false;
         private Boolean saveUTF8WithoutBOM = true;
