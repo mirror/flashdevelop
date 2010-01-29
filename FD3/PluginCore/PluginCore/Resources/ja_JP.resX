@@ -3275,7 +3275,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
-    <value>Disables the find option syncing between the find dialog and the quick find control.</value>
+    <value>検索と置換ダイアログとクイック検索での、検索対象文字列の共有を無効にします。</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>
