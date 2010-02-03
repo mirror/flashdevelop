@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Info.AssociateFilesWith" xml:space="preserve">
+    <value>Associate .swf files with {0}</value>
+  </data>
+  <data name="Info.CheckFlexSDKSetting" xml:space="preserve">
+    <value>The Flex SDK is not properly configured. See AS3Context in program settings.</value>
+  </data>
+  <data name="Description.StartContinue" xml:space="preserve">
+    <value>Start / Continue shortcut setting.</value>
+  </data>
+  <data name="continuingDueToError" xml:space="preserve">
+    <value>Continuing due to error '${error}'</value>
+  </data>
+  <data name="couldNotHalt" xml:space="preserve">
+    <value>Couldn't halt, no ActionScript is running.</value>
+  </data>
+  <data name="Description.DebugFlashPlayerPath" xml:space="preserve">
+    <value>Debug FlashPlayer setting.</value>
+  </data>
+  <data name="Description.DebugLineColor" xml:space="preserve">
+    <value>Debug line's color.</value>
+  </data>
+  <data name="Description.CompileBeforeDebug" xml:space="preserve">
+    <value>Compile before starting debugger.</value>
+  </data>
+  <data name="Info.DebugWithoutCompile" xml:space="preserve">
+    <value>Compile failed, start debugger anyways?</value>
+  </data>
+  <data name="Info.Description" xml:space="preserve">
+    <value>FlashDevelop ActionScript 3 debugger.</value>
+  </data>
+  <data name="escapingFromDebuggerPendingLoop" xml:space="preserve">
+    <value>Escaping from debugger pending loop; setting $nowaiting = 1</value>
+  </data>
+  <data name="executionHalted" xml:space="preserve">
+    <value>Execution halted</value>
+  </data>
+  <data name="faultHasNoTableEntry" xml:space="preserve">
+    <value>Fault ${faultName} has no table entry</value>
+  </data>
+  <data name="fixBreakpoints" xml:space="preserve">
+    <value>Fix or remove bad breakpoints, then type 'continue'.</value>
+  </data>
+  <data name="haltedInFile" xml:space="preserve">
+    <value>${reasonForHalting}, ${fileAndLine}</value>
+  </data>
+  <data name="haltedInFunction" xml:space="preserve">
+    <value>${reasonForHalting}, ${functionName}() at ${fileAndLine}</value>
+  </data>
+  <data name="hitBreakpoint" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber}</value>
+  </data>
+  <data name="informationAboutFault" xml:space="preserve">
+    <value>, information=</value>
+  </data>
+  <data name="Label.Continue" xml:space="preserve">
+    <value>&amp;Continue</value>
+  </data>
+  <data name="Label.Copy" xml:space="preserve">
+    <value>C&amp;opy</value>
+  </data>
+  <data name="Label.Debug" xml:space="preserve">
+    <value>&amp;Debug</value>
+  </data>
+  <data name="Label.Finish" xml:space="preserve">
+    <value>&amp;Finish</value>
+  </data>
+  <data name="Label.ViewLocalVariablesPanel" xml:space="preserve">
+    <value>&amp;Local Variables Panel</value>
+  </data>
+  <data name="Label.Next" xml:space="preserve">
+    <value>&amp;Step Over</value>
+  </data>
+  <data name="Label.Pause" xml:space="preserve">
+    <value>&amp;Pause</value>
+  </data>
+  <data name="Label.Start" xml:space="preserve">
+    <value>&amp;Start</value>
+  </data>
+  <data name="Label.Step" xml:space="preserve">
+    <value>Step &amp;Into</value>
+  </data>
+  <data name="Label.Stop" xml:space="preserve">
+    <value>S&amp;top</value>
+  </data>
+  <data name="Label.Viewer" xml:space="preserve">
+    <value>&amp;Viewer</value>
+  </data>
+  <data name="Info.LanguageNotAS3" xml:space="preserve">
+    <value>Language is not Actionscript 3.</value>
+  </data>
+  <data name="linePrefixWhenDisplayingConsoleError" xml:space="preserve">
+    <value>[Error]</value>
+  </data>
+  <data name="linePrefixWhenDisplayingFault" xml:space="preserve">
+    <value>[Fault]</value>
+  </data>
+  <data name="linePrefixWhenSwfLoaded" xml:space="preserve">
+    <value>[SWF]</value>
+  </data>
+  <data name="linePrefixWhenSwfUnloaded" xml:space="preserve">
+    <value>[UnloadSWF]</value>
+  </data>
+  <data name="Category.Misc" xml:space="preserve">
+    <value>Misc</value>
+  </data>
+  <data name="Description.Next" xml:space="preserve">
+    <value>Next shortcut setting.</value>
+  </data>
+  <data name="Info.NoMainClass" xml:space="preserve">
+    <value>This project does not have a main class.</value>
+  </data>
+  <data name="noSourceFilesFound" xml:space="preserve">
+    <value>No source files found</value>
+  </data>
+  <data name="Description.Pause" xml:space="preserve">
+    <value>Pause shortcut setting.</value>
+  </data>
+  <data name="playerAlreadyRunning" xml:space="preserve">
+    <value>Player is already running, no need to resume.</value>
+  </data>
+  <data name="playerDidNotStop" xml:space="preserve">
+    <value>Player did not stop as expected.  Press 'Enter' key to halt it</value>
+  </data>
+  <data name="sessionTerminated" xml:space="preserve">
+    <value>Player session terminated</value>
+  </data>
+  <data name="setAdditionalBreakpoints" xml:space="preserve">
+    <value>Set additional breakpoints as desired, and then type 'continue'.</value>
+  </data>
+  <data name="Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="sizeAfterDecompression" xml:space="preserve">
+    <value>${size} bytes after decompression</value>
+  </data>
+  <data name="Description.Step" xml:space="preserve">
+    <value>Step shortcut setting.</value>
+  </data>
+  <data name="Description.Stop" xml:space="preserve">
+    <value>Stop shortcut setting.</value>
+  </data>
+  <data name="suspendReason_HaltOpcode" xml:space="preserve">
+    <value>HaltOpcode</value>
+  </data>
+  <data name="suspendReason_HitBreakpoint" xml:space="preserve">
+    <value>Breakpoint</value>
+  </data>
+  <data name="suspendReason_HitWatchpoint" xml:space="preserve">
+    <value>Watch</value>
+  </data>
+  <data name="suspendReason_ProgramFinishedStepping" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="suspendReason_ProgramThrewException" xml:space="preserve">
+    <value>Fault</value>
+  </data>
+  <data name="suspendReason_ScriptHasLoadedIntoFlashPlayer" xml:space="preserve">
+    <value>ScriptLoaded</value>
+  </data>
+  <data name="suspendReason_StopRequest" xml:space="preserve">
+    <value>StopRequest</value>
+  </data>
+  <data name="suspendReason_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Title.LocalVariables" xml:space="preserve">
+    <value>Locals</value>
+  </data>
+  <data name="unknownEvent" xml:space="preserve">
+    <value>Received unknown event of type '${type}', info = ${info}</value>
+  </data>
+  <data name="unknownFilename" xml:space="preserve">
+    <value>&lt;unknown&gt;</value>
+  </data>
+  <data name="Category.View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="warningNotAllCommandsSupported" xml:space="preserve">
+    <value>WARNING: The Player that you are using does not support all debugger commands.</value>
+  </data>
+  <data name="Description.BreakPointDisableLineColor" xml:space="preserve">
+    <value>Disabled break point line's color.</value>
+  </data>
+  <data name="Description.BreakPointEnableLineColor" xml:space="preserve">
+    <value>Enabled break point line's color.</value>
+  </data>
+  <data name="Description.DisableAllBreakPoints" xml:space="preserve">
+    <value>Disable all break points shortcut setting.</value>
+  </data>
+  <data name="Description.EnableAllBreakPoints" xml:space="preserve">
+    <value>Enable all break points shortcut setting.</value>
+  </data>
+  <data name="Description.EnableLogging" xml:space="preserve">
+    <value>Enable debugger logging (requires restart)</value>
+  </data>
+  <data name="Description.Finish" xml:space="preserve">
+    <value>Finish shortcut setting.</value>
+  </data>
+  <data name="Description.FlexSdkLocale" xml:space="preserve">
+    <value>Flex SDK Locale</value>
+  </data>
+  <data name="Description.SaveBreakPoints" xml:space="preserve">
+    <value>Save BreakPoints</value>
+  </data>
+  <data name="Description.ToggleBreakPoint" xml:space="preserve">
+    <value>Toggle break point shortcut setting.</value>
+  </data>
+  <data name="Description.ToggleBreakPointEnable" xml:space="preserve">
+    <value>Toggle break point enable shortcut setting.</value>
+  </data>
+  <data name="Info.ProjectNotOpen" xml:space="preserve">
+    <value>You must open a project before starting the debugger.</value>
+  </data>
+  <data name="Title.Breakpoints" xml:space="preserve">
+    <value>Breakpoints</value>
+  </data>
+  <data name="Title.StackTrace" xml:space="preserve">
+    <value>Stack</value>
+  </data>
+  <data name="Description.Current" xml:space="preserve">
+    <value>Current line shortcut setting.</value>
+  </data>
+  <data name="flashPlayerGenericName" xml:space="preserve">
+    <value>Flash player</value>
+  </data>
+  <data name="Label.Current" xml:space="preserve">
+    <value>Current &amp;Line</value>
+  </data>
+  <data name="webBrowserGenericName" xml:space="preserve">
+    <value>Web browser</value>
+  </data>
+  <data name="Description.SourcePaths" xml:space="preserve">
+    <value>Additional Paths to search for source.  Useful for specifying the location of any frameworks or library source.</value>
+  </data>
+  <data name="DisplayName.SourcePaths" xml:space="preserve">
+    <value>Source Paths</value>
+  </data>
+  <data name="Info.PlayerStillRunning" xml:space="preserve">
+    <value>The player is still running, do you want to stop it?</value>
+  </data>
+  <data name="Description.RunToCursor" xml:space="preserve">
+    <value>Run to cursor line shortcut setting.</value>
+  </data>
+  <data name="Label.RunToCursor" xml:space="preserve">
+    <value>&amp;Run to Cursor Line</value>
+  </data>
+</root>
