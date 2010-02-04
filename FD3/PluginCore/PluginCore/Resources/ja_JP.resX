@@ -3032,7 +3032,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マージン:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerBack" xml:space="preserve">
-    <value>マーカ?の背景:</value>
+    <value>マーカーの背景:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerFore" xml:space="preserve">
     <value>マーカー:</value>
