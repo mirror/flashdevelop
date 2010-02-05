@@ -2815,10 +2815,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Zip ファイルは正常に展開されました。</value>
   </data>
   <data name="FlashDevelop.Info.CaretFore" xml:space="preserve">
-    <value>キャレット行のテキスト:</value>
+    <value>キャレット:</value>
   </data>
   <data name="FlashDevelop.Info.CaretLineBack" xml:space="preserve">
-    <value>キャレット行のハイライト:</value>
+    <value>キャレット行の背景:</value>
   </data>
   <data name="FlashDevelop.Info.SelectionBack" xml:space="preserve">
     <value>選択範囲の背景:</value>
