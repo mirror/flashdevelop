@@ -703,7 +703,7 @@ namespace ASCompletion.Completion
                         if (txt.EndsWith("{") && (line > 1)) AutoCloseBrace(Sci, line);
                     }
                     // code reformating
-                    if (!ASContext.CommonSettings.DisableCodeReformat)
+                    if (!ASContext.CommonSettings.DisableCodeReformat && !txt.EndsWith("*/"))
                         ReformatLine(Sci, Sci.PositionFromLine(line) - 1);
                 }
 			}

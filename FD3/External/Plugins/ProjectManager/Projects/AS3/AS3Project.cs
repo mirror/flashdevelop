@@ -11,8 +11,7 @@ namespace ProjectManager.Projects.AS3
 {
     public class AS3Project : Project
     {
-        public AS3Project(string path)
-            : base(path, new MxmlcOptions())
+        public AS3Project(string path) : base(path, new MxmlcOptions())
         {
             movieOptions = new AS3MovieOptions();
             SwcLibraries = new AssetCollection(this);
@@ -22,10 +21,8 @@ namespace ProjectManager.Projects.AS3
         { 
             get 
             {
-                if (FileInspector.IsFlexBuilderProject(ProjectPath))
-                    return Path.GetFileName(Path.GetDirectoryName(ProjectPath));
-                else
-                    return Path.GetFileNameWithoutExtension(ProjectPath); 
+                if (FileInspector.IsFlexBuilderProject(ProjectPath)) return Path.GetFileName(Path.GetDirectoryName(ProjectPath));
+                else return Path.GetFileNameWithoutExtension(ProjectPath); 
             } 
         }
 
@@ -42,37 +39,35 @@ namespace ProjectManager.Projects.AS3
 
         public override void ValidateBuild(out string error)
         {
-            if (CompileTargets.Count == 0)
-                error = "Description.MissingEntryPoint";
-            else
-                error = null;
+            if (CompileTargets.Count == 0) error = "Description.MissingEntryPoint";
+            else error = null;
         }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
         {
-            if (nodeType == "ProjectManager.Controls.TreeView.ClassExportNode")
-                return export;
-
-            string ext = Path.GetExtension(inFile).ToLower();
+            if (nodeType == "ProjectManager.Controls.TreeView.ClassExportNode") return export;
+            
             string pre = "";
             string post = "";
+            string ext = Path.GetExtension(inFile).ToLower();
             if (ext == ".as") { pre = "["; post = "]"; }
 
             string relPath = ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
-            string fileExt = Path.GetExtension(relPath).ToLower();
-            if (export != null && export.IndexOf('(') > 0)
+            string fileExt = Path.GetExtension(path).ToLower();
+            if (export != null)
             {
-                string fontName = export.Substring(0, export.IndexOf('(')).Trim();
-                return String.Format("{0}Embed(source='{1}', fontFamily='{2}'){3}", pre, relPath, fontName, post);
+                if (export.IndexOf('(') > 0)
+                {
+                    string fontName = export.Substring(0, export.IndexOf('(')).Trim();
+                    return String.Format("{0}Embed(source='{1}', fontFamily='{2}'){3}", pre, relPath, fontName, post);
+                } 
+                else return String.Format("{0}Embed(source='{1}', symbol='{2}'){3}", pre, relPath, export, post);
             }
-            else if (export != null)
-                return String.Format("{0}Embed(source='{1}', symbol='{2}'){3}", pre, relPath, export, post);
-            else if (FileInspector.IsImage(relPath, ext) || IsText(ext))
+            else if (FileInspector.IsImage(relPath, fileExt) || IsText(fileExt) || FileInspector.IsFont(relPath, fileExt))
+            {
                 return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);
-            else if (FileInspector.IsFont(relPath, ext))
-                return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);
-            else
-                return String.Format("{0}Embed(source='{1}', mimeType='application/octet-stream'){2}", pre, relPath, post);
+            }
+            else return String.Format("{0}Embed(source='{1}', mimeType='application/octet-stream'){2}", pre, relPath, post);
         }
 
         private bool IsText(string ext)
