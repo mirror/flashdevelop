@@ -132,10 +132,10 @@ namespace ASClassWizard
                         Hashtable table = evt.Data as Hashtable;
                         project = PluginBase.CurrentProject as Project;
                         if ((project.Language == "as3" || project.Language == "as2") 
-                            && Path.GetFileName(table["templatePath"] as String).Equals("Class.as.fdt"))
+                            && IsWizardTemplate(table["templatePath"] as String))
                         {
                             evt.Handled = true;
-                            DisplayClassWizard(table["inDirectory"] as String);
+                            DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String);
                         }
                     }
                     break;
@@ -170,6 +170,11 @@ namespace ASClassWizard
                     break;
             }
 		}
+
+        private bool IsWizardTemplate(string templateFile)
+        {
+            return templateFile != null && File.Exists(templateFile + ".wizard");
+        }
 		
 		#endregion
 
@@ -213,7 +218,7 @@ namespace ASClassWizard
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 
-        private void DisplayClassWizard(String inDirectory)
+        private void DisplayClassWizard(String inDirectory, String templateFile)
         {
             Project project = PluginBase.CurrentProject as Project;
 
@@ -255,7 +260,7 @@ namespace ASClassWizard
                     if (result == DialogResult.Cancel) return;
                 }
 
-                string templatePath = Path.Combine(ProjectPaths.FileTemplatesDirectory, Path.Combine(project.GetType().Name, "Class.as.fdt.wizard"));
+                string templatePath = templateFile + ".wizard";
                 lastFileFromTemplate = newFilePath;
 
                 lastFileOptions = new AS3ClassOptions(
