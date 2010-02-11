@@ -555,12 +555,12 @@ namespace FlashDevelop
             }
             catch {}
             String text = String.Empty;
-            Boolean BOMDetected = false;
+            Boolean bomDetected = false;
             if (encoding == null)
             {
                 codepage = FileHelper.GetFileCodepage(file);
                 if (codepage == -1) return null; // If the file is locked, stop.
-                else if (codepage != Encoding.Default.CodePage) BOMDetected = true;
+                else if (codepage != Encoding.Default.CodePage) bomDetected = true;
             }
             else codepage = encoding.CodePage;
             DataEvent de = new DataEvent(EventType.FileDecode, file, null);
@@ -588,14 +588,11 @@ namespace FlashDevelop
                 createdDoc = this.CreateEditableDocument(file, text, codepage);
                 ButtonManager.AddNewReopenMenuItem(file);
             }
-
             TabbedDocument document = (TabbedDocument)createdDoc;
-            
-            if (BOMDetected) // honor file's BOM presence
+            if (bomDetected) // honor file's BOM presence
             {
                 document.SciControl.SaveBOM = true;
             }
-            
             document.SciControl.BeginInvoke((MethodInvoker)delegate { FileStateManager.ApplyFileState(document, restorePosition); });
             ButtonManager.UpdateFlaggedButtons();
             return createdDoc;

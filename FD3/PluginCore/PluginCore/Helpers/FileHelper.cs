@@ -70,11 +70,11 @@ namespace PluginCore.Helpers
         /// <summary>
         /// Writes a text file to the specified location (if UTF-8, with or without BOM)
         /// </summary>
-        public static void WriteFile(String file, String text, Encoding encoding, bool forceSaveBOM)
+        public static void WriteFile(String file, String text, Encoding encoding, Boolean forceSaveBOM)
         {
             try
             {
-                Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && !forceSaveBOM && PluginBase.Settings.SaveUTF8WithoutBOM);
+                Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && !forceSaveBOM);
                 using (StreamWriter sw = useSkipBomWriter ? new StreamWriter(file, false) : new StreamWriter(file, false, encoding))
                 {
                     sw.Write(text);

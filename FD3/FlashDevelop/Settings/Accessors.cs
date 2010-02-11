@@ -611,7 +611,7 @@ namespace FlashDevelop.Settings
         }
 
         [DefaultValue(true)]
-        [DisplayName("Save UTF-8 Without BOM")]
+        [DisplayName("Default To UTF-8 Without BOM")]
         [LocalizedDescription("FlashDevelop.Description.SaveUTF8WithoutBOM")]
         public Boolean SaveUTF8WithoutBOM
         {
