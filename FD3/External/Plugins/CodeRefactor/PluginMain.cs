@@ -138,7 +138,7 @@ namespace CodeRefactor
         private Boolean GetLanguageIsValid()
         {
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-            if (document != null && document.IsEditable && document.FileName.ToLower().EndsWith(".as")) return true;
+            if (document != null && document.IsEditable && (document.FileName.ToLower().EndsWith(".as") || document.FileName.ToLower().EndsWith(".hx"))) return true;
             else return false;
         }
 
