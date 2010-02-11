@@ -53,7 +53,7 @@ namespace ProjectManager.Projects.AS3
             {
                 if (additional.Length > 0) additional += "\n";
                 additional += "+configname=air";
-                api.Add("Library\\AS3\\frameworks\\AIR");
+                //api.Add("Library\\AS3\\frameworks\\AIR");
             }
             project.CompilerOptions.Additional = additional.Split('\n');
             if (Path.GetExtension(mainApp).ToLower() == ".mxml") api.Add("Library\\AS3\\frameworks\\Flex3");

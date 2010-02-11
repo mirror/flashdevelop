@@ -152,6 +152,7 @@ namespace AS3Context
             // Class pathes
             //
             classPath = new List<PathModel>();
+            String compiler = MainForm.ProcessArgString("$(CompilerPath)");
             // AS3 intrinsic
             if (as3settings.AS3ClassPath.Length > 0)
             {
@@ -166,7 +167,12 @@ namespace AS3Context
                         string aircp = Path.Combine(as3cp, "AIR");
                         if (Directory.Exists(fp9cp) && Directory.Exists(fp10cp))
                         {
-                            if (hasAIRSupport && Directory.Exists(aircp)) AddPath(aircp);
+                            if (hasAIRSupport && Directory.Exists(aircp))
+                            {
+                                AddPath(aircp);
+                                String airSources = Path.Combine(compiler, @"frameworks\projects\airframework\src");
+                                if (Directory.Exists(airSources)) AddPath(airSources);
+                            }
                             if (flashVersion > 10 && Directory.Exists(fp101cp)) AddPath(fp101cp);
                             if (flashVersion > 9) AddPath(fp10cp);
                             AddPath(fp9cp);
@@ -184,7 +190,15 @@ namespace AS3Context
             if (exPath.Length > 0)
             {
                 cpathes = exPath.Split(';');
-                foreach (string cpath in cpathes) AddPath(cpath.Trim());
+                foreach (string cpath in cpathes)
+                {
+                    if (cpath.Contains("Library\\AS3\\frameworks\\Flex"))
+                    {
+                        String sdkSources = Path.Combine(compiler, @"frameworks\projects\framework\src");
+                        if (Directory.Exists(sdkSources)) AddPath(sdkSources);
+                    }
+                    AddPath(cpath.Trim());
+                }
             }
             // add library
             AddPath(Path.Combine(PathHelper.LibraryDir, "AS3/classes"));
