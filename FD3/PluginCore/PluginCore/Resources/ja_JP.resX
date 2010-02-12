@@ -3278,4 +3278,19 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>検索と置換ダイアログとクイック検索での、検索対象文字列の共有を無効にします。</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="CodeRefactor.Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="CodeRefactor.Description.FindRefsShortcut" xml:space="preserve">
+    <value>Shortcut of the find all references menu item.</value>
+  </data>
+  <data name="CodeRefactor.Description.OrganizeShortcut" xml:space="preserve">
+    <value>Shortcut of the organize  imports menu item.</value>
+  </data>
+  <data name="CodeRefactor.Description.RenameShortcut" xml:space="preserve">
+    <value>Shortcut of the rename menu item.</value>
+  </data>
+  <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
+    <value>Shortcut of the truncate imports menu item.</value>
+  </data>
 </root>

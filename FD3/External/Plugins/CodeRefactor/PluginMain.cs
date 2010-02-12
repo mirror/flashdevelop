@@ -1,13 +1,17 @@
 using System;
+using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
-using CodeRefactor.Commands;
-using PluginCore.Localization;
-using ASCompletion.Completion;
-using CodeRefactor.Provider;
-using ASCompletion.Context;
-using PluginCore.Managers;
 using ASCompletion.Model;
+using ASCompletion.Context;
+using ASCompletion.Completion;
+using CodeRefactor.Commands;
+using CodeRefactor.Provider;
+using CodeRefactor.Controls;
+using PluginCore.Managers;
+using PluginCore.Localization;
+using PluginCore.Utilities;
+using PluginCore.Helpers;
 using PluginCore;
 
 namespace CodeRefactor
@@ -19,11 +23,10 @@ namespace CodeRefactor
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds refactoring capabilities to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
-        private ToolStripMenuItem refactorContextMenu;
-        private ToolStripItem referencesMenuItem;
-        private ToolStripItem truncateMenuItem;
-        private ToolStripItem organizeMenuItem;
-        private ToolStripItem renameMenuItem;
+        private RefactorMenu refactorContextMenu;
+        private RefactorMenu refactorMainMenu;
+        private Settings settingObject;
+        private String settingFilename;
 
         #region Required Properties
 
@@ -73,7 +76,7 @@ namespace CodeRefactor
         [Browsable(false)]
         public Object Settings
         {
-            get { return null; }
+            get { return this.settingObject; }
         }
 		
 		#endregion
@@ -85,51 +88,78 @@ namespace CodeRefactor
 		/// </summary>
 		public void Initialize()
 		{
+            this.InitBasics();
+            this.LoadSettings();
             this.CreateMenuItems();
-            this.pluginDesc = TextHelper.GetString("Info.Description");
         }
-		
+
 		/// <summary>
 		/// Disposes the plugin
 		/// </summary>
 		public void Dispose()
 		{
-            // Nothing to do
+            this.SaveSettings();
 		}
 		
 		/// <summary>
 		/// Handles the incoming events
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
-		{            
-            // No events handled
+		{
+            switch (e.Type)
+            {
+                case EventType.UIRefresh:
+                    this.UpdateMenuItems();
+                    break;
+
+                case EventType.SettingChanged:
+                    TextEvent evnt = (TextEvent)e;
+                    if (evnt.Value.StartsWith("CodeRefactor"))
+                    {
+                        this.refactorContextMenu.ApplyShortcutKeys();
+                        this.refactorMainMenu.ApplyShortcutKeys();
+                        this.ApplyIgnoredKeys();
+                    }
+                    break;
+            }
 		}
 
         #endregion
    
         #region Event Handling
+        
+        /// <summary>
+        /// Initializes important variables
+        /// </summary>
+        public void InitBasics()
+        {
+            String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
+            if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
+            EventManager.AddEventHandler(this, EventType.SettingChanged | EventType.UIRefresh);
+            this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            this.pluginDesc = TextHelper.GetString("Info.Description");
+        }
 
         /// <summary>
         /// Creates the required menu items
         /// </summary>
         private void CreateMenuItems()
         {
+            MenuStrip mainMenu = PluginBase.MainForm.MenuStrip;
             ContextMenuStrip editorMenu = PluginBase.MainForm.EditorMenu;
-            this.refactorContextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Refactor"));
-            this.refactorContextMenu.DropDownOpening += new EventHandler(this.RefactorContextMenuDropDownOpening);
-            this.renameMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null, new EventHandler(this.RenameClicked));
-            this.referencesMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
-            this.organizeMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null, new EventHandler(this.OrganizeImportsClicked));
-            this.truncateMenuItem = this.refactorContextMenu.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null, new EventHandler(this.TruncateImportsClicked));
+            this.refactorMainMenu = new RefactorMenu(this.settingObject);
+            this.refactorMainMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
+            this.refactorMainMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
+            this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
+            this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.RenameClicked);
+            this.refactorContextMenu = new RefactorMenu(this.settingObject);
+            this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
+            this.refactorContextMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
+            this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
+            this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.RenameClicked);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
-        }
-
-        /// <summary>
-        /// Updates the state of the menu items when menu is opening
-        /// </summary>
-        private void RefactorContextMenuDropDownOpening(Object sender, EventArgs e)
-        {
-            this.UpdateMenuItems();
+            mainMenu.Items.Insert(4, this.refactorMainMenu);
+            this.ApplyIgnoredKeys();
         }
         
         /// <summary>
@@ -138,7 +168,11 @@ namespace CodeRefactor
         private Boolean GetLanguageIsValid()
         {
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-            if (document != null && document.IsEditable && (document.FileName.ToLower().EndsWith(".as") || document.FileName.ToLower().EndsWith(".hx"))) return true;
+            if (document != null && document.IsEditable)
+            {
+                String extension = document.FileName.ToLower();
+                return (extension.EndsWith(".as") || extension.EndsWith(".hx"));
+            }
             else return false;
         }
 
@@ -160,27 +194,37 @@ namespace CodeRefactor
         /// </summary>
         private void UpdateMenuItems()
         {
-            ASResult result = GetResultFromCurrentPosition();
-            if (this.GetLanguageIsValid() && result != null && result.Member != null)
+            try
             {
-                Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
-                Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
-                Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
-                this.renameMenuItem.Enabled = !(isClass || isConstructor);
-                this.referencesMenuItem.Enabled = true;
+                ASResult result = GetResultFromCurrentPosition();
+                if (this.GetLanguageIsValid() && result != null && result.Member != null)
+                {
+                    Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
+                    Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
+                    Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
+                    this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor);
+                    this.refactorContextMenu.ReferencesMenuItem.Enabled = true;
+                    this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor);
+                    this.refactorMainMenu.ReferencesMenuItem.Enabled = true;
+                }
+                else
+                {
+                    this.refactorMainMenu.RenameMenuItem.Enabled = false;
+                    this.refactorMainMenu.ReferencesMenuItem.Enabled = false;
+                    this.refactorContextMenu.RenameMenuItem.Enabled = false;
+                    this.refactorContextMenu.ReferencesMenuItem.Enabled = false;
+                }
+                IASContext context = ASContext.Context;
+                if (context != null && context.CurrentModel != null)
+                {
+                    Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 1);
+                    this.refactorContextMenu.OrganizeMenuItem.Enabled = enabled;
+                    this.refactorContextMenu.TruncateMenuItem.Enabled = enabled;
+                    this.refactorMainMenu.OrganizeMenuItem.Enabled = enabled;
+                    this.refactorMainMenu.TruncateMenuItem.Enabled = enabled;
+                }
             }
-            else
-            {
-                this.renameMenuItem.Enabled = false;
-                this.referencesMenuItem.Enabled = false;
-            }
-            IASContext context = ASContext.Context;
-            if (context != null && context.CurrentModel != null)
-            {
-                Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 1);
-                this.organizeMenuItem.Enabled = enabled;
-                this.truncateMenuItem.Enabled = enabled;
-            }
+            catch { }
         }
 
         /// <summary>
@@ -246,6 +290,52 @@ namespace CodeRefactor
             {
                 ErrorManager.ShowError(ex);
             }
+        }
+
+        /// <summary>
+        /// Applies the ignored keys to the mainform
+        /// </summary>
+        private void ApplyIgnoredKeys()
+        {
+            IMainForm mainForm = PluginBase.MainForm;
+            if (this.settingObject.RenameShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.RenameShortcut);
+            }
+            if (this.settingObject.FindRefsShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.FindRefsShortcut);
+            }
+            if (this.settingObject.OrganizeShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.OrganizeShortcut);
+            }
+            if (this.settingObject.TruncateShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.TruncateShortcut);
+            }
+        }
+
+        /// <summary>
+        /// Loads the plugin settings
+        /// </summary>
+        public void LoadSettings()
+        {
+            this.settingObject = new Settings();
+            if (!File.Exists(this.settingFilename)) this.SaveSettings();
+            else
+            {
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (Settings)obj;
+            }
+        }
+
+        /// <summary>
+        /// Saves the plugin settings
+        /// </summary>
+        public void SaveSettings()
+        {
+            ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
         }
 
 		#endregion
