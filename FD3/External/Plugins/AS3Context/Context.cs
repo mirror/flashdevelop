@@ -194,8 +194,15 @@ namespace AS3Context
                 {
                     if (cpath.Contains("Library\\AS3\\frameworks\\Flex"))
                     {
-                        String sdkSources = Path.Combine(compiler, @"frameworks\projects\framework\src");
-                        if (Directory.Exists(sdkSources)) AddPath(sdkSources);
+                        String mxSources = Path.Combine(compiler, @"frameworks\projects\framework\src");
+                        if (Directory.Exists(mxSources)) AddPath(mxSources);
+                        String rpcSources = Path.Combine(compiler, @"frameworks\projects\rpc\src");
+                        if (Directory.Exists(rpcSources)) AddPath(rpcSources);
+                    }
+                    if (cpath.Contains("Library\\AS3\\frameworks\\Flex4"))
+                    {
+                        String sparkSources = Path.Combine(compiler, @"frameworks\projects\spark\src");
+                        if (Directory.Exists(sparkSources)) AddPath(sparkSources);
                     }
                     AddPath(cpath.Trim());
                 }
