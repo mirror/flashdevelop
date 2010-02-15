@@ -413,11 +413,9 @@
   </data>
   <data name="FileExplorer.Label.Copy" xml:space="preserve">
     <value>コピー(&amp;C)</value>
-    <comment>O</comment>
   </data>
   <data name="FileExplorer.Label.CreateFileHere" xml:space="preserve">
     <value>新規ファイル(&amp;N)...</value>
-    <comment>C</comment>
   </data>
   <data name="FileExplorer.Label.CreateFolderHere" xml:space="preserve">
     <value>新規フォルダ(&amp;F)...</value>
@@ -443,7 +441,6 @@
   </data>
   <data name="FileExplorer.Label.Run" xml:space="preserve">
     <value>実行(&amp;E)</value>
-    <comment>R</comment>
   </data>
   <data name="FileExplorer.Label.SynchronizeView" xml:space="preserve">
     <value>プロジェクトとシンクロ(&amp;S)</value>
@@ -527,7 +524,7 @@
     <value>指定色でキャレット行の背景をハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretPeriod" xml:space="preserve">
-    <value>キャレットの点滅間隔です。</value>
+    <value>キャレットの点滅間隔（ミリ秒）です。</value>
   </data>
   <data name="FlashDevelop.Description.CaretWidth" xml:space="preserve">
     <value>キャレットの幅です。</value>
@@ -928,7 +925,6 @@
   </data>
   <data name="FlashDevelop.Label.Close" xml:space="preserve">
     <value>閉じる</value>
-    <comment>C</comment>
   </data>
   <data name="FlashDevelop.Label.CloseAll" xml:space="preserve">
     <value>全て閉じる(&amp;E)</value>
@@ -1221,7 +1217,6 @@
   </data>
   <data name="FlashDevelop.Label.Search" xml:space="preserve">
     <value>検索(&amp;F)</value>
-    <comment>S</comment>
   </data>
   <data name="FlashDevelop.Label.SelectAll" xml:space="preserve">
     <value>すべて選択(&amp;S)</value>
@@ -1417,11 +1412,9 @@
   </data>
   <data name="OutputPanel.Label.ClearOutput" xml:space="preserve">
     <value>クリア(&amp;D)</value>
-    <comment>C</comment>
   </data>
   <data name="OutputPanel.Label.CopyOutput" xml:space="preserve">
     <value>コピー(&amp;C)</value>
-    <comment>O</comment>
   </data>
   <data name="OutputPanel.Label.ViewMenuItem" xml:space="preserve">
     <value>出力(&amp;O)</value>
@@ -1884,7 +1877,6 @@
   </data>
   <data name="ProjectManager.Label.Copy" xml:space="preserve">
     <value>コピー(&amp;C)</value>
-    <comment>O</comment>
   </data>
   <data name="ProjectManager.Label.CopyOf" xml:space="preserve">
     <value>{0} のコピー</value>
@@ -2101,7 +2093,6 @@
   </data>
   <data name="ResultsPanel.Label.ClearEntries" xml:space="preserve">
     <value>クリア(&amp;D)</value>
-    <comment>C</comment>
   </data>
   <data name="ResultsPanel.Label.CopyEntry" xml:space="preserve">
     <value>コピー(&amp;C)</value>
@@ -2212,7 +2203,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>FlashDevelop にシンプルな HTML や XML の補完機能を追加します。</value>
   </data>
   <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
-    <value>Contextual Code Generator を呼び出すショートカットです。</value>
+    <value>"Contextual Code Generator"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunction" xml:space="preserve">
     <value>関数を生成</value>
@@ -2281,16 +2272,16 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Shortcuts | ショートカット</value>
   </data>
   <data name="ProjectManager.Description.ShortcutBuild" xml:space="preserve">
-    <value>プロジェクトのビルドのショートカットキーです。</value>
+    <value>"プロジェクトのビルド"のショートカットです。</value>
   </data>
   <data name="ProjectManager.Description.ShortcutTestMovie" xml:space="preserve">
-    <value>プロジェクトのテストのショートカットキーです。</value>
+    <value>"プロジェクトのテスト"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Description.NextError" xml:space="preserve">
-    <value>次の結果にジャンプするショートカットキーです。</value>
+    <value>"次の結果にジャンプ"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Description.PreviousError" xml:space="preserve">
-    <value>前の結果にジャンプするショートカットキーです。</value>
+    <value>"前の結果にジャンプ"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Label.NextEntry" xml:space="preserve">
     <value>次のエントリ(&amp;N)</value>
@@ -2470,7 +2461,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FdbPlugin.Label.Copy" xml:space="preserve">
     <value>コピー(&amp;C)</value>
-    <comment>O</comment>
   </data>
   <data name="FdbPlugin.Label.DebugMenuItem" xml:space="preserve">
     <value>デバッグ(&amp;D)</value>
@@ -2515,7 +2505,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>デバッグの停止を常に確認します。</value>
   </data>
   <data name="FdbPlugin.Description.Continue" xml:space="preserve">
-    <value>続けるのショートカットです。</value>
+    <value>"続ける"のショートカットです。</value>
   </data>
   <data name="FdbPlugin.Description.DebugFlashPlayerPath" xml:space="preserve">
     <value>デバッグプレーヤのパスです。</value>
@@ -2527,19 +2517,19 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>デバッグとコンパイルを開始</value>
   </data>
   <data name="FdbPlugin.Description.Next" xml:space="preserve">
-    <value>次へのショートカットです。</value>
+    <value>"次へ"のショートカットです。</value>
   </data>
   <data name="FdbPlugin.Description.Pause" xml:space="preserve">
-    <value>一時停止のショートカットです。</value>
+    <value>"一時停止"のショートカットです。</value>
   </data>
   <data name="FdbPlugin.Description.StartNoDebug" xml:space="preserve">
-    <value>デバッグなしで開始のショートカットです。</value>
+    <value>"デバッグなしで開始"のショートカットです。</value>
   </data>
   <data name="FdbPlugin.Description.Step" xml:space="preserve">
-    <value>ステップ実行のショートカットです。</value>
+    <value>"ステップ実行"のショートカットです。</value>
   </data>
   <data name="FdbPlugin.Description.Stop" xml:space="preserve">
-    <value>停止のショートカットです。</value>
+    <value>"停止"のショートカットです。</value>
   </data>
   <data name="FdbPlugin.Info.AssociateFilesWith" xml:space="preserve">
     <value>.swf ファイルを結合 {0}</value>
@@ -2926,7 +2916,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マクロ</value>
   </data>
   <data name="MacroManager.Description.EditShortcut" xml:space="preserve">
-    <value>メニュー"マクロの編集"のショートカットです。</value>
+    <value>"マクロの編集"のショートカットです。</value>
   </data>
   <data name="MacroManager.Description.AutoRun" xml:space="preserve">
     <value>FlashDevelop 起動時に自動的にマクロを実行します。有効な場合、メニューにその項目は表示されません。</value>
@@ -3279,18 +3269,18 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="CodeRefactor.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
+    <value>Shortcuts | ショートカット</value>
   </data>
   <data name="CodeRefactor.Description.FindRefsShortcut" xml:space="preserve">
-    <value>Shortcut of the find all references menu item.</value>
+    <value>"すべての参照を検索"のショートカットです。</value>
   </data>
   <data name="CodeRefactor.Description.OrganizeShortcut" xml:space="preserve">
-    <value>Shortcut of the organize  imports menu item.</value>
+    <value>"import の並べ替え"のショートカットです。</value>
   </data>
   <data name="CodeRefactor.Description.RenameShortcut" xml:space="preserve">
-    <value>Shortcut of the rename menu item.</value>
+    <value>"名前の変更"のショートカットです。</value>
   </data>
   <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
-    <value>Shortcut of the truncate imports menu item.</value>
+    <value>"import の整理"のショートカットです。</value>
   </data>
 </root>
