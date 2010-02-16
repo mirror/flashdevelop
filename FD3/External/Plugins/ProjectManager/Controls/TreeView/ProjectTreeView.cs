@@ -335,22 +335,25 @@ namespace ProjectManager.Controls.TreeView
 		{
 			BeginUpdate();
 
-			try
-			{
-				if (paths == null)
-				{
-					// full recursive refresh
-					foreach (GenericNode node in Nodes)
-						node.Refresh(true);
-				}
-				else
-				{
-					// selective refresh
-					foreach (string path in paths)
-						if (nodeMap.ContainsKey(path))
-							nodeMap[path].Refresh(false);
-				}
-			}
+            try
+            {
+                if (paths == null)
+                {
+                    // full recursive refresh
+                    foreach (GenericNode node in Nodes)
+                        node.Refresh(true);
+                }
+                else
+                {
+                    // selective refresh
+                    foreach (string path in paths)
+                        if (nodeMap.ContainsKey(path))
+                            nodeMap[path].Refresh(false);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
             finally { EndUpdate(); }
 		}
 

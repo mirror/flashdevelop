@@ -129,22 +129,25 @@ namespace ProjectManager.Controls.TreeView
 				if (IsDirectoryExcluded(directory))
 					continue;
 
+                DirectoryNode node;
 				if (Tree.NodeMap.ContainsKey(directory))
 				{
-					DirectoryNode node = Tree.NodeMap[directory] as DirectoryNode;
-					
-					if (recursive)
-						node.Refresh(recursive);
-					
-					nodesToDie.Remove(node);
+					node = Tree.NodeMap[directory] as DirectoryNode;
+                    if (node != null) // ASClassWizard injects SimpleDirectoryNode != DirectoryNode
+                    {
+                        if (recursive)
+                            node.Refresh(recursive);
+
+                        nodesToDie.Remove(node);
+                        continue;
+                    }
+                    else Nodes.Remove(node);
 				}
-				else
-				{
-					DirectoryNode node = new DirectoryNode(directory);
-					InsertNode(Nodes, node);
-					node.Refresh(recursive);
-					nodesToDie.Remove(node);
-				}
+
+				node = new DirectoryNode(directory);
+				InsertNode(Nodes, node);
+				node.Refresh(recursive);
+				nodesToDie.Remove(node);
 			}
 		}
 
