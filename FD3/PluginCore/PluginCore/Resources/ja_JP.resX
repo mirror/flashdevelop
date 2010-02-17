@@ -193,7 +193,7 @@
     <value>リフォーマットされたとき、これらの文字の周りにあるホワイトスペースを削除します。</value>
   </data>
   <data name="ASCompletion.Description.CompletionEnabled" xml:space="preserve">
-    <value>補完を有効にします。</value>
+    <value>コード補完を有効にします。</value>
   </data>
   <data name="ASCompletion.Description.CompletionListAllTypes" xml:space="preserve">
     <value>補完リストにプロジェクト内で指定できる全てのタイプを含めます。</value>
@@ -229,13 +229,13 @@
     <value>パッケージ名をフルで書いたときに自動的にインポートします。</value>
   </data>
   <data name="FlashDevelop.Description.CommentBlockStyle" xml:space="preserve">
-    <value>javadoc コメント行にスペースを追加します。</value>
+    <value>ASDoc コメント行にスペースを追加します。</value>
   </data>
   <data name="ASCompletion.Description.JavadocTags" xml:space="preserve">
-    <value>Javadoc の タグの補完リストです。</value>
+    <value>ASDoc の タグの補完リストです。</value>
   </data>
   <data name="ASCompletion.Description.JavadocTagsEnabled" xml:space="preserve">
-    <value>Javadoc のタグの補完を ドキュメンテーションブロックで有効にします。</value>
+    <value>ASDoc のタグの補完を ドキュメンテーションブロックで有効にします。</value>
   </data>
   <data name="ASCompletion.Description.LazyClasspathExploration" xml:space="preserve">
     <value>プロジェクトのクラスパスの全てを探索して解析します。</value>
@@ -256,13 +256,13 @@
     <value>クイックビルドをしたあと、作成された SWF を自動的に再生します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
-    <value>「定義元へ移動」の移動前の位置に戻る。</value>
+    <value>"定義元から戻る"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
     <value>キャレット位置にある要素の定義元へ移動します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
-    <value>現在のファイルをコンパイルします。この操作は、ソース内でのコンパイラの指定が必要です。</value>
+    <value>現在のファイルをクイックビルドします。この操作は、ソース内でのコンパイラの指定が必要です。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
     <value>現在のファイルのシンタックスをチェックします。</value>
@@ -271,7 +271,7 @@
     <value>プロジェクトタイプエクスプローラを開きます。</value>
   </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
-    <value>補完機能を強化するためにドキュメンテーションブロック内の Javadoc タグを解析します。</value>
+    <value>補完機能を強化するためにドキュメンテーションブロック内の ASDoc タグを解析します。</value>
   </data>
   <data name="ASCompletion.Description.SortingMode" xml:space="preserve">
     <value>アウトラインパネル内のメンバーをどのように並び変えるか設定します。</value>
@@ -488,7 +488,7 @@
     <value>Editor | エディタ</value>
   </data>
   <data name="FlashDevelop.Category.Features" xml:space="preserve">
-    <value>Features | 特徴</value>
+    <value>Features | 機能</value>
   </data>
   <data name="FlashDevelop.Category.Folding" xml:space="preserve">
     <value>Folding | 折りたたみ</value>
@@ -518,7 +518,7 @@
     <value>変更されたファイルのバックアップを保存する間隔（ミリ秒）です。</value>
   </data>
   <data name="FlashDevelop.Description.BraceMatchingEnabled" xml:space="preserve">
-    <value>合致する括弧を背景色でハイライトします。</value>
+    <value>マッチするブレースをハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretLineVisible" xml:space="preserve">
     <value>指定色でキャレット行の背景をハイライトします。</value>
@@ -533,7 +533,7 @@
     <value>改行処理のコーディングスタイルを定義します。</value>
   </data>
   <data name="FlashDevelop.Description.ComboBoxFlatStyle" xml:space="preserve">
-    <value>インターフェースの外観を指定します。この機能はまだ完全に実装されていません。</value>
+    <value>インターフェースの外観を指定します。</value>
   </data>
   <data name="FlashDevelop.Description.CustomArguments" xml:space="preserve">
     <value>文字列処理のためにユーザーが定義した引数の一覧です。</value>
@@ -554,7 +554,7 @@
     <value>補完リストが出現するまでの遅延時間です。</value>
   </data>
   <data name="FlashDevelop.Description.EnableAutoHide" xml:space="preserve">
-    <value>目障りでない補完リストを有効にします。</value>
+    <value>補完リストを自動的に隠します。</value>
   </data>
   <data name="FlashDevelop.Description.EnsureConsistentLineEnds" xml:space="preserve">
     <value>ドキュメントが一貫した改行コードを持つようにします。</value>
@@ -572,7 +572,7 @@
     <value>else 文を折りたたみます。</value>
   </data>
   <data name="FlashDevelop.Description.FoldComment" xml:space="preserve">
-    <value>コメントを折りたたみます。</value>
+    <value>コメントの折りたたみを使用します。</value>
   </data>
   <data name="FlashDevelop.Description.FoldCompact" xml:space="preserve">
     <value>空白行も折りたたみ範囲に含めます。</value>
@@ -596,7 +596,7 @@
     <value>マウスオン時のヒント表示までの待ち時間です。</value>
   </data>
   <data name="FlashDevelop.Description.IndentSize" xml:space="preserve">
-    <value>字下げ補助線の表示間隔です。</value>
+    <value>インデント補助線の間隔です。</value>
   </data>
   <data name="FlashDevelop.Description.LatestCommand" xml:space="preserve">
     <value>最後に使用したスタートアップコマンドです。</value>
@@ -605,7 +605,7 @@
     <value>最後に使用したパスです。</value>
   </data>
   <data name="FlashDevelop.Description.LineCommentsAfterIndent" xml:space="preserve">
-    <value>ラインコメントする際にインデントの後にコメントします。</value>
+    <value>ラインコメント化する際、インデントのあとにコメント開始記号を挿入します。</value>
   </data>
   <data name="FlashDevelop.Description.LocaleVersion" xml:space="preserve">
     <value>現在のロケールです。変更には再起動が必要です。</value>
@@ -617,16 +617,16 @@
     <value>以前開いたドキュメントです。</value>
   </data>
   <data name="FlashDevelop.Description.RenderMode" xml:space="preserve">
-    <value>Common UI のレンダリング方法の設定です。再起動を必要とします。</value>
+    <value>Common UI のレンダリング方法を指定します。設定の反映には再起動が必要です。</value>
   </data>
   <data name="FlashDevelop.Description.RestoreFileSession" xml:space="preserve">
     <value>起動時に開くファイルを復元します。</value>
   </data>
   <data name="FlashDevelop.Description.RestoreFileStates" xml:space="preserve">
-    <value>起動時にファイルの状態を復元します。</value>
+    <value>起動時に前回終了時のファイルの状態を復元します。</value>
   </data>
   <data name="FlashDevelop.Description.ScrollWidth" xml:space="preserve">
-    <value>ドキュメントの初期幅です。(px単位)</value>
+    <value>ドキュメントの初期幅です。( px 単位)</value>
   </data>
   <data name="FlashDevelop.Description.SequentialTabbing" xml:space="preserve">
     <value>タブ移動の設定です。</value>
@@ -647,7 +647,7 @@
     <value>タブの文字数です。</value>
   </data>
   <data name="FlashDevelop.Description.UseFolding" xml:space="preserve">
-    <value>このドキュメントのコードを折りたたみます。</value>
+    <value>コードの折りたたみを使用します。</value>
   </data>
   <data name="FlashDevelop.Description.UseTabs" xml:space="preserve">
     <value>タブキー押下時にタブを使用します。False に設定した場合、連続した半角スペースに置き換えられます。</value>
@@ -662,10 +662,10 @@
     <value>インデントの位置を示す線を表示します。</value>
   </data>
   <data name="FlashDevelop.Description.ViewLineNumbers" xml:space="preserve">
-    <value>余白に行番号を表示します。</value>
+    <value>行番号を表示します。</value>
   </data>
   <data name="FlashDevelop.Description.ViewToolBar" xml:space="preserve">
-    <value>デフォルトのツールバーを表示します。</value>
+    <value>ツールバーを表示します。</value>
   </data>
   <data name="FlashDevelop.Description.ViewWhitespace" xml:space="preserve">
     <value>半角スペースを記号で表示します。</value>
@@ -812,7 +812,7 @@
     <value>ページ</value>
   </data>
   <data name="FlashDevelop.Info.ProcessAlreadyRunning" xml:space="preserve">
-    <value>プロセスは既に実行中です。</value>
+    <value>プロセスはすでに実行中です。</value>
   </data>
   <data name="FlashDevelop.Info.ProcessDone" xml:space="preserve">
     <value>完了</value>
@@ -1813,7 +1813,7 @@
     <value>指定したディレクトリにファイルが存在します。本当にテンプレートファイルをここにコピーしても良いですか?</value>
   </data>
   <data name="ProjectManager.Info.TargetVersion" xml:space="preserve">
-    <value>バージョン(&amp;T):</value>
+    <value>バージョン(&amp;V):</value>
   </data>
   <data name="ProjectManager.Info.TemplateDirNotFound" xml:space="preserve">
     <value>テンプレートディレクトリが見つかりません。新規プロジェクトが作成できない可能性があります。FlashDevelop を再インストールしてください。</value>
@@ -2161,13 +2161,13 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>タイプ</value>
   </data>
   <data name="TaskListPanel.Description.FileExtensions" xml:space="preserve">
-    <value>ファイルの拡張子の変更を監視します。</value>
+    <value>タスクの監視対象にするファイルの拡張子を指定します。</value>
   </data>
   <data name="TaskListPanel.Description.GroupValues" xml:space="preserve">
-    <value>グループ値を監視します。</value>
+    <value>タスク機能で使用されるキーワードを指定します。コメント行頭がキーワードと一致することでタスク一覧に表示されます。</value>
   </data>
   <data name="TaskListPanel.Description.ImageIndexes" xml:space="preserve">
-    <value>検索結果のインデックスイメージです。</value>
+    <value>Group Values で指定したキーワードに対応する、検索結果で表示されるアイコンを指定します。</value>
   </data>
   <data name="TaskListPanel.Info.Processing" xml:space="preserve">
     <value>処理中 {0} / {1}</value>
@@ -2248,10 +2248,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ライブラリ(参照されるクラスを含む)(&amp;L)</value>
   </data>
   <data name="AS2Context.Info.Description" xml:space="preserve">
-    <value>ASCompletion エンジン用に ActionScript 2 のコンテキストを追加します。</value>
+    <value>ASCompletion エンジンに ActionScript 2 のコンテキストを追加します。</value>
   </data>
   <data name="AS3Context.Info.Description" xml:space="preserve">
-    <value>ASCompletion エンジン用に ActionScript 3.0 のコンテキストを追加します。</value>
+    <value>ASCompletion エンジンに ActionScript 3.0 のコンテキストを追加します。</value>
   </data>
   <data name="ASCompletion.Info.Description" xml:space="preserve">
     <value>FlashDevelop にコード補完エンジンを追加します。</value>
@@ -2421,7 +2421,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>結果パネルに表示</value>
   </data>
   <data name="FlashDevelop.Description.DefaultFont" xml:space="preserve">
-    <value>デフォルトで使用するUIフォントを定義します。</value>
+    <value>デフォルトで使用するUIフォントを定義します。初期値は Tahoma, 8.25pt です。</value>
   </data>
   <data name="FlashDevelop.Description.BookmarkLineColor" xml:space="preserve">
     <value>ブックマークされた行の背景色です。この色はブックマークマージンが非表示のときのみ現れます。</value>
@@ -2430,10 +2430,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コードに変更があった行のマージンハイライトカラーです。</value>
   </data>
   <data name="FlashDevelop.Description.ViewModifiedLines" xml:space="preserve">
-    <value>セーブされていないとき、変更された行の余白部分を指定された色で強調して表示します。</value>
+    <value>セーブされていない変更された行を指定色で強調します。</value>
   </data>
   <data name="FlashDevelop.Description.ConsoleFont" xml:space="preserve">
-    <value>コンソールと出力コントロールに使用されるフォントです。</value>
+    <value>コンソールと出力コントロールに使用されるフォントです。初期値は Courier New, 8.75pt です。</value>
   </data>
   <data name="FlashDevelop.Label.SortLines" xml:space="preserve">
     <value>行のソート</value>
@@ -2445,7 +2445,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ダイナミックなシンタックスカラーリングを無効にします。</value>
   </data>
   <data name="FlashDevelop.Description.ViewStatusBar" xml:space="preserve">
-    <value>デフォルトのステータスバーを表示します。</value>
+    <value>ステータスバーを表示します。</value>
   </data>
   <data name="ProjectManager.Description.MinorVersion" xml:space="preserve">
     <value>必要に応じて明示的に Flash Player のマイナーバージョンを定義します。(例 "0.60" で "9.0.60" を指定)</value>
@@ -2604,7 +2604,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>メイン設定にあるコーディングスタイル改行設定に従って括弧を自動で再フォーマットします。</value>
   </data>
   <data name="ProjectManager.Description.UseProjectSessions" xml:space="preserve">
-    <value>セッションを利用します。プロジェクトファイルを閉じるときに開いていたファイルを保持し、再度に開いたときに再現します。</value>
+    <value>プロジェクト単位のセッションを利用します。プロジェクトファイルを閉じるときに開いていたファイルを保持し、再度プロジェクトを開いたときに再現します。</value>
   </data>
   <data name="ASCompletion.Description.LastASVersion" xml:space="preserve">
     <value>内部: パッケージ/クラス宣言なしでファイルに適用するために最新の ActionScript バージョンを自動的に保存しました。</value>
@@ -2643,7 +2643,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コンパイル時に省略するシンボルが記述されたリンカーレポートを指定します。</value>
   </data>
   <data name="FlashDevelop.Description.InsertionTriggers" xml:space="preserve">
-    <value>補完リストを決定する文字を設定します。Tab や Enter の場合はエスケープしなければなりません。(例. \t \n) デフォルトでは A-Z0-9 以外の全ての入力が決定になっています。</value>
+    <value>補完リストによる挿入を確定するキー入力を設定します。Tab や Enter の場合はエスケープしてください。(例. \t \n) デフォルトでは A-Z0-9 以外の全てのキー入力で確定します。</value>
   </data>
   <data name="TaskListPanel.Info.InvalidFile" xml:space="preserve">
     <value>ファイルが見つかりませんでした。タスク一覧が更新されます。</value>
@@ -2655,7 +2655,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>開いているプロジェクトとファイルビューをシンクロさせます。</value>
   </data>
   <data name="FlashDevelop.Description.SaveUTF8WithoutBOM" xml:space="preserve">
-    <value>UTF-8 にエンコードされたファイルを BOM なしで保存します。連続的に行うのであれば、Fallback Codepage で UTF-8 に設定してください。</value>
+    <value>UTF-8 にエンコードされたファイルを BOM なしで保存します。連続的に行うのであれば、Fallback Codepage を UTF-8 に設定してください。</value>
   </data>
   <data name="FlashDevelop.Label.OpenFilesIn" xml:space="preserve">
     <value>開く(&amp;O)</value>
@@ -3241,7 +3241,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.5</comment>
   </data>
   <data name="TaskListPanel.Description.ExcludedPaths" xml:space="preserve">
-    <value>タスクリストから除外するパスを指定します。</value>
+    <value>タスクの監視対象から除外するパスを指定します。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
