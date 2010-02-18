@@ -47,9 +47,7 @@ namespace ASClassWizard.Wizards
             // 
             // browserView
             // 
-            this.browserView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.browserView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.browserView.Location = new System.Drawing.Point(12, 25);
             this.browserView.Name = "browserView";
             this.browserView.Size = new System.Drawing.Size(260, 194);
@@ -89,10 +87,10 @@ namespace ASClassWizard.Wizards
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.browserView);
             this.Controls.Add(this.inviteLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "PackageBrowser";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.Name = "PackageBrowser";
             this.Load += new System.EventHandler(this.PackageBrowser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

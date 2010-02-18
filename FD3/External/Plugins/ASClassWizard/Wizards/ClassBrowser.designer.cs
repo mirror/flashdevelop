@@ -67,23 +67,19 @@ namespace ASClassWizard.Wizards
             // 
             // itemList
             // 
-            this.itemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.itemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.itemList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.itemList.FormattingEnabled = true;
             this.itemList.ImageList = null;
-            this.itemList.ItemHeight = 15;
             this.itemList.Location = new System.Drawing.Point(12, 40);
             this.itemList.Name = "itemList";
-            this.itemList.Size = new System.Drawing.Size(282, 214);
+            this.itemList.Size = new System.Drawing.Size(282, 225);
             this.itemList.TabIndex = 1;
             this.itemList.DoubleClick += new System.EventHandler(this.itemList_DoubleClick);
             // 
             // filterBox
             // 
-            this.filterBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.filterBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.filterBox.Location = new System.Drawing.Point(12, 12);
             this.filterBox.Name = "filterBox";
             this.filterBox.Size = new System.Drawing.Size(282, 20);
@@ -102,10 +98,10 @@ namespace ASClassWizard.Wizards
             this.Controls.Add(this.itemList);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "ClassBrowser";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.Name = "ClassBrowser";
             this.Text = "Open Type";
             this.Load += new System.EventHandler(this.ClassBrowser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.classBrowserBindingSource)).EndInit();
