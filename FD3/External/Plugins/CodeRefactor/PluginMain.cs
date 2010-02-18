@@ -161,7 +161,20 @@ namespace CodeRefactor
             mainMenu.Items.Insert(4, this.refactorMainMenu);
             this.ApplyIgnoredKeys();
         }
-        
+
+        /// <summary>
+        /// Gets if the current documents language is haxe
+        /// </summary>
+        private Boolean LanguageIsHaxe()
+        {
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document != null && document.IsEditable)
+            {
+                return document.FileName.ToLower().EndsWith(".hx");
+            }
+            else return false;
+        }
+
         /// <summary>
         /// Gets if the language is valid for refactoring
         /// </summary>
@@ -219,9 +232,9 @@ namespace CodeRefactor
                 {
                     Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 1);
                     this.refactorContextMenu.OrganizeMenuItem.Enabled = enabled;
-                    this.refactorContextMenu.TruncateMenuItem.Enabled = enabled;
+                    this.refactorContextMenu.TruncateMenuItem.Enabled = enabled && !this.LanguageIsHaxe();
                     this.refactorMainMenu.OrganizeMenuItem.Enabled = enabled;
-                    this.refactorMainMenu.TruncateMenuItem.Enabled = enabled;
+                    this.refactorMainMenu.TruncateMenuItem.Enabled = enabled && !this.LanguageIsHaxe();
                 }
             }
             catch { }

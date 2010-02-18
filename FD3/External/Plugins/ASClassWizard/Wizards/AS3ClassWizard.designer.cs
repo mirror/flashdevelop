@@ -393,7 +393,7 @@ namespace ASClassWizard.Wizards
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel3, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.classBox, 1, 3);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 10);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 7;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -461,7 +461,7 @@ namespace ASClassWizard.Wizards
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // AS3ClassWizard
-            // 
+            //
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -470,6 +470,7 @@ namespace ASClassWizard.Wizards
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.flowLayoutPanel9);
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
