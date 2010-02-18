@@ -124,7 +124,7 @@
     <value>Adobe Flash Professional クラスパスへのファイルパスです。</value>
   </data>
   <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
-    <value>構文チェックのための MTASC コンパイラ設定です。</value>
+    <value>シンタックスチェックのための MTASC コンパイラ設定です。</value>
   </data>
   <data name="AS2Context.Description.MtascPath" xml:space="preserve">
     <value>MTASC コンパイラへのパスです。</value>
@@ -157,7 +157,7 @@
     <value>Adobe Flex SDK のパス</value>
   </data>
   <data name="AS3Context.Info.CheckError" xml:space="preserve">
-    <value>AS3 の構文チェック中にエラーが見つかりました。</value>
+    <value>AS3 のシンタックスチェック中にエラーが見つかりました。</value>
   </data>
   <data name="AS3Context.Info.InvalidClass" xml:space="preserve">
     <value>このファイルは有効な AS3 クラスではありません。</value>
@@ -172,7 +172,7 @@
     <value>コンパイラシェルのリソースを抽出することができません。</value>
   </data>
   <data name="AS3Context.Info.SetFlex2OrCS3Path" xml:space="preserve">
-    <value>AS3 コンテキスト設定では Adobe Flex SDK を設定しますか？Adobe Flash Professional のものでも、構文チェックに利用することができます。"いいえ"を選択すると、Adobe Flash Professional のパスが設定されます。</value>
+    <value>AS3 コンテキスト設定では Adobe Flex SDK を設定しますか？Adobe Flash Professional のものでも、シンタックスチェックに利用することができます。"いいえ"を選択すると、Adobe Flash Professional のパスが設定されます。</value>
   </data>
   <data name="AS3Context.Title.ConfigurationRequired" xml:space="preserve">
     <value>コンパイラに必要な構成</value>
@@ -310,7 +310,7 @@
     <value>定義元から戻る(&amp;B)</value>
   </data>
   <data name="ASCompletion.Label.CheckSyntax" xml:space="preserve">
-    <value>シンタックスをチェック</value>
+    <value>シンタックスチェック</value>
   </data>
   <data name="ASCompletion.Label.CompleteDocDetails" xml:space="preserve">
     <value>メソッドの詳細</value>
@@ -518,7 +518,7 @@
     <value>変更されたファイルのバックアップを保存する間隔（ミリ秒）です。</value>
   </data>
   <data name="FlashDevelop.Description.BraceMatchingEnabled" xml:space="preserve">
-    <value>マッチするブレースをハイライトします。</value>
+    <value>対応する括弧をハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretLineVisible" xml:space="preserve">
     <value>指定色でキャレット行の背景をハイライトします。</value>
@@ -942,7 +942,7 @@
     <value>コマンドプロンプト(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.LineComment" xml:space="preserve">
-    <value>行コメントにする(&amp;L)</value>
+    <value>行コメントを適用(&amp;L)</value>
     <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CompareFiles" xml:space="preserve">
@@ -1051,10 +1051,10 @@
     <value>ジャンプ</value>
   </data>
   <data name="FlashDevelop.Label.GotoMatchingBrace" xml:space="preserve">
-    <value>マッチするブレースへのジャンプ</value>
+    <value>対応する括弧へジャンプ(&amp;M)</value>
   </data>
   <data name="FlashDevelop.Label.GotoPositionOrLine" xml:space="preserve">
-    <value>指定行へのジャンプ(&amp;C)...</value>
+    <value>指定行へジャンプ(&amp;C)...</value>
   </data>
   <data name="FlashDevelop.Label.GUID" xml:space="preserve">
     <value>GUID(&amp;G)</value>
@@ -1159,7 +1159,7 @@
     <value>環境設定(&amp;P)...</value>
   </data>
   <data name="FlashDevelop.Label.PublishMovieInFlash" xml:space="preserve">
-    <value>Flash IDE でパブリッシュ</value>
+    <value>Flash IDE でパブリッシュ(&amp;P)</value>
   </data>
   <data name="FlashDevelop.Label.QuickFind" xml:space="preserve">
     <value>クイック検索(&amp;Q)...</value>
@@ -1231,7 +1231,7 @@
     <value>スニペット(&amp;S)</value>
   </data>
   <data name="FlashDevelop.Label.CodeSnippets" xml:space="preserve">
-    <value>スニペットの編集(&amp;C)</value>
+    <value>コードスニペットの編集(&amp;C)...</value>
   </data>
   <data name="FlashDevelop.Label.SOReader" xml:space="preserve">
     <value>Shared Object リーダ(&amp;S)...</value>
@@ -1243,7 +1243,7 @@
     <value>技術仕様(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.TestMovieInFlash" xml:space="preserve">
-    <value>Flash IDE でパブリッシュ(&amp;T)</value>
+    <value>Flash IDE でパブリッシュプレビュー(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.Text" xml:space="preserve">
     <value>テキスト(&amp;T)</value>
@@ -1282,7 +1282,7 @@
     <value>ウインドウ(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.WebTools" xml:space="preserve">
-    <value>ウェブ ツール(&amp;W)</value>
+    <value>ウェブツール(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.WhitespaceCharacters" xml:space="preserve">
     <value>空白文字(&amp;W)</value>
@@ -1294,7 +1294,7 @@
     <value>エクスプローラ(&amp;E)</value>
   </data>
   <data name="FlashDevelop.Label.WrapEditorText" xml:space="preserve">
-    <value>エディタ テキストの折り返し(&amp;E)</value>
+    <value>エディタテキストの折り返し(&amp;E)</value>
   </data>
   <data name="FlashDevelop.Title.AboutDialog" xml:space="preserve">
     <value>FlashDevelop について</value>
@@ -1354,7 +1354,7 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>構文チェックのための HaXe コンパイラパラメータです。</value>
+    <value>シンタックスチェックのための HaXe コンパイラパラメータです。</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
     <value>HaXe コンパイラのパスです。</value>
@@ -2751,7 +2751,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ログファイルをチェックする頻度を指定します。</value>
   </data>
   <data name="FlashDevelop.Title.ArgReplaceDialog" xml:space="preserve">
-    <value>置換アーギュメント</value>
+    <value>ダイナミックアーギュメントの置換</value>
   </data>
   <data name="ProjectManager.Title.AuthorName" xml:space="preserve">
     <value>テンプレート設定: あなたの名前を入力してください</value>
@@ -2799,7 +2799,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>シンタックスカラーリングの編集</value>
   </data>
   <data name="FlashDevelop.Title.SyntaxExportDialog" xml:space="preserve">
-    <value>構文ファイルをエクスポート</value>
+    <value>シンタックスファイルをエクスポート</value>
   </data>
   <data name="FlashDevelop.Info.ZipExtractDone" xml:space="preserve">
     <value>Zip ファイルは正常に展開されました。</value>
@@ -2850,7 +2850,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>スニペット名:</value>
   </data>
   <data name="FlashDevelop.Title.SnippetDialog" xml:space="preserve">
-    <value>スニペットの編集</value>
+    <value>コードスニペットの編集</value>
   </data>
   <data name="FlashDevelop.Info.CouldNotBeRecycled" xml:space="preserve">
     <value>ごみ箱に移動することができません:</value>
@@ -2859,7 +2859,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>現在のスニペットを保存しますか？</value>
   </data>
   <data name="FlashDevelop.Info.RevertSnippetFiles" xml:space="preserve">
-    <value>本当に全ての言語のスニペットファイルを規定値に戻しますか？</value>
+    <value>本当にすべての言語のスニペットを規定値に戻しますか？</value>
   </data>
   <data name="FlashDevelop.Description.PrintMarginColor" xml:space="preserve">
     <value>印刷マージンの色です。</value>
@@ -2877,7 +2877,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マクロ</value>
   </data>
   <data name="MacroManager.Info.CouldNotRunMacro" xml:space="preserve">
-    <value>マクロを実行できませんでした。構文をチェックしてくださいします。</value>
+    <value>マクロを実行できませんでした。問題を修正してください。</value>
   </data>
   <data name="MacroManager.Info.Description" xml:space="preserve">
     <value>FlashDevelop にシンプルなマクロ機能を追加します。</value>
@@ -2968,7 +2968,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>[トレースをキャプチャします (FDB)]</value>
   </data>
   <data name="AS3Context.Info.ExceptionWhileParsing" xml:space="preserve">
-    <value>構文解析に例外</value>
+    <value>パースエラー</value>
   </data>
   <data name="AS3Context.Info.FailedToLaunchFBD" xml:space="preserve">
     <value>[FDB の起動に失敗しました]</value>
@@ -2980,7 +2980,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Mxmlc 実行中</value>
   </data>
   <data name="AS3Context.Info.StartAscRunner" xml:space="preserve">
-    <value>構文チェックの開始:</value>
+    <value>シンタックスチェックの開始:</value>
   </data>
   <data name="AS3Context.Info.StartMxmlcRunner" xml:space="preserve">
     <value>Flex コンパイラのプロセス開始:</value>
@@ -3028,7 +3028,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マーカー:</value>
   </data>
   <data name="FlashDevelop.Label.BlockComment" xml:space="preserve">
-    <value>ブロックコメントにする(&amp;M)</value>
+    <value>ブロックコメントを適用(&amp;M)</value>
     <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
@@ -3038,10 +3038,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コメントを選択(&amp;M)</value>
   </data>
   <data name="FlashDevelop.Label.UncommentBlock" xml:space="preserve">
-    <value>コメントをはずす</value>
+    <value>コメントを解除</value>
   </data>
   <data name="FlashDevelop.Label.UncommentLine" xml:space="preserve">
-    <value>コメントをはずす</value>
+    <value>コメントを解除</value>
   </data>
   <data name="FlashDevelop.Info.RequiresRestart" xml:space="preserve">
     <value>すべての変更を適用するには、FlashDevelop を再起動する必要があります。</value>
