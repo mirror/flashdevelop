@@ -127,7 +127,7 @@
     <value>シンタックスチェックのための MTASC コンパイラ設定です。</value>
   </data>
   <data name="AS2Context.Description.MtascPath" xml:space="preserve">
-    <value>MTASC コンパイラへのパスです。</value>
+    <value>MTASC コンパイラへのパスです。f</value>
   </data>
   <data name="AS2Context.Description.UseMtascIntrinsic" xml:space="preserve">
     <value>Adobe Flash Professional の組み込み関数の代わりに MTASC コンパイラ固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
@@ -268,7 +268,7 @@
     <value>現在のファイルのシンタックスをチェックします。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
-    <value>プロジェクトタイプエクスプローラを開きます。</value>
+    <value>タイプエクスプローラを開きます。</value>
   </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
     <value>補完機能を強化するためにドキュメンテーションブロック内の ASDoc タグを解析します。</value>
@@ -346,7 +346,7 @@
     <value>クラスパスキャッシュを再構築</value>
   </data>
   <data name="ASCompletion.Label.TypesExplorer" xml:space="preserve">
-    <value>プロジェクトタイプエクスプローラ(&amp;X)...</value>
+    <value>タイプエクスプローラ(&amp;X)...</value>
   </data>
   <data name="ASCompletion.Label.ViewMenuItem" xml:space="preserve">
     <value>アウトライン(&amp;O)</value>
@@ -626,7 +626,7 @@
     <value>起動時に前回終了時のファイルの状態を復元します。</value>
   </data>
   <data name="FlashDevelop.Description.ScrollWidth" xml:space="preserve">
-    <value>ドキュメントの初期幅です。( px 単位)</value>
+    <value>ドキュメントの初期幅です。(ピクセル単位)</value>
   </data>
   <data name="FlashDevelop.Description.SequentialTabbing" xml:space="preserve">
     <value>タブ移動の設定です。</value>
@@ -1678,7 +1678,7 @@
     <value>デバッグ</value>
   </data>
   <data name="ProjectManager.Info.Default" xml:space="preserve">
-    <value>ムービーの再生</value>
+    <value>ムービーの再生( FlashViewer の設定による)</value>
   </data>
   <data name="ProjectManager.Info.Document" xml:space="preserve">
     <value>新しいタブでムービーを再生</value>
@@ -1792,7 +1792,7 @@
     <value>クラスパス ディレクトリを選択してください。</value>
   </data>
   <data name="ProjectManager.Info.SelectProjectDirectory" xml:space="preserve">
-    <value>プロジェクトの保存先を設定してください。</value>
+    <value>プロジェクトの保存先を選択してください。</value>
   </data>
   <data name="ProjectManager.Info.SettingsCouldNotLoad" xml:space="preserve">
     <value>プロジェクトマネージャの設定を解析できませんでした。設定は既定値にリセットされます。</value>
@@ -1849,7 +1849,7 @@
     <value>高度な設定</value>
   </data>
   <data name="ProjectManager.Label.AlwaysCompile" xml:space="preserve">
-    <value>ドキュメントクラスに設定(&amp;A)</value>
+    <value>コンパイル対象に指定(&amp;A)</value>
   </data>
   <data name="ProjectManager.Label.Apply" xml:space="preserve">
     <value>適用(&amp;L)</value>
@@ -2074,7 +2074,7 @@
     <value>構成の選択</value>
   </data>
   <data name="ProjectManager.ToolTip.ShowHiddenItems" xml:space="preserve">
-    <value>隠したタイルを表示</value>
+    <value>隠したファイルを表示</value>
   </data>
   <data name="ResultsPanel.Header.Description" xml:space="preserve">
     <value>説明</value>
@@ -2793,7 +2793,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>サイズ:</value>
   </data>
   <data name="FlashDevelop.Label.ExportFiles" xml:space="preserve">
-    <value>ファイルのエクスポート...</value>
+    <value>設定ファイルのエクスポート...</value>
   </data>
   <data name="FlashDevelop.Title.SyntaxEditDialog" xml:space="preserve">
     <value>シンタックスカラーリングの編集</value>
@@ -2829,7 +2829,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>全ての言語の設定を規定値に戻す場合は[はい]を、設定を保持するには[いいえ]を選択してください。</value>
   </data>
   <data name="FlashDevelop.Label.RevertFiles" xml:space="preserve">
-    <value>ファイルを元に戻す...</value>
+    <value>設定を元に戻す...</value>
   </data>
   <data name="FlashDevelop.Info.ColoringTagsMissing" xml:space="preserve">
     <value>あなたの言語設定ファイルにはおそらくコメントの開始と終了のカラーリングがありません。</value>
