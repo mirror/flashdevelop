@@ -27,6 +27,8 @@ namespace CodeRefactor
         private RefactorMenu refactorMainMenu;
         private Settings settingObject;
         private String settingFilename;
+        private Int32 lastPosition = -1;
+        private ASResult lastResult;
 
         #region Required Properties
 
@@ -197,9 +199,11 @@ namespace CodeRefactor
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document == null || document.SciControl == null || !ASContext.Context.IsFileValid) return null;
             Int32 position = document.SciControl.WordEndPosition(document.SciControl.CurrentPos, true);
+            if (lastPosition == position) return lastResult;
+            lastPosition = position;
             ASResult result = ASComplete.GetExpressionType(document.SciControl, position);
-            if (result == null && result.IsNull()) return null;
-            else return result;
+            lastResult = result == null && result.IsNull() ? null : result;
+            return lastResult;
         }
 
         /// <summary>
@@ -209,8 +213,9 @@ namespace CodeRefactor
         {
             try
             {
-                ASResult result = GetResultFromCurrentPosition();
-                if (this.GetLanguageIsValid() && result != null && result.Member != null)
+                Boolean isValid = this.GetLanguageIsValid();
+                ASResult result = isValid ? GetResultFromCurrentPosition() : null;
+                if (result != null && result.Member != null)
                 {
                     Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
                     Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);

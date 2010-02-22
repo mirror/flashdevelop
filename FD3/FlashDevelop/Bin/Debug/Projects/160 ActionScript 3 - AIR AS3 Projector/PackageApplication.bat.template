@@ -9,7 +9,7 @@ set PATH=%PATH%;C:\flex_sdk_3\bin
 
 :: Signature (see 'CreateCertificate.bat')
 set CERTIFICATE=SelfSigned.pfx
-set SIGNING_OPTIONS=-storetype pkcs12 -keystore %CERTIFICATE%
+set SIGNING_OPTIONS=-storetype pkcs12 -keystore %CERTIFICATE% -tsa none 
 if not exist %CERTIFICATE% goto certificate
 
 :: Output
