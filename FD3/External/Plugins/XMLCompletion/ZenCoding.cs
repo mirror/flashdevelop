@@ -41,6 +41,7 @@ namespace XMLCompletion
         public Hashtable snippets = new Hashtable();
         public Hashtable abbreviations = new Hashtable();
         public string extends; // set using reflexion
+        public string filters;
         public ZenElementTypes element_types;
     }
 
