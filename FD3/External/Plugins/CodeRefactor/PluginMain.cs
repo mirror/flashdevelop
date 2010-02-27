@@ -27,7 +27,7 @@ namespace CodeRefactor
         private RefactorMenu refactorMainMenu;
         private Settings settingObject;
         private String settingFilename;
-        private Int32 lastPosition = -1;
+        private String lastPosition = null;
         private ASResult lastResult;
 
         #region Required Properties
@@ -111,6 +111,11 @@ namespace CodeRefactor
             switch (e.Type)
             {
                 case EventType.UIRefresh:
+                    this.lastPosition = null;
+                    this.UpdateMenuItems();
+                    break;
+
+                case EventType.FileSwitch:
                     this.UpdateMenuItems();
                     break;
 
@@ -137,7 +142,7 @@ namespace CodeRefactor
         {
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            EventManager.AddEventHandler(this, EventType.SettingChanged | EventType.UIRefresh);
+            EventManager.AddEventHandler(this, EventType.SettingChanged | EventType.UIRefresh | EventType.FileSwitch);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
@@ -199,8 +204,8 @@ namespace CodeRefactor
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document == null || document.SciControl == null || !ASContext.Context.IsFileValid) return null;
             Int32 position = document.SciControl.WordEndPosition(document.SciControl.CurrentPos, true);
-            if (lastPosition == position) return lastResult;
-            lastPosition = position;
+            if (lastPosition == document.FileName + ':' + position) return lastResult;
+            lastPosition = document.FileName + ':' + position;
             ASResult result = ASComplete.GetExpressionType(document.SciControl, position);
             lastResult = result == null && result.IsNull() ? null : result;
             return lastResult;
