@@ -3283,4 +3283,8 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
     <value>"import の整理"のショートカットです。</value>
   </data>
+  <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
+    <value>B&amp;uild All Projects</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
 </root>

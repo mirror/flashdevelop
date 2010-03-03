@@ -71,6 +71,7 @@ namespace ProjectManager
         private PluginUI pluginUI;
         private Image pluginImage;
         private Project project;
+        private Boolean buildingAll;
         private Queue<String> buildQueue;
         private Timer buildTimer;
 
@@ -223,6 +224,7 @@ namespace ProjectManager
             pluginUI.Menu.ShellMenu.Click += delegate { TreeShowShellMenu(); };
             pluginUI.Menu.BuildProjectFile.Click += delegate { BackgroundBuild(); };
             pluginUI.Menu.BuildProjectFiles.Click += delegate { BackgroundBuild(); };
+            pluginUI.Menu.BuildAllProjects.Click += delegate { FullBuild(); };
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
 
             Tree.MovePath += fileActions.Move;
@@ -236,6 +238,7 @@ namespace ProjectManager
             buildTimer = new Timer();
             buildTimer.Interval = 500;
             buildTimer.Tick += new EventHandler(OnBuildTimerTick);
+            buildingAll = false;
         }
 		
 		public void Dispose()
@@ -469,7 +472,7 @@ namespace ProjectManager
             project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
 
             menus.RecentProjects.AddOpenedProject(project.ProjectPath);
-            menus.ConfigurationSelector.Enabled = true;
+            menus.ConfigurationSelector.Enabled = !project.NoOutput;
             menus.ProjectMenu.ProjectItemsEnabled = true;
             menus.TestMovie.Enabled = true;
             menus.BuildProject.Enabled = true;
@@ -700,6 +703,12 @@ namespace ProjectManager
         {
             BroadcastBuildComplete();
             if (buildQueue.Count > 0) ProcessBuildQueue();
+            else if (this.buildingAll)
+            {
+                this.buildingAll = false;
+                this.buildTimer.Tag = "buildAll";
+                this.buildTimer.Start();
+            }
             else if (runOutput)
             {
                 OpenSwf(project.OutputPathAbsolute);
@@ -709,6 +718,7 @@ namespace ProjectManager
         private void BuildFailed(bool runOutput)
         {
             buildQueue.Clear();
+            this.buildingAll = false;
             BroadcastBuildFailed();
         }
 
@@ -998,6 +1008,19 @@ namespace ProjectManager
             scm.ShowContextMenu(selectedPathsAndFiles.ToArray(), location);
         }
 
+        private void FullBuild()
+        {
+            this.buildingAll = true;
+            foreach (GenericNode node in Tree.SelectedNode.Nodes)
+            {
+                if (IsBuildable(node.BackingPath) && !buildQueue.Contains(node.BackingPath))
+                {
+                    buildQueue.Enqueue(node.BackingPath);
+                }
+            }
+            ProcessBuildQueue();
+        }
+
         private void BackgroundBuild()
         {
             foreach (String path in Tree.SelectedPaths)
@@ -1021,8 +1044,17 @@ namespace ProjectManager
         void OnBuildTimerTick(Object sender, EventArgs e)
         {
             buildTimer.Stop();
-            Project project = ProjectLoader.Load(buildQueue.Dequeue());
-            this.buildActions.Build(project, false, true);
+            if (buildTimer.Tag == null)
+            {
+                Project project = ProjectLoader.Load(buildQueue.Dequeue());
+                Boolean debugging = this.buildingAll ? !this.project.TraceEnabled : !project.TraceEnabled;
+                this.buildActions.Build(project, false, debugging);
+            } 
+            else
+            {
+                this.buildTimer.Tag = null;
+                this.BuildProject();
+            }
         }
 
         private bool IsBuildable(String path)

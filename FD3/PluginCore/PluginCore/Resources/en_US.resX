@@ -3285,4 +3285,8 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
     <value>Shortcut of the truncate imports menu item.</value>
   </data>
+  <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
+    <value>B&amp;uild All Projects</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
 </root>

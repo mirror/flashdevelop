@@ -48,6 +48,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem CloseProject = new ToolStripMenuItem(TextHelper.GetString("Label.CloseProject"));
         public ToolStripMenuItem Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"), Icons.Options.Img);
         public ToolStripMenuItem ShellMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"));
+        public ToolStripMenuItem BuildAllProjects = new ToolStripMenuItem(TextHelper.GetString("Label.BuildAllProjects"));
         public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
         public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"));
         public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"));
@@ -259,6 +260,7 @@ namespace ProjectManager.Controls.TreeView
             bool showHidden = project.ShowHiddenPaths;
             menu.Add(TestMovie, 0);
             menu.Add(BuildProject, 0);
+            if (HasSubProjects()) menu.Add(BuildAllProjects, 0);
             menu.Add(CloseProject, 0);
             menu.Add(AddMenu, 1);
             menu.Add(Browse, 1);
@@ -444,6 +446,15 @@ namespace ProjectManager.Controls.TreeView
                 if (file.StartsWith(path)) return false;
             }
             return true;
+        }
+
+        private bool HasSubProjects()
+        {
+            foreach (GenericNode node in projectTree.SelectedNode.Nodes)
+            {
+                if (IsBuildable(node.BackingPath)) return true;
+            }
+            return false;
         }
 
         #endregion
