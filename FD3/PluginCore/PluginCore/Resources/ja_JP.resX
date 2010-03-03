@@ -127,7 +127,7 @@
     <value>シンタックスチェックのための MTASC コンパイラ設定です。</value>
   </data>
   <data name="AS2Context.Description.MtascPath" xml:space="preserve">
-    <value>MTASC コンパイラへのパスです。f</value>
+    <value>MTASC コンパイラへのパスです。</value>
   </data>
   <data name="AS2Context.Description.UseMtascIntrinsic" xml:space="preserve">
     <value>Adobe Flash Professional の組み込み関数の代わりに MTASC コンパイラ固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
@@ -443,7 +443,7 @@
     <value>実行(&amp;E)</value>
   </data>
   <data name="FileExplorer.Label.SynchronizeView" xml:space="preserve">
-    <value>プロジェクトとシンクロ(&amp;S)</value>
+    <value>プロジェクトにシンクロ(&amp;S)</value>
   </data>
   <data name="FileExplorer.Label.TrustHere" xml:space="preserve">
     <value>信頼するパスに追加(&amp;T)</value>
@@ -952,7 +952,7 @@
     <value>続ける(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.ConvertTextTo" xml:space="preserve">
-    <value>テキストに変換</value>
+    <value>変換（&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.Copy" xml:space="preserve">
     <value>コピー(&amp;C)</value>
@@ -1864,7 +1864,7 @@
     <value>ブラウズ(&amp;B)...</value>
   </data>
   <data name="ProjectManager.Label.BuildProject" xml:space="preserve">
-    <value>プロジェクトのビルド(&amp;B)</value>
+    <value>プロジェクトをビルド(&amp;B)</value>
   </data>
   <data name="ProjectManager.Label.Cancel" xml:space="preserve">
     <value>キャンセル</value>
@@ -3001,7 +3001,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>検索...</value>
   </data>
   <data name="ASCompletion.Info.SWCConversionException" xml:space="preserve">
-    <value>SWC変換の例外です。</value>
+    <value>SWC 変換の例外です。</value>
   </data>
   <data name="XMLCompletion.Info.Attribute" xml:space="preserve">
     <value>属性</value>
@@ -3261,7 +3261,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Label.SaveBOM" xml:space="preserve">
-    <value>BOMを保存(&amp;S)</value>
+    <value>BOM付きで保存(&amp;S)</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
@@ -3284,7 +3284,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>"import の整理"のショートカットです。</value>
   </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
-    <value>B&amp;uild All Projects</value>
+    <value>すべてのプロジェクトをビルド(&amp;B)</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>
