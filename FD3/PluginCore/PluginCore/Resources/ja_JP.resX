@@ -3288,7 +3288,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
-    <value>Test All Projects</value>
+    <value>すべてのプロジェクトをテスト(&amp;T)</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>
