@@ -3286,7 +3286,11 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Shortcut of the truncate imports menu item.</value>
   </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
-    <value>B&amp;uild All Projects</value>
+    <value>Build All Projects</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
+  <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
+    <value>Test All Projects</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>

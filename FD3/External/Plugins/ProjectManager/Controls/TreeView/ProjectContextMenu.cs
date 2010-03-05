@@ -48,6 +48,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem CloseProject = new ToolStripMenuItem(TextHelper.GetString("Label.CloseProject"));
         public ToolStripMenuItem Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"), Icons.Options.Img);
         public ToolStripMenuItem ShellMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"));
+        public ToolStripMenuItem TestAllProjects = new ToolStripMenuItem(TextHelper.GetString("Label.TestAllProjects"));
         public ToolStripMenuItem BuildAllProjects = new ToolStripMenuItem(TextHelper.GetString("Label.BuildAllProjects"));
         public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
         public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"));
@@ -260,6 +261,7 @@ namespace ProjectManager.Controls.TreeView
             bool showHidden = project.ShowHiddenPaths;
             menu.Add(TestMovie, 0);
             menu.Add(BuildProject, 0);
+            if (HasSubProjects()) menu.Add(TestAllProjects, 0);
             if (HasSubProjects()) menu.Add(BuildAllProjects, 0);
             menu.Add(CloseProject, 0);
             menu.Add(AddMenu, 1);

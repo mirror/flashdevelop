@@ -71,6 +71,7 @@ namespace ProjectManager
         private PluginUI pluginUI;
         private Image pluginImage;
         private Project project;
+        private Boolean runOutput;
         private Boolean buildingAll;
         private Queue<String> buildQueue;
         private Timer buildTimer;
@@ -225,6 +226,7 @@ namespace ProjectManager
             pluginUI.Menu.BuildProjectFile.Click += delegate { BackgroundBuild(); };
             pluginUI.Menu.BuildProjectFiles.Click += delegate { BackgroundBuild(); };
             pluginUI.Menu.BuildAllProjects.Click += delegate { FullBuild(); };
+            pluginUI.Menu.TestAllProjects.Click += delegate { TestBuild(); };
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
 
             Tree.MovePath += fileActions.Move;
@@ -239,6 +241,7 @@ namespace ProjectManager
             buildTimer.Interval = 500;
             buildTimer.Tick += new EventHandler(OnBuildTimerTick);
             buildingAll = false;
+            runOutput = false;
         }
 		
 		public void Dispose()
@@ -718,6 +721,7 @@ namespace ProjectManager
         private void BuildFailed(bool runOutput)
         {
             buildQueue.Clear();
+            this.runOutput = false;
             this.buildingAll = false;
             BroadcastBuildFailed();
         }
@@ -1008,6 +1012,13 @@ namespace ProjectManager
             scm.ShowContextMenu(selectedPathsAndFiles.ToArray(), location);
         }
 
+
+        private void TestBuild()
+        {
+            this.runOutput = true;
+            this.FullBuild();
+        }
+
         private void FullBuild()
         {
             this.buildingAll = true;
@@ -1053,7 +1064,9 @@ namespace ProjectManager
             else
             {
                 this.buildTimer.Tag = null;
-                this.BuildProject();
+                if (this.runOutput) this.TestMovie();
+                else this.BuildProject();
+                this.runOutput = false;
             }
         }
 
