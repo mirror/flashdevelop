@@ -87,7 +87,7 @@ namespace XMLCompletion
         /**
         * Extract the tag name
         */
-		private static readonly Regex tagName = new Regex("<[/]?(?<name>[a-z][-a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex tagName = new Regex("<[/]?(?<name>[a-z][-a-z0-9_:]*)[\\s/>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		
 		/**
         * Check if the text ends with a closing tag
@@ -399,7 +399,7 @@ namespace XMLCompletion
                     if (PluginSettings.CloseTags)
 					{
 						ctag = GetXMLContextTag(sci, position);
-						if (ctag.Name != null && !ctag.Tag.EndsWith("/>"))
+						if (ctag.Name != null && !ctag.Tag.TrimEnd().EndsWith("/>"))
 						{
                             // Allow another plugin to handle this
                             de = new DataEvent(EventType.Command, "XMLCompletion.CloseElement", ctag);
