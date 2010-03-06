@@ -258,7 +258,8 @@ namespace XMLCompletion
         /// </summary> 
 		public static void OnChar(ScintillaControl sci, Int32 value)
 		{
-            if (cType == XMLType.Invalid) return;
+            if (cType == XMLType.Invalid || (sci.ConfigurationLanguage != "xml" && sci.ConfigurationLanguage != "html")) 
+                return;
 			XMLContextTag ctag;
 			Int32 position = sci.CurrentPos;
 			Char c = ' ';
@@ -687,6 +688,11 @@ namespace XMLCompletion
                 if (c == '>')
                 {
                     xtag.Position = position;
+                    return xtag;
+                }
+                else if (c == '{' && sci.BaseStyleAt(position) != 6 /*XML attribute value*/)
+                {
+                    // code probably not inside a tag: most likely style or script tag without CDATA or comment
                     return xtag;
                 }
 			}
