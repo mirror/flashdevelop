@@ -389,7 +389,9 @@ namespace ASCompletion.Model
                     newFiles[file] = model;
                 }
                 Files = newFiles;
-
+            }
+            lock(Files) // re-lock the new Files dictionnary
+            {
                 // add new files
                 foreach (string path in _toExplore)
                 {
