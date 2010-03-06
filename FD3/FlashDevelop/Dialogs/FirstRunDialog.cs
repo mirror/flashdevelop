@@ -116,6 +116,7 @@ namespace FlashDevelop.Dialogs
             this.LoadCommandsFile();
             this.worker = new BackgroundWorker();
             this.worker.WorkerReportsProgress = true;
+            this.worker.WorkerSupportsCancellation = true;
             this.worker.DoWork += new DoWorkEventHandler(this.ProcessCommands);
             this.worker.ProgressChanged += new ProgressChangedEventHandler(this.ProgressChanged);
             this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.WorkerCompleted);
