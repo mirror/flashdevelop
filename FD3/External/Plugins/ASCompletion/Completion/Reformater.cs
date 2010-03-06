@@ -16,7 +16,8 @@ namespace ASCompletion.Completion
         public string SpacedChars = "";
         public string[] AddSpaceAfter = new string[] {};
         public string Operators = "=+-*/%<>&|^";
-        public bool isPhp = false;
+        public bool IsPhp = false;
+        public string WordCharacters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789_$@";
     }
 
     public class Reformater
@@ -188,7 +189,7 @@ namespace ASCompletion.Completion
                         needSpace = true;
                     else
                     {
-                        string word = GetLastWord(sb);
+                        string word = GetLastWord(sb, options.WordCharacters);
                         if (word.Length > 0)
                         foreach (string token in options.AddSpaceAfter)
                             if (token == word)
@@ -523,11 +524,11 @@ namespace ASCompletion.Completion
             return false;
         }
 
-        private static string GetLastWord(StringBuilder sb)
+        private static string GetLastWord(StringBuilder sb, string wordChars)
         {
             string word = "";
             int i = sb.Length - 1;
-            while (i > 0 && Char.IsLetter(sb[i])) word = sb[i--] + word;
+            while (i > 0 && wordChars.IndexOf(sb[i]) >= 0) word = sb[i--] + word;
             return word;
         }
     }
