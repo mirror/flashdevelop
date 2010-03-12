@@ -25,8 +25,11 @@ namespace ASCompletion.Model
         {
             foreach (PathModel model in pathes.Values)
             {
-                model.watcher.EnableRaisingEvents = false;
-                model.watcher.Dispose();
+                if (model.watcher != null)
+                {
+                    model.watcher.EnableRaisingEvents = false;
+                    model.watcher.Dispose();
+                }
             }
             pathes.Clear();
         }

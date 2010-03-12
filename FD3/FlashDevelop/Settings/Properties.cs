@@ -17,7 +17,6 @@ namespace FlashDevelop.Settings
     public partial class SettingObject : ISettings
     {
         private CodePage defaultCodePage = CodePage.UTF8;
-        private CodePage fallbackCodePage = CodePage.UTF8;
         private ScintillaNet.Enums.EndOfLine eolMode = ScintillaNet.Enums.EndOfLine.CRLF;
         private ScintillaNet.Enums.FoldFlag foldFlags = ScintillaNet.Enums.FoldFlag.LineAfterContracted;
         private ScintillaNet.Enums.SmartIndent smartIndentType = ScintillaNet.Enums.SmartIndent.CPP;
@@ -50,7 +49,7 @@ namespace FlashDevelop.Settings
         private Boolean disableFindOptionSync = false;
         private Boolean disableReplaceFilesConfirm = false;
         private Boolean autoReloadModifiedFiles = false;
-        private Boolean saveUTF8WithoutBOM = true;
+        private Boolean saveUnicodeWithBOM = false;
         private Boolean disableFindTextUpdating = false;
         private Boolean redirectFilesResults = true;
         private Boolean useListViewGrouping = true;

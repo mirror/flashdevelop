@@ -263,7 +263,7 @@ namespace FlashDevelop.Docking
             EventManager.DispatchEvent(Globals.MainForm, te);
             if (!te.Handled)
             {
-                Int32 codepage = FileHelper.GetFileCodepage(this.FileName, true);
+                Int32 codepage = FileHelper.GetFileCodepage(this.FileName);
                 if (codepage == -1) return; // If the files is locked, stop.
                 Encoding encoding = Encoding.GetEncoding(codepage);
                 String contents = FileHelper.ReadFile(this.FileName, encoding);

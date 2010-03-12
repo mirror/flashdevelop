@@ -560,7 +560,7 @@ namespace FlashDevelop
             {
                 codepage = FileHelper.GetFileCodepage(file);
                 if (codepage == -1) return null; // If the file is locked, stop.
-                else if (codepage != Encoding.Default.CodePage) bomDetected = true;
+                else if (FileHelper.ContainsBOM(file)) bomDetected = true;
             }
             else codepage = encoding.CodePage;
             DataEvent de = new DataEvent(EventType.FileDecode, file, null);
@@ -1661,7 +1661,7 @@ namespace FlashDevelop
                 String contents = FileHelper.ReadFile(templatePath);
                 String processed = this.ProcessArgString(contents);
                 ActionPoint actionPoint = SnippetHelper.ProcessActionPoint(processed);
-                FileHelper.WriteFile(newFilePath, actionPoint.Text, encoding);
+                FileHelper.WriteFile(newFilePath, actionPoint.Text, encoding, Globals.Settings.SaveUnicodeWithBOM);
                 if (actionPoint.EntryPosition != -1)
                 {
                     if (this.Documents.Length == 1 && this.Documents[0].IsUntitled)
@@ -1873,7 +1873,7 @@ namespace FlashDevelop
             {
                 String contents = Globals.SciControl.SelText;
                 String file = this.saveFileDialog.FileName;
-                FileHelper.WriteFile(file, contents, Encoding.UTF8, true);
+                FileHelper.WriteFile(file, contents, Encoding.UTF8);
             }
             this.saveFileDialog.InitialDirectory = prevRootPath;
             this.saveFileDialog.Filter = prevFilter;
@@ -1895,7 +1895,7 @@ namespace FlashDevelop
             {
                 String contents = Globals.SciControl.SelText;
                 String file = this.saveFileDialog.FileName;
-                FileHelper.WriteFile(file, contents, Encoding.UTF8, true);
+                FileHelper.WriteFile(file, contents, Encoding.UTF8);
             }
             this.saveFileDialog.InitialDirectory = prevRootPath;
             this.saveFileDialog.Filter = prevFilter;
@@ -2593,7 +2593,7 @@ namespace FlashDevelop
                 if (File.Exists(file))
                 {
                     Encoding to = Globals.SciControl.Encoding;
-                    Int32 codepage = FileHelper.GetFileCodepage(file, true);
+                    Int32 codepage = FileHelper.GetFileCodepage(file);
                     if (codepage == -1) return; // If the file is locked, stop.
                     Encoding from = Encoding.GetEncoding(codepage);
                     String unconverted = FileHelper.ReadFile(file, from);

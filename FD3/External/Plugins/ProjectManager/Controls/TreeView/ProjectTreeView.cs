@@ -351,9 +351,7 @@ namespace ProjectManager.Controls.TreeView
                             nodeMap[path].Refresh(false);
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch { }
             finally { EndUpdate(); }
 		}
 

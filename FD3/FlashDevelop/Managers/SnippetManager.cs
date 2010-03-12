@@ -29,13 +29,13 @@ namespace FlashDevelop.Managers
             String specific = Path.Combine(specificDir, word + ".fds");
             if (File.Exists(specific))
             {
-                Int32 fileEnc = FileHelper.GetFileCodepage(specific, true);
+                Int32 fileEnc = FileHelper.GetFileCodepage(specific);
                 String contents = FileHelper.ReadFile(specific, Encoding.GetEncoding(fileEnc));
                 return DataConverter.ChangeEncoding(contents, fileEnc, current.CodePage);
             }
             else if (File.Exists(global))
             {
-                Int32 fileEnc = FileHelper.GetFileCodepage(global, true);
+                Int32 fileEnc = FileHelper.GetFileCodepage(global);
                 String contents = FileHelper.ReadFile(global, Encoding.GetEncoding(fileEnc));
                 return DataConverter.ChangeEncoding(contents, fileEnc, current.CodePage);
             }

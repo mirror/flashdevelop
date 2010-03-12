@@ -2317,9 +2317,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Info.UseCodeInjection" xml:space="preserve">
     <value>&amp;Enable Code Injection</value>
   </data>
-  <data name="FlashDevelop.Description.FallbackCodePage" xml:space="preserve">
-    <value>The code page detection defaults to this code page if there is no byte order mark (BOM) present in the file.</value>
-  </data>
   <data name="ASCompletion.Description.VerboseFDB" xml:space="preserve">
     <value>Display all output of the Flex debugger.</value>
   </data>
@@ -2656,8 +2653,8 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FileExplorer.Description.SynchronizeToProject" xml:space="preserve">
     <value>Synchronizes the file view with the current project.</value>
   </data>
-  <data name="FlashDevelop.Description.SaveUTF8WithoutBOM" xml:space="preserve">
-    <value>Creates new UTF-8 encoded files without BOM (byte-order mark). To force files without BOM files to be opened as UTF-8, set Fallback Codepage to UTF-8.</value>
+  <data name="FlashDevelop.Description.SaveUnicodeWithBOM" xml:space="preserve">
+    <value>Creates new Unicode encoded files with BOM (byte-order mark).</value>
   </data>
   <data name="FlashDevelop.Label.OpenFilesIn" xml:space="preserve">
     <value>&amp;Open Files In</value>

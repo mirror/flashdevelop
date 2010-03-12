@@ -2315,9 +2315,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Info.UseCodeInjection" xml:space="preserve">
     <value>コードインジェクションを有効(&amp;E)</value>
   </data>
-  <data name="FlashDevelop.Description.FallbackCodePage" xml:space="preserve">
-    <value>ファイルの先頭に BOM が無い場合にデフォルトで検出する文字セットです。</value>
-  </data>
   <data name="ASCompletion.Description.VerboseFDB" xml:space="preserve">
     <value>Flex デバッガのすべての出力を表示します。</value>
   </data>
@@ -2653,9 +2650,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FileExplorer.Description.SynchronizeToProject" xml:space="preserve">
     <value>開いているプロジェクトとファイルビューをシンクロさせます。</value>
-  </data>
-  <data name="FlashDevelop.Description.SaveUTF8WithoutBOM" xml:space="preserve">
-    <value>UTF-8 にエンコードされたファイルを BOM なしで保存します。連続的に行うのであれば、Fallback Codepage を UTF-8 に設定してください。</value>
   </data>
   <data name="FlashDevelop.Label.OpenFilesIn" xml:space="preserve">
     <value>開く(&amp;O)</value>
@@ -3290,5 +3284,8 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
     <value>すべてのプロジェクトをテスト(&amp;T)</value>
     <comment>Added after 3.0.6</comment>
+  </data>
+  <data name="FlashDevelop.Description.SaveUnicodeWithBOM" xml:space="preserve">
+    <value>Creates new Unicode encoded files with BOM (byte-order mark).</value>
   </data>
 </root>

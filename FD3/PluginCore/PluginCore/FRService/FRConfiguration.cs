@@ -146,10 +146,7 @@ namespace PluginCore.FRService
 
                 default:
                     int codepage = FileHelper.GetFileCodepage(file);
-                    bool writeBOM = false;
-                    if (codepage == Encoding.Default.CodePage) codepage = (Int32)PluginBase.Settings.FallbackCodePage;
-                    else writeBOM = true; // keep file BOM
-                    FileHelper.WriteFile(file, src, Encoding.GetEncoding(codepage), writeBOM);
+                    FileHelper.WriteFile(file, src, Encoding.GetEncoding(codepage), PluginBase.Settings.SaveUnicodeWithBOM);
                     break;
             }
         }

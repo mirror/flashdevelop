@@ -252,7 +252,6 @@ namespace PluginCore
         ScintillaNet.Enums.EndOfLine EOLMode { get; set; }
         ScintillaNet.Enums.FoldFlag FoldFlags { get; set; }
         ScintillaNet.Enums.SmartIndent SmartIndentType { get; set; }
-        CodePage FallbackCodePage { get; set; }
         CodePage DefaultCodePage { get; set; }
         Int32 TabWidth { get; set; }
         Int32 IndentSize { get; set; }
@@ -270,7 +269,7 @@ namespace PluginCore
         Boolean EnableAutoHide { get; set; }
         Boolean WrapList { get; set; }
         Boolean DisableSmartMatch { get; set; }
-        Boolean SaveUTF8WithoutBOM { get; set; }
+        Boolean SaveUnicodeWithBOM { get; set; }
         String InsertionTriggers { get; set; }
         
         #endregion

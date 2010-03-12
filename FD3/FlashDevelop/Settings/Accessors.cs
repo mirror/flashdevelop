@@ -593,15 +593,6 @@ namespace FlashDevelop.Settings
         }
 
         [DefaultValue(CodePage.UTF8)]
-        [DisplayName("Fallback CodePage")]
-        [LocalizedDescription("FlashDevelop.Description.FallbackCodePage")]
-        public CodePage FallbackCodePage
-        {
-            get { return this.fallbackCodePage; }
-            set { this.fallbackCodePage = value; }
-        }
-
-        [DefaultValue(CodePage.UTF8)]
         [DisplayName("Default CodePage")]
         [LocalizedDescription("FlashDevelop.Description.DefaultCodePage")]
         public CodePage DefaultCodePage
@@ -610,13 +601,13 @@ namespace FlashDevelop.Settings
             set { this.defaultCodePage = value; }
         }
 
-        [DefaultValue(true)]
-        [DisplayName("Default To UTF-8 Without BOM")]
-        [LocalizedDescription("FlashDevelop.Description.SaveUTF8WithoutBOM")]
-        public Boolean SaveUTF8WithoutBOM
+        [DefaultValue(false)]
+        [DisplayName("Save Unicode With BOM")]
+        [LocalizedDescription("FlashDevelop.Description.SaveUnicodeWithBOM")]
+        public Boolean SaveUnicodeWithBOM
         {
-            get { return this.saveUTF8WithoutBOM; }
-            set { this.saveUTF8WithoutBOM = value; }
+            get { return this.saveUnicodeWithBOM; }
+            set { this.saveUnicodeWithBOM = value; }
         }
 
         #endregion

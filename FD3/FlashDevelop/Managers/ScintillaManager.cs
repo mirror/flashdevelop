@@ -338,13 +338,8 @@ namespace FlashDevelop.Managers
             sci.SetXCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Even), 0);
             sci.CodePage = SelectCodePage(codepage);
             sci.Encoding = Encoding.GetEncoding(codepage);
-            sci.SaveBOM = !Globals.Settings.SaveUTF8WithoutBOM;
-            if (Globals.Settings.FallbackCodePage != CodePage.EightBits) // force encoding
-            {
-                sci.CodePage = SelectCodePage(65001);
-                sci.Encoding = Encoding.GetEncoding(65001);
-            }
-            sci.Text = text; sci.FileName = file;
+            sci.SaveBOM = (sci.CodePage == 65001) && Globals.Settings.SaveUnicodeWithBOM;
+            sci.Text = text; sci.FileName = file; // Set text and save file name
             sci.Modified += new ModifiedHandler(Globals.MainForm.OnScintillaControlModified);
             sci.MarginClick += new MarginClickHandler(Globals.MainForm.OnScintillaControlMarginClick);
             sci.UpdateUI += new UpdateUIHandler(Globals.MainForm.OnScintillaControlUpdateControl);

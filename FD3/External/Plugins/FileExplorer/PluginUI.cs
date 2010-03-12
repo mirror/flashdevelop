@@ -899,7 +899,7 @@ namespace FileExplorer
                 String extension = PluginBase.MainForm.Settings.DefaultFileExtension;
                 String file = Path.Combine(this.selectedPath.Text, filename) + "." + extension;
                 String unique = FileHelper.EnsureUniquePath(file);
-                FileHelper.WriteFile(unique, "", Encoding.GetEncoding(codepage));
+                FileHelper.WriteFile(unique, "", Encoding.GetEncoding(codepage), PluginBase.Settings.SaveUnicodeWithBOM);
                 this.autoSelectItem = Path.GetFileName(unique);
             }
             catch (Exception ex)
