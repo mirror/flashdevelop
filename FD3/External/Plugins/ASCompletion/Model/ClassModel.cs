@@ -447,11 +447,13 @@ namespace ASCompletion.Model
             if (comment == null) return "";
             comment = comment.Trim();
             if (comment.Length == 0) return "";
+            Boolean indent = (PluginCore.PluginBase.Settings.CommentBlockStyle == PluginCore.CommentBlockStyle.Indented);
             if (comment.StartsWith("*") || comment.IndexOf('\n') > 0 || comment.IndexOf('\r') > 0)
             {
                 if (comment.IndexOf('\n') < 0) comment = comment.Replace("\r", "\r\n");
                 else if (comment.IndexOf('\r') < 0) comment = comment.Replace("\n", "\r\n");
-                return tab + "/**\r\n" + tab + " " + comment + "\r\n" + tab + " */\r\n";
+                if (indent) return tab + "/**\r\n" + tab + " " + comment + "\r\n" + tab + " */\r\n";
+                else return tab + "/**\r\n" + tab + comment + "\r\n" + tab + "*/\r\n";
             }
             else return tab + "/// " + comment + "\r\n";
         }
