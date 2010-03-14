@@ -2601,7 +2601,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>メイン設定にあるコーディングスタイル改行設定に従って括弧を自動で再フォーマットします。</value>
   </data>
   <data name="ProjectManager.Description.UseProjectSessions" xml:space="preserve">
-    <value>プロジェクト単位のセッションを利用します。プロジェクトファイルを閉じるときに開いていたファイルを保持し、再度プロジェクトを開いたときに再現します。</value>
+    <value>プロジェクト単位のセッションを使用します。プロジェクトファイルを閉じるときに開いていたファイルを保持し、再度プロジェクトを開いたときに再現します。</value>
   </data>
   <data name="ASCompletion.Description.LastASVersion" xml:space="preserve">
     <value>内部: パッケージ/クラス宣言なしでファイルに適用するために最新の ActionScript バージョンを自動的に保存しました。</value>
@@ -3286,6 +3286,6 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Description.SaveUnicodeWithBOM" xml:space="preserve">
-    <value>Creates new Unicode encoded files with BOM (byte-order mark).</value>
+    <value>Unicode ( UTF-8 )エンコードが指定されたファイルを新規作成するとき、バイトオーダーマーク( BOM )を挿入します。</value>
   </data>
 </root>
