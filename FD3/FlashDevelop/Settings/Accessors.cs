@@ -602,7 +602,7 @@ namespace FlashDevelop.Settings
         }
 
         [DefaultValue(false)]
-        [DisplayName("Save Unicode With BOM")]
+        [DisplayName("Create Unicode With BOM")]
         [LocalizedDescription("FlashDevelop.Description.SaveUnicodeWithBOM")]
         public Boolean SaveUnicodeWithBOM
         {
