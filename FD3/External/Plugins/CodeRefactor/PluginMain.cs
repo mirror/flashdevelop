@@ -158,12 +158,12 @@ namespace CodeRefactor
             this.refactorMainMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorMainMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
             this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
-            this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.RenameClicked);
+            this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             this.refactorContextMenu = new RefactorMenu(this.settingObject);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorContextMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
-            this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.RenameClicked);
+            this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             mainMenu.Items.Insert(4, this.refactorMainMenu);
             this.ApplyIgnoredKeys();
