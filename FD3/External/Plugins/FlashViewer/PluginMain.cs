@@ -164,6 +164,13 @@ namespace FlashViewer
                 String playerPath = Path.Combine(PathHelper.ToolDir, @"flexsdk\runtimes\player\10\win\FlashPlayer.exe");
                 if (File.Exists(playerPath)) this.settingObject.PlayerPath = playerPath;
             }
+            // Try to find player path from: FlexSDK
+            if (!this.settingObject.DisableAutoConfig && this.settingObject.PlayerPath == null || this.settingObject.PlayerPath == String.Empty)
+            {
+                String compiler = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
+                String playerPath = Path.Combine(compiler, @"runtimes\player\10\win\FlashPlayer.exe");
+                if (File.Exists(playerPath)) this.settingObject.PlayerPath = playerPath;
+            }
         }
 
         /// <summary>

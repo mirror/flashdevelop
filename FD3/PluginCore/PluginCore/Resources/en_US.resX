@@ -3290,4 +3290,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Test All Projects</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="FlashViewer.Description.DisableAutoConfig" xml:space="preserve">
+    <value>Disables the auto-configuration feature so that OS level file association can be used.</value>
+    <comment>Added after 3.0.6</comment>
+  </data>
 </root>

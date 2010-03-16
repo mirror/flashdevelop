@@ -14,6 +14,7 @@ namespace FlashViewer
         private static Settings instance;
         private String playerPath = String.Empty;
         private ViewStyle displayStyle = ViewStyle.External;
+        private Boolean disableAutoConfig = false;
 
         public Settings()
         {
@@ -51,6 +52,16 @@ namespace FlashViewer
             set { this.displayStyle = value; }
         }
 
+        /// <summary> 
+        /// Get and sets the disableAutoConfig
+        /// </summary>
+        [DisplayName("Disable Auto-Configure")]
+        [LocalizedDescription("FlashViewer.Description.DisableAutoConfig"), DefaultValue(false)]
+        public Boolean DisableAutoConfig
+        {
+            get { return this.disableAutoConfig; }
+            set { this.disableAutoConfig = value; }
+        }
     }
 
     /// <summary>
