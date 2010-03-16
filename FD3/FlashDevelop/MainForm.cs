@@ -589,10 +589,7 @@ namespace FlashDevelop
                 ButtonManager.AddNewReopenMenuItem(file);
             }
             TabbedDocument document = (TabbedDocument)createdDoc;
-            if (bomDetected) // honor file's BOM presence
-            {
-                document.SciControl.SaveBOM = true;
-            }
+            document.SciControl.SaveBOM = bomDetected;
             document.SciControl.BeginInvoke((MethodInvoker)delegate { FileStateManager.ApplyFileState(document, restorePosition); });
             ButtonManager.UpdateFlaggedButtons();
             return createdDoc;

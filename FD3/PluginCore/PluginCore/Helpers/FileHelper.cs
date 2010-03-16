@@ -188,7 +188,7 @@ namespace PluginCore.Helpers
                 }
                 else fs.Close();
                 Byte[] bytes = File.ReadAllBytes(file);
-                if (ContainsUTF8Bytes(bytes)) return Encoding.UTF8.CodePage;
+                if (!ContainsInvalidUTF8Bytes(bytes)) return Encoding.UTF8.CodePage;
                 else return Encoding.Default.CodePage;
                 
             }
@@ -200,9 +200,9 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
-        /// Checks if the bytes contains UTF-8 bytes
+        /// Checks if the bytes contains invalid UTF-8 bytes
         /// </summary>
-        public static Boolean ContainsUTF8Bytes(Byte[] bytes)
+        public static Boolean ContainsInvalidUTF8Bytes(Byte[] bytes)
         {
             Int32 bits = 0;
             Int32 i = 0, c = 0, b = 0;
@@ -212,24 +212,24 @@ namespace PluginCore.Helpers
                 c = bytes[i];
                 if (c > 128)
                 {
-                    if ((c >= 254)) return false;
+                    if ((c >= 254)) return true;
                     else if (c >= 252) bits = 6;
                     else if (c >= 248) bits = 5;
                     else if (c >= 240) bits = 4;
                     else if (c >= 224) bits = 3;
                     else if (c >= 192) bits = 2;
-                    else return false;
-                    if ((i + bits) > length) return false;
+                    else return true;
+                    if ((i + bits) > length) return true;
                     while (bits > 1)
                     {
                         i++;
                         b = bytes[i];
-                        if (b < 128 || b > 191) return false;
+                        if (b < 128 || b > 191) return true;
                         bits--;
                     }
                 }
             }
-            return true;
+            return false;
         }
 
         /// <summary>
