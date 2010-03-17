@@ -1279,7 +1279,7 @@
     <value>UTF-8(&amp;U)</value>
   </data>
   <data name="FlashDevelop.Label.View" xml:space="preserve">
-    <value>ウインドウ(&amp;W)</value>
+    <value>ビュー(&amp;V)</value>
   </data>
   <data name="FlashDevelop.Label.WebTools" xml:space="preserve">
     <value>ウェブツール(&amp;W)</value>
