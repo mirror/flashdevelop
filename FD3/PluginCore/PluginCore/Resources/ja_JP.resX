@@ -3289,7 +3289,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Unicode ( UTF-8 )エンコードが指定されたファイルを新規作成するとき、バイトオーダーマーク( BOM )を挿入します。</value>
   </data>
   <data name="FlashViewer.Description.DisableAutoConfig" xml:space="preserve">
-    <value>Disables the auto-configuration feature so that OS level file association can be used.</value>
+    <value>Flash Player の自動設定機能を無効にします。OS レベルでのファイル関連付けが使用されます。</value>
     <comment>Added after 3.0.6</comment>
   </data>
 </root>
