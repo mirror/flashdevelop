@@ -75,7 +75,8 @@ namespace AS3Context
         static private string tokenContext;
         static private string checksum;
         static private Dictionary<string, List<string>> allTags;
-        static private Regex reIncPath = new Regex("[\"']([^\"']+)", RegexOptions.Compiled);
+        //static private Regex reIncPath = new Regex("[\"']([^\"']+)", RegexOptions.Compiled);
+        static private Regex reIncPath = new Regex("(\"|')([^\r\n]+)(\\1)", RegexOptions.Compiled);
         static private Dictionary<string, FileModel> includesCache = new Dictionary<string,FileModel>();
 
         /// <summary>
@@ -346,7 +347,7 @@ namespace AS3Context
             Match m = reIncPath.Match(meta.RawParams);
             if (m.Success)
             {
-                string path = m.Groups[1].Value;
+                string path = m.Groups[2].Value;
                 if (path.Length == 0) return null;
 
                 // retrieve from cache
