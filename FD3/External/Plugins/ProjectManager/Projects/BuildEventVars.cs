@@ -50,7 +50,7 @@ namespace ProjectManager.Projects
             infos.Add(new BuildEventInfo("ProjectDir", project.Directory));
             infos.Add(new BuildEventInfo("ProjectPath", project.ProjectPath));
             infos.Add(new BuildEventInfo("TimeStamp", DateTime.Now.ToString("g")));
-            infos.Add(new BuildEventInfo("IsDebug", project.TraceEnabled ? "debug" : "release"));
+            infos.Add(new BuildEventInfo("BuildConfig", project.TraceEnabled ? "debug" : "release"));
             infos.AddRange(additional);
 
             return infos.ToArray();

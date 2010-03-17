@@ -127,6 +127,7 @@ namespace ASCompletion
             outlineTree.NodeClicked += new FixedTreeView.NodeClickedHandler(ClassTreeSelect);
             outlineTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindProcTxtKeyDown);
             outlineTree.AfterSelect += new TreeViewEventHandler(outlineTree_AfterSelect);
+            outlineTree.ShowNodeToolTips = true;
             Controls.Add(outlineTree);
             outlineTree.BringToFront();
         }
