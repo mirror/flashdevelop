@@ -1545,12 +1545,11 @@ namespace ASCompletion.Context
                     string name = item.Name;
                     if (name.IndexOf('<') > 0)
                     {
-                        if (name.IndexOf(".<") > 0)
-                            name = name.Substring(0, name.IndexOf(".<"));
+                        if (name.IndexOf(".<") > 0) name = name.Substring(0, name.IndexOf(".<"));
                         else name = name.Substring(0, name.IndexOf('<'));
                     }
                     if (name.IndexOf('.') > 0) name = name.Substring(name.LastIndexOf('.') + 1);
-                    keywords.Add(name);
+                    if (!keywords.Contains(name)) keywords.Add(name);
                 }
             }
             return string.Join(" ", keywords.ToArray());
