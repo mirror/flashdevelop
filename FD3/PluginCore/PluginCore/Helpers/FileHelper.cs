@@ -31,11 +31,8 @@ namespace PluginCore.Helpers
         /// </summary>
         public static String ReadFile(String file)
         {
-            Encoding encoding;
-            Int32 codepage = GetFileCodepage(file);
-            if (codepage == -1) encoding = Encoding.Default;
-            else encoding = Encoding.GetEncoding(codepage);
-            return ReadFile(file, encoding);
+            EncodingFileInfo info = GetEncodingFileInfo(file);
+            return info.Contents;
         }
 
         /// <summary>
@@ -153,53 +150,6 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
-        /// Reads the file codepage from the file data
-        /// </summary>
-        public static Int32 GetFileCodepage(String file)
-        {
-            try
-            {
-                Byte[] bom = new Byte[4];
-                FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
-                if (fs.CanSeek)
-                {
-                    fs.Read(bom, 0, 4); 
-                    fs.Close();
-                    if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf)
-                    {
-                        return Encoding.UTF8.CodePage;
-                    }
-                    else if (bom[0] == 0xff && bom[1] == 0xfe && bom[2] == 0x00 && bom[3] == 0x00)
-                    {
-                        return Encoding.UTF32.CodePage;
-                    }
-                    else if ((bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) || bom[3] == 0x38 || bom[3] == 0x39 || bom[3] == 0x2b || bom[3] == 2f)
-                    {
-                        return Encoding.UTF7.CodePage;
-                    }
-                    else if (bom[0] == 0xff && bom[1] == 0xfe)
-                    {
-                        return Encoding.Unicode.CodePage;
-                    }
-                    else if (bom[0] == 0xfe && bom[1] == 0xff)
-                    {
-                        return Encoding.BigEndianUnicode.CodePage;
-                    }
-                }
-                else fs.Close();
-                Byte[] bytes = File.ReadAllBytes(file);
-                if (!ContainsInvalidUTF8Bytes(bytes)) return Encoding.UTF8.CodePage;
-                else return Encoding.Default.CodePage;
-                
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-                return -1;
-            }
-        }
-
-        /// <summary>
         /// Checks if the bytes contains invalid UTF-8 bytes
         /// </summary>
         public static Boolean ContainsInvalidUTF8Bytes(Byte[] bytes)
@@ -233,46 +183,87 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Reads the file codepage from the file data
+        /// </summary>
+        public static Int32 GetFileCodepage(String file)
+        {
+            EncodingFileInfo info = GetEncodingFileInfo(file);
+            return info.CodePage;
+        }
+
+        /// <summary>
         /// Checks if the file contains BOM
         /// </summary>
         public static Boolean ContainsBOM(String file)
         {
-            try
-            {
-                Byte[] bom = new Byte[4];
-                FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
-                if (fs.CanSeek)
-                {
-                    fs.Read(bom, 0, 4); 
-                    fs.Close();
-                    if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf)
-                    {
-                        return true;
-                    }
-                    else if (bom[0] == 0xff && bom[1] == 0xfe && bom[2] == 0x00 && bom[3] == 0x00)
-                    {
-                        return true;
-                    }
-                    else if ((bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) || bom[3] == 0x38 || bom[3] == 0x39 || bom[3] == 0x2b || bom[3] == 2f)
-                    {
-                        return true;
-                    }
-                    else if (bom[0] == 0xff && bom[1] == 0xfe)
-                    {
-                        return true;
-                    }
-                    else if (bom[0] == 0xfe && bom[1] == 0xff)
-                    {
-                        return true;
-                    }
-                }
-                else fs.Close();
-                return false;
-                
-            }
-            catch { return false; }
+            EncodingFileInfo info = GetEncodingFileInfo(file);
+            return info.ContainsBOM;
         }
 
+        /// <summary>
+        /// Acquires encoding related info on one read.
+        /// </summary>
+        public static EncodingFileInfo GetEncodingFileInfo(String file)
+        {
+            EncodingFileInfo info = new EncodingFileInfo();
+            try
+            {
+                if (File.Exists(file))
+                {
+                    Byte[] bytes = File.ReadAllBytes(file);
+                    if (bytes[0] == 0xef && bytes[1] == 0xbb && bytes[2] == 0xbf)
+                    {
+                        info.ContainsBOM = true;
+                        info.CodePage = Encoding.UTF8.CodePage;
+                    }
+                    else if (bytes[0] == 0xff && bytes[1] == 0xfe && bytes[2] == 0x00 && bytes[3] == 0x00)
+                    {
+                        info.ContainsBOM = true;
+                        info.CodePage = Encoding.UTF32.CodePage;
+                    }
+                    else if ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) || bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 2f)
+                    {
+                        info.ContainsBOM = true;
+                        info.CodePage = Encoding.UTF7.CodePage;
+                    }
+                    else if (bytes[0] == 0xff && bytes[1] == 0xfe)
+                    {
+                        info.ContainsBOM = true;
+                        info.CodePage = Encoding.Unicode.CodePage;
+                    }
+                    else if (bytes[0] == 0xfe && bytes[1] == 0xff)
+                    {
+                        info.ContainsBOM = true;
+                        info.CodePage = Encoding.BigEndianUnicode.CodePage;
+                    }
+                    else
+                    {
+                        if (!ContainsInvalidUTF8Bytes(bytes)) info.CodePage = Encoding.UTF8.CodePage;
+                        else info.CodePage = Encoding.Default.CodePage;
+                    }
+                    Encoding encoding = Encoding.GetEncoding(info.CodePage);
+                    info.Contents = encoding.GetString(bytes);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Reset file info...
+                info = new EncodingFileInfo();
+                ErrorManager.ShowError(ex);
+            }
+            return info;
+        }
+
+    }
+
+    /// <summary>
+    /// Container for encoding file info
+    /// </summary>
+    public class EncodingFileInfo
+    {
+        public Int32 CodePage = -1;
+        public String Contents = String.Empty;
+        public Boolean ContainsBOM = false;
     }
 
 }

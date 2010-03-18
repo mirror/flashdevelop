@@ -524,7 +524,8 @@ namespace FlashDevelop
         /// </summary>
         public DockContent OpenEditableDocument(String file, Encoding encoding, Boolean restorePosition)
         {
-            Int32 codepage; DockContent createdDoc;
+            DockContent createdDoc;
+            EncodingFileInfo info = new EncodingFileInfo();
             TextEvent te = new TextEvent(EventType.FileOpening, file);
             EventManager.DispatchEvent(this, te);
             if (te.Handled)
@@ -554,22 +555,23 @@ namespace FlashDevelop
                 }
             }
             catch {}
-            String text = String.Empty;
-            Boolean bomDetected = false;
             if (encoding == null)
             {
-                codepage = FileHelper.GetFileCodepage(file);
-                if (codepage == -1) return null; // If the file is locked, stop.
-                else if (FileHelper.ContainsBOM(file)) bomDetected = true;
+                info = FileHelper.GetEncodingFileInfo(file);
+                if (info.CodePage == -1) return null; // If the file is locked, stop.
             }
-            else codepage = encoding.CodePage;
-            DataEvent de = new DataEvent(EventType.FileDecode, file, null);
-            EventManager.DispatchEvent(this, de); // Lets ask if a plugin wants to decode the data..
-            if (!de.Handled) text = FileHelper.ReadFile(file, Encoding.GetEncoding(codepage));
             else
             {
-                text = de.Data as String;
-                codepage = Encoding.UTF8.CodePage; // assume plugin always return UTF8
+                info = FileHelper.GetEncodingFileInfo(file);
+                info.Contents = FileHelper.ReadFile(file, encoding);
+                info.CodePage = encoding.CodePage;
+            }
+            DataEvent de = new DataEvent(EventType.FileDecode, file, null);
+            EventManager.DispatchEvent(this, de); // Lets ask if a plugin wants to decode the data..
+            if (de.Handled)
+            {
+                info.Contents = de.Data as String;
+                info.CodePage = Encoding.UTF8.CodePage; // assume plugin always return UTF8
             }
             try
             {
@@ -578,18 +580,18 @@ namespace FlashDevelop
                     this.closingForOpenFile = true;
                     this.CurrentDocument.Close();
                     this.closingForOpenFile = false;
-                    createdDoc = this.CreateEditableDocument(file, text, codepage);
+                    createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
                 }
-                else createdDoc = this.CreateEditableDocument(file, text, codepage);
+                else createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
                 ButtonManager.AddNewReopenMenuItem(file);
             }
             catch
             {
-                createdDoc = this.CreateEditableDocument(file, text, codepage);
+                createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
                 ButtonManager.AddNewReopenMenuItem(file);
             }
             TabbedDocument document = (TabbedDocument)createdDoc;
-            document.SciControl.SaveBOM = bomDetected;
+            document.SciControl.SaveBOM = info.ContainsBOM;
             document.SciControl.BeginInvoke((MethodInvoker)delegate { FileStateManager.ApplyFileState(document, restorePosition); });
             ButtonManager.UpdateFlaggedButtons();
             return createdDoc;
@@ -2590,11 +2592,9 @@ namespace FlashDevelop
                 if (File.Exists(file))
                 {
                     Encoding to = Globals.SciControl.Encoding;
-                    Int32 codepage = FileHelper.GetFileCodepage(file);
-                    if (codepage == -1) return; // If the file is locked, stop.
-                    Encoding from = Encoding.GetEncoding(codepage);
-                    String unconverted = FileHelper.ReadFile(file, from);
-                    String contents = DataConverter.ChangeEncoding(unconverted, from.CodePage, to.CodePage);
+                    EncodingFileInfo info = FileHelper.GetEncodingFileInfo(file);
+                    if (info.CodePage == -1) return; // If the file is locked, stop.
+                    String contents = DataConverter.ChangeEncoding(info.Contents, info.CodePage, to.CodePage);
                     Globals.SciControl.ReplaceSel(contents);
                 }
             }

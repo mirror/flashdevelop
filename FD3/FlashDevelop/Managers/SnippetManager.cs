@@ -29,15 +29,13 @@ namespace FlashDevelop.Managers
             String specific = Path.Combine(specificDir, word + ".fds");
             if (File.Exists(specific))
             {
-                Int32 fileEnc = FileHelper.GetFileCodepage(specific);
-                String contents = FileHelper.ReadFile(specific, Encoding.GetEncoding(fileEnc));
-                return DataConverter.ChangeEncoding(contents, fileEnc, current.CodePage);
+                EncodingFileInfo info = FileHelper.GetEncodingFileInfo(specific);
+                return DataConverter.ChangeEncoding(info.Contents, info.CodePage, current.CodePage);
             }
             else if (File.Exists(global))
             {
-                Int32 fileEnc = FileHelper.GetFileCodepage(global);
-                String contents = FileHelper.ReadFile(global, Encoding.GetEncoding(fileEnc));
-                return DataConverter.ChangeEncoding(contents, fileEnc, current.CodePage);
+                EncodingFileInfo info = FileHelper.GetEncodingFileInfo(global);
+                return DataConverter.ChangeEncoding(info.Contents, info.CodePage, current.CodePage);
             }
             else return null;
         }
@@ -49,7 +47,6 @@ namespace FlashDevelop.Managers
         {
             ScintillaControl sci = Globals.SciControl;
             if (sci == null) return false;
-
             Boolean canShowList = false; 
             String snippet = null;
             if (word == null)
@@ -61,7 +58,6 @@ namespace FlashDevelop.Managers
             {
                 snippet = GetSnippet(word, sci.ConfigurationLanguage, sci.Encoding);
             }
-
             // let plugins handle the snippet
             Hashtable data = new Hashtable();
             data["word"] = word;

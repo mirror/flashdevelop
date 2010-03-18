@@ -145,8 +145,8 @@ namespace PluginCore.FRService
                     break;
 
                 default:
-                    int codepage = FileHelper.GetFileCodepage(file);
-                    FileHelper.WriteFile(file, src, Encoding.GetEncoding(codepage), PluginBase.Settings.SaveUnicodeWithBOM);
+                    EncodingFileInfo info = FileHelper.GetEncodingFileInfo(file);
+                    FileHelper.WriteFile(file, src, Encoding.GetEncoding(info.CodePage), info.ContainsBOM);
                     break;
             }
         }

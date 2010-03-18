@@ -450,13 +450,10 @@ namespace TaskListPanel
         private void ParseFile(String path)
         {
             if (!File.Exists(path)) return;
-            Hashtable itemTag;
-            ListViewItem item;
-            String text = String.Empty;
-            Int32 codepage = FileHelper.GetFileCodepage(path);
-            if (codepage == -1) return; // If the file is locked, stop.
-            text = FileHelper.ReadFile(path, Encoding.GetEncoding(codepage));
-            MatchCollection matches = this.todoParser.Matches(text);
+            Hashtable itemTag; ListViewItem item;
+            EncodingFileInfo info = FileHelper.GetEncodingFileInfo(path);
+            if (info.CodePage == -1) return; // If the file is locked, stop.
+            MatchCollection matches = this.todoParser.Matches(info.Contents);
             this.RemoveItemsByPath(path);
             if (matches.Count > 0)
             {
