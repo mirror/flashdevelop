@@ -155,7 +155,7 @@ namespace ASClassWizard.Wizards
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.browserView.SelectedNode = null;
-            this.DialogResult = DialogResult.OK;
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 

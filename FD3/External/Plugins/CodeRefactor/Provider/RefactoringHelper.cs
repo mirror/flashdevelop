@@ -183,8 +183,8 @@ namespace CodeRefactor.Provider
             }
             String originalFile = Sci.FileName;
             // get type at match position
-            ASResult declaration = DeclarationLookupResult(Sci, match.Index + match.Length);
-            return (declaration.inFile != null && originalFile == declaration.inFile.FileName) && (Sci.CurrentPos == (match.Index + match.Length));
+            ASResult declaration = DeclarationLookupResult(Sci, Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value));
+            return (declaration.inFile != null && originalFile == declaration.inFile.FileName) && (Sci.CurrentPos == (Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value)));
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace CodeRefactor.Provider
                 return false;
             }
             // get type at match position
-            ASResult result = DeclarationLookupResult(Sci, match.Index + match.Length);
+            ASResult result = DeclarationLookupResult(Sci, Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value));
             if (associatedDocumentHelper != null)
             {
                 // because the declaration lookup opens a document, we should register it with the document helper to be closed later
@@ -242,9 +242,8 @@ namespace CodeRefactor.Provider
                 }
             }
             // sets the FindInFiles settings to the project root, *.as files, and recursive
-            // TODO: If we force it to be *.as here, does that mess this up for other languages?  Could we safely do *.*?
             String path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-            String mask = "*.as";
+            String mask = "*.as;*.hx";
             Boolean recursive = true;
             // but if it's only the current file, let's just search that!
             if (currentFileOnly)
