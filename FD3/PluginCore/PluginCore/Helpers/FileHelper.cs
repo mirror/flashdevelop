@@ -205,6 +205,7 @@ namespace PluginCore.Helpers
         /// </summary>
         public static EncodingFileInfo GetEncodingFileInfo(String file)
         {
+            Int32 startIndex = 0;
             EncodingFileInfo info = new EncodingFileInfo();
             try
             {
@@ -213,26 +214,31 @@ namespace PluginCore.Helpers
                     Byte[] bytes = File.ReadAllBytes(file);
                     if (bytes[0] == 0xef && bytes[1] == 0xbb && bytes[2] == 0xbf)
                     {
+                        startIndex = 3;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF8.CodePage;
                     }
                     else if (bytes[0] == 0xff && bytes[1] == 0xfe && bytes[2] == 0x00 && bytes[3] == 0x00)
                     {
+                        startIndex = 4;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF32.CodePage;
                     }
                     else if ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) || bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 2f)
                     {
+                        startIndex = 4;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF7.CodePage;
                     }
                     else if (bytes[0] == 0xff && bytes[1] == 0xfe)
                     {
+                        startIndex = 2;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.Unicode.CodePage;
                     }
                     else if (bytes[0] == 0xfe && bytes[1] == 0xff)
                     {
+                        startIndex = 2;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.BigEndianUnicode.CodePage;
                     }
@@ -241,8 +247,9 @@ namespace PluginCore.Helpers
                         if (!ContainsInvalidUTF8Bytes(bytes)) info.CodePage = Encoding.UTF8.CodePage;
                         else info.CodePage = Encoding.Default.CodePage;
                     }
+                    Int32 byteLength = bytes.Length - startIndex;
                     Encoding encoding = Encoding.GetEncoding(info.CodePage);
-                    info.Contents = encoding.GetString(bytes);
+                    info.Contents = encoding.GetString(bytes, startIndex, byteLength);
                 }
             }
             catch (Exception ex)
