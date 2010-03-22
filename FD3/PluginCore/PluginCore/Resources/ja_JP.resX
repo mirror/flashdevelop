@@ -1048,13 +1048,13 @@
     <value>総合ツール(&amp;G)</value>
   </data>
   <data name="FlashDevelop.Label.Go" xml:space="preserve">
-    <value>ジャンプ</value>
+    <value>移動</value>
   </data>
   <data name="FlashDevelop.Label.GotoMatchingBrace" xml:space="preserve">
-    <value>対応する括弧へジャンプ(&amp;M)</value>
+    <value>対応する括弧へ移動(&amp;M)</value>
   </data>
   <data name="FlashDevelop.Label.GotoPositionOrLine" xml:space="preserve">
-    <value>指定行へジャンプ(&amp;C)...</value>
+    <value>指定行へ移動(&amp;C)...</value>
   </data>
   <data name="FlashDevelop.Label.GUID" xml:space="preserve">
     <value>GUID(&amp;G)</value>
@@ -1315,7 +1315,7 @@
     <value>フォルダを指定して検索と置換</value>
   </data>
   <data name="FlashDevelop.Title.GoToDialog" xml:space="preserve">
-    <value>指定行へのジャンプ</value>
+    <value>指定行へ移動</value>
   </data>
   <data name="FlashDevelop.Title.InfoDialog" xml:space="preserve">
     <value>情報</value>
@@ -2278,16 +2278,16 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>"プロジェクトのテスト"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Description.NextError" xml:space="preserve">
-    <value>"次の結果にジャンプ"のショートカットです。</value>
+    <value>"次のエントリに移動"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Description.PreviousError" xml:space="preserve">
-    <value>"前の結果にジャンプ"のショートカットです。</value>
+    <value>"前のエントリに移動"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Label.NextEntry" xml:space="preserve">
-    <value>次のエントリ(&amp;N)</value>
+    <value>次のエントリに移動(&amp;N)</value>
   </data>
   <data name="ResultsPanel.Label.PreviousEntry" xml:space="preserve">
-    <value>前のエントリ(&amp;P)</value>
+    <value>前のエントリに移動(&amp;P)</value>
   </data>
   <data name="ProjectManager.Info.AddToLibrary" xml:space="preserve">
     <value>ライブラリに追加</value>
