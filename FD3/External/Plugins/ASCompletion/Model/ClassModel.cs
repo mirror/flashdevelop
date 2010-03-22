@@ -265,8 +265,9 @@ namespace ASCompletion.Model
             foreach (MemberModel var in Members)
                 if ((var.Flags & FlagType.Variable) > 0)
                 {
-                    if (count == 0) sb.Append(nl);
-                    sb.Append(CommentDeclaration(var.Comments, tab));
+                    String comment = CommentDeclaration(var.Comments, tab);
+                    if (count == 0 || comment != "") sb.Append(nl);
+                    sb.Append(comment);
                     sb.Append(tab).Append(MemberDeclaration(var)).Append(semi).Append(nl);
                     count++;
                 }
