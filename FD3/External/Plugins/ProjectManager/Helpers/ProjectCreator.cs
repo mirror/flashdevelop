@@ -92,6 +92,7 @@ namespace ProjectManager.Helpers
         public static string FindProjectTemplate(string templateDirectory)
         {
             string path = "";
+            if (!projectTypesSet) SetInitialProjectHash();
             foreach (string key in projectTypes.Keys)
             {
                 path = Path.Combine(templateDirectory, key);
@@ -233,8 +234,7 @@ namespace ProjectManager.Helpers
         public static Type GetProjectType(string key)
         {
             if (!projectTypesSet) SetInitialProjectHash();
-            if (projectTypes.ContainsKey(key))
-                return (Type)projectTypes[key];
+            if (projectTypes.ContainsKey(key)) return (Type)projectTypes[key];
             return null;
         }
 
@@ -246,7 +246,6 @@ namespace ProjectManager.Helpers
         public static string GetProjectFilters()
         {
             string filters = "FlashDevelop Projects (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties";
-            
             string desc = "|Custom Projects ";
             string ext;
             string parens = "(";
