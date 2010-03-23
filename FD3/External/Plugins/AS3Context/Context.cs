@@ -172,6 +172,8 @@ namespace AS3Context
                                 AddPath(aircp);
                                 String airSources = Path.Combine(compiler, @"frameworks\projects\airframework\src");
                                 if (Directory.Exists(airSources)) AddPath(airSources);
+                                String airSparkSources = Path.Combine(compiler, @"frameworks\projects\airspark\src");
+                                if (Directory.Exists(airSparkSources)) AddPath(airSparkSources);
                             }
                             if (flashVersion > 10 && Directory.Exists(fp101cp)) AddPath(fp101cp);
                             if (flashVersion > 9) AddPath(fp10cp);
@@ -203,6 +205,14 @@ namespace AS3Context
                     {
                         String sparkSources = Path.Combine(compiler, @"frameworks\projects\spark\src");
                         if (Directory.Exists(sparkSources)) AddPath(sparkSources);
+                        String sparkSkins = Path.Combine(compiler, @"frameworks\projects\sparkskins\src");
+                        if (Directory.Exists(sparkSkins)) AddPath(sparkSkins);
+                        String tlSources = Path.Combine(compiler, @"frameworks\projects\textLayout\src");
+                        if (Directory.Exists(tlSources)) AddPath(tlSources);
+                        String dvSources = Path.Combine(compiler, @"frameworks\projects\datavisualization\src");
+                        if (Directory.Exists(dvSources)) AddPath(dvSources);
+                        String osfmSources = Path.Combine(compiler, @"frameworks\projects\osmf\src");
+                        if (Directory.Exists(osfmSources)) AddPath(osfmSources);
                     }
                     AddPath(cpath.Trim());
                 }

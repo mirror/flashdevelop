@@ -146,9 +146,9 @@ namespace AS3Context
 
         #region AS3 specific members
 
-        const int DEFAULT_FLASHVERSION = 9;
+        const int DEFAULT_FLASHVERSION = 10;
 
-        private int flashVersion = 9;
+        private int flashVersion = 10;
         private string as3ClassPath;
 
         [DisplayName("Default Flash Version")]
