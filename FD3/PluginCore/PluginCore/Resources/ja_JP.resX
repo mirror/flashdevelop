@@ -3292,4 +3292,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Flash Player の自動設定機能を無効にします。OS レベルでのファイル関連付けが使用されます。</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="OutputPanel.Label.ClearSearchText" xml:space="preserve">
+    <value>検索文字列をクリア</value>
+  </data>
+  <data name="OutputPanel.Label.SearchInvitation" xml:space="preserve">
+    <value>検索...</value>
+  </data>
 </root>

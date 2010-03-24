@@ -37,7 +37,7 @@ namespace ASCompletion
             this.updateTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.filterLabel = new System.Windows.Forms.ToolStripLabel();
-            this.filterTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.filterTextBox = new System.Windows.Forms.ToolStripSpringTextBox();
             this.refreshButton = new System.Windows.Forms.ToolStripButton();
             this.rebuildButton = new System.Windows.Forms.ToolStripButton();
             this.searchButton = new System.Windows.Forms.ToolStripButton();
@@ -180,7 +180,7 @@ namespace ASCompletion
         private System.Windows.Forms.Timer updateTimer;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripLabel filterLabel;
-        private System.Windows.Forms.ToolStripTextBox filterTextBox;
+        private System.Windows.Forms.ToolStripSpringTextBox filterTextBox;
         private System.Windows.Forms.ToolStripButton rebuildButton;
         private System.Windows.Forms.ToolStripButton refreshButton;
         private System.Windows.Forms.ToolStripButton searchButton;

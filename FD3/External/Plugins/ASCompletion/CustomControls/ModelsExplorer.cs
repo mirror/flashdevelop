@@ -106,18 +106,6 @@ namespace ASCompletion
             refreshButton.Image = PluginBase.MainForm.FindImage("24");
             rebuildButton.Image = PluginBase.MainForm.FindImage("153");
             toolStrip.Renderer = new DockPanelStripRenderer();
-            this.Resize += new EventHandler(PluginUIResize);
-        }
-
-        /// <summary>
-        /// After resize, resizes the filter control to max size
-        /// </summary>
-        private void PluginUIResize(Object sender, EventArgs e)
-        {
-            Size size = new Size();
-            size.Height = this.filterTextBox.Height;
-            size.Width = this.toolStrip.Width - 149;
-            this.filterTextBox.Size = size;
         }
 
         private void outlineContextMenuStrip_Opening(object sender, CancelEventArgs e)

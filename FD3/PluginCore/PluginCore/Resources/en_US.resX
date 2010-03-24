@@ -3294,4 +3294,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Disables the auto-configuration feature so that OS level file association can be used.</value>
     <comment>Added after 3.0.6</comment>
   </data>
+  <data name="OutputPanel.Label.ClearSearchText" xml:space="preserve">
+    <value>Clear Search Text</value>
+  </data>
+  <data name="OutputPanel.Label.SearchInvitation" xml:space="preserve">
+    <value>Search...</value>
+  </data>
 </root>

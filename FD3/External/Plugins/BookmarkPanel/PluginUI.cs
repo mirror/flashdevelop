@@ -25,7 +25,7 @@ namespace BookmarkPanel
         private System.Windows.Forms.ColumnHeader columnText;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripButton searchButton;
-        private System.Windows.Forms.ToolStripComboBox searchBox;
+        private System.Windows.Forms.ToolStripSpringComboBox searchBox;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem removeBookmarksItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
@@ -61,7 +61,7 @@ namespace BookmarkPanel
             this.removeBookmarksItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.searchButton = new System.Windows.Forms.ToolStripButton();
-            this.searchBox = new System.Windows.Forms.ToolStripComboBox();
+            this.searchBox = new System.Windows.Forms.ToolStripSpringComboBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip.SuspendLayout();
@@ -172,7 +172,6 @@ namespace BookmarkPanel
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Size = new System.Drawing.Size(300, 350);
-            this.Resize += new System.EventHandler(this.PluginUIResize);
             this.contextMenuStrip.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
@@ -295,17 +294,6 @@ namespace BookmarkPanel
             {
                 this.SearchBookmarks();
             }
-        }
-
-        /// <summary>
-        /// Resizes the address combo box when ui is resized
-        /// </summary>
-        private void PluginUIResize(Object sender, EventArgs e)
-        {
-            Size size = new Size();
-            size.Height = this.searchBox.Height;
-            size.Width = this.toolStrip.Size.Width - 29;
-            this.searchBox.Size = size;
         }
 
         /// <summary>

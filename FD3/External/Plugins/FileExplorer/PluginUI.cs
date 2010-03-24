@@ -30,7 +30,7 @@ namespace FileExplorer
         private System.Windows.Forms.ToolStripMenuItem pasteButton;
         private System.Windows.Forms.ToolStripMenuItem copyButton;
         private System.Windows.Forms.ToolStripSeparator separator;
-        private System.Windows.Forms.ToolStripComboBox selectedPath;
+        private System.Windows.Forms.ToolStripSpringComboBox selectedPath;
         private System.Windows.Forms.ToolStripButton browseButton;
         private System.Windows.Forms.ToolStripButton syncronizeButton;
         private System.Windows.Forms.ColumnHeader fileHeader;
@@ -77,7 +77,7 @@ namespace FileExplorer
             this.sizeHeader = new System.Windows.Forms.ColumnHeader();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.selectedPath = new System.Windows.Forms.ToolStripComboBox();
+            this.selectedPath = new System.Windows.Forms.ToolStripSpringComboBox();
             this.syncronizeButton = new System.Windows.Forms.ToolStripButton();
             this.browseButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.watcher)).BeginInit();
@@ -190,7 +190,6 @@ namespace FileExplorer
             this.Controls.Add(this.fileView);
             this.Controls.Add(this.toolStrip);
             this.Size = new System.Drawing.Size(280, 352);
-            this.Resize += new System.EventHandler(this.PluginUIResize);
             ((System.ComponentModel.ISupportInitialize)(this.watcher)).EndInit();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
@@ -211,17 +210,6 @@ namespace FileExplorer
         {
             base.OnCreateControl();
             this.Initialize(null, null);
-        }
-
-        /// <summary>
-        /// Resizes the address combo box when ui is resized
-        /// </summary>
-        private void PluginUIResize(Object sender, EventArgs e)
-        {
-            Size size = new Size();
-            size.Height = this.selectedPath.Height;
-            size.Width = this.toolStrip.Size.Width - 52;
-            this.selectedPath.Size = size;
         }
 
         /// <summary>

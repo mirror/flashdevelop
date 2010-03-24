@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using WeifenLuo.WinFormsUI.Docking;
 using WeifenLuo.WinFormsUI;
 using PluginCore.Managers;
@@ -12,68 +13,131 @@ using PluginCore;
 
 namespace OutputPanel
 {
-	public class PluginUI : DockPanelControl
-	{
+    public class PluginUI : DockPanelControl
+    {
         private Int32 logCount;
         private RichTextBox textLog;
-		private PluginMain pluginMain;
+        private PluginMain pluginMain;
+        private String searchInvitation;
         private System.Timers.Timer scrollTimer;
         private ToolStripMenuItem wrapTextItem;
-		
-		public PluginUI(PluginMain pluginMain)
-		{
+        private ToolStripSpringTextBox findTextBox;
+        private ToolStripButton clearButton;
+        private ToolStrip toolStrip;
+        private Timer typingTimer;
+
+        public PluginUI(PluginMain pluginMain)
+        {
+            this.InitializeTimers();
             this.pluginMain = pluginMain;
             this.logCount = TraceManager.TraceLog.Count;
             this.InitializeComponent();
             this.InitializeContextMenu();
-		}
-		
-		#region Windows Forms Designer Generated Code
+            this.InitializeLayout();
+        }
 
-		/// <summary>
-		/// This method is required for Windows Forms designer support.
-		/// Do not change the method contents inside the source code editor. The Forms designer might
-		/// not be able to load this method if it was changed manually.
-		/// </summary>
-		private void InitializeComponent() 
+        #region Windows Forms Designer Generated Code
+
+        /// <summary>
+        /// This method is required for Windows Forms designer support.
+        /// Do not change the method contents inside the source code editor. The Forms designer might
+        /// not be able to load this method if it was changed manually.
+        /// </summary>
+        private void InitializeComponent()
         {
             this.scrollTimer = new System.Timers.Timer();
             this.textLog = new System.Windows.Forms.RichTextBox();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.clearButton = new System.Windows.Forms.ToolStripButton();
+            this.findTextBox = new System.Windows.Forms.ToolStripSpringTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollTimer)).BeginInit();
             this.SuspendLayout();
             // 
             // scrollTimer
             // 
+            this.scrollTimer.Enabled = true;
             this.scrollTimer.Interval = 50;
             this.scrollTimer.SynchronizingObject = this;
             this.scrollTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.ScrollTimerElapsed);
             // 
             // textLog
             // 
-            this.textLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.textLog.BackColor = System.Drawing.SystemColors.Window;
             this.textLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textLog.Location = new System.Drawing.Point(1, 22);
             this.textLog.Name = "textLog";
             this.textLog.ReadOnly = true;
-            this.textLog.Size = new System.Drawing.Size(278, 352);
-            this.textLog.Location = new System.Drawing.Point(0, 0);
+            this.textLog.Size = new System.Drawing.Size(278, 330);
             this.textLog.TabIndex = 1;
             this.textLog.Text = "";
             this.textLog.WordWrap = false;
-            this.textLog.DetectUrls = true;
-            this.textLog.LinkClicked += new LinkClickedEventHandler(this.LinkClicked);
+            this.textLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.LinkClicked);
+            // 
+            // toolStrip
+            // 
+            this.toolStrip.CanOverflow = false;
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Top;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.findTextBox, this.clearButton });
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStrip.Size = new System.Drawing.Size(298, 26);
+            this.toolStrip.Stretch = true;
+            this.toolStrip.TabIndex = 1;
+            // 
+            // findTextBox
+            //
+            this.findTextBox.Name = "FindTextBox";
+            this.findTextBox.Size = new System.Drawing.Size(200, 22);
+            this.findTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.findTextBox.TextChanged += new System.EventHandler(this.FindTextBoxTextChanged);
+            this.findTextBox.Leave += new System.EventHandler(this.FindTextBoxLeave);
+            this.findTextBox.Enter += new System.EventHandler(this.FindTextBoxEnter);
+            // 
+            // clearButton
+            //
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(23, 22);
+            this.clearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clearButton.Size = new System.Drawing.Size(23, 22);
+            this.clearButton.Click += new System.EventHandler(this.ClearButtonClick);
             // 
             // PluginUI
             // 
-            this.Name = "PluginUI";
             this.Controls.Add(this.textLog);
+            this.Controls.Add(this.toolStrip);
+            this.Name = "PluginUI";
             this.Size = new System.Drawing.Size(280, 352);
+            ((System.ComponentModel.ISupportInitialize)(this.scrollTimer)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
-		}
+        }
 
-		#endregion
-		
-		#region Methods and Event Handlers
+        #endregion
+
+        #region Methods and Event Handlers
+        
+        /// <summary>
+        /// Initializes the custom rendering
+        /// </summary>
+        private void InitializeLayout()
+        {
+            this.toolStrip.Renderer = new DockPanelStripRenderer();
+        }
+
+        /// <summary>
+        /// Initializes the timers used in the control.
+        /// </summary>
+        private void InitializeTimers()
+        {
+            this.typingTimer = new Timer();
+            this.typingTimer.Tick += new EventHandler(this.TypingTimerTick);
+            this.typingTimer.Interval = 250;
+        }
 
         /// <summary>
         /// Initializes the context menu
@@ -81,13 +145,17 @@ namespace OutputPanel
         private void InitializeContextMenu()
         {
             ContextMenuStrip menu = new ContextMenuStrip();
+            menu.Font = PluginBase.Settings.DefaultFont;
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ClearOutput"), null, new EventHandler(this.ClearOutput)));
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CopyOutput"), null, new EventHandler(this.CopyOutput)));
             menu.Items.Add(new ToolStripSeparator());
             wrapTextItem = new ToolStripMenuItem(TextHelper.GetString("Label.WrapText"), null, new EventHandler(this.WrapText));
             menu.Items.Add(wrapTextItem);
-            menu.Font = PluginBase.Settings.DefaultFont;
+            this.searchInvitation = TextHelper.GetString("Label.SearchInvitation");
+            this.clearButton.ToolTipText = TextHelper.GetString("Label.ClearSearchText");
+            this.clearButton.Image = PluginBase.MainForm.FindImage("153");
             this.textLog.Font = PluginBase.Settings.ConsoleFont;
+            this.findTextBox.Text = this.searchInvitation; 
             this.textLog.ContextMenuStrip = menu;
             this.ApplyWrapText();
         }
@@ -131,45 +199,45 @@ namespace OutputPanel
         /// Clears the output
         /// </summary>
         public void ClearOutput(Object sender, System.EventArgs e)
-		{
-			this.textLog.ScrollBars = RichTextBoxScrollBars.None;
-			this.textLog.Text = "";
-			this.textLog.ScrollBars = RichTextBoxScrollBars.Both;
-		}
+        {
+            this.textLog.ScrollBars = RichTextBoxScrollBars.None;
+            this.textLog.Text = "";
+            this.textLog.ScrollBars = RichTextBoxScrollBars.Both;
+        }
 
         /// <summary>
         /// Diplays the output
         /// </summary> 
-		public void DisplayOutput()
-		{
-			DockState ds = this.pluginMain.PluginPanel.VisibleState;
+        public void DisplayOutput()
+        {
+            DockState ds = this.pluginMain.PluginPanel.VisibleState;
             if (ds == DockState.DockBottomAutoHide || ds == DockState.DockLeftAutoHide || ds == DockState.DockRightAutoHide || ds == DockState.DockTopAutoHide)
             {
                 this.pluginMain.PluginPanel.Show();
             }
-		}
+        }
 
         /// <summary>
         /// Adds entries to the output if new entries are found
         /// </summary>
         public void AddTraces()
-		{
-			IList<TraceItem> log = TraceManager.TraceLog;
+        {
+            IList<TraceItem> log = TraceManager.TraceLog;
             Int32 newCount = log.Count;
-            if (newCount <= this.logCount) 
-			{
+            if (newCount <= this.logCount)
+            {
                 this.logCount = newCount;
-				return;
-			}
+                return;
+            }
             TraceItem entry;
             Int32 state;
             String message;
             String newText = "";
             Color currentColor = Color.Black;
             Color newColor = Color.Black;
-            for (Int32 i = this.logCount; i < newCount; i++) 
-			{
-				entry = log[i];
+            for (Int32 i = this.logCount; i < newCount; i++)
+            {
+                entry = log[i];
                 state = entry.State;
                 if (entry.Message == null) message = "";
                 else message = entry.Message;
@@ -183,34 +251,33 @@ namespace OutputPanel
                             message = message.Substring(2);
                     }
                 }
-				switch (state)
-				{
+                switch (state)
+                {
                     case 0: // Info
                         newColor = Color.Gray;
-						break;
-					case 1: // Debug
+                        break;
+                    case 1: // Debug
                         newColor = Color.Black;
-						break;
-					case 2: // Warning
+                        break;
+                    case 2: // Warning
                         newColor = Color.Orange;
-						break;
-					case 3: // Error
+                        break;
+                    case 3: // Error
                         newColor = Color.Red;
-						break;
-					case 4: // Fatal
+                        break;
+                    case 4: // Fatal
                         newColor = Color.Magenta;
-						break;
-					case -1: // ProcessStart
+                        break;
+                    case -1: // ProcessStart
                         newColor = Color.Blue;
-						break;
-					case -2: // ProcessEnd
+                        break;
+                    case -2: // ProcessEnd
                         newColor = Color.Blue;
-						break;
-					case -3: // ProcessError
+                        break;
+                    case -3: // ProcessError
                         newColor = (message.IndexOf("Warning") >= 0) ? Color.Orange : Color.Red;
-						break;
-				}
-
+                        break;
+                }
                 if (newColor != currentColor)
                 {
                     if (newText.Length > 0)
@@ -223,7 +290,7 @@ namespace OutputPanel
                     currentColor = newColor;
                 }
                 newText += message + "\n";
-			}
+            }
             if (newText.Length > 0)
             {
                 this.textLog.Select(this.textLog.TextLength, 0);
@@ -232,7 +299,7 @@ namespace OutputPanel
             }
             this.logCount = newCount;
             this.scrollTimer.Enabled = true;
-		}
+        }
 
         /// <summary>
         /// Scrolling fix on RichTextBox
@@ -247,8 +314,89 @@ namespace OutputPanel
             this.textLog.ScrollToCaret();
         }
 
-		#endregion
+        /// <summary>
+        /// Filters the output by search text
+        /// </summary>
+        private void FilterOutput(String findText)
+        {
+            this.textLog.Select(0, this.textLog.TextLength);
+            this.textLog.SelectionBackColor = this.textLog.BackColor;
+            if (findText.Length > 0)
+            {
+                MatchCollection results = Regex.Matches(this.textLog.Text, findText, RegexOptions.IgnoreCase);
+                for (Int32 i = 0; i < results.Count; i++)
+                {
+                    Match match = results[i];
+                    this.textLog.SelectionStart = match.Index;
+                    this.textLog.SelectionLength = match.Length;
+                    this.textLog.SelectionBackColor = Color.LightSkyBlue;
+                }
+            }
+        }
 
- 	}
+        /// <summary>
+        /// Handles the text change event
+        /// </summary>
+        private void FindTextBoxTextChanged(Object sender, EventArgs e)
+        {
+            if (this.textLog.TextLength > 10000)
+            {
+                this.typingTimer.Stop();
+                this.typingTimer.Start();
+            }
+            else this.TypingTimerTick(null, null);
+        }
+
+        /// <summary>
+        /// When the typing timer ticks update the search
+        /// </summary>
+        private void TypingTimerTick(Object sender, EventArgs e)
+        {
+            this.typingTimer.Stop();
+            String searchText = this.findTextBox.Text;
+            if (searchText == searchInvitation) searchText = "";
+            if (searchText.Trim() != "") this.FilterOutput(searchText);
+            this.clearButton.Enabled = searchText.Length > 0;
+        }
+
+        /// <summary>
+        /// When user enters control, handle it
+        /// </summary>
+        private void FindTextBoxEnter(Object sender, System.EventArgs e)
+        {
+            if (this.findTextBox.Text == searchInvitation)
+            {
+                this.findTextBox.Text = "";
+                this.findTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            }
+        }
+
+        /// <summary>
+        /// When user leaves control, handle it
+        /// </summary>
+        private void FindTextBoxLeave(Object sender, System.EventArgs e)
+        {
+            if (this.findTextBox.Text == "")
+            {
+                this.clearButton.Enabled = false;
+                this.findTextBox.Text = searchInvitation;
+                this.findTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
+            }
+        }
+
+        /// <summary>
+        /// Clears the search text from the control
+        /// </summary>
+        private void ClearButtonClick(Object sender, EventArgs e)
+        {
+            this.findTextBox.Text = "";
+            this.textLog.Select(0, this.textLog.TextLength);
+            this.textLog.SelectionBackColor = this.textLog.BackColor;
+            this.FindTextBoxLeave(null, null);
+        }
+
+        #endregion
+
+    }
 
 }

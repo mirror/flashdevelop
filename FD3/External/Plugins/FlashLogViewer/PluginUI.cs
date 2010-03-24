@@ -28,7 +28,7 @@ namespace FlashLogViewer
         private ToolStripButton topMostButton;
         private ToolStripButton clearFilterButton;
         private ToolStripSeparator toolStripSeparator;
-        private ToolStripComboBox filterComboBox;
+        private ToolStripSpringComboBox filterComboBox;
         private ToolStripComboBox logComboBox;
         private DateTime policyLogWrited;
         private DateTime flashLogWrited;
@@ -68,7 +68,7 @@ namespace FlashLogViewer
             this.viewLabel = new System.Windows.Forms.ToolStripLabel();
             this.logComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.filterLabel = new System.Windows.Forms.ToolStripLabel();
-            this.filterComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.filterComboBox = new System.Windows.Forms.ToolStripSpringComboBox();
             this.logTextBox = new System.Windows.Forms.RichTextBox();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -171,7 +171,6 @@ namespace FlashLogViewer
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.toolStrip);
             this.Size = new System.Drawing.Size(685, 352);
-            this.Resize += new System.EventHandler(this.PluginUIResize);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -295,17 +294,6 @@ namespace FlashLogViewer
             this.refreshTimer.Interval = this.GetUpdateInterval();
             this.refreshTimer.Tick += new EventHandler(this.RefreshTimerTick);
             this.refreshTimer.Start();
-        }
-
-        /// <summary>
-        /// After resize, resizes the filter control to max size
-        /// </summary>
-        private void PluginUIResize(Object sender, EventArgs e)
-        {
-            Size size = new Size();
-            size.Height = this.filterComboBox.Height;
-            size.Width = this.toolStrip.Width - 269;
-            this.filterComboBox.Size = size;
         }
 
         /// <summary>

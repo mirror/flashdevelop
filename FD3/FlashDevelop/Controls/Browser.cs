@@ -17,7 +17,7 @@ namespace FlashDevelop.Controls
         private System.Windows.Forms.ToolStripButton backButton;
         private System.Windows.Forms.ToolStripButton forwardButton;
         private System.Windows.Forms.ToolStripButton refreshButton;
-        private System.Windows.Forms.ToolStripComboBox addressComboBox;
+        private System.Windows.Forms.ToolStripSpringComboBox addressComboBox;
         private FlashDevelop.Controls.WebBrowserEx webBrowser;
 
         public Browser()
@@ -41,7 +41,7 @@ namespace FlashDevelop.Controls
             this.backButton = new System.Windows.Forms.ToolStripButton();
             this.forwardButton = new System.Windows.Forms.ToolStripButton();
             this.refreshButton = new System.Windows.Forms.ToolStripButton();
-            this.addressComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.addressComboBox = new System.Windows.Forms.ToolStripSpringComboBox();
             this.goButton = new System.Windows.Forms.ToolStripButton();
             this.webBrowser = new FlashDevelop.Controls.WebBrowserEx();
             this.toolStrip.SuspendLayout();
@@ -92,8 +92,7 @@ namespace FlashDevelop.Controls
             this.refreshButton.Click += new System.EventHandler(this.RefreshButtonClick);
             // 
             // addressComboBox
-            // 
-            this.addressComboBox.AutoSize = false;
+            //
             this.addressComboBox.Name = "addressComboBox";
             this.addressComboBox.Size = new System.Drawing.Size(450, 21);
             this.addressComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressComboBoxKeyPress);
@@ -132,7 +131,6 @@ namespace FlashDevelop.Controls
             this.Controls.Add(this.toolStrip);
             this.Name = "Browser";
             this.Size = new System.Drawing.Size(620, 400);
-            this.Resize += new System.EventHandler(this.BrowserResize);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -178,17 +176,6 @@ namespace FlashDevelop.Controls
         {
             this.toolStrip.Renderer = new DockPanelStripRenderer(true);
             this.addressComboBox.FlatStyle = Globals.Settings.ComboBoxFlatStyle;
-        }
-
-        /// <summary>
-        /// Resizes the address combo box when form is resized
-        /// </summary>
-        private void BrowserResize(Object sender, EventArgs e)
-        {
-            Size size = new Size();
-            size.Height = this.addressComboBox.Height;
-            size.Width = this.toolStrip.Size.Width - 100;
-            this.addressComboBox.Size = size;
         }
 
         /// <summary>

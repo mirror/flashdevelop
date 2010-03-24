@@ -77,7 +77,7 @@ namespace ASCompletion
         private TreeNode currentHighlight;
         private TreeNode nextHighlight;
         private ToolStrip toolStrip;
-        private ToolStripTextBox findProcTxt;
+        private ToolStripSpringTextBox findProcTxt;
         private ToolStripDropDownButton sortDropDown;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem noneItem;
@@ -113,7 +113,6 @@ namespace ASCompletion
             clearButton.Image = PluginBase.MainForm.FindImage("153");
             clearButton.Alignment = ToolStripItemAlignment.Right;
             clearButton.CheckOnClick = false;
-            this.Resize += new EventHandler(PluginUI_Resize);
 
             outlineTree = new FixedTreeView();
             outlineTree.BorderStyle = BorderStyle.None;
@@ -130,14 +129,6 @@ namespace ASCompletion
             outlineTree.ShowNodeToolTips = true;
             Controls.Add(outlineTree);
             outlineTree.BringToFront();
-        }
-
-        void PluginUI_Resize(object sender, EventArgs e)
-        {
-            Size size = new Size();
-            size.Height = this.findProcTxt.Height;
-            size.Width = this.toolStrip.Width - 66;
-            this.findProcTxt.Size = size;
         }
 
         private void InitializeTexts()
@@ -188,7 +179,7 @@ namespace ASCompletion
             this.sortedSmartItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortedGroupItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.findProcTxt = new System.Windows.Forms.ToolStripTextBox();
+            this.findProcTxt = new System.Windows.Forms.ToolStripSpringTextBox();
             this.clearButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -954,11 +945,11 @@ namespace ASCompletion
             if (hilight)
             {
                 node.EnsureVisible();
-                node.BackColor = System.Drawing.Color.Aqua;
+                node.BackColor = System.Drawing.Color.LightSkyBlue;
             }
             else
             {
-                node.BackColor = System.Drawing.Color.White;
+                node.BackColor = SystemColors.Window;
             }
         }
 
