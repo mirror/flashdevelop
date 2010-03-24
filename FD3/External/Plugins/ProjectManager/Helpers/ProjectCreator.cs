@@ -15,6 +15,7 @@ using PluginCore.Managers;
 using ProjectManager.Projects.AS2;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Projects.Haxe;
+using System.Windows.Forms;
 
 namespace ProjectManager.Helpers
 {
@@ -169,6 +170,9 @@ namespace ProjectManager.Helpers
                 switch (name)
                 {
                     case "CBI": return PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " " : "";
+                    case "QUOTE": return "\"";
+                    case "CLIPBOARD": return GetClipboard();
+                    case "TIMESTAMP": return DateTime.Now.ToString("g");
                     case "PROJECTNAME": return projectName; 
                     case "PROJECTID": return projectId; 
                     case "PACKAGENAME": return packageName;
@@ -176,7 +180,7 @@ namespace ProjectManager.Helpers
                     case "PACKAGEPATHALT": return packagePath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); 
                     case "PACKAGEDOT": return packageDot;
                     case "PACKAGESLASH": return packageSlash;
-                    case "PACKAGESLASHALT": return packageSlash.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); 
+                    case "PACKAGESLASHALT": return packageSlash.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                     default:
                         foreach (Argument arg in arguments)
                             if (arg.Key.ToUpper() == name) return arg.Value;
@@ -185,6 +189,19 @@ namespace ProjectManager.Helpers
             }
             return match.Value;
 		}
+
+        /// <summary>
+        /// Gets the clipboard text
+        /// </summary>
+        public static String GetClipboard()
+        {
+            IDataObject cbdata = Clipboard.GetDataObject();
+            if (cbdata.GetDataPresent("System.String", true))
+            {
+                return cbdata.GetData("System.String", true).ToString();
+            }
+            else return String.Empty;
+        }
 
 		private bool ShouldSkip(string path)
 		{

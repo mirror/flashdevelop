@@ -383,6 +383,7 @@ namespace OutputPanel
             String searchText = this.findTextBox.Text;
             if (searchText == searchInvitation) searchText = "";
             if (searchText.Trim() != "") this.FilterOutput(searchText);
+            else this.ClearCurrentSelection();
             this.clearButton.Enabled = searchText.Length > 0;
         }
 
