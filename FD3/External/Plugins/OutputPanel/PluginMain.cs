@@ -125,6 +125,10 @@ namespace OutputPanel
                         OpenPanel(null, null);
                     }
                     break;
+                case EventType.Keys:
+                    Keys keys = (e as KeyEvent).Value;
+                    e.Handled = this.pluginUI.OnShortcut(keys);
+                    break;
                 case EventType.SettingChanged:
                     this.pluginUI.ApplyWrapText();
                     break;
@@ -174,7 +178,7 @@ namespace OutputPanel
         /// </summary>
         public void AddEventHandlers()
         {
-            EventType eventMask = EventType.ProcessStart | EventType.ProcessEnd | EventType.Trace | EventType.SettingChanged;
+            EventType eventMask = EventType.ProcessStart | EventType.ProcessEnd | EventType.Trace | EventType.SettingChanged | EventType.Keys;
             EventManager.AddEventHandler(this, eventMask);
         }
 

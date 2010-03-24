@@ -120,7 +120,7 @@ namespace OutputPanel
         #endregion
 
         #region Methods and Event Handlers
-        
+
         /// <summary>
         /// Initializes the custom rendering
         /// </summary>
@@ -218,6 +218,32 @@ namespace OutputPanel
         }
 
         /// <summary>
+        /// Handles the shortcut
+        /// </summary>
+        public Boolean OnShortcut(Keys keys)
+        {
+            if (this.textLog.Focused || this.findTextBox.Focused)
+            {
+                if (keys == Keys.F3)
+                {
+                    this.FindNextMatch(true);
+                    return true;
+                }
+                else if (keys == (Keys.Shift | Keys.F3))
+                {
+                    this.FindNextMatch(false);
+                    return true;
+                }
+                else if (keys == Keys.Escape)
+                {
+                    ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
+                    if (doc != null && doc.IsEditable) doc.SciControl.Focus();
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Adds entries to the output if new entries are found
         /// </summary>
         public void AddTraces()
@@ -233,8 +259,8 @@ namespace OutputPanel
             Int32 state;
             String message;
             String newText = "";
-            Color currentColor = Color.Black;
             Color newColor = Color.Black;
+            Color currentColor = Color.Black;
             for (Int32 i = this.logCount; i < newCount; i++)
             {
                 entry = log[i];
@@ -293,6 +319,7 @@ namespace OutputPanel
             }
             if (newText.Length > 0)
             {
+                this.ClearCurrentSelection();
                 this.textLog.Select(this.textLog.TextLength, 0);
                 this.textLog.SelectionColor = currentColor;
                 this.textLog.AppendText(newText);
@@ -321,7 +348,7 @@ namespace OutputPanel
         {
             this.textLog.Select(0, this.textLog.TextLength);
             this.textLog.SelectionBackColor = this.textLog.BackColor;
-            if (findText.Length > 0)
+            if (findText.Trim() != "")
             {
                 MatchCollection results = Regex.Matches(this.textLog.Text, findText, RegexOptions.IgnoreCase);
                 for (Int32 i = 0; i < results.Count; i++)
@@ -390,9 +417,79 @@ namespace OutputPanel
         private void ClearButtonClick(Object sender, EventArgs e)
         {
             this.findTextBox.Text = "";
+            this.ClearCurrentSelection();
+            this.FindTextBoxLeave(null, null);
+        }
+
+        /// <summary>
+        /// Finds the next match and selects it
+        /// </summary>
+        private void FindNextMatch(Boolean forward)
+        {
+            try
+            {
+                String searchText = this.findTextBox.Text;
+                if (searchText == searchInvitation) searchText = "";
+                if (searchText.Trim() != "")
+                {
+                    Int32 curPos = this.textLog.SelectionStart + this.textLog.SelectionLength;
+                    MatchCollection results = Regex.Matches(this.textLog.Text, searchText, RegexOptions.IgnoreCase);
+                    Match nearestMatch = results[0];
+                    for (Int32 i = 0; i < results.Count; i++)
+                    {
+                        if (forward)
+                        {
+                            if (curPos > results[results.Count - 1].Index)
+                            {
+                                nearestMatch = results[0];
+                                break;
+                            }
+                            if (results[i].Index >= curPos)
+                            {
+                                nearestMatch = results[i];
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (this.textLog.SelectedText.Length > 0 && curPos <= results[0].Index + results[0].Length)
+                            {
+                                nearestMatch = results[results.Count - 1];
+                                break;
+                            }
+                            if (curPos < results[0].Index + results[0].Length)
+                            {
+                                nearestMatch = results[results.Count - 1];
+                                break;
+                            }
+                            if (this.textLog.SelectedText.Length == 0 && curPos == results[i].Index + results[i].Length)
+                            {
+                                nearestMatch = results[i];
+                                break;
+                            }
+                            if (results[i].Index > nearestMatch.Index && results[i].Index + results[i].Length < curPos)
+                            {
+                                nearestMatch = results[i];
+                            }
+                        }
+                    }
+                    this.textLog.Focus();
+                    this.textLog.Select(nearestMatch.Index, nearestMatch.Length);
+                    this.textLog.ScrollToCaret();
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Clears the current selection
+        /// </summary>
+        private void ClearCurrentSelection()
+        {
+            Int32 curPos = this.textLog.SelectionStart + this.textLog.SelectionLength;
             this.textLog.Select(0, this.textLog.TextLength);
             this.textLog.SelectionBackColor = this.textLog.BackColor;
-            this.FindTextBoxLeave(null, null);
+            this.textLog.Select(curPos, 0);
         }
 
         #endregion
