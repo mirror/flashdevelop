@@ -568,7 +568,7 @@ namespace FlashDevelop.Dialogs
             // 
             // modifiedLineTextBox
             // 
-            this.modifiedLineTextBox.Location = new System.Drawing.Point(334, 140);
+            this.modifiedLineTextBox.Location = new System.Drawing.Point(334, 190);
             this.modifiedLineTextBox.Name = "modifiedLineTextBox";
             this.modifiedLineTextBox.Size = new System.Drawing.Size(103, 23);
             this.modifiedLineTextBox.TabIndex = 8;
@@ -576,7 +576,7 @@ namespace FlashDevelop.Dialogs
             // 
             // bookmarkLineTextBox
             // 
-            this.bookmarkLineTextBox.Location = new System.Drawing.Point(334, 190);
+            this.bookmarkLineTextBox.Location = new System.Drawing.Point(334, 140);
             this.bookmarkLineTextBox.Name = "bookmarkLineTextBox";
             this.bookmarkLineTextBox.Size = new System.Drawing.Size(103, 23);
             this.bookmarkLineTextBox.TabIndex = 11;

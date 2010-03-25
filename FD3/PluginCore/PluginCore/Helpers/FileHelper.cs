@@ -252,9 +252,14 @@ namespace PluginCore.Helpers
                     info.Contents = encoding.GetString(bytes, startIndex, byteLength);
                 }
             }
+            catch (IndexOutOfRangeException)
+            {
+                // Empty file, reset file info...
+                info = new EncodingFileInfo();
+            }
             catch (Exception ex)
             {
-                // Reset file info...
+                // Error, reset file info...
                 info = new EncodingFileInfo();
                 ErrorManager.ShowError(ex);
             }
