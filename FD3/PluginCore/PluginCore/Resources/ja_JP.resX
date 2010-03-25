@@ -650,7 +650,7 @@
     <value>タブキー押下時にタブを使用します。False に設定した場合、連続した半角スペースに置き換えられます。</value>
   </data>
   <data name="FlashDevelop.Description.ViewBookmarks" xml:space="preserve">
-    <value>ブックマークシンボルを余白に表示します。もし表示しない場合、ブックマークされた行を強調することで示します。</value>
+    <value>ブックマークシンボルを表示します。False に設定した場合、ブックマーク行の背景色を変更します。</value>
   </data>
   <data name="FlashDevelop.Description.ViewEOL" xml:space="preserve">
     <value>改行文字を記号で表示します。</value>
@@ -3287,15 +3287,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>検索...</value>
   </data>
   <data name="FlashDevelop.Info.BookmarkLine" xml:space="preserve">
-    <value>Bookmark line:</value>
+    <value>ブックマーク行の背景:</value>
   </data>
   <data name="FlashDevelop.Info.HighlightBack" xml:space="preserve">
-    <value>Highlight back:</value>
+    <value>検索ハイライト:</value>
   </data>
   <data name="FlashDevelop.Info.ModifiedLine" xml:space="preserve">
-    <value>Modified line:</value>
+    <value>変更箇所のマージン:</value>
   </data>
   <data name="FlashDevelop.Info.PrintMargin" xml:space="preserve">
-    <value>Print margin:</value>
+    <value>印刷マージン:</value>
   </data>
 </root>
