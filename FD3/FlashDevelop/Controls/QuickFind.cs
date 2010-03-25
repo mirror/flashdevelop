@@ -13,6 +13,7 @@ using FlashDevelop.Docking;
 using PluginCore.FRService;
 using PluginCore.Managers;
 using PluginCore.Utilities;
+using ScintillaNet.Configuration;
 using ScintillaNet;
 using PluginCore;
 
@@ -495,8 +496,9 @@ namespace FlashDevelop.Controls
                 Int32 position = start;
                 Int32 es = sci.EndStyled;
                 Int32 mask = 1 << sci.StyleBits;
+                Language language = MainForm.Instance.SciConfig.GetLanguage(sci.ConfigurationLanguage);
                 sci.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox);
-                sci.SetIndicFore(0, DataConverter.ColorToInt32(Globals.Settings.HighlightAllColor));
+                sci.SetIndicFore(0, language.editorstyle.HighlightBackColor);
                 sci.StartStyling(position, mask);
                 sci.SetStyling(end - start, mask);
                 sci.StartStyling(es, mask - 1);

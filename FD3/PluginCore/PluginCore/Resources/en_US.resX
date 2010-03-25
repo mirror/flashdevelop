@@ -587,9 +587,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="FlashDevelop.Description.FoldPreprocessor" xml:space="preserve">
     <value>Folds the code at preprocessor directives.</value>
   </data>
-  <data name="FlashDevelop.Description.HighlightAllColor" xml:space="preserve">
-    <value>Color of the pattern highlight in the quick find control.</value>
-  </data>
   <data name="FlashDevelop.Description.HighlightGuide" xml:space="preserve">
     <value>Disables the highligh guide on current code block.</value>
   </data>
@@ -2422,12 +2419,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.DefaultFont" xml:space="preserve">
     <value>Defines the default UI font of the program.</value>
   </data>
-  <data name="FlashDevelop.Description.BookmarkLineColor" xml:space="preserve">
-    <value>Background color of the bookmarked line. The color is shown only if the  bookmark margin is hidden.</value>
-  </data>
-  <data name="FlashDevelop.Description.ModifiedLineColor" xml:space="preserve">
-    <value>The margin highlight color for the modified lines in the code.</value>
-  </data>
   <data name="FlashDevelop.Description.ViewModifiedLines" xml:space="preserve">
     <value>Shows the lines in the editor that have been modified by highlighting the margin with the defined color untill saved.</value>
   </data>
@@ -2804,16 +2795,16 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>The zip file was extracted succesfully.</value>
   </data>
   <data name="FlashDevelop.Info.CaretFore" xml:space="preserve">
-    <value>Caret foreground:</value>
+    <value>Caret fore:</value>
   </data>
   <data name="FlashDevelop.Info.CaretLineBack" xml:space="preserve">
-    <value>Caret line background:</value>
+    <value>Caret line:</value>
   </data>
   <data name="FlashDevelop.Info.SelectionBack" xml:space="preserve">
-    <value>Selection background:</value>
+    <value>Selection back:</value>
   </data>
   <data name="FlashDevelop.Info.SelectionFore" xml:space="preserve">
-    <value>Selection foreground:</value>
+    <value>Selection fore:</value>
   </data>
   <data name="FlashDevelop.Info.ZipConfirmExtract" xml:space="preserve">
     <value>Can the following zip file be extracted:</value>
@@ -2859,9 +2850,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Info.RevertSnippetFiles" xml:space="preserve">
     <value>Do you really want to revert all snippet files to defaults?</value>
-  </data>
-  <data name="FlashDevelop.Description.PrintMarginColor" xml:space="preserve">
-    <value>Color of the shown print margin.</value>
   </data>
   <data name="FlashDevelop.Description.AutoReloadModifiedFiles" xml:space="preserve">
     <value>Reloads externally modified files without prompting.</value>
@@ -3011,16 +2999,16 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Style</value>
   </data>
   <data name="FlashDevelop.Info.MarginBack" xml:space="preserve">
-    <value>Margin background:</value>
+    <value>Margin back:</value>
   </data>
   <data name="FlashDevelop.Info.MarginFore" xml:space="preserve">
-    <value>Margin foreground:</value>
+    <value>Margin fore:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerBack" xml:space="preserve">
-    <value>Marker background:</value>
+    <value>Marker back:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerFore" xml:space="preserve">
-    <value>Marker foreground:</value>
+    <value>Marker fore:</value>
   </data>
   <data name="FlashDevelop.Label.BlockComment" xml:space="preserve">
     <value>Block Co&amp;mment</value>
@@ -3299,5 +3287,17 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="OutputPanel.Label.SearchInvitation" xml:space="preserve">
     <value>Search...</value>
+  </data>
+  <data name="FlashDevelop.Info.BookmarkLine" xml:space="preserve">
+    <value>Bookmark line:</value>
+  </data>
+  <data name="FlashDevelop.Info.HighlightBack" xml:space="preserve">
+    <value>Highlight back:</value>
+  </data>
+  <data name="FlashDevelop.Info.ModifiedLine" xml:space="preserve">
+    <value>Modified line:</value>
+  </data>
+  <data name="FlashDevelop.Info.PrintMargin" xml:space="preserve">
+    <value>Print margin:</value>
   </data>
 </root>

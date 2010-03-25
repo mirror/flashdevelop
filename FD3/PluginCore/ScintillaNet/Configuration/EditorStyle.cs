@@ -31,6 +31,18 @@ namespace ScintillaNet.Configuration
         [XmlAttributeAttribute("margin-back")]
         public string marginback;
 
+        [XmlAttributeAttribute("print-margin")]
+        public string printmargin;
+
+        [XmlAttributeAttribute("bookmarkline-back")]
+        public string bookmarkline;
+
+        [XmlAttributeAttribute("modifiedline-back")]
+        public string modifiedline;
+        
+        [XmlAttributeAttribute("highlight-back")]
+        public string highlightback;
+
 		public int ResolveColor(string aColor)
 		{
 			if (aColor != null)
@@ -159,6 +171,54 @@ namespace ScintillaNet.Configuration
                     return ResolveColor(marginback);
                 }
                 return ResolveColor("0xfaf0e6");
+            }
+        }
+
+        public int PrintMarginColor
+        {
+            get
+            {
+                if (printmargin != null && printmargin.Length > 0)
+                {
+                    return ResolveColor(printmargin);
+                }
+                return ResolveColor("0x000000");
+            }
+        }
+
+        public int BookmarkLineColor
+        {
+            get
+            {
+                if (bookmarkline != null && bookmarkline.Length > 0)
+                {
+                    return ResolveColor(bookmarkline);
+                }
+                return ResolveColor("0xffff00");
+            }
+        }
+        
+        public int ModifiedLineColor
+        {
+            get
+            {
+                if (modifiedline != null && modifiedline.Length > 0)
+                {
+                    return ResolveColor(modifiedline);
+                }
+                return ResolveColor("0xffff00");
+            }
+        }
+
+        public int HighlightBackColor
+        {
+            get
+            {
+                if (highlightback != null && highlightback.Length > 0)
+                {
+                    return ResolveColor(highlightback);
+                }
+                return ResolveColor("0x0000ff");
             }
         }
 

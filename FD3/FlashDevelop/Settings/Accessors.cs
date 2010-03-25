@@ -122,16 +122,6 @@ namespace FlashDevelop.Settings
             set { this.printMarginColumn = value; }
         }
 
-        [DisplayName("Print Margin Color")]
-        [DefaultValue(typeof(Color), "Black")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.PrintMarginColor")]
-        public Color PrintMarginColor
-        {
-            get { return this.printMarginColor; }
-            set { this.printMarginColor = value; }
-        }
-
         [DefaultValue(false)]
         [DisplayName("View EOL Characters")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
@@ -210,36 +200,6 @@ namespace FlashDevelop.Settings
         {
             get { return this.viewModifiedLines; }
             set { this.viewModifiedLines = value; }
-        }
-
-        [DisplayName("Modified Line Color")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.ModifiedLineColor")]
-        [DefaultValue(typeof(Color), "Yellow")]
-        public Color ModifiedLineColor
-        {
-            get { return this.modifiedLineColor; }
-            set { this.modifiedLineColor = value; }
-        }
-
-        [DisplayName("Bookmark Line Color")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.BookmarkLineColor")]
-        [DefaultValue(typeof(Color), "Yellow")]
-        public Color BookmarkLineColor
-        {
-            get { return this.bookmarkLineColor; }
-            set { this.bookmarkLineColor = value; }
-        }
-
-        [DisplayName("Highlight All Color")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.HighlightAllColor")]
-        [DefaultValue(typeof(Color), "Blue")]
-        public Color HighlightAllColor
-        {
-            get { return this.highlightAllColor; }
-            set { this.highlightAllColor = value; }
         }
 
         [DisplayName("ComboBox Flat Style")]

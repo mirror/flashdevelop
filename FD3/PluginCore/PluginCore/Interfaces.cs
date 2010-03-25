@@ -199,10 +199,6 @@ namespace PluginCore
 
         Font DefaultFont { get; set; }
         Font ConsoleFont { get; set; }
-        Color PrintMarginColor { get; set; }
-        Color HighlightAllColor { get; set; }
-        Color BookmarkLineColor { get; set; }
-        Color ModifiedLineColor { get; set; }
         List<String> DisabledPlugins { get; set; }
         List<String> PreviousDocuments { get; set; }
         List<Argument> CustomArguments { get; set; }

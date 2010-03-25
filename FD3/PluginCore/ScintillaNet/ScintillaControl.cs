@@ -178,6 +178,7 @@ namespace ScintillaNet
                 if (lang.lexer.stylebits > 0) StyleBits = lang.lexer.stylebits;
                 if (lang.editorstyle != null)
                 {
+                    EdgeColour = lang.editorstyle.PrintMarginColor;
                     CaretFore = lang.editorstyle.CaretForegroundColor;
                     CaretLineBack = lang.editorstyle.CaretLineBackgroundColor;
                     SetSelBack(true, lang.editorstyle.SelectionBackgroundColor);
@@ -200,6 +201,8 @@ namespace ScintillaNet
                     MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
                     MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
                     MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
+                    MarkerSetBack(0, lang.editorstyle.BookmarkLineColor);
+                    MarkerSetBack(2, lang.editorstyle.ModifiedLineColor);
                 }
                 if (lang.characterclass != null)
                 {

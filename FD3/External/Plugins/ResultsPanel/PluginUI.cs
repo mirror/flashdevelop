@@ -10,6 +10,7 @@ using PluginCore.Localization;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
+using ScintillaNet.Configuration;
 using ScintillaNet;
 using PluginCore;
 
@@ -556,14 +557,15 @@ namespace ResultsPanel
             if (!match.Success) match = errorCharacters2.Match(item.SubItems[2].Text);
             if (match.Success)
 			{
-                Int32 indic = (item.ImageIndex == 0) ? (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox : (Int32)ScintillaNet.Enums.IndicatorStyle.Squiggle;
-                Int32 fore = (item.ImageIndex == 0) ? DataConverter.ColorToInt32(PluginBase.MainForm.Settings.HighlightAllColor) : 0x000000ff;
 				String fname = (item.SubItems[4].Text + "\\" + item.SubItems[3].Text).Replace('/','\\');
 				ITabbedDocument[] documents = PluginBase.MainForm.Documents;
                 foreach (ITabbedDocument document in documents)
 				{
 					ScintillaControl sci = document.SciControl;
-					if (fname == document.FileName)
+                    Language language = PluginBase.MainForm.SciConfig.GetLanguage(sci.ConfigurationLanguage);
+                    Int32 indic = (item.ImageIndex == 0) ? (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox : (Int32)ScintillaNet.Enums.IndicatorStyle.Squiggle;
+                    Int32 fore = (item.ImageIndex == 0) ? language.editorstyle.HighlightBackColor : 0x000000ff;
+                    if (fname == document.FileName)
 					{
                         Int32 end;
                         Int32 line = Convert.ToInt32(((Match)item.Tag).Groups["line"].Value) - 1;

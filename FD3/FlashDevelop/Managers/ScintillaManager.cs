@@ -201,11 +201,6 @@ namespace FlashDevelop.Managers
                 sci.SetProperty("fold.at.else", Convert.ToInt32(Globals.Settings.FoldAtElse).ToString());
                 sci.SetProperty("fold.html", Convert.ToInt32(Globals.Settings.FoldHtml).ToString());
                 sci.SetFoldFlags((Int32)Globals.Settings.FoldFlags);
-                /**
-                * Apply setting defined coloring to the editor...
-                */
-                sci.MarkerSetBack(0, DataConverter.ColorToInt32(Globals.Settings.BookmarkLineColor));
-                sci.MarkerSetBack(2, DataConverter.ColorToInt32(Globals.Settings.ModifiedLineColor));
                 /** 
                 * Set correct line number margin width
                 */
@@ -229,7 +224,6 @@ namespace FlashDevelop.Managers
                 * Adjust the print margin
                 */
                 sci.EdgeColumn = Globals.Settings.PrintMarginColumn;
-                sci.EdgeColour = DataConverter.ColorToInt32(Globals.Settings.PrintMarginColor);
                 if (sci.EdgeColumn > 0) sci.EdgeMode = 1;
                 else sci.EdgeMode = 0;
                 /**
@@ -275,7 +269,6 @@ namespace FlashDevelop.Managers
             sci.DocPointer = 187541976;
             sci.EndAtLastLine = 1;
             sci.EdgeColumn = 0;
-            sci.EdgeColour = 1;
             sci.EdgeMode = 0;
             sci.IsHScrollBar = true;
             sci.IsMouseDownCaptures = true;
@@ -325,8 +318,6 @@ namespace FlashDevelop.Managers
             sci.MarkerDefinePixmap(1, XpmBreakPoint);
             sci.SetMarginMaskN(0, MarkerManager.MARKERS);
             sci.MarkerDefine(2, ScintillaNet.Enums.MarkerSymbol.Fullrect);
-            sci.MarkerSetBack(2, DataConverter.ColorToInt32(Globals.Settings.ModifiedLineColor));
-            sci.MarkerSetBack(0, DataConverter.ColorToInt32(Globals.Settings.BookmarkLineColor));
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.Folder, ScintillaNet.Enums.MarkerSymbol.BoxPlus);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, ScintillaNet.Enums.MarkerSymbol.BoxMinus);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, ScintillaNet.Enums.MarkerSymbol.VLine);

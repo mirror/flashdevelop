@@ -586,9 +586,6 @@
   <data name="FlashDevelop.Description.FoldPreprocessor" xml:space="preserve">
     <value>プリプロセッサ命令文を折りたたみます。</value>
   </data>
-  <data name="FlashDevelop.Description.HighlightAllColor" xml:space="preserve">
-    <value>クイック検索でのハイライト色です。</value>
-  </data>
   <data name="FlashDevelop.Description.HighlightGuide" xml:space="preserve">
     <value>現在のコードブロックでのハイライトガイドを無効にします。</value>
   </data>
@@ -2420,12 +2417,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDevelop.Description.DefaultFont" xml:space="preserve">
     <value>デフォルトで使用するUIフォントを定義します。初期値は Tahoma, 8.25pt です。</value>
   </data>
-  <data name="FlashDevelop.Description.BookmarkLineColor" xml:space="preserve">
-    <value>ブックマークされた行の背景色です。この色はブックマークマージンが非表示のときのみ現れます。</value>
-  </data>
-  <data name="FlashDevelop.Description.ModifiedLineColor" xml:space="preserve">
-    <value>コードに変更があった行のマージンハイライトカラーです。</value>
-  </data>
   <data name="FlashDevelop.Description.ViewModifiedLines" xml:space="preserve">
     <value>セーブされていない変更された行を指定色で強調します。</value>
   </data>
@@ -2854,9 +2845,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDevelop.Info.RevertSnippetFiles" xml:space="preserve">
     <value>本当にすべての言語のスニペットを規定値に戻しますか？</value>
-  </data>
-  <data name="FlashDevelop.Description.PrintMarginColor" xml:space="preserve">
-    <value>印刷マージンの色です。</value>
   </data>
   <data name="FlashDevelop.Description.AutoReloadModifiedFiles" xml:space="preserve">
     <value>外部で変更されたファイルをプロンプト表示無しにリロードします。</value>
@@ -3297,5 +3285,17 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="OutputPanel.Label.SearchInvitation" xml:space="preserve">
     <value>検索...</value>
+  </data>
+  <data name="FlashDevelop.Info.BookmarkLine" xml:space="preserve">
+    <value>Bookmark line:</value>
+  </data>
+  <data name="FlashDevelop.Info.HighlightBack" xml:space="preserve">
+    <value>Highlight back:</value>
+  </data>
+  <data name="FlashDevelop.Info.ModifiedLine" xml:space="preserve">
+    <value>Modified line:</value>
+  </data>
+  <data name="FlashDevelop.Info.PrintMargin" xml:space="preserve">
+    <value>Print margin:</value>
   </data>
 </root>

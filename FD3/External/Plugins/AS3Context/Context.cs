@@ -472,12 +472,10 @@ namespace AS3Context
             if (sci == null) return;
             fileWithSquiggles = CurrentFile;
             int position = sci.PositionFromLine(line) + start;
-            int indic = (int)ScintillaNet.Enums.IndicatorStyle.Squiggle;
-            int fore = 0x000000ff;
             int es = sci.EndStyled;
             int mask = 1 << sci.StyleBits;
-            sci.SetIndicStyle(0, indic);
-            sci.SetIndicFore(0, fore);
+            sci.SetIndicStyle(0, (int)ScintillaNet.Enums.IndicatorStyle.Squiggle);
+            sci.SetIndicFore(0, 0x000000ff);
             sci.StartStyling(position, mask);
             sci.SetStyling(end - start, mask);
             sci.StartStyling(es, mask - 1);
