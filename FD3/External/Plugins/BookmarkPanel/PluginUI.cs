@@ -557,8 +557,8 @@ namespace BookmarkPanel
                     }
                 }
             }
-            updateTimer.Stop();
-            updateTimer.Start();
+            this.updateTimer.Stop();
+            this.updateTimer.Start();
         }
 
         /// <summary>

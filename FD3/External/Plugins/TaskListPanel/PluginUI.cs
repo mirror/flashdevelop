@@ -66,7 +66,7 @@ namespace TaskListPanel
                 {
                     this.groups.AddRange(settings.GroupValues);
                     String pattern = String.Join("|", settings.GroupValues);
-                    this.todoParser = new Regex(@"(//|/\*\*?|\*)[\t ]*(" + pattern + @")[:|\t ]*([^\r|\n|\*\*?/]*)", RegexOptions.Multiline);
+                    this.todoParser = new Regex(@"(//|/\*\*?|\*)[\t ]*(" + pattern + @")[:|\t ]*([^\r|\n|\*\*/]*)", RegexOptions.Multiline);
                     this.isEnabled = true;
                     this.InitGraphics();
                 }
@@ -235,7 +235,7 @@ namespace TaskListPanel
                 {
                     this.groups.AddRange(settings.GroupValues);
                     String pattern = String.Join("|", settings.GroupValues);
-                    this.todoParser = new Regex(@"(//|/\*\*?|\*)[\t ]*(" + pattern + @")[:|\t ]*([^\r|\n|\*\*?/]*)", RegexOptions.Multiline);
+                    this.todoParser = new Regex(@"(//|/\*\*?|\*)[\t ]*(" + pattern + @")[:|\t ]*([^\r|\n|\*\*/]*)", RegexOptions.Multiline);
                     this.isEnabled = true;
                     this.InitGraphics();
                 }

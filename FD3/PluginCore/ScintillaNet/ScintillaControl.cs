@@ -9,7 +9,7 @@ using PluginCore.Managers;
 using System.Drawing;
 using System.Text;
 
-namespace ScintillaNet // v.1.79 Some things may not be implemented
+namespace ScintillaNet
 {
 	public class ScintillaControl : Control
 	{
