@@ -212,31 +212,31 @@ namespace PluginCore.Helpers
                 if (File.Exists(file))
                 {
                     Byte[] bytes = File.ReadAllBytes(file);
-                    if (bytes[0] == 0xef && bytes[1] == 0xbb && bytes[2] == 0xbf)
+                    if (bytes.Length > 2 && (bytes[0] == 0xef && bytes[1] == 0xbb && bytes[2] == 0xbf))
                     {
                         startIndex = 3;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF8.CodePage;
                     }
-                    else if (bytes[0] == 0xff && bytes[1] == 0xfe && bytes[2] == 0x00 && bytes[3] == 0x00)
+                    else if (bytes.Length > 3 && (bytes[0] == 0xff && bytes[1] == 0xfe && bytes[2] == 0x00 && bytes[3] == 0x00))
                     {
                         startIndex = 4;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF32.CodePage;
                     }
-                    else if ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) || bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 2f)
+                    else if (bytes.Length > 3 && ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) || bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 2f))
                     {
                         startIndex = 4;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF7.CodePage;
                     }
-                    else if (bytes[0] == 0xff && bytes[1] == 0xfe)
+                    else if (bytes.Length > 1 && (bytes[0] == 0xff && bytes[1] == 0xfe))
                     {
                         startIndex = 2;
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.Unicode.CodePage;
                     }
-                    else if (bytes[0] == 0xfe && bytes[1] == 0xff)
+                    else if (bytes.Length > 1 && (bytes[0] == 0xfe && bytes[1] == 0xff))
                     {
                         startIndex = 2;
                         info.ContainsBOM = true;
@@ -247,19 +247,16 @@ namespace PluginCore.Helpers
                         if (!ContainsInvalidUTF8Bytes(bytes)) info.CodePage = Encoding.UTF8.CodePage;
                         else info.CodePage = Encoding.Default.CodePage;
                     }
-                    Int32 byteLength = bytes.Length - startIndex;
-                    Encoding encoding = Encoding.GetEncoding(info.CodePage);
-                    info.Contents = encoding.GetString(bytes, startIndex, byteLength);
+                    Int32 contentLength = bytes.Length - startIndex;
+                    if (bytes.Length > 0 && bytes.Length > startIndex)
+                    {
+                        Encoding encoding = Encoding.GetEncoding(info.CodePage);
+                        info.Contents = encoding.GetString(bytes, startIndex, contentLength);
+                    }
                 }
-            }
-            catch (IndexOutOfRangeException)
-            {
-                // Empty file, reset file info...
-                info = new EncodingFileInfo();
             }
             catch (Exception ex)
             {
-                // Error, reset file info...
                 info = new EncodingFileInfo();
                 ErrorManager.ShowError(ex);
             }
