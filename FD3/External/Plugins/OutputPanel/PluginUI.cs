@@ -350,6 +350,7 @@ namespace OutputPanel
             this.textLog.SelectionBackColor = this.textLog.BackColor;
             if (findText.Trim() != "")
             {
+                findText = Regex.Escape(findText);
                 MatchCollection results = Regex.Matches(this.textLog.Text, findText, RegexOptions.IgnoreCase);
                 for (Int32 i = 0; i < results.Count; i++)
                 {
