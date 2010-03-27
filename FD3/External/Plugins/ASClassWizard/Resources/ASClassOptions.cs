@@ -10,6 +10,7 @@ namespace ASClassWizard.Resources
     {
         public bool createInheritedMethods;
         public bool createConstructor;
+        public string Package;
         public string superClass;
         public List<string> interfaces;
         public bool isPublic;
@@ -19,6 +20,7 @@ namespace ASClassWizard.Resources
 
         public AS3ClassOptions(
             string language,
+            string package,
             string super_class, 
             List<string> Interfaces, 
             bool is_public, 
@@ -28,6 +30,7 @@ namespace ASClassWizard.Resources
             bool create_constructor)
         {
             Language = language;
+            Package = package;
             createConstructor = create_constructor;
             createInheritedMethods = create_inherited;
             superClass = super_class;

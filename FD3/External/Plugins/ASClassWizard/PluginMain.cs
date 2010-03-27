@@ -265,6 +265,7 @@ namespace ASClassWizard
 
                 lastFileOptions = new AS3ClassOptions(
                     project.Language,
+                    dialog.getPackage(),
                     dialog.getSuperClass(),
                     dialog.hasInterfaces() ? dialog.getInterfaces() : null,
                     dialog.isPublic(),
@@ -288,31 +289,10 @@ namespace ASClassWizard
 
                 if (args.Contains("$(FileNameWithPackage)") || args.Contains("$(Package)"))
                 {
-                    string package = "";
-                    string path = lastFileFromTemplate;
+                    args = args.Replace("$(Package)", lastFileOptions.Package);
 
-                    // Find closest parent
-                    string classpath = project.AbsoluteClasspaths.GetClosestParent(path);
-
-                    // Can't find parent, look in global classpaths
-                    if (classpath == null)
-                    {
-                        PathCollection globalPaths = new PathCollection();
-                        foreach (string cp in ProjectManager.PluginMain.Settings.GlobalClasspaths)
-                            globalPaths.Add(cp);
-                        classpath = globalPaths.GetClosestParent(path);
-                    }
-                    if (classpath != null)
-                    {
-                        // Parse package name from path
-                        package = Path.GetDirectoryName(ProjectPaths.GetRelativePath(classpath, path));
-                        package = package.Replace(Path.DirectorySeparatorChar, '.');
-                    }
-
-                    args = args.Replace("$(Package)", package);
-
-                    if (package != "")
-                        args = args.Replace("$(FileNameWithPackage)", package + "." + fileName);
+                    if (lastFileOptions.Package != "")
+                        args = args.Replace("$(FileNameWithPackage)", lastFileOptions.Package + "." + fileName);
                     else
                         args = args.Replace("$(FileNameWithPackage)", fileName);
 
@@ -425,6 +405,8 @@ namespace ASClassWizard
                 if (prevImport != import)
                 {
                     prevImport = import;
+                    if (import.Substring(0, import.LastIndexOf('.')) == lastFileOptions.Package)
+                        continue;
                     importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") 
                         + "import " + import + ";" + lineBreak;
                 }
