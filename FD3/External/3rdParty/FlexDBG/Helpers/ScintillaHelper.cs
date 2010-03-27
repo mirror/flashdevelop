@@ -52,7 +52,6 @@ namespace FlexDbg
 
 			int mask = sci.GetMarginMaskN(0);
 
-			mask &= ~1;
 			mask |= GetMarkerMask(markerBPEnabled);
 			mask |= GetMarkerMask(markerBPDisabled);
 			mask |= GetMarkerMask(markerBPNotAvailable);

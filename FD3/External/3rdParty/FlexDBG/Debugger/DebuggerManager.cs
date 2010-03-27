@@ -126,6 +126,8 @@ namespace FlexDbg
 			m_FlashInterface.ScriptLoadedEvent += new DebuggerEventHandler(flashInterface_ScriptLoadedEvent);
 			m_FlashInterface.WatchpointEvent += new DebuggerEventHandler(flashInterface_WatchpointEvent);
 			m_FlashInterface.UnknownHaltEvent += new DebuggerEventHandler(flashInterface_UnknownHaltEvent);
+
+            m_FlashInterface.ProgressEvent += new DebuggerProgressEventHandler(flashInterface_ProgressEvent);
         }
 
         #region Startup
@@ -259,6 +261,10 @@ namespace FlexDbg
 			PanelsHelper.breakPointPanel.Show();
 			PanelsHelper.stackframePanel.Show();
 
+            PluginBase.MainForm.ProgressBar.Visible = true;
+            PluginBase.MainForm.ProgressLabel.Visible = true;
+            PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");
+
             bgWorker = new BackgroundWorker();
             bgWorker.DoWork += bgWorker_DoWork;
             bgWorker.RunWorkerAsync();
@@ -339,6 +345,8 @@ namespace FlexDbg
 			}
 
 			UpdateMenuState(DebuggerState.Running);
+            PluginBase.MainForm.ProgressBar.Visible = false;
+            PluginBase.MainForm.ProgressLabel.Visible = false;
 		}
 
 		void flashInterface_DisconnectedEvent(object sender)
@@ -364,7 +372,10 @@ namespace FlexDbg
 			PanelsHelper.stackframeUI.ClearItem();
 
 			PluginMain.breakPointManager.ResetAll();
-		}
+
+            PluginBase.MainForm.ProgressBar.Visible = false;
+            PluginBase.MainForm.ProgressLabel.Visible = false;
+        }
 
 		void flashInterface_BreakpointEvent(object sender)
 		{
@@ -595,7 +606,21 @@ namespace FlexDbg
             TraceManager.AddAsync(trace, 1);
         }
 
-		#endregion
+        void flashInterface_ProgressEvent(object sender, int current, int total)
+        {
+            if ((PluginBase.MainForm as Form).InvokeRequired)
+            {
+                (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate()
+                {
+                    flashInterface_ProgressEvent(sender, current, total);
+                });
+                return;
+            }
+            PluginBase.MainForm.ProgressBar.Maximum = total;
+            PluginBase.MainForm.ProgressBar.Value = current;
+        }
+
+        #endregion
 
         #region MenuItem Event Handling
 

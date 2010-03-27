@@ -363,4 +363,10 @@
   <data name="Label.RunToCursor" xml:space="preserve">
     <value>&amp;Run to Cursor Line</value>
   </data>
+  <data name="Description.WaitForExternal" xml:space="preserve">
+    <value>Wait for external application to connect to debugger instead of launching the application.</value>
+  </data>
+  <data name="Info.WaitingForPlayer" xml:space="preserve">
+    <value>Waiting for Flash player to connect to debugger</value>
+  </data>
 </root>

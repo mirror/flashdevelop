@@ -35,8 +35,9 @@ namespace FlexDbg
 	public delegate void SwfUnloadedEventHandler(object sender, SwfUnloadedEvent e);
 
 	public delegate void DebuggerEventHandler(object sender);
+    public delegate void DebuggerProgressEventHandler(object sender, int current, int total);
 
-	public class FlashInterface
+	public class FlashInterface : IProgress
 	{
 		// default metadata retry count 8 attempts per waitForMetadata() call * 5 calls
 		public const int METADATA_RETRIES = 8 * 5;
@@ -61,6 +62,8 @@ namespace FlexDbg
 		public event DebuggerEventHandler ScriptLoadedEvent;
 		public event DebuggerEventHandler WatchpointEvent;
 		public event DebuggerEventHandler UnknownHaltEvent;
+
+        public event DebuggerProgressEventHandler ProgressEvent;
 
 		#region public properties
 
@@ -188,7 +191,7 @@ namespace FlexDbg
 		{
 			m_CurrentState = DebuggerState.Starting;
 
-			SessionManager mgr = Bootstrap.sessionManager();
+            SessionManager mgr = Bootstrap.sessionManager();
 
 			mgr.setDebuggerCallbacks(new FlashDebuggerCallbacks());
 
@@ -197,293 +200,304 @@ namespace FlexDbg
 			m_RequestDetach = false;
 
 			mgr.startListening();
+            FlexDbgTrace.TraceInfo("startListening");
+            
+            try
+            {
 
-#if true
-			if (m_ProjectType == ProjectType.AIR)
-			{
-				FlexDbgTrace.TraceInfo("AIR ProcessStart()");
-				AIRLaunchInfo airLaunchInfo = new AIRLaunchInfo();
+                if (!PluginMain.settingObject.WaitForExternal)
+                {
+                    if (m_ProjectType == ProjectType.AIR)
+                    {
+                        FlexDbgTrace.TraceInfo("AIR ProcessStart()");
+                        AIRLaunchInfo airLaunchInfo = new AIRLaunchInfo();
 
-				airLaunchInfo.airDebugLauncher = new FileInfo(m_CurrentProject.TestMovieCommand.Split(' ')[0]);
+                        airLaunchInfo.airDebugLauncher = new FileInfo(m_CurrentProject.TestMovieCommand.Split(';')[0]);
 
-				m_Session = mgr.launch(m_CurrentProject.OutputPathAbsolute, airLaunchInfo, true, null);
-			}
-			else
-			{
-				FlexDbgTrace.TraceInfo("ProcessStart()");
-				if (m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.ExternalPlayer ||
-					m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.Default)
-				{
-					m_Session = mgr.launch(m_CurrentProject.OutputPathAbsolute, null, true, null);
-				}
-				else if (m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.OpenDocument)
-				{
-					m_Session = mgr.launch(m_CurrentProject.TestMovieCommand, null, true, null);
-				}
-			}
-#else
-			m_Session = mgr.accept(null);
-#endif
+                        m_Session = mgr.launch(m_CurrentProject.OutputPathAbsolute, airLaunchInfo, true, this);
+                    }
+                    else
+                    {
+                        FlexDbgTrace.TraceInfo("ProcessStart()");
+                        if (m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.ExternalPlayer ||
+                            m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.Default)
+                        {
+                            m_Session = mgr.launch(m_CurrentProject.OutputPathAbsolute, null, true, this);
+                        }
+                        else if (m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.OpenDocument)
+                        {
+                            m_Session = mgr.launch(m_CurrentProject.TestMovieCommand, null, true, this);
+                        }
+                    }
+                }
+                else
+                {
+                    m_Session = mgr.accept(this);
+                }
 
-			FlexDbgTrace.TraceInfo("FlexDbg.START");
+                FlexDbgTrace.TraceInfo("FlexDbg.START");
 
-			if (m_Session == null)
-			{
-				m_CurrentState = DebuggerState.Stopped;
+                if (m_Session == null)
+                {
+                    m_CurrentState = DebuggerState.Stopped;
 
-				throw new Exception("Unable to start Flex SDK interactive debugger.");
-			}
+                    throw new Exception("Unable to start Flex SDK interactive debugger.");
+                }
 
-			initSession();
+                initSession();
 
-			m_CurrentState = DebuggerState.Running;
+                m_CurrentState = DebuggerState.Running;
 
-			if (StartedEvent != null)
-			{
-				StartedEvent(this);
-			}
+                if (StartedEvent != null)
+                {
+                    StartedEvent(this);
+                }
 
-			try
-			{
-				waitTilHalted();
-			}
-			catch (System.Exception)
-			{
-			}
+                try
+                {
+                    waitTilHalted();
+                }
+                catch (System.Exception)
+                {
+                }
 
-			try
-			{
-				waitForMetaData();
-			}
-			catch (System.Exception)
-			{
-			}
+                try
+                {
+                    waitForMetaData();
+                }
+                catch (System.Exception)
+                {
+                }
 
-			m_CurrentState = DebuggerState.ExceptionHalt;
+                m_CurrentState = DebuggerState.ExceptionHalt;
 
-			// now poke to see if the player is good enough
-			try
-			{
-				if (m_Session.getPreference(SessionManager.PLAYER_SUPPORTS_GET) == 0)
-				{
-					TraceManager.AddAsync(TextHelper.GetString("warningNotAllCommandsSupported"));
-				}
-			}
-			catch (System.Exception)
-			{
-			}
+                // now poke to see if the player is good enough
+                try
+                {
+                    if (m_Session.getPreference(SessionManager.PLAYER_SUPPORTS_GET) == 0)
+                    {
+                        TraceManager.AddAsync(TextHelper.GetString("warningNotAllCommandsSupported"));
+                    }
+                }
+                catch (System.Exception)
+                {
+                }
 
-			bool stop = false;
+                bool stop = false;
 
-			while (!stop)
-			{
-				processEvents();
+                while (!stop)
+                {
+                    processEvents();
 
-				// not there, not connected
-				if (m_RequestStop || m_RequestDetach || !haveConnection())
-				{
-					FlexDbgTrace.TraceInfo("Stopping due to request or lost connection, m_RequestStop = " + m_RequestStop);
-					stop = true;
-					continue;
-				}
+                    // not there, not connected
+                    if (m_RequestStop || m_RequestDetach || !haveConnection())
+                    {
+                        FlexDbgTrace.TraceInfo("Stopping due to request or lost connection, m_RequestStop = " + m_RequestStop);
+                        stop = true;
+                        continue;
+                    }
 
-				if (m_RequestResume)
-				{
-					// resume execution (request fulfilled)
-					try
-					{
-						if (m_StepResume)
-						{
-							m_Session.stepContinue();
-						}
-						else
-						{
-							m_Session.resume();
-						}
-					}
-					catch (NotSuspendedException)
-					{
-						TraceManager.AddAsync(TextHelper.GetString("playerAlreadyRunning"));
-					}
+                    if (m_RequestResume)
+                    {
+                        // resume execution (request fulfilled)
+                        try
+                        {
+                            if (m_StepResume)
+                            {
+                                m_Session.stepContinue();
+                            }
+                            else
+                            {
+                                m_Session.resume();
+                            }
+                        }
+                        catch (NotSuspendedException)
+                        {
+                            TraceManager.AddAsync(TextHelper.GetString("playerAlreadyRunning"));
+                        }
 
-					m_RequestResume = false;
-					m_RequestPause = false;
-					m_StepResume = false;
+                        m_RequestResume = false;
+                        m_RequestPause = false;
+                        m_StepResume = false;
 
-					continue;
-				}
+                        continue;
+                    }
 
-				if (m_Session.Suspended)
-				{
-					/*
-					* We have stopped for some reason. 
-					*/
+                    if (m_Session.Suspended)
+                    {
+                        /*
+                        * We have stopped for some reason. 
+                        */
 
-					/*
-					* Now before we do this see, if we have a valid break reason, since
-					* we could be still receiving incoming messages, even though we have halted.
-					* This is definately the case with loading of multiple SWFs.  After the load
-					* we get info on the swf.
-					*/
-					int tries = 3;
-					while (tries-- > 0 && m_Session.suspendReason() == SuspendReason.Unknown)
-					{
-						try
-						{
-							System.Threading.Thread.Sleep(100);
-							processEvents();
-						}
-						catch (System.Threading.ThreadInterruptedException)
-						{
-						}
-					}
+                        /*
+                        * Now before we do this see, if we have a valid break reason, since
+                        * we could be still receiving incoming messages, even though we have halted.
+                        * This is definately the case with loading of multiple SWFs.  After the load
+                        * we get info on the swf.
+                        */
+                        int tries = 3;
+                        while (tries-- > 0 && m_Session.suspendReason() == SuspendReason.Unknown)
+                        {
+                            try
+                            {
+                                System.Threading.Thread.Sleep(100);
+                                processEvents();
+                            }
+                            catch (System.Threading.ThreadInterruptedException)
+                            {
+                            }
+                        }
 
-					m_SuspendWait.Reset();
+                        m_SuspendWait.Reset();
 
-					switch (suspendReason)
-					{
-						case SuspendReason.Breakpoint:
-							if (BreakpointEvent != null)
-							{
-								BreakpointEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
+                        switch (suspendReason)
+                        {
+                            case SuspendReason.Breakpoint:
+                                if (BreakpointEvent != null)
+                                {
+                                    BreakpointEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
 
-						case SuspendReason.Fault:
-							if (FaultEvent != null)
-							{
-								FaultEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
+                            case SuspendReason.Fault:
+                                if (FaultEvent != null)
+                                {
+                                    FaultEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
 
-						case SuspendReason.ScriptLoaded:
-							waitForMetaData();
-							if (ScriptLoadedEvent != null)
-							{
-								ScriptLoadedEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
+                            case SuspendReason.ScriptLoaded:
+                                waitForMetaData();
+                                if (ScriptLoadedEvent != null)
+                                {
+                                    ScriptLoadedEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
 
-						case SuspendReason.Step:
-							if (StepEvent != null)
-							{
-								StepEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
+                            case SuspendReason.Step:
+                                if (StepEvent != null)
+                                {
+                                    StepEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
 
-						case SuspendReason.StopRequest:
-							if (PauseEvent != null)
-							{
-								PauseEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
+                            case SuspendReason.StopRequest:
+                                if (PauseEvent != null)
+                                {
+                                    PauseEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
 
-						case SuspendReason.Watch:
-							if (WatchpointEvent != null)
-							{
-								WatchpointEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
+                            case SuspendReason.Watch:
+                                if (WatchpointEvent != null)
+                                {
+                                    WatchpointEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
 
-						default:
-							if (UnknownHaltEvent != null)
-							{
-								UnknownHaltEvent(this);
-							}
-							else
-							{
-								m_RequestResume = true;
-							}
-							break;
-					}
+                            default:
+                                if (UnknownHaltEvent != null)
+                                {
+                                    UnknownHaltEvent(this);
+                                }
+                                else
+                                {
+                                    m_RequestResume = true;
+                                }
+                                break;
+                        }
 
-					if (!(m_RequestResume || m_RequestDetach))
-					{
-						m_SuspendWait.WaitOne();
-					}
-				}
-				else
-				{
-					if (m_RequestPause)
-					{
-						try
-						{
-							m_Session.suspend();
+                        if (!(m_RequestResume || m_RequestDetach))
+                        {
+                            m_SuspendWait.WaitOne();
+                        }
+                    }
+                    else
+                    {
+                        if (m_RequestPause)
+                        {
+                            try
+                            {
+                                m_Session.suspend();
 
-							// no connection => dump state and end
-							if (!haveConnection())
-							{
-								stop = true;
-								continue;
-							}
-							else if (!m_Session.Suspended)
-							{
-								TraceManager.AddAsync(TextHelper.GetString("couldNotHalt"));
+                                // no connection => dump state and end
+                                if (!haveConnection())
+                                {
+                                    stop = true;
+                                    continue;
+                                }
+                                else if (!m_Session.Suspended)
+                                {
+                                    TraceManager.AddAsync(TextHelper.GetString("couldNotHalt"));
 
-								if (PauseFailedEvent != null)
-								{
-									PauseFailedEvent(this);
-								}
-							}
-						}
-						catch (ArgumentException)
-						{
-							TraceManager.AddAsync(TextHelper.GetString("escapingFromDebuggerPendingLoop"));
-							stop = true;
-						}
-						catch (IOException io)
-						{
-							System.Collections.IDictionary args = new System.Collections.Hashtable();
-							args["error"] = io.Message; //$NON-NLS-1$
-							TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("continuingDueToError"), args));
-						}
-						catch (SuspendedException)
-						{
-							// lucky us, already paused
-						}
-					}
-				}
+                                    if (PauseFailedEvent != null)
+                                    {
+                                        PauseFailedEvent(this);
+                                    }
+                                }
+                            }
+                            catch (ArgumentException)
+                            {
+                                TraceManager.AddAsync(TextHelper.GetString("escapingFromDebuggerPendingLoop"));
+                                stop = true;
+                            }
+                            catch (IOException io)
+                            {
+                                System.Collections.IDictionary args = new System.Collections.Hashtable();
+                                args["error"] = io.Message; //$NON-NLS-1$
+                                TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("continuingDueToError"), args));
+                            }
+                            catch (SuspendedException)
+                            {
+                                // lucky us, already paused
+                            }
+                        }
+                    }
 
-				// sleep for a bit, then process our events.
-				try
-				{
-					System.Threading.Thread.Sleep(m_UpdateDelay);
-				}
-				catch (System.Threading.ThreadInterruptedException)
-				{
-				}
-			}
+                    // sleep for a bit, then process our events.
+                    try
+                    {
+                        System.Threading.Thread.Sleep(m_UpdateDelay);
+                    }
+                    catch (System.Threading.ThreadInterruptedException)
+                    {
+                    }
+                }
+                FlexDbgTrace.TraceInfo("loop end");
 
-			if (DisconnectedEvent != null)
-			{
-				DisconnectedEvent(this);
-			}
-
-			exitSession();
+            }
+            finally
+            {
+                if (DisconnectedEvent != null)
+                {
+                    DisconnectedEvent(this);
+                }
+                exitSession();
+            }
 		}
 
 		internal virtual void initSession()
@@ -515,7 +529,7 @@ namespace FlexDbg
 		/// </summary>
 		internal virtual void exitSession()
 		{
-			// clear out our watchpoint list and displays
+            // clear out our watchpoint list and displays
 			// keep breakpoints around so that we can try to reapply them if we reconnect
 			if (m_Session != null)
 			{
@@ -530,8 +544,10 @@ namespace FlexDbg
 
 				m_Session = null;
 			}
-			m_CurrentState = DebuggerState.Stopped;
-		}
+            SessionManager mgr = Bootstrap.sessionManager();
+            if (mgr.Listening) mgr.stopListening();
+            m_CurrentState = DebuggerState.Stopped;
+        }
 
 		internal virtual void Detach()
 		{
@@ -1194,5 +1210,17 @@ namespace FlexDbg
 			}
 			return text.Replace("$${", "${");
 		}
-	}
+
+        #region IProgress Members
+
+        public void setProgress(int current, int total)
+        {
+            if (ProgressEvent != null)
+            {
+                ProgressEvent(this, current, total);
+            }
+        }
+
+        #endregion
+    }
 }

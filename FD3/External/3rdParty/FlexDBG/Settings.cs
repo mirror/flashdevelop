@@ -106,6 +106,8 @@ namespace FlexDbg
 		private Color m_BreakPointDisableLineColor = Color.Gray;
 		private Color m_DebugLineColor = Color.Yellow;
 
+        private Boolean m_WaitForExternal = false;
+
 #if false
 		private Point debugToolBarLocation = new Point(0, 0);
 
@@ -360,5 +362,14 @@ namespace FlexDbg
 				m_PathChangedEvent(m_DebugFlashPlayerPath);
         }
 #endif
+
+        [LocalizedCategory("Category.Misc")]
+        [LocalizedDescription("Description.WaitForExternal")]
+        [DefaultValue(false)]
+        public bool WaitForExternal
+        {
+            get { return m_WaitForExternal; }
+            set { m_WaitForExternal = value; }
+        }
     }
 }
