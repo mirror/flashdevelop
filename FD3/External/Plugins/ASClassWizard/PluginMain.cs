@@ -283,16 +283,17 @@ namespace ASClassWizard
         {
             if (lastFileFromTemplate != null)
             {
+                string package = lastFileOptions != null ? lastFileOptions.Package : "";
                 string fileName = Path.GetFileNameWithoutExtension(lastFileFromTemplate);
 
                 args = args.Replace("$(FileName)", fileName);
 
                 if (args.Contains("$(FileNameWithPackage)") || args.Contains("$(Package)"))
                 {
-                    args = args.Replace("$(Package)", lastFileOptions.Package);
+                    args = args.Replace("$(Package)", package);
 
-                    if (lastFileOptions.Package != "")
-                        args = args.Replace("$(FileNameWithPackage)", lastFileOptions.Package + "." + fileName);
+                    if (package != "")
+                        args = args.Replace("$(FileNameWithPackage)", package + "." + fileName);
                     else
                         args = args.Replace("$(FileNameWithPackage)", fileName);
 
