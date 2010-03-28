@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using ProjectManager.Helpers;
 using ProjectManager.Projects;
@@ -9,11 +10,15 @@ using PluginCore.Utilities;
 
 namespace ProjectManager.Controls.TreeView
 {
+    public delegate FileNode FileNodeFactory(string filePath);
+
 	/// <summary>
 	/// Represents a file on disk.
 	/// </summary>
 	public class FileNode : GenericNode
 	{
+        static Dictionary<string, FileNodeFactory> FileAssociations = new Dictionary<string, FileNodeFactory>();
+
 		protected FileNode(string filePath) : base(filePath)
 		{
 			isDraggable = true;
@@ -33,6 +38,8 @@ namespace ProjectManager.Controls.TreeView
                 return new InputSwfNode(filePath);
             else if (FileInspector.IsSwf(filePath, ext) || FileInspector.IsSwc(filePath, ext))
                 return new SwfFileNode(filePath);
+            else if (FileAssociations.ContainsKey(ext)) // custom nodes building
+                return FileAssociations[ext](filePath);
             else
                 return new FileNode(filePath);
 		}
