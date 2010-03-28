@@ -225,7 +225,7 @@ namespace ASCompletion.Completion
         {
             if (matches.Count == 1)
             {
-                ASGenerator.GenerateJob(GeneratorJobType.AddImport, matches[0], null);
+                ASGenerator.GenerateJob(GeneratorJobType.AddImport, matches[0], null, null);
                 return;
             }
 
@@ -289,13 +289,16 @@ namespace ASCompletion.Completion
             List<ICompletionListItem> known = new List<ICompletionListItem>();
             string tmp = TextHelper.GetString("ASCompletion.Label.GenerateHandler");
             string labelEvent = String.Format(tmp, "Event");
+            string labelDataEvent = String.Format(tmp, "DataEvent");
             string labelContext = String.Format(tmp, contextParam);
             string[] choices = (contextParam != "Event") ?
                 new string[] { labelContext, labelEvent } :
-                new string[] { labelEvent };
+                new string[] { labelEvent, labelDataEvent };
             for (int i = 0; i < choices.Length; i++)
             {
-                known.Add(new GeneratorItem(choices[i], (GeneratorJobType)(i + 3), found.member, found.inClass));
+                known.Add(new GeneratorItem(choices[i], 
+                    choices[i] == labelContext ? GeneratorJobType.ComplexEvent : GeneratorJobType.BasicEvent, 
+                    found.member, found.inClass));
             }
             CompletionList.Show(known, false);
         }
@@ -327,7 +330,7 @@ namespace ASCompletion.Completion
             ASGenerator.contextMatch = contextMatch;
         }
 
-        static public void GenerateJob(GeneratorJobType job, MemberModel member, ClassModel inClass)
+        static public void GenerateJob(GeneratorJobType job, MemberModel member, ClassModel inClass, string itemLabel)
         {
             ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
             lookupPosition = Sci.CurrentPos;
@@ -389,7 +392,9 @@ namespace ASCompletion.Completion
                 case GeneratorJobType.ComplexEvent:    
                     position = Sci.PositionFromLine(member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                     Sci.SetSel(position, position);
-                    string type = (job == GeneratorJobType.BasicEvent) ? "Event" : contextParam;
+                    string type = contextParam;
+                    if (job == GeneratorJobType.BasicEvent)
+                        if (itemLabel.IndexOf("DataEvent") >= 0) type = "DataEvent"; else type = "Event";
                     GenerateEventHandler(contextToken, type, member, position);
                     break;
 
@@ -763,6 +768,13 @@ namespace ASCompletion.Completion
                 {
                     List<string> typesUsed = new List<string>();
                     typesUsed.Add("flash.events.Event");
+                    position += AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                    Sci.SetSel(position, position);
+                }
+                else if (type == "DataEvent")
+                {
+                    List<string> typesUsed = new List<string>();
+                    typesUsed.Add("flash.events.DataEvent");
                     position += AddImportsByName(typesUsed, Sci.LineFromPosition(position));
                     Sci.SetSel(position, position);
                 }
@@ -1422,7 +1434,7 @@ namespace ASCompletion.Completion
         {
             get
             {
-                ASGenerator.GenerateJob(job, member, inClass);
+                ASGenerator.GenerateJob(job, member, inClass, label);
                 return null;
             }
         }

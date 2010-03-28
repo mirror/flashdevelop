@@ -10,11 +10,13 @@ namespace PluginCore.Controls
 {
 	public class MessageBar : UserControl
 	{
+        static public bool Locked;
+
         private ToolTip tip;
         private Label label;
 		private InertButton buttonClose;
 		private String currentMessage;
-		
+
 		public MessageBar()
 		{
 			this.InitializeComponent();
@@ -23,6 +25,7 @@ namespace PluginCore.Controls
 		
 		static public void ShowWarning(String message)
 		{
+            if (Locked) return;
 			CreateBar(PluginBase.MainForm.CurrentDocument, message);
 		}
 

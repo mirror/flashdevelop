@@ -27,8 +27,6 @@ namespace CodeRefactor
         private RefactorMenu refactorMainMenu;
         private Settings settingObject;
         private String settingFilename;
-        private String lastPosition = null;
-        private ASResult lastResult;
 
         #region Required Properties
 
@@ -110,15 +108,6 @@ namespace CodeRefactor
 		{
             switch (e.Type)
             {
-                case EventType.UIRefresh:
-                    this.lastPosition = null;
-                    this.UpdateMenuItems();
-                    break;
-
-                case EventType.FileSwitch:
-                    this.UpdateMenuItems();
-                    break;
-
                 case EventType.SettingChanged:
                     TextEvent evnt = (TextEvent)e;
                     if (evnt.Value.StartsWith("CodeRefactor"))
@@ -167,6 +156,19 @@ namespace CodeRefactor
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             mainMenu.Items.Insert(4, this.refactorMainMenu);
             this.ApplyIgnoredKeys();
+
+            mainMenu.MenuActivate += new EventHandler(mainMenu_MenuActivate);
+            PluginBase.MainForm.EditorMenu.Opening += new CancelEventHandler(EditorMenu_Opening);
+        }
+
+        void mainMenu_MenuActivate(object sender, EventArgs e)
+        {
+            UpdateMenuItems();
+        }
+
+        void EditorMenu_Opening(object sender, CancelEventArgs e)
+        {
+            UpdateMenuItems();
         }
 
         /// <summary>
@@ -204,11 +206,8 @@ namespace CodeRefactor
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document == null || document.SciControl == null || !ASContext.Context.IsFileValid) return null;
             Int32 position = document.SciControl.WordEndPosition(document.SciControl.CurrentPos, true);
-            if (lastPosition == document.FileName + ':' + position) return lastResult;
-            lastPosition = document.FileName + ':' + position;
             ASResult result = ASComplete.GetExpressionType(document.SciControl, position);
-            lastResult = result == null && result.IsNull() ? null : result;
-            return lastResult;
+            return result == null && result.IsNull() ? null : result;
         }
 
         /// <summary>

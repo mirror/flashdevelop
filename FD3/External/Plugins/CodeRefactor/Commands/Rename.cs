@@ -122,6 +122,7 @@ namespace CodeRefactor.Commands
             if (projectPath == null) projectPath = String.Empty;
             else projectPath = System.IO.Path.GetDirectoryName(projectPath) + "\\";
             int projectPathLength = projectPath.Length;
+            PluginCore.Controls.MessageBar.Locked = true;
             foreach (KeyValuePair<String, List<SearchMatch>> entry in eventArgs.Results)
             {
                 UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.Updating") + " \"" + (entry.Key.StartsWith(projectPath) ? entry.Key.Substring(projectPathLength) : entry.Key) + "\"");
@@ -135,6 +136,7 @@ namespace CodeRefactor.Commands
             this.Results = eventArgs.Results;
             if (this.outputResults) this.ReportResults();
             UserInterfaceManager.ProgressDialog.Hide();
+            PluginCore.Controls.MessageBar.Locked = false;
             this.FireOnRefactorComplete();
         }
 

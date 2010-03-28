@@ -554,6 +554,14 @@ namespace AS3Context
                             fullList.Add(item);
                         }
                     }
+                    else if (aFile.Members.Count > 0)
+                    {
+                        foreach (MemberModel member in aFile.Members)
+                        {
+                            item = member.Clone() as MemberModel;
+                            fullList.Add(item);
+                        }
+                    }
                 }
             }
             // void
@@ -663,7 +671,7 @@ namespace AS3Context
             topLevel = new FileModel(filename);
 
             // search top-level declaration
-            foreach (PathModel aPath in classPath)
+            /*foreach (PathModel aPath in classPath)
                 if (File.Exists(Path.Combine(aPath.Path, filename)))
                 {
                     filename = Path.Combine(aPath.Path, filename);
@@ -679,7 +687,7 @@ namespace AS3Context
             else
             {
                 //ErrorHandler.ShowInfo("Top-level elements class not found. Please check your Program Settings.");
-            }
+            }*/
 
             if (topLevel.Members.Search("this", 0, 0) == null)
                 topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));

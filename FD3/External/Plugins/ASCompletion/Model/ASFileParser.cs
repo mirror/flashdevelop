@@ -1244,7 +1244,7 @@ namespace ASCompletion.Model
 				}
 				else if (features.hasNamespaces && token == "namespace")
 				{
-                    if (prevToken.Text != "use")
+                    if (context == 0 && prevToken.Text != "use")
 					    foundKeyword = FlagType.Namespace;
 				}
 				

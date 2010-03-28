@@ -691,7 +691,7 @@ namespace AS2Context
             // refresh model
             base.CheckModel(onFileOpen);
 
-            if (features.checkFileName && cFile.Version > 1)
+            if (!MessageBar.Locked && features.checkFileName && cFile.Version > 1)
             {
                 string package = cFile.Package;
                 ClassModel pClass = cFile.GetPublicClass();
@@ -839,9 +839,11 @@ namespace AS2Context
                 {
                     string prevPackage = null;
                     string packagePrefix = name + ".";
+                    int nameLen = name.Length + 1;
                     foreach (FileModel model in aPath.Files.Values)
                     {
-                        if (model.Package == name)
+                        string package = model.Package;
+                        if (package == "" || package == name) // global package or same package
                         {
                             foreach (ClassModel type in model.Classes)
                             {
@@ -857,21 +859,16 @@ namespace AS2Context
                             foreach (MemberModel member in model.Members)
                                 pModel.Members.Add(member.Clone() as MemberModel);
                         }
-                        else 
+                        else if (package != prevPackage 
+                                && (package.Length > name.Length && package.StartsWith(packagePrefix))) // imports
                         {
-                            string package = model.Package;
-                            if (package != prevPackage 
-                                && (name.Length == 0 
-                                    || (package.Length > name.Length && package.StartsWith(packagePrefix))))
+                            prevPackage = package;
+                            if (nameLen > 1) package = package.Substring(nameLen);
+                            int p = package.IndexOf('.');
+                            if (p > 0) package = package.Substring(0, p);
+                            if (pModel.Imports.Search(package, 0, 0) == null) // sub packages
                             {
-                                prevPackage = package;
-                                if (name.Length > 0) package = package.Substring(name.Length+1);
-                                int p = package.IndexOf('.');
-                                if (p > 0) package = package.Substring(0, p);
-                                if (pModel.Imports.Search(package, 0, 0) == null)
-                                {
-                                    pModel.Imports.Add(new MemberModel(package, prevPackage, FlagType.Package, Visibility.Public));
-                                }
+                                pModel.Imports.Add(new MemberModel(package, prevPackage, FlagType.Package, Visibility.Public));
                             }
                         }
                     }
@@ -964,7 +961,7 @@ namespace AS2Context
                 elements.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));
 
                 // other classes in same package
-                if (features.hasPackages && cFile.Package.Length > 0)
+                if (features.hasPackages && cFile.Package != "")
                 {
                     bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports;
                     FileModel packageElements = ResolvePackage(cFile.Package, false);
@@ -980,7 +977,8 @@ namespace AS2Context
                         }
                         foreach (MemberModel member in packageElements.Members)
                         {
-                            if (qualify) member.Name = member.InFile.Package + "." + member.Name;
+                            string pkg = member.InFile.Package;
+                            if (qualify && pkg != "") member.Name = pkg + "." + member.Name;
                             elements.Add(member);
                         }
                     }
@@ -989,7 +987,7 @@ namespace AS2Context
                 else
                 {
                     bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports 
-                        && cFile.Package.Length > 0;
+                        && cFile.Package != "";
                     MemberModel member;
                     foreach (ClassModel aClass in cFile.Classes)
                     {
