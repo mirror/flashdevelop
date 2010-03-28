@@ -785,24 +785,25 @@ namespace FileExplorer
 
         /// <summary>
         /// Browses to the current file's path
+        /// If file is in a project, browse to project root
         /// </summary>
         private void SynchronizeView(Object sender, System.EventArgs e)
         {
-            String path;
+            String path = null;
+            
             if (PluginBase.CurrentProject != null && this.pluginMain.Settings.SynchronizeToProject)
             {
                 path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-                this.PopulateFileView(path);
             }
-            else
+
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document.IsEditable && !document.IsUntitled && File.Exists(document.FileName)
+                && !document.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase))
             {
-                ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                if (document.IsEditable && !document.IsUntitled && File.Exists(document.FileName))
-                {
-                    path = Path.GetDirectoryName(document.FileName);
-                    this.PopulateFileView(path);
-                }
+                path = Path.GetDirectoryName(document.FileName);
             }
+
+            if (path != null) this.PopulateFileView(path);
         }
 
         /// <summary>

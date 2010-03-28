@@ -25,6 +25,8 @@ namespace FDBuild
             BuildOptions = new FDBuildOptions(args);
 
             // save current directory - ProjectBuilder might change it
+            if (Path.IsPathRooted(options.ProjectFile))
+                Environment.CurrentDirectory = Path.GetDirectoryName(options.ProjectFile);
             string directory = Environment.CurrentDirectory;
             string toolsDir = Path.GetDirectoryName(ProjectPaths.ApplicationDirectory);
 
