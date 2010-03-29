@@ -201,6 +201,8 @@ namespace FlexDbg
                     if (buildevnt.Action == "AS3Context.StartDebugger")
                     {
                         // TODO handle this event to debug external Flash player instances (like in webbrowser, AIR)
+                        buildevnt.Handled = true;
+                        debugManager.Start();
                         return;
                     }
 

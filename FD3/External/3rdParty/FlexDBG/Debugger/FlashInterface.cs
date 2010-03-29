@@ -205,6 +205,7 @@ namespace FlexDbg
             try
             {
 
+/*                
                 if (!PluginMain.settingObject.WaitForExternal)
                 {
                     if (m_ProjectType == ProjectType.AIR)
@@ -231,6 +232,7 @@ namespace FlexDbg
                     }
                 }
                 else
+*/
                 {
                     m_Session = mgr.accept(this);
                 }

@@ -265,9 +265,18 @@ namespace FlexDbg
             PluginBase.MainForm.ProgressLabel.Visible = true;
             PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");
 
-            bgWorker = new BackgroundWorker();
-            bgWorker.DoWork += bgWorker_DoWork;
-            bgWorker.RunWorkerAsync();
+            if (bgWorker == null || !bgWorker.IsBusy)
+            {
+                // only run a debugger if one is not already runnin - need to redesign core to support multiple debugging instances
+                // other option: detach old worker, wait for it to exit and start new one
+                bgWorker = new BackgroundWorker();
+                bgWorker.DoWork += bgWorker_DoWork;
+                bgWorker.RunWorkerAsync();
+            }
+            else
+            {
+                MessageBox.Show("Debugging session already running.");
+            }
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
