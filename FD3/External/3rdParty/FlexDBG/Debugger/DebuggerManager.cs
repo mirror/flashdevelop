@@ -152,22 +152,10 @@ namespace FlexDbg
 
             UpdateMenuState(DebuggerState.Starting);
 
-            if (PluginMain.settingObject.CompileBeforeDebug ||
-                !File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
+            if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
             {
-                try
-                {
-                    BuildCurrentProject();
-                }
-                catch
-                {
-                    String message = TextHelper.GetString("Info.DebugWithoutCompile");
-                    String title = " " + PluginCore.Localization.TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
-                    if (MessageBox.Show(message, title, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    {
-                        Start(currentProject.OutputPathAbsolute);
-                    }
-                }
+                // remove this, let other parts deal with it
+                MessageBox.Show("Cannot find Output file");
             }
             else Start(currentProject.OutputPathAbsolute);
         }
@@ -198,50 +186,19 @@ namespace FlexDbg
             {
                 errormsg = e.Message + System.Environment.NewLine;
             }
-#if false
-            if (!(currentProject.CompileTargets != null && currentProject.CompileTargets.Count != 0))
-            {
-                errormsg += TextHelper.GetString("FlexDbg.Info.NoMainClass") + System.Environment.NewLine;
-            }
-#endif
             if (currentProject.Language != "as3")
             {
                 errormsg += TextHelper.GetString("Info.LanguageNotAS3") + System.Environment.NewLine;
             }
-#if false
-            try
+            // TODO move this outside
+            if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
             {
-                //$(FlexSDK)\bin\adl.exe;application.xml bin
-                if (currentProject.TestMovieCommand != null && currentProject.TestMovieCommand.Contains("adl.exe"))
-                {
-                    //AIR
-                    processname = "adl";
-                }
-                else
-                {
-                    String cmd = Util.FindAssociatedExecutableFile(".swf", "open");
-                    if (cmd != AssociateExecutableFilePath)
-                    {
-                        processname = Util.GetAssociateAppFileName(cmd);
-                        AssociateExecutableFilePath = cmd;
-                    }
-                }
+                errormsg += "Cannot debug ActiveX player" + System.Environment.NewLine;
             }
-            catch (Exception e)
-            {
-                errormsg += e.Message + System.Environment.NewLine;
-            }
-#endif
             if (errormsg != String.Empty)
 				throw new Exception(errormsg);
 
 			return true;
-        }
-
-        private void BuildCurrentProject()
-        {
-            DataEvent de = new DataEvent(EventType.Command, "ProjectManager.BuildProject", null);
-            EventManager.DispatchEvent(this, de);
         }
 
         /// <summary>

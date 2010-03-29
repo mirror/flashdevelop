@@ -96,7 +96,6 @@ namespace FlexDbg
 		private Folder[] m_SourcePaths = new Folder[] { };
 
 		// private String m_DebugFlashPlayerPath;
-		private Boolean m_CompileBeforeDebug = false;
 		private Boolean m_bTraceLog = false;
 
 		private Boolean m_SaveBreakPoints = true;
@@ -106,7 +105,7 @@ namespace FlexDbg
 		private Color m_BreakPointDisableLineColor = Color.Gray;
 		private Color m_DebugLineColor = Color.Yellow;
 
-        private Boolean m_WaitForExternal = false;
+        private Boolean m_StartDebuggerOnTestMovie = false;
 
 #if false
 		private Point debugToolBarLocation = new Point(0, 0);
@@ -165,15 +164,6 @@ namespace FlexDbg
 			}
 		}
 #endif
-
-		[LocalizedCategory("Category.Misc")]
-		[LocalizedDescription("Description.CompileBeforeDebug")]
-		[DefaultValue(false)]
-		public Boolean CompileBeforeDebug
-		{
-			get { return m_CompileBeforeDebug; }
-			set { m_CompileBeforeDebug = value; }
-		}
 
 		[LocalizedCategory("Category.Misc")]
 		[LocalizedDescription("Description.EnableLogging")]
@@ -364,12 +354,12 @@ namespace FlexDbg
 #endif
 
         [LocalizedCategory("Category.Misc")]
-        [LocalizedDescription("Description.WaitForExternal")]
-        [DefaultValue(false)]
-        public bool WaitForExternal
+        [LocalizedDescription("Description.StartDebuggerOnTestMovie")]
+        [DefaultValue(true)]
+        public bool StartDebuggerOnTestMovie
         {
-            get { return m_WaitForExternal; }
-            set { m_WaitForExternal = value; }
+            get { return m_StartDebuggerOnTestMovie; }
+            set { m_StartDebuggerOnTestMovie = value; }
         }
     }
 }

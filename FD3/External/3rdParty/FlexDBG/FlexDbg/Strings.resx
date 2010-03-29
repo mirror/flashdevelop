@@ -138,9 +138,6 @@
   <data name="Description.DebugLineColor" xml:space="preserve">
     <value>Debug line's color.</value>
   </data>
-  <data name="Description.CompileBeforeDebug" xml:space="preserve">
-    <value>Compile before starting debugger.</value>
-  </data>
   <data name="Info.DebugWithoutCompile" xml:space="preserve">
     <value>Compile failed, start debugger anyways?</value>
   </data>
@@ -363,8 +360,8 @@
   <data name="Label.RunToCursor" xml:space="preserve">
     <value>&amp;Run to Cursor Line</value>
   </data>
-  <data name="Description.WaitForExternal" xml:space="preserve">
-    <value>Wait for external application to connect to debugger instead of launching the application.</value>
+  <data name="Description.StartDebuggerOnTestMovie" xml:space="preserve">
+    <value>Start debugger on Test Movie.</value>
   </data>
   <data name="Info.WaitingForPlayer" xml:space="preserve">
     <value>Waiting for Flash player to connect to debugger</value>

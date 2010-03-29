@@ -93,16 +93,6 @@ namespace FlexDbg
 
 				if (m_CurrentProject == null)
 					return;
-
-				if (m_CurrentProject.TestMovieCommand != null &&
-					m_CurrentProject.TestMovieCommand.Contains("adl.exe"))
-				{
-					m_ProjectType = ProjectType.AIR;
-				}
-				else
-				{
-					m_ProjectType = ProjectType.AS3;
-				}
 			}
 		}
 
@@ -167,14 +157,6 @@ namespace FlexDbg
 		private int m_PlayerFullSupport;
 		private string m_OutputFileFullPath;
 
-		enum ProjectType
-		{
-			AIR,
-			AS3
-		}
-
-		private ProjectType m_ProjectType;
-
 		#endregion
 
 		public FlashInterface()
@@ -204,38 +186,7 @@ namespace FlexDbg
             
             try
             {
-
-/*                
-                if (!PluginMain.settingObject.WaitForExternal)
-                {
-                    if (m_ProjectType == ProjectType.AIR)
-                    {
-                        FlexDbgTrace.TraceInfo("AIR ProcessStart()");
-                        AIRLaunchInfo airLaunchInfo = new AIRLaunchInfo();
-
-                        airLaunchInfo.airDebugLauncher = new FileInfo(m_CurrentProject.TestMovieCommand.Split(';')[0]);
-
-                        m_Session = mgr.launch(m_CurrentProject.OutputPathAbsolute, airLaunchInfo, true, this);
-                    }
-                    else
-                    {
-                        FlexDbgTrace.TraceInfo("ProcessStart()");
-                        if (m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.ExternalPlayer ||
-                            m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.Default)
-                        {
-                            m_Session = mgr.launch(m_CurrentProject.OutputPathAbsolute, null, true, this);
-                        }
-                        else if (m_CurrentProject.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.OpenDocument)
-                        {
-                            m_Session = mgr.launch(m_CurrentProject.TestMovieCommand, null, true, this);
-                        }
-                    }
-                }
-                else
-*/
-                {
-                    m_Session = mgr.accept(this);
-                }
+                m_Session = mgr.accept(this);
 
                 FlexDbgTrace.TraceInfo("FlexDbg.START");
 
@@ -786,7 +737,7 @@ namespace FlexDbg
 		// pretty print a trace statement to the console
 		internal virtual void dumpTraceLine(String s)
 		{
-			TraceManager.AddAsync("[trace] " + s);
+			TraceManager.AddAsync(s, 1);
 		}
 
 		// pretty print a fault statement to the console
@@ -813,7 +764,7 @@ namespace FlexDbg
 					sb.Append(e.information);
 				}
 			}
-			TraceManager.AddAsync(sb.ToString());
+			TraceManager.AddAsync(sb.ToString(), 3);
 		}
 
 		/// <summary> Called when a swf has been loaded by the player</summary>
