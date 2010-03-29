@@ -3300,4 +3300,7 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Info.PrintMargin" xml:space="preserve">
     <value>Print margin:</value>
   </data>
+  <data name="CodeRefactor.Description.SeparatePackages" xml:space="preserve">
+    <value>Separates different packages with line breaks.</value>
+  </data>
 </root>

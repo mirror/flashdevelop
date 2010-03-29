@@ -14,6 +14,7 @@ namespace CodeRefactor
         private Keys findRefsShortcut = Keys.None;
         private Keys organizeShortcut = Keys.None;
         private Keys truncateShortcut = Keys.None;
+        private Boolean separatePackages = false;
 
         [DisplayName("Rename")]
         [LocalizedCategory("CodeRefactor.Category.Shortcuts")]
@@ -49,6 +50,14 @@ namespace CodeRefactor
         {
             get { return this.truncateShortcut; }
             set { this.truncateShortcut = value; }
+        }
+
+        [DisplayName("Separate Packages")]
+        [LocalizedDescription("CodeRefactor.Description.SeparatePackages"), DefaultValue(false)]
+        public Boolean SeparatePackages
+        {
+            get { return this.separatePackages; }
+            set { this.separatePackages = value; }
         }
 
     }

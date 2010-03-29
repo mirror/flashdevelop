@@ -3298,4 +3298,7 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDevelop.Info.PrintMargin" xml:space="preserve">
     <value>印刷マージン:</value>
   </data>
+  <data name="CodeRefactor.Description.SeparatePackages" xml:space="preserve">
+    <value>Separates different packages with line breaks.</value>
+  </data>
 </root>

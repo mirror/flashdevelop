@@ -153,22 +153,27 @@ namespace CodeRefactor
             this.refactorContextMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
+            editorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
+            mainMenu.MenuActivate += new EventHandler(this.MainMenuActivate);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             mainMenu.Items.Insert(4, this.refactorMainMenu);
             this.ApplyIgnoredKeys();
-
-            mainMenu.MenuActivate += new EventHandler(mainMenu_MenuActivate);
-            PluginBase.MainForm.EditorMenu.Opening += new CancelEventHandler(EditorMenu_Opening);
         }
 
-        void mainMenu_MenuActivate(object sender, EventArgs e)
+        /// <summary>
+        /// Updates the menu items
+        /// </summary>
+        private void MainMenuActivate(Object sender, EventArgs e)
         {
-            UpdateMenuItems();
+            this.UpdateMenuItems();
         }
 
-        void EditorMenu_Opening(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Updates the menu items
+        /// </summary>
+        private void EditorMenuOpening(Object sender, CancelEventArgs e)
         {
-            UpdateMenuItems();
+            this.UpdateMenuItems();
         }
 
         /// <summary>
@@ -289,6 +294,7 @@ namespace CodeRefactor
             try
             {
                 OrganizeImports command = new OrganizeImports();
+                command.SeparatePackages = this.settingObject.SeparatePackages;
                 command.Execute();
             }
             catch (Exception ex)
@@ -305,6 +311,7 @@ namespace CodeRefactor
             try
             {
                 OrganizeImports command = new OrganizeImports();
+                command.SeparatePackages = this.settingObject.SeparatePackages;
                 command.TruncateImports = true;
                 command.Execute();
             }
