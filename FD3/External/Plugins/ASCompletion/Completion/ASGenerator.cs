@@ -729,12 +729,14 @@ namespace ASCompletion.Completion
             string name = member.Name;
             if (name.Length < 1)
                 return null;
-            int pre = name.IndexOf('_');
-            if (pre < 0) pre = name.IndexOf('$');
-            int post = name.Length - pre - 1;
-            if (pre < 0) return null;
-            if (pre > post) return name.Substring(0, pre); 
-            else return name.Substring(pre + 1);
+            Match parts = Regex.Match(name, "([^_$]*)[_$]+(.*)");
+            if (parts.Success)
+            {
+                string pre = parts.Groups[1].Value;
+                string post = parts.Groups[2].Value;
+                return (pre.Length > post.Length) ? pre : post;
+            }
+            return null;
         }
 
         /// <summary>
