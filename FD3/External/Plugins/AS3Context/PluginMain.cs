@@ -13,6 +13,7 @@ using PluginCore;
 using ASCompletion.Model;
 using ASCompletion.Completion;
 using ASCompletion.Commands;
+using ProjectManager.Projects.Haxe;
 
 namespace AS3Context
 {
@@ -211,7 +212,8 @@ namespace AS3Context
                         else if (action == "FlashViewer.External" || action == "FlashViewer.Default" 
                             || action == "FlashViewer.Popup" || action == "FlashViewer.Document")
                         {
-                            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "as3"
+                            if (PluginBase.CurrentProject != null 
+                                && (PluginBase.CurrentProject.Language == "as3" || IsAS3Haxe(PluginBase.CurrentProject))
                                 && PluginBase.CurrentProject.TraceEnabled)
                             {
                                 DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
@@ -241,6 +243,13 @@ namespace AS3Context
                     }
                 }
             }
+        }
+
+        private bool IsAS3Haxe(IProject project)
+        {
+            if (project.Language != "haxe") return false;
+            HaxeProject hproj = project as HaxeProject;
+            return hproj.MovieOptions.Version == 9 || hproj.MovieOptions.Version == 10;
         }
 
         private bool OpenVirtualFileModel(string virtualPath)

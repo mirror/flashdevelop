@@ -97,7 +97,11 @@ namespace ProjectManager.Building.Haxe
             }
             if (options.Verbose) Add("-v");
             if (noTrace) Add("--no-traces");
-            else Add("-debug");
+            else
+            {
+                if (project.MovieOptions.Version == 9 || project.MovieOptions.Version == 10) Add("-D fdb");
+                Add("-debug");
+            }
 
             if (options.Directives != "")
             {

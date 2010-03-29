@@ -95,6 +95,10 @@
       <Name>ASCompletion</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectManager\ProjectManager.csproj">
+      <Project>{78101C01-E186-4954-B1DD-DEBB7905FAD8}</Project>
+      <Name>ProjectManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XMLCompletion\XMLCompletion.csproj">
       <Project>{556F43A0-C288-471A-8CD8-A787FC7ACA34}</Project>
       <Name>XMLCompletion</Name>
