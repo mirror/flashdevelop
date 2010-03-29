@@ -244,11 +244,12 @@ namespace CodeRefactor
                 IASContext context = ASContext.Context;
                 if (context != null && context.CurrentModel != null)
                 {
-                    Boolean enabled = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 1);
-                    this.refactorContextMenu.OrganizeMenuItem.Enabled = enabled;
-                    this.refactorContextMenu.TruncateMenuItem.Enabled = enabled && !this.LanguageIsHaxe();
-                    this.refactorMainMenu.OrganizeMenuItem.Enabled = enabled;
-                    this.refactorMainMenu.TruncateMenuItem.Enabled = enabled && !this.LanguageIsHaxe();
+                    Boolean truncate = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 0);
+                    Boolean organize = (this.GetLanguageIsValid() && context.CurrentModel.Imports.Count > 1);
+                    this.refactorContextMenu.OrganizeMenuItem.Enabled = organize;
+                    this.refactorContextMenu.TruncateMenuItem.Enabled = truncate && !this.LanguageIsHaxe();
+                    this.refactorMainMenu.OrganizeMenuItem.Enabled = organize;
+                    this.refactorMainMenu.TruncateMenuItem.Enabled = truncate && !this.LanguageIsHaxe();
                 }
             }
             catch { }

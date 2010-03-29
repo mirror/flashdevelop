@@ -43,7 +43,7 @@ namespace CodeRefactor.Commands
                 sci.SetSel(sci.PositionFromLine(context.CurrentModel.Classes[1].LineFrom), sci.PositionFromLine(sci.LineCount));
                 privateClassText = sci.SelText;
             }
-            if (imports.Count > 1)
+            if (imports.Count > 1 || (imports.Count > 0 && this.TruncateImports))
             {
                 sci.BeginUndoAction();
                 foreach (MemberModel import in imports)
@@ -99,7 +99,7 @@ namespace CodeRefactor.Commands
         private void InsertImports(List<MemberModel> imports, String searchInText, ScintillaControl sci)
         {
             String eol = ASComplete.GetNewLineMarker(sci.EOLMode);
-            if (imports.Count > 1)
+            if (imports.Count > 1 || (imports.Count > 0 && this.TruncateImports))
             {
                 Int32 line = imports[0].LineFrom - DeletedImportsCompensation;
                 Int32 indent = sci.GetLineIndentation(line);
@@ -108,7 +108,6 @@ namespace CodeRefactor.Commands
                 sci.GotoLine(line);
                 Int32 curLine = 0;
                 List<String> uniques = this.GetUniqueImports(imports, searchInText);
-                uniques.Reverse();
                 // correct position compensation for private imports
                 DeletedImportsCompensation = imports.Count - uniques.Count;
                 String prevPackage = null;
@@ -117,16 +116,22 @@ namespace CodeRefactor.Commands
                 for (Int32 i = 0; i < uniques.Count; i++)
                 {
                     importStringToInsert = "import " + uniques[i] + ";" + eol;
-                    currentPackage = importStringToInsert.Substring(0, importStringToInsert.LastIndexOf("."));
-                    if (SeparatePackages && prevPackage != null && prevPackage != currentPackage)
+                    if (this.SeparatePackages)
                     {
-                        importStringToInsert += eol;
-                        DeletedImportsCompensation--;
+                        currentPackage = importStringToInsert.Substring(0, importStringToInsert.LastIndexOf("."));
+                        if (prevPackage != null && prevPackage != currentPackage)
+                        {
+                            sci.NewLine();
+                            sci.GotoLine(++curLine);
+                            sci.SetLineIndentation(sci.LineFromPosition(sci.CurrentPos) - 1, indent);
+                            DeletedImportsCompensation--;
+                        }
+                        prevPackage = currentPackage;
                     }
-                    prevPackage = currentPackage;
                     curLine = sci.LineFromPosition(sci.CurrentPos);
                     sci.InsertText(sci.CurrentPos, importStringToInsert);
                     sci.SetLineIndentation(curLine, indent);
+                    sci.GotoLine(++curLine);
                 }
             }
         }
