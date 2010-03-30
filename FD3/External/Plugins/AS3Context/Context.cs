@@ -690,14 +690,14 @@ namespace AS3Context
             }*/
 
             if (topLevel.Members.Search("this", 0, 0) == null)
-                topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));
+                topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable | FlagType.Intrinsic, Visibility.Public));
             if (topLevel.Members.Search("super", 0, 0) == null)
-                topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable, Visibility.Public));
+                topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable | FlagType.Intrinsic, Visibility.Public));
             if (topLevel.Members.Search(features.voidKey, 0, 0) == null)
                 topLevel.Members.Add(new MemberModel(features.voidKey, "", FlagType.Intrinsic, Visibility.Public));
             topLevel.Members.Sort();
-            foreach (MemberModel member in topLevel.Members)
-                member.Flags |= FlagType.Intrinsic;
+            /*foreach (MemberModel member in topLevel.Members)
+                member.Flags |= FlagType.Intrinsic;*/
         }
 
         #endregion

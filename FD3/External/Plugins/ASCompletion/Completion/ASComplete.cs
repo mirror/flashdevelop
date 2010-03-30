@@ -1823,6 +1823,15 @@ namespace ASCompletion.Completion
             int p = token.IndexOf('(');
             if (p > 0) token = token.Substring(0, p);
 
+            // top-level elements resolution
+            context.ResolveTopLevelElement(token, result);
+            if (!result.IsNull())
+            {
+                if (result.Member != null && (result.Member.Flags & FlagType.Function) > 0 && p < 0)
+                    result.Type = context.ResolveType("Function", null);
+                return result;
+            }
+
             // local vars
 			if (local.LocalVars != null)
 			foreach(MemberModel var in local.LocalVars)
@@ -1950,15 +1959,6 @@ namespace ASCompletion.Completion
                     return result;
                 }
                 else result.IsStatic = true;
-            }
-
-            // top-level elements resolution
-            context.ResolveTopLevelElement(token, result);
-            if (!result.IsNull())
-            {
-                if (result.Member != null && (result.Member.Flags & FlagType.Function) > 0 && p < 0)
-                    result.Type = context.ResolveType("Function", null);
-                return result;
             }
 
             // packages folders

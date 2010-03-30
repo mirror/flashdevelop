@@ -734,18 +734,18 @@ namespace AS2Context
 		protected override void UpdateTopLevelElements()
 		{
 		    MemberModel special;
-		    special = topLevel.Members.Search("this",0,0);
+            special = topLevel.Members.Search("this", 0, 0);
 		    if (special != null)
 		    {
-                if (!cClass.IsVoid()) special.Type = cClass.Name;
+                if (!cClass.IsVoid()) special.Type = cClass.QualifiedName;
                 else special.Type = (cFile.Version > 1) ? features.voidKey : docType;
 		    }
-		    special = topLevel.Members.Search("super",0,0);
+            special = topLevel.Members.Search("super", 0, 0);
 		    if (special != null) 
 		    {
                 cClass.ResolveExtends();
                 ClassModel extends = cClass.Extends;
-			    if (!extends.IsVoid()) special.Type = extends.Name;
+			    if (!extends.IsVoid()) special.Type = extends.QualifiedName;
                 else special.Type = (cFile.Version > 1) ? features.voidKey : features.objectKey;
 		    }
 		}
