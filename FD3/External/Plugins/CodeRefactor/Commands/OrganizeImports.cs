@@ -21,6 +21,7 @@ namespace CodeRefactor.Commands
         public Boolean TruncateImports = false;
         public Boolean SeparatePackages = false;
         private Int32 DeletedImportsCompensation = 0;
+        private Hashtable ImportIndents = new Hashtable();
 
         /// <summary>
         /// The actual process implementation
@@ -49,6 +50,7 @@ namespace CodeRefactor.Commands
                 foreach (MemberModel import in imports)
                 {
                     sci.GotoLine(import.LineFrom);
+                    this.ImportIndents.Add(import, sci.GetLineIndentation(import.LineFrom));
                     sci.LineDelete();
                 }
                 if (this.TruncateImports)
@@ -66,10 +68,10 @@ namespace CodeRefactor.Commands
                 }
                 imports.Reverse();
                 Imports separatedImports = this.SeparateImports(imports, context.CurrentModel.PrivateSectionIndex);
-                this.InsertImports(separatedImports.packageImports, publicClassText, sci);
+                this.InsertImports(separatedImports.PackageImports, publicClassText, sci, separatedImports.PackageImportsIndent);
                 if (context.CurrentModel.Classes.Count > 1)
                 {
-                    this.InsertImports(separatedImports.privateImports, privateClassText, sci);
+                    this.InsertImports(separatedImports.PrivateImports, privateClassText, sci, separatedImports.PrivateImportsIndent);
                 }
                 sci.SetSel(pos, pos);
                 sci.EndUndoAction();
@@ -82,13 +84,24 @@ namespace CodeRefactor.Commands
         /// </summary>
         private Imports SeparateImports(List<MemberModel> imports, int privateSectionIndex)
         {
+            MemberModel first;
             Imports separatedImports = new Imports();
-            separatedImports.packageImports = new List<MemberModel>();
-            separatedImports.privateImports = new List<MemberModel>();
+            separatedImports.PackageImports = new List<MemberModel>();
+            separatedImports.PrivateImports = new List<MemberModel>();
             foreach (MemberModel import in imports)
             {
-                if (import.LineFrom < privateSectionIndex) separatedImports.packageImports.Add(import);
-                else separatedImports.privateImports.Add(import);
+                if (import.LineFrom < privateSectionIndex) separatedImports.PackageImports.Add(import);
+                else separatedImports.PrivateImports.Add(import);
+            }
+            if (separatedImports.PackageImports.Count > 0)
+            {
+                first = separatedImports.PackageImports[0];
+                separatedImports.PackageImportsIndent = (Int32)this.ImportIndents[first];
+            }
+            if (separatedImports.PrivateImports.Count > 0)
+            {
+                first = separatedImports.PrivateImports[0];
+                separatedImports.PrivateImportsIndent = (Int32)this.ImportIndents[first];
             }
             return separatedImports;
         }
@@ -96,13 +109,12 @@ namespace CodeRefactor.Commands
         /// <summary>
         /// Inserts the imports to the current document
         /// </summary>
-        private void InsertImports(List<MemberModel> imports, String searchInText, ScintillaControl sci)
+        private void InsertImports(List<MemberModel> imports, String searchInText, ScintillaControl sci, Int32 indent)
         {
             String eol = ASComplete.GetNewLineMarker(sci.EOLMode);
             if (imports.Count > 1 || (imports.Count > 0 && this.TruncateImports))
             {
                 Int32 line = imports[0].LineFrom - DeletedImportsCompensation;
-                Int32 indent = sci.GetLineIndentation(line);
                 ImportsComparerType comparerType = new ImportsComparerType();
                 imports.Sort(comparerType);
                 sci.GotoLine(line);
@@ -205,8 +217,10 @@ namespace CodeRefactor.Commands
     /// </summary>
     class Imports
     {
-        public List<MemberModel> packageImports;
-        public List<MemberModel> privateImports;
+        public Int32 PackageImportsIndent;
+        public Int32 PrivateImportsIndent;
+        public List<MemberModel> PackageImports;
+        public List<MemberModel> PrivateImports;
     }
 
 }
