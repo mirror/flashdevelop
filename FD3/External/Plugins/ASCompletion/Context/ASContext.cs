@@ -998,10 +998,18 @@ namespace ASCompletion.Context
                 UpdateTopLevelElements();
             }
             cMember = ctx.Member;
+
+            // in package or after
+            bool wasInPrivate = inPrivateSection;
             inPrivateSection = cFile.PrivateSectionIndex > 0 && line >= cFile.PrivateSectionIndex;
+            if (wasInPrivate != inPrivateSection)
+            {
+                completionCache.IsDirty = true;
+                completionCache.Classname = null;
+            }
 
             // rebuild completion cache
-            if (!completionCache.IsDirty && IsFileValid &&
+            if (completionCache.IsDirty && IsFileValid &&
                 (completionCache.Package != cFile.Package 
                 || completionCache.Classname != cFile.GetPublicClass().Name))
                 RefreshContextCache(null);

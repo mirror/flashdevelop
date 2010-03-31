@@ -662,10 +662,10 @@ namespace XMLCompletion
 			XMLContextTag xtag = new XMLContextTag();
 			if ((position == 0) || (sci == null)) return xtag;
             string tag = "";
-            Char c = (Char)sci.CharAt(position);
-            tag += c;
+            //Char c = (Char)sci.CharAt(position);
+            //tag += c;
             position--;
-            c = (Char)sci.CharAt(position);
+            Char c = (Char)sci.CharAt(position);
             tag = c + tag;
             bool inComment = false;
             bool inCDATA = false;

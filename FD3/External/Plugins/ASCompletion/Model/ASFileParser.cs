@@ -580,7 +580,7 @@ namespace ASCompletion.Model
                     else if (c1 == '{')
                     {
                         paramBraceCount++;
-                        c1 = ' '; // ignore brace
+                        c1 = '~'; // ignore brace
                     }
                     else if (c1 == '}' && paramBraceCount > 0)
                     {
@@ -696,6 +696,8 @@ namespace ASCompletion.Model
 				// store type / parameter value
 				if (!inValue && valueLength > 0)
 				{
+                    if (valueBuffer[0] != '\'' && valueBuffer[0] != '"') 
+                        valueLength = 0; // ignore non strings
 					string param = new string(valueBuffer, 0, valueLength);
 					
                     // get text before the last keyword found
