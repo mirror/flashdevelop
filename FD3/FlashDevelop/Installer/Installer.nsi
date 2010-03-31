@@ -244,6 +244,9 @@ Section "FlashDevelop" Main
 	SectionIn 1 2 3 RO
 	SetOverwrite on
 	
+	; Requires AccessControl plugin
+	AccessControl::GrantOnFile "$INSTDIR" "(BU)" "GenericRead + GenericWrite"
+
 	SetOutPath "$INSTDIR"
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x "..\Bin\Debug\Settings\" /x "..\Bin\Debug\Snippets\" /x "..\Bin\Debug\Templates\" "..\Bin\Debug\*.*"
 	
