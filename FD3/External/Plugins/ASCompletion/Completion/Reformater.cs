@@ -17,6 +17,7 @@ namespace ASCompletion.Completion
         public string[] AddSpaceAfter = new string[] {};
         public string Operators = "=+-*/%<>&|^";
         public bool IsPhp = false;
+        public bool IsHaXe = false;
         public string WordCharacters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789_$@";
     }
 
@@ -126,7 +127,7 @@ namespace ASCompletion.Completion
                 }
 
                 // generic type
-                if (c == '<' && c2 == '.')
+                if (c == '<' && (c2 == '.' || (options.IsHaXe && Char.IsLetterOrDigit(c2))))
                 {
                     int i2 = i;
                     if (lookupGeneric(txt, ref i))

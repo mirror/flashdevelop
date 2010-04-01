@@ -731,6 +731,7 @@ namespace ASCompletion.Completion
             options.SpaceBeforeFunctionCall = ASContext.CommonSettings.SpaceBeforeFunctionCall;
             options.AddSpaceAfter = ASContext.CommonSettings.AddSpaceAfter.Split(' ');
             options.IsPhp = ASContext.Context.Settings.LanguageId == "PHP";
+            options.IsHaXe = ASContext.Context.Settings.LanguageId == "HAXE";
 
             int newOffset = offset;
             string replace = Reformater.ReformatLine(txt, options, ref newOffset);
