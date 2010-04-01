@@ -1986,6 +1986,7 @@ namespace ASCompletion.Completion
             if (result.IsPackage)
             {
                 string fullName = (result.inFile.Package.Length > 0) ? result.inFile.Package + "." + token : token;
+                int p;
                 foreach (MemberModel mPack in result.inFile.Imports)
                 {
                     if (mPack.Name == token)
@@ -2009,6 +2010,17 @@ namespace ASCompletion.Completion
                             result.inFile = result.Type.InFile;
                         }
                         return;
+                    }
+                    else if ((p = mPack.Name.IndexOf('<')) > 0)
+                    {
+                        if (p > 1 && mPack.Name[p - 1] == '.') p--;
+                        if (mPack.Name.Substring(0, p) == token)
+                        {
+                            result.IsPackage = false;
+                            result.Type = ASContext.Context.ResolveType(fullName + mPack.Name.Substring(p), ASContext.Context.CurrentModel);
+                            result.inFile = result.Type.InFile;
+                            return;
+                        }
                     }
                 }
                 foreach (MemberModel member in result.inFile.Members)
@@ -2957,7 +2969,7 @@ namespace ASCompletion.Completion
             if (cFile == inFile || features.hasPackages && cFile.Package == inFile.Package)
             {
                 sci.SetSel(startPos, endPos);
-                sci.ReplaceSel(import.Name);
+                sci.ReplaceSel(checkShortName(import.Name));
                 sci.SetSel(sci.CurrentPos, sci.CurrentPos);
                 return true;
             }
@@ -2968,7 +2980,7 @@ namespace ASCompletion.Completion
                 if (ASContext.Context.IsImported(import, curLine))
                 {
                     sci.SetSel(startPos, endPos);
-                    sci.ReplaceSel(import.Name);
+                    sci.ReplaceSel(checkShortName(import.Name));
                     sci.SetSel(sci.CurrentPos, sci.CurrentPos);
                     return true;
                 }
@@ -2999,7 +3011,7 @@ namespace ASCompletion.Completion
                     startPos += offset;
                     endPos += offset;
                     sci.SetSel(startPos, endPos);
-                    sci.ReplaceSel(import.Name);
+                    sci.ReplaceSel(checkShortName(import.Name));
                     sci.SetSel(sci.CurrentPos, sci.CurrentPos);
                 }
                 finally
@@ -3008,6 +3020,13 @@ namespace ASCompletion.Completion
                 }
             }
             return true;
+        }
+
+        private static string checkShortName(string name)
+        {
+            int p = name.IndexOf('<');
+            if (p > 1 && name[p - 1] == '.') p--;
+            return (p > 0) ? name.Substring(0, p) : name;
         }
 
         private static void DispatchInsertedElement(ASResult context, char trigger)

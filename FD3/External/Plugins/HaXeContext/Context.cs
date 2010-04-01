@@ -375,7 +375,8 @@ namespace HaXeContext
                         {
                             foreach (ClassModel aClass in type.InFile.Classes)
                             {
-                                imports.Add(aClass);
+                                if (aClass.IndexType == null)
+                                    imports.Add(aClass);
                             }
                         }
                     }
@@ -395,6 +396,40 @@ namespace HaXeContext
                 }
             }
             return imports;
+        }
+
+        /// <summary>
+        /// Check if a type is already in the file's imports
+        /// Throws an Exception if the type name is ambiguous 
+        /// (ie. same name as an existing import located in another package)
+        /// </summary>
+        /// <param name="member">Element to search in imports</param>
+        /// <param name="atLine">Position in the file</param>
+        public override bool IsImported(MemberModel member, int atLine)
+        {
+            int p = member.Name.IndexOf('#');
+            if (p > 0)
+            {
+                member = member.Clone() as MemberModel;
+                member.Name = member.Name.Substring(0, p);
+            }
+
+            FileModel cFile = ASContext.Context.CurrentModel;
+            string fullName = member.Type;
+            string name = member.Name;
+            int lineMin = (ASContext.Context.InPrivateSection) ? cFile.PrivateSectionIndex : 0;
+            int lineMax = atLine;
+            foreach (MemberModel import in cFile.Imports)
+            {
+                if (import.LineFrom >= lineMin && import.LineFrom <= lineMax && import.Name == name)
+                {
+                    if (import.Type != fullName) throw new Exception("Ambiguous Type");
+                    return true;
+                }
+                else if (import.Name == "*" && import.Type.Replace("*", name) == fullName)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -432,7 +467,7 @@ namespace HaXeContext
             // clone the type
             aClass = aClass.Clone() as ClassModel;
 
-            aClass.Name = baseType + "#" + indexType;
+            aClass.Name = baseType.Substring(baseType.LastIndexOf('.') + 1) + "#" + indexType;
             aClass.IndexType = indexType;
 
             string typed = "<" + indexType + ">";
