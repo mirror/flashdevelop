@@ -10,6 +10,7 @@ using PluginCore.Helpers;
 using System.ComponentModel;
 using System.Collections.Generic;
 using ProjectManager.Projects;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -37,17 +38,25 @@ namespace ProjectManager.Controls.TreeView
 
 	public class ExportNode : FakeNode
 	{
+        static public Regex reSafeChars = new Regex("[*\\:" + Regex.Escape(new String(Path.GetInvalidPathChars())) + "]");
+
 		public string Export;
 		public string ContainingSwfPath;
 
-		public ExportNode(string filePath, string export) : base(filePath+"::"+export)
-		{
-			ContainingSwfPath = filePath;
+        public ExportNode(string filePath, string export)
+            : base(filePath + "::" + (export = reSafeChars.Replace(export, "_")))
+        {
+            ContainingSwfPath = filePath;
             Export = export;
-			Text = export;
-			ForeColorRequest = Color.Gray;
-			ImageIndex = SelectedImageIndex = Icons.ImageResource.Index;
-		}
+            Text = export;
+            ForeColorRequest = Color.Gray;
+            ImageIndex = SelectedImageIndex = Icons.ImageResource.Index;
+        }
+
+        private static string SafeFileName(string export)
+        {
+            return reSafeChars.Replace(export, "?");
+        }
 	}
 
 	public class ClassExportNode : ExportNode
