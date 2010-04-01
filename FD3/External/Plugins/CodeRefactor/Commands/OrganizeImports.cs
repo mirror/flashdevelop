@@ -21,7 +21,7 @@ namespace CodeRefactor.Commands
         public Boolean TruncateImports = false;
         public Boolean SeparatePackages = false;
         private Int32 DeletedImportsCompensation = 0;
-        private Hashtable ImportIndents = new Hashtable();
+        private List<KeyValuePair<MemberModel, Int32>> ImportIndents = new List<KeyValuePair<MemberModel, Int32>>();
 
         /// <summary>
         /// The actual process implementation
@@ -50,7 +50,7 @@ namespace CodeRefactor.Commands
                 foreach (MemberModel import in imports)
                 {
                     sci.GotoLine(import.LineFrom);
-                    this.ImportIndents.Add(import, sci.GetLineIndentation(import.LineFrom));
+                    this.ImportIndents.Add(new KeyValuePair<MemberModel, Int32>(import, sci.GetLineIndentation(import.LineFrom)));
                     sci.LineDelete();
                 }
                 if (this.TruncateImports)
@@ -96,14 +96,27 @@ namespace CodeRefactor.Commands
             if (separatedImports.PackageImports.Count > 0)
             {
                 first = separatedImports.PackageImports[0];
-                separatedImports.PackageImportsIndent = (Int32)this.ImportIndents[first];
+                separatedImports.PackageImportsIndent = this.GetLineIndentFor(first);
             }
             if (separatedImports.PrivateImports.Count > 0)
             {
                 first = separatedImports.PrivateImports[0];
-                separatedImports.PrivateImportsIndent = (Int32)this.ImportIndents[first];
+                separatedImports.PrivateImportsIndent = this.GetLineIndentFor(first);
             }
             return separatedImports;
+        }
+
+        /// <summary>
+        /// Gets the line indent for the specified import
+        /// </summary>
+        private Int32 GetLineIndentFor(MemberModel import)
+        {
+            for (Int32 i = 0; i < this.ImportIndents.Count; i++)
+            {
+                KeyValuePair<MemberModel, Int32> kvp = this.ImportIndents[i];
+                if (kvp.Key == import) return kvp.Value;
+            }
+            return 0;
         }
 
         /// <summary>
