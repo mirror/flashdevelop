@@ -843,7 +843,7 @@ namespace AS2Context
                     foreach (FileModel model in aPath.Files.Values)
                     {
                         string package = model.Package;
-                        if (package == "" || package == name) // global package or same package
+                        if (package == name) 
                         {
                             foreach (ClassModel type in model.Classes)
                             {
@@ -957,6 +957,7 @@ namespace AS2Context
                 if (baseElements != null)
                 {
                     elements.Add(baseElements.Imports);
+                    elements.Add(baseElements.Members);
                 }
                 elements.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));
 

@@ -86,6 +86,16 @@ namespace XMLCompletion
                     ExtendLang(lang, settings.langs[lang.extends]);
             }
 
+            if (!settings.langs.ContainsKey("xml"))
+            {
+                ZenLang xlang = new ZenLang();
+                xlang.abbreviations = new Hashtable();
+                xlang.element_types = new ZenElementTypes(null);
+                xlang.filters = "xml, xsl";
+                xlang.snippets = new Hashtable();
+                settings.langs.Add("xml", xlang);
+            }
+
             settings.variables["child"] = "";
             return settings;
         }
@@ -297,12 +307,13 @@ namespace XMLCompletion
                     if (pos < 0) lastValid = 0;
                 }
                 // expand
-                if (lastValid <= sci.CurrentPos)
+                if (lastValid < sci.CurrentPos)
                 {
                     sci.SetSel(lastValid, sci.CurrentPos);
                     try
                     {
                         string expr = expandExpression(sci.SelText);
+                        if (expr == null) return false;
                         if (expr.IndexOf("$(EntryPoint)") < 0) expr += "$(EntryPoint)";
                         data["snippet"] = expr;
                     }
@@ -322,7 +333,7 @@ namespace XMLCompletion
         static public string expandExpression(string expr)
         {
             init(); // load config
-            if (lang == null) return "";
+            if (lang == null) return null;
 
             if (expr == "zen") // show config
             {
