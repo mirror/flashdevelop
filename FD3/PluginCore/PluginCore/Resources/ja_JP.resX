@@ -3204,11 +3204,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>閉じたタブを復帰(&amp;U)</value>
   </data>
   <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
-    <value>import の並べ替え</value>
+    <value>import の整理</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
-    <value>import の整理</value>
+    <value>import の短縮</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
@@ -3257,13 +3257,13 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>"すべての参照を検索"のショートカットです。</value>
   </data>
   <data name="CodeRefactor.Description.OrganizeShortcut" xml:space="preserve">
-    <value>"import の並べ替え"のショートカットです。</value>
+    <value>"import の整理"のショートカットです。</value>
   </data>
   <data name="CodeRefactor.Description.RenameShortcut" xml:space="preserve">
     <value>"名前の変更"のショートカットです。</value>
   </data>
   <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
-    <value>"import の整理"のショートカットです。</value>
+    <value>"import の短縮"のショートカットです。</value>
   </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
     <value>すべてのプロジェクトをビルド(&amp;B)</value>
