@@ -189,6 +189,7 @@ namespace FlexDbg
                 m_Session = mgr.accept(this);
 
                 FlexDbgTrace.TraceInfo("FlexDbg.START");
+                TraceManager.AddAsync("[Starting debug session with FDB]", -1);
 
                 if (m_Session == null)
                 {
