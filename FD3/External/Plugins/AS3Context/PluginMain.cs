@@ -14,6 +14,9 @@ using ASCompletion.Model;
 using ASCompletion.Completion;
 using ASCompletion.Commands;
 using ProjectManager.Projects.Haxe;
+using AS3Context.Controls;
+using WeifenLuo.WinFormsUI.Docking;
+using System.Windows.Forms;
 
 namespace AS3Context
 {
@@ -28,6 +31,10 @@ namespace AS3Context
         private Context contextInstance;
         private String settingFilename;
         private bool inMXML;
+        private System.Drawing.Image pluginIcon;
+        private List<ToolStripItem> menuItems;
+        private ProfilerUI profilerUI;
+        private DockContent profilerPanel;
 
         #region Required Properties
 
@@ -94,6 +101,7 @@ namespace AS3Context
         public void Initialize()
         {
             this.InitBasics();
+            //this.CreateMenuItems(); // uncomment to enable profiler
             this.LoadSettings();
             this.AddEventHandlers();
         }
@@ -104,6 +112,7 @@ namespace AS3Context
         public void Dispose()
         {
             FlexDebugger.Stop();
+            if (profilerUI != null) profilerUI.Cleanup();
             this.SaveSettings();
         }
 
@@ -122,13 +131,13 @@ namespace AS3Context
                     {
                         e.Handled = OpenVirtualFileModel(de.Data as String);
                     }
-                    else if (!(settingObject as AS3Settings).DisableFDB 
+                    else if (!(settingObject as AS3Settings).DisableFDB
                         && action == "AS3Context.StartDebugger")
                     {
                         string workDir = (PluginBase.CurrentProject != null)
                             ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
                             : Environment.CurrentDirectory;
-                        
+
                         string flexSdk = (settingObject as AS3Settings).FlexSDK;
 
                         // if the default sdk is not defined ask for project sdk
@@ -221,7 +230,11 @@ namespace AS3Context
                             }
                         }
                     }
-                    if (inMXML)
+                    else if (action == "FlashConnect")
+                    {
+                        ProfilerUI.HandleFlashConnect(sender, (e as DataEvent).Data);
+                    }
+                    else if (inMXML)
                     {
                         DataEvent de = e as DataEvent;
                         if (de.Action == "XMLCompletion.Element")
@@ -292,6 +305,40 @@ namespace AS3Context
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
+        }
+
+        /// <summary>
+        /// Create dock panels
+        /// </summary>
+        private void CreatePanels()
+        {
+            profilerUI = new ProfilerUI();
+            profilerUI.Text = "Profiler";
+            profilerPanel = PluginBase.MainForm.CreateDockablePanel(profilerUI, pluginGuid, pluginIcon, DockState.DockTop);
+        }
+
+        /// <summary>
+        /// Create toolbar icons & menu items
+        /// </summary>
+        private void CreateMenuItems()
+        {
+            pluginIcon = PluginBase.MainForm.FindImage("123");
+            IMainForm mainForm = PluginBase.MainForm;
+
+            ToolStripMenuItem menu = (ToolStripMenuItem)mainForm.FindMenuItem("ViewMenu");
+            if (menu != null)
+            {
+                menu.DropDownItems.Add(new ToolStripMenuItem(/*TextHelper.GetString("Label.ViewMenuItem")*/ "Profiler", pluginIcon, new EventHandler(OpenPanel)));
+            }
+        }
+
+        /// <summary>
+        /// Opens the plugin panel again if closed
+        /// </summary>
+        public void OpenPanel(object sender, System.EventArgs e)
+        {
+            if (profilerPanel == null) this.CreatePanels();
+            profilerPanel.Show();
         }
 
         /// <summary>

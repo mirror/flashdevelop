@@ -798,7 +798,7 @@ namespace FileExplorer
 
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document.IsEditable && !document.IsUntitled && File.Exists(document.FileName)
-                && !document.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase))
+                && (path == null || !document.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase)))
             {
                 path = Path.GetDirectoryName(document.FileName);
             }

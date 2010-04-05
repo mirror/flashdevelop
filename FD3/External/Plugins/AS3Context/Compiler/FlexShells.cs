@@ -53,17 +53,17 @@ namespace AS3Context.Compiler
         static private bool running;
         static private bool silentChecking;
 		
-		static private void CheckResource(string filename)
+		static private string CheckResource(string fileName)
 		{
             string path = Path.Combine(PathHelper.DataDir, "AS3Context");
-            flexShellsPath = Path.Combine(path, flexShellsJar);
-            if (!File.Exists(flexShellsPath))
+            string fullPath = Path.Combine(path, fileName);
+            if (!File.Exists(fullPath))
 			{
-                string id = "AS3Context.Compiler." + filename;
+                string id = "AS3Context.Resources." + fileName;
 				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
                 using (BinaryReader br = new BinaryReader(assembly.GetManifestResourceStream(id)))
                 {
-                    using (FileStream bw = File.Create(flexShellsPath))
+                    using (FileStream bw = File.Create(fullPath))
                     {
                         byte[] buffer = br.ReadBytes(1024);
                         while (buffer.Length > 0)
@@ -76,6 +76,7 @@ namespace AS3Context.Compiler
                     br.Close();
                 }
 			}
+            return fullPath;
 		}
 
         static public FlexShells Instance 
@@ -138,7 +139,7 @@ namespace AS3Context.Compiler
                 return;
             }
 
-            CheckResource(flexShellsJar);
+            flexShellsPath = CheckResource(flexShellsJar);
             if (!File.Exists(flexShellsPath))
             {
                 if (src != null) return; // silent checking
@@ -202,7 +203,7 @@ namespace AS3Context.Compiler
 				return;
 			}
 
-            CheckResource(flexShellsJar);
+            flexShellsPath = CheckResource(flexShellsJar);
             if (!File.Exists(flexShellsPath))
             {
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));

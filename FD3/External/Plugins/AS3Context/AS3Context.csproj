@@ -60,6 +60,12 @@
     <Compile Include="Compiler\FlexShells.cs" />
     <Compile Include="Compiler\FlexDebugger.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Controls\ProfilerUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProfilerUI.Designer.cs">
+      <DependentUpon>ProfilerUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="MxmlComplete.cs" />
     <Compile Include="MxmlFilter.cs" />
     <Compile Include="PluginMain.cs" />
@@ -105,6 +111,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Compiler\FlexShells.jar" />
+    <EmbeddedResource Include="Resources\FlexShells.jar" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Profiler.swf" />
   </ItemGroup>
 </Project>

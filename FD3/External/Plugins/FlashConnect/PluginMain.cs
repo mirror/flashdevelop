@@ -204,15 +204,18 @@ namespace FlashConnect
 		/// </summary>
 		public void HandleNotifyMsg(XmlNode msgNode, Socket client)
 		{
+            String message;
+            String guid;
+            IPlugin plugin;
 			try 
 			{
-                String message = HttpUtility.UrlDecode(XmlHelper.GetValue(msgNode));
-				String guid = XmlHelper.GetAttribute(msgNode, "guid");
-				IPlugin plugin = PluginBase.MainForm.FindPlugin(guid);
+                message = HttpUtility.UrlDecode(XmlHelper.GetValue(msgNode));
+				guid = XmlHelper.GetAttribute(msgNode, "guid");
+				plugin = PluginBase.MainForm.FindPlugin(guid);
 				if (plugin != null)
 				{
                     DataEvent de = new DataEvent(EventType.Command, "FlashConnect", message);
-                    plugin.HandleEvent(this, de, HandlingPriority.Normal);
+                    plugin.HandleEvent(client, de, HandlingPriority.High);
 				}
 				else client.Send(RESULT_NOTFOUND);
 			} 
