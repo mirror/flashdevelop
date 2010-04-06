@@ -710,7 +710,7 @@
     <value>ICompletionListItem ではありません。</value>
   </data>
   <data name="FlashDevelop.Info.DeleteFilesAlso" xml:space="preserve">
-    <value>同様にファイルを削除しますか？</value>
+    <value>ファイルを削除しますか？</value>
   </data>
   <data name="FlashDevelop.Info.DescHeader" xml:space="preserve">
     <value>概要</value>
@@ -884,7 +884,7 @@
     <value>値:</value>
   </data>
   <data name="FlashDevelop.Label.8Bits" xml:space="preserve">
-    <value>8 Bits(&amp;B)</value>
+    <value>8 Bits</value>
   </data>
   <data name="FlashDevelop.Label.About" xml:space="preserve">
     <value>FlashDevelop について(&amp;A)...</value>
@@ -899,7 +899,7 @@
     <value>戻る</value>
   </data>
   <data name="FlashDevelop.Label.BigEndian" xml:space="preserve">
-    <value>Big Endian(&amp;B)</value>
+    <value>Big Endian</value>
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
     <value>全てマーク(&amp;B)</value>
@@ -921,7 +921,7 @@
     <value>最近開いたファイルをクリア(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.Close" xml:space="preserve">
-    <value>閉じる</value>
+    <value>閉じる(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.CloseAll" xml:space="preserve">
     <value>全て閉じる(&amp;E)</value>
@@ -1093,7 +1093,7 @@
     <value>改行コード(&amp;L)</value>
   </data>
   <data name="FlashDevelop.Label.LittleEndian" xml:space="preserve">
-    <value>Little Endian(&amp;L)</value>
+    <value>Little Endian</value>
   </data>
   <data name="FlashDevelop.Label.LookInComments" xml:space="preserve">
     <value>コメントを検索(&amp;C)</value>
@@ -1273,7 +1273,7 @@
     <value>元に戻す(&amp;U)</value>
   </data>
   <data name="FlashDevelop.Label.UTF8" xml:space="preserve">
-    <value>UTF-8(&amp;U)</value>
+    <value>UTF-8</value>
   </data>
   <data name="FlashDevelop.Label.View" xml:space="preserve">
     <value>ビュー(&amp;V)</value>
@@ -2622,7 +2622,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コンテキストメニュー...</value>
   </data>
   <data name="ProjectManager.Label.ShellMenu" xml:space="preserve">
-    <value>コンテキストメニュー...</value>
+    <value>コンテキストメニュー(&amp;S)...</value>
   </data>
   <data name="ProjectManager.Description.LinkReport" xml:space="preserve">
     <value>コンパイルされた SWF ファイル内のシンボルを記述したリンカーレポートの保存先を指定します。</value>
@@ -3173,7 +3173,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.FindAllReferences" xml:space="preserve">
-    <value>すべての参照を検索</value>
+    <value>すべての参照を検索(&amp;F)</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.NewName" xml:space="preserve">
@@ -3181,11 +3181,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Refactor" xml:space="preserve">
-    <value>リファクタ</value>
+    <value>リファクタ(&amp;R)</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Rename" xml:space="preserve">
-    <value>名前の変更...</value>
+    <value>名前の変更(&amp;R)...</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
@@ -3204,11 +3204,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>閉じたタブを復帰(&amp;U)</value>
   </data>
   <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
-    <value>import の整理</value>
+    <value>import の整理(&amp;O)</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
-    <value>import の短縮</value>
+    <value>import の短縮(&amp;T)</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
@@ -3219,7 +3219,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>FlashDevelop のウインドウにシステムカラーを適応します。</value>
   </data>
   <data name="ProjectManager.Label.FindHere" xml:space="preserve">
-    <value>検索と置換</value>
+    <value>検索と置換(&amp;F)</value>
     <comment>Added after 3.0.5</comment>
   </data>
   <data name="TaskListPanel.Description.ExcludedPaths" xml:space="preserve">
