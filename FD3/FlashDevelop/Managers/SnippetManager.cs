@@ -10,10 +10,10 @@ using FlashDevelop.Helpers;
 using PluginCore.Utilities;
 using PluginCore.Controls;
 using PluginCore.Helpers;
-using ScintillaNet;
-using PluginCore;
 using PluginCore.Managers;
 using System.Collections;
+using ScintillaNet;
+using PluginCore;
 
 namespace FlashDevelop.Managers
 {
@@ -66,7 +66,6 @@ namespace FlashDevelop.Managers
             EventManager.DispatchEvent(Globals.MainForm, de);
             if (de.Handled) return true;
             snippet = (string)data["snippet"]; // may be replaced by a plugin
-
             if (snippet != null)
             {
                 Int32 curPos = sci.CurrentPos;

@@ -75,25 +75,24 @@ namespace PluginCore.Helpers
             }
         }
 
+        /// <summary>
+        /// Inserts the specified snippet to the document
+        /// </summary>
         public static int InsertSnippetText(ScintillaNet.ScintillaControl sci, Int32 currentPosition, String snippet)
         {
             sci.BeginUndoAction();
             try
             {
+                Int32 newIndent; String text = snippet;
                 Int32 line = sci.LineFromPosition(currentPosition);
                 Int32 indent = sci.GetLineIndentation(line);
-                String text = snippet;
-
                 Int32 lineMarker = LineEndDetector.DetectNewLineMarker(text, sci.EOLMode);
                 String newline = LineEndDetector.GetNewLineMarker(lineMarker);
                 if (newline != "\n") text = text.Replace(newline, "\n");
-
                 newline = LineEndDetector.GetNewLineMarker((Int32)PluginBase.MainForm.Settings.EOLMode);
                 text = PluginBase.MainForm.ProcessArgString(text).Replace(newline, "\n");
                 if (sci.SelText.Length > 0) sci.ReplaceSel("");
-
                 newline = LineEndDetector.GetNewLineMarker(sci.EOLMode);
-                Int32 newIndent;
                 String[] splitted = text.Trim().Split('\n');
                 for (Int32 j = 0; j < splitted.Length; j++)
                 {
@@ -132,4 +131,5 @@ namespace PluginCore.Helpers
         }
 
     }
+
 }

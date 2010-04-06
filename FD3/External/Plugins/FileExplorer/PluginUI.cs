@@ -803,7 +803,10 @@ namespace FileExplorer
             {
                 path = Path.GetDirectoryName(document.FileName);
             }
-            if (path != null) this.PopulateFileView(path);
+            if (path != null && Directory.Exists(path))
+            {
+                this.PopulateFileView(path);
+            }
         }
 
         /// <summary>

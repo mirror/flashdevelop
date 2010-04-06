@@ -32,6 +32,11 @@ namespace FlashDevelop.Utilities
         private static Regex reEnvArgs = new Regex("\\$\\$\\(\\%([a-z]+)\\%\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         
         /// <summary>
+        /// Previously selected text, if the selection canceled
+        /// </summary>
+        public static String PrevSelText = String.Empty;
+
+        /// <summary>
         /// Gets the FlashDevelop root directory
 		/// </summary>
         public static String GetAppDir()
@@ -61,7 +66,14 @@ namespace FlashDevelop.Utilities
         public static String GetSelText()
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
-            else return Globals.SciControl.SelText;
+            if (Globals.SciControl.SelText.Length > 0) return Globals.SciControl.SelText;
+            else if (PrevSelText.Length > 0)
+            {
+                String text = PrevSelText;
+                PrevSelText = String.Empty;
+                return text;
+            }
+            else return String.Empty;
 		}
 		
 		/// <summary>
