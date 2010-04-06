@@ -790,19 +790,19 @@ namespace FileExplorer
         private void SynchronizeView(Object sender, System.EventArgs e)
         {
             String path = null;
-            
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (PluginBase.CurrentProject != null && this.pluginMain.Settings.SynchronizeToProject)
             {
                 path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
+                if (document.IsEditable && !document.IsUntitled && !document.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase))
+                {
+                    path = Path.GetDirectoryName(document.FileName);
+                }
             }
-
-            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-            if (document.IsEditable && !document.IsUntitled && File.Exists(document.FileName)
-                && (path == null || !document.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase)))
+            else if (document.IsEditable && !document.IsUntitled)
             {
                 path = Path.GetDirectoryName(document.FileName);
             }
-
             if (path != null) this.PopulateFileView(path);
         }
 
@@ -824,7 +824,6 @@ namespace FileExplorer
                 path = info.FullName;
                 trustFile = path.Replace('\\', '_').Remove(1, 1);
                 while ((trustFile.Length > 100) && (trustFile.IndexOf('_') > 0)) trustFile = trustFile.Substring(trustFile.IndexOf('_'));
-                
                 trustParams = "FlashDevelop_" + trustFile + ".cfg;" + path;
             }
             // add current folder
@@ -834,7 +833,6 @@ namespace FileExplorer
                 path = info.FullName;
                 trustFile = path.Replace('\\', '_').Remove(1, 1);
                 while ((trustFile.Length > 100) && (trustFile.IndexOf('_') > 0)) trustFile = trustFile.Substring(trustFile.IndexOf('_'));
-                
                 trustParams = "FlashDevelop_" + trustFile + ".cfg;" + path;
             }
             // add to trusted files
