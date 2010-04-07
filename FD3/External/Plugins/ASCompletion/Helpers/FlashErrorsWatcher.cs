@@ -64,7 +64,7 @@ namespace ASCompletion.Helpers
                 string desc = m.Groups["desc"].Value.Trim();
                 TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
             }
-            te = new TextEvent(EventType.ProcessEnd, "Done(1)");
+            te = new TextEvent(EventType.ProcessEnd, "Done(" + matches.Count + ")");
             EventManager.DispatchEvent(this, te);
 
             (PluginBase.MainForm as Form).Activate();
