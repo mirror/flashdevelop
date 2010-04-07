@@ -46,8 +46,14 @@ namespace ASCompletion.Helpers
             updater.Stop();
             string src = File.ReadAllText(logFile);
             MatchCollection matches = reError.Matches(src);
-            if (matches.Count == 0) 
+
+            TextEvent te;
+            if (matches.Count == 0)
+            {
+                te = new TextEvent(EventType.ProcessEnd, "Done(0)");
+                EventManager.DispatchEvent(this, te);
                 return;
+            }
 
             NotifyEvent ne = new NotifyEvent(EventType.ProcessStart);
             EventManager.DispatchEvent(this, ne);
@@ -58,7 +64,7 @@ namespace ASCompletion.Helpers
                 string desc = m.Groups["desc"].Value.Trim();
                 TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
             }
-            TextEvent te = new TextEvent(EventType.ProcessEnd, "Done(0)");
+            te = new TextEvent(EventType.ProcessEnd, "Done(1)");
             EventManager.DispatchEvent(this, te);
 
             (PluginBase.MainForm as Form).Activate();
