@@ -2760,6 +2760,7 @@ namespace FlashDevelop
             {
                 sci.EndUndoAction();
             }
+            sci.Colourise(0, -1);
         }
 
         /// <summary>
