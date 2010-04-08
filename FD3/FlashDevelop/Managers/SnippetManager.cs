@@ -2,10 +2,11 @@ using System;
 using System.IO;
 using System.Text;
 using System.Drawing;
+using WeifenLuo.WinFormsUI;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using WeifenLuo.WinFormsUI;
 using PluginCore.Localization;
+using FlashDevelop.Utilities;
 using FlashDevelop.Helpers;
 using PluginCore.Utilities;
 using PluginCore.Controls;
@@ -65,7 +66,12 @@ namespace FlashDevelop.Managers
             DataEvent de = new DataEvent(EventType.Command, "SnippetManager.Expand", data);
             EventManager.DispatchEvent(Globals.MainForm, de);
             if (de.Handled) return true;
-            snippet = (string)data["snippet"]; // may be replaced by a plugin
+            snippet = (string)data["snippet"];
+            if (!String.IsNullOrEmpty(sci.SelText))
+            {
+                // Remember the previous selection
+                ArgsProcessor.PrevSelText = sci.SelText;
+            }
             if (snippet != null)
             {
                 Int32 curPos = sci.CurrentPos;
