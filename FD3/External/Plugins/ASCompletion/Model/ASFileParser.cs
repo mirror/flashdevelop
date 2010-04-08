@@ -135,6 +135,7 @@ namespace ASCompletion.Model
 		private bool inValue;
         private bool inConst;
 		private bool inType;
+        private bool inAnonType;
         private bool flattenNextBlock;
 		private FlagType foundKeyword;
 		private Token valueKeyword;
@@ -251,6 +252,7 @@ namespace ASCompletion.Model
             inConst = false;
             inType = false;
             inGeneric = false;
+            inAnonType = false;
 
 			bool addChar = false;
 			int evalToken = 0;
@@ -568,7 +570,7 @@ namespace ASCompletion.Model
 
 				if (inValue)
 				{
-                    if (inType && !Char.IsLetterOrDigit(c1) && ".{}-><".IndexOf(c1) < 0)
+                    if (inType && !inAnonType && !Char.IsLetterOrDigit(c1) && ".{}-><".IndexOf(c1) < 0)
                     {
                         inType = false;
                         inValue = false;
@@ -590,7 +592,8 @@ namespace ASCompletion.Model
                             valueBuffer[valueLength++] = '}';
                             c1 = ';'; // stop value
                         }
-                        else c1 = ' '; // ignore brace
+                        else if (inType && inAnonType)
+                            c1 = ' '; // ignore brace
                     }
                     else if (c1 == '(')
                     {
@@ -689,6 +692,7 @@ namespace ASCompletion.Model
                             continue; 
                         }
                         if (inType && inGeneric && (c1 == '<' || c1 == '.')) continue;
+                        else if (inAnonType) continue;
                         hadWS = true;
                     }
                 }
@@ -819,6 +823,7 @@ namespace ASCompletion.Model
                                     inGeneric = true;
                                     inValue = true;
                                     inType = true;
+                                    inAnonType = false;
                                     valueLength = 0;
                                     for (int j = 0; j < length; j++)
                                         valueBuffer[valueLength++] = buffer[j];
@@ -912,6 +917,7 @@ namespace ASCompletion.Model
 						{
 							inValue = true;
 							inType = true;
+                            inAnonType = true;
 							valueLength = 0;
 							valueBuffer[valueLength++] = c1;
 							paramBraceCount = 1;
