@@ -126,6 +126,8 @@ namespace FlexDbg
         /// </summary>
 		static public void SciControl_MarginClick(ScintillaControl sender, int modifiers, int position, int margin)
 		{
+            if (PluginMain.debugManager.FlashInterface.isDebuggerStarted && !PluginMain.debugManager.FlashInterface.isDebuggerSuspended)
+                return;
 			if (margin != 0)
 				return;
 

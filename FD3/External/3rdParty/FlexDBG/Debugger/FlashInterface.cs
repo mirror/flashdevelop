@@ -223,7 +223,7 @@ namespace FlexDbg
                 {
                 }
 
-                m_CurrentState = DebuggerState.ExceptionHalt;
+                m_CurrentState = DebuggerState.Running;
 
                 // now poke to see if the player is good enough
                 try
@@ -273,6 +273,7 @@ namespace FlexDbg
                         m_RequestResume = false;
                         m_RequestPause = false;
                         m_StepResume = false;
+                        m_CurrentState = DebuggerState.Running;
 
                         continue;
                     }
@@ -307,6 +308,7 @@ namespace FlexDbg
                         switch (suspendReason)
                         {
                             case SuspendReason.Breakpoint:
+                                m_CurrentState = DebuggerState.BreakHalt;
                                 if (BreakpointEvent != null)
                                 {
                                     BreakpointEvent(this);
@@ -318,6 +320,7 @@ namespace FlexDbg
                                 break;
 
                             case SuspendReason.Fault:
+                                m_CurrentState = DebuggerState.ExceptionHalt;
                                 if (FaultEvent != null)
                                 {
                                     FaultEvent(this);
@@ -330,6 +333,7 @@ namespace FlexDbg
 
                             case SuspendReason.ScriptLoaded:
                                 waitForMetaData();
+                                m_CurrentState = DebuggerState.PauseHalt;
                                 if (ScriptLoadedEvent != null)
                                 {
                                     ScriptLoadedEvent(this);
@@ -341,6 +345,7 @@ namespace FlexDbg
                                 break;
 
                             case SuspendReason.Step:
+                                m_CurrentState = DebuggerState.BreakHalt;
                                 if (StepEvent != null)
                                 {
                                     StepEvent(this);
@@ -352,6 +357,7 @@ namespace FlexDbg
                                 break;
 
                             case SuspendReason.StopRequest:
+                                m_CurrentState = DebuggerState.PauseHalt;
                                 if (PauseEvent != null)
                                 {
                                     PauseEvent(this);
@@ -363,6 +369,7 @@ namespace FlexDbg
                                 break;
 
                             case SuspendReason.Watch:
+                                m_CurrentState = DebuggerState.BreakHalt;
                                 if (WatchpointEvent != null)
                                 {
                                     WatchpointEvent(this);
@@ -374,6 +381,7 @@ namespace FlexDbg
                                 break;
 
                             default:
+                                m_CurrentState = DebuggerState.BreakHalt;
                                 if (UnknownHaltEvent != null)
                                 {
                                     UnknownHaltEvent(this);
@@ -396,6 +404,7 @@ namespace FlexDbg
                         {
                             try
                             {
+                                m_CurrentState = DebuggerState.Pausing;
                                 m_Session.suspend();
 
                                 // no connection => dump state and end
@@ -407,6 +416,7 @@ namespace FlexDbg
                                 else if (!m_Session.Suspended)
                                 {
                                     TraceManager.AddAsync(TextHelper.GetString("couldNotHalt"));
+                                    m_CurrentState = DebuggerState.Running;
 
                                     if (PauseFailedEvent != null)
                                     {
@@ -514,8 +524,9 @@ namespace FlexDbg
 			return m_Session != null && m_Session.Connected;
 		}
 
-		private const int AUTHORED_FILE = 1; // a file that was created by the end user, e.g. MyApp.mxml
-		private const int FRAMEWORK_FILE = 2; // a file from the Flex framework, e.g. mx.controls.Button.as
+#if false
+        private const int AUTHORED_FILE = 1; // a file that was created by the end user, e.g. MyApp.mxml
+        private const int FRAMEWORK_FILE = 2; // a file from the Flex framework, e.g. mx.controls.Button.as
 		private const int SYNTHETIC_FILE = 3; // e.g. "<set up XML utilities.1>"
 		private const int ACTIONS_FILE = 4; // e.g. "Actions for UIComponent: Frame 1 of Layer Name Layer 1"
 
@@ -539,6 +550,7 @@ namespace FlexDbg
 			else
 				return AUTHORED_FILE;
 		}
+#endif
 
 		private void waitForMetaData()
 		{

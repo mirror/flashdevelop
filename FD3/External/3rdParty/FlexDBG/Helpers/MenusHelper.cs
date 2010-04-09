@@ -212,38 +212,16 @@ namespace FlexDbg
 			if (state == DebuggerState.Initializing ||
 				state == DebuggerState.Stopped)
 			{
-				StartContinueButton.Text = TextHelper.GetString("Label.Start");
-				StartContinueMenu.Text = TextHelper.GetString("Label.Start");
+				StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Start");
 			}
 			else
 			{
-				StartContinueButton.Text = TextHelper.GetString("Label.Continue");
-				StartContinueMenu.Text = TextHelper.GetString("Label.Continue");
+				StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Continue");
 			}
 
-			if (state != DebuggerState.Initializing &&
-				state != DebuggerState.Starting &&
-				state != DebuggerState.Stopped)
-			{
-				StopButton.Enabled = true;
-				StopMenu.Enabled = true;
-			}
-			else
-			{
-				StopButton.Enabled = false;
-				StopMenu.Enabled = false;
-			}
+			StopButton.Enabled = StopMenu.Enabled = (state != DebuggerState.Initializing && state != DebuggerState.Starting && state != DebuggerState.Stopped);
 
-			if (state == DebuggerState.Running)
-			{
-				PauseButton.Enabled = true;
-				PauseMenu.Enabled = true;
-			}
-			else
-			{
-				PauseButton.Enabled = false;
-				PauseMenu.Enabled = false;
-			}
+            PauseButton.Enabled = PauseMenu.Enabled = (state == DebuggerState.Running);
 
 			if (state == DebuggerState.Initializing ||
 				state == DebuggerState.Stopped ||
@@ -251,42 +229,17 @@ namespace FlexDbg
 				state == DebuggerState.ExceptionHalt ||
 				state == DebuggerState.PauseHalt)
 			{
-				StartContinueButton.Enabled = true;
-				StartContinueMenu.Enabled = true;
+				StartContinueButton.Enabled = StartContinueMenu.Enabled = true;
 			}
 			else
 			{
-				StartContinueButton.Enabled = false;
-				StartContinueMenu.Enabled = false;
+				StartContinueButton.Enabled = StartContinueMenu.Enabled = false;
 			}
 
-			if (state == DebuggerState.BreakHalt ||
-				state == DebuggerState.PauseHalt)
-			{
-				CurrentButton.Enabled = true;
-				CurrentMenu.Enabled = true;
-				RunToCursorButton.Enabled = true;
-				RunToCursorMenu.Enabled = true;
-				StepButton.Enabled = true;
-				StepMenu.Enabled = true;
-				NextButton.Enabled = true;
-				NextMenu.Enabled = true;
-				FinishButton.Enabled = true;
-				FinishMenu.Enabled = true;
-			}
-			else
-			{
-				CurrentButton.Enabled = false;
-				CurrentMenu.Enabled = false;
-				RunToCursorButton.Enabled = false;
-				RunToCursorMenu.Enabled = false;
-				StepButton.Enabled = false;
-				StepMenu.Enabled = false;
-				NextButton.Enabled = false;
-				NextMenu.Enabled = false;
-				FinishButton.Enabled = false;
-				FinishMenu.Enabled = false;
-			}
+            CurrentButton.Enabled = CurrentMenu.Enabled = RunToCursorButton.Enabled =
+                RunToCursorMenu.Enabled = StepButton.Enabled = StepMenu.Enabled =
+                NextButton.Enabled = NextMenu.Enabled = FinishButton.Enabled =
+                FinishMenu.Enabled = (state == DebuggerState.BreakHalt || state == DebuggerState.PauseHalt);
 
 			if (state == DebuggerState.Running)
 			{
@@ -294,15 +247,9 @@ namespace FlexDbg
 				PanelsHelper.stackframeUI.ClearItem();
 			}
 
-			PluginBase.MainForm.BreakpointsEnabled = true;
-
-			ToggleBreakPointMenu.Enabled = true;
-			ToggleBreakPointEnableMenu.Enabled = true;
-			DeleteAllBreakPointsMenu.Enabled = true;
-			DisableAllBreakPointsMenu.Enabled = true;
-			EnableAllBreakPointsMenu.Enabled = true;
-
-			PanelsHelper.breakPointUI.Enabled = true;
+			PluginBase.MainForm.BreakpointsEnabled = ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled =
+                DeleteAllBreakPointsMenu.Enabled = DisableAllBreakPointsMenu.Enabled = EnableAllBreakPointsMenu.Enabled =
+                PanelsHelper.breakPointUI.Enabled = (state != DebuggerState.Running);
 
 			PluginBase.MainForm.RefreshUI();
         }

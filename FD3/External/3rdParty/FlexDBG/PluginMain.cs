@@ -212,7 +212,7 @@ namespace FlexDbg
                     if (!buildevnt.Action.StartsWith("ProjectManager"))
                         return;
 
-                    if (buildevnt.Action == "ProjectManager.Project")
+                    if (buildevnt.Action == ProjectManager.ProjectManagerEvents.Project)
                     {
                         IProject project = PluginBase.CurrentProject;
                         if (project != null && project is AS3Project)
@@ -240,15 +240,24 @@ namespace FlexDbg
                     else if (disableDebugger)
 						return;
 
-                    if (debugBuildStart && buildevnt.Action == "ProjectManager.BuildFailed")
+                    if (debugBuildStart && buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildFailed)
                     {
                         debugBuildStart = false;
                         buildCmpFlg = false;
                         menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
                     }
 
-                    else if (buildevnt.Action == "ProjectManager.TestingProject")
+                    else if (buildevnt.Action == ProjectManager.ProjectManagerEvents.TestProject)
                     {
+                        if (debugManager.FlashInterface.isDebuggerStarted)
+                        {
+                            if (debugManager.FlashInterface.isDebuggerSuspended)
+                            {
+                                debugManager.Continue_Click(null, null);
+                            }
+                            e.Handled = true;
+                            return;
+                        }
                         debugBuildStart = false;
                         buildCmpFlg = false;
                         menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
@@ -275,18 +284,18 @@ namespace FlexDbg
                         else debugManager.currentProject = null;
                     }
 #endif
-                    else if (debugBuildStart && buildevnt.Action == "ProjectManager.BuildingProject"
+                    else if (debugBuildStart && buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildProject
                         && buildevnt.Data.ToString() == "Debug")
                     {
                         buildCmpFlg = true;
                     }
-                    else if (buildevnt.Action == "ProjectManager.BuildFailed")
+                    else if (buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildFailed)
                     {
                         menusHelper.OnBuildFailed();
                         debugBuildStart = false;
                         buildCmpFlg = false;
                     }
-                    else if (buildCmpFlg && buildevnt.Action == "ProjectManager.BuildComplete")
+                    else if (buildCmpFlg && buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildComplete)
                     {
                         if (buildCmpFlg)
                         {
@@ -370,6 +379,7 @@ namespace FlexDbg
         {
             EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.FileSwitch | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
+            EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
         }
 
         #endregion
