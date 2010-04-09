@@ -116,11 +116,23 @@ namespace FlashDevelop.Managers
                     sci.SetSel(startPos, curPos);
                     word = sci.SelText;
                     sci.SetSel(curPos, curPos);
+                    CompletionList.OnInsert += new InsertedTextHandler(HandleListInsert);
+                    CompletionList.OnCancel += new InsertedTextHandler(HandleListInsert);
                     CompletionList.Show(items, false, word);
                     return true;
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// On completion list insert or cancel, reset the previous selection
+        /// </summary>
+        private static void HandleListInsert(ScintillaControl sender, Int32 position, String text, Char trigger, ICompletionListItem item)
+        {
+            CompletionList.OnInsert -= new InsertedTextHandler(HandleListInsert);
+            CompletionList.OnCancel -= new InsertedTextHandler(HandleListInsert);
+            ArgsProcessor.PrevSelText = String.Empty;
         }
 
     }

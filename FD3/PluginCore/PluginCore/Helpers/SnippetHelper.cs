@@ -88,10 +88,10 @@ namespace PluginCore.Helpers
                 Int32 indent = sci.GetLineIndentation(line);
                 Int32 lineMarker = LineEndDetector.DetectNewLineMarker(text, sci.EOLMode);
                 String newline = LineEndDetector.GetNewLineMarker(lineMarker);
+                if (sci.SelText.Length > 0) sci.ReplaceSel("");
                 if (newline != "\n") text = text.Replace(newline, "\n");
                 newline = LineEndDetector.GetNewLineMarker((Int32)PluginBase.MainForm.Settings.EOLMode);
                 text = PluginBase.MainForm.ProcessArgString(text).Replace(newline, "\n");
-                if (sci.SelText.Length > 0) sci.ReplaceSel("");
                 newline = LineEndDetector.GetNewLineMarker(sci.EOLMode);
                 String[] splitted = text.Trim().Split('\n');
                 for (Int32 j = 0; j < splitted.Length; j++)
