@@ -101,7 +101,7 @@ namespace AS3Context
         public void Initialize()
         {
             this.InitBasics();
-            //this.CreateMenuItems(); // uncomment to enable profiler
+            this.CreateMenuItems(); // uncomment to enable profiler
             this.LoadSettings();
             this.AddEventHandlers();
         }

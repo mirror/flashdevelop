@@ -1,6 +1,8 @@
 package org.flashdevelop.profiler 
 {
 	import flash.display.Sprite;
+	import flash.sampler.clearSamples;
+	import flash.sampler.DeleteObjectSample;
 	import flash.sampler.getSampleCount;
 	import flash.sampler.getSamples;
 	import flash.sampler.getSize;
@@ -11,6 +13,7 @@ package org.flashdevelop.profiler
 	import flash.text.TextField;
 	import flash.utils.describeType;
 	import flash.utils.Dictionary;
+	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * ...
@@ -18,10 +21,6 @@ package org.flashdevelop.profiler
 	 */
 	public class SampleRunner
 	{
-		private var newType:Object = { };
-		private var typeSize:Object = { };
-		private var inc:int = 1;
-		private var typeCache:Dictionary = new Dictionary(true);
 		private var refCache:Object = { };
 		private var running:Boolean;
 		
@@ -34,7 +33,6 @@ package org.flashdevelop.profiler
 		public function cleanup():void
 		{
 			pause();
-			typeCache = null;
 			refCache = null;
 		}
 		
@@ -52,67 +50,75 @@ package org.flashdevelop.profiler
 			startSampling();
 		}
 		
-		public function liveObjectsCount(out:Array):void
+		public function outputReport(out:Array):void
 		{
-			countObjects();
-			outputCount(out);
-		}
-		
-		private function outputCount(out:Array):void
-		{
-			for (var type:String in refCache)
+			for each(var tc:TypeContext in refCache)
 			{
-				var list:Dictionary = refCache[type];
-				
 				var count:int = 0;
 				var mem:int = 0;
-				for (var o:Object in list) 
+				for each(var s:int in tc.obj) 
 				{
-					mem += getSize(o);
+					mem += s;
 					count++;
 				}
-					
+				
 				if (count) 
 				{
-					var index:int = newType[type];
-					if (!index)
+					if (tc.isNew)
 					{
-						newType[type] = index = inc++;
-						out.push(index + "/" + count + "/" + mem + "/" + type);
+						tc.isNew = false;
+						out.push(tc.index + "/" + count + "/" + mem + "/" + tc.name);
 					}
-					out.push(index + "/" + count + "/" + mem);
+					out.push(tc.index + "/" + count + "/" + mem);
 				}
 			}
 		}
 		
-		private function countObjects():void
+		public function liveObjectsCount():void
 		{
 			var samples:Object = getSamples();
+			var type:String;
+			var tc:TypeContext;
+			var id:Number;
 			
 			for each(var sample:Object in samples) 
 			{
 				if (sample is NewObjectSample) 
 				{
 					var nos:NewObjectSample = NewObjectSample(sample);
-					if (nos.object is String) continue;
+					if (nos.object is String || nos.object == undefined) 
+						continue;
 					
-					var type:String = typeCache[nos.type];
-					if (type == null) 
-					{
-						typeCache[nos.type] = type = describeType(nos.type).@name;
-						typeSize[type] = getSize(nos.object);
-					}
-					
-					if (nos.object != undefined) 
-					{
-						if (!(refCache[type] is Dictionary))
-							refCache[type] = new Dictionary(true);
-						refCache[type][nos.object] = true;
-					}
+					id = nos.id;
+					tc = refCache[nos.type];
+					if (!tc) 
+						refCache[nos.type] = tc = new TypeContext(getQualifiedClassName(nos.type));
+					tc.obj[nos.object] = getSize(nos.object);
 				}
 			}
+			
+			clearSamples();
 		}
 		
 	}
 
+}
+
+
+
+import flash.utils.Dictionary;
+
+class TypeContext
+{
+	static private var tcCount:int = 0;
+	
+	public var index:int = ++tcCount;
+	public var isNew:Boolean = true;
+	public var name:String;
+	public var obj:Dictionary = new Dictionary(true);
+	
+	public function TypeContext(qname:String)
+	{
+		name = qname;
+	}
 }

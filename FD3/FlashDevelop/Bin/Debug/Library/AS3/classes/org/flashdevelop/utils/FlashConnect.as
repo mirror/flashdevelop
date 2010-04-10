@@ -8,7 +8,7 @@ package org.flashdevelop.utils
 	/**
 	* Connects a flash movie thru XmlSocket to the FlashDevelop program.
 	* @author Mika Palmu
-	* @version 3.1
+	* @version 3.2
 	*/
 	public class FlashConnect
 	{
@@ -73,10 +73,26 @@ package org.flashdevelop.utils
 		}
 		
 		/**
+		* Send message queue immediately
+		* @return Success
+		*/
+		public static function flush():Boolean
+		{
+			if (status) 
+			{
+				sendStack();
+				return true;
+			}
+			else return false;
+		}
+		
+		/**
 		* Opens the xml socket connection to the target port and host.
 		*/
-		private static function initialize():void
+		public static function initialize():int
 		{
+			if (socket) return status;
+			
 			counter = 0;
 			messages = new Array();
 			socket = new XMLSocket();
@@ -86,6 +102,7 @@ package org.flashdevelop.utils
 			socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
 			interval = setInterval(sendStack, 50);
 			socket.connect(host, port);
+			return status;
 		}
 		private static function onData(event:DataEvent):void
 		{
