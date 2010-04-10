@@ -92,6 +92,7 @@ namespace ASCompletion.Model
         public string FileName;
         public string Package;
         public bool TryAsPackage;
+        public bool HasPackage;
         public int PrivateSectionIndex;
         public Dictionary<string,Visibility> Namespaces;
         public MemberList Imports;

@@ -1203,6 +1203,7 @@ namespace ASCompletion.Model
         private void FinalizeModel()
         {
             model.Version = version;
+            model.HasPackage = hasPackageSection;
             if (model.FileName.Length == 0 || model.FileName.EndsWith("_cache")) return;
             if (model.PrivateSectionIndex == 0) model.PrivateSectionIndex = line;
             if (version == 2)
@@ -1271,7 +1272,11 @@ namespace ASCompletion.Model
 				{
 					foundKeyword = FlagType.Class;
                     modifiers |= FlagType.Class;
-					if (version == 1) version = 2;
+                    if (version == 1)
+                    {
+                        version = 2;
+                        hasPackageSection = true;
+                    }
 				}
 				else if (token == "interface")
 				{

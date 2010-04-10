@@ -842,6 +842,8 @@ namespace AS2Context
                     int nameLen = name.Length + 1;
                     foreach (FileModel model in aPath.Files.Values)
                     {
+                        if (!model.HasPackage) 
+                            continue;
                         string package = model.Package;
                         if (package == name) 
                         {
