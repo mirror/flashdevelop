@@ -876,6 +876,18 @@ namespace AS2Context
                     }
                 }
             }
+
+            if (inPrivateSection)
+            {
+                ClassModel mainClass = cFile.GetPublicClass();
+                if (!mainClass.IsVoid())
+                {
+                    MemberModel toRemove = pModel.Imports.Search(mainClass.Name, 0, 0);
+                    if (toRemove != null && toRemove.Type == mainClass.QualifiedName)
+                        pModel.Imports.Remove(toRemove);
+                }
+            }
+
 			// result
             if (pModel.Imports.Count > 0 || pModel.Members.Count > 0)
 			{
@@ -963,10 +975,11 @@ namespace AS2Context
                 }
                 elements.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));
 
+                bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports;
+                
                 // other classes in same package
                 if (features.hasPackages && cFile.Package != "")
                 {
-                    bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports;
                     FileModel packageElements = ResolvePackage(cFile.Package, false);
                     if (packageElements != null)
                     {
@@ -987,18 +1000,21 @@ namespace AS2Context
                     }
                 }
                 // other classes in same file
-                else
+                if (cFile.PrivateSectionIndex > 0)
                 {
-                    bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports 
-                        && cFile.Package != "";
+                    qualify = qualify && cFile.Package != "";
                     MemberModel member;
                     foreach (ClassModel aClass in cFile.Classes)
                     {
-                        member = aClass.ToMemberModel();
-                        if (qualify) member.Name = cFile.Package + "." + member.Name;
-                        elements.Add(member);
+                        if (aClass.Access == Visibility.Private)
+                        {
+                            member = aClass.ToMemberModel();
+                            if (qualify) member.Name = cFile.Package + "." + member.Name;
+                            elements.Add(member);
+                        }
                     }
                 }
+
                 // imports
                 elements.Add(ResolveImports(CurrentModel));
 

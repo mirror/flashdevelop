@@ -1878,9 +1878,12 @@ namespace ASCompletion.Completion
             foreach(ClassModel aClass in inFile.Classes)
                 if (aClass.Name == token)
                 {
-                    result.Type = aClass;
-                    result.IsStatic = (p < 0);
-                    return result;
+                    if (context.InPrivateSection && aClass.Access == Visibility.Private)
+                    {
+                        result.Type = aClass;
+                        result.IsStatic = (p < 0);
+                        return result;
+                    }
                 }
 
 			// types & imports
