@@ -23,9 +23,13 @@ package org.flashdevelop.profiler
 	{
 		private var refCache:Object = { };
 		private var running:Boolean;
+		private var ignoreTc:TypeContext = new TypeContext(null);
 		
 		public function SampleRunner() 
 		{
+			refCache[String] = ignoreTc;
+			refCache[QName] = ignoreTc;
+			
 			startSampling();
 			running = true;
 		}
@@ -86,13 +90,13 @@ package org.flashdevelop.profiler
 				if (sample is NewObjectSample) 
 				{
 					var nos:NewObjectSample = NewObjectSample(sample);
-					if (nos.object is String || nos.object == undefined) 
+					if (nos.object == undefined) 
 						continue;
 					
 					id = nos.id;
 					tc = refCache[nos.type];
-					if (!tc) 
-						refCache[nos.type] = tc = new TypeContext(getQualifiedClassName(nos.type));
+					if (!tc) refCache[nos.type] = tc = new TypeContext(getQualifiedClassName(nos.type));
+					else if (tc == ignoreTc) continue;
 					tc.obj[nos.object] = getSize(nos.object);
 				}
 			}

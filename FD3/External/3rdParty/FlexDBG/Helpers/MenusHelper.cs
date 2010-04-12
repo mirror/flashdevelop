@@ -219,7 +219,7 @@ namespace FlexDbg
 				StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Continue");
 			}
 
-			StopButton.Enabled = StopMenu.Enabled = (state != DebuggerState.Initializing && state != DebuggerState.Starting && state != DebuggerState.Stopped);
+			StopButton.Enabled = StopMenu.Enabled = (state != DebuggerState.Initializing && state != DebuggerState.Stopped);
 
             PauseButton.Enabled = PauseMenu.Enabled = (state == DebuggerState.Running);
 

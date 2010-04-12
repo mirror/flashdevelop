@@ -1878,7 +1878,7 @@ namespace ASCompletion.Completion
             foreach(ClassModel aClass in inFile.Classes)
                 if (aClass.Name == token)
                 {
-                    if (context.InPrivateSection && aClass.Access == Visibility.Private)
+                    if (!context.InPrivateSection || aClass.Access == Visibility.Private)
                     {
                         result.Type = aClass;
                         result.IsStatic = (p < 0);

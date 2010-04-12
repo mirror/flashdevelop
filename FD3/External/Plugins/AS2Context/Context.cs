@@ -877,17 +877,6 @@ namespace AS2Context
                 }
             }
 
-            if (inPrivateSection)
-            {
-                ClassModel mainClass = cFile.GetPublicClass();
-                if (!mainClass.IsVoid())
-                {
-                    MemberModel toRemove = pModel.Imports.Search(mainClass.Name, 0, 0);
-                    if (toRemove != null && toRemove.Type == mainClass.QualifiedName)
-                        pModel.Imports.Remove(toRemove);
-                }
-            }
-
 			// result
             if (pModel.Imports.Count > 0 || pModel.Members.Count > 0)
 			{
@@ -1002,14 +991,23 @@ namespace AS2Context
                 // other classes in same file
                 if (cFile.PrivateSectionIndex > 0)
                 {
-                    qualify = qualify && cFile.Package != "";
+                    if (inPrivateSection)
+                    {
+                        ClassModel mainClass = cFile.GetPublicClass();
+                        if (!mainClass.IsVoid())
+                        {
+                            MemberModel toRemove = elements.Search(mainClass.Name, 0, 0);
+                            if (toRemove != null && toRemove.Type == mainClass.QualifiedName)
+                                elements.Remove(toRemove);
+                        }
+                    }
+
                     MemberModel member;
                     foreach (ClassModel aClass in cFile.Classes)
                     {
                         if (aClass.Access == Visibility.Private)
                         {
                             member = aClass.ToMemberModel();
-                            if (qualify) member.Name = cFile.Package + "." + member.Name;
                             elements.Add(member);
                         }
                     }

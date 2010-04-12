@@ -188,6 +188,8 @@ namespace FlexDbg
             {
                 m_Session = mgr.accept(this);
 
+                if (mgr.Listening) mgr.stopListening();
+
                 FlexDbgTrace.TraceInfo("FlexDbg.START");
                 TraceManager.AddAsync("[Starting debug session with FDB]", -1);
 
@@ -976,6 +978,12 @@ namespace FlexDbg
 
 		public void Stop()
 		{
+            if (m_CurrentState == DebuggerState.Starting)
+            {
+                SessionManager mgr = Bootstrap.sessionManager();
+                mgr.stopListening();
+                return;
+            }
 			m_RequestStop = true;
 			m_SuspendWait.Set();
 		}
