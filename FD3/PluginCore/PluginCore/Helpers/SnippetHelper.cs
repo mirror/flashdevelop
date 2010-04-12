@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using PluginCore.Utilities;
+using PluginCore.Managers;
 
 namespace PluginCore.Helpers
 {
@@ -14,9 +15,9 @@ namespace PluginCore.Helpers
         /// <summary>
         /// Processes the snippet and template arguments
         /// </summary>
-        public static int PostProcessSnippets(ScintillaNet.ScintillaControl sci, Int32 currentPosition)
+        public static Int32 PostProcessSnippets(ScintillaNet.ScintillaControl sci, Int32 currentPosition)
         {
-            int delta = 0;
+            Int32 delta = 0;
             while (sci.SelectText(BOUNDARY, 0) != -1) { sci.ReplaceSel(""); delta -= BOUNDARY.Length; }
             String text = sci.Text; // Store text temporarily
             Int32 entryPosition = sci.MBSafePosition(text.IndexOf(ENTRYPOINT));
@@ -78,7 +79,7 @@ namespace PluginCore.Helpers
         /// <summary>
         /// Inserts the specified snippet to the document
         /// </summary>
-        public static int InsertSnippetText(ScintillaNet.ScintillaControl sci, Int32 currentPosition, String snippet)
+        public static Int32 InsertSnippetText(ScintillaNet.ScintillaControl sci, Int32 currentPosition, String snippet)
         {
             sci.BeginUndoAction();
             try
@@ -98,7 +99,7 @@ namespace PluginCore.Helpers
                 {
                     if (j != splitted.Length - 1) sci.InsertText(sci.CurrentPos, splitted[j] + newline);
                     else sci.InsertText(sci.CurrentPos, splitted[j]);
-                    sci.CurrentPos += splitted[j].Length + newline.Length;
+                    sci.CurrentPos += sci.MBSafeTextLength(splitted[j]) + newline.Length;
                     if (j > 0)
                     {
                         line = sci.LineFromPosition(sci.CurrentPos - newline.Length);
@@ -106,8 +107,8 @@ namespace PluginCore.Helpers
                         sci.SetLineIndentation(line, newIndent);
                     }
                 }
-                int length = sci.CurrentPos - currentPosition - newline.Length;
-                int delta = PostProcessSnippets(sci, currentPosition);
+                Int32 length = sci.CurrentPos - currentPosition - newline.Length;
+                Int32 delta = PostProcessSnippets(sci, currentPosition);
                 return length + delta;
             }
             finally
