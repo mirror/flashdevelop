@@ -428,7 +428,7 @@ namespace ResultsPanel
                 {
                     fileTest = entry.Message.TrimStart();
                     inExec = false;
-                    if (fileTest.StartsWith("[mxmlc]") || fileTest.StartsWith("[compc]") || fileTest.StartsWith("[exec]")) // ANT output
+                    if (fileTest.StartsWith("[mxmlc]") || fileTest.StartsWith("[compc]") || fileTest.StartsWith("[exec]") || fileTest.StartsWith("[haxe")) // ANT output
                     {
                         inExec = true;
                         fileTest = fileTest.Substring(fileTest.IndexOf(']') + 1).TrimStart();
