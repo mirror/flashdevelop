@@ -582,17 +582,18 @@ namespace ASCompletion.Model
                     else if (c1 == '{')
                     {
                         paramBraceCount++;
-                        c1 = '~'; // ignore brace
+                        valueBuffer[0] = '~'; // ignore value
+                        c1 = '~';
                     }
                     else if (c1 == '}' && paramBraceCount > 0)
                     {
                         paramBraceCount--;
                         if (!inType && paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && valueLength < VALUE_BUFFER)
                         {
-                            valueBuffer[valueLength++] = '}';
-                            c1 = ';'; // stop value
+                            valueBuffer[valueLength++] = ' ';
+                            c1 = inParams ? ' ' : ';'; // stop value
                         }
-                        else if (inType && inAnonType)
+                        else //if (inType && inAnonType)
                             c1 = ' '; // ignore brace
                     }
                     else if (c1 == '(')
@@ -966,6 +967,7 @@ namespace ASCompletion.Model
                         {
                             curAccess = curMember.Access;
                             foundKeyword = FlagType.Variable;
+                            foundColon = false;
                             lastComment = null;
                         }
                         else if (context == FlagType.Class && prevToken.Text == "implements")
