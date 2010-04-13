@@ -84,12 +84,16 @@ namespace PluginCore.Helpers
             sci.BeginUndoAction();
             try
             {
+                if (sci.SelTextSize > 0)
+                {
+                    currentPosition -= sci.MBSafeTextLength(sci.SelText);
+                    sci.ReplaceSel("");
+                }
                 Int32 newIndent; String text = snippet;
                 Int32 line = sci.LineFromPosition(currentPosition);
                 Int32 indent = sci.GetLineIndentation(line);
                 Int32 lineMarker = LineEndDetector.DetectNewLineMarker(text, sci.EOLMode);
                 String newline = LineEndDetector.GetNewLineMarker(lineMarker);
-                if (sci.SelText.Length > 0) sci.ReplaceSel("");
                 if (newline != "\n") text = text.Replace(newline, "\n");
                 newline = LineEndDetector.GetNewLineMarker((Int32)PluginBase.MainForm.Settings.EOLMode);
                 text = PluginBase.MainForm.ProcessArgString(text).Replace(newline, "\n");

@@ -74,13 +74,12 @@ namespace FlashDevelop.Managers
             }
             if (snippet != null)
             {
-                Int32 curPos = sci.CurrentPos;
-                Int32 startPos = sci.SelectionStart;
                 Int32 endPos = sci.SelectionEnd;
+                Int32 startPos = sci.SelectionStart;
                 if (startPos == endPos)
                 {
-                    startPos = sci.WordStartPosition(curPos, true);
-                    endPos = sci.WordEndPosition(curPos, true);
+                    endPos = sci.WordEndPosition(sci.CurrentPos, true);
+                    startPos = sci.WordStartPosition(sci.CurrentPos, true);
                     sci.SetSel(startPos, endPos);
                 }
                 SnippetHelper.InsertSnippetText(sci, sci.CurrentPos, snippet);
@@ -111,11 +110,12 @@ namespace FlashDevelop.Managers
                 if (items.Count > 0)
                 {
                     items.Sort();
-                    Int32 curPos = sci.CurrentPos;
-                    Int32 startPos = sci.WordStartPosition(curPos, true);
-                    sci.SetSel(startPos, curPos);
-                    word = sci.SelText;
-                    sci.SetSel(curPos, curPos);
+                    if (!String.IsNullOrEmpty(sci.SelText)) word = sci.SelText;
+                    else
+                    {
+                        word = sci.GetWordFromPosition(sci.CurrentPos);
+                        if (word == null) word = String.Empty;
+                    }
                     CompletionList.OnInsert += new InsertedTextHandler(HandleListInsert);
                     CompletionList.OnCancel += new InsertedTextHandler(HandleListInsert);
                     CompletionList.Show(items, false, word);
@@ -169,7 +169,7 @@ namespace FlashDevelop.Managers
                 if (this.snippet == null)
                 {
                     this.snippet = FileHelper.ReadFile(this.fileName);
-                    this.snippet = FlashDevelop.Utilities.ArgsProcessor.ProcessCodeStyleLineBreaks(this.snippet);
+                    this.snippet = ArgsProcessor.ProcessCodeStyleLineBreaks(this.snippet);
                     this.snippet = this.snippet.Replace(SnippetHelper.ENTRYPOINT, "|");
                     this.snippet = this.snippet.Replace(SnippetHelper.EXITPOINT, "|");
                 }

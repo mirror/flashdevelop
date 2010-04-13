@@ -678,10 +678,10 @@ namespace PluginCore.Controls
 
             if (item != null)
 			{
-				sci.SetSel(startPos, sci.CurrentPos);
 				String replace = item.Value;
                 if (replace != null)
                 {
+                    sci.SetSel(startPos, sci.CurrentPos);
                     if (word != null && tail.Length > 0)
                     {
                         if (replace.StartsWith(word, StringComparison.OrdinalIgnoreCase) 
