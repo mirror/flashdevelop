@@ -1910,37 +1910,16 @@ namespace ASCompletion.Completion
             imports = null;
 
             // package-level types & declarations
-            if (context.Features.hasPackages && inFile.Package.Length > 0)
+            if (context.Features.hasPackages)
             {
-                FileModel inPackage = context.ResolvePackage(inFile.Package, false);
-                if (inPackage != null)
+                if (inFile.Package.Length > 0)
                 {
-                    foreach (MemberModel friend in inPackage.Imports)
-                    {
-                        if (friend.Name == token)
-                        {
-                            ClassModel friendClass = context.GetModel(inFile.Package, token, inFile.Package);
-                            if (!friendClass.IsVoid())
-                            {
-                                result.Type = friendClass;
-                                result.IsStatic = (p < 0);
-                                return result;
-                            }
-                            break;
-                        }
-                    }
-                    foreach (MemberModel friend in inPackage.Members)
-                    {
-                        if (friend.Name == token)
-                        {
-                            result.Member = friend;
-                            result.Type = (p < 0 && (friend.Flags & FlagType.Function) > 0)
-                                ? context.ResolveType("Function", null)
-                                : context.ResolveType(friend.Type, friend.InFile);
-                            return result;
-                        }
-                    }
+                    FindInPackage(token, inFile, inFile.Package, result);
+                    if (!result.IsNull()) return result;
                 }
+
+                FindInPackage(token, inFile, null, result);
+                if (!result.IsNull()) return result;
             }
 
             // toplevel types
@@ -1975,6 +1954,43 @@ namespace ASCompletion.Completion
 			}
 			return result;
 		}
+
+        private static void FindInPackage(string token, FileModel inFile, string pkg, ASResult result)
+        {
+            IASContext context = ASContext.Context;
+            int p = token.IndexOf('(');
+
+            FileModel inPackage = context.ResolvePackage(pkg, false);
+            if (inPackage != null)
+            {
+                foreach (MemberModel friend in inPackage.Imports)
+                {
+                    if (friend.Name == token)
+                    {
+                        ClassModel friendClass = context.GetModel(inFile.Package, token, inFile.Package);
+                        if (!friendClass.IsVoid())
+                        {
+                            result.Type = friendClass;
+                            result.IsStatic = (p < 0);
+                            return;
+                        }
+                        break;
+                    }
+                }
+                foreach (MemberModel friend in inPackage.Members)
+                {
+                    if (friend.Name == token)
+                    {
+                        result.Member = friend;
+                        result.Type = (p < 0 && (friend.Flags & FlagType.Function) > 0)
+                            ? context.ResolveType("Function", null)
+                            : context.ResolveType(friend.Type, friend.InFile);
+                        return;
+                    }
+                }
+            }
+            return;
+        }
 
         /// <summary>
         /// Find package-level member
