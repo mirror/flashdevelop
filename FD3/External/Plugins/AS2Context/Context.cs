@@ -329,12 +329,19 @@ namespace AS2Context
                 if (token == "this")
                 {
                     result.Member = topLevel.Members.Search("this", 0, 0);
+                    if (inClass.IsVoid()) 
+                        inClass = ASContext.Context.ResolveType(result.Member.Type, null);
                     result.Type = inClass;
                     result.inFile = ASContext.Context.CurrentModel;
                     return;
                 }
-                else if (token == "super" && !inClass.IsVoid())
+                else if (token == "super")
                 {
+                    if (inClass.IsVoid())
+                    {
+                        MemberModel thisMember = topLevel.Members.Search("this", 0, 0);
+                        inClass = ASContext.Context.ResolveType(thisMember.Type, null);
+                    }
                     inClass.ResolveExtends();
                     ClassModel extends = inClass.Extends;
                     if (!extends.IsVoid())
