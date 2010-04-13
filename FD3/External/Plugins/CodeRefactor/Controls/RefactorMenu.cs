@@ -10,7 +10,6 @@ namespace CodeRefactor.Controls
     {
         private Settings settings;
         private ToolStripMenuItem renameMenuItem;
-        private ToolStripMenuItem referencesMenuItem;
         private ToolStripMenuItem truncateMenuItem;
         private ToolStripMenuItem organizeMenuItem;
 
@@ -19,7 +18,6 @@ namespace CodeRefactor.Controls
             this.settings = settings;
             this.Text = TextHelper.GetString("Label.Refactor");
             this.renameMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null) as ToolStripMenuItem;
-            this.referencesMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.FindAllReferences"), null) as ToolStripMenuItem;
             this.organizeMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null) as ToolStripMenuItem;
             this.truncateMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null) as ToolStripMenuItem;
             this.ApplyShortcutKeys();
@@ -31,14 +29,6 @@ namespace CodeRefactor.Controls
         public ToolStripMenuItem RenameMenuItem
         {
             get { return this.renameMenuItem; }
-        }
-
-        /// <summary>
-        /// Accessor to the ReferencesMenuItem
-        /// </summary>
-        public ToolStripMenuItem ReferencesMenuItem
-        {
-            get { return this.referencesMenuItem; }
         }
 
         /// <summary>
@@ -63,7 +53,6 @@ namespace CodeRefactor.Controls
         public void ApplyShortcutKeys()
         {
             this.renameMenuItem.ShortcutKeys = this.settings.RenameShortcut;
-            this.referencesMenuItem.ShortcutKeys = this.settings.FindRefsShortcut;
             this.organizeMenuItem.ShortcutKeys = this.settings.OrganizeShortcut;
             this.truncateMenuItem.ShortcutKeys = this.settings.TruncateShortcut;
         }

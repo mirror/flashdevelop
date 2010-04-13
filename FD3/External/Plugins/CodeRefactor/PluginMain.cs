@@ -23,6 +23,8 @@ namespace CodeRefactor
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds refactoring capabilities to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
+        private ToolStripMenuItem editorReferencesItem;
+        private ToolStripMenuItem viewReferencesItem;
         private RefactorMenu refactorContextMenu;
         private RefactorMenu refactorMainMenu;
         private Settings settingObject;
@@ -145,18 +147,24 @@ namespace CodeRefactor
             ContextMenuStrip editorMenu = PluginBase.MainForm.EditorMenu;
             this.refactorMainMenu = new RefactorMenu(this.settingObject);
             this.refactorMainMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
-            this.refactorMainMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
             this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             this.refactorContextMenu = new RefactorMenu(this.settingObject);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
-            this.refactorContextMenu.ReferencesMenuItem.Click += new EventHandler(this.FindAllReferencesClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             editorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
             mainMenu.MenuActivate += new EventHandler(this.MainMenuActivate);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             mainMenu.Items.Insert(4, this.refactorMainMenu);
+            ToolStripMenuItem searchMenu = PluginBase.MainForm.FindMenuItem("SearchMenu") as ToolStripMenuItem;
+            this.viewReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
+            this.editorReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
+            this.editorReferencesItem.ShortcutKeys = this.settingObject.OrganizeShortcut;
+            this.viewReferencesItem.ShortcutKeys = this.settingObject.OrganizeShortcut;
+            searchMenu.DropDownItems.Add(new ToolStripSeparator());
+            searchMenu.DropDownItems.Add(this.viewReferencesItem);
+            editorMenu.Items.Insert(6, this.editorReferencesItem);
             this.ApplyIgnoredKeys();
         }
 
@@ -230,16 +238,16 @@ namespace CodeRefactor
                     Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
                     Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
                     this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor);
-                    this.refactorContextMenu.ReferencesMenuItem.Enabled = true;
                     this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor);
-                    this.refactorMainMenu.ReferencesMenuItem.Enabled = true;
+                    this.editorReferencesItem.Enabled = true;
+                    this.viewReferencesItem.Enabled = true;
                 }
                 else
                 {
                     this.refactorMainMenu.RenameMenuItem.Enabled = false;
-                    this.refactorMainMenu.ReferencesMenuItem.Enabled = false;
                     this.refactorContextMenu.RenameMenuItem.Enabled = false;
-                    this.refactorContextMenu.ReferencesMenuItem.Enabled = false;
+                    this.editorReferencesItem.Enabled = false;
+                    this.viewReferencesItem.Enabled = false;
                 }
                 IASContext context = ASContext.Context;
                 if (context != null && context.CurrentModel != null)
