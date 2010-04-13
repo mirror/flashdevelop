@@ -46,6 +46,7 @@ namespace AS3Context
                     FileModel model = new FileModel("");
                     model.Context = context;
                     model.Package = reSafeChars.Replace(instance.name.uri, "_");
+                    model.HasPackage = true;
                     string filename = reSafeChars.Replace(trait.name.ToString(), "_") + ".as";
                     filename = Path.Combine(model.Package.Replace('.', Path.DirectorySeparatorChar), filename);
                     model.FileName = Path.Combine(path.Path, filename);

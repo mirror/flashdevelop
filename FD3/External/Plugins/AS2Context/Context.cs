@@ -836,7 +836,7 @@ namespace AS2Context
                 else
                 {
                     string prevPackage = null;
-                    string packagePrefix = name + ".";
+                    string packagePrefix = name.Length > 0 ? name + "." : "";
                     int nameLen = name.Length + 1;
                     foreach (FileModel model in aPath.Files.Values)
                     {
@@ -868,7 +868,7 @@ namespace AS2Context
                             if (p > 0) package = package.Substring(0, p);
                             if (pModel.Imports.Search(package, 0, 0) == null) // sub packages
                             {
-                                pModel.Imports.Add(new MemberModel(package, prevPackage, FlagType.Package, Visibility.Public));
+                                pModel.Imports.Add(new MemberModel(package, package, FlagType.Package, Visibility.Public));
                             }
                         }
                     }

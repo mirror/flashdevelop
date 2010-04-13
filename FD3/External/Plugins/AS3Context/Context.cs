@@ -164,7 +164,7 @@ namespace AS3Context
                         string fp9cp = Path.Combine(as3cp, "FP9");
                         string fp10cp = Path.Combine(as3cp, "FP10");
                         string fp101cp = Path.Combine(as3cp, "FP10.1");
-                        string aircp = Path.Combine(as3cp, "AIR");
+                        string aircp = Path.Combine(as3cp, "AIR2");
                         if (Directory.Exists(fp9cp) && Directory.Exists(fp10cp))
                         {
                             if (hasAIRSupport && Directory.Exists(aircp))
