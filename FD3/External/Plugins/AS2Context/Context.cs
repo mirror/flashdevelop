@@ -370,15 +370,13 @@ namespace AS2Context
         /// <param name="inFile">Current file</param>
         public override MemberList ResolveImports(FileModel inFile)
         {
-            bool filterImports = (inFile == cFile);
+            bool filterImports = (inFile == cFile) && inFile.Classes.Count > 1;
             int lineMin = (filterImports && inPrivateSection) ? inFile.PrivateSectionIndex : 0;
             int lineMax = (filterImports && inPrivateSection) ? int.MaxValue : inFile.PrivateSectionIndex;
             MemberList imports = new MemberList();
             foreach (MemberModel item in inFile.Imports)
             {
-                if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax))
-                    continue;
-
+                if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
                 if (item.Name != "*")
                 {
                     if (settings.LazyClasspathExploration) imports.Add(item);
@@ -991,7 +989,7 @@ namespace AS2Context
                 // other classes in same file
                 if (cFile.PrivateSectionIndex > 0)
                 {
-                    if (inPrivateSection)
+                    if (inPrivateSection && cFile.Classes.Count > 1)
                     {
                         ClassModel mainClass = cFile.GetPublicClass();
                         if (!mainClass.IsVoid())
