@@ -597,6 +597,14 @@ namespace ASCompletion
             {
                 menu.DropDownItems.Add(new ToolStripSeparator());
 
+                // goto declaration
+                image = mainForm.FindImage("99|9|3|-3");
+                k = settingObject.GotoDeclaration;
+                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
+                menu.DropDownItems.Add(item);
+                menuItems.Add(item);
+
                 // goto back from declaration
                 image = mainForm.FindImage("99|1|-3|-3");
                 k = settingObject.BackFromDeclaration;
@@ -606,18 +614,13 @@ namespace ASCompletion
                 pluginUI.LookupMenuItem = item;
                 item.Enabled = false;
 
-                // goto declaration
-                image = mainForm.FindImage("99|9|3|-3");
-                k = settingObject.GotoDeclaration;
-                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
-                menu.DropDownItems.Add(item);
-                menuItems.Add(item);
-
                 // editor items
                 ContextMenuStrip emenu = mainForm.EditorMenu;
                 if (emenu != null)
                 {
+                    image = mainForm.FindImage("99|9|3|-3");
+                    k = settingObject.GotoDeclaration;
+                    if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
                     item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
                     emenu.Items.Insert(4, item);
                     emenu.Items.Insert(5, new ToolStripSeparator());

@@ -190,9 +190,9 @@ namespace FlashDevelop.Dialogs
             // 
             this.applyButton.Enabled = false;
             this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.applyButton.Location = new System.Drawing.Point(640, 453);
+            this.applyButton.Location = new System.Drawing.Point(640, 452);
             this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(93, 28);
+            this.applyButton.Size = new System.Drawing.Size(93, 29);
             this.applyButton.TabIndex = 3;
             this.applyButton.Text = "&Apply";
             this.applyButton.UseVisualStyleBackColor = true;
@@ -200,9 +200,9 @@ namespace FlashDevelop.Dialogs
             // 
             // revertButton
             // 
-            this.revertButton.Location = new System.Drawing.Point(285, 453);
+            this.revertButton.Location = new System.Drawing.Point(285, 452);
             this.revertButton.Name = "revertButton";
-            this.revertButton.Size = new System.Drawing.Size(35, 28);
+            this.revertButton.Size = new System.Drawing.Size(35, 29);
             this.revertButton.TabIndex = 9;
             this.revertButton.Click += new System.EventHandler(this.RevertLanguagesClick);
             // 
@@ -210,9 +210,9 @@ namespace FlashDevelop.Dialogs
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancelButton.Location = new System.Drawing.Point(536, 453);
+            this.cancelButton.Location = new System.Drawing.Point(536, 452);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(93, 28);
+            this.cancelButton.Size = new System.Drawing.Size(93, 29);
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -252,7 +252,7 @@ namespace FlashDevelop.Dialogs
             this.itemGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.itemGroupBox.Location = new System.Drawing.Point(238, 240);
             this.itemGroupBox.Name = "itemGroupBox";
-            this.itemGroupBox.Size = new System.Drawing.Size(494, 205);
+            this.itemGroupBox.Size = new System.Drawing.Size(494, 204);
             this.itemGroupBox.TabIndex = 7;
             this.itemGroupBox.TabStop = false;
             this.itemGroupBox.Text = "Item Style";
@@ -261,7 +261,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.sampleTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)| System.Windows.Forms.AnchorStyles.Right)));
             this.sampleTextLabel.BackColor = System.Drawing.Color.White;
-            this.sampleTextLabel.Location = new System.Drawing.Point(15, 131);
+            this.sampleTextLabel.Location = new System.Drawing.Point(15, 130);
             this.sampleTextLabel.Name = "sampleTextLabel";
             this.sampleTextLabel.Size = new System.Drawing.Size(465, 60);
             this.sampleTextLabel.TabIndex = 13;
@@ -765,9 +765,9 @@ namespace FlashDevelop.Dialogs
             // 
             // exportButton
             // 
-            this.exportButton.Location = new System.Drawing.Point(238, 453);
+            this.exportButton.Location = new System.Drawing.Point(238, 452);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(35, 28);
+            this.exportButton.Size = new System.Drawing.Size(35, 29);
             this.exportButton.TabIndex = 8;
             this.exportButton.Click += new System.EventHandler(this.ExportLanguagesClick);
             // 

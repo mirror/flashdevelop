@@ -160,8 +160,8 @@ namespace CodeRefactor
             ToolStripMenuItem searchMenu = PluginBase.MainForm.FindMenuItem("SearchMenu") as ToolStripMenuItem;
             this.viewReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             this.editorReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
-            this.editorReferencesItem.ShortcutKeys = this.settingObject.OrganizeShortcut;
-            this.viewReferencesItem.ShortcutKeys = this.settingObject.OrganizeShortcut;
+            this.editorReferencesItem.ShortcutKeys = this.settingObject.FindRefsShortcut;
+            this.viewReferencesItem.ShortcutKeys = this.settingObject.FindRefsShortcut;
             searchMenu.DropDownItems.Add(new ToolStripSeparator());
             searchMenu.DropDownItems.Add(this.viewReferencesItem);
             editorMenu.Items.Insert(6, this.editorReferencesItem);
