@@ -196,7 +196,7 @@
     <value>コード補完を有効にします。</value>
   </data>
   <data name="ASCompletion.Description.CompletionListAllTypes" xml:space="preserve">
-    <value>補完リストにプロジェクト内で指定できる全てのタイプを含めます。</value>
+    <value>補完リストにプロジェクト内で指定できるすべてのタイプを含めます。</value>
   </data>
   <data name="ASCompletion.Description.CompletionLooseMatching" xml:space="preserve">
     <value>補完リストでスマートテキストマッチングを使用すします。</value>
@@ -238,7 +238,7 @@
     <value>ASDoc のタグの補完を ドキュメンテーションブロックで有効にします。</value>
   </data>
   <data name="ASCompletion.Description.LazyClasspathExploration" xml:space="preserve">
-    <value>プロジェクトのクラスパスの全てを探索して解析します。</value>
+    <value>プロジェクトのクラスパスのすべてを探索して解析します。</value>
   </data>
   <data name="ASCompletion.Description.OutlineViewShowExtends" xml:space="preserve">
     <value>継承元をアウトラインビューに表示します。</value>
@@ -698,7 +698,7 @@
     <value>本当にファイルを元に戻しますか？</value>
   </data>
   <data name="FlashDevelop.Info.CheckingUpdates" xml:space="preserve">
-    <value>アップデートの確認中...</value>
+    <value>ソフトウェア更新の確認中...</value>
   </data>
   <data name="FlashDevelop.Info.CodeAndStrings" xml:space="preserve">
     <value>コードと文字列</value>
@@ -776,7 +776,7 @@
     <value>このファイルは読み込み専用です。読み書きできるようにしますか？</value>
   </data>
   <data name="FlashDevelop.Info.MatchesBookmarked" xml:space="preserve">
-    <value>全ての一致をブックマークしました。</value>
+    <value>すべての一致をブックマークしました。</value>
   </data>
   <data name="FlashDevelop.Info.NoFileInfoAvailable" xml:space="preserve">
     <value>利用可能なファイル情報はありません。</value>
@@ -878,7 +878,7 @@
     <value>新しいバージョンの FlashDevelop を見つけました。{0}現在のバージョン: {1} / 新しいバージョン: {2}</value>
   </data>
   <data name="FlashDevelop.Info.UpdateCheckFailed" xml:space="preserve">
-    <value>アップデートの確認を実行できません。{0}インターネットに接続してください。</value>
+    <value>ソフトウェア更新の確認を実行できません。{0}インターネットに接続してください。</value>
   </data>
   <data name="FlashDevelop.Info.Value" xml:space="preserve">
     <value>値:</value>
@@ -902,14 +902,14 @@
     <value>Big Endian</value>
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
-    <value>全てマーク(&amp;B)</value>
-    <comment>全てブックマーク(&amp;B)</comment>
+    <value>すべてマーク(&amp;B)</value>
+    <comment>すべてブックマーク(&amp;B)</comment>
   </data>
   <data name="FlashDevelop.Label.Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
   <data name="FlashDevelop.Label.CheckUpdates" xml:space="preserve">
-    <value>アップデートの確認...</value>
+    <value>ソフトウェア更新の確認(U)...</value>
   </data>
   <data name="FlashDevelop.Label.ClearBookmarks" xml:space="preserve">
     <value>ブックマークをクリア(&amp;A)</value>
@@ -924,7 +924,7 @@
     <value>閉じる(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.CloseAll" xml:space="preserve">
-    <value>全て閉じる(&amp;E)</value>
+    <value>すべて閉じる(&amp;E)</value>
   </data>
   <data name="FlashDevelop.Label.CloseOthers" xml:space="preserve">
     <value>他を閉じる(&amp;O)</value>
@@ -1060,7 +1060,7 @@
     <value>ヘルプ(&amp;H)</value>
   </data>
   <data name="FlashDevelop.Label.HighlightAll" xml:space="preserve">
-    <value>全てハイライト(&amp;H)</value>
+    <value>すべてハイライト(&amp;H)</value>
   </data>
   <data name="FlashDevelop.Label.Homepage" xml:space="preserve">
     <value>ホームページ(&amp;H)</value>
@@ -1192,7 +1192,7 @@
     <value>置換(&amp;R)...</value>
   </data>
   <data name="FlashDevelop.Label.ReplaceAll" xml:space="preserve">
-    <value>全てを置換(&amp;A)</value>
+    <value>すべてを置換(&amp;A)</value>
   </data>
   <data name="FlashDevelop.Label.Revert" xml:space="preserve">
     <value>元に戻す(&amp;V)</value>
@@ -1285,7 +1285,7 @@
     <value>空白文字(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.WholeWord" xml:space="preserve">
-    <value>単語全体(&amp;C)</value>
+    <value>単語単位(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.WindowsExplorer" xml:space="preserve">
     <value>エクスプローラ(&amp;E)</value>
@@ -1327,7 +1327,7 @@
     <value>環境設定</value>
   </data>
   <data name="FlashDevelop.Title.UpdateDialog" xml:space="preserve">
-    <value>更新を確認</value>
+    <value>ソフトウェア更新を確認</value>
   </data>
   <data name="FlashDevelop.Title.WarningDialog" xml:space="preserve">
     <value>警告</value>
@@ -2520,7 +2520,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>現在の選択範囲</value>
   </data>
   <data name="ASCompletion.Description.GenerateProtectedDeclarations" xml:space="preserve">
-    <value>デフォルトのコードジェネレーターでは 'private' で宣言しようとします。このオプションを 'True' にすると ActionScript3 では 'protected' で宣言します。</value>
+    <value>コードジェネレーターは通常 'private' で宣言しようとします。このオプションを 'True' にすると ActionScript3 では 'protected' で宣言します。</value>
   </data>
   <data name="FileExplorer.Label.ShellMenu" xml:space="preserve">
     <value>コンテキストメニュー...</value>
@@ -2535,7 +2535,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コンパイル時に省略するシンボルが記述されたリンカーレポートを指定します。</value>
   </data>
   <data name="FlashDevelop.Description.InsertionTriggers" xml:space="preserve">
-    <value>補完リストによる挿入を確定するキー入力を設定します。Tab や Enter の場合はエスケープしてください。(例. \t \n) デフォルトでは A-Z0-9 以外の全てのキー入力で確定します。</value>
+    <value>補完リストによる挿入を確定するキー入力を設定します。Tab や Enter の場合はエスケープしてください。(例. \t \n) デフォルトでは A-Z0-9 以外のすべてのキー入力で確定します。</value>
   </data>
   <data name="TaskListPanel.Info.InvalidFile" xml:space="preserve">
     <value>ファイルが見つかりませんでした。タスク一覧が更新されます。</value>
@@ -2715,7 +2715,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>適用(&amp;A)</value>
   </data>
   <data name="FlashDevelop.Info.RevertSettingsFiles" xml:space="preserve">
-    <value>全ての言語の設定を規定値に戻す場合は[はい]を、設定を保持するには[いいえ]を選択してください。</value>
+    <value>すべての言語の設定を規定値に戻す場合は[はい]を、設定を保持するには[いいえ]を選択してください。</value>
   </data>
   <data name="FlashDevelop.Label.RevertFiles" xml:space="preserve">
     <value>設定を元に戻す...</value>
@@ -2938,7 +2938,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.0</comment>
   </data>
   <data name="ASCompletion.Description.StartWithModifiers" xml:space="preserve">
-    <value>生成された宣言は必ずアクセス修飾子を先頭にします。（例：常に "static" や "override" の前に)</value>
+    <value>コードジェネレーターのコード生成時にアクセス修飾子を先頭にします。（例："public" や "private" を "static" や "override" の前に置く)</value>
   </data>
   <data name="ProjectManager.Info.DuplicatingFile" xml:space="preserve">
     <value>複製 '{0}':</value>
