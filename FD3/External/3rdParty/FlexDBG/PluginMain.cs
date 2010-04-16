@@ -154,6 +154,7 @@ namespace FlexDbg
                     break;
 
                 case EventType.UIStarted:
+                    menusHelper.AddToolStrip();
                     menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
                     CheckValidFile(!disableDebugger);
                     break;

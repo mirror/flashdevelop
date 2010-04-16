@@ -137,11 +137,28 @@ namespace FlexDbg
 
 			m_DebuggerToolStrip.EndDrag += new EventHandler(DebuggerToolStrip_EndDrag);
 #else
-			PluginBase.MainForm.ToolStripPanel.Join(m_DebuggerToolStrip, PluginBase.MainForm.ToolStripPanel.Rows.Length);
+			//PluginBase.MainForm.ToolStripPanel.Join(m_DebuggerToolStrip, PluginBase.MainForm.ToolStripPanel.Rows.Length);
 #endif
 
             // update items when debugger state changes
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;
+        }
+
+        public void AddToolStrip()
+        {
+            // add debug toolbar right to the main toolbar
+            ToolStripPanel tsp = PluginBase.MainForm.ToolStripPanel;
+            if (tsp.Rows.Length > 1)
+            {
+                int idx = tsp.Rows.Length - 1;
+                Control[] row = tsp.Rows[idx].Controls;
+                foreach (Control c in row) tsp.Controls.Remove(c);
+
+                tsp.Join(m_DebuggerToolStrip, idx);
+                for (int i = row.Length - 1; i >= 0; i--)
+                    tsp.Join(row[0] as ToolStrip, idx);
+            }
+            else tsp.Join(m_DebuggerToolStrip);
         }
 
         public void OpenLocalVariablesPanel(Object sender, System.EventArgs e)
