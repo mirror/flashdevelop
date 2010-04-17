@@ -196,21 +196,38 @@ namespace AS3Context
                 {
                     if (cpath.Contains("Library\\AS3\\frameworks\\Flex"))
                     {
+                        if (hasAIRSupport && cpath.Contains("Library\\AS3\\frameworks\\Flex3"))
+                        {
+                            String airFlex = cpath.Replace("\\Flex3", "\\AirFlex3");
+                            if (Directory.Exists(airFlex)) AddPath(airFlex);
+                            String airMxSources = Path.Combine(compiler, @"frameworks\projects\airframework\src");
+                            if (Directory.Exists(airMxSources)) AddPath(airMxSources);
+                        }
+
                         String mxSources = Path.Combine(compiler, @"frameworks\projects\framework\src");
                         if (Directory.Exists(mxSources)) AddPath(mxSources);
                         String rpcSources = Path.Combine(compiler, @"frameworks\projects\rpc\src");
                         if (Directory.Exists(rpcSources)) AddPath(rpcSources);
+                        String chartsSources = Path.Combine(compiler, @"frameworks\projects\datavisualization\src");
+                        if (Directory.Exists(chartsSources)) AddPath(chartsSources);
                     }
+
                     if (cpath.Contains("Library\\AS3\\frameworks\\Flex4"))
                     {
+                        if (hasAIRSupport)
+                        {
+                            String airFlex = cpath.Replace("\\Flex4", "\\AirFlex4");
+                            if (Directory.Exists(airFlex)) AddPath(airFlex);
+                            String airSparkSources = Path.Combine(compiler, @"frameworks\projects\airspark\src");
+                            if (Directory.Exists(airSparkSources)) AddPath(airSparkSources);
+                        }
+
                         String sparkSources = Path.Combine(compiler, @"frameworks\projects\spark\src");
                         if (Directory.Exists(sparkSources)) AddPath(sparkSources);
                         String sparkSkins = Path.Combine(compiler, @"frameworks\projects\sparkskins\src");
                         if (Directory.Exists(sparkSkins)) AddPath(sparkSkins);
                         String tlSources = Path.Combine(compiler, @"frameworks\projects\textLayout\src");
                         if (Directory.Exists(tlSources)) AddPath(tlSources);
-                        String dvSources = Path.Combine(compiler, @"frameworks\projects\datavisualization\src");
-                        if (Directory.Exists(dvSources)) AddPath(dvSources);
                         String osfmSources = Path.Combine(compiler, @"frameworks\projects\osmf\src");
                         if (Directory.Exists(osfmSources)) AddPath(osfmSources);
                     }

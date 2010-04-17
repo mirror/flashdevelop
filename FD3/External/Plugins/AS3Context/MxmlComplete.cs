@@ -486,7 +486,7 @@ namespace AS3Context
                 return uri.Substring(0, uri.Length - 1) + name;
 
             if (uri == "http://www.adobe.com/2006/mxml")
-                uri = "library://ns.adobe.com/flex/halo";
+                uri = "library://ns.adobe.com/flex/mx";
             foreach (MxmlCatalog cat in ctx.catalogs)
             {
                 if (cat.URI == uri && cat.ContainsKey(name))

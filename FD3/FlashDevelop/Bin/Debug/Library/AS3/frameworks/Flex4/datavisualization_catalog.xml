@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.0.0" build="14159" minimumSupportedVersion="3.0.0" />
+  </versions>
+  <components>
+    <component className="mx.charts.effects:SeriesEffect" name="SeriesEffect" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:GroupingField" name="GroupingField" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:GridLines" name="GridLines" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:AreaSet" name="AreaSet" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:LineChart" name="LineChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.renderers:LineRenderer" name="LineRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.printing:PrintAdvancedDataGrid" name="PrintAdvancedDataGrid" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:PlotChart" name="PlotChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.renderers:WedgeItemRenderer" name="WedgeItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.chartClasses:DataTip" name="DataTip" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPCube" name="OLAPCube" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.printing:PrintOLAPDataGrid" name="PrintOLAPDataGrid" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:ColumnSet" name="ColumnSet" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:TriangleItemRenderer" name="TriangleItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:DateTimeAxis" name="DateTimeAxis" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPSchema" name="OLAPSchema" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:CandlestickChart" name="CandlestickChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.effects:SeriesInterpolate" name="SeriesInterpolate" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:SummaryField" name="SummaryField" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.effects:SeriesSlide" name="SeriesSlide" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:PlotSeries" name="PlotSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:CandlestickItemRenderer" name="CandlestickItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:DiamondItemRenderer" name="DiamondItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:HierarchicalData" name="HierarchicalData" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:HLOCItemRenderer" name="HLOCItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:SummaryField2" name="SummaryField2" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:BarChart" name="BarChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.series:BarSet" name="BarSet" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.effects:SeriesZoom" name="SeriesZoom" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridColumnGroup" name="AdvancedDataGridColumnGroup" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:GroupingCollection" name="GroupingCollection" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridSortItemRenderer" name="AdvancedDataGridSortItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:CandlestickSeries" name="CandlestickSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPMeasure" name="OLAPMeasure" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:BoxItemRenderer" name="BoxItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:PieChart" name="PieChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.chartClasses:ChartBase" name="ChartBase" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPHierarchy" name="OLAPHierarchy" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:LogAxis" name="LogAxis" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:HLOCChart" name="HLOCChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.renderers:AreaRenderer" name="AreaRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridItemRenderer" name="AdvancedDataGridItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridBaseSelectionData" name="AdvancedDataGridBaseSelectionData" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:SummaryRow" name="SummaryRow" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:ColumnSeries" name="ColumnSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:GroupingCollection2" name="GroupingCollection2" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPMember" name="OLAPMember" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.chartClasses:CartesianChart" name="CartesianChart" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:CrossItemRenderer" name="CrossItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPAttribute" name="OLAPAttribute" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:ShadowLineRenderer" name="ShadowLineRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.olapDataGridClasses:OLAPDataGridItemRendererProvider" name="OLAPDataGridItemRendererProvider" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls:AdvancedDataGrid" name="AdvancedDataGrid" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:BubbleChart" name="BubbleChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.collections:HierarchicalCollectionView" name="HierarchicalCollectionView" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:LinearAxis" name="LinearAxis" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:CategoryAxis" name="CategoryAxis" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridHeaderRenderer" name="AdvancedDataGridHeaderRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:AxisRenderer" name="AxisRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.chartClasses:PolarDataCanvas" name="PolarDataCanvas" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:BubbleSeries" name="BubbleSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:SortInfo" name="SortInfo" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.chartClasses:PolarChart" name="PolarChart" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:CircleItemRenderer" name="CircleItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridGroupItemRenderer" name="AdvancedDataGridGroupItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.skins.halo:AdvancedDataGridHeaderHorizontalSeparator" name="AdvancedDataGridHeaderHorizontalSeparator" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:AreaSeries" name="AreaSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.olapDataGridClasses:OLAPDataGridHeaderRendererProvider" name="OLAPDataGridHeaderRendererProvider" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPDimension" name="OLAPDimension" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:ColumnChart" name="ColumnChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.controls:OLAPDataGrid" name="OLAPDataGrid" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.olap:OLAPLevel" name="OLAPLevel" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:AreaChart" name="AreaChart" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridBaseSelectionPending" name="AdvancedDataGridBaseSelectionPending" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridRendererProvider" name="AdvancedDataGridRendererProvider" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.chartClasses:CartesianDataCanvas" name="CartesianDataCanvas" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.controls.advancedDataGridClasses:AdvancedDataGridColumn" name="AdvancedDataGridColumn" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:Legend" name="Legend" uri="http://www.adobe.com/2006/mxml" />
+    <component className="mx.charts.series:PieSeries" name="PieSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:LineSeries" name="LineSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:HLOCSeries" name="HLOCSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.renderers:ShadowBoxItemRenderer" name="ShadowBoxItemRenderer" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts.series:BarSeries" name="BarSeries" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.collections:Grouping" name="Grouping" uri="http://www.adobe.com/2006/mxml"  />
+    <component className="mx.charts:LegendItem" name="LegendItem" uri="http://www.adobe.com/2006/mxml"  />
+  </components>
+</swc>

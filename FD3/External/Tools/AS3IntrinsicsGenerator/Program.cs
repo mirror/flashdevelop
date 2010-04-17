@@ -7,19 +7,21 @@ using System.IO;
 using AS3Context;
 using ASCompletion.Model;
 using System.Text.RegularExpressions;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace AS3IntrinsicsGenerator
 {
     class Program
     {
         static private Context context;
-        static private ClassModel currentClass;
         static private Dictionary<string, BlockModel> types;
         static private Dictionary<string, string> generated;
         static private PathModel currentClassPath;
         
         static void Main(string[] args)
         {
+            ExtractManifests();
+            //return;
 
             // AS3 doc parsing
             string AS3XML = "ActionsPanel_3.xml";
@@ -57,6 +59,43 @@ namespace AS3IntrinsicsGenerator
             GenerateIntrinsics("AIRFlex3", context.Classpath[7], true, true);
 
             Console.WriteLine("Done.");
+        }
+
+        private static void ExtractManifests()
+        {
+            Directory.CreateDirectory("catalogs");
+
+            string[] files = Directory.GetFiles("libs");
+            CreateCatalogs(files);
+            files = Directory.GetFiles("libs\\air");
+            CreateCatalogs(files);
+        }
+
+        private static void CreateCatalogs(string[] files)
+        {
+            foreach (string file in files)
+            {
+                Stream filestream = File.OpenRead(file);
+                ZipFile zfile = new ZipFile(filestream);
+                foreach (ZipEntry entry in zfile)
+                {
+                    if (entry.Name == "catalog.xml")
+                    {
+                        Stream stream = zfile.GetInputStream(entry);
+                        byte[] data = new byte[entry.Size];
+                        int length = stream.Read(data, 0, (int)entry.Size);
+                        string src = UTF8Encoding.UTF8.GetString(data);
+                        if (src.IndexOf("<components>") > 0)
+                        {
+                            src = Regex.Replace(src, "\\s*<libraries>.*</libraries>", "", RegexOptions.Singleline);
+                            src = Regex.Replace(src, "\\s*<features>.*</features>", "", RegexOptions.Singleline);
+                            src = Regex.Replace(src, "\\s*<files>.*</files>", "", RegexOptions.Singleline);
+                            src = Regex.Replace(src, "icon=\"[^\"]+\"\\s*", "");
+                            File.WriteAllText("catalogs\\" + Path.GetFileNameWithoutExtension(file) + "_catalog.xml", src);
+                        }
+                    }
+                }
+            }
         }
 
         private static void ExtractXML(string AS3XML)
