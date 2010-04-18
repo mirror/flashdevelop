@@ -611,6 +611,7 @@ namespace ASCompletion.Completion
 
         private static string getQualifiedType(string type, ClassModel aType)
         {
+            if (type == null || type == "") return "*";
             if (type.IndexOf('<') > 0) // Vector.<Point>
             {
                 Match mGeneric = Regex.Match(type, "<([^>]+)>");
