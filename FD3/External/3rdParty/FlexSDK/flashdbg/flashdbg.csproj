@@ -1,0 +1,203 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{77663E75-026B-44FF-B4DF-2C262A6C493A}</ProjectGuid>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>flashdbg</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>flashdbg</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\Debug\flashdbg.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\Release\flashdbg.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="flash\tools\ActionLocation.cs" />
+    <Compile Include="flash\tools\debugger\AIRLaunchInfo.cs" />
+    <Compile Include="flash\tools\debugger\Bootstrap.cs" />
+    <Compile Include="flash\tools\debugger\Browser.cs" />
+    <Compile Include="flash\tools\debugger\CommandLineException.cs" />
+    <Compile Include="flash\tools\debugger\concrete\AbstractPlayer.cs" />
+    <Compile Include="flash\tools\debugger\concrete\ActiveXPlayer.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DBrowser.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DLocation.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DManager.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DMessage.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DMessageCache.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DMessageCounter.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DModule.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DProtocol.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DProtocolNotifierIF.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DStackContext.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DSuspendInfo.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DSwfInfo.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DValue.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DVariable.cs" />
+    <Compile Include="flash\tools\debugger\concrete\DWatch.cs" />
+    <Compile Include="flash\tools\debugger\concrete\GetVariableFlag.cs" />
+    <Compile Include="flash\tools\debugger\concrete\LineFunctionContainer.cs" />
+    <Compile Include="flash\tools\debugger\concrete\NetscapePluginPlayer.cs" />
+    <Compile Include="flash\tools\debugger\concrete\PlayerSession.cs" />
+    <Compile Include="flash\tools\debugger\concrete\PlayerSessionManager.cs" />
+    <Compile Include="flash\tools\debugger\concrete\ProcessListener.cs" />
+    <Compile Include="flash\tools\debugger\concrete\RingBuffer.cs" />
+    <Compile Include="flash\tools\debugger\concrete\ScriptText.cs" />
+    <Compile Include="flash\tools\debugger\concrete\StandalonePlayer.cs" />
+    <Compile Include="flash\tools\debugger\concrete\StreamListener.cs" />
+    <Compile Include="flash\tools\debugger\DebuggerLocalizer.cs" />
+    <Compile Include="flash\tools\debugger\DefaultDebuggerCallbacks.cs" />
+    <Compile Include="flash\tools\debugger\events\BreakEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\ConsoleErrorFault.cs" />
+    <Compile Include="flash\tools\debugger\events\DebugEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\DivideByZeroFault.cs" />
+    <Compile Include="flash\tools\debugger\events\ExceptionFault.cs" />
+    <Compile Include="flash\tools\debugger\events\FaultEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\FileListModifiedEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\FunctionMetaDataAvailableEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\InvalidTargetFault.cs" />
+    <Compile Include="flash\tools\debugger\events\InvalidURLFault.cs" />
+    <Compile Include="flash\tools\debugger\events\InvalidWithFault.cs" />
+    <Compile Include="flash\tools\debugger\events\ProtoLimitFault.cs" />
+    <Compile Include="flash\tools\debugger\events\RecursionLimitFault.cs" />
+    <Compile Include="flash\tools\debugger\events\ScriptTimeoutFault.cs" />
+    <Compile Include="flash\tools\debugger\events\StackUnderFlowFault.cs" />
+    <Compile Include="flash\tools\debugger\events\SwfLoadedEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\SwfUnloadedEvent.cs" />
+    <Compile Include="flash\tools\debugger\events\TraceEvent.cs" />
+    <Compile Include="flash\tools\debugger\expression\AddExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\AndExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\ArithmeticExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\AssignmentExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\ASTBuilder.cs" />
+    <Compile Include="flash\tools\debugger\expression\BitwiseExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\BooleanExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\ConstantBooleanExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\ConstantExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\Context.cs" />
+    <Compile Include="flash\tools\debugger\expression\DivExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\DotExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\EqExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\ExpressionException.cs" />
+    <Compile Include="flash\tools\debugger\expression\GTEqExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\GTExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\IASTBuilder.cs" />
+    <Compile Include="flash\tools\debugger\expression\IncompleteExpressionException.cs" />
+    <Compile Include="flash\tools\debugger\expression\IndirectionExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\InternalVariableExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\LogicAndExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\LogicNotExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\LogicOrExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\LShiftExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\LTEqExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\LTExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\ModExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\MultExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\NeqExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\NoChildException.cs" />
+    <Compile Include="flash\tools\debugger\expression\NonTerminalExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\NoSuchVariableException.cs" />
+    <Compile Include="flash\tools\debugger\expression\NotExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\Operator.cs" />
+    <Compile Include="flash\tools\debugger\expression\OrExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\PlayerFaultException.cs" />
+    <Compile Include="flash\tools\debugger\expression\RelationalExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\RShiftExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\SingleArgumentExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\StringExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\SubExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\SubscriptExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\TerminalExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\UnknownOperationException.cs" />
+    <Compile Include="flash\tools\debugger\expression\util.cs" />
+    <Compile Include="flash\tools\debugger\expression\ValueExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\VariableExp.cs" />
+    <Compile Include="flash\tools\debugger\expression\XorExp.cs" />
+    <Compile Include="flash\tools\debugger\Frame.cs" />
+    <Compile Include="flash\tools\debugger\IDebuggerCallbacks.cs" />
+    <Compile Include="flash\tools\debugger\InProgressException.cs" />
+    <Compile Include="flash\tools\debugger\IProgress.cs" />
+    <Compile Include="flash\tools\debugger\Location.cs" />
+    <Compile Include="flash\tools\debugger\NoResponseException.cs" />
+    <Compile Include="flash\tools\debugger\NotConnectedException.cs" />
+    <Compile Include="flash\tools\debugger\NotSuspendedException.cs" />
+    <Compile Include="flash\tools\debugger\Player.cs" />
+    <Compile Include="flash\tools\debugger\PlayerDebugException.cs" />
+    <Compile Include="flash\tools\debugger\Session.cs" />
+    <Compile Include="flash\tools\debugger\SessionManager.cs" />
+    <Compile Include="flash\tools\debugger\SourceFile.cs" />
+    <Compile Include="flash\tools\debugger\SourceLocator.cs" />
+    <Compile Include="flash\tools\debugger\SuspendedException.cs" />
+    <Compile Include="flash\tools\debugger\SuspendReason.cs" />
+    <Compile Include="flash\tools\debugger\SwfInfo.cs" />
+    <Compile Include="flash\tools\debugger\Value.cs" />
+    <Compile Include="flash\tools\debugger\ValueAttribute.cs" />
+    <Compile Include="flash\tools\debugger\Variable.cs" />
+    <Compile Include="flash\tools\debugger\VariableAttribute.cs" />
+    <Compile Include="flash\tools\debugger\VariableType.cs" />
+    <Compile Include="flash\tools\debugger\VersionException.cs" />
+    <Compile Include="flash\tools\debugger\Watch.cs" />
+    <Compile Include="flash\tools\debugger\WatchKind.cs" />
+    <Compile Include="flash\tools\SwfActionContainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="flash\tools\debugger\concrete\djapi_en.properties" />
+    <None Include="flash\tools\debugger\concrete\djapi_ja.properties" />
+    <None Include="flash\tools\debugger\djapi_en.properties" />
+    <None Include="flash\tools\debugger\djapi_ja.properties" />
+    <None Include="flash\tools\debugger\expression\expression_en.properties" />
+    <None Include="flash\tools\debugger\expression\expression_ja.properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="flash\tools\debugger\concrete\appleScriptCloseCaminoWindow.txt" />
+    <Content Include="flash\tools\debugger\concrete\appleScriptCloseSafariWindow.txt" />
+    <Content Include="flash\tools\debugger\concrete\appleScriptGetDefaultBrowserName.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\swfutils\swfutils.csproj">
+      <Project>{2987A058-A00D-4DFB-B5F2-2ACE3957EEFC}</Project>
+      <Name>swfutils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FlashDbg.en.resX" />
+    <EmbeddedResource Include="FlashDbg.ja.resX" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

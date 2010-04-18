@@ -1,0 +1,800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotPropagated" xml:space="preserve">
+    <value>WARNING:  breakpoint ${breakpointNumber} not propagated to all swfs.
+You need to clear it and set it again.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notANumber" xml:space="preserve">
+    <value>'${token}' not a number.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unrecognizedFault" xml:space="preserve">
+    <value>Unrecognized fault.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.invalidTargetFault" xml:space="preserve">
+    <value>Bad target name for ActionSetTarget instruction</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noLocals" xml:space="preserve">
+    <value>no locals</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setterFunction" xml:space="preserve">
+    <value>Setter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandFailed" xml:space="preserve">
+    <value>Command failed.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.divideByZeroFault" xml:space="preserve">
+    <value>Divide by zero error</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.swfInfo" xml:space="preserve">
+    <value>${swfName} - ${size} bytes after decompression, ${scriptCount} scripts [#${min} - #${max}]${plus} ${moreInfo}, url is ${url}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.about" xml:space="preserve">
+    <value>Adobe fdb (Flash Player Debugger) [build ${build}]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.debugInfoBeingLoaded" xml:space="preserve">
+    <value>debug information currently being loaded</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noScopeChain" xml:space="preserve">
+    <value>no scope chain</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownCommand" xml:space="preserve">
+    <value>Unknown command '${command}', ignoring it</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key29" xml:space="preserve">
+    <value>No swf found for file ${arg3}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key24" xml:space="preserve">
+    <value>Player running.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.haltedInFunction" xml:space="preserve">
+    <value>${reasonForHalting}, ${functionName}() at ${fileAndLine}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key26" xml:space="preserve">
+    <value>Variable unknown</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expectedLineNumber" xml:space="preserve">
+    <value>Expected line number; got ${token}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.yesOrNoAppendedToAllQuestions" xml:space="preserve">
+    <value> (y or n) </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSuchElementException" xml:space="preserve">
+    <value>Command expected at least one more argument.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointLocationNoLongerExists" xml:space="preserve">
+    <value>Source file and line number no longer exist for breakpoint ${breakpointNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noFunctionWithSpecifiedName" xml:space="preserve">
+    <value>No function named '${name}'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sessionTerminated" xml:space="preserve">
+    <value>Player session terminated</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sourceDirectoriesSearched" xml:space="preserve">
+    <value>Source directories searched:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.mustBeOnlyOneVariable" xml:space="preserve">
+    <value>Expression must contain only a single variable</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableUnknown" xml:space="preserve">
+    <value>Variable ${variable} unknown</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.historyHasNotReached" xml:space="preserve">
+    <value>History has not yet reached $${number}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownSubcommand" xml:space="preserve">
+    <value>Unknown ${commandCategory} command '${command}', ignoring it</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.ambiguousMatchingFilenames" xml:space="preserve">
+    <value>Ambiguous matching file names:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.attemptingToSuspend" xml:space="preserve">
+    <value>Attempting to suspend Player execution...</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unexpectedErrorWithStackTrace" xml:space="preserve">
+    <value>Unexpected error while processing command.
+For diagnostic purposes stack trace follows: </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.missingOperator" xml:space="preserve">
+    <value>Expression must contain '${operator}' operator.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unrecognizedAction" xml:space="preserve">
+    <value>Unrecognized action ${action}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.changedWatchpointMode" xml:space="preserve">
+    <value>Watchpoint ${watchpointNumber} on expression '${expression}' now ${watchpointMode}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setAdditionalBreakpoints" xml:space="preserve">
+    <value>Set additional breakpoints as desired, and then type 'continue'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.hitBreakpoint" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.cannotStep" xml:space="preserve">
+    <value>You can't step now.  Set breakpoints and then type 'continue'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.attemptingToHalt" xml:space="preserve">
+    <value>Attempting to halt.
+To help out, try nudging the Player (e.g. press a button)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notInValidFrame" xml:space="preserve">
+    <value>Not in a valid frame.  Use 'frame' command to return to current one.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownEvent" xml:space="preserve">
+    <value>Received unknown event of type '${type}', info = ${info}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownBreakpointLocation" xml:space="preserve">
+    <value>&lt;unknown&gt;</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownVariableType" xml:space="preserve">
+    <value>&lt;unknown&gt;</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stopOnlyIfConditionMet" xml:space="preserve">
+    <value>stop only if ${breakpointCondition}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unexpectedError" xml:space="preserve">
+    <value>Unexpected error while processing command.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_HaltOpcode" xml:space="preserve">
+    <value>HaltOpcode</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.atAddress" xml:space="preserve">
+    <value>at ${address}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sessionInProgress" xml:space="preserve">
+    <value>Session already in progress</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sourceFileNotFound" xml:space="preserve">
+    <value>Source file not found.  Use the "directory" command to specify its
+location on this machine.  Type "help directory" for important details
+on how to specify a directory for source files that are in a package.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expectedFileNumber" xml:space="preserve">
+    <value>Expected file number; got ${token}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key27" xml:space="preserve">
+    <value>Source information unknown, disassembled current location</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.badDisplayNumber" xml:space="preserve">
+    <value>warning bad display number at or near '${token}'</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.typeCommandsForBreakpoint" xml:space="preserve">
+    <value>Type commands for when breakpoint ${breakpointNumber} is hit, one per line.
+End with a line saying just 'end'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointMode_write" xml:space="preserve">
+    <value>write</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionInFile" xml:space="preserve">
+    <value>${functionName} in ${filename}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askExpressionContainsAssignment" xml:space="preserve">
+    <value>Your expression contains assignment! Continue?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointMode_read" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.invalidWithFault" xml:space="preserve">
+    <value>Target of 'with' statement not an object</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.abortingStep" xml:space="preserve">
+    <value>The Player has not returned in time; aborting remaining ${count} steps</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.continuingDueToError" xml:space="preserve">
+    <value>Continuing due to error '${error}'</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotConvertToNumber" xml:space="preserve">
+    <value>Value '${value}' could not be converted to a number</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noBreakpointNumber" xml:space="preserve">
+    <value>No breakpoint number ${breakpointNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenDisplayingConsoleError" xml:space="preserve">
+    <value>[Error]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.ambiguousCommand" xml:space="preserve">
+    <value>Ambiguous command '${input}':</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_readOnly" xml:space="preserve">
+    <value>read-only</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.attemptingToResolve" xml:space="preserve">
+    <value>Attempting to resolve breakpoint ${breakpointNumber}, expression "${expression}":</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionArgumentVariable" xml:space="preserve">
+    <value>argument</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sourceCommandRequiresPath" xml:space="preserve">
+    <value>'source' command requires pathname of file to source.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotFindWatchpoint" xml:space="preserve">
+    <value>The watch for '${variable}' could not be found or removed.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.exceptionFault" xml:space="preserve">
+    <value>User exception thrown</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.ambiguousMatchingFunctionNames" xml:space="preserve">
+    <value>Ambiguous matching function names:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fileDoesNotExist" xml:space="preserve">
+    <value>File not found: ${uri}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenDisplayingFault" xml:space="preserve">
+    <value>[Fault]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stackTraceFollows" xml:space="preserve">
+    <value>For diagnostic purposes stack trace follows: </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandsLimitedToSpecifiedSwf" xml:space="preserve">
+    <value>Commands limited to source files from ${swf}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notAllBreakpointsEnabled" xml:space="preserve">
+    <value>Not all breakpoints enabled</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expressionIsIncomplete" xml:space="preserve">
+    <value>Expression is incomplete:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.manuallyLaunchPlayer" xml:space="preserve">
+    <value>Just type 'run', and then manually launch the Player.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.resolvedBreakpointToFunction" xml:space="preserve">
+    <value>Resolved breakpoint ${breakpointNumber} to ${functionName}() at ${file}:${line}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sizeAfterDecompression" xml:space="preserve">
+    <value>${size} bytes after decompression</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.failedToConnect" xml:space="preserve">
+    <value>Failed to connect; session timed out.
+Ensure that:
+  1. you compiled your Flash movie with debugging on, and
+  2. you are running the Debugger version of the Flash Player.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownOperator" xml:space="preserve">
+    <value>Expression contains an operator that is not known:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.currentLocationUnknown" xml:space="preserve">
+    <value>current location unknown</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_ScriptHasLoadedIntoFlashPlayer" xml:space="preserve">
+    <value>ScriptLoaded</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fileNotFound" xml:space="preserve">
+    <value>${filename}: No such file or directory.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sessionEndedAbruptly" xml:space="preserve">
+    <value>Session ended abruptly.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenSwfLoaded" xml:space="preserve">
+    <value>[SWF]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expressionCouldNotBeParsed" xml:space="preserve">
+    <value>Expression could not be parsed correctly:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSuchFileOrFunction" xml:space="preserve">
+    <value>No file or function named '${token}'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askDeleteAllBreakpoints" xml:space="preserve">
+    <value>Delete all breakpoints?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.singleCharacterUserTypesForYes" xml:space="preserve">
+    <value>y</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key35" xml:space="preserve">
+    <value>in '${swfName}'</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askReinitSourcePath" xml:space="preserve">
+    <value>Reinitialize source path to empty?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandHistoryIsEmpty" xml:space="preserve">
+    <value>The history is empty</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key31" xml:space="preserve">
+    <value>---- Displaying unmapped instructions at 0x${arg4} that were skipped ----</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key30" xml:space="preserve">
+    <value>No function found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key33" xml:space="preserve">
+    <value>No files found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key32" xml:space="preserve">
+    <value>Line number ${arg5} out of range; file ${arg6} has ${arg7} lines</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_ProgramFinishedStepping" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.warningNotAllCommandsSupported" xml:space="preserve">
+    <value>WARNING: The Player that you are using does not support all fdb commands.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_setterFunction" xml:space="preserve">
+    <value>setter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.protoLimitFault" xml:space="preserve">
+    <value>Search up prototype chain reached limit</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key17" xml:space="preserve">
+    <value>Messages sent:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.nonRestorable" xml:space="preserve">
+    <value> ; Non-restorable from prior session</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.launchingWithUrl" xml:space="preserve">
+    <value>Attempting to launch and connect to Player using URL</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.localVariable" xml:space="preserve">
+    <value>local</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notSuspendedException" xml:space="preserve">
+    <value>Command cannot be issued while Player is running</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notValidSwf" xml:space="preserve">
+    <value>${swf} is not a valid SWF.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noDisplayNumber" xml:space="preserve">
+    <value>No display number ${displayNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotYetResolved" xml:space="preserve">
+    <value> (not yet resolved)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fixBreakpoints" xml:space="preserve">
+    <value>Fix or remove bad breakpoints, then type 'continue'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noFilesFound" xml:space="preserve">
+    <value>No files found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askDeleteAllAutoDisplay" xml:space="preserve">
+    <value>Delete all auto-display expressions?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerAlreadyRunning" xml:space="preserve">
+    <value>Player is already running, no need to resume.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noFunctionsFound" xml:space="preserve">
+    <value>No functions found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandNotValidUntilPlayerSuspended" xml:space="preserve">
+    <value>Command not valid until Player execution suspended; try 'halt' command.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_functionArgument" xml:space="preserve">
+    <value>argument</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotResolveExpression" xml:space="preserve">
+    <value>Could not resolve expression into variable.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerDidNotStop" xml:space="preserve">
+    <value>Player did not stop as expected.  Press 'Enter' key to halt it</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSWFs" xml:space="preserve">
+    <value>no SWFs.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setBreakpointsThenResume" xml:space="preserve">
+    <value>Set breakpoints and then type 'continue' to resume the session.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotSetNoCode" xml:space="preserve">
+    <value>Breakpoint not set; no executable code at line ${line} of ${filename}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askProgramIsRunningExitAnyway" xml:space="preserve">
+    <value>The program is running.  Exit anyway?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key34" xml:space="preserve">
+    <value>Player is not currently suspended on any actions.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.badWatchpointNumber" xml:space="preserve">
+    <value>Bad watchpoint number.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.assignmentFailed" xml:space="preserve">
+    <value>Assignment resulted in failed action</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointAmbiguous" xml:space="preserve">
+    <value> (ambiguous)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_HitBreakpoint" xml:space="preserve">
+    <value>Breakpoint</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.finishCommandNotMeaningfulWithoutStack" xml:space="preserve">
+    <value>'finish' not meaningful without a stack</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.invalidUrlFault" xml:space="preserve">
+    <value>Opening a URL failed</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.lineJunk" xml:space="preserve">
+    <value>Junk at end of line specification</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.escapingFromDebuggerPendingLoop" xml:space="preserve">
+    <value>Escaping from debugger pending loop; setting $nowaiting = 1</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.haltedInFile" xml:space="preserve">
+    <value>${reasonForHalting}, ${fileAndLine}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.silentBreakpoint" xml:space="preserve">
+    <value>silent</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSourceFilesFound" xml:space="preserve">
+    <value>No source files found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noExecutableCode" xml:space="preserve">
+    <value>There is no executable code on the specified line.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.illegalMonitorStateException" xml:space="preserve">
+    <value>Command not valid on a running Player.  Press 'Enter' key to halt it</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointCreatedButNotYetResolved" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber} created, but not yet resolved.
+The breakpoint will be resolved when the corresponding file or function is loaded.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_hasNamespace" xml:space="preserve">
+    <value>has namespace</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noArguments" xml:space="preserve">
+    <value>no arguments</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askKillProgram" xml:space="preserve">
+    <value>Kill the program being debugged?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.illegalStateException" xml:space="preserve">
+    <value>Command not valid without a session.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNowUnconditional" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber} now unconditional.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.socketException" xml:space="preserve">
+    <value>Another Flash debugger is probably running; please close it.  Details: '${message}'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noHelpFileFound" xml:space="preserve">
+    <value>No help file (fdbhelp*.txt) found.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.targetUnknown" xml:space="preserve">
+    <value>Target unknown</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.defaultBuildName" xml:space="preserve">
+    <value>development</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_dontEnumerate" xml:space="preserve">
+    <value>don't enumerate</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotCleared" xml:space="preserve">
+    <value>Breakpoint not cleared.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noVariables" xml:space="preserve">
+    <value>no variables</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownFilename" xml:space="preserve">
+    <value>&lt;unknown&gt;</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerStopped" xml:space="preserve">
+    <value>Player stopped</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.copyright" xml:space="preserve">
+    <value>Copyright (c) 2004-2007 Adobe, Inc. All rights reserved.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.recursionLimitFault" xml:space="preserve">
+    <value>Upper bound on recusion limit reached</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointLocationUnknown" xml:space="preserve">
+    <value>Breakpoint location unknown.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expressionCouldNotBeResolved" xml:space="preserve">
+    <value>Expression could not be fully resolved:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_ProgramThrewException" xml:space="preserve">
+    <value>Fault</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.getterFunction" xml:space="preserve">
+    <value>Getter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotEvaluate" xml:space="preserve">
+    <value>Expression could not be evaluated.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expectedFile" xml:space="preserve">
+    <value>Expected file name or file number starting with #; got ${token}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.yesNoQueryNotConfirmed" xml:space="preserve">
+    <value>Not confirmed.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionListBeingPrepared" xml:space="preserve">
+    <value>Function list being prepared in background; try again later.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.inFunctionAt" xml:space="preserve">
+    <value>in ${functionName}() at </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.remainingSourceBeingLoaded" xml:space="preserve">
+    <value>remaining source is still being loaded</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key19" xml:space="preserve">
+    <value>No functions found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key18" xml:space="preserve">
+    <value>No source files found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noUriReceived" xml:space="preserve">
+    <value>No URI received from Player</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.problemWithConnection" xml:space="preserve">
+    <value>Problem with session connection, '${socketErrorMessage}', probably best to 'kill' it.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.createdBreakpointWithOffset" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber} at ${offset}: file ${file}, line ${line}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_localVariable" xml:space="preserve">
+    <value>local</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenSwfUnloaded" xml:space="preserve">
+    <value>[UnloadSWF]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key16" xml:space="preserve">
+    <value>Messages received:</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.badBreakpointNumber" xml:space="preserve">
+    <value>warning bad breakpoint number at or near '${token}'</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerRunning" xml:space="preserve">
+    <value>Player running</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandsApplyToAllSwfs" xml:space="preserve">
+    <value>Source files from all swfs available within commands.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNoCode" xml:space="preserve">
+    <value> (no executable code on the specified line)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotHalt" xml:space="preserve">
+    <value>Couldn't halt, no ActionScript is running.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setCommand" xml:space="preserve">
+    <value>Set command requires a variable followed by an expression</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionsInSourceFile" xml:space="preserve">
+    <value>Functions in ${sourceFile}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.frameDoesNotExist" xml:space="preserve">
+    <value>Frame '${frameNumber}' does not exist.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.finishCommandNotMeaningfulOnOutermostFrame" xml:space="preserve">
+    <value>'finish' not meaningful on outermost frame</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotChanged" xml:space="preserve">
+    <value>Breakpoint not changed.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.waitingForPlayerToConnect" xml:space="preserve">
+    <value>Waiting for Player to connect</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.additionalCodeLoaded" xml:space="preserve">
+    <value>Additional ActionScript code has been loaded from a SWF or a frame.
+To see all currently loaded files, type 'info files'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointAlreadyHit" xml:space="preserve">
+    <value>breakpoint already hit ${count} time(s)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fileNumber" xml:space="preserve">
+    <value>file #${fileNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.numberFormatException" xml:space="preserve">
+    <value>Command argument was string, expected integer.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.createdWatchpoint" xml:space="preserve">
+    <value>Watchpoint ${watchpointNumber} set on expression '${expression}'</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.executionHalted" xml:space="preserve">
+    <value>Execution halted</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.inSwf" xml:space="preserve">
+    <value> in ${swf}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.haltedDueToFault" xml:space="preserve">
+    <value>due to ${fault}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerConnectedSessionStarting" xml:space="preserve">
+    <value>Player connected; session starting.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.runWillLaunchUri" xml:space="preserve">
+    <value>'run' will launch ${uri}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noActiveSession" xml:space="preserve">
+    <value>No active session</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.lineNumberOutOfRange" xml:space="preserve">
+    <value>Line number ${line} out of range; file ${filename} has ${total} lines</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_HitWatchpoint" xml:space="preserve">
+    <value>Watch</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noStackAvailable" xml:space="preserve">
+    <value>No stack available</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noResponseException" xml:space="preserve">
+    <value>Player did not respond to the command as expected; command aborted.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSideEffectsAllowed" xml:space="preserve">
+    <value>Expression must not have side effects such as assignment.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stackUnderflowFault" xml:space="preserve">
+    <value>Stack underflow occurred</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key28" xml:space="preserve">
+    <value>Junk at end of line specification</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_getterFunction" xml:space="preserve">
+    <value>getter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key25" xml:space="preserve">
+    <value>No break information found</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointCouldNotBeSet" xml:space="preserve">
+    <value>A watchpoint for '${expression}' could not be set</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.scriptTimeoutFault" xml:space="preserve">
+    <value>ActionScript code is not progressing</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.argumentRequired" xml:space="preserve">
+    <value>Argument required (fault to handle).</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key21" xml:space="preserve">
+    <value>--- SessionManager properties</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key20" xml:space="preserve">
+    <value>Function list being prepared in background;  Try again later.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key22" xml:space="preserve">
+    <value>--- Session properties</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.errorWhileProcessingFile" xml:space="preserve">
+    <value>An error occurred while processing the file (${exceptionMessage})</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointMode_readWrite" xml:space="preserve">
+    <value>read-write</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.programNotBeingRun" xml:space="preserve">
+    <value>The program is not being run.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.faultHasNoTableEntry" xml:space="preserve">
+    <value>Fault ${faultName} has no table entry</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.versionException" xml:space="preserve">
+    <value>Command not supported in this context.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.createdBreakpoint" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber}: file ${file}, line ${line}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.atFilename" xml:space="preserve">
+    <value> at </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.resolvedBreakpointToFile" xml:space="preserve">
+    <value>Resolved breakpoint ${breakpointNumber} to ${file}:${line}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_StopRequest" xml:space="preserve">
+    <value>StopRequest</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.informationAboutFault" xml:space="preserve">
+    <value>, information=</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSourceFileWithSpecifiedName" xml:space="preserve">
+    <value>No source file named '${name}'.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.doYouWantToHalt" xml:space="preserve">
+    <value>Do you want to attempt to halt execution?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+</root>

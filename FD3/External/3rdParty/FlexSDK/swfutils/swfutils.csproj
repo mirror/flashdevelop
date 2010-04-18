@@ -1,0 +1,200 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2987A058-A00D-4DFB-B5F2-2ACE3957EEFC}</ProjectGuid>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>swfutils</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>swfutils</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <DocumentationFile>..\bin\Debug\swfutils.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\Release\swfutils.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Flash\Localization\ILocalizedText.cs" />
+    <Compile Include="Flash\Localization\ILocalizer.cs" />
+    <Compile Include="Flash\Localization\LocalizationManager.cs" />
+    <Compile Include="Flash\Localization\ResourceBundleLocalizer.cs" />
+    <Compile Include="Flash\Swf\Action.cs" />
+    <Compile Include="Flash\Swf\ActionConstants.cs" />
+    <Compile Include="Flash\Swf\ActionDecoder.cs" />
+    <Compile Include="Flash\Swf\ActionFactory.cs" />
+    <Compile Include="Flash\Swf\ActionHandler.cs" />
+    <Compile Include="Flash\Swf\Actions\Branch.cs" />
+    <Compile Include="Flash\Swf\Actions\ConstantPool.cs" />
+    <Compile Include="Flash\Swf\Actions\DefineFunction.cs" />
+    <Compile Include="Flash\Swf\Actions\GetURL.cs" />
+    <Compile Include="Flash\Swf\Actions\GetURL2.cs" />
+    <Compile Include="Flash\Swf\Actions\GotoFrame.cs" />
+    <Compile Include="Flash\Swf\Actions\GotoFrame2.cs" />
+    <Compile Include="Flash\Swf\Actions\GotoLabel.cs" />
+    <Compile Include="Flash\Swf\Actions\Label.cs" />
+    <Compile Include="Flash\Swf\Actions\Push.cs" />
+    <Compile Include="Flash\Swf\Actions\SetTarget.cs" />
+    <Compile Include="Flash\Swf\Actions\StoreRegister.cs" />
+    <Compile Include="Flash\Swf\Actions\StrictMode.cs" />
+    <Compile Include="Flash\Swf\Actions\Try.cs" />
+    <Compile Include="Flash\Swf\Actions\Unknown.cs" />
+    <Compile Include="Flash\Swf\Actions\WaitForFrame.cs" />
+    <Compile Include="Flash\Swf\Actions\With.cs" />
+    <Compile Include="Flash\Swf\DebugDecoder.cs" />
+    <Compile Include="Flash\Swf\DebugHandler.cs" />
+    <Compile Include="Flash\Swf\DebugTags.cs" />
+    <Compile Include="Flash\Swf\Debug\DebugModule.cs" />
+    <Compile Include="Flash\Swf\Debug\DebugTable.cs" />
+    <Compile Include="Flash\Swf\Debug\LineRecord.cs" />
+    <Compile Include="Flash\Swf\Debug\RegisterRecord.cs" />
+    <Compile Include="Flash\Swf\Dictionary.cs" />
+    <Compile Include="Flash\Swf\Header.cs" />
+    <Compile Include="Flash\Swf\MovieMetaData.cs" />
+    <Compile Include="Flash\Swf\SwfDecoder.cs" />
+    <Compile Include="Flash\Swf\SwfEncoder.cs" />
+    <Compile Include="Flash\Swf\SwfFormatException.cs" />
+    <Compile Include="Flash\Swf\Tag.cs" />
+    <Compile Include="Flash\Swf\TagDecoder.cs" />
+    <Compile Include="Flash\Swf\TagHandler.cs" />
+    <Compile Include="Flash\Swf\Tags\CSMTextSettings.cs" />
+    <Compile Include="Flash\Swf\Tags\DebugID.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineBinaryData.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineBits.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineBitsJPEG3.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineBitsLossless.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineButton.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineButtonCxform.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineButtonSound.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineEditText.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFont.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFont1.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFont2.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFont3.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFont4.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFontAlignZones.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFontInfo.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineFontName.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineMorphShape.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineScalingGrid.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineSceneAndFrameLabelData.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineShape.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineSound.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineSprite.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineTag.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineText.cs" />
+    <Compile Include="Flash\Swf\Tags\DefineVideoStream.cs" />
+    <Compile Include="Flash\Swf\Tags\DoABC.cs" />
+    <Compile Include="Flash\Swf\Tags\DoAction.cs" />
+    <Compile Include="Flash\Swf\Tags\DoInitAction.cs" />
+    <Compile Include="Flash\Swf\Tags\EnableDebugger.cs" />
+    <Compile Include="Flash\Swf\Tags\ExportAssets.cs" />
+    <Compile Include="Flash\Swf\Tags\FileAttributes.cs" />
+    <Compile Include="Flash\Swf\Tags\FrameLabel.cs" />
+    <Compile Include="Flash\Swf\Tags\GenericTag.cs" />
+    <Compile Include="Flash\Swf\Tags\ImportAssets.cs" />
+    <Compile Include="Flash\Swf\Tags\Metadata.cs" />
+    <Compile Include="Flash\Swf\Tags\PlaceObject.cs" />
+    <Compile Include="Flash\Swf\Tags\ProductInfo.cs" />
+    <Compile Include="Flash\Swf\Tags\RemoveObject.cs" />
+    <Compile Include="Flash\Swf\Tags\ScriptLimits.cs" />
+    <Compile Include="Flash\Swf\Tags\SetBackgroundColor.cs" />
+    <Compile Include="Flash\Swf\Tags\SetTabIndex.cs" />
+    <Compile Include="Flash\Swf\Tags\ShowFrame.cs" />
+    <Compile Include="Flash\Swf\Tags\SoundStreamHead.cs" />
+    <Compile Include="Flash\Swf\Tags\StartSound.cs" />
+    <Compile Include="Flash\Swf\Tags\SymbolClass.cs" />
+    <Compile Include="Flash\Swf\Tags\VideoFrame.cs" />
+    <Compile Include="Flash\Swf\Tags\ZoneRecord.cs" />
+    <Compile Include="Flash\Swf\TagValues.cs" />
+    <Compile Include="Flash\Swf\Tools\Disassembler.cs" />
+    <Compile Include="Flash\Swf\Types\ActionList.cs" />
+    <Compile Include="Flash\Swf\Types\ArrayLists.cs" />
+    <Compile Include="Flash\Swf\Types\BevelFilter.cs" />
+    <Compile Include="Flash\Swf\Types\BlurFilter.cs" />
+    <Compile Include="Flash\Swf\Types\ButtonCondAction.cs" />
+    <Compile Include="Flash\Swf\Types\ButtonRecord.cs" />
+    <Compile Include="Flash\Swf\Types\ClipActionRecord.cs" />
+    <Compile Include="Flash\Swf\Types\ClipActions.cs" />
+    <Compile Include="Flash\Swf\Types\ColorMatrixFilter.cs" />
+    <Compile Include="Flash\Swf\Types\ConvolutionFilter.cs" />
+    <Compile Include="Flash\Swf\Types\CurvedEdgeRecord.cs" />
+    <Compile Include="Flash\Swf\Types\CXForm.cs" />
+    <Compile Include="Flash\Swf\Types\CXFormWithAlpha.cs" />
+    <Compile Include="Flash\Swf\Types\DropShadowFilter.cs" />
+    <Compile Include="Flash\Swf\Types\EdgeRecord.cs" />
+    <Compile Include="Flash\Swf\Types\FillStyle.cs" />
+    <Compile Include="Flash\Swf\Types\Filter.cs" />
+    <Compile Include="Flash\Swf\Types\FlashUUID.cs" />
+    <Compile Include="Flash\Swf\Types\FocalGradient.cs" />
+    <Compile Include="Flash\Swf\Types\GlowFilter.cs" />
+    <Compile Include="Flash\Swf\Types\GlyphEntry.cs" />
+    <Compile Include="Flash\Swf\Types\Gradient.cs" />
+    <Compile Include="Flash\Swf\Types\GradientBevelFilter.cs" />
+    <Compile Include="Flash\Swf\Types\GradientGlowFilter.cs" />
+    <Compile Include="Flash\Swf\Types\GradRecord.cs" />
+    <Compile Include="Flash\Swf\Types\ImportRecord.cs" />
+    <Compile Include="Flash\Swf\Types\KerningRecord.cs" />
+    <Compile Include="Flash\Swf\Types\LineStyle.cs" />
+    <Compile Include="Flash\Swf\Types\Matrix.cs" />
+    <Compile Include="Flash\Swf\Types\MD5.cs" />
+    <Compile Include="Flash\Swf\Types\MorphFillStyle.cs" />
+    <Compile Include="Flash\Swf\Types\MorphGradRecord.cs" />
+    <Compile Include="Flash\Swf\Types\MorphLineStyle.cs" />
+    <Compile Include="Flash\Swf\Types\Rect.cs" />
+    <Compile Include="Flash\Swf\Types\Shape.cs" />
+    <Compile Include="Flash\Swf\Types\ShapeRecord.cs" />
+    <Compile Include="Flash\Swf\Types\ShapeWithStyle.cs" />
+    <Compile Include="Flash\Swf\Types\SoundInfo.cs" />
+    <Compile Include="Flash\Swf\Types\StraightEdgeRecord.cs" />
+    <Compile Include="Flash\Swf\Types\StyleChangeRecord.cs" />
+    <Compile Include="Flash\Swf\Types\TagList.cs" />
+    <Compile Include="Flash\Swf\Types\TextRecord.cs" />
+    <Compile Include="Flash\util\ArrayUtil.cs" />
+    <Compile Include="Flash\util\FieldFormat.cs" />
+    <Compile Include="Flash\util\FileUtils.cs" />
+    <Compile Include="Flash\util\IntMap.cs" />
+    <Compile Include="Flash\util\Trace.cs" />
+    <Compile Include="Flash\util\URLHelper.cs" />
+    <Compile Include="JavaCompatibleClasses\LineNumberReader.cs" />
+    <Compile Include="JavaCompatibleClasses\LinkedHashMap.cs" />
+    <Compile Include="JavaCompatibleClasses\SystemProperties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupportClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

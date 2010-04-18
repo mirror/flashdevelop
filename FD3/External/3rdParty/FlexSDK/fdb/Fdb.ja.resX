@@ -1,0 +1,800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotPropagated" xml:space="preserve">
+    <value>警告 :  ブレークポイント ${breakpointNumber} が一部の SWF ファイルに反映されていません。
+このブレークポイントをいったん解除し、再設定する必要があります。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notANumber" xml:space="preserve">
+    <value>'${token}' は数値ではありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unrecognizedFault" xml:space="preserve">
+    <value>不明なフォルト</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.invalidTargetFault" xml:space="preserve">
+    <value>ActionSetTarget 命令に対するターゲット名が不正です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noLocals" xml:space="preserve">
+    <value>ローカルがありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setterFunction" xml:space="preserve">
+    <value>Setter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandFailed" xml:space="preserve">
+    <value>コマンドを実行できませんでした。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.divideByZeroFault" xml:space="preserve">
+    <value>0 による除算のエラー</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.swfInfo" xml:space="preserve">
+    <value>"${swfName}" - ${size} バイト (解凍後)、${scriptCount} スクリプト ([#${min} - #${max}] ${plus} ${moreInfo})、URL ${url}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.about" xml:space="preserve">
+    <value>Adobe fdb (Flash Player Debugger) [ビルド ${build}]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.debugInfoBeingLoaded" xml:space="preserve">
+    <value>デバッグ情報をロードしています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noScopeChain" xml:space="preserve">
+    <value>スコープチェーンがありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownCommand" xml:space="preserve">
+    <value>不明なコマンド [${command}] が見つかりました。このコマンドは無視されます。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key29" xml:space="preserve">
+    <value>ファイル "${arg3}" に対する SWF ファイルが見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key24" xml:space="preserve">
+    <value>Player は実行中です。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.haltedInFunction" xml:space="preserve">
+    <value>理由 : ${reasonForHalting}、関数名 : ${functionName}()、場所 : ${fileAndLine}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key26" xml:space="preserve">
+    <value>変数が不明です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expectedLineNumber" xml:space="preserve">
+    <value>行番号が必要です。${token} が取得されました。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.yesOrNoAppendedToAllQuestions" xml:space="preserve">
+    <value> (y または n) </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSuchElementException" xml:space="preserve">
+    <value>このコマンドには、パラメータが少なくともあと 1 つ必要です。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointLocationNoLongerExists" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber} に対するソースファイルと行番号は、存在していません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noFunctionWithSpecifiedName" xml:space="preserve">
+    <value>${name} という名前の関数がありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sessionTerminated" xml:space="preserve">
+    <value>Player セッションが終了しました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sourceDirectoriesSearched" xml:space="preserve">
+    <value>検索したソースディレクトリ :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.mustBeOnlyOneVariable" xml:space="preserve">
+    <value>式には変数を 1 つのみ指定できます</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableUnknown" xml:space="preserve">
+    <value>変数 ${variable} が不明です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.historyHasNotReached" xml:space="preserve">
+    <value>履歴がまだ $${number} に達していません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownSubcommand" xml:space="preserve">
+    <value>不明な ${commandCategory} コマンド '${command}' が見つかりました。このコマンドは無視されます</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.ambiguousMatchingFilenames" xml:space="preserve">
+    <value>あいまい一致のファイル名 :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.attemptingToSuspend" xml:space="preserve">
+    <value>Player の実行を中断しています...</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unexpectedErrorWithStackTrace" xml:space="preserve">
+    <value>コマンドの処理中に、予期しないエラーが発生しました。
+診断を行うため、続いてスタックトレースが実行されます : </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.missingOperator" xml:space="preserve">
+    <value>式に演算子 '${operator}' を使用できません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unrecognizedAction" xml:space="preserve">
+    <value>アクション ${action} が認識されませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.changedWatchpointMode" xml:space="preserve">
+    <value>式 '${expression}' の監視ポイント ${watchpointNumber} が ${watchpointMode} になりました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setAdditionalBreakpoints" xml:space="preserve">
+    <value>必要に応じてブレークポイントを追加設定し、「continue」と入力します。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.hitBreakpoint" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.cannotStep" xml:space="preserve">
+    <value>ステップはできません。ブレークポイントを設定し、「continue」と入力してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.attemptingToHalt" xml:space="preserve">
+    <value>中止しようとしています。
+中止処理を完了させるには、Player を操作してみてください (ボタンを押すなど)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notInValidFrame" xml:space="preserve">
+    <value>有効なフレーム内にありません。現在のフレームに戻るには、'frame' コマンドを使用します。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownEvent" xml:space="preserve">
+    <value>型 '${type}' の不明なイベントを受信しました。情報 = ${info}。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownBreakpointLocation" xml:space="preserve">
+    <value>&lt;不明&gt;</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownVariableType" xml:space="preserve">
+    <value>&lt;不明&gt;</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stopOnlyIfConditionMet" xml:space="preserve">
+    <value>${breakpointCondition} の場合にのみ中止します</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unexpectedError" xml:space="preserve">
+    <value>コマンドの処理中に、予期しないエラーが発生しました。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_HaltOpcode" xml:space="preserve">
+    <value>HaltOpcode</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.atAddress" xml:space="preserve">
+    <value>アドレス : ${address}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sessionInProgress" xml:space="preserve">
+    <value>セッションは既に開始しています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sourceFileNotFound" xml:space="preserve">
+    <value>\u30bdースファイルが見つかりませんでした。このコンピュータ上の場所を指定するには、
+「directory」 コマンドを使用します。パッケージ内のソースファイルのディレクトリを指定する方法を確認するには、
+「help directory」と入力してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expectedFileNumber" xml:space="preserve">
+    <value>ファイル番号が必要ですが、${token} が取得されました。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key27" xml:space="preserve">
+    <value>ソース情報が不明です。現在の場所が逆アセンブルされました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.badDisplayNumber" xml:space="preserve">
+    <value>'${token}' またはその近くに、不正な表示番号があります</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.typeCommandsForBreakpoint" xml:space="preserve">
+    <value>\u30d6レークポイント ${breakpointNumber} に達したら、コマンドを入力します。このブレークポイントは各行に 1 つあります。
+'end' </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointMode_write" xml:space="preserve">
+    <value>write</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionInFile" xml:space="preserve">
+    <value>${filename} 内の ${functionName}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askExpressionContainsAssignment" xml:space="preserve">
+    <value>式に代入要素が含まれています。続行しますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointMode_read" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.invalidWithFault" xml:space="preserve">
+    <value>'with' ステートメントのターゲットがオブジェクトではありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.abortingStep" xml:space="preserve">
+    <value>一定時間内に Player からの応答がありませんでした。残りの ${count} 手順を中止しています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.continuingDueToError" xml:space="preserve">
+    <value>エラー ${error} が発生したため、続行しています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotConvertToNumber" xml:space="preserve">
+    <value>値 ${value} を数値に変換できませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noBreakpointNumber" xml:space="preserve">
+    <value>ブレークポイント番号 ${breakpointNumber} がありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenDisplayingConsoleError" xml:space="preserve">
+    <value>[エラー]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.ambiguousCommand" xml:space="preserve">
+    <value>コマンド '${input}' があいまいです :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_readOnly" xml:space="preserve">
+    <value>read-only</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.attemptingToResolve" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber}、式 "${expression}" を解決しています :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionArgumentVariable" xml:space="preserve">
+    <value>argument</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sourceCommandRequiresPath" xml:space="preserve">
+    <value>'source' コマンドでは、ソースファイルへのパス名を指定する必要があります。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotFindWatchpoint" xml:space="preserve">
+    <value>'${variable}' に対する監視処理を検出または削除できませんでした。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.exceptionFault" xml:space="preserve">
+    <value>ユーザー例外がスローされました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.ambiguousMatchingFunctionNames" xml:space="preserve">
+    <value>あいまい一致した関数名 :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fileDoesNotExist" xml:space="preserve">
+    <value>次のファイルが見つかりませんでした : ${uri}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenDisplayingFault" xml:space="preserve">
+    <value>[フォルト]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stackTraceFollows" xml:space="preserve">
+    <value>診断を行うため、続いてスタックトレースが実行されます : </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandsLimitedToSpecifiedSwf" xml:space="preserve">
+    <value>コマンドは、${swf} のソースファイルに対してのみ実行できます</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notAllBreakpointsEnabled" xml:space="preserve">
+    <value>一部のブレークポイントが無効になっています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expressionIsIncomplete" xml:space="preserve">
+    <value>式が不完全です :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.manuallyLaunchPlayer" xml:space="preserve">
+    <value>「run」と入力し、Player を手動で起動してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.resolvedBreakpointToFunction" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber} が ${file}:${line} の ${functionName}() に解決されました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sizeAfterDecompression" xml:space="preserve">
+    <value>${size} バイト (解凍後)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.failedToConnect" xml:space="preserve">
+    <value> 接続できませんでした。セッションタイムアウトです。
+次の事項を確認してください。
+  1. Flash ムービーのコンパイル時にデバッグオプションを有効にした
+  2. 現在実行している Flash Player がデバッガバージョンである</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownOperator" xml:space="preserve">
+    <value>式に不明な演算子が含まれています :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.currentLocationUnknown" xml:space="preserve">
+    <value>現在の位置が不明です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_ScriptHasLoadedIntoFlashPlayer" xml:space="preserve">
+    <value>ScriptLoaded</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fileNotFound" xml:space="preserve">
+    <value>${filename}: このようなファイルまたはディレクトリはありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.sessionEndedAbruptly" xml:space="preserve">
+    <value>セッションが突然終了しました。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenSwfLoaded" xml:space="preserve">
+    <value>[SWF]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expressionCouldNotBeParsed" xml:space="preserve">
+    <value>式を正しく解析できませんでした :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.function" xml:space="preserve">
+    <value>関数</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSuchFileOrFunction" xml:space="preserve">
+    <value>'${token}' という名前のファイルまたは関数がありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askDeleteAllBreakpoints" xml:space="preserve">
+    <value>ブレークポイントをすべて削除しますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.singleCharacterUserTypesForYes" xml:space="preserve">
+    <value>y</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key35" xml:space="preserve">
+    <value>\u201d${swfName}\u201d 内</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askReinitSourcePath" xml:space="preserve">
+    <value>ソースファイルへのパスを再初期化して空にしますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandHistoryIsEmpty" xml:space="preserve">
+    <value>履歴が空です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key31" xml:space="preserve">
+    <value>---- スキップされた 0x${arg4} にある、マッピングされていない命令を表示しています ----</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key30" xml:space="preserve">
+    <value>関数が見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key33" xml:space="preserve">
+    <value>ファイルが見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key32" xml:space="preserve">
+    <value>行番号 ${arg5} は範囲外です。ファイル "${arg6}" の行数は ${arg7} 行です。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_ProgramFinishedStepping" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.warningNotAllCommandsSupported" xml:space="preserve">
+    <value>警告 : 現在使用している Player では、一部の fdb コマンドがサポートされていません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_setterFunction" xml:space="preserve">
+    <value>setter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.protoLimitFault" xml:space="preserve">
+    <value>プロトタイプチェーンの検索が制限に達しました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key17" xml:space="preserve">
+    <value>送信されたメッセージ :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.nonRestorable" xml:space="preserve">
+    <value> ; 直前のセッションから復元できません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.launchingWithUrl" xml:space="preserve">
+    <value>URL を使用して Player を起動し、接続しようとしています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.localVariable" xml:space="preserve">
+    <value>local</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notSuspendedException" xml:space="preserve">
+    <value>Player の実行中にコマンドを実行することはできません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.notValidSwf" xml:space="preserve">
+    <value>\u201d${swf}\u201d は有効な SWF ファイルではありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noDisplayNumber" xml:space="preserve">
+    <value>表示番号 ${displayNumber} がありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotYetResolved" xml:space="preserve">
+    <value> (まだ解決されていません)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fixBreakpoints" xml:space="preserve">
+    <value>不正なブレークポイントを修正または削除し、「continue」と入力してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noFilesFound" xml:space="preserve">
+    <value>ファイルが見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askDeleteAllAutoDisplay" xml:space="preserve">
+    <value>auto-display 式をすべて削除しますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerAlreadyRunning" xml:space="preserve">
+    <value>Player は既に実行中です。再開の必要はありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noFunctionsFound" xml:space="preserve">
+    <value>関数が見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandNotValidUntilPlayerSuspended" xml:space="preserve">
+    <value>Player の実行が中断されるまで、コマンドは無効です。"halt"コマンドを実行してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_functionArgument" xml:space="preserve">
+    <value>argument</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotResolveExpression" xml:space="preserve">
+    <value>式を変数に解決できませんでした。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerDidNotStop" xml:space="preserve">
+    <value>Player が予期したとおりに中止されませんでした。中止するには、Enter キーを押してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSWFs" xml:space="preserve">
+    <value>SWF ファイルがありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setBreakpointsThenResume" xml:space="preserve">
+    <value>ブレークポイントを設定して「continue」と入力し、セッションを再開してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotSetNoCode" xml:space="preserve">
+    <value>ブレークポイントが設定されていません。"${filename}" の行番号 ${line} に、実行可能なコードがありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askProgramIsRunningExitAnyway" xml:space="preserve">
+    <value>プログラムは実行中です。終了しますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key34" xml:space="preserve">
+    <value>Player では現在どのアクションも中断されていません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.badWatchpointNumber" xml:space="preserve">
+    <value>監視ポイント番号が不正です。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.assignmentFailed" xml:space="preserve">
+    <value>代入の結果、アクションが失敗しました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointAmbiguous" xml:space="preserve">
+    <value> (ambiguous)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_HitBreakpoint" xml:space="preserve">
+    <value>Breakpoint</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.finishCommandNotMeaningfulWithoutStack" xml:space="preserve">
+    <value>スタックがない場合、'finish' は無意味です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.invalidUrlFault" xml:space="preserve">
+    <value>URL を開くことができませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.lineJunk" xml:space="preserve">
+    <value>行指定の末尾で破棄します。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.escapingFromDebuggerPendingLoop" xml:space="preserve">
+    <value>デバッガの保留中のループから抜ける処理を実行中です: $nowaiting = 1 に設定</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.haltedInFile" xml:space="preserve">
+    <value>${reasonForHalting}, ${fileAndLine}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.silentBreakpoint" xml:space="preserve">
+    <value>silent</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSourceFilesFound" xml:space="preserve">
+    <value>ソースファイルが見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noExecutableCode" xml:space="preserve">
+    <value>指定行に実行可能なコードがありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.illegalMonitorStateException" xml:space="preserve">
+    <value>実行中の Player に対するコマンドが無効です。中止するには、Enter キーを押してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointCreatedButNotYetResolved" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber} が作成されましたが、まだ解決されていません。
+対応するファイルまたは関数がロードされたときに、ブレークポイントは解決されます。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_hasNamespace" xml:space="preserve">
+    <value>名前空間の設定</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noArguments" xml:space="preserve">
+    <value>引数が指定されていません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.askKillProgram" xml:space="preserve">
+    <value>デバッグ中のプログラムを強制終了しますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.illegalStateException" xml:space="preserve">
+    <value>セッションが確立されていない場合、コマンドは無効です。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNowUnconditional" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber} が解除されました。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.socketException" xml:space="preserve">
+    <value>別の Flash デバッガが実行されている可能性があります。それを終了してください。詳細 : '${message}'。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noHelpFileFound" xml:space="preserve">
+    <value>ヘルプファイル (fdbhelp*.txt) が見つかりませんでした。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.targetUnknown" xml:space="preserve">
+    <value>ターゲットが不明です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.defaultBuildName" xml:space="preserve">
+    <value>development</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_dontEnumerate" xml:space="preserve">
+    <value>列挙しない</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotCleared" xml:space="preserve">
+    <value>ブレークポイントは解除されていません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noVariables" xml:space="preserve">
+    <value>変数がありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.unknownFilename" xml:space="preserve">
+    <value>&lt;不明&gt;</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerStopped" xml:space="preserve">
+    <value>Player が停止しました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.copyright" xml:space="preserve">
+    <value>Copyright (c) 2004-2007 Adobe, Inc. All rights reserved.</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.recursionLimitFault" xml:space="preserve">
+    <value>再帰制限の上限に達しました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointLocationUnknown" xml:space="preserve">
+    <value>ブレークポイントの位置が不明です。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expressionCouldNotBeResolved" xml:space="preserve">
+    <value>式を解決できませんでした :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_ProgramThrewException" xml:space="preserve">
+    <value>Fault</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.getterFunction" xml:space="preserve">
+    <value>Getter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotEvaluate" xml:space="preserve">
+    <value>式を評価できませんでした。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.expectedFile" xml:space="preserve">
+    <value># で始まるファイル名またはファイル番号が必要ですが、${token} が取得されました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.yesNoQueryNotConfirmed" xml:space="preserve">
+    <value>確定されませんでした。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionListBeingPrepared" xml:space="preserve">
+    <value>関数リストをバックグラウンドで準備中です。後でもう一度実行してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.inFunctionAt" xml:space="preserve">
+    <value>の場所にある ${functionName}() 内 </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.remainingSourceBeingLoaded" xml:space="preserve">
+    <value>残りのソースはまだロード中です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key19" xml:space="preserve">
+    <value>関数が見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key18" xml:space="preserve">
+    <value>ソースファイルが見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noUriReceived" xml:space="preserve">
+    <value>Player から URI を受信しませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.problemWithConnection" xml:space="preserve">
+    <value>セッション接続に関する問題が発生しました ('${socketErrorMessage}')。セッションの 'kill' をお勧めします。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.createdBreakpointWithOffset" xml:space="preserve">
+    <value>ブレークポイント : ${breakpointNumber}、オフセット : ${offset}、ファイル : ${file}、行番号 : ${line}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_localVariable" xml:space="preserve">
+    <value>local</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.linePrefixWhenSwfUnloaded" xml:space="preserve">
+    <value>[UnloadSWF]</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key16" xml:space="preserve">
+    <value>受信したメッセージ :</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.badBreakpointNumber" xml:space="preserve">
+    <value>'${token}' またはその近くに、不正なブレークポイント番号があります</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerRunning" xml:space="preserve">
+    <value>Player は実行中です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.commandsApplyToAllSwfs" xml:space="preserve">
+    <value>コマンドでは、すべての SWF ファイルに対するソースファイルを指定できます。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNoCode" xml:space="preserve">
+    <value> (指定行には実行可能なコードがありません)</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.couldNotHalt" xml:space="preserve">
+    <value>中止できませんでした。ActionScript が実行されていません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.setCommand" xml:space="preserve">
+    <value>set コマンドでは、変数の後に式を指定する必要があります</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.functionsInSourceFile" xml:space="preserve">
+    <value>${sourceFile} 内の関数</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.frameDoesNotExist" xml:space="preserve">
+    <value>フレーム '${frameNumber}' が存在しません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.finishCommandNotMeaningfulOnOutermostFrame" xml:space="preserve">
+    <value>一番外側のフレームでは、'finish' は無意味です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointNotChanged" xml:space="preserve">
+    <value>ブレークポイントは変更されていません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.waitingForPlayerToConnect" xml:space="preserve">
+    <value>Player が接続するのを待っています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.additionalCodeLoaded" xml:space="preserve">
+    <value>SWF ファイルまたはフレームから追加の ActionScript コードがロードされました。
+現在ロードされているすべてのファイルを表示するには、「info files」と入力してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.breakpointAlreadyHit" xml:space="preserve">
+    <value>ブレークポイントは既に ${count} 回出現しています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.fileNumber" xml:space="preserve">
+    <value>ファイル #${fileNumber}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.numberFormatException" xml:space="preserve">
+    <value>コマンドパラメータは整数である必要がありますが、実際にはストリングです。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.createdWatchpoint" xml:space="preserve">
+    <value>式 '${expression}' に監視ポイント ${watchpointNumber} が設定されています</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.executionHalted" xml:space="preserve">
+    <value>実行が中止されました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.inSwf" xml:space="preserve">
+    <value> ${swf} 内</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.haltedDueToFault" xml:space="preserve">
+    <value>原因 : ${fault}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.playerConnectedSessionStarting" xml:space="preserve">
+    <value>Player が接続されました。セッションを開始しています。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.runWillLaunchUri" xml:space="preserve">
+    <value>「run」と入力すると、${uri} が起動します</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noActiveSession" xml:space="preserve">
+    <value>アクティブなセッションがありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.lineNumberOutOfRange" xml:space="preserve">
+    <value>行番号 ${line} は範囲外です: ファイル "${filename}" の行数は ${total} 行です</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_HitWatchpoint" xml:space="preserve">
+    <value>Watch</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noStackAvailable" xml:space="preserve">
+    <value>スタックを使用できません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noResponseException" xml:space="preserve">
+    <value>Player がコマンドに対して予期された応答をしなかったため、コマンド処理は中止されました。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSideEffectsAllowed" xml:space="preserve">
+    <value>式では代入などの副作用を使用できません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.stackUnderflowFault" xml:space="preserve">
+    <value>スタックアンダーフローが発生しました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key28" xml:space="preserve">
+    <value>行指定の末尾で破棄します</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.variableAttribute_getterFunction" xml:space="preserve">
+    <value>getter</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key25" xml:space="preserve">
+    <value>ブレーク情報が見つかりませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointCouldNotBeSet" xml:space="preserve">
+    <value>'${expression}' に対する監視ポイントを設定できませんでした</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.scriptTimeoutFault" xml:space="preserve">
+    <value>ActionScript コードの実行が進んでいません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.argumentRequired" xml:space="preserve">
+    <value>パラメータが必要です (handle のフォルトタイプ)。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key21" xml:space="preserve">
+    <value>--- SessionManager のプロパティ</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key20" xml:space="preserve">
+    <value>関数リストをバックグラウンドで準備中です。後でもう一度実行してください。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.key22" xml:space="preserve">
+    <value>--- セッションのプロパティ</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.errorWhileProcessingFile" xml:space="preserve">
+    <value>ファイルの処理中にエラーが発生しました (${exceptionMessage})。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.watchpointMode_readWrite" xml:space="preserve">
+    <value>read-write</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.programNotBeingRun" xml:space="preserve">
+    <value>プログラムは現在実行されていません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.faultHasNoTableEntry" xml:space="preserve">
+    <value>フォルト ${faultName} にテーブルエントリがありません</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.versionException" xml:space="preserve">
+    <value>このコンテキストでは、コマンドは実行できません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.createdBreakpoint" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber} : ファイル ${file}、行番号 ${line}</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.atFilename" xml:space="preserve">
+    <value> 場所 :  </value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.resolvedBreakpointToFile" xml:space="preserve">
+    <value>ブレークポイント ${breakpointNumber} が ${file}:${line} に解決されました</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_StopRequest" xml:space="preserve">
+    <value>StopRequest</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.informationAboutFault" xml:space="preserve">
+    <value>、情報 =</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.noSourceFileWithSpecifiedName" xml:space="preserve">
+    <value>'${name}' という名前のソースファイルがありません。</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.doYouWantToHalt" xml:space="preserve">
+    <value>実行を中止しますか?</value>
+  </data>
+  <data name="Flex.Tools.Debugger.CLI.fdb.suspendReason_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+</root>
