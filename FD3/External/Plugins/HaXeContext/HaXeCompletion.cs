@@ -61,13 +61,8 @@ namespace HaXeContext
 
             // Compilation directives
             string directives = "";
-            if (co.Directives != "")
-            {
-                foreach (string i in Regex.Split(co.Directives, "\\s+"))
-                {
-                    directives += " -D " + i;
-                }
-            }
+            foreach (string i in co.Directives)
+                directives += " -D " + i;
           
             // Current file
             string file = PluginBase.MainForm.CurrentDocument.FileName;

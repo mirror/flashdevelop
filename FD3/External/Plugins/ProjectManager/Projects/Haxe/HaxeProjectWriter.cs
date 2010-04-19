@@ -91,13 +91,10 @@ namespace ProjectManager.Projects.Haxe
 
             HaxeOptions options = project.CompilerOptions;
 
-            WriteOption("directives", options.Directives);
+            WriteOption("directives", string.Join("\n", options.Directives));
             WriteOption("flashStrict", options.FlashStrict);
-            //WriteOption("flashUseStage", options.FlashUseStage); // Require "Injection panel"
             WriteOption("mainClass", options.MainClass);
-            WriteOption("override", options.DeclareOverride);
-            WriteOption("verbose", options.Verbose);
-
+            WriteOption("forcetraces", options.ForceTraces);
             WriteOption("additional", string.Join("\n", options.Additional));
             
             WriteEndElement();

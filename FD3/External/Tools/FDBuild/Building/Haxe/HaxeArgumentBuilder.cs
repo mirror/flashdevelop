@@ -95,21 +95,19 @@ namespace ProjectManager.Building.Haxe
                 if (options.FlashStrict) Add("--flash-strict");
                 //if (options.FlashUseStage) Add("--flash-use-stage"); // Require "Injection panel"
             }
-            if (options.Verbose) Add("-v");
-            if (noTrace) Add("--no-traces");
+            if (noTrace)
+            {
+               if( !options.ForceTraces ) Add("--no-traces");
+            } 
             else
             {
                 if (project.MovieOptions.Version == 9 || project.MovieOptions.Version == 10) Add("-D fdb");
                 Add("-debug");
             }
 
-            if (options.Directives != "")
+            foreach (string directive in options.Directives)
             {
-                string[] directives = Regex.Split(options.Directives, "\\s+");
-                foreach (string directive in directives)
-                {
-                    Add("-D", directive);
-                }
+                Add("-D", directive);
             }
 
             if (options.Additional != null) Add(options.Additional, noTrace);

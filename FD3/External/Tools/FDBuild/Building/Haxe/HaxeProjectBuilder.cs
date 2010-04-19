@@ -42,7 +42,7 @@ namespace ProjectManager.Building.Haxe
                 libraryBuilder.KeepUpdated(project);
 
                 // if we have any resources, build our library file and run swfmill on it
-                libraryBuilder.BuildLibrarySwf(project, project.CompilerOptions.Verbose);
+                libraryBuilder.BuildLibrarySwf(project, false);
             }
 
             string tempFile = Path.GetTempFileName();

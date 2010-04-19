@@ -9,12 +9,10 @@ namespace ProjectManager.Projects.Haxe
     [Serializable]
     public class HaxeOptions : CompilerOptions
     {
-        string directives = "";
+        string[] directives = new string[] { };
         string mainClass = "";
-        bool verbose = false;
         bool flashStrict = false;
-        //bool flashUseStage = false;
-        bool declareOverride = false;
+        bool forceTraces = false;
         string[] additional = new string[] { };
         string[] libraries = new string[] { };
 
@@ -25,13 +23,25 @@ namespace ProjectManager.Projects.Haxe
         public string[] Additional { get { return additional; } set { additional = value; } }
 
         [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [DisplayName("Force Traces")]
+        [LocalizedDescription("ProjectManager.Description.ForceTraces")]
+        [DefaultValue(false)]
+        public bool ForceTraces { get { return forceTraces; } set { forceTraces = value; } }
+
+        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [DisplayName("Flash Strict")]
+        [LocalizedDescription("ProjectManager.Description.FlashStrict")]
+        [DefaultValue(false)]
+        public bool FlashStrict { get { return flashStrict; } set { flashStrict = value; } }
+
+        [LocalizedCategory("ProjectManager.Category.General")]
         [DisplayName("Directives")]
         [LocalizedDescription("ProjectManager.Description.Directives")]
         [DefaultValue("")]
-        public string Directives { get { return directives; } set { directives = value; } }
+        public string[] Directives { get { return directives; } set { directives = value; } }
 
         [DisplayName("Libraries")]
-        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [LocalizedCategory("ProjectManager.Category.General")]
         [LocalizedDescription("ProjectManager.Description.HaXeLibraries")]
         [DefaultValue(new string[] { })]
         public string[] Libraries
@@ -40,35 +50,11 @@ namespace ProjectManager.Projects.Haxe
             set { libraries = value; }
         }
 
-        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [LocalizedCategory("ProjectManager.Category.General")]
         [DisplayName("Main Class")]
         [LocalizedDescription("ProjectManager.Description.MainClass")]
         [DefaultValue("")]
         public string MainClass { get { return mainClass; } set { mainClass = value; } }
 
-        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
-        [DisplayName("Flash Strict")]
-        [LocalizedDescription("ProjectManager.Description.FlashStrict")]
-        [DefaultValue(false)]
-        public bool FlashStrict { get { return flashStrict; } set { flashStrict = value; } }
-
-        // Require "Injection panel"
-        /*[Category("Compiler Options")]
-        [DisplayName("Flash Use Stage")]
-        [Description("Place objects found on the stage of the SWF library.")]
-        [DefaultValue(false)]
-        public bool FlashUseStage { get { return flashUseStage; } set { flashUseStage = value; } }*/
-
-        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
-        [DisplayName("Declare Override")]
-        [LocalizedDescription("ProjectManager.Description.DeclareOverride")]
-        [DefaultValue(false)]
-        public bool DeclareOverride { get { return declareOverride; } set { declareOverride = value; } }
-
-        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
-        [DisplayName("Verbose Output")]
-        [LocalizedDescription("ProjectManager.Description.Verbose")]
-        [DefaultValue(false)]
-        public bool Verbose { get { return verbose; } set { verbose = value; } }
     }
 }

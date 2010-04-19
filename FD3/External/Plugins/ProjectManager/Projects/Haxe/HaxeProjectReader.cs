@@ -57,12 +57,10 @@ namespace ProjectManager.Projects.Haxe
                 MoveToFirstAttribute();
                 switch (Name)
                 {
-                    case "directives": options.Directives = Value; break;
+                    case "directives": options.Directives = (Value=="") ? new string[]{} : Value.Split('\n'); break;
                     case "flashStrict": options.FlashStrict = BoolValue; break;
-                    //case "flashUseStage": options.FlashUseStage = BoolValue; break; // Require "Injection panel"
                     case "mainClass": options.MainClass = Value; break;
-                    case "verbose": options.Verbose = BoolValue; break;
-
+                    case "forcetraces": options.ForceTraces = BoolValue; break;
                     case "additional": options.Additional = Value.Split('\n'); break;
                 }
                 Read();
