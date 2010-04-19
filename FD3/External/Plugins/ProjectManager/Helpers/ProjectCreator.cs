@@ -46,7 +46,7 @@ namespace ProjectManager.Helpers
             if (!projectTypesSet) SetInitialProjectHash();
 			this.projectName = projectName;
             this.packageName = packageName;
-            projectId = Regex.Replace(RemoveDiacritics(projectName), "[^a-z0-9]", "", RegexOptions.IgnoreCase);
+            projectId = Regex.Replace(Project.RemoveDiacritics(projectName), "[^a-z0-9]", "", RegexOptions.IgnoreCase);
             packagePath = packageName.Replace('.', '\\');
             if (packageName.Length > 0)
             {
@@ -210,21 +210,6 @@ namespace ProjectManager.Helpers
 				|| filename == "project.txt"
 				|| filename == "project.png";
 		}
-
-        public static String RemoveDiacritics(String s)
-        {
-            String normalizedString = s.Normalize(NormalizationForm.FormD);
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < normalizedString.Length; i++)
-            {
-                Char c = normalizedString[i];
-                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-                    stringBuilder.Append(c);
-            }
-
-            return stringBuilder.ToString();
-        }
 
         private static void SetInitialProjectHash()
         {

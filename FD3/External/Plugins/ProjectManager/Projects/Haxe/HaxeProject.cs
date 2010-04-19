@@ -21,7 +21,7 @@ namespace ProjectManager.Projects.Haxe
         {
             get
             {
-                string projectName = ProjectManager.Helpers.ProjectCreator.RemoveDiacritics(Name);
+                string projectName = RemoveDiacritics(Name);
                 return Path.Combine("obj", projectName + "Resources.swf");
             }
         }
