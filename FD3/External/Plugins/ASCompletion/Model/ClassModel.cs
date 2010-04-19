@@ -145,6 +145,10 @@ namespace ASCompletion.Model
             return this == VoidClass;
         }
 
+        public bool IsEnum() {
+            return (this.Flags & FlagType.Enum) != 0;
+        }
+
         public new object Clone()
         {
             ClassModel copy = new ClassModel();

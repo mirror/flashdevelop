@@ -665,7 +665,99 @@ namespace HaXeContext
             }
             return list;
         }
-        
+
+        public override MemberList GetVisibleExternalElements(bool typesOnly)
+        {
+            MemberList visibleElements = new MemberList();
+            if (!IsFileValid) return visibleElements;
+
+            // top-level elements
+            if (!typesOnly && topLevel != null)
+            {
+                if (topLevel.OutOfDate) InitTopLevelElements();
+                visibleElements.Add(topLevel.Members);
+            }
+
+            if (completionCache.IsDirty || !typesOnly)
+            {
+                MemberList elements = new MemberList();
+                // root types & packages
+                FileModel baseElements = ResolvePackage(null, false);
+                if (baseElements != null)
+                {
+                    elements.Add(baseElements.Imports);
+                    elements.Add(baseElements.Members);
+                }
+                elements.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));
+
+                bool qualify = Settings.CompletionShowQualifiedTypes && settings.GenerateImports;
+
+                // other classes in same package
+                if (features.hasPackages && cFile.Package != "")
+                {
+                    FileModel packageElements = ResolvePackage(cFile.Package, false);
+                    if (packageElements != null)
+                    {
+                        foreach (MemberModel member in packageElements.Imports)
+                        {
+                            if (member.Flags != FlagType.Package)
+                            {
+                                if (qualify) member.Name = member.Type;
+                                elements.Add(member);
+                            }
+                        }
+                        foreach (MemberModel member in packageElements.Members)
+                        {
+                            string pkg = member.InFile.Package;
+                            if (qualify && pkg != "") member.Name = pkg + "." + member.Name;
+                            elements.Add(member);
+                        }
+                    }
+                }
+                // other types in same file
+                if (cFile.Classes.Count > 1)
+                {
+                    ClassModel mainClass = cFile.GetPublicClass();
+                    foreach (ClassModel aClass in cFile.Classes)
+                    {
+                        if (mainClass == aClass) continue;
+                        elements.Add(aClass.ToMemberModel());
+                        if (!typesOnly && aClass.IsEnum())
+                            elements.Add(aClass.Members);
+                    }
+                }
+
+                // imports
+                MemberList imports = ResolveImports(CurrentModel);
+                elements.Add(imports);
+                if (!typesOnly)
+                    foreach (ClassModel aClass in imports)
+                        if (aClass.IsEnum())
+                            elements.Add(aClass.Members);
+
+                // in cache
+                if (typesOnly)
+                {
+                    elements.Sort();
+                    completionCache = new CompletionCache(this, elements);
+                    // known classes colorization
+                    if (!CommonSettings.DisableKnownTypesColoring && !settings.LazyClasspathExploration && CurSciControl != null)
+                    {
+                        try
+                        {
+                            CurSciControl.KeyWords(1, completionCache.Keywords); // additional-keywords index = 1
+                            CurSciControl.Colourise(0, -1); // re-colorize the editor
+                        }
+                        catch (AccessViolationException) { } // catch memory errors
+                    }
+                }
+                visibleElements.Merge(elements);
+            }
+            else
+                visibleElements.Merge(completionCache.Elements);
+            return visibleElements;
+        }
+
         /// <summary>
         /// Let contexts handle code completion
         /// </summary>
