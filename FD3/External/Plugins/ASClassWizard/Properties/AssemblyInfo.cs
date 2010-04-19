@@ -12,4 +12,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("FlashDevelop.org 2005-2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
