@@ -95,13 +95,15 @@ namespace HaXeContext
             catch {}
 
             // Define the haXe target
-            string output = "output";
+            string output = "__nothing__";
             string target = "";
             int version = hp.MovieOptions.Version;
             if (version < 11)
             {
                 target = "-swf-version " + version;
-                target += " -swf " + output;
+                target += " -swf \"" + output+"\"";
+                if( !hp.UsesInjection && hp.LibraryAssets.Count > 0 )
+                    target += " -swf-lib \"" + hp.LibrarySWFPath+"\"";
             }
             else if (version == 11)
                 target = "-js " + output;

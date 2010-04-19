@@ -17,6 +17,14 @@ namespace ProjectManager.Projects.Haxe
         public override string Language { get { return "haxe"; } }
         public override bool HasLibraries { get { return !NoOutput && IsFlashOutput; } }
         public override bool RequireLibrary { get { return IsFlashOutput; } }
+        public override String LibrarySWFPath
+        {
+            get
+            {
+                string projectName = ProjectManager.Helpers.ProjectCreator.RemoveDiacritics(Name);
+                return Path.Combine("obj", projectName + "Resources.swf");
+            }
+        }
 
         public new HaxeOptions CompilerOptions { get { return (HaxeOptions)base.CompilerOptions; } }
 

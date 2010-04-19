@@ -45,7 +45,7 @@ namespace ProjectManager.Building.Haxe
                 htmlColor));
 
             if (!project.UsesInjection && project.LibraryAssets.Count > 0)
-                Add("-swf-lib", project.OutputPath);
+                Add("-swf-lib", project.LibrarySWFPath);
         }
 
         public void AddCompileTargets()

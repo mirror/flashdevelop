@@ -93,6 +93,7 @@ namespace ProjectManager.Projects
 		public PathCollection CompileTargets { get { return compileTargets; } }
 		public HiddenPathCollection HiddenPaths { get { return hiddenPaths; } }
         public AssetCollection LibraryAssets { get { return libraryAssets; } }
+        public virtual String LibrarySWFPath { get { return OutputPath; } }
 
         public CompilerOptions CompilerOptions
         {

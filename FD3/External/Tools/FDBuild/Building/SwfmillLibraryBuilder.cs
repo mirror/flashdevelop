@@ -47,9 +47,11 @@ namespace FDBuild.Building
             // compile into frame 1 unless you're using shared libraries or preloaders
             Frame = 1;
 
+            string swfPath = project.LibrarySWFPath;
+
             // delete existing output file if it exists
-            if (File.Exists(project.OutputPath))
-                File.Delete(project.OutputPath);
+            if (File.Exists(swfPath))
+                File.Delete(swfPath);
 
             // if we have any resources, build our library file and run swfmill on it
             if (!project.UsesInjection && project.LibraryAssets.Count > 0)
@@ -61,13 +63,9 @@ namespace FDBuild.Building
                 string projectName = project.Name.Replace(" ", "");
                 string backupLibraryPath = Path.Combine("obj", projectName + "Library.old");
                 string relLibraryPath = Path.Combine("obj", projectName + "Library.xml");
-                string backupSwfPath = Path.Combine("obj", projectName + "Resources.swf");
+                string backupSwfPath = Path.Combine("obj", projectName + "Resources.old");
                 string arguments = string.Format("simple \"{0}\" \"{1}\"",
-                    relLibraryPath, project.OutputPath);
-
-                // backup the old Library.xml to Library.old so we can reference it
-                if (File.Exists(relLibraryPath))
-                    File.Copy(relLibraryPath, backupLibraryPath, true);
+                    relLibraryPath, swfPath);
 
                 SwfmillLibraryWriter swfmill = new SwfmillLibraryWriter(relLibraryPath);
                 swfmill.WriteProject(project);
@@ -81,7 +79,7 @@ namespace FDBuild.Building
                     FileComparer.IsEqual(relLibraryPath, backupLibraryPath))
                 {
                     // just copy the old one over!
-                    File.Copy(backupSwfPath, project.OutputPath, true);
+                    File.Copy(backupSwfPath, swfPath, true);
                 }
                 else
                 {
@@ -99,8 +97,8 @@ namespace FDBuild.Building
 
                     // ok, we just generated a swf with all our resources ... save it for
                     // reuse if no resources changed next time we compile
-                    try { File.Copy(project.OutputPath, backupSwfPath, true); }
-                    catch (Exception exception) { Console.Error.WriteLine("Could not backup the resources SWF: " + exception.Message); }
+                    File.Copy(swfPath, backupSwfPath, true);
+                    File.Copy(relLibraryPath, backupLibraryPath, true);
                 }
             }
         }
