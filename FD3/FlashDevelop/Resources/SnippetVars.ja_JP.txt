@@ -41,10 +41,10 @@ $(MbrTypName) - メンバのタイプ名
 $(MbrTypePkgName) - メンバのパッケージ＋タイプ名
 $(MbrTypKind) - メンバのタイプの種類( interface, class )
 
-- キャレット位置のアイテム -------------------------------------------------------
+- アイテム -------------------------------------------------------
 $(ItmFile) - アイテムが宣言されたファイル
 $(ItmKind) - アイテムの種類( const, var, function ) 
 $(ItmTypPkg) - アイテムのタイプのパッケージ
 $(ItmTypName) - アイテムのタイプ名
-$(ItmTypePkgName) - アイテムのパッケージ＋タイプ名
+$(ItmTypPkgName) - アイテムのパッケージ＋タイプ名
 $(ItmTypKind) - アイテムのタイプの種類( interface, class )

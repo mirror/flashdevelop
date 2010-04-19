@@ -190,7 +190,7 @@
     <value>保存後シンタックスをチェックします。</value>
   </data>
   <data name="ASCompletion.Description.CompactChars" xml:space="preserve">
-    <value>リフォーマットされたとき、これらの文字の周りにあるホワイトスペースを削除します。</value>
+    <value>再フォーマットされたとき、これらの文字の周りにあるホワイトスペースを削除します。</value>
   </data>
   <data name="ASCompletion.Description.CompletionEnabled" xml:space="preserve">
     <value>コード補完を有効にします。</value>
@@ -340,7 +340,7 @@
     <value>エクスプローラ(&amp;X)</value>
   </data>
   <data name="ASCompletion.Label.QuickBuild" xml:space="preserve">
-    <value>このファイルをビルド(&amp;B)</value>
+    <value>クイックビルド(&amp;B)</value>
   </data>
   <data name="ASCompletion.Label.RebuildClasspathCache" xml:space="preserve">
     <value>クラスパスキャッシュを再構築</value>
@@ -566,7 +566,7 @@
     <value>行末に追加される改行文字です。</value>
   </data>
   <data name="FlashDevelop.Description.RedirectFilesResults" xml:space="preserve">
-    <value>Find in Files の結果から結果パネルへリダイレクトします。</value>
+    <value>「フォルダを指定して検索と置換」の検索結果を結果パネルへリダイレクトします。</value>
   </data>
   <data name="FlashDevelop.Description.FoldAtElse" xml:space="preserve">
     <value>else 文を折りたたみます。</value>
@@ -1486,7 +1486,7 @@
     <value>出力パネルにコンパイル結果の詳細を表示します。</value>
   </data>
   <data name="ProjectManager.Description.CustomSDK" xml:space="preserve">
-    <value>別の Flex SDK を指定します。(オプション)</value>
+    <value>プロジェクトで使用する Flex SDK を指定します。</value>
   </data>
   <data name="ProjectManager.Description.DeclareOverride" xml:space="preserve">
     <value>オーバーライドしたメソッドが確実に "override" 付きで宣言されるようにします。</value>
@@ -2316,7 +2316,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Flex デバッガのすべての出力を表示します。</value>
   </data>
   <data name="ASCompletion.Description.DisableCallTip" xml:space="preserve">
-    <value>"(" や "," を入力した時に自動的に表示されているコールチップ(メソッドの Tips )を表示を無効にします。表示させるには Ctrl + Shift + Space を押さなければならなくなります。</value>
+    <value>"(" や "," を入力した時に自動的に表示されているコールチップ(メソッドの Tips )の表示を無効にします。表示させるには Ctrl + Shift + Space を押さなければならなくなります。</value>
   </data>
   <data name="ProjectManager.Description.MissingEntryPoint" xml:space="preserve">
     <value>このプロジェクトをビルドするには、プロジェクトツリー上で AS か MXML のエントリポイントを"常にコンパイル"として指定する必要があります。</value>
@@ -2385,10 +2385,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>キー:</value>
   </data>
   <data name="FlashDevelop.Info.Undefined" xml:space="preserve">
-    <value>不定</value>
+    <value>undefined</value>
   </data>
   <data name="FlashDevelop.Label.Add" xml:space="preserve">
-    <value>追加(&amp;A)</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="FlashDevelop.Label.Delete" xml:space="preserve">
     <value>削除(&amp;D)</value>
@@ -2541,7 +2541,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ファイルが見つかりませんでした。タスク一覧が更新されます。</value>
   </data>
   <data name="FlashDevelop.Description.PrintMarginColumn" xml:space="preserve">
-    <value>印刷マージンを右に何文字分ずらすか設定します。</value>
+    <value>桁基準線を表示する桁数です。0の場合は表示しません。</value>
   </data>
   <data name="FileExplorer.Description.SynchronizeToProject" xml:space="preserve">
     <value>開いているプロジェクトとファイルビューをシンクロさせます。</value>
@@ -2778,7 +2778,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>無題</value>
   </data>
   <data name="MacroManager.Label.Add" xml:space="preserve">
-    <value>追加(&amp;A)</value>
+    <value>新規(&amp;N)</value>
   </data>
   <data name="MacroManager.Label.Close" xml:space="preserve">
     <value>閉じる(&amp;C)</value>
@@ -3200,7 +3200,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>変更箇所のマージン:</value>
   </data>
   <data name="FlashDevelop.Info.PrintMargin" xml:space="preserve">
-    <value>印刷マージン:</value>
+    <value>桁基準線:</value>
   </data>
   <data name="CodeRefactor.Description.SeparatePackages" xml:space="preserve">
     <value>異なるパッケージのあいだに改行を挿入します。</value>
