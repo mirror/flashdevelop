@@ -36,7 +36,7 @@ namespace ASClassWizard
 	{
         private String pluginName = "ASClassWizard";
         private String pluginGuid = "a2c159c1-7d21-4483-aeb1-38d9fdc4c7f3";
-        private String pluginHelp = "www.flashdevelop.org";
+        private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Provides an ActionScript class wizard for FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         
