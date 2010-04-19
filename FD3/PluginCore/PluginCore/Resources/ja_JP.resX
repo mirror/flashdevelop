@@ -268,7 +268,7 @@
     <value>現在のファイルのシンタックスをチェックします。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
-    <value>タイプエクスプローラを開きます。</value>
+    <value>タイプエクスプローラーを開きます。</value>
   </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
     <value>補完機能を強化するためにドキュメンテーションブロック内の ASDoc タグを解析します。</value>
@@ -337,7 +337,7 @@
     <value>編集(&amp;E)</value>
   </data>
   <data name="ASCompletion.Label.ModelExplore" xml:space="preserve">
-    <value>エクスプローラ(&amp;X)</value>
+    <value>エクスプローラー(&amp;X)</value>
   </data>
   <data name="ASCompletion.Label.QuickBuild" xml:space="preserve">
     <value>クイックビルド(&amp;B)</value>
@@ -346,13 +346,13 @@
     <value>クラスパスキャッシュを再構築</value>
   </data>
   <data name="ASCompletion.Label.TypesExplorer" xml:space="preserve">
-    <value>タイプエクスプローラ(&amp;X)...</value>
+    <value>タイプエクスプローラー(&amp;X)...</value>
   </data>
   <data name="ASCompletion.Label.ViewMenuItem" xml:space="preserve">
     <value>アウトライン(&amp;O)</value>
   </data>
   <data name="ASCompletion.Title.ModelExplorer" xml:space="preserve">
-    <value>タイプエクスプローラ</value>
+    <value>タイプエクスプローラー</value>
   </data>
   <data name="ASCompletion.Title.PluginPanel" xml:space="preserve">
     <value>アウトライン</value>
@@ -391,13 +391,13 @@
     <value>種類</value>
   </data>
   <data name="FileExplorer.Info.BrowseDescription" xml:space="preserve">
-    <value>ファイル一覧を表示するフォルダを開いて下さい。</value>
+    <value>ファイル一覧を表示するフォルダーを開いて下さい。</value>
   </data>
   <data name="FileExplorer.Info.ConfirmDelete" xml:space="preserve">
     <value>選択した項目を削除してもよろしいですか？</value>
   </data>
   <data name="FileExplorer.Info.Description" xml:space="preserve">
-    <value>FlashDevelop にファイルエクスプローラパネルを追加します。</value>
+    <value>FlashDevelop にファイルエクスプローラーパネルを追加します。</value>
   </data>
   <data name="FileExplorer.Info.Kilobytes" xml:space="preserve">
     <value>KB</value>
@@ -418,7 +418,7 @@
     <value>新規ファイル(&amp;N)...</value>
   </data>
   <data name="FileExplorer.Label.CreateFolderHere" xml:space="preserve">
-    <value>新規フォルダ(&amp;F)...</value>
+    <value>新規フォルダー(&amp;F)...</value>
   </data>
   <data name="FileExplorer.Label.Delete" xml:space="preserve">
     <value>削除(&amp;D)</value>
@@ -428,7 +428,7 @@
     <comment>編集(&amp;E)</comment>
   </data>
   <data name="FileExplorer.Label.ExploreHere" xml:space="preserve">
-    <value>エクスプローラで開く(&amp;X)...</value>
+    <value>エクスプローラーで開く(&amp;X)...</value>
   </data>
   <data name="FileExplorer.Label.Paste" xml:space="preserve">
     <value>貼り付け(&amp;P)</value>
@@ -449,16 +449,16 @@
     <value>信頼するパスに追加(&amp;T)</value>
   </data>
   <data name="FileExplorer.Label.ViewMenuItem" xml:space="preserve">
-    <value>ファイルエクスプローラ(&amp;F)</value>
+    <value>ファイルエクスプローラー(&amp;F)</value>
   </data>
   <data name="FileExplorer.Title.PluginPanel" xml:space="preserve">
     <value>ファイル</value>
   </data>
   <data name="FileExplorer.ToolTip.Browse" xml:space="preserve">
-    <value>フォルダの参照</value>
+    <value>フォルダーの参照</value>
   </data>
   <data name="FileExplorer.ToolTip.Synchronize" xml:space="preserve">
-    <value>プロジェクトマネージャとシンクロ</value>
+    <value>プロジェクトマネージャーとシンクロ</value>
   </data>
   <data name="FlashConnect.Description.Enabled" xml:space="preserve">
     <value>起動時に FlashConnect を有効にします。</value>
@@ -566,7 +566,7 @@
     <value>行末に追加される改行文字です。</value>
   </data>
   <data name="FlashDevelop.Description.RedirectFilesResults" xml:space="preserve">
-    <value>「フォルダを指定して検索と置換」の検索結果を結果パネルへリダイレクトします。</value>
+    <value>「フォルダーを指定して検索と置換」の検索結果を結果パネルへリダイレクトします。</value>
   </data>
   <data name="FlashDevelop.Description.FoldAtElse" xml:space="preserve">
     <value>else 文を折りたたみます。</value>
@@ -800,7 +800,7 @@
     <value>更新は見つかりませんでした。</value>
   </data>
   <data name="FlashDevelop.Info.OnlyErrorManager" xml:space="preserve">
-    <value>エラーマネージャのみが直接エラーダイアログを表示することを許可します。</value>
+    <value>エラーマネージャーのみが直接エラーダイアログを表示することを許可します。</value>
   </data>
   <data name="FlashDevelop.Info.PathHeader" xml:space="preserve">
     <value>パス</value>
@@ -815,7 +815,7 @@
     <value>完了</value>
   </data>
   <data name="FlashDevelop.Info.RecoveryInfo" xml:space="preserve">
-    <value>リカバリフォルダに一時的なバックアップファイルが見つかりました。FlashDevelop が強制終了された可能性があります。{0}これらのファイルをどのように処理しますか？</value>
+    <value>リカバリフォルダーに一時的なバックアップファイルが見つかりました。FlashDevelop が強制終了された可能性があります。{0}これらのファイルをどのように処理しますか？</value>
   </data>
   <data name="FlashDevelop.Info.ReplacedInFiles" xml:space="preserve">
     <value>{1} 件のファイルから {0} 個のアイテムを置換しました。</value>
@@ -866,7 +866,7 @@
     <value>FlashDevelop テンプレート (*.fdt)</value>
   </data>
   <data name="FlashDevelop.Info.TopFolder" xml:space="preserve">
-    <value>トップフォルダ:</value>
+    <value>トップフォルダー:</value>
   </data>
   <data name="FlashDevelop.Info.Unknown" xml:space="preserve">
     <value>不明</value>
@@ -893,7 +893,7 @@
     <value>アプリケーションファイルを表示(&amp;A)...</value>
   </data>
   <data name="FlashDevelop.Label.ASDocGen" xml:space="preserve">
-    <value>ASDoc ジェネレータ(&amp;D)...</value>
+    <value>ASDoc ジェネレーター(&amp;D)...</value>
   </data>
   <data name="FlashDevelop.Label.Back" xml:space="preserve">
     <value>戻る</value>
@@ -1024,7 +1024,7 @@
     <value>検索と置換(&amp;F)...</value>
   </data>
   <data name="FlashDevelop.Label.FindAndReplaceInFiles" xml:space="preserve">
-    <value>フォルダを指定して検索と置換(&amp;R)...</value>
+    <value>フォルダーを指定して検索と置換(&amp;R)...</value>
   </data>
   <data name="FlashDevelop.Label.FindNext" xml:space="preserve">
     <value>次を検索(&amp;N)</value>
@@ -1231,7 +1231,7 @@
     <value>コードスニペットの編集(&amp;C)...</value>
   </data>
   <data name="FlashDevelop.Label.SOReader" xml:space="preserve">
-    <value>Shared Object リーダ(&amp;S)...</value>
+    <value>Shared Object リーダー(&amp;S)...</value>
   </data>
   <data name="FlashDevelop.Label.Syntax" xml:space="preserve">
     <value>構文モード(&amp;X)</value>
@@ -1288,7 +1288,7 @@
     <value>単語単位(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.WindowsExplorer" xml:space="preserve">
-    <value>エクスプローラ(&amp;E)</value>
+    <value>エクスプローラー(&amp;E)</value>
   </data>
   <data name="FlashDevelop.Label.WrapEditorText" xml:space="preserve">
     <value>エディタテキストの折り返し(&amp;E)</value>
@@ -1309,7 +1309,7 @@
     <value>検索と置換</value>
   </data>
   <data name="FlashDevelop.Title.FindAndReplaceInFilesDialog" xml:space="preserve">
-    <value>フォルダを指定して検索と置換</value>
+    <value>フォルダーを指定して検索と置換</value>
   </data>
   <data name="FlashDevelop.Title.GoToDialog" xml:space="preserve">
     <value>指定行へ移動</value>
@@ -1369,7 +1369,7 @@
     <value>レイアウトファイルの保存先を変更します。</value>
   </data>
   <data name="LayoutManager.Info.Description" xml:space="preserve">
-    <value>FlashDevelp にレイアウトマネージャを追加します。</value>
+    <value>FlashDevelp にレイアウトマネージャーを追加します。</value>
   </data>
   <data name="LayoutManager.Info.NoLayoutsFound" xml:space="preserve">
     <value>レイアウトが保存されていません。</value>
@@ -1390,7 +1390,7 @@
     <value>設定(&amp;H)...</value>
   </data>
   <data name="LayoutManager.Label.ViewMenuItem" xml:space="preserve">
-    <value>レイアウトマネージャ(&amp;L)</value>
+    <value>レイアウトマネージャー(&amp;L)</value>
   </data>
   <data name="LayoutManager.Title.PluginPanel" xml:space="preserve">
     <value>レイアウト</value>
@@ -1477,7 +1477,7 @@
     <value>コンパイラオプションの値を設定します。このオプションは省略可能です。ただし、設定しないと、ロケールのソースパスがプロジェクトのソースパスのサブディレクトリになることを示す警告が表示される可能性があります。</value>
   </data>
   <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
-    <value>プロジェクトテンプレートフォルダの読み込み先を変更します。(ブランクの場合はデフォルト)</value>
+    <value>プロジェクトテンプレートフォルダーの読み込み先を変更します。(ブランクの場合はデフォルト)</value>
   </data>
   <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
     <value>コンパイルするソースファイルを指定します。</value>
@@ -1498,7 +1498,7 @@
     <value>デフォルトでは、MXMLソースファイル( mx:Script, mx:Style )は、MXMLファイルの下にグループ化されます。</value>
   </data>
   <data name="ProjectManager.Description.ES" xml:space="preserve">
-    <value>プロトタイププロパティを動的にオーバーライドできるように、ECMAScript Edition 3 のプロトタイプに基づくオブジェクトモデルを使用します。</value>
+    <value>プロトタイププロパティーを動的にオーバーライドできるように、ECMAScript Edition 3 のプロトタイプに基づくオブジェクトモデルを使用します。</value>
   </data>
   <data name="ProjectManager.Description.ExcludedDirectories" xml:space="preserve">
     <value>プロジェクトのツリービューから完全に除外するディレクトリです。</value>
@@ -1573,7 +1573,7 @@
     <value>ActionScript クラスに関する警告を表示します。</value>
   </data>
   <data name="ProjectManager.Description.ShowBindingWarnings" xml:space="preserve">
-    <value>Flash Player がバインドされたプロパティへの変更を検出できない場合に警告を表示します。</value>
+    <value>Flash Player がバインドされたプロパティーへの変更を検出できない場合に警告を表示します。</value>
   </data>
   <data name="ProjectManager.Description.ShowDeprecationWarnings" xml:space="preserve">
     <value>Flex コンポーネントに関する非推奨であることを通知する警告を表示します。</value>
@@ -1666,7 +1666,7 @@
     <value>プロジェクトを開けません:</value>
   </data>
   <data name="ProjectManager.Info.CreateDirForProject" xml:space="preserve">
-    <value>プロジェクトフォルダを作成する(&amp;D)</value>
+    <value>プロジェクトフォルダーを作成する(&amp;D)</value>
   </data>
   <data name="ProjectManager.Info.Custom" xml:space="preserve">
     <value>コマンドラインを実行...</value>
@@ -1699,7 +1699,7 @@
     <value>外部プレーヤでムービーを再生</value>
   </data>
   <data name="ProjectManager.Info.FileAlreadyExistsInProject" xml:space="preserve">
-    <value>"{0}" のファイルは既にプロジェクトフォルダに存在します。上書きしますか？</value>
+    <value>"{0}" のファイルは既にプロジェクトフォルダーに存在します。上書きしますか？</value>
   </data>
   <data name="ProjectManager.Info.FileFilter" xml:space="preserve">
     <value>すべてのファイル (*.*)|*.*</value>
@@ -1708,10 +1708,10 @@
     <value>Flash ムービー (*.swf)|*.swf</value>
   </data>
   <data name="ProjectManager.Info.FolderAlreadyContainsFile" xml:space="preserve">
-    <value>このフォルダには既に "{0}" の名前のファイルが含まれています。{1}既存のファイルと置き換えますか？</value>
+    <value>このフォルダーには既に "{0}" の名前のファイルが含まれています。{1}既存のファイルと置き換えますか？</value>
   </data>
   <data name="ProjectManager.Info.FolderAlreadyContainsFolder" xml:space="preserve">
-    <value>このフォルダには既に "{0}" という名前のフォルダが含まれています。{1}{1}もし{1}フォルダに同じ名前を持つファイルがある場合は置き換えられます。本当に{1}フォルダを移動またはコピーしますか？</value>
+    <value>このフォルダーには既に "{0}" という名前のフォルダーが含まれています。{1}{1}もし{1}フォルダーに同じ名前を持つファイルがある場合は置き換えられます。本当に{1}フォルダーを移動またはコピーしますか？</value>
   </data>
   <data name="ProjectManager.Info.General" xml:space="preserve">
     <value>総合</value>
@@ -1777,7 +1777,7 @@
     <value>FlashDevelop プロジェクト (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="ProjectManager.Info.Properties" xml:space="preserve">
-    <value>プロパティ</value>
+    <value>プロパティー</value>
   </data>
   <data name="ProjectManager.Info.RecursiveCopyDetected" xml:space="preserve">
     <value>再帰的なコピーを検出しました。</value>
@@ -1792,7 +1792,7 @@
     <value>プロジェクトの保存先を選択してください。</value>
   </data>
   <data name="ProjectManager.Info.SettingsCouldNotLoad" xml:space="preserve">
-    <value>プロジェクトマネージャの設定を解析できませんでした。設定は既定値にリセットされます。</value>
+    <value>プロジェクトマネージャーの設定を解析できませんでした。設定は既定値にリセットされます。</value>
   </data>
   <data name="ProjectManager.Info.SpecifyCompilerPath" xml:space="preserve">
     <value>{0}コンテキストのコンパイラ設定を開きますか？</value>
@@ -1804,7 +1804,7 @@
     <value>コードインジェクションを行う場合、入力用の SWF ファイルを設定する必要があります。</value>
   </data>
   <data name="ProjectManager.Info.SpecifyValidOutputSWF" xml:space="preserve">
-    <value>プロジェクトをビルドするには、プロジェクトプロパティに SWF ファイルの有効な出力先を設定する必要があります。</value>
+    <value>プロジェクトをビルドするには、プロジェクトプロパティーに SWF ファイルの有効な出力先を設定する必要があります。</value>
   </data>
   <data name="ProjectManager.Info.TargetDirNotEmpty" xml:space="preserve">
     <value>指定したディレクトリにファイルが存在します。本当にテンプレートファイルをここにコピーしても良いですか?</value>
@@ -1954,7 +1954,7 @@
     <value>場所(&amp;L):</value>
   </data>
   <data name="ProjectManager.Label.MainMenuItem" xml:space="preserve">
-    <value>プロジェクトマネージャ(&amp;P)</value>
+    <value>プロジェクトマネージャー(&amp;P)</value>
   </data>
   <data name="ProjectManager.Label.Name" xml:space="preserve">
     <value>名前(&amp;N):</value>
@@ -1966,7 +1966,7 @@
     <value>NewFile</value>
   </data>
   <data name="ProjectManager.Label.NewFolder" xml:space="preserve">
-    <value>フォルダ</value>
+    <value>フォルダー</value>
   </data>
   <data name="ProjectManager.Label.NewProject" xml:space="preserve">
     <value>新規プロジェクト(&amp;N)...</value>
@@ -2002,7 +2002,7 @@
     <value>プロジェクト クラスパス(&amp;P)...</value>
   </data>
   <data name="ProjectManager.Label.Properties" xml:space="preserve">
-    <value>プロパティ(&amp;P)...</value>
+    <value>プロパティー(&amp;P)...</value>
   </data>
   <data name="ProjectManager.Label.RecentProjects" xml:space="preserve">
     <value>最近開いたプロジェクト(&amp;J)</value>
@@ -2044,7 +2044,7 @@
     <value>グローバル {0} クラスパス</value>
   </data>
   <data name="ProjectManager.Title.LibraryAssetProperties" xml:space="preserve">
-    <value>ライブラリアセットのプロパティ</value>
+    <value>ライブラリアセットのプロパティー</value>
   </data>
   <data name="ProjectManager.Title.PathConflict" xml:space="preserve">
     <value>パスの競合</value>
@@ -2053,16 +2053,16 @@
     <value>プロジェクト</value>
   </data>
   <data name="ProjectManager.Title.ProjectProperties" xml:space="preserve">
-    <value>プロジェクトプロパティ</value>
+    <value>プロジェクトプロパティー</value>
   </data>
   <data name="ProjectManager.ToolTip.AlwaysExecute" xml:space="preserve">
     <value>プロジェクトのビルドが失敗した場合にも、コマンドを実行します。</value>
   </data>
   <data name="ProjectManager.ToolTip.ProjectProperties" xml:space="preserve">
-    <value>プロジェクトプロパティ</value>
+    <value>プロジェクトプロパティー</value>
   </data>
   <data name="ProjectManager.ToolTip.ProjectTypes" xml:space="preserve">
-    <value>タイプエクスプローラ</value>
+    <value>タイプエクスプローラー</value>
   </data>
   <data name="ProjectManager.ToolTip.Refresh" xml:space="preserve">
     <value>再読み込み</value>
@@ -2257,7 +2257,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ASCompletion エンジンに HaXe コンテキストを追加します。</value>
   </data>
   <data name="ProjectManager.Info.Description" xml:space="preserve">
-    <value>FlashDevelop にプロジェクトマネージャを追加します。</value>
+    <value>FlashDevelop にプロジェクトマネージャーを追加します。</value>
   </data>
   <data name="StartPage.Info.Description" xml:space="preserve">
     <value>FlashDevelop にスタートページを追加します。</value>
@@ -2364,7 +2364,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>プロセスを正常に実行するには引数が充分ではありません:</value>
   </data>
   <data name="ProjectManager.Label.BrowseDirectory" xml:space="preserve">
-    <value>エクスプローラ(&amp;X)</value>
+    <value>エクスプローラー(&amp;X)</value>
   </data>
   <data name="ASCompletion.Description.ShowRegions" xml:space="preserve">
     <value>アウトラインパネルのリスト内で範囲グループ化を使用します。</value>
@@ -2442,7 +2442,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>デバッグ(&amp;D)</value>
   </data>
   <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
-    <value>このプロジェクト独自の Flex SDK へのパスが間違っています。プロジェクトプロパティのコンパイル設定を修正してください。</value>
+    <value>このプロジェクト独自の Flex SDK へのパスが間違っています。プロジェクトプロパティーのコンパイル設定を修正してください。</value>
   </data>
   <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
     <value>FlashDevelop アーギュメント (*.fda)</value>
@@ -2568,7 +2568,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>コピー(&amp;C)</value>
   </data>
   <data name="FlashLogViewer.Label.ViewMenuItem" xml:space="preserve">
-    <value>Flash ログビューア(&amp;V)</value>
+    <value>Flash ログビューアー(&amp;V)</value>
   </data>
   <data name="FlashLogViewer.Label.WrapText" xml:space="preserve">
     <value>テキストの折り返し(&amp;W)</value>
@@ -2634,7 +2634,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Intrinsic ファイルを保存...</value>
   </data>
   <data name="ASCompletion.Title.SelectIntrinsicTargetFolder" xml:space="preserve">
-    <value>Intrinsic ファイルのフォルダを選択...</value>
+    <value>Intrinsic ファイルのフォルダーを選択...</value>
   </data>
   <data name="FlashLogViewer.Description.UpdateInterval" xml:space="preserve">
     <value>ログファイルをチェックする頻度を指定します。</value>
@@ -2961,7 +2961,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
-    <value>どこに新しいプロパティ( getter, setter )を作成するかを設定します。</value>
+    <value>どこに新しいプロパティー( getter, setter )を作成するかを設定します。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
@@ -2993,7 +2993,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.ChosePackage" xml:space="preserve">
-    <value>パッケージフォルダを選んでください:</value>
+    <value>パッケージフォルダーを選んでください:</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.CodeGeneration" xml:space="preserve">
