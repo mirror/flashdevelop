@@ -735,15 +735,24 @@ namespace Flash.Tools.Debugger.Concrete
 				{
 					try
 					{
-						s = m_serverSocket.AcceptTcpClient();
-					}
-					catch (IOException ste)
-					{
-						timeout -= iterateOn;
-						if (timeout < 0 || m_serverSocket == null || ! m_serverSocket.Server.Connected)
-							throw ste; // we reached the timeout, or someome called stopListening()
-					}
-					
+                        if (m_serverSocket.Pending())
+                        {
+                            s = m_serverSocket.AcceptTcpClient();
+                        }
+                        else
+                        {
+                            System.Threading.Thread.Sleep(iterateOn);
+                            timeout -= iterateOn;
+                            if (timeout < 0) throw new IOException();
+                        }
+                    }
+                    catch (IOException ste)
+                    {
+                        timeout -= iterateOn;
+                        if (timeout < 0 || m_serverSocket == null || !m_serverSocket.Server.Connected)
+                            throw ste; // we reached the timeout, or someome called stopListening()
+                    }
+
 					// Tell the progress monitor we've waited a little while longer,
 					// so that the Eclipse progress bar can keep chugging along
 					if (waitReporter != null)
