@@ -979,7 +979,7 @@ namespace ASCompletion.Model
 					
 					else if (c1 == '(')
 					{
-                        if (!inValue && context == FlagType.Variable && curToken.Text != "catch")
+                        if (!inValue && context == FlagType.Variable && curToken.Text != "catch" && (!haXe || curToken.Text != "for"))
                             if (haXe && curMember != null && valueLength == 0) // haXe properties
                             {
                                 curMember.Flags -= FlagType.Variable;
@@ -1056,7 +1056,7 @@ namespace ASCompletion.Model
                             if (curClass != null && curMember == null) curClass.Members.Add(curMethod);
                         }
 
-                        else if (curMember == null && curToken.Text != "catch") context = 0;
+                        else if (curMember == null && curToken.Text != "catch" && (!haXe || curToken.Text != "for") ) context = 0;
 					}
 					
 					// end of statement
@@ -1239,7 +1239,7 @@ namespace ASCompletion.Model
                 if (dotIndex > 0) token = token.Substring(dotIndex + 1);
 
 				// members
-				if (token == "var" || token == "catch")
+				if (token == "var" || token == "catch" || (haXe && token=="for") )
 				{
 					foundKeyword = FlagType.Variable;
 				}
@@ -1483,7 +1483,7 @@ namespace ASCompletion.Model
                      || token == "try" || token == "catch" || token == "finally"))
                 {
                     flattenNextBlock = true;
-                    if (token == "catch")
+                    if (token == "catch" || (haXe && token == "for"))
                     {
                         curModifiers = 0;
                         foundKeyword = FlagType.Variable;
