@@ -456,6 +456,17 @@ namespace FlexDbg
                 FlexDbgTrace.TraceInfo("loop end");
 
             }
+            catch (System.Net.Sockets.SocketException ex)
+            {
+                if (m_RequestStop)
+                {
+                    throw new Exception("Debugger listen aborted.");
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
             finally
             {
                 if (DisconnectedEvent != null)
@@ -978,13 +989,13 @@ namespace FlexDbg
 
 		public void Stop()
 		{
+            m_RequestStop = true;
             if (m_CurrentState == DebuggerState.Starting)
             {
                 SessionManager mgr = Bootstrap.sessionManager();
                 mgr.stopListening();
                 return;
             }
-			m_RequestStop = true;
 			m_SuspendWait.Set();
 		}
 
