@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{194B58C9-9D2B-4D5E-9256-773FD3222582}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -69,20 +69,12 @@
     <Reference Include="ASCompletion, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="flashdbg, Version=3.3.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\flashdbg.dll</HintPath>
-    </Reference>
     <Reference Include="PluginCore, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
     </Reference>
     <Reference Include="ProjectManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="swfutils, Version=3.3.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\swfutils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -99,7 +91,7 @@
     </Compile>
     <Compile Include="Controls\LiveDataTip.cs" />
     <Compile Include="Debugger\BreakPointManager.cs" />
-    <Compile Include="BreakPointUI.cs">
+    <Compile Include="Localization\BreakPointUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\DataNode.cs" />
@@ -170,5 +162,15 @@
     <Content Include="Icons\Step.png" />
     <Content Include="Icons\RunToCursor.png" />
     <Content Include="Icons\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlexSDK\flashdbg\flashdbg.csproj">
+      <Project>{77663E75-026B-44FF-B4DF-2C262A6C493A}</Project>
+      <Name>flashdbg</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlexSDK\swfutils\swfutils.csproj">
+      <Project>{2987A058-A00D-4DFB-B5F2-2ACE3957EEFC}</Project>
+      <Name>swfutils</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
