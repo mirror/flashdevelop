@@ -127,10 +127,10 @@ namespace ASCompletion.Completion
                 }
 
                 // generic type
-                if (c == '<' && (c2 == '.' || (options.IsHaXe && Char.IsLetterOrDigit(c2))))
+                if (c == '<' && (c2 == '.' || (options.IsHaXe && (Char.IsLetterOrDigit(c2) || c2 == '{'))))
                 {
                     int i2 = i;
-                    if (lookupGeneric(txt, ref i))
+                    if (lookupGeneric(options,txt, ref i))
                     {
                         sb.Append(c).Append(txt.Substring(i2, i - i2));
                         c2 = '$';
@@ -308,12 +308,12 @@ namespace ASCompletion.Completion
             return sb.ToString();
         }
 
-        private static bool lookupGeneric(string txt, ref int index)
+        private static bool lookupGeneric( ReformatOptions options, string txt, ref int index)
         {
             int i = index;
             int n = txt.Length;
             char c = '<';
-            int sub = 0;
+            int sub = 0, psub = 0;
             while (i < n)
             {
                 c = txt[i++];
@@ -328,7 +328,14 @@ namespace ASCompletion.Completion
                         return true;
                     }
                 }
-                else break;
+                else if (options.IsHaXe && c == '{')
+                    psub++;
+                else if (psub > 0)
+                {
+                    if (c == '}') psub--;
+                    continue;
+                } else
+                    break;
             }
             return false;
         }

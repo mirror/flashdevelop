@@ -817,7 +817,7 @@ namespace ASCompletion.Model
                             else if (features.hasGenerics && c1 == '<')
                             {
                                 if (!inValue && i > 2 && length > 1 && i < len - 3
-                                    && Char.IsLetterOrDigit(ba[i - 3]) && Char.IsLetter(ba[i])
+                                    && Char.IsLetterOrDigit(ba[i - 3]) && (Char.IsLetter(ba[i]) || (haXe && ba[i] == '{'))
                                     && (buffer[length - 1] == '.' || Char.IsLetter(buffer[length - 1])))
                                 {
                                     evalToken = 0;
