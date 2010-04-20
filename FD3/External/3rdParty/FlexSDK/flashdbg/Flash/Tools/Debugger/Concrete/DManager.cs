@@ -1946,8 +1946,9 @@ namespace Flash.Tools.Debugger.Concrete
 					double dval = 0;
 					try
 					{
-						dval = Double.Parse(s);
-					}
+                        System.Globalization.NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo();
+                        dval = Double.Parse(s, nfi);
+                    }
 					catch (FormatException)
 					{
 					}
