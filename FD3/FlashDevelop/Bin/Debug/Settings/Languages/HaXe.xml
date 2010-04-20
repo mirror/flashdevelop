@@ -2,8 +2,7 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="haxe-primary-keywords">
-			function class var if else  while do for break continue return extends implements import using switch case default 
-			try catch new throw enum in interface untyped cast package typedef 
+			break callback case catch class continue default do else enum extends for function if implements import in interface new package return switch throw try typedef using var while
 		</keyword-class>
 		<keyword-class name="haxe-secondary-keywords">
 			null true false
@@ -12,14 +11,14 @@
 			Void Int Float Dynamic Bool UInt Iterator Array List Hash IntHash Date String Xml
 		</keyword-class>
 		<keyword-class name="haxe-documentation-keywords">
-			author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link 
+			author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link
 			param private return see serial serialData serialField since throws usage version
 		</keyword-class>
 		<keyword-class name="haxe-additional-keywords3">
-			f9dynamic inline private public static extern override 
+			dynamic extern inline override private public static
 		</keyword-class>
 		<keyword-class name="haxe-additional-keywords4">
-			<!-- trace addEventListener removeEventListener hasListener addChild addChildAt removeChild removeChildAt -->
+			untyped cast trace
 		</keyword-class>
 		<keyword-class name="haxe-additional-keywords5">
 			super this arguments
