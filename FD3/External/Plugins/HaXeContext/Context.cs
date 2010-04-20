@@ -88,6 +88,7 @@ namespace HaXeContext
                 "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic"
             };
             features.varKey = "var";
+            features.overrideKey = "override";
             features.functionKey = "function";
             features.staticKey = "static";
             features.publicKey = "public";
