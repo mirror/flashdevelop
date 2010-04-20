@@ -84,8 +84,8 @@ namespace HaXeContext
             features.typesPreKeys = new string[] { "import", "new", "extends", "implements", "using" };
             features.codeKeywords = new string[] { 
                 "var", "function", "new", "cast", "return", "break", "continue", "callback",
-                "if", "else", "for", "while", "do", "switch", "case", "default", "with",
-                "null", "undefined", "true", "false", "try", "catch", "throw", "inline", "dynamic"
+                "if", "else", "for", "while", "do", "switch", "case", "default", 
+                "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic"
             };
             features.varKey = "var";
             features.functionKey = "function";
