@@ -1205,7 +1205,7 @@ namespace ASCompletion.Model
         private void FinalizeModel()
         {
             model.Version = version;
-            model.HasPackage = hasPackageSection;
+            model.HasPackage = hasPackageSection || haXe;
             if (model.FileName.Length == 0 || model.FileName.EndsWith("_cache")) return;
             if (model.PrivateSectionIndex == 0) model.PrivateSectionIndex = line;
             if (version == 2)
@@ -1262,9 +1262,9 @@ namespace ASCompletion.Model
 				else if (tryPackage && token == "package")
 				{
 					foundKeyword = FlagType.Package;
-					if (version < 3)
-					{
-						version = 3;
+                    if (version < 3)
+                    {
+                        version = 3;
                         hasPackageSection = true;
                         //model.Namespaces.Add("AS3", Visibility.Public);
                         //model.Namespaces.Add("ES", Visibility.Public);
