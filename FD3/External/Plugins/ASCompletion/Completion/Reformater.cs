@@ -312,14 +312,15 @@ namespace ASCompletion.Completion
         {
             int i = index;
             int n = txt.Length;
-            char c = '<';
+            char c = '<', prev = ' ';
             int sub = 0, psub = 0;
             while (i < n)
             {
+                prev = c;
                 c = txt[i++];
                 if (Char.IsLetterOrDigit(c) || c == '.' || c == ' ') continue;
                 if (c == '<') sub++;
-                else if (c == '>')
+                else if (c == '>' && (!options.IsHaXe || prev != '-'))
                 {
                     sub--;
                     if (sub < 0)

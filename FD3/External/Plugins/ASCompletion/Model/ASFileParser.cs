@@ -570,7 +570,7 @@ namespace ASCompletion.Model
 
 				if (inValue)
 				{
-                    if (inType && !inAnonType && !Char.IsLetterOrDigit(c1) && ".{}-><".IndexOf(c1) < 0)
+                    if (inType && !inAnonType && !inGeneric && !Char.IsLetterOrDigit(c1) && ".{}-><".IndexOf(c1) < 0)
                     {
                         inType = false;
                         inValue = false;
