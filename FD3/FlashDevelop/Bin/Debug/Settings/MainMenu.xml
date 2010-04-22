@@ -185,8 +185,9 @@
 		<menu label="Label.LanguageReferences">
 			<button label="&amp;AS2" click="Browse" tag="http://livedocs.macromedia.com/flash/8/main/wwhelp/wwhimpl/js/html/wwhelp.htm?href=Part4_ASLR2.html" />
 			<button label="A&amp;S3" click="Browse" tag="http://livedocs.adobe.com/flash/9.0/ActionScriptLangRefV3/index.html" />
-			<button label="&amp;Flex 2" click="Browse" tag="http://livedocs.adobe.com/flex/201/langref/index.html" />
-			<button label="F&amp;lex 3" click="Browse" tag="http://livedocs.adobe.com/labs/flex3/langref/index.html" />
+			<button label="&amp;Flex 2" click="Browse" tag="http://livedocs.adobe.com/flex/2/langref/index.html" />
+			<button label="F&amp;lex 3" click="Browse" tag="http://livedocs.adobe.com/flex/3/langref/index.html" />
+			<button label="Fle&amp;x 4" click="Browse" tag="http://livedocs.adobe.com/flex/4/langref/index.html" />
 			<button label="&amp;HaXe" click="Browse" tag="http://haxe.org/ref" />
 			<button label="&amp;MYSQL" click="Browse" tag="http://dev.mysql.com/doc/mysql/en/" />
 			<button label="&amp;PHP" click="Browse" tag="http://www.php.net/manual/en/" />
