@@ -67,12 +67,7 @@ namespace FlashDevelop.Utilities
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             if (Globals.SciControl.SelText.Length > 0) return Globals.SciControl.SelText;
-            else if (PrevSelText.Length > 0)
-            {
-                String text = PrevSelText;
-                PrevSelText = String.Empty;
-                return text;
-            }
+            else if (PrevSelText.Length > 0) return PrevSelText;
             else return String.Empty;
 		}
 		
