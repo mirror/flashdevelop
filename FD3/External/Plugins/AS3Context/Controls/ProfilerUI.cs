@@ -10,6 +10,7 @@ using PluginCore;
 using System.IO;
 using PluginCore.Helpers;
 using System.Text.RegularExpressions;
+using PluginCore.Localization;
 using PluginCore.Managers;
 using System.Net.Sockets;
 
@@ -53,13 +54,15 @@ namespace AS3Context.Controls
             }
         }
 
-        #region UI
+        #region UI Init
 
         public ProfilerUI()
         {
             instance = this;
 
             InitializeComponent();
+            InitializeLocalization();
+            toolStrip.Renderer = new DockPanelStripRenderer();
             runButton.Image = PluginBase.MainForm.FindImage("127");
             gcButton.Image = PluginBase.MainForm.FindImage("90");
 
@@ -73,6 +76,18 @@ namespace AS3Context.Controls
             listView.ListViewItemSorter = comparer;
 
             StopProfiling();
+        }
+
+        private void InitializeLocalization()
+        {
+            this.gcButton.Text = TextHelper.GetString("Label.RunGC");
+            this.runButton.Text = TextHelper.GetString("Label.StartProfiler");
+            this.memLabel.Text = String.Format(TextHelper.GetString("Label.MemoryDisplay"), 0, 0);
+            this.typeColumn.Text = TextHelper.GetString("Column.Type");
+            this.countColumn.Text = TextHelper.GetString("Column.Count");
+            this.memColumn.Text = TextHelper.GetString("Column.Memory");
+            this.pkgColumn.Text = TextHelper.GetString("Column.Package");
+            this.maxColumn.Text = TextHelper.GetString("Column.Maximum");
         }
 
         void detectDisconnect_Tick(object sender, EventArgs e)
@@ -101,7 +116,7 @@ namespace AS3Context.Controls
         {
             running = false;
             runButton.Image = PluginBase.MainForm.FindImage("125");
-            runButton.Text = "Start Profiler";
+            runButton.Text = TextHelper.GetString("Label.StartProfiler");
         }
 
         private void StartProfiling()
@@ -109,10 +124,10 @@ namespace AS3Context.Controls
             running = true;
             current = null;
             items = new Dictionary<string, TypeItem>();
-            memLabel.Text = "Memory: 0 Kb / 0 Kb";
+            memLabel.Text = String.Format(TextHelper.GetString("Label.MemoryDisplay"), 0, 0);
             listView.Items.Clear();
             runButton.Image = PluginBase.MainForm.FindImage("126");
-            runButton.Text = "Stop Profiler";
+            runButton.Text = TextHelper.GetString("Label.StopProfiler");
             SetProfilerCfg(true);
         }
 
@@ -189,14 +204,14 @@ namespace AS3Context.Controls
             int.TryParse(info[1], out mem);
             memStack.Push(mem);
             if (mem > maxMemory) maxMemory = mem;
-
-            memLabel.Text = "Memory: " + FormatMemory(mem) + " / " + FormatMemory(maxMemory);
+            string raw = TextHelper.GetString("Label.MemoryDisplay");
+            memLabel.Text = String.Format(raw, FormatMemory(mem), FormatMemory(maxMemory));
         }
 
         private string FormatMemory(int mem)
         {
             double m = mem / 1024.0;
-            return (Math.Round(m * 10.0) / 10.0) + " Kb";
+            return (Math.Round(m * 10.0) / 10.0).ToString();
         }
 
         private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -212,7 +227,7 @@ namespace AS3Context.Controls
 
         #endregion
 
-        #region MM cfg configuration
+        #region MM configuration
 
         private void SetProfilerCfg(bool active)
         {

@@ -9,7 +9,6 @@ using PluginCore.Helpers;
 using PluginCore.Managers;
 using PluginCore.Utilities;
 using AS3Context.Compiler;
-using PluginCore;
 using ASCompletion.Model;
 using ASCompletion.Completion;
 using ASCompletion.Commands;
@@ -17,6 +16,7 @@ using ProjectManager.Projects.Haxe;
 using AS3Context.Controls;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Windows.Forms;
+using PluginCore;
 
 namespace AS3Context
 {
@@ -101,8 +101,9 @@ namespace AS3Context
         public void Initialize()
         {
             this.InitBasics();
-            //this.CreateMenuItems(); // uncomment to enable profiler
             this.LoadSettings();
+            this.CreatePanels();
+            this.CreateMenuItems();
             this.AddEventHandlers();
         }
 
@@ -305,6 +306,7 @@ namespace AS3Context
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
+            this.pluginIcon = PluginBase.MainForm.FindImage("123");
         }
 
         /// <summary>
@@ -313,8 +315,8 @@ namespace AS3Context
         private void CreatePanels()
         {
             profilerUI = new ProfilerUI();
-            profilerUI.Text = "Profiler";
-            profilerPanel = PluginBase.MainForm.CreateDockablePanel(profilerUI, pluginGuid, pluginIcon, DockState.DockTop);
+            profilerUI.Text = TextHelper.GetString("Title.Profiler");
+            profilerPanel = PluginBase.MainForm.CreateDockablePanel(profilerUI, pluginGuid, pluginIcon, DockState.Hidden);
         }
 
         /// <summary>
@@ -322,13 +324,11 @@ namespace AS3Context
         /// </summary>
         private void CreateMenuItems()
         {
-            pluginIcon = PluginBase.MainForm.FindImage("123");
             IMainForm mainForm = PluginBase.MainForm;
-
             ToolStripMenuItem menu = (ToolStripMenuItem)mainForm.FindMenuItem("ViewMenu");
             if (menu != null)
             {
-                menu.DropDownItems.Add(new ToolStripMenuItem(/*TextHelper.GetString("Label.ViewMenuItem")*/ "Profiler", pluginIcon, new EventHandler(OpenPanel)));
+                menu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), pluginIcon, new EventHandler(OpenPanel)));
             }
         }
 
@@ -337,7 +337,6 @@ namespace AS3Context
         /// </summary>
         public void OpenPanel(object sender, System.EventArgs e)
         {
-            if (profilerPanel == null) this.CreatePanels();
             profilerPanel.Show();
         }
 

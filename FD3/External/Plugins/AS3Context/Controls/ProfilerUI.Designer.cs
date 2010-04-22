@@ -83,6 +83,7 @@
             this.maxColumn,
             this.countColumn,
             this.memColumn});
+            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
@@ -100,24 +101,27 @@
             // typeColumn
             // 
             this.typeColumn.Text = "Type";
-            this.typeColumn.Width = 150;
+            this.typeColumn.Width = 200;
             // 
             // pkgColumn
             // 
             this.pkgColumn.Text = "Package";
-            this.pkgColumn.Width = 180;
+            this.pkgColumn.Width = 200;
             // 
             // maxColumn
             // 
             this.maxColumn.Text = "Maximum";
+            this.maxColumn.Width = 80;
             // 
             // countColumn
             // 
             this.countColumn.Text = "Count";
+            this.countColumn.Width = 80;
             // 
             // memColumn
             // 
             this.memColumn.Text = "Memory";
+            this.memColumn.Width = 80;
             // 
             // ProfilerUI
             // 
