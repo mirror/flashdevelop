@@ -31,7 +31,7 @@ using System.Resources;
 [assembly: AssemblyCopyright("Copyright 2009, Robert Nelson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.9.8.0")]
+[assembly: AssemblyVersion("0.9.9.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 [assembly: AssemblyFileVersionAttribute("0.9.8.0")]
 [assembly: GuidAttribute("e6e40985-b9ba-4a2c-abef-839187bf3c93")]

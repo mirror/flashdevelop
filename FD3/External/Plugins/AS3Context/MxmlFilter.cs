@@ -216,7 +216,7 @@ namespace AS3Context
             foreach (string ns in ctx.namespaces.Keys)
             {
                 string uri = ctx.namespaces[ns];
-                string temp = (uri == "http://www.adobe.com/2006/mxml") ? "library://ns.adobe.com/flex/halo" : uri;
+                string temp = (uri == "http://www.adobe.com/2006/mxml") ? "library://ns.adobe.com/flex/mx" : uri;
                 foreach (MxmlCatalog cat in catalogs.Values)
                     if (cat.URI == temp)
                     {
@@ -388,7 +388,7 @@ namespace AS3Context
             }
 
             if (URI == "http://www.adobe.com/2006/mxml") 
-                URI = "library://ns.adobe.com/flex/halo";
+                URI = "library://ns.adobe.com/flex/mx";
         }
     }
     #endregion
