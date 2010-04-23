@@ -42,12 +42,14 @@
             this.SuspendLayout();
             // 
             // toolStrip1
-            // 
+            //
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memLabel,
             this.runButton,
             this.gcButton});
-            this.toolStrip.Location = new System.Drawing.Point(1, 0);
+            this.toolStrip.CanOverflow = false;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(488, 25);
             this.toolStrip.TabIndex = 0;
@@ -106,7 +108,7 @@
             // pkgColumn
             // 
             this.pkgColumn.Text = "Package";
-            this.pkgColumn.Width = 200;
+            this.pkgColumn.Width = 250;
             // 
             // maxColumn
             // 
