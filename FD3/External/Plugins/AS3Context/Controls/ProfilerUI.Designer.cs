@@ -32,25 +32,31 @@
             this.memLabel = new System.Windows.Forms.ToolStripLabel();
             this.runButton = new System.Windows.Forms.ToolStripButton();
             this.gcButton = new System.Windows.Forms.ToolStripButton();
-            this.listView = new System.Windows.Forms.ListView();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.liveObjectsPage = new System.Windows.Forms.TabPage();
+            this.objectsPage = new System.Windows.Forms.TabPage();
+            this.listView = new AS3Context.Controls.ListViewXP();
             this.typeColumn = new System.Windows.Forms.ColumnHeader();
             this.pkgColumn = new System.Windows.Forms.ColumnHeader();
             this.maxColumn = new System.Windows.Forms.ColumnHeader();
             this.countColumn = new System.Windows.Forms.ColumnHeader();
             this.memColumn = new System.Windows.Forms.ColumnHeader();
             this.toolStrip.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.liveObjectsPage.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip1
-            //
+            // toolStrip
+            // 
+            this.toolStrip.CanOverflow = false;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memLabel,
             this.runButton,
             this.gcButton});
-            this.toolStrip.CanOverflow = false;
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.toolStrip.Location = new System.Drawing.Point(1, 0);
             this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.toolStrip.Size = new System.Drawing.Size(488, 25);
             this.toolStrip.TabIndex = 0;
             // 
@@ -77,28 +83,59 @@
             this.gcButton.Text = "Run Garbage Collector";
             this.gcButton.Click += new System.EventHandler(this.gcButton_Click);
             // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.liveObjectsPage);
+            this.tabControl.Controls.Add(this.objectsPage);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(1, 25);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(488, 339);
+            this.tabControl.TabIndex = 2;
+            // 
+            // liveObjectsPage
+            // 
+            this.liveObjectsPage.Controls.Add(this.listView);
+            this.liveObjectsPage.Location = new System.Drawing.Point(4, 22);
+            this.liveObjectsPage.Name = "liveObjectsPage";
+            this.liveObjectsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.liveObjectsPage.Size = new System.Drawing.Size(480, 313);
+            this.liveObjectsPage.TabIndex = 0;
+            this.liveObjectsPage.Text = "Live Objects Count";
+            this.liveObjectsPage.UseVisualStyleBackColor = true;
+            // 
+            // snapshotPage
+            // 
+            this.objectsPage.Location = new System.Drawing.Point(4, 22);
+            this.objectsPage.Name = "objectsPage";
+            this.objectsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.objectsPage.Size = new System.Drawing.Size(480, 313);
+            this.objectsPage.TabIndex = 1;
+            this.objectsPage.Text = "Objects";
+            this.objectsPage.UseVisualStyleBackColor = true;
+            // 
             // listView
             // 
+            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.typeColumn,
             this.pkgColumn,
             this.maxColumn,
             this.countColumn,
             this.memColumn});
-            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
             this.listView.HideSelection = false;
-            this.listView.Location = new System.Drawing.Point(1, 25);
+            this.listView.Location = new System.Drawing.Point(3, 3);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(488, 339);
+            this.listView.Size = new System.Drawing.Size(474, 307);
             this.listView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.listView.TabIndex = 1;
+            this.listView.TabIndex = 2;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
-            this.listView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
             // 
             // typeColumn
             // 
@@ -129,12 +166,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.listView);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.toolStrip);
             this.Name = "ProfilerUI";
             this.Size = new System.Drawing.Size(490, 364);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.tabControl.ResumeLayout(false);
+            this.liveObjectsPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,14 +182,17 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.ColumnHeader typeColumn;
-        private System.Windows.Forms.ColumnHeader countColumn;
-        private System.Windows.Forms.ColumnHeader maxColumn;
         private System.Windows.Forms.ToolStripLabel memLabel;
         private System.Windows.Forms.ToolStripButton runButton;
         private System.Windows.Forms.ToolStripButton gcButton;
-        private System.Windows.Forms.ColumnHeader memColumn;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage liveObjectsPage;
+        private System.Windows.Forms.TabPage objectsPage;
+        private ListViewXP listView;
+        private System.Windows.Forms.ColumnHeader typeColumn;
         private System.Windows.Forms.ColumnHeader pkgColumn;
+        private System.Windows.Forms.ColumnHeader maxColumn;
+        private System.Windows.Forms.ColumnHeader countColumn;
+        private System.Windows.Forms.ColumnHeader memColumn;
     }
 }

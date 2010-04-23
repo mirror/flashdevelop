@@ -60,11 +60,22 @@
     <Compile Include="Compiler\FlexShells.cs" />
     <Compile Include="Compiler\FlexDebugger.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Controls\ProfilerLiveObjectsView.cs">
+    </Compile>
+    <Compile Include="Controls\ProfilerMemView.cs" />
+    <Compile Include="Controls\ProfilerObjectsView.cs">
+    </Compile>
     <Compile Include="Controls\ProfilerUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ProfilerUI.Designer.cs">
       <DependentUpon>ProfilerUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ObjectRefsGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Win32.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MxmlComplete.cs" />
     <Compile Include="MxmlFilter.cs" />
@@ -72,6 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SwfOp, Version=1.0.0.41016, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\SwfOp.dll</HintPath>

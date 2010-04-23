@@ -80,17 +80,47 @@
 			sampler.pause();
 			
 			var res:XML = XML(status);
-			if (res.@status == "1") // invalid: stop profiling
+			var st:int = int(res.@status);
+			if (st == 1) // invalid: stop profiling
 			{
 				update.stop();
 				FlashConnect.onReturnData = null;
 				sampler.cleanup();
 			}
-			else if (res.@status == "4") // run GC
+			else if (st == 4) // run GC
 			{
 				FlashConnect.trace("[GC]");
 				FlashConnect.flush();
 				System.gc();
+			}
+			else if (st == 5) // snapshot
+			{
+				FlashConnect.trace("[Stacks] " + res.@qname);
+				getSnapshot(res.@qname);
+			}
+			
+			sampler.resume();
+		}
+		
+		private function getSnapshot(qname:String):void
+		{
+			sampler.pause();
+			
+			var out:Array = [ "stacks/" + qname ];
+			sampler.snapshotReport(qname, out);
+			
+			if (out.length > 1)
+			{
+				var msgNode:XMLNode = new XMLNode(1, null);
+				msgNode.attributes.guid = "ccf2c534-db6b-4c58-b90e-cd0b837e61c4";
+				msgNode.attributes.cmd = "notify";
+				msgNode.nodeName = "message";
+				msgNode.appendChild( new XMLNode(3, out.join("|") ));
+				
+				FlashConnect.trace(out.join("|"));
+				
+				FlashConnect.send(msgNode);
+				FlashConnect.flush();
 			}
 			
 			sampler.resume();
@@ -117,7 +147,6 @@
 				
 				FlashConnect.send(msgNode);
 				FlashConnect.flush();
-				var n:String = msgNode.toString();
 			}
 			
 			sampler.resume();

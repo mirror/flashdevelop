@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using System.Collections;
 using PluginCore;
 using System.IO;
 using PluginCore.Helpers;
-using System.Text.RegularExpressions;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 namespace AS3Context.Controls
 {
@@ -24,13 +22,13 @@ namespace AS3Context.Controls
 
         static private ProfilerUI instance;
         static private bool gcWanted;
+        static private byte[] snapshotWanted;
         private bool running;
-        private Dictionary<string, TypeItem> items;
-        private Dictionary<string, bool> finished = new Dictionary<string,bool>();
         private string current;
-        private TypeItemComparer comparer;
-        private Stack<int> memStack = new Stack<int>();
-        private int maxMemory = 0;
+        private ObjectRefsGrid objectRefsGrid;
+        private ProfilerLiveObjectsView liveObjectsView;
+        private ProfilerMemView memView;
+        private ProfilerObjectsView objectRefsView;
         private Timer detectDisconnect;
 
         public static void HandleFlashConnect(object sender, object data)
@@ -39,18 +37,23 @@ namespace AS3Context.Controls
 
             if (instance == null || data == null || !instance.running)
             {
-                client.Send(RESULT_IGNORED);
+                if (client.Connected) client.Send(RESULT_IGNORED);
                 return;
             }
 
             instance.OnProfileData((string)data);
 
-            client.Send(RESULT_OK);
+            if (client.Connected) client.Send(RESULT_OK);
 
             if (gcWanted)
             {
-                client.Send(RESULT_GC);
+                if (client.Connected) client.Send(RESULT_GC);
                 gcWanted = false;
+            }
+            if (snapshotWanted != null)
+            {
+                if (client.Connected) client.Send(snapshotWanted);
+                snapshotWanted = null;
             }
         }
 
@@ -61,7 +64,11 @@ namespace AS3Context.Controls
             instance = this;
 
             InitializeComponent();
+            objectRefsGrid = new ObjectRefsGrid();
+            objectsPage.Controls.Add(objectRefsGrid);
+
             InitializeLocalization();
+
             toolStrip.Renderer = new DockPanelStripRenderer();
             runButton.Image = PluginBase.MainForm.FindImage("127");
             gcButton.Image = PluginBase.MainForm.FindImage("90");
@@ -70,10 +77,10 @@ namespace AS3Context.Controls
             detectDisconnect.Interval = 5000;
             detectDisconnect.Tick += new EventHandler(detectDisconnect_Tick);
 
-            comparer = new TypeItemComparer();
-            comparer.SortColumn = 2;
-            comparer.Sorting = SortOrder.Descending;
-            listView.ListViewItemSorter = comparer;
+            memView = new ProfilerMemView(memLabel);
+            liveObjectsView = new ProfilerLiveObjectsView(listView);
+            listView.DoubleClick += new EventHandler(listView_DoubleClick);
+            objectRefsView = new ProfilerObjectsView(objectRefsGrid);
 
             StopProfiling();
         }
@@ -123,11 +130,16 @@ namespace AS3Context.Controls
         {
             running = true;
             current = null;
-            items = new Dictionary<string, TypeItem>();
-            memLabel.Text = String.Format(TextHelper.GetString("Label.MemoryDisplay"), 0, 0);
-            listView.Items.Clear();
+            gcWanted = false;
+            snapshotWanted = null;
+            
+            liveObjectsView.Clear();
+            memView.Clear();
+
+            tabControl.SelectedTab = liveObjectsPage;
             runButton.Image = PluginBase.MainForm.FindImage("126");
             runButton.Text = TextHelper.GetString("Label.StopProfiler");
+
             SetProfilerCfg(true);
         }
 
@@ -145,6 +157,15 @@ namespace AS3Context.Controls
             // check sampler
             int p = data.IndexOf('|');
             string[] info = data.Substring(0, p).Split('/');
+
+            // type snapshot
+            if (info[0] == "stacks") 
+            {
+                objectRefsView.Display(info[1], data.Substring(p + 1).Split('|'));
+                return true;
+            }
+
+            // live objects count
             if (current == null)
             {
                 current = info[0];
@@ -155,74 +176,26 @@ namespace AS3Context.Controls
             detectDisconnect.Stop();
             detectDisconnect.Start();
 
-            UpdateStats(info);
-            UpdateTypeGrid(data.Substring(p + 1).Split('|'));
+            memView.UpdateStats(info);
+            liveObjectsView.UpdateTypeGrid(data.Substring(p + 1).Split('|'));
             return true;
         }
 
-        /// <summary>
-        /// Live objects stats
-        /// </summary>
-        /// <param name="lines"></param>
-        private void UpdateTypeGrid(string[] lines)
-        {
-            listView.BeginUpdate();
-            foreach (TypeItem item in items.Values)
-                item.Zero();
+        #endregion
 
-            try
+        #region Display Snapshot
+
+        private void listView_DoubleClick(object sender, EventArgs e)
+        {
+            if (running && listView.SelectedItems.Count == 1)
             {
-                foreach (string line in lines)
+                TypeItem item = listView.SelectedItems[0].Tag as TypeItem;
+                if (item != null)
                 {
-                    string[] parts = line.Split('/');
-                    TypeItem item;
-                    if (parts.Length == 4)
-                    {
-                        item = new TypeItem(parts[3]);
-                        items[parts[0]] = item;
-                        listView.Items.Add(item.ListItem);
-                    }
-                    else if (!items.ContainsKey(parts[0])) continue;
-                    else item = items[parts[0]];
-                    item.Update(parts[1], parts[2]);
+                    snapshotWanted = Encoding.Default.GetBytes("<flashconnect status=\"5\" qname=\"" + item.QName.Replace("<", "&#60;") + "\"/>\0");
+                    tabControl.SelectedTab = objectsPage;
                 }
-                listView.Sort();
             }
-            finally
-            {
-                listView.EndUpdate();
-            }
-        }
-
-        /// <summary>
-        /// Memory stats display
-        /// </summary>
-        /// <param name="info"></param>
-        private void UpdateStats(string[] info)
-        {
-            int mem = 0;
-            int.TryParse(info[1], out mem);
-            memStack.Push(mem);
-            if (mem > maxMemory) maxMemory = mem;
-            string raw = TextHelper.GetString("Label.MemoryDisplay");
-            memLabel.Text = String.Format(raw, FormatMemory(mem), FormatMemory(maxMemory));
-        }
-
-        private string FormatMemory(int mem)
-        {
-            double m = mem / 1024.0;
-            return (Math.Round(m * 10.0) / 10.0).ToString();
-        }
-
-        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            if (e.Column == comparer.SortColumn)
-            {
-                if (comparer.Sorting == SortOrder.Ascending) comparer.Sorting = SortOrder.Descending;
-                else comparer.Sorting = SortOrder.Ascending;
-            }
-            else comparer.SortColumn = e.Column;
-            listView.Sort();
         }
 
         #endregion
@@ -241,7 +214,7 @@ namespace AS3Context.Controls
             {
                 string profilerSWF = CheckResource("Profiler.swf");
                 ASCompletion.Commands.CreateTrustFile.Run("FDProfiler", profilerSWF);
-                src += "\r\nPreloadSwf=" + profilerSWF + "\r\n";
+                src += "\r\nPreloadSwf=" + profilerSWF + "?port=\r\n";
             }
             try
             {
@@ -290,92 +263,6 @@ TraceOutputFileEnable=1");
         #endregion
     }
 
-    #region Model
-
-    class TypeItemComparer : IComparer
-    {
-        public int SortColumn = 0;
-        public SortOrder Sorting;
-
-        int IComparer.Compare(object x, object y)
-        {
-            TypeItem a = (TypeItem)((ListViewItem)x).Tag;
-            TypeItem b = (TypeItem)((ListViewItem)y).Tag;
-
-            int comp;
-            switch (SortColumn)
-            {
-                case TypeItem.COL_PKG: comp = a.Package.CompareTo(b.Package); break;
-                case TypeItem.COL_MAX: comp = a.Maximum.CompareTo(b.Maximum); break;
-                case TypeItem.COL_COUNT: comp = a.Count.CompareTo(b.Count); break;
-                case TypeItem.COL_MEM: comp = a.Memory.CompareTo(b.Memory); break;
-                default: comp = a.Name.CompareTo(b.Name); break;
-            }
-
-            return Sorting == SortOrder.Ascending ? comp : -comp;
-        }
-    }
-
-
-    class TypeItem
-    {
-        public const int COL_PKG = 1;
-        public const int COL_MAX = 2;
-        public const int COL_COUNT = 3;
-        public const int COL_MEM = 4;
-
-        public string Name;
-        public string Package = "";
-        public int Count;
-        public int Maximum;
-        public int Memory;
-        public ListViewItem ListItem;
-        public bool zero;
-
-        public TypeItem(string fullName)
-        {
-            int p = fullName.IndexOf(':');
-            if (p >= 0)
-            {
-                Name = fullName.Substring(p + 2);
-                Package = fullName.Substring(0, p);
-            }
-            else Name = fullName;
-            ListItem = new ListViewItem(Name);
-            ListItem.Tag = this;
-            ListItem.SubItems.Add(new ListViewItem.ListViewSubItem(ListItem, Package));
-            ListItem.SubItems.Add(new ListViewItem.ListViewSubItem(ListItem, "0"));
-            ListItem.SubItems.Add(new ListViewItem.ListViewSubItem(ListItem, "0"));
-            ListItem.SubItems.Add(new ListViewItem.ListViewSubItem(ListItem, "0"));
-        }
-
-        public void Update(string cpt, string mem)
-        {
-            zero = false;
-
-            ListItem.SubItems[COL_COUNT].Text = cpt;
-            int.TryParse(cpt, out Count);
-
-            if (Maximum < Count)
-            {
-                Maximum = Count;
-                ListItem.SubItems[COL_MAX].Text = cpt;
-            }
-
-            int.TryParse(mem, out Memory);
-            ListItem.SubItems[COL_MEM].Text = mem;
-        }
-
-        public void Zero()
-        {
-            if (zero) return;
-            zero = true;
-            ListItem.SubItems[COL_COUNT].Text = "0";
-            ListItem.SubItems[COL_MEM].Text = "0";
-        }
-    }
-
-    #endregion
-
     
+
 }

@@ -1,19 +1,13 @@
 package org.flashdevelop.profiler 
 {
-	import flash.display.Sprite;
 	import flash.sampler.clearSamples;
-	import flash.sampler.DeleteObjectSample;
-	import flash.sampler.getSampleCount;
 	import flash.sampler.getSamples;
-	import flash.sampler.getSize;
 	import flash.sampler.NewObjectSample;
 	import flash.sampler.pauseSampling;
 	import flash.sampler.startSampling;
-	import flash.system.System;
-	import flash.text.TextField;
-	import flash.utils.describeType;
-	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	import org.flashdevelop.utils.FlashConnect;
 	
 	/**
 	 * ...
@@ -22,6 +16,7 @@ package org.flashdevelop.profiler
 	public class SampleRunner
 	{
 		private var refCache:Object = { };
+		private var typeMap:Object = { };
 		private var running:Boolean;
 		private var ignoreTc:TypeContext = new TypeContext(null);
 		
@@ -38,6 +33,7 @@ package org.flashdevelop.profiler
 		{
 			pause();
 			refCache = null;
+			typeMap = null;
 		}
 		
 		public function pause():void
@@ -60,9 +56,9 @@ package org.flashdevelop.profiler
 			{
 				var count:int = 0;
 				var mem:int = 0;
-				for each(var s:int in tc.obj) 
+				for each(var info:SampleInfo in tc.obj) 
 				{
-					mem += s;
+					mem += info.size;
 					count++;
 				}
 				
@@ -76,6 +72,24 @@ package org.flashdevelop.profiler
 					out.push(tc.index + "/" + count + "/" + mem);
 				}
 			}
+		}
+		
+		public function snapshotReport(qname:String, out:Array):void
+		{
+			var tc:TypeContext = typeMap[qname];
+			if (!tc) 
+			{
+				FlashConnect.trace(qname + " has no instance");
+				return;
+			}
+			
+			var cpt:int = 0;
+			for each(var info:SampleInfo in tc.obj)
+			{
+				cpt++;
+				out.push(info.sample.stack.join(","));
+			}
+			FlashConnect.trace(cpt + " samples");
 		}
 		
 		public function liveObjectsCount():void
@@ -95,9 +109,13 @@ package org.flashdevelop.profiler
 					
 					id = nos.id;
 					tc = refCache[nos.type];
-					if (!tc) refCache[nos.type] = tc = new TypeContext(getQualifiedClassName(nos.type));
+					if (!tc) 
+					{
+						refCache[nos.type] = tc = new TypeContext(getQualifiedClassName(nos.type));
+						typeMap[tc.name] = tc;
+					}
 					else if (tc == ignoreTc) continue;
-					tc.obj[nos.object] = getSize(nos.object);
+					tc.obj[nos.object] = new SampleInfo(nos);
 				}
 			}
 			
@@ -108,8 +126,8 @@ package org.flashdevelop.profiler
 
 }
 
-
-
+import flash.sampler.getSize;
+import flash.sampler.NewObjectSample;
 import flash.utils.Dictionary;
 
 class TypeContext
@@ -126,3 +144,16 @@ class TypeContext
 		name = qname;
 	}
 }
+
+class SampleInfo
+{
+	public var size:int;
+	public var sample:NewObjectSample;
+	
+	public function SampleInfo(nos:NewObjectSample)
+	{
+		size = getSize(nos.object);
+		sample = nos;
+	}
+}
+
