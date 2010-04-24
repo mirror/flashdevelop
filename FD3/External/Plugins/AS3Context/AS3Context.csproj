@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0263E5F6-D5B2-4118-B12E-87F9A74DE8AF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -83,7 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
+    <Reference Include="Aga, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\FlashDevelop\Bin\Debug\Aga.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SwfOp, Version=1.0.0.41016, Culture=neutral, processorArchitecture=x86">
