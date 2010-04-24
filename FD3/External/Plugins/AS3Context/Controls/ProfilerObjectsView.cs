@@ -64,7 +64,7 @@ namespace AS3Context.Controls
                 ObjectRefsNode node = objectsGrid.SelectedNode.Tag as ObjectRefsNode;
                 if (node != null && node.Line.Length > 0)
                 {
-                    fileToOpen = node.Path.Replace(';', '\\');
+                    fileToOpen = node.Path.Replace(';', System.IO.Path.DirectorySeparatorChar);
                     lineToOpen = int.Parse(node.Line) - 1;
                     delayOpen.Start();
                 }

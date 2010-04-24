@@ -56,7 +56,9 @@ namespace AS3Context.Controls
         {
             this.method = method;
             this.path = file;
-            this.file = file.Substring(file.LastIndexOf(';') + 1);
+            int p = file.LastIndexOf(';');
+            if (p < 0) p = file.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
+            this.file = file.Substring(p + 1);
             this.line = line;
         }
 
