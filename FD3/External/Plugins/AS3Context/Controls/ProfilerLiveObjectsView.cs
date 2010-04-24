@@ -6,15 +6,21 @@ using System.Collections;
 
 namespace AS3Context.Controls
 {
+    delegate void ViewObjectEvent(TypeItem item);
+
     class ProfilerLiveObjectsView
     {
+        public event ViewObjectEvent OnViewObject;
+
         ListViewXP listView;
         private Dictionary<string, TypeItem> items;
         private Dictionary<string, bool> finished = new Dictionary<string, bool>();
         private TypeItemComparer comparer;
+        private ToolStripMenuItem viewObjectsItem;
 
         public ProfilerLiveObjectsView(ListViewXP view)
         {
+            // config
             listView = view;
 
             comparer = new TypeItemComparer();
@@ -22,6 +28,24 @@ namespace AS3Context.Controls
             comparer.Sorting = SortOrder.Descending;
 
             listView.ListViewItemSorter = comparer;
+
+            // action
+            viewObjectsItem = new ToolStripMenuItem(PluginCore.Localization.TextHelper.GetString("Label.ViewObjectsItem"));
+            viewObjectsItem.Click += new EventHandler(onViewObjects);
+
+            listView.ContextMenuStrip = new ContextMenuStrip();
+            listView.ContextMenuStrip.Items.Add(viewObjectsItem);
+
+            listView.DoubleClick += new EventHandler(onViewObjects);
+        }
+
+        private void onViewObjects(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count == 1)
+            {
+                if (OnViewObject != null)
+                    OnViewObject(listView.SelectedItems[0].Tag as TypeItem);
+            }
         }
 
         public void Clear()

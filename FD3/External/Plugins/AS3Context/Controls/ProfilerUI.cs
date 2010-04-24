@@ -79,10 +79,17 @@ namespace AS3Context.Controls
 
             memView = new ProfilerMemView(memLabel);
             liveObjectsView = new ProfilerLiveObjectsView(listView);
-            listView.DoubleClick += new EventHandler(listView_DoubleClick);
+            liveObjectsView.OnViewObject += new ViewObjectEvent(liveObjectsView_OnViewObject);
             objectRefsView = new ProfilerObjectsView(objectRefsGrid);
 
             StopProfiling();
+        }
+
+        void liveObjectsView_OnViewObject(TypeItem item)
+        {
+            snapshotWanted = Encoding.Default.GetBytes("<flashconnect status=\"5\" qname=\"" + item.QName.Replace("<", "&#60;") + "\"/>\0");
+            objectRefsView.Clear();
+            tabControl.SelectedTab = objectsPage;
         }
 
         private void InitializeLocalization()
@@ -95,6 +102,8 @@ namespace AS3Context.Controls
             this.memColumn.Text = TextHelper.GetString("Column.Memory");
             this.pkgColumn.Text = TextHelper.GetString("Column.Package");
             this.maxColumn.Text = TextHelper.GetString("Column.Maximum");
+            this.liveObjectsPage.Text = TextHelper.GetString("Label.LiveObjectsTab");
+            this.objectsPage.Text = TextHelper.GetString("Label.ObjectsTab");
         }
 
         void detectDisconnect_Tick(object sender, EventArgs e)
@@ -179,23 +188,6 @@ namespace AS3Context.Controls
             memView.UpdateStats(info);
             liveObjectsView.UpdateTypeGrid(data.Substring(p + 1).Split('|'));
             return true;
-        }
-
-        #endregion
-
-        #region Display Snapshot
-
-        private void listView_DoubleClick(object sender, EventArgs e)
-        {
-            if (running && listView.SelectedItems.Count == 1)
-            {
-                TypeItem item = listView.SelectedItems[0].Tag as TypeItem;
-                if (item != null)
-                {
-                    snapshotWanted = Encoding.Default.GetBytes("<flashconnect status=\"5\" qname=\"" + item.QName.Replace("<", "&#60;") + "\"/>\0");
-                    tabControl.SelectedTab = objectsPage;
-                }
-            }
         }
 
         #endregion

@@ -3251,4 +3251,32 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Profiler</value>
     <comment>Added after 3.1.0</comment>
   </data>
+  <data name="AS3Context.Columns.File" xml:space="preserve">
+    <value>File</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Columns.Line" xml:space="preserve">
+    <value>Line</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Columns.Method" xml:space="preserve">
+    <value>Method</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Label.LiveObjectsTab" xml:space="preserve">
+    <value>Live Objects Count</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Label.ObjectsTab" xml:space="preserve">
+    <value>Objects</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Label.OpenMethodFile" xml:space="preserve">
+    <value>Open</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Label.ViewObjectsItem" xml:space="preserve">
+    <value>View Objects</value>
+    <comment>Added after 3.1</comment>
+  </data>
 </root>

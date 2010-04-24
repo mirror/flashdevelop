@@ -22,9 +22,9 @@ namespace AS3Context.Controls
 
             UseColumns = true;
 
-            Columns.Add(new TreeColumn("Method", 300));
-            Columns.Add(new TreeColumn("File", 200));
-            Columns.Add(new TreeColumn("Line", 50));
+            Columns.Add(new TreeColumn(PluginCore.Localization.TextHelper.GetString("Columns.Method"), 350));
+            Columns.Add(new TreeColumn(PluginCore.Localization.TextHelper.GetString("Columns.File"), 200));
+            Columns.Add(new TreeColumn(PluginCore.Localization.TextHelper.GetString("Columns.Line"), 50));
 
             methodTB = new NodeTextBox();
             methodTB.DataPropertyName = "Method";
