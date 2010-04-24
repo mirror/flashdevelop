@@ -3210,7 +3210,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Maximum" xml:space="preserve">
-    <value>最大</value>
+    <value>最大数</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Memory" xml:space="preserve">
@@ -3250,31 +3250,31 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.File" xml:space="preserve">
-    <value>File</value>
+    <value>ファイル</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Columns.Line" xml:space="preserve">
-    <value>Line</value>
+    <value>行</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Columns.Method" xml:space="preserve">
-    <value>Method</value>
+    <value>関数</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.LiveObjectsTab" xml:space="preserve">
-    <value>Live Objects Count</value>
+    <value>ライブオブジェクト</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.ObjectsTab" xml:space="preserve">
-    <value>Objects</value>
+    <value>オブジェクト</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.OpenMethodFile" xml:space="preserve">
-    <value>Open</value>
+    <value>開く</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.ViewObjectsItem" xml:space="preserve">
-    <value>View Objects</value>
+    <value>オブジェクトを監視</value>
     <comment>Added after 3.1</comment>
   </data>
 </root>
