@@ -3206,47 +3206,47 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>異なるパッケージのあいだに改行を挿入します。</value>
   </data>
   <data name="AS3Context.Column.Count" xml:space="preserve">
-    <value>Count</value>
+    <value>カウント</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Maximum" xml:space="preserve">
-    <value>Maximum</value>
+    <value>最大</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Memory" xml:space="preserve">
-    <value>Memory</value>
+    <value>メモリー</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Package" xml:space="preserve">
-    <value>Package</value>
+    <value>パッケージ</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Type" xml:space="preserve">
-    <value>Type</value>
+    <value>クラス</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryDisplay" xml:space="preserve">
-    <value>Memory: {0} Kb / {1} Kb</value>
+    <value>メモリー: {0} Kb / {1} Kb</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.RunGC" xml:space="preserve">
-    <value>Run Garbage Collector</value>
+    <value>ガーベジコレクションの実行</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StartProfiler" xml:space="preserve">
-    <value>Start Profiler</value>
+    <value>プロファイラを開始</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StopProfiler" xml:space="preserve">
-    <value>Stop Profiler</value>
+    <value>プロファイラを停止</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ViewMenuItem" xml:space="preserve">
-    <value>Profil&amp;er</value>
+    <value>プロファイラ(&amp;I)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Title.Profiler" xml:space="preserve">
-    <value>Profiler</value>
+    <value>プロファイラ</value>
     <comment>Added after 3.1.0</comment>
   </data>
 </root>
