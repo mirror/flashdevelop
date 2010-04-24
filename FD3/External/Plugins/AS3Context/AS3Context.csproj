@@ -115,6 +115,10 @@
       <Name>ASCompletion</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\FlashConnect\FlashConnect.csproj">
+      <Project>{D6AAF434-F4DF-4376-863D-109A8762CECA}</Project>
+      <Name>FlashConnect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectManager\ProjectManager.csproj">
       <Project>{78101C01-E186-4954-B1DD-DEBB7905FAD8}</Project>
       <Name>ProjectManager</Name>

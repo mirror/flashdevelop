@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Aga.Controls.Tree;
 using Aga.Controls.Tree.NodeControls;
+using PluginCore;
 
 namespace AS3Context.Controls
 {
@@ -17,6 +18,7 @@ namespace AS3Context.Controls
             BorderStyle = System.Windows.Forms.BorderStyle.None;
             Dock = System.Windows.Forms.DockStyle.Fill;
             GridLineStyle = GridLineStyle.HorizontalAndVertical;
+            Font = PluginBase.Settings.DefaultFont;
 
             UseColumns = true;
 
@@ -27,12 +29,15 @@ namespace AS3Context.Controls
             methodTB = new NodeTextBox();
             methodTB.DataPropertyName = "Method";
             methodTB.ParentColumn = Columns[0];
+            methodTB.Font = PluginBase.Settings.DefaultFont;
             fileTB = new NodeTextBox();
             fileTB.DataPropertyName = "File";
             fileTB.ParentColumn = Columns[1];
+            fileTB.Font = PluginBase.Settings.DefaultFont;
             lineTB = new NodeTextBox();
             lineTB.DataPropertyName = "Line";
             lineTB.ParentColumn = Columns[2];
+            lineTB.Font = PluginBase.Settings.DefaultFont;
 
             NodeControls.Add(methodTB);
             NodeControls.Add(fileTB);

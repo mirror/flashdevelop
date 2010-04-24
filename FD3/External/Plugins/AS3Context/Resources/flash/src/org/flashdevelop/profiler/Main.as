@@ -32,10 +32,18 @@
 		{
 			addEventListener("allComplete", loadComplete);
 			
+			if (hasParam("host")) FlashConnect.host = loaderInfo.parameters.host;
+			if (hasParam("port")) FlashConnect.port = int(loaderInfo.parameters.port);
+			
 			if (FlashConnect.initialize()) ++ready;
 			else FlashConnect.onConnection = onConnection;
 			
 			sampler = new SampleRunner();
+		}
+		
+		private function hasParam(name:String):Boolean
+		{
+			return (name in loaderInfo.parameters) && loaderInfo.parameters[name].length > 0;
 		}
 		
 		private function onConnection():void
@@ -116,8 +124,6 @@
 				msgNode.attributes.cmd = "notify";
 				msgNode.nodeName = "message";
 				msgNode.appendChild( new XMLNode(3, out.join("|") ));
-				
-				FlashConnect.trace(out.join("|"));
 				
 				FlashConnect.send(msgNode);
 				FlashConnect.flush();

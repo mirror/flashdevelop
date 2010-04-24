@@ -89,7 +89,6 @@ package org.flashdevelop.profiler
 				cpt++;
 				out.push(info.sample.stack.join(","));
 			}
-			FlashConnect.trace(cpt + " samples");
 		}
 		
 		public function liveObjectsCount():void

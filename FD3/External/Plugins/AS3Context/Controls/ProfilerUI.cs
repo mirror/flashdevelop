@@ -212,9 +212,14 @@ namespace AS3Context.Controls
             src = Regex.Replace(src, "PreloadSwf=.*", "").Trim();
             if (active)
             {
-                string profilerSWF = CheckResource("Profiler.swf");
+                // write profiler
+                string profilerSWF = CheckResource("Profiler2.swf", "Profiler.swf");
+                // local security
                 ASCompletion.Commands.CreateTrustFile.Run("FDProfiler", profilerSWF);
-                src += "\r\nPreloadSwf=" + profilerSWF + "?port=\r\n";
+                // honor FlashConnect settings
+                FlashConnect.Settings settings = GetFlashConnectSettings();
+                // mm.cfg profiler config
+                src += "\r\nPreloadSwf=" + profilerSWF + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
             }
             try
             {
@@ -226,13 +231,19 @@ namespace AS3Context.Controls
             }
         }
 
-        static private string CheckResource(string fileName)
+        private FlashConnect.Settings GetFlashConnectSettings()
+        {
+            IPlugin flashConnect = PluginBase.MainForm.FindPlugin("425ae753-fdc2-4fdf-8277-c47c39c2e26b");
+            return flashConnect != null ? (FlashConnect.Settings)flashConnect.Settings : new FlashConnect.Settings();
+        }
+
+        static private string CheckResource(string fileName, string resName)
         {
             string path = Path.Combine(PathHelper.DataDir, "AS3Context");
             string fullPath = Path.Combine(path, fileName);
             if (!File.Exists(fullPath))
             {
-                string id = "AS3Context.Resources." + fileName;
+                string id = "AS3Context.Resources." + resName;
                 System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
                 using (BinaryReader br = new BinaryReader(assembly.GetManifestResourceStream(id)))
                 {
