@@ -48,18 +48,20 @@ namespace AS3Context.Compiler
 		
         static private string ascPath;
         static private string mxmlcPath;
-		static private string flexShellsJar = "FlexShells.jar";
+		static private string flexShellsJar = "Flex4Shells.jar";
 		static private string flexShellsPath;
         static private bool running;
         static private bool silentChecking;
+        static private string checkedSDK;
+        static private bool isFlex4SDK;
 		
-		static private string CheckResource(string fileName)
+		static private string CheckResource(string resName, string fileName)
 		{
             string path = Path.Combine(PathHelper.DataDir, "AS3Context");
             string fullPath = Path.Combine(path, fileName);
             if (!File.Exists(fullPath))
 			{
-                string id = "AS3Context.Resources." + fileName;
+                string id = "AS3Context.Resources." + resName;
 				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
                 using (BinaryReader br = new BinaryReader(assembly.GetManifestResourceStream(id)))
                 {
@@ -139,7 +141,7 @@ namespace AS3Context.Compiler
                 return;
             }
 
-            flexShellsPath = CheckResource(flexShellsJar);
+            flexShellsPath = CheckResource("FlexShells.jar", flexShellsJar);
             if (!File.Exists(flexShellsPath))
             {
                 if (src != null) return; // silent checking
@@ -203,7 +205,7 @@ namespace AS3Context.Compiler
 				return;
 			}
 
-            flexShellsPath = CheckResource(flexShellsJar);
+            flexShellsPath = CheckResource("FlexShells.jar", flexShellsJar);
             if (!File.Exists(flexShellsPath))
             {
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.ResourceError"));
@@ -329,6 +331,10 @@ namespace AS3Context.Compiler
             }
             else if (requireTag) return;
 
+            // Flex4 static linking
+            if (isFlex4SDK && cmd.IndexOf("-static-link-runtime-shared-libraries") < 0)
+                cmd += ";-static-link-runtime-shared-libraries=true";
+
             // add current class sourcepath and global classpaths
             cmd += ";-sp+=" + theFile.BasePath;
             if (Context.Context.Settings.UserClasspath != null)
@@ -361,6 +367,20 @@ namespace AS3Context.Compiler
             string ascJar = Path.Combine(configPath, "ActionScript 3.0\\asc_authoring.jar");
             if (File.Exists(ascJar)) return ascJar;
             else return null;
+        }
+
+        private void CheckIsFlex4SDK(string flexPath)
+        {
+            if (checkedSDK == flexPath) return;
+            checkedSDK = flexPath;
+
+            string flexDesc = Path.Combine(flexPath, "flex-sdk-description.xml");
+            if (File.Exists(flexDesc))
+            {
+                string src = File.ReadAllText(flexDesc);
+                isFlex4SDK = src.IndexOf("<version>4") > 0;
+            }
+            else isFlex4SDK = false;
         }
 
         #region Background process
@@ -398,14 +418,17 @@ namespace AS3Context.Compiler
 		/// <summary>
 		/// Start background process
 		/// </summary>
-		private void StartMxmlcRunner(string flex2Path)
+		private void StartMxmlcRunner(string flexPath)
 		{
+            CheckIsFlex4SDK(flexPath);
+            string shell = isFlex4SDK ? "Mxmlc4Shell" : "MxmlcShell";
+
             string cmd = jvmConfig["java.args"] 
-                + " -classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" MxmlcShell";
+                + " -classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" " + shell;
             TraceManager.Add(TextHelper.GetString("Info.StartMxmlcRunner") + " java " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();
-            mxmlcRunner.WorkingDirectory = Path.Combine(flex2Path, "frameworks");
+            mxmlcRunner.WorkingDirectory = Path.Combine(flexPath, "frameworks");
             mxmlcRunner.RedirectInput = true;
             mxmlcRunner.Run(JvmConfigHelper.GetJavaEXE(jvmConfig), cmd, true);
             mxmlcRunner.Output += mxmlcRunner_Output;
@@ -413,6 +436,7 @@ namespace AS3Context.Compiler
             errorState = 0;
             Thread.Sleep(100);
         }
+
         #endregion
 
         #region process output capture
