@@ -59,9 +59,10 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
+    <Reference Include="Aga, Version=1.7.0.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Aga.Controls.dll</HintPath>
+      <HintPath>..\..\..\FlashDevelop\Bin\Debug\Aga.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AS3Context, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -72,6 +73,7 @@
     <Reference Include="PluginCore, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\FlashDevelop\Bin\Debug\PluginCore.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ProjectManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -91,7 +93,7 @@
     </Compile>
     <Compile Include="Controls\LiveDataTip.cs" />
     <Compile Include="Debugger\BreakPointManager.cs" />
-    <Compile Include="Localization\BreakPointUI.cs">
+    <Compile Include="Controls\BreakPointUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\DataNode.cs" />
@@ -135,10 +137,10 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="StackframeUI.cs">
+    <Compile Include="Controls\StackframeUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Util.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -147,13 +149,11 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlexDbg\Strings.resx">
+    <EmbeddedResource Include="Resources\Strings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="doc\LICENSE.txt" />
-    <Content Include="doc\readme.txt" />
     <Content Include="Icons\Continue.png" />
     <Content Include="Icons\Current.png" />
     <Content Include="Icons\Finish.png" />

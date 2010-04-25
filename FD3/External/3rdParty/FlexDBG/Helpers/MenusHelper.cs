@@ -120,6 +120,7 @@ namespace FlexDbg
 
 			m_ToolStripButtons = new ToolStripItem[] { StartContinueButton, PauseButton, StopButton, new ToolStripSeparator(), CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton };
 			m_DebuggerToolStrip = new ToolStrip(m_ToolStripButtons);
+            m_DebuggerToolStrip.Renderer = new DockPanelStripRenderer(false);
 
 			PluginBase.MainForm.ToolStrip.Stretch = false;
 
