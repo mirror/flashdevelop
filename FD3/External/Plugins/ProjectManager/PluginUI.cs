@@ -217,7 +217,8 @@ namespace ProjectManager
         {
             if (e.Label != null && Rename != null && e.Label.Length > 0)
             {
-                Rename((e.Node as GenericNode).BackingPath, e.Label);
+                if (!Rename((e.Node as GenericNode).BackingPath, e.Label))
+                    e.CancelEdit = true;
             }
             else e.CancelEdit = true;
             isEditingLabel = false;
@@ -275,6 +276,6 @@ namespace ProjectManager
     /// <summary>
     ///  Event delegates of the class
     /// </summary>
-    public delegate void RenameEventHandler(String path, String newName);
+    public delegate bool RenameEventHandler(String path, String newName);
 
 }

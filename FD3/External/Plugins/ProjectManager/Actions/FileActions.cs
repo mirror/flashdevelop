@@ -355,7 +355,7 @@ namespace ProjectManager.Actions
             }
         }
 
-        public void Rename(string oldPath, string newName)
+        public bool Rename(string oldPath, string newName)
         {
             try
             {
@@ -397,8 +397,10 @@ namespace ProjectManager.Actions
             catch (Exception exception)
             {
                 ErrorManager.ShowError(exception);
+                return false;
             }
             finally { PopCurrentDirectory(); }
+            return true;
         }
 
         public void Move(string fromPath, string toPath)
