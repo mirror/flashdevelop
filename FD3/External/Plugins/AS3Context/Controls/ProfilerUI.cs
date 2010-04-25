@@ -207,7 +207,7 @@ namespace AS3Context.Controls
                 // write profiler
                 string profilerSWF = CheckResource("Profiler2.swf", "Profiler.swf");
                 // local security
-                ASCompletion.Commands.CreateTrustFile.Run("FDProfiler", profilerSWF);
+                ASCompletion.Commands.CreateTrustFile.Run("FDProfiler", Path.GetDirectoryName(profilerSWF));
                 // honor FlashConnect settings
                 FlashConnect.Settings settings = GetFlashConnectSettings();
                 // mm.cfg profiler config
