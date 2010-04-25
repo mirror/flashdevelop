@@ -561,6 +561,8 @@ namespace ResultsPanel
 				ITabbedDocument[] documents = PluginBase.MainForm.Documents;
                 foreach (ITabbedDocument document in documents)
 				{
+                    if (!document.IsEditable) 
+                        continue;
 					ScintillaControl sci = document.SciControl;
                     Language language = PluginBase.MainForm.SciConfig.GetLanguage(sci.ConfigurationLanguage);
                     Int32 indic = (item.ImageIndex == 0) ? (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox : (Int32)ScintillaNet.Enums.IndicatorStyle.Squiggle;
