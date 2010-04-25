@@ -15,7 +15,7 @@ namespace AS3Context.Controls
 
         public ObjectRefsGrid()
         {
-            BorderStyle = System.Windows.Forms.BorderStyle.None;
+            BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             Dock = System.Windows.Forms.DockStyle.Fill;
             GridLineStyle = GridLineStyle.HorizontalAndVertical;
             Font = PluginBase.Settings.DefaultFont;

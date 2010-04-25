@@ -84,14 +84,14 @@
             this.gcButton.Click += new System.EventHandler(this.gcButton_Click);
             // 
             // tabControl
-            // 
+            //
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.liveObjectsPage);
             this.tabControl.Controls.Add(this.objectsPage);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(1, 25);
+            this.tabControl.Location = new System.Drawing.Point(4, 25);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(488, 339);
+            this.tabControl.Size = new System.Drawing.Size(483, 361);
             this.tabControl.TabIndex = 2;
             // 
             // liveObjectsPage
@@ -99,7 +99,7 @@
             this.liveObjectsPage.Controls.Add(this.listView);
             this.liveObjectsPage.Location = new System.Drawing.Point(4, 22);
             this.liveObjectsPage.Name = "liveObjectsPage";
-            this.liveObjectsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.liveObjectsPage.Padding = new System.Windows.Forms.Padding(2, 3, 3, 2);
             this.liveObjectsPage.Size = new System.Drawing.Size(480, 313);
             this.liveObjectsPage.TabIndex = 0;
             this.liveObjectsPage.Text = "Live Objects Count";
@@ -109,15 +109,15 @@
             // 
             this.objectsPage.Location = new System.Drawing.Point(4, 22);
             this.objectsPage.Name = "objectsPage";
-            this.objectsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.objectsPage.Padding = new System.Windows.Forms.Padding(2, 3, 3, 2);
             this.objectsPage.Size = new System.Drawing.Size(480, 313);
             this.objectsPage.TabIndex = 1;
             this.objectsPage.Text = "Objects";
             this.objectsPage.UseVisualStyleBackColor = true;
             // 
             // listView
-            // 
-            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            //
+            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.typeColumn,
             this.pkgColumn,
@@ -181,6 +181,7 @@
 
         #endregion
 
+        private ListViewXP listView;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripLabel memLabel;
         private System.Windows.Forms.ToolStripButton runButton;
@@ -188,11 +189,12 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage liveObjectsPage;
         private System.Windows.Forms.TabPage objectsPage;
-        private ListViewXP listView;
         private System.Windows.Forms.ColumnHeader typeColumn;
         private System.Windows.Forms.ColumnHeader pkgColumn;
         private System.Windows.Forms.ColumnHeader maxColumn;
         private System.Windows.Forms.ColumnHeader countColumn;
         private System.Windows.Forms.ColumnHeader memColumn;
+
     }
+
 }
