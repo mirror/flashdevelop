@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.container = new System.Windows.Forms.Panel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.memLabel = new System.Windows.Forms.ToolStripLabel();
             this.runButton = new System.Windows.Forms.ToolStripButton();
@@ -82,10 +83,16 @@
             this.gcButton.Size = new System.Drawing.Size(23, 22);
             this.gcButton.Text = "Run Garbage Collector";
             this.gcButton.Click += new System.EventHandler(this.gcButton_Click);
+            //
+            // container
+            //
+            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.container.Padding = new System.Windows.Forms.Padding(3, 3, 2, 2);
+            this.container.Controls.Add(this.tabControl);
             // 
             // tabControl
             //
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Controls.Add(this.liveObjectsPage);
             this.tabControl.Controls.Add(this.objectsPage);
             this.tabControl.Location = new System.Drawing.Point(4, 25);
@@ -166,7 +173,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.container);
             this.Controls.Add(this.toolStrip);
             this.Name = "ProfilerUI";
             this.Size = new System.Drawing.Size(490, 364);
@@ -182,6 +189,7 @@
         #endregion
 
         private ListViewXP listView;
+        private System.Windows.Forms.Panel container;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripLabel memLabel;
         private System.Windows.Forms.ToolStripButton runButton;
