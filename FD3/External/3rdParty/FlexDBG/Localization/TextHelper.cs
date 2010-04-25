@@ -32,30 +32,25 @@ namespace FlexDbg.Localization
         /// </summary>
         public static String GetString(String key)
 		{
-			Assembly assembly = Assembly.GetCallingAssembly();
-			String name = assembly.GetName().Name;
-			String result = null;
-
-			if (m_ResourceManager == null)
-			{
-				m_ResourceManager = new ResourceManager(name + "." + name + ".Strings", assembly);
-			}
-
-			try
-			{
-				result = m_ResourceManager.GetString(key);
-			}
-			catch (MissingManifestResourceException)
-			{
-			}
-
-			if (result == null)
+            String result = null;
+            Assembly assembly = Assembly.GetCallingAssembly();
+            if (m_ResourceManager == null)
+            {
+                m_ResourceManager = new ResourceManager("FlexDbg.Resources.Strings", assembly);
+            }
+            try
+            {
+                result = m_ResourceManager.GetString(key);
+            }
+            catch (MissingManifestResourceException) { }
+            if (result == null)
             {
                 TraceManager.AddAsync("No localized string found: " + key);
                 result = "[" + key + "]";
             }
-
             return result;
 		}
+
     }
+
 }
