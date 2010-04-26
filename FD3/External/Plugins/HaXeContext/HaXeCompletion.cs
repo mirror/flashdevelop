@@ -128,7 +128,7 @@ namespace HaXeContext
             string hxml = target + " " + classToCheck + cp + libs + addi + directives;
 
             // Build haXe built-in completion command
-            string args = hxml + " --display \"" + file + "\"@" + pos.ToString();
+            string args = "--display \"" + file + "\"@" + pos.ToString() + " " + hxml;
 
             // compiler path
             string haxePath = Environment.GetEnvironmentVariable("HAXEPATH");
