@@ -1239,7 +1239,7 @@ namespace ASCompletion.Model
                 if (dotIndex > 0) token = token.Substring(dotIndex + 1);
 
 				// members
-				if (token == "var" || token == "catch" || (haXe && token=="for") )
+				if (token == "var" || (token == "catch" && !haXe))
 				{
 					foundKeyword = FlagType.Variable;
 				}
@@ -1477,7 +1477,7 @@ namespace ASCompletion.Model
             else
             {
                 // when not in a class, parse if/for/while blocks
-                if (version < 2 &&
+                if ((haXe || version < 2) &&
                     (token == "if" || token == "else" || token == "for" || token == "while" || token == "do"
                      || token == "switch" || token == "with" || token == "case"
                      || token == "try" || token == "catch" || token == "finally"))
