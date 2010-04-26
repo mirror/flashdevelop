@@ -197,7 +197,7 @@ namespace FlexDbg
                 {
                     m_CurrentState = DebuggerState.Stopped;
 
-                    throw new Exception("Unable to start Flex SDK interactive debugger.");
+                    throw new Exception(TextHelper.GetString("Info.UnableToStartDebugger"));
                 }
 
                 initSession();
@@ -232,7 +232,7 @@ namespace FlexDbg
                 {
                     if (m_Session.getPreference(SessionManager.PLAYER_SUPPORTS_GET) == 0)
                     {
-                        TraceManager.AddAsync(TextHelper.GetString("warningNotAllCommandsSupported"));
+                        TraceManager.AddAsync(TextHelper.GetString("Info.WarningNotAllCommandsSupported"));
                     }
                 }
                 catch (System.Exception)
@@ -269,7 +269,7 @@ namespace FlexDbg
                         }
                         catch (NotSuspendedException)
                         {
-                            TraceManager.AddAsync(TextHelper.GetString("playerAlreadyRunning"));
+                            TraceManager.AddAsync(TextHelper.GetString("Info.PlayerAlreadyRunning"));
                         }
 
                         m_RequestResume = false;
@@ -417,7 +417,7 @@ namespace FlexDbg
                                 }
                                 else if (!m_Session.Suspended)
                                 {
-                                    TraceManager.AddAsync(TextHelper.GetString("couldNotHalt"));
+                                    TraceManager.AddAsync(TextHelper.GetString("Info.CouldNotHalt"));
                                     m_CurrentState = DebuggerState.Running;
 
                                     if (PauseFailedEvent != null)
@@ -428,14 +428,14 @@ namespace FlexDbg
                             }
                             catch (ArgumentException)
                             {
-                                TraceManager.AddAsync(TextHelper.GetString("escapingFromDebuggerPendingLoop"));
+                                TraceManager.AddAsync(TextHelper.GetString("Info.EscapingFromDebuggerPendingLoop"));
                                 stop = true;
                             }
                             catch (IOException io)
                             {
                                 System.Collections.IDictionary args = new System.Collections.Hashtable();
                                 args["error"] = io.Message; //$NON-NLS-1$
-                                TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("continuingDueToError"), args));
+                                TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("Info.ContinuingDueToError"), args));
                             }
                             catch (SuspendedException)
                             {
@@ -460,7 +460,7 @@ namespace FlexDbg
             {
                 if (m_RequestStop)
                 {
-                    throw new Exception("Debugger listen aborted.");
+                    throw new Exception(TextHelper.GetString("Info.DebuggerListenAborted"));
                 }
                 else
                 {
@@ -710,7 +710,7 @@ namespace FlexDbg
 					System.Collections.IDictionary args = new System.Collections.Hashtable();
 					args["type"] = e; //$NON-NLS-1$
 					args["info"] = e.information; //$NON-NLS-1$
-					TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("unknownEvent"), args));
+					TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("Info.UnknownEvent"), args));
 				}
 			}
 		}
@@ -774,19 +774,19 @@ namespace FlexDbg
 			// use a slightly different format for ConsoleErrorFaults
 			if (e is ConsoleErrorFault)
 			{
-				sb.Append(TextHelper.GetString("linePrefixWhenDisplayingConsoleError")); //$NON-NLS-1$
+				sb.Append(TextHelper.GetString("Info.LinePrefixWhenDisplayingConsoleError")); //$NON-NLS-1$
 				sb.Append(' ');
 				sb.Append(e.information);
 			}
 			else
 			{
 				String name = e.name();
-				sb.Append(TextHelper.GetString("linePrefixWhenDisplayingFault")); //$NON-NLS-1$
+                sb.Append(TextHelper.GetString("Info.LinePrefixWhenDisplayingFault")); //$NON-NLS-1$
 				sb.Append(' ');
 				sb.Append(name);
 				if (e.information != null && e.information.Length > 0)
 				{
-					sb.Append(TextHelper.GetString("informationAboutFault")); //$NON-NLS-1$
+                    sb.Append(TextHelper.GetString("Info.InformationAboutFault")); //$NON-NLS-1$
 					sb.Append(e.information);
 				}
 			}
@@ -803,14 +803,14 @@ namespace FlexDbg
 			String name = (at > -1) ? e.path.Substring(0, (at) - (0)) : e.path;
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append(TextHelper.GetString("linePrefixWhenSwfLoaded"));
+            sb.Append(TextHelper.GetString("Info.LinePrefixWhenSwfLoaded"));
 			sb.Append(' ');
 			sb.Append(name);
 			sb.Append(" - "); //$NON-NLS-1$
 
 			System.Collections.IDictionary args = new System.Collections.Hashtable();
 			args["size"] = e.swfSize.ToString("N0"); //$NON-NLS-1$
-			sb.Append(replaceInlineReferences(TextHelper.GetString("sizeAfterDecompression"), args));
+			sb.Append(replaceInlineReferences(TextHelper.GetString("Info.SizeAfterDecompression"), args));
 			TraceManager.AddAsync(sb.ToString());
 		}
 
@@ -824,7 +824,7 @@ namespace FlexDbg
 			String name = (at > -1) ? e.path.Substring(0, (at) - (0)) : e.path;
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append(TextHelper.GetString("linePrefixWhenSwfUnloaded")); //$NON-NLS-1$
+			sb.Append(TextHelper.GetString("Info.LinePrefixWhenSwfUnloaded")); //$NON-NLS-1$
 			sb.Append(' ');
 			sb.Append(name);
 			TraceManager.AddAsync(sb.ToString());

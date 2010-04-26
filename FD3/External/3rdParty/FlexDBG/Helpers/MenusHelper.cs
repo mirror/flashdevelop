@@ -53,9 +53,9 @@ namespace FlexDbg
 			imageList.Images.Add("Finish", Resource.Finish);
 
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem("Local Variables", pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem("Breakpoints", pluginImage, new EventHandler(this.OpenBreakPointPanel)));
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem("Stackframe", pluginImage, new EventHandler(this.OpenStackframePanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanel"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewBreakpointsPanel"), pluginImage, new EventHandler(this.OpenBreakPointPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewStackframePanel"), pluginImage, new EventHandler(this.OpenStackframePanel)));
 
             //Menu           
             ToolStripMenuItem debugMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("DebugMenu");
@@ -77,11 +77,11 @@ namespace FlexDbg
 			NextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(debugManager.Next_Click), settingObject.Next);
             FinishMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Finish"), imageList.Images["Finish"], new EventHandler(debugManager.Finish_Click), settingObject.Finish);
 
-            ToggleBreakPointMenu = new ToolStripMenuItem("Toggle Breakpoint", null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), settingObject.ToggleBreakPoint);
-            DeleteAllBreakPointsMenu = new ToolStripMenuItem("Delete All Breakpoints", null, new EventHandler(ScintillaHelper.DeleteAllBreakPoints_Click), settingObject.Finish);
-            ToggleBreakPointEnableMenu = new ToolStripMenuItem("Toggle Breakpoint Enabled", null, new EventHandler(ScintillaHelper.ToggleBreakPointEnable_Click), settingObject.ToggleBreakPointEnable);
-            DisableAllBreakPointsMenu = new ToolStripMenuItem("Disable All Breakpoints", null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
-            EnableAllBreakPointsMenu = new ToolStripMenuItem("Enable All Breakpoints", null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
+            ToggleBreakPointMenu = new ToolStripMenuItem(TextHelper.GetString("Info.ToggleBreakpoint"), null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), settingObject.ToggleBreakPoint);
+            DeleteAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Info.DeleteAllBreakpoints"), null, new EventHandler(ScintillaHelper.DeleteAllBreakPoints_Click), settingObject.Finish);
+            ToggleBreakPointEnableMenu = new ToolStripMenuItem(TextHelper.GetString("Info.ToggleBreakpointEnabled"), null, new EventHandler(ScintillaHelper.ToggleBreakPointEnable_Click), settingObject.ToggleBreakPointEnable);
+            DisableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Info.DisableAllBreakpoints"), null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
+            EnableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Info.EnableAllBreakpoints"), null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
 
 			List<ToolStripItem> items = new List<ToolStripItem>(new ToolStripItem[]
 			{

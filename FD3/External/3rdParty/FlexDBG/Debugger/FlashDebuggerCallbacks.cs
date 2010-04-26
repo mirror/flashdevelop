@@ -15,7 +15,7 @@ namespace FlexDbg
 		{
 			get
 			{
-				return TextHelper.GetString("webBrowserGenericName");
+				return TextHelper.GetString("Info.WebBrowserGenericName");
 			}
 			
 		}
@@ -23,7 +23,7 @@ namespace FlexDbg
 		{
 			get
 			{
-				return TextHelper.GetString("flashPlayerGenericName");
+				return TextHelper.GetString("Info.FlashPlayerGenericName");
 			}
 			
 		}

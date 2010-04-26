@@ -25,6 +25,7 @@ using Aga.Controls.Tree;
 using Aga.Controls.Tree.NodeControls;
 using Flash.Tools.Debugger;
 using PluginCore;
+using FlexDbg.Localization;
 
 namespace FlexDbg.Controls
 {
@@ -82,8 +83,8 @@ namespace FlexDbg.Controls
 				_contextMenuStrip.Font = PluginBase.Settings.DefaultFont;
 			}
 			_tree.ContextMenuStrip = _contextMenuStrip;
-            copyMenuItem = new ToolStripMenuItem("Copy", null, new EventHandler(this.CopyItemClick));
-            viewerMenuItem = new ToolStripMenuItem("Viewer", null, new EventHandler(this.ViewerItemClick));
+            copyMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Copy"), null, new EventHandler(this.CopyItemClick));
+            viewerMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Viewer"), null, new EventHandler(this.ViewerItemClick));
             _contextMenuStrip.Items.AddRange(new ToolStripMenuItem[] { copyMenuItem, viewerMenuItem});
 
             viewerForm = new ViewerForm();

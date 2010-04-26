@@ -155,7 +155,7 @@ namespace FlexDbg
             if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
             {
                 // remove this, let other parts deal with it
-                MessageBox.Show("Cannot find Output file");
+                ErrorManager.ShowInfo(TextHelper.GetString("Info.CannotFindOutputFile"));
             }
             else Start(currentProject.OutputPathAbsolute);
         }
@@ -176,9 +176,7 @@ namespace FlexDbg
 				}
 				else
 				{
-					MessageBox.Show(TextHelper.GetString("Info.ProjectNotOpen"),
-									PluginCore.Localization.TextHelper.GetString("FlashDevelop.Title.ConfirmDialog"),
-									MessageBoxButtons.OK);
+					MessageBox.Show(TextHelper.GetString("Info.ProjectNotOpen"), PluginCore.Localization.TextHelper.GetString("FlashDevelop.Title.ConfirmDialog"), MessageBoxButtons.OK);
 					return false;
 				}
             }
@@ -193,7 +191,7 @@ namespace FlexDbg
             // TODO move this outside
             if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
             {
-                errormsg += "Cannot debug ActiveX player" + System.Environment.NewLine;
+                errormsg += TextHelper.GetString("Info.CannotDebugActiveXPlayer") + System.Environment.NewLine;
             }
             if (errormsg != String.Empty)
 				throw new Exception(errormsg);
@@ -232,7 +230,7 @@ namespace FlexDbg
             }
             else
             {
-                MessageBox.Show("Debugging session already running.");
+                ErrorManager.ShowInfo(TextHelper.GetString("Info.DebuggingSessionAlreadyRunning"));
             }
         }
 
@@ -557,7 +555,7 @@ namespace FlexDbg
                 return;
             }
 
-            DialogResult res = MessageBox.Show(PluginBase.MainForm, "Close Process?", "Process not responding", MessageBoxButtons.OKCancel);
+            DialogResult res = MessageBox.Show(PluginBase.MainForm, TextHelper.GetString("Title.CloseProcess"), TextHelper.GetString("Info.ProcessNotResponding"), MessageBoxButtons.OKCancel);
             if (res == DialogResult.OK)
             {
 				m_FlashInterface.Stop();

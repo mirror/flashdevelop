@@ -126,14 +126,14 @@
   <data name="Description.StartContinue" xml:space="preserve">
     <value>Start / Continue shortcut setting.</value>
   </data>
-  <data name="continuingDueToError" xml:space="preserve">
+  <data name="Info.ContinuingDueToError" xml:space="preserve">
     <value>Continuing due to error '${error}'</value>
   </data>
-  <data name="couldNotHalt" xml:space="preserve">
+  <data name="Info.CouldNotHalt" xml:space="preserve">
     <value>Couldn't halt, no ActionScript is running.</value>
   </data>
   <data name="Description.DebugFlashPlayerPath" xml:space="preserve">
-    <value>Debug FlashPlayer setting.</value>
+    <value>Debug Flash Player setting.</value>
   </data>
   <data name="Description.DebugLineColor" xml:space="preserve">
     <value>Debug line's color.</value>
@@ -144,28 +144,28 @@
   <data name="Info.Description" xml:space="preserve">
     <value>FlashDevelop ActionScript 3 debugger.</value>
   </data>
-  <data name="escapingFromDebuggerPendingLoop" xml:space="preserve">
+  <data name="Info.EscapingFromDebuggerPendingLoop" xml:space="preserve">
     <value>Escaping from debugger pending loop; setting $nowaiting = 1</value>
   </data>
-  <data name="executionHalted" xml:space="preserve">
+  <data name="Info.ExecutionHalted" xml:space="preserve">
     <value>Execution halted</value>
   </data>
-  <data name="faultHasNoTableEntry" xml:space="preserve">
+  <data name="Info.FaultHasNoTableEntry" xml:space="preserve">
     <value>Fault ${faultName} has no table entry</value>
   </data>
-  <data name="fixBreakpoints" xml:space="preserve">
+  <data name="Info.FixBreakpoints" xml:space="preserve">
     <value>Fix or remove bad breakpoints, then type 'continue'.</value>
   </data>
-  <data name="haltedInFile" xml:space="preserve">
+  <data name="Info.HaltedInFile" xml:space="preserve">
     <value>${reasonForHalting}, ${fileAndLine}</value>
   </data>
-  <data name="haltedInFunction" xml:space="preserve">
+  <data name="Info.HaltedInFunction" xml:space="preserve">
     <value>${reasonForHalting}, ${functionName}() at ${fileAndLine}</value>
   </data>
-  <data name="hitBreakpoint" xml:space="preserve">
+  <data name="Info.HitBreakpoint" xml:space="preserve">
     <value>Breakpoint ${breakpointNumber}</value>
   </data>
-  <data name="informationAboutFault" xml:space="preserve">
+  <data name="Info.InformationAboutFault" xml:space="preserve">
     <value>, information=</value>
   </data>
   <data name="Label.Continue" xml:space="preserve">
@@ -202,18 +202,18 @@
     <value>&amp;Viewer</value>
   </data>
   <data name="Info.LanguageNotAS3" xml:space="preserve">
-    <value>Language is not Actionscript 3.</value>
+    <value>Language is not ActionScript 3.</value>
   </data>
-  <data name="linePrefixWhenDisplayingConsoleError" xml:space="preserve">
+  <data name="Info.LinePrefixWhenDisplayingConsoleError" xml:space="preserve">
     <value>[Error]</value>
   </data>
-  <data name="linePrefixWhenDisplayingFault" xml:space="preserve">
+  <data name="Info.LinePrefixWhenDisplayingFault" xml:space="preserve">
     <value>[Fault]</value>
   </data>
-  <data name="linePrefixWhenSwfLoaded" xml:space="preserve">
+  <data name="Info.LinePrefixWhenSwfLoaded" xml:space="preserve">
     <value>[SWF]</value>
   </data>
-  <data name="linePrefixWhenSwfUnloaded" xml:space="preserve">
+  <data name="Info.LinePrefixWhenSwfUnloaded" xml:space="preserve">
     <value>[UnloadSWF]</value>
   </data>
   <data name="Category.Misc" xml:space="preserve">
@@ -225,28 +225,28 @@
   <data name="Info.NoMainClass" xml:space="preserve">
     <value>This project does not have a main class.</value>
   </data>
-  <data name="noSourceFilesFound" xml:space="preserve">
+  <data name="Info.NoSourceFilesFound" xml:space="preserve">
     <value>No source files found</value>
   </data>
   <data name="Description.Pause" xml:space="preserve">
     <value>Pause shortcut setting.</value>
   </data>
-  <data name="playerAlreadyRunning" xml:space="preserve">
+  <data name="Info.PlayerAlreadyRunning" xml:space="preserve">
     <value>Player is already running, no need to resume.</value>
   </data>
-  <data name="playerDidNotStop" xml:space="preserve">
+  <data name="Info.PlayerDidNotStop" xml:space="preserve">
     <value>Player did not stop as expected.  Press 'Enter' key to halt it</value>
   </data>
-  <data name="sessionTerminated" xml:space="preserve">
+  <data name="Info.SessionTerminated" xml:space="preserve">
     <value>Player session terminated</value>
   </data>
-  <data name="setAdditionalBreakpoints" xml:space="preserve">
+  <data name="Info.SetAdditionalBreakpoints" xml:space="preserve">
     <value>Set additional breakpoints as desired, and then type 'continue'.</value>
   </data>
   <data name="Category.Shortcuts" xml:space="preserve">
     <value>Shortcuts</value>
   </data>
-  <data name="sizeAfterDecompression" xml:space="preserve">
+  <data name="Info.SizeAfterDecompression" xml:space="preserve">
     <value>${size} bytes after decompression</value>
   </data>
   <data name="Description.Step" xml:space="preserve">
@@ -255,43 +255,19 @@
   <data name="Description.Stop" xml:space="preserve">
     <value>Stop shortcut setting.</value>
   </data>
-  <data name="suspendReason_HaltOpcode" xml:space="preserve">
-    <value>HaltOpcode</value>
-  </data>
-  <data name="suspendReason_HitBreakpoint" xml:space="preserve">
-    <value>Breakpoint</value>
-  </data>
-  <data name="suspendReason_HitWatchpoint" xml:space="preserve">
-    <value>Watch</value>
-  </data>
-  <data name="suspendReason_ProgramFinishedStepping" xml:space="preserve">
-    <value>Step</value>
-  </data>
-  <data name="suspendReason_ProgramThrewException" xml:space="preserve">
-    <value>Fault</value>
-  </data>
-  <data name="suspendReason_ScriptHasLoadedIntoFlashPlayer" xml:space="preserve">
-    <value>ScriptLoaded</value>
-  </data>
-  <data name="suspendReason_StopRequest" xml:space="preserve">
-    <value>StopRequest</value>
-  </data>
-  <data name="suspendReason_Unknown" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
   <data name="Title.LocalVariables" xml:space="preserve">
     <value>Locals</value>
   </data>
-  <data name="unknownEvent" xml:space="preserve">
+  <data name="Info.UnknownEvent" xml:space="preserve">
     <value>Received unknown event of type '${type}', info = ${info}</value>
   </data>
-  <data name="unknownFilename" xml:space="preserve">
+  <data name="Info.UnknownFilename" xml:space="preserve">
     <value>&lt;unknown&gt;</value>
   </data>
   <data name="Category.View" xml:space="preserve">
     <value>View</value>
   </data>
-  <data name="warningNotAllCommandsSupported" xml:space="preserve">
+  <data name="Info.WarningNotAllCommandsSupported" xml:space="preserve">
     <value>WARNING: The Player that you are using does not support all debugger commands.</value>
   </data>
   <data name="Description.BreakPointDisableLineColor" xml:space="preserve">
@@ -336,14 +312,14 @@
   <data name="Description.Current" xml:space="preserve">
     <value>Current line shortcut setting.</value>
   </data>
-  <data name="flashPlayerGenericName" xml:space="preserve">
+  <data name="Info.FlashPlayerGenericName" xml:space="preserve">
     <value>Flash player</value>
   </data>
   <data name="Label.Current" xml:space="preserve">
     <value>Current &amp;Line</value>
   </data>
-  <data name="webBrowserGenericName" xml:space="preserve">
-    <value>Web browser</value>
+  <data name="Info.WebBrowserGenericName" xml:space="preserve">
+    <value>Web Browser</value>
   </data>
   <data name="Description.SourcePaths" xml:space="preserve">
     <value>Additional Paths to search for source.  Useful for specifying the location of any frameworks or library source.</value>
@@ -364,6 +340,69 @@
     <value>Start debugger on Test Movie.</value>
   </data>
   <data name="Info.WaitingForPlayer" xml:space="preserve">
-    <value>Waiting for Flash player to connect to debugger</value>
+    <value>Waiting for Flash player to connect to debugger.</value>
+  </data>
+  <data name="Info.CannotDebugActiveXPlayer" xml:space="preserve">
+    <value>Cannot debug ActiveX player.</value>
+  </data>
+  <data name="Info.CannotFindOutputFile" xml:space="preserve">
+    <value>Cannot find output file.</value>
+  </data>
+  <data name="Info.DebuggerListenAborted" xml:space="preserve">
+    <value>Debugger listen aborted.</value>
+  </data>
+  <data name="Info.DebuggingSessionAlreadyRunning" xml:space="preserve">
+    <value>Debugging session already running.</value>
+  </data>
+  <data name="Info.ProcessNotResponding" xml:space="preserve">
+    <value>Process not responding.</value>
+  </data>
+  <data name="Info.UnableToStartDebugger" xml:space="preserve">
+    <value>Unable to start Flex SDK interactive debugger.</value>
+  </data>
+  <data name="Label.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Label.CopyAll" xml:space="preserve">
+    <value>Copy All</value>
+  </data>
+  <data name="Label.CopyExp" xml:space="preserve">
+    <value>Copy Exp</value>
+  </data>
+  <data name="Label.CopyValue" xml:space="preserve">
+    <value>Copy Value</value>
+  </data>
+  <data name="Label.DeleteAllBreakpoints" xml:space="preserve">
+    <value>Delete All Breakpoints</value>
+  </data>
+  <data name="Label.DisableAllBreakpoints" xml:space="preserve">
+    <value>Disable All Breakpoints</value>
+  </data>
+  <data name="Label.EnableAllBreakpoints" xml:space="preserve">
+    <value>Enable All Breakpoints</value>
+  </data>
+  <data name="Label.Exp" xml:space="preserve">
+    <value>Exp</value>
+  </data>
+  <data name="Label.ToggleBreakpoint" xml:space="preserve">
+    <value>Toggle Breakpoint</value>
+  </data>
+  <data name="Label.ToggleBreakpointEnabled" xml:space="preserve">
+    <value>Toggle Breakpoint Enabled</value>
+  </data>
+  <data name="Label.Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Label.ViewBreakpointsPanel" xml:space="preserve">
+    <value>Breakpoints</value>
+  </data>
+  <data name="Label.ViewStackframePanel" xml:space="preserve">
+    <value>Stackframe</value>
+  </data>
+  <data name="Label.WordWrap" xml:space="preserve">
+    <value>Word Wrap</value>
+  </data>
+  <data name="Title.CloseProcess" xml:space="preserve">
+    <value>Close Process?</value>
   </data>
 </root>
