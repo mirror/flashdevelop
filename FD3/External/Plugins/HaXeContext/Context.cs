@@ -364,36 +364,36 @@ namespace HaXeContext
             foreach (MemberModel item in inFile.Imports)
             {
                 if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
-
-                if (item.Name != "*")
-                {
-                    if (settings.LazyClasspathExploration) imports.Add(item);
-                    else
-                    {
-                        // HX files are "modules": when imported all the classes contained are available
-                        ClassModel type = ResolveType(item.Type, null);
-                        if (!type.IsVoid())
-                        {
-                            foreach (ClassModel aClass in type.InFile.Classes)
-                            {
-                                if (aClass.IndexType == null)
-                                    imports.Add(aClass);
-                            }
-                        }
-                    }
+                if (settings.LazyClasspathExploration) {
+                    imports.Add(item);
+                    continue;
                 }
-                else
-                {
-                    // classes matching wildcard
-                    FileModel matches = ResolvePackage(item.Type.Substring(0, item.Type.Length - 2), false);
-
-                    if (matches != null)
+                // HX files are "modules": when imported all the classes contained are available
+                string fileName = item.Type.Replace(".", dirSeparator) + ".hx";
+                foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
+                {                    
+                    string path = Path.Combine(aPath.Path, fileName);
+                    FileModel file = null;
+                    // cached file
+                    if (aPath.HasFile(path))
                     {
-                        foreach (MemberModel import in matches.Imports)
-                            imports.Add(import);
-                        foreach (MemberModel member in matches.Members)
-                            imports.Add(member);
+                        file = aPath.Files[path.ToUpper()];
+                        if (file.Context != this)
+                        {
+                            // not associated with this context -> refresh
+                            file.OutOfDate = true;
+                            file.Context = this;
+                        }
+                        
+                    } else if (File.Exists(path)) {
+                        file = GetFileModel(path);
+                        if (file != null)
+                            aPath.AddFile(file);
                     }
+                    if (file != null)
+                        foreach( ClassModel c in file.Classes )
+                        	if (c.IndexType == null)
+                            	imports.Add(c);
                 }
             }
             return imports;
