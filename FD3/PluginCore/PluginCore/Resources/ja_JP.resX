@@ -1777,7 +1777,7 @@
     <value>FlashDevelop プロジェクト (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="ProjectManager.Info.Properties" xml:space="preserve">
-    <value>プロパティー</value>
+    <value>プロジェクト設定</value>
   </data>
   <data name="ProjectManager.Info.RecursiveCopyDetected" xml:space="preserve">
     <value>再帰的なコピーを検出しました。</value>
@@ -1804,7 +1804,7 @@
     <value>コードインジェクションを行う場合、入力用の SWF ファイルを設定する必要があります。</value>
   </data>
   <data name="ProjectManager.Info.SpecifyValidOutputSWF" xml:space="preserve">
-    <value>プロジェクトをビルドするには、プロジェクトプロパティーに SWF ファイルの有効な出力先を設定する必要があります。</value>
+    <value>プロジェクトをビルドするには、プロジェクト設定に SWF ファイルの有効な出力先を設定する必要があります。</value>
   </data>
   <data name="ProjectManager.Info.TargetDirNotEmpty" xml:space="preserve">
     <value>指定したディレクトリにファイルが存在します。本当にテンプレートファイルをここにコピーしても良いですか?</value>
@@ -2002,7 +2002,7 @@
     <value>プロジェクト クラスパス(&amp;P)...</value>
   </data>
   <data name="ProjectManager.Label.Properties" xml:space="preserve">
-    <value>プロパティー(&amp;P)...</value>
+    <value>プロジェクト設定(&amp;P)...</value>
   </data>
   <data name="ProjectManager.Label.RecentProjects" xml:space="preserve">
     <value>最近開いたプロジェクト(&amp;J)</value>
@@ -2044,7 +2044,7 @@
     <value>グローバル {0} クラスパス</value>
   </data>
   <data name="ProjectManager.Title.LibraryAssetProperties" xml:space="preserve">
-    <value>ライブラリアセットのプロパティー</value>
+    <value>ライブラリアセットの設定</value>
   </data>
   <data name="ProjectManager.Title.PathConflict" xml:space="preserve">
     <value>パスの競合</value>
@@ -2053,13 +2053,13 @@
     <value>プロジェクト</value>
   </data>
   <data name="ProjectManager.Title.ProjectProperties" xml:space="preserve">
-    <value>プロジェクトプロパティー</value>
+    <value>プロジェクト設定</value>
   </data>
   <data name="ProjectManager.ToolTip.AlwaysExecute" xml:space="preserve">
     <value>プロジェクトのビルドが失敗した場合にも、コマンドを実行します。</value>
   </data>
   <data name="ProjectManager.ToolTip.ProjectProperties" xml:space="preserve">
-    <value>プロジェクトプロパティー</value>
+    <value>プロジェクト設定</value>
   </data>
   <data name="ProjectManager.ToolTip.ProjectTypes" xml:space="preserve">
     <value>タイプエクスプローラー</value>
@@ -2442,7 +2442,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>デバッグ(&amp;D)</value>
   </data>
   <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
-    <value>このプロジェクト独自の Flex SDK へのパスが間違っています。プロジェクトプロパティーのコンパイル設定を修正してください。</value>
+    <value>このプロジェクトの Flex SDK へのパスが間違っています。プロジェクト設定のコンパイル設定を修正してください。</value>
   </data>
   <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
     <value>FlashDevelop アーギュメント (*.fda)</value>
@@ -3045,7 +3045,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="CodeRefactor.Info.Description" xml:space="preserve">
-    <value>FlashDevelop にリファクタ機能を追加します。</value>
+    <value>FlashDevelop にリファクタリング機能を追加します。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.FindingReferences" xml:space="preserve">
@@ -3085,7 +3085,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Refactor" xml:space="preserve">
-    <value>リファクタ(&amp;R)</value>
+    <value>リファクター(&amp;R)</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Rename" xml:space="preserve">
