@@ -11,23 +11,9 @@ namespace FlashViewer
     [Serializable]
     public class Settings
     {
-        private static Settings instance;
         private String playerPath = String.Empty;
         private ViewStyle displayStyle = ViewStyle.External;
         private Boolean disableAutoConfig = false;
-
-        public Settings()
-        {
-            instance = this;
-        }
-
-        /// <summary>
-        /// Gets the singleton instance of the class
-        /// </summary> 
-        public static Settings GetInstance()
-        {
-            return instance;
-        }
 
         /// <summary> 
         /// Get and sets the playerPath

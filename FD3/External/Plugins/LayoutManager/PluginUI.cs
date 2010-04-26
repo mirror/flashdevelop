@@ -190,7 +190,7 @@ namespace LayoutManager
         /// <summary>
         /// Applies the localized texts to the control
         /// </summary>
-        public void InitializeTexts()
+        private void InitializeTexts()
         {
             this.loadStripButton.Text = TextHelper.GetString("Label.LoadLayout");
             this.deleteStripButton.Text = TextHelper.GetString("Label.DeleteLayout");
@@ -371,7 +371,7 @@ namespace LayoutManager
         /// </summary>
         private String GetLayoutsDir()
         {
-            String userPath = Settings.GetInstance().CustomLayoutPath;
+            String userPath = Settings.Instance.CustomLayoutPath;
             if (Directory.Exists(userPath)) return userPath;
             else
             {

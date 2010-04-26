@@ -132,8 +132,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Docking\DockablePanel.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Docking\TabbedDocument.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Helpers\FileNameHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />

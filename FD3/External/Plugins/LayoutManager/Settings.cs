@@ -22,6 +22,15 @@ namespace LayoutManager
         }
 
         /// <summary> 
+        /// Get the instance of the class
+        /// </summary>
+        public static Settings Instance
+        {
+            get { return instance; }
+            set { instance = value; }
+        }
+
+        /// <summary> 
         /// Get and sets the customLayoutPath
         /// </summary>
         [DisplayName("Custom Layout File Directory")]
@@ -31,14 +40,6 @@ namespace LayoutManager
         {
             get { return this.customLayoutPath; }
             set { this.customLayoutPath = value; }
-        }
-
-        /// <summary>
-        /// Gets the singleton instance of the class
-        /// </summary> 
-        public static Settings GetInstance()
-        {
-            return instance;
         }
 
     }

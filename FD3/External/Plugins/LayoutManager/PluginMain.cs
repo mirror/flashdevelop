@@ -106,7 +106,17 @@ namespace LayoutManager
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-           // No event handling..
+            switch (e.Type)
+            {
+                case EventType.FileOpening:
+                    TextEvent te = e as TextEvent;
+                    if (te.Value.EndsWith(".fdl") && File.Exists(te.Value))
+                    {
+                        te.Handled = true;
+                        PluginBase.MainForm.CallCommand("RestoreLayout", te.Value);
+                    }
+                    break;
+            }
 		}
 		
 		#endregion
@@ -130,7 +140,7 @@ namespace LayoutManager
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileOpen);
+            EventManager.AddEventHandler(this, EventType.FileOpening);
         }
 
         /// <summary>
@@ -165,6 +175,7 @@ namespace LayoutManager
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
+            LayoutManager.Settings.Instance = this.settingObject;
         }
 
         /// <summary>
