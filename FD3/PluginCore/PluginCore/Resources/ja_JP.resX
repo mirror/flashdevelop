@@ -425,7 +425,6 @@
   </data>
   <data name="FileExplorer.Label.Edit" xml:space="preserve">
     <value>開く(&amp;O)</value>
-    <comment>編集(&amp;E)</comment>
   </data>
   <data name="FileExplorer.Label.ExploreHere" xml:space="preserve">
     <value>エクスプローラーで開く(&amp;X)...</value>
@@ -903,7 +902,6 @@
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
     <value>すべてマーク(&amp;B)</value>
-    <comment>すべてブックマーク(&amp;B)</comment>
   </data>
   <data name="FlashDevelop.Label.Cancel" xml:space="preserve">
     <value>キャンセル</value>
@@ -3251,30 +3249,398 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="AS3Context.Columns.File" xml:space="preserve">
     <value>ファイル</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.Line" xml:space="preserve">
     <value>行</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.Method" xml:space="preserve">
     <value>関数</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.LiveObjectsTab" xml:space="preserve">
     <value>ライブオブジェクト</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ObjectsTab" xml:space="preserve">
     <value>オブジェクト</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.OpenMethodFile" xml:space="preserve">
     <value>開く</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ViewObjectsItem" xml:space="preserve">
     <value>オブジェクトを監視</value>
-    <comment>Added after 3.1</comment>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Category.Misc" xml:space="preserve">
+    <value>Misc</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Category.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Category.View" xml:space="preserve">
+    <value>View</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.BreakPointDisableLineColor" xml:space="preserve">
+    <value>Color of the disabled breakpoint line.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.BreakPointEnableLineColor" xml:space="preserve">
+    <value>Color of the enabled breakpoint line.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.Current" xml:space="preserve">
+    <value>Shortcut of the Current command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.DebugLineColor" xml:space="preserve">
+    <value>Color of the debug line.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
+    <value>Shortcut of the Disable All Breakpoints command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.EnableAllBreakPoints" xml:space="preserve">
+    <value>Shortcut of the Enable All Breakpoints command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.EnableLogging" xml:space="preserve">
+    <value>Enabled debugger logging (requires restart).</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.Finish" xml:space="preserve">
+    <value>Shortcut of the Finish command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.Next" xml:space="preserve">
+    <value>Shortcut of the Next command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.Pause" xml:space="preserve">
+    <value>Shortcut of the Pause command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
+    <value>Shortcut of the Run To Cursor Line command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
+    <value>Save and restore breakpoints.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.SourcePaths" xml:space="preserve">
+    <value>Additional paths to search for source.  Useful for specifying the location of any frameworks or library sources.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.StartContinue" xml:space="preserve">
+    <value>Shortcut of the Start/Continue command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
+    <value>Start debugger on Test Movie.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.Step" xml:space="preserve">
+    <value>Shortcut of the Step command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.Stop" xml:space="preserve">
+    <value>Shortcut of the Stop command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.ToggleBreakPoint" xml:space="preserve">
+    <value>Shortcut of the Toggle Breakpoint command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Description.ToggleBreakPointEnable" xml:space="preserve">
+    <value>Shortcut of the Toggle Breakpoint command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
+    <value>Cannot debug ActiveX player.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
+    <value>Cannot find output file.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
+    <value>The Flex SDK is not properly configured. See AS3Context from main Program Settings.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
+    <value>Continuing due to error '${error}'</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.CouldNotHalt" xml:space="preserve">
+    <value>Couldn't halt, no ActionScript is running.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.DebuggerListenAborted" xml:space="preserve">
+    <value>Debugger listen aborted.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.DebuggingSessionAlreadyRunning" xml:space="preserve">
+    <value>Debugging session already running.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.DebugWithoutCompile" xml:space="preserve">
+    <value>Compile failed, start debugger anyways?</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.Description" xml:space="preserve">
+    <value>FlashDevelop ActionScript 3 debugger.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.EscapingFromDebuggerPendingLoop" xml:space="preserve">
+    <value>Escaping from debugger pending loop, setting $nowaiting = 1</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.ExecutionHalted" xml:space="preserve">
+    <value>Execution halted</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.FaultHasNoTableEntry" xml:space="preserve">
+    <value>Fault ${faultName} has no table entry</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.FixBreakpoints" xml:space="preserve">
+    <value>Fix or remove bad breakpoints, then type 'continue'.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.FlashPlayerGenericName" xml:space="preserve">
+    <value>Flash Player</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.HaltedInFile" xml:space="preserve">
+    <value>${reasonForHalting}, ${fileAndLine}</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.HaltedInFunction" xml:space="preserve">
+    <value>${reasonForHalting}, ${functionName}() at ${fileAndLine}</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.HitBreakpoint" xml:space="preserve">
+    <value>Breakpoint ${breakpointNumber}</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.InformationAboutFault" xml:space="preserve">
+    <value>, information=</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.LanguageNotAS3" xml:space="preserve">
+    <value>Language is not ActionScript 3.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.LinePrefixWhenDisplayingConsoleError" xml:space="preserve">
+    <value>[Error]</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.LinePrefixWhenDisplayingFault" xml:space="preserve">
+    <value>[Fault]</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.LinePrefixWhenSwfLoaded" xml:space="preserve">
+    <value>[SWF]</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.LinePrefixWhenSwfUnloaded" xml:space="preserve">
+    <value>[UnloadSWF]</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.NoMainClass" xml:space="preserve">
+    <value>This project does not have a main class.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.NoSourceFilesFound" xml:space="preserve">
+    <value>No source files found.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.PlayerAlreadyRunning" xml:space="preserve">
+    <value>Player is already running, no need to resume.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.PlayerDidNotStop" xml:space="preserve">
+    <value>Player did not stop as expected.  Press 'Enter' key to halt it</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.PlayerStillRunning" xml:space="preserve">
+    <value>The player is still running, do you want to stop it?</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.ProcessNotResponding" xml:space="preserve">
+    <value>Process not responding.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.ProjectNotOpen" xml:space="preserve">
+    <value>You must open a project before starting the debugger.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.SessionTerminated" xml:space="preserve">
+    <value>Player session terminated.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.SetAdditionalBreakpoints" xml:space="preserve">
+    <value>Set additional breakpoints as desired, and then type 'continue'.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.SizeAfterDecompression" xml:space="preserve">
+    <value>${size} bytes after decompression.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.UnableToStartDebugger" xml:space="preserve">
+    <value>Unable to start the interactive debugger.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.UnknownEvent" xml:space="preserve">
+    <value>Received unknown event of type '${type}', info = ${info}.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.UnknownFilename" xml:space="preserve">
+    <value>&lt;unknown&gt;</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.WaitingForPlayer" xml:space="preserve">
+    <value>Waiting for Flash Player to connect to debugger.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.WarningNotAllCommandsSupported" xml:space="preserve">
+    <value>WARNING: The Flash Player that you are using does not support all debugger commands.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Info.WebBrowserGenericName" xml:space="preserve">
+    <value>Web Browser</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Continue" xml:space="preserve">
+    <value>&amp;Continue</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Copy" xml:space="preserve">
+    <value>C&amp;opy</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.CopyAll" xml:space="preserve">
+    <value>Copy &amp;All</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.CopyExp" xml:space="preserve">
+    <value>Copy &amp;Exp</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.CopyValue" xml:space="preserve">
+    <value>Copy &amp;Value</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Current" xml:space="preserve">
+    <value>Current &amp;Line</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Debug" xml:space="preserve">
+    <value>&amp;Debug</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.DeleteAllBreakpoints" xml:space="preserve">
+    <value>Delete All Breakpoints</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.DisableAllBreakpoints" xml:space="preserve">
+    <value>Disable All Breakpoints</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.EnableAllBreakpoints" xml:space="preserve">
+    <value>Enable All Breakpoints</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Exp" xml:space="preserve">
+    <value>Exp</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Finish" xml:space="preserve">
+    <value>&amp;Finish</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Next" xml:space="preserve">
+    <value>&amp;Step Over</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Pause" xml:space="preserve">
+    <value>&amp;Pause</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.RunToCursor" xml:space="preserve">
+    <value>Run to C&amp;ursor Line</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Start" xml:space="preserve">
+    <value>&amp;Start</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Step" xml:space="preserve">
+    <value>Step &amp;Into</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Stop" xml:space="preserve">
+    <value>S&amp;top</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.ToggleBreakpoint" xml:space="preserve">
+    <value>Toggle Breakpoint</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.ToggleBreakpointEnabled" xml:space="preserve">
+    <value>Toggle Breakpoint Enabled</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Value" xml:space="preserve">
+    <value>Value</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.ViewBreakpointsPanel" xml:space="preserve">
+    <value>Brea&amp;kpoints</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.Viewer" xml:space="preserve">
+    <value>&amp;Viewer</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.ViewLocalVariablesPanel" xml:space="preserve">
+    <value>&amp;Local Variables Panel</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.ViewStackframePanel" xml:space="preserve">
+    <value>Stackframe</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Label.WordWrap" xml:space="preserve">
+    <value>Word Wrap</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Title.Breakpoints" xml:space="preserve">
+    <value>Breakpoints</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Title.CloseProcess" xml:space="preserve">
+    <value>Close Process?</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Title.LocalVariables" xml:space="preserve">
+    <value>Locals</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="FlashDebugger.Title.StackTrace" xml:space="preserve">
+    <value>Stack</value>
+    <comment>Added after 3.1.0</comment>
   </data>
 </root>

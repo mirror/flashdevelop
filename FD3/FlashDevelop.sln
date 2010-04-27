@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASClassWizard", "External\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRefactor", "External\Plugins\CodeRefactor\CodeRefactor.csproj", "{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDebugger", "External\Plugins\FlashDebugger\FlashDebugger.csproj", "{194B58C9-9D2B-4D5E-9256-773FD3222582}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -248,6 +250,14 @@ Global
 		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|x86.ActiveCfg = Release|x86
 		{1F6DF858-6011-4CAC-B33E-7000EE90FFBE}.Release|x86.Build.0 = Release|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|x86.ActiveCfg = Debug|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|x86.Build.0 = Debug|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|x86.ActiveCfg = Release|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

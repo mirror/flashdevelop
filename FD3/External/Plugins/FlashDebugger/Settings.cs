@@ -1,0 +1,254 @@
+using System;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Windows.Forms;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Windows.Forms.Design;
+using System.Runtime.CompilerServices;
+using PluginCore.Localization;
+
+namespace FlashDebugger
+{
+    public delegate void PathChangedEventHandler(String path);
+	
+	[Serializable]
+	[DefaultProperty("Path")]
+	public class Folder
+	{
+		private String m_Value;
+
+		public Folder()
+		{
+			m_Value = "";
+		}
+
+		public Folder(String value)
+		{
+			m_Value = value;
+		}
+
+		public override String ToString()
+		{
+			return m_Value;
+		}
+
+		[Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+		public String Path
+		{
+			get { return m_Value; }
+			set { m_Value = value; }
+		}
+	}
+
+    [Serializable]
+    public class Settings
+    {
+		private Keys m_StartContinueShortcut;
+		private Keys m_CurrentShortcut;
+		private Keys m_StopShortcut;
+		private Keys m_RunToCursorShortcut;
+		private Keys m_StepShortcut;
+		private Keys m_NextShortcut;
+		private Keys m_PauseShortcut;
+		private Keys m_FinishShortcut;
+		private Keys m_ToggleBreakPointShortcut;
+		private Keys m_ToggleBreakPointEnableShortcut;
+		private Keys m_DisableAllBreakPointsShortcut;
+		private Keys m_EnableAllBreakPointsShortcut;
+		private Folder[] m_SourcePaths = new Folder[] { };
+		private Boolean m_bTraceLog = false;
+		private Boolean m_SaveBreakPoints = true;
+		private Color m_BreakPointEnableLineColor = Color.Red;
+		private Color m_BreakPointDisableLineColor = Color.Gray;
+		private Color m_DebugLineColor = Color.Yellow;
+        private Boolean m_StartDebuggerOnTestMovie = false;
+
+        [DisplayName("Enable Logging")]
+        [LocalizedCategory("FlashDebugger.Category.Misc")]
+		[LocalizedDescription("FlashDebugger.Description.EnableLogging")]
+		[DefaultValue(false)]
+		public bool EnableLogging
+		{
+			get { return m_bTraceLog; }
+			set { m_bTraceLog = value; }
+		}
+
+        [DisplayName("Save Breakpoints")]
+        [LocalizedCategory("FlashDebugger.Category.Misc")]
+        [LocalizedDescription("FlashDebugger.Description.SaveBreakPoints")]
+		[DefaultValue(true)]
+		public bool SaveBreakPoints
+		{
+			get { return m_SaveBreakPoints; }
+			set { m_SaveBreakPoints = value; }
+		}
+
+        [DisplayName("Source Paths")]
+        [LocalizedCategory("FlashDebugger.Category.Misc")]
+        [LocalizedDescription("FlashDebugger.Description.SourcePaths")]
+		[Editor(typeof(ArrayEditor), typeof(UITypeEditor))]
+		public Folder[] SourcePaths
+		{
+			get
+			{
+				if (m_SourcePaths == null || m_SourcePaths.Length == 0)
+				{
+                    m_SourcePaths = new Folder[] {};
+				}
+				return m_SourcePaths;
+			}
+			set { m_SourcePaths = value; }
+		}
+
+        [DisplayName("Stop Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.Stop")]
+        public Keys Stop
+        {
+			get { return m_StopShortcut; }
+			set { m_StopShortcut = value; }
+        }
+
+        [DisplayName("Start Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.StartContinue")]
+        public Keys StartContinue
+        {
+			get { return m_StartContinueShortcut; }
+			set { m_StartContinueShortcut = value; }
+        }
+
+        [DisplayName("Current Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.Current")]
+		public Keys Current
+		{
+			get { return m_CurrentShortcut; }
+			set { m_CurrentShortcut = value; }
+		}
+
+        [DisplayName("Run To Cursor Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.RunToCursor")]
+		public Keys RunToCursor
+		{
+			get { return m_RunToCursorShortcut; }
+			set { m_RunToCursorShortcut = value; }
+		}
+
+        [DisplayName("Step Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.Step")]
+        public Keys Step
+        {
+			get { return m_StepShortcut; }
+			set { m_StepShortcut = value; }
+        }
+
+        [DisplayName("Next Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.Next")]
+        public Keys Next
+        {
+			get { return m_NextShortcut; }
+			set { m_NextShortcut = value; }
+        }
+
+        [DisplayName("Pause Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.Pause")]
+        public Keys Pause
+        {
+			get { return m_PauseShortcut; }
+			set { m_PauseShortcut = value; }
+        }
+
+        [DisplayName("Finish Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.Finish")]
+		public Keys Finish
+        {
+			get { return m_FinishShortcut; }
+			set { m_FinishShortcut = value; }
+        }
+
+        [DisplayName("Toggle Breakpoint Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.ToggleBreakPoint")]
+		public Keys ToggleBreakPoint
+        {
+			get { return m_ToggleBreakPointShortcut; }
+			set { m_ToggleBreakPointShortcut = value; }
+        }
+
+        [DisplayName("Toggle Breakpoints Enabled Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.ToggleBreakPointEnable")]
+		public Keys ToggleBreakPointEnable
+		{
+			get { return m_ToggleBreakPointEnableShortcut; }
+			set { m_ToggleBreakPointEnableShortcut = value; }
+		}
+
+        [DisplayName("Disable All Breakpoints Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.DisableAllBreakPoints")]
+		public Keys DisableAllBreakPoints
+        {
+			get { return m_DisableAllBreakPointsShortcut; }
+			set { m_DisableAllBreakPointsShortcut = value; }
+        }
+
+        [DisplayName("Enable All Breakpoints Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.EnableAllBreakPoints")]
+		public Keys EnableAllBreakPoints
+        {
+			get { return m_EnableAllBreakPointsShortcut; }
+			set { m_EnableAllBreakPointsShortcut = value; }
+        }
+
+        [DisplayName("Debug Line Color")]
+        [LocalizedCategory("FlashDebugger.Category.View")]
+        [LocalizedDescription("FlashDebugger.Description.DebugLineColor")]
+		[DefaultValue(typeof(Color), "Yellow")]
+		public Color DebugLineColor
+		{
+			get { return m_DebugLineColor; }
+			set { m_DebugLineColor = value; }
+		}
+
+        [DisplayName("Breakpoints Enabled Line Color")]
+        [LocalizedCategory("FlashDebugger.Category.View")]
+        [LocalizedDescription("FlashDebugger.Description.BreakPointEnableLineColor")]
+		[DefaultValue(typeof(Color), "Red")]
+        public Color BreakPointEnableLineColor
+        {
+			get { return m_BreakPointEnableLineColor; }
+			set { m_BreakPointEnableLineColor = value; }
+        }
+
+        [DisplayName("Breakpoints Desabled Line Color")]
+        [LocalizedCategory("FlashDebugger.Category.View")]
+        [LocalizedDescription("FlashDebugger.Description.BreakPointDisableLineColor")]
+		[DefaultValue(typeof(Color), "Gray")]
+        public Color BreakPointDisableLineColor
+        {
+			get { return m_BreakPointDisableLineColor; }
+			set { m_BreakPointDisableLineColor = value; }
+        }
+
+        [DisplayName("Start Debugger On Test Movie")]
+        [LocalizedCategory("FlashDebugger.Category.Misc")]
+        [LocalizedDescription("FlashDebugger.Description.StartDebuggerOnTestMovie")]
+        [DefaultValue(true)]
+        public bool StartDebuggerOnTestMovie
+        {
+            get { return m_StartDebuggerOnTestMovie; }
+            set { m_StartDebuggerOnTestMovie = value; }
+        }
+
+    }
+
+}
