@@ -23,6 +23,7 @@ namespace ASCompletion.Commands
             if (name == null || path == null) return false;
             try
             {
+                path += " ";
                 string separator = Path.DirectorySeparatorChar.ToString();
                 string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string fixedPath = String.Format(FULLPATH, appDataDir, separator);

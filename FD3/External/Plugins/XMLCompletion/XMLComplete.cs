@@ -689,7 +689,7 @@ namespace XMLCompletion
                 if (inCDATA || inComment) continue;
                 if (c == '>')
                 {
-                    xtag.Position = position;
+                    xtag.Position = position + 1;
                     return xtag;
                 }
                 else if (c == '{' && sci.BaseStyleAt(position) != 6 /*XML attribute value*/)
@@ -719,7 +719,7 @@ namespace XMLCompletion
         /// </summary>
         public static XMLContextTag GetParentTag(ScintillaNet.ScintillaControl sci, XMLContextTag tag)
         {
-            int pos = tag.Position;
+            int pos = tag.Position + 1;
             if (pos <= 0) pos = sci.CurrentPos;
             XMLContextTag parent;
             Stack<string> stack = new Stack<string>();

@@ -542,6 +542,12 @@ namespace AS3Context
         {
             string a1;
             string b1;
+            if (a.Label.Equals(b.Label, StringComparison.OrdinalIgnoreCase))
+            {
+                int c = String.Compare("a", "b");
+                if (a is HtmlAttributeItem && b is HtmlTagItem) return 1;
+                else if (b is HtmlAttributeItem && a is HtmlTagItem) return -1;
+            }
             if (a is IHtmlCompletionListItem)
             {
                 a1 = ((IHtmlCompletionListItem)a).Name;
