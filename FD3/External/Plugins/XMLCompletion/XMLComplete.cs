@@ -262,8 +262,9 @@ namespace XMLCompletion
                 return;
 			XMLContextTag ctag;
 			Int32 position = sci.CurrentPos;
-            if (sci.BaseStyleAt(position) == 6) 
+            if (sci.BaseStyleAt(position) == 6 && value != '"')
                 return; // in XML attribute
+
 			Char c = ' ';
             DataEvent de;
 			switch (value)
