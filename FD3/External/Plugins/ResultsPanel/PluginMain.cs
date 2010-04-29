@@ -110,14 +110,14 @@ namespace ResultsPanel
                     DataEvent evnt = (DataEvent)e;
                     if (evnt.Action == "ResultsPanel.ClearResults")
                     {
-                        this.pluginUI.ClearOutput();
                         e.Handled = true;
+                        this.pluginUI.ClearOutput();
                     }
                     else if (evnt.Action == "ResultsPanel.ShowResults")
                     {
+                        e.Handled = true;
                         this.pluginUI.AddLogEntries();
                         this.pluginUI.DisplayOutput();
-                        e.Handled = true;
                     }
                     break;
 

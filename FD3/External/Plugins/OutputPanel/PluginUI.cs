@@ -136,7 +136,7 @@ namespace OutputPanel
         private void InitializeTimers()
         {
             this.autoShow = new Timer();
-            this.autoShow.Interval = 250;
+            this.autoShow.Interval = 300;
             this.autoShow.Tick += new EventHandler(this.AutoShowPanel);
             this.typingTimer = new Timer();
             this.typingTimer.Tick += new EventHandler(this.TypingTimerTick);
@@ -232,8 +232,6 @@ namespace OutputPanel
                 {
                     panel.Show();
                     if (ds.ToString().EndsWith("AutoHide")) panel.Activate();
-                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                    if (document != null) document.Activate();
                 }
             }
         }

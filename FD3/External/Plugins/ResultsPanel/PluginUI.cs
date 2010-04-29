@@ -37,8 +37,8 @@ namespace ResultsPanel
 		{
             this.pluginMain = pluginMain;
             this.autoShow = new Timer();
-            this.autoShow.Interval = 250;
-            this.autoShow.Tick += AutoShowPanel;
+            this.autoShow.Interval = 300;
+            this.autoShow.Tick += this.AutoShowPanel;
             this.logCount = TraceManager.TraceLog.Count;
             this.ignoredEntries = new Dictionary<String, Boolean>();
             this.InitializeComponent();
@@ -394,7 +394,7 @@ namespace ResultsPanel
         /// </summary>
         private void AutoShowPanel(Object sender, System.EventArgs e)
         {
-            autoShow.Stop();
+            this.autoShow.Stop();
             if (this.entriesView.Items.Count > 0)
             {
                 DockContent panel = this.Parent as DockContent;
@@ -403,8 +403,6 @@ namespace ResultsPanel
                 {
                     panel.Show();
                     if (ds.ToString().EndsWith("AutoHide")) panel.Activate();
-                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                    if (document != null) document.Activate();
                 }
             }
         }

@@ -151,7 +151,7 @@ namespace CodeAnalyzer
 		private void CreateMenuItem()
 		{
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("FlashToolsMenu");
-            this.creatorMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.RulesetCreator"), null, new EventHandler(this.OpenCreator), this.settingObject.AnalyzeShortcut);
+            this.creatorMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.RulesetCreator"), null, new EventHandler(this.OpenCreator));
             this.analyzeMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.AnalyzeProject"), null, new EventHandler(this.AnalyzeProject), this.settingObject.AnalyzeShortcut);
 			PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.AnalyzeShortcut);
             viewMenu.DropDownItems.Insert(2, this.analyzeMenuItem);
