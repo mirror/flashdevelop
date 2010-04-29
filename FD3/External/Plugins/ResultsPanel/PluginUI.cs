@@ -421,6 +421,7 @@ namespace ResultsPanel
                 return;
             }
             Int32 newResult = -1;
+            this.entriesView.BeginUpdate();
             TraceItem entry; Match match; String description;
             String fileTest; Boolean inExec; Int32 icon; Int32 state;
             for (Int32 i = this.logCount; i < count; i++)
@@ -468,7 +469,7 @@ namespace ResultsPanel
                             else if (state == -3) icon = (description.IndexOf("Warning") >= 0) ? 2 : 1;
                             else icon = 0;
                             ListViewItem item = new ListViewItem("", icon);
-                            item.Tag = match;
+                            item.Tag = match; // Save for later...
                             item.SubItems.Add(match.Groups["line"].Value);
                             item.SubItems.Add(description);
                             item.SubItems.Add(fileInfo.Name);
@@ -497,6 +498,7 @@ namespace ResultsPanel
                 this.previousEntry.Enabled = true;
             }
             this.entryPath.Width = -2; // Extend last column
+            this.entriesView.EndUpdate();
         }
 
         /// <summary>

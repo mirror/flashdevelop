@@ -115,6 +115,7 @@ namespace ResultsPanel
                     }
                     else if (evnt.Action == "ResultsPanel.ShowResults")
                     {
+                        this.pluginUI.AddLogEntries();
                         this.pluginUI.DisplayOutput();
                         e.Handled = true;
                     }
