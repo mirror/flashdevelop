@@ -55,7 +55,7 @@ namespace Flash.Tools.Debugger.Expression
 			{
 				result = m_right.evaluate(current);
 			}
-			catch (NoSuchVariableException e)
+			catch (NoSuchVariableException)
 			{
 				throw new NoSuchVariableException(Path(this));
 			}

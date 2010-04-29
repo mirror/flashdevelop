@@ -32,7 +32,6 @@ namespace AS3Context
         private String settingFilename;
         private bool inMXML;
         private System.Drawing.Image pluginIcon;
-        private List<ToolStripItem> menuItems;
         private ProfilerUI profilerUI;
         private DockContent profilerPanel;
 

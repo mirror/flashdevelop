@@ -105,30 +105,32 @@ namespace OutputPanel
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             switch (e.Type)
             {
                 case EventType.ProcessStart:
                     this.pluginUI.ClearOutput(null, null);
                     break;
+
                 case EventType.ProcessEnd:
                     if (this.settingObject.ShowOnProcessEnd && !this.settingObject.ShowOnOutput)
                     {
                         this.pluginUI.DisplayOutput();
-                        document.Activate();
                     }
                     break;
+
                 case EventType.Trace:
                     this.pluginUI.AddTraces();
-                    if (this.settingObject.ShowOnOutput && !this.pluginPanel.Visible)
+                    if (this.settingObject.ShowOnOutput)
                     {
-                        OpenPanel(null, null);
+                        this.pluginUI.DisplayOutput();
                     }
                     break;
+
                 case EventType.Keys:
                     Keys keys = (e as KeyEvent).Value;
                     e.Handled = this.pluginUI.OnShortcut(keys);
                     break;
+
                 case EventType.SettingChanged:
                     this.pluginUI.ApplyWrapText();
                     break;

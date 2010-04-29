@@ -25,6 +25,7 @@ namespace OutputPanel
         private ToolStripButton clearButton;
         private ToolStrip toolStrip;
         private Timer typingTimer;
+        private Timer autoShow;
 
         public PluginUI(PluginMain pluginMain)
         {
@@ -134,6 +135,9 @@ namespace OutputPanel
         /// </summary>
         private void InitializeTimers()
         {
+            this.autoShow = new Timer();
+            this.autoShow.Interval = 250;
+            this.autoShow.Tick += new EventHandler(this.AutoShowPanel);
             this.typingTimer = new Timer();
             this.typingTimer.Tick += new EventHandler(this.TypingTimerTick);
             this.typingTimer.Interval = 250;
@@ -206,14 +210,31 @@ namespace OutputPanel
         }
 
         /// <summary>
-        /// Diplays the output
-        /// </summary> 
+        /// Flashes the panel to the user
+        /// </summary>
         public void DisplayOutput()
         {
-            DockState ds = this.pluginMain.PluginPanel.VisibleState;
-            if (ds == DockState.DockBottomAutoHide || ds == DockState.DockLeftAutoHide || ds == DockState.DockRightAutoHide || ds == DockState.DockTopAutoHide)
+            this.autoShow.Stop();
+            this.autoShow.Start();
+        }
+
+        /// <summary>
+        /// Shows the panel
+        /// </summary>
+        private void AutoShowPanel(Object sender, System.EventArgs e)
+        {
+            this.autoShow.Stop();
+            if (this.textLog.TextLength > 0)
             {
-                this.pluginMain.PluginPanel.Show();
+                DockContent panel = this.Parent as DockContent;
+                DockState ds = panel.VisibleState;
+                if (!panel.Visible || ds.ToString().EndsWith("AutoHide"))
+                {
+                    panel.Show();
+                    if (ds.ToString().EndsWith("AutoHide")) panel.Activate();
+                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                    if (document != null) document.Activate();
+                }
             }
         }
 

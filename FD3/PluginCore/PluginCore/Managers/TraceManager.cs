@@ -88,9 +88,9 @@ namespace PluginCore.Managers
         }
 
         /// <summary>
-        /// 
+        /// After a delay, synchronizes the traces
         /// </summary>
-        static void asyncTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+        static void asyncTimerElapsed(Object sender, System.Timers.ElapsedEventArgs e)
         {
             lock (asyncQueue)
             {
@@ -104,7 +104,7 @@ namespace PluginCore.Managers
         }
 
         /// <summary>
-        /// 
+        /// Processes the trace queue
         /// </summary>
         private static void ProcessQueue()
         {

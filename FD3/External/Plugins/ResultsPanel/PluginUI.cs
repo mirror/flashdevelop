@@ -36,6 +36,9 @@ namespace ResultsPanel
         public PluginUI(PluginMain pluginMain)
 		{
             this.pluginMain = pluginMain;
+            this.autoShow = new Timer();
+            this.autoShow.Interval = 250;
+            this.autoShow.Tick += AutoShowPanel;
             this.logCount = TraceManager.TraceLog.Count;
             this.ignoredEntries = new Dictionary<String, Boolean>();
             this.InitializeComponent();
@@ -43,9 +46,6 @@ namespace ResultsPanel
             this.InitializeGraphics();
             this.InitializeTexts();
             this.ApplySettings();
-            this.autoShow = new Timer();
-            this.autoShow.Interval = 300;
-            this.autoShow.Tick += AutoShowPanel;
 		}
 		
 		#region Windows Forms Designer Generated Code
@@ -385,8 +385,8 @@ namespace ResultsPanel
         /// </summary>
         public void DisplayOutput()
         {
-            autoShow.Stop();
-            autoShow.Start();
+            this.autoShow.Stop();
+            this.autoShow.Start();
         }
 
         /// <summary>
@@ -403,6 +403,8 @@ namespace ResultsPanel
                 {
                     panel.Show();
                     if (ds.ToString().EndsWith("AutoHide")) panel.Activate();
+                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                    if (document != null) document.Activate();
                 }
             }
         }

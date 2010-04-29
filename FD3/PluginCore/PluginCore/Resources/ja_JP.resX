@@ -3663,4 +3663,12 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Running Flex PMD...</value>
     <comment>Added after 3.1.0</comment>
   </data>
+  <data name="CodeAnalyzer.Label.RulesetCreator" xml:space="preserve">
+    <value>Code A&amp;nalyzer Ruleset Creator...</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="CodeAnalyzer.Info.FlexPMDFinished" xml:space="preserve">
+    <value>Flex PMD Finished</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
 </root>

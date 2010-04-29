@@ -29,8 +29,10 @@ namespace CodeAnalyzer
 			try
 			{
                 PMDRunner pr = new PMDRunner();
-                pr.RunPMD(pmdPath, projectPath, sourcePath, pmdRuleset);
-                pr.WatchFile(projectPath);
+                String objDir = Path.Combine(projectPath, "obj");
+                if (!Directory.Exists(objDir)) Directory.CreateDirectory(objDir);
+                pr.RunPMD(pmdPath, objDir, sourcePath, pmdRuleset);
+                pr.WatchFile(objDir);
 			}
 			catch (Exception ex)
 			{
@@ -46,9 +48,7 @@ namespace CodeAnalyzer
             String message = TextHelper.GetString("FlashDevelop.Info.RunningProcess");
             String args = "-Xmx256m -jar \"" + pmdPath + "\" -s \"" + sourcePath + "\" -o \"" + projectPath + "\"";
             if (pmdRuleset != "" && pmdRuleset != null) args += " -r \"" + pmdRuleset + "\"";
-            EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
             this.SetStatusText(TextHelper.GetString("Info.RunningFlexPMD"));
-            TraceManager.Add(message + " java " + args, -1);
             this.pmdRunner = new ProcessRunner();
             this.pmdRunner.Run("java", args, true);
         }
@@ -68,7 +68,12 @@ namespace CodeAnalyzer
             this.deleteTimer.Interval = 500;
             this.deleteTimer.Elapsed += new ElapsedEventHandler(onTimedDelete);
             this.watchedFile = Path.Combine(projectPath, "pmd.xml");
-            if (File.Exists(this.watchedFile)) File.Delete(this.watchedFile);
+            String oldFile = Path.ChangeExtension(this.watchedFile, "old");
+            if (File.Exists(this.watchedFile))
+            {
+                if (File.Exists(oldFile)) File.Delete(oldFile);
+                File.Move(this.watchedFile, oldFile);
+            }
             this.pmdWatcher.Path = projectPath;
             this.pmdWatcher.EnableRaisingEvents = true;
 		}
@@ -111,17 +116,23 @@ namespace CodeAnalyzer
                             line = line > 0 ? line : 0; col = col > 0 ? col : 0;
                             switch (reader.GetAttribute("priority"))
                             {
-                                case "1": state = 4; break;
+                                case "1": state = 3; break;
                                 case "3": state = 2; break;
                                 case "5": state = 0; break;
                             }
-                            String item = String.Format("{0}:{1}: col: {2}: {3}", currFile, line, col, reader.ReadElementContentAsString());
+                            String item = String.Format("{0}:{1}: col: {2}: {3}", currFile, line, col, reader.ReadElementContentAsString().Trim());
                             TraceManager.Add(item, state);
                         }
                     }
                     reader.Close();
-                    File.Delete(this.watchedFile);
+                    String oldFile = Path.ChangeExtension(this.watchedFile, "old");
+                    if (File.Exists(this.watchedFile))
+                    {
+                        if (File.Exists(oldFile)) File.Delete(oldFile);
+                        File.Move(this.watchedFile, oldFile);
+                    }
                     PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
+                    this.SetStatusText(TextHelper.GetString("Info.FlexPMDFinished"));
                 }
             }
             catch (Exception ex)

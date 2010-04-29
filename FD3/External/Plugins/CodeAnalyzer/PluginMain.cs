@@ -20,7 +20,8 @@ namespace CodeAnalyzer
 		private String pluginDesc = "Integrates Flex PMD code analyzer into FlashDevelop.";
         private String pluginHelp = "www.flashdevelop.org/community/";
 		private String pluginAuth = "FlashDevelop Team";
-        private ToolStripMenuItem menuItem;
+        private ToolStripMenuItem analyzeMenuItem;
+        private ToolStripMenuItem creatorMenuItem;
 		private String settingFilename;
 		private Settings settingObject;
 
@@ -107,14 +108,14 @@ namespace CodeAnalyzer
             {
                 case EventType.ApplySettings:
                     PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.AnalyzeShortcut);
-                    this.menuItem.ShortcutKeys = this.settingObject.AnalyzeShortcut;
+                    this.analyzeMenuItem.ShortcutKeys = this.settingObject.AnalyzeShortcut;
                     break;
 
                 case EventType.Command:
                     if (((DataEvent)e).Action == "ProjectManager.Project")
                     {
                         IProject project = PluginBase.CurrentProject;
-                        this.menuItem.Enabled = (project != null && project.Language == "as3");
+                        this.analyzeMenuItem.Enabled = (project != null && project.Language == "as3");
                     }
                     break;
             }
@@ -150,16 +151,27 @@ namespace CodeAnalyzer
 		private void CreateMenuItem()
 		{
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("FlashToolsMenu");
-            this.menuItem = new ToolStripMenuItem(TextHelper.GetString("Label.AnalyzeProject"), null, new EventHandler(this.Analyze), this.settingObject.AnalyzeShortcut);
+            this.creatorMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.RulesetCreator"), null, new EventHandler(this.OpenCreator), this.settingObject.AnalyzeShortcut);
+            this.analyzeMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.AnalyzeProject"), null, new EventHandler(this.AnalyzeProject), this.settingObject.AnalyzeShortcut);
 			PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.AnalyzeShortcut);
-            viewMenu.DropDownItems.Insert(2, this.menuItem);
-            this.menuItem.Enabled = false;
+            viewMenu.DropDownItems.Insert(2, this.analyzeMenuItem);
+            viewMenu.DropDownItems.Insert(3, this.creatorMenuItem);
+            this.analyzeMenuItem.Enabled = false;
 		}
+
+        /// <summary>
+        /// Opens the ruleset creator page
+        /// </summary>
+        private void OpenCreator(Object sender, System.EventArgs e)
+        {
+            String url = "http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html";
+            PluginBase.MainForm.CallCommand("Browse", url);
+        }
 
         /// <summary>
         /// Analyzes the current project
         /// </summary>
-        private void Analyze(Object sender, System.EventArgs e)
+        private void AnalyzeProject(Object sender, System.EventArgs e)
         {
             if (PluginBase.CurrentProject != null)
             {
