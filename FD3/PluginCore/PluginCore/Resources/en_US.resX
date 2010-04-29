@@ -3647,4 +3647,24 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Stack</value>
     <comment>Added after 3.1.0</comment>
   </data>
+  <data name="CodeAnalyzer.Description.AnalyzeShortcut" xml:space="preserve">
+    <value>Shortcut of the analyze project command.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="CodeAnalyzer.Description.PMDRuleset" xml:space="preserve">
+    <value>Default custom ruleset file for the Flex PMD.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="CodeAnalyzer.Info.Decription" xml:space="preserve">
+    <value>Integrates Flex PMD code analyzer into FlashDevelop.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="CodeAnalyzer.Label.AnalyzeProject" xml:space="preserve">
+    <value>Analy&amp;ze Project Source Code...</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="CodeAnalyzer.Info.RunningFlexPMD" xml:space="preserve">
+    <value>Running Flex PMD...</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
 </root>

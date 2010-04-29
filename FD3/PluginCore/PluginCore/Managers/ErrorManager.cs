@@ -91,7 +91,7 @@ namespace PluginCore.Managers
                     sw.Write(result);
                 }
             }
-            catch { }
+            catch {}
         }
 
     }

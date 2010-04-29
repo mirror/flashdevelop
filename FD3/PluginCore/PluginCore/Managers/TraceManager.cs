@@ -1,19 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using PluginCore;
 using System.Windows.Forms;
+using PluginCore;
 
 namespace PluginCore.Managers
 {
 	public class TraceManager
 	{
-        private const int MAX_QUEUE = 1000;
-        private const string OVERFLOW = "FlashDevelop: Trace overflow";
+        private static Boolean synchronizing;
+        private static Int32 MAX_QUEUE = 1000;
         private static List<TraceItem> traceLog;
         private static List<TraceItem> asyncQueue;
         private static System.Timers.Timer asyncTimer;
-        private static bool synchronizing;
 
         static TraceManager()
         {
@@ -22,7 +21,7 @@ namespace PluginCore.Managers
             asyncTimer = new System.Timers.Timer();
             asyncTimer.Interval = 200;
             asyncTimer.AutoReset = false;
-            asyncTimer.Elapsed += new System.Timers.ElapsedEventHandler(asyncTimer_Elapsed);
+            asyncTimer.Elapsed += new System.Timers.ElapsedEventHandler(asyncTimerElapsed);
         }
 
         /// <summary>
@@ -42,25 +41,23 @@ namespace PluginCore.Managers
         }
 
         /// <summary>
-        /// Adds a new entry to the log
-        /// </summary>
-        public static void Add(TraceItem traceItem)
-        {
-            lock (asyncQueue)
-            {
-                // no overflow check for sync traces
-                asyncQueue.Add(traceItem);
-                asyncTimer.Start();
-            }
-        }
-
-
-        /// <summary>
         /// Adds a new entry to the log in an unsafe threading context
         /// </summary>
         public static void AddAsync(String message)
         {
             AddAsync(message, 0);
+        }
+
+        /// <summary>
+        /// Adds a new entry to the log (no overflow check for sync traces)
+        /// </summary>
+        public static void Add(TraceItem traceItem)
+        {
+            lock (asyncQueue)
+            {
+                asyncQueue.Add(traceItem);
+                asyncTimer.Start();
+            }
         }
 
         /// <summary>
@@ -80,7 +77,7 @@ namespace PluginCore.Managers
                     }
                     else if (count == MAX_QUEUE)
                     {
-                        asyncQueue.Add(new TraceItem(OVERFLOW, 4));
+                        asyncQueue.Add(new TraceItem("FlashDevelop: Trace overflow", 4));
                         asyncTimer.Stop();
                         asyncTimer.Start();
                     }
@@ -90,12 +87,14 @@ namespace PluginCore.Managers
             Add(new TraceItem(message, state));
         }
 
-        static void asyncTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        static void asyncTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             lock (asyncQueue)
             {
-                if (PluginBase.MainForm.ClosingEntirely)
-                    return;
+                if (PluginBase.MainForm.ClosingEntirely) return;
                 if (!synchronizing)
                 {
                     synchronizing = true;
@@ -104,12 +103,14 @@ namespace PluginCore.Managers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static void ProcessQueue()
         {
             lock (asyncQueue)
             {
-                if (PluginBase.MainForm.ClosingEntirely)
-                    return;
+                if (PluginBase.MainForm.ClosingEntirely) return;
                 traceLog.AddRange(asyncQueue);
                 asyncQueue.Clear();
                 synchronizing = false;

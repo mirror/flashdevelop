@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRefactor", "External\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDebugger", "External\Plugins\FlashDebugger\FlashDebugger.csproj", "{194B58C9-9D2B-4D5E-9256-773FD3222582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "External\Plugins\CodeAnalyzer\CodeAnalyzer.csproj", "{E4504497-89BF-4ED5-A0CC-6F02E96C2652}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -258,6 +260,14 @@ Global
 		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|Any CPU.Build.0 = Release|Any CPU
 		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|x86.ActiveCfg = Release|x86
 		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|x86.Build.0 = Release|x86
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Debug|x86.ActiveCfg = Debug|x86
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Debug|x86.Build.0 = Debug|x86
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Release|x86.ActiveCfg = Release|x86
+		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
