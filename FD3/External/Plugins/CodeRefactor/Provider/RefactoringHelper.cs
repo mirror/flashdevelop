@@ -243,6 +243,11 @@ namespace CodeRefactor.Provider
             }
             // sets the FindInFiles settings to the project root, *.as files, and recursive
             String path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
+            if (!PluginBase.MainForm.CurrentDocument.FileName.StartsWith(path))
+            {
+                // This is out of the project, just look for this file...
+                currentFileOnly = true;
+            }
             String mask = "*.as;*.hx";
             Boolean recursive = true;
             // but if it's only the current file, let's just search that!

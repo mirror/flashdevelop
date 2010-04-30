@@ -66,7 +66,7 @@ namespace CodeAnalyzer
             this.deleteTimer.Enabled = false;
             this.deleteTimer.AutoReset = false;
             this.deleteTimer.Interval = 500;
-            this.deleteTimer.Elapsed += new ElapsedEventHandler(onTimedDelete);
+            this.deleteTimer.Elapsed += new ElapsedEventHandler(this.onTimedDelete);
             this.watchedFile = Path.Combine(projectPath, "pmd.xml");
             String oldFile = Path.ChangeExtension(this.watchedFile, "old");
             if (File.Exists(this.watchedFile))

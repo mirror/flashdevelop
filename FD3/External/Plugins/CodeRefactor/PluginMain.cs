@@ -234,11 +234,12 @@ namespace CodeRefactor
                 ASResult result = isValid ? GetResultFromCurrentPosition() : null;
                 if (result != null && result.Member != null)
                 {
+                    Boolean isVoid = result.Type.IsVoid();
                     Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
                     Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
                     Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
-                    this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor);
-                    this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor);
+                    this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
+                    this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.editorReferencesItem.Enabled = true;
                     this.viewReferencesItem.Enabled = true;
                 }
