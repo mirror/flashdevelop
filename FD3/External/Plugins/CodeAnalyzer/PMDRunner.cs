@@ -45,7 +45,6 @@ namespace CodeAnalyzer
         /// </summary>
         private void RunPMD(String pmdPath, String projectPath, String sourcePath, String pmdRuleset)
         {
-            String message = TextHelper.GetString("FlashDevelop.Info.RunningProcess");
             String args = "-Xmx256m -jar \"" + pmdPath + "\" -s \"" + sourcePath + "\" -o \"" + projectPath + "\"";
             if (pmdRuleset != "" && pmdRuleset != null) args += " -r \"" + pmdRuleset + "\"";
             this.SetStatusText(TextHelper.GetString("Info.RunningFlexPMD"));
@@ -95,6 +94,12 @@ namespace CodeAnalyzer
         /// </summary>
         private void onTimedDelete(Object sender, ElapsedEventArgs e)
 		{
+            Form mainForm = PluginBase.MainForm as Form;
+            if (mainForm.InvokeRequired)
+            {
+                mainForm.BeginInvoke((MethodInvoker)delegate { this.onTimedDelete(sender, e); });
+                return;
+            }
             try
             {
                 if (File.Exists(this.watchedFile))
