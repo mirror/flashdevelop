@@ -3244,7 +3244,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ViewMenuItem" xml:space="preserve">
-    <value>Profil&amp;er</value>
+    <value>SWF Profil&amp;er</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Title.Profiler" xml:space="preserve">

@@ -56,13 +56,13 @@ namespace FlashDebugger
 		private Keys m_ToggleBreakPointEnableShortcut;
 		private Keys m_DisableAllBreakPointsShortcut;
 		private Keys m_EnableAllBreakPointsShortcut;
-		private Folder[] m_SourcePaths = new Folder[] { };
+		private Folder[] m_SourcePaths = new Folder[] {};
 		private Boolean m_bTraceLog = false;
 		private Boolean m_SaveBreakPoints = true;
+        private Color m_DebugLineColor = Color.Yellow;
 		private Color m_BreakPointEnableLineColor = Color.Red;
 		private Color m_BreakPointDisableLineColor = Color.Gray;
-		private Color m_DebugLineColor = Color.Yellow;
-        private Boolean m_StartDebuggerOnTestMovie = false;
+        private Boolean m_StartDebuggerOnTestMovie = true;
 
         [DisplayName("Enable Logging")]
         [LocalizedCategory("FlashDebugger.Category.Misc")]
@@ -104,6 +104,7 @@ namespace FlashDebugger
         [DisplayName("Stop Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.Stop")]
+        [DefaultValue(Keys.None)]
         public Keys Stop
         {
 			get { return m_StopShortcut; }
@@ -113,6 +114,7 @@ namespace FlashDebugger
         [DisplayName("Start Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.StartContinue")]
+        [DefaultValue(Keys.None)]
         public Keys StartContinue
         {
 			get { return m_StartContinueShortcut; }
@@ -122,6 +124,7 @@ namespace FlashDebugger
         [DisplayName("Current Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.Current")]
+        [DefaultValue(Keys.None)]
 		public Keys Current
 		{
 			get { return m_CurrentShortcut; }
@@ -131,6 +134,7 @@ namespace FlashDebugger
         [DisplayName("Run To Cursor Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.RunToCursor")]
+        [DefaultValue(Keys.None)]
 		public Keys RunToCursor
 		{
 			get { return m_RunToCursorShortcut; }
@@ -140,6 +144,7 @@ namespace FlashDebugger
         [DisplayName("Step Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.Step")]
+        [DefaultValue(Keys.None)]
         public Keys Step
         {
 			get { return m_StepShortcut; }
@@ -149,6 +154,7 @@ namespace FlashDebugger
         [DisplayName("Next Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.Next")]
+        [DefaultValue(Keys.None)]
         public Keys Next
         {
 			get { return m_NextShortcut; }
@@ -158,6 +164,7 @@ namespace FlashDebugger
         [DisplayName("Pause Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.Pause")]
+        [DefaultValue(Keys.None)]
         public Keys Pause
         {
 			get { return m_PauseShortcut; }
@@ -167,6 +174,7 @@ namespace FlashDebugger
         [DisplayName("Finish Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.Finish")]
+        [DefaultValue(Keys.None)]
 		public Keys Finish
         {
 			get { return m_FinishShortcut; }
@@ -176,6 +184,7 @@ namespace FlashDebugger
         [DisplayName("Toggle Breakpoint Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.ToggleBreakPoint")]
+        [DefaultValue(Keys.None)]
 		public Keys ToggleBreakPoint
         {
 			get { return m_ToggleBreakPointShortcut; }
@@ -185,6 +194,7 @@ namespace FlashDebugger
         [DisplayName("Toggle Breakpoints Enabled Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.ToggleBreakPointEnable")]
+        [DefaultValue(Keys.None)]
 		public Keys ToggleBreakPointEnable
 		{
 			get { return m_ToggleBreakPointEnableShortcut; }
@@ -194,6 +204,7 @@ namespace FlashDebugger
         [DisplayName("Disable All Breakpoints Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.DisableAllBreakPoints")]
+        [DefaultValue(Keys.None)]
 		public Keys DisableAllBreakPoints
         {
 			get { return m_DisableAllBreakPointsShortcut; }
@@ -203,6 +214,7 @@ namespace FlashDebugger
         [DisplayName("Enable All Breakpoints Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
         [LocalizedDescription("FlashDebugger.Description.EnableAllBreakPoints")]
+        [DefaultValue(Keys.None)]
 		public Keys EnableAllBreakPoints
         {
 			get { return m_EnableAllBreakPointsShortcut; }
