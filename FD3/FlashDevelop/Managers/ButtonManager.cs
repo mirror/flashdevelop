@@ -90,14 +90,6 @@ namespace FlashDevelop.Managers
             {
                 if (!Globals.MainForm.ProcessIsRunning) return false;
             }
-            if (action.Contains("!BreakpointsEnabled"))
-            {
-                if (Globals.MainForm.BreakpointsEnabled) return false;
-            }
-            else if (action.Contains("BreakpointsEnabled"))
-            {
-                if (!Globals.MainForm.BreakpointsEnabled) return false;
-            }
             if (sci != null)
             {
                 if (action.Contains("!CanUndo"))

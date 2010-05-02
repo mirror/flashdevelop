@@ -25,10 +25,10 @@ namespace FlashDebugger
         private String settingFilename;
         private Image pluginImage;
 
-		static internal LiveDataTip liveDataTip;
 		static internal Settings settingObject;
-		static internal BreakPointManager breakPointManager;
+        static internal LiveDataTip liveDataTip;
         static internal DebuggerManager debugManager;
+		static internal BreakPointManager breakPointManager;
         static internal Boolean disableDebugger = false;
         static internal Boolean debugBuildStart;
         private Boolean buildCmpFlg = false;
@@ -133,7 +133,6 @@ namespace FlashDebugger
                 case EventType.UIStarted:
                     menusHelper.AddToolStrip();
                     menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
-                    CheckValidFile(!disableDebugger);
                     break;
                 
                 case EventType.UIClosing:
@@ -159,13 +158,9 @@ namespace FlashDebugger
                     breakPointManager.Save();
                     break;
 
-                case EventType.FileSwitch:
-                    CheckValidFile(!disableDebugger);
-                    break;
-
                 case EventType.ProcessEnd:
                     TextEvent textevnt = (TextEvent)e;
-                    if (buildCmpFlg && (textevnt.Value != "Done (0)"))
+                    if (buildCmpFlg && !textevnt.Value.EndsWith("(0)")) // !Done
                     {
                         buildCmpFlg = false;
 						menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
@@ -191,7 +186,6 @@ namespace FlashDebugger
                         if (project != null && project is AS3Project)
                         {
                             disableDebugger = false;
-                            CheckValidFile(true);
                             PanelsHelper.breakPointUI.Clear();
                             breakPointManager.Project = project;
                             breakPointManager.Load();
@@ -200,7 +194,6 @@ namespace FlashDebugger
                         else
                         {
                             disableDebugger = true;
-                            CheckValidFile(false);
                             if (breakPointManager.Project != null)
                             {
                                 breakPointManager.Save();
@@ -254,15 +247,6 @@ namespace FlashDebugger
                     break;
             }
         }
-
-        private void CheckValidFile(bool state)
-        {
-            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-            if (document != null && document.IsEditable && (document.FileName.EndsWith(".as") || document.FileName.EndsWith(".mxml")) && ASContext.Context.IsFileValid)
-            {
-                PluginBase.MainForm.BreakpointsEnabled = state;
-            }
-        }
 		
 		#endregion
 
@@ -278,13 +262,15 @@ namespace FlashDebugger
 			this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             String bkPath = Path.Combine(dataPath, "Breakpoints");
 			if (!Directory.Exists(bkPath)) Directory.CreateDirectory(bkPath);
-            this.pluginImage = PluginBase.MainForm.FindImage("54|31|5|4");
-            PluginBase.MainForm.BreakpointsEnabled = true;
+            this.pluginImage = PluginBase.MainForm.FindImage("54|23|5|4");
 			breakPointManager = new BreakPointManager();
             debugManager = new DebuggerManager();
             liveDataTip = new LiveDataTip();
         }
 
+        /// <summary>
+        /// Creates the required menu items
+        /// </summary>
         private void CreateMenuItems()
         {
             menusHelper = new MenusHelper(pluginImage, debugManager, settingObject);
@@ -311,7 +297,7 @@ namespace FlashDebugger
         /// </summary> 
         private void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.FileSwitch | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing);
+            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
         }

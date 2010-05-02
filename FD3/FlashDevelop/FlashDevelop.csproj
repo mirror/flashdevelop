@@ -175,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\BookmarkIcon.bmp" />
-    <EmbeddedResource Include="Resources\BreakpointIcon.bmp" />
     <EmbeddedResource Include="Resources\FlashDevelopIcon.ico" />
     <EmbeddedResource Include="Resources\QuickFindClose.png" />
     <EmbeddedResource Include="Resources\QuickFindNext.png" />

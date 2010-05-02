@@ -34,14 +34,13 @@ namespace FlashDebugger
 			mask |= GetMarkerMask(markerBPNotAvailable);
 			mask |= GetMarkerMask(markerCurrentLine);
 			sci.SetMarginMaskN(0, mask);
-			//sci.SetMarginWidthN(0, 18);
-			sci.MarkerDefinePixmap(markerBPEnabled, Properties.Resource.XpmBreakPointEnabled);
-			sci.MarkerDefinePixmap(markerBPDisabled, Properties.Resource.XpmBreakPointDisabled);
-			sci.MarkerDefinePixmap(markerCurrentLine, Properties.Resource.XpmCurrentLine);
-			sci.MarkerSetBack(markerBPEnabled, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointEnableLineColor)); //enable
-			sci.MarkerSetBack(markerBPDisabled, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointDisableLineColor)); //dis
-			sci.Modified += new ModifiedHandler(sci_Modified);
+			sci.MarkerDefinePixmap(markerBPEnabled, ScintillaNet.XPM.ConvertToXPM(Properties.Resource.Enabled, "#00FF00"));
+			sci.MarkerDefinePixmap(markerBPDisabled, ScintillaNet.XPM.ConvertToXPM(Properties.Resource.Disabled, "#00FF00"));
+            sci.MarkerDefinePixmap(markerCurrentLine, ScintillaNet.XPM.ConvertToXPM(Properties.Resource.CurLine, "#00FF00"));
+			sci.MarkerSetBack(markerBPEnabled, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointEnableLineColor)); // enable
+			sci.MarkerSetBack(markerBPDisabled, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointDisableLineColor)); // disable
 			sci.MarginClick += new MarginClickHandler(SciControl_MarginClick);
+            sci.Modified += new ModifiedHandler(sci_Modified);
         }
 
         static public void sci_Modified(ScintillaControl sender, int position, int modificationType, string text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev)
@@ -222,6 +221,7 @@ namespace FlashDebugger
 			sci.IndicatorClearRange(start, length);
 			sci.StartStyling(es, mask);
 		}
+
         /// <summary>
         /// 
         /// </summary>
@@ -237,7 +237,6 @@ namespace FlashDebugger
 					Int32 start = sci.IndicatorStart(indicator, position);
 					Int32 end = sci.IndicatorEnd(indicator, start);
 					Int32 length = end - start;
-
 					if (length > 0)
 					{
 						sci.IndicatorClearRange(start, length);
@@ -344,8 +343,10 @@ namespace FlashDebugger
             {
 				doc.SciControl.MarkerDeleteAll(markerBPEnabled);
 				doc.SciControl.MarkerDeleteAll(markerBPDisabled);
+                RemoveAllHighlights(doc.SciControl);
 			}
             PanelsHelper.breakPointUI.Clear();
+            PluginMain.breakPointManager.ClearAll();
         }
 
         static internal void ToggleBreakPointEnable_Click(Object sender, EventArgs e)

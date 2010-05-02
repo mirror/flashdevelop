@@ -111,7 +111,7 @@ namespace FlashDebugger
             if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
             {
                 // remove this, let other parts deal with it
-                ErrorManager.ShowInfo(TextHelper.GetString("Info.CannotFindOutputFile"));
+                ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
             }
             else Start(currentProject.OutputPathAbsolute);
         }
@@ -132,7 +132,7 @@ namespace FlashDebugger
 				}
 				else
 				{
-					MessageBox.Show(TextHelper.GetString("Info.ProjectNotOpen"), PluginCore.Localization.TextHelper.GetString("FlashDevelop.Title.ConfirmDialog"), MessageBoxButtons.OK);
+                    ErrorManager.ShowWarning(TextHelper.GetString("Info.ProjectNotOpen"), null);
 					return false;
 				}
             }

@@ -23,15 +23,12 @@ namespace FlashDevelop.Managers
     {
         public static Scintilla SciConfig;
         public static ConfigurationUtility SciConfigUtil;
-        public static System.String XpmBreakPoint;
         public static System.String XpmBookmark;
 
         static ScintillaManager()
         {
             Bitmap bookmark = new Bitmap(ResourceHelper.GetStream("BookmarkIcon.bmp"));
-            Bitmap breakPoint = new Bitmap(ResourceHelper.GetStream("BreakpointIcon.bmp"));
             XpmBookmark = ScintillaNet.XPM.ConvertToXPM(bookmark, "#00FF00");
-            XpmBreakPoint = ScintillaNet.XPM.ConvertToXPM(breakPoint, "#00FF00");
             LoadConfiguration();
         }
 
@@ -315,7 +312,6 @@ namespace FlashDevelop.Managers
             sci.SetMarginMaskN(2, -33554432 | 1 << 2);
             sci.MarginSensitiveN(2, true);
             sci.MarkerDefinePixmap(0, XpmBookmark);
-            sci.MarkerDefinePixmap(1, XpmBreakPoint);
             sci.SetMarginMaskN(0, MarkerManager.MARKERS);
             sci.MarkerDefine(2, ScintillaNet.Enums.MarkerSymbol.Fullrect);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.Folder, ScintillaNet.Enums.MarkerSymbol.BoxPlus);

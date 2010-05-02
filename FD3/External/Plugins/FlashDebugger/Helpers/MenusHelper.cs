@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using PluginCore.Localization;
+using System.Collections.Generic;
 using FlashDebugger.Properties;
+using PluginCore.Localization;
 using PluginCore;
 
 namespace FlashDebugger
@@ -32,8 +32,8 @@ namespace FlashDebugger
 			imageList.Images.Add("Finish", Resource.Finish);
 
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanel"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
             viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewBreakpointsPanel"), pluginImage, new EventHandler(this.OpenBreakPointPanel)));
+            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanel"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
             viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewStackframePanel"), pluginImage, new EventHandler(this.OpenStackframePanel)));
 
             // Menu           
@@ -202,7 +202,7 @@ namespace FlashDebugger
 				PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
 				PanelsHelper.stackframeUI.ClearItem();
 			}
-			PluginBase.MainForm.BreakpointsEnabled = ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled =
+			ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled =
                 DeleteAllBreakPointsMenu.Enabled = DisableAllBreakPointsMenu.Enabled = EnableAllBreakPointsMenu.Enabled =
                 PanelsHelper.breakPointUI.Enabled = (state != DebuggerState.Running);
 

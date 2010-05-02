@@ -408,6 +408,9 @@
     <Content Include="FlexSDK\FlashDbg\Flash\Tools\Debugger\Concrete\appleScriptCloseCaminoWindow.txt" />
     <Content Include="FlexSDK\FlashDbg\Flash\Tools\Debugger\Concrete\appleScriptCloseSafariWindow.txt" />
     <Content Include="FlexSDK\FlashDbg\Flash\Tools\Debugger\Concrete\appleScriptGetDefaultBrowserName.txt" />
+    <None Include="Icons\Breakpoints\CurLine.bmp" />
+    <None Include="Icons\Breakpoints\Disabled.bmp" />
+    <None Include="Icons\Breakpoints\Enabled.bmp" />
     <Content Include="Icons\Continue.png" />
     <Content Include="Icons\Current.png" />
     <Content Include="Icons\Finish.png" />

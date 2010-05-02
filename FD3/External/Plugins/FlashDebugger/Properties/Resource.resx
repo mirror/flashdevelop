@@ -118,8 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CurLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Breakpoints\CurLine.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Current" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Current.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Breakpoints\Disabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Enabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Breakpoints\Enabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Finish" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Finish.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,162 +150,5 @@
   </data>
   <data name="Stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="XpmBreakPointDisabled" xml:space="preserve">
-    <value>/* XPM */
-static char * XpmBreakPointDisabled[] = {
-"16 16 9 1",
-" 	c None",
-".	c #772B1A",
-"+	c #812D1F",
-"@	c #7F2B21",
-"#	c #772D25",
-"$	c #772822",
-"%	c #77291C",
-"&amp;	c #772B1C",
-"*	c #772A1C",
-"      ....      ",
-"     ......     ",
-"    ..    ..    ",
-"   ..      ..   ",
-"  ..        ..  ",
-" ..          .. ",
-"..            ..",
-"..            ..",
-"..            ..",
-"..            ..",
-" ..          .. ",
-"  ..        .+  ",
-"   ..      .@   ",
-"    .#    $%    ",
-"     ..&amp;*..     ",
-"      ....      "};</value>
-  </data>
-  <data name="XpmBreakPointEnabled" xml:space="preserve">
-    <value>/* XPM */
-static char * XpmBreakPointEnabled[] = {
-"16 16 40 1",
-" 	c None",
-".	c #772B1A",
-"+	c #8D3A2C",
-"@	c #BF5B53",
-"#	c #DF6C68",
-"$	c #CC5F59",
-"%	c #A4453A",
-"&amp;	c #B95950",
-"*	c #FF7979",
-"=	c #D9615C",
-"-	c #B9584F",
-";	c #FF7171",
-"&gt;	c #E25F5C",
-",	c #903B2D",
-"'	c #FF6969",
-")	c #BC4941",
-"!	c #BA574F",
-"~	c #EB5C5A",
-"{	c #CD635E",
-"]	c #ED5D5D",
-"^	c #ED5959",
-"/	c #853021",
-"(	c #C65D59",
-"_	c #DF5555",
-":	c #DF5151",
-"&lt;	c #863021",
-"[	c #AF4F49",
-"}	c #D04C4C",
-"|	c #D04848",
-"1	c #8E3A2E",
-"2	c #BE4242",
-"3	c #A73934",
-"4	c #9A423D",
-"5	c #812D1F",
-"6	c #8E2E2E",
-"7	c #7F2B21",
-"8	c #772822",
-"9	c #77291C",
-"0	c #772B1C",
-"a	c #772A1C",
-"                ",
-"     ......     ",
-"    .+@##$%.    ",
-"   .&amp;******=.   ",
-"  .-;;;;;;;;&gt;.  ",
-" .,''''''''''). ",
-" .!~~~~~~~~~~~. ",
-" .{]]]]]]]]]]^/ ",
-" .(__________:&lt; ",
-" .[}}}}}}}}}}|. ",
-" .122222222223. ",
-"  .44444444445  ",
-"   .666666667   ",
-"    .8888889    ",
-"     ..0a..     ",
-"                "};</value>
-  </data>
-  <data name="XpmCurrentLine" xml:space="preserve">
-    <value>/* XPM */
-static char * XpmCurrentLine[] = {
-"16 16 45 1",
-" 	c None",
-".	c #948F11",
-"+	c #959011",
-"@	c #949011",
-"#	c #E8DF29",
-"$	c #E1D829",
-"%	c #E3D927",
-"&amp;	c #E1D529",
-"*	c #DDDA21",
-"=	c #DCD821",
-"-	c #DCD621",
-";	c #DBD521",
-"&gt;	c #DAD323",
-",	c #DAD227",
-"'	c #D9CF27",
-")	c #D8CF27",
-"!	c #D7CD27",
-"~	c #D6CB29",
-"{	c #D6C92B",
-"]	c #938F12",
-"^	c #BEBA1D",
-"/	c #BDB91D",
-"(	c #BDB71D",
-"_	c #BDB621",
-":	c #BDB321",
-"&lt;	c #BBB321",
-"[	c #BAB121",
-"}	c #BAB023",
-"|	c #B9AE25",
-"1	c #B9AD25",
-"2	c #B7AC27",
-"3	c #B7AA27",
-"4	c #A8A418",
-"5	c #A7A21A",
-"6	c #A7A01D",
-"7	c #A79F1D",
-"8	c #A59F1D",
-"9	c #A59D1D",
-"0	c #A49B1F",
-"a	c #A49A21",
-"b	c #A49921",
-"c	c #A29821",
-"d	c #A29621",
-"e	c #938E12",
-"f	c #928E12",
-"                ",
-"                ",
-"        .       ",
-"        +.      ",
-"        @#.     ",
-"        @#$@    ",
-" ........%$&amp;.   ",
-" .*=-;&gt;,')!~{.  ",
-" ]^/(_:&lt;[}|123] ",
-" ]4567890abcd]  ",
-" eeeeeeeeddde   ",
-"        edde    ",
-"        fde     ",
-"        .e      ",
-"        e       ",
-"                "};</value>
   </data>
 </root>

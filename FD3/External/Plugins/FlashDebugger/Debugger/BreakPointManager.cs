@@ -7,6 +7,7 @@ using Flash.Tools.Debugger;
 using Flash.Tools.Debugger.Expression;
 using PluginCore.Helpers;
 using PluginCore.Utilities;
+using PluginCore.Managers;
 using ScintillaNet;
 using PluginCore;
 
@@ -18,11 +19,11 @@ namespace FlashDebugger
 
     public class BreakPointManager
     {
-		private List<BreakPointInfo> m_BreakPointList = new List<BreakPointInfo>();
-		private BreakPointInfo m_TemporaryBreakPointInfo = null;
         private IProject m_Project;
         private string m_SaveFileFullPath;
         private Boolean m_bAccessable = true;
+        private BreakPointInfo m_TemporaryBreakPointInfo = null;
+        private List<BreakPointInfo> m_BreakPointList = new List<BreakPointInfo>();
    
         public event ChangeBreakPointEventHandler ChangeBreakPointEvent = null;
         public event UpdateBreakPointEventHandler UpdateBreakPointEvent = null;
@@ -58,8 +59,7 @@ namespace FlashDebugger
         {
             foreach (PluginCore.ITabbedDocument doc in PluginBase.MainForm.Documents)
             {
-                if (Path.GetExtension(doc.SciControl.FileName) == ".as" ||
-                    Path.GetExtension(doc.SciControl.FileName) == ".mxml")
+                if (Path.GetExtension(doc.SciControl.FileName) == ".as" || Path.GetExtension(doc.SciControl.FileName) == ".mxml")
                 {
 					List<int> lines = GetMarkers(doc.SciControl, ScintillaHelper.markerBPEnabled);
 					BreakPointInfo cbinfo = m_BreakPointList.Find(delegate(BreakPointInfo info)
@@ -140,8 +140,7 @@ namespace FlashDebugger
 			}
 			if (m_TemporaryBreakPointInfo != null)
 			{
-				if (m_TemporaryBreakPointInfo.FileFullPath == localPath &&
-					m_TemporaryBreakPointInfo.Line == (line - 1))
+				if (m_TemporaryBreakPointInfo.FileFullPath == localPath && m_TemporaryBreakPointInfo.Line == (line - 1))
 				{
 					m_TemporaryBreakPointInfo.IsDeleted = true;
 					List<BreakPointInfo> bpList = new List<BreakPointInfo>();
@@ -172,7 +171,7 @@ namespace FlashDebugger
 					}
 					catch (ExpressionException e)
 					{
-						MessageBox.Show(e.getLocalizedMessage(), PluginCore.Localization.TextHelper.GetString("FlashDevelop.Title.ErrorDialog"));
+                        ErrorManager.ShowError(e);
 						return true;
 					}
 				}
@@ -189,8 +188,7 @@ namespace FlashDebugger
             {
                 ScintillaControl sci = documents[i].SciControl;
 				if (sci == null) continue;
-                if (Path.GetExtension(sci.FileName) == ".as" ||
-                    Path.GetExtension(sci.FileName) == ".mxml")
+                if (Path.GetExtension(sci.FileName) == ".as" || Path.GetExtension(sci.FileName) == ".mxml")
                 {
 					foreach (BreakPointInfo info in m_BreakPointList)
                     {
@@ -281,7 +279,6 @@ namespace FlashDebugger
             {
 				cbinfo.IsDeleted = bDeleted;
 				cbinfo.IsEnabled = bEnabled;
-
 				exp = cbinfo.Exp;
             }
 			else if (!bDeleted)
@@ -362,9 +359,9 @@ namespace FlashDebugger
 
     public class BreakPointArgs : EventArgs
     {
-        public string FileFullPath;
         public int Line;
         public string Exp;
+        public string FileFullPath;
         public Boolean IsDelete;
         public Boolean Enable;
 
@@ -380,9 +377,9 @@ namespace FlashDebugger
 
     public class UpdateBreakPointArgs : EventArgs
     {
-        public string FileFullPath;
         public int OldLine;
         public int NewLine;
+        public string FileFullPath;
 
         public UpdateBreakPointArgs(string filefullpath, int oldline, int newline)
         {
@@ -394,11 +391,11 @@ namespace FlashDebugger
 
     public class BreakPointInfo
     {
-        private string m_FileFullPath;
         private int m_Line;
         private Boolean m_bDeleted;
         private Boolean m_bEnabled;
 		private Location m_Location;
+        private string m_FileFullPath;
 		private string m_ConditionalExpression;
 		private ValueExp m_ParsedExpression;
 

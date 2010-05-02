@@ -149,7 +149,6 @@ namespace FlashDebugger
                 if (m_Session == null)
                 {
                     m_CurrentState = DebuggerState.Stopped;
-
                     throw new Exception(TextHelper.GetString("Info.UnableToStartDebugger"));
                 }
                 initSession();

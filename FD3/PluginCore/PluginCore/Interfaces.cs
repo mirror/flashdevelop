@@ -128,7 +128,6 @@ namespace PluginCore
         ContextMenuStrip EditorMenu { get; }
         ITabbedDocument CurrentDocument { get; }
         ITabbedDocument[] Documents { get; }
-        Boolean BreakpointsEnabled { get; set; }
         Boolean HasModifiedDocuments { get; }
         Boolean ClosingEntirely { get; }
         Boolean ProcessIsRunning { get; }

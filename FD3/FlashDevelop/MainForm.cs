@@ -119,7 +119,6 @@ namespace FlashDevelop
         private Boolean processingContents = false;
         private Boolean restoringContents = false;
         private Boolean closingForOpenFile = false;
-        private Boolean breakpointsEnabled = false;
         private Boolean closingEntirely = false;
         private Boolean closeAllCanceled = false;
         private Boolean closingAll = false;
@@ -419,15 +418,6 @@ namespace FlashDevelop
         {
             get { return this.savingMultiple; }
             set { this.savingMultiple = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the BreakpointsEnabled
-        /// </summary>
-        public Boolean BreakpointsEnabled
-        {
-            get { return this.breakpointsEnabled; }
-            set { this.breakpointsEnabled = value; }
         }
 
         /// <summary>
@@ -1038,7 +1028,6 @@ namespace FlashDevelop
                         this.notifyOpenFile = false;
                     }
                 }
-                this.BreakpointsEnabled = false;
                 NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
                 EventManager.DispatchEvent(this, ne);
             }
@@ -1217,10 +1206,6 @@ namespace FlashDevelop
             {
                 Int32 line = sci.LineFromPosition(position);
                 if (Control.ModifierKeys == Keys.Control) MarkerManager.ToggleMarker(sci, 0, line);
-                else if (Control.ModifierKeys == Keys.Shift && this.BreakpointsEnabled)
-                {
-                    MarkerManager.ToggleMarker(sci, 1, line);
-                }
                 else sci.ToggleFold(line);
             }
         }
@@ -2346,24 +2331,6 @@ namespace FlashDevelop
         {
             Globals.SciControl.MarkerDeleteAll(0);
             UITools.Manager.MarkerChanged(Globals.SciControl, -1);
-        }
-
-        /// <summary>
-        /// Adds or removes a breakpoint
-        /// </summary>
-        public void ToggleBreakpoint(Object sender, System.EventArgs e)
-        {
-            ScintillaControl sci = Globals.SciControl;
-            Int32 line = sci.LineFromPosition(sci.CurrentPos);
-            MarkerManager.ToggleMarker(sci, 1, line);
-        }
-
-        /// <summary>
-        /// Removes all breakpoints
-        /// </summary>
-        public void ClearBreakpoints(Object sender, System.EventArgs e)
-        {
-            Globals.SciControl.MarkerDeleteAll(1);
         }
 
         /// <summary>
