@@ -41,5 +41,5 @@ $(ItmFile) - File where the item is declared
 $(ItmKind) - Item kind (const, var, function)
 $(ItmTypPkg) - Item's type package
 $(ItmTypName) - Item's type name
-$(ItmTypePkgName) - Item's type qualified name
+$(ItmTypPkgName) - Item's type qualified name
 $(ItmTypKind) - Item's type kind (interface, class)
