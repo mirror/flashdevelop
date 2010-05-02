@@ -257,10 +257,8 @@ namespace AS3Context.Controls
 
         private void CreateDefaultCfg(string mmCfg)
         {
-            File.WriteAllText(mmCfg, 
-@"PolicyFileLog=1
-ErrorReportingEnable=1
-TraceOutputFileEnable=1");
+            String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\nTraceOutputBuffered=1\r\n";
+            FileHelper.WriteFile(mmCfg, contents, Encoding.UTF8);
         }
 
         #endregion

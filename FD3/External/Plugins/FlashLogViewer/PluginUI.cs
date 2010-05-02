@@ -235,7 +235,7 @@ namespace FlashLogViewer
             {
                 if (!File.Exists(mmConfigFile))
                 {
-                    String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\n";
+                    String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\nTraceOutputBuffered=1\r\n";
                     FileHelper.WriteFile(mmConfigFile, contents, Encoding.UTF8);
                 }
             }

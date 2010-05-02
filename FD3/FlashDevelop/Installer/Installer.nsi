@@ -429,11 +429,11 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\Exceptions.log"
 	Delete "$INSTDIR\FlashDevelop.exe"
 	Delete "$INSTDIR\FlashDevelop.exe.config"
-	Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
 	Delete "$INSTDIR\PluginCore.dll"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\Scripting.dll"
 	Delete "$INSTDIR\SwfOp.dll"
+	Delete "$INSTDIR\Aga.dll"
 	
 	Delete "$INSTDIR\Uninstall.exe"	
 	Delete "$DESKTOP\FlashDevelop.lnk"
