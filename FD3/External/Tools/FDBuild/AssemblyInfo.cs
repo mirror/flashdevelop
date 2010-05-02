@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyProduct("FDBuild")]
-[assembly: AssemblyCopyright("FlashDevelop 2005-2007")]
+[assembly: AssemblyCopyright("FlashDevelop 2005-2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
