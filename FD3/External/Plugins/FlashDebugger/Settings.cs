@@ -241,7 +241,7 @@ namespace FlashDebugger
 			set { m_BreakPointEnableLineColor = value; }
         }
 
-        [DisplayName("Breakpoints Desabled Line Color")]
+        [DisplayName("Breakpoints Disabled Line Color")]
         [LocalizedCategory("FlashDebugger.Category.View")]
         [LocalizedDescription("FlashDebugger.Description.BreakPointDisableLineColor")]
 		[DefaultValue(typeof(Color), "Gray")]

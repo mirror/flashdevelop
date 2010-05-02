@@ -3612,7 +3612,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewBreakpointsPanel" xml:space="preserve">
-    <value>Brea&amp;kpoints</value>
+    <value>Brea&amp;kpoints Panel</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Viewer" xml:space="preserve">
@@ -3624,7 +3624,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewStackframePanel" xml:space="preserve">
-    <value>Stackframe</value>
+    <value>Stackframe Panel</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.WordWrap" xml:space="preserve">
