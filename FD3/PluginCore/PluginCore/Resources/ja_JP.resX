@@ -259,7 +259,7 @@
     <value>"定義元から戻る"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>キャレット位置にある要素の定義元に移動します。</value>
+    <value>カーソル位置にある要素の定義元に移動します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
     <value>現在のファイルをクイックビルドします。この操作は、ソース内でのコンパイラの指定が必要です。</value>
@@ -520,13 +520,13 @@
     <value>対応する括弧をハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretLineVisible" xml:space="preserve">
-    <value>キャレット行の背景をハイライトします。</value>
+    <value>カーソル行の背景をハイライトします。</value>
   </data>
   <data name="FlashDevelop.Description.CaretPeriod" xml:space="preserve">
-    <value>キャレットの点滅間隔（ミリ秒）です。</value>
+    <value>カーソルの点滅間隔（ミリ秒）です。</value>
   </data>
   <data name="FlashDevelop.Description.CaretWidth" xml:space="preserve">
-    <value>キャレットの幅です。</value>
+    <value>カーソルの幅です。</value>
   </data>
   <data name="FlashDevelop.Description.CodingStyle" xml:space="preserve">
     <value>改行処理のコーディングスタイルです。</value>
@@ -619,7 +619,7 @@
     <value>起動時に前回終了時に開いていたファイルを復元します。</value>
   </data>
   <data name="FlashDevelop.Description.RestoreFileStates" xml:space="preserve">
-    <value>起動時に前回終了時のファイルの状態(キャレットの位置など)を復元します。</value>
+    <value>起動時に前回終了時のファイルの状態(カーソルの位置など)を復元します。</value>
   </data>
   <data name="FlashDevelop.Description.ScrollWidth" xml:space="preserve">
     <value>ドキュメントの初期幅です。(ピクセル単位)</value>
@@ -2693,10 +2693,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ZIP ファイルは正常に展開されました。</value>
   </data>
   <data name="FlashDevelop.Info.CaretFore" xml:space="preserve">
-    <value>キャレット:</value>
+    <value>カーソル:</value>
   </data>
   <data name="FlashDevelop.Info.CaretLineBack" xml:space="preserve">
-    <value>キャレット行の背景:</value>
+    <value>カーソル行の背景:</value>
   </data>
   <data name="FlashDevelop.Info.SelectionBack" xml:space="preserve">
     <value>選択範囲の背景:</value>
@@ -3297,7 +3297,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Current" xml:space="preserve">
-    <value>Shortcut of the Current command.</value>
+    <value>"現在の行"のショートカットです。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.DebugLineColor" xml:space="preserve">
@@ -3329,7 +3329,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
-    <value>"キャレット行を実行"のショートカットです。</value>
+    <value>"カーソル行を実行"のショートカットです。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
@@ -3337,7 +3337,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.SourcePaths" xml:space="preserve">
-    <value>Additional paths to search for source.  Useful for specifying the location of any frameworks or library sources.</value>
+    <value>その他のパス：ソースを検索するために、任意のフレームワークやライブラリのパスを指定します。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.StartContinue" xml:space="preserve">
@@ -3377,11 +3377,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
-    <value>Continuing due to error '${error}'</value>
+    <value>継続エラー '${error}'</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CouldNotHalt" xml:space="preserve">
-    <value>Couldn't halt, no ActionScript is running.</value>
+    <value>停止できませんでした。ActionScript は実行中です。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.DebuggerListenAborted" xml:space="preserve">
@@ -3401,7 +3401,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.EscapingFromDebuggerPendingLoop" xml:space="preserve">
-    <value>Escaping from debugger pending loop, setting $nowaiting = 1</value>
+    <value>デバッガのループ中にエスケープする場合、$nowaiting を 1 に設定してください。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.ExecutionHalted" xml:space="preserve">
@@ -3409,7 +3409,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FaultHasNoTableEntry" xml:space="preserve">
-    <value>Fault ${faultName} has no table entry</value>
+    <value>Fault ${faultName} はテーブルエントリを持っていません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FixBreakpoints" xml:space="preserve">
@@ -3433,7 +3433,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.InformationAboutFault" xml:space="preserve">
-    <value>, information=</value>
+    <value>, 情報=</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.LanguageNotAS3" xml:space="preserve">
@@ -3489,11 +3489,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.SetAdditionalBreakpoints" xml:space="preserve">
-    <value>Set additional breakpoints as desired, and then type 'continue'.</value>
+    <value>追加のブレークポイントを設定後、"continue" をタイプしてください。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.SizeAfterDecompression" xml:space="preserve">
-    <value>${size} bytes after decompression.</value>
+    <value>展開後 ${size} バイトになります。 </value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnableToStartDebugger" xml:space="preserve">
@@ -3501,7 +3501,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnknownEvent" xml:space="preserve">
-    <value>Received unknown event of type '${type}', info = ${info}.</value>
+    <value>不明な '${type}' 型のイベントを受信しました。情報 = ${info}.</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnknownFilename" xml:space="preserve">
@@ -3513,7 +3513,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.WarningNotAllCommandsSupported" xml:space="preserve">
-    <value>WARNING: The Flash Player that you are using does not support all debugger commands.</value>
+    <value>警告: この Flash Player はすべてのデバッガーコマンドをサポートしていません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.WebBrowserGenericName" xml:space="preserve">
@@ -3537,7 +3537,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.CopyExp" xml:space="preserve">
-    <value>Copy &amp;Exp</value>
+    <value>指数関数を(&amp;E)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.CopyValue" xml:space="preserve">
@@ -3565,7 +3565,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Exp" xml:space="preserve">
-    <value>Exp</value>
+    <value>指数関数</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
@@ -3581,7 +3581,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.RunToCursor" xml:space="preserve">
-    <value>キャレット行を実行(&amp;U)</value>
+    <value>カーソル行を実行(&amp;U)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Start" xml:space="preserve">
