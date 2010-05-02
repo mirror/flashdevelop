@@ -41,8 +41,8 @@ namespace FlashDebugger
             if (debugMenu == null)
             {
                 debugMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Debug"));
-                ToolStripMenuItem toolsMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ToolsMenu");
-                Int32 idx = PluginBase.MainForm.MenuStrip.Items.IndexOf(toolsMenu);
+                ToolStripMenuItem insertMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("InsertMenu");
+                Int32 idx = PluginBase.MainForm.MenuStrip.Items.IndexOf(insertMenu);
                 if (idx < 0) idx = PluginBase.MainForm.MenuStrip.Items.Count - 1;
                 PluginBase.MainForm.MenuStrip.Items.Insert(idx, debugMenu);
             }
