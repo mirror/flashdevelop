@@ -260,8 +260,6 @@ namespace FlashDebugger
             String dataPath = Path.Combine(PathHelper.DataDir, "FlashDebugger");
 			if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
 			this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
-            String bkPath = Path.Combine(dataPath, "Breakpoints");
-			if (!Directory.Exists(bkPath)) Directory.CreateDirectory(bkPath);
             this.pluginImage = PluginBase.MainForm.FindImage("54|23|5|4");
 			breakPointManager = new BreakPointManager();
             debugManager = new DebuggerManager();
