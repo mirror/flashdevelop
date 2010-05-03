@@ -53,7 +53,7 @@ namespace FlashDebugger
             String cacheDir = Path.Combine(dataDir, "Breakpoints");
             if (!Directory.Exists(cacheDir)) Directory.CreateDirectory(cacheDir);
             String hashFileName = HashCalculator.CalculateSHA1(path);
-            return Path.Combine(cacheDir, hashFileName + ".fdb");
+            return Path.Combine(cacheDir, hashFileName + ".xml");
         }
 
         public void InitBreakPoints()
@@ -332,7 +332,7 @@ namespace FlashDebugger
 						bpSaveList.Add(info);
 					}
                 }
-                ObjectSerializer.Serialize(m_SaveFileFullPath, bpSaveList);
+                Util.SerializeXML<List<BreakPointInfo>>.SaveFile(m_SaveFileFullPath, bpSaveList);
             }
         }
 
@@ -340,8 +340,8 @@ namespace FlashDebugger
         {
             if (File.Exists(m_SaveFileFullPath))
             {
-                m_BreakPointList = new List<BreakPointInfo>();
-                m_BreakPointList = ObjectSerializer.Deserialize(m_SaveFileFullPath, m_BreakPointList) as List<BreakPointInfo>;
+                m_BreakPointList = Util.SerializeXML<List<BreakPointInfo>>.LoadFile(m_SaveFileFullPath);
+
 				Uri u1 = new Uri(m_Project.ProjectPath);
                 foreach (BreakPointInfo info in m_BreakPointList)
                 {
@@ -390,7 +390,6 @@ namespace FlashDebugger
         }
     }
 
-    [Serializable]
     public class BreakPointInfo
     {
         private int m_Line;
