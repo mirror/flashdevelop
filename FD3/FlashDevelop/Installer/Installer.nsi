@@ -89,7 +89,7 @@ VIProductVersion "3.2.0.0"
 ; InstallTypes
 
 InstType "Default"
-InstType "Standalone"
+InstType "Standalone/Portable"
 InstType "Generic"
 InstType "un.Default"
 InstType "un.Full"
@@ -367,22 +367,22 @@ Section "Registry Modifications" RegistryMods
 	
 SectionEnd
 
-Section "Multi Instance Mode" MultiInstanceMode
-	
-	SetOverwrite on
-	
-	SetOutPath "$INSTDIR"
-	File ..\Bin\Debug\.multi
-	
-SectionEnd
-
-Section "Standalone Mode" StandaloneMode
+Section "Standalone/Portable" StandaloneMode
 	
 	SectionIn 2
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
 	File ..\Bin\Debug\.local
+	
+SectionEnd
+
+Section "Multi Instance Mode" MultiInstanceMode
+	
+	SetOverwrite on
+	
+	SetOutPath "$INSTDIR"
+	File ..\Bin\Debug\.multi
 	
 SectionEnd
 
