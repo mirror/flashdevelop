@@ -24,10 +24,11 @@ namespace AS3Context.Controls
             listView = view;
 
             comparer = new TypeItemComparer();
-            comparer.SortColumn = 2;
+            comparer.SortColumn = TypeItem.COL_COUNT;
             comparer.Sorting = SortOrder.Descending;
 
             listView.ListViewItemSorter = comparer;
+            listView.ColumnClick += new ColumnClickEventHandler(listView_ColumnClick);
 
             // action
             viewObjectsItem = new ToolStripMenuItem(PluginCore.Localization.TextHelper.GetString("Label.ViewObjectsItem"));
@@ -37,6 +38,24 @@ namespace AS3Context.Controls
             listView.ContextMenuStrip.Items.Add(viewObjectsItem);
 
             listView.DoubleClick += new EventHandler(onViewObjects);
+        }
+
+        void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (comparer.SortColumn == e.Column)
+            {
+                if (comparer.Sorting == SortOrder.Ascending)
+                    comparer.Sorting = SortOrder.Descending;
+                else comparer.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                comparer.SortColumn = e.Column;
+                if (e.Column >= 2)
+                    comparer.Sorting = SortOrder.Descending;
+                else comparer.Sorting = SortOrder.Ascending;
+            }
+            listView.Sort();
         }
 
         private void onViewObjects(object sender, EventArgs e)
