@@ -216,6 +216,11 @@ namespace CodeAnalyzer
 				Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
 				this.settingObject = (Settings)obj;
 			}
+            if (String.IsNullOrEmpty(this.settingObject.PMDRuleset))
+            {
+                String pmdDir = Path.Combine(PathHelper.ToolDir, "flexpmd");
+                this.settingObject.PMDRuleset = Path.Combine(pmdDir, "default-ruleset.xml");
+            }
 		}
 
 		/// <summary>
