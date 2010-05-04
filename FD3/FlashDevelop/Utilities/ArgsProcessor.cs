@@ -37,6 +37,11 @@ namespace FlashDevelop.Utilities
         public static String PrevSelText = String.Empty;
 
         /// <summary>
+        /// Previously selected word, some cases need this
+        /// </summary>
+        public static String PrevSelWord = String.Empty;
+
+        /// <summary>
         /// Gets the FlashDevelop root directory
 		/// </summary>
         public static String GetAppDir()
@@ -113,8 +118,14 @@ namespace FlashDevelop.Utilities
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             String curWord = Globals.SciControl.GetWordFromPosition(Globals.SciControl.CurrentPos);
-			if (curWord != null) return curWord;
-			else return String.Empty;
+			if (!String.IsNullOrEmpty(curWord)) return curWord;
+            else if (PrevSelWord.Length > 0)
+            {
+                String toReturn = PrevSelWord;
+                PrevSelWord = String.Empty;
+                return toReturn;
+            }
+            else return String.Empty;
 		}
 		
 		/// <summary>

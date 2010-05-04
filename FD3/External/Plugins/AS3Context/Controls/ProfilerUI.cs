@@ -196,25 +196,25 @@ namespace AS3Context.Controls
 
         private void SetProfilerCfg(bool active)
         {
-            string home = Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            string mmCfg = Path.Combine(home, "mm.cfg");
-            if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
-
-            string src = File.ReadAllText(mmCfg).Trim();
-            src = Regex.Replace(src, "PreloadSwf=.*", "").Trim();
-            if (active)
-            {
-                // write profiler
-                string profilerSWF = CheckResource("Profiler2.swf", "Profiler.swf");
-                // local security
-                ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
-                // honor FlashConnect settings
-                FlashConnect.Settings settings = GetFlashConnectSettings();
-                // mm.cfg profiler config
-                src += "\r\nPreloadSwf=" + profilerSWF + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
-            }
             try
             {
+                string home = Environment.GetEnvironmentVariable("USERPROFILE");
+                string mmCfg = Path.Combine(home, "mm.cfg");
+                if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
+
+                string src = File.ReadAllText(mmCfg).Trim();
+                src = Regex.Replace(src, "PreloadSwf=.*", "").Trim();
+                if (active)
+                {
+                    // write profiler
+                    string profilerSWF = CheckResource("Profiler2.swf", "Profiler.swf");
+                    // local security
+                    ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
+                    // honor FlashConnect settings
+                    FlashConnect.Settings settings = GetFlashConnectSettings();
+                    // mm.cfg profiler config
+                    src += "\r\nPreloadSwf=" + profilerSWF + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
+                }
                 File.WriteAllText(mmCfg, src);
             }
             catch (Exception ex)
@@ -257,8 +257,15 @@ namespace AS3Context.Controls
 
         private void CreateDefaultCfg(string mmCfg)
         {
-            String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\nTraceOutputBuffered=1\r\n";
-            FileHelper.WriteFile(mmCfg, contents, Encoding.UTF8);
+            try
+            {
+                String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\nTraceOutputBuffered=1\r\n";
+                FileHelper.WriteFile(mmCfg, contents, Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
         }
 
         #endregion

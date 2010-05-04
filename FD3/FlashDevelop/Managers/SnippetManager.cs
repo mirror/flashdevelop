@@ -76,11 +76,17 @@ namespace FlashDevelop.Managers
             {
                 Int32 endPos = sci.SelectionEnd;
                 Int32 startPos = sci.SelectionStart;
+                String curWord = sci.GetWordFromPosition(sci.CurrentPos);
                 if (startPos == endPos)
                 {
                     endPos = sci.WordEndPosition(sci.CurrentPos, true);
                     startPos = sci.WordStartPosition(sci.CurrentPos, true);
                     sci.SetSel(startPos, endPos);
+                }
+                if (!String.IsNullOrEmpty(curWord))
+                {
+                    // Remember the current word
+                    ArgsProcessor.PrevSelWord = curWord;
                 }
                 SnippetHelper.InsertSnippetText(sci, sci.CurrentPos, snippet);
                 return true;
