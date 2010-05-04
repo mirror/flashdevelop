@@ -40,6 +40,11 @@ a:hover
 	font-size: 20pt;
 	color: orange;
 }
+#header h3 img
+{
+	margin-right: 5px;	
+	margin-bottom: -3px;
+}
 #content 
 {
 	width: 100%;
