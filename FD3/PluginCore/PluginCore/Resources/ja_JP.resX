@@ -121,16 +121,16 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="AS2Context.Description.MMClassPath" xml:space="preserve">
-    <value>Adobe Flash Professional クラスパスへのファイルパスです。</value>
+    <value>Adobe Flash Professional クラスへのファイルパスです。</value>
   </data>
   <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
-    <value>シンタックスチェックのための MTASC コンパイラ設定です。</value>
+    <value>シンタックスチェックのための MTASC コンパイラー設定です。</value>
   </data>
   <data name="AS2Context.Description.MtascPath" xml:space="preserve">
-    <value>MTASC コンパイラへのパスです。</value>
+    <value>MTASC コンパイラーのファイルパスです。</value>
   </data>
   <data name="AS2Context.Description.UseMtascIntrinsic" xml:space="preserve">
-    <value>Adobe Flash Professional の組み込み関数の代わりに MTASC コンパイラ固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
+    <value>Adobe Flash Professional の組み込み関数の代わりに MTASC コンパイラー固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
   </data>
   <data name="AS2Context.Info.FeatureMissing" xml:space="preserve">
     <value>実装されていない機能。</value>
@@ -142,7 +142,7 @@
     <value>このファイルは有効な AS2 クラスではないか、有効な @mtasc ビルドコマンドが見つかりません。</value>
   </data>
   <data name="AS2Context.Info.InvalidMtascPath" xml:space="preserve">
-    <value>MTASC コンパイラパスが正しく設定されていません。</value>
+    <value>MTASC コンパイラーパスが正しく設定されていません。</value>
   </data>
   <data name="AS2Context.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>無効なクイックビルドコマンドです。</value>
@@ -166,16 +166,16 @@
     <value>このファイルは有効な AS3 クラスではないか、有効な @mxmlc ビルドコマンドが見つかりません。</value>
   </data>
   <data name="AS3Context.Info.OpenCompilerSettings" xml:space="preserve">
-    <value>AS3 コンテキストのコンパイラ設定を開きますか？</value>
+    <value>AS3 コンテキストのコンパイラー設定を開きますか？</value>
   </data>
   <data name="AS3Context.Info.ResourceError" xml:space="preserve">
-    <value>コンパイラシェルのリソースを抽出することができません。</value>
+    <value>コンパイラーシェルのリソースを抽出することができません。</value>
   </data>
   <data name="AS3Context.Info.SetFlex2OrCS3Path" xml:space="preserve">
     <value>AS3 コンテキスト設定では Adobe Flex SDK を設定しますか？Adobe Flash Professional のものでも、シンタックスチェックに利用することができます。"いいえ"を選択すると、Adobe Flash Professional のパスが設定されます。</value>
   </data>
   <data name="AS3Context.Title.ConfigurationRequired" xml:space="preserve">
-    <value>コンパイラに必要な構成</value>
+    <value>コンパイラーに必要な構成</value>
   </data>
   <data name="ASCompletion.Description.AddSpaceAfter" xml:space="preserve">
     <value>再フォーマット時、常にこれら文字の後にスペースを入れます。</value>
@@ -262,7 +262,7 @@
     <value>カーソル位置にある要素の定義元に移動します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
-    <value>現在のファイルをクイックビルドします。この操作は、ソース内でのコンパイラの指定が必要です。</value>
+    <value>現在のファイルをクイックビルドします。この操作は、ソース内でのコンパイラーの指定が必要です。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
     <value>現在のファイルのシンタックスをチェックします。</value>
@@ -724,7 +724,7 @@
     <value>セッションエラー:</value>
   </data>
   <data name="FlashDevelop.Info.ExtensionFilter" xml:space="preserve">
-    <value>拡張子フィルタ:</value>
+    <value>次のファイルの種類を参照:</value>
   </data>
   <data name="FlashDevelop.Info.FileDetails" xml:space="preserve">
     <value>ファイル: {1}{0}作成: {2}{0}変更: {3}{0}サイズ: {4} バイト</value>
@@ -865,7 +865,7 @@
     <value>FlashDevelop テンプレート (*.fdt)</value>
   </data>
   <data name="FlashDevelop.Info.TopFolder" xml:space="preserve">
-    <value>トップフォルダー:</value>
+    <value>検索対象フォルダー:</value>
   </data>
   <data name="FlashDevelop.Info.Unknown" xml:space="preserve">
     <value>不明</value>
@@ -1104,7 +1104,7 @@
     <value>サブディレクトリを検索(&amp;D)</value>
   </data>
   <data name="FlashDevelop.Label.MatchCase" xml:space="preserve">
-    <value>大文字と小文字を区別(&amp;C)</value>
+    <value>大文字と小文字を区別(&amp;M)</value>
   </data>
   <data name="FlashDevelop.Label.Modify" xml:space="preserve">
     <value>修正(&amp;M)</value>
@@ -1284,7 +1284,7 @@
     <value>空白文字(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.WholeWord" xml:space="preserve">
-    <value>単語単位(&amp;C)</value>
+    <value>単語単位(&amp;W)</value>
   </data>
   <data name="FlashDevelop.Label.WindowsExplorer" xml:space="preserve">
     <value>エクスプローラー(&amp;E)</value>
@@ -1350,16 +1350,16 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>シンタックスチェックのための HaXe コンパイラパラメータです。</value>
+    <value>シンタックスチェックのための HaXe コンパイラーパラメータです。</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
-    <value>HaXe コンパイラのパスです。</value>
+    <value>HaXe コンパイラーのパスです。</value>
   </data>
   <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
     <value>このファイルには有効な HaXe クラスが無いか、または @haxe ビルドコマンドが含まれません。</value>
   </data>
   <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
-    <value>HaXe コンパイラのパスが正しく設定されていません。設定を確認してください。</value>
+    <value>HaXe コンパイラーのパスが正しく設定されていません。設定を確認してください。</value>
   </data>
   <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>無効なクイックビルドコマンドです。</value>
@@ -1440,7 +1440,7 @@
     <value>Code Injection | コードインジェクション</value>
   </data>
   <data name="ProjectManager.Category.CompilerOptions" xml:space="preserve">
-    <value>Compiler Options | コンパイラ設定</value>
+    <value>Compiler Options | コンパイラー設定</value>
   </data>
   <data name="ProjectManager.Category.Exclusions" xml:space="preserve">
     <value>Exclusions | 除外</value>
@@ -1491,7 +1491,7 @@
     <value>オーバーライドしたメソッドが確実に "override" 付きで宣言されるようにします。</value>
   </data>
   <data name="ProjectManager.Description.Directives" xml:space="preserve">
-    <value>ユーザにより定義さたコンパイラ命令を指定します。</value>
+    <value>ユーザにより定義さたコンパイラー命令を指定します。</value>
   </data>
   <data name="ProjectManager.Description.DisableMxmlMapping" xml:space="preserve">
     <value>デフォルトでは、MXMLソースファイル( mx:Script, mx:Style )は、MXMLファイルの下にグループ化されます。</value>
@@ -1536,7 +1536,7 @@
     <value>それらのクラスがコンパイル時に必要であるか否かに関係なく、生成する SWF ファイルにクラスをリンクします。</value>
   </data>
   <data name="ProjectManager.Description.Infer" xml:space="preserve">
-    <value>True に設定すると、コンパイラ "var" キーワードで宣言されたローカル変数のタイプを推論します。</value>
+    <value>True に設定すると、コンパイラー "var" キーワードで宣言されたローカル変数のタイプを推論します。</value>
   </data>
   <data name="ProjectManager.Description.IntrinsicPaths" xml:space="preserve">
     <value>コード補完で使用するための追加クラスを指定します。</value>
@@ -1545,7 +1545,7 @@
     <value>コードインジェクションを使用している場合、Adobe Flash Professional によってコンパイルされた SWF ファイルからクラスファイルを保持する。この場合 FlashDevelop でコンパイルした結果、一部のクラスが2つ存在することになる可能性があります。</value>
   </data>
   <data name="ProjectManager.Description.LibraryPaths" xml:space="preserve">
-    <value>SWC ファイルをリンクします。コンパイラは必要とされているクラスのみリンクします。</value>
+    <value>SWC ファイルをリンクします。コンパイラーは必要とされているクラスのみリンクします。</value>
   </data>
   <data name="ProjectManager.Description.LibraryPrefix" xml:space="preserve">
     <value>ライブラリに固有の文字列を指定します。このプロジェクトが共有ライブラリとして使用される場合、名前空間の衝突を防ぐために有用です。</value>
@@ -1587,10 +1587,10 @@
     <value>スタイルシートのタイプセレクタまたは&lt;mx:Style&gt;ブロックがアプリケーション内の任意のコンポーネントによって使用されていない場合に警告します。</value>
   </data>
   <data name="ProjectManager.Description.Strict" xml:space="preserve">
-    <value>厳密なエラーチェックモードでコンパイラを実行します。</value>
+    <value>厳密なエラーチェックモードでコンパイラーを実行します。</value>
   </data>
   <data name="ProjectManager.Description.StrictAS3" xml:space="preserve">
-    <value>厳密なエラーチェックモードでコンパイラを実行します。</value>
+    <value>厳密なエラーチェックモードでコンパイラーを実行します。</value>
   </data>
   <data name="ProjectManager.Description.TraceFunction" xml:space="preserve">
     <value>トレースモードが CustomFunction の場合、trace() を関数に置き換えます。</value>
@@ -1608,10 +1608,10 @@
     <value>現在のアプリケーションでのネットワークサービスの使用を設定します。</value>
   </data>
   <data name="ProjectManager.Description.UseResourceBundleMetadata" xml:space="preserve">
-    <value>リソースバンドルを有効にします。True に設定すると、コンパイラは ResourceBundle メタデータタグの内容を処理します。</value>
+    <value>リソースバンドルを有効にします。True に設定すると、コンパイラーは ResourceBundle メタデータタグの内容を処理します。</value>
   </data>
   <data name="ProjectManager.Description.Verbose" xml:space="preserve">
-    <value>True に設定すると、コンパイラは出力パネルに詳細な出力をします。</value>
+    <value>True に設定すると、コンパイラーは出力パネルに詳細な出力をします。</value>
   </data>
   <data name="ProjectManager.Description.VerboseStackTraces" xml:space="preserve">
     <value>行番号が含まれたソースコードを生成します。ランタイムエラーが発生すると、スタックトレースで行番号を表示することができます。このオプションを有効にすると、SWF ファイルのサイズが肥大化します。</value>
@@ -1620,7 +1620,7 @@
     <value>すべての警告を有効にします。False に設定すると、すべての警告を無効にします。</value>
   </data>
   <data name="ProjectManager.Description.WarnUnusedImports" xml:space="preserve">
-    <value>True に設定すると、コンパイラは "キーワードを不必要に"インポートを使用した 場合に警告します。</value>
+    <value>True に設定すると、コンパイラーは "キーワードを不必要に"インポートを使用した 場合に警告します。</value>
   </data>
   <data name="ProjectManager.Info.AlwaysExecute" xml:space="preserve">
     <value>必ず実行する</value>
@@ -1650,7 +1650,7 @@
     <value>グローバルクラスパスは FlashDevelop の設定に保存されます。</value>
   </data>
   <data name="ProjectManager.Info.CompilerOptions" xml:space="preserve">
-    <value>コンパイラ設定</value>
+    <value>コンパイラー設定</value>
   </data>
   <data name="ProjectManager.Info.ConfirmFileUpdate" xml:space="preserve">
     <value>このファイルを元の場所から更新しますか？設定はコンテキストメニューのオプションで変更することができます。</value>
@@ -1794,7 +1794,7 @@
     <value>プロジェクトマネージャーの設定を解析できませんでした。設定は既定値にリセットされます。</value>
   </data>
   <data name="ProjectManager.Info.SpecifyCompilerPath" xml:space="preserve">
-    <value>{0}コンテキストのコンパイラ設定を開きますか？</value>
+    <value>{0}コンテキストのコンパイラー設定を開きますか？</value>
   </data>
   <data name="ProjectManager.Info.SpecifyFlex2SDK" xml:space="preserve">
     <value>プロジェクトをデバッグするには Flex SDK が必要です。AS3 コンテキストの設定を確認してください。</value>
@@ -2028,7 +2028,7 @@
     <value>コマンドラインビルダー</value>
   </data>
   <data name="ProjectManager.Title.ConfigurationRequired" xml:space="preserve">
-    <value>コンパイラ指定が必要です</value>
+    <value>コンパイラー指定が必要です</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
     <value>コマンドラインを入力</value>
@@ -2223,7 +2223,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>インターフェースメソッドを実装</value>
   </data>
   <data name="ASCompletion.Label.PromoteLocal" xml:space="preserve">
-    <value>クラスメンバにする</value>
+    <value>メンバーとして定義</value>
   </data>
   <data name="ProjectManager.Info.AboutPackages" xml:space="preserve">
     <value>*一部のプロジェクトは未対応</value>
@@ -2868,7 +2868,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>シンタックスチェックの開始:</value>
   </data>
   <data name="AS3Context.Info.StartMxmlcRunner" xml:space="preserve">
-    <value>Flex コンパイラのプロセス開始:</value>
+    <value>Flex コンパイラーのプロセス開始:</value>
   </data>
   <data name="ASCompletion.Info.CallingFlashIDE" xml:space="preserve">
     <value>Adobe Flash Professional を呼び出し中</value>
@@ -2948,11 +2948,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
-    <value>デフォルトでは、haXe のコード補完は haXe コンパイラを呼び出すことによる FlashDevelop のネイティブ（制限つき） haXe サポートが使用されます。</value>
+    <value>デフォルトでは、haXe のコード補完は haXe コンパイラーを呼び出すことによる FlashDevelop のネイティブ（制限つき） haXe サポートが使用されます。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
-    <value>デフォルトでは、haXe のコード補完は haXe コンパイラと FlashDevelop の自動補完の両方を組み合わせて使用されます。</value>
+    <value>デフォルトでは、haXe のコード補完は haXe コンパイラーと FlashDevelop の自動補完の両方を組み合わせて使用されます。</value>
     <comment>Added after 3.0.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
@@ -3233,19 +3233,19 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StartProfiler" xml:space="preserve">
-    <value>プロファイラを開始</value>
+    <value>プロファイラーを開始</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StopProfiler" xml:space="preserve">
-    <value>プロファイラを停止</value>
+    <value>プロファイラーを停止</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ViewMenuItem" xml:space="preserve">
-    <value>プロファイラ(&amp;I)</value>
+    <value>プロファイラー(&amp;I)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Title.Profiler" xml:space="preserve">
-    <value>プロファイラ</value>
+    <value>プロファイラー</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.File" xml:space="preserve">
