@@ -1,16 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using ASCompletion.Model;
 using PluginCore.Helpers;
 using ASCompletion.Context;
 using PluginCore.Controls;
-using PluginCore;
 using System.Text.RegularExpressions;
 using PluginCore.Localization;
-using System.IO;
 using PluginCore.Managers;
 using ASCompletion.Settings;
+using System.Collections;
+using PluginCore;
+using System.IO;
 
 namespace ASCompletion.Completion
 {
@@ -264,6 +265,11 @@ namespace ASCompletion.Completion
             string labelFun = TextHelper.GetString("ASCompletion.Label.GenerateFunction");
             known.Add(new GeneratorItem(labelVar, GeneratorJobType.Variable, found.member, found.inClass));
             known.Add(new GeneratorItem(labelFun, GeneratorJobType.Function, found.member, found.inClass));
+            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
+            {
+                string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateClass");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.Class, found.member, found.inClass));
+            }
             CompletionList.Show(known, false);
         }
 
@@ -347,10 +353,11 @@ namespace ASCompletion.Completion
                     
                     PropertiesGenerationLocations location = ASContext.CommonSettings.PropertiesGenerationLocation;
                     if (location == PropertiesGenerationLocations.AfterLastPropertyDeclaration)
+                    {
                         latest = FindLatest(FlagType.Getter | FlagType.Setter, inClass);
+                    }
                     else latest = member;
-                    if (latest == null)
-                        return;
+                    if (latest == null) return;
 
                     Sci.BeginUndoAction();
                     try
@@ -415,8 +422,8 @@ namespace ASCompletion.Completion
                     else
                     {
                         latest = FindLatest(FlagType.Variable | FlagType.Constant, inClass);
-                        if (latest == null)
-                            return;
+                        if (latest == null) return;
+
                         position = FindNewVarPosition(Sci, inClass, latest);
                         if (position <= 0) return;
                         Sci.SetSel(position, position);
@@ -442,23 +449,21 @@ namespace ASCompletion.Completion
 
                 case GeneratorJobType.ImplementInterface:
                     ClassModel aType = ASContext.Context.ResolveType(contextParam, ASContext.Context.CurrentModel);
-                    if (aType.IsVoid())
-                        return;
+                    if (aType.IsVoid()) return;
+
                     latest = FindLatest(FlagType.Function, inClass);
-                    if (latest == null)
-                        return;
+                    if (latest == null) return;
+
                     position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                     Sci.SetSel(position, position);
                     GenerateImplementation(aType, position);
                     break;
 
                 case GeneratorJobType.PromoteLocal:
-                    if (!RemoveLocalDeclaration(Sci, contextMember)) // try removing local declaration
-                        return;
+                    if (!RemoveLocalDeclaration(Sci, contextMember)) return;
 
                     latest = FindLatest(FlagType.Variable | FlagType.Constant, inClass);
-                    if (latest == null)
-                        return;
+                    if (latest == null) return;
                     
                     position = FindNewVarPosition(Sci, inClass, latest);
                     if (position <= 0) return;
@@ -484,9 +489,29 @@ namespace ASCompletion.Completion
                     position += offset;
                     Sci.SetSel(position, position);
                     break;
+
+				case GeneratorJobType.Class:
+					String clasName = Sci.GetWordFromPosition(Sci.CurrentPos);
+					GenerateClass(clasName, inClass);
+					break;
             }
         }
 
+		private static void GenerateClass(String className, ClassModel inClass)
+		{
+            IProject project = PluginBase.CurrentProject;
+            if (String.IsNullOrEmpty(className)) className = "Class";
+            string projFilesDir = Path.Combine(PathHelper.TemplateDir, "ProjectFiles");
+            string projTemplateDir = Path.Combine(projFilesDir, project.GetType().Name);
+			Hashtable info = new Hashtable();
+            info["className"] = className;
+			info["templatePath"] = Path.Combine(projTemplateDir, "Class.as.fdt");
+            info["inDirectory"] = Path.GetDirectoryName(inClass.InFile.FileName);
+			DataEvent de = new DataEvent(EventType.Command, "ProjectManager.CreateNewFile", info);
+			EventManager.DispatchEvent(null, de);
+			if (de.Handled) return;
+		}
+		
         private static int FindNewVarPosition(ScintillaNet.ScintillaControl Sci, ClassModel inClass, MemberModel latest)
         {
             firstVar = false;
@@ -1398,7 +1423,8 @@ namespace ASCompletion.Completion
         Function = 7,
         ImplementInterface = 8,
         PromoteLocal = 9,
-        AddImport = 10
+        AddImport = 10,
+        Class = 11
     }
 
     /// <summary>

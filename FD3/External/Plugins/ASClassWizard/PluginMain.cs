@@ -47,8 +47,6 @@ namespace ASClassWizard
         private IASContext processContext;
         private String processOnSwitch;
 
-        public static IMainForm MainForm { get { return PluginBase.MainForm; } }
-
 	    #region Required Properties
 
         /// <summary>
@@ -103,13 +101,11 @@ namespace ASClassWizard
 		#endregion
 		
 		#region Required Methods
-		
+
 		public void Initialize()
 		{
-            // Load and initialize settings
             this.InitBasics();
             this.LoadSettings();
-
             this.AddEventHandlers();
             this.InitLocalization();
         }
@@ -131,11 +127,11 @@ namespace ASClassWizard
                     {
                         Hashtable table = evt.Data as Hashtable;
                         project = PluginBase.CurrentProject as Project;
-                        if ((project.Language == "as3" || project.Language == "as2") 
-                            && IsWizardTemplate(table["templatePath"] as String))
+                        if ((project.Language.StartsWith("as")) && IsWizardTemplate(table["templatePath"] as String))
                         {
                             evt.Handled = true;
-                            DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String);
+                            String className = table.ContainsKey("className") ? table["className"] as String : "Class";
+							DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String, className);
                         }
                     }
                     break;
@@ -144,9 +140,7 @@ namespace ASClassWizard
                     if (PluginBase.MainForm.CurrentDocument.FileName == processOnSwitch)
                     {
                         processOnSwitch = null;
-                        if (lastFileOptions == null || lastFileOptions.interfaces == null)
-                            return;
-
+                        if (lastFileOptions == null || lastFileOptions.interfaces == null) return;
                         foreach (String cname in lastFileOptions.interfaces)
                         {
                             ASContext.Context.CurrentModel.Check();
@@ -161,12 +155,10 @@ namespace ASClassWizard
                 case EventType.ProcessArgs:
                     TextEvent te = e as TextEvent;
                     project = PluginBase.CurrentProject as Project;
-                    if (lastFileFromTemplate != null && project != null 
-                        && (project.Language == "as3" || project.Language == "as2"))
+                    if (lastFileFromTemplate != null && project != null && (project.Language.StartsWith("as")))
                     {
                         te.Value = ProcessArgs(project, te.Value);
                     }
-                    
                     break;
             }
 		}
@@ -178,7 +170,7 @@ namespace ASClassWizard
 		
 		#endregion
 
-        #region Settings
+        #region Setting Management
 
         public void InitBasics()
         {
@@ -207,6 +199,8 @@ namespace ASClassWizard
 
         #region Custom Methods
 
+        public static IMainForm MainForm { get { return PluginBase.MainForm; } }
+
         public void AddEventHandlers()
         {
             EventManager.AddEventHandler(this, EventType.Command | EventType.ProcessArgs);
@@ -218,13 +212,11 @@ namespace ASClassWizard
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 
-        private void DisplayClassWizard(String inDirectory, String templateFile)
+        private void DisplayClassWizard(String inDirectory, String templateFile, String className)
         {
             Project project = PluginBase.CurrentProject as Project;
-
             String classpath = project.AbsoluteClasspaths.GetClosestParent(inDirectory);
             String package;
-
             try
             {
                 package = Path.GetDirectoryName(ProjectPaths.GetRelativePath(classpath, Path.Combine(inDirectory, "foo")));
@@ -233,36 +225,28 @@ namespace ASClassWizard
             {
                 package = "";
             }
-
             AS3ClassWizard dialog = new AS3ClassWizard();
-            dialog.Project        = project;
-            dialog.Directory      = inDirectory;
-
+            dialog.Project = project;
+            dialog.Directory = inDirectory;
+			dialog.StartupClassName = className;
             if (package != null)
             {
                 package = package.Replace(Path.DirectorySeparatorChar, '.');
                 dialog.StartupPackage = package;
             }
-
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                string cPackage     = dialog.getPackage();
+                string cPackage = dialog.getPackage();
                 string newFilePath  = Path.ChangeExtension(Path.Combine(dialog.Directory, dialog.getClassName()), ".as");
-
                 if (File.Exists(newFilePath))
                 {
                     string title = " " + TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
                     string message = TextHelper.GetString("ProjectManager.Info.FolderAlreadyContainsFile");
-
-                    DialogResult result = MessageBox.Show(PluginBase.MainForm, string.Format(message, newFilePath, "\n"),
-                        title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-
+                    DialogResult result = MessageBox.Show(PluginBase.MainForm, string.Format(message, newFilePath, "\n"), title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (result == DialogResult.Cancel) return;
                 }
-
                 string templatePath = templateFile + ".wizard";
                 lastFileFromTemplate = newFilePath;
-
                 lastFileOptions = new AS3ClassOptions(
                     project.Language,
                     dialog.getPackage(),
@@ -274,7 +258,6 @@ namespace ASClassWizard
                     dialog.getGenerateInheritedMethods(),
                     dialog.getGenerateConstructor()
                   );
-
                 MainForm.FileFromTemplate(templatePath, newFilePath);
             }
         }
@@ -285,18 +268,12 @@ namespace ASClassWizard
             {
                 string package = lastFileOptions != null ? lastFileOptions.Package : "";
                 string fileName = Path.GetFileNameWithoutExtension(lastFileFromTemplate);
-
                 args = args.Replace("$(FileName)", fileName);
-
                 if (args.Contains("$(FileNameWithPackage)") || args.Contains("$(Package)"))
                 {
                     args = args.Replace("$(Package)", package);
-
-                    if (package != "")
-                        args = args.Replace("$(FileNameWithPackage)", package + "." + fileName);
-                    else
-                        args = args.Replace("$(FileNameWithPackage)", fileName);
-
+                    if (package != "") args = args.Replace("$(FileNameWithPackage)", package + "." + fileName);
+                    else args = args.Replace("$(FileNameWithPackage)", fileName);
                     if (lastFileOptions != null)
                     {
                         args = ProcessFileTemplate(args);
@@ -313,7 +290,6 @@ namespace ASClassWizard
             Int32 eolMode = (Int32)MainForm.Settings.EOLMode;
             String lineBreak = LineEndDetector.GetNewLineMarker(eolMode);
             ClassModel cmodel;
-
             List<String> imports = new List<string>();
             string extends = "";
             string implements = "";
@@ -322,7 +298,6 @@ namespace ASClassWizard
             string paramString = "";
             string superConstructor = "";
             int index;
-
             // resolve imports
             if (lastFileOptions.interfaces != null && lastFileOptions.interfaces.Count > 0)
             {
@@ -334,32 +309,24 @@ namespace ASClassWizard
                     if (item.Split('.').Length > 1) imports.Add(item);
                     _implements = item.Split('.');
                     implements += (index > 0 ? ", " : "") + _implements[_implements.Length - 1];
-
                     if (lastFileOptions.createInheritedMethods)
                     {
                         processOnSwitch = lastFileFromTemplate; 
                         // let ASCompletion generate the implementations when file is opened
                     }
-
                     index++;
                 }
             }
-
             if (lastFileOptions.superClass != "")
             {
                 String super = lastFileOptions.superClass;
                 if (lastFileOptions.superClass.Split('.').Length > 1) imports.Add(super);
                 string[] _extends = super.Split('.');
                 extends = " extends " + _extends[_extends.Length - 1];
-
                 processContext = ASContext.GetLanguageContext(lastFileOptions.Language);
-
                 if (lastFileOptions.createConstructor && processContext != null)
                 {
-                    cmodel = processContext.GetModel(
-                        super.LastIndexOf('.') < 0 ? super : super.Substring(0, super.LastIndexOf('.')), 
-                        _extends[_extends.Length - 1], 
-                        "");
+                    cmodel = processContext.GetModel(super.LastIndexOf('.') < 0 ? super : super.Substring(0, super.LastIndexOf('.')), _extends[_extends.Length - 1], "");
                     if (!cmodel.IsVoid())
                     {
                         foreach (MemberModel member in cmodel.Members)
@@ -368,9 +335,7 @@ namespace ASClassWizard
                             {
                                 paramString = member.ParametersString();
                                 AddImports(imports, member, cmodel);
-
                                 superConstructor = "super(";
-
                                 index = 0;
                                 if (member.Parameters != null)
                                 foreach (MemberModel param in member.Parameters)
@@ -387,7 +352,6 @@ namespace ASClassWizard
                 }
                 processContext = null;
             }
-
             if (lastFileOptions.Language == "as3")
             {
                 access = lastFileOptions.isPublic ? "public " : "internal ";
@@ -398,22 +362,22 @@ namespace ASClassWizard
             {
                 access = lastFileOptions.isDynamic ? "dynamic " : "";
             }
-
             string importsSrc = "";
             string prevImport = null;
             imports.Sort();
-            foreach(string import in imports)
+            foreach (string import in imports)
+            {
                 if (prevImport != import)
                 {
                     prevImport = import;
-                    if (import.Substring(0, import.LastIndexOf('.')) == lastFileOptions.Package)
-                        continue;
-                    importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") 
-                        + "import " + import + ";" + lineBreak;
+                    if (import.Substring(0, import.LastIndexOf('.')) == lastFileOptions.Package) continue;
+                    importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") + "import " + import + ";" + lineBreak;
                 }
+            }
             if (importsSrc.Length > 0)
+            {
                 importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") + lineBreak;
-
+            }
             args = args.Replace("$(Import)", importsSrc);
             args = args.Replace("$(Extends)", extends);
             args = args.Replace("$(Implements)", implements);
@@ -428,15 +392,21 @@ namespace ASClassWizard
         {
             AddImport(imports, member.Type, inClass);
             if (member.Parameters != null)
+            {
                 foreach (MemberModel item in member.Parameters)
+                {
                     AddImport(imports, item.Type, inClass);
+                }
+            }
         }
 
         private String AddImport(List<string> imports, String cname, ClassModel inClass)
         {
             ClassModel aClass = processContext.ResolveType(cname, inClass.InFile);
             if (aClass != null && !aClass.IsVoid() && aClass.InFile.Package != "")
+            {
                 imports.Add(aClass.QualifiedName);
+            }
             return "";
         }
 

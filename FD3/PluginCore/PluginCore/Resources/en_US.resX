@@ -3675,4 +3675,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Flex PMD Finished</value>
     <comment>Added after 3.1.0</comment>
   </data>
+  <data name="ASCompletion.Label.GenerateClass" xml:space="preserve">
+    <value>Create new class</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
 </root>

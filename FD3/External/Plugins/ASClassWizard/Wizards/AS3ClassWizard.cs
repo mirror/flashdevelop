@@ -68,6 +68,11 @@ namespace ASClassWizard.Wizards
             set { packageBox.Text = value; }
         }
 
+		public String StartupClassName
+		{
+			set { classBox.Text = value; }
+		}
+		
         public string Directory
         {
             get { return this.directoryPath; }
