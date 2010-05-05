@@ -479,7 +479,7 @@ namespace FlashDevelop.Dialogs
             this.extensionLabel.Text = TextHelper.GetString("Info.ExtensionFilter");
             this.folderLabel.Text = TextHelper.GetString("Info.TopFolder");
             this.replaceLabel.Text = TextHelper.GetString("Info.ReplaceWith");
-            this.replaceButton.Text = TextHelper.GetString("Label.Find");
+            this.findButton.Text = TextHelper.GetString("Label.Find");
             this.cancelButton.Text = TextHelper.GetString("Label.Cancel");
             this.replaceButton.Text = TextHelper.GetString("Label.Replace").Replace("...", "");
             this.lineHeader.Text = TextHelper.GetString("Info.LineHeader");

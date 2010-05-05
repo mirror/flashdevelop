@@ -165,7 +165,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.escapedCheckBox.AutoSize = true;
             this.escapedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.escapedCheckBox.Location = new System.Drawing.Point(104, 40);
+            this.escapedCheckBox.Location = new System.Drawing.Point(110, 40);
             this.escapedCheckBox.Name = "escapedCheckBox";
             this.escapedCheckBox.Size = new System.Drawing.Size(129, 18);
             this.escapedCheckBox.TabIndex = 4;
@@ -176,7 +176,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.useRegexCheckBox.AutoSize = true;
             this.useRegexCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.useRegexCheckBox.Location = new System.Drawing.Point(104, 18);
+            this.useRegexCheckBox.Location = new System.Drawing.Point(110, 18);
             this.useRegexCheckBox.Name = "useRegexCheckBox";
             this.useRegexCheckBox.Size = new System.Drawing.Size(132, 18);
             this.useRegexCheckBox.TabIndex = 3;

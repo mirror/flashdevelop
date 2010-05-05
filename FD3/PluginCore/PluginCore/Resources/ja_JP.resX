@@ -3676,4 +3676,40 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>新規クラスを作成</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
+    <value>AS2 Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.AS3Document" xml:space="preserve">
+    <value>AS3 Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.BlankDocument" xml:space="preserve">
+    <value>Blank Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.CSSDocument" xml:space="preserve">
+    <value>CSS Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.HTMLDocument" xml:space="preserve">
+    <value>HTML Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.MXMLDocument" xml:space="preserve">
+    <value>MXML Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.PHPDocument" xml:space="preserve">
+    <value>PHP Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.XHTMLDocument" xml:space="preserve">
+    <value>XHTML Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.XMLDocument" xml:space="preserve">
+    <value>XML Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
 </root>
