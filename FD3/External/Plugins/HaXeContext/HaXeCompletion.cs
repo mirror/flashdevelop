@@ -11,6 +11,7 @@ using PluginCore.Managers;
 using ProjectManager.Projects.Haxe;
 using System.IO;
 using PluginCore.Helpers;
+using PluginCore.Localization;
 
 namespace HaXeContext
 {
@@ -139,9 +140,7 @@ namespace HaXeContext
             string process = Path.Combine(haxePath, "haxe.exe");
             if (!File.Exists(process))
             {
-                ErrorManager.ShowInfo("haxe.exe can not be located.\n\n"
-                    + "Please run 'haxesetup' in haxe installation and restart FlashDevelop,\nor "
-                    + "configure the path to haxe installation in HaxeContext settings.");
+                ErrorManager.ShowInfo(String.Format(TextHelper.GetString("Info.HaXeExeError"), "\n"));
                 p = null;
                 return;
             }

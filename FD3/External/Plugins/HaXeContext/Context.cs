@@ -424,7 +424,7 @@ namespace HaXeContext
             {
                 if (import.LineFrom >= lineMin && import.LineFrom <= lineMax && import.Name == name)
                 {
-                    if (import.Type != fullName) throw new Exception("Ambiguous Type");
+                    if (import.Type != fullName) throw new Exception(TextHelper.GetString("Info.AmbiguousType"));
                     return true;
                 }
                 else if (import.Name == "*" && import.Type.Replace("*", name) == fullName)

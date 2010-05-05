@@ -843,7 +843,7 @@ namespace FileExplorer
             EventManager.DispatchEvent(this, deTrust);
             if (deTrust.Handled)
             {
-                String message = TextHelper.GetString("FileExplorer.Info.PathTrusted");
+                String message = TextHelper.GetString("Info.PathTrusted");
                 ErrorManager.ShowInfo("\"" + path + "\"\n" + message);
             }
         }

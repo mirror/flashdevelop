@@ -509,7 +509,7 @@ namespace ASCompletion
                 // imports
                 if (settings.ShowImports && aFile.Imports.Count > 0)
                 {
-                    node = new TreeNode("Imports", ICON_FOLDER_OPEN, ICON_FOLDER_OPEN);
+                    node = new TreeNode(TextHelper.GetString("Info.ImportsNode"), ICON_FOLDER_OPEN, ICON_FOLDER_OPEN);
                     folders.Add(node);
                     nodes = node.Nodes;
                     foreach (MemberModel import in aFile.Imports)
@@ -537,7 +537,7 @@ namespace ASCompletion
                 {
                     if (aFile.Regions.Count > 0)
                     {
-                        node = new TreeNode("Regions", ICON_PACKAGE, ICON_PACKAGE);
+                        node = new TreeNode(TextHelper.GetString("Info.RegionsNode"), ICON_PACKAGE, ICON_PACKAGE);
                         folders.Add(node);
                         //AddRegions(node.Nodes, aFile.Regions);
                         AddRegionsExtended(node.Nodes, aFile);
@@ -587,7 +587,7 @@ namespace ASCompletion
 
         private void AddExtend(TreeNodeCollection tree, ClassModel aClass)
         {
-            TreeNode folder = new TreeNode("Extends", ICON_FOLDER_CLOSED, ICON_FOLDER_OPEN);
+            TreeNode folder = new TreeNode(TextHelper.GetString("Info.ExtendsNode"), ICON_FOLDER_CLOSED, ICON_FOLDER_OPEN);
             while (aClass.ExtendsType != null && aClass.ExtendsType.Length > 0 
                 && aClass.ExtendsType != "Object" 
                 && (!aClass.InFile.haXe || aClass.ExtendsType != "Dynamic"))
@@ -608,7 +608,7 @@ namespace ASCompletion
         {
             if (implementsTypes == null || implementsTypes.Count == 0)
                 return;
-            TreeNode folder = new TreeNode("Implements", ICON_FOLDER_CLOSED, ICON_FOLDER_OPEN);
+            TreeNode folder = new TreeNode(TextHelper.GetString("Info.ImplementsNode"), ICON_FOLDER_CLOSED, ICON_FOLDER_OPEN);
             foreach (string implements in implementsTypes)
             {
                 TreeNode impNode = new TreeNode(implements, ICON_INTERFACE, ICON_INTERFACE);

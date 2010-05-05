@@ -176,6 +176,8 @@ namespace AS2Context
 
         // locations in Application Data
         static readonly private string[] MACROMEDIA_VERSIONS = {
+            "\\Adobe\\Flash CS5\\",
+            "\\Adobe\\Flash CS4\\",
 			"\\Adobe\\Flash CS3\\",
 			"\\Macromedia\\Flash 8\\", 
 			"\\Macromedia\\Flash MX 2004\\"

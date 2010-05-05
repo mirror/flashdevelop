@@ -65,13 +65,13 @@ namespace PHPContext
         [Browsable(false)]
         public string CheckSyntaxRunning
         {
-            get { return LanguageId  + " Running"; }
+            get { return TextHelper.GetString("Info.PHPRunning"); }
         }
 
         [Browsable(false)]
         public string CheckSyntaxDone
         {
-            get { return LanguageId + " Done"; }
+            get { return TextHelper.GetString("Info.PHPDone"); }
         }
 
         [DisplayName("Check Syntax On Save")]

@@ -91,13 +91,13 @@ namespace AS2Context
         [Browsable(false)]
         public string CheckSyntaxRunning
         {
-            get { return "MTASC Running"; }
+            get { return TextHelper.GetString("Info.MTASCRunning"); }
         }
 
         [Browsable(false)]
         public string CheckSyntaxDone
         {
-            get { return "MTASC Done"; }
+            get { return TextHelper.GetString("Info.MTASCDone"); }
         }
 
         [DisplayName("Check Syntax On Save")]

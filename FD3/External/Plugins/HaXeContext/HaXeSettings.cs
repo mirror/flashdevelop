@@ -64,13 +64,13 @@ namespace HaXeContext
         [Browsable(false)]
         public string CheckSyntaxRunning
         {
-            get { return "HaXe Running"; }
+            get { return TextHelper.GetString("Info.HaXeRunning"); }
         }
 
         [Browsable(false)]
         public string CheckSyntaxDone
         {
-            get { return "HaXe Done"; }
+            get { return TextHelper.GetString("Info.HaXeDone"); }
         }
 
         [DisplayName("Check Syntax On Save")]
