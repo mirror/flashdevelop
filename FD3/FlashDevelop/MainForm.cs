@@ -3084,6 +3084,43 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Backups users setting files to a FDZ file
+        /// </summary>
+        public void BackupSettings(Object sender, EventArgs e)
+        {
+            try
+            {
+                String dirMarker = "\\FlashDevelop\\";
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.AddExtension = true; sfd.DefaultExt = "fdz";
+                sfd.Filter = TextHelper.GetString("FlashDevelop.Info.ZipFilter");
+                if (sfd.ShowDialog(this) == DialogResult.OK)
+                {
+                    List<String> settingFiles = new List<String>();
+                    ZipFile zipFile = ZipFile.Create(sfd.FileName);
+                    settingFiles.AddRange(Directory.GetFiles(PathHelper.DataDir, "*.*", SearchOption.AllDirectories));
+                    settingFiles.AddRange(Directory.GetFiles(PathHelper.SnippetDir, "*.*", SearchOption.AllDirectories));
+                    settingFiles.AddRange(Directory.GetFiles(PathHelper.SettingDir, "*.*", SearchOption.AllDirectories));
+                    settingFiles.AddRange(Directory.GetFiles(PathHelper.TemplateDir, "*.*", SearchOption.AllDirectories));
+                    settingFiles.AddRange(Directory.GetFiles(PathHelper.UserLibraryDir, "*.*", SearchOption.AllDirectories));
+                    settingFiles.AddRange(Directory.GetFiles(PathHelper.UserProjectsDir, "*.*", SearchOption.AllDirectories));
+                    zipFile.BeginUpdate();
+                    foreach (String settingFile in settingFiles)
+                    {
+                        Int32 index = settingFile.IndexOf(dirMarker) + dirMarker.Length;
+                        zipFile.Add(settingFile, "$(BaseDir)\\" + settingFile.Substring(index));
+                    }
+                    zipFile.CommitUpdate();
+                    zipFile.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
         /// Executes the specified C# Script file
         /// </summary>
         public void ExecuteScript(Object sender, EventArgs e)

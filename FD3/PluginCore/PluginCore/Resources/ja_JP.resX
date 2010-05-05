@@ -1175,9 +1175,6 @@
   <data name="FlashDevelop.Label.Refresh" xml:space="preserve">
     <value>再読み込み</value>
   </data>
-  <data name="FlashDevelop.Label.RegExpTk" xml:space="preserve">
-    <value>正規表現ツールキット(&amp;R)</value>
-  </data>
   <data name="FlashDevelop.Label.RegularExpressions" xml:space="preserve">
     <value>正規表現(&amp;G)</value>
   </data>
@@ -3710,6 +3707,10 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDevelop.Label.XMLDocument" xml:space="preserve">
     <value>XML ドキュメント</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.BackupSettings" xml:space="preserve">
+    <value>&amp;Backup All Settings...</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>

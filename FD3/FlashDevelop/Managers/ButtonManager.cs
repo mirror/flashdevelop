@@ -90,6 +90,14 @@ namespace FlashDevelop.Managers
             {
                 if (!Globals.MainForm.ProcessIsRunning) return false;
             }
+            if (action.Contains("!StandaloneMode"))
+            {
+                if (Globals.MainForm.StandaloneMode) return false;
+            }
+            else if (action.Contains("StandaloneMode"))
+            {
+                if (!Globals.MainForm.StandaloneMode) return false;
+            }
             if (sci != null)
             {
                 if (action.Contains("!CanUndo"))

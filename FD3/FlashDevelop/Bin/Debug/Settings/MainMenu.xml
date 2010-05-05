@@ -154,6 +154,7 @@
 		<button label="Label.SyntaxColoring" click="EditSyntax" image="55|30|2|3" />
 		<button label="Label.CustomArguments" click="ShowArguments" image="242" />
 		<separator />
+		<button label="Label.BackupSettings" click="BackupSettings" image="54|9|3|3" flags="Enable:!StandaloneMode" />
 		<button label="Label.ProgramSettings" click="ShowSettings" shortcut="F10" image="54" />
 	</menu>
 	<menu label="Label.Syntax" name="SyntaxMenu">

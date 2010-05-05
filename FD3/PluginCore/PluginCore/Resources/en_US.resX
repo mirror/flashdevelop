@@ -1176,9 +1176,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="FlashDevelop.Label.Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="FlashDevelop.Label.RegExpTk" xml:space="preserve">
-    <value>&amp;Regular Expression Toolkit</value>
-  </data>
   <data name="FlashDevelop.Label.RegularExpressions" xml:space="preserve">
     <value>Re&amp;gular expressions</value>
   </data>
@@ -3713,6 +3710,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Label.XMLDocument" xml:space="preserve">
     <value>XML Document</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.BackupSettings" xml:space="preserve">
+    <value>&amp;Backup All Settings...</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>

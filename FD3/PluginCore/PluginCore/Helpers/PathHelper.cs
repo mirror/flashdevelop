@@ -123,6 +123,17 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Path to the user lirbrary directory
+        /// </summary>
+        public static String UserLibraryDir
+        {
+            get
+            {
+                return Path.Combine(UserAppDir, "Library");
+            }
+        }
+
+        /// <summary>
         /// Path to the library directory
         /// </summary>
         public static String LibraryDir
