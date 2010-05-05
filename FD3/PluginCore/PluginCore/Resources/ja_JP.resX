@@ -3677,39 +3677,39 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
-    <value>AS2 Document</value>
+    <value>AS2 ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.AS3Document" xml:space="preserve">
-    <value>AS3 Document</value>
+    <value>AS3 ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.BlankDocument" xml:space="preserve">
-    <value>Blank Document</value>
+    <value>新規ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.CSSDocument" xml:space="preserve">
-    <value>CSS Document</value>
+    <value>CSS ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.HTMLDocument" xml:space="preserve">
-    <value>HTML Document</value>
+    <value>HTML ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.MXMLDocument" xml:space="preserve">
-    <value>MXML Document</value>
+    <value>MXML ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.PHPDocument" xml:space="preserve">
-    <value>PHP Document</value>
+    <value>PHP ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.XHTMLDocument" xml:space="preserve">
-    <value>XHTML Document</value>
+    <value>XHTML ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.XMLDocument" xml:space="preserve">
-    <value>XML Document</value>
+    <value>XML ドキュメント</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>
