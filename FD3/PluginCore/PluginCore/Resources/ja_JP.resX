@@ -196,10 +196,10 @@
     <value>コード補完を有効にします。</value>
   </data>
   <data name="ASCompletion.Description.CompletionListAllTypes" xml:space="preserve">
-    <value>補完リストにプロジェクト内で指定できるすべてのタイプを含めます。</value>
+    <value>補完リストに、プロジェクト内で指定できるすべてのタイプを含めます。</value>
   </data>
   <data name="ASCompletion.Description.CompletionLooseMatching" xml:space="preserve">
-    <value>補完リストでスマートテキストマッチングを使用すします。</value>
+    <value>補完リストでスマートテキストマッチングを使用します。</value>
   </data>
   <data name="ASCompletion.Description.CompletionShowQualifiedTypes" xml:space="preserve">
     <value>補完リストに、パッケージを含めたタイプ名を表示します。(例 package + type)</value>
