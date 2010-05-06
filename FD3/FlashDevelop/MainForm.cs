@@ -3063,8 +3063,7 @@ namespace FlashDevelop
             if (this.InvokeRequired) this.BeginInvoke((MethodInvoker)delegate { this.ProcessEnded(sender, exitCode); });
             else
             {
-                String done = TextHelper.GetString("Info.ProcessDone");
-                String result = String.Format(done + " ({0})", exitCode);
+                String result = String.Format("Done({0})", exitCode);
                 TraceManager.Add(result, (Int32)TraceType.ProcessEnd);
                 TextEvent te = new TextEvent(EventType.ProcessEnd, result);
                 EventManager.DispatchEvent(this, te);

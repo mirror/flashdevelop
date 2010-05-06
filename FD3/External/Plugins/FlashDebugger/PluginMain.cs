@@ -160,7 +160,7 @@ namespace FlashDebugger
 
                 case EventType.ProcessEnd:
                     TextEvent textevnt = (TextEvent)e;
-                    if (buildCmpFlg && !textevnt.Value.EndsWith("(0)")) // !Done
+                    if (buildCmpFlg && textevnt.Value != "Done(0)")
                     {
                         buildCmpFlg = false;
 						menusHelper.UpdateMenuState(this, DebuggerState.Initializing);

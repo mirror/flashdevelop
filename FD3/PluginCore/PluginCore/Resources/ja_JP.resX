@@ -3750,15 +3750,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
-    <value>haXe 完了</value>
+    <value>HaXe 完了</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
-    <value>haxe.exe が見つかりませんでした。{0}{0}haxesetup.exe を実行し、FlashDevelop を再起動してください。{0}または環境設定の HaxeContext で haXe のパスを設定してください。</value>
+    <value>Haxe.exe が見つかりませんでした。{0}{0}haxesetup.exe を実行し、FlashDevelop を再起動してください。{0}または環境設定の HaxeContext で haXe のパスを設定してください。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
-    <value>haXe 実行中</value>
+    <value>HaXe 実行中</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">

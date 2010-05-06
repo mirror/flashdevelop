@@ -47,12 +47,11 @@ namespace ASCompletion.Helpers
             updater.Stop();
             string src = File.ReadAllText(logFile);
             MatchCollection matches = reError.Matches(src);
-            String done = TextHelper.GetString("FlashDevelop.Info.ProcessDone");
 
             TextEvent te;
             if (matches.Count == 0)
             {
-                te = new TextEvent(EventType.ProcessEnd, done + "(0)");
+                te = new TextEvent(EventType.ProcessEnd, "Done(0)");
                 EventManager.DispatchEvent(this, te);
                 return;
             }
@@ -66,7 +65,7 @@ namespace ASCompletion.Helpers
                 string desc = m.Groups["desc"].Value.Trim();
                 TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
             }
-            te = new TextEvent(EventType.ProcessEnd, done + "(" + matches.Count + ")");
+            te = new TextEvent(EventType.ProcessEnd, "Done(" + matches.Count + ")");
             EventManager.DispatchEvent(this, te);
 
             (PluginBase.MainForm as Form).Activate();
