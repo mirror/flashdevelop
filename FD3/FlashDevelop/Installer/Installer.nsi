@@ -242,12 +242,12 @@ Section "FlashDevelop" Main
 	
 	SectionIn 1 2 3 RO
 	SetOverwrite on
-
+	
 	SetOutPath "$INSTDIR"
-
+	
 	; Clean library
 	RMDir /r "$INSTDIR\Library"
-
+	
 	; Copy all files
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x "..\Bin\Debug\Settings\" /x "..\Bin\Debug\Snippets\" /x "..\Bin\Debug\Templates\" "..\Bin\Debug\*.*"
 	
@@ -258,13 +258,13 @@ Section "FlashDevelop" Main
 	RMDir /r "$INSTDIR\Settings"
 	RMDir /r "$INSTDIR\Snippets"
 	RMDir /r "$INSTDIR\Templates"
-
+	
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
 	
 	SetOutPath "$INSTDIR\Snippets"
 	File /r /x .svn /x *.db "..\Bin\Debug\Snippets\*.*"
-
+	
 	SetOutPath "$INSTDIR\Templates"
 	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
 	
@@ -274,6 +274,7 @@ Section "Quick Launch Shortcut" QuickShortcut
 	
 	SectionIn 1	
 	SetOverwrite on
+	SetShellVarContext all
 	
 	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
 	
@@ -283,6 +284,7 @@ Section "Desktop Shortcut" DesktopShortcut
 	
 	SectionIn 1
 	SetOverwrite on
+	SetShellVarContext all
 	
 	CreateShortCut "$DESKTOP\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
 	
@@ -294,6 +296,7 @@ Section "Start Menu Group" StartMenuGroup
 	
 	SectionIn 1 3	
 	SetOverwrite on
+	SetShellVarContext all
 	
 	CreateDirectory "$SMPROGRAMS\FlashDevelop"
 	CreateShortCut "$SMPROGRAMS\FlashDevelop\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
@@ -410,19 +413,27 @@ Section "un.FlashDevelop" UninstMain
 	SectionIn 1 2 RO
 	SetShellVarContext all
 	
+	Delete "$DESKTOP\FlashDevelop.lnk"
+	Delete "$QUICKLAUNCH\FlashDevelop.lnk"
+	Delete "$SMPROGRAMS\FlashDevelop\FlashDevelop.lnk"
+	Delete "$SMPROGRAMS\FlashDevelop\Documentation.url"
+	Delete "$SMPROGRAMS\FlashDevelop\Community.url"
+	Delete "$SMPROGRAMS\FlashDevelop\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\FlashDevelop"
+	
 	RMDir /r "$INSTDIR\Docs"
 	RMDir /r "$INSTDIR\Library"
 	RMDir /r "$INSTDIR\Plugins"
 	RMDir /r "$INSTDIR\StartPage"
 	RMDir /r "$INSTDIR\Projects"
 	RMDir /r "$INSTDIR\Tools"
-
+	
 	IfFileExists "$INSTDIR\.local" +5 0
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
 	RMDir /r "$INSTDIR\Snippets"
 	RMDir /r "$INSTDIR\Templates"
-
+	
 	Delete "$INSTDIR\README.txt"
 	Delete "$INSTDIR\FirstRun.fdb"
 	Delete "$INSTDIR\Exceptions.log"
@@ -434,10 +445,7 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\SwfOp.dll"
 	Delete "$INSTDIR\Aga.dll"
 	
-	Delete "$INSTDIR\Uninstall.exe"	
-	Delete "$DESKTOP\FlashDevelop.lnk"
-	Delete "$QUICKLAUNCH\FlashDevelop.lnk"
-	RMDir /r "$SMPROGRAMS\FlashDevelop"
+	Delete "$INSTDIR\Uninstall.exe"
 	RMDir "$INSTDIR"
 	
 	!insertmacro APP_UNASSOCIATE "fdp" "FlashDevelop.Project"
@@ -477,7 +485,6 @@ Section /o "un.Settings" UninstSettings
 	RMDir /r "$INSTDIR\Snippets"
 	RMDir /r "$INSTDIR\Templates"
 	RMDir /r "$LOCALAPPDATA\FlashDevelop"
-	RMDir /r "$SMPROGRAMS\FlashDevelop"
 	RMDir "$INSTDIR"
 	
 SectionEnd
