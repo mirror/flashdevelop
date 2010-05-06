@@ -181,7 +181,7 @@
     <value>再フォーマット時、常にこれら文字の後にスペースを入れます。</value>
   </data>
   <data name="ASCompletion.Description.AlwaysCompleteWordLength" xml:space="preserve">
-    <value>補完リストを自動的に表示するために必要なタイプ数を設定できます。0 で表示しません。</value>
+    <value>補完リストを自動的に表示するために必要なタイプ数を設定します。0 で表示しません。</value>
   </data>
   <data name="ASCompletion.Description.BraceAfterLine" xml:space="preserve">
     <value>開始中括弧を新しい行に移動します。</value>
@@ -1347,16 +1347,16 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>シンタックスチェックのための HaXe コンパイラーパラメータです。</value>
+    <value>シンタックスチェックのための haXe コンパイラーパラメータです。</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
-    <value>HaXe コンパイラーのパスです。</value>
+    <value>haXe コンパイラーのパスです。</value>
   </data>
   <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
-    <value>このファイルには有効な HaXe クラスが無いか、または @haxe ビルドコマンドが含まれません。</value>
+    <value>このファイルには有効な haXe クラスが無いか、または @haxe ビルドコマンドが含まれません。</value>
   </data>
   <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
-    <value>HaXe コンパイラーのパスが正しく設定されていません。設定を確認してください。</value>
+    <value>haXe コンパイラーのパスが正しく設定されていません。設定を確認してください。</value>
   </data>
   <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>無効なクイックビルドコマンドです。</value>
@@ -2220,7 +2220,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>インターフェースメソッドを実装</value>
   </data>
   <data name="ASCompletion.Label.PromoteLocal" xml:space="preserve">
-    <value>メンバーとして定義</value>
+    <value>メンバーとして宣言</value>
   </data>
   <data name="ProjectManager.Info.AboutPackages" xml:space="preserve">
     <value>*一部のプロジェクトは未対応</value>
@@ -2250,7 +2250,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>FlashDevelop にコード補完エンジンを追加します。</value>
   </data>
   <data name="HaXeContext.Info.Description" xml:space="preserve">
-    <value>ASCompletion エンジンに HaXe コンテキストを追加します。</value>
+    <value>ASCompletion エンジンに haXe コンテキストを追加します。</value>
   </data>
   <data name="ProjectManager.Info.Description" xml:space="preserve">
     <value>FlashDevelop にプロジェクトマネージャーを追加します。</value>
@@ -3710,23 +3710,23 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.BackupSettings" xml:space="preserve">
-    <value>&amp;Backup All Settings...</value>
+    <value>すべての設定を保存(&amp;B)...</value>
     <comment>Added after 3.1.1</comment>
   </data>
-    <data name="AS2Context.Info.MTASCDone" xml:space="preserve">
-    <value>MTASC Done</value>
+  <data name="AS2Context.Info.MTASCDone" xml:space="preserve">
+    <value>MTASC 完了</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS2Context.Info.MTASCRunning" xml:space="preserve">
-    <value>MTASC Running</value>
+    <value>MTASC 実行中</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS3Context.MXMLCDone" xml:space="preserve">
-    <value>MXMLC Done</value>
+    <value>MXMLC 完了</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS3Context.MXMLCRunning" xml:space="preserve">
-    <value>MXMLC Running</value>
+    <value>MXMLC 実行中</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Info.ExtendsNode" xml:space="preserve">
@@ -3746,27 +3746,27 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.AmbiguousType" xml:space="preserve">
-    <value>Ambiguous Type</value>
+    <value>あいまいな型</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
-    <value>HaXe Done</value>
+    <value>haXe 完了</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
-    <value>Haxe.exe can not be located.{0}{0}Please run 'haxesetup' in HaXe installation and restart FlashDevelop,{0}or configure the path to HaXe installation in HaxeContext settings.</value>
+    <value>haxe.exe が見つかりませんでした。{0}{0}haxesetup.exe を実行し、FlashDevelop を再起動してください。{0}または環境設定の HaxeContext で haXe のパスを設定してください。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
-    <value>HaXe Running</value>
+    <value>haXe 実行中</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">
-    <value>PHP Done</value>
+    <value>PHP 完了</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="PHPContext.Info.PHPRunning" xml:space="preserve">
-    <value>PHP Running</value>
+    <value>PHP 実行中</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>
