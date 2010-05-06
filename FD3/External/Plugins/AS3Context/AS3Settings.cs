@@ -65,13 +65,13 @@ namespace AS3Context
         [Browsable(false)]
         public string CheckSyntaxRunning
         {
-            get { return TextHelper.GetString("Info.MXMLCRunning"); }
+            get { return TextHelper.GetString("Info.MxmlcRunning"); }
         }
 
         [Browsable(false)]
         public string CheckSyntaxDone
         {
-            get { return TextHelper.GetString("Info.MXMLCDone"); }
+            get { return TextHelper.GetString("Info.MxmlcDone"); }
         }
 
         [DisplayName("Check Syntax On Save")]

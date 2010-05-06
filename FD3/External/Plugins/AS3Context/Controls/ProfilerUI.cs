@@ -201,7 +201,6 @@ namespace AS3Context.Controls
                 string home = Environment.GetEnvironmentVariable("USERPROFILE");
                 string mmCfg = Path.Combine(home, "mm.cfg");
                 if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
-
                 string src = File.ReadAllText(mmCfg).Trim();
                 src = Regex.Replace(src, "PreloadSwf=.*", "").Trim();
                 if (active)
@@ -217,10 +216,7 @@ namespace AS3Context.Controls
                 }
                 File.WriteAllText(mmCfg, src);
             }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-            }
+            catch { } // No errors please...
         }
 
         private FlashConnect.Settings GetFlashConnectSettings()
@@ -259,7 +255,7 @@ namespace AS3Context.Controls
         {
             try
             {
-                String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\nTraceOutputBuffered=1\r\n";
+                String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\n";
                 FileHelper.WriteFile(mmCfg, contents, Encoding.UTF8);
             }
             catch (Exception ex)
