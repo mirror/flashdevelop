@@ -710,8 +710,8 @@ namespace ProjectManager.Controls
             this.movieTab.Text = TextHelper.GetString("Info.Output");
             this.btnApply.Text = TextHelper.GetString("Label.Apply");
             this.btnCancel.Text = TextHelper.GetString("Label.Cancel");
-            this.preBuildBox.Text = TextHelper.GetString("Info.Builder");
-            this.postBuildBox.Text = TextHelper.GetString("Info.Builder");
+            this.preBuilderButton.Text = TextHelper.GetString("Info.Builder");
+            this.postBuilderButton.Text = TextHelper.GetString("Info.Builder");
             this.label2.Text = TextHelper.GetString("Info.ProjectClasspaths");
             this.noOutputCheckBox.Text = TextHelper.GetString("Info.NoOutput");
             this.outputBrowseButton.Text = TextHelper.GetString("Label.Browse");

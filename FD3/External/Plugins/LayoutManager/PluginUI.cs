@@ -192,10 +192,10 @@ namespace LayoutManager
         /// </summary>
         private void InitializeTexts()
         {
-            this.loadStripButton.Text = TextHelper.GetString("Label.LoadLayout");
-            this.deleteStripButton.Text = TextHelper.GetString("Label.DeleteLayout");
-            this.settingStripButton.Text = TextHelper.GetString("Label.ShowSettings");
-            this.saveStripButton.Text = TextHelper.GetString("Label.SaveCurrent");
+            this.loadStripButton.ToolTipText = TextHelper.GetString("Label.LoadLayout");
+            this.deleteStripButton.ToolTipText = TextHelper.GetString("Label.DeleteLayout");
+            this.settingStripButton.ToolTipText = TextHelper.GetString("Label.ShowSettings");
+            this.saveStripButton.ToolTipText = TextHelper.GetString("Label.SaveCurrent");
         }
 
         /// <summary>

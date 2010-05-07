@@ -1956,7 +1956,7 @@
     <value>名前(&amp;N):</value>
   </data>
   <data name="ProjectManager.Label.New" xml:space="preserve">
-    <value />
+    <value>New</value>
   </data>
   <data name="ProjectManager.Label.NewFile" xml:space="preserve">
     <value>NewFile</value>
@@ -3767,6 +3767,42 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="PHPContext.Info.PHPRunning" xml:space="preserve">
     <value>PHP 実行中</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashLogViewer.Label.Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashLogViewer.Label.FlashLog" xml:space="preserve">
+    <value>Flash Log</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashLogViewer.Label.PolicyLog" xml:space="preserve">
+    <value>Policy Log</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashLogViewer.Label.View" xml:space="preserve">
+    <value>View:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.Enable" xml:space="preserve">
+    <value>Enable</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.File" xml:space="preserve">
+    <value>File</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.Line" xml:space="preserve">
+    <value>Line</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.Path" xml:space="preserve">
+    <value>Path</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>

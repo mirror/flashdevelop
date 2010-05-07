@@ -129,7 +129,7 @@ namespace FlashLogViewer
             // logComboBox
             //
             this.logComboBox.Enabled = false;
-            this.logComboBox.Items.AddRange(new Object[] {"Flash Log", "Policy Log"});
+            this.logComboBox.Items.AddRange(new Object[] { TextHelper.GetString("Label.FlashLog"), TextHelper.GetString("Label.PolicyLog") });
             this.logComboBox.Name = "logComboBox";
             this.logComboBox.Size = new System.Drawing.Size(90, 28);
             this.logComboBox.SelectedIndex = 0;
@@ -274,6 +274,9 @@ namespace FlashLogViewer
             this.clearFilterButton.ToolTipText = TextHelper.GetString("ToolTip.ClearFilterText");
             this.topMostButton.ToolTipText = TextHelper.GetString("ToolTip.PopupToTopMost");
             this.toggleButton.ToolTipText = TextHelper.GetString("ToolTip.StartTracking");
+            this.filterLabel.Text = TextHelper.GetString("Label.Filter");
+            this.viewLabel.Text = TextHelper.GetString("Label.View");
+            this.Text = TextHelper.GetString("ToolTip.StartTracking");
             this.logTextBox.ContextMenuStrip = menu;
         }
 

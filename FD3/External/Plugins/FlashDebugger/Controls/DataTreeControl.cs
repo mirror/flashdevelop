@@ -62,6 +62,8 @@ namespace FlashDebugger.Controls
 				_contextMenuStrip.Font = PluginBase.Settings.DefaultFont;
 			}
 			_tree.ContextMenuStrip = _contextMenuStrip;
+            this.NameTreeColumn.Header = TextHelper.GetString("Label.Name");
+            this.ValueTreeColumn.Header = TextHelper.GetString("Label.Value");
             copyMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Copy"), null, new EventHandler(this.CopyItemClick));
             viewerMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Viewer"), null, new EventHandler(this.ViewerItemClick));
             _contextMenuStrip.Items.AddRange(new ToolStripMenuItem[] { copyMenuItem, viewerMenuItem});

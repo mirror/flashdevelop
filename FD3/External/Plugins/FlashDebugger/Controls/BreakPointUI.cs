@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using PluginCore.Localization;
 using PluginCore;
 
 namespace FlashDebugger
@@ -73,24 +74,24 @@ namespace FlashDebugger
             this.ColumnBreakPointLine = new DataGridViewTextBoxColumn();
             this.ColumnBreakPointExp = new DataGridViewTextBoxColumn();
 
-            this.ColumnBreakPointEnable.HeaderText = "Enable";
+            this.ColumnBreakPointEnable.HeaderText = TextHelper.GetString("Label.Enable");
             this.ColumnBreakPointEnable.Name = "Enable";
             this.ColumnBreakPointEnable.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.ColumnBreakPointEnable.Width = 70;
 
-            this.ColumnBreakPointFilePath.HeaderText = "Path";
+            this.ColumnBreakPointFilePath.HeaderText = TextHelper.GetString("Label.Path");
             this.ColumnBreakPointFilePath.Name = "FilePath";
             this.ColumnBreakPointFilePath.ReadOnly = true;
 
-            this.ColumnBreakPointFileName.HeaderText = "File";
+            this.ColumnBreakPointFileName.HeaderText = TextHelper.GetString("Label.File");
             this.ColumnBreakPointFileName.Name = "FileName";
             this.ColumnBreakPointFileName.ReadOnly = true;
 
-            this.ColumnBreakPointLine.HeaderText = "Line";
+            this.ColumnBreakPointLine.HeaderText = TextHelper.GetString("Label.Line");
             this.ColumnBreakPointLine.Name = "Line";
             this.ColumnBreakPointLine.ReadOnly = true;
 
-            this.ColumnBreakPointExp.HeaderText = "Exp";
+            this.ColumnBreakPointExp.HeaderText = TextHelper.GetString("Label.Exp");
             this.ColumnBreakPointExp.Name = "Exp";
 
             this.dgv.AllowUserToAddRows = false;
