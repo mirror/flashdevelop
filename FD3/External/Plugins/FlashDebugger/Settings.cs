@@ -57,22 +57,11 @@ namespace FlashDebugger
 		private Keys m_DisableAllBreakPointsShortcut;
 		private Keys m_EnableAllBreakPointsShortcut;
 		private Folder[] m_SourcePaths = new Folder[] {};
-		private Boolean m_bTraceLog = false;
 		private Boolean m_SaveBreakPoints = true;
         private Color m_DebugLineColor = Color.Yellow;
 		private Color m_BreakPointEnableLineColor = Color.Red;
 		private Color m_BreakPointDisableLineColor = Color.Gray;
         private Boolean m_StartDebuggerOnTestMovie = true;
-
-        [DisplayName("Enable Logging")]
-        [LocalizedCategory("FlashDebugger.Category.Misc")]
-		[LocalizedDescription("FlashDebugger.Description.EnableLogging")]
-		[DefaultValue(false)]
-		public bool EnableLogging
-		{
-			get { return m_bTraceLog; }
-			set { m_bTraceLog = value; }
-		}
 
         [DisplayName("Save Breakpoints")]
         [LocalizedCategory("FlashDebugger.Category.Misc")]

@@ -139,12 +139,10 @@ namespace FlashDebugger
 			mgr.setPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT, 5000);
 			m_RequestDetach = false;
 			mgr.startListening();
-            FlexDbgTrace.TraceInfo("startListening");
             try
             {
                 m_Session = mgr.accept(this);
                 if (mgr.Listening) mgr.stopListening();
-                FlexDbgTrace.TraceInfo("FlashDebugger.START");
                 TraceManager.AddAsync("[Starting debug session with FDB]", -1);
                 if (m_Session == null)
                 {
@@ -184,7 +182,6 @@ namespace FlashDebugger
                     // not there, not connected
                     if (m_RequestStop || m_RequestDetach || !haveConnection())
                     {
-                        FlexDbgTrace.TraceInfo("Stopping due to request or lost connection, m_RequestStop = " + m_RequestStop);
                         stop = true;
                         continue;
                     }

@@ -98,7 +98,6 @@ namespace FlashDebugger
         {
             try
             {
-                FlexDbgTrace.Trace("CheckCurrent()");
 				if (!CheckCurrent()) return;
             }
             catch (Exception ex)
@@ -159,7 +158,6 @@ namespace FlashDebugger
         internal void Start(String filename)
         {
             PluginMain.debugBuildStart = false;
-            FlexDbgTrace.TraceInfo("----Start(string filename)----");
 			m_FlashInterface.currentProject = currentProject;
 			m_FlashInterface.outputFileFullPath = filename;
 			PanelsHelper.pluginPanel.Show();
@@ -497,7 +495,6 @@ namespace FlashDebugger
             PluginMain.liveDataTip.Hide();
 			CurrentLocation = null;
 			m_FlashInterface.Stop();
-            FlexDbgTrace.TraceInfo("Stop() FlashInterface.Stop; end");
         }
 
 		/// <summary>
@@ -555,14 +552,12 @@ namespace FlashDebugger
         internal void Pause_Click(Object sender, EventArgs e)
         {
 			CurrentLocation = null;
-			FlexDbgTrace.TraceInfo("Pause() FlashInterface.Pause();");
 			m_FlashInterface.Pause();
         }
 
         internal void Finish_Click(Object sender, EventArgs e)
         {
 			CurrentLocation = null;
-			FlexDbgTrace.TraceInfo("Finish() FlashInterface.Finish();");
 			m_FlashInterface.Finish();
 			UpdateMenuState(DebuggerState.Running);
 		}

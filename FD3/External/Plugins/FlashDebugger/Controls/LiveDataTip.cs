@@ -123,7 +123,6 @@ namespace FlashDebugger
         {
             if (m.Msg == Win32.WM_LBUTTONDOWN)
             {
-				FlexDbgTrace.TraceInfo("PreFilterMessage: WM_LBUTTONDOWN - wParam = " + m.WParam.ToString("x") + ", lParam = " + m.LParam.ToString("x"));
 				Control target = Control.FromHandle(m.HWnd);
 				foreach (Control c in m_ControlList)
                 {
