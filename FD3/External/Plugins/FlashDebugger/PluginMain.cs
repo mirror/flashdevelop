@@ -99,12 +99,6 @@ namespace FlashDebugger
             InitLocalization();
             CreateMenuItems();
             CreatePluginPanel();
-
-            //debug
-            FlexDbgTrace.init();
-            FlexDbgTrace.IsTraceLog = settingObject.EnableLogging;
-            FlexDbgTrace.Trace("--------------------------");
-            FlexDbgTrace.Trace("---FlexDbgTrace Start---");
         }
 		
 		/// <summary>

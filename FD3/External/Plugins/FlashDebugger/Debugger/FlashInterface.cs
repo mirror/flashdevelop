@@ -364,7 +364,6 @@ namespace FlashDebugger
                     }
                     catch (System.Threading.ThreadInterruptedException){}
                 }
-                FlexDbgTrace.TraceInfo("loop end");
             }
             catch (System.Net.Sockets.SocketException ex)
             {
