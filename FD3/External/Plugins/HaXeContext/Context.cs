@@ -802,7 +802,7 @@ namespace HaXeContext
                 member.Flags = FlagType.Function;
                 member.Access = Visibility.Public;
 
-                var type = al[1].ToString();
+                string type = al[1].ToString();
 
                 Array types = type.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
 
