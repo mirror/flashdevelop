@@ -175,17 +175,17 @@ namespace AS3Context.Controls
         {
             zero = false;
 
-            ListItem.SubItems[COL_COUNT].Text = cpt;
             int.TryParse(cpt, out Count);
+            ListItem.SubItems[COL_COUNT].Text = Count.ToString("N0");
 
             if (Maximum < Count)
             {
                 Maximum = Count;
-                ListItem.SubItems[COL_MAX].Text = cpt;
+                ListItem.SubItems[COL_MAX].Text = Maximum.ToString("N0");
             }
 
             int.TryParse(mem, out Memory);
-            ListItem.SubItems[COL_MEM].Text = mem;
+            ListItem.SubItems[COL_MEM].Text = Memory.ToString("N0");
         }
 
         public void Zero()

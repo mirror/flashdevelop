@@ -8,7 +8,6 @@
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.system.System;
-	import flash.utils.getTimer;
 	import flash.utils.Timer;
 	import flash.xml.XMLNode;
 	import org.flashdevelop.utils.FlashConnect;
@@ -56,7 +55,7 @@
 			removeEventListener("allComplete", loadComplete);
 			
 			var info:LoaderInfo = e.target as LoaderInfo;
-			target = info.url;
+			target = info.url.replace("|", ":");
 			
 			configure();
 		}
@@ -70,7 +69,7 @@
 			FlashConnect.trace("[Profiling: " + target + "]");
 			FlashConnect.flush();
 			
-			id = getTimer();
+			id = new Date().getTime();
 			FlashConnect.onReturnData = onReturn;
 			
 			update = new Timer(100);
@@ -143,6 +142,11 @@
 				tempo = 0;
 				
 				var out:Array = [ id + "/" + System.totalMemory ];
+				if (target) 
+				{
+					out[0] += "/" + target.split("/").join("\\");
+					target = null;
+				}
 				sampler.outputReport(out);
 				
 				var msgNode:XMLNode = new XMLNode(1, null);

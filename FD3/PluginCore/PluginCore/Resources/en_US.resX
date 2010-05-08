@@ -3772,6 +3772,26 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>PHP Running</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="AS3Context.Label.AutoStartProfilerON" xml:space="preserve">
+    <value>Auto-start Profiler Enabled</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Label.AutoStartProfilerOFF" xml:space="preserve">
+    <value>Auto-start Profiler Disabled</value>
+    <comment>Added after 3.1</comment>
+  </data>
+  <data name="AS3Context.Label.MemoryGraphScale" xml:space="preserve">
+    <value>Graph scale:</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="AS3Context.Label.MemoryStats" xml:space="preserve">
+    <value>Current memory usage:{0}{1} Kb{0}{0}Memory peak:{0}{2} Kb</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="AS3Context.Label.MemoryTab" xml:space="preserve">
+    <value>Memory</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
   <data name="FlashLogViewer.Label.Filter" xml:space="preserve">
     <value>Filter:</value>
     <comment>Added after 3.1.1</comment>

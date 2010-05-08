@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0263E5F6-D5B2-4118-B12E-87F9A74DE8AF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -62,7 +62,9 @@
     <Compile Include="Context.cs" />
     <Compile Include="Controls\ProfilerLiveObjectsView.cs">
     </Compile>
-    <Compile Include="Controls\ProfilerMemView.cs" />
+    <Compile Include="Controls\ProfilerMemView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ProfilerObjectsView.cs">
     </Compile>
     <Compile Include="Controls\ProfilerUI.cs">

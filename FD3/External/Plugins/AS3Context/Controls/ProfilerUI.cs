@@ -11,6 +11,7 @@ using PluginCore.Localization;
 using PluginCore.Managers;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace AS3Context.Controls
 {
@@ -23,13 +24,20 @@ namespace AS3Context.Controls
         static private ProfilerUI instance;
         static private bool gcWanted;
         static private byte[] snapshotWanted;
+        private bool autoStart;
         private bool running;
         private string current;
+        private List<String> previous = new List<string>();
         private ObjectRefsGrid objectRefsGrid;
         private ProfilerLiveObjectsView liveObjectsView;
         private ProfilerMemView memView;
         private ProfilerObjectsView objectRefsView;
         private Timer detectDisconnect;
+
+        public bool AutoStart
+        {
+            get { return autoStart; }
+        }
 
         public static void HandleFlashConnect(object sender, object data)
         {
@@ -72,12 +80,14 @@ namespace AS3Context.Controls
             toolStrip.Renderer = new DockPanelStripRenderer();
             runButton.Image = PluginBase.MainForm.FindImage("127");
             gcButton.Image = PluginBase.MainForm.FindImage("90");
+            gcButton.Enabled = false;
+            autoButton.Image = PluginBase.MainForm.FindImage("514");
 
             detectDisconnect = new Timer();
             detectDisconnect.Interval = 5000;
             detectDisconnect.Tick += new EventHandler(detectDisconnect_Tick);
 
-            memView = new ProfilerMemView(memLabel);
+            memView = new ProfilerMemView(memLabel, memStatsLabel, memScaleCombo, memoryPage);
             liveObjectsView = new ProfilerLiveObjectsView(listView);
             liveObjectsView.OnViewObject += new ViewObjectEvent(liveObjectsView_OnViewObject);
             objectRefsView = new ProfilerObjectsView(objectRefsGrid);
@@ -94,16 +104,19 @@ namespace AS3Context.Controls
 
         private void InitializeLocalization()
         {
+            this.labelTarget.Text = "";
+            this.autoButton.Text = TextHelper.GetString("Label.AutoStartProfilerOFF");
             this.gcButton.Text = TextHelper.GetString("Label.RunGC");
             this.runButton.Text = TextHelper.GetString("Label.StartProfiler");
-            this.memLabel.Text = String.Format(TextHelper.GetString("Label.MemoryDisplay"), 0, 0);
             this.typeColumn.Text = TextHelper.GetString("Column.Type");
             this.countColumn.Text = TextHelper.GetString("Column.Count");
             this.memColumn.Text = TextHelper.GetString("Column.Memory");
             this.pkgColumn.Text = TextHelper.GetString("Column.Package");
             this.maxColumn.Text = TextHelper.GetString("Column.Maximum");
+            this.memScaleLabel.Text = TextHelper.GetString("Label.MemoryGraphScale");
             this.liveObjectsPage.Text = TextHelper.GetString("Label.LiveObjectsTab");
             this.objectsPage.Text = TextHelper.GetString("Label.ObjectsTab");
+            this.memoryPage.Text = TextHelper.GetString("Label.MemoryTab");
         }
 
         void detectDisconnect_Tick(object sender, EventArgs e)
@@ -128,14 +141,15 @@ namespace AS3Context.Controls
             if (running && current != null) gcWanted = true;
         }
 
-        private void StopProfiling()
+        public void StopProfiling()
         {
             running = false;
             runButton.Image = PluginBase.MainForm.FindImage("125");
             runButton.Text = TextHelper.GetString("Label.StartProfiler");
+            gcButton.Enabled = false;
         }
 
-        private void StartProfiling()
+        public void StartProfiling()
         {
             running = true;
             current = null;
@@ -145,11 +159,21 @@ namespace AS3Context.Controls
             liveObjectsView.Clear();
             memView.Clear();
 
-            tabControl.SelectedTab = liveObjectsPage;
+            if (tabControl.SelectedTab == objectsPage) 
+                tabControl.SelectedTab = liveObjectsPage;
             runButton.Image = PluginBase.MainForm.FindImage("126");
             runButton.Text = TextHelper.GetString("Label.StopProfiler");
+            gcButton.Enabled = false;
 
-            SetProfilerCfg(true);
+            if (!SetProfilerCfg(true)) 
+                StopProfiling();
+        }
+
+        private void autoButton_Click(object sender, EventArgs e)
+        {
+            autoStart = !autoStart;
+            autoButton.Image = PluginBase.MainForm.FindImage(autoStart ? "510" : "514");
+            autoButton.Text = TextHelper.GetString(autoStart ? "Label.AutoStartProfilerON" : "Label.AutoStartProfilerOFF");
         }
 
         #endregion
@@ -175,12 +199,18 @@ namespace AS3Context.Controls
             }
 
             // live objects count
-            if (current == null)
+            if (current != info[0])
             {
-                current = info[0];
-                SetProfilerCfg(false);
+                if (!previous.Contains(info[0]))
+                {
+                    current = info[0];
+                    labelTarget.Text = info.Length > 2 ? info[2].Replace('\\', '/') : "";
+                    previous.Add(current);
+                    SetProfilerCfg(false);
+                    gcButton.Enabled = true;
+                }
+                else return false;
             }
-            else if (current != info[0]) return false;
 
             detectDisconnect.Stop();
             detectDisconnect.Start();
@@ -194,11 +224,13 @@ namespace AS3Context.Controls
 
         #region MM configuration
 
-        private void SetProfilerCfg(bool active)
+        private bool SetProfilerCfg(bool active)
         {
             try
             {
                 string home = Environment.GetEnvironmentVariable("USERPROFILE");
+                if (!Directory.Exists(home))
+                    return false;
                 string mmCfg = Path.Combine(home, "mm.cfg");
                 if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
                 string src = File.ReadAllText(mmCfg).Trim();
@@ -206,7 +238,7 @@ namespace AS3Context.Controls
                 if (active)
                 {
                     // write profiler
-                    string profilerSWF = CheckResource("Profiler2.swf", "Profiler.swf");
+                    string profilerSWF = CheckResource("Profiler3.swf", "Profiler.swf");
                     // local security
                     ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
                     // honor FlashConnect settings
@@ -216,7 +248,11 @@ namespace AS3Context.Controls
                 }
                 File.WriteAllText(mmCfg, src);
             }
-            catch { } // No errors please...
+            catch 
+            {
+                return false; // unable to set the profiler
+            }
+            return true;
         }
 
         private FlashConnect.Settings GetFlashConnectSettings()
@@ -265,6 +301,7 @@ namespace AS3Context.Controls
         }
 
         #endregion
+
     }
 
     

@@ -222,11 +222,18 @@ namespace AS3Context
                             || action == "FlashViewer.Popup" || action == "FlashViewer.Document")
                         {
                             if (PluginBase.CurrentProject != null 
-                                && (PluginBase.CurrentProject.Language == "as3" || IsAS3Haxe(PluginBase.CurrentProject))
-                                && PluginBase.CurrentProject.TraceEnabled)
+                                && (PluginBase.CurrentProject.Language == "as3" || IsAS3Haxe(PluginBase.CurrentProject)))
                             {
-                                DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
-                                EventManager.DispatchEvent(this, de);
+                                if (profilerUI.AutoStart)
+                                {
+                                    profilerUI.StartProfiling();
+                                    profilerPanel.Show();
+                                }
+                                if (PluginBase.CurrentProject.TraceEnabled)
+                                {
+                                    DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                                    EventManager.DispatchEvent(this, de);
+                                }
                             }
                         }
                     }
