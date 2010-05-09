@@ -3828,4 +3828,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Path</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
+    <value>NewClass</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
 </root>

@@ -130,7 +130,7 @@ namespace ASClassWizard
                         if ((project.Language.StartsWith("as")) && IsWizardTemplate(table["templatePath"] as String))
                         {
                             evt.Handled = true;
-                            String className = table.ContainsKey("className") ? table["className"] as String : "Class";
+                            String className = table.ContainsKey("className") ? table["className"] as String : TextHelper.GetString("Wizard.Label.NewClass");
 							DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String, className);
                         }
                     }
@@ -215,7 +215,7 @@ namespace ASClassWizard
         private void DisplayClassWizard(String inDirectory, String templateFile, String className)
         {
             Project project = PluginBase.CurrentProject as Project;
-            String classpath = project.AbsoluteClasspaths.GetClosestParent(inDirectory);
+            String classpath = project.AbsoluteClasspaths.GetClosestParent(inDirectory) ?? inDirectory;
             String package;
             try
             {
@@ -237,7 +237,8 @@ namespace ASClassWizard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string cPackage = dialog.getPackage();
-                string newFilePath  = Path.ChangeExtension(Path.Combine(dialog.Directory, dialog.getClassName()), ".as");
+                string path = Path.Combine(classpath, dialog.getPackage().Replace('.', Path.DirectorySeparatorChar));
+                string newFilePath  = Path.ChangeExtension(Path.Combine(path, dialog.getClassName()), ".as");
                 if (File.Exists(newFilePath))
                 {
                     string title = " " + TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
@@ -258,7 +259,16 @@ namespace ASClassWizard
                     dialog.getGenerateInheritedMethods(),
                     dialog.getGenerateConstructor()
                   );
-                MainForm.FileFromTemplate(templatePath, newFilePath);
+
+                try
+                {
+                    if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                    MainForm.FileFromTemplate(templatePath, newFilePath);
+                }
+                catch (Exception ex)
+                {
+                    ErrorManager.ShowError(ex);
+                }
             }
         }
 

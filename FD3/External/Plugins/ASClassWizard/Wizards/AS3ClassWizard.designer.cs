@@ -168,7 +168,6 @@ namespace ASClassWizard.Wizards
             // packageBox
             // 
             this.packageBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.packageBox.Enabled = false;
             this.packageBox.Location = new System.Drawing.Point(106, 4);
             this.packageBox.Name = "packageBox";
             this.packageBox.Size = new System.Drawing.Size(268, 20);
