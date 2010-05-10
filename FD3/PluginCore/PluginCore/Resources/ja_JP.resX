@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -3803,6 +3803,26 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDebugger.Label.Path" xml:space="preserve">
     <value>Path</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
+    <value>NewClass</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Errors" xml:space="preserve">
+    <value>Errors</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Informations" xml:space="preserve">
+    <value>Informations</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Warnings" xml:space="preserve">
+    <value>Warnings</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>

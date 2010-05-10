@@ -3828,6 +3828,22 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Path</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="ResultsPanel.Filters.Errors" xml:space="preserve">
+    <value>Errors</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Informations" xml:space="preserve">
+    <value>Informations</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ResultsPanel.Filters.Warnings" xml:space="preserve">
+    <value>Warnings</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
     <value>NewClass</value>
     <comment>Added after 3.1.1</comment>

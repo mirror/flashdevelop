@@ -6,11 +6,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using WeifenLuo.WinFormsUI.Docking;
+using ScintillaNet.Configuration;
 using PluginCore.Localization;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
-using ScintillaNet.Configuration;
 using ScintillaNet;
 using PluginCore;
 
@@ -19,17 +19,28 @@ namespace ResultsPanel
 	public class PluginUI : DockPanelControl
 	{
         private ListView entriesView;
+        private ColumnHeader entryFile;
+        private ColumnHeader entryDesc;
+        private ColumnHeader entryLine;
+        private ColumnHeader entryPath;
+        private ColumnHeader entryType;
         private ToolStripMenuItem nextEntry;
         private ToolStripMenuItem previousEntry;
         private ToolStripMenuItem ignoreEntryContextMenuItem;
         private ToolStripMenuItem clearIgnoredEntriesContextMenuItem;
         private IDictionary<String, Boolean> ignoredEntries;
-        private ColumnHeader entryFile;
-		private ColumnHeader entryDesc;
-		private ColumnHeader entryLine;
-		private ColumnHeader entryPath;
-		private ColumnHeader entryType;
-		private PluginMain pluginMain;
+		private List<ListViewItem> allListViewItems = new List<ListViewItem>();
+		private ToolStripButton toolStripButtonError;
+		private ToolStripButton toolStripButtonWarning;
+		private ToolStripSpringTextBox toolStripTextBoxFilter;
+        private ToolStripButton toolStripButtonInfo;
+		private ToolStripLabel toolStripLabelFilter;
+        private ToolStripButton clearFilterButton;
+        private ToolStrip toolStripFilters;
+        private Int32 errorCount = 0;
+        private Int32 warningCount = 0;
+        private Int32 messageCount = 0;
+        private PluginMain pluginMain;
         private Int32 logCount;
         private Timer autoShow;
 		 
@@ -57,69 +68,159 @@ namespace ResultsPanel
 		/// </summary>
 		private void InitializeComponent() 
         {
-            this.entriesView = new System.Windows.Forms.ListView();
-            this.entryType = new System.Windows.Forms.ColumnHeader();
-            this.entryLine = new System.Windows.Forms.ColumnHeader();
-            this.entryDesc = new System.Windows.Forms.ColumnHeader();
-            this.entryFile = new System.Windows.Forms.ColumnHeader();
-            this.entryPath = new System.Windows.Forms.ColumnHeader();
-            this.SuspendLayout();
+			this.entriesView = new System.Windows.Forms.ListView();
+			this.entryType = new System.Windows.Forms.ColumnHeader();
+			this.entryLine = new System.Windows.Forms.ColumnHeader();
+			this.entryDesc = new System.Windows.Forms.ColumnHeader();
+			this.entryFile = new System.Windows.Forms.ColumnHeader();
+			this.entryPath = new System.Windows.Forms.ColumnHeader();
+			this.toolStripFilters = new System.Windows.Forms.ToolStrip();
+            this.clearFilterButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonError = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonWarning = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonInfo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBoxFilter = new System.Windows.Forms.ToolStripSpringTextBox();
+			this.toolStripLabelFilter = new System.Windows.Forms.ToolStripLabel();
+			this.toolStripFilters.SuspendLayout();
+			this.SuspendLayout();
             // 
-            // entriesView
+            // clearFilterButton
             //
-            this.entriesView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entriesView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.entriesView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.entryType,
-            this.entryLine,
-            this.entryDesc,
-            this.entryFile,
-            this.entryPath});
-            this.entriesView.ShowGroups = true;
-            this.entriesView.ShowItemToolTips = true;
-            this.entriesView.FullRowSelect = true;
-            this.entriesView.GridLines = true;
-            this.entriesView.Name = "entriesView";
-            this.entriesView.Size = new System.Drawing.Size(710, 246);
-            this.entriesView.TabIndex = 1;
-            this.entriesView.UseCompatibleStateImageBehavior = false;
-            this.entriesView.View = System.Windows.Forms.View.Details;
-            this.entriesView.DoubleClick += new System.EventHandler(this.EntriesViewDoubleClick);
-            this.entriesView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EntriesViewKeyDown);
-            // 
-            // entryType
-            // 
-            this.entryType.Text = "!";
-            this.entryType.Width = 23;
-            // 
-            // entryLine
-            // 
-            this.entryLine.Text = "Line";
-            this.entryLine.Width = 55;
-            // 
-            // entryDesc
-            // 
-            this.entryDesc.Text = "Description";
-            this.entryDesc.Width = 350;
-            // 
-            // entryFile
-            // 
-            this.entryFile.Text = "File";
-            this.entryFile.Width = 150;
-            // 
-            // entryPath
-            // 
-            this.entryPath.Text = "Path";
-            this.entryPath.Width = 400;
-            // 
-            // PluginUI
-            //
+            this.clearFilterButton.Enabled = false;
+            this.clearFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clearFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(1);
+            this.clearFilterButton.Name = "clearFilterButton";
+            this.clearFilterButton.Size = new System.Drawing.Size(23, 26);
+            this.clearFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.clearFilterButton.Click += new System.EventHandler(this.ClearFilterButtonClick);
+			// 
+			// entriesView
+			// 
+            this.entriesView.Dock = DockStyle.Fill;
+			this.entriesView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.entriesView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.entryType, this.entryLine, this.entryDesc, this.entryFile, this.entryPath });
+			this.entriesView.FullRowSelect = true;
+			this.entriesView.GridLines = true;
+			this.entriesView.Location = new System.Drawing.Point(0, 28);
+			this.entriesView.Name = "entriesView";
+			this.entriesView.ShowItemToolTips = true;
+			this.entriesView.Size = new System.Drawing.Size(710, 218);
+			this.entriesView.TabIndex = 1;
+			this.entriesView.UseCompatibleStateImageBehavior = false;
+			this.entriesView.View = System.Windows.Forms.View.Details;
+			this.entriesView.DoubleClick += new System.EventHandler(this.EntriesViewDoubleClick);
+			this.entriesView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EntriesViewKeyDown);
+			// 
+			// entryType
+			// 
+			this.entryType.Text = "!";
+			this.entryType.Width = 23;
+			// 
+			// entryLine
+			// 
+			this.entryLine.Text = "Line";
+			this.entryLine.Width = 55;
+			// 
+			// entryDesc
+			// 
+			this.entryDesc.Text = "Description";
+			this.entryDesc.Width = 350;
+			// 
+			// entryFile
+			// 
+			this.entryFile.Text = "File";
+			this.entryFile.Width = 150;
+			// 
+			// entryPath
+			// 
+			this.entryPath.Text = "Path";
+			this.entryPath.Width = 400;
+			// 
+			// toolStripFilters
+			// 
+            this.toolStripFilters.CanOverflow = false;
+            this.toolStripFilters.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStripFilters.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStripFilters.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonInfo,
+            new ToolStripSeparator(),
+            this.toolStripButtonWarning,
+            new ToolStripSeparator(),
+            this.toolStripButtonError,
+            new ToolStripSeparator(),
+            this.toolStripLabelFilter,
+            this.toolStripTextBoxFilter, 
+            this.clearFilterButton});
+            this.toolStripFilters.Name = "toolStripFilters";
+            this.toolStripFilters.Location = new System.Drawing.Point(1, 0);
+            this.toolStripFilters.Size = new System.Drawing.Size(710, 25);
+            this.toolStripFilters.TabIndex = 0;
+            this.toolStripFilters.Text = "toolStripFilters";
+			// 
+			// toolStripButtonError
+			// 
+			this.toolStripButtonError.Checked = true;
+			this.toolStripButtonError.CheckOnClick = true;
+            this.toolStripButtonError.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+			this.toolStripButtonError.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.toolStripButtonError.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonError.Name = "toolStripButtonError";
+			this.toolStripButtonError.Size = new System.Drawing.Size(36, 22);
+			this.toolStripButtonError.Text = "Error";
+            this.toolStripButtonError.CheckedChanged += new System.EventHandler(this.ToolStripButtonErrorCheckedChanged);
+			// 
+			// toolStripButtonWarning
+			// 
+			this.toolStripButtonWarning.Checked = true;
+			this.toolStripButtonWarning.CheckOnClick = true;
+            this.toolStripButtonWarning.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+			this.toolStripButtonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.toolStripButtonWarning.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonWarning.Name = "toolStripButtonWarning";
+			this.toolStripButtonWarning.Size = new System.Drawing.Size(56, 22);
+			this.toolStripButtonWarning.Text = "Warning";
+            this.toolStripButtonWarning.CheckedChanged += new System.EventHandler(this.ToolStripButtonErrorCheckedChanged);
+			// 
+			// toolStripButtonInfo
+			// 
+			this.toolStripButtonInfo.Checked = true;
+			this.toolStripButtonInfo.CheckOnClick = true;
+            this.toolStripButtonInfo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+			this.toolStripButtonInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.toolStripButtonInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonInfo.Name = "toolStripButtonInfo";
+			this.toolStripButtonInfo.Size = new System.Drawing.Size(74, 22);
+			this.toolStripButtonInfo.Text = "Information";
+            this.toolStripButtonInfo.CheckedChanged += new System.EventHandler(this.ToolStripButtonErrorCheckedChanged);
+			// 
+			// toolStripTextBoxFilter
+			//
+			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
+			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
+            this.toolStripTextBoxFilter.TextChanged += new System.EventHandler(this.ToolStripButtonErrorCheckedChanged);
+			// 
+			// toolStripLabelFilter
+			//
+            this.toolStripLabelFilter.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+			this.toolStripLabelFilter.Name = "toolStripLabelFilter";
+			this.toolStripLabelFilter.Size = new System.Drawing.Size(36, 22);
+			this.toolStripLabelFilter.Text = "Filter:";
+			// 
+			// PluginUI
+			//
             this.Name = "PluginUI";
-            this.Controls.Add(this.entriesView);
-            this.Size = new System.Drawing.Size(712, 246);
-            this.ResumeLayout(false);
+			this.Controls.Add(this.entriesView);
+            this.Controls.Add(this.toolStripFilters);
+			this.Size = new System.Drawing.Size(712, 246);
+			this.toolStripFilters.ResumeLayout(false);
+			this.toolStripFilters.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
+
 		#endregion
 		
 		#region Methods And Event Handlers
@@ -143,6 +244,11 @@ namespace ResultsPanel
             imageList.Images.Add(PluginBase.MainForm.FindImage("131")); // info
             imageList.Images.Add(PluginBase.MainForm.FindImage("197")); // error
             imageList.Images.Add(PluginBase.MainForm.FindImage("196")); // warning
+            this.clearFilterButton.Image = PluginBase.MainForm.FindImage("153");
+            this.toolStripFilters.ImageList = imageList;
+            this.toolStripButtonError.ImageIndex = 1;
+            this.toolStripButtonWarning.ImageIndex = 2;
+            this.toolStripButtonInfo.ImageIndex = 0;
             this.entriesView.SmallImageList = imageList;
         }
 
@@ -170,6 +276,7 @@ namespace ResultsPanel
             menu.Items.Add(this.previousEntry);
             this.entriesView.ContextMenuStrip = menu;
             menu.Font = PluginBase.Settings.DefaultFont;
+            this.toolStripFilters.Renderer = new DockPanelStripRenderer();
             if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.NextError);
             if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.PreviousError);
         }
@@ -183,6 +290,10 @@ namespace ResultsPanel
             this.entryDesc.Text = TextHelper.GetString("Header.Description");
             this.entryLine.Text = TextHelper.GetString("Header.Line");
             this.entryPath.Text = TextHelper.GetString("Header.Path");
+            this.toolStripButtonError.Text = "0 " + TextHelper.GetString("Filters.Errors");
+            this.toolStripButtonWarning.Text = "0 " + TextHelper.GetString("Filters.Warnings");
+            this.toolStripButtonInfo.Text = "0 " + TextHelper.GetString("Filters.Informations");
+            this.toolStripLabelFilter.Text = TextHelper.GetString("Filters.Filter");
             this.entryPath.Width = -2; // Extend last column
         }
 
@@ -194,6 +305,24 @@ namespace ResultsPanel
             Boolean useGrouping = PluginBase.Settings.UseListViewGrouping;
             this.entriesView.ShowGroups = useGrouping;
             this.entriesView.GridLines = !useGrouping;
+        }
+
+        /// <summary>
+        /// Filter the result on check change
+        /// </summary>
+        private void ToolStripButtonErrorCheckedChanged(Object sender, EventArgs e)
+        {
+            this.clearFilterButton.Enabled = this.toolStripTextBoxFilter.Text.Trim().Length > 0;
+            this.FilterResults();
+        }
+
+        /// <summary>
+        /// Clears the filter control text
+        /// </summary>
+        private void ClearFilterButtonClick(Object sender, System.EventArgs e)
+        {
+            this.clearFilterButton.Enabled = false;
+            this.toolStripTextBoxFilter.Text = "";
         }
 
         /// <summary>
@@ -374,6 +503,9 @@ namespace ResultsPanel
         public void ClearOutput()
         {
             this.ClearSquiggles();
+            this.allListViewItems.Clear();
+            this.toolStripTextBoxFilter.Text = "";
+            this.errorCount = this.messageCount = this.warningCount = 0;
             this.entriesView.Items.Clear();
             this.nextEntry.Enabled = false;
             this.previousEntry.Enabled = false;
@@ -474,11 +606,18 @@ namespace ResultsPanel
                             item.SubItems.Add(fileInfo.Directory.ToString());
                             if (newResult < 0) newResult = this.entriesView.Items.Count;
                             this.AddToGroup(item, fileInfo.FullName);
-                            this.entriesView.Items.Add(item);
+							if (icon == 0) this.messageCount++;
+                            else if (icon == 1) this.errorCount++;
+                            else if (icon == 2) this.warningCount++;
+							allListViewItems.Add(item);
                         }
                     }
                 }
             }
+            this.toolStripButtonError.Text = this.errorCount + " " + TextHelper.GetString("Filters.Errors");
+            this.toolStripButtonWarning.Text = this.warningCount + " " + TextHelper.GetString("Filters.Warnings");
+            this.toolStripButtonInfo.Text = this.messageCount + " " + TextHelper.GetString("Filters.Informations");
+            this.FilterResults();
             this.logCount = count;
             if (newResult >= 0)
             {
@@ -486,18 +625,43 @@ namespace ResultsPanel
                 {
                     this.AddSquiggle(this.entriesView.Items[i]);
                 }
-                if (this.Settings.ScrollToBottom)
-                {
-                    Int32 last = this.entriesView.Items.Count - 1;
-                    this.entriesView.EnsureVisible(last);
-                }
-                else this.entriesView.EnsureVisible(0);
-                this.nextEntry.Enabled = true;
-                this.previousEntry.Enabled = true;
             }
             this.entryPath.Width = -2; // Extend last column
             this.entriesView.EndUpdate();
         }
+
+        /// <summary>
+        /// Filters the results...
+        /// </summary>
+		private void FilterResults()
+		{
+			this.entriesView.BeginUpdate();
+            this.entriesView.Items.Clear();
+            String filterText = this.toolStripTextBoxFilter.Text.ToLower();
+            foreach (ListViewItem it in this.allListViewItems)
+			{
+                // Is checked?
+                if (((this.toolStripButtonInfo.Checked && it.ImageIndex == 0) || (this.toolStripButtonWarning.Checked && it.ImageIndex == 2) || (this.toolStripButtonError.Checked && it.ImageIndex == 1))
+                    // Contains filter?
+                    && (this.toolStripTextBoxFilter.Text == "" || (this.toolStripTextBoxFilter.Text != "" && (it.SubItems[2].Text.ToLower().Contains(filterText) || it.SubItems[3].Text.ToLower().Contains(filterText) || it.SubItems[4].Text.ToLower().Contains(filterText)))))
+				{	
+					String path = Path.Combine(it.SubItems[4].Text, it.SubItems[3].Text);
+                    this.entriesView.Items.Add(it);
+                    this.AddToGroup(it, path);
+				}
+			}
+			if (this.Settings.ScrollToBottom)
+			{
+				Int32 last = this.entriesView.Items.Count - 1;
+				this.entriesView.EnsureVisible(last);
+			}
+            else if (this.entriesView.Items.Count > 0)
+            {
+                this.entriesView.EnsureVisible(0);
+            }
+            this.nextEntry.Enabled = this.previousEntry.Enabled = this.entriesView.Items.Count > 0;
+            this.entriesView.EndUpdate();
+		}
 
         /// <summary>
         /// Adds item to the specified group
@@ -518,15 +682,21 @@ namespace ResultsPanel
                     break;
                 }
             }
-            if (found) gp.Items.Add(item);
-            else
-            {
-                gp = new ListViewGroup();
-                gp.Tag = path;
-                gp.Header = gpname;
-                this.entriesView.Groups.Add(gp);
-                gp.Items.Add(item);
-            }
+			if (found)
+			{
+                if (gp.Items.Contains(item) == false)
+                {
+                    gp.Items.Add(item);
+                }
+			}
+			else
+			{
+				gp = new ListViewGroup();
+				gp.Tag = path;
+				gp.Header = gpname;
+				this.entriesView.Groups.Add(gp);
+				gp.Items.Add(item);
+			}			
         }
 
 		/// <summary>
@@ -671,17 +841,17 @@ namespace ResultsPanel
         /// </summary>
         public void NextEntry(Object sender, System.EventArgs e)
         {
-            if (entriesView.Items.Count == 0) return;
-            if (entryIndex >= 0 && entryIndex < entriesView.Items.Count)
+            if (this.entriesView.Items.Count == 0) return;
+            if (this.entryIndex >= 0 && this.entryIndex < this.entriesView.Items.Count)
             {
-                entriesView.Items[entryIndex].ForeColor = SystemColors.WindowText;
+                this.entriesView.Items[this.entryIndex].ForeColor = SystemColors.WindowText;
             }
-            entryIndex = (entryIndex + 1) % entriesView.Items.Count;
-            entriesView.SelectedItems.Clear();
-            entriesView.Items[entryIndex].Selected = true;
-            entriesView.Items[entryIndex].ForeColor = Color.Blue;
-            entriesView.EnsureVisible(entryIndex);
-            EntriesViewDoubleClick(null, null);
+            this.entryIndex = (this.entryIndex + 1) % this.entriesView.Items.Count;
+            this.entriesView.SelectedItems.Clear();
+            this.entriesView.Items[this.entryIndex].Selected = true;
+            this.entriesView.Items[this.entryIndex].ForeColor = Color.Blue;
+            this.entriesView.EnsureVisible(this.entryIndex);
+            this.EntriesViewDoubleClick(null, null);
         }
 
         /// <summary>
@@ -689,17 +859,17 @@ namespace ResultsPanel
         /// </summary>
         public void PreviousEntry(Object sender, System.EventArgs e)
         {
-            if (entriesView.Items.Count == 0) return;
-            if (entryIndex >= 0 && entryIndex < entriesView.Items.Count)
+            if (this.entriesView.Items.Count == 0) return;
+            if (this.entryIndex >= 0 && this.entryIndex < this.entriesView.Items.Count)
             {
-                entriesView.Items[entryIndex].ForeColor = SystemColors.WindowText;
+                this.entriesView.Items[this.entryIndex].ForeColor = SystemColors.WindowText;
             }
-            if (--entryIndex < 0) entryIndex = entriesView.Items.Count - 1;
-            entriesView.SelectedItems.Clear();
-            entriesView.Items[entryIndex].Selected = true;
-            entriesView.Items[entryIndex].ForeColor = Color.Blue;
-            entriesView.EnsureVisible(entryIndex);
-            EntriesViewDoubleClick(null, null);
+            if (--this.entryIndex < 0) this.entryIndex = this.entriesView.Items.Count - 1;
+            this.entriesView.SelectedItems.Clear();
+            this.entriesView.Items[this.entryIndex].Selected = true;
+            this.entriesView.Items[this.entryIndex].ForeColor = Color.Blue;
+            this.entriesView.EnsureVisible(this.entryIndex);
+            this.EntriesViewDoubleClick(null, null);
         }
 
         #endregion
