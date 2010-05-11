@@ -367,11 +367,8 @@ namespace FlashDebugger
             }
             catch (System.Net.Sockets.SocketException ex)
             {
-                if (m_RequestStop)
-                {
-                    throw new Exception(TextHelper.GetString("Info.DebuggerListenAborted"));
-                }
-                else throw ex;
+                // No errors if requested
+                if (!m_RequestStop) throw ex;
             }
             finally
             {

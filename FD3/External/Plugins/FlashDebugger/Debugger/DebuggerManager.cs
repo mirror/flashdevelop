@@ -143,7 +143,6 @@ namespace FlashDebugger
             {
                 errormsg += TextHelper.GetString("Info.LanguageNotAS3") + System.Environment.NewLine;
             }
-            // TODO: move this outside
             if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
             {
                 errormsg += TextHelper.GetString("Info.CannotDebugActiveXPlayer") + System.Environment.NewLine;
@@ -174,7 +173,6 @@ namespace FlashDebugger
                 bgWorker.DoWork += bgWorker_DoWork;
                 bgWorker.RunWorkerAsync();
             }
-            else ErrorManager.ShowInfo(TextHelper.GetString("Info.DebuggingSessionAlreadyRunning"));
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
