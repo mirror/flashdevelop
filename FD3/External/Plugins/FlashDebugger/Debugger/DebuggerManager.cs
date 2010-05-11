@@ -160,9 +160,6 @@ namespace FlashDebugger
             PluginMain.debugBuildStart = false;
 			m_FlashInterface.currentProject = currentProject;
 			m_FlashInterface.outputFileFullPath = filename;
-			PanelsHelper.pluginPanel.Show();
-			PanelsHelper.breakPointPanel.Show();
-			PanelsHelper.stackframePanel.Show();
             PluginBase.MainForm.ProgressBar.Visible = true;
             PluginBase.MainForm.ProgressLabel.Visible = true;
             PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");
@@ -259,9 +256,6 @@ namespace FlashDebugger
 			}
 			CurrentLocation = null;
 			UpdateMenuState(DebuggerState.Stopped);
-			PanelsHelper.pluginPanel.Hide();
-			PanelsHelper.breakPointPanel.Hide();
-			PanelsHelper.stackframePanel.Hide();
 			PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
 			PanelsHelper.stackframeUI.ClearItem();
 			PluginMain.breakPointManager.ResetAll();
