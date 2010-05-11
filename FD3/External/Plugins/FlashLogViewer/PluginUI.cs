@@ -81,7 +81,7 @@ namespace FlashLogViewer
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip.Location = new System.Drawing.Point(1, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(683, 30);
             this.toolStrip.TabIndex = 1;
             // 
@@ -99,7 +99,7 @@ namespace FlashLogViewer
             this.clearFilterButton.Enabled = false;
             this.clearFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.clearFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(1);
+            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.clearFilterButton.Name = "clearFilterButton";
             this.clearFilterButton.Size = new System.Drawing.Size(23, 26);
             this.clearFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -109,7 +109,7 @@ namespace FlashLogViewer
             // 
             this.topMostButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.topMostButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.topMostButton.Margin = new System.Windows.Forms.Padding(1);
+            this.topMostButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.topMostButton.Name = "topMostButton";
             this.topMostButton.Size = new System.Drawing.Size(23, 26);
             this.topMostButton.Click += new System.EventHandler(this.TopMostButtonClick);
@@ -121,7 +121,7 @@ namespace FlashLogViewer
             // 
             // viewLabel
             // 
-            this.viewLabel.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
+            this.viewLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.viewLabel.Name = "viewLabel";
             this.viewLabel.Size = new System.Drawing.Size(44, 25);
             this.viewLabel.Text = "View:";
@@ -138,7 +138,7 @@ namespace FlashLogViewer
             // 
             // filterLabel
             // 
-            this.filterLabel.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
+            this.filterLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.filterLabel.Name = "filterLabel";
             this.filterLabel.Size = new System.Drawing.Size(45, 25);
             this.filterLabel.Text = "Filter:";
@@ -147,6 +147,7 @@ namespace FlashLogViewer
             //
             this.filterComboBox.Enabled = false;
             this.filterComboBox.Name = "filterComboBox";
+            this.filterComboBox.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.filterComboBox.Size = new System.Drawing.Size(50, 28);
             this.filterComboBox.TextChanged += new System.EventHandler(this.FilterTextBoxTextChanged);
             // 

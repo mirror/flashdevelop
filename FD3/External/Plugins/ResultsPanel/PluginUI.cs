@@ -89,7 +89,7 @@ namespace ResultsPanel
             this.clearFilterButton.Enabled = false;
             this.clearFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.clearFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(1);
+            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.clearFilterButton.Name = "clearFilterButton";
             this.clearFilterButton.Size = new System.Drawing.Size(23, 26);
             this.clearFilterButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -141,14 +141,14 @@ namespace ResultsPanel
 			// 
             this.toolStripFilters.CanOverflow = false;
             this.toolStripFilters.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStripFilters.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStripFilters.Padding = new System.Windows.Forms.Padding(1, 1, 2, 2);
             this.toolStripFilters.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonInfo,
+            this.toolStripButtonError,
             new ToolStripSeparator(),
             this.toolStripButtonWarning,
             new ToolStripSeparator(),
-            this.toolStripButtonError,
+            this.toolStripButtonInfo,
             new ToolStripSeparator(),
             this.toolStripLabelFilter,
             this.toolStripTextBoxFilter, 
@@ -163,7 +163,7 @@ namespace ResultsPanel
 			// 
 			this.toolStripButtonError.Checked = true;
 			this.toolStripButtonError.CheckOnClick = true;
-            this.toolStripButtonError.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+            this.toolStripButtonError.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
 			this.toolStripButtonError.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.toolStripButtonError.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripButtonError.Name = "toolStripButtonError";
@@ -175,7 +175,7 @@ namespace ResultsPanel
 			// 
 			this.toolStripButtonWarning.Checked = true;
 			this.toolStripButtonWarning.CheckOnClick = true;
-            this.toolStripButtonWarning.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+            this.toolStripButtonWarning.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
 			this.toolStripButtonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.toolStripButtonWarning.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripButtonWarning.Name = "toolStripButtonWarning";
@@ -187,7 +187,7 @@ namespace ResultsPanel
 			// 
 			this.toolStripButtonInfo.Checked = true;
 			this.toolStripButtonInfo.CheckOnClick = true;
-            this.toolStripButtonInfo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+            this.toolStripButtonInfo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
 			this.toolStripButtonInfo.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.toolStripButtonInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripButtonInfo.Name = "toolStripButtonInfo";
@@ -199,11 +199,12 @@ namespace ResultsPanel
 			//
 			this.toolStripTextBoxFilter.Name = "toolStripTextBoxFilter";
 			this.toolStripTextBoxFilter.Size = new System.Drawing.Size(100, 25);
+            this.toolStripTextBoxFilter.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.toolStripTextBoxFilter.TextChanged += new System.EventHandler(this.ToolStripButtonErrorCheckedChanged);
 			// 
 			// toolStripLabelFilter
 			//
-            this.toolStripLabelFilter.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.toolStripLabelFilter.Margin = new System.Windows.Forms.Padding(2, 1, 0, 1);
 			this.toolStripLabelFilter.Name = "toolStripLabelFilter";
 			this.toolStripLabelFilter.Size = new System.Drawing.Size(36, 22);
 			this.toolStripLabelFilter.Text = "Filter:";

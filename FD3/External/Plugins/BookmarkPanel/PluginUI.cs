@@ -125,13 +125,14 @@ namespace BookmarkPanel
             this.searchButton,
             this.searchBox});
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(298, 26);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 1;
             // 
             // searchButton
-            // 
+            //
+            this.searchButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.searchButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.searchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.searchButton.Name = "searchButton";
@@ -144,6 +145,7 @@ namespace BookmarkPanel
             this.searchBox.MaxLength = 200;
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(200, 22);
+            this.searchBox.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.searchBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchBoxKeyUp);
             // 
             // statusStrip
@@ -666,4 +668,5 @@ namespace BookmarkPanel
     }
 
     #endregion
+
 }

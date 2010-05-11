@@ -83,12 +83,13 @@ namespace LayoutManager
             this.settingStripButton});
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(297, 25);
             this.toolStrip.TabIndex = 13;
             // 
             // loadStripButton
             //
+            this.loadStripButton.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
             this.loadStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.loadStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.loadStripButton.Name = "loadStripButton";
@@ -97,7 +98,8 @@ namespace LayoutManager
             this.loadStripButton.Click += new System.EventHandler(this.LoadButtonClick);
             // 
             // deleteStripButton
-            // 
+            //
+            this.deleteStripButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.deleteStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.deleteStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteStripButton.Name = "deleteStripButton";
@@ -106,7 +108,8 @@ namespace LayoutManager
             this.deleteStripButton.Click += new System.EventHandler(this.DeleteButtonClick);
             // 
             // saveStripButton
-            // 
+            //
+            this.saveStripButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.saveStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.saveStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveStripButton.Name = "saveStripButton";
@@ -115,7 +118,8 @@ namespace LayoutManager
             this.saveStripButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
             // settingStripButton
-            // 
+            //
+            this.settingStripButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.settingStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.settingStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.settingStripButton.Name = "settingsStripButton";
@@ -127,6 +131,7 @@ namespace LayoutManager
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             // 
             // PluginUI
             //
@@ -192,10 +197,10 @@ namespace LayoutManager
         /// </summary>
         private void InitializeTexts()
         {
-            this.loadStripButton.ToolTipText = TextHelper.GetString("Label.LoadLayout");
-            this.deleteStripButton.ToolTipText = TextHelper.GetString("Label.DeleteLayout");
-            this.settingStripButton.ToolTipText = TextHelper.GetString("Label.ShowSettings");
-            this.saveStripButton.ToolTipText = TextHelper.GetString("Label.SaveCurrent");
+            this.loadStripButton.ToolTipText = TextHelper.GetString("Label.LoadLayout").Replace("&", "");
+            this.deleteStripButton.ToolTipText = TextHelper.GetString("Label.DeleteLayout").Replace("&", "");
+            this.settingStripButton.ToolTipText = TextHelper.GetString("Label.ShowSettings").Replace("&", "");
+            this.saveStripButton.ToolTipText = TextHelper.GetString("Label.SaveCurrent").Replace("&", "");
         }
 
         /// <summary>

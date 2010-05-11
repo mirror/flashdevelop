@@ -102,6 +102,7 @@ namespace FlashDebugger
 			m_ToolStripButtons = new ToolStripItem[] { StartContinueButton, PauseButton, StopButton, new ToolStripSeparator(), CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton };
 			m_DebuggerToolStrip = new ToolStrip(m_ToolStripButtons);
             m_DebuggerToolStrip.Renderer = new DockPanelStripRenderer(false);
+            m_DebuggerToolStrip.Padding = new Padding(0, 1, 0, 0);
 
 			PluginBase.MainForm.ToolStrip.Stretch = false;
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;

@@ -59,7 +59,8 @@ namespace FlashDevelop.Controls
             this.toolStrip.TabIndex = 3;
             // 
             // backButton
-            // 
+            //
+            this.backButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.backButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.backButton.Enabled = false;
             this.backButton.Image = ((System.Drawing.Image)(resources.GetObject("backButton.Image")));
@@ -70,7 +71,8 @@ namespace FlashDevelop.Controls
             this.backButton.Click += new System.EventHandler(this.BackButtonClick);
             // 
             // forwardButton
-            // 
+            //
+            this.forwardButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.forwardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.forwardButton.Enabled = false;
             this.forwardButton.Image = ((System.Drawing.Image)(resources.GetObject("forwardButton.Image")));
@@ -81,13 +83,13 @@ namespace FlashDevelop.Controls
             this.forwardButton.Click += new System.EventHandler(this.ForwardButtonClick);
             // 
             // refreshButton
-            // 
+            //
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(0, 1, 1, 1);
             this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.refreshButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshButton.Image")));
             this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(23, 22);
-            this.refreshButton.Margin = new Padding(0, 0, 1, 0);
             this.refreshButton.Text = "Refresh";
             this.refreshButton.Click += new System.EventHandler(this.RefreshButtonClick);
             // 
@@ -95,11 +97,13 @@ namespace FlashDevelop.Controls
             //
             this.addressComboBox.Name = "addressComboBox";
             this.addressComboBox.Size = new System.Drawing.Size(450, 21);
+            this.addressComboBox.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.addressComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressComboBoxKeyPress);
             this.addressComboBox.SelectedIndexChanged += new System.EventHandler(this.AddressComboBoxSelectedIndexChanged);
             // 
             // goButton
-            // 
+            //
+            this.goButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.goButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.goButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.goButton.Image = ((System.Drawing.Image)(resources.GetObject("goButton.Image")));

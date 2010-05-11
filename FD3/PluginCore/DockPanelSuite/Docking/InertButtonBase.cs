@@ -12,6 +12,7 @@ namespace WeifenLuo.WinFormsUI.Docking
     {
         protected InertButtonBase()
         {
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
         }

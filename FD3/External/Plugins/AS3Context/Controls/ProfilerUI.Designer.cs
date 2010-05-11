@@ -125,8 +125,7 @@
             // 
             // memStatsLabel
             // 
-            this.memStatsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.memStatsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.memStatsLabel.Location = new System.Drawing.Point(3, 0);
             this.memStatsLabel.Name = "memStatsLabel";
             this.memStatsLabel.Size = new System.Drawing.Size(158, 252);
@@ -170,7 +169,7 @@
             this.labelTarget});
             this.toolStrip.Location = new System.Drawing.Point(1, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(2, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(488, 25);
             this.toolStrip.TabIndex = 0;
             // 
@@ -182,7 +181,8 @@
             this.memLabel.Text = "Memory: 0";
             // 
             // autoButton
-            // 
+            //
+            this.autoButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.autoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.autoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.autoButton.Name = "autoButton";
@@ -191,7 +191,8 @@
             this.autoButton.Click += new System.EventHandler(this.autoButton_Click);
             // 
             // runButton
-            // 
+            //
+            this.runButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.runButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(23, 22);
@@ -199,7 +200,8 @@
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
             // gcButton
-            // 
+            //
+            this.gcButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.gcButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.gcButton.Name = "gcButton";
             this.gcButton.Size = new System.Drawing.Size(23, 22);

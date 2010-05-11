@@ -83,7 +83,7 @@ namespace OutputPanel
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.findTextBox, this.clearButton });
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(298, 26);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 1;
@@ -92,6 +92,7 @@ namespace OutputPanel
             //
             this.findTextBox.Name = "FindTextBox";
             this.findTextBox.Size = new System.Drawing.Size(200, 22);
+            this.findTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.findTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
             this.findTextBox.TextChanged += new System.EventHandler(this.FindTextBoxTextChanged);
             this.findTextBox.Leave += new System.EventHandler(this.FindTextBoxLeave);
@@ -101,6 +102,7 @@ namespace OutputPanel
             //
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(23, 22);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.clearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.clearButton.Size = new System.Drawing.Size(23, 22);

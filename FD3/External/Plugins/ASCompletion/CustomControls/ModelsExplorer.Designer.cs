@@ -104,7 +104,7 @@ namespace ASCompletion
             this.rebuildButton,
             this.searchButton});
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(2, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(383, 25);
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.Top;
             this.toolStrip.TabIndex = 2;
@@ -120,12 +120,14 @@ namespace ASCompletion
             // 
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(100, 22);
+            this.filterTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.filterTextBox.Leave += new System.EventHandler(this.filterTextBox_Leave);
             this.filterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelsExplorer_KeyDown);
             this.filterTextBox.TextChanged += new System.EventHandler(this.filterTextBox_TextChanged);
             // 
             // refreshButton
-            // 
+            //
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.refreshButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -136,7 +138,8 @@ namespace ASCompletion
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // rebuildButton
-            // 
+            //
+            this.rebuildButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.rebuildButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.rebuildButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.rebuildButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -147,7 +150,8 @@ namespace ASCompletion
             this.rebuildButton.Click += new System.EventHandler(this.rebuildButton_Click);
             // 
             // searchButton
-            // 
+            //
+            this.searchButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.searchButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.searchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.searchButton.ImageTransparentColor = System.Drawing.Color.Magenta;

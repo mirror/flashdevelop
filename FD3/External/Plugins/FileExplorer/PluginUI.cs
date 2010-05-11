@@ -154,7 +154,7 @@ namespace FileExplorer
             this.syncronizeButton,
             this.browseButton});
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 1);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(1, 1, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(278, 26);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 6;
@@ -163,11 +163,13 @@ namespace FileExplorer
             //
             this.selectedPath.Name = "selectedPath";
             this.selectedPath.Size = new System.Drawing.Size(200, 22);
+            this.selectedPath.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.selectedPath.SelectedIndexChanged += new System.EventHandler(this.SelectedPathSelectedIndexChanged);
             this.selectedPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SelectedPathKeyDown);
             // 
             // syncronizeButton
-            // 
+            //
+            this.syncronizeButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.syncronizeButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.syncronizeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.syncronizeButton.Name = "syncronizeButton";
@@ -176,7 +178,8 @@ namespace FileExplorer
             this.syncronizeButton.Click += new System.EventHandler(this.SynchronizeView);
             // 
             // browseButton
-            // 
+            //
+            this.browseButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.browseButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.browseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.browseButton.Name = "browseButton";

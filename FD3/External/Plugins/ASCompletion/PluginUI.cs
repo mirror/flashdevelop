@@ -241,6 +241,7 @@ namespace ASCompletion
             this.sortDropDown.Text = "";
             this.sortDropDown.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sortDropDown_DropDownItemClicked);
             this.sortDropDown.DropDownOpening += new System.EventHandler(this.sortDropDown_DropDownOpening);
+            this.sortDropDown.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             // 
             // noneItem
             // 
@@ -281,13 +282,15 @@ namespace ASCompletion
             // 
             this.findProcTxt.Name = "findProcTxt";
             this.findProcTxt.Size = new System.Drawing.Size(100, 25);
+            this.findProcTxt.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.findProcTxt.Leave += new System.EventHandler(this.FindProcTxtLeave);
             this.findProcTxt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindProcTxtKeyDown);
             this.findProcTxt.Enter += new System.EventHandler(this.FindProcTxtEnter);
             this.findProcTxt.TextChanged += new System.EventHandler(this.FindProcTxtChanged);
             // 
             // clearButton
-            // 
+            //
+            this.clearButton.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.clearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.clearButton.Image = ((System.Drawing.Image)(resources.GetObject("clearButton.Image")));
             this.clearButton.ImageTransparentColor = System.Drawing.Color.Magenta;

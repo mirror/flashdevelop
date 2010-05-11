@@ -158,7 +158,7 @@ namespace FlashDevelop.Controls
             this.Items.Add(this.highlightHost);
             this.GripStyle = ToolStripGripStyle.Hidden;
             this.Renderer = new QuickFindRenderer();
-            this.Padding = new Padding(3, 4, 0, 3);
+            this.Padding = new Padding(4, 4, 0, 3);
             this.Dock = DockStyle.Bottom;
             this.CanOverflow = false;
             this.Visible = false;
