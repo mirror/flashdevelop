@@ -93,17 +93,12 @@ namespace FlashDebugger
         /// </summary>
 		static public void SciControl_MarginClick(ScintillaControl sender, int modifiers, int position, int margin)
 		{
+            if (margin != 0) return;
             if (PluginMain.debugManager.FlashInterface.isDebuggerStarted && !PluginMain.debugManager.FlashInterface.isDebuggerSuspended) return;
-			if (margin != 0) return;
 			int line = sender.LineFromPosition(position);
 			if (IsMarkerSet(sender, markerBPEnabled, line))
 			{
-				sender.MarkerDelete(line, markerBPEnabled);
-				sender.MarkerAdd(line, markerBPDisabled);
-			}
-			else if (IsMarkerSet(sender, markerBPDisabled, line))
-			{
-				sender.MarkerDelete(line, markerBPDisabled);
+                sender.MarkerDelete(line, markerBPEnabled);
 			}
 			else sender.MarkerAdd(line, markerBPEnabled);
 		}
