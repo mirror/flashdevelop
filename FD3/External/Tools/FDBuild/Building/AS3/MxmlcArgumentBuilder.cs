@@ -54,7 +54,7 @@ namespace ProjectManager.Building.AS3
             if (!options.UseNetwork) AddEq("-use-network", "false");
             if (!options.UseResourceBundleMetadata) AddEq("-use-resource-bundle-metadata", "false");
             if (!options.Warnings) AddEq("-warnings", "false");
-            if (options.StaticLinkRSL) AddEq("-static-link-runtime-shared-libraries", "true");
+            AddEq("-static-link-runtime-shared-libraries", options.StaticLinkRSL ? "true" : "false");
             if (!noTrace && options.VerboseStackTraces) AddEq("-verbose-stacktraces", "true");
             
             if (options.LinkReport.Length > 0) AddEq("-link-report", options.LinkReport);
