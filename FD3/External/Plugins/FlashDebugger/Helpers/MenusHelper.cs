@@ -104,7 +104,6 @@ namespace FlashDebugger
 			m_DebuggerToolStrip = new ToolStrip(m_ToolStripButtons);
             m_DebuggerToolStrip.Renderer = new DockPanelStripRenderer(false);
             m_DebuggerToolStrip.Padding = new Padding(0, 1, 0, 0);
-            m_DebuggerToolStrip.Stretch = true;
 
 			PluginBase.MainForm.ToolStrip.Stretch = false;
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;
