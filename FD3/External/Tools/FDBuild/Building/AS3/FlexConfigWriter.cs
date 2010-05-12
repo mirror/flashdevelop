@@ -55,7 +55,7 @@ namespace FDBuild.Building.AS3
             WriteEndElement();
             WriteStartElement("define");
                 WriteElementString("name", "CONFIG::timeStamp");
-                WriteElementString("value", "'" + DateTime.Now.ToString("g") + "'");
+                WriteElementString("value", "'" + DateTime.Now.ToString("d") + "'");
             WriteEndElement();
 
             if (project.CompilerOptions.CompilerConstants != null)
