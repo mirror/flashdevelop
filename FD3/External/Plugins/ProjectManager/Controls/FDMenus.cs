@@ -68,7 +68,7 @@ namespace ProjectManager.Controls
             ConfigurationSelector.AutoSize = false;
             ConfigurationSelector.Enabled = false;
             ConfigurationSelector.Width = 85;
-            ConfigurationSelector.Margin = new Padding(0);
+            ConfigurationSelector.Margin = new Padding(1, 0, 0, 0);
             ConfigurationSelector.FlatStyle = PluginBase.MainForm.Settings.ComboBoxFlatStyle;
             ConfigurationSelector.Font = PluginBase.Settings.DefaultFont;
             toolBar.Items.Add(ConfigurationSelector);

@@ -152,6 +152,10 @@ namespace FlashDebugger
                     breakPointManager.Save();
                     break;
 
+                case EventType.ApplySettings:
+                    menusHelper.UpdateMenuState(this);
+                    break;
+
                 case EventType.ProcessEnd:
                     TextEvent textevnt = (TextEvent)e;
                     if (buildCmpFlg && textevnt.Value != "Done(0)")
@@ -289,7 +293,7 @@ namespace FlashDebugger
         /// </summary> 
         private void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing);
+            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing | EventType.ApplySettings);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
         }

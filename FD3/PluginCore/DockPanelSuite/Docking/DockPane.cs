@@ -379,7 +379,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 			get	{	return m_dockPanel;	}
 		}
 
-		private bool HasCaption
+		public bool HasCaption
 		{
 			get
 			{	

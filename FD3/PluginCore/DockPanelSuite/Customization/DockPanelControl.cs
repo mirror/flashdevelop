@@ -71,9 +71,12 @@ namespace System.Windows.Forms
             if (dock == null || dock.Pane == null) return;
             if (dock.IsFloat)
             {
+                DockBorders local;
                 isOnlyTab = this.CountPanels(false) == 1;
-                if (isOnlyTab) Borders = DockBorders.Left | DockBorders.Top | DockBorders.Right | DockBorders.Bottom;
-                else Borders = DockBorders.Left | DockBorders.Top | DockBorders.Right;
+                if (isOnlyTab) local = DockBorders.Left | DockBorders.Top | DockBorders.Right | DockBorders.Bottom;
+                else local = DockBorders.Left | DockBorders.Top | DockBorders.Right;
+                if (dock.Pane.HasCaption) local -= DockBorders.Top;
+                Borders = local;
             }
             else
             {

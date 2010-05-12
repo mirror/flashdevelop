@@ -15,6 +15,7 @@ namespace FlashDebugger
         private ToolStripItem[] m_ToolStripButtons;
 		private ToolStripButton StartContinueButton, PauseButton, StopButton, CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton;
 		private ToolStripDropDownItem StartContinueMenu, PauseMenu, StopMenu, CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, ToggleBreakPointMenu, ToggleBreakPointEnableMenu, DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu;
+        private DebuggerState CurrentState = DebuggerState.Initializing;
 
         /// <summary>
         /// Creates a menu item for the plugin and adds a ignored key
@@ -103,6 +104,7 @@ namespace FlashDebugger
 			m_DebuggerToolStrip = new ToolStrip(m_ToolStripButtons);
             m_DebuggerToolStrip.Renderer = new DockPanelStripRenderer(false);
             m_DebuggerToolStrip.Padding = new Padding(0, 1, 0, 0);
+            m_DebuggerToolStrip.Stretch = true;
 
 			PluginBase.MainForm.ToolStrip.Stretch = false;
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;
@@ -158,6 +160,10 @@ namespace FlashDebugger
 		/// <summary>
         /// 
         /// </summary>
+        public void UpdateMenuState(object sender)
+        {
+            UpdateMenuState(sender, CurrentState);
+        }
         public void UpdateMenuState(object sender, DebuggerState state)
         {
             if ((PluginBase.MainForm as Form).InvokeRequired)
@@ -168,45 +174,40 @@ namespace FlashDebugger
                 });
                 return;
             }
-			if (state == DebuggerState.Initializing || 
-                state == DebuggerState.Stopped)
+            CurrentState = state; // Set current now...
+			if (state == DebuggerState.Initializing || state == DebuggerState.Stopped)
 			{
-				StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Start");
+                if (PluginMain.settingObject.StartDebuggerOnTestMovie) StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Continue");
+                else StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Start");
 			}
-			else
-			{
-				StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Continue");
-			}
+			else StartContinueButton.Text = StartContinueMenu.Text = TextHelper.GetString("Label.Continue");
+            //
 			StopButton.Enabled = StopMenu.Enabled = (state != DebuggerState.Initializing && state != DebuggerState.Stopped);
             PauseButton.Enabled = PauseMenu.Enabled = (state == DebuggerState.Running);
-
-			if (state == DebuggerState.Initializing ||
-				state == DebuggerState.Stopped ||
-				state == DebuggerState.BreakHalt ||
-				state == DebuggerState.ExceptionHalt ||
-				state == DebuggerState.PauseHalt)
+            //
+			if (state == DebuggerState.Initializing || state == DebuggerState.Stopped)
 			{
-				StartContinueButton.Enabled = StartContinueMenu.Enabled = true;
+                if (PluginMain.settingObject.StartDebuggerOnTestMovie) StartContinueButton.Enabled = StartContinueMenu.Enabled = false;
+                else StartContinueButton.Enabled = StartContinueMenu.Enabled = true;
 			}
-			else
-			{
-				StartContinueButton.Enabled = StartContinueMenu.Enabled = false;
-			}
-
-            CurrentButton.Enabled = CurrentMenu.Enabled = RunToCursorButton.Enabled =
-                RunToCursorMenu.Enabled = StepButton.Enabled = StepMenu.Enabled =
-                NextButton.Enabled = NextMenu.Enabled = FinishButton.Enabled =
-                FinishMenu.Enabled = (state == DebuggerState.BreakHalt || state == DebuggerState.PauseHalt);
-
+            else if (state == DebuggerState.BreakHalt || state == DebuggerState.ExceptionHalt || state == DebuggerState.PauseHalt)
+            {
+                StartContinueButton.Enabled = StartContinueMenu.Enabled = true;
+            }
+			else StartContinueButton.Enabled = StartContinueMenu.Enabled = false;
+            //
+            Boolean enabled = (state == DebuggerState.BreakHalt || state == DebuggerState.PauseHalt);
+            CurrentButton.Enabled = CurrentMenu.Enabled = RunToCursorButton.Enabled = enabled;
+            NextButton.Enabled = NextMenu.Enabled = FinishButton.Enabled = FinishMenu.Enabled = enabled;
+            RunToCursorMenu.Enabled = StepButton.Enabled = StepMenu.Enabled = enabled;
 			if (state == DebuggerState.Running)
 			{
 				PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
 				PanelsHelper.stackframeUI.ClearItem();
 			}
-			ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled =
-                DeleteAllBreakPointsMenu.Enabled = DisableAllBreakPointsMenu.Enabled = EnableAllBreakPointsMenu.Enabled =
-                PanelsHelper.breakPointUI.Enabled = (state != DebuggerState.Running);
-
+            enabled = (state != DebuggerState.Running);
+            ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled = DeleteAllBreakPointsMenu.Enabled = enabled;
+            DisableAllBreakPointsMenu.Enabled = EnableAllBreakPointsMenu.Enabled = PanelsHelper.breakPointUI.Enabled = enabled;
 			PluginBase.MainForm.RefreshUI();
         }
 
