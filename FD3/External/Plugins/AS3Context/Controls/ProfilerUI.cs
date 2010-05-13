@@ -93,7 +93,6 @@ namespace AS3Context.Controls
             objectRefsView = new ProfilerObjectsView(objectRefsGrid);
 
             StopProfiling();
-            SetProfilerCfg(false);
         }
 
         void liveObjectsView_OnViewObject(TypeItem item)
@@ -148,6 +147,8 @@ namespace AS3Context.Controls
             runButton.Image = PluginBase.MainForm.FindImage("125");
             runButton.Text = TextHelper.GetString("Label.StartProfiler");
             gcButton.Enabled = false;
+
+            SetProfilerCfg(false);
         }
 
         public void StartProfiling()
