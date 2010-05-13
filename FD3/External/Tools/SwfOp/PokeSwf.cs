@@ -13,6 +13,7 @@ using SwfOp.Data;
 using SwfOp.Data.Tags;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SwfOp
 {
@@ -51,16 +52,12 @@ namespace SwfOp
                     {
                         if (entry.Name.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
                         {
-                            // decompress in memory
-                            Stream stream = zfile.GetInputStream(entry);
-                            byte[] data = new byte[entry.Size];
-                            int length = stream.Read(data, 0, (int)entry.Size);
-                            if (length != entry.Size)
-                            {
-                                Console.WriteLine("Error: corrupted content");
-                                return;
-                            }
-                            ExploreSWF(new MemoryStream(data));
+                            ExploreSWF(new MemoryStream(UnzipFile(zfile, entry)));
+                        }
+                        else if (entry.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+                            && entry.Name.StartsWith("docs/"))
+                        {
+                            string docSrc = Encoding.UTF8.GetString(UnzipFile(zfile, entry));
                         }
                     }
                     zfile.Close();
@@ -86,6 +83,16 @@ namespace SwfOp
 			}
             Console.ReadLine();
 		}
+
+        private static byte[] UnzipFile(ZipFile zfile, ZipEntry entry)
+        {
+            Stream stream = zfile.GetInputStream(entry);
+            byte[] data = new byte[entry.Size];
+            int length = stream.Read(data, 0, (int)entry.Size);
+            if (length != entry.Size)
+                throw new Exception("Corrupted archive");
+            return data;
+        }
 		
 		static void ExploreSWF(Stream stream)
 		{
@@ -96,14 +103,40 @@ namespace SwfOp
             try
             {
                 swf = reader.ReadSwf();
+                long mod = DateTime.Now.Ticks;
+                string builtin = "* void ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math Namespace Number Object QName RangeError ReferenceError RegExp SecurityError String SyntaxError toplevel TypeError uint UninitializedError URIError VerifyError XML XMLList ";
                 foreach (BaseTag tag in swf)
                 {
                     if (tag is AbcTag)
                     {
+                        Console.WriteLine("==== new tag");
                         AbcTag abcTag = tag as AbcTag;
                         foreach (Traits trait in abcTag.abc.classes)
                         {
-                            Console.WriteLine(trait);
+                            if (trait.itraits != null)
+                            {
+                                string path = trait.itraits.ToString().Replace('.', '/').Replace(':', '/');
+                                Console.WriteLine(String.Format("<script name=\"{0}\" mod=\"{1}\" >", path, mod));
+                                Console.WriteLine(String.Format("\t<def id=\"{0}\" />", trait.itraits.ToString()));
+                                Console.WriteLine(String.Format("\t<dep id=\"{0}\" type=\"i\" />", trait.itraits.baseName.ToString()));
+                                Console.WriteLine("\t<dep id=\"AS3\" type=\"n\" />");
+                                List<string> depend = new List<string>();
+                                foreach (MemberInfo member in trait.itraits.members)
+                                {
+                                    string[] types = member.RelatedTypes();
+                                    if (types != null)
+                                        foreach (string type in types)
+                                            if (!depend.Contains(type)) depend.Add(type);
+                                }
+                                foreach (string type in depend)
+                                {
+                                    if (type.StartsWith("private.") || type.StartsWith("__AS3__.vec")
+                                        || builtin.IndexOf(type + " ") >= 0)
+                                        continue;
+                                    Console.WriteLine(String.Format("\t<dep id=\"{0}\" type=\"s\" />", type));
+                                }
+                                Console.WriteLine("</script>");
+                            }
                         }
                     }
                 }

@@ -5,9 +5,12 @@ using ASCompletion.Model;
 using SwfOp.Data;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace AS3Context
 {
+    #region ABC model builder
+
     public class AbcConverter
     {
         static public Regex reSafeChars = new Regex("[*\\:" + Regex.Escape(new String(Path.GetInvalidPathChars())) + "]", RegexOptions.Compiled);
@@ -15,6 +18,8 @@ namespace AS3Context
         private static Dictionary<string, FileModel> genericTypes;
         private static Dictionary<string, string> imports;
         private static bool inSWF;
+        private static Dictionary<string, DocItem> docs;
+        private static string docPath;
 
         /// <summary>
         /// Create virtual FileModel objects from Abc bytecode
@@ -22,18 +27,22 @@ namespace AS3Context
         /// <param name="abcs"></param>
         /// <param name="path"></param>
         /// <param name="context"></param>
-        public static void Convert(List<Abc> abcs, PathModel path, Context context)
+        public static void Convert(SwfOp.ContentParser parser, PathModel path, Context context)
         {
             path.Files.Clear();
             inSWF = Path.GetExtension(path.Path).ToLower() == ".swf";
 
+            // extract documentation
+            ParseDocumentation(parser.Docs);
+
+            // extract models
             FileModel privateClasses = new FileModel(Path.Combine(path.Path, "__Private.as"));
             privateClasses.Version = 3;
             privateClasses.Package = "private";
             genericTypes = new Dictionary<string, FileModel>();
             imports = new Dictionary<string, string>();
 
-            foreach (Abc abc in abcs)
+            foreach (Abc abc in parser.Abcs)
             {
                 // types
                 foreach (Traits trait in abc.classes)
@@ -59,6 +68,17 @@ namespace AS3Context
 
                     type.Type = instance.name.ToTypeString();
                     type.Name = instance.name.localName;
+
+                    if (docs != null)
+                    {
+                        docPath = model.Package.Length > 0 ? model.Package + ":" + type.Name : type.Name;
+                        if (docs.ContainsKey(docPath))
+                        {
+                            DocItem doc = docs[docPath];
+                            type.Comments = doc.LongDesc;
+                        }
+                    }
+
                     if (instance.baseName.uri == model.Package)
                         type.ExtendsType = ImportType(instance.baseName.localName);
                     else type.ExtendsType = ImportType(instance.baseName);
@@ -202,6 +222,16 @@ namespace AS3Context
                         else if (info.name.uri != model.Package)
                             continue;
 
+                        if (docs != null)
+                        {
+                            docPath = model.Package.Length > 0 ? model.Package + ":" + member.Name : member.Name;
+                            if (docs.ContainsKey(docPath))
+                            {
+                                DocItem doc = docs[docPath];
+                                member.Comments = doc.LongDesc;
+                            }
+                        }
+
                         member.InFile = model;
                         member.IsPackageLevel = true;
                         model.Members.Add(member);
@@ -265,6 +295,16 @@ namespace AS3Context
             member.Flags = baseFlags;
             member.Access = Visibility.Public;
             member.Namespace = "public";
+
+            if (docs != null)
+            {
+                string dPath = docPath + ":" + member.Name;
+                if (docs.ContainsKey(dPath))
+                {
+                    DocItem doc = docs[dPath];
+                    member.Comments = doc.LongDesc;
+                }
+            }
 
             if (info is SlotInfo)
             {
@@ -348,5 +388,158 @@ namespace AS3Context
             else if (value is bool) member.Value = value.ToString().ToLower();
             else member.Value = value.ToString();
         }
+
+        private static void ParseDocumentation(Dictionary<string, byte[]> rawDocs)
+        {
+            if (rawDocs.Count == 0) return;
+
+            docs = new Dictionary<string, DocItem>();
+            foreach (byte[] rawDoc in rawDocs.Values)
+            {
+                try
+                {
+                    DocsReader dr = new DocsReader(rawDoc);
+                    dr.Parse(docs);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
     }
+
+    #endregion
+
+    #region Documentation parser
+
+    class DocsReader : XmlTextReader
+    {
+        private Dictionary<string, DocItem> docs;
+
+        public DocsReader(byte[] raw)
+            : base(new MemoryStream(raw))
+        {
+            WhitespaceHandling = WhitespaceHandling.None;
+        }
+
+        public void Parse(Dictionary<string, DocItem> docs)
+        {
+            this.docs = docs;
+
+            DocItem doc = new DocItem();
+            MoveToContent();
+            while (Read())
+                ProcessDeclarationNodes(doc);
+        }
+
+        private void ReadDeclaration()
+        {
+            if (IsEmptyElement)
+                return;
+
+            DocItem doc = new DocItem();
+            string id = GetAttribute("id");
+
+            ReadStartElement();
+            while (Read())
+                ProcessDeclarationNodes(doc);
+
+            if (id != null)
+            {
+                if (doc.ShortDesc == null) doc.ShortDesc = "";
+                if (doc.LongDesc == null) doc.LongDesc = doc.ShortDesc;
+                else doc.LongDesc = doc.LongDesc.Trim();
+
+                if (doc.Params != null)
+                    foreach (string name in doc.Params.Keys)
+                        doc.LongDesc += "\n@param\t" + name + "\t" + doc.Params[name];
+                if (doc.Returns != null)
+                    doc.LongDesc += "\n@returns\t" + doc.Returns;
+
+                if (doc.ShortDesc != "" || doc.LongDesc != "")
+                    docs[id] = doc;
+            }
+        }
+
+        private void ProcessDeclarationNodes(DocItem doc)
+        {
+            if (NodeType == XmlNodeType.Element)
+            switch (Name)
+            {
+                case "shortdesc": doc.ShortDesc = ReadValue(); break;
+                case "apiDesc": doc.LongDesc = ReadValue(); break;
+                case "prolog": doc.Meta = ReadMetaData(); break;
+                case "apiClassifier": 
+                case "apiConstructor": 
+                case "apiOperation": ReadDeclaration(); break;
+                case "apiParam": ReadParamDesc(doc); break;
+                case "apiReturn": ReadReturnsDesc(doc); break;
+
+            }
+        }
+
+        private void ReadReturnsDesc(DocItem doc)
+        {
+            if (IsEmptyElement) return;
+            ReadStartElement();
+            while (Name != "apiReturn")
+            {
+                if (Name == "apiDesc")
+                    doc.Returns = ReadValue();
+                Read();
+            }
+        }
+
+        private void ReadParamDesc(DocItem doc)
+        {
+            if (IsEmptyElement) return;
+            ReadStartElement();
+            string name = null;
+            string desc = null;
+            while (Name != "apiParam")
+            {
+                if (NodeType == XmlNodeType.Element)
+                switch (Name)
+                {
+                    case "apiItemName": name = ReadValue(); break;
+                    case "apiDesc": desc = ReadValue(); break;
+                }
+                Read();
+            }
+            if (name != null && desc != null) 
+            {
+                if (doc.Params == null) doc.Params = new Dictionary<string,string>();
+                doc.Params[name] = desc;
+            }
+        }
+
+        private List<string> ReadMetaData()
+        {
+            if (IsEmptyElement) return null;
+            while (Name != "prolog")
+                Read();
+            return null;
+        }
+
+        private string ReadValue()
+        {
+            if (IsEmptyElement) 
+                return "";
+
+            ReadStartElement();
+            string desc = ReadString();
+            return desc;
+        }
+    }
+
+    class DocItem
+    {
+        public string ShortDesc;
+        public string LongDesc;
+        public List<string> Meta;
+        public Dictionary<string, string> Params;
+        public string Returns;
+    }
+
+    #endregion
 }

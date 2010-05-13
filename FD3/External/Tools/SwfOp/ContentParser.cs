@@ -17,6 +17,7 @@ namespace SwfOp
         public List<string> Fonts;
         public List<Abc> Abcs;
         public string Filename;
+        public Dictionary<string, byte[]> Docs;
         private string frameInfo = " @Frame 0";
 
         public ContentParser(string filename)
@@ -27,6 +28,7 @@ namespace SwfOp
             Classes = new List<string>();
             Fonts = new List<string>();
             Abcs = new List<Abc>();
+            Docs = new Dictionary<string, byte[]>();
         }
 
         public void Run()
@@ -43,17 +45,12 @@ namespace SwfOp
                     {
                         if (entry.Name.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
                         {
-                            // decompress in memory
-                            Stream stream = zfile.GetInputStream(entry);
-                            byte[] data = new byte[entry.Size];
-                            int length = stream.Read(data, 0, (int)entry.Size);
-                            if (length != entry.Size)
-                            {
-                                Errors.Add("Error: corrupted content");
-                                return;
-                            }
-                            stream.Close();
-                            ExploreSWF(new MemoryStream(data));
+                            ExploreSWF(new MemoryStream(UnzipFile(zfile, entry)));
+                        }
+                        else if (entry.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+                            && entry.Name.StartsWith("docs/"))
+                        {
+                            Docs[entry.Name] = UnzipFile(zfile, entry);
                         }
                     }
                     zfile.Close();
@@ -89,6 +86,16 @@ namespace SwfOp
             {
                 Errors.Add("Error: " + ex.Message);
             }
+        }
+
+        private static byte[] UnzipFile(ZipFile zfile, ZipEntry entry)
+        {
+            Stream stream = zfile.GetInputStream(entry);
+            byte[] data = new byte[entry.Size];
+            int length = stream.Read(data, 0, (int)entry.Size);
+            if (length != entry.Size)
+                throw new Exception("Corrupted archive");
+            return data;
         }
 
         private void ExploreSWF(Stream stream)

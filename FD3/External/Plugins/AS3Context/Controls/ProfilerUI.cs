@@ -93,6 +93,7 @@ namespace AS3Context.Controls
             objectRefsView = new ProfilerObjectsView(objectRefsGrid);
 
             StopProfiling();
+            SetProfilerCfg(false);
         }
 
         void liveObjectsView_OnViewObject(TypeItem item)
@@ -127,7 +128,7 @@ namespace AS3Context.Controls
 
         public void Cleanup()
         {
-            if (running) SetProfilerCfg(false);
+            SetProfilerCfg(false);
         }
 
         private void runButton_Click(object sender, EventArgs e)

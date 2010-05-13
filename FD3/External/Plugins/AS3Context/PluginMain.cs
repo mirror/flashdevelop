@@ -289,7 +289,7 @@ namespace AS3Context
             PathModel path = new PathModel(container, contextInstance);
             SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
             parser.Run();
-            AbcConverter.Convert(parser.Abcs, path, contextInstance);
+            AbcConverter.Convert(parser, path, contextInstance);
             
             if (path.HasFile(fileName))
             {

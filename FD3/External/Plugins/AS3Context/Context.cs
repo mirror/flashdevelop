@@ -281,7 +281,7 @@ namespace AS3Context
                 {
                     SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
                     parser.Run();
-                    AbcConverter.Convert(parser.Abcs, path, this);
+                    AbcConverter.Convert(parser, path, this);
                 }
             }
             catch (Exception ex)

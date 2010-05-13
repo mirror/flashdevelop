@@ -268,6 +268,10 @@ namespace SwfOp.Data
         {
             return "[MemberInfo "+name+"]";
         }
+        public virtual string[] RelatedTypes()
+        {
+            return null;
+        }
     }
 
     public class LabelInfo : Dictionary<long, string>
@@ -285,6 +289,11 @@ namespace SwfOp.Data
 	{
         public QName type;
         public object value;
+
+        public override string[] RelatedTypes()
+        {
+            return new string[] { type.ToString() };
+        }
     }
 
     public class MethodInfo : MemberInfo
@@ -303,6 +312,15 @@ namespace SwfOp.Data
         public byte[] code;
         public Traits activation;
         public bool anon;
+
+        public override string[] RelatedTypes()
+        {
+            List<string> types = new List<string>();
+            types.Add(returnType.ToString());
+            foreach (QName qn in paramTypes)
+                types.Add(qn.ToString());
+            return types.ToArray();
+        }
     }
 
     public class Namespace
