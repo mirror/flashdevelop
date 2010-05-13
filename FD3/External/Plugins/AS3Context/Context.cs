@@ -159,14 +159,17 @@ namespace AS3Context
             char S = Path.DirectorySeparatorChar;
             string frameworks = compiler + S + "frameworks";
             string sdkLibs = frameworks + S + "libs";
-            string sdkLocales = frameworks + S + "locale" + S + "en_US";
+            string sdkLocales = frameworks + S + "locale" + S + PluginBase.MainForm.Settings.LocaleVersion;
             List<string> addLibs = new List<string>();
             List<string> addLocales = new List<string>();
 
-            if (!Directory.Exists(sdkLibs))
+            if (!Directory.Exists(sdkLibs)) // fallback
             {
-                // base SWCs included in Libray
                 sdkLibs = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "libs");
+            }
+            if (!Directory.Exists(sdkLocales)) // fallback
+            {
+                sdkLocales = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "locale" + S + "en_US");
             }
 
             if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
