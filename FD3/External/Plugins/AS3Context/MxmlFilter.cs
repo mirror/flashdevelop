@@ -23,44 +23,79 @@ namespace AS3Context
     class MxmlFilter
     {
         static private readonly Regex tagName = new Regex("<(?<name>[a-z][a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        static public string OLD_MX = "http://www.adobe.com/2006/mxml";
+        static public string NEW_MX = "library://ns.adobe.com/flex/mx";
 
         static private Dictionary<string, MxmlCatalog> catalogs = new Dictionary<string, MxmlCatalog>();
-        static private Dictionary<string, MxmlCatalog> archive = new Dictionary<string,MxmlCatalog>();
+        static private Dictionary<string, MxmlCatalog> archive = new Dictionary<string, MxmlCatalog>();
 
-        static public void UpdateCatalogs(List<PathModel> classpath)
+        /// <summary>
+        /// Reset catalogs for new classpath definition
+        /// </summary>
+        static public void ClearCatalogs()
         {
             // keep catalogs in memory
             foreach (string key in catalogs.Keys)
                 if (!archive.ContainsKey(key)) archive[key] = catalogs[key];
 
-            // lookup catalogs
             catalogs.Clear();
-            foreach (PathModel aPath in classpath)
-            {
-                try
-                {
-                    string[] files = Directory.GetFiles(aPath.Path, "*.xml");
-                    foreach (string file in files)
-                        if (file.EndsWith("catalog.xml")) AddCatalog(file);
-                }
-                catch { }
-            }
         }
 
-        private static void AddCatalog(string file)
+        /// <summary>
+        /// Read a SWC catalog file
+        /// </summary>
+        static public void AddCatalog(string file, byte[] rawData)
         {
-            if (archive.ContainsKey(file))
-            {
-                catalogs[file] = archive[file];
-                return;
-            }
             try
             {
-                MxmlCatalog cat = new MxmlCatalog();
-                cat.Read(file);
-                catalogs[file] = cat;
+                FileInfo info = new FileInfo(file);
+                MxmlCatalog cat;
+                if (archive.ContainsKey(file))
+                {
+                    cat = archive[file];
+                    if (cat.TimeStamp == info.LastWriteTime)
+                        return;
+                }
+                
+                cat = new MxmlCatalog();
+                cat.Read(file, rawData);
+                cat.TimeStamp = info.LastWriteTime;
+
+                if (cat.Count > 0)
+                    catalogs[file] = cat;
             }
             catch (XmlException ex) { Console.WriteLine(ex.Message); }
+            catch (Exception) { }
+        }
+
+        /// <summary>
+        /// Read a manifest file
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="file"></param>
+        static public void AddManifest(string uri, string file)
+        {
+            try
+            {
+                FileInfo info = new FileInfo(file);
+                MxmlCatalog cat;
+                if (archive.ContainsKey(file))
+                {
+                    cat = archive[file];
+                    if (cat.TimeStamp == info.LastWriteTime)
+                        return;
+                }
+
+                cat = new MxmlCatalog();
+                cat.URI = uri;
+                cat.TimeStamp = info.LastWriteTime;
+                cat.Read(file, null);
+
+                if (cat.Count > 0)
+                    catalogs[file] = cat;
+            }
+            catch (XmlException ex) { Console.WriteLine(ex.Message); }
+            catch (Exception) { }
         }
 
         /// <summary>
@@ -216,7 +251,7 @@ namespace AS3Context
             foreach (string ns in ctx.namespaces.Keys)
             {
                 string uri = ctx.namespaces[ns];
-                string temp = (uri == "http://www.adobe.com/2006/mxml") ? "library://ns.adobe.com/flex/mx" : uri;
+                string temp = (uri == OLD_MX) ? NEW_MX : uri;
                 foreach (MxmlCatalog cat in catalogs.Values)
                     if (cat.URI == temp)
                     {
@@ -354,41 +389,31 @@ namespace AS3Context
     {
         public string URI;
         public string NS;
+        public DateTime TimeStamp;
 
-        public void Read(string fileName)
+        public void Read(string fileName, byte[] rawData)
         {
-            XmlReader reader = new XmlTextReader(fileName);
+            XmlReader reader;
+            if (rawData == null) reader = new XmlTextReader(fileName);
+            else reader = new XmlTextReader(new MemoryStream(rawData));
+
             reader.MoveToContent();
             while (reader.Read())
             {
-                string tag = reader.Name;
-                if (tag == "components") reader.MoveToContent();
-                else if (tag == "component")
+                if (reader.NodeType == XmlNodeType.Element 
+                    && reader.Name == "component")
                 {
-                    string className = null;
-                    string name = null;
-                    string uri = null;
-                    if (reader.MoveToFirstAttribute())
-                        do
-                        {
-                            switch (reader.Name)
-                            {
-                                case "className": className = reader.Value; break;
-                                case "name": name = reader.Value; break;
-                                case "uri": uri = reader.Value; break;
-                            }
-                            if (!string.IsNullOrEmpty(className) && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(uri))
-                            {
-                                this[name] = className.Replace(':', '.');
-                                if (URI == null) URI = uri;
-                            }
-                        }
-                        while (reader.MoveToNextAttribute());
+                    string className = reader.GetAttribute("className") ?? reader.GetAttribute("class");
+                    string name = reader.GetAttribute("name") ?? reader.GetAttribute("id");
+                    string uri = reader.GetAttribute("uri");
+
+                    this[name] = className.Replace(':', '.');
+                    if (URI == null) URI = uri;
                 }
             }
 
-            if (URI == "http://www.adobe.com/2006/mxml") 
-                URI = "library://ns.adobe.com/flex/mx";
+            if (URI == MxmlFilter.OLD_MX) 
+                URI = MxmlFilter.NEW_MX;
         }
     }
     #endregion

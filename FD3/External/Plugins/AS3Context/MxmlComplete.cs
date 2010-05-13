@@ -56,15 +56,15 @@ namespace AS3Context
             if (!ctag.Name.EndsWith(word))
             {
                 ASResult found = ResolveAttribute(model, word);
-                if (found.inFile != null && found.Member != null)
-                {
-                    PluginBase.MainForm.OpenEditableDocument(found.inFile.FileName, false);
-                    ASComplete.LocateMember("(var|const|get|set)", found.Member.Name, found.Member.LineFrom);
-                    return true;
-                }
+                ASComplete.OpenDocumentToDeclaration(sci, found);
             }
-            
-            PluginBase.MainForm.OpenEditableDocument(model.InFile.FileName);
+            else
+            {
+                ASResult found = new ASResult();
+                found.inFile = model.InFile;
+                found.Type = model;
+                ASComplete.OpenDocumentToDeclaration(sci, found);
+            }
             return true;
         }
         #endregion
@@ -485,8 +485,9 @@ namespace AS3Context
             if (uri.EndsWith(".*"))
                 return uri.Substring(0, uri.Length - 1) + name;
 
-            if (uri == "http://www.adobe.com/2006/mxml")
-                uri = "library://ns.adobe.com/flex/mx";
+            if (uri == MxmlFilter.OLD_MX)
+                uri = MxmlFilter.NEW_MX;
+
             foreach (MxmlCatalog cat in ctx.catalogs)
             {
                 if (cat.URI == uri && cat.ContainsKey(name))
@@ -516,7 +517,10 @@ namespace AS3Context
                             result.inFile.OutOfDate = true;
                             result.inFile.Check();
                             if (result.inFile.Classes.Count > 0)
-                                result.Member = result.inFile.Classes[0].Members.Search(member.Name, member.Flags, 0);
+                            {
+                                result.inClass = result.inFile.Classes[0];
+                                result.Member = result.inClass.Members.Search(member.Name, member.Flags, 0);
+                            }
                         }
                         else result.Member = member;
                         return result;

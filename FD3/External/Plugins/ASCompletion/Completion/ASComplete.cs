@@ -365,94 +365,105 @@ namespace ASCompletion.Completion
                 if (result.Member != null && (result.Member.Flags & FlagType.AutomaticVar) > 0)
                     return false;
 
-                FileModel model = result.inFile
-                    ?? ((result.Member != null && result.Member.InFile != null) ? result.Member.InFile : null)
-                    ?? ((result.Type != null) ? result.Type.InFile : null);
-                if (model == null || model.FileName == "") return false;
-                ClassModel inClass = result.inClass ?? result.Type;
-
-				// for Back command
-                int lookupLine = Sci.LineFromPosition(Sci.CurrentPos);
-                int lookupCol = Sci.CurrentPos - Sci.PositionFromLine(lookupLine);
-				ASContext.Panel.SetLastLookupPosition(ASContext.Context.CurrentFile, lookupLine, lookupCol);
-
-				// open the file
-                if (model != ASContext.Context.CurrentModel)
-                {
-                    // cached files declarations have no line numbers
-                    if (model.CachedModel && model.Context != null)
-                    {
-                        ASFileParser.ParseFile(model);
-                        if (inClass != null && !inClass.IsVoid())
-                        {
-                            inClass = model.GetClassByName(inClass.Name);
-                            if (result.Member != null)
-                                result.Member = inClass.Members.Search(result.Member.Name, 0, 0);
-                        }
-                        else result.Member = model.Members.Search(result.Member.Name, 0, 0);
-                    }
-
-                    if (model.FileName.Length > 0 && File.Exists(model.FileName))
-                        ASContext.MainForm.OpenEditableDocument(model.FileName, false);
-                    else
-                    {
-                        OpenVirtualFile(model);
-                        result.inFile = ASContext.Context.CurrentModel;
-                        if (result.inFile == null) return false;
-                        if (inClass != null)
-                        {
-                            inClass = result.inFile.GetClassByName(inClass.Name);
-                            if (result.Member != null)
-                                result.Member = inClass.Members.Search(result.Member.Name, 0, 0);
-                        }
-                        else if (result.Member != null)
-                            result.Member = result.inFile.Members.Search(result.Member.Name, 0, 0);
-                    }
-                }
-                if ((inClass == null || inClass.IsVoid()) && result.Member == null)
-                    return false;
-
-				Sci = ASContext.CurSciControl;
-				if (Sci == null)
-					return false;
-
-                int line = 0;
-                string name = null;
-                bool isClass = false;
-				// member
-				if (result.Member != null && result.Member.LineFrom > 0)
-				{
-                    line = result.Member.LineFrom;
-                    name = result.Member.Name;
-				}
-				// class declaration
-                else if (inClass.LineFrom > 0)
-				{
-                    line = inClass.LineFrom;
-                    name = inClass.Name;
-                    isClass = true;
-                    // constructor
-                    foreach (MemberModel member in inClass.Members)
-                        if ((member.Flags & FlagType.Constructor) > 0)
-                        {
-                            line = member.LineFrom;
-                            name = member.Name;
-                            isClass = false;
-                            break;
-                        }
-                }
-                // select
-                if (line > 0)
-                {
-                    if (isClass)
-                        LocateMember("(class|interface)", name, line);
-                    else
-                        LocateMember("(function|var|const|get|set|property|[,(])", name, line);
-                }
-                return true;
+                // open the file
+                return OpenDocumentToDeclaration(Sci, result);
 			}
 			return false;
 		}
+
+        /// <summary>
+        /// Show resolved element declaration
+        /// </summary>
+        static public bool OpenDocumentToDeclaration(ScintillaNet.ScintillaControl Sci, ASResult result)
+        {
+            FileModel model = result.inFile
+                ?? ((result.Member != null && result.Member.InFile != null) ? result.Member.InFile : null)
+                ?? ((result.Type != null) ? result.Type.InFile : null);
+            if (model == null || model.FileName == "") return false;
+            ClassModel inClass = result.inClass ?? result.Type;
+
+            // for Back command
+            if (Sci != null)
+            {
+                int lookupLine = Sci.LineFromPosition(Sci.CurrentPos);
+                int lookupCol = Sci.CurrentPos - Sci.PositionFromLine(lookupLine);
+                ASContext.Panel.SetLastLookupPosition(ASContext.Context.CurrentFile, lookupLine, lookupCol);
+            }
+
+            if (model != ASContext.Context.CurrentModel)
+            {
+                // cached files declarations have no line numbers
+                if (model.CachedModel && model.Context != null)
+                {
+                    ASFileParser.ParseFile(model);
+                    if (inClass != null && !inClass.IsVoid())
+                    {
+                        inClass = model.GetClassByName(inClass.Name);
+                        if (result.Member != null)
+                            result.Member = inClass.Members.Search(result.Member.Name, 0, 0);
+                    }
+                    else result.Member = model.Members.Search(result.Member.Name, 0, 0);
+                }
+
+                if (model.FileName.Length > 0 && File.Exists(model.FileName))
+                    ASContext.MainForm.OpenEditableDocument(model.FileName, false);
+                else
+                {
+                    OpenVirtualFile(model);
+                    result.inFile = ASContext.Context.CurrentModel;
+                    if (result.inFile == null) return false;
+                    if (inClass != null)
+                    {
+                        inClass = result.inFile.GetClassByName(inClass.Name);
+                        if (result.Member != null)
+                            result.Member = inClass.Members.Search(result.Member.Name, 0, 0);
+                    }
+                    else if (result.Member != null)
+                        result.Member = result.inFile.Members.Search(result.Member.Name, 0, 0);
+                }
+            }
+            if ((inClass == null || inClass.IsVoid()) && result.Member == null)
+                return false;
+
+            Sci = ASContext.CurSciControl;
+            if (Sci == null)
+                return false;
+
+            int line = 0;
+            string name = null;
+            bool isClass = false;
+            // member
+            if (result.Member != null && result.Member.LineFrom > 0)
+            {
+                line = result.Member.LineFrom;
+                name = result.Member.Name;
+            }
+            // class declaration
+            else if (inClass.LineFrom > 0)
+            {
+                line = inClass.LineFrom;
+                name = inClass.Name;
+                isClass = true;
+                // constructor
+                foreach (MemberModel member in inClass.Members)
+                    if ((member.Flags & FlagType.Constructor) > 0)
+                    {
+                        line = member.LineFrom;
+                        name = member.Name;
+                        isClass = false;
+                        break;
+                    }
+            }
+            // select
+            if (line > 0)
+            {
+                if (isClass)
+                    LocateMember("(class|interface)", name, line);
+                else
+                    LocateMember("(function|var|const|get|set|property|[,(])", name, line);
+            }
+            return true;
+        }
 
         static public void OpenVirtualFile(FileModel model)
         {
@@ -1163,7 +1174,8 @@ namespace ASCompletion.Completion
                 ofClass = ofClass.Extends;
             }
             if (events.Count == 0) return;
-            // show
+
+            // format
             events.Sort();
             Dictionary<String, ClassModel> eventTypes = new Dictionary<string, ClassModel>();
             List<ICompletionListItem> list = new List<ICompletionListItem>();
@@ -1207,10 +1219,27 @@ namespace ASCompletion.Completion
                     list.Add(new EventItem(name, evClass, comments));
                 }
             }
+
+            // filter
+            list.Sort(new CompletionItemComparer());
+            List<ICompletionListItem> items = new List<ICompletionListItem>();
+            string prev = null;
+            foreach (ICompletionListItem item in list)
+            {
+                if (item.Label != prev) items.Add(item);
+                prev = item.Label;
+            }
+
+            // display
             Sci.SetSel(position + 1, Sci.CurrentPos);
             string tail = Sci.SelText;
             Sci.SetSel(Sci.SelectionEnd, Sci.SelectionEnd);
-            CompletionList.Show(list, true, tail);
+            CompletionList.Show(items, true, tail);
+        }
+
+        int CompareEvents(Object a, Object b)
+        {
+            return 0;
         }
 		#endregion
 
@@ -3291,6 +3320,14 @@ namespace ASCompletion.Completion
         public string Value
         {
             get { return name; }
+        }
+    }
+
+    public class CompletionItemComparer : IComparer<ICompletionListItem>
+    {
+        public int Compare(ICompletionListItem a, ICompletionListItem b)
+        {
+            return a.Label.CompareTo(b.Label);
         }
     }
     #endregion

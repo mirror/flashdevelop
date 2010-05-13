@@ -18,6 +18,7 @@ namespace SwfOp
         public List<Abc> Abcs;
         public string Filename;
         public Dictionary<string, byte[]> Docs;
+        public byte[] Catalog;
         private string frameInfo = " @Frame 0";
 
         public ContentParser(string filename)
@@ -51,6 +52,10 @@ namespace SwfOp
                             && entry.Name.StartsWith("docs/"))
                         {
                             Docs[entry.Name] = UnzipFile(zfile, entry);
+                        }
+                        else if (entry.Name == "catalog.xml")
+                        {
+                            Catalog = UnzipFile(zfile, entry);
                         }
                     }
                     zfile.Close();

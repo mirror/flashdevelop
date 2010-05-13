@@ -199,7 +199,11 @@ namespace AS3Context
         public string FlexSDK
         {
             get { return flexSDK; }
-            set { flexSDK = value; }
+            set 
+            { 
+                flexSDK = value;
+                FireChanged();
+            }
         }
 
         [DisplayName("Disable Flex Debugger Hosting")]

@@ -553,7 +553,7 @@ namespace ASCompletion.Context
 		{
 			try
 			{
-				if (path.Length == 0)
+				if (path == null || path.Length == 0)
 					return null;
                 if (Directory.Exists(path)) path = NormalizePath(path);
                 else if (File.Exists(path)) path = NormalizeFilename(path);

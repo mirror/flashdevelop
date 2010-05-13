@@ -152,37 +152,105 @@ namespace AS3Context
             // Class pathes
             //
             classPath = new List<PathModel>();
-            String compiler = MainForm.ProcessArgString("$(CompilerPath)");
-            // AS3 intrinsic
-            if (as3settings.AS3ClassPath.Length > 0)
+            MxmlFilter.ClearCatalogs();
+
+            // SDK
+            string compiler = MainForm.ProcessArgString("$(CompilerPath)");
+            char S = Path.DirectorySeparatorChar;
+            string frameworks = compiler + S + "frameworks";
+            string sdkLibs = frameworks + S + "libs";
+            string sdkLocales = frameworks + S + "locale" + S + "en_US";
+            List<string> addLibs = new List<string>();
+            List<string> addLocales = new List<string>();
+
+            if (!Directory.Exists(sdkLibs))
             {
-                try
+                // base SWCs included in Libray
+                sdkLibs = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "libs");
+            }
+
+            if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
+            {
+                string libPlayer = sdkLibs + S + "player";
+                if (hasAIRSupport)
                 {
-                    string as3cp = PathHelper.ResolvePath(as3settings.AS3ClassPath);
-                    if (Directory.Exists(as3cp))
+                    addLibs.Add("air" + S + "airglobal.swc");
+                    addLibs.Add("air" + S + "aircore.swc");
+                    addLibs.Add("air" + S + "applicationupdater.swc");
+                }
+                else
+                {
+                    if (flashVersion < 10 && Directory.Exists(libPlayer + S + "9"))
+                        addLibs.Add("player" + S + "9" + S + "playerglobal.swc");
+                    else if (flashVersion > 10 && Directory.Exists(libPlayer + S + "10.1"))
+                        addLibs.Add("player" + S + "10.1" + S + "playerglobal.swc");
+                    else if (Directory.Exists(libPlayer + S + "10.0"))
+                        addLibs.Add("player" + S + "10.0" + S + "playerglobal.swc");
+                    else if (Directory.Exists(libPlayer + S + "10"))
+                        addLibs.Add("player" + S + "10" + S + "playerglobal.swc");
+                    string p = libPlayer + S + "10";
+                }
+                addLocales.Add("playerglobal_rb.swc");
+
+                string test = exPath.Replace('\\', '/');
+                string as3Fmk = PathHelper.ResolvePath("Library" + S + "AS3" + S + "frameworks");
+
+                if (test.IndexOf("Library/AS3/frameworks/Flex") >= 0)
+                {
+                    addLibs.Add("framework.swc");
+                    addLibs.Add("rpc.swc");
+                    addLibs.Add("datavisualization.swc");
+                    addLibs.Add("flash-integration.swc");
+                    addLocales.Add("framework_rb.swc");
+                    addLocales.Add("rpc_rb.swc");
+                    addLocales.Add("datavisualization_rb.swc");
+                    addLocales.Add("flash-integration_rb.swc");
+                    if (hasAIRSupport)
                     {
-                        string fp9cp = Path.Combine(as3cp, "FP9");
-                        string fp10cp = Path.Combine(as3cp, "FP10");
-                        string fp101cp = Path.Combine(as3cp, "FP10.1");
-                        string aircp = Path.Combine(as3cp, "AIR");
-                        if (Directory.Exists(fp9cp) && Directory.Exists(fp10cp))
+                        addLibs.Add("air" + S + "airframework.swc");
+                        addLocales.Add("airframework_rb.swc");
+                    }
+
+                    if (test.IndexOf("Library/AS3/frameworks/Flex4") >= 0)
+                    {
+                        addLibs.Add("spark.swc");
+                        addLibs.Add("sparkskins.swc");
+                        addLibs.Add("textLayout.swc");
+                        addLibs.Add("osmf.swc");
+                        addLocales.Add("spark_rb.swc");
+                        addLocales.Add("textLayout_rb.swc");
+                        addLocales.Add("osmf_rb.swc");
+                        if (hasAIRSupport)
                         {
-                            if (hasAIRSupport && Directory.Exists(aircp))
-                            {
-                                AddPath(aircp);
-                                String airSources = Path.Combine(compiler, @"frameworks\projects\airframework\src");
-                                if (Directory.Exists(airSources)) AddPath(airSources);
-                                String airSparkSources = Path.Combine(compiler, @"frameworks\projects\airspark\src");
-                                if (Directory.Exists(airSparkSources)) AddPath(airSparkSources);
-                            }
-                            if (flashVersion > 10 && Directory.Exists(fp101cp)) AddPath(fp101cp);
-                            if (flashVersion > 9) AddPath(fp10cp);
-                            AddPath(fp9cp);
+                            addLibs.Add("air" + S + "airspark.swc");
+                            addLocales.Add("airspark_rb.swc");
                         }
-                        else AddPath(as3cp);
+
+                        MxmlFilter.AddManifest("http://ns.adobe.com/mxml/2009", as3Fmk + S + "Flex4" + S + "manifest.xml");
+                    }
+                    else 
+                    {
+                        MxmlFilter.AddManifest(MxmlFilter.OLD_MX, as3Fmk + S + "Flex3" + S + "manifest.xml");
                     }
                 }
-                catch { }
+            }
+            foreach (string file in addLibs)
+                AddPath(sdkLibs + S + file);
+            foreach (string file in addLocales)
+                AddPath(sdkLocales + S + file);
+
+            // intrinsics (deprecated, excepted for FP10 Vector.<T>)
+            string fp9cp = as3settings.AS3ClassPath + S + "FP9";
+            AddPath(PathHelper.ResolvePath(fp9cp));
+            if (flashVersion > 9)
+            {
+                string fp10cp = as3settings.AS3ClassPath + S + "FP10";
+                AddPath(PathHelper.ResolvePath(fp10cp));
+            }
+            else if (flashVersion > 10)
+            {
+                string fp101cp = as3settings.AS3ClassPath + S + "FP10.1";
+                AddPath(PathHelper.ResolvePath(fp101cp));
             }
 
             // add external pathes
@@ -193,54 +261,17 @@ namespace AS3Context
             {
                 cpathes = exPath.Split(';');
                 foreach (string cpath in cpathes)
-                {
-                    if (cpath.Contains("Library\\AS3\\frameworks\\Flex"))
-                    {
-                        if (hasAIRSupport && cpath.Contains("Library\\AS3\\frameworks\\Flex3"))
-                        {
-                            String airFlex = cpath.Replace("\\Flex3", "\\AirFlex3");
-                            if (Directory.Exists(airFlex)) AddPath(airFlex);
-                            String airMxSources = Path.Combine(compiler, @"frameworks\projects\airframework\src");
-                            if (Directory.Exists(airMxSources)) AddPath(airMxSources);
-                        }
-
-                        String mxSources = Path.Combine(compiler, @"frameworks\projects\framework\src");
-                        if (Directory.Exists(mxSources)) AddPath(mxSources);
-                        String rpcSources = Path.Combine(compiler, @"frameworks\projects\rpc\src");
-                        if (Directory.Exists(rpcSources)) AddPath(rpcSources);
-                        String chartsSources = Path.Combine(compiler, @"frameworks\projects\datavisualization\src");
-                        if (Directory.Exists(chartsSources)) AddPath(chartsSources);
-                    }
-
-                    if (cpath.Contains("Library\\AS3\\frameworks\\Flex4"))
-                    {
-                        if (hasAIRSupport)
-                        {
-                            String airFlex = cpath.Replace("\\Flex4", "\\AirFlex4");
-                            if (Directory.Exists(airFlex)) AddPath(airFlex);
-                            String airSparkSources = Path.Combine(compiler, @"frameworks\projects\airspark\src");
-                            if (Directory.Exists(airSparkSources)) AddPath(airSparkSources);
-                        }
-
-                        String sparkSources = Path.Combine(compiler, @"frameworks\projects\spark\src");
-                        if (Directory.Exists(sparkSources)) AddPath(sparkSources);
-                        String sparkSkins = Path.Combine(compiler, @"frameworks\projects\sparkskins\src");
-                        if (Directory.Exists(sparkSkins)) AddPath(sparkSkins);
-                        String tlSources = Path.Combine(compiler, @"frameworks\projects\textLayout\src");
-                        if (Directory.Exists(tlSources)) AddPath(tlSources);
-                        String osfmSources = Path.Combine(compiler, @"frameworks\projects\osmf\src");
-                        if (Directory.Exists(osfmSources)) AddPath(osfmSources);
-                    }
                     AddPath(cpath.Trim());
-                }
             }
+
             // add library
-            AddPath(Path.Combine(PathHelper.LibraryDir, "AS3/classes"));
+            AddPath(PathHelper.LibraryDir + S + "AS3" + S + "classes");
 			// add user pathes from settings
             if (settings.UserClasspath != null && settings.UserClasspath.Length > 0)
             {
                 foreach (string cpath in settings.UserClasspath) AddPath(cpath.Trim());
             }
+
             // add initial pathes
             foreach (PathModel mpath in initCP) AddPath(mpath);
 
@@ -256,9 +287,6 @@ namespace AS3Context
                 SetTemporaryPath(tempPath);
             }
             FinalizeClasspath();
-
-            // read MXML catalogs for completion
-            MxmlFilter.UpdateCatalogs(classPath);
         }
         
         /// <summary>
