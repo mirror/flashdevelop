@@ -160,16 +160,13 @@ namespace AS3Context
             string frameworks = compiler + S + "frameworks";
             string sdkLibs = frameworks + S + "libs";
             string sdkLocales = frameworks + S + "locale" + S + PluginBase.MainForm.Settings.LocaleVersion;
+            string fallbackLocales = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "locale" + S + "en_US");
             List<string> addLibs = new List<string>();
             List<string> addLocales = new List<string>();
 
-            if (!Directory.Exists(sdkLibs)) // fallback
+            if (!Directory.Exists(sdkLibs) && !sdkLibs.StartsWith("$")) // fallback
             {
                 sdkLibs = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "libs");
-            }
-            if (!Directory.Exists(sdkLocales)) // fallback
-            {
-                sdkLocales = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "locale" + S + "en_US");
             }
 
             if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
@@ -240,7 +237,11 @@ namespace AS3Context
             foreach (string file in addLibs)
                 AddPath(sdkLibs + S + file);
             foreach (string file in addLocales)
-                AddPath(sdkLocales + S + file);
+            {
+                string swcItem = sdkLocales + S + file;
+                if (!File.Exists(swcItem)) swcItem = fallbackLocales + S + file;
+                AddPath(swcItem);
+            }
 
             // intrinsics (deprecated, excepted for FP10 Vector.<T>)
             string fp9cp = as3settings.AS3ClassPath + S + "FP9";
