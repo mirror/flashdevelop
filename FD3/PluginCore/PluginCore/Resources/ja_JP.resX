@@ -508,7 +508,7 @@
     <value>デフォルトの拡張子をファイル名に適用します。</value>
   </data>
   <data name="FlashDevelop.Description.AutoFilterList" xml:space="preserve">
-    <value>補完リストをリアルタイムにフィルタリングします。</value>
+    <value>補完リストをリアルタイムに絞り込みます。</value>
   </data>
   <data name="FlashDevelop.Description.BackSpaceUnIndents" xml:space="preserve">
     <value>バックスペースキーでコードのインデントを下げます。</value>
@@ -1626,7 +1626,7 @@
     <value>そしてそのすべての内容</value>
   </data>
   <data name="ProjectManager.Info.Build" xml:space="preserve">
-    <value>ビルド</value>
+    <value>ビルドコマンド</value>
   </data>
   <data name="ProjectManager.Info.Builder" xml:space="preserve">
     <value>コマンドラインの編集...</value>
@@ -2606,7 +2606,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Regex | 正規表現</value>
   </data>
   <data name="FlashLogViewer.ToolTip.ClearFilterText" xml:space="preserve">
-    <value>フィルタテキストのクリア</value>
+    <value>絞り込みのクリア</value>
   </data>
   <data name="ASCompletion.Outline.ClearSearchText" xml:space="preserve">
     <value>検索文字列をクリア</value>
@@ -2832,7 +2832,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>選択した項目を見つけることができませんでした。タスク一覧が更新されます。</value>
   </data>
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
-    <value>クラスパス名を解析する際、フィルタ対象となるディレクトリ名です。</value>
+    <value>クラスパス名を解析する際、絞り込み対象となるディレクトリ名です。</value>
   </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
     <value>このパッケージ '{0}' はファイルパスと一致しません:</value>
@@ -3226,7 +3226,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.RunGC" xml:space="preserve">
-    <value>ガーベジコレクションの実行</value>
+    <value>ガベージコレクションの実行</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StartProfiler" xml:space="preserve">
@@ -3394,7 +3394,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.Description" xml:space="preserve">
-    <value>FlashDevelop に ActionScript 3 デバッガー機能を追加します。</value>
+    <value>FlashDevelop に ActionScript 3 デバッグ機能を追加します。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.EscapingFromDebuggerPendingLoop" xml:space="preserve">
@@ -3414,7 +3414,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FlashPlayerGenericName" xml:space="preserve">
-    <value>フラッシュプレーヤー</value>
+    <value>Flash Player</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.HaltedInFile" xml:space="preserve">
@@ -3614,11 +3614,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewLocalVariablesPanel" xml:space="preserve">
-    <value>ローカル変数パネル(&amp;L)</value>
+    <value>ローカル(&amp;L)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewStackframePanel" xml:space="preserve">
-    <value>スタックフレーム(&amp;S)</value>
+    <value>コールスタック(&amp;S)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.WordWrap" xml:space="preserve">
@@ -3634,11 +3634,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Title.LocalVariables" xml:space="preserve">
-    <value>ローカル変数</value>
+    <value>ローカル</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Title.StackTrace" xml:space="preserve">
-    <value>スタックトレース</value>
+    <value>コールスタック</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Description.AnalyzeShortcut" xml:space="preserve">
@@ -3770,39 +3770,39 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.Filter" xml:space="preserve">
-    <value>Filter:</value>
+    <value>絞り込み:</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.FlashLog" xml:space="preserve">
-    <value>Flash Log</value>
+    <value>Flash ログ</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.PolicyLog" xml:space="preserve">
-    <value>Policy Log</value>
+    <value>ポリシーログ</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.View" xml:space="preserve">
-    <value>View:</value>
+    <value>表示:</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>有効</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.File" xml:space="preserve">
-    <value>File</value>
+    <value>ファイル</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Line" xml:space="preserve">
-    <value>Line</value>
+    <value>行</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Name" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Path" xml:space="preserve">
-    <value>Path</value>
+    <value>場所</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
@@ -3810,19 +3810,19 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Errors" xml:space="preserve">
-    <value>Errors</value>
+    <value>エラー</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Filter" xml:space="preserve">
-    <value>Filter:</value>
+    <value>絞り込み:</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Informations" xml:space="preserve">
-    <value>Messages</value>
+    <value>メッセージ</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Warnings" xml:space="preserve">
-    <value>Warnings</value>
+    <value>警告</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>
