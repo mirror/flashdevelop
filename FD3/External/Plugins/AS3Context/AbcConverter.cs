@@ -113,13 +113,14 @@ namespace AS3Context
                     thisDocs = GetDocs(model.Package);
                     if (thisDocs != null)
                     {
-                        docPath = model.Package.Length > 0 ? model.Package + ":" + type.Name : type.Name;
+                        docPath = (model.Package.Length > 0 ? model.Package + ":" : "globalClassifier:") + type.Name;
                         if (thisDocs.ContainsKey(docPath))
                         {
                             DocItem doc = thisDocs[docPath];
                             type.Comments = doc.LongDesc;
                             model.MetaDatas = doc.Meta;
                         }
+                        if (model.Package.Length == 0) docPath = type.Name;
                     }
 
                     if (instance.baseName.uri == model.Package)
@@ -257,6 +258,7 @@ namespace AS3Context
                                 model = new FileModel("");
                                 model.Context = context;
                                 model.Package = package;
+                                model.HasPackage = true;
                                 model.FileName = filename;
                                 model.Version = 3;
                                 path.AddFile(model);
@@ -268,7 +270,14 @@ namespace AS3Context
                         thisDocs = GetDocs(model.Package);
                         if (thisDocs != null)
                         {
-                            docPath = model.Package.Length > 0 ? model.Package + ":" + member.Name : member.Name;
+                            docPath = "globalOperation:" + (model.Package.Length > 0 ? model.Package + ":" : "") 
+                                + member.Name;
+                            if (member.Access == Visibility.Public && !String.IsNullOrEmpty(member.Namespace)
+                                && member.Namespace != "public")
+                                docPath += member.Namespace + ":";
+                            if ((member.Flags & FlagType.Setter) > 0) docPath += ":set";
+                            else if ((member.Flags & FlagType.Getter) > 0) docPath += ":get";
+
                             if (thisDocs.ContainsKey(docPath))
                             {
                                 DocItem doc = thisDocs[docPath];
@@ -350,6 +359,9 @@ namespace AS3Context
                         member.Namespace = "internal";
                     }
                 }
+                
+                if (thisDocs != null) GetMemberDoc(member);
+
                 list.Add(member);
             }
             return list;
@@ -374,7 +386,6 @@ namespace AS3Context
                     member.Value = '"' + (slot.value as Namespace).uri + '"';
                 }
                 member.Type = ImportType(slot.type);
-                if (thisDocs != null) GetMemberDoc(member);
             }
 
             else if (info is MethodInfo)
@@ -409,7 +420,6 @@ namespace AS3Context
                     }
                     member.Parameters.Add(param);
                 }
-                if (thisDocs != null) GetMemberDoc(member);
             }
             else return null;
             return member;
@@ -417,7 +427,11 @@ namespace AS3Context
 
         private static void GetMemberDoc(MemberModel member)
         {
-            string dPath = docPath + ":" + member.Name;
+            string dPath = docPath + ":";
+            if (member.Access == Visibility.Public && !String.IsNullOrEmpty(member.Namespace)
+                && member.Namespace != "public")
+                dPath += member.Namespace + ":";
+            dPath += member.Name;
             if ((member.Flags & FlagType.Getter) > 0) dPath += ":get";
             else if ((member.Flags & FlagType.Setter) > 0) dPath += ":set";
             if (thisDocs.ContainsKey(dPath))
