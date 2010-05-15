@@ -6,6 +6,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using ASCompletion.Context;
 using System.Xml;
+using ProjectManager.Projects.AS3;
+using PluginCore;
+using PluginCore.Helpers;
 
 namespace AS3Context
 {
@@ -39,6 +42,32 @@ namespace AS3Context
                 if (!archive.ContainsKey(key)) archive[key] = catalogs[key];
 
             catalogs.Clear();
+        }
+
+        /// <summary>
+        /// Look in current project configuration for user-defined namespaces
+        /// </summary>
+        static public void AddProjectManifests()
+        {
+            AS3Project project = PluginBase.CurrentProject as AS3Project;
+            if (project != null)
+            {
+                //-compiler.namespaces.namespace http://e4xu.googlecode.com run\manifest.xml
+                if (project.CompilerOptions.Additional != null)
+                    foreach (string line in project.CompilerOptions.Additional)
+                    {
+                        string temp = line.Trim();
+                        if (temp.StartsWith("-compiler.namespaces.namespace") || temp.StartsWith("-namespace"))
+                        {
+                            temp = temp.Substring(temp.IndexOf(' ') + 1).Trim();
+                            int p = temp.IndexOf(' ');
+                            string uri = temp.Substring(0, p);
+                            string path = temp.Substring(p + 1).Trim();
+                            if (path.StartsWith("\"")) path = path.Substring(1, path.Length - 2);
+                            AddManifest(uri, PathHelper.ResolvePath(path, project.Directory));
+                        }
+                    }
+            }
         }
 
         /// <summary>

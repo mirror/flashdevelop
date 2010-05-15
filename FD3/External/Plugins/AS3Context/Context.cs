@@ -153,6 +153,7 @@ namespace AS3Context
             //
             classPath = new List<PathModel>();
             MxmlFilter.ClearCatalogs();
+            MxmlFilter.AddProjectManifests();
 
             // SDK
             string compiler = MainForm.ProcessArgString("$(CompilerPath)");
