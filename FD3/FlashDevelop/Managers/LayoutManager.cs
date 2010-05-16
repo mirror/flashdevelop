@@ -32,8 +32,10 @@ namespace FlashDevelop.Managers
             try
             {
                 DockPanel dockPanel = Globals.MainForm.DockPanel;
+                EnsureUpdatedLayout(file);
                 if (File.Exists(file))
                 {
+                    EnsureUpdatedLayout(file);
                     CloseDocumentContents();
                     ClosePluginPanelContents();
                     dockPanel.LoadFromXml(file, ContentDeserializer);
@@ -45,6 +47,21 @@ namespace FlashDevelop.Managers
             {
                 ErrorManager.ShowError(ex);
             }
+        }
+
+        /// <summary>
+        /// Ensures that the layout file is updated after zip extraction
+        /// </summary>
+        private static void EnsureUpdatedLayout(String file)
+        {
+            String newFile = file + ".new";
+            String oldFile = newFile.Substring(0, newFile.Length - 4);
+            if (File.Exists(oldFile))
+            {
+                File.Copy(newFile, oldFile, true);
+                File.Delete(newFile);
+            }
+            else File.Move(newFile, oldFile);
         }
 
         /// <summary>

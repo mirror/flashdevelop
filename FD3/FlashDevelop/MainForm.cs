@@ -2216,7 +2216,8 @@ namespace FlashDevelop
                         String fdpath = this.ProcessArgString(entry.Name, false).Replace("/", "\\");
                         if (Path.HasExtension(fdpath))
                         {
-                            if (File.Exists(fdpath) && Path.GetExtension(fdpath) == ".dll")
+                            String ext = Path.GetExtension(fdpath);
+                            if (File.Exists(fdpath) && (ext == ".dll" || ext == ".fdb" || ext == ".fdl"))
                             {
                                 fdpath += ".new";
                                 requiresRestart = true;

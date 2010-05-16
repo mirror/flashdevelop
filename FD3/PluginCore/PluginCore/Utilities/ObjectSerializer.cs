@@ -64,6 +64,7 @@ namespace PluginCore.Utilities
         {
             try
             {
+                EnsureUpdatedBinary(file);
                 Object settings = InternalDeserialize(file, obj.GetType());
                 if (checkValidity)
                 {
@@ -114,6 +115,21 @@ namespace PluginCore.Utilities
                     return formatter.Deserialize(stream);
                 }
             }
+        }
+
+        /// <summary>
+        /// Ensures that the binary file is updated after zip extraction
+        /// </summary>
+        private static void EnsureUpdatedBinary(String file)
+        {
+            String newFile = file + ".new";
+            String binFile = newFile.Substring(0, newFile.Length - 4);
+            if (File.Exists(binFile))
+            {
+                File.Copy(newFile, binFile, true);
+                File.Delete(newFile);
+            }
+            else File.Move(newFile, binFile);
         }
 
         /// <summary>
