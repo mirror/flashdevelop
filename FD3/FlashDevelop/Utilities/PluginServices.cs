@@ -7,6 +7,7 @@ using FlashDevelop.Managers;
 using PluginCore.Managers;
 using FlashDevelop;
 using PluginCore;
+using PluginCore.Helpers;
 
 namespace FlashDevelop.Utilities 
 {
@@ -43,15 +44,9 @@ namespace FlashDevelop.Utilities
         /// </summary>
         public static void EnsureUpdatedPlugins(String path)
         {
-            foreach (String newFile in Directory.GetFiles(path, "*.new"))
+            foreach (String file in Directory.GetFiles(path))
             {
-                String pluginFile = newFile.Substring(0, newFile.Length - 4);
-                if (File.Exists(pluginFile))
-                {
-                    File.Copy(newFile, pluginFile, true);
-                    File.Delete(newFile);
-                }
-                else File.Move(newFile, pluginFile);
+                FileHelper.EnsureUpdatedFile(file);
             }
         }
 

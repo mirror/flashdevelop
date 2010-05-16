@@ -104,6 +104,31 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Ensures that a file has been updated after zip extraction
+        /// </summary>
+        public static void EnsureUpdatedFile(String file)
+        {
+            try
+            {
+                String newFile = file + ".new";
+                if (File.Exists(newFile))
+                {
+                    String oldFile = newFile.Substring(0, newFile.Length - 4);
+                    if (File.Exists(oldFile))
+                    {
+                        File.Copy(newFile, oldFile, true);
+                        File.Delete(newFile);
+                    }
+                    else File.Move(newFile, oldFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
         /// Ensures that the file name is unique by adding a number to it
         /// </summary>
         public static String EnsureUniquePath(String original)
