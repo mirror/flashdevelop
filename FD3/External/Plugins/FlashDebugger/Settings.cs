@@ -52,6 +52,7 @@ namespace FlashDebugger
 		private Keys m_NextShortcut;
 		private Keys m_PauseShortcut;
 		private Keys m_FinishShortcut;
+        private Keys m_DeleteAllBreakPoints;
 		private Keys m_ToggleBreakPointShortcut;
 		private Keys m_ToggleBreakPointEnableShortcut;
 		private Keys m_DisableAllBreakPointsShortcut;
@@ -189,6 +190,16 @@ namespace FlashDebugger
 			get { return m_ToggleBreakPointEnableShortcut; }
 			set { m_ToggleBreakPointEnableShortcut = value; }
 		}
+
+        [DisplayName("Delete All Breakpoints Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.DeleteAllBreakPoints")]
+        [DefaultValue(Keys.None)]
+        public Keys DeleteAllBreakPoints
+        {
+            get { return m_DeleteAllBreakPoints; }
+            set { m_DeleteAllBreakPoints = value; }
+        }
 
         [DisplayName("Disable All Breakpoints Shortcut")]
         [LocalizedCategory("FlashDebugger.Category.Shortcuts")]

@@ -3825,4 +3825,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>警告</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
+    <value>Shortcut of the Delete All Breakpoints command.</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
 </root>
