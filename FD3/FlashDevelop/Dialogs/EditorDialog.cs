@@ -91,6 +91,15 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.TextBox bookmarkLineTextBox;
         private System.Windows.Forms.TextBox modifiedLineTextBox;
         private System.Windows.Forms.TextBox highlightBackTextBox;
+        private System.Windows.Forms.Button debugLineButton;
+        private System.Windows.Forms.Button errorLineButton;
+        private System.Windows.Forms.Button disabledLineButton;
+        private System.Windows.Forms.TextBox disabledLineTextBox;
+        private System.Windows.Forms.TextBox debugLineTextBox;
+        private System.Windows.Forms.TextBox errorLineTextBox;
+        private System.Windows.Forms.Label disabledLineLabel;
+        private System.Windows.Forms.Label debugLineLabel;
+        private System.Windows.Forms.Label errorLineLabel;
 
         public EditorDialog()
         {
@@ -169,6 +178,16 @@ namespace FlashDevelop.Dialogs
             this.highlightBackTextBox = new System.Windows.Forms.TextBox();
             this.modifiedLineTextBox = new System.Windows.Forms.TextBox();
             this.bookmarkLineTextBox = new System.Windows.Forms.TextBox();
+            this.errorLineLabel = new System.Windows.Forms.Label();
+            this.debugLineLabel = new System.Windows.Forms.Label();
+            this.disabledLineLabel = new System.Windows.Forms.Label();
+            this.errorLineButton = new System.Windows.Forms.Button();
+            this.debugLineButton = new System.Windows.Forms.Button();
+            this.disabledLineButton = new System.Windows.Forms.Button();
+            this.errorLineTextBox = new System.Windows.Forms.TextBox();
+            this.debugLineTextBox = new System.Windows.Forms.TextBox();
+            this.disabledLineTextBox = new System.Windows.Forms.TextBox();
+            //
             this.languageDropDown = new System.Windows.Forms.ComboBox();
             this.exportButton = new System.Windows.Forms.Button();
             this.itemGroupBox.SuspendLayout();
@@ -178,9 +197,9 @@ namespace FlashDevelop.Dialogs
             // okButton
             // 
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.okButton.Location = new System.Drawing.Point(431, 453);
+            this.okButton.Location = new System.Drawing.Point(431, 509);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(93, 28);
+            this.okButton.Size = new System.Drawing.Size(93, 29);
             this.okButton.TabIndex = 1;
             this.okButton.Text = "&OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -190,7 +209,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.applyButton.Enabled = false;
             this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.applyButton.Location = new System.Drawing.Point(640, 452);
+            this.applyButton.Location = new System.Drawing.Point(640, 509);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(93, 29);
             this.applyButton.TabIndex = 3;
@@ -200,7 +219,7 @@ namespace FlashDevelop.Dialogs
             // 
             // revertButton
             // 
-            this.revertButton.Location = new System.Drawing.Point(285, 452);
+            this.revertButton.Location = new System.Drawing.Point(285, 509);
             this.revertButton.Name = "revertButton";
             this.revertButton.Size = new System.Drawing.Size(35, 29);
             this.revertButton.TabIndex = 9;
@@ -210,7 +229,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancelButton.Location = new System.Drawing.Point(536, 452);
+            this.cancelButton.Location = new System.Drawing.Point(536, 509);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(93, 29);
             this.cancelButton.TabIndex = 2;
@@ -228,7 +247,7 @@ namespace FlashDevelop.Dialogs
             this.itemListView.Location = new System.Drawing.Point(14, 49);
             this.itemListView.MultiSelect = false;
             this.itemListView.Name = "itemListView";
-            this.itemListView.Size = new System.Drawing.Size(212, 431);
+            this.itemListView.Size = new System.Drawing.Size(212, 488);
             this.itemListView.TabIndex = 5;
             this.itemListView.UseCompatibleStateImageBehavior = false;
             this.itemListView.View = System.Windows.Forms.View.Details;
@@ -250,7 +269,7 @@ namespace FlashDevelop.Dialogs
             this.itemGroupBox.Controls.Add(this.foregroundLabel);
             this.itemGroupBox.Controls.Add(this.fontLabel);
             this.itemGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.itemGroupBox.Location = new System.Drawing.Point(238, 240);
+            this.itemGroupBox.Location = new System.Drawing.Point(238, 294);
             this.itemGroupBox.Name = "itemGroupBox";
             this.itemGroupBox.Size = new System.Drawing.Size(494, 204);
             this.itemGroupBox.TabIndex = 7;
@@ -464,7 +483,7 @@ namespace FlashDevelop.Dialogs
             // 
             // marginBackButton
             // 
-            this.marginBackButton.Location = new System.Drawing.Point(126, 186);
+            this.marginBackButton.Location = new System.Drawing.Point(126, 187);
             this.marginBackButton.Name = "marginBackButton";
             this.marginBackButton.Size = new System.Drawing.Size(33, 30);
             this.marginBackButton.TabIndex = 6;
@@ -472,7 +491,7 @@ namespace FlashDevelop.Dialogs
             // 
             // markerBackButton
             // 
-            this.markerBackButton.Location = new System.Drawing.Point(286, 186);
+            this.markerBackButton.Location = new System.Drawing.Point(286, 187);
             this.markerBackButton.Name = "markerBackButton";
             this.markerBackButton.Size = new System.Drawing.Size(33, 30);
             this.markerBackButton.TabIndex = 12;
@@ -504,11 +523,35 @@ namespace FlashDevelop.Dialogs
             // 
             // modifiedLineButton
             // 
-            this.modifiedLineButton.Location = new System.Drawing.Point(446, 186);
+            this.modifiedLineButton.Location = new System.Drawing.Point(446, 187);
             this.modifiedLineButton.Name = "modifiedLineButton";
             this.modifiedLineButton.Size = new System.Drawing.Size(33, 30);
             this.modifiedLineButton.TabIndex = 12;
             this.modifiedLineButton.Click += new System.EventHandler(this.ModifiedLineButtonClick);
+            // 
+            // errorLineButton
+            // 
+            this.errorLineButton.Location = new System.Drawing.Point(126, 236);
+            this.errorLineButton.Name = "errorLineButton";
+            this.errorLineButton.Size = new System.Drawing.Size(33, 30);
+            this.errorLineButton.TabIndex = 3;
+            this.errorLineButton.Click += new System.EventHandler(this.ErrorLineButtonClick);
+            // 
+            // debugLineButton
+            // 
+            this.debugLineButton.Location = new System.Drawing.Point(286, 236);
+            this.debugLineButton.Name = "debugLineButton";
+            this.debugLineButton.Size = new System.Drawing.Size(33, 30);
+            this.debugLineButton.TabIndex = 6;
+            this.debugLineButton.Click += new System.EventHandler(this.DebugLineButtonClick);
+            // 
+            // disabledLineButton
+            // 
+            this.disabledLineButton.Location = new System.Drawing.Point(446, 236);
+            this.disabledLineButton.Name = "disabledLineButton";
+            this.disabledLineButton.Size = new System.Drawing.Size(33, 30);
+            this.disabledLineButton.TabIndex = 12;
+            this.disabledLineButton.Click += new System.EventHandler(this.DisabledLineButtonClick);
             // 
             // bookmarkLineButton
             // 
@@ -582,6 +625,30 @@ namespace FlashDevelop.Dialogs
             this.bookmarkLineTextBox.TabIndex = 11;
             this.bookmarkLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
+            // errorLineTextBox
+            // 
+            this.errorLineTextBox.Location = new System.Drawing.Point(14, 240);
+            this.errorLineTextBox.Name = "errorLineTextBox";
+            this.errorLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.errorLineTextBox.TabIndex = 12;
+            this.errorLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // debugLineTextBox
+            // 
+            this.debugLineTextBox.Location = new System.Drawing.Point(174, 240);
+            this.debugLineTextBox.Name = "debugLineTextBox";
+            this.debugLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.debugLineTextBox.TabIndex = 14;
+            this.debugLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // disabledLineTextBox
+            // 
+            this.disabledLineTextBox.Location = new System.Drawing.Point(334, 240);
+            this.disabledLineTextBox.Name = "disabledLineTextBox";
+            this.disabledLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.disabledLineTextBox.TabIndex = 14;
+            this.disabledLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "fdz";
@@ -625,10 +692,19 @@ namespace FlashDevelop.Dialogs
             this.languageGroupBox.Controls.Add(this.bookmarkLineButton);
             this.languageGroupBox.Controls.Add(this.bookmarkLineLabel);
             this.languageGroupBox.Controls.Add(this.bookmarkLineTextBox);
+            this.languageGroupBox.Controls.Add(this.errorLineButton);
+            this.languageGroupBox.Controls.Add(this.errorLineLabel);
+            this.languageGroupBox.Controls.Add(this.errorLineTextBox);
+            this.languageGroupBox.Controls.Add(this.debugLineButton);
+            this.languageGroupBox.Controls.Add(this.debugLineLabel);
+            this.languageGroupBox.Controls.Add(this.debugLineTextBox);
+            this.languageGroupBox.Controls.Add(this.disabledLineButton);
+            this.languageGroupBox.Controls.Add(this.disabledLineLabel);
+            this.languageGroupBox.Controls.Add(this.disabledLineTextBox);
             this.languageGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.languageGroupBox.Location = new System.Drawing.Point(238, 10);
             this.languageGroupBox.Name = "languageGroupBox";
-            this.languageGroupBox.Size = new System.Drawing.Size(494, 228);
+            this.languageGroupBox.Size = new System.Drawing.Size(494, 279);
             this.languageGroupBox.TabIndex = 6;
             this.languageGroupBox.TabStop = false;
             this.languageGroupBox.Text = "Editor Style";
@@ -753,6 +829,36 @@ namespace FlashDevelop.Dialogs
             this.markerForeLabel.TabIndex = 7;
             this.markerForeLabel.Text = "Marker fore:";
             // 
+            // errorLineLabel
+            // 
+            this.errorLineLabel.AutoSize = true;
+            this.errorLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.errorLineLabel.Location = new System.Drawing.Point(14, 220);
+            this.errorLineLabel.Name = "errorLineLabel";
+            this.errorLineLabel.Size = new System.Drawing.Size(116, 16);
+            this.errorLineLabel.TabIndex = 4;
+            this.errorLineLabel.Text = "Error line back:";
+            // 
+            // debugLineLabel
+            // 
+            this.debugLineLabel.AutoSize = true;
+            this.debugLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.debugLineLabel.Location = new System.Drawing.Point(174, 220);
+            this.debugLineLabel.Name = "debugLineLabel";
+            this.debugLineLabel.Size = new System.Drawing.Size(116, 16);
+            this.debugLineLabel.TabIndex = 10;
+            this.debugLineLabel.Text = "Debug line back:";
+            // 
+            // disabledLineLabel
+            // 
+            this.disabledLineLabel.AutoSize = true;
+            this.disabledLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.disabledLineLabel.Location = new System.Drawing.Point(334, 220);
+            this.disabledLineLabel.Name = "markerForeLabel";
+            this.disabledLineLabel.Size = new System.Drawing.Size(113, 16);
+            this.disabledLineLabel.TabIndex = 7;
+            this.disabledLineLabel.Text = "Disabled line back:";
+            // 
             // languageDropDown
             // 
             this.languageDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -765,7 +871,7 @@ namespace FlashDevelop.Dialogs
             // 
             // exportButton
             // 
-            this.exportButton.Location = new System.Drawing.Point(238, 452);
+            this.exportButton.Location = new System.Drawing.Point(238, 509);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(35, 29);
             this.exportButton.TabIndex = 8;
@@ -777,7 +883,7 @@ namespace FlashDevelop.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(746, 495);
+            this.ClientSize = new System.Drawing.Size(746, 552);
             this.Controls.Add(this.languageGroupBox);
             this.Controls.Add(this.itemGroupBox);
             this.Controls.Add(this.languageDropDown);
@@ -858,6 +964,9 @@ namespace FlashDevelop.Dialogs
             this.highlightBackLabel.Text = TextHelper.GetString("Info.HighlightBack");
             this.modifiedLineLabel.Text = TextHelper.GetString("Info.ModifiedLine");
             this.bookmarkLineLabel.Text = TextHelper.GetString("Info.BookmarkLine");
+            this.errorLineLabel.Text = TextHelper.GetString("Info.ErrorLineBack");
+            this.debugLineLabel.Text = TextHelper.GetString("Info.DebugLineBack");
+            this.disabledLineLabel.Text = TextHelper.GetString("Info.DisabledLineBack");
             this.cancelButton.Text = TextHelper.GetString("Label.Cancel");
             this.applyButton.Text = TextHelper.GetString("Label.Apply");
             this.fontLabel.Text = TextHelper.GetString("Info.Font");
@@ -894,6 +1003,7 @@ namespace FlashDevelop.Dialogs
             this.markerBackButton.Image = this.markerForeButton.Image = colorImage;
             this.printMarginButton.Image = this.highlightBackButton.Image = colorImage;
             this.modifiedLineButton.Image = this.bookmarkLineButton.Image = colorImage;
+            this.errorLineButton.Image = this.debugLineButton.Image = this.disabledLineButton.Image = colorImage;
             String[] languageFiles = Directory.GetFiles(this.LangDir, "*.xml");
             foreach (String language in languageFiles)
             {
@@ -1034,6 +1144,9 @@ namespace FlashDevelop.Dialogs
             this.highlightBackTextBox.Text = "";
             this.modifiedLineTextBox.Text = "";
             this.bookmarkLineTextBox.Text = "";
+            this.errorLineTextBox.Text = "";
+            this.debugLineTextBox.Text = "";
+            this.disabledLineTextBox.Text = "";
             this.editorStyleNode = this.languageDoc.SelectSingleNode(editorStylePath) as XmlElement;
             if (this.editorStyleNode.Attributes["caret-fore"] != null)
             {
@@ -1083,6 +1196,18 @@ namespace FlashDevelop.Dialogs
             {
                 this.bookmarkLineTextBox.Text = this.editorStyleNode.Attributes["bookmarkline-back"].Value;
             }
+            if (this.editorStyleNode.Attributes["errorline-back"] != null)
+            {
+                this.errorLineTextBox.Text = this.editorStyleNode.Attributes["errorline-back"].Value;
+            }
+            if (this.editorStyleNode.Attributes["debugline-back"] != null)
+            {
+                this.debugLineTextBox.Text = this.editorStyleNode.Attributes["debugline-back"].Value;
+            }
+            if (this.editorStyleNode.Attributes["disabledline-back"] != null)
+            {
+                this.disabledLineTextBox.Text = this.editorStyleNode.Attributes["disabledline-back"].Value;
+            }
             this.isLoadingEditor = false;
             this.isEditorSaved = true;
         }
@@ -1116,6 +1241,12 @@ namespace FlashDevelop.Dialogs
             else this.editorStyleNode.RemoveAttribute("modifiedline-back");
             if (this.bookmarkLineTextBox.Text != "") this.editorStyleNode.SetAttribute("bookmarkline-back", this.bookmarkLineTextBox.Text);
             else this.editorStyleNode.RemoveAttribute("bookmarkline-back");
+            if (this.errorLineTextBox.Text != "") this.editorStyleNode.SetAttribute("errorline-back", this.errorLineTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("errorline-back");
+            if (this.debugLineTextBox.Text != "") this.editorStyleNode.SetAttribute("debugline-back", this.debugLineTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("debugline-back");
+            if (this.disabledLineTextBox.Text != "") this.editorStyleNode.SetAttribute("disabledline-back", this.disabledLineTextBox.Text);
+            else this.editorStyleNode.RemoveAttribute("disabledline-back");
             this.isEditorSaved = true;
         }
 
@@ -1353,6 +1484,42 @@ namespace FlashDevelop.Dialogs
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 this.bookmarkLineTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void ErrorLineButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.errorLineTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.errorLineTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void DebugLineButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.debugLineTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.debugLineTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
+            }
+        }
+
+        /// <summary>
+        /// When color has been selected, update controls
+        /// </summary>
+        private void DisabledLineButtonClick(Object sender, EventArgs e)
+        {
+            this.colorDialog.Color = ColorTranslator.FromHtml(this.disabledLineTextBox.Text);
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.disabledLineTextBox.Text = "0x" + this.colorDialog.Color.ToArgb().ToString("X8").Substring(2, 6);
             }
         }
 

@@ -42,6 +42,15 @@ namespace ScintillaNet.Configuration
         
         [XmlAttributeAttribute("highlight-back")]
         public string highlightback;
+        
+        [XmlAttributeAttribute("errorline-back")]
+        public string errorlineback;
+
+        [XmlAttributeAttribute("debugline-back")]
+        public string debuglineback;
+
+        [XmlAttributeAttribute("disabledline-back")]
+        public string disabledlineback;
 
 		public int ResolveColor(string aColor)
 		{
@@ -219,6 +228,42 @@ namespace ScintillaNet.Configuration
                     return ResolveColor(highlightback);
                 }
                 return ResolveColor("0x0000ff");
+            }
+        }
+
+        public int ErrorLineBack
+        {
+            get
+            {
+                if (errorlineback != null && errorlineback.Length > 0)
+                {
+                    return ResolveColor(errorlineback);
+                }
+                return ResolveColor("0xff0000");
+            }
+        }
+
+        public int DebugLineBack
+        {
+            get
+            {
+                if (debuglineback != null && debuglineback.Length > 0)
+                {
+                    return ResolveColor(debuglineback);
+                }
+                return ResolveColor("0xffff00");
+            }
+        }
+
+        public int DisabledLineBack
+        {
+            get
+            {
+                if (disabledlineback != null && disabledlineback.Length > 0)
+                {
+                    return ResolveColor(disabledlineback);
+                }
+                return ResolveColor("0xcccccc");
             }
         }
 

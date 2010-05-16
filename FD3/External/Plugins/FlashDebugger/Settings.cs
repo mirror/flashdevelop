@@ -59,9 +59,6 @@ namespace FlashDebugger
 		private Keys m_EnableAllBreakPointsShortcut;
 		private Folder[] m_SourcePaths = new Folder[] {};
 		private Boolean m_SaveBreakPoints = true;
-        private Color m_DebugLineColor = Color.Yellow;
-		private Color m_BreakPointEnableLineColor = Color.Red;
-		private Color m_BreakPointDisableLineColor = Color.Gray;
         private Boolean m_StartDebuggerOnTestMovie = true;
 
         [DisplayName("Save Breakpoints")]
@@ -219,36 +216,6 @@ namespace FlashDebugger
         {
 			get { return m_EnableAllBreakPointsShortcut; }
 			set { m_EnableAllBreakPointsShortcut = value; }
-        }
-
-        [DisplayName("Debug Line Color")]
-        [LocalizedCategory("FlashDebugger.Category.View")]
-        [LocalizedDescription("FlashDebugger.Description.DebugLineColor")]
-		[DefaultValue(typeof(Color), "Yellow")]
-		public Color DebugLineColor
-		{
-			get { return m_DebugLineColor; }
-			set { m_DebugLineColor = value; }
-		}
-
-        [DisplayName("Breakpoints Enabled Line Color")]
-        [LocalizedCategory("FlashDebugger.Category.View")]
-        [LocalizedDescription("FlashDebugger.Description.BreakPointEnableLineColor")]
-		[DefaultValue(typeof(Color), "Red")]
-        public Color BreakPointEnableLineColor
-        {
-			get { return m_BreakPointEnableLineColor; }
-			set { m_BreakPointEnableLineColor = value; }
-        }
-
-        [DisplayName("Breakpoints Disabled Line Color")]
-        [LocalizedCategory("FlashDebugger.Category.View")]
-        [LocalizedDescription("FlashDebugger.Description.BreakPointDisableLineColor")]
-		[DefaultValue(typeof(Color), "Gray")]
-        public Color BreakPointDisableLineColor
-        {
-			get { return m_BreakPointDisableLineColor; }
-			set { m_BreakPointDisableLineColor = value; }
         }
 
         [DisplayName("Start Debugger On Test Movie")]

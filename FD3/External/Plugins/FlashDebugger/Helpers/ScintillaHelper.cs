@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PluginCore.Utilities;
 using ScintillaNet;
 using PluginCore;
+using ScintillaNet.Configuration;
 
 namespace FlashDebugger
 {
@@ -37,8 +38,9 @@ namespace FlashDebugger
 			sci.MarkerDefinePixmap(markerBPEnabled, ScintillaNet.XPM.ConvertToXPM(Properties.Resource.Enabled, "#00FF00"));
 			sci.MarkerDefinePixmap(markerBPDisabled, ScintillaNet.XPM.ConvertToXPM(Properties.Resource.Disabled, "#00FF00"));
             sci.MarkerDefinePixmap(markerCurrentLine, ScintillaNet.XPM.ConvertToXPM(Properties.Resource.CurLine, "#00FF00"));
-			sci.MarkerSetBack(markerBPEnabled, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointEnableLineColor)); // enable
-			sci.MarkerSetBack(markerBPDisabled, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointDisableLineColor)); // disable
+            Language lang = PluginBase.MainForm.SciConfig.GetLanguage("as3"); // default
+			sci.MarkerSetBack(markerBPEnabled, lang.editorstyle.ErrorLineBack); // enable
+            sci.MarkerSetBack(markerBPDisabled, lang.editorstyle.DisabledLineBack); // disable
 			sci.MarginClick += new MarginClickHandler(SciControl_MarginClick);
             sci.Modified += new ModifiedHandler(sci_Modified);
         }
@@ -164,17 +166,18 @@ namespace FlashDebugger
             Int32 es = sci.EndStyled;
 			// Mask for style bits used for restore.
             Int32 mask = (1 << sci.StyleBits) - 1;
+            Language lang = PluginBase.MainForm.SciConfig.GetLanguage(sci.ConfigurationLanguage);
 			if (indicator == indicatorDebugCurrentLine)
 			{
-				sci.SetIndicFore(indicator, DataConverter.ColorToInt32(PluginMain.settingObject.DebugLineColor));
+                sci.SetIndicFore(indicator, lang.editorstyle.DebugLineBack);
 			}
 			else if (indicator == indicatorDebugEnabledBreakpoint)
 			{
-				sci.SetIndicFore(indicator, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointEnableLineColor));
+				sci.SetIndicFore(indicator, lang.editorstyle.ErrorLineBack);
 			}
 			else if (indicator == indicatorDebugDisabledBreakpoint)
 			{
-				sci.SetIndicFore(indicator, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointDisableLineColor));
+				sci.SetIndicFore(indicator, lang.editorstyle.DisabledLineBack);
 			}
 			sci.SetIndicStyle(indicator, 7);
 			sci.CurrentIndicator = indicator;
@@ -199,18 +202,19 @@ namespace FlashDebugger
 			Int32 es = sci.EndStyled;
 			// Mask for style bits used for restore.
 			Int32 mask = (1 << sci.StyleBits) - 1;
-			if (indicator == indicatorDebugCurrentLine)
-			{
-				sci.SetIndicFore(indicator, DataConverter.ColorToInt32(PluginMain.settingObject.DebugLineColor));
-			}
-			else if (indicator == indicatorDebugEnabledBreakpoint)
-			{
-				sci.SetIndicFore(indicator, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointEnableLineColor));
-			}
-			else if (indicator == indicatorDebugDisabledBreakpoint)
-			{
-				sci.SetIndicFore(indicator, DataConverter.ColorToInt32(PluginMain.settingObject.BreakPointDisableLineColor));
-			}
+            Language lang = PluginBase.MainForm.SciConfig.GetLanguage(sci.ConfigurationLanguage);
+            if (indicator == indicatorDebugCurrentLine)
+            {
+                sci.SetIndicFore(indicator, lang.editorstyle.DebugLineBack);
+            }
+            else if (indicator == indicatorDebugEnabledBreakpoint)
+            {
+                sci.SetIndicFore(indicator, lang.editorstyle.ErrorLineBack);
+            }
+            else if (indicator == indicatorDebugDisabledBreakpoint)
+            {
+                sci.SetIndicFore(indicator, lang.editorstyle.DisabledLineBack);
+            }
 			sci.SetIndicStyle(indicator, 7);
 			sci.CurrentIndicator = indicator;
 			sci.IndicatorClearRange(start, length);

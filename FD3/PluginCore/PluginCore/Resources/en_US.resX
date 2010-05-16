@@ -3288,20 +3288,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>View</value>
     <comment>Added after 3.1.0</comment>
   </data>
-  <data name="FlashDebugger.Description.BreakPointDisableLineColor" xml:space="preserve">
-    <value>Color of the disabled breakpoint line.</value>
-    <comment>Added after 3.1.0</comment>
-  </data>
-  <data name="FlashDebugger.Description.BreakPointEnableLineColor" xml:space="preserve">
-    <value>Color of the enabled breakpoint line.</value>
-    <comment>Added after 3.1.0</comment>
-  </data>
   <data name="FlashDebugger.Description.Current" xml:space="preserve">
     <value>Shortcut of the Current command.</value>
-    <comment>Added after 3.1.0</comment>
-  </data>
-  <data name="FlashDebugger.Description.DebugLineColor" xml:space="preserve">
-    <value>Color of the debug line.</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
@@ -3850,6 +3838,18 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
     <value>Shortcut of the Delete All Breakpoints command.</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
+    <value>Debug line:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.DisabledLineBack" xml:space="preserve">
+    <value>Disabled line:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.ErrorLineBack" xml:space="preserve">
+    <value>Error line:</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>

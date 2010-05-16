@@ -3285,20 +3285,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>View | ビュー</value>
     <comment>Added after 3.1.0</comment>
   </data>
-  <data name="FlashDebugger.Description.BreakPointDisableLineColor" xml:space="preserve">
-    <value>無効なブレークポイント行の色です。</value>
-    <comment>Added after 3.1.0</comment>
-  </data>
-  <data name="FlashDebugger.Description.BreakPointEnableLineColor" xml:space="preserve">
-    <value>有効なブレークポイント行の色です。</value>
-    <comment>Added after 3.1.0</comment>
-  </data>
   <data name="FlashDebugger.Description.Current" xml:space="preserve">
     <value>"現在の行"のショートカットです。</value>
-    <comment>Added after 3.1.0</comment>
-  </data>
-  <data name="FlashDebugger.Description.DebugLineColor" xml:space="preserve">
-    <value>デバッグ行の色です。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
@@ -3827,6 +3815,18 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
     <value>Shortcut of the Delete All Breakpoints command.</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
+    <value>Debug line:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.DisabledLineBack" xml:space="preserve">
+    <value>Disabled line:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.ErrorLineBack" xml:space="preserve">
+    <value>Error line:</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>
