@@ -38,7 +38,26 @@ namespace ProjectManager.Controls.TreeView
 		public void Select(string path)
 		{
             if (nodeMap.ContainsKey(path))
+            {
                 SelectedNode = nodeMap[path];
+            }
+            else
+            {
+                Int32 index = 0;
+                String separator = Path.DirectorySeparatorChar.ToString();
+                while (true)
+                {
+                    index = path.IndexOf(separator, index);
+                    if (index == -1) break; // Stop, not found
+                    String subPath = path.Substring(0, index);
+                    if (nodeMap.ContainsKey(subPath)) nodeMap[subPath].Expand();
+                    index++;
+                }
+                if (nodeMap.ContainsKey(path))
+                {
+                    SelectedNode = nodeMap[path];
+                }
+            }
 		}
 
 		// this is called by GenericNode when a selected node is refreshed, so that
