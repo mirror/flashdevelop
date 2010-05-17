@@ -80,6 +80,7 @@ namespace ProjectManager.Controls
         public static FDImage UpArrow;
         public static FDImage DownArrow;
         public static FDImage AllClasses;
+        public static FDImage SyncToFile;
 
 		public static ImageList ImageList { get { return imageList; } }
 
@@ -136,6 +137,7 @@ namespace ProjectManager.Controls
             UpArrow = Get(74);
             DownArrow = Get(60);
             AllClasses = Get(202);
+            SyncToFile = Get("315|9|-3|-4");
 		}
 
         public static FDImage GetGray(string data)

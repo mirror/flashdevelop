@@ -193,6 +193,7 @@ namespace ProjectManager
             pluginUI.ImportProject += delegate { ImportProject(); };
             pluginUI.Rename += fileActions.Rename;
             pluginUI.TreeBar.ShowHidden.Click += delegate { ToggleShowHidden(); };
+            pluginUI.TreeBar.Synchronize.Click += delegate { TreeSyncToCurrentFile(); };
             pluginUI.TreeBar.ProjectProperties.Click += delegate { OpenProjectProperties(); };
             pluginUI.TreeBar.RefreshSelected.Click += delegate { TreeRefreshSelectedNode(); };
             pluginUI.TreeBar.ProjectTypes.Click += delegate 
@@ -1100,6 +1101,15 @@ namespace ProjectManager
             if (path != null && Directory.Exists(path))
             {
                 PluginBase.MainForm.CallCommand("FindAndReplaceInFilesFrom", path);
+            }
+        }
+
+        private void TreeSyncToCurrentFile()
+        {
+            ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
+            if (doc != null && doc.IsEditable && !doc.IsUntitled)
+            {
+                Tree.Select(doc.FileName);
             }
         }
 
