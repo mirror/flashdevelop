@@ -75,6 +75,7 @@ namespace OutputPanel
             this.textLog.Text = "";
             this.textLog.WordWrap = false;
             this.textLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.LinkClicked);
+            this.textLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PluginUIKeyDown);
             // 
             // toolStrip
             // 
@@ -95,6 +96,7 @@ namespace OutputPanel
             this.findTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.findTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
             this.findTextBox.TextChanged += new System.EventHandler(this.FindTextBoxTextChanged);
+            this.findTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PluginUIKeyDown);
             this.findTextBox.Leave += new System.EventHandler(this.FindTextBoxLeave);
             this.findTextBox.Enter += new System.EventHandler(this.FindTextBoxEnter);
             // 
@@ -172,6 +174,14 @@ namespace OutputPanel
         private void LinkClicked(Object sender, LinkClickedEventArgs e)
         {
             PluginBase.MainForm.CallCommand("Browse", e.LinkText);
+        }
+
+        /// <summary>
+        /// Handle the internal key down event
+        /// </summary>
+        private void PluginUIKeyDown(Object sender, KeyEventArgs e)
+        {
+            this.OnShortcut(e.KeyData);
         }
 
         /// <summary>
