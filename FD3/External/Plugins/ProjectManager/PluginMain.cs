@@ -228,6 +228,7 @@ namespace ProjectManager
             pluginUI.Menu.BuildAllProjects.Click += delegate { FullBuild(); };
             pluginUI.Menu.TestAllProjects.Click += delegate { TestBuild(); };
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
+            pluginUI.Menu.Opening += new CancelEventHandler(this.MenuOpening);
 
             Tree.MovePath += fileActions.Move;
             Tree.CopyPath += fileActions.Copy;
@@ -861,6 +862,14 @@ namespace ProjectManager
         #endregion
 
         #region Project Tree Event Handling
+
+        private void MenuOpening(Object sender, CancelEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                this.TreeShowShellMenu();
+            }
+        }
 
         private void TreeDoubleClick()
         {
