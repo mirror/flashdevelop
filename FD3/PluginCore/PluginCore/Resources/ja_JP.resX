@@ -2315,10 +2315,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>"(" や "," を入力した時に自動的に表示されているコールチップ(メソッドの Tips )の表示を無効にします。表示させるには Ctrl + Shift + Space を押さなければならなくなります。</value>
   </data>
   <data name="ProjectManager.Description.MissingEntryPoint" xml:space="preserve">
-    <value>このプロジェクトをビルドするには、プロジェクトツリー上で AS か MXML のエントリポイントを"常にコンパイル"として指定する必要があります。</value>
+    <value>このプロジェクトにはコンパイル対象ファイルが指定されていません。このプロジェクトをビルドするには、プロジェクトツリー上でエントリーポイントとなる AS ファイルまたは MXML ファイルをコンパイル対象として指定する必要があります。</value>
   </data>
   <data name="ProjectManager.Description.MissingTarget" xml:space="preserve">
-    <value>このプロジェクトをビルドするには、プロジェクトツリーから一つのクラスの"常にコンパイル"にチェックします。</value>
+    <value>このプロジェクトにはコンパイル対象ファイルが指定されていません。このプロジェクトをビルドするには、プロジェクトツリーから一つのクラスをコンパイル対象として指定する必要があります。</value>
   </data>
   <data name="BookmarkPanel.ColumnHeader.Line" xml:space="preserve">
     <value>行</value>
@@ -2835,10 +2835,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>クラスパス名を解析する際、絞り込み対象となるディレクトリ名です。</value>
   </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
-    <value>このパッケージ '{0}' はファイルパスと一致しません:</value>
+    <value>パッケージ '{0}' がファイルパスと一致していません:</value>
   </data>
   <data name="AS2Context.Info.TypeDontMatchFileName" xml:space="preserve">
-    <value>このタイプ '{0}' はファイルパスと一致しません:</value>
+    <value>クラス名 '{0}' がファイル名と一致していません:</value>
   </data>
   <data name="AS3Context.Info.AscDone" xml:space="preserve">
     <value>Asc 実行完了</value>
@@ -3302,7 +3302,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Finish" xml:space="preserve">
-    <value>"完了"のショートカットです。</value>
+    <value>"ステップアウト"のショートカットです。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Next" xml:space="preserve">
@@ -3314,7 +3314,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
-    <value>"カーソル行を実行"のショートカットです。</value>
+    <value>"次のブレークポイントへ"のショートカットです。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
@@ -3398,7 +3398,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FixBreakpoints" xml:space="preserve">
-    <value>ブレークポイントを削除または修正し、"continue"をタイプしてください。</value>
+    <value>ブレークポイントを解除またはコードを修正し、"continue"をタイプしてください。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FlashPlayerGenericName" xml:space="preserve">
@@ -3538,7 +3538,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.DeleteAllBreakpoints" xml:space="preserve">
-    <value>すべてのブレークポイントを削除(&amp;X)</value>
+    <value>すべてのブレークポイントを解除(&amp;X)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.DisableAllBreakpoints" xml:space="preserve">
@@ -3554,7 +3554,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
-    <value>完了(&amp;F)</value>
+    <value>ステップアウト(&amp;F)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Next" xml:space="preserve">
@@ -3566,7 +3566,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.RunToCursor" xml:space="preserve">
-    <value>カーソル行を実行(&amp;U)</value>
+    <value>次のブレークポイントへ(&amp;U)</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Start" xml:space="preserve">
@@ -3814,7 +3814,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
-    <value>"すべてのブレークポイントを削除"のショートカットです。</value>
+    <value>"すべてのブレークポイントを解除"のショートカットです。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
