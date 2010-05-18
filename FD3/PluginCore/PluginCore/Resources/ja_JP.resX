@@ -3814,19 +3814,19 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
-    <value>Shortcut of the Delete All Breakpoints command.</value>
+    <value>"すべてのブレークポイントを削除"のショートカットです。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
-    <value>Debug line:</value>
+    <value>デバッグ行:</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.DisabledLineBack" xml:space="preserve">
-    <value>Disabled line:</value>
+    <value>無効行:</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.ErrorLineBack" xml:space="preserve">
-    <value>Error line:</value>
+    <value>エラー行:</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ProjectManager.ToolTip.Synchronize" xml:space="preserve">
