@@ -349,7 +349,7 @@ namespace FlashDebugger
 				return;
 			}
 			Frame[] frames = m_FlashInterface.GetFrames();
-			if (frames != null)
+            if (frames != null && m_CurrentFrame < frames.Length)
 			{
 				Variable thisValue = m_FlashInterface.GetThis(m_CurrentFrame);
 				Variable[] args = m_FlashInterface.GetArgs(m_CurrentFrame);

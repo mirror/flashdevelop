@@ -172,12 +172,13 @@ namespace AS3Context
                         type.Namespace = "public";
                     }
 
-                    type.Flags = (instance.flags == TraitMember.Function) ? FlagType.Interface : FlagType.Class;
+                    type.Flags = FlagType.Class;
+                    if (instance.flags == TraitMember.Function) type.Flags |= FlagType.Interface;
 
                     type.Members = GetMembers(trait.members, FlagType.Static, instance.name);
                     type.Members.Add(GetMembers(instance.members, FlagType.Dynamic, instance.name));
 
-                    if (type.Flags == FlagType.Interface)
+                    if ((type.Flags & FlagType.Interface) > 0)
                     {
                         // TODO properly support interface multiple inheritance
                         type.ExtendsType = null;
@@ -696,7 +697,12 @@ namespace AS3Context
 
         private string ReadValue()
         {
-            if (IsEmptyElement) return "";
+            if (IsEmptyElement)
+            {
+                string see = GetAttribute("conref");
+                if (see != null) return "@see " + see;
+                return "";
+            }
 
             string desc = "";
 
