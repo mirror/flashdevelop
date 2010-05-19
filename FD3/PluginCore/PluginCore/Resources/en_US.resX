@@ -3083,7 +3083,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.NewName" xml:space="preserve">
-    <value>New Name:</value>
+    <value>New name:</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Refactor" xml:space="preserve">
@@ -3833,7 +3833,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
-    <value>NewClass</value>
+    <value>New Class</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">

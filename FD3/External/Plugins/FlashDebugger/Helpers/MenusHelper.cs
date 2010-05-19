@@ -11,8 +11,8 @@ namespace FlashDebugger
     internal class MenusHelper
     {
         static public ImageList imageList;
-		private ToolStrip m_DebuggerToolStrip;
         private ToolStripItem[] m_ToolStripButtons;
+        private ToolStripSeparator m_ToolStripSeparator;
 		private ToolStripButton StartContinueButton, PauseButton, StopButton, CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton;
 		private ToolStripDropDownItem StartContinueMenu, PauseMenu, StopMenu, CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, ToggleBreakPointMenu, ToggleBreakPointEnableMenu, DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu;
         private DebuggerState CurrentState = DebuggerState.Initializing;
@@ -83,6 +83,8 @@ namespace FlashDebugger
 			debugMenu.DropDownItems.AddRange(items.ToArray());
 
             // ToolStrip
+            m_ToolStripSeparator = new ToolStripSeparator();
+            m_ToolStripSeparator.Margin = new Padding(1, 0, 0, 0);
             StartContinueButton = new ToolStripButton(TextHelper.GetString("Label.Start"), imageList.Images["StartContinue"], new EventHandler(StartContinue_Click));
 			StartContinueButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 			PauseButton = new ToolStripButton(TextHelper.GetString("Label.Pause"), imageList.Images["Pause"], new EventHandler(debugManager.Pause_Click));
@@ -99,32 +101,16 @@ namespace FlashDebugger
             NextButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
             FinishButton = new ToolStripButton(TextHelper.GetString("Label.Finish"), imageList.Images["Finish"], new EventHandler(debugManager.Finish_Click));
             FinishButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-
-			m_ToolStripButtons = new ToolStripItem[] { StartContinueButton, PauseButton, StopButton, new ToolStripSeparator(), CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton };
-			m_DebuggerToolStrip = new ToolStrip(m_ToolStripButtons);
-            m_DebuggerToolStrip.Renderer = new DockPanelStripRenderer(false);
-            m_DebuggerToolStrip.Padding = new Padding(0, 1, 0, 0);
-
-			PluginBase.MainForm.ToolStrip.Stretch = false;
+            m_ToolStripButtons = new ToolStripItem[] { m_ToolStripSeparator, StartContinueButton, PauseButton, StopButton, new ToolStripSeparator(), CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton };
+            
+            // Events
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;
         }
 
-        public void AddToolStrip()
+        public void AddToolStripItems()
         {
-            // add debug toolbar right to the main toolbar
-            ToolStripPanel tsp = PluginBase.MainForm.ToolStripPanel;
-            if (tsp.Rows.Length > 1)
-            {
-                int idx = tsp.Rows.Length - 1;
-                Control[] row = tsp.Rows[idx].Controls;
-                foreach (Control c in row) tsp.Controls.Remove(c);
-                tsp.Join(m_DebuggerToolStrip, idx);
-                for (int i = row.Length - 1; i >= 0; i--)
-                {
-                    tsp.Join(row[0] as ToolStrip, idx);
-                }
-            }
-            else tsp.Join(m_DebuggerToolStrip);
+            ToolStrip toolStrip = PluginBase.MainForm.ToolStrip;
+            toolStrip.Items.AddRange(m_ToolStripButtons);
         }
 
         public void OpenLocalVariablesPanel(Object sender, System.EventArgs e)

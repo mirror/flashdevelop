@@ -125,7 +125,7 @@ namespace FlashDebugger
                     break;
 
                 case EventType.UIStarted:
-                    menusHelper.AddToolStrip();
+                    menusHelper.AddToolStripItems();
                     menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
                     break;
                 
