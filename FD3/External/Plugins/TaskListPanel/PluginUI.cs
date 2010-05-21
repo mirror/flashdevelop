@@ -277,6 +277,10 @@ namespace TaskListPanel
         private List<String> GetFiles(String projectPath)
         {
             List<String> files = new List<String>();
+            if (!Directory.Exists(projectPath))
+            {
+                return files;
+            }
             foreach (String extension in this.extensions)
             {
                 String[] hiddenPaths = PluginBase.CurrentProject.GetHiddenPaths();

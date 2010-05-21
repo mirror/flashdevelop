@@ -104,6 +104,7 @@ namespace FlashDevelop.Managers
                     }
                     session.Files.Add(document.FileName);
                 }
+                else session.Files.Add(document.Text);
             }
             return session;
         }
