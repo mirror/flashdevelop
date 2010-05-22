@@ -103,6 +103,7 @@ namespace PluginCore.Controls
 			// MessageBar
 			//
 			this.BackColor = System.Drawing.SystemColors.Info;
+            this.ForeColor = System.Drawing.SystemColors.InfoText;
 			this.Controls.Add(this.buttonClose);
 			this.Controls.Add(this.label);
 			this.Name = "MessageBar";

@@ -55,14 +55,16 @@ namespace PluginCore.Controls
 			// panel
 			toolTip = new System.Windows.Forms.Panel();
 			toolTip.Location = new System.Drawing.Point(0,0);
-			toolTip.BackColor = Color.LightGoldenrodYellow;
+            toolTip.BackColor = System.Drawing.SystemColors.Info;
+            toolTip.ForeColor = System.Drawing.SystemColors.InfoText;
 			toolTip.BorderStyle = BorderStyle.FixedSingle;
 			toolTip.Visible = false;
 			(mainForm as Form).Controls.Add(toolTip);
 			// text
 			toolTipRTB = new System.Windows.Forms.RichTextBox();
 			toolTipRTB.Location = new System.Drawing.Point(2,1);
-			toolTipRTB.BackColor = Color.LightGoldenrodYellow;
+            toolTipRTB.BackColor = System.Drawing.SystemColors.Info;
+            toolTipRTB.ForeColor = System.Drawing.SystemColors.InfoText;
 			toolTipRTB.BorderStyle = BorderStyle.None;
 			toolTipRTB.ScrollBars = RichTextBoxScrollBars.None;
 			toolTipRTB.ReadOnly = true;
