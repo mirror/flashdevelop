@@ -45,7 +45,7 @@ namespace ProjectManager.Building.Haxe
                 libraryBuilder.BuildLibrarySwf(project, false);
             }
 
-            string tempFile = Path.GetTempFileName();
+            string tempFile = Path.GetTempFileName() + Path.GetExtension(project.OutputPathAbsolute);
 
             try
             {
