@@ -231,6 +231,15 @@ namespace Flash.Tools.Debugger.Concrete
 			{
 				((PlayerSession) s).requestFrame(m_depth);
 				m_populated = true;
+				foreach (DVariable v in m_args.Values)
+				{
+					v.Session = s;
+				}
+				foreach (DVariable v in m_locals.Values)
+				{
+					v.Session = s;
+				}
+				if (m_this != null) m_this.Session = s;
 			}
 		}
 	}

@@ -164,17 +164,21 @@ namespace FlashDebugger.Controls
 					FlashInterface flashInterface = PluginMain.debugManager.FlashInterface;
 					SortedList<DataNode, DataNode> nodes = new SortedList<DataNode, DataNode>();
 					SortedList<DataNode, DataNode> inherited = new SortedList<DataNode, DataNode>();
+					SortedList<DataNode, DataNode> statics = new SortedList<DataNode, DataNode>();
 					foreach (Variable member in node.Variable.getValue().getMembers(flashInterface.Session))
 					{
 						if ((member.Scope == VariableAttribute.PRIVATE_SCOPE && member.Level > 0) ||
-							member.Scope == VariableAttribute.INTERNAL_SCOPE ||
-							member.isAttributeSet(VariableAttribute.IS_STATIC))
+							member.Scope == VariableAttribute.INTERNAL_SCOPE)
 						{
 							// Flex Builder doesn't display these so we won't either.
 							continue;
 						}
 						DataNode memberNode = new DataNode(member);
-						if (member.Level > 0)
+						if (member.isAttributeSet(VariableAttribute.IS_STATIC))
+						{
+							statics.Add(memberNode, memberNode);
+						}
+						else if (member.Level > 0)
 						{
 							inherited.Add(memberNode, memberNode);
 						}
@@ -191,6 +195,15 @@ namespace FlashDebugger.Controls
 							inheritedNode.Nodes.Add(item);
 						}
 						node.Nodes.Add(inheritedNode);
+					}
+					if (statics.Count > 0)
+					{
+						DataNode staticNode = new DataNode("[static]");
+						foreach (DataNode item in statics.Keys)
+						{
+							staticNode.Nodes.Add(item);
+						}
+						node.Nodes.Add(staticNode);
 					}
 					foreach (DataNode item in nodes.Keys)
 					{
