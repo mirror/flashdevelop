@@ -114,6 +114,7 @@ package org.flashdevelop.utils
 		}
 		private static function onClose(event:Event):void
 		{
+			socket = null;
 			FlashConnect.status = -1;
 			if (FlashConnect.onConnection != null) 
 			{
@@ -187,7 +188,7 @@ package org.flashdevelop.utils
 					}
 				}
 				message.appendChild(rootNode);
-				socket.send(message);
+				if (socket && socket.connected) socket.send(message);
 			}
 		}
 		
