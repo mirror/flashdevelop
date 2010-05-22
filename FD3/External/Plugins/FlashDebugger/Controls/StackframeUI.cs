@@ -72,7 +72,9 @@ namespace FlashDebugger
             {
                 foreach (Frame item in frames)
                 {
-                    lv.Items.Add(new ListViewItem(new string[] {"", item.CallSignature}, -1));
+					String title = item.CallSignature;
+					if (item.Location.File != null) title += " at " + item.Location.File + ":" + item.Location.Line;
+                    lv.Items.Add(new ListViewItem(new string[] {"", title}, -1));
                 }
 				lv.Items[0].ImageIndex = currentImageIndex;
             }
