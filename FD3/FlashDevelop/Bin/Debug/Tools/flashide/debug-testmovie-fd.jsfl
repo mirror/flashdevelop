@@ -26,7 +26,7 @@ if (fl.compilerErrors && fl.compilerErrors.length > 0)
 		fl.compilerErrors.save(file);
 	}
 }
-if (!runInFlash) // run SWF
+if (!runInFlash && fl.getDocumentDOM()) // run SWF
 {
 	var file = fl.configURI;
 	if (file.indexOf("Adobe") > 0)
