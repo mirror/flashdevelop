@@ -221,19 +221,17 @@ namespace AS3Context
                         model = privateClasses;
                         type.InFile = model;
                     }
-                    if (model.Classes.Count > 0)
-                    {
-                        path.AddFile(model);
 
-                        foreach (string import in imports.Keys)
-                        {
-                            model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
-                        }
+                    if (model.Classes.Count > 0 || model.Members.Count > 0)
+                    {
+                        AddImports(model, imports);
+                        path.AddFile(model);
                     }
                 }
 
                 // packages
-                if (abc.scripts == null) continue;
+                if (abc.scripts == null) 
+                    continue;
                 foreach (Traits trait in abc.scripts)
                 {
                     FileModel model = null;
@@ -245,9 +243,10 @@ namespace AS3Context
                         MemberModel member = GetMember(info, 0);
                         if (member == null) continue;
 
-                        if (model == null)
+                        if (model == null || model.Package != info.name.uri)
                         {
-                            imports.Clear();
+                            AddImports(model, imports);
+                            
                             string package = info.name.uri ?? "";
                             string filename = package.Length > 0 ? "package.as" : "toplevel.as";
                             filename = Path.Combine(package.Replace('.', Path.DirectorySeparatorChar), filename);
@@ -265,8 +264,6 @@ namespace AS3Context
                                 path.AddFile(model);
                             }
                         }
-                        else if (info.name.uri != model.Package)
-                            continue;
 
                         thisDocs = GetDocs(model.Package);
                         if (thisDocs != null)
@@ -291,17 +288,23 @@ namespace AS3Context
                         model.Members.Add(member);
                     }
 
-                    if (model != null)
-                    {
-                        foreach (string import in imports.Keys)
-                        {
-                            model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
-                        }
-                    }
+                    AddImports(model, imports);
                 }
             }
 
             if (privateClasses.Classes.Count > 0) path.AddFile(privateClasses);
+        }
+
+        private static void AddImports(FileModel model, Dictionary<string, string> imports)
+        {
+            if (model != null)
+            {
+                foreach (string import in imports.Keys)
+                {
+                    model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
+                }
+                imports.Clear();
+            }
         }
 
         private static Dictionary<string, DocItem> GetDocs(string package)
