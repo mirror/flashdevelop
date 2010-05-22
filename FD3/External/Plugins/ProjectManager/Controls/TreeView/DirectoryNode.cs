@@ -13,6 +13,8 @@ using ProjectManager.Controls.AS3;
 
 namespace ProjectManager.Controls.TreeView
 {
+    public delegate void DirectoryNodeRefresh(DirectoryNode node);
+
     public class PlaceholderNode : GenericNode
     {
         public PlaceholderNode(string backingPath) : base(backingPath) { }
@@ -20,6 +22,8 @@ namespace ProjectManager.Controls.TreeView
 
     public class DirectoryNode : GenericNode
 	{
+        static public event DirectoryNodeRefresh OnDirectoryNodeRefresh;
+
 		bool dirty;
 
 		public DirectoryNode(string directory) : base(directory)
@@ -74,6 +78,9 @@ namespace ProjectManager.Controls.TreeView
 				if (Nodes.Count > 0)
 					PopulateChildNodes(recursive);
 			}
+
+            // hook for plugins
+            if (OnDirectoryNodeRefresh != null) OnDirectoryNodeRefresh(this);
 		}
 
 		/// <summary>

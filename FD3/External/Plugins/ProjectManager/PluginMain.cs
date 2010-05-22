@@ -30,6 +30,7 @@ namespace ProjectManager
         public const string OpenProject = "ProjectManager.OpenProject";
         public const string SendProject = "ProjectManager.SendProject";
         public const string BuildProject = "ProjectManager.BuildProject";
+        public const string PlayOutput = "ProjectManager.PlayOutput";
         public const string TestMovie = "ProjectManager.TestMovie";
         public const string CompileWithFlexShell = "ProjectManager.CompileWithFlexShell";
         public const string RestartFlexShell = "ProjectManager.RestartFlexShell";
@@ -358,6 +359,10 @@ namespace ProjectManager
                             e.Handled = true;
                         }
                     }
+                    else if (de.Action == ProjectManagerCommands.PlayOutput)
+                    {
+                        OpenSwf((string)de.Data);
+                    }
                     /*else if (de.Action == ProjectManagerCommands.CompileWithFlexShell)
                     {
                         Hashtable hashtable = (Hashtable)de.Data;
@@ -598,7 +603,7 @@ namespace ProjectManager
                 psi.WorkingDirectory = Path.GetDirectoryName(path);
                 ProcessHelper.StartAsync(psi);
             }
-            else if (FileInspector.IsSwf(path, Path.GetExtension(path).ToLower())) OpenSwf(path);
+            else if (FileInspector.IsSwf(path, Path.GetExtension(path).ToLower())) PlaySwf(path);
             else if (path.IndexOf("::") > 0)
             {
                 DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.OpenVirtualFile, path);
@@ -626,19 +631,33 @@ namespace ProjectManager
             }
         }
 
+        void PlaySwf(string path)
+        {
+            // Let FlashViewer handle it..
+            DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path);
+            EventManager.DispatchEvent(this, de);
+        }
+
         void OpenSwf(string path)
         {
-            if (!pluginUI.IsTraceDisabled)
+            if (path == null)
             {
-                DataEvent de = new DataEvent(EventType.Command, "RunDebugger", path);
-                EventManager.DispatchEvent(this, de);
-                if (de.Handled) return;
+                if (project == null) return;
+                path = project.OutputPath;
             }
+            if (project == null) // use default player
+            {
+                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path);
+                EventManager.DispatchEvent(this, de);
+                return;
+            }
+
             int w = project.MovieOptions.Width;
             int h = project.MovieOptions.Height;
             bool isOutput = path.ToLower() == project.OutputPathAbsolute.ToLower();
             path = project.FixDebugReleasePath(path);
-            if (!isOutput || project.TestMovieBehavior == TestMovieBehavior.NewTab)
+
+            if (project.TestMovieBehavior == TestMovieBehavior.NewTab)
             {
                 DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Document", path);
                 EventManager.DispatchEvent(this, de);

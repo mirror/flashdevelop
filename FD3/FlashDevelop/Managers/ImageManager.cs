@@ -65,7 +65,7 @@ namespace FlashDevelop.Managers
             if (par.Length > 0)
             {
                 Int32.TryParse(par[0], out Icon);
-                if (Icon >= 0 && par.Length > 1)
+                if (par.Length > 1)
                 {
                     Int32.TryParse(par[1], out Bullet);
                     if (Bullet >= 0 && par.Length == 4)

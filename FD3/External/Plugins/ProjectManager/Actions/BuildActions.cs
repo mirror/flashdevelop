@@ -123,7 +123,7 @@ namespace ProjectManager.Actions
 
         private void RunFlashIDE(bool runOutput, bool noTrace)
         {
-            string cmd = (runOutput) ? "testmovie.jsfl" : "buildmovie.jsfl";
+            string cmd = (runOutput) ? "testmovie-fd.jsfl" : "buildmovie.jsfl";
             if (!noTrace) cmd = "debug-" + cmd;
             cmd = Path.Combine("Tools", Path.Combine("flashide", cmd));
             cmd = PathHelper.ResolvePath(cmd, null);

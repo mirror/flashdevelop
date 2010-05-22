@@ -212,8 +212,8 @@ namespace FlashViewer
                     switch (action)
                     {
                         case "FlashViewer.Popup":
-                            Int32 width = Convert.ToInt32(args[1]);
-                            Int32 height = Convert.ToInt32(args[2]);
+                            Int32 width = args.Length > 0 ? Convert.ToInt32(args[1]) : 800;
+                            Int32 height = args.Length > 1 ? Convert.ToInt32(args[2]) : 600;
                             this.CreatePopup(args[0], new Size(width, height));
                             break;
 

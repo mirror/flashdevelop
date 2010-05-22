@@ -11,13 +11,17 @@ using PluginCore.Utilities;
 namespace ProjectManager.Controls.TreeView
 {
     public delegate FileNode FileNodeFactory(string filePath);
+    public delegate void FileNodeRefresh(FileNode node);
 
 	/// <summary>
 	/// Represents a file on disk.
 	/// </summary>
 	public class FileNode : GenericNode
 	{
-        static Dictionary<string, FileNodeFactory> FileAssociations = new Dictionary<string, FileNodeFactory>();
+        static public readonly Dictionary<string, FileNodeFactory> FileAssociations 
+            = new Dictionary<string, FileNodeFactory>();
+
+        static public event FileNodeRefresh OnFileNodeRefresh;
 
 		protected FileNode(string filePath) : base(filePath)
 		{
@@ -77,6 +81,9 @@ namespace ProjectManager.Controls.TreeView
 					Text += " ("+asset.ManualID+")";
 			}
 			else ForeColorRequest = Color.Black;
+
+            // hook for plugins
+            if (OnFileNodeRefresh != null) OnFileNodeRefresh(this);
 		}
 	}
 
