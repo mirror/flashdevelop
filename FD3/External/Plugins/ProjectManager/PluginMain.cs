@@ -482,7 +482,7 @@ namespace ProjectManager
             project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
 
             menus.RecentProjects.AddOpenedProject(project.ProjectPath);
-            menus.ConfigurationSelector.Enabled = !project.NoOutput;
+            menus.ConfigurationSelector.Enabled = true; //!project.NoOutput;
             menus.ProjectMenu.ProjectItemsEnabled = true;
             menus.TestMovie.Enabled = true;
             menus.BuildProject.Enabled = true;
@@ -678,7 +678,9 @@ namespace ProjectManager
                 {
                     if (project.TraceEnabled && (project.Language == "as3" || IsHaxeAS3(project)))
                     {
-                        DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                        DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                        EventManager.DispatchEvent(this, de);
+                        de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
                     }
                     string doc = project.TestMovieCommand;
@@ -699,7 +701,9 @@ namespace ProjectManager
                 {
                     if (project.TraceEnabled && (project.Language == "as3" || IsHaxeAS3(project)))
                     {
-                        DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                        DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                        EventManager.DispatchEvent(this, de);
+                        de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
                     }
                     string cmd = MainForm.ProcessArgString(project.TestMovieCommand);

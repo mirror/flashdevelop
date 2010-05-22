@@ -148,6 +148,14 @@ namespace AS3Context
 
                         e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
                     }
+                    else if (action == "AS3Context.StartProfiler")
+                    {
+                        if (profilerUI.AutoStart)
+                        {
+                            profilerUI.StartProfiling();
+                            profilerPanel.Show();
+                        }
+                    }
                 }
                 else if (e.Type == EventType.Keys)
                 {
@@ -224,11 +232,6 @@ namespace AS3Context
                             if (PluginBase.CurrentProject != null 
                                 && (PluginBase.CurrentProject.Language == "as3" || IsAS3Haxe(PluginBase.CurrentProject)))
                             {
-                                if (profilerUI.AutoStart)
-                                {
-                                    profilerUI.StartProfiling();
-                                    profilerPanel.Show();
-                                }
                                 if (PluginBase.CurrentProject.TraceEnabled)
                                 {
                                     DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);

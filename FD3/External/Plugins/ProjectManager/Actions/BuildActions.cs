@@ -163,7 +163,7 @@ namespace ProjectManager.Actions
                 project.Directory, delegate(bool success)
                 {
                     menus.DisabledForBuild = false;
-                    menus.ConfigurationSelector.Enabled = !project.NoOutput;
+                    menus.ConfigurationSelector.Enabled = true; // !project.NoOutput;
                     if (success)
                     {
                         SetStatusBar(TextHelper.GetString("Info.BuildSucceeded"));
