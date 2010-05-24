@@ -256,10 +256,10 @@
     <value>クイックビルドをしたあと、作成された SWF を自動的に再生します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
-    <value>"定義元から戻る"のショートカットです。</value>
+    <value>"定義から戻る"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>カーソル位置にある要素の定義元に移動します。</value>
+    <value>カーソル位置にある要素の定義に移動します。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
     <value>現在のファイルをクイックビルドします。この操作は、ソース内でのコンパイラーの指定が必要です。</value>
@@ -307,7 +307,7 @@
     <value>キャッシュ...</value>
   </data>
   <data name="ASCompletion.Label.BackFromDeclaration" xml:space="preserve">
-    <value>定義元から戻る(&amp;B)</value>
+    <value>定義から戻る(&amp;B)</value>
   </data>
   <data name="ASCompletion.Label.CheckSyntax" xml:space="preserve">
     <value>シンタックスチェック</value>
@@ -328,7 +328,7 @@
     <value>ドキュメンテーションタグテンプレート</value>
   </data>
   <data name="ASCompletion.Label.GotoDeclaration" xml:space="preserve">
-    <value>定義元に移動(&amp;D)</value>
+    <value>定義に移動(&amp;D)</value>
   </data>
   <data name="ASCompletion.Label.ModelConvert" xml:space="preserve">
     <value>モデルクラスに変換(&amp;C)</value>
@@ -3834,23 +3834,23 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS3Context.Label.AutoStartProfilerOFF" xml:space="preserve">
-    <value>Auto-start Profiler Disabled</value>
+    <value>プロファイラーの自動開始:無効</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.AutoStartProfilerON" xml:space="preserve">
-    <value>Auto-start Profiler Enabled</value>
+    <value>プロファイラーの自動開始:有効</value>
     <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.MemoryGraphScale" xml:space="preserve">
-    <value>Graph scale:</value>
+    <value>スケール:</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryStats" xml:space="preserve">
-    <value>Current memory usage:{0}{1} Kb{0}{0}Memory peak:{0}{2} Kb</value>
+    <value>メモリー利用状況:{0}{1} Kb{0}{0}ピーク:{0}{2} Kb</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryTab" xml:space="preserve">
-    <value>Memory</value>
+    <value>メモリー</value>
     <comment>Added after 3.1.0</comment>
   </data>
 </root>
