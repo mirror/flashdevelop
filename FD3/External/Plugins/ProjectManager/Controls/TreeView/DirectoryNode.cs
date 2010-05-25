@@ -79,9 +79,14 @@ namespace ProjectManager.Controls.TreeView
 					PopulateChildNodes(recursive);
 			}
 
+            NotifyRefresh();
+		}
+
+        protected void NotifyRefresh()
+        {
             // hook for plugins
             if (OnDirectoryNodeRefresh != null) OnDirectoryNodeRefresh(this);
-		}
+        }
 
 		/// <summary>
 		/// Signal this node that it is about to expand.

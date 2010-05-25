@@ -18,6 +18,7 @@ namespace ProjectManager.Controls.TreeView
 		protected bool isDropTarget;
 		protected bool isDraggable;
 		protected bool isRenamable;
+        public Dictionary<string, object> Meta;
 
 		protected GenericNode(string backingPath)
 		{

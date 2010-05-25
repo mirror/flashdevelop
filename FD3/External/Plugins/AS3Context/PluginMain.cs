@@ -232,9 +232,12 @@ namespace AS3Context
                             if (PluginBase.CurrentProject != null 
                                 && (PluginBase.CurrentProject.Language == "as3" || IsAS3Haxe(PluginBase.CurrentProject)))
                             {
+                                DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                                EventManager.DispatchEvent(this, de);
+                                
                                 if (PluginBase.CurrentProject.TraceEnabled)
                                 {
-                                    DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                                    de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                                     EventManager.DispatchEvent(this, de);
                                 }
                             }

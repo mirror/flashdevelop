@@ -23,6 +23,8 @@ namespace ProjectManager.Controls.TreeView
 			SelectedImageIndex = ImageIndex;
 			NodeFont = new System.Drawing.Font(PluginCore.PluginBase.Settings.DefaultFont, FontStyle.Bold);
             Expand();
+
+            NotifyRefresh();
 		}
 	}
 
@@ -80,7 +82,9 @@ namespace ProjectManager.Controls.TreeView
                 ImageIndex = Icons.ClasspathError.Index;
             }
 
-			SelectedImageIndex = ImageIndex;
+            SelectedImageIndex = ImageIndex;
+
+            NotifyRefresh();
 		}
 	}
 
@@ -112,6 +116,8 @@ namespace ProjectManager.Controls.TreeView
             }
 
             SelectedImageIndex = ImageIndex;
+
+            NotifyRefresh();
         }
     }
 }

@@ -1132,8 +1132,11 @@ namespace ASCompletion.Completion
         private static string CleanType(string type)
         {
             int p = type.IndexOf('$');
-            if (p > 0) return type.Substring(0, p);
-            else return type;
+            if (p > 0) type = type.Substring(0, p);
+            p = type.IndexOf('<');
+            if (p > 1 && type[p - 1] == '.') p--;
+            if (p > 0) type = type.Substring(0, p);
+            return type;
         }
 
         private static string GetSuperCall(MemberModel member, List<string> typesUsed, ClassModel aType)
