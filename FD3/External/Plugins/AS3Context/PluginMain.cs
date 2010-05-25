@@ -34,6 +34,7 @@ namespace AS3Context
         private System.Drawing.Image pluginIcon;
         private ProfilerUI profilerUI;
         private DockContent profilerPanel;
+        private ToolStripButton viewButton;
 
         #region Required Properties
 
@@ -190,6 +191,7 @@ namespace AS3Context
 
                     case EventType.UIStarted:
                         contextInstance = new Context(settingObject);
+                        AddToolbarItems();
                         // Associate this context with AS3 language
                         ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "as3");
                         ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "mxml");
@@ -219,6 +221,8 @@ namespace AS3Context
                     if (action == "ProjectManager.Project")
                     {
                         FlexDebugger.Stop();
+                        IProject project = PluginBase.CurrentProject;
+                        viewButton.Enabled = project == null || project.Language == "as3" || project.Language == "haxe";
                     }
                     else if (action.StartsWith("FlashViewer."))
                     {
@@ -336,20 +340,45 @@ namespace AS3Context
         /// </summary>
         private void CreateMenuItems()
         {
-            IMainForm mainForm = PluginBase.MainForm;
-            ToolStripMenuItem menu = (ToolStripMenuItem)mainForm.FindMenuItem("ViewMenu");
-            if (menu != null)
+            ToolStripMenuItem menu = PluginBase.MainForm.FindMenuItem("ViewMenu") as ToolStripMenuItem;
+            if (menu == null) return;
+
+            ToolStripMenuItem viewItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), pluginIcon, new EventHandler(OpenPanel));
+            menu.DropDownItems.Add(viewItem);
+
+            viewButton = new ToolStripButton(pluginIcon);
+            viewButton.ToolTipText = TextHelper.GetString("Label.ViewMenuItem").Replace("&", "");
+            viewButton.Click += OpenPanel;
+        }
+
+        /// <summary>
+        /// Insert toolbar item at right position
+        /// </summary>
+        private void AddToolbarItems()
+        {
+            ToolStripItem checkSyntax = null;
+            ToolStrip toolbar = PluginBase.MainForm.ToolStrip;
+            foreach (ToolStripItem item in toolbar.Items)
+                if (item.Name == "CheckSyntax") { checkSyntax = item; break; }
+
+            if (checkSyntax != null) toolbar.Items.Insert(toolbar.Items.IndexOf(checkSyntax) + 1, viewButton);
+            else
             {
-                menu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), pluginIcon, new EventHandler(OpenPanel)));
+                toolbar.Items.Add(new ToolStripSeparator());
+                toolbar.Items.Add(viewButton);
             }
         }
+
 
         /// <summary>
         /// Opens the plugin panel again if closed
         /// </summary>
         public void OpenPanel(object sender, System.EventArgs e)
         {
-            profilerPanel.Show();
+            if (sender is ToolStripButton && profilerPanel.Visible && profilerPanel.DockState.ToString().IndexOf("AutoHide") < 0)
+                profilerPanel.Hide();
+            else 
+                profilerPanel.Show();
         }
 
         /// <summary>
