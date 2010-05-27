@@ -206,7 +206,10 @@ namespace ProjectManager
         {
             if (!e.CancelEdit)
             {
-                isEditingLabel = true;
+                DataEvent de = new DataEvent(EventType.Command, ProjectFileActionsEvents.FileBeforeRename, tree.SelectedNode.BackingPath);
+                EventManager.DispatchEvent(this, de);
+                if (de.Handled) e.CancelEdit = true;
+                else isEditingLabel = true;
             }
         }
 

@@ -17,6 +17,18 @@ namespace ProjectManager.Actions
     public delegate void FileNameHandler(string path);
     public delegate void FileMovedHandler(string fromPath, string toPath);
 
+    public static class ProjectFileActionsEvents
+    {
+        public const string FileBeforeRename = "ProjectManager.FileActions.BeforeRename";
+        public const string FileRename = "ProjectManager.FileActions.Rename";
+        public const string FileMove = "ProjectManager.FileActions.Move";
+        public const string FileDelete = "ProjectManager.FileActions.Delete";
+        public const string FileDeleteSilent = "ProjectManager.FileActions.DeleteSilent";
+        public const string FileCopy = "ProjectManager.FileActions.Copy";
+        public const string FileCut = "ProjectManager.FileActions.Cut";
+        public const string FilePaste = "ProjectManager.FileActions.Paste";
+    }
+
     /// <summary>
     /// Provides methods for creating new files and working with existing files in projects.
     /// </summary>
@@ -237,14 +249,27 @@ namespace ProjectManager.Actions
 
         private bool cut;
 
+        /// <summary>
+        /// Notify of file action and allow plugins to handle the operation
+        /// </summary>
+        private bool CancelAction(string name, object context)
+        {
+            DataEvent de = new DataEvent(EventType.Command, name, context);
+            EventManager.DispatchEvent(this, de);
+            return de.Handled;
+        }
+
         public void CutToClipboard(string[] paths)
         {
+            if (CancelAction(ProjectFileActionsEvents.FileCut, paths)) return;
+
             CopyToClipboard(paths);
             cut = true;
         }
-
         public void CopyToClipboard(string[] paths)
         {
+            if (CancelAction(ProjectFileActionsEvents.FileCopy, paths)) return;
+
             cut = false;
             DataObject o = new DataObject(DataFormats.FileDrop, paths);
             Clipboard.SetDataObject(o);
@@ -252,6 +277,8 @@ namespace ProjectManager.Actions
 
         public void PasteFromClipboard(string toPath)
         {
+            if (CancelAction(ProjectFileActionsEvents.FilePaste, toPath)) return;
+
             if (File.Exists(toPath)) 
                 toPath = Path.GetDirectoryName(toPath);
 
@@ -276,6 +303,9 @@ namespace ProjectManager.Actions
 
         public void Delete(string path, bool confirm)
         {
+            if (confirm && CancelAction(ProjectFileActionsEvents.FileDelete, new string[] { path })) return;
+            if (!confirm && CancelAction(ProjectFileActionsEvents.FileDeleteSilent, new string[] { path })) return;
+
             try
             {
                 PushCurrentDirectory();
@@ -323,6 +353,8 @@ namespace ProjectManager.Actions
                 Delete(paths[0], true);
             else
             {
+                if (CancelAction(ProjectFileActionsEvents.FileDelete, paths)) return;
+
                 try
                 {
                     PushCurrentDirectory();
@@ -357,6 +389,8 @@ namespace ProjectManager.Actions
 
         public bool Rename(string oldPath, string newName)
         {
+            if (CancelAction(ProjectFileActionsEvents.FileRename, new string[] { oldPath, newName })) return false;
+
             try
             {
                 PushCurrentDirectory();
@@ -405,6 +439,8 @@ namespace ProjectManager.Actions
 
         public void Move(string fromPath, string toPath)
         {
+            if (CancelAction(ProjectFileActionsEvents.FileMove, new string[] { fromPath, toPath })) return;
+
             try
             {
                 PushCurrentDirectory();
@@ -464,6 +500,8 @@ namespace ProjectManager.Actions
 
         public void Copy(string fromPath, string toPath)
         {
+            if (CancelAction(ProjectFileActionsEvents.FileCopy, new string[] { fromPath, toPath })) return;
+
             try
             {
                 // try to fix toPath if it's a filename
