@@ -203,9 +203,12 @@ namespace PluginCore.Helpers
                 combine = Path.Combine(relativeTo, path);
                 if (Directory.Exists(combine) || File.Exists(combine)) return combine;
             }
+            if (!PluginBase.MainForm.StandaloneMode)
+            {
+                combine = Path.Combine(UserAppDir, path);
+                if (Directory.Exists(combine) || File.Exists(combine)) return combine;
+            }
             combine = Path.Combine(AppDir, path);
-            if (Directory.Exists(combine) || File.Exists(combine)) return combine;
-            combine = Path.Combine(UserAppDir, path);
             if (Directory.Exists(combine) || File.Exists(combine)) return combine;
             return null;
         }
