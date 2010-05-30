@@ -39,7 +39,7 @@ namespace FlashDebugger
 
 		public void Clear()
 		{
-			treeControl.Nodes.Clear();
+			treeControl.Clear();
 		}
 
         public void SetData(Variable[] variables)

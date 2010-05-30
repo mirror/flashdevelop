@@ -187,7 +187,7 @@ namespace FlashDebugger
             RunToCursorMenu.Enabled = StepButton.Enabled = StepMenu.Enabled = enabled;
 			if (state == DebuggerState.Running)
 			{
-				PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
+				PanelsHelper.pluginUI.TreeControl.Clear();
 				PanelsHelper.stackframeUI.ClearItem();
 			}
             enabled = (state != DebuggerState.Running);

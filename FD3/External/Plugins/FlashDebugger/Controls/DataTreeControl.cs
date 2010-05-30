@@ -17,6 +17,7 @@ namespace FlashDebugger.Controls
         private static ViewerForm viewerForm = null;
         private ContextMenuStrip _contextMenuStrip;
         private ToolStripMenuItem copyMenuItem, viewerMenuItem;
+		private List<String> expandedList = new List<String>();
 
         public Collection<Node> Nodes
         {
@@ -112,7 +113,8 @@ namespace FlashDebugger.Controls
         public DataNode AddNode(DataNode node)
         {
 			_model.Root.Nodes.Add(node);
-            return node;
+			RestoreExpanded();
+			return node;
         }
 
         public DataNode GetNode(string fullpath)
@@ -125,6 +127,12 @@ namespace FlashDebugger.Controls
         {
             return _model.GetFullPath(node);
         }
+
+		public void Clear()
+		{
+			if (Nodes.Count > 0) SaveExpanded();
+			Nodes.Clear();
+		}
 
 
         private void CopyItemClick(Object sender, System.EventArgs e)
@@ -212,6 +220,43 @@ namespace FlashDebugger.Controls
                 }
             }
         }
+
+		public void SaveExpanded()
+		{
+			expandedList.Clear();
+			SaveExpanded(Nodes);
+		}
+
+		private void SaveExpanded(Collection<Node> nodes)
+		{
+			if (nodes == null) return;
+			foreach (DataNode node in nodes)
+			{
+				if (Tree.FindNode(_model.GetPath(node)).IsExpanded)
+				{
+					expandedList.Add(_model.GetFullPath(node));
+					SaveExpanded(node.Nodes);
+				}
+			}
+		}
+
+		public void RestoreExpanded()
+		{
+			RestoreExpanded(Nodes);
+		}
+
+		private void RestoreExpanded(Collection<Node> nodes)
+		{
+			if (nodes == null) return;
+			foreach (DataNode node in nodes)
+			{
+				if (expandedList.Contains(_model.GetFullPath(node)))
+				{
+					Tree.FindNode(_model.GetPath(node)).Expand();
+					RestoreExpanded(node.Nodes);
+				}
+			}
+		}
 
     }
 
