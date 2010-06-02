@@ -392,8 +392,11 @@ namespace ProjectManager.Controls.TreeView
 			base.OnBeforeLabelEdit(e);
 			GenericNode node = e.Node as GenericNode;
 
-			if (pathToSelect == node.BackingPath)
-				e.CancelEdit = false;
+            if (pathToSelect == node.BackingPath)
+            {
+                e.CancelEdit = false;
+                pathToSelect = null;
+            }
 
 			if (!node.IsRenamable)
 				e.CancelEdit = true;

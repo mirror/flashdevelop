@@ -2418,10 +2418,20 @@ namespace ASCompletion.Completion
                         braceCount--;
                         if (braceCount == 0)
                         {
-                            sb.Insert(0, ".#"+(subCount++)+"~"); // method call or sub expression
                             sbSub.Insert(0, c);
                             expression.SubExpressions.Add(sbSub.ToString());
-                            continue;
+                            sb.Insert(0, ".#" + (subCount++) + "~"); // method call or sub expression
+
+                            int testPos = position - 1;
+                            string testWord = GetWordLeft(Sci, ref testPos);
+                            if (testWord == "return" || testWord == "case" || testWord == "defaut")
+                            {
+                                // ex: return (a as B).<complete>
+                                expression.Separator = ';';
+                                expression.WordBefore = testWord;
+                                break;
+                            }
+                            else continue;
                         }
                         else if (braceCount < 0)
                         {
