@@ -191,7 +191,7 @@ namespace ProjectManager.Controls
                 return Icons.MxmlFile;
             else if (FileInspector.IsFont(file, ext))
                 return Icons.Font;
-            else if (FileInspector.IsImage(file, ext))
+            else if (FileInspector.IsImage(file, ext) || ext == ".ico")
                 return Icons.ImageResource;
             else if (FileInspector.IsSwf(file, ext))
                 return Icons.SwfFile;
