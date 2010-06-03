@@ -73,6 +73,9 @@
     <Compile Include="Controls\ArgEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\FilteredGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\QuickFind.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -369,7 +369,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Could not save the file because the xml is invalid.</value>
   </data>
   <data name="DataEncoder.Info.Description" xml:space="preserve">
-    <value>Converts the file data for specific files to view them properly in FlashDevelop.</value>
+    <value>Converts specific data files to view them properly in FlashDevelop.</value>
   </data>
   <data name="FileExplorer.Description.FilePath" xml:space="preserve">
     <value>Last browsed file path.</value>
@@ -471,7 +471,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>The port of the connection.</value>
   </data>
   <data name="FlashConnect.Info.Description" xml:space="preserve">
-    <value>Adds a xml socket to FlashDevelop that let's you trace messages from outside of FlashDevelop.</value>
+    <value>Adds a custom xml socket based tracing to FlashDevelop.</value>
   </data>
   <data name="FlashConnect.Info.IncorrectPacket" xml:space="preserve">
     <value>The recieved packet was incorrect: </value>
@@ -2967,7 +2967,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
-    <value>Provides an ActionScript class wizard for FlashDevelop</value>
+    <value>Adds an ActionScript class wizard to FlashDevelop.</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Add" xml:space="preserve">
@@ -3385,7 +3385,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.Description" xml:space="preserve">
-    <value>FlashDevelop ActionScript 3 debugger.</value>
+    <value>Adds an ActionScript 3 debugger to FlashDevelop.</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.EscapingFromDebuggerPendingLoop" xml:space="preserve">
@@ -3854,6 +3854,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ProjectManager.ToolTip.Synchronize" xml:space="preserve">
     <value>Synchronize</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.FilterSettings" xml:space="preserve">
+    <value>Filter settings:</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>

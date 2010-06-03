@@ -3853,4 +3853,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>メモリー</value>
     <comment>Added after 3.1.0</comment>
   </data>
+  <data name="FlashDevelop.Info.FilterSettings" xml:space="preserve">
+    <value>Filter settings:</value>
+    <comment>Added after 3.1.1</comment>
+  </data>
 </root>

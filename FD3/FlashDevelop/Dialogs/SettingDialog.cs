@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Text;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
@@ -20,12 +21,15 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.ListView itemListView;
         private System.Windows.Forms.PictureBox infoPictureBox;
         private System.Windows.Forms.ColumnHeader columnHeader;
-        private System.Windows.Forms.PropertyGrid itemPropertyGrid;
+        private FlashDevelop.Controls.FilteredGrid itemPropertyGrid;
         private System.Windows.Forms.ListViewGroup pluginsGroup;
         private System.Windows.Forms.ListViewGroup mainGroup;
         private System.Windows.Forms.CheckBox disableCheckBox;
+        private System.Windows.Forms.Button clearFilterButton;
         private System.Windows.Forms.LinkLabel helpLabel;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.TextBox filterText;
+        private System.Windows.Forms.Label filterLabel;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label descLabel;
@@ -50,15 +54,18 @@ namespace FlashDevelop.Dialogs
         private void InitializeComponent()
         {
             this.itemListView = new System.Windows.Forms.ListView();
-            this.itemPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.filterText = new System.Windows.Forms.TextBox();
+            this.itemPropertyGrid = new FlashDevelop.Controls.FilteredGrid();
             this.columnHeader = new System.Windows.Forms.ColumnHeader();
             this.closeButton = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
             this.infoPictureBox = new System.Windows.Forms.PictureBox();
+            this.filterLabel = new System.Windows.Forms.Label();
             this.infoLabel = new System.Windows.Forms.Label();
             this.descLabel = new System.Windows.Forms.Label();
             this.disableCheckBox = new System.Windows.Forms.CheckBox();
             this.helpLabel = new System.Windows.Forms.LinkLabel();
+            this.clearFilterButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.infoPictureBox)).BeginInit();
             this.SuspendLayout();
             //
@@ -87,7 +94,7 @@ namespace FlashDevelop.Dialogs
             this.itemPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.itemPropertyGrid.Location = new System.Drawing.Point(183, 54);
             this.itemPropertyGrid.Name = "itemPropertyGrid";
-            this.itemPropertyGrid.Size = new System.Drawing.Size(472, 386);
+            this.itemPropertyGrid.Size = new System.Drawing.Size(502, 386);
             this.itemPropertyGrid.TabIndex = 3;
             this.itemPropertyGrid.ToolbarVisible = false;
             this.itemPropertyGrid.PropertyValueChanged += new PropertyValueChangedEventHandler(this.PropertyValueChanged);
@@ -96,7 +103,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.closeButton.Location = new System.Drawing.Point(556, 447);
+            this.closeButton.Location = new System.Drawing.Point(586, 447);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(100, 23);
             this.closeButton.TabIndex = 4;
@@ -143,7 +150,7 @@ namespace FlashDevelop.Dialogs
             this.descLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.descLabel.Location = new System.Drawing.Point(185, 31);
             this.descLabel.Name = "descLabel";
-            this.descLabel.Size = new System.Drawing.Size(470, 13);
+            this.descLabel.Size = new System.Drawing.Size(350, 13);
             this.descLabel.TabIndex = 6;
             this.descLabel.Text = "Adds a plugin panel to FlashDevelop.";
             // 
@@ -151,7 +158,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.disableCheckBox.AutoSize = true;
             this.disableCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.disableCheckBox.Location = new System.Drawing.Point(305, 9);
+            this.disableCheckBox.Location = new System.Drawing.Point(305, 10);
             this.disableCheckBox.Name = "disableCheckBox";
             this.disableCheckBox.Size = new System.Drawing.Size(69, 18);
             this.disableCheckBox.TabIndex = 7;
@@ -162,7 +169,7 @@ namespace FlashDevelop.Dialogs
             // helpLabel
             //
             this.helpLabel.AutoSize = true;
-            this.helpLabel.Location = new System.Drawing.Point(369, 10);
+            this.helpLabel.Location = new System.Drawing.Point(369, 11);
             this.helpLabel.Name = "helpLabel";
             this.helpLabel.Size = new System.Drawing.Size(28, 13);
             this.helpLabel.TabIndex = 9;
@@ -170,13 +177,45 @@ namespace FlashDevelop.Dialogs
             this.helpLabel.Text = "Help";
             this.helpLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HelpLabelClick);
             // 
+            // filterText
+            //
+            this.filterText.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
+            this.filterText.Location = new System.Drawing.Point(537, 26);
+            this.filterText.Name = "FilterText";
+            this.filterText.Size = new System.Drawing.Size(120, 20);
+            this.filterText.TabIndex = 10;
+            this.filterText.TextChanged += new System.EventHandler(this.FilterTextTextChanged);
+            // 
+            // clearFilterButton
+            //
+            this.clearFilterButton.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
+            this.clearFilterButton.Location = new System.Drawing.Point(661, 23);
+            this.clearFilterButton.Name = "clearFilterButton";
+            this.clearFilterButton.Size = new System.Drawing.Size(26, 23);
+            this.clearFilterButton.TabIndex = 11;
+            this.clearFilterButton.UseVisualStyleBackColor = true;
+            this.clearFilterButton.Click += new System.EventHandler(this.ClearFilterButtonClick);
+            // 
+            // filterLabel
+            // 
+            this.filterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
+            this.filterLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.filterLabel.Location = new System.Drawing.Point(538, 10);
+            this.filterLabel.Name = "filterLabel";
+            this.filterLabel.Size = new System.Drawing.Size(100, 13);
+            this.filterLabel.TabIndex = 12;
+            this.filterLabel.Text = "Filter settings:";
+            // 
             // SettingDialog
             // 
             this.AcceptButton = this.closeButton;
             this.CancelButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 482);
+            this.ClientSize = new System.Drawing.Size(697, 482);
+            this.Controls.Add(this.filterLabel);
+            this.Controls.Add(this.clearFilterButton);
+            this.Controls.Add(this.filterText);
             this.Controls.Add(this.helpLabel);
             this.Controls.Add(this.disableCheckBox);
             this.Controls.Add(this.descLabel);
@@ -215,8 +254,9 @@ namespace FlashDevelop.Dialogs
             imageList.Images.Add(Globals.MainForm.FindImage("341"));
             imageList.Images.Add(Globals.MainForm.FindImage("342"));
             imageList.Images.Add(Globals.MainForm.FindImage("50"));
-            this.itemListView.SmallImageList = imageList;
+            this.clearFilterButton.Image = Globals.MainForm.FindImage("111");
             this.infoPictureBox.Image = Globals.MainForm.FindImage("229");
+            this.itemListView.SmallImageList = imageList;
         }
 
         /// <summary>
@@ -228,6 +268,7 @@ namespace FlashDevelop.Dialogs
             this.Text = " " + TextHelper.GetString("Title.SettingDialog");
             this.disableCheckBox.Text = " " + TextHelper.GetString("Info.Disable");
             this.infoLabel.Text = TextHelper.GetString("Info.SettingsTakeEffect");
+            this.filterLabel.Text = TextHelper.GetString("Info.FilterSettings");
             this.nameLabel.Text = TextHelper.GetString("Info.NoItemSelected");
             this.closeButton.Text = TextHelper.GetString("Label.Close");
             this.nameLabel.Font = new Font(this.Font, FontStyle.Bold);
@@ -260,12 +301,24 @@ namespace FlashDevelop.Dialogs
             {
                 AvailablePlugin plugin = PluginServices.AvailablePlugins[i];
                 ListViewItem item = new ListViewItem(plugin.Instance.Name, 0);
+                item.Tag = plugin.Instance;
                 if (Globals.Settings.DisabledPlugins.Contains(plugin.Instance.Guid))
                 {
                     item.ImageIndex = 1;
                 }
-                this.itemListView.Items.Add(item);
-                this.pluginsGroup.Items.Add(item);
+                if (this.filterText.Text.Length > 0)
+                {
+                    if (this.CheckIfExist(plugin.Instance, this.filterText.Text) || item.Text.ToLower().Contains(this.filterText.Text.ToLower()))
+                    {
+                        this.itemListView.Items.Add(item);
+                        this.pluginsGroup.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    this.itemListView.Items.Add(item);
+                    this.pluginsGroup.Items.Add(item);
+                }
             }
             this.SelectCorrectItem(itemName);
         }
@@ -303,10 +356,11 @@ namespace FlashDevelop.Dialogs
                     this.nameLabel.Text = "FlashDevelop";
                     this.nameLabel.Enabled = true;
                     this.ShowInfoControls(false);
+                    this.FilterPropertySheet();
                 }
                 else
                 {
-                    IPlugin plugin = PluginServices.AvailablePlugins[selectedIndex - 1].Instance;
+                    IPlugin plugin = (IPlugin)itemListView.SelectedItems[0].Tag;
                     this.disableCheckBox.Checked = Globals.Settings.DisabledPlugins.Contains(plugin.Guid);
                     this.itemPropertyGrid.SelectedObject = plugin.Settings;
                     this.itemPropertyGrid.Enabled = plugin.Settings != null;
@@ -314,6 +368,7 @@ namespace FlashDevelop.Dialogs
                     this.nameLabel.Text = plugin.Name;
                     this.nameLabel.Enabled = true;
                     this.helpUrl = plugin.Help;
+                    this.FilterPropertySheet();
                     this.ShowInfoControls(true);
                     this.MoveInfoControls();
                 }
@@ -327,6 +382,60 @@ namespace FlashDevelop.Dialogs
                 this.itemPropertyGrid.Enabled = false;
                 this.ShowInfoControls(false);
             }
+        }
+
+        /// <summary>
+        /// Filter the currently selected property sheet according to the text on the filter box
+        /// </summary>
+        private void FilterPropertySheet()
+        {
+            Object settingsObj = this.itemPropertyGrid.SelectedObject;
+            String text = this.filterText.Text;
+            if (settingsObj != null)
+            {
+                Int32 i = 0;
+                String[] browsables = { "" };
+                PropertyInfo[] props = settingsObj.GetType().GetProperties();
+                foreach (PropertyInfo prop in props)
+                {
+                    if (prop.Name.ToLower().Contains(text.ToLower()))
+                    {
+                        Array.Resize(ref browsables, i + 1);
+                        browsables.SetValue(prop.Name, i);
+                        i++;
+                    }
+                }
+                itemPropertyGrid.BrowsableProperties = browsables;
+                itemPropertyGrid.SelectedObject = settingsObj;
+                itemPropertyGrid.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// Checks if a propery exist in a plugin
+        /// </summary>
+        private Boolean CheckIfExist(IPlugin plugin, String text)
+        {
+            Boolean ok = false;
+            Object settingsObj = plugin.Settings;
+            if (settingsObj != null)
+            {
+                PropertyInfo[] props = settingsObj.GetType().GetProperties();
+                foreach (PropertyInfo prop in props)
+                {
+                    if (prop.Name.ToLower().Contains(text.ToLower())) ok = true;
+                }
+            }
+            return ok;
+        }
+
+        /// <summary>
+        /// Test whether the name of the candidate member contains the specified partial name.
+        /// </summary>
+        public Boolean PartialName(MemberInfo candidate, Object part)
+        {
+            if (candidate.Name.IndexOf(part.ToString()) > -1) return true;
+            else return false;
         }
 
         /// <summary>
@@ -393,6 +502,23 @@ namespace FlashDevelop.Dialogs
         private void DialogClosed(Object sender, FormClosedEventArgs e)
         {
             Globals.MainForm.ApplyAllSettings();
+        }
+
+        /// <summary>
+        /// Event for changing the filter text
+        /// </summary>
+        private void FilterTextTextChanged(Object sender, EventArgs e)
+        {
+            this.PopulatePluginList("");
+            this.FilterPropertySheet();
+        }
+
+        /// <summary>
+        /// Event for pressing the filter clear button
+        /// </summary>
+        private void ClearFilterButtonClick(Object sender, EventArgs e)
+        {
+            this.filterText.Text = "";
         }
 
         /// <summary>
