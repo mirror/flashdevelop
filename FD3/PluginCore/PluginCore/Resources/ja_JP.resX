@@ -367,7 +367,7 @@
     <value>無効なXMLです。ファイルを保存できません。</value>
   </data>
   <data name="DataEncoder.Info.Description" xml:space="preserve">
-    <value>FlashDevelop に、特定のファイルを正常に表示するために変換する機能を追加します。</value>
+    <value>FlashDevelop に、特定のデータを正常に表示するために変換する機能を追加します。</value>
   </data>
   <data name="FileExplorer.Description.FilePath" xml:space="preserve">
     <value>最後に閲覧したファイルのパスです。</value>
@@ -469,7 +469,7 @@
     <value>接続のポート番号です。</value>
   </data>
   <data name="FlashConnect.Info.Description" xml:space="preserve">
-    <value>FlashDevelop に、外部の Flash Movie と通信するための機能を追加します。</value>
+    <value>FlashDevelop に、カスタム XML ソケットベースのトレース機能を追加します。</value>
   </data>
   <data name="FlashConnect.Info.IncorrectPacket" xml:space="preserve">
     <value>受信したパケットが誤りです:</value>
@@ -679,7 +679,7 @@
     <value>補完リストをキーボードで操作したときにループさせます。</value>
   </data>
   <data name="FlashDevelop.Description.WrapText" xml:space="preserve">
-    <value>エディタのテキストを右端で折り返します。</value>
+    <value>エディターのテキストを右端で折り返します。</value>
   </data>
   <data name="FlashDevelop.Group.Main" xml:space="preserve">
     <value>メイン</value>
@@ -3854,7 +3854,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDevelop.Info.FilterSettings" xml:space="preserve">
-    <value>Filter settings:</value>
+    <value>検索:</value>
     <comment>Added after 3.1.1</comment>
   </data>
 </root>
