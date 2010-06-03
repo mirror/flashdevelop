@@ -1388,7 +1388,11 @@ namespace FlashDevelop
         /// </summary>
         public void ShowSettingsDialog(String itemName)
         {
-            SettingDialog.Show(itemName);
+            SettingDialog.Show(itemName, "");
+        }
+        public void ShowSettingsDialog(String itemName, String filter)
+        {
+            SettingDialog.Show(itemName, filter);
         }
 
         /// <summary>
@@ -2138,7 +2142,7 @@ namespace FlashDevelop
         /// </summary>
         public void ShowSettings(Object sender, System.EventArgs e)
         {
-            SettingDialog.Show("FlashDevelop");
+            SettingDialog.Show("FlashDevelop", "");
         }
 
         /// <summary>

@@ -34,14 +34,14 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label descLabel;
 
-        public SettingDialog(String itemName)
+        public SettingDialog(String itemName, String filter)
         {
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
             this.InitializeComponent();
             this.InitializeGraphics(); 
             this.InitializeItemGroups();
-            this.PopulatePluginList(itemName);
+            this.PopulatePluginList(itemName, filter);
             this.ApplyLocalizedTexts();
         }
 
@@ -290,7 +290,7 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Populates the plugin list
         /// </summary>
-        private void PopulatePluginList(String itemName)
+        private void PopulatePluginList(String itemName, String filter)
         {
             this.itemListView.Items.Clear();
             Int32 count = PluginServices.AvailablePlugins.Count;
@@ -305,6 +305,12 @@ namespace FlashDevelop.Dialogs
                 if (Globals.Settings.DisabledPlugins.Contains(plugin.Instance.Guid))
                 {
                     item.ImageIndex = 1;
+                }
+                if (!String.IsNullOrEmpty(filter)) // Set default filter...
+                {
+                    this.filterText.TextChanged -= new EventHandler(this.FilterTextTextChanged);
+                    this.filterText.Text = filter;
+                    this.filterText.TextChanged += new EventHandler(this.FilterTextTextChanged);
                 }
                 if (this.filterText.Text.Length > 0)
                 {
@@ -509,7 +515,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void FilterTextTextChanged(Object sender, EventArgs e)
         {
-            this.PopulatePluginList("");
+            this.PopulatePluginList("", "");
             this.FilterPropertySheet();
         }
 
@@ -543,9 +549,9 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Shows the settings dialog
         /// </summary>
-        public static void Show(String itemName)
+        public static void Show(String itemName, String filter)
         {
-            SettingDialog settingDialog = new SettingDialog(itemName);
+            SettingDialog settingDialog = new SettingDialog(itemName, filter);
             settingDialog.closeButton.Select();
             settingDialog.ShowDialog();
         }

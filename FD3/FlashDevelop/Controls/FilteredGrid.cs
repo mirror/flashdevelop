@@ -195,7 +195,7 @@ namespace FlashDevelop.Controls
 			}
 			if (m_BrowsableProperties != null && m_BrowsableProperties.Length > 0) 
             {
-                //clear properties to filter the list from scratch BY IAP
+                // Clear properties to filter the list from scratch BY IAP
                 m_PropertyDescriptors.Clear();
 				foreach(string propertyname in m_BrowsableProperties) 
                 {
@@ -203,9 +203,9 @@ namespace FlashDevelop.Controls
                     {
 						ShowProperty(allproperties[propertyname]);
 					} 
-                    catch(Exception knfe) 
+                    catch (Exception)
                     {
-						throw new ArgumentException("Property not found", propertyname);
+						throw new ArgumentException("Property not found.", propertyname);
 					}
 				}
 			}
