@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using PluginCore.Managers;
 using PluginCore;
 using PluginCore.Localization;
+using ASCompletion.Commands;
 
 namespace ASCompletion.Helpers
 {
@@ -53,7 +54,7 @@ namespace ASCompletion.Helpers
         void updater_Tick(object sender, EventArgs e)
         {
             updater.Stop();
-            string src = File.ReadAllText(logFile);
+            string src = File.Exists(logFile) ? File.ReadAllText(logFile) : "";
             MatchCollection matches = reError.Matches(src);
 
             TextEvent te;
@@ -97,6 +98,9 @@ namespace ASCompletion.Helpers
                     output = PathHelper.ResolvePath(output, Path.GetDirectoryName(fla));
                     if (File.Exists(output))
                     {
+                        FileInfo info = new FileInfo(output);
+                        CreateTrustFile.Run("FlashDevelop.cfg", info.Directory.FullName);
+                        
                         DataEvent de = new DataEvent(EventType.Command, "ProjectManager.PlayOutput", output);
                         EventManager.DispatchEvent(this, de);
                     }
@@ -106,17 +110,6 @@ namespace ASCompletion.Helpers
 
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            if (!File.Exists(e.FullPath)) return;
-            else if (e.FullPath.Equals(logFile, StringComparison.OrdinalIgnoreCase))
-            {
-                // remove Flahs publish information so we get it only on Test Movie
-                try
-                {
-                    if (File.Exists(publishInfo)) File.Delete(publishInfo);
-                    if (File.Exists(docInfo)) File.Delete(docInfo);
-                }
-                catch (Exception) { }
-            }
             SetTimer();
         }
 

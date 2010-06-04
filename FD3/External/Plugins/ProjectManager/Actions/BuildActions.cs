@@ -123,8 +123,13 @@ namespace ProjectManager.Actions
 
         private void RunFlashIDE(bool runOutput, bool noTrace)
         {
-            string cmd = (runOutput) ? "testmovie.jsfl" : "buildmovie.jsfl";
+            bool fdIntegration = true; // TODO make it into a plugin setting
+
+            string cmd = (runOutput) ? "testmovie" : "buildmovie";
+            if (fdIntegration) cmd += "-fd";
+            cmd += ".jsfl";
             if (!noTrace) cmd = "debug-" + cmd;
+
             cmd = Path.Combine("Tools", Path.Combine("flashide", cmd));
             cmd = PathHelper.ResolvePath(cmd, null);
             if (cmd == null || !File.Exists(cmd))
