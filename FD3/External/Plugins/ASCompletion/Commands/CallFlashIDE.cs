@@ -74,7 +74,7 @@ namespace ASCompletion.Commands
                 DialogResult result = MessageBox.Show(msg, title, MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
                 {
-                    PluginBase.MainForm.ShowSettingsDialog("ASCompletion");
+                    PluginBase.MainForm.ShowSettingsDialog("ASCompletion", "Flash");
                 }
                 return false;
             }

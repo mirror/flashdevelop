@@ -132,11 +132,11 @@ namespace AS3Context.Compiler
                 {
                     IASContext context = ASContext.GetLanguageContext("as3");
                     if (context == null) return;
-                    PluginBase.MainForm.ShowSettingsDialog("AS3Context");
+                    PluginBase.MainForm.ShowSettingsDialog("AS3Context", "SDK");
                 }
                 else if (result == DialogResult.No)
                 {
-                    PluginBase.MainForm.ShowSettingsDialog("ASCompletion");
+                    PluginBase.MainForm.ShowSettingsDialog("ASCompletion", "Flash");
                 }
                 return;
             }
@@ -200,7 +200,7 @@ namespace AS3Context.Compiler
                 {
                     IASContext context = ASContext.GetLanguageContext("as3");
                     if (context == null) return;
-                    PluginBase.MainForm.ShowSettingsDialog("AS3Context");
+                    PluginBase.MainForm.ShowSettingsDialog("AS3Context", "SDK");
                 }
 				return;
 			}

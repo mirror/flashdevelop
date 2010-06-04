@@ -316,7 +316,16 @@ namespace ASCompletion
                                 e.Handled = true;
                                 IASContext context = ASContext.GetLanguageContext(cmdData);
                                 if (context == null) return;
-                                PluginBase.MainForm.ShowSettingsDialog(cmdData.ToUpper() + "Context");
+                                string filter = "";
+                                string name = "";
+                                switch (cmdData.ToUpper())
+                                {
+                                    case "AS2": name = "AS2Context"; filter = "MTASC"; break;
+                                    case "AS3": name = "AS3Context"; filter = "SDK"; break;
+                                    case "HAXE": name = "HaXeContext"; filter = "HaXe"; break;
+                                    default: name = cmdData.ToUpper() + "Context"; break;
+                                }
+                                PluginBase.MainForm.ShowSettingsDialog(name, filter);
                             }
 
                             // Open types explorer dialog
