@@ -358,7 +358,7 @@ namespace ASCompletion.Model
             }
 
             Dictionary<string, FileModel> newFiles = new Dictionary<string, FileModel>();
-            lock (Files)
+            lock (Files.Keys)
             {
                 // cleanup files
                 foreach (string file in Files.Keys)
