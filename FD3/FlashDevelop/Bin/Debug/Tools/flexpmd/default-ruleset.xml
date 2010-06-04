@@ -78,18 +78,18 @@ package functional.func2.restricted
 	}
 }]]></example>
   </rule>
-  <rule since="" class="com.adobe.ac.pmd.rules.asdocs.AttributeAsDocMissingRule" message="This attribute ({0}) should be documented with AsDocs.">
+  <!--<rule since="" class="com.adobe.ac.pmd.rules.asdocs.AttributeAsDocMissingRule" message="This attribute ({0}) should be documented with AsDocs.">
     <description/>
     <priority>3</priority>
-  </rule>
+  </rule>-->
   <rule since="" class="com.adobe.ac.pmd.rules.asdocs.ClassAsDocMissingRule" message="This class ({0}) should be documented with AsDocs.">
     <description/>
     <priority>3</priority>
   </rule>
-  <rule since="" class="com.adobe.ac.pmd.rules.asdocs.MethodAsDocMissingRule" message="This method ({0}) should be documented with AsDocs.">
+  <!--<rule since="" class="com.adobe.ac.pmd.rules.asdocs.MethodAsDocMissingRule" message="This method ({0}) should be documented with AsDocs.">
     <description/>
     <priority>3</priority>
-  </rule>
+  </rule>-->
   <rule since="" class="com.adobe.ac.pmd.rules.mxml.MoreThanOneEntryPointInMxmlRule" message="There is more than 1 public variable in this MXML component">
     <description/>
     <priority>3</priority>
@@ -355,10 +355,10 @@ public class UnTypedMetadata
 {
 }]]></example>
   </rule>
-  <rule since="1.1" class="com.adobe.ac.pmd.rules.maintanability.OnlyOneReturnRule" message="A method should have only one exit point, and that should be the last statement in the method">
+  <!--<rule since="1.1" class="com.adobe.ac.pmd.rules.maintanability.OnlyOneReturnRule" message="A method should have only one exit point, and that should be the last statement in the method">
     <description/>
     <priority>3</priority>
-  </rule>
+  </rule>-->
   <rule since="" class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule" message="Do not call Alert.show directly">
     <description>You should not Alert.show() directly. If an error occurred in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
     <priority>1</priority>
