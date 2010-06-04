@@ -94,6 +94,8 @@ namespace AS3Context.Controls
             g.FillRectangle(Brushes.White, r);
             g.DrawRectangle(Pens.Gray, 0, 0, Width - 1, Height - 1);
 
+            if (Width < 8 || Height < 8) return;
+
             int n = Values.Count;
             if (n < 2) 
                 return;
