@@ -50,6 +50,7 @@ namespace ProjectManager
         public const string ProjectCreated = "ProjectManager.ProjectCreated";
         public const string FileMoved = "ProjectManager.FileMoved";
         public const string FilePasted = "ProjectManager.FilePasted";
+        public const string UserRefreshTree = "ProjectManager.UserRefreshTree";
     }
 
 	public class PluginMain : IPlugin
@@ -1027,6 +1028,9 @@ namespace ProjectManager
 
         public void TreeRefreshSelectedNode()
         {
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.UserRefreshTree, Tree);
+            EventManager.DispatchEvent(this, de);
+
             Tree.RefreshTree();
         }
 
