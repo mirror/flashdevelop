@@ -189,10 +189,12 @@ namespace FDBuild.Building.AS3
             ArrayList classPaths = new ArrayList(project.AbsoluteClasspaths);
 
             foreach (string extraClassPath in extraClasspaths)
-                classPaths.Add(extraClassPath);
+                if (Directory.Exists(extraClassPath))
+                    classPaths.Add(extraClassPath);
 
             foreach (string classPath in classPaths)
-                WriteElementPathString("path-element", classPath);
+                if (Directory.Exists(classPath))
+                    WriteElementPathString("path-element", classPath);
 
             WriteEndElement();
         }
