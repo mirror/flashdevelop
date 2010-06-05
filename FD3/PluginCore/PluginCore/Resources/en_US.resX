@@ -3860,4 +3860,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Filter settings:</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="ProjectManager.Description.DisableExtFlashIntegration" xml:space="preserve">
+    <value>Extended Flash IDE integration allows to debug/profile SWFs compiled with the Flash IDE in FlashDevelop.</value>
+    <comment>Added after 3.2</comment>
+  </data>
 </root>

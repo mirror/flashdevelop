@@ -123,10 +123,9 @@ namespace ProjectManager.Actions
 
         private void RunFlashIDE(bool runOutput, bool noTrace)
         {
-            bool fdIntegration = true; // TODO make it into a plugin setting
-
             string cmd = (runOutput) ? "testmovie" : "buildmovie";
-            if (fdIntegration) cmd += "-fd";
+            if (!PluginMain.Settings.DisableExtFlashIntegration) cmd += "-fd";
+
             cmd += ".jsfl";
             if (!noTrace) cmd = "debug-" + cmd;
 

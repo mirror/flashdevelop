@@ -34,6 +34,7 @@ namespace ProjectManager
         string lastProject = string.Empty;
         bool createProjectDirectory = false;
         bool useProjectSessions = false;
+        bool disableExtFlashIntegration = false;
         string newProjectDefaultDirectory = string.Empty;
         bool disableMxmlMapping = false;
         Keys shortcutTestMovie = DEFAULT_TESTMOVIE;
@@ -98,7 +99,17 @@ namespace ProjectManager
 		{
             get { return maxRecentProjects; }
             set { maxRecentProjects = value; FireChanged("MaxRecentProjects"); }
-		}
+        }
+
+        [DisplayName("Disable Extended Flash IDE Integration")]
+        [LocalizedDescription("ProjectManager.Description.DisableExtFlashIntegration")]
+        [LocalizedCategory("ProjectManager.Category.OtherOptions")]
+        [DefaultValue(false)]
+        public bool DisableExtFlashIntegration
+        {
+            get { return disableExtFlashIntegration; }
+            set { disableExtFlashIntegration = value; }
+        }
         
         [DisplayName("Excluded File Types")]
         [LocalizedDescription("ProjectManager.Description.ExcludedFileTypes")]
