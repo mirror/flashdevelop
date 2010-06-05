@@ -58,7 +58,9 @@ namespace ASCompletion.Completion
 
             ASResult resolve = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(position, true));
             // ignore automatic vars (MovieClip members)
-            if (resolve.Member != null && (resolve.Member.Flags & FlagType.AutomaticVar) > 0)
+            if (resolve.Member != null && 
+                (((resolve.Member.Flags & FlagType.AutomaticVar) > 0) 
+                 || resolve.inClass.QualifiedName == "Object"))
             {
                 resolve.Member = null;
                 resolve.Type = null;
