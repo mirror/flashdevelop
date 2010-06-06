@@ -2199,7 +2199,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>"Contextual Code Generator"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunction" xml:space="preserve">
-    <value>関数を生成</value>
+    <value>メソッド スタブを生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter</value>
@@ -3858,7 +3858,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ProjectManager.Description.DisableExtFlashIntegration" xml:space="preserve">
-    <value>Extended Flash IDE integration allows to debug/profile SWFs compiled with the Flash IDE in FlashDevelop.</value>
+    <value>Flash IDE によってコンパイルされた SWF のデバッガー/プロファイラー連携を無効化します。</value>
     <comment>Added after 3.2</comment>
   </data>
 </root>
