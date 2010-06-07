@@ -25,7 +25,7 @@ namespace ProjectManager
         public const Keys DEFAULT_TESTMOVIE = Keys.F5;
         public const Keys DEFAULT_BUILDPROJECT = Keys.F8;
 
-        List<ProjectPreferences> projectPrefs = new List<ProjectPreferences>();
+        List<ProjectPreferences> projectPrefList = new List<ProjectPreferences>();
         List<string> recentProjects = new List<string>();
         bool showProjectClasspaths = true;
         bool showGlobalClasspaths = false;
@@ -50,8 +50,8 @@ namespace ProjectManager
         [Browsable(false)]
         public List<ProjectPreferences> ProjectPrefs
         {
-            get { return projectPrefs; }
-            set { projectPrefs = value; }
+            get { return projectPrefList; }
+            set { projectPrefList = value; }
         }
 
         [Browsable(false)]
@@ -246,7 +246,7 @@ namespace ProjectManager
         /// </summary>
         public ProjectPreferences GetPrefs(Project project)
         {
-            foreach (ProjectPreferences prefs in projectPrefs)
+            foreach (ProjectPreferences prefs in projectPrefList)
                 if (prefs.ProjectPath == project.ProjectPath)
                     return prefs;
 
@@ -255,15 +255,16 @@ namespace ProjectManager
             CleanOldPrefs();
 
             ProjectPreferences newPrefs = new ProjectPreferences(project.ProjectPath);
-            projectPrefs.Add(newPrefs);
+            newPrefs.DebugMode = !project.NoOutput && project.OutputPath != "";
+            projectPrefList.Add(newPrefs);
             return newPrefs;
         }
 
         private void CleanOldPrefs()
         {
-            for (int i = 0; i < projectPrefs.Count; i++)
-                if (!File.Exists(projectPrefs[i].ProjectPath))
-                    projectPrefs.RemoveAt(i--); // search this index again
+            for (int i = 0; i < projectPrefList.Count; i++)
+                if (!File.Exists(projectPrefList[i].ProjectPath))
+                    projectPrefList.RemoveAt(i--); // search this index again
         }
 
         private void FireChanged(string setting)
@@ -276,13 +277,12 @@ namespace ProjectManager
     [Serializable]
     public class ProjectPreferences
     {
-        public Boolean EnableTrace;
+        public Boolean DebugMode;
         public List<String> ExpandedPaths;
         public String ProjectPath;
 
         public ProjectPreferences()
         {
-            this.EnableTrace = true;
             this.ExpandedPaths = new List<String>();
         }
         public ProjectPreferences(String projectPath) : this()

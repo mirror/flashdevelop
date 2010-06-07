@@ -523,7 +523,7 @@ namespace ProjectManager
             // save project prefs
             ProjectPreferences prefs = Settings.GetPrefs(project);
             prefs.ExpandedPaths = Tree.ExpandedPaths;
-            prefs.EnableTrace = !pluginUI.IsTraceDisabled;
+            prefs.DebugMode = !pluginUI.IsTraceDisabled;
             
             if (!PluginBase.MainForm.ClosingEntirely) SaveProjectSession();
 
