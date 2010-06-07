@@ -110,7 +110,12 @@ namespace FlashDebugger
             if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
             {
                 // remove this, let other parts deal with it
-                ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
+                if (currentProject.NoOutput 
+                    || currentProject.TestMovieBehavior == TestMovieBehavior.Custom
+                    || currentProject.TestMovieBehavior == TestMovieBehavior.OpenDocument)
+                    Start(null); // wait for a SWF to connect
+                else 
+                    ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
             }
             else Start(currentProject.OutputPathAbsolute);
         }
