@@ -96,26 +96,17 @@ namespace FlashDebugger
 
         public void Start()
         {
-            try
-            {
-				if (!CheckCurrent()) return;
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-                return;
-            }
+            if (!CheckCurrent()) return;
             PluginMain.debugBuildStart = true;
             UpdateMenuState(DebuggerState.Starting);
             if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
             {
-                // remove this, let other parts deal with it
-                if (currentProject.NoOutput 
-                    || currentProject.TestMovieBehavior == TestMovieBehavior.Custom
-                    || currentProject.TestMovieBehavior == TestMovieBehavior.OpenDocument)
-                    Start(null); // wait for a SWF to connect
-                else 
-                    ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
+                if (currentProject.NoOutput || currentProject.TestMovieBehavior == TestMovieBehavior.Custom || currentProject.TestMovieBehavior == TestMovieBehavior.OpenDocument)
+                {
+                    // Wait for a SWF to connect...
+                    Start(null);
+                }
+                else ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
             }
             else Start(currentProject.OutputPathAbsolute);
         }
@@ -125,7 +116,6 @@ namespace FlashDebugger
         /// </summary>
         private bool CheckCurrent()
         {
-            String errormsg = String.Empty;
             try
             {
 				if (PluginBase.CurrentProject != null)
@@ -139,20 +129,21 @@ namespace FlashDebugger
                     ErrorManager.ShowWarning(TextHelper.GetString("Info.ProjectNotOpen"), null);
 					return false;
 				}
+                if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
+                {
+                    ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotDebugActiveXPlayer"), null);
+                    return false;
+                }
+                if (currentProject.Language != "as3")
+                {
+                    ErrorManager.ShowWarning(TextHelper.GetString("Info.LanguageNotAS3"), null);
+                    return false;
+                }
             }
-            catch (Exception e)
-            {
-                errormsg = e.Message + System.Environment.NewLine;
+            catch (Exception e) 
+            { 
+                ErrorManager.ShowError(e);
             }
-            if (currentProject.Language != "as3")
-            {
-                errormsg += TextHelper.GetString("Info.LanguageNotAS3") + System.Environment.NewLine;
-            }
-            if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
-            {
-                errormsg += TextHelper.GetString("Info.CannotDebugActiveXPlayer") + System.Environment.NewLine;
-            }
-            if (errormsg != String.Empty) throw new Exception(errormsg);
 			return true;
         }
 
@@ -457,7 +448,7 @@ namespace FlashDebugger
                 });
                 return;
             }
-            DialogResult res = MessageBox.Show(PluginBase.MainForm, TextHelper.GetString("Title.CloseProcess"), TextHelper.GetString("Info.ProcessNotResponding"), MessageBoxButtons.OKCancel);
+            DialogResult res = MessageBox.Show(PluginBase.MainForm, TextHelper.GetString("Title.CloseProcess"), TextHelper.GetString("Info.ProcessNotResponding"), MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             if (res == DialogResult.OK)
             {
 				m_FlashInterface.Stop();
