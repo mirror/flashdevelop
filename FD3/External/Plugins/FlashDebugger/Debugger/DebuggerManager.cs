@@ -94,9 +94,9 @@ namespace FlashDebugger
 
         #region Startup
 
-        public void Start()
+        public bool Start()
         {
-            if (!CheckCurrent()) return;
+            if (!CheckCurrent()) return false;
             PluginMain.debugBuildStart = true;
             UpdateMenuState(DebuggerState.Starting);
             if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
@@ -109,6 +109,7 @@ namespace FlashDebugger
                 else ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
             }
             else Start(currentProject.OutputPathAbsolute);
+            return true;
         }
 
         /// <summary>
@@ -126,23 +127,24 @@ namespace FlashDebugger
 				}
 				else
 				{
-                    ErrorManager.ShowWarning(TextHelper.GetString("Info.ProjectNotOpen"), null);
+                    //ErrorManager.ShowWarning(TextHelper.GetString("Info.ProjectNotOpen"), null);
 					return false;
 				}
                 if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
                 {
-                    ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotDebugActiveXPlayer"), null);
+                    //ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotDebugActiveXPlayer"), null);
                     return false;
                 }
                 if (currentProject.Language != "as3")
                 {
-                    ErrorManager.ShowWarning(TextHelper.GetString("Info.LanguageNotAS3"), null);
+                    //ErrorManager.ShowWarning(TextHelper.GetString("Info.LanguageNotAS3"), null);
                     return false;
                 }
             }
             catch (Exception e) 
             { 
                 ErrorManager.ShowError(e);
+                return false;
             }
 			return true;
         }

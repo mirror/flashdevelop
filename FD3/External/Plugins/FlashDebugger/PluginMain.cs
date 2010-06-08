@@ -171,9 +171,8 @@ namespace FlashDebugger
                     {
                         if (settingObject.StartDebuggerOnTestMovie)
                         {
-                            // TODO Detect what sort of TestMovieBehavior is set (or some other way) to disable debugging of ActiveX player
-                            buildevnt.Handled = true;
-                            debugManager.Start();
+                            if (debugManager.Start())
+                                buildevnt.Handled = true;
                         }
                         return;
                     }
