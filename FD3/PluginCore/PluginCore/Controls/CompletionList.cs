@@ -184,8 +184,11 @@ namespace PluginCore.Controls
             fullList = (word.Length == 0) || !autoHide || !PluginBase.MainForm.Settings.AutoFilterList;
 			lastIndex = 0;
 			exactMatchInList = false;
-			startPos = sci.CurrentPos-word.Length;
-			currentPos = sci.CurrentPos;
+            if (sci.SelectionStart == sci.SelectionEnd)
+                startPos = sci.CurrentPos - word.Length;
+            else 
+                startPos = sci.SelectionStart;
+            currentPos = sci.SelectionEnd; // sci.CurrentPos;
             defaultItem = null;
             // populate list
             needResize = true;

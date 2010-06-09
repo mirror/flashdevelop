@@ -58,7 +58,8 @@ namespace FlashDebugger
 		private Keys m_DisableAllBreakPointsShortcut;
 		private Keys m_EnableAllBreakPointsShortcut;
 		private Folder[] m_SourcePaths = new Folder[] {};
-		private Boolean m_SaveBreakPoints = true;
+        private Boolean m_SaveBreakPoints = true;
+        private Boolean m_VerboseOutput = true;
         private Boolean m_StartDebuggerOnTestMovie = true;
 
         [DisplayName("Save Breakpoints")]
@@ -70,6 +71,16 @@ namespace FlashDebugger
 			get { return m_SaveBreakPoints; }
 			set { m_SaveBreakPoints = value; }
 		}
+
+        [DisplayName("Verbose Output")]
+        [LocalizedCategory("FlashDebugger.Category.Misc")]
+        [LocalizedDescription("FlashDebugger.Description.VerboseOutput")]
+        [DefaultValue(false)]
+        public bool VerboseOutput
+        {
+            get { return m_VerboseOutput; }
+            set { m_VerboseOutput = value; }
+        }
 
         [DisplayName("Source Paths")]
         [LocalizedCategory("FlashDebugger.Category.Misc")]

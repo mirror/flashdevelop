@@ -543,11 +543,13 @@ namespace FlashDebugger
 				}
 				else if (e is SwfLoadedEvent)
 				{
-					dumpSwfLoadedEvent((SwfLoadedEvent)e);
+                    if (PluginMain.settingObject.VerboseOutput)
+					    dumpSwfLoadedEvent((SwfLoadedEvent)e);
 				}
 				else if (e is SwfUnloadedEvent)
 				{
-					dumpSwfUnloadedEvent((SwfUnloadedEvent)e);
+                    if (PluginMain.settingObject.VerboseOutput)
+					    dumpSwfUnloadedEvent((SwfUnloadedEvent)e);
 				}
 				else if (e is BreakEvent)
 				{
@@ -567,10 +569,13 @@ namespace FlashDebugger
 				}
 				else
 				{
-					System.Collections.IDictionary args = new System.Collections.Hashtable();
-					args["type"] = e; //$NON-NLS-1$
-					args["info"] = e.information; //$NON-NLS-1$
-					TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("Info.UnknownEvent"), args));
+                    if (PluginMain.settingObject.VerboseOutput)
+                    {
+                        System.Collections.IDictionary args = new System.Collections.Hashtable();
+                        args["type"] = e; //$NON-NLS-1$
+                        args["info"] = e.information; //$NON-NLS-1$
+                        TraceManager.AddAsync(replaceInlineReferences(TextHelper.GetString("Info.UnknownEvent"), args));
+                    }
 				}
 			}
 		}
