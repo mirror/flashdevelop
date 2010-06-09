@@ -389,6 +389,12 @@ namespace ProjectManager.Actions
 
         public bool Rename(string oldPath, string newName)
         {
+            if (newName == "con") // this file/dir name can cause lots of problems
+            {
+                ErrorManager.ShowInfo("'con' is a reserved name.");
+                return false;
+            }
+
             if (CancelAction(ProjectFileActionsEvents.FileRename, new string[] { oldPath, newName })) return false;
 
             try
