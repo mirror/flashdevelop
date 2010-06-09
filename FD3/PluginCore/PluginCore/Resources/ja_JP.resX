@@ -3861,4 +3861,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Flash IDE によってコンパイルされた SWF のデバッガー/プロファイラー連携を無効化します。</value>
     <comment>Added after 3.2</comment>
   </data>
+  <data name="FlashDebugger.Label.StartRemoteDebugging" xml:space="preserve">
+    <value>リモートデバッガを起動する</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
 </root>

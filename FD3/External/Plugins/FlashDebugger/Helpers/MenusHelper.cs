@@ -14,7 +14,7 @@ namespace FlashDebugger
         private ToolStripItem[] m_ToolStripButtons;
         private ToolStripSeparator m_ToolStripSeparator;
 		private ToolStripButton StartContinueButton, PauseButton, StopButton, CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton;
-		private ToolStripDropDownItem StartContinueMenu, PauseMenu, StopMenu, CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, ToggleBreakPointMenu, ToggleBreakPointEnableMenu, DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu;
+		private ToolStripDropDownItem StartContinueMenu, PauseMenu, StopMenu, CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, ToggleBreakPointMenu, ToggleBreakPointEnableMenu, DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu, StartRemoteDebuggingMenu;
         private DebuggerState CurrentState = DebuggerState.Initializing;
 
         /// <summary>
@@ -63,11 +63,14 @@ namespace FlashDebugger
             DisableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DisableAllBreakpoints"), null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
             EnableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.EnableAllBreakpoints"), null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
 
+			StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartContinue_Click), null);
+
 			List<ToolStripItem> items = new List<ToolStripItem>(new ToolStripItem[]
 			{
 				StartContinueMenu, PauseMenu, StopMenu, new ToolStripSeparator(),
 				CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, new ToolStripSeparator(),
-				ToggleBreakPointMenu, DeleteAllBreakPointsMenu, ToggleBreakPointEnableMenu ,DisableAllBreakPointsMenu, EnableAllBreakPointsMenu
+				ToggleBreakPointMenu, DeleteAllBreakPointsMenu, ToggleBreakPointEnableMenu ,DisableAllBreakPointsMenu, EnableAllBreakPointsMenu, new ToolStripSeparator(),
+				StartRemoteDebuggingMenu
             });
 
             foreach (ToolStripItem item in items)
@@ -193,6 +196,7 @@ namespace FlashDebugger
             enabled = (state != DebuggerState.Running);
             ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled = DeleteAllBreakPointsMenu.Enabled = enabled;
             DisableAllBreakPointsMenu.Enabled = EnableAllBreakPointsMenu.Enabled = PanelsHelper.breakPointUI.Enabled = enabled;
+			StartRemoteDebuggingMenu.Enabled = (state == DebuggerState.Initializing || state == DebuggerState.Stopped);
 			PluginBase.MainForm.RefreshUI();
         }
 

@@ -3864,4 +3864,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Extended Flash IDE integration allows to debug/profile SWFs compiled with the Flash IDE in FlashDevelop.</value>
     <comment>Added after 3.2</comment>
   </data>
+  <data name="FlashDebugger.Label.StartRemoteDebugging" xml:space="preserve">
+    <value>Start remote debugging</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
 </root>
