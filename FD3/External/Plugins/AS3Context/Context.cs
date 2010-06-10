@@ -157,6 +157,8 @@ namespace AS3Context
 
             // SDK
             string compiler = MainForm.ProcessArgString("$(CompilerPath)");
+            if (compiler == "$(CompilerPath)") 
+                compiler = Regex.Replace(as3settings.FlexSDK ?? "", @"[\\/]bin[\\/]?$", ""); ;
             char S = Path.DirectorySeparatorChar;
             string frameworks = compiler + S + "frameworks";
             string sdkLibs = frameworks + S + "libs";

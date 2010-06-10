@@ -124,60 +124,6 @@ namespace AS3Context
         {
             if (priority == HandlingPriority.Low)
             {
-                if (e.Type == EventType.Command)
-                {
-                    DataEvent de = e as DataEvent;
-                    string action = de.Action;
-                    if (action == "ProjectManager.OpenVirtualFile")
-                    {
-                        e.Handled = OpenVirtualFileModel(de.Data as String);
-                    }
-                    else if (!(settingObject as AS3Settings).DisableFDB
-                        && action == "AS3Context.StartDebugger")
-                    {
-                        string workDir = (PluginBase.CurrentProject != null)
-                            ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
-                            : Environment.CurrentDirectory;
-
-                        string flexSdk = (settingObject as AS3Settings).FlexSDK;
-
-                        // if the default sdk is not defined ask for project sdk
-                        if (flexSdk == null || flexSdk == String.Empty)
-                        {
-                            flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
-                        }
-
-                        e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
-                    }
-                    else if (action == "AS3Context.StartProfiler")
-                    {
-                        if (profilerUI.AutoStart)
-                        {
-                            profilerUI.StartProfiling();
-                            profilerPanel.Show();
-                        }
-                    }
-                }
-                else if (e.Type == EventType.Keys)
-                {
-                    if (inMXML)
-                    {
-                        KeyEvent ke = e as KeyEvent;
-                        if (ke.Value == ASCompletion.Context.ASContext.CommonSettings.GotoDeclaration)
-                        {
-                            if (MxmlComplete.GotoDeclaration())
-                            {
-                                ke.Handled = true;
-                                ke.ProcessKey = false;
-                            }
-                        }
-                    }
-                }
-                return;
-            }
-
-            else if (priority == HandlingPriority.Normal)
-            {
                 switch (e.Type)
                 {
                     case EventType.ProcessArgs:
@@ -188,7 +134,63 @@ namespace AS3Context
                             te.Value = te.Value.Replace("$(FlexSDK)", path);
                         }
                         break;
+                    
+                    case EventType.Command:
+                        DataEvent de = e as DataEvent;
+                        string action = de.Action;
+                        if (action == "ProjectManager.OpenVirtualFile")
+                        {
+                            e.Handled = OpenVirtualFileModel(de.Data as String);
+                        }
+                        else if (!(settingObject as AS3Settings).DisableFDB
+                            && action == "AS3Context.StartDebugger")
+                        {
+                            string workDir = (PluginBase.CurrentProject != null)
+                                ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
+                                : Environment.CurrentDirectory;
 
+                            string flexSdk = (settingObject as AS3Settings).FlexSDK;
+
+                            // if the default sdk is not defined ask for project sdk
+                            if (flexSdk == null || flexSdk == String.Empty)
+                            {
+                                flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
+                            }
+
+                            e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
+                        }
+                        else if (action == "AS3Context.StartProfiler")
+                        {
+                            if (profilerUI.AutoStart)
+                            {
+                                profilerUI.StartProfiling();
+                                profilerPanel.Show();
+                            }
+                        }
+                        break;
+
+                    case EventType.Keys:
+                        if (inMXML)
+                        {
+                            KeyEvent ke = e as KeyEvent;
+                            if (ke.Value == ASCompletion.Context.ASContext.CommonSettings.GotoDeclaration)
+                            {
+                                if (MxmlComplete.GotoDeclaration())
+                                {
+                                    ke.Handled = true;
+                                    ke.ProcessKey = false;
+                                }
+                            }
+                        }
+                        break;
+                }
+                return;
+            }
+
+            else if (priority == HandlingPriority.Normal)
+            {
+                switch (e.Type)
+                {
                     case EventType.UIStarted:
                         contextInstance = new Context(settingObject);
                         AddToolbarItems();
