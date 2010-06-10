@@ -254,7 +254,7 @@ namespace FlashDevelop.Dialogs
             imageList.Images.Add(Globals.MainForm.FindImage("341"));
             imageList.Images.Add(Globals.MainForm.FindImage("342"));
             imageList.Images.Add(Globals.MainForm.FindImage("50"));
-            this.clearFilterButton.Image = Globals.MainForm.FindImage("111");
+            this.clearFilterButton.Image = Globals.MainForm.FindImage("153");
             this.infoPictureBox.Image = Globals.MainForm.FindImage("229");
             this.itemListView.SmallImageList = imageList;
         }

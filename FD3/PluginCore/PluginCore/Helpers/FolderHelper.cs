@@ -1,12 +1,26 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using PluginCore.Managers;
 
 namespace PluginCore.Helpers
 {
     public class FolderHelper
     {
+        /// <summary>
+        /// List of illegal directory names
+        /// </summary>
+        public static List<String> IllegalFolderNames = new List<String>(){ "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
+        
+        /// <summary>
+        /// Checks if the directory name is illegal
+        /// </summary>
+        public static Boolean IsIllegalFolderName(String name)
+        {
+            return IllegalFolderNames.Contains(name.ToUpper());
+        }
+
         /// <summary>
         /// Gets a name of the folder 
         /// </summary> 

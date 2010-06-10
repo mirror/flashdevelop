@@ -389,10 +389,10 @@ namespace ProjectManager.Actions
 
         public bool Rename(string oldPath, string newName)
         {
-            if (newName == "con") // this file/dir name can cause lots of problems
+            if (FolderHelper.IsIllegalFolderName(newName)) // is name illegal (ie. CON, AUX etc..)
             {
                 String message = TextHelper.GetString("Info.ReservedDirName");
-                ErrorManager.ShowInfo(String.Format(message, "con"));
+                ErrorManager.ShowInfo(String.Format(message, newName));
                 return false;
             }
 

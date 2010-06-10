@@ -3569,7 +3569,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.RunToCursor" xml:space="preserve">
-    <value>Run to C&amp;ursor Line</value>
+    <value>Run To C&amp;ursor Line</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Start" xml:space="preserve">
@@ -3865,7 +3865,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.2</comment>
   </data>
   <data name="FlashDebugger.Label.StartRemoteDebugging" xml:space="preserve">
-    <value>Start remote debugging</value>
+    <value>Start Remote Session</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.VerboseOutput" xml:space="preserve">
