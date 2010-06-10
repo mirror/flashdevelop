@@ -189,7 +189,7 @@ namespace FlashDevelop.Dialogs
             // clearFilterButton
             //
             this.clearFilterButton.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
-            this.clearFilterButton.Location = new System.Drawing.Point(661, 23);
+            this.clearFilterButton.Location = new System.Drawing.Point(661, 24);
             this.clearFilterButton.Name = "clearFilterButton";
             this.clearFilterButton.Size = new System.Drawing.Size(26, 23);
             this.clearFilterButton.TabIndex = 11;
