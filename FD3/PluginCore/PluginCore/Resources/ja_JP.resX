@@ -3865,4 +3865,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>リモートデバッガを起動する</value>
     <comment>Added after 3.2.1</comment>
   </data>
+  <data name="ProjectManager.Info.ReservedDirName" xml:space="preserve">
+    <value>Name '{0}' is a reserved directory name.</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
 </root>

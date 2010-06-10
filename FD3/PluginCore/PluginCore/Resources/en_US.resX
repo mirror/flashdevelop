@@ -3353,11 +3353,11 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
-    <value>Cannot debug ActiveX player.</value>
+    <value>Cannot debug a movie running in ActiveX Flash Player.</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
-    <value>Cannot find output file.</value>
+    <value>Cannot find the output file.</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
@@ -3866,6 +3866,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDebugger.Label.StartRemoteDebugging" xml:space="preserve">
     <value>Start remote debugging</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
+  <data name="ProjectManager.Info.ReservedDirName" xml:space="preserve">
+    <value>Name '{0}' is a reserved directory name.</value>
     <comment>Added after 3.2.1</comment>
   </data>
 </root>

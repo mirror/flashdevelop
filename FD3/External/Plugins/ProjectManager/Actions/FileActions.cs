@@ -391,7 +391,8 @@ namespace ProjectManager.Actions
         {
             if (newName == "con") // this file/dir name can cause lots of problems
             {
-                ErrorManager.ShowInfo("'con' is a reserved name.");
+                String message = TextHelper.GetString("Info.ReservedDirName");
+                ErrorManager.ShowInfo(String.Format(message, "con"));
                 return false;
             }
 
