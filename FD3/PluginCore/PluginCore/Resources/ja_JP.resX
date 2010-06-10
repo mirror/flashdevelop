@@ -2202,16 +2202,16 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>メソッド スタブを生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
-    <value>Getter</value>
+    <value>Getter を生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateGetSet" xml:space="preserve">
-    <value>Getter と Setter</value>
+    <value>Getter/Setter を生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateHandler" xml:space="preserve">
     <value>{0} ハンドラを生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
-    <value>Setter</value>
+    <value>Setter を生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateVar" xml:space="preserve">
     <value>変数を宣言</value>
@@ -2877,7 +2877,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>イベント定数</value>
   </data>
   <data name="ASCompletion.Info.GeneratorTemplate" xml:space="preserve">
-    <value>テンプレートを生成</value>
+    <value />
+    <comment>ジェネレーターテンプレート</comment>
   </data>
   <data name="ASCompletion.Info.SearchInvitation" xml:space="preserve">
     <value>検索...</value>
@@ -3866,7 +3867,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="ProjectManager.Info.ReservedDirName" xml:space="preserve">
-    <value>Name '{0}' is a reserved directory name.</value>
+    <value>'{0}' は予約されたディレクトリ名です。</value>
     <comment>Added after 3.2.1</comment>
   </data>
 </root>
