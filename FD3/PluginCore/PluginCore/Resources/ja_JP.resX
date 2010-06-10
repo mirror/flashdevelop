@@ -3866,6 +3866,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>リモートデバッガを起動する</value>
     <comment>Added after 3.2.1</comment>
   </data>
+  <data name="FlashDebugger.Description.VerboseOutput" xml:space="preserve">
+    <value>Display detailed debugging information, like SWF load/unload events.</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
   <data name="ProjectManager.Info.ReservedDirName" xml:space="preserve">
     <value>'{0}' は予約されたディレクトリ名です。</value>
     <comment>Added after 3.2.1</comment>
