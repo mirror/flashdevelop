@@ -45,18 +45,9 @@ namespace FDBuild.Building.AS3
 
         private void AddCompilerConstants(bool debugMode)
         {
-            WriteStartElement("define");
-                WriteElementString("name", "CONFIG::debug");
-                WriteElementString("value", debugMode ? "true" : "false");
-            WriteEndElement();
-            WriteStartElement("define");
-                WriteElementString("name", "CONFIG::release");
-                WriteElementString("value", debugMode ? "false" : "true");
-            WriteEndElement();
-            WriteStartElement("define");
-                WriteElementString("name", "CONFIG::timeStamp");
-                WriteElementString("value", "'" + DateTime.Now.ToString("d") + "'");
-            WriteEndElement();
+            WriteDefine("CONFIG::debug", debugMode ? "true" : "false");
+            WriteDefine("CONFIG::release", debugMode ? "false" : "true");
+            WriteDefine("CONFIG::timeStamp", "'" + DateTime.Now.ToString("d") + "'");
 
             if (project.CompilerOptions.CompilerConstants != null)
             {
@@ -64,12 +55,18 @@ namespace FDBuild.Building.AS3
                 {
                     int p = define.IndexOf(',');
                     if (p < 0) continue;
-                    WriteStartElement("define");
-                        WriteElementString("name", define.Substring(0, p));
-                        WriteElementString("value", define.Substring(p + 1));
-                    WriteEndElement();
+                    WriteDefine(define.Substring(0, p), define.Substring(p + 1));
                 }
             }
+        }
+
+        private void WriteDefine(string name, string value)
+        {
+            WriteStartElement("define");
+                WriteAttributeString("append", "true");
+                WriteElementString("name", name);
+                WriteElementString("value", value);
+            WriteEndElement();
         }
 
         private void AddTargetPlayer()
