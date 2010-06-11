@@ -112,7 +112,7 @@ namespace FlashDebugger
 
         void dgv_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || e.RowIndex >= dgv.Rows.Count) return;
             if (dgv.Rows[e.RowIndex].Cells["Enable"].ColumnIndex == e.ColumnIndex)
             {
                 Boolean enable = !(Boolean)dgv.Rows[e.RowIndex].Cells["Enable"].Value;
@@ -125,6 +125,8 @@ namespace FlashDebugger
                     ScintillaHelper.ToggleMarker(doc.SciControl, 4, line - 1);
                     Int32 lineMask = doc.SciControl.MarkerGet(line - 1);
                     Boolean m = (lineMask & (1 << 4)) == 0 ? true : false;
+                    
+                    if (e.RowIndex >= 0 && e.RowIndex < dgv.Rows.Count) // list can have been updated in the meantime
                     if ((Boolean)dgv.Rows[e.RowIndex].Cells["Enable"].Value != m)
                     {
                         dgv.Rows[e.RowIndex].Cells["Enable"].Value = m;
