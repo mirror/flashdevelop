@@ -1,5 +1,6 @@
 package org.flashdevelop.profiler 
 {
+	import flash.events.TimerEvent;
 	import flash.sampler.clearSamples;
 	import flash.sampler.getSamples;
 	import flash.sampler.NewObjectSample;
@@ -19,11 +20,13 @@ package org.flashdevelop.profiler
 		private var typeMap:Object = { };
 		private var running:Boolean;
 		private var ignoreTc:TypeContext = new TypeContext(null);
+		private var timerTc:TypeContext = new TypeContext(getQualifiedClassName(TimerEvent));
 		
 		public function SampleRunner() 
 		{
 			refCache[String] = ignoreTc;
 			refCache[QName] = ignoreTc;
+			refCache[TimerEvent] = timerTc;
 			
 			startSampling();
 			running = true;
@@ -61,8 +64,9 @@ package org.flashdevelop.profiler
 					mem += info.size;
 					count++;
 				}
+				if (tc == timerTc) count--; // remove one TimerEvent instance so it doesn't look like a leak
 				
-				if (count) 
+				if (count > 0) 
 				{
 					if (tc.isNew)
 					{
@@ -87,7 +91,7 @@ package org.flashdevelop.profiler
 			for each(var info:SampleInfo in tc.obj)
 			{
 				cpt++;
-				out.push(info.sample.stack.join(","));
+				out.push(info.stack.join(","));
 			}
 		}
 		
@@ -147,12 +151,12 @@ class TypeContext
 class SampleInfo
 {
 	public var size:int;
-	public var sample:NewObjectSample;
+	public var stack:Array;
 	
 	public function SampleInfo(nos:NewObjectSample)
 	{
 		size = getSize(nos.object);
-		sample = nos;
+		stack = nos.stack;
 	}
 }
 

@@ -240,7 +240,7 @@ namespace AS3Context.Controls
                 if (active)
                 {
                     // write profiler
-                    string profilerSWF = CheckResource("Profiler3.swf", "Profiler.swf");
+                    string profilerSWF = CheckResource("Profiler4.swf", "Profiler.swf");
                     // local security
                     ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
                     // honor FlashConnect settings
