@@ -236,7 +236,10 @@ namespace CodeRefactor.Provider
             else
             {
                 // if the target we are trying to rename exists as a local variable or a function parameter we only need to search the current file
-                if (target.Member != null && (RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.LocalVar) || RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.ParameterVar)))
+                if (target.Member != null && 
+                    (RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.LocalVar) 
+                     || RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.ParameterVar))
+                     || target.Member.Access == Visibility.Private)
                 {
                     currentFileOnly = true;
                 }
