@@ -481,7 +481,7 @@ namespace ASCompletion.Completion
             // nice output
             model.Members.Sort();
             foreach (ClassModel aClass in model.Classes) aClass.Members.Sort();
-            string src = model.GenerateIntrinsic(false);
+            string src = "//\n// " + model.FileName + "\n//\n" + model.GenerateIntrinsic(false);
             ASContext.MainForm.CreateEditableDocument(dummyFile, src, Encoding.UTF8.CodePage);
         }
 

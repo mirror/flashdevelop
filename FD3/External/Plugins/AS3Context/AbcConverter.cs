@@ -7,6 +7,7 @@ using SwfOp.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
+using ASCompletion.Context;
 
 namespace AS3Context
 {
@@ -68,7 +69,7 @@ namespace AS3Context
         /// <param name="abcs"></param>
         /// <param name="path"></param>
         /// <param name="context"></param>
-        public static void Convert(ContentParser parser, PathModel path, Context context)
+        public static void Convert(ContentParser parser, PathModel path, IASContext context)
         {
             path.Files.Clear();
             inSWF = Path.GetExtension(path.Path).ToLower() == ".swf";
@@ -97,7 +98,7 @@ namespace AS3Context
                     model.Context = context;
                     model.Package = reSafeChars.Replace(instance.name.uri, "_");
                     model.HasPackage = true;
-                    string filename = reSafeChars.Replace(trait.name.ToString(), "_") + ".as";
+                    string filename = reSafeChars.Replace(trait.name.ToString(), "_").TrimEnd('$');
                     filename = Path.Combine(model.Package.Replace('.', Path.DirectorySeparatorChar), filename);
                     model.FileName = Path.Combine(path.Path, filename);
                     model.Version = 3;
