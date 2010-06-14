@@ -13,6 +13,9 @@ using PluginCore;
 using ASCompletion.Completion;
 using System.Collections;
 using System.Windows.Forms;
+using ProjectManager.Projects.Haxe;
+using ProjectManager.Projects;
+using AS3Context;
 
 namespace HaXeContext
 {
@@ -213,6 +216,24 @@ namespace HaXeContext
                 }
             }
 
+            // swf-libs
+            if (IsFlashTarget && flashVersion >= 9 
+                && PluginBase.CurrentProject != null && PluginBase.CurrentProject is HaxeProject)
+            {
+                HaxeProject proj = PluginBase.CurrentProject as HaxeProject;
+                foreach(LibraryAsset asset in proj.LibraryAssets)
+                    if (asset.IsSwf)
+                    {
+                        string path = proj.GetAbsolutePath(asset.Path);
+                        if (File.Exists(path)) AddPath(path);
+                    }
+                foreach( string p in proj.CompilerOptions.Additional )
+                    if( p.IndexOf("-swf-lib ") == 0 ) {
+                        string path = proj.GetAbsolutePath(p.Substring(9));
+                        if (File.Exists(path)) AddPath(path);
+                    }
+            }
+
             // add external pathes
             List<PathModel> initCP = classPath;
             classPath = new List<PathModel>();
@@ -244,6 +265,29 @@ namespace HaXeContext
                 SetTemporaryPath(tempPath);
             }
             FinalizeClasspath();
+        }
+
+        /// <summary>
+        /// Parse a packaged library file
+        /// </summary>
+        /// <param name="path">Models owner</param>
+        public override void ExploreVirtualPath(PathModel path)
+        {
+            try
+            {
+                if (File.Exists(path.Path))
+                {
+                    SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
+                    parser.Run();
+                    AbcConverter.Convert(parser, path, this);
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = TextHelper.GetString("Info.ExceptionWhileParsing");
+                TraceManager.AddAsync(message + " " + path.Path);
+                TraceManager.AddAsync(ex.Message);
+            }
         }
 
         /// <summary>
