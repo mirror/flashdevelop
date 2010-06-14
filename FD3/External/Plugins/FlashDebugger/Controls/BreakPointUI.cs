@@ -118,13 +118,20 @@ namespace FlashDebugger
                 Boolean enable = !(Boolean)dgv.Rows[e.RowIndex].Cells["Enable"].Value;
                 string filefullpath = (string)dgv.Rows[e.RowIndex].Cells["FilePath"].Value;
                 int line = int.Parse((string)dgv.Rows[e.RowIndex].Cells["Line"].Value);
-                int marker = enable ? 3 : 4;
                 ITabbedDocument doc = ScintillaHelper.GetDocument(filefullpath);
                 if (doc != null)
                 {
-                    ScintillaHelper.ToggleMarker(doc.SciControl, 4, line - 1);
-                    Int32 lineMask = doc.SciControl.MarkerGet(line - 1);
-                    Boolean m = (lineMask & (1 << 4)) == 0 ? true : false;
+					Boolean m = ScintillaHelper.IsMarkerSet(doc.SciControl, ScintillaHelper.markerBPDisabled, line - 1);
+					if (m)
+					{
+						doc.SciControl.MarkerAdd(line - 1, ScintillaHelper.markerBPEnabled);
+						doc.SciControl.MarkerDelete(line - 1, ScintillaHelper.markerBPDisabled);
+					}
+					else
+					{
+						doc.SciControl.MarkerAdd(line - 1, ScintillaHelper.markerBPDisabled);
+						doc.SciControl.MarkerDelete(line - 1, ScintillaHelper.markerBPEnabled);
+					}
                     
                     if (e.RowIndex >= 0 && e.RowIndex < dgv.Rows.Count) // list can have been updated in the meantime
                     if ((Boolean)dgv.Rows[e.RowIndex].Cells["Enable"].Value != m)
