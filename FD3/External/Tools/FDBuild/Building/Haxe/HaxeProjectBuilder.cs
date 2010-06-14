@@ -45,36 +45,16 @@ namespace ProjectManager.Building.Haxe
                 libraryBuilder.BuildLibrarySwf(project, false);
             }
 
-            string tempFile = Path.GetTempFileName() + Path.GetExtension(project.OutputPathAbsolute);
+            string output = project.FixDebugReleasePath(project.OutputPathAbsolute);
+            // always use relative path for CPP (because it prepends ./)
+            if (project.IsCppOutput)
+                output = project.OutputPath;
 
-            try
-            {
-                if (File.Exists(tempFile)) File.Delete(tempFile);
-                string output = project.FixDebugReleasePath(project.OutputPathAbsolute);
-                if (project.IsCppOutput) output = project.OutputPath;
+            string haxeArgs = String.Join(" ",project.BuildHXML(extraClasspaths, output, noTrace));
+            Console.WriteLine("haxe " + haxeArgs);
 
-                bool createTempFile = !project.IsPhpOutput && !project.IsCppOutput;
-
-                HaxeArgumentBuilder haxe = new HaxeArgumentBuilder(project);
-                haxe.AddLibraries(project.CompilerOptions.Libraries);
-                haxe.AddClassPaths(extraClasspaths);
-                haxe.AddHeader();
-                haxe.AddCompileTargets();
-                haxe.AddOutput(createTempFile ? tempFile : output);
-                haxe.AddOptions(noTrace);
-
-                string haxeArgs = haxe.ToString();
-
-                Console.WriteLine("haxe " + haxeArgs);
-
-                if (!ProcessRunner.Run(haxePath, haxeArgs, false))
-                    throw new BuildException("Build halted with errors (haxe.exe).");
-
-                // if we get here, the build was successful
-                if (createTempFile)
-                    File.Copy(tempFile, output, true);
-            }
-            finally { File.Delete(tempFile); }
+            if (!ProcessRunner.Run(haxePath, haxeArgs, false))
+                throw new BuildException("Build halted with errors (haxe.exe).");
         }
     }
 }

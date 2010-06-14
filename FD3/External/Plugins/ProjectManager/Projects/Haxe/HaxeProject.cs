@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Projects.Haxe
 {
@@ -59,6 +60,99 @@ namespace ProjectManager.Projects.Haxe
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(ProjectPath), path).Replace('\\', '/');
             else
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
+        }
+
+        string Quote(string s)
+        {
+            if (s.IndexOf(" ") >= 0)
+                return "\"" + s + "\"";
+            return s;
+        }
+
+        public string[] BuildHXML(string[] paths, string outfile, bool release)
+        {
+            List<String> pr = new List<String>();
+
+            // class paths
+            List<String> classPaths = new List<String>(this.AbsoluteClasspaths);
+            foreach (string cp in paths)
+                classPaths.Add(cp);
+            foreach (string cp in classPaths)
+                if (System.IO.Directory.Exists(cp))
+                    pr.Add("-cp " + Quote(cp));
+
+            // libraries
+            foreach (string lib in CompilerOptions.Libraries)
+                pr.Add("-lib " + lib);
+
+            // compilation mode
+            string mode = null;
+            if (IsFlashOutput) mode = (MovieOptions.Version >= 9) ? "swf9" : "swf";
+            else if (IsJavacriptOutput) mode = "js";
+            else if (IsNekoOutput) mode = "neko";
+            else if (IsPhpOutput) mode = "php";
+            else if (IsCppOutput) mode = "cpp";
+            else throw new SystemException("Unknown mode");
+            pr.Add("-" + mode + " " + Quote(outfile));
+
+            // flash options
+            if (IsFlashOutput)
+            {
+                string htmlColor = this.MovieOptions.Background.Substring(1);
+
+                if( htmlColor.Length > 0 )
+                    htmlColor = ":" + htmlColor;
+
+                pr.Add("-swf-header " + string.Format("{0}:{1}:{2}{3}", MovieOptions.Width, MovieOptions.Height, MovieOptions.Fps, htmlColor));
+
+                if( !UsesInjection && LibraryAssets.Count > 0 )
+                    pr.Add("-swf-lib " + LibrarySWFPath);
+
+                if( CompilerOptions.FlashStrict )
+                    pr.Add("--flash-strict");
+
+                if( MovieOptions.Version < 8 || MovieOptions.Version > 9 )
+                    pr.Add("-swf-version " + MovieOptions.Version);
+            }
+
+            // debug 
+            if (!release)
+            {
+                pr.Add("-debug");
+                if( IsFlashOutput && MovieOptions.Version >= 9 && CompilerOptions.EnableDebug )
+                    pr.Add("-D fdb");
+            }
+
+            // defines
+            foreach (string def in CompilerOptions.Directives)
+                pr.Add("-D "+def);
+
+            // add project files marked as "always compile"
+            foreach( string relTarget in CompileTargets )
+            {
+                string absTarget = GetAbsolutePath(relTarget);
+                // guess the class name from the file name
+                foreach (string cp in classPaths)
+                    if( absTarget.StartsWith(cp, StringComparison.OrdinalIgnoreCase) ) {
+                        string className = absTarget.Substring(cp.Length);
+                        className = className.Substring(0, className.LastIndexOf('.'));
+                        className = Regex.Replace(className, "[\\\\/]+", ".");
+                        if( className.StartsWith(".") ) className = className.Substring(1);
+                        if( CompilerOptions.MainClass != className )
+                            pr.Add(className);
+                    }
+            }
+
+            // add main class
+            if( CompilerOptions.MainClass != null && CompilerOptions.MainClass.Length > 0)
+                pr.Add("-main " + CompilerOptions.MainClass);
+
+
+            // extra options
+            foreach( string opt in CompilerOptions.Additional )
+                pr.Add(opt);
+
+            return pr.ToArray();
         }
 
         #region Load/Save

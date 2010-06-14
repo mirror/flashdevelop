@@ -60,7 +60,7 @@ namespace ProjectManager.Projects.Haxe
                     case "directives": options.Directives = (Value=="") ? new string[]{} : Value.Split('\n'); break;
                     case "flashStrict": options.FlashStrict = BoolValue; break;
                     case "mainClass": options.MainClass = Value; break;
-                    case "forcetraces": options.ForceTraces = BoolValue; break;
+                    case "enabledebug": options.EnableDebug = BoolValue; break;
                     case "additional": options.Additional = Value.Split('\n'); break;
                 }
                 Read();

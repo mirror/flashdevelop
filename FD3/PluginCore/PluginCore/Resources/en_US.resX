@@ -1494,6 +1494,9 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ProjectManager.Description.DisableMxmlMapping" xml:space="preserve">
     <value>By default, MXML source files (mx:Script, mx:Style) are grouped under the MXML file.</value>
   </data>
+  <data name="ProjectManager.Description.EnableDebug" xml:space="preserve">
+    <value>Activate the ability to use the interactive debugger.</value>
+  </data>
   <data name="ProjectManager.Description.ES" xml:space="preserve">
     <value>Instructs the compiler to use the ECMAScript Edition 3 prototype-based object model to allow dynamic overriding of prototype properties.</value>
   </data>

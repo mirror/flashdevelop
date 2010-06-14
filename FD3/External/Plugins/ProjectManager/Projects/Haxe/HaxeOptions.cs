@@ -12,7 +12,7 @@ namespace ProjectManager.Projects.Haxe
         string[] directives = new string[] { };
         string mainClass = "";
         bool flashStrict = false;
-        bool forceTraces = false;
+        bool enableDebug = false;
         string[] additional = new string[] { };
         string[] libraries = new string[] { };
 
@@ -23,10 +23,10 @@ namespace ProjectManager.Projects.Haxe
         public string[] Additional { get { return additional; } set { additional = value; } }
 
         [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
-        [DisplayName("Force Traces")]
-        [LocalizedDescription("ProjectManager.Description.ForceTraces")]
+        [DisplayName("Enable Debugger")]
+        [LocalizedDescription("ProjectManager.Description.EnableDebug")]
         [DefaultValue(false)]
-        public bool ForceTraces { get { return forceTraces; } set { forceTraces = value; } }
+        public bool EnableDebug { get { return enableDebug; } set { enableDebug = value; } }
 
         [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
         [DisplayName("Flash Strict")]

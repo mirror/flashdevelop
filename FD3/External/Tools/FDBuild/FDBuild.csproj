@@ -160,7 +160,6 @@
     <Compile Include="Building\BuildException.cs" />
     <Compile Include="Building\FileComparer.cs" />
     <Compile Include="Building\Haxe\HaxeProjectBuilder.cs" />
-    <Compile Include="Building\Haxe\HaxeArgumentBuilder.cs" />
     <Compile Include="Building\ProcessRunner.cs" />
     <Compile Include="Building\ProjectBuilder.cs" />
     <Compile Include="FakeClasses.cs" />

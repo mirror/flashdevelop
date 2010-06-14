@@ -41,29 +41,6 @@ namespace HaXeContext
             PluginBase.MainForm.CallCommand( "SaveAllModified", null );
             
             HaxeProject hp = (PluginBase.CurrentProject as HaxeProject);
-            HaxeOptions co = hp.CompilerOptions;
-            
-            // Project and Global classpath
-            string cp = "";
-            foreach (string i in ProjectManager.PluginMain.Settings.GlobalClasspaths)
-                cp += " -cp \"" + i + "\"";
-            foreach (string i in hp.AbsoluteClasspaths)
-                cp += " -cp \"" + i + "\"";
-
-            // haXelibs
-            string libs = "";
-            foreach (string i in co.Libraries)
-                libs += " -lib " + i;
-
-            // Additionnal compiler commands
-            string addi = "";
-            foreach (string i in co.Additional)
-                addi += " " + i;
-
-            // Compilation directives
-            string directives = "";
-            foreach (string i in co.Directives)
-                directives += " -D " + i;
           
             // Current file
             string file = PluginBase.MainForm.CurrentDocument.FileName;
@@ -89,47 +66,26 @@ namespace HaXeContext
                 }
             }
             catch {}
+                        
+            // Build haXe command
+            string[] paths = ProjectManager.PluginMain.Settings.GlobalClasspaths.ToArray();
+            string hxml = String.Join(" ", hp.BuildHXML(paths, "__nothing__", true));
 
-            // Define the haXe target
-            string output = "__nothing__";
-            string target = "";
-            int version = hp.MovieOptions.Version;
-            if (version < 11)
-            {
-                target = "-swf-version " + version;
-                target += " -swf \"" + output+"\"";
-                if( !hp.UsesInjection && hp.LibraryAssets.Count > 0 )
-                    target += " -swf-lib \"" + hp.LibrarySWFPath+"\"";
-            }
-            else if (version == 11)
-                target = "-js " + output;
-            else if (version == 12)
-                target = "-neko " + output;
-            else if (version == 13)
-                target = "-php " + output;
-            else if (version == 14)
-                target = "-cpp " + output;
-            
-            // Get the current class edited
+            // Get the current class edited (ensure completion even if class not reference in the project)
             int start = file.LastIndexOf("\\") + 1;
             int end = file.LastIndexOf(".");
             string package = Context.Context.CurrentModel.Package;
-            string classToCheck = "";
-            string libToAdd = "";
             if (package != "")
             {
-                classToCheck = Context.Context.CurrentModel.Package + "." + file.Substring(start, end - start);
-                libToAdd = file.Split(new string[] { "\\" + String.Join("\\", classToCheck.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries)) }, StringSplitOptions.RemoveEmptyEntries).GetValue(0).ToString();
-                cp += " -cp \"" + libToAdd + "\"";
+                string cl = Context.Context.CurrentModel.Package + "." + file.Substring(start, end - start);
+                string libToAdd = file.Split(new string[] { "\\" + String.Join("\\", cl.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries)) }, StringSplitOptions.RemoveEmptyEntries).GetValue(0).ToString();
+                hxml = "-cp \"" + libToAdd + "\" "+cl+" "+hxml;
             }
             else
-                classToCheck = file.Substring(start, end - start);
-            
-            // Build haXe command
-            string hxml = target + " " + classToCheck + cp + libs + addi + directives;
+                hxml = file.Substring(start, end - start)+" "+hxml;
 
             // Build haXe built-in completion command
-            string args = "--display \"" + file + "\"@" + pos.ToString() + " " + hxml;
+            string args = "--display \"" + file + "\"@" + pos.ToString() + " "+hxml;
 
             // compiler path
             string haxePath = Environment.GetEnvironmentVariable("HAXEPATH");
