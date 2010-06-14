@@ -5,6 +5,7 @@ using System.Drawing.Design;
 using System.Windows.Forms.Design;
 using System.ComponentModel;
 using PluginCore.Localization;
+using ProjectManager.Projects.Haxe;
 
 namespace HaXeContext
 {
@@ -159,6 +160,7 @@ namespace HaXeContext
         const bool DEFAULT_DISABLECOMPILERCOMPLETION = false;
         const bool DEFAULT_DISABLEMIXEDCOMPLETION = false;
         const bool DEFAULT_DISABLECOMPLETIONONDEMAND = true;
+        const bool DEFAULT_EXPORTHXML = false;
 
         private int flashVersion = 9;
         private string hxPath;
@@ -166,6 +168,7 @@ namespace HaXeContext
         private bool disableCompilerCompletion = DEFAULT_DISABLECOMPILERCOMPLETION;
         private bool disableMixedCompletion = DEFAULT_DISABLEMIXEDCOMPLETION;
         private bool disableCompletionOnDemand = DEFAULT_DISABLECOMPLETIONONDEMAND;
+        private bool exportHXML = DEFAULT_EXPORTHXML;
 
         [DisplayName("Default Flash Version")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.DefaultFlashVersion"), DefaultValue(DEFAULT_FLASHVERSION)]
@@ -228,6 +231,14 @@ namespace HaXeContext
             set { disableCompletionOnDemand = value; }
         }
 
+        [DisplayName("Export HXML")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.ExportHXML"), DefaultValue(DEFAULT_EXPORTHXML)]
+        public bool ExportHXML
+        {
+            get { return exportHXML; }
+            set { HaxeProject.saveHXML = exportHXML = value; }
+        }
+
         #endregion
 
         [Browsable(false)]
@@ -235,5 +246,12 @@ namespace HaXeContext
         {
             if (OnClasspathChanged != null) OnClasspathChanged();
         }
+
+        [Browsable(false)]
+        public void Init()
+        {
+            HaxeProject.saveHXML = exportHXML;
+        }
+
     }
 }

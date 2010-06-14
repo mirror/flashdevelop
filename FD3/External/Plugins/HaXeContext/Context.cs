@@ -30,6 +30,7 @@ namespace HaXeContext
         public Context(HaXeSettings initSettings)
         {
             hxsettings = initSettings;
+            hxsettings.Init();
 
             /* AS-LIKE OPTIONS */
 

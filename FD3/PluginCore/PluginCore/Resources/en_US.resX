@@ -2965,6 +2965,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Disables the find text update when the quick find is used.</value>
     <comment>Added after 3.0.1</comment>
   </data>
+  <data name="HaXeContext.Description.ExportHXML" xml:space="preserve">
+    <value>Always export a HXML when the HXPROJ is modified.</value>
+    <comment>Added after 3.1.0</comment>
+  </data>
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>Defines where new properties (getter, setter) are to be generated.</value>
     <comment>Added after 3.0.2</comment>

@@ -9,6 +9,9 @@ namespace ProjectManager.Projects.Haxe
 {
     public class HaxeProject : Project
     {
+        // hack : we cannot reference settings HaxeProject is also used by FDBuild
+        public static bool saveHXML = false;
+
         public HaxeProject(string path)
             : base(path, new HaxeOptions())
         {
@@ -74,11 +77,13 @@ namespace ProjectManager.Projects.Haxe
             List<String> pr = new List<String>();
 
             // class paths
-            List<String> classPaths = new List<String>(this.AbsoluteClasspaths);
+            List<String> classPaths = new List<String>();
             foreach (string cp in paths)
                 classPaths.Add(cp);
+            foreach (string cp in this.Classpaths)
+                classPaths.Add(cp);
             foreach (string cp in classPaths)
-                if (System.IO.Directory.Exists(cp))
+                if (System.IO.Directory.Exists(this.GetAbsolutePath(cp)))
                     pr.Add("-cp " + Quote(cp));
 
             // libraries
@@ -93,6 +98,8 @@ namespace ProjectManager.Projects.Haxe
             else if (IsPhpOutput) mode = "php";
             else if (IsCppOutput) mode = "cpp";
             else throw new SystemException("Unknown mode");
+
+            outfile = String.Join("/",outfile.Split('\\'));
             pr.Add("-" + mode + " " + Quote(outfile));
 
             // flash options
@@ -187,6 +194,12 @@ namespace ProjectManager.Projects.Haxe
                 writer.WriteProject();
                 writer.Flush();
                 writer.Close();
+                if (saveHXML) {
+                    StreamWriter hxml = File.CreateText(Path.ChangeExtension(fileName, "hxml"));
+                    foreach( string e in BuildHXML(new string[0],this.OutputPath,true) )
+                        hxml.WriteLine(e);
+                    hxml.Close();
+                }
             }
             catch (Exception ex)
             {
