@@ -64,7 +64,7 @@ namespace FDBuild
                 language = value;
                 // add the library classpath for the language
                 string library = Path.Combine(LibraryDir, Path.Combine(language, "classes"));
-                if (Directory.Exists(library)) extraClasspaths.Add(library);
+                if (Directory.Exists(library) && language != "HAXE") extraClasspaths.Add(library);
             }
         }
 
