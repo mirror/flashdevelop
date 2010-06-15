@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -29,6 +30,7 @@ namespace HaXeContext
                     new Regex("(?<gen>[^<]+)<(?<type>.+)>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private HaXeSettings hxsettings;
+        private Dictionary<string,string> haxelibsCache;
 
         public Context(HaXeSettings initSettings)
         {
@@ -103,6 +105,7 @@ namespace HaXeContext
             /* INITIALIZATION */
 
             settings = initSettings;
+            haxelibsCache = new Dictionary<string,string>();
             //BuildClassPath(); // defered to first use
         }
         #endregion
@@ -128,6 +131,29 @@ namespace HaXeContext
         public bool IsCppTarget
         {
             get { return flashVersion == 14; }
+        }
+
+        private string LookupLibrary(string lib)
+        {
+            try
+            {
+                return haxelibsCache[lib];
+            }
+            catch (KeyNotFoundException)
+            {
+                ProcessStartInfo pi = new ProcessStartInfo();
+                pi.FileName = "haxelib";
+                pi.Arguments = "path " + lib;
+                pi.RedirectStandardOutput = true;
+                pi.UseShellExecute = false;
+                pi.WindowStyle = ProcessWindowStyle.Hidden;
+                Process p = Process.Start(pi);
+                p.WaitForExit();
+                string path = p.StandardOutput.ReadLine();
+                p.Close();
+                haxelibsCache.Add(lib, path);
+                return path;
+            }
         }
 
         /// <summary>
@@ -215,12 +241,11 @@ namespace HaXeContext
                     AddPath(specific);
                 }
             }
+            HaxeProject proj = PluginBase.CurrentProject as HaxeProject;
 
             // swf-libs
-            if (IsFlashTarget && flashVersion >= 9 
-                && PluginBase.CurrentProject != null && PluginBase.CurrentProject is HaxeProject)
+            if (IsFlashTarget && flashVersion >= 9 && proj != null )
             {
-                HaxeProject proj = PluginBase.CurrentProject as HaxeProject;
                 foreach(LibraryAsset asset in proj.LibraryAssets)
                     if (asset.IsSwf)
                     {
@@ -234,6 +259,15 @@ namespace HaXeContext
                     }
             }
 
+            // add haxe libraries
+            if (proj != null)
+            {
+                foreach (string param in proj.BuildHXML(new string[0], "", false))
+                    if (param.IndexOf("-lib ") == 0)
+                        AddPath(LookupLibrary(param.Substring(5)));
+            }
+
+
             // add external pathes
             List<PathModel> initCP = classPath;
             classPath = new List<PathModel>();
@@ -243,8 +277,6 @@ namespace HaXeContext
                 cpathes = exPath.Split(';');
                 foreach (string cpath in cpathes) AddPath(cpath.Trim());
             }
-            // add library
-            AddPath(Path.Combine(PathHelper.LibraryDir, "HAXE/classes"));
             // add user pathes from settings
             if (settings.UserClasspath != null && settings.UserClasspath.Length > 0)
             {
