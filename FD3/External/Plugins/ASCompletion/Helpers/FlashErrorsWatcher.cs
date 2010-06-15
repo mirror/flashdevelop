@@ -90,6 +90,14 @@ namespace ASCompletion.Helpers
                 if (!File.Exists(fla)) 
                     return;
 
+                try
+                {
+                    // don't let another FD instance handle it
+                    // TODO Make multi-FD-instances friendly
+                    File.Delete(docInfo); 
+                }
+                catch { }
+
                 string src = File.ReadAllText(publishInfo);
                 Match m = reFlashFile.Match(src);
                 if (m.Success)
