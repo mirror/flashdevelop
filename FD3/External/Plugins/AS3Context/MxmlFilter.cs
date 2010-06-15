@@ -60,6 +60,7 @@ namespace AS3Context
                         if (temp.StartsWith("-compiler.namespaces.namespace") || temp.StartsWith("-namespace"))
                         {
                             int p = temp.IndexOf(' ');
+                            if (p < 0) p = temp.IndexOf('=');
                             if (p < 0) continue;
                             temp = temp.Substring(p + 1).Trim();
                             p = temp.IndexOf(' ');
