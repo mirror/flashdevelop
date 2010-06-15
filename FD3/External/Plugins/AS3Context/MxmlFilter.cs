@@ -63,6 +63,7 @@ namespace AS3Context
                             if (p < 0) continue;
                             temp = temp.Substring(p + 1).Trim();
                             p = temp.IndexOf(' ');
+                            if (p < 0) p = temp.IndexOf(',');
                             if (p < 0) continue;
                             string uri = temp.Substring(0, p);
                             string path = temp.Substring(p + 1).Trim();
