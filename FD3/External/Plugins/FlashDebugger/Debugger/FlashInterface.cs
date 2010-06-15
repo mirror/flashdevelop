@@ -176,9 +176,11 @@ namespace FlashDebugger
                     }
                 }
                 catch (System.Exception){}
+				m_SuspendWaiting = false;
                 bool stop = false;
                 while (!stop)
                 {
+					if (m_Session != null && m_Session.EventCount > 0) m_SuspendWaiting = false;
                     processEvents();
                     // not there, not connected
                     if (m_RequestStop || m_RequestDetach || !haveConnection())
