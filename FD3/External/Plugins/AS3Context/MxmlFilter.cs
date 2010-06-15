@@ -59,8 +59,11 @@ namespace AS3Context
                         string temp = line.Trim();
                         if (temp.StartsWith("-compiler.namespaces.namespace") || temp.StartsWith("-namespace"))
                         {
-                            temp = temp.Substring(temp.IndexOf(' ') + 1).Trim();
                             int p = temp.IndexOf(' ');
+                            if (p < 0) continue;
+                            temp = temp.Substring(p + 1).Trim();
+                            p = temp.IndexOf(' ');
+                            if (p < 0) continue;
                             string uri = temp.Substring(0, p);
                             string path = temp.Substring(p + 1).Trim();
                             if (path.StartsWith("\"")) path = path.Substring(1, path.Length - 2);
