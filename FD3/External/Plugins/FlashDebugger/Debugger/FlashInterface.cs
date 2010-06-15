@@ -107,6 +107,7 @@ namespace FlashDebugger
 		private Boolean m_StepResume;
 		private ProjectManager.Projects.Project m_CurrentProject;
 		private EventWaitHandle m_SuspendWait = new EventWaitHandle(false, EventResetMode.ManualReset);
+		private Boolean m_SuspendWaiting;
 
 		// Global Properties
 		private int m_HaltTimeout;
@@ -223,7 +224,7 @@ namespace FlashDebugger
                             catch (System.Threading.ThreadInterruptedException){}
                         }
                         m_SuspendWait.Reset();
-                        switch (suspendReason)
+                        switch (m_SuspendWaiting ? -1 : suspendReason)
                         {
                             case SuspendReason.Breakpoint:
                                 m_CurrentState = DebuggerState.BreakHalt;
@@ -298,6 +299,10 @@ namespace FlashDebugger
                                 }
                                 break;
 
+							case -1:
+								// waiting for susped to end, do nothing
+								break;
+
                             default:
                                 m_CurrentState = DebuggerState.BreakHalt;
                                 if (UnknownHaltEvent != null)
@@ -313,7 +318,7 @@ namespace FlashDebugger
 
                         if (!(m_RequestResume || m_RequestDetach))
                         {
-                            m_SuspendWait.WaitOne();
+							m_SuspendWaiting = !m_SuspendWait.WaitOne(500);
                         }
                     }
                     else
