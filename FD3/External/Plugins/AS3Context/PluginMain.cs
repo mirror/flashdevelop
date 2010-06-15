@@ -130,8 +130,7 @@ namespace AS3Context
                         TextEvent te = e as TextEvent;
                         if (te.Value.IndexOf("$(FlexSDK)") >= 0)
                         {
-                            string path = Regex.Replace(settingObject.FlexSDK ?? "", @"[\\/]bin[\\/]?$", "");
-                            te.Value = te.Value.Replace("$(FlexSDK)", path);
+                            te.Value = te.Value.Replace("$(FlexSDK)", contextInstance.GetCompilerPath());
                         }
                         break;
                     

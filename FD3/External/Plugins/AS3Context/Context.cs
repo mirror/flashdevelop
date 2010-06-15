@@ -761,7 +761,7 @@ namespace AS3Context
         /// </summary>
         public override string GetCompilerPath()
         {
-            return as3settings.FlexSDK;
+            return Regex.Replace(as3settings.FlexSDK ?? "", @"[\\/]bin[\\/]?$", "");
         }
 
         /// <summary>
