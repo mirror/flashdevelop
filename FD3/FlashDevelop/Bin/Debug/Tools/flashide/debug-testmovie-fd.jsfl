@@ -3,6 +3,7 @@
 var runInFlashDevelop = true;
 var buildProject = false;
 var tempPath = getTempPath();
+var isAS3 = detectVersion();
 
 /* RUN */
 
@@ -71,9 +72,10 @@ function getTempPath()
 
 function setDebug(value)
 {
-	var out = tempPath + "temp" + Math.floor(Math.random() * 1000000000) + ".xml";
+	if (!isAS3) return;
 	var doc = fl.getDocumentDOM();
 	if (!doc) return;
+	var out = tempPath + "temp" + Math.floor(Math.random() * 1000000000) + ".xml";
 	
 	doc.exportPublishProfile(out);
 	var config = FLfile.read(out);
@@ -89,3 +91,10 @@ function setDebug(value)
 	}
 }
 
+function detectVersion()
+{
+	var doc = fl.getDocumentDOM();
+	var valid = (doc && doc.asVersion >= 3);
+	if (!valid) runInFlashDevelop = false;
+	return valid;
+}
