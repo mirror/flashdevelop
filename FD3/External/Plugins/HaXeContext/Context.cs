@@ -262,7 +262,7 @@ namespace HaXeContext
             // add haxe libraries
             if (proj != null)
             {
-                foreach (string param in proj.BuildHXML(new string[0], "", false))
+                foreach (string param in proj.BuildHXML(new string[0], "", false, true))
                     if (param.IndexOf("-lib ") == 0)
                         AddPath(LookupLibrary(param.Substring(5)));
             }

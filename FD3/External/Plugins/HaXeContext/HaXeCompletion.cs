@@ -69,7 +69,7 @@ namespace HaXeContext
                         
             // Build haXe command
             string[] paths = ProjectManager.PluginMain.Settings.GlobalClasspaths.ToArray();
-            string hxml = String.Join(" ", hp.BuildHXML(paths, "__nothing__", true));
+            string hxml = String.Join(" ", hp.BuildHXML(paths, "__nothing__", true, true));
 
             // Get the current class edited (ensure completion even if class not reference in the project)
             int start = file.LastIndexOf("\\") + 1;

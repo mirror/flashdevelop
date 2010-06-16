@@ -72,7 +72,7 @@ namespace ProjectManager.Projects.Haxe
             return s;
         }
 
-        public string[] BuildHXML(string[] paths, string outfile, bool release)
+        public string[] BuildHXML(string[] paths, string outfile, bool release, bool absolutePaths )
         {
             List<String> pr = new List<String>();
 
@@ -80,7 +80,7 @@ namespace ProjectManager.Projects.Haxe
             List<String> classPaths = new List<String>();
             foreach (string cp in paths)
                 classPaths.Add(cp);
-            foreach (string cp in this.Classpaths)
+            foreach (string cp in absolutePaths?this.AbsoluteClasspaths:this.Classpaths)
                 classPaths.Add(cp);
             foreach (string cp in classPaths)
                 if (System.IO.Directory.Exists(this.GetAbsolutePath(cp)))
@@ -196,7 +196,7 @@ namespace ProjectManager.Projects.Haxe
                 writer.Close();
                 if (saveHXML) {
                     StreamWriter hxml = File.CreateText(Path.ChangeExtension(fileName, "hxml"));
-                    foreach( string e in BuildHXML(new string[0],this.OutputPath,true) )
+                    foreach( string e in BuildHXML(new string[0],this.OutputPath,true,false) )
                         hxml.WriteLine(e);
                     hxml.Close();
                 }

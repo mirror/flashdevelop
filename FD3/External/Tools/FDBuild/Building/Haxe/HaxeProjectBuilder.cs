@@ -50,7 +50,7 @@ namespace ProjectManager.Building.Haxe
             if (project.IsCppOutput)
                 output = project.OutputPath;
 
-            string haxeArgs = String.Join(" ",project.BuildHXML(extraClasspaths, output, noTrace));
+            string haxeArgs = String.Join(" ",project.BuildHXML(extraClasspaths, output, noTrace, true));
             Console.WriteLine("haxe " + haxeArgs);
 
             if (!ProcessRunner.Run(haxePath, haxeArgs, false))
