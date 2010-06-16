@@ -161,15 +161,19 @@ namespace FlashViewer
             // Try to find player path from: Tools/flexsdk/
             if (this.settingObject.PlayerPath == null || this.settingObject.PlayerPath == String.Empty)
             {
-                String playerPath = Path.Combine(PathHelper.ToolDir, @"flexsdk\runtimes\player\10\win\FlashPlayer.exe");
-                if (File.Exists(playerPath)) this.settingObject.PlayerPath = playerPath;
+                String playerPath10 = Path.Combine(PathHelper.ToolDir, @"flexsdk\runtimes\player\10\win\FlashPlayer.exe");
+                String playerPath101 = Path.Combine(PathHelper.ToolDir, @"flexsdk\runtimes\player\10.1\win\FlashPlayerDebugger.exe");
+                if (File.Exists(playerPath101)) this.settingObject.PlayerPath = playerPath101;
+                else if (File.Exists(playerPath10)) this.settingObject.PlayerPath = playerPath10;
             }
             // Try to find player path from: FlexSDK
             if (!this.settingObject.DisableAutoConfig && this.settingObject.PlayerPath == null || this.settingObject.PlayerPath == String.Empty)
             {
                 String compiler = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
-                String playerPath = Path.Combine(compiler, @"runtimes\player\10\win\FlashPlayer.exe");
-                if (File.Exists(playerPath)) this.settingObject.PlayerPath = playerPath;
+                String playerPath10 = Path.Combine(compiler, @"runtimes\player\10\win\FlashPlayer.exe");
+                String playerPath101 = Path.Combine(compiler, @"runtimes\player\10.1\win\FlashPlayerDebugger.exe");
+                if (File.Exists(playerPath101)) this.settingObject.PlayerPath = playerPath101;
+                else if (File.Exists(playerPath10)) this.settingObject.PlayerPath = playerPath10;
             }
         }
 
