@@ -113,7 +113,7 @@ namespace ProjectManager.Projects.Haxe
                 pr.Add("-swf-header " + string.Format("{0}:{1}:{2}{3}", MovieOptions.Width, MovieOptions.Height, MovieOptions.Fps, htmlColor));
 
                 if( !UsesInjection && LibraryAssets.Count > 0 )
-                    pr.Add("-swf-lib " + LibrarySWFPath);
+                    pr.Add("-swf-lib " + Quote(LibrarySWFPath));
 
                 if( CompilerOptions.FlashStrict )
                     pr.Add("--flash-strict");
@@ -132,7 +132,7 @@ namespace ProjectManager.Projects.Haxe
 
             // defines
             foreach (string def in CompilerOptions.Directives)
-                pr.Add("-D "+def);
+                pr.Add("-D "+Quote(def));
 
             // add project files marked as "always compile"
             foreach( string relTarget in CompileTargets )
@@ -156,8 +156,14 @@ namespace ProjectManager.Projects.Haxe
 
 
             // extra options
-            foreach( string opt in CompilerOptions.Additional )
-                pr.Add(opt);
+            foreach (string opt in CompilerOptions.Additional) {
+                char[] space = {' '};
+                string[] parts = opt.Split(space, 2);
+                if (parts.Length == 1)
+                    pr.Add(opt);
+                else
+                    pr.Add(parts[0] + ' ' + Quote(parts[1]));
+            }
 
             return pr.ToArray();
         }
