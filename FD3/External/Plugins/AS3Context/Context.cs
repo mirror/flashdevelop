@@ -502,11 +502,15 @@ namespace AS3Context
             ScintillaNet.ScintillaControl sci = CurSciControl;
             if (sci == null || m.Groups["filename"].Value != CurrentFile) 
                 return;
-            int line = int.Parse(m.Groups["line"].Value) - 1;
-            if (sci.LineCount < line) return;
-            int start = MBSafeColumn(sci, line, int.Parse(m.Groups["col"].Value) - 1);
-            if (line == sci.LineCount && start == 0 && line > 0) start = -1;
-            AddSquiggles(sci, line, start, start + 1);
+            try
+            {
+                int line = int.Parse(m.Groups["line"].Value) - 1;
+                if (sci.LineCount < line) return;
+                int start = MBSafeColumn(sci, line, int.Parse(m.Groups["col"].Value) - 1);
+                if (line == sci.LineCount && start == 0 && line > 0) start = -1;
+                AddSquiggles(sci, line, start, start + 1);
+            }
+            catch { }
         }
 
         /// <summary>
