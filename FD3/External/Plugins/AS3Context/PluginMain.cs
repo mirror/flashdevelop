@@ -296,7 +296,7 @@ namespace AS3Context
                 return false;
 
             string fileName = Path.Combine(container, 
-                virtualPath.Substring(p + 2).Replace('.', Path.DirectorySeparatorChar)) + "$.as";
+                virtualPath.Substring(p + 2).Replace('.', Path.DirectorySeparatorChar));
             PathModel path = new PathModel(container, contextInstance);
             SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
             parser.Run();
