@@ -764,7 +764,7 @@ namespace ProjectManager.Controls
 			colorTextBox.Text = options.Background;
 			fpsTextBox.Text = options.Fps.ToString();
 
-            versionCombo.SelectedIndex = options.Platform;
+            versionCombo.SelectedIndex = Math.Max(0, Math.Min(versionCombo.Items.Count - 1, options.Platform));
 
             if (project.TestMovieBehavior == TestMovieBehavior.NewTab) testMovieCombo.SelectedIndex = 1;
             else if (project.TestMovieBehavior == TestMovieBehavior.NewWindow) testMovieCombo.SelectedIndex = 2;
