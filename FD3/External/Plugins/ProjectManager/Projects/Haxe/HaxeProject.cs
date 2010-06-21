@@ -83,8 +83,10 @@ namespace ProjectManager.Projects.Haxe
             foreach (string cp in absolutePaths?this.AbsoluteClasspaths:this.Classpaths)
                 classPaths.Add(cp);
             foreach (string cp in classPaths)
-                if (System.IO.Directory.Exists(this.GetAbsolutePath(cp)))
-                    pr.Add("-cp " + Quote(cp));
+                if (System.IO.Directory.Exists(this.GetAbsolutePath(cp))) {
+                    String ccp = absolutePaths ? cp : String.Join("/",cp.Split('\\'));
+                    pr.Add("-cp " + Quote(ccp));
+                }
 
             // libraries
             foreach (string lib in CompilerOptions.Libraries)
