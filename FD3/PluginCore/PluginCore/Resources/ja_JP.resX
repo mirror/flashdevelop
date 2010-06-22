@@ -133,7 +133,7 @@
     <value>Adobe Flash Professional の組み込み関数の代わりに MTASC コンパイラー固有のクラスを使用します。これは通常、MTASC より厳密であるとして推奨されている Flash プラグインのいくつかの機能をサポートしていません。</value>
   </data>
   <data name="AS2Context.Info.FeatureMissing" xml:space="preserve">
-    <value>実装されていない機能。</value>
+    <value>実装されていない機能です。</value>
   </data>
   <data name="AS2Context.Info.InvalidClass" xml:space="preserve">
     <value>このファイルは有効な AS2 クラスではありません。</value>
@@ -187,7 +187,7 @@
     <value>開始中括弧を新しい行に移動します。</value>
   </data>
   <data name="ASCompletion.Description.CheckSyntaxOnSave" xml:space="preserve">
-    <value>保存後シンタックスをチェックします。</value>
+    <value>保存後、自動的にシンタックスチェックを実行します。</value>
   </data>
   <data name="ASCompletion.Description.CompactChars" xml:space="preserve">
     <value>再フォーマットされたとき、これらの文字の周りにあるホワイトスペースを削除します。</value>
@@ -202,13 +202,13 @@
     <value>補完リストでスマートテキストマッチングを使用します。</value>
   </data>
   <data name="ASCompletion.Description.CompletionShowQualifiedTypes" xml:space="preserve">
-    <value>補完リストに、パッケージを含めたタイプ名を表示します。(例 package + type)</value>
+    <value>補完リストにパッケージを含めたクラス名を表示します。</value>
   </data>
   <data name="ASCompletion.Description.CondenseWhitespace" xml:space="preserve">
     <value>テキストの余計なホワイトスペースを削除します。必要なホワイトスペースだけを残します。</value>
   </data>
   <data name="ASCompletion.Description.DescriptionLinesLimit" xml:space="preserve">
-    <value>表示された Tips の説明文の文字数です。</value>
+    <value>ツールチップの説明文の文字数の上限です。</value>
   </data>
   <data name="ASCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
     <value>自動的にブロックを閉じる機能を無効にします。</value>
@@ -226,7 +226,7 @@
     <value>"F1" を押したときにヘルプを実行するプログラムまたは URL です。</value>
   </data>
   <data name="ASCompletion.Description.GenerateImports" xml:space="preserve">
-    <value>クラスが完全修飾名で記述されたとき自動的にインポートします。</value>
+    <value>クラスが完全修飾名で記述されたとき自動的にインポート文を生成します。</value>
   </data>
   <data name="FlashDevelop.Description.CommentBlockStyle" xml:space="preserve">
     <value>コメント行にスペースを追加します。</value>
@@ -259,16 +259,16 @@
     <value>"定義から戻る"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>カーソル位置にある要素の定義に移動します。</value>
+    <value>"定義に移動"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
-    <value>現在のファイルをクイックビルドします。この操作は、ソース内でのコンパイラーの指定が必要です。</value>
+    <value>"クイックビルド"のショートカットです。この操作は、ソース内でのコンパイラーの指定が必要です。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
-    <value>現在のファイルのシンタックスをチェックします。</value>
+    <value>"シンタックスチェック"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
-    <value>タイプエクスプローラーを開きます。</value>
+    <value>"タイプエクスプローラーを開く"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
     <value>補完機能を強化するためにドキュメンテーションブロック内の ASDoc タグを解析します。</value>
@@ -646,7 +646,7 @@
     <value>コードの折りたたみを有効にします。</value>
   </data>
   <data name="FlashDevelop.Description.UseTabs" xml:space="preserve">
-    <value>タブキー押下時にタブを使用します。False に設定した場合、連続した半角スペースに置き換えられます。</value>
+    <value>Tab キーを押したとき、タブを使用します。False に設定した場合、連続した半角スペースに置き換えられます。</value>
   </data>
   <data name="FlashDevelop.Description.ViewBookmarks" xml:space="preserve">
     <value>ブックマークアイコンを使用します。False に設定した場合、ブックマーク行の背景色を変更します。</value>
@@ -697,7 +697,7 @@
     <value>本当にファイルを元に戻しますか？</value>
   </data>
   <data name="FlashDevelop.Info.CheckingUpdates" xml:space="preserve">
-    <value>ソフトウェア更新の確認中...</value>
+    <value>ソフトウェア更新を確認中...</value>
   </data>
   <data name="FlashDevelop.Info.CodeAndStrings" xml:space="preserve">
     <value>コードと文字列</value>
@@ -733,7 +733,7 @@
     <value>すべてのファイル (*.*)</value>
   </data>
   <data name="FlashDevelop.Info.FileIsModifiedOutside" xml:space="preserve">
-    <value>このファイルは外部から変更されています。リロードしますか:{0}{1}？</value>
+    <value>このファイルは外部で変更されました。再度読み込みますか？{0}{1}</value>
   </data>
   <data name="FlashDevelop.Info.Find" xml:space="preserve">
     <value>検索:</value>
@@ -938,7 +938,7 @@
     <value>コマンドプロンプト(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.LineComment" xml:space="preserve">
-    <value>行コメントを適用(&amp;L)</value>
+    <value>行コメントを適用/解除(&amp;L)</value>
     <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CompareFiles" xml:space="preserve">
@@ -963,7 +963,7 @@
     <value>CR+LF(&amp;C)</value>
   </data>
   <data name="FlashDevelop.Label.CSSValidator" xml:space="preserve">
-    <value>CSS の検証(&amp;C)...</value>
+    <value>CSS を検証(&amp;C)...</value>
   </data>
   <data name="FlashDevelop.Label.Cut" xml:space="preserve">
     <value>切り取り(&amp;T)</value>
@@ -987,7 +987,7 @@
     <value>複製(&amp;D)</value>
   </data>
   <data name="FlashDevelop.Label.DuplicateSelection" xml:space="preserve">
-    <value>選択範囲の複製(&amp;A)</value>
+    <value>行/選択範囲の複製(&amp;A)</value>
   </data>
   <data name="FlashDevelop.Label.Edit" xml:space="preserve">
     <value>編集(&amp;E)</value>
@@ -1065,7 +1065,7 @@
     <value>ホームページ(&amp;H)</value>
   </data>
   <data name="FlashDevelop.Label.HTMLValidator" xml:space="preserve">
-    <value>HTML 文法の検証(&amp;H)...</value>
+    <value>HTML 文法を検証(&amp;H)...</value>
   </data>
   <data name="FlashDevelop.Label.IndentationGuides" xml:space="preserve">
     <value>インデントガイド(&amp;I)</value>
@@ -1245,7 +1245,7 @@
     <value>タイムスタンプ(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.ToggleBookmark" xml:space="preserve">
-    <value>ブックマークの設定/解除(&amp;T)</value>
+    <value>ブックマークを設定/解除(&amp;T)</value>
   </data>
   <data name="FlashDevelop.Label.ToggleBreakpoint" xml:space="preserve">
     <value>ブレークポイント</value>
@@ -1323,7 +1323,7 @@
     <value>環境設定</value>
   </data>
   <data name="FlashDevelop.Title.UpdateDialog" xml:space="preserve">
-    <value>ソフトウェア更新を確認</value>
+    <value>ソフトウェア更新の確認</value>
   </data>
   <data name="FlashDevelop.Title.WarningDialog" xml:space="preserve">
     <value>警告</value>
@@ -2184,10 +2184,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>XML ファイルの補完を有効にします。</value>
   </data>
   <data name="XMLCompletion.Description.InsertQuotes" xml:space="preserve">
-    <value>属性に自動的にクオート(")を挿入します。</value>
+    <value>属性にクオート(")を自動的に挿入します。</value>
   </data>
   <data name="XMLCompletion.Description.SmartIndenter" xml:space="preserve">
-    <value>自動的にソースをインデントします。</value>
+    <value>ソースを自動的にインデントします。</value>
   </data>
   <data name="XMLCompletion.Description.UpperCaseHtmlTags" xml:space="preserve">
     <value>生成されたコードを大文字のタグにします。</value>
@@ -2911,7 +2911,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マーカー:</value>
   </data>
   <data name="FlashDevelop.Label.BlockComment" xml:space="preserve">
-    <value>ブロックコメントを適用(&amp;M)</value>
+    <value>ブロックコメントを適用/解除(&amp;M)</value>
     <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
@@ -3643,7 +3643,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Label.AnalyzeProject" xml:space="preserve">
-    <value>ソースコードの分析(&amp;Z)...</value>
+    <value>ソースコードを分析(&amp;Z)...</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Info.RunningFlexPMD" xml:space="preserve">
@@ -3867,11 +3867,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.VerboseOutput" xml:space="preserve">
-    <value>Display detailed debugging information, like SWF load/unload events.</value>
+    <value>SWF がロードまたはアンロードされたとき、詳細なデバッグ情報を表示します。</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="ProjectManager.Info.ReservedDirName" xml:space="preserve">
     <value>'{0}' は予約されたディレクトリ名です。</value>
     <comment>Added after 3.2.1</comment>
+  </data>
+  <data name="HaXeContext.Description.ExportHXML" xml:space="preserve">
+    <value>.hxproj が変更されたとき、常に HXML をエクスポートします。</value>
+    <comment>Added after 3.1.0</comment>
   </data>
 </root>
