@@ -511,6 +511,7 @@ namespace ResultsPanel
             this.nextEntry.Enabled = false;
             this.previousEntry.Enabled = false;
             this.entryIndex = -1;
+            this.UpdateButtons();
         }
 
         /// <summary>
@@ -615,9 +616,7 @@ namespace ResultsPanel
                     }
                 }
             }
-            this.toolStripButtonError.Text = this.errorCount + " " + TextHelper.GetString("Filters.Errors");
-            this.toolStripButtonWarning.Text = this.warningCount + " " + TextHelper.GetString("Filters.Warnings");
-            this.toolStripButtonInfo.Text = this.messageCount + " " + TextHelper.GetString("Filters.Informations");
+            this.UpdateButtons();
             this.FilterResults();
             this.logCount = count;
             if (newResult >= 0)
@@ -663,6 +662,16 @@ namespace ResultsPanel
             this.nextEntry.Enabled = this.previousEntry.Enabled = this.entriesView.Items.Count > 0;
             this.entriesView.EndUpdate();
 		}
+
+        /// <summary>
+        /// Updates the filter buttons
+        /// </summary>
+        private void UpdateButtons()
+        {
+            this.toolStripButtonError.Text = this.errorCount + " " + TextHelper.GetString("Filters.Errors");
+            this.toolStripButtonWarning.Text = this.warningCount + " " + TextHelper.GetString("Filters.Warnings");
+            this.toolStripButtonInfo.Text = this.messageCount + " " + TextHelper.GetString("Filters.Informations");
+        }
 
         /// <summary>
         /// Adds item to the specified group
