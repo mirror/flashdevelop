@@ -638,14 +638,11 @@ namespace Flash.Tools.Debugger.Concrete
 			// unbind first
 			try
 			{
-				// Tell player to end session.  If we launched the player (as opposed to
-				// just attaching to an already-running player), then also ask the player
-				// to try to terminate.  Note that this is just a hint, and will often
+				// Tell player to end session.  Note that this is just a hint, and will often
 				// do nothing.  For example, the Flash player running in a browser will
 				// currently never terminate when you tell it to, but the AIR player will
 				// terminate.
-				bool requestTerminate = (m_process != null);
-				playerWillTerminateItself = unbind(requestTerminate);
+				playerWillTerminateItself = unbind(true);
 			}
 			catch (Exception)
 			{
