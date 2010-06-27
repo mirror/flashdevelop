@@ -1199,7 +1199,7 @@ namespace ASCompletion.Completion
                     else evClass = eventTypes[type];
                     if (evClass.IsVoid()) 
                         continue;
-                    
+
                     bool typeFound = false;
                     foreach (MemberModel member in evClass.Members)
                     {
@@ -1215,8 +1215,12 @@ namespace ASCompletion.Completion
                         }
                     }
 
-                    if (!typeFound) 
+                    if (!typeFound)
+                    {
+                        if (evClass.InFile.Package.StartsWith("flash.")) 
+                            continue; // hide built-in events not available in current player target
                         name = '"' + name + '"';
+                    }
                     list.Add(new EventItem(name, evClass, comments));
                 }
             }
