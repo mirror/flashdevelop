@@ -17,7 +17,7 @@ package org.flashdevelop.utils
 		*/
 		public static var status:Number = 0;
 		public static var limit:Number = 1000;
-		public static var host:String = "localhost";
+		public static var host:String = "127.0.0.1";
 		public static var port:Number = 1978;
 		
 		/**
@@ -179,6 +179,7 @@ package org.flashdevelop.utils
 						var msg:String = new String("FlashConnect aborted. You have reached the limit of maximum messages.");
 						var errorNode:XMLNode = createMsgNode(msg, TraceLevel.ERROR);
 						rootNode.appendChild(errorNode);
+						messages = new Array();
 						break;
 					} 
 					else 
@@ -189,6 +190,7 @@ package org.flashdevelop.utils
 				}
 				message.appendChild(rootNode);
 				if (socket && socket.connected) socket.send(message);
+				counter = 0;
 			}
 		}
 		
