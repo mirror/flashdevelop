@@ -1490,9 +1490,6 @@
   <data name="ProjectManager.Description.Directives" xml:space="preserve">
     <value>ユーザにより定義さたコンパイラー命令を指定します。</value>
   </data>
-  <data name="ProjectManager.Description.DisableMxmlMapping" xml:space="preserve">
-    <value>デフォルトでは、MXMLソースファイル( mx:Script, mx:Style )は、MXMLファイルの下にグループ化されます。</value>
-  </data>
   <data name="ProjectManager.Description.ES" xml:space="preserve">
     <value>プロトタイププロパティを動的にオーバーライドできるように、ECMAScript Edition 3 のプロトタイプに基づくオブジェクトモデルを使用します。</value>
   </data>
@@ -3877,5 +3874,9 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="HaXeContext.Description.ExportHXML" xml:space="preserve">
     <value>.hxproj が変更されたとき、常に HXML をエクスポートします。</value>
     <comment>Added after 3.1.0</comment>
+  </data>
+  <data name="ProjectManager.Description.EnableMxmlMapping" xml:space="preserve">
+    <value>Group MXML source files (mx:Script, mx:Style) under the MXML file linking them.</value>
+    <comment>Modified after 3.2</comment>
   </data>
 </root>

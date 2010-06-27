@@ -315,7 +315,9 @@ namespace ProjectManager
                 case EventType.FileSave:
                     // refresh the tree to update any included <mx:Script> tags
                     string path = MainForm.CurrentDocument.FileName;
-                    if (FileInspector.IsMxml(path, Path.GetExtension(path).ToLower()) && Tree.NodeMap.ContainsKey(path))
+                    if (Settings.EnableMxmlMapping 
+                        && FileInspector.IsMxml(path, Path.GetExtension(path).ToLower()) 
+                        && Tree.NodeMap.ContainsKey(path))
                         Tree.RefreshNode(Tree.NodeMap[path]);
                     break;
                 case EventType.ProcessStart:

@@ -222,7 +222,8 @@ namespace ProjectManager.Controls.TreeView
             EventManager.DispatchEvent(this, e);
 
             // No one cares?  ok, well we do know one thing: Mxml
-            if (request.Mapping.Count == 0 && Tree.Project is AS3Project && !PluginMain.Settings.DisableMxmlMapping)
+            if (request.Mapping.Count == 0 && Tree.Project is AS3Project 
+                && PluginMain.Settings.EnableMxmlMapping)
                 MxmlFileMapping.AddMxmlMapping(request);
 
             return request.Mapping;

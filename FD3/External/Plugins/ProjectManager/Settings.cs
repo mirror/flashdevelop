@@ -36,7 +36,7 @@ namespace ProjectManager
         bool useProjectSessions = false;
         bool disableExtFlashIntegration = false;
         string newProjectDefaultDirectory = string.Empty;
-        bool disableMxmlMapping = false;
+        bool enableMxmlMapping = false;
         Keys shortcutTestMovie = DEFAULT_TESTMOVIE;
         Keys shortcutBuildProject = DEFAULT_BUILDPROJECT;
 
@@ -167,14 +167,14 @@ namespace ProjectManager
             set { showGlobalClasspaths = value; FireChanged("DisableMxmlMapping"); }
         }
 
-        [DisplayName("Disable Mxml Sources Mapping")]
-        [LocalizedDescription("ProjectManager.Description.DisableMxmlMapping")]
+        [DisplayName("Enable Mxml Sources Mapping")]
+        [LocalizedDescription("ProjectManager.Description.EnableMxmlMapping")]
         [LocalizedCategory("ProjectManager.Category.ProjectTree")]
         [DefaultValue(false)]
-        public bool DisableMxmlMapping
+        public bool EnableMxmlMapping
         {
-            get { return disableMxmlMapping; }
-            set { disableMxmlMapping = value; FireChanged("ShowGlobalClasspaths"); }
+            get { return enableMxmlMapping; }
+            set { enableMxmlMapping = value; FireChanged("ShowGlobalClasspaths"); }
         }
 
         [DisplayName("Alternate Templates Directory")]

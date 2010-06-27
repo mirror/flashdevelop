@@ -1491,8 +1491,9 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ProjectManager.Description.Directives" xml:space="preserve">
     <value>Specifies the user-defined compiler directives.</value>
   </data>
-  <data name="ProjectManager.Description.DisableMxmlMapping" xml:space="preserve">
-    <value>By default, MXML source files (mx:Script, mx:Style) are grouped under the MXML file.</value>
+  <data name="ProjectManager.Description.EnableMxmlMapping" xml:space="preserve">
+    <value>Group MXML source files (mx:Script, mx:Style) under the MXML file linking them.</value>
+    <comment>Modified after 3.2</comment>
   </data>
   <data name="ProjectManager.Description.EnableDebug" xml:space="preserve">
     <value>Activate the ability to use the interactive debugger.</value>
