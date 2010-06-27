@@ -46,7 +46,7 @@ namespace FDBuild
         [Option("Disable execution of pre build commands", "noprebuild")]
         public bool NoPreBuild = false;
 
-        [Option("Disable tracing for this build", "nopostbuild")]
+        [Option("Disable execution of post build commands", "nopostbuild")]
         public bool NoPostBuild = false;
 
         [Option("Pause the console after building", "pause")]
