@@ -590,7 +590,8 @@ namespace ASCompletion.Completion
             {
                 foreach (MemberModel method in aType.Members)
                 {
-                    if ((method.Flags & (FlagType.Function | FlagType.Getter | FlagType.Setter)) == 0)
+                    if ((method.Flags & (FlagType.Function | FlagType.Getter | FlagType.Setter)) == 0
+                        || method.Name == aType.Name)
                         continue;
 
                     // check if method exists
