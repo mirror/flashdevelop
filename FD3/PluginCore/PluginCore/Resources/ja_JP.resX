@@ -3876,7 +3876,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="ProjectManager.Description.EnableMxmlMapping" xml:space="preserve">
-    <value>Group MXML source files (mx:Script, mx:Style) under the MXML file linking them.</value>
+    <value>MXMLソースファイル( mx:Script, mx:Style )をMXMLファイルの下にグループ化します。</value>
     <comment>Modified after 3.2</comment>
   </data>
 </root>
