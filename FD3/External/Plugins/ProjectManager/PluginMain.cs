@@ -426,17 +426,17 @@ namespace ProjectManager
             // Handle tree-level simple shortcuts like copy/paste/del
             else if (Tree.Focused && !pluginUI.IsEditingLabel && ke != null)
             {
-                if (ke.Value == (Keys.Control | Keys.C) && pluginUI.Menu.Contains("Copy"))
+                if (ke.Value == (Keys.Control | Keys.C) && pluginUI.Menu.Contains(pluginUI.Menu.Copy))
                     TreeCopyItems();
-                else if (ke.Value == (Keys.Control | Keys.X) && pluginUI.Menu.Contains("Cut"))
+                else if (ke.Value == (Keys.Control | Keys.X) && pluginUI.Menu.Contains(pluginUI.Menu.Cut))
                     TreeCutItems();
-                else if (ke.Value == (Keys.Control | Keys.V) && pluginUI.Menu.Contains("Paste"))
+                else if (ke.Value == (Keys.Control | Keys.V) && pluginUI.Menu.Contains(pluginUI.Menu.Paste))
                     TreePasteItems();
-                else if (ke.Value == Keys.Delete && pluginUI.Menu.Contains("Delete"))
+                else if (ke.Value == Keys.Delete && pluginUI.Menu.Contains(pluginUI.Menu.Delete))
                     TreeDeleteItems();
-                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains("Open"))
+                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains(pluginUI.Menu.Open))
                     TreeOpenItems();
-                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains("Insert"))
+                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains(pluginUI.Menu.Insert))
                     TreeInsertItem();
                 else return false;
             }
@@ -901,8 +901,8 @@ namespace ProjectManager
 
         private void TreeDoubleClick()
         {
-            if (pluginUI.Menu.Contains("Open")) TreeOpenItems();
-            else if (pluginUI.Menu.Contains("Insert")) TreeInsertItem();
+            if (pluginUI.Menu.Contains(pluginUI.Menu.Open)) TreeOpenItems();
+            else if (pluginUI.Menu.Contains(pluginUI.Menu.Insert)) TreeInsertItem();
         }
 
         private void TreeOpenItems()

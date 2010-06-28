@@ -74,10 +74,21 @@ namespace ProjectManager.Controls.TreeView
             set { projectTree = value; }
         }
 
-        public Boolean Contains(string menuName)
+        public Boolean Contains(ToolStripMenuItem item)
         {
-            ToolStripItem item = this.GetType().GetField(menuName).GetValue(this) as ToolStripItem;
-            return item != null && Items.Contains(item) && item.Enabled;
+            return item != null && item.Enabled && findItem(item, Items);
+        }
+
+        private bool findItem(ToolStripMenuItem item, ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem i in items)
+                if (i == item) return true;
+                else if (i is ToolStripMenuItem)
+                {
+                    ToolStripMenuItem mi = i as ToolStripMenuItem;
+                    if (mi.DropDown.Items.Count > 0 && findItem(item, mi.DropDown.Items)) return true;
+                }
+            return false;
         }
 
         #region File Templates
