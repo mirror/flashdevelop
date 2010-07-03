@@ -16,8 +16,9 @@ namespace FlashDebugger.Controls
         private DataTreeModel _model;
         private static ViewerForm viewerForm = null;
         private ContextMenuStrip _contextMenuStrip;
-        private ToolStripMenuItem copyMenuItem, viewerMenuItem;
+        private ToolStripMenuItem copyMenuItem, viewerMenuItem, watchMenuItem;
 		private List<String> expandedList = new List<String>();
+		private bool watchMode;
 
         public Collection<Node> Nodes
         {
@@ -43,13 +44,19 @@ namespace FlashDebugger.Controls
 			}
         }
 
-        public DataTreeControl()
+		public DataTreeControl():this(false)
+		{
+		}
+
+		public DataTreeControl(bool watchMode)
         {
             InitializeComponent();
+			this.watchMode = watchMode;
             _model = new DataTreeModel();
             _tree.Model = _model;
             this.Controls.Add(_tree);
 			_tree.Expanding += new EventHandler<TreeViewAdvEventArgs>(TreeExpanding);
+			_tree.SelectionChanged += new EventHandler(TreeSelectionChanged);
 			_tree.LoadOnDemand = true;
 			_tree.AutoRowHeight = true;
 			NameNodeTextBox.IsEditEnabledValueNeeded += new EventHandler<NodeControlValueEventArgs>(NameNodeTextBox_IsEditEnabledValueNeeded);
@@ -68,6 +75,16 @@ namespace FlashDebugger.Controls
             copyMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Copy"), null, new EventHandler(this.CopyItemClick));
             viewerMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Viewer"), null, new EventHandler(this.ViewerItemClick));
             _contextMenuStrip.Items.AddRange(new ToolStripMenuItem[] { copyMenuItem, viewerMenuItem});
+			if (watchMode)
+			{
+				watchMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Unwatch"), null, new EventHandler(this.WatchItemClick));
+			}
+			else
+			{
+				watchMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Watch"), null, new EventHandler(this.WatchItemClick));
+			}
+			_contextMenuStrip.Items.Add(watchMenuItem);
+			TreeSelectionChanged(null, null);
             viewerForm = new ViewerForm();
             viewerForm.StartPosition = FormStartPosition.Manual;
         }
@@ -161,6 +178,41 @@ namespace FlashDebugger.Controls
                 viewerForm.ShowDialog();
             }
         }
+		private void WatchItemClick(Object sender, EventArgs e)
+		{
+			if (Tree.SelectedNode == null) return;
+			DataNode node = Tree.SelectedNode.Tag as DataNode;
+			if (watchMode)
+			{
+				PanelsHelper.watchUI.RemoveElement(Tree.SelectedNode.Row);
+			}
+			else
+			{
+				PanelsHelper.watchUI.AddElement(GetVariablePath(node));
+			}
+		}
+
+		private String GetVariablePath(Node node)
+		{
+			String ret = "";
+			if (node.Parent != null) ret = GetVariablePath(node.Parent);
+			if (node is DataNode)
+			{
+				DataNode datanode = node as DataNode;
+				if (ret != "" && datanode.Variable != null) ret += ".";
+				if (datanode.Variable != null) ret += datanode.Variable.getName();
+			}
+			return ret;
+		}
+
+		void TreeSelectionChanged(Object sender, EventArgs e)
+		{
+			foreach (ToolStripMenuItem item in _contextMenuStrip.Items)
+			{
+				item.Enabled = (Tree.SelectedNode != null);
+			}
+			if (watchMode) watchMenuItem.Enabled = (Tree.SelectedNode != null && Tree.SelectedNode.Level == 1);
+		}
 
 		void TreeExpanding(Object sender, TreeViewAdvEventArgs e)
         {

@@ -3879,4 +3879,20 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>MXMLソースファイル( mx:Script, mx:Style )をMXMLファイルの下にグループ化します。</value>
     <comment>Modified after 3.2</comment>
   </data>
+  <data name="FlashDebugger.Label.Unwatch" xml:space="preserve">
+    <value>Delete Watch</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.ViewWatchPanel" xml:space="preserve">
+    <value>Watch panel</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
+  <data name="FlashDebugger.Label.Watch" xml:space="preserve">
+    <value>Add Watch</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
+  <data name="FlashDebugger.Title.Watch" xml:space="preserve">
+    <value>Watch</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
 </root>

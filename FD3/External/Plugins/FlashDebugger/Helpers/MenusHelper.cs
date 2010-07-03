@@ -36,6 +36,7 @@ namespace FlashDebugger
             viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewBreakpointsPanel"), pluginImage, new EventHandler(this.OpenBreakPointPanel)));
             viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanel"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
             viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewStackframePanel"), pluginImage, new EventHandler(this.OpenStackframePanel)));
+			viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewWatchPanel"), pluginImage, new EventHandler(this.OpenWatchPanel)));
 
             // Menu           
             ToolStripMenuItem debugMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("DebugMenu");
@@ -131,7 +132,12 @@ namespace FlashDebugger
             PanelsHelper.stackframePanel.Show();
         }
 
-        /// <summary>
+		public void OpenWatchPanel(Object sender, System.EventArgs e)
+		{
+			PanelsHelper.watchPanel.Show();
+		}
+
+		/// <summary>
         /// 
         /// </summary>
         void StartContinue_Click(Object sender, EventArgs e)

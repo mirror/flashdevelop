@@ -22,6 +22,10 @@ namespace FlashDebugger
         static public DockContent stackframePanel;
         static public StackframeUI stackframeUI;
 
+		static public String watchGuid = "c4a0c90a-236c-4a41-8ece-85486a23960f";
+		static public DockContent watchPanel;
+		static public WatchUI watchUI;
+
         public PanelsHelper(PluginMain pluginMain, Image pluginImage)
         {
             pluginUI = new PluginUI(pluginMain);
@@ -35,6 +39,10 @@ namespace FlashDebugger
             stackframeUI = new StackframeUI(pluginMain, MenusHelper.imageList);
             stackframeUI.Text = TextHelper.GetString("Title.StackTrace");
             stackframePanel = PluginBase.MainForm.CreateDockablePanel(stackframeUI, stackframeGuid, pluginImage, DockState.Hidden);
+
+			watchUI = new WatchUI();
+			watchUI.Text = TextHelper.GetString("Title.Watch");
+			watchPanel = PluginBase.MainForm.CreateDockablePanel(watchUI, watchGuid, pluginImage, DockState.Hidden);
         }
 
 	}

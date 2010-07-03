@@ -160,6 +160,7 @@ namespace FlashDebugger
 			PanelsHelper.pluginPanel.Show();
 			PanelsHelper.breakPointPanel.Show();
 			PanelsHelper.stackframePanel.Show();
+			PanelsHelper.watchPanel.Show();
             PluginBase.MainForm.ProgressBar.Visible = true;
             PluginBase.MainForm.ProgressLabel.Visible = true;
             PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");
@@ -260,6 +261,8 @@ namespace FlashDebugger
 			PanelsHelper.stackframePanel.Hide();
 			PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
 			PanelsHelper.stackframeUI.ClearItem();
+			PanelsHelper.watchUI.Clear();
+			PanelsHelper.watchPanel.Hide();
 			PluginMain.breakPointManager.ResetAll();
             PluginBase.MainForm.ProgressBar.Visible = false;
             PluginBase.MainForm.ProgressLabel.Visible = false;
@@ -366,6 +369,7 @@ namespace FlashDebugger
 					PanelsHelper.pluginUI.SetData(locals);
 				}
 				CurrentLocation = frames[m_CurrentFrame].Location;
+				PanelsHelper.watchUI.UpdateElements();
 			}
 			else CurrentLocation = null;
 		}

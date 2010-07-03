@@ -137,7 +137,7 @@ namespace FlashDebugger.Controls
             {
 				if (m_Value == null)
 				{
-					return false;
+					return (this.Nodes.Count == 0);
 				}
 				return m_Value.getValue().getType() != VariableType.MOVIECLIP && m_Value.getValue().getType() != VariableType.OBJECT;
             }
