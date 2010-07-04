@@ -162,7 +162,10 @@ namespace FlashDevelop.Docking
         /// </summary>
         public void AddScintillaControl(ScintillaControl editor)
         {
-            editor.SavePointLeft += delegate { this.IsModified = true; };
+            editor.SavePointLeft += delegate 
+            {
+                Globals.MainForm.OnDocumentModify(this);
+            };
             editor.SavePointReached += delegate 
             {
                 editor.MarkerDeleteAll(2);

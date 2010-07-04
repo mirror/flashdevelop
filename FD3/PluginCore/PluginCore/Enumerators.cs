@@ -33,7 +33,8 @@ namespace PluginCore
         ProcessEnd = 1 << 26, // TextEvent (result)
         Command = 1 << 27, // DataEvent (command)
         Trace = 1 << 28, // NotifyEvent
-        Keys = 1 << 29 // KeyEvent (keys)
+        Keys = 1 << 29, // KeyEvent (keys)
+        FileModifyRO = 1 << 30 // TextEvent (file)
     }
 
     public enum SessionType

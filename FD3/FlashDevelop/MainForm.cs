@@ -1165,6 +1165,9 @@ namespace FlashDevelop
         public void OnScintillaControlModifyRO(ScintillaControl sci)
         {
             if (!sci.Enabled || !File.Exists(sci.FileName)) return;
+            TextEvent te = new TextEvent(EventType.FileModifyRO, sci.FileName);
+            EventManager.DispatchEvent(this, te);
+            if (te.Handled) return; // Let plugin handle this...
             String dlgTitle = TextHelper.GetString("Title.ConfirmDialog");
             String message = TextHelper.GetString("Info.MakeReadOnlyWritable");
             if (MessageBox.Show(Globals.MainForm, message, dlgTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
