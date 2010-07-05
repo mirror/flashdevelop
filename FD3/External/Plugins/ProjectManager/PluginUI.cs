@@ -146,7 +146,7 @@ namespace ProjectManager
 
         public bool NoOutput
         {
-            set { menus.ConfigurationSelector.Enabled = !value; }
+            set { menus.ConfigurationSelector.Enabled = true/*!value*/; }
         }
 
         public bool IsTraceDisabled
