@@ -63,7 +63,8 @@ namespace ProjectManager.Projects.AS3
                 } 
                 else return String.Format("{0}Embed(source='{1}', symbol='{2}'){3}", pre, relPath, export, post);
             }
-            else if (FileInspector.IsImage(relPath, fileExt) || IsText(fileExt) || FileInspector.IsFont(relPath, fileExt))
+            else if (FileInspector.IsImage(relPath, fileExt) || IsText(fileExt) 
+                || FileInspector.IsFont(relPath, fileExt) || FileInspector.IsSound(relPath, fileExt))
             {
                 return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);
             }
