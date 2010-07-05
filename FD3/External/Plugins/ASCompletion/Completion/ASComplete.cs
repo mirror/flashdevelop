@@ -296,7 +296,7 @@ namespace ASCompletion.Completion
                         c = (char)Sci.CharAt(pos--);
                         if (hadWS && characterClass.IndexOf(c) >= 0) break;
                         else if (c == '<' && ((char)Sci.CharAt(pos + 2) == '/' || !hadWS)) break;
-                        else if (":;,+-*%!&|<>/{}()[=".IndexOf(c) >= 0)
+                        else if (":;,+-*%!&|<>/{}()[=?".IndexOf(c) >= 0)
                         {
                             canComplete = true;
                             // TODO  Add HTML lookup here
@@ -3016,7 +3016,7 @@ namespace ASCompletion.Completion
             if (inFile == null || import == null)
                 return false;
 
-            if (expr.Separator == ' ' && expr.WordBefore != null)
+            if (expr.Separator == ' ' && expr.WordBefore != null && expr.WordBefore != "")
             {
                 if (expr.WordBefore == features.importKey || expr.WordBefore == features.importKeyAlt
                     || (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case" && expr.WordBefore != "return"))
