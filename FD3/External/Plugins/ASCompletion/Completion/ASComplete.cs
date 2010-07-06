@@ -3019,7 +3019,7 @@ namespace ASCompletion.Completion
             if (expr.Separator == ' ' && expr.WordBefore != null && expr.WordBefore != "")
             {
                 if (expr.WordBefore == features.importKey || expr.WordBefore == features.importKeyAlt
-                    || (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case" && expr.WordBefore != "return"))
+                    /*|| (!features.HasTypePreKey(expr.WordBefore) && expr.WordBefore != "case" && expr.WordBefore != "return")*/)
                 {
                     if (expr.WordBefore == features.importKey || expr.WordBefore == features.importKeyAlt)
                         ASContext.Context.RefreshContextCache(expr.Value);
