@@ -3476,7 +3476,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.SizeAfterDecompression" xml:space="preserve">
-    <value>展開後 ${size} バイトになります。 </value>
+    <value>展開後 ${size} バイト</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnableToStartDebugger" xml:space="preserve">
@@ -3860,7 +3860,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2</comment>
   </data>
   <data name="FlashDebugger.Label.StartRemoteDebugging" xml:space="preserve">
-    <value>リモートデバッガを起動する</value>
+    <value>リモートデバッガーを起動する</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.VerboseOutput" xml:space="preserve">
@@ -3880,19 +3880,19 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Modified after 3.2</comment>
   </data>
   <data name="FlashDebugger.Label.Unwatch" xml:space="preserve">
-    <value>Delete Watch</value>
+    <value>ウォッチを解除</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.ViewWatchPanel" xml:space="preserve">
-    <value>Watch panel</value>
+    <value>ウォッチ</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.Watch" xml:space="preserve">
-    <value>Add Watch</value>
+    <value>ウォッチを追加</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Title.Watch" xml:space="preserve">
-    <value>Watch</value>
+    <value>ウォッチ</value>
     <comment>Added after 3.2.1</comment>
   </data>
 </root>
