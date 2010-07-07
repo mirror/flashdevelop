@@ -3888,7 +3888,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.ViewWatchPanel" xml:space="preserve">
-    <value>Watch panel</value>
+    <value>Watch Panel</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.Watch" xml:space="preserve">
