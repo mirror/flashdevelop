@@ -827,19 +827,24 @@ namespace FlashDebugger
 			{
 				foreach (SwfInfo swf in m_Session.Swfs)
 				{
-					foreach (SourceFile src in swf.getSourceList(m_Session))
+					if (swf == null) continue;
+					try
 					{
-						String localPath = PluginMain.debugManager.GetLocalPath(src);
-						if (localPath != null && files.ContainsKey(localPath) && files[localPath] == 0)
+						foreach (SourceFile src in swf.getSourceList(m_Session))
 						{
-							files[localPath] = src.Id;
-							nFiles--;
-							if (nFiles == 0)
+							String localPath = PluginMain.debugManager.GetLocalPath(src);
+							if (localPath != null && files.ContainsKey(localPath) && files[localPath] == 0)
 							{
-								break;
+								files[localPath] = src.Id;
+								nFiles--;
+								if (nFiles == 0)
+								{
+									break;
+								}
 							}
 						}
 					}
+					catch (InProgressException) { }
 					if (nFiles == 0)
 					{
 						break;
