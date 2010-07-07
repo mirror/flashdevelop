@@ -60,7 +60,7 @@ namespace ASCompletion.Completion
             // ignore automatic vars (MovieClip members)
             if (resolve.Member != null && 
                 (((resolve.Member.Flags & FlagType.AutomaticVar) > 0) 
-                 || resolve.inClass.QualifiedName == "Object"))
+                 || (resolve.inClass != null && resolve.inClass.QualifiedName == "Object")))
             {
                 resolve.Member = null;
                 resolve.Type = null;
