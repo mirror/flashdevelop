@@ -271,7 +271,7 @@ namespace FlashDebugger
 		void flashInterface_BreakpointEvent(object sender)
 		{
 			Location loc = FlashInterface.getCurrentLocation();
-			if (PluginMain.breakPointManager.ShouldBreak(loc.File, loc.Line) || File.Exists(loc.File.FullPath))
+			if (PluginMain.breakPointManager.ShouldBreak(loc.File, loc.Line))
 			{
 				UpdateUI(DebuggerState.BreakHalt);
 			}
