@@ -184,6 +184,10 @@ namespace FlashDebugger
                         {
                             disableDebugger = false;
                             PanelsHelper.breakPointUI.Clear();
+							if (breakPointManager.Project != null && breakPointManager.Project != project)
+							{
+								breakPointManager.Save();
+							}
                             breakPointManager.Project = project;
                             breakPointManager.Load();
                             breakPointManager.SetBreakPointsToEditor(PluginBase.MainForm.Documents);
