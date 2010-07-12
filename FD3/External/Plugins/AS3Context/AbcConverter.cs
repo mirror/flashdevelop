@@ -16,6 +16,7 @@ namespace AS3Context
     public class AbcConverter
     {
         static public Regex reSafeChars = new Regex("[*\\:" + Regex.Escape(new String(Path.GetInvalidPathChars())) + "]", RegexOptions.Compiled);
+        static private Regex reDocFile = new Regex("[/\\\\]([-_.$a-z0-9]+)\\.xml", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         
         static public Dictionary<string, Dictionary<string, DocItem>> Docs 
             = new Dictionary<string, Dictionary<string, DocItem>>();
@@ -44,7 +45,7 @@ namespace AS3Context
                     continue;
                 try
                 {
-                    Match m = Regex.Match(docFile, "[/\\\\]([-_.$a-z]+)\\.xml", RegexOptions.IgnoreCase);
+                    Match m = reDocFile.Match(docFile);
                     if (!m.Success) continue;
                     string package = m.Groups[1].Value;
                     Dictionary<string, DocItem> packageDocs = Docs.ContainsKey(package)
