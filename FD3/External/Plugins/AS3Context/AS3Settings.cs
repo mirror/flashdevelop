@@ -17,7 +17,7 @@ namespace AS3Context
 
         #region IContextSettings Documentation
 
-        const string DEFAULT_DOC_COMMAND = "http://www.google.com/search?q=%22actionscript 3.0%22+$(ItmTypPkg)+$(ItmTypName)+$(ItmName)+site:livedocs.adobe.com";
+        const string DEFAULT_DOC_COMMAND = "http://www.google.com/search?q=%22actionscript 3.0%22+$(ItmTypPkg)+$(ItmTypName)+$(ItmName)+site:help.adobe.com";
         protected string documentationCommandLine = DEFAULT_DOC_COMMAND;
 
         [DisplayName("Documentation Command Line")]
