@@ -179,7 +179,7 @@ namespace FlashDebugger
 				else return true;
 			}
 
-			return false;
+			return true;
 		}
 
 		public void SetBreakPointsToEditor(PluginCore.ITabbedDocument[] documents)
