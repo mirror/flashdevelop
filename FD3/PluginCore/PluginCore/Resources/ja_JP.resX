@@ -3895,4 +3895,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ウォッチ</value>
     <comment>Added after 3.2.1</comment>
   </data>
+  <data name="FlashDevelop.Label.CollapseFunctions" xml:space="preserve">
+    <value>Collapse &amp;Functions</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
 </root>

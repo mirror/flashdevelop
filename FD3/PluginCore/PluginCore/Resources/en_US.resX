@@ -3899,4 +3899,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Watch</value>
     <comment>Added after 3.2.1</comment>
   </data>
+  <data name="FlashDevelop.Label.CollapseFunctions" xml:space="preserve">
+    <value>Collapse &amp;Functions</value>
+    <comment>Added after 3.2.1</comment>
+  </data>
 </root>

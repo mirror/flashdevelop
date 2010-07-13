@@ -5555,7 +5555,42 @@ namespace ScintillaNet
 				FoldExpanded(i, false);
 				HideLines(i+1, maxSubOrd);
 			}
-		}
+        }
+        
+        /// <summary>
+        /// Only folds functions keeping the blocks within it open
+        /// </summary>
+        public void CollapseFunctions()
+        {
+            for (int i = 0; i < LineCount; i++)
+            {
+                // Determine if function block
+                string line = GetLine(i);
+                bool collapse = (line.Contains("function") && line.Contains("(") && line.Contains(")"));
+
+                if (collapse)
+                {
+                    // Get the function opening brace
+                    int maxSubOrd = LastChild(i, -1);
+                    // Get brace if on the next line
+                    if (maxSubOrd == i)
+                    {
+                        i++;
+                        maxSubOrd = LastChild(i, -1);
+                    }
+
+                    FoldExpanded(i, false);
+
+                    HideLines(i + 1, maxSubOrd);
+                    i = maxSubOrd;
+                }
+                else
+                {
+                    FoldExpanded(i, true);
+                    ShowLines(i + 1, i + 1);
+                }
+            }
+        }
 		
 		/// <summary>
 		/// Selects the specified text, starting from the caret position
