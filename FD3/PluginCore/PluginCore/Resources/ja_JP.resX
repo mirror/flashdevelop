@@ -3252,7 +3252,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.Method" xml:space="preserve">
-    <value>関数</value>
+    <value>メソッド</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.LiveObjectsTab" xml:space="preserve">
@@ -3896,7 +3896,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseFunctions" xml:space="preserve">
-    <value>Collapse &amp;Functions</value>
+    <value>メソッド定義を折りたたむ(&amp;F)</value>
     <comment>Added after 3.2.1</comment>
   </data>
 </root>
