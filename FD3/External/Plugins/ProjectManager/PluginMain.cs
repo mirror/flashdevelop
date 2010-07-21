@@ -480,6 +480,7 @@ namespace ProjectManager
 
             this.project = project;
 
+            Environment.CurrentDirectory = project.Directory;
             Settings.LastProject = project.ProjectPath;
             Settings.Language = project.Language;
             pluginUI.SetProject(project);
