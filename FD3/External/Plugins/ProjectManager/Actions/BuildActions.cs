@@ -144,6 +144,9 @@ namespace ProjectManager.Actions
 
         public bool FDBuild(Project project, bool runOutput, bool noTrace, string compiler)
 		{
+            string directory = Environment.CurrentDirectory;
+            Environment.CurrentDirectory = project.Directory;
+
 			string fdBuildDir = Path.Combine(PathHelper.ToolDir, "fdbuild");
 			string fdBuildPath = Path.Combine(fdBuildDir, "fdbuild.exe");
 
@@ -179,6 +182,7 @@ namespace ProjectManager.Actions
                         SetStatusBar(TextHelper.GetString("Info.BuildFailed"));
                         OnBuildFailed(runOutput);
                     }
+                    Environment.CurrentDirectory = directory;
                 });
             return true;
 		}
