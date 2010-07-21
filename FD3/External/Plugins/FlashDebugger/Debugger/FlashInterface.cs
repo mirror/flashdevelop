@@ -320,7 +320,7 @@ namespace FlashDebugger
 
                         if (!(m_RequestResume || m_RequestDetach))
                         {
-							m_SuspendWaiting = !m_SuspendWait.WaitOne(500);
+							m_SuspendWaiting = !m_SuspendWait.WaitOne(500, false);
                         }
                     }
                     else

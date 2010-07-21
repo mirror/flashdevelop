@@ -152,7 +152,11 @@ namespace AS3Context.Compiler
                     else if (cmdQueue.Count > 0) WriteToPrompt(cmdQueue.Dequeue());
                     // default behavior
                     else if (connected) WriteToPrompt("continue");
-                    else if (!connected) { connectedEvent.WaitOne(250, false); connectedEvent.Reset(); }
+                    else if (!connected) 
+                    { 
+                        connectedEvent.WaitOne(250, false); 
+                        connectedEvent.Reset();
+                    }
                 }
             }
             if (!process.HasExited)

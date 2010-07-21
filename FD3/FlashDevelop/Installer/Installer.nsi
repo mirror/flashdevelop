@@ -8,8 +8,17 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "3.2.2"
+!define VERSION "3.2.3"
 !define BUILD "RTM"
+
+; Installer details
+VIAddVersionKey "CompanyName" "FlashDevelop.org"
+VIAddVersionKey "ProductName" "FlashDevelop Installer"
+VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2010"
+VIAddVersionKey "FileDescription" "FlashDevelop Installer"
+VIAddVersionKey "ProductVersion" "3.2.3.0"
+VIAddVersionKey "FileVersion" "3.2.3.0"
+VIProductVersion "3.2.3.0"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
@@ -43,15 +52,6 @@ RequestExecutionLevel admin
 SetCompressor /SOLID lzma
 CRCCheck on
 XPStyle on
-
-; Installer details
-VIAddVersionKey "CompanyName" "FlashDevelop.org"
-VIAddVersionKey "ProductName" "FlashDevelop Installer"
-VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2010"
-VIAddVersionKey "FileDescription" "FlashDevelop Installer"
-VIAddVersionKey "ProductVersion" "3.2.0.0"
-VIAddVersionKey "FileVersion" "3.2.0.0"
-VIProductVersion "3.2.0.0"
 
 ;--------------------------------
 
