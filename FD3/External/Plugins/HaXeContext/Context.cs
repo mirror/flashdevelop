@@ -146,6 +146,7 @@ namespace HaXeContext
                 pi.Arguments = "path " + lib;
                 pi.RedirectStandardOutput = true;
                 pi.UseShellExecute = false;
+                pi.CreateNoWindow = true;
                 pi.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = Process.Start(pi);
                 p.WaitForExit();
@@ -262,7 +263,7 @@ namespace HaXeContext
             // add haxe libraries
             if (proj != null)
             {
-                foreach (string param in proj.BuildHXML(new string[0], "", false, true))
+                foreach (string param in proj.BuildHXML(new string[0], "", false))
                     if (param.IndexOf("-lib ") == 0)
                         AddPath(LookupLibrary(param.Substring(5)));
             }
