@@ -286,7 +286,7 @@ namespace ProjectManager
                         string cpath = BuildActions.GetCompilerPath(project);
                         if (File.Exists(cpath)) cpath = Path.GetDirectoryName(cpath);
 
-                        vars.AddVar("FlexSDK", cpath);
+                        //vars.AddVar("FlexSDK", cpath);
                         vars.AddVar("CompilerPath", cpath);
                         vars.AddVar("CompilerConfiguration", menus.ConfigurationSelector.Text);
                         vars.AddVar("BuildConfiguration", pluginUI.IsTraceDisabled ? "release" : "debug");
@@ -681,7 +681,7 @@ namespace ProjectManager
             {
                 if (project.TestMovieCommand != null && project.TestMovieCommand.Length > 0)
                 {
-                    if (project.TraceEnabled && (project.Language == "as3" || IsHaxeAS3(project)))
+                    if (project.TraceEnabled && project.EnableInteractiveDebugger)
                     {
                         DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
                         EventManager.DispatchEvent(this, de);
@@ -704,7 +704,7 @@ namespace ProjectManager
             {
                 if (project.TestMovieCommand != null && project.TestMovieCommand.Length > 0)
                 {
-                    if (project.TraceEnabled && (project.Language == "as3" || IsHaxeAS3(project)))
+                    if (project.TraceEnabled && project.EnableInteractiveDebugger)
                     {
                         DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
                         EventManager.DispatchEvent(this, de);
@@ -726,12 +726,6 @@ namespace ProjectManager
                 DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path + "," + w + "," + h);
                 EventManager.DispatchEvent(this, de);
             }
-        }
-
-        private bool IsHaxeAS3(Project project)
-        {
-            return project.Language == "haxe"
-                && (project.MovieOptions.Platform == 9 || project.MovieOptions.Platform == 10);
         }
         
 		#endregion

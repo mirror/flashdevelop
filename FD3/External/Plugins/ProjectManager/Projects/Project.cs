@@ -86,7 +86,8 @@ namespace ProjectManager.Projects
 		public string ProjectPath { get { return path; } }
         public virtual string Name { get { return Path.GetFileNameWithoutExtension(path); } }
 		public string Directory { get { return Path.GetDirectoryName(path); } }
-        public Boolean TraceEnabled { set { traceEnabled = value; } get { return traceEnabled; } }
+        public bool TraceEnabled { set { traceEnabled = value; } get { return traceEnabled; } }
+        public virtual bool EnableInteractiveDebugger { get { return false; } }
 		
 		// we only provide getters for these to preserve the original pointer
         public MovieOptions MovieOptions { get { return movieOptions; } }

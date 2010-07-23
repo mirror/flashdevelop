@@ -448,6 +448,10 @@ namespace HaXeContext
                 }
                 // HX files are "modules": when imported all the classes contained are available
                 string fileName = item.Type.Replace(".", dirSeparator) + ".hx";
+                
+                if (fileName.StartsWith("flash" + dirSeparator) && flashVersion > 8) // flash9 remap
+                    fileName = "flash9" + fileName.Substring(5);
+
                 foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
                 {                    
                     string path = Path.Combine(aPath.Path, fileName);
@@ -633,7 +637,7 @@ namespace HaXeContext
         /// <returns>Package folders and types</returns>
         public override FileModel ResolvePackage(string name, bool lazyMode)
         {
-            if (settings.LazyClasspathExploration && flashVersion >= 9 && name == "flash") 
+            if ((settings.LazyClasspathExploration || lazyMode) && flashVersion >= 9 && name == "flash") 
                 name = "flash9";
             return base.ResolvePackage(name, lazyMode);
         }
@@ -765,7 +769,9 @@ namespace HaXeContext
                 if (baseElements != null)
                 {
                     elements.Add(baseElements.Imports);
-                    elements.Add(baseElements.Members);
+                    foreach(MemberModel decl in baseElements.Members)
+                        if ((decl.Flags & (FlagType.Class | FlagType.Enum | FlagType.TypeDef)) > 0)
+                            elements.Add(decl);
                 }
                 elements.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));
 

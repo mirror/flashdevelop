@@ -126,14 +126,6 @@ namespace AS3Context
             {
                 switch (e.Type)
                 {
-                    case EventType.ProcessArgs:
-                        TextEvent te = e as TextEvent;
-                        if (te.Value.IndexOf("$(FlexSDK)") >= 0)
-                        {
-                            te.Value = te.Value.Replace("$(FlexSDK)", contextInstance.GetCompilerPath());
-                        }
-                        break;
-                    
                     case EventType.Command:
                         DataEvent de = e as DataEvent;
                         string action = de.Action;
@@ -190,6 +182,14 @@ namespace AS3Context
             {
                 switch (e.Type)
                 {
+                    case EventType.ProcessArgs:
+                        TextEvent te = e as TextEvent;
+                        if (te.Value.IndexOf("$(FlexSDK)") >= 0)
+                        {
+                            te.Value = te.Value.Replace("$(FlexSDK)", contextInstance.GetCompilerPath());
+                        }
+                        break;
+
                     case EventType.UIStarted:
                         contextInstance = new Context(settingObject);
                         AddToolbarItems();
@@ -235,7 +235,7 @@ namespace AS3Context
                             || action == "FlashViewer.Popup" || action == "FlashViewer.Document")
                         {
                             if (PluginBase.CurrentProject != null 
-                                && (PluginBase.CurrentProject.Language == "as3" || IsAS3Haxe(PluginBase.CurrentProject)))
+                                && PluginBase.CurrentProject.EnableInteractiveDebugger)
                             {
                                 DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
                                 EventManager.DispatchEvent(this, de);
@@ -274,13 +274,6 @@ namespace AS3Context
                     }
                 }
             }
-        }
-
-        private bool IsAS3Haxe(IProject project)
-        {
-            if (project.Language != "haxe") return false;
-            HaxeProject hproj = project as HaxeProject;
-            return hproj.MovieOptions.Version == 9 || hproj.MovieOptions.Version == 10;
         }
 
         private bool OpenVirtualFileModel(string virtualPath)

@@ -188,6 +188,7 @@ namespace PluginCore
         String OutputPathAbsolute { get; }
         String[] SourcePaths { get; }
         Boolean TraceEnabled { get; }
+        Boolean EnableInteractiveDebugger { get; }
         String ProjectPath { get; }
 
         #endregion

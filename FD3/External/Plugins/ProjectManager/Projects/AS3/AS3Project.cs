@@ -29,6 +29,7 @@ namespace ProjectManager.Projects.AS3
         public override string Language { get { return "as3"; } }
         public override bool HasLibraries { get { return !NoOutput; } }
         public override int MaxTargetsCount { get { return 1; } }
+        public override bool EnableInteractiveDebugger { get { return true; } }
 
         public new MxmlcOptions CompilerOptions { get { return (MxmlcOptions)base.CompilerOptions; } }
 

@@ -21,6 +21,16 @@ namespace ProjectManager.Projects.Haxe
         public override string Language { get { return "haxe"; } }
         public override bool HasLibraries { get { return !NoOutput && IsFlashOutput; } }
         public override bool RequireLibrary { get { return IsFlashOutput; } }
+        
+        public override bool EnableInteractiveDebugger 
+        { 
+            get 
+            {
+                return (movieOptions.Version == 9 || movieOptions.Version == 10) 
+                    && CompilerOptions.EnableDebug;
+            } 
+        }
+
         public override String LibrarySWFPath
         {
             get
