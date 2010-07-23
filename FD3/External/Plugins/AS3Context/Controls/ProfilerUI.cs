@@ -84,7 +84,7 @@ namespace AS3Context.Controls
             autoButton.Image = PluginBase.MainForm.FindImage("514");
 
             detectDisconnect = new Timer();
-            detectDisconnect.Interval = 5000;
+            detectDisconnect.Interval = 30000;
             detectDisconnect.Tick += new EventHandler(detectDisconnect_Tick);
 
             memView = new ProfilerMemView(memLabel, memStatsLabel, memScaleCombo, memoryPage);
