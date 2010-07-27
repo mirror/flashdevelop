@@ -409,22 +409,13 @@ namespace ProjectManager.Controls.TreeView
         {
             bool hidden = project.IsPathHidden(path);
             bool showHidden = project.ShowHiddenPaths;
-            ToolStripMenuItem group = new ToolStripMenuItem(TextHelper.GetString("FlashDevelop.Label.Edit"));
-            group.DropDownItems.Add(Cut);
-            group.DropDownItems.Add(Copy);
-            if (addPaste) group.DropDownItems.Add(Paste);
-            group.DropDownItems.Add(Delete);
-            group.DropDownItems.Add(Rename);
-            menu.Add(group, 1);
-            menu.Add(HideItem, 1, hidden);
-            /*
             menu.Add(Cut, 1);
             menu.Add(Copy, 1);
             if (addPaste) menu.Add(Paste, 1);
             menu.Add(Delete, 1);
             menu.Add(Rename, 1);
-            //menu.Add(ShowHidden, 3, showHidden);
-            menu.Add(HideItem, 3, hidden);*/
+            menu.Add(ShowHidden, 3, showHidden);
+            menu.Add(HideItem, 3, hidden);
         }
 
         private void AddFileItems(MergableMenu menu, string path)

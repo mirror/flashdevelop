@@ -8,7 +8,7 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "3.2.3"
+!define VERSION "3.2.4"
 !define BUILD "RTM"
 
 ; Installer details
@@ -16,9 +16,9 @@ VIAddVersionKey "CompanyName" "FlashDevelop.org"
 VIAddVersionKey "ProductName" "FlashDevelop Installer"
 VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2010"
 VIAddVersionKey "FileDescription" "FlashDevelop Installer"
-VIAddVersionKey "ProductVersion" "3.2.3.0"
-VIAddVersionKey "FileVersion" "3.2.3.0"
-VIProductVersion "3.2.3.0"
+VIAddVersionKey "ProductVersion" "${VERSION}.0"
+VIAddVersionKey "FileVersion" "${VERSION}.0"
+VIProductVersion "${VERSION}.0"
 
 ; The name of the installer
 Name "FlashDevelop ${VERSION}"
