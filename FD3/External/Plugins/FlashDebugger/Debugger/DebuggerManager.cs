@@ -157,10 +157,13 @@ namespace FlashDebugger
             PluginMain.debugBuildStart = false;
 			m_FlashInterface.currentProject = currentProject;
 			m_FlashInterface.outputFileFullPath = filename;
-			PanelsHelper.pluginPanel.Show();
-			PanelsHelper.breakPointPanel.Show();
-			PanelsHelper.stackframePanel.Show();
-			PanelsHelper.watchPanel.Show();
+            if (!PluginMain.settingObject.DisablePanelsAutoshow)
+            {
+                PanelsHelper.pluginPanel.Show();
+                PanelsHelper.breakPointPanel.Show();
+                PanelsHelper.stackframePanel.Show();
+                PanelsHelper.watchPanel.Show();
+            }
             PluginBase.MainForm.ProgressBar.Visible = true;
             PluginBase.MainForm.ProgressLabel.Visible = true;
             PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");

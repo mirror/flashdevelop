@@ -3899,4 +3899,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>メソッド定義を折りたたむ(&amp;F)</value>
     <comment>Added after 3.2.1</comment>
   </data>
+  <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
+    <value>When debugging an application the debugger panels appear/disappear automatically.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>

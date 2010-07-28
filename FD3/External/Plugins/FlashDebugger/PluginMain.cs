@@ -131,24 +131,7 @@ namespace FlashDebugger
                 
                 case EventType.UIClosing:
 					if (debugManager.FlashInterface.isDebuggerStarted)
-					{
-						String title = " " + PluginCore.Localization.TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
-						switch (MessageBox.Show(TextHelper.GetString("Info.PlayerStillRunning"), title, MessageBoxButtons.YesNoCancel))
-						{
-							case DialogResult.Yes:
-							default:
-								debugManager.FlashInterface.Stop();
-								break;
-
-							case DialogResult.No:
-								debugManager.FlashInterface.Detach();
-								break;
-
-							case DialogResult.Cancel:
-								e.Handled = true;
-								break;
-						}
-					}
+                        debugManager.FlashInterface.Detach();
                     breakPointManager.Save();
                     break;
 

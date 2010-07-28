@@ -3903,4 +3903,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Collapse &amp;Functions</value>
     <comment>Added after 3.2.1</comment>
   </data>
+  <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
+    <value>When debugging an application the debugger panels appear/disappear automatically.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>

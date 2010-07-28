@@ -59,6 +59,7 @@ namespace FlashDebugger
 		private Keys m_EnableAllBreakPointsShortcut;
 		private Folder[] m_SourcePaths = new Folder[] {};
         private Boolean m_SaveBreakPoints = true;
+        private Boolean m_DisablePanelsAutoshow = false;
         private Boolean m_VerboseOutput = true;
         private Boolean m_StartDebuggerOnTestMovie = true;
 
@@ -70,7 +71,17 @@ namespace FlashDebugger
 		{
 			get { return m_SaveBreakPoints; }
 			set { m_SaveBreakPoints = value; }
-		}
+        }
+
+        [DisplayName("Disable Panels Autoshow")]
+        [LocalizedCategory("FlashDebugger.Category.Misc")]
+        [LocalizedDescription("FlashDebugger.Description.DisablePanelsAutoshow")]
+        [DefaultValue(false)]
+        public bool DisablePanelsAutoshow
+        {
+            get { return m_DisablePanelsAutoshow; }
+            set { m_DisablePanelsAutoshow = value; }
+        }
 
         [DisplayName("Verbose Output")]
         [LocalizedCategory("FlashDebugger.Category.Misc")]
