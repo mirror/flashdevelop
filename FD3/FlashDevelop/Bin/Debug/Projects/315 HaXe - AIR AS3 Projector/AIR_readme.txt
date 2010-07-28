@@ -5,9 +5,6 @@ SDK: http://www.adobe.com/products/air/tools/sdk/
 
 Install the runtime and unzip the SDK somewhere.
 
-Before creating the HaXe/AIR project, go to "Tools > Custom Arguments" in FlashDevelop
-and set the variable "AIRSDK" to the SDK path (no ending slash).
-
 Finally, you need the haxe air library. This is easiest installed by executing
 "haxelib install air" from a prompt.
 
