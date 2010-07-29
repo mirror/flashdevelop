@@ -2204,7 +2204,15 @@ Never - the start page will not show based on startup.</value>
     <value>Shortcut for calling the contextual code generator.</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunction" xml:space="preserve">
-    <value>Generate function</value>
+    <value>Generate private function</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
+    <value>Generate public function</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
+    <value>Generate interface definition</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter</value>
@@ -2219,7 +2227,11 @@ Never - the start page will not show based on startup.</value>
     <value>Setter</value>
   </data>
   <data name="ASCompletion.Label.GenerateVar" xml:space="preserve">
-    <value>Declare variable</value>
+    <value>Declare private variable</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateVarPublic" xml:space="preserve">
+    <value>Declare public variable</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
     <value>Implement interface methods</value>

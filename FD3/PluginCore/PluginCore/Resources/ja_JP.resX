@@ -3903,4 +3903,16 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>When debugging an application the debugger panels appear/disappear automatically.</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
+    <value>Generate interface definition</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
+    <value>Generate public function</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateVarPublic" xml:space="preserve">
+    <value>Declare public variable</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>
