@@ -715,6 +715,15 @@ namespace ASCompletion.Completion
                     parameters.Add(r);
                     continue;
                 }
+                else if (fp.param[0] == '<')
+                {
+                    r = new ASResult();
+                    r.Member = new MemberModel();
+                    r.Member.Name = CreateName(unnamed, "xml");
+                    r.Member.Type = "XML";
+                    parameters.Add(r);
+                    continue;
+                }
                 int p = Sci.WordEndPosition(fp.position, true);
                 r = ASComplete.GetExpressionType(Sci, p);
                 if (r.IsNull())
