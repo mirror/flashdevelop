@@ -101,7 +101,7 @@ namespace ProjectManager.Projects
 
 		public static bool IsHtml(string path, string ext)
 		{
-            return ext == ".html" || ext == ".htm";
+            return ext == ".html" || ext == ".htm" || ext == ".mtt"/*haxe templo*/;
 		}
 
 		public static bool IsXml(string path, string ext)
