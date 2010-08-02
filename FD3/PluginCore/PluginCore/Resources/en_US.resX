@@ -2203,7 +2203,7 @@ Never - the start page will not show based on startup.</value>
   <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
     <value>Shortcut for calling the contextual code generator.</value>
   </data>
-  <data name="ASCompletion.Label.GenerateFunction" xml:space="preserve">
+  <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
     <value>Generate private function</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
@@ -2226,10 +2226,13 @@ Never - the start page will not show based on startup.</value>
   <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
     <value>Setter</value>
   </data>
-  <data name="ASCompletion.Label.GenerateVar" xml:space="preserve">
+  <data name="ASCompletion.Label.GenerateConstant" xml:space="preserve">
+    <value>Declare constant</value>
+  </data>
+  <data name="ASCompletion.Label.GeneratePrivateVar" xml:space="preserve">
     <value>Declare private variable</value>
   </data>
-  <data name="ASCompletion.Label.GenerateVarPublic" xml:space="preserve">
+  <data name="ASCompletion.Label.GeneratePublicVar" xml:space="preserve">
     <value>Declare public variable</value>
     <comment>Added after 3.2.2</comment>
   </data>
@@ -3114,13 +3117,33 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Rename...</value>
     <comment>Added after 3.0.4</comment>
   </data>
+  <data name="CodeRefactor.Label.ExtractMethod" xml:space="preserve">
+    <value>Extract Method...</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="CodeRefactor.Label.ExtractLocalVariable" xml:space="preserve">
+    <value>Extract Local Variable...</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="CodeRefactor.Label.SurroundWith" xml:space="preserve">
+    <value>Surround With</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
     <value>Rename '{0}'</value>
     <comment>Added after 3.0.4</comment>
   </data>
+  <data name="CodeRefactor.Title.ExtractMethodDialog" xml:space="preserve">
+    <value>Extract Method</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Title.ExtractLocalVariableDialog" xml:space="preserve">
+    <value>Extract Local Variable</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
     <value>Disables the confirmation of the replace in files operation.</value>
-    <comment>Added after 3.0.4</comment>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Info.AreYouSureToReplaceInFiles" xml:space="preserve">
     <value>Are you sure you want to replace in files? The changes cannot be undone.</value>
@@ -3683,6 +3706,14 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Label.GenerateClass" xml:space="preserve">
     <value>Create new class</value>
     <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
+    <value>Generate constructor</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
+    <value>Generate toString()</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
     <value>AS2 Document</value>

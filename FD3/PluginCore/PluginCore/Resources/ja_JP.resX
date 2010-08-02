@@ -2195,8 +2195,16 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
     <value>"Contextual Code Generator"のショートカットです。</value>
   </data>
-  <data name="ASCompletion.Label.GenerateFunction" xml:space="preserve">
-    <value>メソッド スタブを生成</value>
+  <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
+    <value>Generate private function</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
+    <value>Generate public function</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
+    <value>Generate interface definition</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter を生成</value>
@@ -2210,8 +2218,15 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
     <value>Setter を生成</value>
   </data>
-  <data name="ASCompletion.Label.GenerateVar" xml:space="preserve">
-    <value>変数を宣言</value>
+  <data name="ASCompletion.Label.GenerateConstant" xml:space="preserve">
+    <value>Declare constant</value>
+  </data>
+  <data name="ASCompletion.Label.GeneratePrivateVar" xml:space="preserve">
+    <value>Declare private variable</value>
+  </data>
+  <data name="ASCompletion.Label.GeneratePublicVar" xml:space="preserve">
+    <value>Declare public variable</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
     <value>インターフェースメソッドを実装</value>
@@ -3086,9 +3101,29 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>名前の変更(&amp;R)...</value>
     <comment>Added after 3.0.4</comment>
   </data>
+  <data name="CodeRefactor.Label.ExtractMethod" xml:space="preserve">
+    <value>Extract Method...</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="CodeRefactor.Label.ExtractLocalVariable" xml:space="preserve">
+    <value>Extract Local Variable...</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="CodeRefactor.Label.SurroundWith" xml:space="preserve">
+    <value>Surround With</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
     <value>名前の変更 '{0}'</value>
     <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Title.ExtractMethodDialog" xml:space="preserve">
+    <value>Extract Method</value>
+    <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Title.ExtractLocalVariableDialog" xml:space="preserve">
+    <value>Extract Local Variable</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
     <value>ファイルを指定して置換するときの確認を無効にします。</value>
@@ -3658,6 +3693,14 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ASCompletion.Label.GenerateClass" xml:space="preserve">
     <value>新規クラスを作成</value>
     <comment>Added after 3.1.1</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
+    <value>Generate constructor</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
+    <value>Generate toString()</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
     <value>AS2 ドキュメント</value>
