@@ -133,6 +133,14 @@ namespace ASCompletion.Completion
                         }
                     }
                 }
+
+                // "Generate fields from parameters" suggestion
+                if ((found.member.Flags & FlagType.Function) > 0 && (found.member.Flags & FlagType.Static) == 0 &&
+                    (found.member.Parameters.Count > 0) && resolve.Member != null && (resolve.Member.Flags & FlagType.ParameterVar) > 0)
+                {
+                    ShowFieldsFromParameters(found);
+                    return;
+                }
             }
 
             if (found.member == null && found.inClass != ClassModel.VoidClass && contextToken == null)
@@ -444,6 +452,22 @@ namespace ASCompletion.Completion
                     string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateToString");
                     known.Add(new GeneratorItem(labelClass, GeneratorJobType.ToString, found.member, found.inClass));
                 }
+
+                CompletionList.Show(known, false);
+            }
+        }
+
+        private static void ShowFieldsFromParameters(FoundDeclaration found)
+        {
+            ContextFeatures features = ASContext.Context.Features;
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+
+            ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
+
+            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
+            {
+                string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateFieldsFromPatameters");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.FieldsFromPatameters, found.member, found.inClass));
 
                 CompletionList.Show(known, false);
             }
@@ -821,6 +845,102 @@ namespace ASCompletion.Completion
                     string toStringData = "\"[" + inClass.Name + membersString.ToString() + "]\"";
                     string decl = String.Format(tmpl, repl, toStringData);
                     InsertCode(Sci.CurrentPos, decl);
+                    break;
+
+                case GeneratorJobType.FieldsFromPatameters:
+                    int posStart = Sci.PositionFromLine(member.LineFrom);
+                    int posEnd = Sci.LineEndPosition(member.LineTo);
+
+                    Sci.SetSel(posStart, posEnd);
+                    string currentMethodBody = Sci.SelText;
+                    int funcBodyStart = currentMethodBody.IndexOf('{') + posStart;
+                    int nCount = 0;
+                    string characterClass = ScintillaNet.ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
+                    while (funcBodyStart <= posEnd)
+                    {
+                        char c = (char)Sci.CharAt(++funcBodyStart);
+                        if (characterClass.IndexOf(c) > -1)
+                        {
+                            break;
+                        }
+                        else if (c == '}')
+                        {
+                            break;
+                        }
+                        else if (Sci.EOLMode == 1 && c == '\r' && (++nCount) > 1)
+                        {
+                            break;
+                        }
+                        else if (c == '\n' && (++nCount) > 1)
+                        {
+                            if (Sci.EOLMode != 2)
+                            {
+                                funcBodyStart--;
+                            }
+                            break;
+                        }
+                    }
+
+                    Sci.SetSel(funcBodyStart, funcBodyStart);
+                    Sci.CurrentPos = funcBodyStart;
+                    
+                    StringBuilder sb = new StringBuilder();
+                    foreach (MemberModel param in member.Parameters)
+                    {
+                        sb.Append("this.");
+                        if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
+                        {
+                            sb.Append(ASContext.CommonSettings.PrefixFields);
+                        }
+                        sb.Append(param.Name).Append(" = ").Append(param.Name).Append(";").Append(NewLine).Append("$(Boundary)");
+                    }
+
+                    SnippetHelper.InsertSnippetText(Sci, funcBodyStart, sb.ToString());
+                    bool varGenerated = false;
+                    MemberList classMembers = inClass.Members;
+                    foreach (MemberModel param in member.Parameters)
+                    {
+                        string nm = param.Name;
+                        if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
+                        {
+                            nm = ASContext.CommonSettings.PrefixFields + nm;
+                        }
+
+                        bool nextParam = false;
+                        foreach (MemberModel classMember in classMembers)
+                        {
+                            if (classMember.Name.Equals(nm))
+                            {
+                                nextParam = true;
+                                break;
+                            }
+                        }
+
+                        if (nextParam)
+                        {
+                            continue;
+                        }
+
+                        latest = FindLatest(FlagType.Variable | FlagType.Constant, GetDefaultVisibility(), inClass);
+                        if (latest == null) return;
+
+                        position = FindNewVarPosition(Sci, inClass, latest);
+                        if (position <= 0) return;
+                        Sci.SetSel(position, position);
+                        Sci.CurrentPos = position;
+
+                        MemberModel mem = NewMember(nm, member, GeneratorJobType.Variable, FlagType.Variable, GetDefaultVisibility());
+                        mem.Type = param.Type;
+
+                        GenerateVariable(mem, position, true);
+                        varGenerated = true;
+                        
+                    }
+
+                    if (varGenerated)
+                    {
+                        ASContext.Panel.RestoreLastLookupPosition();
+                    }
                     break;
             }
         }
@@ -2079,6 +2199,7 @@ namespace ASCompletion.Completion
         Constant = 14,
         Constructor = 15,
         ToString = 16,
+        FieldsFromPatameters = 17,
     }
 
     /// <summary>

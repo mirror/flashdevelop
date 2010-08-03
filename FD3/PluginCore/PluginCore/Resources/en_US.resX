@@ -2989,6 +2989,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Defines where new properties (getter, setter) are to be generated.</value>
     <comment>Added after 3.0.2</comment>
   </data>
+  <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
+    <value>Adds that prefix to the fields that were generated using "Generate fields from parameters" generator.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>Adds an ActionScript class wizard to FlashDevelop.</value>
     <comment>Added after 3.0.2</comment>
@@ -3709,6 +3713,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
     <value>Generate constructor</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateFieldsFromPatameters" xml:space="preserve">
+    <value>Generate fields from parameters</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">

@@ -364,6 +364,7 @@ namespace ASCompletion.Settings
         const bool DEFAULT_GENERATE_PROTECTED = false;
         const bool DEFAULT_GENERATE_STARTWITHMODIFIERS = false;
         const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
+        const string DEFAULT_GENERATE_PREFIXFIELDS = "_";
 
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
               "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
@@ -374,6 +375,7 @@ namespace ASCompletion.Settings
         private string[] eventListenersAutoRemove;
         private bool startWithModifiers;
         private PropertiesGenerationLocations propertiesGenerationLocation;
+        private string prefixFields = DEFAULT_GENERATE_PREFIXFIELDS;
 
         [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -408,6 +410,15 @@ namespace ASCompletion.Settings
         {
             get { return propertiesGenerationLocation; }
             set { propertiesGenerationLocation = value; }
+        }
+
+        [DisplayName("Prefix fields when generating from parameters")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.PrefixFields"),
+        DefaultValue(DEFAULT_GENERATE_PREFIXFIELDS)]
+        public string PrefixFields
+        {
+            get { return prefixFields; }
+            set { prefixFields = value; }
         }
 
         #endregion
