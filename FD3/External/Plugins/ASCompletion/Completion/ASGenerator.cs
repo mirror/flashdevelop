@@ -417,7 +417,7 @@ namespace ASCompletion.Completion
             }
             known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, inClass));
 
-            CompletionList.Show(known, false, autoSelect);
+            CompletionList.Show(known, false);
         }
 
         private static void ShowNewClassList(FoundDeclaration found)
@@ -432,7 +432,7 @@ namespace ASCompletion.Completion
                 string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateClass");
                 known.Add(new GeneratorItem(labelClass, GeneratorJobType.Class, found.member, found.inClass));
 
-                CompletionList.Show(known, false, labelClass);
+                CompletionList.Show(known, false);
             }
         }
 
@@ -609,161 +609,28 @@ namespace ASCompletion.Completion
                 case GeneratorJobType.Constant:
                 case GeneratorJobType.Variable:
                 case GeneratorJobType.VariablePublic:
-
-                    position = 0;
-                    latest = null;
-                    bool isOtherClass = false;
-
-                    Visibility varVisi = job.Equals(GeneratorJobType.Variable) ? GetDefaultVisibility() : Visibility.Public;
-                    FlagType ft = job.Equals(GeneratorJobType.Constant) ? FlagType.Constant : FlagType.Variable;
-
-                    // evaluate, if the variable (or constant) should be generated in other class
-                    ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
-                    if (varResult != null && varResult.relClass != null)
+                    Sci.BeginUndoAction();
+                    try
                     {
-                        FileModel fileModel = ASFileParser.ParseFile(varResult.relClass.InFile.FileName, ASContext.Context);
-                        foreach (ClassModel cm in fileModel.Classes)
-                        {
-                            if (cm.QualifiedName.Equals(varResult.relClass.QualifiedName))
-                            {
-                                varResult.relClass = cm;
-                                break;
-                            }
-                        }
-
-                        ASContext.MainForm.OpenEditableDocument(varResult.relClass.InFile.FileName, false);
-                        Sci = ASContext.CurSciControl;
-                        inClass = varResult.relClass;
-                        isOtherClass = true;
+                        GenerateVariableJob(job, Sci, member, detach, inClass);
                     }
-
-                    // if we generate variable in current class..
-                    if (!isOtherClass && member == null)
+                    finally
                     {
-                        detach = false;
-                        lookupPosition = -1;
-                        position = Sci.WordStartPosition(Sci.CurrentPos, true);
-                        Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                        Sci.EndUndoAction();
                     }
-                    else // if we generate variable in current class
-                    {
-                        latest = FindLatest(FlagType.Variable | FlagType.Constant, varVisi, inClass);
-                        if (latest == null) return;
-
-                        position = FindNewVarPosition(Sci, inClass, latest);
-                        if (position <= 0) return;
-                        Sci.SetSel(position, position);
-                    }
-
-
-                    if (member != null)
-                    {
-                        // check if it's more sense to generate a static variable (like Config.someStaticVar)
-                        if (varResult.inFile == null && varResult.relClass != null && !ClassIsInterface(inClass))
-                        {
-                            member.Flags |= FlagType.Static;
-                        }
-                    }
-
-                    // if this is a constant, we assign a value to constant
-                    if (job.Equals(GeneratorJobType.Constant))
-                    {
-                        contextToken += ":String = \"" + contextToken + "\"";
-                    }
-
-                    GenerateVariable(
-                        NewMember(contextToken, member, job, ft, varVisi),
-                                position, detach);
                     break;
 
                 case GeneratorJobType.Function:
                 case GeneratorJobType.FunctionPublic:
-
-                    position = 0;
-                    latest = null;
-
-                    Visibility funcVisi = job.Equals(GeneratorJobType.FunctionPublic) ? Visibility.Public : GetDefaultVisibility();
-                    int wordPos = Sci.WordEndPosition(Sci.CurrentPos, true);
-                    List<FunctionParameter> functionParameters = ParseFunctionParameters(Sci, wordPos);
-
-                    // evaluate, if the function should be generated in other class
-                    ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
-                    if (funcResult != null && funcResult.relClass != null)
+                    Sci.BeginUndoAction();
+                    try
                     {
-                        FileModel fileModel = ASFileParser.ParseFile(funcResult.relClass.InFile.FileName, ASContext.Context);
-                        foreach (ClassModel cm in fileModel.Classes)
-                        {
-                            if (cm.QualifiedName.Equals(funcResult.relClass.QualifiedName))
-                            {
-                                funcResult.relClass = cm;
-                                break;
-                            }
-                        }
-                        WeifenLuo.WinFormsUI.Docking.DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
-                        if (!Sci.Equals(ASContext.CurSciControl))
-                        {
-                            Sci = ASContext.CurSciControl;
-                            latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
-                        }
+                        GenerateFunctionJob(job, Sci, member, detach, inClass);
                     }
-
-                    // if we generate function in current class..
-                    if (latest == null)
+                    finally
                     {
-                        latest = member;
+                        Sci.EndUndoAction();
                     }
-
-                    // if we generate function in current class..
-                    if (latest == null)
-                    {
-                        detach = false;
-                        lookupPosition = -1;
-                        position = Sci.WordStartPosition(Sci.CurrentPos, true);
-                        Sci.SetSel(position, Sci.WordEndPosition(position, true));
-                    }
-                    else // if we generate function in another class..
-                    {
-                        position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
-                        Sci.SetSel(position, position);
-                    }
-
-
-                    // add imports to function argument types
-                    if (functionParameters.Count > 0)
-                    {
-                        List<string> l = new List<string>();
-                        foreach (FunctionParameter fp in functionParameters)
-                        {
-                            try
-                            {
-                                l.Add(fp.paramQualType);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        }
-                        int o = AddImportsByName(l, Sci.LineFromPosition(position));
-                        position += o;
-                        if (latest == null)
-                        {
-                            Sci.SetSel(position, Sci.WordEndPosition(position, true));
-                        }
-                        else
-                        {
-                            Sci.SetSel(position, position);
-                        }
-                    }
-
-                    // check if it's more sense to generate a static function (like Config.someStaticFunc)
-                    if (member != null && funcResult.inFile == null && funcResult.relClass != null && !ClassIsInterface(inClass))
-                    {
-                        member.Flags |= FlagType.Static;
-                    }
-
-                    GenerateFunction(
-                        NewMember(contextToken, member, job, FlagType.Function,
-                                funcVisi),
-                        position, detach, functionParameters, inClass);
                     break;
 
                 case GeneratorJobType.ImplementInterface:
@@ -822,131 +689,232 @@ namespace ASCompletion.Completion
                     break;
 
                 case GeneratorJobType.ToString:
-                    MemberList members = inClass.Members;
-                    StringBuilder membersString = new StringBuilder();
-                    StringBuilder oneMembersString;
-                    int len = 0;
-                    int indent = Sci.GetLineIndentation(Sci.LineFromPosition(Sci.CurrentPos));
-                    foreach (MemberModel m in members)
+                    Sci.BeginUndoAction();
+                    try
                     {
-                        if ((m.Flags & FlagType.Variable) > 0 && (m.Access & Visibility.Public) > 0)
-                        {
-                            oneMembersString = new StringBuilder();
-                            oneMembersString.Append(" ").Append(m.Name).Append("=\" + ").Append(m.Name).Append(" + ");
-                            membersString.Append(oneMembersString);
-                            len += oneMembersString.Length;
-                            if (len > 80)
-                            {
-                                len = 0;
-                                membersString.Append("\n\t\t\t\t");
-                            }
-                            membersString.Append("\"");
-                        }
+                        GenerateToString(inClass, Sci, member);
                     }
-                    member = new MemberModel("toString", "String", FlagType.Function, Visibility.Public);
-                    string repl = GetDeclaration(member, true).Replace("()", "($(EntryPoint))");
-                    string tmpl = GetTemplate("ToString", "{0} $(CSLB){{\n\treturn {1};\n}}");
-                    string toStringData = "\"[" + inClass.Name + membersString.ToString() + "]\"";
-                    string decl = String.Format(tmpl, repl, toStringData);
-                    InsertCode(Sci.CurrentPos, decl);
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
                     break;
 
                 case GeneratorJobType.FieldsFromPatameters:
-                    int posStart = Sci.PositionFromLine(member.LineFrom);
-                    int posEnd = Sci.LineEndPosition(member.LineTo);
-
-                    Sci.SetSel(posStart, posEnd);
-                    string currentMethodBody = Sci.SelText;
-                    int funcBodyStart = currentMethodBody.IndexOf('{') + posStart;
-                    int nCount = 0;
-                    string characterClass = ScintillaNet.ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
-                    while (funcBodyStart <= posEnd)
+                    Sci.BeginUndoAction();
+                    try
                     {
-                        char c = (char)Sci.CharAt(++funcBodyStart);
-                        if (characterClass.IndexOf(c) > -1)
-                        {
-                            break;
-                        }
-                        else if (c == '}')
-                        {
-                            break;
-                        }
-                        else if (Sci.EOLMode == 1 && c == '\r' && (++nCount) > 1)
-                        {
-                            break;
-                        }
-                        else if (c == '\n' && (++nCount) > 1)
-                        {
-                            if (Sci.EOLMode != 2)
-                            {
-                                funcBodyStart--;
-                            }
-                            break;
-                        }
+                        GenerateFieldsParameters(Sci, member, inClass);
                     }
-
-                    Sci.SetSel(funcBodyStart, funcBodyStart);
-                    Sci.CurrentPos = funcBodyStart;
-                    
-                    StringBuilder sb = new StringBuilder();
-                    foreach (MemberModel param in member.Parameters)
+                    finally
                     {
-                        sb.Append("this.");
-                        if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
-                        {
-                            sb.Append(ASContext.CommonSettings.PrefixFields);
-                        }
-                        sb.Append(param.Name).Append(" = ").Append(param.Name).Append(";").Append(NewLine).Append("$(Boundary)");
-                    }
-
-                    SnippetHelper.InsertSnippetText(Sci, funcBodyStart, sb.ToString());
-                    bool varGenerated = false;
-                    MemberList classMembers = inClass.Members;
-                    foreach (MemberModel param in member.Parameters)
-                    {
-                        string nm = param.Name;
-                        if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
-                        {
-                            nm = ASContext.CommonSettings.PrefixFields + nm;
-                        }
-
-                        bool nextParam = false;
-                        foreach (MemberModel classMember in classMembers)
-                        {
-                            if (classMember.Name.Equals(nm))
-                            {
-                                nextParam = true;
-                                break;
-                            }
-                        }
-
-                        if (nextParam)
-                        {
-                            continue;
-                        }
-
-                        latest = FindLatest(FlagType.Variable | FlagType.Constant, GetDefaultVisibility(), inClass);
-                        if (latest == null) return;
-
-                        position = FindNewVarPosition(Sci, inClass, latest);
-                        if (position <= 0) return;
-                        Sci.SetSel(position, position);
-                        Sci.CurrentPos = position;
-
-                        MemberModel mem = NewMember(nm, member, GeneratorJobType.Variable, FlagType.Variable, GetDefaultVisibility());
-                        mem.Type = param.Type;
-
-                        GenerateVariable(mem, position, true);
-                        varGenerated = true;
-                        
-                    }
-
-                    if (varGenerated)
-                    {
-                        ASContext.Panel.RestoreLastLookupPosition();
+                        Sci.EndUndoAction();
                     }
                     break;
             }
+        }
+
+        private static void GenerateFieldsParameters(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
+        {
+            int funcBodyStart = GetBodyStart(member.LineFrom, member.LineTo, Sci);
+
+            Sci.SetSel(funcBodyStart, funcBodyStart);
+            Sci.CurrentPos = funcBodyStart;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (MemberModel param in member.Parameters)
+            {
+                sb.Append("this.");
+                if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
+                {
+                    sb.Append(ASContext.CommonSettings.PrefixFields);
+                }
+                sb.Append(param.Name).Append(" = ").Append(param.Name).Append(";").Append(NewLine).Append("$(Boundary)");
+            }
+
+            SnippetHelper.InsertSnippetText(Sci, funcBodyStart, sb.ToString());
+            bool varGenerated = false;
+            MemberList classMembers = inClass.Members;
+            foreach (MemberModel param in member.Parameters)
+            {
+                string nm = param.Name;
+                if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
+                {
+                    nm = ASContext.CommonSettings.PrefixFields + nm;
+                }
+
+                bool nextParam = false;
+                foreach (MemberModel classMember in classMembers)
+                {
+                    if (classMember.Name.Equals(nm))
+                    {
+                        nextParam = true;
+                        break;
+                    }
+                }
+
+                if (nextParam)
+                {
+                    continue;
+                }
+
+                MemberModel latest = FindLatest(FlagType.Variable | FlagType.Constant, GetDefaultVisibility(), inClass);
+                if (latest == null) return;
+
+                int position = FindNewVarPosition(Sci, inClass, latest);
+                if (position <= 0) return;
+                Sci.SetSel(position, position);
+                Sci.CurrentPos = position;
+
+                MemberModel mem = NewMember(nm, member, GeneratorJobType.Variable, FlagType.Variable, GetDefaultVisibility());
+                mem.Type = param.Type;
+
+                GenerateVariable(mem, position, true);
+                varGenerated = true;
+
+            }
+
+            if (varGenerated)
+            {
+                ASContext.Panel.RestoreLastLookupPosition();
+            }
+        }
+
+        private static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci)
+        {
+            int posStart = Sci.PositionFromLine(lineFrom);
+            int posEnd = Sci.LineEndPosition(lineTo);
+
+            Sci.SetSel(posStart, posEnd);
+            string currentMethodBody = Sci.SelText;
+            int funcBodyStart = currentMethodBody.IndexOf('{') + posStart;
+            int nCount = 0;
+            List<char> characterClass = new List<char>(new char[] { ' ', '\r', '\n', '\t' });
+            while (funcBodyStart <= posEnd)
+            {
+                char c = (char)Sci.CharAt(++funcBodyStart);
+                if (!characterClass.Contains(c))
+                {
+                    break;
+                }
+                else if (c == '}')
+                {
+                    break;
+                }
+                else if (Sci.EOLMode == 1 && c == '\r' && (++nCount) > 1)
+                {
+                    break;
+                }
+                else if (c == '\n' && (++nCount) > 1)
+                {
+                    if (Sci.EOLMode != 2)
+                    {
+                        funcBodyStart--;
+                    }
+                    break;
+                }
+            }
+            return funcBodyStart;
+        }
+
+        private static void GenerateToString(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
+        {
+            MemberList members = inClass.Members;
+            StringBuilder membersString = new StringBuilder();
+            StringBuilder oneMembersString;
+            int len = 0;
+            int indent = Sci.GetLineIndentation(Sci.LineFromPosition(Sci.CurrentPos));
+            foreach (MemberModel m in members)
+            {
+                if ((m.Flags & FlagType.Variable) > 0 && (m.Access & Visibility.Public) > 0)
+                {
+                    oneMembersString = new StringBuilder();
+                    oneMembersString.Append(" ").Append(m.Name).Append("=\" + ").Append(m.Name).Append(" + ");
+                    membersString.Append(oneMembersString);
+                    len += oneMembersString.Length;
+                    if (len > 80)
+                    {
+                        len = 0;
+                        membersString.Append("\n\t\t\t\t");
+                    }
+                    membersString.Append("\"");
+                }
+            }
+            member = new MemberModel("toString", "String", FlagType.Function, Visibility.Public);
+            string repl = GetDeclaration(member, true).Replace("()", "($(EntryPoint))");
+            string tmpl = GetTemplate("ToString", "{0} $(CSLB){{\n\treturn {1};\n}}");
+            string toStringData = "\"[" + inClass.Name + membersString.ToString() + "]\"";
+            string decl = String.Format(tmpl, repl, toStringData);
+            InsertCode(Sci.CurrentPos, decl);
+        }
+
+        private static void GenerateVariableJob(GeneratorJobType job, ScintillaNet.ScintillaControl Sci, MemberModel member, 
+            bool detach, ClassModel inClass)
+        {
+            int position = 0;
+            MemberModel latest = null;
+            bool isOtherClass = false;
+
+            Visibility varVisi = job.Equals(GeneratorJobType.Variable) ? GetDefaultVisibility() : Visibility.Public;
+            FlagType ft = job.Equals(GeneratorJobType.Constant) ? FlagType.Constant : FlagType.Variable;
+
+            // evaluate, if the variable (or constant) should be generated in other class
+            ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+            if (varResult != null && varResult.relClass != null)
+            {
+                FileModel fileModel = ASFileParser.ParseFile(varResult.relClass.InFile.FileName, ASContext.Context);
+                foreach (ClassModel cm in fileModel.Classes)
+                {
+                    if (cm.QualifiedName.Equals(varResult.relClass.QualifiedName))
+                    {
+                        varResult.relClass = cm;
+                        break;
+                    }
+                }
+
+                ASContext.MainForm.OpenEditableDocument(varResult.relClass.InFile.FileName, false);
+                Sci = ASContext.CurSciControl;
+                inClass = varResult.relClass;
+                isOtherClass = true;
+            }
+
+            // if we generate variable in current class..
+            if (!isOtherClass && member == null)
+            {
+                detach = false;
+                lookupPosition = -1;
+                position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                Sci.SetSel(position, Sci.WordEndPosition(position, true));
+            }
+            else // if we generate variable in current class
+            {
+                latest = FindLatest(FlagType.Variable | FlagType.Constant, varVisi, inClass);
+                if (latest == null) return;
+
+                position = FindNewVarPosition(Sci, inClass, latest);
+                if (position <= 0) return;
+                Sci.SetSel(position, position);
+            }
+
+
+            if (member != null)
+            {
+                // check if it's more sense to generate a static variable (like Config.someStaticVar)
+                if (varResult.inFile == null && varResult.relClass != null && !ClassIsInterface(inClass))
+                {
+                    member.Flags |= FlagType.Static;
+                }
+            }
+
+            // if this is a constant, we assign a value to constant
+            if (job.Equals(GeneratorJobType.Constant))
+            {
+                contextToken += ":String = \"" + contextToken + "\"";
+            }
+
+            GenerateVariable(
+                NewMember(contextToken, member, job, ft, varVisi),
+                        position, detach);
         }
 
         private static List<FunctionParameter> ParseFunctionParameters(ScintillaNet.ScintillaControl Sci, int p)
@@ -1177,6 +1145,96 @@ namespace ASCompletion.Completion
                 }
             }
             return prms;
+        }
+
+        private static void GenerateFunctionJob(GeneratorJobType job, ScintillaNet.ScintillaControl Sci, MemberModel member,
+            bool detach, ClassModel inClass)
+        {
+            int position = 0;
+            MemberModel latest = null;
+
+            Visibility funcVisi = job.Equals(GeneratorJobType.FunctionPublic) ? Visibility.Public : GetDefaultVisibility();
+            int wordPos = Sci.WordEndPosition(Sci.CurrentPos, true);
+            List<FunctionParameter> functionParameters = ParseFunctionParameters(Sci, wordPos);
+
+            // evaluate, if the function should be generated in other class
+            ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+            if (funcResult != null && funcResult.relClass != null)
+            {
+                FileModel fileModel = ASFileParser.ParseFile(funcResult.relClass.InFile.FileName, ASContext.Context);
+                foreach (ClassModel cm in fileModel.Classes)
+                {
+                    if (cm.QualifiedName.Equals(funcResult.relClass.QualifiedName))
+                    {
+                        funcResult.relClass = cm;
+                        break;
+                    }
+                }
+                WeifenLuo.WinFormsUI.Docking.DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
+                if (!Sci.Equals(ASContext.CurSciControl))
+                {
+                    Sci = ASContext.CurSciControl;
+                    latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
+                }
+            }
+
+            // if we generate function in current class..
+            if (latest == null)
+            {
+                latest = member;
+            }
+
+            // if we generate function in current class..
+            if (latest == null)
+            {
+                detach = false;
+                lookupPosition = -1;
+                position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                Sci.SetSel(position, Sci.WordEndPosition(position, true));
+            }
+            else // if we generate function in another class..
+            {
+                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                Sci.SetSel(position, position);
+            }
+
+
+            // add imports to function argument types
+            if (functionParameters.Count > 0)
+            {
+                List<string> l = new List<string>();
+                foreach (FunctionParameter fp in functionParameters)
+                {
+                    try
+                    {
+                        l.Add(fp.paramQualType);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                int o = AddImportsByName(l, Sci.LineFromPosition(position));
+                position += o;
+                if (latest == null)
+                {
+                    Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                }
+                else
+                {
+                    Sci.SetSel(position, position);
+                }
+            }
+
+            // check if it's more sense to generate a static function (like Config.someStaticFunc)
+            if (member != null && funcResult.inFile == null && funcResult.relClass != null && !ClassIsInterface(inClass))
+            {
+                member.Flags |= FlagType.Static;
+            }
+
+            GenerateFunction(
+                NewMember(contextToken, member, job, FlagType.Function,
+                        funcVisi),
+                position, detach, functionParameters, inClass);
         }
 
         private static void GenerateClass(String className, ClassModel inClass)
