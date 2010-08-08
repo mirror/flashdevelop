@@ -403,6 +403,27 @@ namespace PluginCore.Controls
             sci.Focus();
             ReplaceText(sci, '\0');
 		}
+        
+        public static Int32 AbbreviationMatch(string source, string searchText)
+        {
+            String upperChars = "";
+            for (int i = source.LastIndexOf('.') + 1; i < source.Length; i++)
+            {
+                if (Char.IsUpper(source, i))
+                    upperChars += source.Substring(i, 1);
+            }
+
+            var index = upperChars.IndexOf(searchText);
+            
+            return (index >= 0)
+                ? index + upperChars.Length - searchText.Length
+                : -1;
+        }
+
+        static int ScoreComparer(ItemMatch item1, ItemMatch item2)
+        {
+            return item1.Score - item2.Score;
+        }
 
         /// <summary>
         /// Filter the completion list with the letter typed
@@ -425,6 +446,25 @@ namespace PluginCore.Controls
 					exactMatchInList = false;
                     smartMatchInList = true;
 				}
+                else if (word == word.ToUpper()) // search by abbreviation
+                {
+                    List<ItemMatch> temp = new List<ItemMatch>(allItems.Count);
+                    foreach (ICompletionListItem item in allItems)
+                    {
+                        Int32 score = AbbreviationMatch(item.Label, word);
+                        if (score >= 0)
+                        {
+                            temp.Add(new ItemMatch(score, item));
+                        }
+                    }
+                    temp.Sort(ScoreComparer);
+                    found = new List<ICompletionListItem>();
+                    foreach (ItemMatch itemMatch in temp)
+                    {
+                        found.Add(itemMatch.Item);
+                    }
+                    smartMatchInList = found.Capacity > 0;
+                }
 				else
 				{
                     List<ItemMatch> temp = new List<ItemMatch>(allItems.Count);

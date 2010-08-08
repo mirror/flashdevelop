@@ -65,6 +65,8 @@ namespace ASClassWizard.Wizards
     
     public class GListBoxItem
     {
+        public int matchScore;
+        
         private string _myText;
         private int _myImageIndex;
 

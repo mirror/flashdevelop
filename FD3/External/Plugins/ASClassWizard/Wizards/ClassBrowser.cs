@@ -118,7 +118,10 @@ namespace ASClassWizard.Wizards
             this.itemList.BeginUpdate();
             this.itemList.Items.Clear();
 
-            List<GListBox.GListBoxItem> result = this.DataProvider.FindAll( FindAllItems );
+            List<GListBox.GListBoxItem> result = (text == text.ToUpper())
+                ? this.FindByAbbreviation(text)
+                : this.DataProvider.FindAll(FindAllItems);
+                
             this.itemList.Items.AddRange(result.ToArray());
 
             this.itemList.EndUpdate();
@@ -126,6 +129,26 @@ namespace ASClassWizard.Wizards
                 this.itemList.SelectedIndex = 0;
         }
 
+        private List<GListBox.GListBoxItem> FindByAbbreviation(String searchText)
+        {
+            List<GListBox.GListBoxItem> result = new List<GListBox.GListBoxItem>();
+            foreach (GListBox.GListBoxItem item in DataProvider)
+            {
+                Int32 score = PluginCore.Controls.CompletionList.AbbreviationMatch(item.Text, searchText);
+                if (score >= 0)
+                {
+                    result.Add(item);
+                    item.matchScore = score;
+                }
+            }
+            result.Sort(ScoreComparer);
+            return result;
+        }
+
+        private int ScoreComparer(GListBox.GListBoxItem item1, GListBox.GListBoxItem item2)
+        {
+            return item1.matchScore - item2.matchScore;
+        }
 
         /// <summary>
         /// Filder the results
@@ -136,7 +159,6 @@ namespace ASClassWizard.Wizards
         {
             return item.Text.ToLower().IndexOf(this.filterBox.Text.ToLower()) > -1;
         }
-
 
         /// <summary>
         /// Select None button click
