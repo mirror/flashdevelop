@@ -12,6 +12,7 @@ using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore.Localization;
 using PluginCore.Managers;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ASCompletion.Completion
 {
@@ -144,6 +145,45 @@ namespace ASCompletion.Completion
                 {
                     ShowFieldsFromParameters(found);
                     return;
+                }
+
+                if ((found.member.Flags & FlagType.Function) > 0 &&
+                    found.inClass != null &&
+                    found.inClass.Implements != null &&
+                    found.inClass.Implements.Count > 0)
+                {
+                    string funcName = found.member.Name;
+                    int classPosStart = Sci.PositionFromLine(found.inClass.LineFrom);
+
+                    bool skip = false;
+                    foreach (string interf in found.inClass.Implements)
+                    {
+                        if (skip)
+                        {
+                            break;
+                        }
+
+                        int ind = Sci.Text.IndexOf(interf, classPosStart);
+                        if (ind > 0)
+                        {
+                            ASResult expr = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(ind, true));
+                            contextParam = expr.Type.Type;
+                            MemberList members = expr.Type.Members;
+                            foreach (MemberModel m in members)
+                            {
+                                if (m.Name.Equals(funcName))
+                                {
+                                    skip = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!skip && contextParam != null)
+                    {
+                        ShowAddInterfaceDefList(found);
+                        return;
+                    }
                 }
             }
 
@@ -477,6 +517,22 @@ namespace ASCompletion.Completion
             }
         }
 
+        private static void ShowAddInterfaceDefList(FoundDeclaration found)
+        {
+            ContextFeatures features = ASContext.Context.Features;
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+
+            ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
+
+            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
+            {
+                string labelClass = TextHelper.GetString("ASCompletion.Label.AddInterfaceDef");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.AddInterfaceDef, found.member, found.inClass));
+
+                CompletionList.Show(known, false);
+            }
+        }
+
         private static void ShowDelegateList(FoundDeclaration found)
         {
             List<ICompletionListItem> known = new List<ICompletionListItem>();
@@ -711,7 +767,99 @@ namespace ASCompletion.Completion
                         Sci.EndUndoAction();
                     }
                     break;
+
+                case GeneratorJobType.AddInterfaceDef:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        AddInterfaceDefJob(inClass, Sci, member);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
             }
+        }
+
+        private static void AddInterfaceDefJob(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
+        {
+            ClassModel aType = ASContext.Context.ResolveType(contextParam, ASContext.Context.CurrentModel);
+            if (aType.IsVoid()) return;
+
+            FileModel fileModel = ASFileParser.ParseFile(aType.InFile.FileName, ASContext.Context);
+            foreach (ClassModel cm in fileModel.Classes)
+            {
+                if (cm.QualifiedName.Equals(aType.QualifiedName))
+                {
+                    aType = cm;
+                    break;
+                }
+            }
+
+            DockContent dc = ASContext.MainForm.OpenEditableDocument(aType.InFile.FileName, true);
+            Sci = ASContext.CurSciControl;
+
+            MemberModel latest = FindLatest(FlagType.Function, aType);
+            int position;
+            if (latest == null)
+            {
+                position = GetBodyStart(aType.LineFrom, aType.LineTo, Sci);
+            }
+            else
+            {
+                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+            }
+            Sci.SetSel(position, position);
+            Sci.CurrentPos = position;
+
+            List<MemberModel> parms = member.Parameters;
+            StringBuilder snippet = new StringBuilder();
+            snippet.Append(NewLine)
+                .Append("function ")
+                .Append(member.Name)
+                .Append("(");
+
+            List<string> importsList = new List<string>();
+            ClassModel t;
+            if (parms != null && parms.Count > 0)
+            {
+                for (int i = 0; i < parms.Count; i++)
+                {
+                    MemberModel param = parms[i];
+                    snippet.Append(param.Name);
+                    if (param.Type != null)
+                    {
+                        snippet.Append(":")
+                            .Append(param.Type);
+                    }
+                    if (i + 1 < parms.Count)
+                    {
+                        snippet.Append(", ");
+                    }
+                    t = ASContext.Context.ResolveType(param.Type, inClass.InFile);
+                    importsList.Add(t.QualifiedName);
+                }
+            }
+
+            snippet.Append(")")
+                .Append(":")
+                .Append(member.Type)
+                .Append(";");
+
+            t = ASContext.Context.ResolveType(member.Type, inClass.InFile);
+            importsList.Add(t.QualifiedName);
+
+            if (importsList.Count > 0)
+            {
+                int o = AddImportsByName(importsList, Sci.LineFromPosition(position));
+                position += o;
+                Sci.SetSel(position, position);
+            }
+
+            InsertCode(position, snippet.ToString());
+
+            Sci.CurrentPos = position;
         }
 
         private static void GenerateFieldsParameters(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
@@ -722,8 +870,13 @@ namespace ASCompletion.Completion
             Sci.CurrentPos = funcBodyStart;
 
             StringBuilder sb = new StringBuilder();
-            foreach (MemberModel param in member.Parameters)
+            List<MemberModel> parameters = member.Parameters;
+            foreach (MemberModel param in parameters)
             {
+                if (param.Name.StartsWith("..."))
+                {
+                    continue;
+                }
                 sb.Append("this.");
                 if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
                 {
@@ -735,7 +888,7 @@ namespace ASCompletion.Completion
             SnippetHelper.InsertSnippetText(Sci, funcBodyStart, sb.ToString());
             bool varGenerated = false;
             MemberList classMembers = inClass.Members;
-            foreach (MemberModel param in member.Parameters)
+            foreach (MemberModel param in parameters)
             {
                 string nm = param.Name;
                 if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
@@ -1170,7 +1323,7 @@ namespace ASCompletion.Completion
                         break;
                     }
                 }
-                WeifenLuo.WinFormsUI.Docking.DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
                 if (!Sci.Equals(ASContext.CurSciControl))
                 {
                     Sci = ASContext.CurSciControl;
@@ -2262,6 +2415,7 @@ namespace ASCompletion.Completion
         Constructor = 15,
         ToString = 16,
         FieldsFromPatameters = 17,
+        AddInterfaceDef = 18,
     }
 
     /// <summary>

@@ -2206,6 +2206,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Generate interface definition</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
+    <value>Add to interface</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter を生成</value>
   </data>
