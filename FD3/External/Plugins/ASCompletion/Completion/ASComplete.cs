@@ -368,6 +368,36 @@ namespace ASCompletion.Completion
                 // open the file
                 return OpenDocumentToDeclaration(Sci, result);
 			}
+            // show overriden method
+            else if (ASContext.Context.CurrentMember != null 
+                && ASContext.Context.Features.overrideKey != null
+                && Sci.GetWordFromPosition(position) == ASContext.Context.Features.overrideKey)
+            {
+                MemberModel member = ASContext.Context.CurrentMember;
+                if ((member.Flags & FlagType.Override) > 0)
+                {
+                    ClassModel tmpClass = ASContext.Context.CurrentClass;
+                    if (tmpClass != null)
+                    {
+                        tmpClass.ResolveExtends();
+                        tmpClass = tmpClass.Extends;
+                        while (tmpClass != null && !tmpClass.IsVoid())
+                        {
+                            MemberModel found = tmpClass.Members.Search(member.Name, 0, 0);
+                            if (found != null)
+                            {
+                                result = new ASResult();
+                                result.Member = found;
+                                result.inFile = tmpClass.InFile;
+                                result.inClass = tmpClass;
+                                OpenDocumentToDeclaration(Sci, result);
+                                break;
+                            }
+                            tmpClass = tmpClass.Extends;
+                        }
+                    }
+                }
+            }
 			return false;
 		}
 
@@ -522,7 +552,7 @@ namespace ASCompletion.Completion
             catch { }
         }
 
-		/// <summary>
+        /// <summary>
 		/// Using the text under at cursor position, resolve the member/type and call the specified command.
 		/// </summary>
 		/// <param name="Sci">Control</param>

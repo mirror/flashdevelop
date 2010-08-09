@@ -842,10 +842,14 @@ namespace ASCompletion.Completion
                 }
             }
 
-            snippet.Append(")")
-                .Append(":")
-                .Append(member.Type)
-                .Append(";");
+            snippet.Append(")");
+
+            if (member.Type != null)
+            {
+                snippet.Append(":")
+                    .Append(member.Type);
+            }
+            snippet.Append(";");
 
             t = ASContext.Context.ResolveType(member.Type, inClass.InFile);
             importsList.Add(t.QualifiedName);
@@ -870,13 +874,14 @@ namespace ASCompletion.Completion
             Sci.CurrentPos = funcBodyStart;
 
             StringBuilder sb = new StringBuilder();
-            List<MemberModel> parameters = member.Parameters;
-            foreach (MemberModel param in parameters)
+            List<MemberModel> parameters = new List<MemberModel>();
+            foreach (MemberModel param in member.Parameters)
             {
                 if (param.Name.StartsWith("..."))
                 {
                     continue;
                 }
+                parameters.Add(param);
                 sb.Append("this.");
                 if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
                 {
@@ -1392,6 +1397,8 @@ namespace ASCompletion.Completion
 
         private static void GenerateClass(String className, ClassModel inClass)
         {
+            AddLookupPosition(); // remember last cursor position for Shift+F4
+
             IProject project = PluginBase.CurrentProject;
             if (String.IsNullOrEmpty(className)) className = "Class";
             string projFilesDir = Path.Combine(PathHelper.TemplateDir, "ProjectFiles");

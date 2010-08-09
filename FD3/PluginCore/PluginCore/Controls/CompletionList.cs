@@ -338,17 +338,18 @@ namespace PluginCore.Controls
 			Rectangle tbounds = new Rectangle(18, e.Bounds.Top + 1, e.Bounds.Width, e.Bounds.Height);
 			if (item != null)
 			{
-                e.Graphics.DrawImage(item.Icon, 1, e.Bounds.Top + ((e.Bounds.Height - item.Icon.Height) / 2));
+                Graphics g = e.Graphics;
+                g.DrawImage(item.Icon, 1, e.Bounds.Top + ((e.Bounds.Height - item.Icon.Height) / 2));
                 int p = item.Label.LastIndexOf('.');
                 if (p > 0)
                 {
                     string package = item.Label.Substring(0, p+1);
-                    e.Graphics.DrawString(package, e.Font, Brushes.Gray, tbounds, StringFormat.GenericDefault);
-                    SizeF dims = e.Graphics.MeasureString(package, e.Font, tbounds.Width, StringFormat.GenericDefault);
+                    g.DrawString(package, e.Font, Brushes.Gray, tbounds, StringFormat.GenericDefault);
+                    SizeF dims = g.MeasureString(package, e.Font, tbounds.Width, StringFormat.GenericDefault);
                     int left = tbounds.Left + (int)dims.Width + 1;
-                    if (left < tbounds.Right) e.Graphics.DrawString(item.Label.Substring(p + 1), e.Font, myBrush, left, tbounds.Top, StringFormat.GenericTypographic);
+                    if (left < tbounds.Right) g.DrawString(item.Label.Substring(p + 1), e.Font, myBrush, left, tbounds.Top, StringFormat.GenericTypographic);
                 }
-                else e.Graphics.DrawString(item.Label, e.Font, myBrush, tbounds, StringFormat.GenericDefault);
+                else g.DrawString(item.Label, e.Font, myBrush, tbounds, StringFormat.GenericDefault);
 			}
 			e.DrawFocusRectangle();
 			if ((item != null) && ((e.State & DrawItemState.Selected) > 0))
