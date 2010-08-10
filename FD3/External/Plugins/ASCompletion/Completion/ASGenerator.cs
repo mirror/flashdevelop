@@ -938,7 +938,7 @@ namespace ASCompletion.Completion
             }
         }
 
-        private static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci)
+        public static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci)
         {
             int posStart = Sci.PositionFromLine(lineFrom);
             int posEnd = Sci.LineEndPosition(lineTo);
@@ -1067,12 +1067,25 @@ namespace ASCompletion.Completion
             // if this is a constant, we assign a value to constant
             if (job.Equals(GeneratorJobType.Constant))
             {
-                contextToken += ":String = \"" + contextToken + "\"";
+                contextToken += ":String = \"" + Camelize(contextToken) + "\"";
             }
 
             GenerateVariable(
                 NewMember(contextToken, member, job, ft, varVisi),
                         position, detach);
+        }
+
+        static public string Camelize(string name)
+        {
+            string[] parts = name.ToLower().Split('_');
+            string result = "";
+            foreach (string part in parts)
+            {
+                if (result.Length > 0)
+                    result += Char.ToUpper(part[0]) + part.Substring(1);
+                else result = part;
+            }
+            return result;
         }
 
         private static List<FunctionParameter> ParseFunctionParameters(ScintillaNet.ScintillaControl Sci, int p)
