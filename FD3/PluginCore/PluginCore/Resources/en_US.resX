@@ -3149,6 +3149,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Extract Local Variable</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="CodeRefactor.Title.DelegateMethods" xml:space="preserve">
+    <value>Delegate Methods</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
     <value>Disables the confirmation of the replace in files operation.</value>
     <comment>Added after 3.2.2</comment>
@@ -3167,6 +3171,10 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
     <value>Truncate Imports</value>
     <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.DelegateMethods" xml:space="preserve">
+    <value>Generate Delegate Methods...</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.UseSystemColors" xml:space="preserve">
     <value>Forces FlashDevelop to use only system colors in the controls.</value>

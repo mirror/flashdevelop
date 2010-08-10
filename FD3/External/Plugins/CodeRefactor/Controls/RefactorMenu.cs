@@ -13,6 +13,7 @@ namespace CodeRefactor.Controls
         private ToolStripMenuItem truncateMenuItem;
         private ToolStripMenuItem organizeMenuItem;
         private ToolStripMenuItem extractMethodMenuItem;
+        private ToolStripMenuItem delegateMenuItem;
         private ToolStripMenuItem extractLocalVariableMenuItem;
 
         public RefactorMenu(Settings settings)
@@ -22,6 +23,7 @@ namespace CodeRefactor.Controls
             this.renameMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.Rename"), null) as ToolStripMenuItem;
             this.extractMethodMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.ExtractMethod"), null) as ToolStripMenuItem;
             this.extractLocalVariableMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.ExtractLocalVariable"), null) as ToolStripMenuItem;
+			this.delegateMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.DelegateMethods"), null) as ToolStripMenuItem;
             this.DropDownItems.Add(new ToolStripSeparator());
             this.organizeMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null) as ToolStripMenuItem;
             this.truncateMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null) as ToolStripMenuItem;
@@ -58,6 +60,14 @@ namespace CodeRefactor.Controls
         public ToolStripMenuItem ExtractMethodMenuItem
         {
             get { return this.extractMethodMenuItem; }
+        }
+
+        /// <summary>
+        /// Accessor to the DelegateMenuItem
+        /// </summary>
+        public ToolStripMenuItem DelegateMenuItem
+        {
+            get { return this.delegateMenuItem; }
         }
 
         /// <summary>

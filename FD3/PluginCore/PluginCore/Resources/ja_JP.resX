@@ -3133,6 +3133,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Extract Local Variable</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="CodeRefactor.Title.DelegateMethods" xml:space="preserve">
+    <value>Delegate Methods</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
     <value>ファイルを指定して置換するときの確認を無効にします。</value>
     <comment>Added after 3.0.4</comment>
@@ -3151,6 +3155,10 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
     <value>import 文の短縮(&amp;T)</value>
     <comment>Added after 3.0.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.DelegateMethods" xml:space="preserve">
+    <value>Generate Delegate Methods...</value>
+    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
     <value>開いたファイルの内容変更をチェックする間隔(ミリ秒)です。</value>

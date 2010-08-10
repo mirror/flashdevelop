@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -152,11 +153,13 @@ namespace CodeRefactor
             this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             this.refactorMainMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
+            this.refactorMainMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorMainMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
             this.refactorContextMenu = new RefactorMenu(this.settingObject);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
+            this.refactorContextMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorContextMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorContextMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
             this.surroundContextMenu = new SurroundMenu();
@@ -238,6 +241,9 @@ namespace CodeRefactor
         {
             try
             {
+                this.refactorContextMenu.DelegateMenuItem.Enabled = false;
+                this.refactorMainMenu.DelegateMenuItem.Enabled = false;
+
                 Boolean isValid = this.GetLanguageIsValid();
                 ASResult result = isValid ? GetResultFromCurrentPosition() : null;
                 if (result != null && result.Member != null)
@@ -250,6 +256,18 @@ namespace CodeRefactor
                     this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.editorReferencesItem.Enabled = true;
                     this.viewReferencesItem.Enabled = true;
+
+                    if (result.Type != null && result.inClass != null && result.inFile != null)
+                    {
+                        FlagType flags = result.Member.Flags;
+                        if ((flags & FlagType.Variable) > 0
+                            && (flags & FlagType.LocalVar) == 0
+                            && (flags & FlagType.ParameterVar) == 0)
+                        {
+                            this.refactorContextMenu.DelegateMenuItem.Enabled = true;
+                            this.refactorMainMenu.DelegateMenuItem.Enabled = true;
+                        }
+                    }
                 }
                 else
                 {
@@ -383,6 +401,53 @@ namespace CodeRefactor
                 command.SeparatePackages = this.settingObject.SeparatePackages;
                 command.TruncateImports = true;
                 command.Execute();
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+		/// <summary>
+        /// Invoked when the user selects the "Truncate Imports" command
+        /// </summary>
+        private void DelegateMethodsClicked(Object sender, EventArgs e)
+        {
+            try
+            {
+                ASResult result = GetResultFromCurrentPosition();
+                Dictionary<MemberModel, ClassModel> members = new Dictionary<MemberModel, ClassModel>();
+                List<string> memberNames = new List<string>();
+                ClassModel cm = result.Type;
+                cm.ResolveExtends();
+                string decl;
+                while (cm != null && !cm.IsVoid())
+                {
+                    foreach (MemberModel m in cm.Members)
+                    {
+                        if ((m.Flags & FlagType.Function) > 0
+                            && (m.Access & Visibility.Public) > 0
+                            && (m.Flags & FlagType.Constructor) == 0
+                            && (m.Flags & FlagType.Static) == 0)
+                        {
+                            decl = m.ToDeclarationString();
+                            if (!memberNames.Contains(decl))
+                            {
+                                memberNames.Add(decl);
+                                members[m] = cm;
+                            }
+                        }
+                    }
+                    cm = cm.Extends;
+                }
+                DelegateMethodsDialog dd = new DelegateMethodsDialog();
+                dd.FillData(members, result.Type);
+                System.Windows.Forms.DialogResult choice = dd.ShowDialog();
+                if (choice == System.Windows.Forms.DialogResult.OK && dd.checkedMembers.Count > 0)
+                {
+                    DelegateMethodsCommand command = new DelegateMethodsCommand(result, dd.checkedMembers);
+                    command.Execute();
+                }
             }
             catch (Exception ex)
             {

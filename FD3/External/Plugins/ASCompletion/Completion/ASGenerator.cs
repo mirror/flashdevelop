@@ -2111,6 +2111,107 @@ namespace ASCompletion.Completion
             finally { Sci.EndUndoAction(); }
         }
 
+        public static void GenerateDelegateMethods(ScintillaNet.ScintillaControl Sci, MemberModel member, 
+            Dictionary<MemberModel, ClassModel> selectedMembers, ClassModel classModel, ClassModel inClass)
+        {
+            Sci.BeginUndoAction();
+            try
+            {
+                MemberModel latest;
+                int position = -1;
+                StringBuilder sb;
+                List<MemberModel> methodParams;
+                ClassModel type;
+                List<string> importsList = new List<string>();
+
+                bool isStaticMember = false;
+                if ((member.Flags & FlagType.Static) > 0)
+                {
+                    isStaticMember = true;
+                }
+
+                Dictionary<MemberModel, ClassModel>.KeyCollection selectedMemberKeys = selectedMembers.Keys;
+                foreach (MemberModel m in selectedMemberKeys)
+                {
+                    sb = new StringBuilder();
+                    sb.Append("$(Boundary)\n\n");
+
+                    if ((m.Flags & FlagType.Override) > 0)
+                    {
+                        sb.Append("override ");
+                    }
+                    if (isStaticMember)
+                    {
+                        sb.Append("static ");
+                    }
+
+                    sb.Append(GetDeclaration(m))
+                        .Append(" $(CSLB){\n\t");
+
+                    if (m.Type != null && m.Type.ToLower() != "void")
+                    {
+                        sb.Append("return ");
+                    }
+
+                    sb.Append(member.Name)
+                        .Append(".")
+                        .Append(m.Name)
+                        .Append("(");
+
+                    methodParams = m.Parameters;
+                    if (methodParams != null)
+                    {
+                        for (int i = 0; i < methodParams.Count; i++)
+                        {
+                            MemberModel param = methodParams[i];
+                            sb.Append(param.Name);
+                            if (i + 1 < methodParams.Count)
+                            {
+                                sb.Append(", ");
+                            }
+
+                            if (param.Type != null)
+                            {
+                                type = ASContext.Context.ResolveType(param.Type, selectedMembers[m].InFile);
+                                importsList.Add(type.QualifiedName);
+                            }
+                        }
+                    }
+                    
+                    sb.Append(");")
+                        .Append("\n}");
+
+                    latest = FindLatest(FlagType.Function, Visibility.Public, inClass);
+                    if (latest == null)
+                    {
+                        position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                        Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                    }
+                    else
+                    {
+                        position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                        Sci.SetSel(position, position);
+                    }
+
+                    if (m.Type != null)
+                    {
+                        type = ASContext.Context.ResolveType(m.Type, selectedMembers[m].InFile);
+                        importsList.Add(type.QualifiedName);
+                    }
+                    InsertCode(position, sb.ToString());
+
+                }
+
+                if (importsList.Count > 0 && position > -1)
+                {
+                    int o = AddImportsByName(importsList, Sci.LineFromPosition(position));
+                    position += o;
+                    Sci.SetSel(position, position);
+                }
+            }
+            finally { Sci.EndUndoAction(); }
+        }
+
         private static void GetStartPos(string currentText, ref int startPos, string keyword)
         {
             if (keyword == null) return;
