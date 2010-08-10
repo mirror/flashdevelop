@@ -28,54 +28,62 @@ namespace CodeRefactor.Commands
         /// </summary>
         protected void ExecutionImplementation()
         {
-            IASContext context = ASContext.Context;
             ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
-
-            string selection = sci.SelText;
-            if (selection == null || selection.Length == 0)
+            sci.BeginUndoAction();
+            try
             {
-                return;
-            }
+                IASContext context = ASContext.Context;
 
-            int lineStart = sci.LineFromPosition(sci.SelectionStart);
-            int lineEnd = sci.LineFromPosition(sci.SelectionEnd);
-            int firstLineIndent = sci.GetLineIndentation(lineStart);
-            int entryPointIndent = 0;
-
-            string snippet = GetSnippet(SnippetCode, sci.ConfigurationLanguage, sci.Encoding);
-            int pos = snippet.IndexOf("{0}");
-            if (pos > -1)
-            {
-                while (pos >= 0)
+                string selection = sci.SelText;
+                if (selection == null || selection.Length == 0)
                 {
-                    string c = snippet.Substring(--pos, 1);
-                    if (c.Equals("\t"))
+                    return;
+                }
+
+                int lineStart = sci.LineFromPosition(sci.SelectionStart);
+                int lineEnd = sci.LineFromPosition(sci.SelectionEnd);
+                int firstLineIndent = sci.GetLineIndentation(lineStart);
+                int entryPointIndent = 0;
+
+                string snippet = GetSnippet(SnippetCode, sci.ConfigurationLanguage, sci.Encoding);
+                int pos = snippet.IndexOf("{0}");
+                if (pos > -1)
+                {
+                    while (pos >= 0)
                     {
-                        entryPointIndent += sci.Indent;
-                    }
-                    else
-                    {
-                        break;
+                        string c = snippet.Substring(--pos, 1);
+                        if (c.Equals("\t"))
+                        {
+                            entryPointIndent += sci.Indent;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
 
-            for (int i = lineStart; i <= lineEnd; i++)
-            {
-                int indent = sci.GetLineIndentation(i);
-                if (i > lineStart)
+                for (int i = lineStart; i <= lineEnd; i++)
                 {
-                    sci.SetLineIndentation(i, indent - firstLineIndent + entryPointIndent);
+                    int indent = sci.GetLineIndentation(i);
+                    if (i > lineStart)
+                    {
+                        sci.SetLineIndentation(i, indent - firstLineIndent + entryPointIndent);
+                    }
                 }
+
+                snippet = snippet.Replace("{0}", sci.SelText);
+
+                int insertPos = sci.SelectionStart;
+                int selEnd = sci.SelectionEnd;
+
+                sci.SetSel(insertPos, selEnd);
+                SnippetHelper.InsertSnippetText(sci, insertPos, snippet);
             }
-
-            snippet = snippet.Replace("{0}", sci.SelText);
-
-            int insertPos = sci.SelectionStart;
-            int selEnd = sci.SelectionEnd;
-
-            sci.SetSel(insertPos, selEnd);
-            SnippetHelper.InsertSnippetText(sci, insertPos, snippet);
+            finally
+            {
+                sci.EndUndoAction();
+            }
         }
 
         public static String GetSnippet(String word, String syntax, Encoding current)

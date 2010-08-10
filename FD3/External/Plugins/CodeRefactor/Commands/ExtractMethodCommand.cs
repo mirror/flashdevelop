@@ -25,6 +25,7 @@ namespace CodeRefactor.Commands
         public void Execute()
         {
             Sci = PluginBase.MainForm.CurrentDocument.SciControl;
+            Sci.BeginUndoAction();
             try
             {
                 IASContext context = ASContext.Context;
