@@ -10,3 +10,4 @@ MethodOverride	({0}):{1} $(CSLB){{\n\t$(EntryPoint){2}\n}}
 IFunction	{0};
 Constructor	{0} $(CSLB){{\n\tsuper();\n}}
 ToString	{0} $(CSLB){{\n\treturn {1};\n}}
+DelegateMethodsHeader	$(Boundary)\n\n/* DELEGATE {0} */

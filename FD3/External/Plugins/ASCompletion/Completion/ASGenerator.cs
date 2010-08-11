@@ -817,8 +817,7 @@ namespace ASCompletion.Completion
             StringBuilder snippet = new StringBuilder();
             snippet.Append(NewLine)
                 .Append("function ")
-                .Append(member.Name)
-                .Append("(");
+                .Append(member.ToDeclarationString());
 
             List<string> importsList = new List<string>();
             ClassModel t;
@@ -826,33 +825,19 @@ namespace ASCompletion.Completion
             {
                 for (int i = 0; i < parms.Count; i++)
                 {
-                    MemberModel param = parms[i];
-                    snippet.Append(param.Name);
-                    if (param.Type != null)
+                    if (parms[i].Type != null)
                     {
-                        snippet.Append(":")
-                            .Append(param.Type);
+                        t = ASContext.Context.ResolveType(parms[i].Type, inClass.InFile);
+                        importsList.Add(t.QualifiedName);
                     }
-                    if (i + 1 < parms.Count)
-                    {
-                        snippet.Append(", ");
-                    }
-                    t = ASContext.Context.ResolveType(param.Type, inClass.InFile);
-                    importsList.Add(t.QualifiedName);
                 }
             }
 
-            snippet.Append(")");
-
             if (member.Type != null)
             {
-                snippet.Append(":")
-                    .Append(member.Type);
+                t = ASContext.Context.ResolveType(member.Type, inClass.InFile);
+                importsList.Add(t.QualifiedName);
             }
-            snippet.Append(";");
-
-            t = ASContext.Context.ResolveType(member.Type, inClass.InFile);
-            importsList.Add(t.QualifiedName);
 
             if (importsList.Count > 0)
             {
@@ -2117,9 +2102,11 @@ namespace ASCompletion.Completion
             Sci.BeginUndoAction();
             try
             {
+                StringBuilder sb = new StringBuilder(
+                    String.Format(GetTemplate("DelegateMethodsHeader", "$(Boundary)\n\n/* DELEGATE {0} */"), classModel.Type));
+
                 MemberModel latest;
                 int position = -1;
-                StringBuilder sb;
                 List<MemberModel> methodParams;
                 ClassModel type;
                 List<string> importsList = new List<string>();
@@ -2133,7 +2120,6 @@ namespace ASCompletion.Completion
                 Dictionary<MemberModel, ClassModel>.KeyCollection selectedMemberKeys = selectedMembers.Keys;
                 foreach (MemberModel m in selectedMemberKeys)
                 {
-                    sb = new StringBuilder();
                     sb.Append("$(Boundary)\n\n");
 
                     if ((m.Flags & FlagType.Override) > 0)
@@ -2181,16 +2167,23 @@ namespace ASCompletion.Completion
                     sb.Append(");")
                         .Append("\n}");
 
-                    latest = FindLatest(FlagType.Function, Visibility.Public, inClass);
-                    if (latest == null)
+                    if (position < 0)
                     {
-                        position = Sci.WordStartPosition(Sci.CurrentPos, true);
-                        Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                        latest = FindLatest(FlagType.Function, inClass);
+                        if (latest == null)
+                        {
+                            position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                            Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                        }
+                        else
+                        {
+                            position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                            Sci.SetSel(position, position);
+                        }
                     }
                     else
                     {
-                        position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
-                        Sci.SetSel(position, position);
+                        position = Sci.CurrentPos;
                     }
 
                     if (m.Type != null)
@@ -2198,8 +2191,6 @@ namespace ASCompletion.Completion
                         type = ASContext.Context.ResolveType(m.Type, selectedMembers[m].InFile);
                         importsList.Add(type.QualifiedName);
                     }
-                    InsertCode(position, sb.ToString());
-
                 }
 
                 if (importsList.Count > 0 && position > -1)
@@ -2208,6 +2199,8 @@ namespace ASCompletion.Completion
                     position += o;
                     Sci.SetSel(position, position);
                 }
+
+                InsertCode(position, sb.ToString());
             }
             finally { Sci.EndUndoAction(); }
         }

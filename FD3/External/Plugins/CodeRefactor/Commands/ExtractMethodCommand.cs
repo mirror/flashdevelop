@@ -51,6 +51,12 @@ namespace CodeRefactor.Commands
                 int lineEnd = Sci.LineFromPosition(Sci.SelectionEnd);
                 int firstLineIndent = Sci.GetLineIndentation(lineStart);
                 int entryPointIndent = Sci.Indent;
+                FoundDeclaration found = GetDeclarationAtLine(Sci, lineStart);
+                if (found == null || found.member == null)
+                {
+                    return;
+                }
+
                 for (int i = lineStart; i <= lineEnd; i++)
                 {
                     int indent = Sci.GetLineIndentation(i);
@@ -69,31 +75,20 @@ namespace CodeRefactor.Commands
 
                 bool isAs2 = cFile.Context.Settings.LanguageId == "AS2";
 
-                Visibility visi = ASCompletion.Completion.ASGenerator.GetDefaultVisibility();
-                MemberModel latest = FindLatest(FlagType.Function, visi);
-                int position = 0;
-                if (latest == null)
-                {
-                    position = Sci.WordStartPosition(Sci.CurrentPos, true);
-                    Sci.SetSel(position, Sci.WordEndPosition(position, true));
-                }
-                else
-                {
-                    position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
-                    Sci.SetSel(position, position);
-                }
+                int position = Sci.PositionFromLine(found.member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                Sci.SetSel(position, position);
 
                 StringBuilder sb = new StringBuilder();
-                sb.Append("$(Boundary)\n\n");
+                sb.Append("$(Boundary)\n");
                 sb.Append(GetPrivateKeyword());
                 sb.Append(" function ");
                 sb.Append(NewName);
                 sb.Append("():");
-                sb.Append(isAs2 ? "Void " : "void");
+                sb.Append(isAs2 ? "Void " : "void ");
                 sb.Append("$(CSLB){\n\t");
                 sb.Append(selText);
                 sb.Append("$(EntryPoint)");
-                sb.Append("\n}");
+                sb.Append("\n}\n$(Boundary)");
 
                 InsertCode(position, sb.ToString());
             }
@@ -101,23 +96,6 @@ namespace CodeRefactor.Commands
             {
                 Sci.EndUndoAction();
             }
-        }
-
-        private MemberModel FindLatest(FlagType match, Visibility visi)
-        {
-            MemberList list = cFile.GetPublicClass().Members;
-
-            MemberModel fallback = null;
-            MemberModel latest = null;
-            foreach (MemberModel member in list)
-            {
-                fallback = member;
-                if ((member.Flags & match) > 0 && (visi == 0 || (member.Access & visi) > 0))
-                {
-                    latest = member;
-                }
-            }
-            return latest ?? fallback;
         }
 
         private void InsertCode(int position, string src)
@@ -155,6 +133,51 @@ namespace CodeRefactor.Commands
                 acc = ASContext.Context.Features.protectedKey ?? "protected";
             else acc = ASContext.Context.Features.privateKey ?? "private";
             return acc;
+        }
+
+        public static FoundDeclaration GetDeclarationAtLine(ScintillaNet.ScintillaControl Sci, int line)
+        {
+            FoundDeclaration result = new FoundDeclaration();
+            FileModel model = ASContext.Context.CurrentModel;
+
+            foreach (MemberModel member in model.Members)
+            {
+                if (member.LineFrom <= line && member.LineTo >= line)
+                {
+                    result.member = member;
+                    return result;
+                }
+            }
+
+            foreach (ClassModel aClass in model.Classes)
+            {
+                if (aClass.LineFrom <= line && aClass.LineTo >= line)
+                {
+                    result.inClass = aClass;
+                    foreach (MemberModel member in aClass.Members)
+                    {
+                        if (member.LineFrom <= line && member.LineTo >= line)
+                        {
+                            result.member = member;
+                            return result;
+                        }
+                    }
+                    return result;
+                }
+            }
+            return result;
+        }
+    }
+
+    class FoundDeclaration
+    {
+        public MemberModel member;
+        public ClassModel inClass;
+
+        public FoundDeclaration()
+        {
+            member = null;
+            inClass = ClassModel.VoidClass;
         }
     }
 
