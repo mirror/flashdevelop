@@ -29,6 +29,22 @@ namespace CodeRefactor.Commands
             try
             {
                 IASContext context = ASContext.Context;
+
+                string selection = Sci.SelText;
+                if (selection == null || selection.Length == 0)
+                {
+                    return;
+                }
+
+                if (selection.TrimStart().Length == 0)
+                {
+                    return;
+                }
+
+                Sci.SetSel(Sci.SelectionStart + selection.Length - selection.TrimStart().Length,
+                    Sci.SelectionEnd);
+                Sci.CurrentPos = Sci.SelectionEnd;
+
                 Int32 pos = Sci.CurrentPos;
 
                 int lineStart = Sci.LineFromPosition(Sci.SelectionStart);
