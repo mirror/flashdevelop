@@ -1028,8 +1028,19 @@ namespace ASCompletion.Completion
             }
             else // if we generate variable in current class
             {
-                latest = FindLatest(FlagType.Variable | FlagType.Constant, varVisi, inClass);
-                if (latest == null) return;
+                if (job.Equals(GeneratorJobType.Constant))
+                {
+                    latest = FindLatest(FlagType.Constant, varVisi, inClass)
+                        ?? FindLatest(FlagType.Variable, varVisi, inClass);
+                }
+                else
+                {
+                    latest = FindLatest(FlagType.Variable | FlagType.Constant, varVisi, inClass);
+                }
+                if (latest == null)
+                {
+                    return;
+                }
 
                 position = FindNewVarPosition(Sci, inClass, latest);
                 if (position <= 0) return;
