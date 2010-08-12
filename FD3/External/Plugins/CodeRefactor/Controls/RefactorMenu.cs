@@ -86,6 +86,9 @@ namespace CodeRefactor.Controls
             this.renameMenuItem.ShortcutKeys = this.settings.RenameShortcut;
             this.organizeMenuItem.ShortcutKeys = this.settings.OrganizeShortcut;
             this.truncateMenuItem.ShortcutKeys = this.settings.TruncateShortcut;
+            this.extractLocalVariableMenuItem.ShortcutKeys = this.settings.ExtractLocalVariableShortcut;
+            this.extractMethodMenuItem.ShortcutKeys = this.settings.ExtractMethodShortcut;
+            this.delegateMenuItem.ShortcutKeys = this.settings.GenerateDelegateMethodsShortcut;
         }
 
     }

@@ -14,6 +14,9 @@ namespace CodeRefactor
         private Keys findRefsShortcut = Keys.None;
         private Keys organizeShortcut = Keys.None;
         private Keys truncateShortcut = Keys.None;
+        private Keys extractLocalVariableShortcut = Keys.None;
+        private Keys generateDelegateMethodsShortcut = Keys.None;
+        private Keys extractMethodShortcut = Keys.None;
         private Boolean separatePackages = false;
 
         [DisplayName("Rename")]
@@ -50,6 +53,33 @@ namespace CodeRefactor
         {
             get { return this.truncateShortcut; }
             set { this.truncateShortcut = value; }
+        }
+
+        [DisplayName("Extract Local Variable")]
+        [LocalizedCategory("CodeRefactor.Category.Shortcuts")]
+        [LocalizedDescription("CodeRefactor.Description.ExtractLocalVariableShortcut"), DefaultValue(Keys.None)]
+        public Keys ExtractLocalVariableShortcut
+        {
+            get { return this.extractLocalVariableShortcut; }
+            set { this.extractLocalVariableShortcut = value; }
+        }
+
+        [DisplayName("Extract Method")]
+        [LocalizedCategory("CodeRefactor.Category.Shortcuts")]
+        [LocalizedDescription("CodeRefactor.Description.ExtractMethodShortcut"), DefaultValue(Keys.None)]
+        public Keys ExtractMethodShortcut
+        {
+            get { return this.extractMethodShortcut; }
+            set { this.extractMethodShortcut = value; }
+        }
+
+        [DisplayName("Generate Delegate Methods")]
+        [LocalizedCategory("CodeRefactor.Category.Shortcuts")]
+        [LocalizedDescription("CodeRefactor.Description.GenerateDelegateMethodsShortcut"), DefaultValue(Keys.None)]
+        public Keys GenerateDelegateMethodsShortcut
+        {
+            get { return this.generateDelegateMethodsShortcut; }
+            set { this.generateDelegateMethodsShortcut = value; }
         }
 
         [DisplayName("Separate Packages")]

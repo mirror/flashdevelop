@@ -543,6 +543,18 @@ namespace CodeRefactor
             {
                 mainForm.IgnoredKeys.Add(this.settingObject.TruncateShortcut);
             }
+            if (this.settingObject.ExtractLocalVariableShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.ExtractLocalVariableShortcut);
+            }
+            if (this.settingObject.ExtractMethodShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.ExtractMethodShortcut);
+            }
+            if (this.settingObject.GenerateDelegateMethodsShortcut != Keys.None)
+            {
+                mainForm.IgnoredKeys.Add(this.settingObject.GenerateDelegateMethodsShortcut);
+            }
         }
 
         /// <summary>

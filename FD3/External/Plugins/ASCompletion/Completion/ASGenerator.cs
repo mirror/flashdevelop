@@ -147,7 +147,9 @@ namespace ASCompletion.Completion
                     return;
                 }
 
-                if ((found.member.Flags & FlagType.Function) > 0 &&
+                if (resolve.Member != null &&
+                    resolve.Member.Name == found.member.Name &&
+                    (found.member.Flags & FlagType.Function) > 0 &&
                     found.inClass != null &&
                     found.inClass.Implements != null &&
                     found.inClass.Implements.Count > 0)
@@ -162,20 +164,15 @@ namespace ASCompletion.Completion
                         {
                             break;
                         }
-
-                        int ind = Sci.Text.IndexOf(interf, classPosStart);
-                        if (ind > 0)
+                        ClassModel cm = ASContext.Context.ResolveType(interf, ASContext.Context.CurrentModel);
+                        contextParam = cm.Type;
+                        MemberList members = cm.Members;
+                        foreach (MemberModel m in members)
                         {
-                            ASResult expr = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(ind, true));
-                            contextParam = expr.Type.Type;
-                            MemberList members = expr.Type.Members;
-                            foreach (MemberModel m in members)
+                            if (m.Name.Equals(funcName))
                             {
-                                if (m.Name.Equals(funcName))
-                                {
-                                    skip = true;
-                                    break;
-                                }
+                                skip = true;
+                                break;
                             }
                         }
                     }

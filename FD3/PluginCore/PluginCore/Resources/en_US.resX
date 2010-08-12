@@ -3230,6 +3230,15 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
     <value>Shortcut of the truncate imports menu item.</value>
   </data>
+  <data name="CodeRefactor.Description.ExtractLocalVariableShortcut" xml:space="preserve">
+    <value>Shortcut of the extract local variable menu item.</value>
+  </data>
+  <data name="CodeRefactor.Description.ExtractMethodShortcut" xml:space="preserve">
+    <value>Shortcut of the extract method menu item.</value>
+  </data>
+  <data name="CodeRefactor.Description.GenerateDelegateMethodsShortcut" xml:space="preserve">
+    <value>Shortcut of the generate delegate methods menu item.</value>
+  </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
     <value>Build All Projects</value>
     <comment>Added after 3.0.6</comment>
