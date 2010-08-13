@@ -814,7 +814,8 @@ namespace ASCompletion.Completion
             StringBuilder snippet = new StringBuilder();
             snippet.Append(NewLine)
                 .Append("function ")
-                .Append(member.ToDeclarationString());
+                .Append(member.ToDeclarationString())
+                .Append(";");
 
             List<string> importsList = new List<string>();
             ClassModel t;
