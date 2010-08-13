@@ -51,11 +51,6 @@ namespace CodeRefactor.Commands
                 int lineEnd = Sci.LineFromPosition(Sci.SelectionEnd);
                 int firstLineIndent = Sci.GetLineIndentation(lineStart);
                 int entryPointIndent = Sci.Indent;
-                FoundDeclaration found = GetDeclarationAtLine(Sci, lineStart);
-                if (found == null || found.member == null)
-                {
-                    return;
-                }
 
                 for (int i = lineStart; i <= lineEnd; i++)
                 {
@@ -73,18 +68,24 @@ namespace CodeRefactor.Commands
                 ASFileParser parser = new ASFileParser();
                 parser.ParseSrc(cFile, Sci.Text);
 
-                bool isAs2 = cFile.Context.Settings.LanguageId == "AS2";
+                bool isAs3 = cFile.Context.Settings.LanguageId == "AS3";
+
+                FoundDeclaration found = GetDeclarationAtLine(Sci, lineStart);
+                if (found == null || found.member == null)
+                {
+                    return;
+                }
 
                 int position = Sci.PositionFromLine(found.member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                 Sci.SetSel(position, position);
 
                 StringBuilder sb = new StringBuilder();
-                sb.Append("$(Boundary)\n");
+                sb.Append("$(Boundary)\n\n");
                 sb.Append(GetPrivateKeyword());
                 sb.Append(" function ");
                 sb.Append(NewName);
                 sb.Append("():");
-                sb.Append(isAs2 ? "Void " : "void ");
+                sb.Append(isAs3 ? "void " : "Void ");
                 sb.Append("$(CSLB){\n\t");
                 sb.Append(selText);
                 sb.Append("$(EntryPoint)");
