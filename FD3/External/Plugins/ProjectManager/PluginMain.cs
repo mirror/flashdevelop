@@ -38,6 +38,7 @@ namespace ProjectManager
 
     public static class ProjectManagerEvents
     {
+        public const string Menu = "ProjectManager.Menu";
         public const string Project = "ProjectManager.Project";
         public const string TestProject = "ProjectManager.TestingProject";
         public const string BuildProject = "ProjectManager.BuildingProject";
@@ -273,7 +274,7 @@ namespace ProjectManager
                 case EventType.UIStarted:
                     // for some reason we have to do this on the next message loop for the tree
                     // state to be restored properly.
-                    pluginUI.BeginInvoke((MethodInvoker)delegate { OpenLastProject(); });
+                    pluginUI.BeginInvoke((MethodInvoker)delegate { BroadcastMenuInfo(); OpenLastProject(); });
                     break;
                 // replace $(SomeVariable) type stuff with things we know about
                 case EventType.ProcessArgs:
@@ -336,7 +337,9 @@ namespace ProjectManager
                     else if (de.Action == ProjectManagerCommands.OpenProject)
                     {
                         if (de.Data != null && File.Exists((string)de.Data))
+                        {
                             projectActions.OpenProjectSilent((string)de.Data);
+                        }
                         else OpenProject();
                         e.Handled = true;
                     }
@@ -863,6 +866,12 @@ namespace ProjectManager
         #endregion
 
         #region Event Broadcasting
+
+        public void BroadcastMenuInfo()
+        {
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.Menu, this.menus.ProjectMenu);
+            EventManager.DispatchEvent(this, de);
+        }
 
         public void BroadcastProjectInfo()
         {

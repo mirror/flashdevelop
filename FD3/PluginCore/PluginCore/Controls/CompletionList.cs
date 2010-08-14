@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PluginCore.Managers;
+using PluginCore.Helpers;
 using ScintillaNet;
 
 namespace PluginCore.Controls
@@ -344,11 +345,10 @@ namespace PluginCore.Controls
                 int p = item.Label.LastIndexOf('.');
                 if (p > 0 && !selected)
                 {
-                    string package = item.Label.Substring(0, p+1);
+                    string package = item.Label.Substring(0, p + 1);
                     g.DrawString(package, e.Font, packageBrush, tbounds, StringFormat.GenericDefault);
-                    SizeF dims = g.MeasureString(package, e.Font, tbounds.Width, StringFormat.GenericDefault);
-                    int left = tbounds.Left + (int)dims.Width + 1;
-                    if (left < tbounds.Right) g.DrawString(item.Label.Substring(p + 1), e.Font, textBrush, left, tbounds.Top, StringFormat.GenericTypographic);
+                    int left = tbounds.Left + DrawHelper.MeasureDisplayStringWidth(e.Graphics, package, e.Font) - 2;
+                    if (left < tbounds.Right) g.DrawString(item.Label.Substring(p + 1), e.Font, textBrush, left, tbounds.Top, StringFormat.GenericDefault);
                 }
                 else g.DrawString(item.Label, e.Font, textBrush, tbounds, StringFormat.GenericDefault);
 			}
