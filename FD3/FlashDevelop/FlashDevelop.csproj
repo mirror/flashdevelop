@@ -197,4 +197,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>SubWCRev $(SolutionDir) "$(SolutionDir)FlashDevelop\Properties\AssemblyInfo.cs.rev" "$(SolutionDir)FlashDevelop\Properties\AssemblyInfo.cs"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
