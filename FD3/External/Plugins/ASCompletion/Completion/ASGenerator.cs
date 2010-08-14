@@ -54,6 +54,13 @@ namespace ASCompletion.Completion
             int line = Sci.LineFromPosition(position);
             contextToken = Sci.GetWordFromPosition(position);
             contextMatch = null;
+
+            if (!String.IsNullOrEmpty(contextToken) && Char.IsDigit(contextToken[0]))
+            {
+                // TODO suggest declare number const
+                return;
+            }
+
             FoundDeclaration found = GetDeclarationAtLine(Sci, line);
             string text = Sci.GetLine(line);
             bool suggestItemDeclaration = false;
@@ -117,7 +124,7 @@ namespace ASCompletion.Completion
                 {
                     if (contextToken != null)
                     {
-                        // generate event handlers
+                        // "generate event handlers" suggestion
                         Match m = Regex.Match(text, String.Format(patternEvent, contextToken), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
@@ -147,6 +154,7 @@ namespace ASCompletion.Completion
                     return;
                 }
 
+                // "add to interface" suggestion
                 if (resolve.Member != null &&
                     resolve.Member.Name == found.member.Name &&
                     (found.member.Flags & FlagType.Function) > 0 &&
@@ -184,6 +192,7 @@ namespace ASCompletion.Completion
                 }
             }
 
+            // suggest generate constructor / toString
             if (found.member == null && found.inClass != ClassModel.VoidClass && contextToken == null)
             {
                 ClassModel cm = ASContext.Context.CurrentClass;
@@ -210,6 +219,7 @@ namespace ASCompletion.Completion
                 }
             }
 
+            // suggest declaration
             if (suggestItemDeclaration)
             {
                 Match m = Regex.Match(text, String.Format(patternClass, contextToken));
