@@ -804,6 +804,9 @@ namespace ASCompletion.Completion
                 }
             }
 
+            StringBuilder snippet = new StringBuilder();
+            
+
             DockContent dc = ASContext.MainForm.OpenEditableDocument(aType.InFile.FileName, true);
             Sci = ASContext.CurSciControl;
 
@@ -815,15 +818,14 @@ namespace ASCompletion.Completion
             }
             else
             {
-                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 1 : 0);
+                snippet.Append(NewLine);
             }
             Sci.SetSel(position, position);
             Sci.CurrentPos = position;
 
             List<MemberModel> parms = member.Parameters;
-            StringBuilder snippet = new StringBuilder();
-            snippet.Append(NewLine)
-                .Append("function ")
+            snippet.Append("function ")
                 .Append(member.ToDeclarationString())
                 .Append(";");
 
@@ -1029,6 +1031,23 @@ namespace ASCompletion.Completion
                 isOtherClass = true;
             }
 
+            if (member != null && (member.Flags & FlagType.Static) > 0)
+            {
+                member.Flags -= FlagType.Static;
+            }
+
+            if (isOtherClass)
+            {
+                if (member != null)
+                {
+                    // check if it's more sense to generate a static variable (like Config.someStaticVar)
+                    if (varResult.inFile == null && inClass != null && !ClassIsInterface(inClass))
+                    {
+                        member.Flags |= FlagType.Static;
+                    }
+                }
+            }
+
             // if we generate variable in current class..
             if (!isOtherClass && member == null)
             {
@@ -1037,7 +1056,7 @@ namespace ASCompletion.Completion
                 position = Sci.WordStartPosition(Sci.CurrentPos, true);
                 Sci.SetSel(position, Sci.WordEndPosition(position, true));
             }
-            else // if we generate variable in current class
+            else // if we generate variable in another class
             {
                 if (job.Equals(GeneratorJobType.Constant))
                 {
@@ -1048,30 +1067,27 @@ namespace ASCompletion.Completion
                 {
                     latest = FindLatest(FlagType.Variable | FlagType.Constant, varVisi, inClass);
                 }
-                if (latest == null)
+                if (latest != null)
                 {
-                    return;
+                    position = FindNewVarPosition(Sci, inClass, latest);
                 }
-
-                position = FindNewVarPosition(Sci, inClass, latest);
+                else
+                {
+                    position = GetBodyStart(inClass.LineFrom, inClass.LineTo, Sci);
+                    detach = false;
+                }
                 if (position <= 0) return;
                 Sci.SetSel(position, position);
-            }
-
-
-            if (member != null)
-            {
-                // check if it's more sense to generate a static variable (like Config.someStaticVar)
-                if (varResult.inFile == null && varResult.relClass != null && !ClassIsInterface(inClass))
-                {
-                    member.Flags |= FlagType.Static;
-                }
             }
 
             // if this is a constant, we assign a value to constant
             if (job.Equals(GeneratorJobType.Constant))
             {
                 contextToken += ":String = \"" + Camelize(contextToken) + "\"";
+                if (member != null && (member.Flags & FlagType.Static) == 0)
+                {
+                    member.Flags |= FlagType.Static;
+                }
             }
 
             GenerateVariable(
@@ -1327,6 +1343,7 @@ namespace ASCompletion.Completion
         {
             int position = 0;
             MemberModel latest = null;
+            bool isOtherClass = false;
 
             Visibility funcVisi = job.Equals(GeneratorJobType.FunctionPublic) ? Visibility.Public : GetDefaultVisibility();
             int wordPos = Sci.WordEndPosition(Sci.CurrentPos, true);
@@ -1346,30 +1363,55 @@ namespace ASCompletion.Completion
                     }
                 }
                 DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
-                if (!Sci.Equals(ASContext.CurSciControl))
+                Sci = ASContext.CurSciControl;
+                latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
+                inClass = funcResult.relClass;
+                isOtherClass = true;
+            }
+
+            if (member != null && (member.Flags & FlagType.Static) > 0)
+            {
+                member.Flags -= FlagType.Static;
+            }
+            
+
+            // if we generate function in current class..
+            if (isOtherClass)
+            {
+                // check if it's more sense to generate a static function (like Config.someStaticFunc)
+                if (member != null && funcResult.inFile == null && inClass != null && !ClassIsInterface(inClass))
                 {
-                    Sci = ASContext.CurSciControl;
-                    latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
+                    member.Flags |= FlagType.Static;
                 }
             }
 
             // if we generate function in current class..
-            if (latest == null)
+            if (!isOtherClass)
             {
-                latest = member;
-            }
-
-            // if we generate function in current class..
-            if (latest == null)
-            {
-                detach = false;
-                lookupPosition = -1;
-                position = Sci.WordStartPosition(Sci.CurrentPos, true);
-                Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                if (member == null)
+                {
+                    detach = false;
+                    lookupPosition = -1;
+                    position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                    Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                }
+                else
+                {
+                    position = Sci.PositionFromLine(member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                    Sci.SetSel(position, position);
+                }
             }
             else // if we generate function in another class..
             {
-                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                if (latest != null)
+                {
+                    position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                }
+                else
+                {
+                    position = GetBodyStart(inClass.LineFrom, inClass.LineTo, Sci);
+                    detach = false;
+                }
                 Sci.SetSel(position, position);
             }
 
@@ -1398,12 +1440,6 @@ namespace ASCompletion.Completion
                 {
                     Sci.SetSel(position, position);
                 }
-            }
-
-            // check if it's more sense to generate a static function (like Config.someStaticFunc)
-            if (member != null && funcResult.inFile == null && funcResult.relClass != null && !ClassIsInterface(inClass))
-            {
-                member.Flags |= FlagType.Static;
             }
 
             GenerateFunction(
