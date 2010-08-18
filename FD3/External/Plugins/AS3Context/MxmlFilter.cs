@@ -27,6 +27,7 @@ namespace AS3Context
     {
         static private readonly Regex tagName = new Regex("<(?<name>[a-z][a-z0-9_:]*)[\\s>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         static public string OLD_MX = "http://www.adobe.com/2006/mxml";
+        static public string BETA_MX = "library://ns.adobe.com/flex/halo";
         static public string NEW_MX = "library://ns.adobe.com/flex/mx";
 
         static private Dictionary<string, MxmlCatalog> catalogs = new Dictionary<string, MxmlCatalog>();
@@ -76,6 +77,14 @@ namespace AS3Context
         }
 
         /// <summary>
+        /// Check if a catalog was already extracted from indicated SWC 
+        /// </summary>
+        static public bool HasCatalog(string file)
+        {
+            return archive.ContainsKey(file);
+        }
+
+        /// <summary>
         /// Read a SWC catalog file
         /// </summary>
         static public void AddCatalog(string file, byte[] rawData)
@@ -84,11 +93,15 @@ namespace AS3Context
             {
                 FileInfo info = new FileInfo(file);
                 MxmlCatalog cat;
-                if (archive.ContainsKey(file))
+                if (HasCatalog(file))
                 {
                     cat = archive[file];
                     if (cat.TimeStamp == info.LastWriteTime)
+                    {
+                        if (cat.Count > 0)
+                            catalogs[file] = cat;
                         return;
+                    }
                 }
                 
                 cat = new MxmlCatalog();
@@ -100,6 +113,16 @@ namespace AS3Context
             }
             catch (XmlException ex) { Console.WriteLine(ex.Message); }
             catch (Exception) { }
+        }
+
+        /// <summary>
+        /// Add an archived SWC catalog
+        /// </summary>
+        static public void AddCatalog(string file)
+        {
+            MxmlCatalog cat = archive[file];
+            if (cat.Count > 0)
+                catalogs[file] = cat;
         }
 
         /// <summary>
@@ -117,7 +140,11 @@ namespace AS3Context
                 {
                     cat = archive[file];
                     if (cat.TimeStamp == info.LastWriteTime)
+                    {
+                        if (cat.Count > 0)
+                            catalogs[file] = cat;
                         return;
+                    }
                 }
 
                 cat = new MxmlCatalog();
@@ -285,7 +312,7 @@ namespace AS3Context
             foreach (string ns in ctx.namespaces.Keys)
             {
                 string uri = ctx.namespaces[ns];
-                string temp = (uri == OLD_MX) ? NEW_MX : uri;
+                string temp = (uri == OLD_MX || uri == BETA_MX) ? NEW_MX : uri;
                 foreach (MxmlCatalog cat in catalogs.Values)
                     if (cat.URI == temp)
                     {
@@ -446,7 +473,7 @@ namespace AS3Context
                 }
             }
 
-            if (URI == MxmlFilter.OLD_MX) 
+            if (URI == MxmlFilter.BETA_MX || URI == MxmlFilter.OLD_MX) 
                 URI = MxmlFilter.NEW_MX;
         }
     }

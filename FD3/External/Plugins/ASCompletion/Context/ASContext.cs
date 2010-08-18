@@ -604,7 +604,8 @@ namespace ASCompletion.Context
                 path.IsTemporaryPath = false;
                 path.WasExplored = false;
             }
-            if (Settings != null && !path.WasExplored && !Settings.LazyClasspathExploration && path.IsValid)
+            if (Settings != null)
+            if (!path.WasExplored && !Settings.LazyClasspathExploration && path.IsValid)
             {
                 //TraceManager.Add("EXPLORE: " + path.Path);
                 PathExplorer explorer = new PathExplorer(this, path);
@@ -613,6 +614,10 @@ namespace ASCompletion.Context
                 explorer.UseCache = !ASContext.CommonSettings.DisableCache;
                 explorer.Run();
                 return true;
+            }
+            else if (path.IsVirtual)
+            {
+                ASContext.Context.ExploreVirtualPath(path);
             }
 			return false;
 		}

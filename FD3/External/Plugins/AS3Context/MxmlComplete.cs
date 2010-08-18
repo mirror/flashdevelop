@@ -485,7 +485,7 @@ namespace AS3Context
             if (uri.EndsWith(".*"))
                 return uri.Substring(0, uri.Length - 1) + name;
 
-            if (uri == MxmlFilter.OLD_MX)
+            if (uri == MxmlFilter.BETA_MX || uri == MxmlFilter.OLD_MX) 
                 uri = MxmlFilter.NEW_MX;
 
             foreach (MxmlCatalog cat in ctx.catalogs)

@@ -310,6 +310,12 @@ namespace AS3Context
         /// <param name="path">Models owner</param>
         public override void ExploreVirtualPath(PathModel path)
         {
+            if (path.WasExplored && MxmlFilter.HasCatalog(path.Path))
+            {
+                MxmlFilter.AddCatalog(path.Path);
+                return;
+            }
+
             try
             {
                 if (File.Exists(path.Path))
