@@ -2234,6 +2234,13 @@ namespace ASCompletion.Completion
                         else if ((found.Flags & FlagType.Constructor) > 0)
                         {
                             // is the constructor - ie. a Type
+                            if (tmpClass != inClass) // constructor of inherited type
+                            {
+                                found = null;
+                                result.Type = null;
+                                result.Member = null;
+                                break; 
+                            }
                             result.Type = tmpClass;
                             result.IsStatic = true;
                         }

@@ -865,6 +865,21 @@ namespace ASCompletion.Completion
         {
             int funcBodyStart = GetBodyStart(member.LineFrom, member.LineTo, Sci);
 
+            Sci.SetSel(funcBodyStart, Sci.PositionFromLine(member.LineTo));
+            string firstLineBody = Sci.SelText;
+            string trimmed = firstLineBody.TrimStart();
+
+            Regex re = new Regex("^super\\s*[\\(|\\.]");
+            Match m = re.Match(trimmed);
+            if (m.Success)
+            {
+                if (m.Index == 0)
+                {
+                    int l = Sci.LineFromPosition(funcBodyStart + (firstLineBody.Length - trimmed.Length));
+                    funcBodyStart = GetBodyStart(l + 1, member.LineTo, Sci, 0);
+                }
+            }
+
             Sci.SetSel(funcBodyStart, funcBodyStart);
             Sci.CurrentPos = funcBodyStart;
 
@@ -935,6 +950,10 @@ namespace ASCompletion.Completion
 
         public static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci)
         {
+            return GetBodyStart(lineFrom, lineTo, Sci, 1);
+        }
+        public static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci, int extraLine)
+        {
             int posStart = Sci.PositionFromLine(lineFrom);
             int posEnd = Sci.LineEndPosition(lineTo);
 
@@ -946,19 +965,32 @@ namespace ASCompletion.Completion
             while (funcBodyStart <= posEnd)
             {
                 char c = (char)Sci.CharAt(++funcBodyStart);
-                if (!characterClass.Contains(c))
+                if (c == '}')
+                {
+                    int ln = Sci.LineFromPosition(funcBodyStart - 1);
+                    int indent = Sci.GetLineIndentation(ln);
+                    if (lineFrom == lineTo || lineFrom == ln)
+                    {
+                        Sci.InsertText(funcBodyStart, Sci.NewLineMarker);
+                        Sci.SetLineIndentation(ln + 1, indent);
+                        ln++;
+                    }
+                    Sci.SetLineIndentation(ln, indent + Sci.Indent);
+                    Sci.InsertText(funcBodyStart, Sci.NewLineMarker);
+                    Sci.SetLineIndentation(ln + 1, indent);
+                    Sci.SetLineIndentation(ln, indent + Sci.Indent);
+                    funcBodyStart = Sci.LineEndPosition(ln);
+                    break;
+                }
+                else if (!characterClass.Contains(c))
                 {
                     break;
                 }
-                else if (c == '}')
+                else if (Sci.EOLMode == 1 && c == '\r' && (++nCount) > extraLine)
                 {
                     break;
                 }
-                else if (Sci.EOLMode == 1 && c == '\r' && (++nCount) > 1)
-                {
-                    break;
-                }
-                else if (c == '\n' && (++nCount) > 1)
+                else if (c == '\n' && (++nCount) > extraLine)
                 {
                     if (Sci.EOLMode != 2)
                     {
@@ -1015,6 +1047,8 @@ namespace ASCompletion.Completion
             ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
             if (varResult != null && varResult.relClass != null)
             {
+                AddLookupPosition();
+
                 FileModel fileModel = ASFileParser.ParseFile(varResult.relClass.InFile.FileName, ASContext.Context);
                 foreach (ClassModel cm in fileModel.Classes)
                 {
@@ -1353,6 +1387,8 @@ namespace ASCompletion.Completion
             ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
             if (funcResult != null && funcResult.relClass != null)
             {
+                AddLookupPosition();
+
                 FileModel fileModel = ASFileParser.ParseFile(funcResult.relClass.InFile.FileName, ASContext.Context);
                 foreach (ClassModel cm in fileModel.Classes)
                 {
@@ -2481,6 +2517,7 @@ namespace ASCompletion.Completion
                 int lookupLine = Sci.LineFromPosition(lookupPosition);
                 int lookupCol = lookupPosition - Sci.PositionFromLine(lookupLine);
                 ASContext.Panel.SetLastLookupPosition(ASContext.Context.CurrentFile, lookupLine, lookupCol);
+                lookupPosition = -1;
             }
         }
         #endregion
