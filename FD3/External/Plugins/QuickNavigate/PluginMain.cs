@@ -19,6 +19,7 @@ namespace QuickNavigate
         private String pluginDesc = "Adds quick navigation capabilities to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private ControlClickManager controlClickManager;
+        private ToolStripMenuItem viewMenuItem;
         private String settingFilename;
         private Settings settingObject;
 
@@ -119,6 +120,14 @@ namespace QuickNavigate
                     this.controlClickManager.SciControl = PluginBase.MainForm.CurrentDocument.SciControl;
                 }
             }
+            else if (e.Type == EventType.ApplySettings)
+            {
+                if (this.viewMenuItem != null)
+                {
+                    this.viewMenuItem.ShortcutKeys = this.settingObject.OpenResourceShortcut;
+                    PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.OpenResourceShortcut);
+                }
+            }
 		}
 		
 		#endregion
@@ -141,7 +150,7 @@ namespace QuickNavigate
         /// </summary>
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileSwitch | EventType.Command);
+            EventManager.AddEventHandler(this, EventType.FileSwitch | EventType.Command | EventType.ApplySettings);
         }
 
         /// <summary>
@@ -149,10 +158,9 @@ namespace QuickNavigate
         /// </summary>
         public void CreateMenuItems(ToolStripMenuItem projectMenu)
         {
-            ToolStripMenuItem item = new ToolStripMenuItem(TextHelper.GetString("Label.OpenResource"), PluginBase.MainForm.FindImage("209"), new EventHandler(this.ShowResourceForm), this.settingObject.OpenResourceShortcut);
+            this.viewMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.OpenResource"), PluginBase.MainForm.FindImage("209"), new EventHandler(this.ShowResourceForm), this.settingObject.OpenResourceShortcut);
             projectMenu.DropDownItems.Insert(4, new ToolStripSeparator());
-            projectMenu.DropDownItems.Insert(5, item);
-            PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.OpenResourceShortcut);
+            projectMenu.DropDownItems.Insert(5, this.viewMenuItem);
         }
 
         /// <summary>
@@ -191,7 +199,7 @@ namespace QuickNavigate
             String projectFolder = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
             List<String> folders = new List<String>();
             folders.Add(projectFolder);
-            if (!settingObject.SearchExternalClassPath) return folders;
+            if (!this.settingObject.SearchExternalClassPath) return folders;
             foreach (String path in PluginBase.CurrentProject.SourcePaths)
             {
                 if (Path.IsPathRooted(path)) folders.Add(path);
@@ -216,6 +224,7 @@ namespace QuickNavigate
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
+            PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.OpenResourceShortcut);
         }
 
         /// <summary>

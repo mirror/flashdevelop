@@ -1502,6 +1502,7 @@ namespace FlashDevelop
         /// </summary>
         public void ApplyAllSettings()
         {
+            EventManager.DispatchEvent(this, new NotifyEvent(EventType.ApplySettings));
             for (Int32 i = 0; i < this.Documents.Length; i++)
             {
                 ITabbedDocument document = this.Documents[i];
@@ -1510,8 +1511,6 @@ namespace FlashDevelop
             this.frInFilesDialog.UpdateSettings();
             this.toolStrip.Visible = this.appSettings.ViewToolBar;
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
-            NotifyEvent ne = new NotifyEvent(EventType.ApplySettings);
-            EventManager.DispatchEvent(this, ne);
             ButtonManager.UpdateFlaggedButtons();
         }
 
