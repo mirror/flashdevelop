@@ -388,7 +388,7 @@ namespace ASCompletion.Completion
                 if (isConst)
                 {
                     string labelConst = TextHelper.GetString("ASCompletion.Label.GenerateConstant");
-                    known.Add(new GeneratorItem(labelConst, GeneratorJobType.Constant, found.member, inClass));
+                    known.Add(new GeneratorItem(labelConst, GeneratorJobType.Constant, found.member, found.inClass));
 
                     autoSelect = labelConst;
                 }
@@ -396,16 +396,16 @@ namespace ASCompletion.Completion
                 if (result == null)
                 {
                     string labelVar = TextHelper.GetString("ASCompletion.Label.GeneratePrivateVar");
-                    known.Add(new GeneratorItem(labelVar, GeneratorJobType.Variable, found.member, inClass));
+                    known.Add(new GeneratorItem(labelVar, GeneratorJobType.Variable, found.member, found.inClass));
                 }
 
                 string labelVarPublic = TextHelper.GetString("ASCompletion.Label.GeneratePublicVar");
-                known.Add(new GeneratorItem(labelVarPublic, GeneratorJobType.VariablePublic, found.member, inClass));
+                known.Add(new GeneratorItem(labelVarPublic, GeneratorJobType.VariablePublic, found.member, found.inClass));
 
                 if (result == null)
                 {
                     string labelFun = TextHelper.GetString("ASCompletion.Label.GeneratePrivateFunction");
-                    known.Add(new GeneratorItem(labelFun, GeneratorJobType.Function, found.member, inClass));
+                    known.Add(new GeneratorItem(labelFun, GeneratorJobType.Function, found.member, found.inClass));
                 }
             }
 
@@ -415,7 +415,7 @@ namespace ASCompletion.Completion
                 labelFunPublic = TextHelper.GetString("ASCompletion.Label.GenerateFunctionInterface");
                 autoSelect = labelFunPublic;
             }
-            known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, inClass));
+            known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, found.inClass));
 
             if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
             {
@@ -452,7 +452,7 @@ namespace ASCompletion.Completion
                 if (result == null)
                 {
                     string label = TextHelper.GetString("ASCompletion.Label.GeneratePrivateFunction");
-                    known.Add(new GeneratorItem(label, GeneratorJobType.Function, found.member, inClass));
+                    known.Add(new GeneratorItem(label, GeneratorJobType.Function, found.member, found.inClass));
                 }
             }
 
@@ -462,7 +462,7 @@ namespace ASCompletion.Completion
                 labelFunPublic = TextHelper.GetString("ASCompletion.Label.GenerateFunctionInterface");
                 autoSelect = labelFunPublic;
             }
-            known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, inClass));
+            known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, found.inClass));
 
             CompletionList.Show(known, false);
         }
@@ -1045,11 +1045,18 @@ namespace ASCompletion.Completion
 
             // evaluate, if the variable (or constant) should be generated in other class
             ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
-            if (varResult != null && varResult.relClass != null)
+            if (varResult != null && varResult.relClass != null && !varResult.relClass.Equals(inClass))
             {
                 AddLookupPosition();
 
-                FileModel fileModel = ASFileParser.ParseFile(varResult.relClass.InFile.FileName, ASContext.Context);
+                ASContext.MainForm.OpenEditableDocument(varResult.relClass.InFile.FileName, false);
+                Sci = ASContext.CurSciControl;
+                isOtherClass = true;
+
+                FileModel fileModel = new FileModel();
+                ASFileParser parser = new ASFileParser();
+                parser.ParseSrc(fileModel, Sci.Text);
+
                 foreach (ClassModel cm in fileModel.Classes)
                 {
                     if (cm.QualifiedName.Equals(varResult.relClass.QualifiedName))
@@ -1058,11 +1065,7 @@ namespace ASCompletion.Completion
                         break;
                     }
                 }
-
-                ASContext.MainForm.OpenEditableDocument(varResult.relClass.InFile.FileName, false);
-                Sci = ASContext.CurSciControl;
                 inClass = varResult.relClass;
-                isOtherClass = true;
             }
 
             if (member != null && (member.Flags & FlagType.Static) > 0)
@@ -1385,11 +1388,18 @@ namespace ASCompletion.Completion
 
             // evaluate, if the function should be generated in other class
             ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
-            if (funcResult != null && funcResult.relClass != null)
+            if (funcResult != null && funcResult.relClass != null && !funcResult.relClass.Equals(inClass))
             {
                 AddLookupPosition();
 
-                FileModel fileModel = ASFileParser.ParseFile(funcResult.relClass.InFile.FileName, ASContext.Context);
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
+                Sci = ASContext.CurSciControl;
+                isOtherClass = true;
+
+                FileModel fileModel = new FileModel();
+                ASFileParser parser = new ASFileParser();
+                parser.ParseSrc(fileModel, Sci.Text);
+
                 foreach (ClassModel cm in fileModel.Classes)
                 {
                     if (cm.QualifiedName.Equals(funcResult.relClass.QualifiedName))
@@ -1398,11 +1408,8 @@ namespace ASCompletion.Completion
                         break;
                     }
                 }
-                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
-                Sci = ASContext.CurSciControl;
                 latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
                 inClass = funcResult.relClass;
-                isOtherClass = true;
             }
 
             if (member != null && (member.Flags & FlagType.Static) > 0)
