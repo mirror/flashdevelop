@@ -1411,7 +1411,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Copy &amp;Output</value>
   </data>
   <data name="OutputPanel.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Output Panel</value>
+    <value>Output Pa&amp;nel</value>
   </data>
   <data name="OutputPanel.Label.WrapText" xml:space="preserve">
     <value>&amp;Wrap Text</value>
@@ -3110,7 +3110,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.FindAllReferences" xml:space="preserve">
-    <value>Find All References</value>
+    <value>Find A&amp;ll References</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.NewName" xml:space="preserve">
@@ -3118,23 +3118,23 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Refactor" xml:space="preserve">
-    <value>Refactor</value>
+    <value>&amp;Refactor</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Rename" xml:space="preserve">
-    <value>Rename...</value>
+    <value>&amp;Rename...</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.ExtractMethod" xml:space="preserve">
-    <value>Extract Method...</value>
+    <value>Extract &amp;Method...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Label.ExtractLocalVariable" xml:space="preserve">
-    <value>Extract Local Variable...</value>
+    <value>&amp;Extract Local Variable...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Label.SurroundWith" xml:space="preserve">
-    <value>Surround With</value>
+    <value>&amp;Surround With</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
@@ -3165,15 +3165,15 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Undo Close</value>
   </data>
   <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
-    <value>Organize Imports</value>
+    <value>&amp;Organize Imports</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
-    <value>Truncate Imports</value>
+    <value>&amp;Truncate Imports</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.DelegateMethods" xml:space="preserve">
-    <value>Generate Delegate Methods...</value>
+    <value>&amp;Generate Delegate Methods...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.UseSystemColors" xml:space="preserve">
@@ -3972,7 +3972,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseFunctions" xml:space="preserve">
-    <value>Collapse &amp;Functions</value>
+    <value>Collapse Functions</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
@@ -4000,7 +4000,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Label.OpenResource" xml:space="preserve">
-    <value>Open Resource...</value>
+    <value>Open &amp;Resource...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Label.SearchString" xml:space="preserve">
