@@ -133,6 +133,7 @@ namespace ASCompletion.Model
                         watcher.Changed += new FileSystemEventHandler(watcher_Changed);
                         watcher.Renamed += new RenamedEventHandler(watcher_Renamed);
                         watcher.EnableRaisingEvents = true;
+                        watcher.InternalBufferSize = 4096 * 8;
                     }
                     catch
                     {
