@@ -40,6 +40,7 @@ namespace ProjectManager.Building.AS3
             if (options.Accessible) AddEq("-accessible", "true");
             if (options.AllowSourcePathOverlap) AddEq("-allow-source-path-overlap", "true");
             if (!options.Benchmark) AddEq("-benchmark", "false");
+            else AddEq("-benchmark", "true");
             if (options.ES)
             {
                 AddEq("-es", "true");
