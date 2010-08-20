@@ -69,6 +69,13 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue(true)]
         public bool ShowBindingWarnings { get { return showBindingWarnings; } set { showBindingWarnings = value; } }
 
+        bool showInvalidCSS = true;
+        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [DisplayName("Show Invalid CSS Property Warnings")]
+        [LocalizedDescription("ProjectManager.Description.ShowInvalidCSS")]
+        [DefaultValue(true)]
+        public bool ShowInvalidCSS { get { return showInvalidCSS; } set { showInvalidCSS = value; } }
+
         bool showActionScriptWarnings = true;
         [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
         [DisplayName("Show Actionscript Warnings")]

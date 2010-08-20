@@ -48,6 +48,7 @@ namespace ProjectManager.Building.AS3
             if (noTrace && options.Optimize) AddEq("-optimize", "true");
             if (!options.ShowActionScriptWarnings) AddEq("-show-actionscript-warnings", "false");
             if (!options.ShowBindingWarnings) AddEq("-show-binding-warnings", "false");
+            if (!options.ShowInvalidCSS) AddEq("-show-invalid-css-property-warnings", "false");
             if (!options.ShowDeprecationWarnings) AddEq("-show-deprecation-warnings", "false");
             if (!options.ShowUnusedTypeSelectorWarnings) AddEq("-show-unused-type-selector-warnings", "false");
             if (!options.Strict) AddEq("-strict", "false");

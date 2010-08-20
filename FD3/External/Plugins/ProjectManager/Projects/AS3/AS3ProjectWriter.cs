@@ -79,6 +79,7 @@ namespace ProjectManager.Projects.AS3
             WriteOption("optimize", options.Optimize);
             WriteOption("showActionScriptWarnings", options.ShowActionScriptWarnings);
             WriteOption("showBindingWarnings", options.ShowBindingWarnings);
+            WriteOption("showInvalidCSS", options.ShowInvalidCSS);
             WriteOption("showDeprecationWarnings", options.ShowDeprecationWarnings);
             WriteOption("showUnusedTypeSelectorWarnings", options.ShowUnusedTypeSelectorWarnings);
             WriteOption("strict", options.Strict);

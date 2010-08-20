@@ -4011,4 +4011,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Open Resource</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ProjectManager.Description.ShowInvalidCSS" xml:space="preserve">
+    <value>Shows a warning when a style property is set in CSS on a component that does not support that property.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>

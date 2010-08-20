@@ -124,6 +124,7 @@ namespace ProjectManager.Projects.AS3
                     case "optimize": options.Optimize = BoolValue; break;
                     case "showActionScriptWarnings": options.ShowActionScriptWarnings = BoolValue; break;
                     case "showBindingWarnings": options.ShowBindingWarnings = BoolValue; break;
+                    case "showInvalidCSS": options.ShowInvalidCSS = BoolValue; break;
                     case "showDeprecationWarnings": options.ShowDeprecationWarnings = BoolValue; break;
                     case "showUnusedTypeSelectorWarnings": options.ShowUnusedTypeSelectorWarnings = BoolValue; break;
                     case "strict": options.Strict = BoolValue; break;
