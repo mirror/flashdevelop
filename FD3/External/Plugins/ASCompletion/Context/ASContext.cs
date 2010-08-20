@@ -989,7 +989,7 @@ namespace ASCompletion.Context
             }
             else 
             {
-                if (SetTemporaryPath(cFile.GetBasePath()))
+                if (SetTemporaryPath(NormalizePath(cFile.GetBasePath())))
                 {
                     PathModel tPath = classPath[0];
                     tPath.AddFile(cFile);
