@@ -46,7 +46,7 @@ namespace FlashDevelop.Dialogs
             this.imageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imageBox.Location = new System.Drawing.Point(0, 0);
             this.imageBox.Name = "imageBox";
-            this.imageBox.Size = new System.Drawing.Size(400, 275);
+            this.imageBox.Size = new System.Drawing.Size(450, 300);
             this.imageBox.TabIndex = 0;
             this.imageBox.TabStop = false;
             this.imageBox.Click += new System.EventHandler(this.CloseClick);
@@ -55,9 +55,9 @@ namespace FlashDevelop.Dialogs
             // 
             this.copyLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(253)))), ((int)(((byte)(248)))));
             this.copyLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.copyLabel.Location = new System.Drawing.Point(25, 228);
+            this.copyLabel.Location = new System.Drawing.Point(25, 247);
             this.copyLabel.Name = "copyLabel";
-            this.copyLabel.Size = new System.Drawing.Size(356, 31);
+            this.copyLabel.Size = new System.Drawing.Size(400, 31);
             this.copyLabel.TabIndex = 0;
             this.copyLabel.Text = "FlashDevelop logo, domain and the name are copyright of Mika Palmu.\r\nDevelopment: Mika Palmu, Philippe Elsass and all helpful contributors.";
             this.copyLabel.Click += new System.EventHandler(this.CloseClick);
@@ -66,18 +66,16 @@ namespace FlashDevelop.Dialogs
             // 
             this.versionLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(253)))), ((int)(((byte)(248)))));
             this.versionLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.versionLabel.Location = new System.Drawing.Point(25, 208);
+            this.versionLabel.Location = new System.Drawing.Point(25, 227);
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(356, 14);
+            this.versionLabel.Size = new System.Drawing.Size(400, 14);
             this.versionLabel.TabIndex = 0;
-            this.versionLabel.Text = "FlashDevelop 3.0.0 for Microsoft.NET 2.0";
+            this.versionLabel.Text = "FlashDevelop 3.0.0 RTM for Microsoft.NET 2.0 (R1234)";
             this.versionLabel.Click += new System.EventHandler(this.CloseClick);
             // 
             // AboutDialog
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 275);
+            //
+            this.ClientSize = new System.Drawing.Size(450, 300);
             this.Controls.Add(this.copyLabel);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.imageBox);
