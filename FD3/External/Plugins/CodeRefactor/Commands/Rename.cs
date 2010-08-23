@@ -130,7 +130,7 @@ namespace CodeRefactor.Commands
                 PluginBase.MainForm.OpenEditableDocument(entry.Key);
                 ScintillaControl sci = ASContext.CurSciControl;
                 // replace matches in the current file with the new name
-                sci.Text = RefactoringHelper.ReplaceMatches(entry.Value, this.newName, sci.Text);
+                RefactoringHelper.ReplaceMatches(entry.Value, sci, this.newName, sci.Text);
                 if (sci.IsModify) this.AssociatedDocumentHelper.MarkDocumentToKeep(sci.FileName);
             }
             this.Results = eventArgs.Results;

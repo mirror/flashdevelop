@@ -139,11 +139,11 @@ namespace ProjectManager.Helpers
 		{
             dest = ReplaceKeywords(dest); // you can use keywords in filenames too
             string ext = Path.GetExtension(source).ToLower();
-
 			if (FileInspector.IsProject(source, ext) || FileInspector.IsTemplate(source, ext))
 			{
                 if (FileInspector.IsTemplate(source, ext)) dest = dest.Substring(0, dest.LastIndexOf('.'));
 
+                Boolean saveBOM = PluginBase.MainForm.Settings.SaveUnicodeWithBOM;
                 Encoding encoding = Encoding.GetEncoding((Int32)PluginBase.MainForm.Settings.DefaultCodePage);
                 // batch files must be encoded in ASCII
                 ext = Path.GetExtension(dest).ToLower();
@@ -151,9 +151,9 @@ namespace ProjectManager.Helpers
 
                 string src = File.ReadAllText(source);
                 src = ReplaceKeywords(ProcessCodeStyleLineBreaks(src));
-                FileHelper.WriteFile(dest, src, encoding);
+                FileHelper.WriteFile(dest, src, encoding, saveBOM);
 			}
-			else File.Copy(source,dest);
+			else File.Copy(source, dest);
         }
 
         private string ReplaceKeywords(string line)

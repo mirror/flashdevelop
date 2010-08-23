@@ -294,25 +294,38 @@ namespace CodeRefactor.Provider
         }
 
         /// <summary>
-        /// Replaces matches with the new text.
-        /// This was actually taken from PluginCore.FRService.FRSearch.ReplaceAllMatches method without its isEscaped/isRegex checks.
-        /// TODO: Consider wrapping an actual FRSearch object somehow?
+        /// Replaces only the matches in the current sci control
         /// </summary>
-        /// <returns>the "src" text with all matches replaced with "replacement"</returns>
-        static public String ReplaceMatches(IList<SearchMatch> matches, String replacement, String src)
+        public static void ReplaceMatches(IList<SearchMatch> matches, ScintillaControl sci, String replacement, String src)
         {
-            if (matches == null || matches.Count == 0) return src;
-            StringBuilder sb = new StringBuilder();
-            String original = replacement;
-            Int32 lastIndex = 0;
-            foreach (SearchMatch match in matches)
+            if (sci == null || matches == null || matches.Count == 0) return;
+            sci.BeginUndoAction();
+            try
             {
-                sb.Append(src.Substring(lastIndex, match.Index - lastIndex));
-                sb.Append(replacement); // replace text
-                lastIndex = match.Index + match.Length;
+                for (Int32 i = 0; i < matches.Count; i++)
+                {
+                    SelectMatch(sci, matches[i]);
+                    FRSearch.PadIndexes((List<SearchMatch>)matches, i, matches[i].Value, replacement);
+                    sci.EnsureVisible(sci.LineFromPosition(sci.MBSafePosition(matches[i].Index)));
+                    sci.ReplaceSel(replacement);
+                }
             }
-            sb.Append(src.Substring(lastIndex));
-            return sb.ToString();
+            finally
+            {
+                sci.EndUndoAction();
+            }
+        }
+
+        /// <summary>
+        /// Selects a search match
+        /// </summary>
+        public static void SelectMatch(ScintillaControl sci, SearchMatch match)
+        {
+            Int32 start = sci.MBSafePosition(match.Index); // wchar to byte position
+            Int32 end = start + sci.MBSafeTextLength(match.Value); // wchar to byte text length
+            Int32 line = sci.LineFromPosition(start);
+            sci.EnsureVisible(line);
+            sci.SetSel(start, end);
         }
 
     }
