@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using System.Threading;
-using PluginCore;
 using System.Windows.Forms;
-using System.IO;
+using PluginCore.Localization;
+using PluginCore;
 
 namespace SourceControl.Sources.Git
 {
@@ -35,13 +36,14 @@ namespace SourceControl.Sources.Git
             catch (Exception ex)
             {
                 runner = null;
-                TraceManager.AddAsync("Unable to start git command:\n" + ex.Message);
+                String label = TextHelper.GetString("SourceControl.Info.UnableToStartCommand");
+                TraceManager.AddAsync(label + "\n" + ex.Message);
             }
         }
 
         protected virtual string GetGitCmd()
         {
-            string cmd = PluginMain.SCSettings.GitPath;
+            string cmd = PluginMain.SCSettings.GITPath;
             if (cmd == null) cmd = "git";
             string resolve = PathHelper.ResolvePath(cmd);
             return resolve ?? ResolveGitPath(cmd);

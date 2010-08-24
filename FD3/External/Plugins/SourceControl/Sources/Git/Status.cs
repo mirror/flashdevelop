@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PluginCore.Utilities;
 using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using PluginCore.Localization;
+using PluginCore.Utilities;
 using PluginCore.Managers;
 
 namespace SourceControl.Sources.Git
@@ -73,7 +74,10 @@ namespace SourceControl.Sources.Git
         {
             runner = null;
             if (exitCode != 0)
-                TraceManager.AddAsync("Unable to get gits repository status (" + exitCode + ")");
+            {
+                String label = TextHelper.GetString("SourceControl.Label.UnableToGetRepoStatus");
+                TraceManager.AddAsync(label + " (" + exitCode + ")");
+            }
 
             if (updatingPath == RootPath) root = temp;
             /*else

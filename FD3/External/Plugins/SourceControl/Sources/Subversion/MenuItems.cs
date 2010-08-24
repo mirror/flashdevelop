@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using PluginCore;
 using ProjectManager.Controls.TreeView;
 using System.Diagnostics;
+using PluginCore.Localization;
 
 namespace SourceControl.Sources.Subversion
 {
@@ -49,20 +50,20 @@ namespace SourceControl.Sources.Subversion
         public MenuItems()
         {
             topSeparator = new ToolStripSeparator();
-            title = new ToolStripLabel("Source Control: SVN");
+            title = new ToolStripLabel(TextHelper.GetString("SourceControl.Label.SVN"));
             title.Enabled = false;
-            update = new ToolStripMenuItem("Update", PluginBase.MainForm.FindImage("159|1|-3|3"), Update_Click);
-            commit = new ToolStripMenuItem("Commit...", PluginBase.MainForm.FindImage("62"), Commit_Click);
+            update = new ToolStripMenuItem(TextHelper.GetString("Label.Update"), PluginBase.MainForm.FindImage("159|1|-3|3"), Update_Click);
+            commit = new ToolStripMenuItem(TextHelper.GetString("Label.Commit"), PluginBase.MainForm.FindImage("62"), Commit_Click);
             push = null;
-            showLog = new ToolStripMenuItem("Show log...", PluginBase.MainForm.FindImage("95"), ShowLog_Click);
+            showLog = new ToolStripMenuItem(TextHelper.GetString("Label.ShowLog"), PluginBase.MainForm.FindImage("95"), ShowLog_Click);
             midSeparator = new ToolStripSeparator();
-            diff = new ToolStripMenuItem("Diff", PluginBase.MainForm.FindImage("251"), Diff_Click);
-            diffChange = new ToolStripMenuItem("Diff with previous version", PluginBase.MainForm.FindImage("251"), DiffChange_Click);
-            add = new ToolStripMenuItem("Add...", PluginBase.MainForm.FindImage("33"), Add_Click);
-            ignore = new ToolStripMenuItem("Add to ignore list", PluginBase.MainForm.FindImage("166"), Ignore_Click);
-            undoAdd = new ToolStripMenuItem("Undo add...", PluginBase.MainForm.FindImage("73"), UndoAdd_Click);
-            revert = new ToolStripMenuItem("Revert...", PluginBase.MainForm.FindImage("73"), Revert_Click);
-            editConflict = new ToolStripMenuItem("Edit conflict...", PluginBase.MainForm.FindImage("196"), EditConflict_Click);
+            diff = new ToolStripMenuItem(TextHelper.GetString("Label.Diff"), PluginBase.MainForm.FindImage("251"), Diff_Click);
+            diffChange = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.DiffWithPrevious"), PluginBase.MainForm.FindImage("251"), DiffChange_Click);
+            add = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.Add"), PluginBase.MainForm.FindImage("33"), Add_Click);
+            ignore = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.AddToIgnoreList"), PluginBase.MainForm.FindImage("166"), Ignore_Click);
+            undoAdd = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.UndoAdd"), PluginBase.MainForm.FindImage("73"), UndoAdd_Click);
+            revert = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.Revert"), PluginBase.MainForm.FindImage("73"), Revert_Click);
+            editConflict = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.EditConflict"), PluginBase.MainForm.FindImage("196"), EditConflict_Click);
         }
 
         private string GetPaths()

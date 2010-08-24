@@ -8,6 +8,7 @@ using SourceControl.Managers;
 using ProjectManager.Projects;
 using System.Windows.Forms;
 using PluginCore.Managers;
+using PluginCore.Localization;
 
 namespace SourceControl.Actions
 {
@@ -116,37 +117,35 @@ namespace SourceControl.Actions
                         if (svnRemove.Count > 0)
                         {
                             if (Path.GetDirectoryName(svnRemove[0]) != Path.GetDirectoryName(path))
-                                throw new UnsafeOperationException("Elements located in different directories");
+                                throw new UnsafeOperationException(TextHelper.GetString("SourceControl.Info.ElementsLocatedInDiffDirs"));
                         }
                         svnRemove.Add(path);
                     }
                 }
                 if (regularRemove.Count > 0 && svnRemove.Count > 0)
-                    throw new UnsafeOperationException("Mixed selection of versionned and non-versionned elements");
+                    throw new UnsafeOperationException(TextHelper.GetString("SourceControl.Info.MixedSelectionOfElements"));
 
                 if (svnRemove.Count == 0 && regularRemove.Count > 0)
                     return false; // regular deletion
             }
             catch (UnsafeOperationException upex)
             {
-                MessageBox.Show(upex.Message, "Unsafe 'Delete' operation", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(upex.Message, TextHelper.GetString("SourceControl.Info.UnsafeDeleteOperation"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return true; // prevent regular deletion
             }
 
             if (hasUnknown.Count > 0 && confirm)
             {
-                string msg = "Some elements are not under source control, delete them anyway?\n\n" 
-                    + String.Join("\n", hasUnknown.ToArray());
-                if (MessageBox.Show(msg, "Attention please", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
-                    return true;
+                string title = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
+                string msg = TextHelper.GetString("SourceControl.Info.ConfirmUnversionedDelete") + "\n\n" + String.Join("\n", hasUnknown.ToArray());
+                if (MessageBox.Show(msg, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK) return true;
             }
 
             if (hasModification.Count > 0 && confirm)
             {
-                string msg = "Some elements have local modifications, remove them anyway?\n\n"
-                    + String.Join("\n", hasModification.ToArray());
-                if (MessageBox.Show(msg, "Attention please", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
-                    return true;
+                string title = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
+                string msg = TextHelper.GetString("SourceControl.Info.ConfirmLocalModsDelete") + "\n\n" + String.Join("\n", hasModification.ToArray());
+                if (MessageBox.Show(msg, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK) return true;
             }
 
             return result.Manager.FileActions.FileDelete(paths, confirm);

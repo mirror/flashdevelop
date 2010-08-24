@@ -4,16 +4,15 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 using WeifenLuo.WinFormsUI.Docking;
-using SourceControl.Resources;
 using PluginCore.Localization;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
-using PluginCore;
-using ProjectManager;
 using SourceControl.Actions;
 using ProjectManager.Projects;
 using ProjectManager.Actions;
+using ProjectManager;
+using PluginCore;
 
 namespace SourceControl
 {
@@ -22,14 +21,12 @@ namespace SourceControl
         private String pluginName = "SourceControl";
         private String pluginGuid = "42ac7fab-421b-1f38-a985-5735468ac489";
         private String pluginHelp = "www.flashdevelop.org/community/";
-        private String pluginDesc = "Source Control integration for FlashDevelop 3.";
-        private String pluginAuth = "Philippe Elsass";
+        private String pluginDesc = "Source Control integration for FlashDevelop.";
+        private String pluginAuth = "FlashDevelop Team";
+        private static Settings settingObject;
         private String settingFilename;
-        static private Settings settingObject;
         private Image pluginImage;
-        private bool ready;
-
-        static public Settings SCSettings { get { return settingObject; } }
+        private Boolean ready;
 
 	    #region Required Properties
 
@@ -94,8 +91,6 @@ namespace SourceControl
             this.InitBasics();
             this.LoadSettings();
             this.AddEventHandlers();
-            this.InitLocalization();
-            this.CreateMenuItem();
         }
 		
 		/// <summary>
@@ -116,24 +111,25 @@ namespace SourceControl
             {
                 case EventType.UIStarted:
                     ProjectWatcher.Init();
-                    ready = true;
+                    this.ready = true;
                     break;
 
                 // Catches Project change event and display the active project path
                 case EventType.Command:
-                    if (!ready) return;
-
+                    if (!this.ready) return;
                     DataEvent de = e as DataEvent;
-                    string cmd = de.Action;
+                    String cmd = de.Action;
                     if (!cmd.StartsWith("ProjectManager.")) return;
                     switch (cmd)
                     {
                         case ProjectManagerEvents.Project:
                             ProjectWatcher.SetProject(de.Data as Project);
                             break;
+
                         case ProjectManagerEvents.TreeSelectionChanged:
                             ProjectWatcher.SelectionChanged();
                             break;
+
                         case ProjectManagerEvents.UserRefreshTree:
                             ProjectWatcher.ForceRefresh();
                             break;
@@ -141,7 +137,7 @@ namespace SourceControl
                         case ProjectFileActionsEvents.FileBeforeRename:
                             try
                             {
-                                de.Handled = ProjectWatcher.HandleFileBeforeRename(de.Data as string);
+                                de.Handled = ProjectWatcher.HandleFileBeforeRename(de.Data as String);
                             }
                             catch (Exception ex)
                             {
@@ -149,10 +145,11 @@ namespace SourceControl
                                 de.Handled = true;
                             }
                             break;
+
                         case ProjectFileActionsEvents.FileRename:
                             try
                             {
-                                de.Handled = ProjectWatcher.HandleFileRename(de.Data as string[]);
+                                de.Handled = ProjectWatcher.HandleFileRename(de.Data as String[]);
                             }
                             catch (Exception ex)
                             {
@@ -160,10 +157,11 @@ namespace SourceControl
                                 de.Handled = true;
                             }
                             break;
+
                         case ProjectFileActionsEvents.FileDeleteSilent:
                             try
                             {
-                                de.Handled = ProjectWatcher.HandleFileDelete(de.Data as string[], false);
+                                de.Handled = ProjectWatcher.HandleFileDelete(de.Data as String[], false);
                             }
                             catch (Exception ex)
                             {
@@ -171,10 +169,11 @@ namespace SourceControl
                                 de.Handled = true;
                             }
                             break;
+
                         case ProjectFileActionsEvents.FileDelete:
                             try
                             {
-                                de.Handled = ProjectWatcher.HandleFileDelete(de.Data as string[], true);
+                                de.Handled = ProjectWatcher.HandleFileDelete(de.Data as String[], true);
                             }
                             catch (Exception ex)
                             {
@@ -182,10 +181,11 @@ namespace SourceControl
                                 de.Handled = true;
                             }
                             break;
+
                         case ProjectFileActionsEvents.FileMove:
                             try
                             {
-                                de.Handled = ProjectWatcher.HandleFileMove(de.Data as string[]);
+                                de.Handled = ProjectWatcher.HandleFileMove(de.Data as String[]);
                             }
                             catch (Exception ex)
                             {
@@ -201,7 +201,15 @@ namespace SourceControl
 		#endregion
 
         #region Custom Methods
-       
+        
+        /// <summary>
+        /// Acessor got the settings object
+        /// </summary>
+        public static Settings SCSettings 
+        { 
+            get { return settingObject; }
+        }
+
         /// <summary>
         /// Initializes important variables
         /// </summary>
@@ -210,6 +218,7 @@ namespace SourceControl
             String dataPath = Path.Combine(PathHelper.DataDir, "SourceControl");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            this.pluginDesc = TextHelper.GetString("Info.Description");
             this.pluginImage = PluginBase.MainForm.FindImage("100");
         }
 
@@ -218,38 +227,7 @@ namespace SourceControl
         /// </summary> 
         public void AddEventHandlers()
         {
-            // Set events you want to listen (combine as flags)
             EventManager.AddEventHandler(this, EventType.UIStarted | EventType.Command);
-        }
-
-        /// <summary>
-        /// Initializes the localization of the plugin
-        /// </summary>
-        public void InitLocalization()
-        {
-            LocaleVersion locale = PluginBase.MainForm.Settings.LocaleVersion;
-            switch (locale)
-            {
-                /*
-                case LocaleVersion.fi_FI : 
-                    // We have Finnish available... or not. :)
-                    LocaleHelper.Initialize(LocaleVersion.fi_FI);
-                    break;
-                */
-                default : 
-                    // Plugins should default to English...
-                    LocaleHelper.Initialize(LocaleVersion.en_US);
-                    break;
-            }
-            this.pluginDesc = LocaleHelper.GetString("Info.Description");
-        }
-
-        /// <summary>
-        /// Creates a menu item for the plugin and adds a ignored key
-        /// </summary>
-        public void CreateMenuItem()
-        {
-            
         }
 
         /// <summary>

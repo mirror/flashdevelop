@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using System.Threading;
-using PluginCore;
 using System.Windows.Forms;
+using PluginCore.Localization;
+using PluginCore;
 
 namespace SourceControl.Sources.Subversion
 {
@@ -31,13 +32,14 @@ namespace SourceControl.Sources.Subversion
             catch (Exception ex)
             {
                 runner = null;
-                TraceManager.AddAsync("Unable to start SVN command:\n" + ex.Message);
+                String label = TextHelper.GetString("SourceControl.Info.UnableToStartCommand");
+                TraceManager.AddAsync(label + "\n" + ex.Message);
             }
         }
 
         protected virtual string GetSvnCmd()
         {
-            string cmd = PluginMain.SCSettings.SvnPath;
+            string cmd = PluginMain.SCSettings.SVNPath;
             if (cmd == "null") cmd = "svn";
             string resolve = PathHelper.ResolvePath(cmd);
             return resolve ?? cmd;
