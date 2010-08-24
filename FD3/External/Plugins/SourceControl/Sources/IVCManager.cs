@@ -28,8 +28,6 @@ namespace SourceControl.Sources
         TreeNode[] CurrentNodes { set; }
         IVCManager CurrentManager { set; }
 
-        ToolStripItem TopSeparator { get; }
-        ToolStripItem Title { get; }
         ToolStripItem Update { get; }
         ToolStripItem Commit { get; }
         ToolStripItem Push { get; }

@@ -14,8 +14,6 @@ namespace SourceControl.Sources.Subversion
         TreeNode[] currentNodes;
         IVCManager currentManager;
 
-        ToolStripItem topSeparator;
-        ToolStripItem title;
         ToolStripItem update;
         ToolStripItem commit;
         ToolStripItem push;
@@ -32,8 +30,6 @@ namespace SourceControl.Sources.Subversion
         public TreeNode[] CurrentNodes { set { currentNodes = value; } }
         public IVCManager CurrentManager { set { currentManager = value; } }
 
-        public ToolStripItem TopSeparator { get { return topSeparator; } }
-        public ToolStripItem Title { get { return title; } }
         public ToolStripItem Update { get { return update; } }
         public ToolStripItem Commit { get { return commit; } }
         public ToolStripItem Push { get { return push; } }
@@ -49,21 +45,18 @@ namespace SourceControl.Sources.Subversion
 
         public MenuItems()
         {
-            topSeparator = new ToolStripSeparator();
-            title = new ToolStripLabel(TextHelper.GetString("SourceControl.Label.SVN"));
-            title.Enabled = false;
             update = new ToolStripMenuItem(TextHelper.GetString("Label.Update"), PluginBase.MainForm.FindImage("159|1|-3|3"), Update_Click);
             commit = new ToolStripMenuItem(TextHelper.GetString("Label.Commit"), PluginBase.MainForm.FindImage("62"), Commit_Click);
             push = null;
             showLog = new ToolStripMenuItem(TextHelper.GetString("Label.ShowLog"), PluginBase.MainForm.FindImage("95"), ShowLog_Click);
             midSeparator = new ToolStripSeparator();
             diff = new ToolStripMenuItem(TextHelper.GetString("Label.Diff"), PluginBase.MainForm.FindImage("251"), Diff_Click);
-            diffChange = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.DiffWithPrevious"), PluginBase.MainForm.FindImage("251"), DiffChange_Click);
-            add = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.Add"), PluginBase.MainForm.FindImage("33"), Add_Click);
-            ignore = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.AddToIgnoreList"), PluginBase.MainForm.FindImage("166"), Ignore_Click);
-            undoAdd = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.UndoAdd"), PluginBase.MainForm.FindImage("73"), UndoAdd_Click);
-            revert = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.Revert"), PluginBase.MainForm.FindImage("73"), Revert_Click);
-            editConflict = new ToolStripMenuItem(TextHelper.GetString("SourceControl.Label.EditConflict"), PluginBase.MainForm.FindImage("196"), EditConflict_Click);
+            diffChange = new ToolStripMenuItem(TextHelper.GetString("Label.DiffWithPrevious"), PluginBase.MainForm.FindImage("251"), DiffChange_Click);
+            add = new ToolStripMenuItem(TextHelper.GetString("Label.Add"), PluginBase.MainForm.FindImage("33"), Add_Click);
+            ignore = new ToolStripMenuItem(TextHelper.GetString("Label.AddToIgnoreList"), PluginBase.MainForm.FindImage("166"), Ignore_Click);
+            undoAdd = new ToolStripMenuItem(TextHelper.GetString("Label.UndoAdd"), PluginBase.MainForm.FindImage("73"), UndoAdd_Click);
+            revert = new ToolStripMenuItem(TextHelper.GetString("Label.Revert"), PluginBase.MainForm.FindImage("73"), Revert_Click);
+            editConflict = new ToolStripMenuItem(TextHelper.GetString("Label.EditConflict"), PluginBase.MainForm.FindImage("196"), EditConflict_Click);
         }
 
         private string GetPaths()

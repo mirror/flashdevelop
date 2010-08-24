@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using ProjectManager.Controls.TreeView;
 using SourceControl.Managers;
 using System.Windows.Forms;
 using SourceControl.Sources;
+using PluginCore.Localization;
 
 namespace SourceControl.Actions
 {
     class TreeContextMenuUpdate
     {
+        private static ToolStripMenuItem scItem = new ToolStripMenuItem();
+
         static internal void SetMenu(ProjectTreeView tree, ProjectSelectionState state)
         {
             if (tree == null || state.Manager == null) return;
@@ -27,8 +30,6 @@ namespace SourceControl.Actions
             List<ToolStripItem> items = new List<ToolStripItem>();
 
             // generic
-            items.Add(menuItems.TopSeparator);
-            items.Add(menuItems.Title);
             items.Add(menuItems.Update);
             items.Add(menuItems.Commit);
             items.Add(menuItems.Push);
@@ -43,6 +44,7 @@ namespace SourceControl.Actions
             if (state.Unknown + state.Ignored == state.Total) items.Add(menuItems.Ignore);
 
             if (state.Unknown + state.Ignored < state.Total)
+            {
                 if (state.Added > 0) items.Add(menuItems.UndoAdd);
                 else if (state.Revert > 0)
                 {
@@ -50,12 +52,17 @@ namespace SourceControl.Actions
                     items.Add(menuItems.Revert);
                 }
                 else if (state.Total == 1) items.Add(menuItems.DiffChange);
-
+            }
             if (items.Count > minLen) items.Insert(minLen, menuItems.MidSeparator);
-
-            // insert
             items.RemoveAll(item => item == null);
-            menu.Items.AddRange(items.ToArray());
+            //
+            if (scItem.Owner == null)
+            {
+                menu.Items.Insert(menu.Items.Count - 3, new ToolStripSeparator());
+                menu.Items.Insert(menu.Items.Count - 3, scItem);
+            }
+            scItem.Text = TextHelper.GetString("Label.SourceControl");
+            scItem.DropDownItems.AddRange(items.ToArray());
         }
 
         private static void ClearItems(ContextMenuStrip menu, IVCMenuItems menuItems)
@@ -67,8 +74,6 @@ namespace SourceControl.Actions
             RemoveItem(menuItems.EditConflict);
             RemoveItem(menuItems.MidSeparator);
             RemoveItem(menuItems.Revert);
-            RemoveItem(menuItems.Title);
-            RemoveItem(menuItems.TopSeparator);
             RemoveItem(menuItems.UndoAdd);
             RemoveItem(menuItems.Update);
         }
@@ -77,5 +82,7 @@ namespace SourceControl.Actions
         {
             if (item != null && item.Owner != null) item.Owner.Items.Remove(item);
         }
+
     }
+
 }

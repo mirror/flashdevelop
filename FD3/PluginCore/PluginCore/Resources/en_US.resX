@@ -4103,7 +4103,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>GIT</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="SourceControl.Label.Label.Diff" xml:space="preserve">
+  <data name="SourceControl.Label.Diff" xml:space="preserve">
     <value>Diff</value>
     <comment>Added after 3.2.2</comment>
   </data>
@@ -4137,6 +4137,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="SourceControl.Label.Update" xml:space="preserve">
     <value>Update</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="SourceControl.Label.SourceControl" xml:space="preserve">
+    <value>Source Control</value>
     <comment>Added after 3.2.2</comment>
   </data>
 </root>
