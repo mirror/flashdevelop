@@ -1004,6 +1004,29 @@ namespace ASCompletion.Completion
 
         private static void GenerateToString(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
         {
+            bool isOverride = false;
+            inClass.ResolveExtends();
+            if (inClass.Extends != null)
+            {
+                ClassModel aType = inClass.Extends;
+                while (!aType.IsVoid() && aType.QualifiedName != "Object")
+                {
+                    foreach (MemberModel method in aType.Members)
+                    {
+                        if (method.Name == "toString")
+                        {
+                            isOverride = true;
+                            break;
+                        }
+                    }
+                    if (isOverride)
+                    {
+                        break;
+                    }
+                    // interface inheritance
+                    aType = aType.Extends;
+                }
+            }
             MemberList members = inClass.Members;
             StringBuilder membersString = new StringBuilder();
             StringBuilder oneMembersString;
@@ -1027,6 +1050,10 @@ namespace ASCompletion.Completion
             }
             member = new MemberModel("toString", "String", FlagType.Function, Visibility.Public);
             string repl = GetDeclaration(member, true).Replace("()", "($(EntryPoint))");
+            if (isOverride)
+            {
+                repl = "override " + repl;
+            }
             string tmpl = GetTemplate("ToString", "{0} $(CSLB){{\n\treturn {1};\n}}");
             string toStringData = "\"[" + inClass.Name + membersString.ToString() + "]\"";
             string decl = String.Format(tmpl, repl, toStringData);
