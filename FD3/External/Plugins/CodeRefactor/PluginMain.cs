@@ -303,13 +303,9 @@ namespace CodeRefactor
                         this.surroundContextMenu.Enabled = true;
                         this.refactorContextMenu.ExtractMethodMenuItem.Enabled = true;
                         this.refactorMainMenu.ExtractMethodMenuItem.Enabled = true;
+                        this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = true;
+                        this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = true;
 
-                        if (selText.IndexOf('.') > 0)
-                        {
-                            this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = true;
-                            this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = true;
-                        }
-                        
                         foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
                         {
                             item.Click -= this.SurroundWithClicked;
