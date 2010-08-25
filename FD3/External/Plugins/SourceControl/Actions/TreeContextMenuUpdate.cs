@@ -55,14 +55,27 @@ namespace SourceControl.Actions
             }
             if (items.Count > minLen) items.Insert(minLen, menuItems.MidSeparator);
             items.RemoveAll(item => item == null);
-            //
-            if (scItem.Owner == null)
-            {
-                menu.Items.Insert(menu.Items.Count - 3, new ToolStripSeparator());
-                menu.Items.Insert(menu.Items.Count - 3, scItem);
-            }
-            scItem.Text = TextHelper.GetString("Label.SourceControl");
+            if (scItem.Owner == null) AddSCMainItem(menu);
             scItem.DropDownItems.AddRange(items.ToArray());
+        }
+
+        private static void AddSCMainItem(ContextMenuStrip menu)
+        {
+            Int32 index = GetFirstSeparatorIndex(menu) + 1;
+            scItem.Text = TextHelper.GetString("Label.SourceControl");
+            menu.Items.Insert(index, scItem);
+            menu.Items.Insert(index + 1, new ToolStripSeparator());
+        }
+
+        private static Int32 GetFirstSeparatorIndex(ContextMenuStrip menu)
+        {
+            Int32 index = -1;
+            foreach (ToolStripItem item in menu.Items)
+            {
+                index++;
+                if (item is ToolStripSeparator) return index;
+            }
+            return -1;
         }
 
         private static void ClearItems(ContextMenuStrip menu, IVCMenuItems menuItems)
