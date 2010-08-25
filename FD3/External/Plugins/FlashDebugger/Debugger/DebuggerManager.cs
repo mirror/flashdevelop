@@ -259,13 +259,16 @@ namespace FlashDebugger
 			}
 			CurrentLocation = null;
 			UpdateMenuState(DebuggerState.Stopped);
-			PanelsHelper.pluginPanel.Hide();
-			PanelsHelper.breakPointPanel.Hide();
-			PanelsHelper.stackframePanel.Hide();
+            if (!PluginMain.settingObject.DisablePanelsAutoshow)
+            {
+                PanelsHelper.pluginPanel.Hide();
+                PanelsHelper.breakPointPanel.Hide();
+                PanelsHelper.stackframePanel.Hide();
+                PanelsHelper.watchPanel.Hide();
+            }
 			PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
 			PanelsHelper.stackframeUI.ClearItem();
 			PanelsHelper.watchUI.Clear();
-			PanelsHelper.watchPanel.Hide();
 			PluginMain.breakPointManager.ResetAll();
             PluginBase.MainForm.ProgressBar.Visible = false;
             PluginBase.MainForm.ProgressLabel.Visible = false;
