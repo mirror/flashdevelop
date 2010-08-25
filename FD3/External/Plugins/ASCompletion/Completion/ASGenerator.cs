@@ -144,13 +144,14 @@ namespace ASCompletion.Completion
                 }
 
                 // "Generate fields from parameters" suggestion
-                if (found.member != null 
-                    && (found.member.Flags & FlagType.Function) > 0 
-                    && (found.member.Flags & FlagType.Static) == 0 
-                    && found.member.Parameters != null && (found.member.Parameters.Count > 0) 
+                if (found.member != null
+                    && (found.member.Flags & FlagType.Function) > 0
+                    && (found.member.Flags & FlagType.Static) == 0
+                    && found.member.Parameters != null && (found.member.Parameters.Count > 0)
                     && resolve.Member != null && (resolve.Member.Flags & FlagType.ParameterVar) > 0)
                 {
-                    ShowFieldsFromParameters(found);
+                    contextMember = resolve.Member;
+                    ShowFieldFromParameter(found);
                     return;
                 }
 
@@ -508,7 +509,7 @@ namespace ASCompletion.Completion
             }
         }
 
-        private static void ShowFieldsFromParameters(FoundDeclaration found)
+        private static void ShowFieldFromParameter(FoundDeclaration found)
         {
             ContextFeatures features = ASContext.Context.Features;
             List<ICompletionListItem> known = new List<ICompletionListItem>();
@@ -517,8 +518,8 @@ namespace ASCompletion.Completion
 
             if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
             {
-                string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateFieldsFromPatameters");
-                known.Add(new GeneratorItem(labelClass, GeneratorJobType.FieldsFromPatameters, found.member, found.inClass));
+                string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateFieldFromPatameter");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.FieldFromPatameter, found.member, found.inClass));
 
                 CompletionList.Show(known, false);
             }
@@ -763,11 +764,11 @@ namespace ASCompletion.Completion
                     }
                     break;
 
-                case GeneratorJobType.FieldsFromPatameters:
+                case GeneratorJobType.FieldFromPatameter:
                     Sci.BeginUndoAction();
                     try
                     {
-                        GenerateFieldsParameters(Sci, member, inClass);
+                        GenerateFieldFromParameter(Sci, member, inClass);
                     }
                     finally
                     {
@@ -805,7 +806,7 @@ namespace ASCompletion.Completion
             }
 
             StringBuilder snippet = new StringBuilder();
-            
+
 
             DockContent dc = ASContext.MainForm.OpenEditableDocument(aType.InFile.FileName, true);
             Sci = ASContext.CurSciControl;
@@ -861,13 +862,13 @@ namespace ASCompletion.Completion
             Sci.CurrentPos = position;
         }
 
-        private static void GenerateFieldsParameters(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
+        private static void GenerateFieldFromParameter(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
         {
             int funcBodyStart = GetBodyStart(member.LineFrom, member.LineTo, Sci);
 
-            Sci.SetSel(funcBodyStart, Sci.PositionFromLine(member.LineTo));
-            string firstLineBody = Sci.SelText;
-            string trimmed = firstLineBody.TrimStart();
+            Sci.SetSel(funcBodyStart, Sci.LineEndPosition(member.LineTo));
+            string body = Sci.SelText;
+            string trimmed = body.TrimStart();
 
             Regex re = new Regex("^super\\s*[\\(|\\.]");
             Match m = re.Match(trimmed);
@@ -875,99 +876,101 @@ namespace ASCompletion.Completion
             {
                 if (m.Index == 0)
                 {
-                    int l = Sci.LineFromPosition(funcBodyStart + (firstLineBody.Length - trimmed.Length));
-                    funcBodyStart = GetBodyStart(l + 1, member.LineTo, Sci, 0);
+                    int p = funcBodyStart + (body.Length - trimmed.Length);
+                    int l = Sci.LineFromPosition(p);
+                    p = Sci.PositionFromLine(l + 1);
+                    funcBodyStart = GetBodyStart(member.LineFrom, member.LineTo, Sci, p);
                 }
             }
 
             Sci.SetSel(funcBodyStart, funcBodyStart);
             Sci.CurrentPos = funcBodyStart;
 
-            StringBuilder sb = new StringBuilder();
-            List<MemberModel> parameters = new List<MemberModel>();
-            foreach (MemberModel param in member.Parameters)
+            bool isVararg = false;
+            string paramName = contextMember.Name;
+            if (paramName.StartsWith("..."))
             {
-                if (param.Name.StartsWith("..."))
-                {
-                    continue;
-                }
-                parameters.Add(param);
-                sb.Append("this.");
-                if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
-                {
-                    sb.Append(ASContext.CommonSettings.PrefixFields);
-                }
-                sb.Append(param.Name).Append(" = ").Append(param.Name).Append(";").Append(NewLine).Append("$(Boundary)");
+                paramName = paramName.TrimStart(new char[] { ' ', '.' });
+                isVararg = true;
             }
+            string varName = paramName;
+
+            if (ASContext.CommonSettings.PrefixFields.Length > 0 && !paramName.StartsWith(ASContext.CommonSettings.PrefixFields))
+            {
+                varName = ASContext.CommonSettings.PrefixFields + varName;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("this.")
+                .Append(varName)
+                .Append(" = ")
+                .Append(paramName)
+                .Append(";")
+                .Append(NewLine)
+                .Append("$(Boundary)");
 
             SnippetHelper.InsertSnippetText(Sci, funcBodyStart, sb.ToString());
-            bool varGenerated = false;
+
+
             MemberList classMembers = inClass.Members;
-            foreach (MemberModel param in parameters)
+            foreach (MemberModel classMember in classMembers)
             {
-                string nm = param.Name;
-                if (ASContext.CommonSettings.PrefixFields.Length > 0 && !param.Name.StartsWith(ASContext.CommonSettings.PrefixFields))
+                if (classMember.Name.Equals(varName))
                 {
-                    nm = ASContext.CommonSettings.PrefixFields + nm;
+                    return;
                 }
-
-                bool nextParam = false;
-                foreach (MemberModel classMember in classMembers)
-                {
-                    if (classMember.Name.Equals(nm))
-                    {
-                        nextParam = true;
-                        break;
-                    }
-                }
-
-                if (nextParam)
-                {
-                    continue;
-                }
-
-                MemberModel latest = FindLatest(FlagType.Variable | FlagType.Constant, GetDefaultVisibility(), inClass);
-                if (latest == null) return;
-
-                int position = FindNewVarPosition(Sci, inClass, latest);
-                if (position <= 0) return;
-                Sci.SetSel(position, position);
-                Sci.CurrentPos = position;
-
-                MemberModel mem = NewMember(nm, member, GeneratorJobType.Variable, FlagType.Variable, GetDefaultVisibility());
-                mem.Type = param.Type;
-
-                GenerateVariable(mem, position, true);
-                varGenerated = true;
-
             }
 
-            if (varGenerated)
+            MemberModel latest = FindLatest(FlagType.Variable | FlagType.Constant, GetDefaultVisibility(), inClass);
+            if (latest == null) return;
+
+            int position = FindNewVarPosition(Sci, inClass, latest);
+            if (position <= 0) return;
+            Sci.SetSel(position, position);
+            Sci.CurrentPos = position;
+
+            MemberModel mem = NewMember(varName, member, GeneratorJobType.Variable, FlagType.Variable, GetDefaultVisibility());
+            if (isVararg)
             {
-                ASContext.Panel.RestoreLastLookupPosition();
+                mem.Type = "Array";
             }
+            else
+            {
+                mem.Type = contextMember.Type;
+            }
+
+            GenerateVariable(mem, position, true);
+            ASContext.Panel.RestoreLastLookupPosition();
         }
 
         public static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci)
         {
-            return GetBodyStart(lineFrom, lineTo, Sci, 1);
+            return GetBodyStart(lineFrom, lineTo, Sci, -1);
         }
-        public static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci, int extraLine)
+
+        public static int GetBodyStart(int lineFrom, int lineTo, ScintillaNet.ScintillaControl Sci, int pos)
         {
             int posStart = Sci.PositionFromLine(lineFrom);
             int posEnd = Sci.LineEndPosition(lineTo);
 
             Sci.SetSel(posStart, posEnd);
-            string currentMethodBody = Sci.SelText;
-            int funcBodyStart = currentMethodBody.IndexOf('{') + posStart;
-            int nCount = 0;
+
             List<char> characterClass = new List<char>(new char[] { ' ', '\r', '\n', '\t' });
+            string currentMethodBody = Sci.SelText;
+            int nCount = 0;
+            int funcBodyStart = pos;
+            int extraLine = 0;
+            if (pos == -1)
+            {
+                funcBodyStart = posStart + currentMethodBody.IndexOf('{');
+                extraLine = 1;
+            }
             while (funcBodyStart <= posEnd)
             {
                 char c = (char)Sci.CharAt(++funcBodyStart);
                 if (c == '}')
                 {
-                    int ln = Sci.LineFromPosition(funcBodyStart - 1);
+                    int ln = Sci.LineFromPosition(funcBodyStart);
                     int indent = Sci.GetLineIndentation(ln);
                     if (lineFrom == lineTo || lineFrom == ln)
                     {
@@ -1060,7 +1063,7 @@ namespace ASCompletion.Completion
             InsertCode(Sci.CurrentPos, decl);
         }
 
-        private static void GenerateVariableJob(GeneratorJobType job, ScintillaNet.ScintillaControl Sci, MemberModel member, 
+        private static void GenerateVariableJob(GeneratorJobType job, ScintillaNet.ScintillaControl Sci, MemberModel member,
             bool detach, ClassModel inClass)
         {
             int position = 0;
@@ -1443,7 +1446,7 @@ namespace ASCompletion.Completion
             {
                 member.Flags -= FlagType.Static;
             }
-            
+
 
             // if we generate function in current class..
             if (isOtherClass)
@@ -2221,7 +2224,7 @@ namespace ASCompletion.Completion
             finally { Sci.EndUndoAction(); }
         }
 
-        public static void GenerateDelegateMethods(ScintillaNet.ScintillaControl Sci, MemberModel member, 
+        public static void GenerateDelegateMethods(ScintillaNet.ScintillaControl Sci, MemberModel member,
             Dictionary<MemberModel, ClassModel> selectedMembers, ClassModel classModel, ClassModel inClass)
         {
             Sci.BeginUndoAction();
@@ -2288,7 +2291,7 @@ namespace ASCompletion.Completion
                             }
                         }
                     }
-                    
+
                     sb.Append(");")
                         .Append("\n}");
 
@@ -2654,7 +2657,7 @@ namespace ASCompletion.Completion
         Constant = 14,
         Constructor = 15,
         ToString = 16,
-        FieldsFromPatameters = 17,
+        FieldFromPatameter = 17,
         AddInterfaceDef = 18,
     }
 

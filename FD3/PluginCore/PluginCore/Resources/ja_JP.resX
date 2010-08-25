@@ -3723,8 +3723,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Generate constructor</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="ASCompletion.Label.GenerateFieldsFromPatameters" xml:space="preserve">
-    <value>Generate fields from parameters</value>
+  <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
+    <value>Generate field from parameter</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
