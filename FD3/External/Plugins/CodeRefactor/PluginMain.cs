@@ -1,7 +1,7 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Windows.Forms;
 using ASCompletion.Completion;
 using ASCompletion.Context;
@@ -10,11 +10,11 @@ using CodeRefactor.Commands;
 using CodeRefactor.Controls;
 using CodeRefactor.CustomControls;
 using CodeRefactor.Provider;
-using PluginCore;
 using PluginCore.Helpers;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore.Utilities;
+using PluginCore;
 
 namespace CodeRefactor
 {
@@ -113,14 +113,10 @@ namespace CodeRefactor
 		{
             switch (e.Type)
             {
-                case EventType.SettingChanged:
-                    TextEvent evnt = (TextEvent)e;
-                    if (evnt.Value.StartsWith("CodeRefactor"))
-                    {
-                        this.refactorContextMenu.ApplyShortcutKeys();
-                        this.refactorMainMenu.ApplyShortcutKeys();
-                        this.ApplyIgnoredKeys();
-                    }
+                case EventType.ApplySettings:
+                    this.refactorContextMenu.ApplyShortcutKeys();
+                    this.refactorMainMenu.ApplyShortcutKeys();
+                    this.ApplyIgnoredKeys();
                     break;
             }
 		}
@@ -136,7 +132,7 @@ namespace CodeRefactor
         {
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            EventManager.AddEventHandler(this, EventType.SettingChanged | EventType.UIRefresh | EventType.FileSwitch);
+            EventManager.AddEventHandler(this, EventType.ApplySettings | EventType.UIRefresh | EventType.FileSwitch);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
@@ -286,14 +282,11 @@ namespace CodeRefactor
                     this.refactorMainMenu.OrganizeMenuItem.Enabled = organize;
                     this.refactorMainMenu.TruncateMenuItem.Enabled = truncate && !this.LanguageIsHaxe();
                 }
-
-
                 this.surroundContextMenu.Enabled = false;
                 this.refactorContextMenu.ExtractMethodMenuItem.Enabled = false;
                 this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = false;
                 this.refactorMainMenu.ExtractMethodMenuItem.Enabled = false;
                 this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = false;
-
                 ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
                 if (document != null && document.SciControl != null && ASContext.Context.IsFileValid)
                 {
@@ -305,7 +298,6 @@ namespace CodeRefactor
                         this.refactorMainMenu.ExtractMethodMenuItem.Enabled = true;
                         this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = true;
                         this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = true;
-
                         foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
                         {
                             item.Click -= this.SurroundWithClicked;
@@ -467,7 +459,6 @@ namespace CodeRefactor
                 {
                     suggestion = askName.Line.Trim();
                 }
-
                 if (choice == System.Windows.Forms.DialogResult.OK)
                 {
                     ExtractMethodCommand command = new ExtractMethodCommand(suggestion);
@@ -487,16 +478,15 @@ namespace CodeRefactor
         {
             try
             {
+                String suggestion = "newVar";
                 String label = TextHelper.GetString("Label.NewName");
                 String title = TextHelper.GetString("Title.ExtractLocalVariableDialog");
-                String suggestion = "newVar";
                 ProjectManager.Helpers.LineEntryDialog askName = new ProjectManager.Helpers.LineEntryDialog(title, label, suggestion);
                 System.Windows.Forms.DialogResult choice = askName.ShowDialog();
                 if (choice == System.Windows.Forms.DialogResult.OK && askName.Line.Trim().Length > 0 && askName.Line.Trim() != suggestion)
                 {
                     suggestion = askName.Line.Trim();
                 }
-
                 if (choice == System.Windows.Forms.DialogResult.OK)
                 {
                     ExtractLocalVariableCommand command = new ExtractLocalVariableCommand(suggestion);
@@ -507,14 +497,6 @@ namespace CodeRefactor
             {
                 ErrorManager.ShowError(ex);
             }
-        }
-
-        /// <summary>
-        /// Invoked when the user presses OK in ExtractMemberDialog
-        /// </summary>
-        private void extractMemberDialogCloseButton_Click(string newName)
-        {
-            
         }
 
         /// <summary>
