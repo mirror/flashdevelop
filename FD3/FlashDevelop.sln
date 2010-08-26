@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCompletion", "External\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS2Context", "External\Plugins\AS2Context\AS2Context.csproj", "{74AD0487-CEF9-43FE-9283-BC6F79539ADE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager", "External\Plugins\ProjectManager\ProjectManager.csproj", "{2FF2C0BD-5FBB-44E7-A1EC-D7D1BDB6E5E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager", "External\Plugins\ProjectManager\ProjectManager.csproj", "{78101C01-E186-4954-B1DD-DEBB7905FAD8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61885F70-B4DC-4B44-852D-5D6D03F2A734} = {61885F70-B4DC-4B44-852D-5D6D03F2A734}
 	EndProjectSection
