@@ -1078,6 +1078,7 @@ namespace ASCompletion.Completion
             if (varResult != null && varResult.relClass != null && !varResult.relClass.Equals(inClass))
             {
                 AddLookupPosition();
+                lookupPosition = -1;
 
                 ASContext.MainForm.OpenEditableDocument(varResult.relClass.InFile.FileName, false);
                 Sci = ASContext.CurSciControl;
@@ -1421,6 +1422,7 @@ namespace ASCompletion.Completion
             if (funcResult != null && funcResult.relClass != null && !funcResult.relClass.Equals(inClass))
             {
                 AddLookupPosition();
+                lookupPosition = -1;
 
                 DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
                 Sci = ASContext.CurSciControl;
@@ -2541,6 +2543,7 @@ namespace ASCompletion.Completion
 
         private static void UpdateLookupPosition(int position, int delta)
         {
+            if (lookupPosition < 0) return;
             if (position < lookupPosition + delta) lookupPosition += delta;
             else if (position < lookupPosition) lookupPosition = position; // replaced text at cursor position
         }
@@ -2554,7 +2557,6 @@ namespace ASCompletion.Completion
                 int lookupLine = Sci.LineFromPosition(lookupPosition);
                 int lookupCol = lookupPosition - Sci.PositionFromLine(lookupLine);
                 ASContext.Panel.SetLastLookupPosition(ASContext.Context.CurrentFile, lookupLine, lookupCol);
-                lookupPosition = -1;
             }
         }
         #endregion
