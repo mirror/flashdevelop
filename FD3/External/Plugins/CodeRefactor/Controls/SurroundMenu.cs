@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using PluginCore.Helpers;
 using PluginCore.Localization;
@@ -15,18 +15,20 @@ namespace CodeRefactor.CustomControls
         public SurroundMenu()
         {
             this.Text = TextHelper.GetString("Label.SurroundWith");
+            this.DropDownItems.Add(new ToolStripMenuItem()); // Dummy
         }
 
+        /// <summary>
+        /// Generates the menu for the selected sci control
+        /// </summary>
         public void GenerateSnippets(ScintillaNet.ScintillaControl sci)
         {
-            string surroundFolder = "surround";
-
-            string content;
+            String path;
+            String content;
             PathWalker walker;
             List<String> files;
-            String path;
             items = new List<String>();
-
+            String surroundFolder = "surround";
             path = Path.Combine(PathHelper.SnippetDir, surroundFolder);
             if (Directory.Exists(path))
             {
@@ -37,7 +39,6 @@ namespace CodeRefactor.CustomControls
                     items.Add(file);
                 }
             }
-            
             path = Path.Combine(PathHelper.SnippetDir, sci.ConfigurationLanguage);
             path = Path.Combine(path, surroundFolder);
             if (Directory.Exists(path))
@@ -49,27 +50,18 @@ namespace CodeRefactor.CustomControls
                     items.Add(file);
                 }
             }
-            if (items.Count > 0)
-            {
-                items.Sort();
-            }
-
+            if (items.Count > 0) items.Sort();
             this.DropDownItems.Clear();
             foreach (String itm in items)
             {
                 content = File.ReadAllText(itm);
                 if (content.IndexOf("{0}") > -1)
                 {
-                    this.DropDownItems.Insert(this.DropDownItems.Count,
-                            new ToolStripMenuItem(Path.GetFileNameWithoutExtension(itm), null, new EventHandler(this.SurroundWithClicked)));
+                    this.DropDownItems.Insert(this.DropDownItems.Count, new ToolStripMenuItem(Path.GetFileNameWithoutExtension(itm)));
                 }
             }
         }
 
-        private void SurroundWithClicked(Object sender, EventArgs e)
-        {
-            
-        }
-
     }
+
 }

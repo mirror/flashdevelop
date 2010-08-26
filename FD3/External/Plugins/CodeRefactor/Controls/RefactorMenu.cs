@@ -3,12 +3,14 @@ using System.Text;
 using System.Windows.Forms;
 using PluginCore.Localization;
 using PluginCore;
+using CodeRefactor.CustomControls;
 
 namespace CodeRefactor.Controls
 {
     public class RefactorMenu : ToolStripMenuItem
     {
         private Settings settings;
+        private SurroundMenu surroundMenu;
         private ToolStripMenuItem renameMenuItem;
         private ToolStripMenuItem truncateMenuItem;
         private ToolStripMenuItem organizeMenuItem;
@@ -16,7 +18,7 @@ namespace CodeRefactor.Controls
         private ToolStripMenuItem delegateMenuItem;
         private ToolStripMenuItem extractLocalVariableMenuItem;
 
-        public RefactorMenu(Settings settings)
+        public RefactorMenu(Settings settings, Boolean createSurroundMenu)
         {
             this.settings = settings;
             this.Text = TextHelper.GetString("Label.Refactor");
@@ -24,10 +26,23 @@ namespace CodeRefactor.Controls
             this.extractMethodMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.ExtractMethod"), null) as ToolStripMenuItem;
             this.extractLocalVariableMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.ExtractLocalVariable"), null) as ToolStripMenuItem;
 			this.delegateMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.DelegateMethods"), null) as ToolStripMenuItem;
+            if (createSurroundMenu)
+            {
+                this.surroundMenu = new SurroundMenu();
+                this.DropDownItems.Add(this.surroundMenu);
+            }
             this.DropDownItems.Add(new ToolStripSeparator());
             this.organizeMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null) as ToolStripMenuItem;
             this.truncateMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null) as ToolStripMenuItem;
             this.ApplyShortcutKeys();
+        }
+
+        /// <summary>
+        /// Accessor to the SurroundMenu
+        /// </summary>
+        public SurroundMenu SurroundMenu
+        {
+            get { return this.surroundMenu; }
         }
 
         /// <summary>

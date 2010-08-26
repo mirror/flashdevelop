@@ -10,6 +10,7 @@ using CodeRefactor.Commands;
 using CodeRefactor.Controls;
 using CodeRefactor.CustomControls;
 using CodeRefactor.Provider;
+using ProjectManager.Helpers;
 using PluginCore.Helpers;
 using PluginCore.Localization;
 using PluginCore.Managers;
@@ -27,9 +28,9 @@ namespace CodeRefactor
         private String pluginAuth = "FlashDevelop Team";
         private ToolStripMenuItem editorReferencesItem;
         private ToolStripMenuItem viewReferencesItem;
+        private SurroundMenu surroundContextMenu;
         private RefactorMenu refactorContextMenu;
         private RefactorMenu refactorMainMenu;
-        private SurroundMenu surroundContextMenu;
         private Settings settingObject;
         private String settingFilename;
 
@@ -144,14 +145,14 @@ namespace CodeRefactor
         {
             MenuStrip mainMenu = PluginBase.MainForm.MenuStrip;
             ContextMenuStrip editorMenu = PluginBase.MainForm.EditorMenu;
-            this.refactorMainMenu = new RefactorMenu(this.settingObject);
+            this.refactorMainMenu = new RefactorMenu(this.settingObject, true);
             this.refactorMainMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             this.refactorMainMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorMainMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorMainMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
-            this.refactorContextMenu = new RefactorMenu(this.settingObject);
+            this.refactorContextMenu = new RefactorMenu(this.settingObject, false);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
@@ -239,7 +240,6 @@ namespace CodeRefactor
             {
                 this.refactorContextMenu.DelegateMenuItem.Enabled = false;
                 this.refactorMainMenu.DelegateMenuItem.Enabled = false;
-
                 Boolean isValid = this.GetLanguageIsValid();
                 ASResult result = isValid ? GetResultFromCurrentPosition() : null;
                 if (result != null && result.Member != null)
@@ -250,9 +250,7 @@ namespace CodeRefactor
                     Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
                     this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
-                    this.editorReferencesItem.Enabled = true;
-                    this.viewReferencesItem.Enabled = true;
-
+                    this.editorReferencesItem.Enabled = this.viewReferencesItem.Enabled = true;
                     if (result.Type != null && result.inClass != null && result.inFile != null)
                     {
                         FlagType flags = result.Member.Flags;
@@ -283,21 +281,25 @@ namespace CodeRefactor
                     this.refactorMainMenu.TruncateMenuItem.Enabled = truncate && !this.LanguageIsHaxe();
                 }
                 this.surroundContextMenu.Enabled = false;
+                this.refactorMainMenu.SurroundMenu.Enabled = false;
                 this.refactorContextMenu.ExtractMethodMenuItem.Enabled = false;
                 this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = false;
                 this.refactorMainMenu.ExtractMethodMenuItem.Enabled = false;
                 this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = false;
                 ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                if (document != null && document.SciControl != null && ASContext.Context.IsFileValid)
+                if (document != null && document.SciControl != null && ASContext.Context.IsFileValid && document.SciControl.SelTextSize > 1)
                 {
-                    if (document.SciControl.SelTextSize > 1)
+                    Int32 selEnd = document.SciControl.SelectionEnd;
+                    Int32 selStart = document.SciControl.SelectionStart;
+                    if (!document.SciControl.PositionIsOnComment(selEnd) || !document.SciControl.PositionIsOnComment(selStart))
                     {
-                        string selText = document.SciControl.SelText;
                         this.surroundContextMenu.Enabled = true;
+                        this.refactorMainMenu.SurroundMenu.Enabled = true;
                         this.refactorContextMenu.ExtractMethodMenuItem.Enabled = true;
                         this.refactorMainMenu.ExtractMethodMenuItem.Enabled = true;
                         this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = true;
                         this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = true;
+                        // Generate context menu items
                         foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
                         {
                             item.Click -= this.SurroundWithClicked;
@@ -307,10 +309,20 @@ namespace CodeRefactor
                         {
                             item.Click += this.SurroundWithClicked;
                         }
+                        // Generate main menu items
+                        foreach (ToolStripMenuItem item in this.refactorMainMenu.SurroundMenu.DropDownItems)
+                        {
+                            item.Click -= this.SurroundWithClicked;
+                        }
+                        this.refactorMainMenu.SurroundMenu.GenerateSnippets(document.SciControl);
+                        foreach (ToolStripMenuItem item in this.refactorMainMenu.SurroundMenu.DropDownItems)
+                        {
+                            item.Click += this.SurroundWithClicked;
+                        }
                     }
                 }
             }
-            catch { }
+            catch {}
         }
 
         /// <summary>
@@ -397,18 +409,18 @@ namespace CodeRefactor
         }
 
 		/// <summary>
-        /// Invoked when the user selects the "Truncate Imports" command
+        /// Invoked when the user selects the "Delegate Method" command
         /// </summary>
         private void DelegateMethodsClicked(Object sender, EventArgs e)
         {
             try
             {
+                String decl;
                 ASResult result = GetResultFromCurrentPosition();
                 Dictionary<MemberModel, ClassModel> members = new Dictionary<MemberModel, ClassModel>();
-                List<string> memberNames = new List<string>();
+                List<String> memberNames = new List<String>();
                 ClassModel cm = result.Type;
                 cm.ResolveExtends();
-                string decl;
                 while (cm != null && !cm.IsVoid())
                 {
                     foreach (MemberModel m in cm.Members)
@@ -430,8 +442,8 @@ namespace CodeRefactor
                 }
                 DelegateMethodsDialog dd = new DelegateMethodsDialog();
                 dd.FillData(members, result.Type);
-                System.Windows.Forms.DialogResult choice = dd.ShowDialog();
-                if (choice == System.Windows.Forms.DialogResult.OK && dd.checkedMembers.Count > 0)
+                DialogResult choice = dd.ShowDialog();
+                if (choice == DialogResult.OK && dd.checkedMembers.Count > 0)
                 {
                     DelegateMethodsCommand command = new DelegateMethodsCommand(result, dd.checkedMembers);
                     command.Execute();
@@ -450,16 +462,16 @@ namespace CodeRefactor
         {
             try
             {
+                String suggestion = "newMethod";
                 String label = TextHelper.GetString("Label.NewName");
                 String title = TextHelper.GetString("Title.ExtractMethodDialog");
-                String suggestion = "newMethod";
-                ProjectManager.Helpers.LineEntryDialog askName = new ProjectManager.Helpers.LineEntryDialog(title, label, suggestion);
-                System.Windows.Forms.DialogResult choice = askName.ShowDialog();
-                if (choice == System.Windows.Forms.DialogResult.OK && askName.Line.Trim().Length > 0 && askName.Line.Trim() != suggestion)
+                LineEntryDialog askName = new LineEntryDialog(title, label, suggestion);
+                DialogResult choice = askName.ShowDialog();
+                if (choice == DialogResult.OK && askName.Line.Trim().Length > 0 && askName.Line.Trim() != suggestion)
                 {
                     suggestion = askName.Line.Trim();
                 }
-                if (choice == System.Windows.Forms.DialogResult.OK)
+                if (choice == DialogResult.OK)
                 {
                     ExtractMethodCommand command = new ExtractMethodCommand(suggestion);
                     command.Execute();
@@ -481,13 +493,13 @@ namespace CodeRefactor
                 String suggestion = "newVar";
                 String label = TextHelper.GetString("Label.NewName");
                 String title = TextHelper.GetString("Title.ExtractLocalVariableDialog");
-                ProjectManager.Helpers.LineEntryDialog askName = new ProjectManager.Helpers.LineEntryDialog(title, label, suggestion);
-                System.Windows.Forms.DialogResult choice = askName.ShowDialog();
-                if (choice == System.Windows.Forms.DialogResult.OK && askName.Line.Trim().Length > 0 && askName.Line.Trim() != suggestion)
+                LineEntryDialog askName = new LineEntryDialog(title, label, suggestion);
+                DialogResult choice = askName.ShowDialog();
+                if (choice == DialogResult.OK && askName.Line.Trim().Length > 0 && askName.Line.Trim() != suggestion)
                 {
                     suggestion = askName.Line.Trim();
                 }
-                if (choice == System.Windows.Forms.DialogResult.OK)
+                if (choice == DialogResult.OK)
                 {
                     ExtractLocalVariableCommand command = new ExtractLocalVariableCommand(suggestion);
                     command.Execute();
