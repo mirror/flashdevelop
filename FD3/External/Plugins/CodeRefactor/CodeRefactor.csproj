@@ -111,9 +111,8 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\ProjectManager\ProjectManager.csproj">
-      <Project>{2FF2C0BD-5FBB-44E7-A1EC-D7D1BDB6E5E2}</Project>
+      <Project>{78101C01-E186-4954-B1DD-DEBB7905FAD8}</Project>
       <Name>ProjectManager</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
 </Project>
