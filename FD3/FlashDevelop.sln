@@ -62,7 +62,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "External\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickNavigate", "External\Plugins\QuickNavigate\QuickNavigate.csproj", "{343E9A1B-9868-453C-AE3B-A7F63ABA5A8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceControl", "External\Plugins\SourceControl\SourceControl.csproj", "{78101C01-E186-4954-B1DD-DEBB7905FAD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceControl", "External\Plugins\SourceControl\SourceControl.csproj", "{CDB62A9F-0887-43AE-815D-4593A8E35E44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

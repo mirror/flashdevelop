@@ -57,6 +57,7 @@ namespace FlashDebugger
 		private Keys m_ToggleBreakPointEnableShortcut;
 		private Keys m_DisableAllBreakPointsShortcut;
 		private Keys m_EnableAllBreakPointsShortcut;
+        private Keys m_StartRemoteSessionShortcut;
 		private Folder[] m_SourcePaths = new Folder[] {};
         private Boolean m_SaveBreakPoints = true;
         private Boolean m_DisablePanelsAutoshow = false;
@@ -188,6 +189,16 @@ namespace FlashDebugger
         {
 			get { return m_FinishShortcut; }
 			set { m_FinishShortcut = value; }
+        }
+
+        [DisplayName("Start Remote Session Shortcut")]
+        [LocalizedCategory("FlashDebugger.Category.Shortcuts")]
+        [LocalizedDescription("FlashDebugger.Description.StartRemoteSession")]
+        [DefaultValue(Keys.None)]
+        public Keys StartRemoteSession
+        {
+            get { return m_StartRemoteSessionShortcut; }
+            set { m_StartRemoteSessionShortcut = value; }
         }
 
         [DisplayName("Toggle Breakpoint Shortcut")]

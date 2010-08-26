@@ -14,14 +14,18 @@ namespace FlashDebugger
         private ToolStripItem[] m_ToolStripButtons;
         private ToolStripSeparator m_ToolStripSeparator;
 		private ToolStripButton StartContinueButton, PauseButton, StopButton, CurrentButton, RunToCursorButton, StepButton, NextButton, FinishButton;
-		private ToolStripDropDownItem StartContinueMenu, PauseMenu, StopMenu, CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, ToggleBreakPointMenu, ToggleBreakPointEnableMenu, DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu, StartRemoteDebuggingMenu;
+        private ToolStripMenuItem StartContinueMenu, PauseMenu, StopMenu, CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, ToggleBreakPointMenu, ToggleBreakPointEnableMenu, DeleteAllBreakPointsMenu, DisableAllBreakPointsMenu, EnableAllBreakPointsMenu, StartRemoteDebuggingMenu;
         private DebuggerState CurrentState = DebuggerState.Initializing;
+        private List<ToolStripItem> debugItems;
+        private Settings settingObject;
 
         /// <summary>
         /// Creates a menu item for the plugin and adds a ignored key
         /// </summary>
-        public MenusHelper(Image pluginImage, DebuggerManager debugManager, Settings settingObject)
+        public MenusHelper(Image pluginImage, DebuggerManager debugManager, Settings settings)
         {
+            settingObject = settings;
+
             imageList = new ImageList();
 			imageList.Images.Add("StartContinue", Resource.StartContinue);
 			imageList.Images.Add("Pause", Resource.Pause);
@@ -64,9 +68,9 @@ namespace FlashDebugger
             DisableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DisableAllBreakpoints"), null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
             EnableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.EnableAllBreakpoints"), null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
 
-			StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartContinue_Click), null);
+            StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartContinue_Click), settingObject.StartRemoteSession);
 
-			List<ToolStripItem> items = new List<ToolStripItem>(new ToolStripItem[]
+            debugItems = new List<ToolStripItem>(new ToolStripItem[]
 			{
 				StartContinueMenu, PauseMenu, StopMenu, new ToolStripSeparator(),
 				CurrentMenu, RunToCursorMenu, StepMenu, NextMenu, FinishMenu, new ToolStripSeparator(),
@@ -74,17 +78,8 @@ namespace FlashDebugger
 				StartRemoteDebuggingMenu
             });
 
-            foreach (ToolStripItem item in items)
-            {
-                if (item is ToolStripMenuItem)
-                {
-                    if ((item as ToolStripMenuItem).ShortcutKeys != Keys.None)
-                    {
-                        PluginBase.MainForm.IgnoredKeys.Add((item as ToolStripMenuItem).ShortcutKeys);
-                    }
-                }
-            }
-			debugMenu.DropDownItems.AddRange(items.ToArray());
+            AddIgnoredShortcutKeys();
+            debugMenu.DropDownItems.AddRange(debugItems.ToArray());
 
             // ToolStrip
             m_ToolStripSeparator = new ToolStripSeparator();
@@ -109,6 +104,38 @@ namespace FlashDebugger
             
             // Events
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;
+        }
+
+        public void ApplyShortcutKeys()
+        {
+            StartContinueMenu.ShortcutKeys = settingObject.StartContinue;
+            PauseMenu.ShortcutKeys = settingObject.Pause;
+            StopMenu.ShortcutKeys = settingObject.Stop;
+            CurrentMenu.ShortcutKeys = settingObject.Current;
+            RunToCursorMenu.ShortcutKeys = settingObject.RunToCursor;
+            StepMenu.ShortcutKeys = settingObject.Step;
+            NextMenu.ShortcutKeys = settingObject.Next;
+            FinishMenu.ShortcutKeys = settingObject.Finish;
+            ToggleBreakPointMenu.ShortcutKeys = settingObject.ToggleBreakPoint;
+            DeleteAllBreakPointsMenu.ShortcutKeys = settingObject.DeleteAllBreakPoints;
+            ToggleBreakPointEnableMenu.ShortcutKeys = settingObject.ToggleBreakPointEnable;
+            DisableAllBreakPointsMenu.ShortcutKeys = settingObject.DisableAllBreakPoints;
+            EnableAllBreakPointsMenu.ShortcutKeys = settingObject.EnableAllBreakPoints;
+            StartRemoteDebuggingMenu.ShortcutKeys = settingObject.StartRemoteSession;
+        }
+
+        public void AddIgnoredShortcutKeys()
+        {
+            foreach (ToolStripItem item in debugItems)
+            {
+                if (item is ToolStripMenuItem)
+                {
+                    if ((item as ToolStripMenuItem).ShortcutKeys != Keys.None)
+                    {
+                        PluginBase.MainForm.IgnoredKeys.Add((item as ToolStripMenuItem).ShortcutKeys);
+                    }
+                }
+            }
         }
 
         public void AddToolStripItems()
