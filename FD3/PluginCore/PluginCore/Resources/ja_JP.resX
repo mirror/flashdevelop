@@ -2199,15 +2199,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Generate private function</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
-    <value>Generate public function</value>
+    <value>パブリック関数を生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
-    <value>Generate interface definition</value>
+    <value>インターフェース定義を生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
-    <value>Add to interface</value>
+    <value>インターフェースに追加</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
@@ -2229,7 +2229,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Declare private variable</value>
   </data>
   <data name="ASCompletion.Label.GeneratePublicVar" xml:space="preserve">
-    <value>Declare public variable</value>
+    <value>パブリック変数を宣言</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
@@ -2978,7 +2978,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value>Adds that prefix to the fields that were generated using "Generate fields from parameters" generator.</value>
+    <value> "Generate fields from parameters"が設定されたフィールドをプリフィックス付で生成する。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
@@ -3110,15 +3110,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.ExtractMethod" xml:space="preserve">
-    <value>Extract Method...</value>
+    <value>メソッドの抽出(&amp;M)...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Label.ExtractLocalVariable" xml:space="preserve">
-    <value>Extract Local Variable...</value>
+    <value>ローカル変数の抽出(&amp;R)...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Label.SurroundWith" xml:space="preserve">
-    <value>Surround With</value>
+    <value>囲い込み(&amp;S)</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
@@ -3130,11 +3130,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Title.ExtractLocalVariableDialog" xml:space="preserve">
-    <value>Extract Local Variable</value>
+    <value>ローカル変数の抽出</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Title.DelegateMethods" xml:space="preserve">
-    <value>Delegate Methods</value>
+    <value>デリゲートメソッド</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
@@ -3157,7 +3157,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.DelegateMethods" xml:space="preserve">
-    <value>Generate Delegate Methods...</value>
+    <value>デリゲートメソッドを生成(&amp;G)...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
@@ -3720,15 +3720,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
-    <value>Generate constructor</value>
+    <value>コンストラクタを生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
-    <value>Generate field from parameter</value>
+    <value>パラメーターからフィールドを生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
-    <value>Generate toString()</value>
+    <value>toString()を生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
@@ -3948,7 +3948,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="ProjectManager.Description.EnableMxmlMapping" xml:space="preserve">
-    <value>MXMLソースファイル( mx:Script, mx:Style )をMXMLファイルの下にグループ化します。</value>
+    <value>MXML ソースファイル( mx:Script, mx:Style )をMXMLファイルの下にグループ化します。</value>
     <comment>Modified after 3.2</comment>
   </data>
   <data name="FlashDebugger.Label.Unwatch" xml:space="preserve">
@@ -3972,47 +3972,43 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
-    <value>When debugging an application the debugger panels appear/disappear automatically.</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="ASCompletion.Label.GenerateVarPublic" xml:space="preserve">
-    <value>Declare public variable</value>
+    <value>デバッグ中、デバッグパネルの表示/非表示切り替えを自動的に行います。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
+    <value>Shortcuts | ショートカット</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Description.CtrlClickEnabled" xml:space="preserve">
-    <value>Go to declaration by Ctrl+Click on the word.</value>
+    <value>Ctrl + クリックで定義へジャンプします。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Description.OpenResourceShortcut" xml:space="preserve">
-    <value>Shortcut to OpenResource dialog.</value>
+    <value>"リソースを開く"ダイアログのショートカットです。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Description.SearchExternalClassPath" xml:space="preserve">
-    <value>Enable searching files in external classpath.</value>
+    <value>外部クラスパスでのファイル検索を有効にします。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Info.Description" xml:space="preserve">
-    <value>Adds quick navigation capabilities to FlashDevelop.</value>
+    <value>FlashDevelopにクイックナビゲーション機能を統合します。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Label.OpenResource" xml:space="preserve">
-    <value>Open Resource...</value>
+    <value>リソースを開く(&amp;R)...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Label.SearchString" xml:space="preserve">
-    <value>Search string: (UPPERCASE for search by abbreviation)</value>
+    <value>文字列検索（略称の場合は大文字）:</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="QuickNavigate.Title.OpenResource" xml:space="preserve">
-    <value>Open Resource</value>
+    <value>リソースを開く</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Description.ShowInvalidCSS" xml:space="preserve">
-    <value>Shows a warning when a style property is set in CSS on a component that does not support that property.</value>
+    <value>プロパティを持たないCSSコンポーネントにスタイルプロパティがセットされた場合警告を表示します。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Category.GIT" xml:space="preserve">
@@ -4024,79 +4020,79 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.EnableGIT" xml:space="preserve">
-    <value>Enable GIT integration with projects.</value>
+    <value>プロジェクトで GIT の使用を有効にします。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.EnableSVN" xml:space="preserve">
-    <value>Enable SVN integration with projects.</value>
+    <value>プロジェクトで SVN の使用を有効にします。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.GITPath" xml:space="preserve">
-    <value>Path to GIT command line tool. Example: 'git' if the tool is already installed in the environment path.</value>
+    <value>GIT コマンドラインツールへのパスです。（環境変数として既に設定されていた場合は "git" と設定）</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.SVNPath" xml:space="preserve">
-    <value>PathPath to SVN command line tool. Example: 'svn.exe' if the tool is already installed in the environment path.</value>
+    <value>SVN コマンドラインツールへのパスです。（環境変数として既に設定されていた場合は “svn.exe" と設定）</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.TortoiseGITProcPath" xml:space="preserve">
-    <value>Path to TortoiseGit's TortoiseProc tool. Example: 'TortoiseProc.exe'.</value>
+    <value>TortoiseGit の TortoiseProc ツールへのパスです。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.TortoiseSVNProcPath" xml:space="preserve">
-    <value>Path to TortoiseSVN's TortoiseProc tool. Example: 'TortoiseProc.exe'.</value>
+    <value>TortoiseSVN の TortoiseProc ツールへのパスです。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.ConfirmLocalModsDelete" xml:space="preserve">
-    <value>Some elements have local modifications, remove them anyway?</value>
+    <value>ローカルで変更を加えたファイルがあります。削除しますか？</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.ConfirmUnversionedDelete" xml:space="preserve">
-    <value>Some elements are not under source control, delete them anyway?</value>
+    <value>管理されていないファイルがあります。削除しますか？</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.Description" xml:space="preserve">
-    <value>Adds source control integration to FlashDevelop.</value>
+    <value>FlashDevelop にバージョン管理機能を追加します。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.ElementsLocatedInDiffDirs" xml:space="preserve">
-    <value>Elements located in different directories.</value>
+    <value>ファイルが異なるディレクトリに存在します。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.EnterMessage" xml:space="preserve">
-    <value>Enter a message:</value>
+    <value>メッセージを入力:</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.MixedSelectionOfElements" xml:space="preserve">
-    <value>Mixed selection of versioned and non-versioned elements.</value>
+    <value>バージョン管理されていないファイルが混在しています。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.UnableToStartCommand" xml:space="preserve">
-    <value>Unable to start command:</value>
+    <value>コマンドを実行できません:</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.UnsafeDeleteOperation" xml:space="preserve">
-    <value>Unsafe 'Delete' operation.</value>
+    <value>推奨されない削除命令です。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Add" xml:space="preserve">
-    <value>Add...</value>
+    <value>追加...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.AddToIgnoreList" xml:space="preserve">
-    <value>Add To Ignore List</value>
+    <value>無視リストに追加</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Commit" xml:space="preserve">
-    <value>Commit...</value>
+    <value>コミット...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.DiffWithPrevious" xml:space="preserve">
-    <value>Diff With Previous Version</value>
+    <value>以前のバージョンと差分</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.EditConflict" xml:space="preserve">
-    <value>Edit Conflict...</value>
+    <value>競合の解消...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.GIT" xml:space="preserve">
@@ -4104,23 +4100,23 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Diff" xml:space="preserve">
-    <value>Diff</value>
+    <value>差分</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Pull" xml:space="preserve">
-    <value>Pull</value>
+    <value>プル</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Push" xml:space="preserve">
-    <value>Push...</value>
+    <value>プッシュ...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Revert" xml:space="preserve">
-    <value>Revert...</value>
+    <value>元に戻す...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.ShowLog" xml:space="preserve">
-    <value>Show Log...</value>
+    <value>ログを表示...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.SVN" xml:space="preserve">
@@ -4128,23 +4124,23 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.UnableToGetRepoStatus" xml:space="preserve">
-    <value>Unable to get repository status:</value>
+    <value>リポジトリステータスの取得失敗:</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.UndoAdd" xml:space="preserve">
-    <value>Undo Add...</value>
+    <value>追加を元に戻す...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Update" xml:space="preserve">
-    <value>Update</value>
+    <value>更新</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.SourceControl" xml:space="preserve">
-    <value>Source Control</value>
+    <value>バージョン管理</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDebugger.Description.StartRemoteSession" xml:space="preserve">
-    <value>Shortcut of the Start Remote Session command.</value>
+    <value>リモートセッション開始コマンドのショートカット</value>
     <comment>Added after 3.2.2</comment>
   </data>
 </root>
