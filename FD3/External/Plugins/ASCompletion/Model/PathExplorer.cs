@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
 using System.Text;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace ASCompletion.Model
 {
@@ -154,8 +155,14 @@ namespace ASCompletion.Model
             {
                 if (pathModel.IsVirtual)
                 {
+                    string ext = Path.GetExtension(pathModel.Path).ToLower();
+                    if (ext == ".jar" || ext == ".zip")
+                    {
+                        ExtractFilesFromArchive();
+                    }
+
                     // let the context explore packaged libraries
-                    if (pathModel.Owner != null)
+                    else if (pathModel.Owner != null)
                         try
                         {
                             NotifyProgress(String.Format(TextHelper.GetString("Info.Parsing"), 1), 0, 1);
@@ -186,56 +193,11 @@ namespace ASCompletion.Model
                     ExploreFolder(pathModel.Path, context.GetExplorerMask());
                     if (stopExploration) return;
 
-                    // parse files
-                    int n = foundFiles.Count;
-                    NotifyProgress(String.Format(TextHelper.GetString("Info.Parsing"), n), 0, n);
-                    FileModel aFile = null;
-                    string basePath = "";
-                    string packagePath = "";
-                    int cpt = 0;
-                    string filename;
-                    for (int i = 0; i < n; i++)
-                    {
-                        if (stopExploration) return;
-                        // parse
-                        filename = foundFiles[i] as string;
-                        if (!File.Exists(filename))
-                            continue;
-                        if (pathModel.HasFile(filename))
-                        {
-                            FileModel cachedModel = pathModel.GetFile(filename);
-                            if (cachedModel.OutOfDate)
-                            {
-                                cachedModel.Check();
-                                writeCache = true;
-                            }
-                            continue;
-                        }
-                        else writeCache = true;
-
-                        aFile = GetFileModel(filename); //ASContext.Panel.Invoke(new GetFileModelHandler(GetFileModel), new object[] { filename }) as FileModel;
-
-                        if (aFile == null || pathModel.HasFile(filename)) continue;
-                        // store model
-                        basePath = Path.GetDirectoryName(filename);
-                        if (aFile.Package != "")
-                        {
-                            packagePath = '\\' + aFile.Package.Replace('.', '\\');
-                            if (basePath.EndsWith(packagePath))
-                                basePath = basePath.Substring(0, basePath.Length - packagePath.Length);
-                        }
-                        basePath += "\\";
-                        lock (pathModel.Files) { pathModel.Files[aFile.FileName.ToUpper()] = aFile; }
-                        aFile = null;
-                        cpt++;
-                        // update status
-                        if (stopExploration) return;
-                        if (i % 10 == 0) NotifyProgress(String.Format(TextHelper.GetString("Info.Parsing"), n), i, n);
-                        Thread.Sleep(1);
-                    }
+                    // create models
+                    writeCache |= ParseFoundFiles();
 
                     // write cache file
-                    if (UseCache && writeCache)
+                    if (UseCache && writeCache && !stopExploration)
                     try
                     {
                         string cacheDir = Path.GetDirectoryName(cacheFileName);
@@ -259,6 +221,99 @@ namespace ASCompletion.Model
             }
             finally { pathModel.Updating = false; }
 		}
+
+        private void ExtractFilesFromArchive()
+        {
+            string[] masks = context.GetExplorerMask();
+            for (int i = 0; i < masks.Length; i++)
+                masks[i] = masks[i].Substring(masks[i].IndexOf('*') + 1);
+
+            Stream fileStream = File.OpenRead(pathModel.Path);
+            ZipFile zipFile = new ZipFile(fileStream);
+            ASFileParser parser = new ASFileParser();
+
+            foreach (ZipEntry entry in zipFile)
+            {
+                string ext = Path.GetExtension(entry.Name).ToLower();
+                foreach (string mask in masks)
+                    if (ext == mask)
+                    {
+                        string src = UnzipFile(zipFile, entry);
+                        FileModel model = new FileModel(Path.Combine(pathModel.Path, entry.Name));
+                        model.Context = pathModel.Owner;
+                        parser.ParseSrc(model, src);
+                        pathModel.Files[model.FileName.ToUpper()] = model;
+                    }
+            }
+            zipFile.Close();
+            fileStream.Close();
+        }
+
+        private static string UnzipFile(ZipFile zfile, ZipEntry entry)
+        {
+            Stream stream = zfile.GetInputStream(entry);
+            byte[] data = new byte[entry.Size];
+            int length = stream.Read(data, 0, (int)entry.Size);
+            if (length != entry.Size)
+                throw new Exception("Corrupted archive");
+
+            MemoryStream ms = new MemoryStream(data);
+            return new StreamReader(ms).ReadToEnd();
+        }
+
+        private bool ParseFoundFiles()
+        {
+            bool writeCache = false;
+
+            // parse files
+            int n = foundFiles.Count;
+            NotifyProgress(String.Format(TextHelper.GetString("Info.Parsing"), n), 0, n);
+            FileModel aFile = null;
+            string basePath = "";
+            string packagePath = "";
+            int cpt = 0;
+            string filename;
+            for (int i = 0; i < n; i++)
+            {
+                if (stopExploration) return writeCache;
+                // parse
+                filename = foundFiles[i] as string;
+                if (!File.Exists(filename))
+                    continue;
+                if (pathModel.HasFile(filename))
+                {
+                    FileModel cachedModel = pathModel.GetFile(filename);
+                    if (cachedModel.OutOfDate)
+                    {
+                        cachedModel.Check();
+                        writeCache = true;
+                    }
+                    continue;
+                }
+                else writeCache = true;
+
+                aFile = GetFileModel(filename); //ASContext.Panel.Invoke(new GetFileModelHandler(GetFileModel), new object[] { filename }) as FileModel;
+
+                if (aFile == null || pathModel.HasFile(filename)) continue;
+                // store model
+                basePath = Path.GetDirectoryName(filename);
+                if (aFile.Package != "")
+                {
+                    packagePath = '\\' + aFile.Package.Replace('.', '\\');
+                    if (basePath.EndsWith(packagePath))
+                        basePath = basePath.Substring(0, basePath.Length - packagePath.Length);
+                }
+                basePath += "\\";
+                lock (pathModel.Files) { pathModel.Files[aFile.FileName.ToUpper()] = aFile; }
+                aFile = null;
+                cpt++;
+                // update status
+                if (stopExploration) return writeCache;
+                if (i % 10 == 0) NotifyProgress(String.Format(TextHelper.GetString("Info.Parsing"), n), i, n);
+                Thread.Sleep(1);
+            }
+            return writeCache;
+        }
 
         private string GetCacheFileName(string path)
         {
