@@ -157,13 +157,6 @@ namespace FlashDebugger
             PluginMain.debugBuildStart = false;
 			m_FlashInterface.currentProject = currentProject;
 			m_FlashInterface.outputFileFullPath = filename;
-            if (!PluginMain.settingObject.DisablePanelsAutoshow)
-            {
-                PanelsHelper.pluginPanel.Show();
-                PanelsHelper.breakPointPanel.Show();
-                PanelsHelper.stackframePanel.Show();
-                PanelsHelper.watchPanel.Show();
-            }
             PluginBase.MainForm.ProgressBar.Visible = true;
             PluginBase.MainForm.ProgressLabel.Visible = true;
             PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");
@@ -245,6 +238,13 @@ namespace FlashDebugger
 			UpdateMenuState(DebuggerState.Running);
             PluginBase.MainForm.ProgressBar.Visible = false;
             PluginBase.MainForm.ProgressLabel.Visible = false;
+			if (!PluginMain.settingObject.DisablePanelsAutoshow)
+			{
+				PanelsHelper.pluginPanel.Show();
+				PanelsHelper.breakPointPanel.Show();
+				PanelsHelper.stackframePanel.Show();
+				PanelsHelper.watchPanel.Show();
+			}
 		}
 
 		void flashInterface_DisconnectedEvent(object sender)
