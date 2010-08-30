@@ -201,6 +201,7 @@ namespace FlashDebugger
                             {
                                 debugManager.Continue_Click(null, null);
                             }
+                            e.Handled = true;
                             return;
                         }
                         debugBuildStart = false;
