@@ -163,6 +163,7 @@ namespace ProjectManager
             menus.GlobalClasspaths.Click += delegate { OpenGlobalClasspaths(); };
             menus.ConfigurationSelector.SelectedIndexChanged += delegate 
             {
+                FlexCompilerShell.Cleanup();
                 pluginUI.IsTraceDisabled = menus.ConfigurationSelector.SelectedIndex == 1;
                 if (project != null) project.TraceEnabled = !pluginUI.IsTraceDisabled;
             };
