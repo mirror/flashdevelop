@@ -372,6 +372,7 @@ namespace AS3Context
                     char sep = Path.DirectorySeparatorChar;
                     local = local.Substring(0, local.LastIndexOf(sep)).Replace(sep, '.');
                     nFile.Package = local.Length > 0 ? local.Substring(1) : "";
+                    nFile.HasPackage = true;
                 }
         }
 
@@ -596,6 +597,9 @@ namespace AS3Context
             {
                 foreach (FileModel aFile in aPath.Files.Values)
                 {
+                    if (!aFile.HasPackage)
+                        continue;
+
                     aClass = aFile.GetPublicClass();
                     if (!aClass.IsVoid() && aClass.IndexType == null)
                     {
