@@ -6,6 +6,7 @@ using ASCompletion.Model;
 using PluginCore;
 using PluginCore.Helpers;
 using ScintillaNet;
+using ASCompletion.Completion;
 
 namespace CodeRefactor.Commands
 {
@@ -81,7 +82,11 @@ namespace CodeRefactor.Commands
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("$(Boundary)\n\n");
-                sb.Append(GetPrivateKeyword());
+                if ((found.member.Flags & FlagType.Static) > 0)
+                {
+                    sb.Append("static ");
+                }
+                sb.Append(ASGenerator.GetPrivateKeyword());
                 sb.Append(" function ");
                 sb.Append(NewName);
                 sb.Append("():");
@@ -91,7 +96,7 @@ namespace CodeRefactor.Commands
                 sb.Append("$(EntryPoint)");
                 sb.Append("\n}\n$(Boundary)");
 
-                InsertCode(position, sb.ToString());
+                ASGenerator.InsertCode(position, sb.ToString());
             }
             finally
             {
@@ -99,44 +104,8 @@ namespace CodeRefactor.Commands
             }
         }
 
-        private void InsertCode(int position, string src)
-        {
-            Sci.BeginUndoAction();
-            try
-            {
-                if (ASContext.CommonSettings.StartWithModifiers)
-                    src = FixModifiersLocation(src);
-
-                int len = SnippetHelper.InsertSnippetText(Sci, position, src);
-            }
-            finally { Sci.EndUndoAction(); }
-        }
-
-        private string FixModifiersLocation(string src)
-        {
-            string[] lines = src.Split('\n');
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i];
-                Match m = reModifier.Match(line);
-                if (m.Success)
-                {
-                    lines[i] = m.Groups[1].Value + line.Remove(m.Groups[1].Index, m.Groups[1].Length);
-                }
-            }
-            return String.Join("\n", lines);
-        }
-
-        private string GetPrivateKeyword()
-        {
-            string acc;
-            if (ASCompletion.Completion.ASGenerator.GetDefaultVisibility() == Visibility.Protected)
-                acc = ASContext.Context.Features.protectedKey ?? "protected";
-            else acc = ASContext.Context.Features.privateKey ?? "private";
-            return acc;
-        }
-
-        public static FoundDeclaration GetDeclarationAtLine(ScintillaNet.ScintillaControl Sci, int line)
+        
+        private static FoundDeclaration GetDeclarationAtLine(ScintillaNet.ScintillaControl Sci, int line)
         {
             FoundDeclaration result = new FoundDeclaration();
             FileModel model = ASContext.Context.CurrentModel;

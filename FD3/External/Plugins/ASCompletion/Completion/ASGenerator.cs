@@ -929,7 +929,7 @@ namespace ASCompletion.Completion
             Sci.SetSel(position, position);
             Sci.CurrentPos = position;
 
-            MemberModel mem = NewMember(varName, member, GeneratorJobType.Variable, FlagType.Variable, GetDefaultVisibility());
+            MemberModel mem = NewMember(varName, member, FlagType.Variable, GetDefaultVisibility());
             if (isVararg)
             {
                 mem.Type = "Array";
@@ -1159,7 +1159,7 @@ namespace ASCompletion.Completion
             }
 
             GenerateVariable(
-                NewMember(contextToken, member, job, ft, varVisi),
+                NewMember(contextToken, member, ft, varVisi),
                         position, detach);
         }
 
@@ -1518,7 +1518,7 @@ namespace ASCompletion.Completion
             }
 
             GenerateFunction(
-                NewMember(contextToken, member, job, FlagType.Function,
+                NewMember(contextToken, member, FlagType.Function,
                         funcVisi),
                 position, detach, functionParameters, inClass);
         }
@@ -1686,7 +1686,7 @@ namespace ASCompletion.Completion
             return "*";
         }
 
-        private static MemberModel NewMember(string contextToken, MemberModel calledFrom, GeneratorJobType job, FlagType kind, Visibility visi)
+        private static MemberModel NewMember(string contextToken, MemberModel calledFrom, FlagType kind, Visibility visi)
         {
             string type = (kind == FlagType.Function) ? ASContext.Context.Features.voidKey : null;
             if (calledFrom != null && (calledFrom.Flags & FlagType.Static) > 0)
@@ -1694,9 +1694,9 @@ namespace ASCompletion.Completion
             return new MemberModel(contextToken, type, kind, visi);
         }
 
-        private static MemberModel NewMember(string contextToken, MemberModel calledFrom, GeneratorJobType job, FlagType kind)
+        private static MemberModel NewMember(string contextToken, MemberModel calledFrom, FlagType kind)
         {
-            return NewMember(contextToken, calledFrom, job, kind, GetDefaultVisibility());
+            return NewMember(contextToken, calledFrom, kind, GetDefaultVisibility());
         }
 
         /// <summary>
@@ -1962,7 +1962,7 @@ namespace ASCompletion.Completion
             return acc;
         }
 
-        static private string GetPrivateKeyword()
+        static public string GetPrivateKeyword()
         {
             string acc;
             if (GetDefaultVisibility() == Visibility.Protected)
@@ -2510,7 +2510,7 @@ namespace ASCompletion.Completion
         #region common safe code insertion
         static private int lookupPosition;
 
-        private static void InsertCode(int position, string src)
+        public static void InsertCode(int position, string src)
         {
             ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
             Sci.BeginUndoAction();
@@ -2532,10 +2532,12 @@ namespace ASCompletion.Completion
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
-                Match m = reModifier.Match(line);
+                string trimmedLine = line.TrimStart();
+                Match m = reModifier.Match(trimmedLine);
                 if (m.Success)
                 {
-                    lines[i] = m.Groups[1].Value + line.Remove(m.Groups[1].Index, m.Groups[1].Length);
+                    lines[i] = line.Substring(0, line.Length - trimmedLine.Length) 
+                        + m.Groups[1].Value + trimmedLine.Remove(m.Groups[1].Index, m.Groups[1].Length);
                 }
             }
             return String.Join("\n", lines);
