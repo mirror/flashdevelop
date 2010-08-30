@@ -1537,7 +1537,7 @@ namespace ASCompletion.Model
                     Match m = re_validTypeName.Match(lastComment);
                     if (m.Success)
                     {
-                        curMember.Type = "Array$" + m.Groups["type"].Value;
+                        curMember.Type = "Array@" + m.Groups["type"].Value;
                         lastComment = null;
                     }
 				}
@@ -1607,7 +1607,7 @@ namespace ASCompletion.Model
                                     Match m = re_validTypeName.Match(lastComment);
                                     if (m.Success)
                                     {
-                                        token += "$" + m.Groups["type"].Value;
+                                        token += "@" + m.Groups["type"].Value;
                                         lastComment = null;
                                     }
                                 }

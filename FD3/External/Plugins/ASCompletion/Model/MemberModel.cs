@@ -158,7 +158,7 @@ namespace ASCompletion.Model
         {
             if (type == null || type.Length == 0)
                 return null;
-            int p = type.IndexOf('$');
+            int p = type.IndexOf('@');
             if (p > 0) return "/*" + type.Substring(p + 1) + "*/" + type.Substring(0, p);
             else return type;
         }

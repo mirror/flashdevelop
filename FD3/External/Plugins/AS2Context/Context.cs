@@ -462,7 +462,7 @@ namespace AS2Context
                 return ClassModel.VoidClass;
 
             // typed array
-            if (cname.IndexOf('$') > 0)
+            if (cname.IndexOf('@') > 0)
                 return ResolveTypeIndex(cname, inFile);
 
             string package = "";
@@ -527,7 +527,7 @@ namespace AS2Context
 
         private ClassModel ResolveTypeIndex(string cname, FileModel inFile)
         {
-            int p = cname.IndexOf('$');
+            int p = cname.IndexOf('@');
             if (p < 0) return ClassModel.VoidClass;
             string indexType = cname.Substring(p + 1);
             string baseType = cname.Substring(0, p);
@@ -547,7 +547,7 @@ namespace AS2Context
             // clone the type
             ClassModel aClass = originalClass.Clone() as ClassModel;
 
-            aClass.Name = baseType + "$" + indexType;
+            aClass.Name = baseType + "@" + indexType;
             aClass.IndexType = indexType;
 
             // special AS3 Proxy support
