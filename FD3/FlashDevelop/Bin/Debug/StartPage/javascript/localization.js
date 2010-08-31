@@ -58,3 +58,31 @@ locale["ja_JP.projectTypeUnknown"] = "不明";
 locale["ja_JP.tooltipTextModified"] = "変更:";
 locale["ja_JP.tooltipTextCreated"] = "作成:";
 locale["ja_JP.tooltipTextType"] = "タイプ:";
+
+/**
+* Locale strings for German.
+*/
+locale["de_DE.mainLinkHome"] = "Projektseite";
+locale["de_DE.mainLinkDocs"] = "Dokumentation";
+locale["de_DE.mainLinkNotes"] = "Release Notes";
+locale["de_DE.mainLinkAbout"] = "Über";
+locale["de_DE.createNewProject"] = "Neues Projekt...";
+locale["de_DE.openProjectDialog"] = "Projekt öffnen...";
+locale["de_DE.recentProjectsTitle"] = "Letzte Projekte";
+locale["de_DE.loadingRecentProjects"] = "Lade letzte Projekte...";
+locale["de_DE.recentProjectsNotFound"] = "Keine Projekte gefunden.";
+locale["de_DE.versionInfoTitle"] = "Neueste Version";
+locale["de_DE.loadingVersionInfo"] = "Lade Versions-Info...";
+locale["de_DE.versionInfoNotAvailable"] = "Versions-Info nicht verfügbar.";
+locale["de_DE.yourVersionIsOutOfDate"] = "Deine Version ({0}) ist veraltet.";
+locale["de_DE.downloadVersionHere"] = "Hier downloaden!";
+locale["de_DE.loadingRssFeed"] = "Lade RSS feed...";
+locale["de_DE.rssFeedNotAvailable"] = "RSS feed nicht verfügbar.";
+locale["de_DE.projectTypeFDP"] = "Nicht bestimmbar";
+locale["de_DE.projectTypeAS2"] = "ActionScript 2 Projekt";
+locale["de_DE.projectTypeAS3"] = "ActionScript 3 Projekt";
+locale["de_DE.projectTypeHaXe"] = "HaXe Projekt";
+locale["de_DE.projectTypeUnknown"] = "Unbekannt";
+locale["de_DE.tooltipTextModified"] = "Verändert:";
+locale["de_DE.tooltipTextCreated"] = "Erstellt:";
+locale["de_DE.tooltipTextType"] = "Typ:";
