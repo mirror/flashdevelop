@@ -11,6 +11,9 @@
 !define VERSION "3.3.0"
 !define BUILD "RTM"
 
+; Define Flex SDK version
+!define FLEX "4.1.0.16076"
+
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
 VIAddVersionKey "ProductName" "FlashDevelop Installer"
@@ -40,6 +43,9 @@ InstallDir "$PROGRAMFILES\FlashDevelop\"
 
 ; Get installation folder from registry if available
 InstallDirRegKey HKLM "Software\FlashDevelop" ""
+
+; Define the Flex SDK extract path
+!define SDKPATH "$INSTDIR\Tools\flexsdk"
 
 ; Vista redirects $SMPROGRAMS to all users without this
 RequestExecutionLevel admin
@@ -142,6 +148,17 @@ Function GetFDVersion
 	Push $0
 	ClearErrors
 	ReadRegStr $0 HKLM Software\FlashDevelop "CurrentVersion"
+	IfErrors 0 +2
+	StrCpy $0 "not_found"
+	Exch $0
+	
+FunctionEnd
+
+Function GetFlexSDKVersion
+	
+	Push $0
+	ClearErrors
+	ReadRegStr $0 HKLM Software\FlashDevelop "FlexSDKVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
@@ -291,6 +308,47 @@ Section "Desktop Shortcut" DesktopShortcut
 	
 SectionEnd
 
+Section "Install Flex SDK" InstallFlexSDK
+
+	SectionIn 1
+	SetOverwrite on
+	SetShellVarContext all
+	
+	Call GetFlexSDKVersion
+	Pop $0
+	
+	${If} $0 != ${FLEX}
+	
+	; Download Flex SDK zip file. If the extract failed previously, use the old file.
+	IfFileExists "$TEMP\flex_sdk_${FLEX}.zip" +6 0
+	NSISdl::download http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
+	Pop $R0
+	StrCmp $R0 "success" +3
+	MessageBox MB_OK "Download canceled. The installer will now continue normally."
+	Goto Finish
+	
+	; Extract the Flex SDK zip
+	IfFileExists "${SDKPATH}\*.*" +2
+	CreateDirectory "${SDKPATH}"
+	DetailPrint "Extracting Flex SDK..."
+	nsisunz::Unzip "$TEMP\flex_sdk_${FLEX}.zip" "${SDKPATH}"
+	Pop $R0
+	StrCmp $R0 "success" +3
+	MessageBox MB_OK "Archive extraction failed. The installer will now continue normally."
+	Goto Finish
+	
+	; Save version to registry
+	WriteRegStr HKLM "Software\FlashDevelop" "FlexSDKVersion" "${FLEX}"
+	
+	; Delete temporary Flex SDK zip file
+	Delete "$TEMP\flex_sdk_${FLEX}.zip"
+	
+	Finish:
+	
+	${EndIf}
+
+SectionEnd
+
 SectionGroup "Advanced"
 
 Section "Start Menu Group" StartMenuGroup
@@ -400,6 +458,7 @@ SectionGroupEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
 !insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to use standalone mode and upgrading needs some manual work."
 !insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs the latest free Adobe Flex SDK with FlashDevelop. The Flex SDK will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${StartMenuGroup} "Creates a start menu group and adds default FlashDevelop links to the group."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
