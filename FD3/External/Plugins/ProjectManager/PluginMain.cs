@@ -399,6 +399,20 @@ namespace ProjectManager
                             e.Handled = true;
                         }
                     }
+                    else if (de.Action == "LineEntryDialog")
+                    {
+                        Hashtable info = (Hashtable)de.Data;
+                        LineEntryDialog askName = new LineEntryDialog((string)info["title"], (string)info["label"], (string)info["suggestion"]);
+                        DialogResult choice = askName.ShowDialog();
+                        if (choice == DialogResult.OK && askName.Line.Trim().Length > 0 && askName.Line.Trim() != (string)info["suggestion"])
+                        {
+                            info["suggestion"] = askName.Line.Trim();
+                        }
+                        if (choice == DialogResult.OK)
+                        {
+                            e.Handled = true;
+                        }
+                    }
                     break;
 
                 case EventType.Keys:

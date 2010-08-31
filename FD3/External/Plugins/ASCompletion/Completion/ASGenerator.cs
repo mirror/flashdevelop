@@ -55,15 +55,15 @@ namespace ASCompletion.Completion
             contextToken = Sci.GetWordFromPosition(position);
             contextMatch = null;
 
-            if (!String.IsNullOrEmpty(contextToken) && Char.IsDigit(contextToken[0]))
-            {
-                // TODO suggest declare number const
-                return;
-            }
-
             FoundDeclaration found = GetDeclarationAtLine(Sci, line);
             string text = Sci.GetLine(line);
             bool suggestItemDeclaration = false;
+
+            if (!String.IsNullOrEmpty(contextToken) && Char.IsDigit(contextToken[0]))
+            {
+                ShowConvertToConst(found);
+                return;
+            }
 
             ASResult resolve = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(position, true));
             // ignore automatic vars (MovieClip members)
@@ -89,7 +89,7 @@ namespace ASCompletion.Completion
                     && (resolve.Member.Flags & FlagType.LocalVar) > 0) // promote to class var
                 {
                     contextMember = resolve.Member;
-                    ShowPromoteLocal(found);
+                    ShowPromoteLocalAndAddParameter(found);
                     return;
                 }
 
@@ -220,6 +220,31 @@ namespace ASCompletion.Completion
                 }
             }
 
+            if (resolve.Member != null
+                && resolve.Type != null
+                && resolve.Type.QualifiedName == "String")
+            {
+                if (found.inClass != null)
+                {
+                    if (found.inClass.QualifiedName != resolve.inClass.QualifiedName)
+                    {
+                        ClassModel aType = resolve.inClass;
+                        while (!aType.IsVoid() && aType.QualifiedName != "Object")
+                        {
+                            if (aType.QualifiedName == "flash.events.Event")
+                            {
+                                contextMember = resolve.Member;
+                                ShowEventMetatagList(found);
+                                break;
+                            }
+                            aType = aType.Extends;
+                        }
+                    }
+                }
+            }
+
+
+            
             // suggest declaration
             if (suggestItemDeclaration)
             {
@@ -238,6 +263,15 @@ namespace ASCompletion.Completion
                         ShowNewMethodList(found);
                     }
                     else ShowNewVarList(found);
+                }
+            }
+            else
+            {
+                Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
+                if (m.Success)
+                {
+                    contextMatch = m;
+                    ShowChangeMethodDeclList(found);
                 }
             }
 
@@ -339,11 +373,21 @@ namespace ASCompletion.Completion
             CompletionList.Show(known, false);
         }
 
-        private static void ShowPromoteLocal(FoundDeclaration found)
+        private static void ShowPromoteLocalAndAddParameter(FoundDeclaration found)
         {
             List<ICompletionListItem> known = new List<ICompletionListItem>();
             string label = TextHelper.GetString("ASCompletion.Label.PromoteLocal");
+            string labelParam = TextHelper.GetString("ASCompletion.Label.AddAsParameter");
             known.Add(new GeneratorItem(label, GeneratorJobType.PromoteLocal, found.member, found.inClass));
+            known.Add(new GeneratorItem(labelParam, GeneratorJobType.AddAsParameter, found.member, found.inClass));
+            CompletionList.Show(known, false);
+        }
+
+        private static void ShowConvertToConst(FoundDeclaration found)
+        {
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+            string label = TextHelper.GetString("ASCompletion.Label.ConvertToConst");
+            known.Add(new GeneratorItem(label, GeneratorJobType.ConvertToConst, found.member, found.inClass));
             CompletionList.Show(known, false);
         }
 
@@ -423,6 +467,14 @@ namespace ASCompletion.Completion
                 string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateClass");
                 known.Add(new GeneratorItem(labelClass, GeneratorJobType.Class, found.member, found.inClass));
             }
+            CompletionList.Show(known, false);
+        }
+
+        private static void ShowChangeMethodDeclList(FoundDeclaration found)
+        {
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+            string label = TextHelper.GetString("ASCompletion.Label.ChangeMethodDecl");
+            known.Add(new GeneratorItem(label, GeneratorJobType.ChangeMethodDecl, found.member, found.inClass));
             CompletionList.Show(known, false);
         }
 
@@ -507,6 +559,19 @@ namespace ASCompletion.Completion
 
                 CompletionList.Show(known, false);
             }
+        }
+
+        private static void ShowEventMetatagList(FoundDeclaration found)
+        {
+            ContextFeatures features = ASContext.Context.Features;
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+
+            ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
+
+            string label = TextHelper.GetString("ASCompletion.Label.GenerateEventMetatag");
+            known.Add(new GeneratorItem(label, GeneratorJobType.EventMetatag, found.member, found.inClass));
+
+            CompletionList.Show(known, false);
         }
 
         private static void ShowFieldFromParameter(FoundDeclaration found)
@@ -728,6 +793,19 @@ namespace ASCompletion.Completion
                     Sci.SetSel(lookupPosition, lookupPosition);
                     break;
 
+                case GeneratorJobType.AddAsParameter:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        AddAsParameter(inClass, Sci, member, detach);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    
+                    break;
+
                 case GeneratorJobType.AddImport:
                     position = Sci.CurrentPos;
                     if ((member.Flags & FlagType.Class) == 0)
@@ -787,7 +865,317 @@ namespace ASCompletion.Completion
                         Sci.EndUndoAction();
                     }
                     break;
+
+                case GeneratorJobType.ConvertToConst:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        ConvertToConst(inClass, Sci, member, detach);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
+
+                case GeneratorJobType.ChangeMethodDecl:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        ChangeMethodDecl(Sci, member, inClass);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
+
+                case GeneratorJobType.EventMetatag:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        EventMetatag(inClass, Sci, member);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
             }
+        }
+
+        private static void EventMetatag(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
+        {
+            ASResult resolve = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+            string line = Sci.GetLine(inClass.LineFrom);
+            int position = Sci.PositionFromLine(inClass.LineFrom) + (line.Length - line.TrimStart().Length);
+
+            string value = resolve.Member.Value;
+            if (value != null)
+            {
+                if (value.StartsWith("\""))
+                {
+                    value = value.Trim(new char[] { '"' });
+                }
+                else if (value.StartsWith("'"))
+                {
+                    value = value.Trim(new char[] { '\'' });
+                }
+            }
+            else
+            {
+                value = resolve.Member.Type;
+            }
+            string template = GetTemplate("EventMetatag", "[Event(name=\"{0}\", type=\"{1}\")]");
+            template = String.Format(template + "\n$(Boundary)", value, resolve.inClass.QualifiedName);
+
+            Sci.CurrentPos = position;
+            Sci.SetSel(position, position);
+            InsertCode(position, template);
+        }
+
+        private static void ConvertToConst(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member, bool detach)
+        {
+            String suggestion = "NEW_CONST";
+            String label = TextHelper.GetString("ASCompletion.Label.ConstName");
+            String title = TextHelper.GetString("ASCompletion.Title.ConvertToConst");
+
+            Hashtable info = new Hashtable();
+            info["suggestion"] = suggestion;
+            info["label"] = label;
+            info["title"] = title;
+            DataEvent de = new DataEvent(EventType.Command, "LineEntryDialog", info);
+            EventManager.DispatchEvent(null, de);
+            if (!de.Handled)
+            {
+                return;
+            }
+            
+            suggestion = (string)info["suggestion"];
+
+            int position = Sci.CurrentPos;
+            MemberModel latest = null;
+
+            int wordPosEnd = Sci.WordEndPosition(position, true);
+            int wordPosStart = Sci.WordStartPosition(position, true);
+            char cr = (char)Sci.CharAt(wordPosEnd);
+            if (cr == '.')
+            {
+                wordPosEnd = Sci.WordEndPosition(wordPosEnd + 1, true);
+            }
+            else
+            {
+                cr = (char)Sci.CharAt(wordPosStart - 1);
+                if (cr == '.')
+                {
+                    wordPosStart = Sci.WordStartPosition(wordPosStart - 1, true);
+                }
+            }
+            Sci.SetSel(wordPosStart, wordPosEnd);
+            string word = Sci.SelText;
+            Sci.ReplaceSel(suggestion);
+            
+            if (member == null)
+            {
+                detach = false;
+                lookupPosition = -1;
+                position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                Sci.SetSel(position, Sci.WordEndPosition(position, true));
+            }
+            else
+            {
+                latest = FindLatest(FlagType.Constant, GetDefaultVisibility(), inClass)
+                    ?? FindLatest(FlagType.Variable, GetDefaultVisibility(), inClass);
+                if (latest != null)
+                {
+                    position = FindNewVarPosition(Sci, inClass, latest);
+                }
+                else
+                {
+                    position = GetBodyStart(inClass.LineFrom, inClass.LineTo, Sci);
+                    detach = false;
+                }
+                if (position <= 0) return;
+                Sci.SetSel(position, position);
+            }
+
+            contextToken = suggestion + ":Number = " + word + "";
+
+            GenerateVariable(
+                NewMember(contextToken, member, FlagType.Variable | FlagType.Constant | FlagType.Static),
+                        position, detach);
+        }
+
+        private static void ChangeMethodDecl(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
+        {
+            int wordPos = Sci.WordEndPosition(Sci.CurrentPos, true);
+            List<FunctionParameter> functionParameters = ParseFunctionParameters(Sci, wordPos);
+
+            ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+            if (funcResult.Member == null)
+            {
+                return;
+            }
+            if (funcResult != null && funcResult.relClass != null && !funcResult.relClass.Equals(inClass))
+            {
+                AddLookupPosition();
+                lookupPosition = -1;
+
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
+                Sci = ASContext.CurSciControl;
+
+                FileModel fileModel = new FileModel();
+                ASFileParser parser = new ASFileParser();
+                parser.ParseSrc(fileModel, Sci.Text);
+
+                foreach (ClassModel cm in fileModel.Classes)
+                {
+                    if (cm.QualifiedName.Equals(funcResult.relClass.QualifiedName))
+                    {
+                        funcResult.relClass = cm;
+                        break;
+                    }
+                }
+                inClass = funcResult.relClass;
+            }
+
+            MemberList members = inClass.Members;
+            foreach (MemberModel m in members)
+            {
+                if (m.Name == funcResult.Member.Name)
+                {
+                    funcResult.Member = m;
+                }
+            }
+
+            bool paramsDiffer = false;
+            if (funcResult.Member.Parameters != null)
+            {
+                // check that parameters have one and the same type
+                if (funcResult.Member.Parameters.Count == functionParameters.Count)
+                {
+                    if (functionParameters.Count > 0)
+                    {
+                        List<MemberModel> parameters = funcResult.Member.Parameters;
+                        for (int i = 0; i < parameters.Count; i++)
+                        {
+                            MemberModel p = parameters[i];
+                            if (p.Type != functionParameters[i].paramType)
+                            {
+                                paramsDiffer = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    paramsDiffer = true;
+                }
+            }
+                // check that parameters count differs
+            else if (functionParameters.Count != 0)
+            {
+                paramsDiffer = true;
+            }
+
+            if (paramsDiffer)
+            {
+                int app = 0;
+                List<MemberModel> newParameters = new List<MemberModel>();
+                List<MemberModel> existingParameters = funcResult.Member.Parameters;
+                for (int i = 0; i < functionParameters.Count; i++)
+                {
+                    FunctionParameter p = functionParameters[i];
+                    if (existingParameters != null
+                        && existingParameters.Count > (i - app)
+                        && existingParameters[i - app].Type == p.paramType)
+                    {
+                        newParameters.Add(existingParameters[i - app]);
+                    }
+                    else
+                    {
+                        if (existingParameters != null && existingParameters.Count < functionParameters.Count)
+                        {
+                            app++;
+                        }
+                        newParameters.Add(new MemberModel(p.param, p.paramType, FlagType.ParameterVar, 0));
+                    }
+                }
+                funcResult.Member.Parameters = newParameters;
+
+                int posStart = Sci.PositionFromLine(funcResult.Member.LineFrom);
+                int posEnd = Sci.LineEndPosition(funcResult.Member.LineTo);
+                Sci.SetSel(posStart, posEnd);
+                string selectedText = Sci.SelText;
+                Regex rStart = new Regex(String.Format(@"{0}\s*\(", funcResult.Member.Name));
+                Match mStart = rStart.Match(selectedText);
+                if (!mStart.Success)
+                {
+                    return;
+                }
+                Regex rEnd = new Regex(@"\)(\s*:\s*[a-zA-Z$][a-zA-Z0-9$_]*)?");
+                Match mEnd = rEnd.Match(selectedText);
+                if (!mEnd.Success)
+                {
+                    return;
+                }
+                int start = mStart.Index + posStart;
+                int end = mEnd.Index + mEnd.Length + posStart;
+
+                Sci.SetSel(start, end);
+
+                Sci.ReplaceSel(funcResult.Member.ToDeclarationString());
+
+                // add imports to function argument types
+                if (functionParameters.Count > 0)
+                {
+                    List<string> l = new List<string>();
+                    foreach (FunctionParameter fp in functionParameters)
+                    {
+                        try
+                        {
+                            l.Add(fp.paramQualType);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                    AddImportsByName(l, Sci.LineFromPosition(end));
+                }
+            }
+        }
+
+        private static void AddAsParameter(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member, bool detach)
+        {
+            if (!RemoveLocalDeclaration(Sci, contextMember)) return;
+
+            StringBuilder sb = new StringBuilder();
+
+            int position = Sci.PositionFromLine(member.LineFrom);
+            Sci.SetSel(position, Sci.LineEndPosition(member.LineTo));
+
+            string body = Sci.SelText;
+            int bracePos = body.IndexOf(')') + position;
+            
+            if (member.Parameters != null && member.Parameters.Count > 0)
+            {
+                sb.Append(", ");
+            }
+
+            sb.Append(contextMember.Name);
+
+            if (contextMember.Type != null)
+            {
+                sb.Append(":")
+                    .Append(contextMember.Type);
+            }
+
+            Sci.SetSel(bracePos, bracePos);
+            Sci.CurrentPos = bracePos;
+            InsertCode(bracePos, sb.ToString());
+
+            Sci.SetSel(lookupPosition, lookupPosition);
         }
 
         private static void AddInterfaceDefJob(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
@@ -1232,15 +1620,33 @@ namespace ASCompletion.Completion
                         }
                         else if (c == '{')
                         {
-                            result = new ASResult();
-                            result.Type = ctx.ResolveType("Function", null);
-                            types.Insert(0, result);
+                            if (sb.ToString().TrimStart().Length > 0)
+                            {
+                                result = new ASResult();
+                                result.Type = ctx.ResolveType("Function", null);
+                                types.Insert(0, result);
+                            }
+                            else
+                            {
+                                result = new ASResult();
+                                result.Type = ctx.ResolveType("Object", null);
+                                types.Insert(0, result);
+                            }
                         }
                         else if (c == '(')
                         {
                             result = ASComplete.GetExpressionType(Sci, lastMemberPos + 1);
                             if (!result.IsNull())
                             {
+                                types.Insert(0, result);
+                            }
+                        }
+                        else if (c == '<')
+                        {
+                            if (sb.ToString().TrimStart().Length == 0)
+                            {
+                                result = new ASResult();
+                                result.Type = ctx.ResolveType("XML", null);
                                 types.Insert(0, result);
                             }
                         }
@@ -2663,6 +3069,10 @@ namespace ASCompletion.Completion
         ToString = 16,
         FieldFromPatameter = 17,
         AddInterfaceDef = 18,
+        ConvertToConst = 19,
+        AddAsParameter = 20,
+        ChangeMethodDecl = 21,
+        EventMetatag = 22,
     }
 
     /// <summary>

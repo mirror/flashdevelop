@@ -356,6 +356,9 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ASCompletion.Title.ModelExplorer" xml:space="preserve">
     <value>Type Explorer</value>
   </data>
+  <data name="ASCompletion.Title.ConvertToConst" xml:space="preserve">
+    <value>Convert To Constant</value>
+  </data>
   <data name="ASCompletion.Title.PluginPanel" xml:space="preserve">
     <value>Outline</value>
   </data>
@@ -2210,6 +2213,9 @@ Never - the start page will not show based on startup.</value>
     <value>Generate public function</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
+    <value>Change method declaration</value>
+  </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
     <value>Generate interface definition</value>
     <comment>Added after 3.2.2</comment>
@@ -2245,6 +2251,12 @@ Never - the start page will not show based on startup.</value>
   </data>
   <data name="ASCompletion.Label.PromoteLocal" xml:space="preserve">
     <value>Promote to class member</value>
+  </data>
+  <data name="ASCompletion.Label.AddAsParameter" xml:space="preserve">
+    <value>Add as function parameter</value>
+  </data>
+  <data name="ASCompletion.Label.ConvertToConst" xml:space="preserve">
+    <value>Convert to constant</value>
   </data>
   <data name="ProjectManager.Info.AboutPackages" xml:space="preserve">
     <value>(not supported in all projects)</value>
@@ -3732,6 +3744,9 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Create new class</value>
     <comment>Added after 3.1.1</comment>
   </data>
+  <data name="ASCompletion.Label.ConstName" xml:space="preserve">
+    <value>Constant name:</value>
+  </data>
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
     <value>Generate constructor</value>
     <comment>Added after 3.2.2</comment>
@@ -3743,6 +3758,9 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
     <value>Generate toString()</value>
     <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ASCompletion.Label.GenerateEventMetatag" xml:space="preserve">
+    <value>Generate [Event] metatag</value>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
     <value>AS2 Document</value>
