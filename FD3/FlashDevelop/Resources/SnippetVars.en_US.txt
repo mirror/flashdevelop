@@ -45,4 +45,4 @@ $(ItmTypPkg) - Item's type package
 $(ItmTypName) - Item's type name
 $(ItmTypPkgName) - Item's type qualified name
 $(ItmTypKind) - Item's type kind (interface, class)
-$(ItmUniqueVar) - Unique variable name (i, i2... etc)
+$(ItmUniqueVar) - Unique variable name (i, j... etc)

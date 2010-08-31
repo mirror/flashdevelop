@@ -642,19 +642,44 @@ namespace ASCompletion.Completion
 
 
                 // Get iterator 
-                string iteratorName = "i";
-                int iteratorCount = 0;
+                int iteratorCount = 105;
                 bool restartCycle = false;
+                MemberList members = cClass.Members;
+                List<MemberModel> parameters = context.CurrentMember.Parameters;
                 while (true) 
                 {
                     restartCycle = false;
                     foreach (MemberModel m in expr.LocalVars)
                     {
-                        if (m.Name == iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")))
+                        if (m.Name == Char.ToString(Convert.ToChar(iteratorCount)))
                         {
                             iteratorCount++;
                             restartCycle = true;
                             break;
+                        }
+                    }
+                    if (members != null && !restartCycle)
+                    {
+                        foreach (MemberModel m in members)
+                        {
+                            if (m.Name == Char.ToString(Convert.ToChar(iteratorCount)))
+                            {
+                                iteratorCount++;
+                                restartCycle = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (parameters != null && !restartCycle)
+                    {
+                        foreach (MemberModel m in parameters)
+                        {
+                            if (m.Name == Char.ToString(Convert.ToChar(iteratorCount)))
+                            {
+                                iteratorCount++;
+                                restartCycle = true;
+                                break;
+                            }
                         }
                     }
                     if (!restartCycle)
@@ -662,49 +687,8 @@ namespace ASCompletion.Completion
                         break;
                     }
                 }
-                MemberList members = cClass.Members;
-                if (members != null)
-                {
-                    while (true) 
-                    {
-                        restartCycle = false;
-                        foreach (MemberModel m in members)
-                        {
-                            if (m.Name == iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")))
-                            {
-                                iteratorCount++;
-                                restartCycle = true;
-                                break;
-                            }
-                        }
-                        if (!restartCycle)
-                        {
-                            break;
-                        }
-                    }
-                }
-                List<MemberModel> parameters = context.CurrentMember.Parameters;
-                if (parameters != null)
-                {
-                    while (true)
-                    {
-                        restartCycle = false;
-                        foreach (MemberModel m in parameters)
-                        {
-                            if (m.Name == iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")))
-                            {
-                                iteratorCount++;
-                                restartCycle = true;
-                                break;
-                            }
-                        }
-                        if (!restartCycle)
-                        {
-                            break;
-                        }
-                    }
-                }
-                details.Add("ItmUniqueVar", iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")));
+                
+                details.Add("ItmUniqueVar", Char.ToString(Convert.ToChar(iteratorCount)));
             }
             else
             {

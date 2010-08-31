@@ -44,4 +44,4 @@ $(ItmTypPkg) - アイテムのクラスのパッケージ
 $(ItmTypName) - アイテムのクラス名
 $(ItmTypPkgName) - アイテムのパッケージ＋クラス名
 $(ItmTypKind) - アイテムのクラスの種類(interface, class)
-$(ItmUniqueVar) - Unique variable name (i, i2... etc)
+$(ItmUniqueVar) - Unique variable name (i, j... etc)
