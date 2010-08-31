@@ -11,3 +11,4 @@ IFunction	{0};
 Constructor	{0} $(CSLB){{\n\tsuper();\n}}
 ToString	{0} $(CSLB){{\n\treturn {1};\n}}
 DelegateMethodsHeader	$(Boundary)\n\n/* DELEGATE {0} */
+EventMetatag	[Event(name="{0}", type="{1}")]
