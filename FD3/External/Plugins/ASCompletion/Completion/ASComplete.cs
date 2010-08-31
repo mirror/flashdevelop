@@ -598,6 +598,113 @@ namespace ASCompletion.Completion
                 flags = aType.Flags;
                 kind = GetKind(flags, features);
                 details.Add("MbrTypKind", kind);
+
+                ASExpr expr = GetExpression(Sci, position, true);
+                expr.LocalVars = ParseLocalVars(expr);
+
+                // Get closest list (Array or Vector)
+                int lineNum = Sci.LineFromPosition(position);
+                MemberModel closestList = null;
+                string closestListItemType = "";
+                foreach (MemberModel m in expr.LocalVars)
+                {
+                    if (closestList == null 
+                        || ((m.LineFrom < lineNum) 
+                            && ((lineNum - m.LineFrom) < (lineNum - closestList.LineFrom))))
+                    {
+                        ClassModel aType2 = ASContext.Context.ResolveType(m.Type, context.CurrentModel);
+                        while (!aType2.IsVoid() && aType2.QualifiedName != "Object")
+                        {
+                            if (aType2.QualifiedName == "Array" || aType2.QualifiedName.StartsWith("Vector.<T>@"))
+                            {
+                                closestList = m;
+                                closestListItemType = "";
+                                if (aType2.QualifiedName.StartsWith("Vector.<T>@"))
+                                {
+                                    int ind = Math.Max(aType2.QualifiedName.LastIndexOf("."), aType2.QualifiedName.LastIndexOf("@"));
+                                    closestListItemType = aType2.QualifiedName.Substring(ind + 1);
+                                }
+                                break;
+                            }
+                            aType2 = aType2.Extends;
+                        }
+                    }
+                }
+                if (closestList != null)
+                {
+                    details.Add("TypClosestListName", closestList.Name);
+                }
+                else
+                {
+                    details.Add("TypClosestListName", "");
+                }
+                details.Add("TypClosestListItemType", closestListItemType);
+
+
+                // Get iterator 
+                string iteratorName = "i";
+                int iteratorCount = 0;
+                bool restartCycle = false;
+                while (true) 
+                {
+                    restartCycle = false;
+                    foreach (MemberModel m in expr.LocalVars)
+                    {
+                        if (m.Name == iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")))
+                        {
+                            iteratorCount++;
+                            restartCycle = true;
+                            break;
+                        }
+                    }
+                    if (!restartCycle)
+                    {
+                        break;
+                    }
+                }
+                MemberList members = cClass.Members;
+                if (members != null)
+                {
+                    while (true) 
+                    {
+                        restartCycle = false;
+                        foreach (MemberModel m in members)
+                        {
+                            if (m.Name == iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")))
+                            {
+                                iteratorCount++;
+                                restartCycle = true;
+                                break;
+                            }
+                        }
+                        if (!restartCycle)
+                        {
+                            break;
+                        }
+                    }
+                }
+                List<MemberModel> parameters = context.CurrentMember.Parameters;
+                if (parameters != null)
+                {
+                    while (true)
+                    {
+                        restartCycle = false;
+                        foreach (MemberModel m in parameters)
+                        {
+                            if (m.Name == iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")))
+                            {
+                                iteratorCount++;
+                                restartCycle = true;
+                                break;
+                            }
+                        }
+                        if (!restartCycle)
+                        {
+                            break;
+                        }
+                    }
+                }
+                details.Add("ItmUniqueVar", iteratorName + (iteratorCount == 0 ? "" : (iteratorCount + "")));
             }
             else
             {
@@ -607,6 +714,9 @@ namespace ASCompletion.Completion
                 details.Add("MbrTypName", "");
                 details.Add("MbrTypePkgName", "");
                 details.Add("MbrTypKind", "");
+                details.Add("TypClosestListName", "");
+                details.Add("TypClosestListItemType", "");
+                details.Add("ItmUniqueVar", "");
             }
 
 			// if element can be resolved

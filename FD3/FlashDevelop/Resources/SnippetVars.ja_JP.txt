@@ -28,6 +28,8 @@ $(TypPkg) - クラスのパッケージ
 $(TypName) - クラス名
 $(TypPkgName) - パッケージ＋クラス名
 $(TypKind) - クラスの種類(interface, class)
+$(TypClosestListName) - Closest Array or Vector var name
+$(TypClosestListItemType) - Closest Vector item type
 - メンバー ---------------------------------------------------------------------
 $(MbrName) - メンバーの名前
 $(MbrKind) - メンバーの種類(const, var, function)
@@ -42,3 +44,4 @@ $(ItmTypPkg) - アイテムのクラスのパッケージ
 $(ItmTypName) - アイテムのクラス名
 $(ItmTypPkgName) - アイテムのパッケージ＋クラス名
 $(ItmTypKind) - アイテムのクラスの種類(interface, class)
+$(ItmUniqueVar) - Unique variable name (i, i2... etc)

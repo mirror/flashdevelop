@@ -28,6 +28,8 @@ $(TypPkg) - File package
 $(TypName) - Current type name
 $(TypPkgName) - Current package + type name
 $(TypKind) - Type kind (interface, class)
+$(TypClosestListName) - Closest Array or Vector var name
+$(TypClosestListItemType) - Closest Vector item type
 - MEMBER -------------------------------------------------------------------------
 $(MbrName) - Current member, ie. current method
 $(MbrKind) - Member kind (const, var, function)
@@ -43,3 +45,4 @@ $(ItmTypPkg) - Item's type package
 $(ItmTypName) - Item's type name
 $(ItmTypPkgName) - Item's type qualified name
 $(ItmTypKind) - Item's type kind (interface, class)
+$(ItmUniqueVar) - Unique variable name (i, i2... etc)
