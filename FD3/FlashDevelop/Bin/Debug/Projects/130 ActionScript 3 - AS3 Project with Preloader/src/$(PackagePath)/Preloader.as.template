@@ -37,17 +37,21 @@
 		private function checkFrame(e:Event):void $(CSLB){
 			if (currentFrame == totalFrames) $(CSLB){
 				stop();
-				startup();
+				loadingFinished();
 			}
 		}
 		
-		private function startup():void $(CSLB){
-			// TODO hide loader
-			
+		private function loadingFinished():void $(CSLB){
 			removeEventListener(Event.ENTER_FRAME, checkFrame);
 			loaderInfo.removeEventListener(ProgressEvent.PROGRESS, progress);
 			loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, ioError);
 			
+			// TODO hide loader
+			
+			startup();
+		}
+		
+		private function startup():void $(CSLB){
 			var mainClass:Class = getDefinitionByName("$(PackageDot)Main") as Class;
 			if (parent == stage) stage.addChildAt(new mainClass() as DisplayObject, 0);
 			else addChildAt(new mainClass() as DisplayObject, 0);
