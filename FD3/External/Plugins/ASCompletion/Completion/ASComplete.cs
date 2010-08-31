@@ -615,15 +615,31 @@ namespace ASCompletion.Completion
                         ClassModel aType2 = ASContext.Context.ResolveType(m.Type, context.CurrentModel);
                         while (!aType2.IsVoid() && aType2.QualifiedName != "Object")
                         {
-                            if (aType2.QualifiedName == "Array" || aType2.QualifiedName.StartsWith("Vector.<T>@"))
+                            if (aType2.QualifiedName == "Array" || aType2.QualifiedName.StartsWith("Array@"))
                             {
                                 closestList = m;
-                                closestListItemType = "";
-                                if (aType2.QualifiedName.StartsWith("Vector.<T>@"))
+                                if (aType2.IndexType == null)
                                 {
-                                    int ind = Math.Max(aType2.QualifiedName.LastIndexOf("."), aType2.QualifiedName.LastIndexOf("@"));
-                                    closestListItemType = aType2.QualifiedName.Substring(ind + 1);
+                                    closestListItemType = null;
                                 }
+                                else
+                                {
+                                    if (aType2.IndexType.LastIndexOf(".") > -1)
+                                    {
+                                        closestListItemType = aType2.IndexType.Substring(aType2.IndexType.LastIndexOf(".") + 1);
+                                    }
+                                    else
+                                    {
+                                        closestListItemType = aType2.IndexType;
+                                    }
+                                }
+                                break;
+                            }
+                            else if (aType2.QualifiedName.StartsWith("Vector.<T>@"))
+                            {
+                                closestList = m;
+                                int ind = Math.Max(aType2.QualifiedName.LastIndexOf("."), aType2.QualifiedName.LastIndexOf("@"));
+                                closestListItemType = aType2.QualifiedName.Substring(ind + 1);
                                 break;
                             }
                             aType2 = aType2.Extends;
