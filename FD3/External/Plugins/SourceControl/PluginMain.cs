@@ -243,13 +243,13 @@ namespace SourceControl
                 settingObject = (Settings)obj;
             }
             // Try to find svn path from: Tools/sliksvn/
-            if (settingObject.SVNPath == null || settingObject.SVNPath == String.Empty)
+            if (String.IsNullOrEmpty(settingObject.SVNPath) || settingObject.SVNPath == "svn.exe")
             {
                 String svnCmdPath = Path.Combine(PathHelper.ToolDir, @"sliksvn\bin\svn.exe");
                 if (File.Exists(svnCmdPath)) settingObject.SVNPath = svnCmdPath;
             }
             // Try to find TortoiseProc path from program files
-            if (settingObject.TortoiseSVNProcPath == null || settingObject.TortoiseSVNProcPath == String.Empty)
+            if (String.IsNullOrEmpty(settingObject.TortoiseSVNProcPath) || settingObject.TortoiseSVNProcPath == "TortoiseProc.exe")
             {
                 String programFiles = Environment.GetEnvironmentVariable("ProgramFiles");
                 String torProcPath = Path.Combine(programFiles, @"TortoiseSVN\bin\TortoiseProc.exe");
