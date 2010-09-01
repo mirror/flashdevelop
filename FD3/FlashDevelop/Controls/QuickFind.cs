@@ -33,6 +33,7 @@ namespace FlashDevelop.Controls
         private ToolStripButton previousButton;
         private EscapeTextBox findTextBox;
         private ToolStripLabel findLabel;
+        private ToolStripLabel infoLabel;
         private Timer typingTimer;
 
         public QuickFind()
@@ -79,6 +80,7 @@ namespace FlashDevelop.Controls
             this.previousButton = new ToolStripButton();
             this.findTextBox = new EscapeTextBox();
             this.findLabel = new ToolStripLabel();
+            this.infoLabel = new ToolStripLabel();
             this.SuspendLayout();
             //
             // highlightTimer
@@ -93,6 +95,13 @@ namespace FlashDevelop.Controls
             this.findLabel.BackColor = Color.Transparent;
             this.findLabel.Text = TextHelper.GetString("Info.Find");
             this.findLabel.Margin = new Padding(0, 0, 0, 3);
+            //
+            // infoLabel
+            //
+            this.infoLabel.BackColor = Color.Transparent;
+            this.infoLabel.ForeColor = SystemColors.GrayText;
+            this.infoLabel.Text = TextHelper.GetString("Info.NoMatches");
+            this.infoLabel.Margin = new Padding(0, 0, 0, 1);
             //
             // highlightCheckBox
             //
@@ -156,6 +165,7 @@ namespace FlashDevelop.Controls
             this.Items.Add(this.matchCaseHost);
             this.Items.Add(this.wholeWordHost);
             this.Items.Add(this.highlightHost);
+            this.Items.Add(this.infoLabel);
             this.GripStyle = ToolStripGripStyle.Hidden;
             this.Renderer = new QuickFindRenderer();
             this.Padding = new Padding(4, 4, 0, 3);
@@ -406,11 +416,17 @@ namespace FlashDevelop.Controls
                 SearchMatch match = FRDialogGenerics.GetNextDocumentMatch(sci, matches, true, true);
                 if (match != null) FRDialogGenerics.SelectMatch(sci, match);
                 if (refreshHighlights) this.RefreshHighlights(sci, matches);
+                String message = TextHelper.GetString("Info.ShowingResult");
+                Int32 index = FRDialogGenerics.GetMatchIndex(match, matches);
+                String formatted = String.Format(message, index, matches.Count);
+                this.infoLabel.Text = formatted;
             }
             else
             {
                 this.findTextBox.BackColor = Color.Salmon;
                 sci.SetSel(sci.SelectionStart, sci.SelectionStart);
+                String message = TextHelper.GetString("Info.NoMatchesFound");
+                this.infoLabel.Text = message;
             }
         }
 
@@ -428,11 +444,17 @@ namespace FlashDevelop.Controls
                 SearchMatch match = FRDialogGenerics.GetNextDocumentMatch(sci, matches, true, false);
                 if (match != null) FRDialogGenerics.SelectMatch(sci, match);
                 if (refreshHighlights) this.RefreshHighlights(sci, matches);
+                String message = TextHelper.GetString("Info.ShowingResult");
+                Int32 index = FRDialogGenerics.GetMatchIndex(match, matches);
+                String formatted = String.Format(message, index, matches.Count);
+                this.infoLabel.Text = formatted;
             }
             else
             {
                 this.findTextBox.BackColor = Color.Salmon;
                 sci.SetSel(sci.SelectionStart, sci.SelectionStart);
+                String message = TextHelper.GetString("Info.NoMatchesFound");
+                this.infoLabel.Text = message;
             }
         }
 
@@ -450,11 +472,17 @@ namespace FlashDevelop.Controls
                 SearchMatch match = FRDialogGenerics.GetNextDocumentMatch(sci, matches, false, false);
                 if (match != null) FRDialogGenerics.SelectMatch(sci, match);
                 if (refreshHighlights) this.RefreshHighlights(sci, matches);
+                String message = TextHelper.GetString("Info.ShowingResult");
+                Int32 index = FRDialogGenerics.GetMatchIndex(match, matches);
+                String formatted = String.Format(message, index, matches.Count);
+                this.infoLabel.Text = formatted;
             }
             else
             {
                 this.findTextBox.BackColor = Color.Salmon;
                 sci.SetSel(sci.SelectionStart, sci.SelectionStart);
+                String message = TextHelper.GetString("Info.NoMatchesFound");
+                this.infoLabel.Text = message;
             }
         }
 
@@ -563,11 +591,10 @@ namespace FlashDevelop.Controls
             {
                 Rectangle r = e.AffectedBounds;
                 e.Graphics.DrawLine(SystemPens.ControlLightLight, r.Left, r.Top + 1, r.Right, r.Top + 1);
-                e.Graphics.DrawLine(SystemPens.ControlLightLight, r.Left, r.Bottom, r.Right, r.Bottom);
-                e.Graphics.DrawLine(SystemPens.GrayText, r.Left, r.Bottom - 1, r.Right, r.Bottom - 1);
-                e.Graphics.DrawLine(SystemPens.GrayText, r.Right - 1, r.Top, r.Right - 1, r.Bottom);
-                e.Graphics.DrawLine(SystemPens.GrayText, r.Left, r.Top, r.Left, r.Bottom);
-                e.Graphics.DrawLine(SystemPens.GrayText, r.Left, r.Top, r.Right, r.Top);
+                e.Graphics.DrawLine(SystemPens.ControlDark, r.Left, r.Bottom - 1, r.Right, r.Bottom - 1);
+                e.Graphics.DrawLine(SystemPens.ControlDark, r.Right - 1, r.Top, r.Right - 1, r.Bottom);
+                e.Graphics.DrawLine(SystemPens.ControlDark, r.Left, r.Top, r.Left, r.Bottom);
+                e.Graphics.DrawLine(SystemPens.ControlDark, r.Left, r.Top, r.Right, r.Top);
             }
 
             #region Reuse Some Renderer Stuff
