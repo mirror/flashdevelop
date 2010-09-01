@@ -2199,17 +2199,17 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>"Contextual Code Generator"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
-    <value>private メソッドを生成</value>
+    <value>private メソッド スタブの生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
-    <value>public メソッドを生成</value>
+    <value>public メソッド スタブの生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
     <value>引数の変更をメソッド宣言に反映</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
-    <value>インターフェース定義を生成</value>
+    <value>インターフェース定義の生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
@@ -2217,29 +2217,29 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
-    <value>Getter を生成</value>
+    <value>Getter の生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateGetSet" xml:space="preserve">
-    <value>Getter/Setter を生成</value>
+    <value>Getter / Setter の生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateHandler" xml:space="preserve">
-    <value>{0} ハンドラを生成</value>
+    <value>{0} ハンドラの生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
-    <value>Setter を生成</value>
+    <value>Setter の生成</value>
   </data>
   <data name="ASCompletion.Label.GenerateConstant" xml:space="preserve">
     <value>定数を宣言</value>
   </data>
   <data name="ASCompletion.Label.GeneratePrivateVar" xml:space="preserve">
-    <value>private 変数を生成</value>
+    <value>private 変数の生成</value>
   </data>
   <data name="ASCompletion.Label.GeneratePublicVar" xml:space="preserve">
-    <value>public 変数を生成</value>
+    <value>public 変数の生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
-    <value>インターフェースメソッドを実装</value>
+    <value>インターフェースメソッドの実装</value>
   </data>
   <data name="ASCompletion.Label.PromoteLocal" xml:space="preserve">
     <value>メンバーとして宣言</value>
@@ -3728,14 +3728,14 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="ASCompletion.Label.GenerateClass" xml:space="preserve">
-    <value>新規クラスを作成</value>
+    <value>新規クラスの作成</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Label.ConstName" xml:space="preserve">
     <value>定数名:</value>
   </data>
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
-    <value>コンストラクタを生成</value>
+    <value>コンストラクタの生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
@@ -3743,7 +3743,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
-    <value>toString()を生成</value>
+    <value>toString() の生成</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateEventMetatag" xml:space="preserve">
