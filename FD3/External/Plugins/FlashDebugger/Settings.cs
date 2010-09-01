@@ -61,7 +61,7 @@ namespace FlashDebugger
 		private Folder[] m_SourcePaths = new Folder[] {};
         private Boolean m_SaveBreakPoints = true;
         private Boolean m_DisablePanelsAutoshow = false;
-        private Boolean m_VerboseOutput = true;
+        private Boolean m_VerboseOutput = false;
         private Boolean m_StartDebuggerOnTestMovie = true;
 
         [DisplayName("Save Breakpoints")]
