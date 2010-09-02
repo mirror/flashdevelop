@@ -30,7 +30,8 @@ namespace SourceControl.Sources.Subversion
         static private string GetTortoiseProc()
         {
             string cmd = PluginMain.SCSettings.TortoiseSVNProcPath;
-            if (cmd == null) cmd = "TortoiseProc.exe";
+            if (cmd != null && File.Exists(cmd)) return cmd;
+            if (String.IsNullOrEmpty(cmd)) cmd = "TortoiseProc.exe";
             return ResolveTortoiseProcPath(cmd);
         }
 
