@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ASCompletion.Title.ConvertToConst" xml:space="preserve">
+    <value>In Konstante konvertieren</value>
+  </data>
+  <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
+    <value>Ändere Methoden-Deklaration</value>
+  </data>
+  <data name="ASCompletion.Label.AddAsParameter" xml:space="preserve">
+    <value>Als Methoden-Parameter hinzufügen</value>
+  </data>
+  <data name="ASCompletion.Label.ConvertToConst" xml:space="preserve">
+    <value>In Konstante konvertieren</value>
+  </data>
+  <data name="ASCompletion.Label.ConstName" xml:space="preserve">
+    <value>Konstanten-Name:</value>
+  </data>
+  <data name="ASCompletion.Label.GenerateEventMetatag" xml:space="preserve">
+    <value>Event-Tag erstellen</value>
+  </data>
   <data name="AS2Context.Description.DefaultFlashVersion" xml:space="preserve">
     <value>Standardversion des Flash Players wenn keine andere Version ausgewählt wurde.</value>
   </data>
@@ -345,7 +363,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Erstelle aktuelle Datei</value>
   </data>
   <data name="ASCompletion.Label.RebuildClasspathCache" xml:space="preserve">
-    <value>Erstelle Classpath Zwischenspeicher</value>
+    <value>Aktualisiere Klassenpfad-Zwischenspeicher</value>
   </data>
   <data name="ASCompletion.Label.TypesExplorer" xml:space="preserve">
     <value>Typ E&amp;xplorer...</value>
@@ -369,7 +387,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Konnte Datei nicht speichern da sie nicht gültig ist.</value>
   </data>
   <data name="DataEncoder.Info.Description" xml:space="preserve">
-    <value>Konvertiert bestimmte Dateien damit sie in FlashDevelop richtig angezeigen werden können.</value>
+    <value>Konvertiert Dateien, um sie in FlashDevelop richtig anzuzeigen.</value>
   </data>
   <data name="FileExplorer.Description.FilePath" xml:space="preserve">
     <value>Zuletzt durchsuchten Dateipfad.</value>
@@ -399,7 +417,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Wollen Sie die ausgewählten Dateien wirklich löschen?</value>
   </data>
   <data name="FileExplorer.Info.Description" xml:space="preserve">
-    <value>Fügt FlashDevelop eine Dateiansicht hinzu.</value>
+    <value>Fügt FlashDevelop ein Dateibrowser hinzu.</value>
   </data>
   <data name="FileExplorer.Info.Kilobytes" xml:space="preserve">
     <value>KB</value>
@@ -750,7 +768,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>{0} Übereinstimmungen in {1} Dateien gefunden.</value>
   </data>
   <data name="FlashDevelop.Info.FullSourceCode" xml:space="preserve">
-    <value>Ganzer Quelltext</value>
+    <value>Ganzen Quelltext</value>
   </data>
   <data name="FlashDevelop.Info.GiveProperInt32Value" xml:space="preserve">
     <value>Geben Sie eine gültige Ganzzahl ein.</value>
@@ -771,7 +789,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Zeile</value>
   </data>
   <data name="FlashDevelop.Info.LookIn" xml:space="preserve">
-    <value>Siehe:</value>
+    <value>Durchsuche:</value>
   </data>
   <data name="FlashDevelop.Info.MakeReadOnlyWritable" xml:space="preserve">
     <value>Das Dokument ist schreibgeschützt. Wollen Sie den Schreibschutz aufheben?</value>
@@ -786,7 +804,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>(nichts ausgewählt)</value>
   </data>
   <data name="FlashDevelop.Info.NoMatches" xml:space="preserve">
-    <value>Keine passenden Übereinstimmungen gefunden.</value>
+    <value>Keine Übereinstimmungen gefunden.</value>
   </data>
   <data name="FlashDevelop.Info.NoMatchesFound" xml:space="preserve">
     <value>Keine Übereinstimmungen gefunden.</value>
@@ -831,7 +849,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Ersetzungen</value>
   </data>
   <data name="FlashDevelop.Info.ReplaceWith" xml:space="preserve">
-    <value>Ersetze durch:</value>
+    <value>Ersetzen durch:</value>
   </data>
   <data name="FlashDevelop.Info.RestartAfterPluginChange" xml:space="preserve">
     <value>Bitte starten Sie FlashDevelop neu nachdem Sie Plugins aktiviert oder deaktiviert haben.</value>
@@ -864,7 +882,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Nur Zeichenketten</value>
   </data>
   <data name="FlashDevelop.Info.TemplateFilter" xml:space="preserve">
-    <value>FlashDevelop Templates (*.fdt)</value>
+    <value>FlashDevelop Vorlagen (*.fdt)</value>
   </data>
   <data name="FlashDevelop.Info.TopFolder" xml:space="preserve">
     <value>Hauptordner:</value>
@@ -903,7 +921,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Big Endian</value>
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
-    <value>&amp;Alle mit Lesezeichen markieren</value>
+    <value>&amp;Lesezeichen setzen</value>
   </data>
   <data name="FlashDevelop.Label.Cancel" xml:space="preserve">
     <value>&amp;Abbrechen</value>
@@ -921,13 +939,13 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Liste der &amp;zuletzt verwendeten Dateien löschen</value>
   </data>
   <data name="FlashDevelop.Label.Close" xml:space="preserve">
-    <value>&amp;Schließen</value>
+    <value>Schlie&amp;ßen</value>
   </data>
   <data name="FlashDevelop.Label.CloseAll" xml:space="preserve">
     <value>All&amp;e Schließen</value>
   </data>
   <data name="FlashDevelop.Label.CloseOthers" xml:space="preserve">
-    <value>Andere &amp;schließen</value>
+    <value>An&amp;dere schließen</value>
   </data>
   <data name="FlashDevelop.Label.CollapseAll" xml:space="preserve">
     <value>&amp;Alles zusammenfalten</value>
@@ -1003,7 +1021,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Be&amp;enden</value>
   </data>
   <data name="FlashDevelop.Label.ExpandAll" xml:space="preserve">
-    <value>Alle e&amp;rweitern</value>
+    <value>Alle a&amp;uffalten</value>
   </data>
   <data name="FlashDevelop.Label.FDDocs" xml:space="preserve">
     <value>&amp;Online Dokumentation...</value>
@@ -1018,7 +1036,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Datei&amp;eigenschaften</value>
   </data>
   <data name="FlashDevelop.Label.Find" xml:space="preserve">
-    <value>&amp;Suchen...</value>
+    <value>&amp;Suchen</value>
   </data>
   <data name="FlashDevelop.Label.FindAndReplace" xml:space="preserve">
     <value>&amp;Suchen und ersetzen...</value>
@@ -1054,7 +1072,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Gehe zu Position oder Zeile</value>
   </data>
   <data name="FlashDevelop.Label.GUID" xml:space="preserve">
-    <value>Füge &amp;GUID ein</value>
+    <value>&amp;GUID</value>
   </data>
   <data name="FlashDevelop.Label.Help" xml:space="preserve">
     <value>&amp;Hilfe</value>
@@ -1069,7 +1087,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;HTML validieren...</value>
   </data>
   <data name="FlashDevelop.Label.IndentationGuides" xml:space="preserve">
-    <value>&amp;Einrückhilfen</value>
+    <value>&amp;Einrückhilfslinien</value>
   </data>
   <data name="FlashDevelop.Label.Insert" xml:space="preserve">
     <value>&amp;Einfügen</value>
@@ -1096,16 +1114,16 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Little Endian</value>
   </data>
   <data name="FlashDevelop.Label.LookInComments" xml:space="preserve">
-    <value>Beziehe &amp;Kommentare ein</value>
+    <value>In &amp;Kommentaren</value>
   </data>
   <data name="FlashDevelop.Label.LookInStrings" xml:space="preserve">
-    <value>Beziehe &amp;Zeichenketten ein</value>
+    <value>In &amp;Zeichenketten</value>
   </data>
   <data name="FlashDevelop.Label.LookInSubdirectories" xml:space="preserve">
-    <value>Beziehe &amp;Unterverzeichnisse ein</value>
+    <value>In &amp;Unterverzeichnissen</value>
   </data>
   <data name="FlashDevelop.Label.MatchCase" xml:space="preserve">
-    <value>Beachte &amp;Groß-/Kleinschreibung</value>
+    <value>&amp;Groß-/Kleinschreibung</value>
   </data>
   <data name="FlashDevelop.Label.Modify" xml:space="preserve">
     <value>&amp;Ändern</value>
@@ -1213,7 +1231,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Suchen</value>
   </data>
   <data name="FlashDevelop.Label.SelectAll" xml:space="preserve">
-    <value>&amp;Alles auswählen</value>
+    <value>A&amp;lles auswählen</value>
   </data>
   <data name="FlashDevelop.Label.Selection" xml:space="preserve">
     <value>&amp;Auswahl</value>
@@ -1228,10 +1246,10 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Snippets erstellen...</value>
   </data>
   <data name="FlashDevelop.Label.SOReader" xml:space="preserve">
-    <value>&amp;SharedObject Reader...</value>
+    <value>&amp;SharedObjects auslesen...</value>
   </data>
   <data name="FlashDevelop.Label.Syntax" xml:space="preserve">
-    <value>Synta&amp;x</value>
+    <value>S&amp;yntax</value>
   </data>
   <data name="FlashDevelop.Label.TechnicalSpecifications" xml:space="preserve">
     <value>&amp;Technische Spezifikationen</value>
@@ -1306,7 +1324,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Suchen und Ersetzen</value>
   </data>
   <data name="FlashDevelop.Title.FindAndReplaceInFilesDialog" xml:space="preserve">
-    <value>Suchen und Ersetzen In Dateien</value>
+    <value>Suchen und Ersetzen in Dateien</value>
   </data>
   <data name="FlashDevelop.Title.GoToDialog" xml:space="preserve">
     <value>Gehe zu</value>
@@ -1402,7 +1420,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Bricht den Ausgabetext um.</value>
   </data>
   <data name="OutputPanel.Info.Description" xml:space="preserve">
-    <value>Fügt FlashDevelop ein Ausgabefenster hinzu um Debugmeldungen auslesen zu können.</value>
+    <value>Fügt FlashDevelop ein Ausgabefenster hinzu.</value>
   </data>
   <data name="OutputPanel.Label.ClearOutput" xml:space="preserve">
     <value>Ausgabe &amp;löschen</value>
@@ -1471,7 +1489,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Erweiterte Compilerparameter. Nicht empfohlen.</value>
   </data>
   <data name="ProjectManager.Description.AllowSourcePathOverlap" xml:space="preserve">
-    <value>Erlaubt, dass ein Quellpfad ein Unterordner eines anderen Quellpfads ist.</value>
+    <value>Erlaubt, dass ein Klassenpfad ein Unterordner eines anderen Klassenpfads ist.</value>
   </data>
   <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
     <value>Gibt einen benutzerdefinierten Projektvorlagenpfad an. Lassen Sie dieses Feld leer, um den Standardpfad zu verwenden.</value>
@@ -1514,7 +1532,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Liste der Dateitypen, die ausgeführt werden sollen wenn ein Eintrag geöffnet werden soll.</value>
   </data>
   <data name="ProjectManager.Description.ExternalLibraryPaths" xml:space="preserve">
-    <value>Liste der SWC-Bibliotheken welche nicht in die erstellte SWF-Datei hineinkomiliert werden sollen.</value>
+    <value>Liste der SWC-Bibliotheken, welche nicht in die erstellte SWF-Datei hineinkomiliert werden sollen.</value>
   </data>
   <data name="ProjectManager.Description.FlashStrict" xml:space="preserve">
     <value>Typsicherere Adobe Flash API.</value>
@@ -1565,7 +1583,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Länge der Liste der zuletzt geöffneten Projekte.</value>
   </data>
   <data name="ProjectManager.Description.Optimize" xml:space="preserve">
-    <value>Aktiviert die Optimierung der erzeugten SWF-Datei. Das reduziert die Dateigröße und erhöht die Leistung indem auch der Bytecode optimiert wird.</value>
+    <value>Aktiviert die Optimierung der erzeugten SWF-Datei. Das reduziert die Dateigröße und erhöht die Leistung, indem auch der Bytecode optimiert wird.</value>
   </data>
   <data name="ProjectManager.Description.RSLPaths" xml:space="preserve">
     <value>Liste der zu verwendenden Runtime-Shared-Libraries (RSL). Runtime-Shared-Libraries werden dynamisch zur Laufzeit verlinkt.</value>
@@ -1574,7 +1592,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Zeigt Warnungen für ActionScript-Klassen an.</value>
   </data>
   <data name="ProjectManager.Description.ShowBindingWarnings" xml:space="preserve">
-    <value>Zeigt Warnungen, falls der Adobe Flash Player keine Änderungen einer gebundenen Eigenschaft erkennen kann.</value>
+    <value>Zeigt Warnungen, falls Adobe Flash Player Änderungen an gebundenen Eigenschaften (Bindable-Tag) nicht erkennen kann.</value>
   </data>
   <data name="ProjectManager.Description.ShowDeprecationWarnings" xml:space="preserve">
     <value>Zeigt Warnungen, falls veraltete Funktionen oder Komponenten verwendet werden.</value>
@@ -1586,13 +1604,13 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Zeigt die Klassenpfade im Projektfenster an.</value>
   </data>
   <data name="ProjectManager.Description.ShowUnusedTypeSelectorWarnings" xml:space="preserve">
-    <value>Zeigt Warnungen, falls ein CSS Typ-Selector in einem Stylesheet oder Style-Block (&lt;mx:Style&gt;, &lt;fx:Style&gt;) nirgendwo benutzt werden.</value>
+    <value>Zeigt Warnungen, fallsCSS Typ-Selectoren eines Stylesheets oder Style-Blocks (&lt;mx:Style&gt;, &lt;fx:Style&gt;) nirgends benutzt werden.</value>
   </data>
   <data name="ProjectManager.Description.Strict" xml:space="preserve">
     <value>Erlaubt nur Variablen, die entweder typisiert oder dessen Typ aus dem Kontext ersichtlicht ist.</value>
   </data>
   <data name="ProjectManager.Description.StrictAS3" xml:space="preserve">
-    <value>Liefert einen Fehler, wenn undefinierte Eigenschaften oder Funktionen aufgerufen werden, führt auch während des kompilierens Typüberprüfungen bei Zuweisunen und Methodenparametern durch.</value>
+    <value>Liefert einen Fehler, wenn undefinierte Eigenschaften oder Funktionen aufgerufen werden. Führt auch während des kompilierens Typüberprüfungen bei Zuweisunen und Methodenparametern durch.</value>
   </data>
   <data name="ProjectManager.Description.TraceFunction" xml:space="preserve">
     <value>Optional. Leitet trace()-Aufrufe auf eine eigene Funktion um. Geben Sie hierzu den voll qualifizierten Namen der Funktion an. Stellen Sie sicher, dass diese Funktion sicher in die erzeugte SWF-Datei hineinkompiliert wird indem Sie die entsprechende Quelldatei mit "Immer Kompilieren" markieren.</value>
@@ -1607,10 +1625,10 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Kompiliert den mx.*-Namespace NIE in die erzeugte SWF-Datei.</value>
   </data>
   <data name="ProjectManager.Description.UseNetwork" xml:space="preserve">
-    <value>Gibt an, ob Ihre SWF-Datei auch auf das Netzwerk/Internet zugreifen darf.</value>
+    <value>Gibt an, ob die erstellte SWF-Datei auch auf das Netzwerk/Internet zugreifen darf.</value>
   </data>
   <data name="ProjectManager.Description.UseResourceBundleMetadata" xml:space="preserve">
-    <value>Gibt an, ob das ResourceBundles-Metatag beachtet werden soll.</value>
+    <value>Gibt an, ob ResourceBundle-Metatags beachtet werden sollen.</value>
   </data>
   <data name="ProjectManager.Description.Verbose" xml:space="preserve">
     <value>Gibt an, ob detailierte Ausgaben an das Ausgabefenster beim Kompilieren gesendet werden soll.</value>
@@ -1619,7 +1637,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Inkludiert Debuginformationen in die erstellte SWF-Datei. Laufzeitfehler werden dann mit Zeilennummern angegeben. Die Dateigröße steigt dadurch.</value>
   </data>
   <data name="ProjectManager.Description.Warnings" xml:space="preserve">
-    <value>Zeige Warnungen an.</value>
+    <value>Zeigt Warnungen an.</value>
   </data>
   <data name="ProjectManager.Description.WarnUnusedImports" xml:space="preserve">
     <value>Zeigt unbenutzte Import-Anweisungen an.</value>
@@ -1640,7 +1658,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Erstellen fehlgeschlagen</value>
   </data>
   <data name="ProjectManager.Info.BuildStarted" xml:space="preserve">
-    <value>Erstellen begonnen...</value>
+    <value>Erstellen wird ausgeführt</value>
   </data>
   <data name="ProjectManager.Info.BuildSucceeded" xml:space="preserve">
     <value>Erstellen erfolgreich</value>
@@ -1676,7 +1694,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Debug</value>
   </data>
   <data name="ProjectManager.Info.Default" xml:space="preserve">
-    <value>Play (FlashViewer Standardwert)</value>
+    <value>Abspielen (FlashViewer Standardwert)</value>
   </data>
   <data name="ProjectManager.Info.Document" xml:space="preserve">
     <value>In neuem Tab ausführen</value>
@@ -1736,7 +1754,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Neues Projekt</value>
   </data>
   <data name="ProjectManager.Info.NoOutput" xml:space="preserve">
-    <value>Keine Ausgabedatei, nur Pre- und Post-Build-Befehle ausführen.</value>
+    <value>Nichts erstellen, nur Pre- und Post-Build ausführen.</value>
   </data>
   <data name="ProjectManager.Info.NoOutputAndNoBuild" xml:space="preserve">
     <value>Dieses Projekt hat keine Ausgabedatei und und keine Pre- oder Post-Build-Befehle definiert.</value>
@@ -1808,7 +1826,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Um das Projekt erstellen zu können, müssen Sie in den Projektoptionen einen gültigen Ausgabepfad angeben.</value>
   </data>
   <data name="ProjectManager.Info.TargetDirNotEmpty" xml:space="preserve">
-    <value>Das Verzeichnis ist nicht leer. Möchten Sie wirklich die Vorlagendateien hierherkopieren?</value>
+    <value>Das Verzeichnis ist nicht leer. Möchten Sie wirklich die Vorlagendateien dorthin kopieren?</value>
   </data>
   <data name="ProjectManager.Info.TargetVersion" xml:space="preserve">
     <value>&amp;Zielversion:</value>
@@ -1868,7 +1886,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Abbrechen</value>
   </data>
   <data name="ProjectManager.Label.ClearRecentProjects" xml:space="preserve">
-    <value>Liste letzter Projekte &amp;löschen</value>
+    <value>Liste der zuletzt benutzten Projekte &amp;löschen</value>
   </data>
   <data name="ProjectManager.Label.CloseProject" xml:space="preserve">
     <value>Projekt &amp;schließen</value>
@@ -1928,7 +1946,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Verstecke Datei</value>
   </data>
   <data name="ProjectManager.Label.HideFolder" xml:space="preserve">
-    <value>Ver&amp;stecke Ordner</value>
+    <value>Ordner &amp;ausblenden</value>
   </data>
   <data name="ProjectManager.Label.HideItems" xml:space="preserve">
     <value>&amp;Einträge verstecken</value>
@@ -1961,7 +1979,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Name:</value>
   </data>
   <data name="ProjectManager.Label.New" xml:space="preserve">
-    <value>Neu</value>
+    <value>Neue</value>
   </data>
   <data name="ProjectManager.Label.NewFile" xml:space="preserve">
     <value>Neue Datei</value>
@@ -2006,7 +2024,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>&amp;Eigenschaften...</value>
   </data>
   <data name="ProjectManager.Label.RecentProjects" xml:space="preserve">
-    <value>Letzte Pro&amp;jekte</value>
+    <value>Zuletzt benutzte &amp;Projekte</value>
   </data>
   <data name="ProjectManager.Label.Remove" xml:space="preserve">
     <value>&amp;Entfernen</value>
@@ -2247,7 +2265,7 @@ Never - Startseite wird nie angezeigt.</value>
     <value>Konvertiere in einen Klassen-Member</value>
   </data>
   <data name="ProjectManager.Info.AboutPackages" xml:space="preserve">
-    <value>(Nicht in allen Projekten verfügbar)</value>
+    <value>(Nicht in jedem Projekt verfügbar)</value>
   </data>
   <data name="ProjectManager.Label.Package" xml:space="preserve">
     <value>&amp;Package:</value>
@@ -2374,7 +2392,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Lesezeichen suchen und hinzufügen</value>
   </data>
   <data name="ProjectManager.Info.OpenDocument" xml:space="preserve">
-    <value>Dokoment öffnen...</value>
+    <value>Dokument öffnen...</value>
   </data>
   <data name="ProjectManager.Label.CustomTestMovieDocument" xml:space="preserve">
     <value>Dokument:</value>
@@ -2386,7 +2404,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Nicht genügend Argumente um einen Prozess auszuführen:</value>
   </data>
   <data name="ProjectManager.Label.BrowseDirectory" xml:space="preserve">
-    <value>&amp;Verzeichnis durchsuchen...</value>
+    <value>&amp;Im Explorer öffnen...</value>
   </data>
   <data name="ASCompletion.Description.ShowRegions" xml:space="preserve">
     <value>Benutze das Regiongruppieren in der List der Elemente.</value>
@@ -2395,7 +2413,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>&amp;Benutzerdefinierte Argumente...</value>
   </data>
   <data name="FlashDevelop.Group.Arguments" xml:space="preserve">
-    <value>Parameter</value>
+    <value>Argumente</value>
   </data>
   <data name="FlashDevelop.Info.Argument" xml:space="preserve">
     <value>Argument:</value>
@@ -2404,7 +2422,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Details</value>
   </data>
   <data name="FlashDevelop.Info.Key" xml:space="preserve">
-    <value>Taste:</value>
+    <value>Name:</value>
   </data>
   <data name="FlashDevelop.Info.Undefined" xml:space="preserve">
     <value>Undefiniert</value>
@@ -2419,7 +2437,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Benutzerdefinierte Argumente</value>
   </data>
   <data name="FlashDevelop.Info.ArgumentsTakeEffect" xml:space="preserve">
-    <value>Benutzerdefinierte FlashDevelop Argumente sind sofort verfübar sobald sie eingetragen wurden.</value>
+    <value>Diese Argumente sind sofort verfübar sobald sie eingetragen wurden.</value>
   </data>
   <data name="BookmarkPanel.Label.RemoveBookmark" xml:space="preserve">
     <value>Lesezeichen &amp;löschen</value>
@@ -2434,7 +2452,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Adobe Flex Builder Projekt (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
-    <value>Sucheresultate in Ergebnisanzeige anzeigen.</value>
+    <value>Suchresultate im Resultatsfenster anzeigen</value>
   </data>
   <data name="FlashDevelop.Description.DefaultFont" xml:space="preserve">
     <value>Standardschriftart des Programms.</value>
@@ -2551,10 +2569,10 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>E&amp;xplorermenü</value>
   </data>
   <data name="ProjectManager.Description.LinkReport" xml:space="preserve">
-    <value>Erzeuge eine XML-Datei, welche Auskunft darüber gibt, welche Klassen in die erstellte SWF-Datei kompiliert wurden. Diese Datei kann auch benutzt werden, um Module größenmäßig zu optimieren (in verbindung mit der "load-externs" Compileroption).</value>
+    <value>Optional. Pfad der XML-Datei, welche Auskunft darüber gibt, welche Klassen in die erstellte SWF-Datei kompiliert wurden. Diese Datei kann auch benutzt werden, um Module größenmäßig zu optimieren (in Verbindung mit der "Load Externs" Compileroption).</value>
   </data>
   <data name="ProjectManager.Description.LoadExterns" xml:space="preserve">
-    <value>Lade einen Link-Report, um bestimmte Klassen nicht in die zu erstellende SWF-Datei zu kompilieren (s. Link Report Option).</value>
+    <value>Optional. Lädt einen Link-Report, um bestimmte Klassen nicht in die zu erstellende SWF-Datei zu kompilieren (s. Link Report Option).</value>
   </data>
   <data name="FlashDevelop.Description.InsertionTriggers" xml:space="preserve">
     <value>Liste der Zeichen die die vorgeschlagene Vervollständigung übernehmen. Tabulator und Enter Zeichen müssen mit Escapeschreibweise angegeben werden (z.B. \t \n).</value>
@@ -2566,13 +2584,13 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Zeigt den Druckerseitenabstand auf der rechten Seite an wo der Text stehen soll.</value>
   </data>
   <data name="FileExplorer.Description.SynchronizeToProject" xml:space="preserve">
-    <value>Synchronisiert die Dateiansicht mit dem aktuellen Projekt.</value>
+    <value>Synchronisiert den Dateibrowser mit dem aktuellen Projekt.</value>
   </data>
   <data name="FlashDevelop.Description.SaveUnicodeWithBOM" xml:space="preserve">
     <value>Erstellt Unicode-Datein mit Byte-Order-Mark (BOM).</value>
   </data>
   <data name="FlashDevelop.Label.OpenFilesIn" xml:space="preserve">
-    <value>Öffne Dateien &amp;in...</value>
+    <value>Öffne Dateien &amp;als...</value>
   </data>
   <data name="FlashLogViewer.Description.ColourWarnings" xml:space="preserve">
     <value>Aktiviert das Einfärben von Fehlern und Warnungen.</value>
@@ -2752,7 +2770,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Möchten Sie dieses Snippet wirklich löschen?</value>
   </data>
   <data name="FlashDevelop.Info.InsertInstruction" xml:space="preserve">
-    <value>Einfügebefehlt:</value>
+    <value>Einfügebefehl:</value>
   </data>
   <data name="FlashDevelop.Info.SelectSnippetLocation" xml:space="preserve">
     <value>Wählen Sie das Verzeichnis für die Snippets aus...</value>
@@ -2833,7 +2851,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Füht die Makros automatisch aus wenn FlashDevelop gestartet wird. Wenn die Funktion aktiviert wird, verschwindet der entsprechende Menüeintrag.</value>
   </data>
   <data name="MacroManager.Description.Entries" xml:space="preserve">
-    <value>Eigene Befehle des Makros.</value>
+    <value>Befehle des Makros.</value>
   </data>
   <data name="MacroManager.Description.Label" xml:space="preserve">
     <value>Menübezeichnung des Makros.</value>
@@ -2845,7 +2863,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>&amp;Projektdatei erstellen</value>
   </data>
   <data name="MacroManager.Description.Image" xml:space="preserve">
-    <value>Internal image key of the macro menu item.</value>
+    <value>Interner Bild-Schlüssel des Makro Menüeintrags.</value>
   </data>
   <data name="ASCompletion.Category.Generation" xml:space="preserve">
     <value>Code Erstellung</value>
@@ -2923,13 +2941,13 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Stil</value>
   </data>
   <data name="FlashDevelop.Info.MarginBack" xml:space="preserve">
-    <value>Margin back:</value>
+    <value>Seitenrand back:</value>
   </data>
   <data name="FlashDevelop.Info.MarginFore" xml:space="preserve">
     <value>Seitenrand Vordergrund:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerBack" xml:space="preserve">
-    <value>Seitenrand Hintergrund:</value>
+    <value>Marker Hintergrund:</value>
   </data>
   <data name="FlashDevelop.Info.MarkerFore" xml:space="preserve">
     <value>Marker Vordergrund:</value>
@@ -3078,7 +3096,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="CodeRefactor.Info.Description" xml:space="preserve">
-    <value>Fügt FlashDevelop Refaktoring hinzu.</value>
+    <value>Fügt FlashDevelop Refactoring hinzu.</value>
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.FindingReferences" xml:space="preserve">
@@ -3154,7 +3172,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
-    <value>Deaktiviert die Bestätigung der Suchen-und-Ersetzen Aktion.</value>
+    <value>Deaktiviert die Bestätigung von Suchen Und Ersetzen.</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Info.AreYouSureToReplaceInFiles" xml:space="preserve">
@@ -3162,7 +3180,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.UndoClose" xml:space="preserve">
-    <value>&amp;Schließen umkehren</value>
+    <value>Schließen &amp;umkehren</value>
   </data>
   <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
     <value>&amp;Organisiere Imports</value>
@@ -3180,7 +3198,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Zwingt FlashDevelop Systemfarben zu verwenden.</value>
   </data>
   <data name="ProjectManager.Label.FindHere" xml:space="preserve">
-    <value>Suchen-und-Resetzen</value>
+    <value>Suchen und Ersetzen</value>
     <comment>Added after 3.0.5</comment>
   </data>
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
@@ -3200,7 +3218,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Description.CompilerConstants" xml:space="preserve">
-    <value>Konstanten, die dem Comiler zur Verarbeitung übergeben werden z.B. &lt;NAMESPACE&gt;::&lt;variable&gt;,&lt;value&gt;</value>
+    <value>Liste der Konstanten, die dem Comiler zur Verarbeitung übergeben werden z.B. &lt;NAMESPACE&gt;::&lt;variable&gt;,&lt;value&gt;</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Label.SaveBOM" xml:space="preserve">
@@ -3605,7 +3623,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Debug" xml:space="preserve">
-    <value>&amp;Debuggen</value>
+    <value>Debu&amp;ggen</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.DeleteAllBreakpoints" xml:space="preserve">
@@ -3625,7 +3643,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
-    <value>&amp;Rücksprung</value>
+    <value>&amp;Zurückspringen</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Next" xml:space="preserve">
@@ -3713,7 +3731,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Label.AnalyzeProject" xml:space="preserve">
-    <value>Analy&amp;siere Projektsourcecode...</value>
+    <value>Codeanal&amp;yse...</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Info.RunningFlexPMD" xml:space="preserve">
@@ -3972,7 +3990,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseFunctions" xml:space="preserve">
-    <value>Faltfunktionen</value>
+    <value>Funktionen zusammenfalten</value>
     <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
@@ -4012,7 +4030,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Description.ShowInvalidCSS" xml:space="preserve">
-    <value>Zeigt warnungen, falls eine CSS-Eigenschaft auf eine Flex-Komponente nicht angewendet werden kann.</value>
+    <value>Zeigt Warnungen, falls CSS-Eigenschaften auf eine Flex-Komponente nicht angewendet werden können.</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Category.GIT" xml:space="preserve">
