@@ -1108,24 +1108,20 @@ namespace ASCompletion.Completion
                 int posEnd = Sci.LineEndPosition(funcResult.Member.LineTo);
                 Sci.SetSel(posStart, posEnd);
                 string selectedText = Sci.SelText;
-                Regex rStart = new Regex(String.Format(@"{0}\s*\(", funcResult.Member.Name));
+                Regex rStart = new Regex(String.Format(@"\s+{0}\s*\(([^\)]*)\)(\s*:\s*([^({{|\n|\r|\s|;)]+))?", funcResult.Member.Name));
                 Match mStart = rStart.Match(selectedText);
                 if (!mStart.Success)
                 {
                     return;
                 }
-                Regex rEnd = new Regex(@"\)(\s*:\s*[a-zA-Z$][a-zA-Z0-9$_]*)?");
-                Match mEnd = rEnd.Match(selectedText);
-                if (!mEnd.Success)
-                {
-                    return;
-                }
+
                 int start = mStart.Index + posStart;
-                int end = mEnd.Index + mEnd.Length + posStart;
+                int end = start + mStart.Length;
 
                 Sci.SetSel(start, end);
 
-                Sci.ReplaceSel(funcResult.Member.ToDeclarationString());
+                string decl = funcResult.Member.ToDeclarationString();
+                Sci.ReplaceSel(" " + decl);
 
                 // add imports to function argument types
                 if (functionParameters.Count > 0)
@@ -1809,6 +1805,38 @@ namespace ASCompletion.Completion
                     sb = new StringBuilder();
                 }
             }
+            for (int i = 0; i < prms.Count; i++)
+            {
+                ASResult rslt = prms[i].result;
+                string name = prms[i].param;
+                string type = prms[i].paramType;
+
+                if (type != null && type.IndexOf(".<") == -1)
+                {
+                    type = type.Substring(type.LastIndexOf(".") + 1);
+                    prms[i].paramType = type;
+                }
+
+                // if constant then convert to camelCase
+                if (rslt.Member != null && (rslt.Member.Flags & FlagType.Constant) > 0)
+                {
+                    name = Camelize(name);
+                }
+
+                // if getter, then remove 'get' prefix
+                name = name.TrimStart(new char[] { '_' });
+                if (name.Length > 3 && name.StartsWith("get") && (name[3].ToString() == char.ToUpper(name[3]).ToString()))
+                {
+                    name = char.ToLower(name[3]).ToString() + name.Substring(4);
+                }
+
+                if (name == "this")
+                {
+                    name = Char.ToLower(type[0]) + type.Substring(1);
+                }
+
+                prms[i].param = name;
+            }
             return prms;
         }
 
@@ -2118,8 +2146,6 @@ namespace ASCompletion.Completion
         private static void GenerateFunction(MemberModel member, int position, bool detach, List<FunctionParameter> parameters, ClassModel inClass)
         {
             string par = "";
-            char[] charsToTrim = new char[] { '_' };
-
             for (int i = 0; i < parameters.Count; i++)
             {
                 if (i > 0)
@@ -2127,34 +2153,17 @@ namespace ASCompletion.Completion
                     par += ", ";
                 }
 
-                ASResult result = parameters[i].result;
                 string name = parameters[i].param;
                 string type = parameters[i].paramType;
 
-                // if constant then convert to camelCase
-                if (result.Member != null && (result.Member.Flags & FlagType.Constant) > 0)
+                if (type != null)
                 {
-                    name = name.ToLower();
-                    string[] a = name.Split('_');
-                    name = "";
-                    for (int j = 0; j < a.Length; j++)
-                    {
-                        string val = a[j];
-                        if (j > 0)
-                        {
-                            val = char.ToUpper(val[0]) + val.Substring(1);
-                        }
-                        name += val;
-                    }
+                    par += name + ":" + type;
                 }
-
-                // if getter, then remove 'get' prefix
-                name = name.TrimStart(charsToTrim);
-                if (name.Length > 3 && name.StartsWith("get") && (name[3].ToString() == char.ToUpper(name[3]).ToString()))
+                else
                 {
-                    name = char.ToLower(name[3]).ToString() + name.Substring(4);
+                    par += name;
                 }
-                par += name + ":" + type;
             }
 
             bool isInterface = ClassIsInterface(inClass);

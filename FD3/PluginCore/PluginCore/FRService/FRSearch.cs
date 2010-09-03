@@ -436,9 +436,21 @@ namespace PluginCore.FRService
 
         private void BuildRegex(string pattern)
         {
+            int trimmedCount = pattern.Length - pattern.TrimStart(new char[] { '$' }).Length;
             if (isEscaped) pattern = Unescape(pattern);
             if (!isRegex) pattern = Regex.Escape(pattern);
-            if (wholeWord) pattern = "\\b" + pattern + "\\b";
+            if (wholeWord)
+            {
+                if (trimmedCount > 0)
+                {
+                    string trimmed = pattern.Substring(0, pattern.IndexOf("\\$"));
+                    pattern = pattern.Substring(0, trimmedCount * 2) + "\\b" + pattern.Substring(trimmedCount * 2) + "\\b";
+                }
+                else
+                {
+                    pattern = "\\b" + pattern + "\\b";
+                }
+            }
             
             RegexOptions options = RegexOptions.None;
             if (!singleLine) options |= RegexOptions.Multiline;
