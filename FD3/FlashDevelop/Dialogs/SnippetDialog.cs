@@ -316,6 +316,7 @@ namespace FlashDevelop.Dialogs
             this.insertLabel.Text = TextHelper.GetString("Info.InsertInstruction");
             this.snippetsLabel.Text = TextHelper.GetString("Info.Snippets");
             this.nameLabel.Text = TextHelper.GetString("Info.SnippetName");
+            this.languageLabel.Text = TextHelper.GetString("Info.Language");
             this.deleteButton.Text = TextHelper.GetString("Label.Delete");
             this.closeButton.Text = TextHelper.GetString("Label.Close");
             this.saveButton.Text = TextHelper.GetString("Label.Save");

@@ -4161,4 +4161,8 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>リモートセッション開始コマンドのショートカット</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="FlashDevelop.Info.Language" xml:space="preserve">
+    <value>言語：</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>

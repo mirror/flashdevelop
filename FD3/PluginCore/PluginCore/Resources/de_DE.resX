@@ -4165,4 +4165,8 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Tastenkombination für "Starte Remote Session".</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="FlashDevelop.Info.Language" xml:space="preserve">
+    <value>Sprache:</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>

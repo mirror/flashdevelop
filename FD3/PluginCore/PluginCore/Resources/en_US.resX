@@ -4165,4 +4165,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Shortcut of the Start Remote Session command.</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="FlashDevelop.Info.Language" xml:space="preserve">
+    <value>Language:</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>

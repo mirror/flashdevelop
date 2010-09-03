@@ -84,7 +84,7 @@ namespace FlashDevelop.Dialogs
             this.replaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.replaceButton.Location = new System.Drawing.Point(277, 112);
             this.replaceButton.Name = "replaceButton";
-            this.replaceButton.Size = new System.Drawing.Size(89, 23);
+            this.replaceButton.Size = new System.Drawing.Size(95, 23);
             this.replaceButton.TabIndex = 8;
             this.replaceButton.Text = "&Replace";
             this.replaceButton.Click += new System.EventHandler(this.ReplaceButtonClick);
@@ -94,7 +94,7 @@ namespace FlashDevelop.Dialogs
             this.findNextButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.findNextButton.Location = new System.Drawing.Point(277, 22);
             this.findNextButton.Name = "findNextButton";
-            this.findNextButton.Size = new System.Drawing.Size(89, 23);
+            this.findNextButton.Size = new System.Drawing.Size(95, 23);
             this.findNextButton.TabIndex = 5;
             this.findNextButton.Text = "Find &Next";
             this.findNextButton.Click += new System.EventHandler(this.FindNextButtonClick);
@@ -126,7 +126,7 @@ namespace FlashDevelop.Dialogs
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.closeButton.Location = new System.Drawing.Point(277, 172);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(89, 23);
+            this.closeButton.Size = new System.Drawing.Size(95, 23);
             this.closeButton.TabIndex = 10;
             this.closeButton.Text = "&Close";
             this.closeButton.Click += new System.EventHandler(this.CloseButtonClick);
@@ -136,7 +136,7 @@ namespace FlashDevelop.Dialogs
             this.findPrevButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.findPrevButton.Location = new System.Drawing.Point(277, 52);
             this.findPrevButton.Name = "findPrevButton";
-            this.findPrevButton.Size = new System.Drawing.Size(89, 23);
+            this.findPrevButton.Size = new System.Drawing.Size(95, 23);
             this.findPrevButton.TabIndex = 6;
             this.findPrevButton.Text = "Find &Previous";
             this.findPrevButton.Click += new System.EventHandler(this.FindPrevButtonClick);
@@ -165,7 +165,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.escapedCheckBox.AutoSize = true;
             this.escapedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.escapedCheckBox.Location = new System.Drawing.Point(110, 40);
+            this.escapedCheckBox.Location = new System.Drawing.Point(115, 40);
             this.escapedCheckBox.Name = "escapedCheckBox";
             this.escapedCheckBox.Size = new System.Drawing.Size(129, 18);
             this.escapedCheckBox.TabIndex = 4;
@@ -176,7 +176,7 @@ namespace FlashDevelop.Dialogs
             // 
             this.useRegexCheckBox.AutoSize = true;
             this.useRegexCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.useRegexCheckBox.Location = new System.Drawing.Point(110, 18);
+            this.useRegexCheckBox.Location = new System.Drawing.Point(115, 18);
             this.useRegexCheckBox.Name = "useRegexCheckBox";
             this.useRegexCheckBox.Size = new System.Drawing.Size(132, 18);
             this.useRegexCheckBox.TabIndex = 3;
@@ -243,7 +243,7 @@ namespace FlashDevelop.Dialogs
             this.replaceAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.replaceAllButton.Location = new System.Drawing.Point(277, 142);
             this.replaceAllButton.Name = "replaceAllButton";
-            this.replaceAllButton.Size = new System.Drawing.Size(89, 23);
+            this.replaceAllButton.Size = new System.Drawing.Size(95, 23);
             this.replaceAllButton.TabIndex = 9;
             this.replaceAllButton.Text = "Replace &All";
             this.replaceAllButton.Click += new System.EventHandler(this.ReplaceAllButtonClick);
@@ -279,7 +279,7 @@ namespace FlashDevelop.Dialogs
             this.bookmarkAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bookmarkAllButton.Location = new System.Drawing.Point(277, 82);
             this.bookmarkAllButton.Name = "bookmarkAllButton";
-            this.bookmarkAllButton.Size = new System.Drawing.Size(89, 23);
+            this.bookmarkAllButton.Size = new System.Drawing.Size(95, 23);
             this.bookmarkAllButton.TabIndex = 7;
             this.bookmarkAllButton.Text = "&Bookmark All";
             this.bookmarkAllButton.Click += new System.EventHandler(this.BookmarkAllButtonClick);
@@ -290,7 +290,7 @@ namespace FlashDevelop.Dialogs
             this.CancelButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 228);
+            this.ClientSize = new System.Drawing.Size(384, 228);
             this.Controls.Add(this.bookmarkAllButton);
             this.Controls.Add(this.replaceComboBox);
             this.Controls.Add(this.lookComboBox);
