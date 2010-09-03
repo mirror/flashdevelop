@@ -2776,7 +2776,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Wählen Sie das Verzeichnis für die Snippets aus...</value>
   </data>
   <data name="FlashDevelop.Info.SnippetName" xml:space="preserve">
-    <value>Snippet Name:</value>
+    <value>Snippet-name:</value>
   </data>
   <data name="FlashDevelop.Info.Snippets" xml:space="preserve">
     <value>Snippets:</value>
