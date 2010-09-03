@@ -119,9 +119,10 @@ namespace QuickNavigate
         /// </summary>
         private Boolean isFileHidden(String file)
         {
-            String path = System.IO.Path.GetDirectoryName(file);
             String name = System.IO.Path.GetFileName(file);
-            if (path.Contains(".svn") || path.Contains(".cvs") || path.Contains(".git")) return true;
+            String path = System.IO.Path.GetDirectoryName(file);
+            String dirSep = System.IO.Path.DirectorySeparatorChar.ToString();
+            if (path.Contains(".svn") || path.Contains(dirSep + "_svn") || path.Contains(".cvs") || path.Contains(dirSep + "_cvs") || path.Contains(".git")) return true;
             else if (name.Substring(0, 1) == ".") return true;
             else return false;
         }
