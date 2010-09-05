@@ -183,9 +183,14 @@ namespace ASCompletion.Model
         {
             if (Updating) return;
             updater.Stop();
+
             if (IsVirtual)
             {
-                Owner.ExploreVirtualPath(this);
+                lock (Files.Values)
+                {
+                    Files.Clear();
+                    Owner.ExploreVirtualPath(this);
+                }
             }
             else
             {
