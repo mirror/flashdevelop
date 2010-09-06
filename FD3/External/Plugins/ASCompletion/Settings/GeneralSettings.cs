@@ -363,6 +363,7 @@ namespace ASCompletion.Settings
 
         const bool DEFAULT_GENERATE_PROTECTED = false;
         const bool DEFAULT_GENERATE_STARTWITHMODIFIERS = false;
+        const bool DEFAULT_GENERATE_ADDCLOSINGBRACES = true;
         const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
         const string DEFAULT_GENERATE_PREFIXFIELDS = "_";
 
@@ -376,6 +377,7 @@ namespace ASCompletion.Settings
         private bool startWithModifiers;
         private PropertiesGenerationLocations propertiesGenerationLocation;
         private string prefixFields = DEFAULT_GENERATE_PREFIXFIELDS;
+        private bool addClosingBraces = DEFAULT_GENERATE_ADDCLOSINGBRACES;
 
         [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -410,6 +412,15 @@ namespace ASCompletion.Settings
         {
             get { return propertiesGenerationLocation; }
             set { propertiesGenerationLocation = value; }
+        }
+
+        [DisplayName("Add Closing Braces")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.AddClosingBraces"),
+        DefaultValue(DEFAULT_GENERATE_ADDCLOSINGBRACES)]
+        public bool AddClosingBraces
+        {
+            get { return addClosingBraces; }
+            set { addClosingBraces = value; }
         }
 
         [DisplayName("Prefix fields when generating from parameters")]

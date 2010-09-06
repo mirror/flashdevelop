@@ -2995,6 +2995,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>どこに新しいプロパティ( getter, setter )を作成するかを設定します。</value>
     <comment>Added after 3.0.2</comment>
   </data>
+  <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
+    <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
     <value> "Generate fields from parameters"が設定されたフィールドをプリフィックス付で生成する。</value>
     <comment>Added after 3.2.2</comment>

@@ -3017,6 +3017,10 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Gibt an, wo neue Eigenschaften (Getter, Setter) erstellt werden.</value>
     <comment>Added after 3.0.2</comment>
   </data>
+  <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
+    <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
     <value>Fügt ein Präfix den Feldern hinzu, welche über "Erstelle Felder aus den Parametern" hinzu.</value>
     <comment>Added after 3.2.2</comment>

@@ -76,8 +76,31 @@ namespace ASCompletion.Completion
 					// documentation completion
                     if (ASContext.CommonSettings.SmartTipsEnabled && IsCommentStyle(style))
 						return ASDocumentation.OnChar(Sci, Value, position, style);
-					else if (autoHide) return false;
+                    else if (autoHide)
+                    {
+                        if (IsTextStyle(Sci.StyleAt(position - 2) & stylemask))
+                        {
+                            if (Value == '"')
+                            {
+                                InsertSymbol(Sci, "\"");
+                            }
+                            else if (Value == '\'')
+                            {
+                                InsertSymbol(Sci, "'");
+                            }
+                        }
+                        return false;
+                    } 
 				}
+
+                if (Value == '[')
+                {
+                    ASComplete.InsertSymbol(Sci, "]");
+                }
+                else if (Value == '(')
+                {
+                    ASComplete.InsertSymbol(Sci, ")");
+                }
 
 				// stop here if the class is not valid
 				if (!ASContext.HasContext || !ASContext.Context.IsFileValid) return false;
@@ -3256,6 +3279,14 @@ namespace ASCompletion.Completion
             String specific = Path.Combine(specificDir, word + ".fds");
             if (File.Exists(specific) || File.Exists(global))
                 PluginBase.MainForm.CallCommand("InsertSnippet", word);
+        }
+
+        private static void InsertSymbol(ScintillaNet.ScintillaControl sci, string p)
+        {
+            if (ASContext.CommonSettings.AddClosingBraces)
+            {
+                sci.InsertText(sci.CurrentPos, p);
+            }
         }
 
 		/// <summary>
