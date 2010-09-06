@@ -103,10 +103,17 @@ namespace ProjectManager
                 Object obj = ObjectSerializer.Deserialize(SettingsPath, Settings);
                 Settings = (ProjectManagerSettings)obj;
             }
-            if (Settings.ShortcutTestMovie == Keys.None && Settings.ShortcutBuildProject == Keys.None)
+            // Fix empty key bindings...
+            if (Settings.ShortcutTestMovie == Keys.None)
             {
                 Settings.ShortcutTestMovie = ProjectManagerSettings.DEFAULT_TESTMOVIE;
+            }
+            if (Settings.ShortcutBuildProject == Keys.None)
+            {
                 Settings.ShortcutBuildProject = ProjectManagerSettings.DEFAULT_BUILDPROJECT;
+            }
+            if (Settings.ShortcutOpenResource == Keys.None)
+            {
                 Settings.ShortcutOpenResource = ProjectManagerSettings.DEFAULT_OPENRESOURCE;
             }
             // set manually to avoid dependency in FDBuild
@@ -1138,9 +1145,13 @@ namespace ProjectManager
 
         private void CopyClassName()
         {
-            string path = Tree.SelectedPath;
-            DataEvent deTrust = new DataEvent(EventType.Command, "ASCompletion.GetClassPath", path);
-            EventManager.DispatchEvent(this, deTrust);
+            String path = Tree.SelectedPath;
+            DataEvent copyCP = new DataEvent(EventType.Command, "ASCompletion.GetClassPath", path);
+            EventManager.DispatchEvent(this, copyCP);
+            if (copyCP.Handled) // UI needs refresh on clipboard change...
+            {
+                PluginBase.MainForm.RefreshUI();
+            }
         }
 
         private void FindInFiles()
