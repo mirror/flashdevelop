@@ -350,6 +350,29 @@ namespace ASCompletion
                                         e.Handled = Commands.CreateTrustFile.Run(args[0], args[1]);
                                 }
                             }
+                            else if (command == "ASCompletion.GetClassPath")
+                            {
+                                if (cmdData != null)
+                                {
+                                    string[] args = cmdData.Split(';');
+                                    if (args.Length == 1)
+                                    {
+                                        FileModel fm = ASFileParser.ParseFile(args[0], ASContext.Context);
+                                        if (fm != null)
+                                        {
+                                            if (fm.Classes != null && fm.Classes.Count > 0)
+                                            {
+                                                string classpath = fm.Classes[0].QualifiedName;
+                                                if (classpath != null)
+                                                {
+                                                    Clipboard.SetText(classpath);
+                                                    e.Handled = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                         else if (command == "ProjectManager.OpenVirtualFile")
                         {

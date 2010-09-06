@@ -53,6 +53,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
         public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"));
         public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"));
+        public ToolStripMenuItem CopyClassName = new ToolStripMenuItem(TextHelper.GetString("Label.CopyClassName"));
         public event FileAddHandler AddFileFromTemplate;
 
         public ProjectContextMenu()
@@ -311,6 +312,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
             menu.Add(AlwaysCompile, 2, alwaysCompile);
+            menu.Add(CopyClassName, 4);
             AddFileItems(menu, path);
         }
 

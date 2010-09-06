@@ -255,6 +255,9 @@
   <data name="ASCompletion.Description.PlayAfterBuild" xml:space="preserve">
     <value>クイックビルドをしたあと、作成された SWF を自動的に再生します。</value>
   </data>
+  <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
+    <value>Automatically fix package of the class if it's not matching file path. Executed on file open.</value>
+  </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
     <value>"定義から戻る"のショートカットです。</value>
   </data>
@@ -2862,6 +2865,9 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
     <value>クラスパス名を解析する際、絞り込み対象となるディレクトリ名です。</value>
   </data>
+  <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
+    <value>The package '{0}' did not match the file path. New package is generated:</value>
+  </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
     <value>パッケージ '{0}' がファイルパスと一致していません:</value>
   </data>
@@ -3242,6 +3248,9 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
     <value>すべてのプロジェクトをテスト(&amp;T)</value>
     <comment>Added after 3.0.6</comment>
+  </data>
+  <data name="ProjectManager.Label.CopyClassName" xml:space="preserve">
+    <value>Copy Class Name</value>
   </data>
   <data name="FlashDevelop.Description.SaveUnicodeWithBOM" xml:space="preserve">
     <value>Unicode ( UTF-8 )エンコードが指定されたファイルを新規作成するとき、バイトオーダーマーク( BOM )を挿入します。</value>

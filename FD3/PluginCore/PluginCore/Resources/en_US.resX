@@ -257,6 +257,9 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ASCompletion.Description.PlayAfterBuild" xml:space="preserve">
     <value>Automatically play the generated SWF after Quick Build.</value>
   </data>
+  <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
+    <value>Automatically fix package of the class if it's not matching file path. Executed on file open.</value>
+  </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
     <value>Go back to the previous location before a Goto Declaration action.</value>
   </data>
@@ -2871,6 +2874,9 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
     <value>Directory names to filter when the name for the classpath is being resolved.</value>
   </data>
+  <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
+    <value>The package '{0}' did not match the file path. New package is generated:</value>
+  </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
     <value>The package '{0}' does not match the file path:</value>
   </data>
@@ -3258,6 +3264,9 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
     <value>Test All Projects</value>
     <comment>Added after 3.0.6</comment>
+  </data>
+  <data name="ProjectManager.Label.CopyClassName" xml:space="preserve">
+    <value>Copy Class Name</value>
   </data>
   <data name="FlashViewer.Description.DisableAutoConfig" xml:space="preserve">
     <value>Disables the auto-configuration feature so that OS level file association can be used.</value>

@@ -40,6 +40,7 @@ namespace HaXeContext
         const bool DEFAULT_LAZYMODE = false;
         const bool DEFAULT_LISTALL = true;
         const bool DEFAULT_QUALIFY = true;
+        const bool DEFAULT_FIXPACKAGEAUTOMATICALLY = true;
 
         protected bool checkSyntaxOnSave = DEFAULT_CHECKSYNTAX;
         private bool lazyClasspathExploration = DEFAULT_LAZYMODE;
@@ -48,6 +49,7 @@ namespace HaXeContext
         protected bool completionEnabled = DEFAULT_COMPLETIONENABLED;
         protected bool generateImports = DEFAULT_GENERATEIMPORTS;
         protected bool playAfterBuild = DEFAULT_PLAY;
+        protected bool fixPackageAutomatically = DEFAULT_FIXPACKAGEAUTOMATICALLY;
         protected string[] userClasspath = null;
 
         [Browsable(false)]
@@ -149,6 +151,14 @@ namespace HaXeContext
         {
             get { return playAfterBuild; }
             set { playAfterBuild = value; }
+        }
+
+        [DisplayName("Fix Package Automatically")]
+        [LocalizedCategory("ASCompletion.Category.Common"), LocalizedDescription("ASCompletion.Description.FixPackageAutomatically"), DefaultValue(DEFAULT_FIXPACKAGEAUTOMATICALLY)]
+        public bool FixPackageAutomatically
+        {
+            get { return fixPackageAutomatically; }
+            set { fixPackageAutomatically = value; }
         }
 
         #endregion

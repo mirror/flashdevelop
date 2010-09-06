@@ -236,6 +236,7 @@ namespace ProjectManager
             pluginUI.Menu.BuildAllProjects.Click += delegate { FullBuild(); };
             pluginUI.Menu.TestAllProjects.Click += delegate { TestBuild(); };
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
+            pluginUI.Menu.CopyClassName.Click += delegate { CopyClassName(); };
             pluginUI.Menu.Opening += new CancelEventHandler(this.MenuOpening);
 
             Tree.MovePath += fileActions.Move;
@@ -1133,6 +1134,13 @@ namespace ProjectManager
             else if (FileInspector.IsAS3Project(path, ext)) return true;
             else if (FileInspector.IsHaxeProject(path, ext)) return true;
             else return false;
+        }
+
+        private void CopyClassName()
+        {
+            string path = Tree.SelectedPath;
+            DataEvent deTrust = new DataEvent(EventType.Command, "ASCompletion.GetClassPath", path);
+            EventManager.DispatchEvent(this, deTrust);
         }
 
         private void FindInFiles()

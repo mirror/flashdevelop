@@ -275,6 +275,9 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   <data name="ASCompletion.Description.PlayAfterBuild" xml:space="preserve">
     <value>Öffne automatisch die erstellte SWF nach einem Quick-Build.</value>
   </data>
+  <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
+    <value>Automatically fix package of the class if it's not matching file path. Executed on file open.</value>
+  </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
     <value>Springe zur vorigen Position vor einer 'Gehe zur Deklaration' Anweisung.</value>
   </data>
@@ -2877,6 +2880,9 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
     <value>Pfade die gefiltert werden sollen wenn der name eines Klassenpfads aufgelöst werden soll.</value>
   </data>
+  <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
+    <value>The package '{0}' did not match the file path. New package is generated:</value>
+  </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
     <value>Das Package '{0}' stimmt nicht mit dem Dateipfad überein:</value>
   </data>
@@ -3264,6 +3270,9 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
     <value>Alle Projekte testen</value>
     <comment>Added after 3.0.6</comment>
+  </data>
+  <data name="ProjectManager.Label.CopyClassName" xml:space="preserve">
+    <value>Copy Class Name</value>
   </data>
   <data name="FlashViewer.Description.DisableAutoConfig" xml:space="preserve">
     <value>Deaktiviert die automatische Konfiguration, damit Dateien mit dem Starndardprogramm geöffnet werden.</value>

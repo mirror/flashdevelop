@@ -59,6 +59,8 @@ namespace ASCompletion.Settings
 
         bool PlayAfterBuild { get; set; }
 
+        bool FixPackageAutomatically { get; set; }
+
         string CheckSyntaxRunning { get; }
         string CheckSyntaxDone { get; }
 

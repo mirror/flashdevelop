@@ -1772,7 +1772,7 @@ namespace ASCompletion.Completion
         /// Display the full project classes list
         /// </summary>
         /// <param name="Sci"></param>
-        static private void HandleAllClassesCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool classesOnly, bool showClassVars)
+        static public void HandleAllClassesCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool classesOnly, bool showClassVars)
         {
             MemberList known = ASContext.Context.GetAllProjectClasses();
             if (known.Count == 0) return;

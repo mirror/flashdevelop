@@ -13,6 +13,7 @@ using PluginCore.Localization;
 using AS3Context.Compiler;
 using PluginCore.Helpers;
 using System.Timers;
+using ASCompletion.Completion;
 
 namespace AS3Context
 {
@@ -641,6 +642,41 @@ namespace AS3Context
             fullList.Sort();
             completionCache.AllTypes = fullList;
             return fullList;
+        }
+
+        public override bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text)
+        {
+            bool isVector = false;
+            if (text == "Vector")
+            {
+                isVector = true;
+            }
+            if (isVector)
+            {
+                string insert = null;
+
+                Regex reDecl = new Regex(@"\svar\s+(?<varname>.+)\s*:\s*Vector\.<(?<indextype>[^>]+)>");
+                string line = sci.GetLine(sci.LineFromPosition(position));
+                Match m = reDecl.Match(line);
+                if (m.Success)
+                {
+                    insert = String.Format(".<{0}>()", m.Groups["indextype"].Value);
+                    sci.InsertText(position + text.Length, insert);
+                    sci.CurrentPos = position + text.Length + insert.Length;
+                    sci.SetSel(sci.CurrentPos, sci.CurrentPos);
+                }
+                else
+                {
+                    insert = ".<>";
+                    sci.InsertText(position + text.Length, insert);
+                    sci.CurrentPos = position + text.Length + 2;
+                    sci.SetSel(sci.CurrentPos, sci.CurrentPos);
+                    ASComplete.HandleAllClassesCompletion(sci, "", false, true);
+                }
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

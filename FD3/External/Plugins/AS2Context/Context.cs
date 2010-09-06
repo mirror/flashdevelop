@@ -706,9 +706,74 @@ namespace AS2Context
                     string fullpath = Path.GetDirectoryName(cFile.FileName);
                     if (!fullpath.ToUpper().EndsWith(pathname.ToUpper()))
                     {
-                        string org = TextHelper.GetString("Info.PackageDontMatchFilePath");
-                        string msg = String.Format(org, package) + "\n" + cFile.FileName;
-                        MessageBar.ShowWarning(msg);
+                        if (settings.FixPackageAutomatically && CurSciControl != null)
+                        {
+                            bool isAs2 = cFile.Context.Settings.LanguageId == "AS2";
+
+                            int pos = -1;
+
+                            string txt = "";
+                            string regexPackageLine = "";
+
+                            int counter = CurSciControl.Length;
+                            int p = 0;
+                            Regex packagePattern = null;
+                            if (isAs2)
+                            {
+                                packagePattern = new Regex("class\\s+" + cFile.Package.Replace(".", "\\.") + "\\." + pClass.Name);
+                            }
+                            else
+                            {
+                                packagePattern = new Regex("package\\s+" + cFile.Package.Replace(".", "\\."));
+                            }
+                            while (p < counter)
+                            {
+                                char c = (char)CurSciControl.CharAt(p++);
+                                txt += c;
+                                if (txt.Length > cFile.Package.Length)
+                                {
+                                    Match m = packagePattern.Match(txt);
+                                    if (m.Success)
+                                    {
+                                        pos = m.Index;
+                                        regexPackageLine = m.Value;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (regexPackageLine.Length > 0 && pos > -1)
+                            {
+                                List<PathModel> classpaths = Context.Classpath;
+                                if (classpaths != null)
+                                {
+                                    string correctPath = null;
+                                    foreach (PathModel pm in classpaths)
+                                    {
+                                        if (fullpath.IndexOf(pm.Path) > -1)
+                                        {
+                                            correctPath = fullpath.Substring(pm.Path.Length + 1);
+                                        }
+                                    }
+                                    if (correctPath != null)
+                                    {
+                                        correctPath = correctPath.Replace(Path.DirectorySeparatorChar, '.');
+                                        CurSciControl.SetSel(pos, pos + regexPackageLine.Length);
+                                        CurSciControl.ReplaceSel(regexPackageLine.Replace(cFile.Package, correctPath));
+                                    }
+                                }
+                                string org = TextHelper.GetString("Info.PackageDidntMatchFilePath");
+                                string msg = String.Format(org, package) + "\n" + cFile.FileName;
+                                MessageBar.ShowWarning(msg);
+                            }
+
+                        }
+                        else
+                        {
+                            string org = TextHelper.GetString("Info.PackageDontMatchFilePath");
+                            string msg = String.Format(org, package) + "\n" + cFile.FileName;
+                            MessageBar.ShowWarning(msg);
+                        }
                         return;
                     }
                     else MessageBar.HideWarning();

@@ -39,6 +39,7 @@ namespace AS3Context
         const bool DEFAULT_LAZYMODE = false;
         const bool DEFAULT_LISTALL = true;
         const bool DEFAULT_QUALIFY = true;
+        const bool DEFAULT_FIXPACKAGEAUTOMATICALLY = true;
         const string DEFAULT_AS3LIBRARY = @"Library\AS3\intrinsic";
 
         protected bool checkSyntaxOnSave = DEFAULT_CHECKSYNTAX;
@@ -48,6 +49,7 @@ namespace AS3Context
         protected bool completionEnabled = DEFAULT_COMPLETIONENABLED;
         protected bool generateImports = DEFAULT_GENERATEIMPORTS;
         protected bool playAfterBuild = DEFAULT_PLAY;
+        protected bool fixPackageAutomatically = DEFAULT_FIXPACKAGEAUTOMATICALLY;
         protected string[] userClasspath = null;
 
         [Browsable(false)]
@@ -140,6 +142,14 @@ namespace AS3Context
         {
             get { return playAfterBuild; }
             set { playAfterBuild = value; }
+        }
+
+        [DisplayName("Fix Package Automatically")]
+        [LocalizedCategory("ASCompletion.Category.Common"), LocalizedDescription("ASCompletion.Description.FixPackageAutomatically"), DefaultValue(DEFAULT_FIXPACKAGEAUTOMATICALLY)]
+        public bool FixPackageAutomatically
+        {
+            get { return fixPackageAutomatically; }
+            set { fixPackageAutomatically = value; }
         }
 
         #endregion
