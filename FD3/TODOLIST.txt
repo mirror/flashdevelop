@@ -1,3 +1,11 @@
+Debugger stuff:
+
+- Save breakpoints on dispose
+- Debugger holds sometimes a file ref
+- Automatically stop Flash player
+- Can you debug ActiveX movies?
+- http://www.flashdevelop.org/community/viewtopic.php?f=6&t=7189
+
 Known issues:
 
 - Projects located on shared drives (completion problems, SWC parsing crash,...)
