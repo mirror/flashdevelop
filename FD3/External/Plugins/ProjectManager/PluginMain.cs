@@ -84,8 +84,8 @@ namespace ProjectManager
         public static ProjectManagerSettings Settings;
 
         const EventType eventMask = EventType.UIStarted | EventType.FileOpening
-            | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd 
-            | EventType.ProcessArgs | EventType.Command | EventType.Keys;
+            | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd
+            | EventType.ProcessArgs | EventType.Command | EventType.Keys | EventType.ApplySettings;
 
         #region Load/Save Settings
 
@@ -107,6 +107,7 @@ namespace ProjectManager
             {
                 Settings.ShortcutTestMovie = ProjectManagerSettings.DEFAULT_TESTMOVIE;
                 Settings.ShortcutBuildProject = ProjectManagerSettings.DEFAULT_BUILDPROJECT;
+                Settings.ShortcutOpenResource = ProjectManagerSettings.DEFAULT_OPENRESOURCE;
             }
             // set manually to avoid dependency in FDBuild
             FileInspector.ExecutableFileTypes = Settings.ExecutableFileTypes;
@@ -150,6 +151,7 @@ namespace ProjectManager
 
             MainForm.IgnoredKeys.Add(Settings.ShortcutTestMovie);
             MainForm.IgnoredKeys.Add(Settings.ShortcutBuildProject);
+            MainForm.IgnoredKeys.Add(Settings.ShortcutOpenResource);
 
             #region Actions and Event Listeners
 
@@ -172,6 +174,7 @@ namespace ProjectManager
             menus.ProjectMenu.OpenProject.Click += delegate { OpenProject(); };
             menus.ProjectMenu.ImportProject.Click += delegate { ImportProject(); };
             menus.ProjectMenu.CloseProject.Click += delegate { CloseProject(false); };
+            menus.ProjectMenu.OpenResource.Click += delegate { OpenResource(); };
             menus.ProjectMenu.TestMovie.Click += delegate { TestMovie(); };
             menus.ProjectMenu.BuildProject.Click += delegate { BuildProject(); };
             menus.ProjectMenu.Properties.Click += delegate { OpenProjectProperties(); };
@@ -269,7 +272,6 @@ namespace ProjectManager
 		{
             TextEvent te = e as TextEvent;
             DataEvent de = e as DataEvent;
-
             switch (e.Type)
             {
                 case EventType.UIStarted:
@@ -277,6 +279,7 @@ namespace ProjectManager
                     // state to be restored properly.
                     pluginUI.BeginInvoke((MethodInvoker)delegate { BroadcastMenuInfo(); OpenLastProject(); });
                     break;
+
                 // replace $(SomeVariable) type stuff with things we know about
                 case EventType.ProcessArgs:
                     if (project != null && te.Value.IndexOf('$') >= 0)
@@ -302,6 +305,7 @@ namespace ProjectManager
                         te.Value = fileActions.ProcessArgs(project, te.Value);
                     }
                     break;
+
                 case EventType.FileOpening:
                     // if this is a project file, we can handle it ourselves
                     if (FileInspector.IsProject(te.Value))
@@ -310,10 +314,12 @@ namespace ProjectManager
                         OpenProjectSilent(te.Value);
                     }
                     break;
+
                 case EventType.FileOpen:
                     SetDocumentIcon(MainForm.CurrentDocument);
                     OpenNextFile(); // it's safe to open any other files on the queue
                     break;
+
                 case EventType.FileSave:
                     // refresh the tree to update any included <mx:Script> tags
                     string path = MainForm.CurrentDocument.FileName;
@@ -322,13 +328,25 @@ namespace ProjectManager
                         && Tree.NodeMap.ContainsKey(path))
                         Tree.RefreshNode(Tree.NodeMap[path]);
                     break;
+
+                case EventType.ApplySettings:
+                    MainForm.IgnoredKeys.Add(Settings.ShortcutTestMovie);
+                    MainForm.IgnoredKeys.Add(Settings.ShortcutBuildProject);
+                    MainForm.IgnoredKeys.Add(Settings.ShortcutOpenResource);
+                    menus.ProjectMenu.OpenResource.ShortcutKeyDisplayString = DataConverter.KeysToString(Settings.ShortcutOpenResource);
+                    menus.ProjectMenu.BuildProject.ShortcutKeyDisplayString = DataConverter.KeysToString(Settings.ShortcutBuildProject);
+                    menus.ProjectMenu.TestMovie.ShortcutKeyDisplayString = DataConverter.KeysToString(Settings.ShortcutTestMovie);
+                    break;
+
                 case EventType.ProcessStart:
                     buildActions.NotifyBuildStarted();
                     break;
+
                 case EventType.ProcessEnd:
                     string result = te.Value;
                     buildActions.NotifyBuildEnded(result);
                     break;
+
                 case EventType.Command:
                     if (de.Action == ProjectManagerCommands.NewProject)
                     {
@@ -371,21 +389,6 @@ namespace ProjectManager
                     {
                         OpenSwf((string)de.Data);
                     }
-                    /*else if (de.Action == ProjectManagerCommands.CompileWithFlexShell)
-                    {
-                        Hashtable hashtable = (Hashtable)de.Data;
-                        if (File.Exists(FlexCompilerShell.FcshPath))
-                        {
-                            FlexCompilerShell shell = new FlexCompilerShell();
-                            string arguments = (string)hashtable["arguments"];
-                            string output;
-                            string[] errors;
-                            shell.Compile(arguments, out output, out errors, hashtable["compiler"] as string);
-                            hashtable["output"] = output;
-                            hashtable["errors"] = errors;
-                            de.Handled = true;
-                        }
-                    }*/
                     else if (de.Action == ProjectManagerCommands.RestartFlexShell)
                     {
                         FlexCompilerShell.Cleanup();
@@ -426,40 +429,28 @@ namespace ProjectManager
             if (configuration != null)
             {
                 int newIdx = menus.ConfigurationSelector.Items.IndexOf(configuration);
-                if (newIdx >= 0)
-                    menus.ConfigurationSelector.SelectedIndex = newIdx;
+                if (newIdx >= 0) menus.ConfigurationSelector.SelectedIndex = newIdx;
             }
         }
 
         private bool HandleKeyEvent(KeyEvent ke)
         {
             if (project == null) return false;
-
-            if (ke.Value == Settings.ShortcutBuildProject)
-                BuildProject();
-            
-            else if (ke.Value == Settings.ShortcutTestMovie)
-                TestMovie();
-
+            if (ke.Value == Settings.ShortcutBuildProject) BuildProject();
+            else if (ke.Value == Settings.ShortcutTestMovie) TestMovie();
+            else if (ke.Value == Settings.ShortcutOpenResource) OpenResource();
             // Handle tree-level simple shortcuts like copy/paste/del
             else if (Tree.Focused && !pluginUI.IsEditingLabel && ke != null)
             {
-                if (ke.Value == (Keys.Control | Keys.C) && pluginUI.Menu.Contains(pluginUI.Menu.Copy))
-                    TreeCopyItems();
-                else if (ke.Value == (Keys.Control | Keys.X) && pluginUI.Menu.Contains(pluginUI.Menu.Cut))
-                    TreeCutItems();
-                else if (ke.Value == (Keys.Control | Keys.V) && pluginUI.Menu.Contains(pluginUI.Menu.Paste))
-                    TreePasteItems();
-                else if (ke.Value == Keys.Delete && pluginUI.Menu.Contains(pluginUI.Menu.Delete))
-                    TreeDeleteItems();
-                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains(pluginUI.Menu.Open))
-                    TreeOpenItems();
-                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains(pluginUI.Menu.Insert))
-                    TreeInsertItem();
+                if (ke.Value == (Keys.Control | Keys.C) && pluginUI.Menu.Contains(pluginUI.Menu.Copy)) TreeCopyItems();
+                else if (ke.Value == (Keys.Control | Keys.X) && pluginUI.Menu.Contains(pluginUI.Menu.Cut)) TreeCutItems();
+                else if (ke.Value == (Keys.Control | Keys.V) && pluginUI.Menu.Contains(pluginUI.Menu.Paste)) TreePasteItems();
+                else if (ke.Value == Keys.Delete && pluginUI.Menu.Contains(pluginUI.Menu.Delete)) TreeDeleteItems();
+                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains(pluginUI.Menu.Open)) TreeOpenItems();
+                else if (ke.Value == Keys.Enter && pluginUI.Menu.Contains(pluginUI.Menu.Insert)) TreeInsertItem();
                 else return false;
             }
             else return false;
-
             return true;
         }
 		
@@ -1159,6 +1150,14 @@ namespace ProjectManager
             if (doc != null && doc.IsEditable && !doc.IsUntitled)
             {
                 Tree.Select(doc.FileName);
+            }
+        }
+
+        private void OpenResource()
+        {
+            if (PluginBase.CurrentProject != null)
+            {
+                new OpenResourceForm(this).ShowDialog();
             }
         }
 

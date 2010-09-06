@@ -3997,35 +3997,23 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>When debugging an application the debugger panels appear/disappear automatically.</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Description.CtrlClickEnabled" xml:space="preserve">
-    <value>Go to declaration by Ctrl+Click on the word.</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Description.OpenResourceShortcut" xml:space="preserve">
+  <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
     <value>Shortcut to OpenResource dialog.</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Description.SearchExternalClassPath" xml:space="preserve">
+  <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>Enable searching files in external classpath.</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Info.Description" xml:space="preserve">
-    <value>Adds quick navigation capabilities to FlashDevelop.</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Label.OpenResource" xml:space="preserve">
+  <data name="ProjectManager.Label.OpenResource" xml:space="preserve">
     <value>Open &amp;Resource...</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Label.SearchString" xml:space="preserve">
+  <data name="ProjectManager.Label.SearchString" xml:space="preserve">
     <value>Search string: (UPPERCASE for search by abbreviation)</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Title.OpenResource" xml:space="preserve">
+  <data name="ProjectManager.Title.OpenResource" xml:space="preserve">
     <value>Open Resource</value>
     <comment>Added after 3.2.2</comment>
   </data>

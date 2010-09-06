@@ -93,6 +93,7 @@ namespace ProjectManager.Controls
         public ToolStripMenuItem OpenProject;
         public ToolStripMenuItem ImportProject;
         public ToolStripMenuItem CloseProject;
+        public ToolStripMenuItem OpenResource;
         public ToolStripMenuItem TestMovie;
         public ToolStripMenuItem BuildProject;
         public ToolStripMenuItem Properties;
@@ -107,6 +108,10 @@ namespace ProjectManager.Controls
             ImportProject = new ToolStripMenuItem(TextHelper.GetString("Label.ImportProject"));
 
             CloseProject = new ToolStripMenuItem(TextHelper.GetString("Label.CloseProject"));
+
+            OpenResource = new ToolStripMenuItem(TextHelper.GetString("Label.OpenResource"));
+            OpenResource.Image = PluginBase.MainForm.FindImage("209");
+            OpenResource.ShortcutKeyDisplayString = DataConverter.KeysToString(PluginMain.Settings.ShortcutOpenResource);
 
             TestMovie = new ToolStripMenuItem(TextHelper.GetString("Label.TestMovie"));
 			TestMovie.Image = Icons.GreenCheck.Img;
@@ -125,6 +130,8 @@ namespace ProjectManager.Controls
             base.DropDownItems.Add(ImportProject);
             base.DropDownItems.Add(CloseProject);
             base.DropDownItems.Add(new ToolStripSeparator());
+            base.DropDownItems.Add(OpenResource);
+            base.DropDownItems.Add(new ToolStripSeparator());
             base.DropDownItems.Add(TestMovie);
             base.DropDownItems.Add(BuildProject);
             base.DropDownItems.Add(new ToolStripSeparator());
@@ -139,6 +146,7 @@ namespace ProjectManager.Controls
 				TestMovie.Enabled = value;
 				BuildProject.Enabled = value;
 				Properties.Enabled = value;
+                OpenResource.Enabled = value;
 			}
 		}
 
@@ -147,7 +155,9 @@ namespace ProjectManager.Controls
             set
             {
                 foreach (ToolStripItem item in DropDownItems)
+                {
                     item.Enabled = value;
+                }
             }
         }
 	}

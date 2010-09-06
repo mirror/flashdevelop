@@ -3993,35 +3993,23 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>デバッグ中、デバッグパネルの表示/非表示切り替えを自動的に行います。</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts | ショートカット</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Description.CtrlClickEnabled" xml:space="preserve">
-    <value>Ctrl + クリックで定義へジャンプします。</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Description.OpenResourceShortcut" xml:space="preserve">
+  <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
     <value>"リソースを開く"ダイアログのショートカットです。</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Description.SearchExternalClassPath" xml:space="preserve">
+  <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>外部クラスパスでのファイル検索を有効にします。</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Info.Description" xml:space="preserve">
-    <value>FlashDevelopにクイックナビゲーション機能を統合します。</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Label.OpenResource" xml:space="preserve">
+  <data name="ProjectManager.Label.OpenResource" xml:space="preserve">
     <value>リソースを開く(&amp;R)...</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Label.SearchString" xml:space="preserve">
+  <data name="ProjectManager.Label.SearchString" xml:space="preserve">
     <value>文字列検索（略称の場合は大文字）:</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Title.OpenResource" xml:space="preserve">
+  <data name="ProjectManager.Title.OpenResource" xml:space="preserve">
     <value>リソースを開く</value>
     <comment>Added after 3.2.2</comment>
   </data>

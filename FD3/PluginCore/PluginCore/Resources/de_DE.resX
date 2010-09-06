@@ -3997,35 +3997,23 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Automatisches einblenden/ausblenden der Debuggerfenster deaktivieren.</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Category.Shortcuts" xml:space="preserve">
-    <value>Tastenkombinationen</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Description.CtrlClickEnabled" xml:space="preserve">
-    <value>Gehe zu Definition per Strg+Klick auf das Wort.</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Description.OpenResourceShortcut" xml:space="preserve">
+  <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
     <value>Tastenkombination für den "OpenResource" Dialog.</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Description.SearchExternalClassPath" xml:space="preserve">
+  <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>Durchsuche den externen Klassenpfad.</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Info.Description" xml:space="preserve">
-    <value>Fügt FlashDevelop Schnellnavigationsfähigkeiten hinzu.</value>
-    <comment>Added after 3.2.2</comment>
-  </data>
-  <data name="QuickNavigate.Label.OpenResource" xml:space="preserve">
+  <data name="ProjectManager.Label.OpenResource" xml:space="preserve">
     <value>Öffne &amp;Ressource...</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Label.SearchString" xml:space="preserve">
+  <data name="ProjectManager.Label.SearchString" xml:space="preserve">
     <value>Suche: (GROSSSCHEIBUNG um per Abkürzung zu suchen)</value>
     <comment>Added after 3.2.2</comment>
   </data>
-  <data name="QuickNavigate.Title.OpenResource" xml:space="preserve">
+  <data name="ProjectManager.Title.OpenResource" xml:space="preserve">
     <value>Öffne Ressource</value>
     <comment>Added after 3.2.2</comment>
   </data>

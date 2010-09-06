@@ -1,17 +1,18 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Xml.Serialization;
 using ProjectManager.Projects;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore;
-using System.Windows.Forms;
 
 namespace ProjectManager
 {
@@ -24,7 +25,11 @@ namespace ProjectManager
 
         public const Keys DEFAULT_TESTMOVIE = Keys.F5;
         public const Keys DEFAULT_BUILDPROJECT = Keys.F8;
-
+        public const Keys DEFAULT_OPENRESOURCE = Keys.Control | Keys.R;
+        
+        private Size resourceFormSize;
+        private Boolean searchExternalClassPath = true;
+        private Keys openResourceShortcut = DEFAULT_OPENRESOURCE;
         List<ProjectPreferences> projectPrefList = new List<ProjectPreferences>();
         List<string> recentProjects = new List<string>();
         bool showProjectClasspaths = true;
@@ -79,6 +84,32 @@ namespace ProjectManager
         {
             get { return newProjectDefaultDirectory; }
             set { newProjectDefaultDirectory = value; FireChanged("NewProjectDefaultDirectory"); }
+        }
+
+        [Browsable(false)]
+        public Size ResourceFormSize
+        {
+            get { return resourceFormSize; }
+            set { resourceFormSize = value; }
+        }
+
+        [DisplayName("Open Resource")]
+        [LocalizedCategory("ProjectManager.Category.Shortcuts")]
+        [LocalizedDescription("ProjectManager.Description.OpenResourceShortcut")]
+        [DefaultValue(DEFAULT_OPENRESOURCE)]
+        public Keys ShortcutOpenResource
+        {
+            get { return openResourceShortcut; }
+            set { openResourceShortcut = value; }
+        }
+
+        [DisplayName("Search In External Classpath")]
+        [LocalizedDescription("ProjectManager.Description.SearchExternalClassPath")]
+        [DefaultValue(true)]
+        public Boolean SearchExternalClassPath
+        {
+            get { return searchExternalClassPath; }
+            set { searchExternalClassPath = value; }
         }
 
         [DisplayName("Use Project Sessions")]

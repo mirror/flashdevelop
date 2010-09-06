@@ -73,6 +73,9 @@
     <Compile Include="Actions\FileActions.cs" />
     <Compile Include="Actions\FlashDevelopActions.cs" />
     <Compile Include="Actions\ProjectActions.cs" />
+    <Compile Include="Controls\OpenResourceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Helpers\FlexCompilerShell.cs" />
     <Compile Include="Controls\AS2\AS2PropertiesDialog.cs">
       <SubType>Form</SubType>
