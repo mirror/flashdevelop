@@ -198,7 +198,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Benötige Compiler Konfiguration</value>
   </data>
   <data name="ASCompletion.Description.AddSpaceAfter" xml:space="preserve">
-    <value>When reformating, always keep a space character after these words.</value>
+    <value>Liste der Schlüsselwörter, bei welchen Leerzeichen beibehalten werden sollen.</value>
   </data>
   <data name="ASCompletion.Description.AlwaysCompleteWordLength" xml:space="preserve">
     <value>Starte die Codevervollständigung nach der angegebenen Anzahl von Zeichen (0 um die Funktion zu deaktivieren).</value>
@@ -276,7 +276,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Öffne automatisch die erstellte SWF nach einem Quick-Build.</value>
   </data>
   <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
-    <value>Automatically fix package of the class if it's not matching file path. Executed on file open.</value>
+    <value>Gibt an, ob fehlerhafte Package-Angaben automatisch behoben werden sollen. Wird beim Öffnen der Datei ausgeführt.</value>
   </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
     <value>Springe zur vorigen Position vor einer 'Gehe zur Deklaration' Anweisung.</value>
@@ -2521,7 +2521,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Helfer</value>
   </data>
   <data name="ASCompletion.Category.OutlineView" xml:space="preserve">
-    <value>Gliederungsfenster</value>
+    <value>Gliederung</value>
   </data>
   <data name="ASCompletion.Category.Shortcuts" xml:space="preserve">
     <value>Tastenkombination</value>
@@ -2710,7 +2710,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Kursivschrift</value>
   </data>
   <data name="FlashDevelop.Info.ZipFilter" xml:space="preserve">
-    <value>FlashDevelop Zip Files|*.fdz</value>
+    <value>FlashDevelop Zip Dateien|*.fdz</value>
   </data>
   <data name="FlashDevelop.Info.EditorStyle" xml:space="preserve">
     <value>Editor Stil</value>
@@ -2728,7 +2728,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Größe:</value>
   </data>
   <data name="FlashDevelop.Label.ExportFiles" xml:space="preserve">
-    <value>Dateien Exportieren...</value>
+    <value>Dateien exportieren...</value>
   </data>
   <data name="FlashDevelop.Title.SyntaxEditDialog" xml:space="preserve">
     <value>Syntaxhervorhebung</value>
@@ -2740,7 +2740,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Die Dateien wurden erfolgreich extrahiert!</value>
   </data>
   <data name="FlashDevelop.Info.CaretFore" xml:space="preserve">
-    <value>Caret Front:</value>
+    <value>Caret Farbe:</value>
   </data>
   <data name="FlashDevelop.Info.CaretLineBack" xml:space="preserve">
     <value>Caret Zeile:</value>
@@ -2773,13 +2773,13 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Möchten Sie dieses Snippet wirklich löschen?</value>
   </data>
   <data name="FlashDevelop.Info.InsertInstruction" xml:space="preserve">
-    <value>Einfügebefehl:</value>
+    <value>Anweisung einfügen:</value>
   </data>
   <data name="FlashDevelop.Info.SelectSnippetLocation" xml:space="preserve">
     <value>Wählen Sie das Verzeichnis für die Snippets aus...</value>
   </data>
   <data name="FlashDevelop.Info.SnippetName" xml:space="preserve">
-    <value>Snippet-name:</value>
+    <value>Snippet-Name:</value>
   </data>
   <data name="FlashDevelop.Info.Snippets" xml:space="preserve">
     <value>Snippets:</value>
@@ -2881,7 +2881,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Pfade die gefiltert werden sollen wenn der name eines Klassenpfads aufgelöst werden soll.</value>
   </data>
   <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
-    <value>The package '{0}' did not match the file path. New package is generated:</value>
+    <value>Das Package '{0}' entspricht nicht zum Dateipfad. Packageangabe wurde angepasst:</value>
   </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
     <value>Das Package '{0}' stimmt nicht mit dem Dateipfad überein:</value>
@@ -3018,7 +3018,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
-    <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
+    <value>Gibt an, ob automatisch eine schließenden Klammer nach Eingabe von "(" oder "[" eingefügt werden soll. Gilt auch für Anführungszeichen.</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
@@ -3034,7 +3034,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Browse" xml:space="preserve">
-    <value>Auswählen...</value>
+    <value>Auswählen</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Cancel" xml:space="preserve">
@@ -3054,7 +3054,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.ChosePackage" xml:space="preserve">
-    <value>Wählen Sie ein Package-Verzeichnis:</value>
+    <value>Wählen Sie ein Package aus:</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.CodeGeneration" xml:space="preserve">
@@ -3062,7 +3062,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.GenerateConstructor" xml:space="preserve">
-    <value>Erstelle einen zu Basis-Klasse passenden Konstruktor</value>
+    <value>Erstelle zur Basis-Klasse passenden Konstruktor</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.GenerateInherited" xml:space="preserve">
@@ -3074,7 +3074,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.Modifiers" xml:space="preserve">
-    <value>Zugriffsbezeichner:</value>
+    <value>Sichtbarkeit:</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.Name" xml:space="preserve">
@@ -3276,7 +3276,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Label.CopyClassName" xml:space="preserve">
-    <value>Copy Class Name</value>
+    <value>Klassenname kopieren</value>
   </data>
   <data name="FlashViewer.Description.DisableAutoConfig" xml:space="preserve">
     <value>Deaktiviert die automatische Konfiguration, damit Dateien mit dem Starndardprogramm geöffnet werden.</value>
