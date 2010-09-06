@@ -246,34 +246,38 @@ namespace ASCompletion.Completion
 
             
             // suggest declaration
-            if (suggestItemDeclaration)
+            if (contextToken != null)
             {
-                Match m = Regex.Match(text, String.Format(patternClass, contextToken));
-                if (m.Success)
+                if (suggestItemDeclaration)
                 {
-                    contextMatch = m;
-                    ShowNewClassList(found);
-                }
-                else
-                {
-                    m = Regex.Match(text, String.Format(patternMethod, contextToken));
+                    Match m = Regex.Match(text, String.Format(patternClass, contextToken));
                     if (m.Success)
                     {
                         contextMatch = m;
-                        ShowNewMethodList(found);
+                        ShowNewClassList(found);
                     }
-                    else ShowNewVarList(found);
+                    else
+                    {
+                        m = Regex.Match(text, String.Format(patternMethod, contextToken));
+                        if (m.Success)
+                        {
+                            contextMatch = m;
+                            ShowNewMethodList(found);
+                        }
+                        else ShowNewVarList(found);
+                    }
                 }
-            }
-            else
-            {
-                Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
-                if (m.Success)
+                else
                 {
-                    contextMatch = m;
-                    ShowChangeMethodDeclList(found);
+                    Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
+                    if (m.Success)
+                    {
+                        contextMatch = m;
+                        ShowChangeMethodDeclList(found);
+                    }
                 }
             }
+            
 
             // TODO  Empty line, show generators list?
         }
