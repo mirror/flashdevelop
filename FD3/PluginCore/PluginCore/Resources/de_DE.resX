@@ -4174,4 +4174,8 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Text Document</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
+    <value>Assign statement to variable</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>
