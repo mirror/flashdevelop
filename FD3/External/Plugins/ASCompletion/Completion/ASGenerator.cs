@@ -2598,7 +2598,7 @@ namespace ASCompletion.Completion
                     decl += String.Format(GetTemplate("Getter"),
                         acc, name, type, "super." + name);
                 }
-                if (ofClass.Members.Search(name, FlagType.Getter, 0) != null)
+                if (ofClass.Members.Search(name, FlagType.Setter, 0) != null)
                 {
                     string tpl = GetTemplate("Setter");
                     if (decl.Length > 0)
