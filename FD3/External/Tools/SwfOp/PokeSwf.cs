@@ -102,7 +102,7 @@ namespace SwfOp
             Swf swf = null;
             try
             {
-                wswf = reader.ReadSwf();
+                swf = reader.ReadSwf();
                 foreach (BaseTag tag in swf)
                 {
                     if (tag is ExportTag)
