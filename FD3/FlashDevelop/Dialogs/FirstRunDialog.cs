@@ -157,7 +157,9 @@ namespace FlashDevelop.Dialogs
             else
             {
                 this.infoLabel.Text = TextHelper.GetString("Info.InitFailed");
-                this.Click += new EventHandler(FirstRunDialogClick);
+                this.pictureBox.Click += new EventHandler(this.FirstRunDialogClick);
+                this.progressBar.Click += new EventHandler(this.FirstRunDialogClick);
+                this.infoLabel.Click += new EventHandler(this.FirstRunDialogClick);
             }
         }
 
