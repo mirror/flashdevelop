@@ -25,7 +25,12 @@ namespace SwfOp.Data.Tags
 			_tagCode = (int)TagCodeEnum.ExportAssets;
 			_names = names;
 			_ids = ids;
-		}
+        }
+
+        public ArrayList Ids
+        {
+            get { return _ids; }
+        }
 		
 		public ArrayList Names 
 		{

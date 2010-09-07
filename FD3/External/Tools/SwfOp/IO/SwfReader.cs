@@ -26,6 +26,7 @@ using SwfOp.Data;
 using SwfOp.Data.Tags;
 using SwfOp.Utils;
 using ICSharpCode.SharpZipLib.Zip.Compression;
+using System.Text;
 
 namespace SwfOp.IO {
 	
@@ -382,11 +383,11 @@ namespace SwfOp.IO {
 			RecordHeader rh = ReadRecordHeader();	
 
 			// inner tags
-			ArrayList tagList = new ArrayList();			
-			long endPos = br.BaseStream.Position + rh.TagLength;
+			ArrayList tagList = new ArrayList();
+            long endPos = br.BaseStream.Position + rh.TagLength;
 
 			// stuff before inner tags, just read it and dont look any further
-			byte[] header = br.ReadBytes(4);
+            byte[] header = br.ReadBytes(4);
 			
 			while (br.BaseStream.Position<endPos) {
 				BaseTag b = this.ReadTag();
@@ -395,8 +396,8 @@ namespace SwfOp.IO {
 			
 			BaseTag[] tags = new BaseTag[tagList.Count];
 			tagList.CopyTo(tags,0);
-			
-			return new DefineSpriteTag(header,tags);			
+
+            return new DefineSpriteTag(header, tags, rh.TagLength);
 		}
 		
 		/// <summary>
@@ -436,7 +437,7 @@ namespace SwfOp.IO {
 						
 			return new ScriptLimitTag(maxRecursionDepth,scriptTimeOut);
 		}
-		/*
+		
 		/// <summary>
 		/// Read and parse JpegTableTag
 		/// </summary>
@@ -485,9 +486,50 @@ namespace SwfOp.IO {
 			byte[] img = br.ReadBytes(imgLen);			
 			byte[] alpha = br.ReadBytes(tl-6-imgLen);
 			
-			return new DefineBitsJpeg3Tag(id,img,alpha);			
-		}
-		*/
+			return new DefineBitsJpeg3Tag(id,img,alpha);
+        }
+
+        /// <summary>
+        /// Read and parse DefineSoundTag
+        /// </summary>
+        protected DefineSoundTag ReadDefineSoundTag()
+        {
+            RecordHeader rh = ReadRecordHeader();
+            int tl = rh.TagLength;
+            ushort id = br.ReadUInt16();
+            byte[] data = br.ReadBytes(tl - 2);
+            return new DefineSoundTag(id, data);
+        }
+		
+
+        protected BaseTag ReadExportTag(int offset)
+        {
+            br.BaseStream.Position += offset;
+            ushort count = br.ReadUInt16();
+            ushort id;
+            ArrayList ids = new ArrayList();
+            ArrayList names = new ArrayList();
+            for (int i = 0; i < count; i++)
+            {
+                id = br.ReadUInt16();
+                ids.Add(id);
+                names.Add(ReadString());
+            }
+            return new ExportTag(ids, names);
+        }
+
+        protected string ReadString()
+        {
+            StringBuilder sb = new StringBuilder();
+            byte c = br.ReadByte();
+            while (c != 0)
+            {
+                sb.Append((char)c);
+                c = br.ReadByte();
+            }
+            return sb.ToString();
+        }
+
 		/// <summary>
 		/// Read tag from swf input stream, non-bytecode tags are reads into base tags and wont get parsed
 		/// </summary>
@@ -516,6 +558,28 @@ namespace SwfOp.IO {
 					} else {
 						return p;
 					}
+
+                case (int)TagCodeEnum.DefineBits:
+                case (int)TagCodeEnum.DefineBitsLossless:
+                case (int)TagCodeEnum.DefineBitsLossless2:
+                    return ReadDefineBitsTag();
+
+                case (int)TagCodeEnum.DefineBitsJpeg2:
+                    return ReadDefineBitsJpeg2Tag();
+
+                case (int)TagCodeEnum.DefineBitsJpeg3:
+                    return ReadDefineBitsJpeg3Tag();
+
+                case (int)TagCodeEnum.DefineSound:
+                    return ReadDefineSoundTag();
+
+                case (int)TagCodeEnum.ExportAssets:
+                case (int)TagCodeEnum.SymbolClass:
+                    return ReadExportTag(offset);
+
+                case (int)TagCodeEnum.DefineFont2:
+                case (int)TagCodeEnum.DefineFont3:
+                    return new DefineFontTag(br.ReadBytes(rh.TagLength + offset), offset, rh.TagCode);
 
                 /*case 63:
                     // Dump tag

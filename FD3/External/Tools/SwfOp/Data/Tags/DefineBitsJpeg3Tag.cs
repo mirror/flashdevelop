@@ -29,31 +29,17 @@ namespace SwfOp.Data.Tags {
 	/// <summary>
 	/// DefineBits tag for Jpeg images in swf
 	/// </summary>
-	public class DefineBitsJpeg3Tag : SwfOp.Data.Tags.BaseTag {
+	public class DefineBitsJpeg3Tag : DefineBitsTag {
 		
-		private byte[] jpegData;
 		private byte[] alphaData;
-		private ushort characterId;
 		
 		/// <summary>
 		/// constructor
 		/// </summary>
-		public DefineBitsJpeg3Tag(ushort id,byte[] image,byte[] alpha) {
-			characterId = id;
-			jpegData = image;	
+		public DefineBitsJpeg3Tag(ushort id,byte[] image,byte[] alpha) 
+            : base(id, image)
+        {
 			alphaData = alpha;
-		}
-		
-		/// <summary>
-		/// JPEG Data
-		/// </summary>
-		public byte[] JpegData {
-			get {
-				return jpegData;
-			}
-			set {
-				jpegData = value;
-			}
 		}
 		
 		/// <summary>
@@ -75,13 +61,13 @@ namespace SwfOp.Data.Tags {
 				
 			MemoryStream m = new MemoryStream();
 			BinaryWriter w = new BinaryWriter(m);
-			
-			RecordHeader rh = new RecordHeader(TagCode, 6 + jpegData.Length + alphaData.Length ,true);
+
+            RecordHeader rh = new RecordHeader(TagCode, 6 + mediaData.Length + alphaData.Length, true);
 			
 			rh.WriteTo(w);
 			w.Write(characterId);
-			w.Write(Convert.ToUInt32(jpegData.Length));
-			w.Write(jpegData);
+            w.Write(Convert.ToUInt32(mediaData.Length));
+            w.Write(mediaData);
 			w.Write(alphaData);
 			
 			// write to data array

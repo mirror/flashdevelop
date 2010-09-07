@@ -97,47 +97,41 @@ namespace SwfOp
 		static void ExploreSWF(Stream stream)
 		{
             if (stream == null) return;
-            //SwfReader reader = new SwfReader(stream);
-            SwfExportTagReader reader = new SwfExportTagReader(stream);
+            SwfReader reader = new SwfReader(stream);
+            //SwfExportTagReader reader = new SwfExportTagReader(stream);
             Swf swf = null;
             try
             {
-                swf = reader.ReadSwf();
-                long mod = DateTime.Now.Ticks;
-                string builtin = "* void ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math Namespace Number Object QName RangeError ReferenceError RegExp SecurityError String SyntaxError toplevel TypeError uint UninitializedError URIError VerifyError XML XMLList ";
+                wswf = reader.ReadSwf();
                 foreach (BaseTag tag in swf)
                 {
-                    if (tag is AbcTag)
+                    if (tag is ExportTag)
                     {
-                        Console.WriteLine("==== new tag");
-                        AbcTag abcTag = tag as AbcTag;
-                        foreach (Traits trait in abcTag.abc.classes)
+                        ExportTag etag = (ExportTag)tag;
+                        for (int i = 0; i < etag.Ids.Count; i++)
                         {
-                            if (trait.itraits != null)
+                            BaseTag ftag = FindObject(swf, (ushort)etag.Ids[i]);
+                            if (ftag is DefineSpriteTag)
                             {
-                                string path = trait.itraits.ToString().Replace('.', '/').Replace(':', '/');
-                                Console.WriteLine(String.Format("<script name=\"{0}\" mod=\"{1}\" >", path, mod));
-                                Console.WriteLine(String.Format("\t<def id=\"{0}\" />", trait.itraits.ToString()));
-                                Console.WriteLine(String.Format("\t<dep id=\"{0}\" type=\"i\" />", trait.itraits.baseName.ToString()));
-                                Console.WriteLine("\t<dep id=\"AS3\" type=\"n\" />");
-                                List<string> depend = new List<string>();
-                                foreach (MemberInfo member in trait.itraits.members)
-                                {
-                                    string[] types = member.RelatedTypes();
-                                    if (types != null)
-                                        foreach (string type in types)
-                                            if (!depend.Contains(type)) depend.Add(type);
-                                }
-                                foreach (string type in depend)
-                                {
-                                    if (type.StartsWith("private.") || type.StartsWith("__AS3__.vec")
-                                        || builtin.IndexOf(type + " ") >= 0)
-                                        continue;
-                                    Console.WriteLine(String.Format("\t<dep id=\"{0}\" type=\"s\" />", type));
-                                }
-                                Console.WriteLine("</script>");
+                                DefineSpriteTag stag = (DefineSpriteTag)ftag;
+                                Console.WriteLine("Symbol '" + etag.Names[i] + "' - " + stag.Size);
+                            }
+                            else if (ftag is DefineSoundTag)
+                            {
+                                DefineSoundTag stag = (DefineSoundTag)ftag;
+                                Console.WriteLine("Sound '" + etag.Names[i] + "' - " + stag.MediaData.Length);
+                            }
+                            else if (ftag is DefineBitsTag)
+                            {
+                                DefineBitsTag btag = (DefineBitsTag)ftag;
+                                Console.WriteLine("Image '" + etag.Names[i] + "' - " + btag.MediaData.Length);
                             }
                         }
+                    }
+                    else if (tag is DefineFontTag)
+                    {
+                        DefineFontTag ftag = (DefineFontTag)tag;
+                        Console.WriteLine("Font '" + ftag.Name + "' - " + ftag.Data.Length);
                     }
                 }
             }
@@ -146,5 +140,17 @@ namespace SwfOp
                 Console.WriteLine("-- Swf error: " + ex.Message);
             }
 		}
+
+        private static BaseTag FindObject(Swf swf, ushort id)
+        {
+            foreach (BaseTag tag in swf)
+            {
+                if (tag is DefineSpriteTag && (tag as DefineSpriteTag).Id == id)
+                    return tag;
+                else if (tag is DefineBitsTag && (tag as DefineBitsTag).Id == id)
+                    return tag;
+            }
+            return null;
+        }
 	}
 }

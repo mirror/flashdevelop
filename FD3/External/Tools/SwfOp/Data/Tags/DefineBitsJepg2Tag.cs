@@ -29,48 +29,16 @@ namespace SwfOp.Data.Tags {
 	/// <summary>
 	/// DefineBits tag for Jpeg images in swf
 	/// </summary>
-	public class DefineBitsJpeg2Tag : SwfOp.Data.Tags.BaseTag {
-		
-		private byte[] jpegData;
-		private ushort characterId;
-		
+    public class DefineBitsJpeg2Tag : DefineBitsTag
+    {
 		/// <summary>
 		/// constructor
 		/// </summary>
-		public DefineBitsJpeg2Tag(ushort id,byte[] image) {
-			characterId = id;
-			jpegData = image;			
-		}
+        public DefineBitsJpeg2Tag(ushort id, byte[] image)
+            : base(id, image)
+        {
+        }
 		
-		/// <summary>
-		/// JPEG Data
-		/// </summary>
-		public byte[] JpegData {
-			get {
-				return jpegData;
-			}
-			set {
-				jpegData = value;
-			}
-		}
-		
-		/// <summary>
-		/// see <see cref="SwfOp.Data.Tags.BaseTag">base class</see>
-		/// </summary>
-		public override void UpdateData(byte version) {
-				
-			MemoryStream m = new MemoryStream();
-			BinaryWriter w = new BinaryWriter(m);
-			
-			RecordHeader rh = new RecordHeader(TagCode, 2 + jpegData.Length ,true);
-			
-			rh.WriteTo(w);
-			w.Write(characterId);
-			w.Write(jpegData);
-			
-			// write to data array
-			_data = m.ToArray();			
-		}
 	}
 }
 

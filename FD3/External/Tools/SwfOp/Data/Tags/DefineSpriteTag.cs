@@ -55,16 +55,22 @@ namespace SwfOp.Data.Tags {
 		/// contains action block counts for inner tags
 		/// </summary>
 		private int[] tagOffset;
+
+        /// <summary>
+        /// total size of the sprite (including children)
+        /// </summary>
+        private long size;
 		
 		/// <summary>
 		/// constructor.
 		/// </summary>
 		/// <param name="header">header data</param>
 		/// <param name="tags">list of inner tags</param>
-		public DefineSpriteTag(byte[] header,BaseTag[] tags) {
+		public DefineSpriteTag(byte[] header, BaseTag[] tags, long size) {
 			
 			this.header = header;
-			this.tagList = tags;	
+			this.tagList = tags;
+            this.size = size;
 			
 			_tagCode = (int)TagCodeEnum.DefineSprite;
 			
@@ -86,9 +92,28 @@ namespace SwfOp.Data.Tags {
 						tagForAction[actionIdx+j]=i;						
 					}
 					actionIdx+=count;					
-				}			
+				}
 			}
 		}
+
+        /// <summary>
+        /// Sprite ID
+        /// </summary>
+        public ushort Id
+        {
+            get
+            {
+                using (BinaryReader br = new BinaryReader(new MemoryStream(header)))
+                {
+                    return br.ReadUInt16();
+                }
+            }
+        }
+
+        /// <summary>
+        /// total size of the sprite (including children)
+        /// </summary>
+        public long Size { get { return size; } }
 		
 		/// <summary>
 		/// see <see cref="SwfOp.Data.Tags.BaseTag">base class</see>

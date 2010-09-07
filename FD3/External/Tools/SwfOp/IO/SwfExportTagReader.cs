@@ -88,22 +88,6 @@ namespace SwfOp.IO
 				
 		}
 
-        BaseTag ReadExportTag(int offset)
-        {
-            br.BaseStream.Position += offset;
-            ushort count = br.ReadUInt16();
-            ushort id;
-            ArrayList ids = new ArrayList();
-            ArrayList names = new ArrayList();
-            for (int i = 0; i < count; i++)
-            {
-                id = br.ReadUInt16();
-                ids.Add(id);
-                names.Add(ReadString());
-            }
-            return new ExportTag(ids, names);
-        }
-
         BaseTag ReadMetaDataTag(int offset)
         {
             br.BaseStream.Position += offset;
@@ -116,18 +100,6 @@ namespace SwfOp.IO
             br.BaseStream.Position += offset;
             string name = ReadString();
             return new FrameTag(name);
-        }
-
-        private string ReadString()
-        {
-            StringBuilder sb = new StringBuilder();
-            byte c = br.ReadByte();
-            while (c != 0)
-            {
-                sb.Append((char)c);
-                c = br.ReadByte();
-            }
-            return sb.ToString();
         }
 	}
 }
