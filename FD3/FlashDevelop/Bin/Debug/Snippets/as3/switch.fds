@@ -1,3 +1,10 @@
 switch ($(EntryPoint)) $(CSLB){
-	
+	case :
+		
+	break;
+	default:
+		
+	break;
 }
+
+

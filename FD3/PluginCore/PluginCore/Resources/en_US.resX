@@ -2216,6 +2216,10 @@ Never - the start page will not show based on startup.</value>
     <value>Generate public function</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
+    <value>Assign statement to variable</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
     <value>Change method declaration</value>
   </data>

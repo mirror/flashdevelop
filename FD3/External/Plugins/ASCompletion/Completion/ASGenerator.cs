@@ -191,6 +191,20 @@ namespace ASCompletion.Completion
                         return;
                     }
                 }
+
+
+                // "assign var to statement" siggestion
+                int curLine = Sci.LineFromPosition(Sci.CurrentPos);
+                string ln = Sci.GetLine(curLine);
+                if (ln.Trim().Length > 0 && ln.TrimEnd().Length <= Sci.CurrentPos - Sci.PositionFromLine(curLine))
+                {
+                    Regex re = new Regex("=");
+                    Match m = re.Match(ln);
+                    if (!m.Success)
+                    {
+                        ShowAssignStatementToVarList(found);
+                    }
+                }
             }
 
             // suggest generate constructor / toString
@@ -522,6 +536,21 @@ namespace ASCompletion.Completion
             known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, found.inClass));
 
             CompletionList.Show(known, false);
+        }
+
+        private static void ShowAssignStatementToVarList(FoundDeclaration found)
+        {
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+
+            ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
+
+            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
+            {
+                string labelClass = TextHelper.GetString("ASCompletion.Label.AssignStatementToVar");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.AssignStatementToVar, found.member, found.inClass));
+
+                CompletionList.Show(known, false);
+            }
         }
 
         private static void ShowNewClassList(FoundDeclaration found)
@@ -905,7 +934,200 @@ namespace ASCompletion.Completion
                         Sci.EndUndoAction();
                     }
                     break;
+
+                case GeneratorJobType.AssignStatementToVar:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        AssignStatementToVar(inClass, Sci, member);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
             }
+        }
+
+        private static void AssignStatementToVar(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
+        {
+            Regex re_balancedParenthesis = new Regex("\\([^()]*(((?<Open>\\()[^()]*)+((?<Close-Open>\\))[^()]*)+)*(?(Open)(?!))\\)", RegexOptions.RightToLeft);
+
+            Regex target = new Regex(@"[;\s\t\n\r]*", RegexOptions.RightToLeft);
+            int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
+            string line = Sci.GetLine(lineNum);
+            Match m = target.Match(line);
+            if (!m.Success)
+            {
+                return;
+            }
+            line = line.Substring(0, m.Index);
+
+            if (line.Length == 0)
+            {
+                return;
+            }
+
+            line = ReplaceAllStringContents(line);
+
+            ASResult resolve = null;
+            string word = null;
+            int pos = -1;
+            if (line[line.Length - 1] == ')')
+            {
+                pos = line.IndexOf("(");
+            }
+            else
+            {
+                pos = line.Length;
+            }
+            if (pos != -1)
+            {
+                line = line.Substring(0, pos);
+                pos += Sci.PositionFromLine(lineNum);
+                pos -= line.Length - line.TrimEnd().Length + 1;
+                pos = Sci.WordEndPosition(pos, false);
+                resolve = ASComplete.GetExpressionType(Sci, pos);
+                word = Sci.GetWordFromPosition(pos);
+            }
+            
+            IASContext cntx = inClass.InFile.Context;
+            bool isAs3 = cntx.Settings.LanguageId == "AS3";
+            string voidWord = isAs3 ? "void" : "Void";
+            string type = null;
+            string varname = null;
+            string cleanType = null;
+
+            if (resolve != null && !resolve.IsNull())
+            {
+                if (resolve.Member != null && resolve.Member.Type != null)
+                {
+                    type = resolve.Member.Type;
+                }
+                else if (resolve.Type != null && resolve.Type.Name != null)
+                {
+                    type = resolve.Type.QualifiedName;
+                }
+
+                if (resolve.Member != null && resolve.Member.Name != null)
+                {
+                    varname = GuessVarName(resolve.Member.Name, type);
+                }
+            }
+            else
+            {
+                int stylemask = (1 << Sci.StyleBits) - 1;
+                if (word != null)
+                {
+                    if (Char.IsDigit(word[0]))
+                    {
+                        varname = "n";
+                        type = cntx.ResolveType("Number", inClass.InFile).QualifiedName;
+                    }
+                    else if (word == "true" || word == "false")
+                    {
+                        varname = "b";
+                        type = cntx.ResolveType("Boolean", inClass.InFile).QualifiedName;
+                    }
+                }
+                else
+                {
+                    char c = (char)Sci.CharAt(pos - 2);
+                    if (!(ASComplete.IsTextStyle(Sci.StyleAt(pos - 3) & stylemask)))
+                    {
+                        varname = "s";
+                        type = cntx.ResolveType("String", inClass.InFile).QualifiedName;
+                    }
+                    else if (Sci.CharAt(pos - 2) == '}')
+                    {
+                        varname = "o";
+                        type = cntx.ResolveType("Object", inClass.InFile).QualifiedName;
+                    }
+                    else if (Sci.CharAt(pos - 2) == '>')
+                    {
+                        varname = "xml";
+                        type = cntx.ResolveType("XML", inClass.InFile).QualifiedName;
+                    }
+                    
+                }
+            }
+            
+            if (type == voidWord)
+            {
+                type = null;
+            }
+            if (varname == null && word != null)
+            {
+                varname = GuessVarName(word, type);
+            }
+            if (varname != null && varname == word)
+            {
+                if (varname.Length == 1)
+                {
+                    varname = varname + "1";
+                }
+                else
+                {
+                    varname = varname[0] + "";
+                }
+            }
+
+            if (type != null)
+            {
+                cleanType = type;
+                if (cleanType.IndexOf("@") > -1)
+                {
+                    cleanType = cleanType.Substring(0, type.IndexOf("@"));
+                }
+                if (cleanType.IndexOf(".<") == -1)
+                {
+                    cleanType = cleanType.Substring(cleanType.LastIndexOf(".") + 1);
+                }
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("var ");
+            if (varname != null)
+            {
+                sb.Append(varname);
+                sb.Append(":");
+            }
+            if (cleanType != null)
+            {
+                sb.Append(cleanType);
+            }
+            else
+            {
+                sb.Append("$(EntryPoint)");
+            }
+            sb.Append(" = $(Boundary)");
+
+            int indent = Sci.GetLineIndentation(lineNum);
+            pos = Sci.PositionFromLine(lineNum) + indent / Sci.Indent;
+
+            if (type != null)
+            {
+                ClassModel inClassForImport = null;
+                if (resolve.inClass != null)
+                {
+                    inClassForImport = resolve.inClass;
+                }
+                else if (resolve.relClass != null)
+                {
+                    inClassForImport = resolve.relClass;
+                }
+                else 
+                {
+                    inClassForImport = inClass;
+                }
+                List<string> l = new List<string>();
+                l.Add(getQualifiedType(type, inClassForImport));
+                pos += AddImportsByName(l, pos);
+            }
+
+            Sci.CurrentPos = pos;
+            Sci.SetSel(pos, pos);
+            InsertCode(pos, sb.ToString());
         }
 
         private static void EventMetatag(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
@@ -1819,27 +2041,10 @@ namespace ASCompletion.Completion
                 {
                     type = type.Substring(type.LastIndexOf(".") + 1);
                     prms[i].paramType = type;
+                
                 }
 
-                // if constant then convert to camelCase
-                if (rslt.Member != null && (rslt.Member.Flags & FlagType.Constant) > 0)
-                {
-                    name = Camelize(name);
-                }
-
-                // if getter, then remove 'get' prefix
-                name = name.TrimStart(new char[] { '_' });
-                if (name.Length > 3 && name.StartsWith("get") && (name[3].ToString() == char.ToUpper(name[3]).ToString()))
-                {
-                    name = char.ToLower(name[3]).ToString() + name.Substring(4);
-                }
-
-                if (name == "this")
-                {
-                    name = Char.ToLower(type[0]) + type.Substring(1);
-                }
-
-                prms[i].param = name;
+                prms[i].param = GuessVarName(name, type);
             }
             return prms;
         }
@@ -2034,6 +2239,86 @@ namespace ASCompletion.Completion
                 }
             }
             return false;
+        }
+
+        private static string ReplaceAllStringContents(string line)
+        {
+            Regex re1 = new Regex(@"'(.*?[^\\'])'");
+            Regex re2 = new Regex("\"(.*?[^\\\\\"])\"");
+            Match m1 = re1.Match(line);
+            Match m2 = re2.Match(line);
+            while (m1.Success || m2.Success)
+            {
+                Match m = null;
+                if (m1.Success && m2.Success)
+                {
+                    if (m1.Index > m2.Index)
+                    {
+                        m = m2;
+                    }
+                    else
+                    {
+                        m = m1;
+                    }
+                }
+                else if (m1.Success)
+                {
+                    m = m1;
+                }
+                else
+                {
+                    m = m2;
+                }
+                string sub = "AA";
+                string val = m.Groups[1].Value;
+                for (int j = 0; j < val.Length; j++)
+                {
+                    sub += "A";
+                }
+                line = line.Substring(0, m.Groups[1].Index - 1) + sub + line.Substring(m.Groups[1].Index + m.Groups[1].Value.Length + 1);
+
+                m1 = re1.Match(line);
+                m2 = re2.Match(line);
+            }
+            return line;
+        }
+
+        private static string GuessVarName(string name, string type)
+        {
+            // if constant then convert to camelCase
+            if (name.ToUpper() == name)
+            {
+                name = Camelize(name);
+            }
+
+            // if getter, then remove 'get' prefix
+            name = name.TrimStart(new char[] { '_' });
+            if (name.Length > 3 && name.StartsWith("get") && (name[3].ToString() == char.ToUpper(name[3]).ToString()))
+            {
+                name = char.ToLower(name[3]).ToString() + name.Substring(4);
+            }
+
+            if (name.Length > 1)
+            {
+                name = Char.ToLower(name[0]) + name.Substring(1);
+            }
+            else
+            {
+                name = Char.ToLower(name[0]) + "";
+            }
+
+            if (name == "this" || type == name)
+            {
+                if (type != null && type.Length > 0)
+                {
+                    name = Char.ToLower(type[0]) + type.Substring(1);
+                }
+                else
+                {
+                    name = "p_this";
+                }
+            }
+            return name;
         }
 
         private static void GenerateImplementation(ClassModel aType, int position)
@@ -3086,6 +3371,7 @@ namespace ASCompletion.Completion
         AddAsParameter = 20,
         ChangeMethodDecl = 21,
         EventMetatag = 22,
+        AssignStatementToVar = 23,
     }
 
     /// <summary>
