@@ -29,7 +29,7 @@ namespace AS3Context.Compiler
         static public event SyntaxErrorHandler SyntaxError;
 
 		static readonly public Regex re_SplitParams = 
-			new Regex("[\\s](?<switch>\\-[A-z\\-\\.]+)", RegexOptions.Compiled | RegexOptions.Singleline);
+			new Regex("[\\s](?<switch>\\-[A-z0-9\\-\\.]+)", RegexOptions.Compiled | RegexOptions.Singleline);
 
 		static private readonly string[] PATH_SWITCHES = { 
 			"-compiler.context-root","-context-root",
