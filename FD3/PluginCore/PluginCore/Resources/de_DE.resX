@@ -4170,4 +4170,8 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Sprache:</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="FlashDevelop.Label.TextDocument" xml:space="preserve">
+    <value>Text Document</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>
