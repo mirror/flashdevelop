@@ -378,7 +378,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Typ Explorer</value>
   </data>
   <data name="ASCompletion.Title.PluginPanel" xml:space="preserve">
-    <value>Gliederungsfenster</value>
+    <value>Gliederung</value>
   </data>
   <data name="ASCompletion.ToolTip.Refresh" xml:space="preserve">
     <value>Aktualisieren</value>
@@ -2881,7 +2881,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Pfade die gefiltert werden sollen wenn der name eines Klassenpfads aufgelöst werden soll.</value>
   </data>
   <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
-    <value>Das Package '{0}' entspricht nicht zum Dateipfad. Packageangabe wurde angepasst:</value>
+    <value>Das Package '{0}' entspricht nicht dem Dateipfad. Packageangabe wurde angepasst:</value>
   </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
     <value>Das Package '{0}' stimmt nicht mit dem Dateipfad überein:</value>
@@ -4171,11 +4171,11 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.TextDocument" xml:space="preserve">
-    <value>Text Document</value>
+    <value>Text Dokument</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
-    <value>Assign statement to variable</value>
+    <value>Anweisung einer Variable zuweisen</value>
     <comment>Added after 3.2.2</comment>
   </data>
 </root>
