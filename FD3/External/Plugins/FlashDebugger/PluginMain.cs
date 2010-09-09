@@ -107,6 +107,7 @@ namespace FlashDebugger
 		public void Dispose()
 		{
             SaveSettings();
+            breakPointManager.Save();
 			debugManager.Cleanup();
 		}
 

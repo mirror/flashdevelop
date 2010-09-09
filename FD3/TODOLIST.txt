@@ -1,6 +1,5 @@
 Debugger stuff:
 
-- Save breakpoints on dispose
 - Debugger holds sometimes a file ref
 - Automatically stop Flash player
 - Can you debug ActiveX movies?
