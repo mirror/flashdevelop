@@ -2199,7 +2199,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>FlashDevelop にシンプルな HTML や XML の補完機能を追加します。</value>
   </data>
   <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
-    <value>"Contextual Code Generator"のショートカットです。</value>
+    <value>"コンテクスチュアル コード ジェネレーター"のショートカットです。</value>
   </data>
   <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
     <value>private メソッド スタブの生成</value>
@@ -2586,7 +2586,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>Flash Player のポリシーファイルへのパスです。</value>
   </data>
   <data name="FlashLogViewer.Info.Description" xml:space="preserve">
-    <value>FlashDevelop に Flash Player のログ、ポリシーファイルの追跡機能を追加します。</value>
+    <value>FlashDevelop に Flash Player のログ/ポリシーファイルの追跡機能を追加します。</value>
   </data>
   <data name="FlashLogViewer.Label.ClearLog" xml:space="preserve">
     <value>ログのクリア(&amp;C)</value>
@@ -2748,7 +2748,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>設定を元に戻す...</value>
   </data>
   <data name="FlashDevelop.Info.ColoringTagsMissing" xml:space="preserve">
-    <value>あなたの言語設定ファイルにはおそらくコメントの開始と終了のカラーリングがありません。</value>
+    <value>あなたの言語設定ファイルには、おそらくコメントの開始と終了のカラーリングがありません。</value>
   </data>
   <data name="FlashDevelop.Info.ConfirmSnippetDelete" xml:space="preserve">
     <value>本当にこのスニペットを削除しますか？</value>
@@ -2757,7 +2757,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>アーギュメントを挿入:</value>
   </data>
   <data name="FlashDevelop.Info.SelectSnippetLocation" xml:space="preserve">
-    <value>スニペットのディレクトリを選択していください...</value>
+    <value>スニペットの保存先ディレクトリを選択していください...</value>
   </data>
   <data name="FlashDevelop.Info.SnippetName" xml:space="preserve">
     <value>スニペット名:</value>
@@ -2793,7 +2793,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>マクロを実行できませんでした。問題を修正してください。</value>
   </data>
   <data name="MacroManager.Info.Description" xml:space="preserve">
-    <value>FlashDevelop にシンプルなマクロ機能を追加します。</value>
+    <value>FlashDevelop にマクロ機能を追加します。</value>
   </data>
   <data name="MacroManager.Info.MacroFilter" xml:space="preserve">
     <value>FlashDevelop マクロ (*.fdm)</value>
@@ -2851,7 +2851,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="MacroManager.Description.Image" xml:space="preserve">
-    <value>このマクロのメニューのアイコンです。</value>
+    <value>このマクロのメニューでのアイコンです。</value>
   </data>
   <data name="ASCompletion.Category.Generation" xml:space="preserve">
     <value>Code Generation | コード生成</value>
@@ -4123,11 +4123,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Pull" xml:space="preserve">
-    <value>プル</value>
+    <value>Pull</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Push" xml:space="preserve">
-    <value>プッシュ...</value>
+    <value>Push...</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Revert" xml:space="preserve">
@@ -4171,7 +4171,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
-    <value>変数として宣言</value>
+    <value>値を変数に格納</value>
     <comment>Added after 3.2.2</comment>
   </data>
 </root>
