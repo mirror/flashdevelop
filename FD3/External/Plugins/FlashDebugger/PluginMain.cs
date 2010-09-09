@@ -131,9 +131,10 @@ namespace FlashDebugger
                     break;
                 
                 case EventType.UIClosing:
-					if (debugManager.FlashInterface.isDebuggerStarted)
+                    if (debugManager.FlashInterface.isDebuggerStarted)
+                    {
                         debugManager.FlashInterface.Detach();
-                    breakPointManager.Save();
+                    }
                     break;
 
                 case EventType.ApplySettings:
