@@ -46,6 +46,8 @@ namespace ASClassWizard
         private String lastFileFromTemplate;
         private IASContext processContext;
         private String processOnSwitch;
+        private String constructorArgs;
+        private List<String> constructorArgTypes;
 
 	    #region Required Properties
 
@@ -131,7 +133,8 @@ namespace ASClassWizard
                         {
                             evt.Handled = true;
                             String className = table.ContainsKey("className") ? table["className"] as String : TextHelper.GetString("Wizard.Label.NewClass");
-							DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String, className);
+							DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String, className, 
+                                table["constructorArgs"] as String, table["constructorArgTypes"] as List<String>);
                         }
                     }
                     break;
@@ -212,7 +215,7 @@ namespace ASClassWizard
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 
-        private void DisplayClassWizard(String inDirectory, String templateFile, String className)
+        private void DisplayClassWizard(String inDirectory, String templateFile, String className, String constructorArgs, List<String> constructorArgTypes)
         {
             Project project = PluginBase.CurrentProject as Project;
             String classpath = project.AbsoluteClasspaths.GetClosestParent(inDirectory) ?? inDirectory;
@@ -247,7 +250,9 @@ namespace ASClassWizard
                     if (result == DialogResult.Cancel) return;
                 }
                 string templatePath = templateFile + ".wizard";
-                lastFileFromTemplate = newFilePath;
+                this.lastFileFromTemplate = newFilePath;
+                this.constructorArgs = constructorArgs;
+                this.constructorArgTypes = constructorArgTypes;
                 lastFileOptions = new AS3ClassOptions(
                     project.Language,
                     dialog.getPackage(),
@@ -362,6 +367,17 @@ namespace ASClassWizard
                 }
                 processContext = null;
             }
+            if (constructorArgs != "")
+            {
+                paramString = constructorArgs;
+                foreach (String type in constructorArgTypes)
+                {
+                    if (!imports.Contains(type))
+                    {
+                        imports.Add(type);
+                    }
+                }
+            }
             if (lastFileOptions.Language == "as3")
             {
                 access = lastFileOptions.isPublic ? "public " : "internal ";
@@ -380,6 +396,7 @@ namespace ASClassWizard
                 if (prevImport != import)
                 {
                     prevImport = import;
+                    if (import.LastIndexOf('.') == -1) continue;
                     if (import.Substring(0, import.LastIndexOf('.')) == lastFileOptions.Package) continue;
                     importsSrc += (lastFileOptions.Language == "as3" ? "\t" : "") + "import " + import + ";" + lineBreak;
                 }

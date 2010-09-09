@@ -23,6 +23,7 @@ namespace ASCompletion.Completion
         const string patternDelegate = @"\.\s*create\s*\(\s*[a-z_0-9.]+,\s*{0}";
         const string patternVarDecl = @"\s*{0}\s*:\s*{1}";
         const string patternMethod = @"{0}\s*\(";
+        const string patternMethodDecl = @"function\s+{0}\s*\(";
         const string patternClass = @"new\s*{0}";
         const string BlankLine = "$(Boundary)\n\n";
         const string NewLine = "$(Boundary)\n";
@@ -283,8 +284,8 @@ namespace ASCompletion.Completion
                 }
                 else
                 {
-                    Match m = Regex.Match(text, String.Format(patternMethod, contextToken));
-                    if (m.Success)
+                    Match m = Regex.Match(text, String.Format(patternMethodDecl, contextToken));
+                    if (!m.Success)
                     {
                         contextMatch = m;
                         ShowChangeMethodDeclList(found);
@@ -853,14 +854,14 @@ namespace ASCompletion.Completion
 
                 case GeneratorJobType.Class:
                     String clasName = Sci.GetWordFromPosition(Sci.CurrentPos);
-                    GenerateClass(clasName, inClass);
+                    GenerateClass(Sci, clasName, inClass);
                     break;
 
                 case GeneratorJobType.Constructor:
                     member = new MemberModel(inClass.Name, inClass.QualifiedName, FlagType.Constructor | FlagType.Function, Visibility.Public);
                     GenerateFunction(
                         member,
-                        Sci.CurrentPos, false, new List<FunctionParameter>(), inClass);
+                        Sci.CurrentPos, false, "", inClass);
                     break;
 
                 case GeneratorJobType.ToString:
@@ -1074,15 +1075,7 @@ namespace ASCompletion.Completion
 
             if (type != null)
             {
-                cleanType = type;
-                if (cleanType.IndexOf("@") > -1)
-                {
-                    cleanType = cleanType.Substring(0, type.IndexOf("@"));
-                }
-                if (cleanType.IndexOf(".<") == -1)
-                {
-                    cleanType = cleanType.Substring(cleanType.LastIndexOf(".") + 1);
-                }
+                cleanType = FormatType(GetShortType(type));
             }
 
             StringBuilder sb = new StringBuilder();
@@ -1441,23 +1434,23 @@ namespace ASCompletion.Completion
                 .Append(";");
 
             List<string> importsList = new List<string>();
-            ClassModel t;
+            string t;
             if (parms != null && parms.Count > 0)
             {
                 for (int i = 0; i < parms.Count; i++)
                 {
                     if (parms[i].Type != null)
                     {
-                        t = ASContext.Context.ResolveType(parms[i].Type, inClass.InFile);
-                        importsList.Add(t.QualifiedName);
+                        t = getQualifiedType(parms[i].Type, inClass); 
+                        importsList.Add(t);
                     }
                 }
             }
 
             if (member.Type != null)
             {
-                t = ASContext.Context.ResolveType(member.Type, inClass.InFile);
-                importsList.Add(t.QualifiedName);
+                t = getQualifiedType(member.Type, inClass);
+                importsList.Add(t);
             }
 
             if (importsList.Count > 0)
@@ -1951,7 +1944,7 @@ namespace ASCompletion.Completion
                     if (trimmed.Length > 0)
                     {
                         result = ASComplete.GetExpressionType(Sci, lastMemberPos + 1);
-                        if (!result.IsNull())
+                        if (result != null && !result.IsNull())
                         {
                             if (characterClass.IndexOf(trimmed[trimmed.Length - 1]) > -1)
                             {
@@ -1997,16 +1990,20 @@ namespace ASCompletion.Completion
                         string paramName = null;
                         string paramType = null;
                         string paramQualType = null;
+
+                        paramName = "arg" + (prms.Count + 1);
                         if (result.Member == null)
                         {
-                            paramName = "arg" + (prms.Count + 1);
                             paramType = result.Type.Name;
                             paramQualType = result.Type.QualifiedName;
                         }
                         else
                         {
-                            paramName = result.Member.Name;
-                            if (result.Member.Type.Equals("void", StringComparison.InvariantCultureIgnoreCase))
+                            if (result.Member.Name != null)
+                            {
+                                paramName = result.Member.Name;
+                            }
+                            if (result.Member.Type == null || "void".Equals(result.Member.Type, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 paramType = result.Type.Name;
                                 paramQualType = result.Type.QualifiedName;
@@ -2036,15 +2033,7 @@ namespace ASCompletion.Completion
                 ASResult rslt = prms[i].result;
                 string name = prms[i].param;
                 string type = prms[i].paramType;
-
-                if (type != null && type.IndexOf(".<") == -1)
-                {
-                    type = type.Substring(type.LastIndexOf(".") + 1);
-                    prms[i].paramType = type;
-                
-                }
-
-                prms[i].param = GuessVarName(name, type);
+                prms[i].param = GuessVarName(name, FormatType(GetShortType(type)));
             }
             return prms;
         }
@@ -2160,15 +2149,40 @@ namespace ASCompletion.Completion
                 }
             }
 
+
+            
+            MemberModel m = new MemberModel();
+            m.Parameters = new List<MemberModel>();
+            for (int i = 0; i < functionParameters.Count; i++)
+            {
+                string name = functionParameters[i].param;
+                string type = functionParameters[i].paramType;
+                m.Parameters.Add(new MemberModel(name, type, FlagType.ParameterVar, 0));
+            }
+            string par = m.ParametersString(true);
+
             GenerateFunction(
                 NewMember(contextToken, member, FlagType.Function,
                         funcVisi),
-                position, detach, functionParameters, inClass);
+                position, detach, par, inClass);
         }
 
-        private static void GenerateClass(String className, ClassModel inClass)
+        private static void GenerateClass(ScintillaNet.ScintillaControl Sci, String className, ClassModel inClass)
         {
             AddLookupPosition(); // remember last cursor position for Shift+F4
+
+            List<FunctionParameter> parameters = ParseFunctionParameters(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+            List<MemberModel> constructorArgs = new List<MemberModel>();
+            List<String> constructorArgTypes = new List<String>();
+            MemberModel paramMember = new MemberModel();
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                FunctionParameter p = parameters[i];
+                constructorArgs.Add(new MemberModel(p.param, p.paramType, FlagType.ParameterVar, 0));
+                constructorArgTypes.Add(CleanType(getQualifiedType(p.paramQualType, inClass)));
+            }
+            
+            paramMember.Parameters = constructorArgs;
 
             IProject project = PluginBase.CurrentProject;
             if (String.IsNullOrEmpty(className)) className = "Class";
@@ -2178,6 +2192,8 @@ namespace ASCompletion.Completion
             info["className"] = className;
             info["templatePath"] = Path.Combine(projTemplateDir, "Class.as.fdt");
             info["inDirectory"] = Path.GetDirectoryName(inClass.InFile.FileName);
+            info["constructorArgs"] = paramMember.ParametersString(true);
+            info["constructorArgTypes"] = constructorArgTypes;
             DataEvent de = new DataEvent(EventType.Command, "ProjectManager.CreateNewFile", info);
             EventManager.DispatchEvent(null, de);
             if (de.Handled) return;
@@ -2285,6 +2301,15 @@ namespace ASCompletion.Completion
 
         private static string GuessVarName(string name, string type)
         {
+            if (name == null)
+            {
+                name = type;
+            }
+
+            if (name == null)
+            {
+                return name;
+            }
             // if constant then convert to camelCase
             if (name.ToUpper() == name)
             {
@@ -2432,29 +2457,8 @@ namespace ASCompletion.Completion
             else return Visibility.Private;
         }
 
-        private static void GenerateFunction(MemberModel member, int position, bool detach, List<FunctionParameter> parameters, ClassModel inClass)
+        private static void GenerateFunction(MemberModel member, int position, bool detach, String parameters, ClassModel inClass)
         {
-            string par = "";
-            for (int i = 0; i < parameters.Count; i++)
-            {
-                if (i > 0)
-                {
-                    par += ", ";
-                }
-
-                string name = parameters[i].param;
-                string type = parameters[i].paramType;
-
-                if (type != null)
-                {
-                    par += name + ":" + type;
-                }
-                else
-                {
-                    par += name;
-                }
-            }
-
             bool isInterface = ClassIsInterface(inClass);
             bool isConstructor = (member.Flags & FlagType.Constructor) > 0;
             string template = "";
@@ -2470,7 +2474,7 @@ namespace ASCompletion.Completion
             {
                 template = GetTemplate("Function");
             }
-            string repl = GetDeclaration(member, !isInterface).Replace("()", "(" + par + "$(EntryPoint))");
+            string repl = GetDeclaration(member, !isInterface).Replace("()", "(" + parameters + "$(EntryPoint))");
             string decl = String.Format(template,
                     repl);
 
@@ -3046,6 +3050,21 @@ namespace ASCompletion.Completion
             if (p > 0 && p < startPos) startPos = p;
         }
 
+        private static string GetShortType(string type)
+        {
+            if (type == null || type.Length == 0)
+            {
+                return type;
+            }
+            Regex r = new Regex(@"[^\.]+(\.<.+>)?(@.+|$)");
+            Match m = r.Match(type);
+            if (m.Success)
+            {
+                type = m.Value;
+            }
+            return type;
+        }
+
         private static string FormatType(string type)
         {
             return MemberModel.FormatType(type);
@@ -3053,11 +3072,20 @@ namespace ASCompletion.Completion
 
         private static string CleanType(string type)
         {
+            if (type == null || type.Length == 0)
+            {
+                return type;
+            }
             int p = type.IndexOf('$');
             if (p > 0) type = type.Substring(0, p);
             p = type.IndexOf('<');
             if (p > 1 && type[p - 1] == '.') p--;
             if (p > 0) type = type.Substring(0, p);
+            p = type.IndexOf("@");
+            if (p > 0)
+            {
+                type = type.Substring(0, p);
+            }
             return type;
         }
 
@@ -3111,12 +3139,14 @@ namespace ASCompletion.Completion
             IASContext context = ASContext.Context;
             FileModel inFile = context.CurrentModel;
             List<string> addedTypes = new List<string>();
+            string cleanType = null;
             foreach (string type in typesUsed)
             {
-                if (type == null || type.Length == 0 || type.IndexOf('.') <= 0 || addedTypes.Contains(type))
+                cleanType = CleanType(type);
+                if (cleanType == null || cleanType.Length == 0 || cleanType.IndexOf('.') <= 0 || addedTypes.Contains(cleanType))
                     continue;
-                addedTypes.Add(type);
-                MemberModel import = new MemberModel(type.Substring(type.LastIndexOf('.') + 1), type, FlagType.Import, Visibility.Public);
+                addedTypes.Add(cleanType);
+                MemberModel import = new MemberModel(cleanType.Substring(cleanType.LastIndexOf('.') + 1), cleanType, FlagType.Import, Visibility.Public);
                 if (!context.IsImported(import, atLine))
                     length += InsertImport(import, false);
             }
