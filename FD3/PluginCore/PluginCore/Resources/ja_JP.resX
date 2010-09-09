@@ -256,7 +256,7 @@
     <value>クイックビルドをしたあと、作成された SWF を自動的に再生します。</value>
   </data>
   <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
-    <value>Automatically fix package of the class if it's not matching file path. Executed on file open.</value>
+    <value>ファイルパスの一致しないクラスのパッケージを自動的に修正します。ファイルが開かれた時に実行されます。</value>
   </data>
   <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
     <value>"定義から戻る"のショートカットです。</value>
@@ -2866,10 +2866,10 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>クラスパス名を解析する際、絞り込み対象となるディレクトリ名です。</value>
   </data>
   <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
-    <value>The package '{0}' did not match the file path. New package is generated:</value>
+    <value>ファイルパスと一致しないパッケージ名 '{0}' をファイルパスに応じて変更しました:</value>
   </data>
   <data name="AS2Context.Info.PackageDontMatchFilePath" xml:space="preserve">
-    <value>パッケージ '{0}' がファイルパスと一致していません:</value>
+    <value>パッケージ名 '{0}' がファイルパスと一致していません:</value>
   </data>
   <data name="AS2Context.Info.TypeDontMatchFileName" xml:space="preserve">
     <value>クラス名 '{0}' がファイル名と一致していません:</value>
@@ -2996,11 +2996,11 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
-    <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
+    <value>「 ( 」または「 [ 」または「 " 」を入力したとき、自動的に対になる閉じ括弧（引用符）を入力する。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value> "Generate fields from parameters"が設定されたフィールドをプリフィックス付で生成する。</value>
+    <value> "パラメーターからフィールドを生成"によって生成されるフィールドに付与する接頭辞です。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
@@ -3254,7 +3254,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Label.CopyClassName" xml:space="preserve">
-    <value>Copy Class Name</value>
+    <value>クラス名をコピー</value>
   </data>
   <data name="FlashDevelop.Description.SaveUnicodeWithBOM" xml:space="preserve">
     <value>Unicode ( UTF-8 )エンコードが指定されたファイルを新規作成するとき、バイトオーダーマーク( BOM )を挿入します。</value>
@@ -4163,15 +4163,15 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Info.Language" xml:space="preserve">
-    <value>言語：</value>
+    <value>言語:</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.TextDocument" xml:space="preserve">
-    <value>Text Document</value>
+    <value>テキストドキュメント</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
-    <value>Assign statement to variable</value>
+    <value>変数として宣言</value>
     <comment>Added after 3.2.2</comment>
   </data>
 </root>
