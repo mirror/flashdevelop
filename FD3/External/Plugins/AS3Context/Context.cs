@@ -238,14 +238,15 @@ namespace AS3Context
                     }
                 }
             }
-            foreach (string file in addLibs)
-                AddPath(sdkLibs + S + file);
+
             foreach (string file in addLocales)
             {
                 string swcItem = sdkLocales + S + file;
                 if (!File.Exists(swcItem)) swcItem = fallbackLocales + S + file;
                 AddPath(swcItem);
             }
+            foreach (string file in addLibs)
+                AddPath(sdkLibs + S + file);
 
             // intrinsics (deprecated, excepted for FP10 Vector.<T>)
             string fp9cp = as3settings.AS3ClassPath + S + "FP9";

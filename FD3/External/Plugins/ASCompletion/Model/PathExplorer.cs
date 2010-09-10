@@ -29,7 +29,7 @@ namespace ASCompletion.Model
             get { return explorerThread != null; }
         }
 
-        static private Stack<PathExplorer> waiting = new Stack<PathExplorer>();
+        static private Queue<PathExplorer> waiting = new Queue<PathExplorer>();
         static private volatile Thread explorerThread;
         static private volatile bool stopExploration;
         static private volatile int toWait = 1000; // initial delay before exploring the filesystem
@@ -73,7 +73,6 @@ namespace ASCompletion.Model
         {
             this.context = context;
             this.pathModel = pathModel;
-            pathModel.WasExplored = true;
             foundFiles = new List<string>();
             explored = new List<string>();
             if (context.Settings.LanguageId == "AS2")
@@ -95,7 +94,9 @@ namespace ASCompletion.Model
 		{
             lock (waiting)
             {
-                waiting.Push(this);
+                foreach (PathExplorer exp in waiting)
+                    if (exp.pathModel == pathModel) return;
+                waiting.Enqueue(this);
 
                 if (explorerThread == null)
                 {
@@ -123,7 +124,7 @@ namespace ASCompletion.Model
 
                 lock (waiting)
                 {
-                    if (waiting.Count > 0) next = waiting.Pop();
+                    if (waiting.Count > 0) next = waiting.Dequeue();
                     else explorerThread = null;
 
                     // we want to call these notifications after we've processed the above
@@ -151,6 +152,7 @@ namespace ASCompletion.Model
         private void BackgroundRun()
 		{
             pathModel.Updating = true;
+            pathModel.WasExplored = true;
             try
             {
                 if (pathModel.IsVirtual)

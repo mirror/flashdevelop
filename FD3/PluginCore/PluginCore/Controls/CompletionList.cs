@@ -369,7 +369,7 @@ namespace PluginCore.Controls
 		{
             tempoTip.Stop();
 			if (currentItem == null || faded) return;
-            UITools.Tip.Text = currentItem.Description;
+            UITools.Tip.Text = currentItem.Description ?? "";
             UITools.Tip.Location = new Point(completionList.Right, completionList.Top);
             if (!UITools.Tip.AutoSize(completionList.Left) && UITools.Tip.Size.Width > 200)
                 UITools.Tip.Location = new Point(completionList.Left - UITools.Tip.Size.Width, completionList.Top);
@@ -543,7 +543,9 @@ namespace PluginCore.Controls
                     if (!changed)
                     {
                         // preselected item
-                        if (lastScore > 2) lastIndex = TestDefaultItem(lastIndex, word, len);
+                        if (defaultItem != null)
+                            if (lastScore > 3 || (lastScore > 2 && defaultItem.Label.StartsWith(word, StringComparison.OrdinalIgnoreCase)))
+                                lastIndex = lastIndex = TestDefaultItem(lastIndex, word, len);
                         completionList.SelectedIndex = lastIndex;
                         return;
                     }
@@ -564,10 +566,8 @@ namespace PluginCore.Controls
 					}
                     Int32 topIndex = lastIndex;
                     if (defaultItem != null)
-                    {
                         if (lastScore > 3 || (lastScore > 2 && defaultItem.Label.StartsWith(word, StringComparison.OrdinalIgnoreCase)))
                             lastIndex = TestDefaultItem(lastIndex, word, len);
-                    }
 					// select first item
                     completionList.TopIndex = topIndex;
                     completionList.SelectedIndex = lastIndex;
@@ -612,7 +612,7 @@ namespace PluginCore.Controls
 
         private static int TestDefaultItem(Int32 index, String word, Int32 len)
         {
-            if (completionList.Items.Contains(defaultItem))
+            if (defaultItem != null && completionList.Items.Contains(defaultItem))
             {
                 Int32 score = (len == 0) ? 1 : SmartMatch(defaultItem.Label, word, len);
                 if (score > 0 && score < 6) return completionList.Items.IndexOf(defaultItem);

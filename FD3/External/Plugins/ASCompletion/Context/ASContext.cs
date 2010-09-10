@@ -486,7 +486,7 @@ namespace ASCompletion.Context
             validContexts.Clear();
             foreach (RegisteredContext reg in allContexts)
                 reg.Context.Reset();
-            PathExplorer.ClearAll();
+            //PathExplorer.ClearAll();
             PathModel.ClearAll();
 
             Application.DoEvents();

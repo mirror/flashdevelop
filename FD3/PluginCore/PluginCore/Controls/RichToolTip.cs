@@ -67,6 +67,7 @@ namespace PluginCore.Controls
             toolTipRTB.ForeColor = System.Drawing.SystemColors.InfoText;
 			toolTipRTB.BorderStyle = BorderStyle.None;
 			toolTipRTB.ScrollBars = RichTextBoxScrollBars.None;
+            toolTipRTB.DetectUrls = false;
 			toolTipRTB.ReadOnly = true;
 			toolTipRTB.WordWrap = false;
 			toolTipRTB.Visible = true;
@@ -170,28 +171,33 @@ namespace PluginCore.Controls
 			int pos = 0;
 			// first
 			int index = rawText.IndexOf("[B]");
+            string txt = "";
 			while (index >= 0)
 			{
-				toolTipRTB.Text += rawText.Substring(pos, index-pos);
+				txt += rawText.Substring(pos, index-pos);
 				pos = index+3;
 				index = rawText.IndexOf("[/B]", pos);
 				if (index < 0) break;
-				startBold.Add(toolTipRTB.Text.Length);
+				startBold.Add(txt.Length);
 				lenBold.Add(index-pos);
-				toolTipRTB.Text += rawText.Substring(pos, index-pos);
+				txt += rawText.Substring(pos, index-pos);
 				pos = index+4;
 				// next
 				index = rawText.IndexOf("[B]", pos);
 			}
-			toolTipRTB.Text += rawText.Substring(pos);
+			txt += rawText.Substring(pos);
 			// style
-			Font bold = new Font(toolTipRTB.Font.FontFamily, toolTipRTB.Font.Size, FontStyle.Bold);
-			for(int i=0; i<startBold.Count; i++)
-			{
-				toolTipRTB.Select((int)startBold[i], (int)lenBold[i]);
-				toolTipRTB.SelectionFont = bold;
-			}
-			toolTipRTB.Select(0,0);
+            if (txt.Length > 0)
+            {
+                toolTipRTB.Text = txt;
+                Font bold = new Font(toolTipRTB.Font.FontFamily, toolTipRTB.Font.Size, FontStyle.Bold);
+                for (int i = 0; i < startBold.Count; i++)
+                {
+                    toolTipRTB.Select((int)startBold[i], (int)lenBold[i]);
+                    toolTipRTB.SelectionFont = bold;
+                }
+                toolTipRTB.Select(0, 0);
+            }
 		}
 		
 		#endregion
