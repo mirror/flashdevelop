@@ -563,7 +563,11 @@ namespace PluginCore.Controls
                         }
 					}
                     Int32 topIndex = lastIndex;
-                    if (lastScore > 2) lastIndex = TestDefaultItem(lastIndex, word, len);
+                    if (defaultItem != null)
+                    {
+                        if (lastScore > 3 || (lastScore > 2 && defaultItem.Label.StartsWith(word, StringComparison.OrdinalIgnoreCase)))
+                            lastIndex = TestDefaultItem(lastIndex, word, len);
+                    }
 					// select first item
                     completionList.TopIndex = topIndex;
                     completionList.SelectedIndex = lastIndex;
@@ -608,7 +612,7 @@ namespace PluginCore.Controls
 
         private static int TestDefaultItem(Int32 index, String word, Int32 len)
         {
-            if (defaultItem != null && completionList.Items.Contains(defaultItem))
+            if (completionList.Items.Contains(defaultItem))
             {
                 Int32 score = (len == 0) ? 1 : SmartMatch(defaultItem.Label, word, len);
                 if (score > 0 && score < 6) return completionList.Items.IndexOf(defaultItem);
