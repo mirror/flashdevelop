@@ -5,11 +5,11 @@
 :: http://livedocs.adobe.com/flex/3/html/help.html?content=CommandLineTools_5.html#1035959
 
 :: Path to Flex SDK binaries
-set PATH=%PATH%;$(AIRSDK)\bin
+set PATH=%PATH%;$(FlexSDK)\bin
 
 :: Signature (see 'CreateCertificate.bat')
-set CERTIFICATE="$(PROJECTNAME).pfx"
-set SIGNING_OPTIONS=-storetype pkcs12 -keystore %CERTIFICATE%
+set CERTIFICATE="$(PROJECTID).pfx"
+set SIGNING_OPTIONS=-storetype pkcs12 -keystore %CERTIFICATE% -tsa none 
 if not exist %CERTIFICATE% goto certificate
 
 :: Output
@@ -32,7 +32,7 @@ goto end
 :certificate
 echo Certificate not found: %CERTIFICATE%
 echo.
-echo Troubleshooting: 
+echo Troubleshotting: 
 echo A certificate is required, generate one using 'CreateCertificate.bat'
 echo.
 goto end
@@ -40,7 +40,7 @@ goto end
 :failed
 echo AIR setup creation FAILED.
 echo.
-echo Troubleshooting: 
+echo Troubleshotting: 
 echo did you configure the Flex SDK path in this Batch file?
 echo.
 

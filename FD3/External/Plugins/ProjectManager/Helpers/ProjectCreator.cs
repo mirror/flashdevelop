@@ -32,7 +32,7 @@ namespace ProjectManager.Helpers
         string packagePath;
         string packageDot = "";
         string packageSlash = "";
-        List<Argument> arguments;
+        Argument[] arguments;
 
         private static Hashtable projectTypes = new Hashtable();
         private static bool projectTypesSet = false;
@@ -70,7 +70,10 @@ namespace ProjectManager.Helpers
 
             if (!de.Handled)
             {
-                arguments = PluginBase.MainForm.Settings.CustomArguments;
+                int addArgs = 1;
+                arguments = new Argument[PluginBase.MainForm.Settings.CustomArguments.Count + addArgs];
+                arguments[0] = new Argument("FlexSDK", PluginBase.MainForm.ProcessArgString("$(FlexSDK)"));
+                PluginBase.MainForm.Settings.CustomArguments.CopyTo(arguments, addArgs);
 
                 Directory.CreateDirectory(projectLocation);
 

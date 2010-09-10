@@ -5,10 +5,10 @@
 :: http://livedocs.adobe.com/flex/3/html/help.html?content=CommandLineTools_5.html#1035959
 
 :: Path to Flex SDK binaries
-set PATH=%PATH%;C:\flex_sdk_3\bin
+set PATH=%PATH%;$(FlexSDK)\bin
 
 :: Signature (see 'CreateCertificate.bat')
-set CERTIFICATE=SelfSigned.pfx
+set CERTIFICATE="$(PROJECTID).pfx"
 set SIGNING_OPTIONS=-storetype pkcs12 -keystore %CERTIFICATE% -tsa none 
 if not exist %CERTIFICATE% goto certificate
 
