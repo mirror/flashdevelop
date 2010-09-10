@@ -654,10 +654,8 @@ namespace AS3Context
             if (isVector)
             {
                 string insert = null;
-
-                Regex reDecl = new Regex(@"\svar\s+(?<varname>.+)\s*:\s*Vector\.<(?<indextype>[^>]+)>");
                 string line = sci.GetLine(sci.LineFromPosition(position));
-                Match m = reDecl.Match(line);
+                Match m = Regex.Match(line, @"\svar\s+(?<varname>.+)\s*:\s*Vector\.<(?<indextype>[^>]+)>");
                 if (m.Success)
                 {
                     insert = String.Format(".<{0}>()", m.Groups["indextype"].Value);
@@ -667,6 +665,23 @@ namespace AS3Context
                 }
                 else
                 {
+                    m = Regex.Match(line, @"\s*=");
+                    if (m.Success)
+                    {
+                        ASResult result = ASComplete.GetExpressionType(sci, sci.PositionFromLine(sci.LineFromPosition(position)) + m.Index);
+                        if (result != null && !result.IsNull() && result.Member != null && result.Member.Type != null)
+                        {
+                            m = Regex.Match(result.Member.Type, @"(?<=<).+(?=>)");
+                            if (m.Success)
+                            {
+                                insert = String.Format(".<{0}>()", m.Value);
+                                sci.InsertText(position + text.Length, insert);
+                                sci.CurrentPos = position + text.Length + insert.Length;
+                                sci.SetSel(sci.CurrentPos, sci.CurrentPos);
+                                return true;
+                            }
+                        }
+                    }
                     insert = ".<>";
                     sci.InsertText(position + text.Length, insert);
                     sci.CurrentPos = position + text.Length + 2;
