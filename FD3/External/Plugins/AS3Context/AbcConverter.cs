@@ -295,6 +295,26 @@ namespace AS3Context
             }
 
             if (privateClasses.Classes.Count > 0) path.AddFile(privateClasses);
+
+            // some SWCs need manual fixes
+            CustomFixes(path);
+        }
+
+        private static void CustomFixes(PathModel path)
+        {
+            if (Path.GetFileName(path.Path) == "playerglobal.swc")
+            {
+                string mathPath = Path.Combine(path.Path, "Math").ToUpper();
+                if (path.HasFile(mathPath))
+                {
+                    ClassModel mathModel = path.GetFile(mathPath).GetPublicClass();
+                    MemberModel atan2 = mathModel.Members.Search("atan2", 0, 0);
+                    if (atan2 != null && atan2.Parameters != null && atan2.Parameters[0].Name == "x")
+                    {
+                        atan2.Parameters.Reverse();
+                    }
+                }
+            }
         }
 
         private static void AddImports(FileModel model, Dictionary<string, string> imports)

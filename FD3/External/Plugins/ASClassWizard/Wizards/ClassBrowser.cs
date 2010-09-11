@@ -25,6 +25,11 @@ namespace ASClassWizard.Wizards
         private List<GListBox.GListBoxItem> dataProvider;
         private FlagType invalidFlag;
         private FlagType validFlag;
+        private int resultCount;
+        private int topIndex;
+        private int lastScore;
+        private string matchToken;
+        private int matchLen;
 
         public MemberList ClassList
         {
@@ -118,15 +123,16 @@ namespace ASClassWizard.Wizards
             this.itemList.BeginUpdate();
             this.itemList.Items.Clear();
 
-            List<GListBox.GListBoxItem> result = (text == text.ToUpper())
+            topIndex = 0;
+            List<GListBox.GListBoxItem> result = (text == text.ToUpper() && text.IndexOf('_') < 0)
                 ? this.FindByAbbreviation(text)
-                : this.DataProvider.FindAll(FindAllItems);
+                : this.FilterSmart();
                 
             this.itemList.Items.AddRange(result.ToArray());
 
             this.itemList.EndUpdate();
             if (this.itemList.Items.Count > 0)
-                this.itemList.SelectedIndex = 0;
+                this.itemList.SelectedIndex = Math.Min(topIndex, this.itemList.Items.Count - 1);
         }
 
         private List<GListBox.GListBoxItem> FindByAbbreviation(String searchText)
@@ -151,13 +157,37 @@ namespace ASClassWizard.Wizards
         }
 
         /// <summary>
+        /// Filter using CompletionList smart comparison
+        /// </summary>
+        private List<GListBox.GListBoxItem> FilterSmart()
+        {
+            lastScore = 99;
+            resultCount = 0;
+            matchToken = this.filterBox.Text;
+            matchLen = matchToken.Length;
+            return this.DataProvider.FindAll(FindAllItems);
+        }
+
+        /// <summary>
         /// Filder the results
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
         private bool FindAllItems( GListBox.GListBoxItem item )
         {
-            return item.Text.ToLower().IndexOf(this.filterBox.Text.ToLower()) > -1;
+            if (matchLen == 0) return true;
+            int score = PluginCore.Controls.CompletionList.SmartMatch(item.Text, matchToken, matchLen);
+            if (score > 0 && score < 6)
+            {
+                if (score < lastScore)
+                {
+                    lastScore = score;
+                    topIndex = resultCount;
+                }
+                resultCount++;
+                return true;
+            }
+            else return false;
         }
 
         /// <summary>

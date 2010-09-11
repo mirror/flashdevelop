@@ -448,7 +448,7 @@ namespace PluginCore.Controls
 					exactMatchInList = false;
                     smartMatchInList = true;
 				}
-                else if (word == word.ToUpper()) // search by abbreviation
+                else if (word == word.ToUpper() && word.IndexOf('_') < 0) // search by abbreviation
                 {
                     List<ItemMatch> temp = new List<ItemMatch>(allItems.Count);
                     foreach (ICompletionListItem item in allItems)
@@ -620,7 +620,7 @@ namespace PluginCore.Controls
             return index;
         }
 
-        static private int SmartMatch(string label, string word, int len)
+        static public int SmartMatch(string label, string word, int len)
         {
             if (label.Length < len) 
                 return 0;
