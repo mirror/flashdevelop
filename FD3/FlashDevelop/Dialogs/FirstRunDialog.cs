@@ -128,7 +128,8 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void FirstRunDialogClick(Object sender, EventArgs e)
         {
-            Application.Exit();
+            this.DialogResult = DialogResult.Abort;
+            this.Close();
         }
 
         /// <summary>
@@ -260,10 +261,10 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Shows the first run dialog
         /// </summary>
-        public static new void Show()
+        public static new DialogResult Show()
         {
             FirstRunDialog firstRunDialog = new FirstRunDialog();
-            firstRunDialog.ShowDialog();
+            return firstRunDialog.ShowDialog();
         }
 
         #endregion

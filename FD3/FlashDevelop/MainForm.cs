@@ -47,7 +47,8 @@ namespace FlashDevelop
             PluginBase.Initialize(this);
             this.InitializeErrorLog();
             this.InitializeSettings();
-            this.InitializeFirstRun();
+            DialogResult dr = this.InitializeFirstRun();
+            if (dr == DialogResult.Abort) return;
             this.InitializeRendering();
             this.InitializeComponents();
             this.InitializeProcessRunner();
@@ -622,12 +623,13 @@ namespace FlashDevelop
         /// <summary>
         /// Initializes the First Run dialog
         /// </summary>
-        private void InitializeFirstRun()
+        private DialogResult InitializeFirstRun()
         {
             if (!this.StandaloneMode && MainForm.IsFirst && FirstRunDialog.ShouldProcessCommands())
             {
-                FirstRunDialog.Show();
+                return FirstRunDialog.Show();
             }
+            return DialogResult.None;
         }
 
         /// <summary>
