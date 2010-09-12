@@ -952,44 +952,13 @@ namespace ASCompletion.Completion
 
         private static void AssignStatementToVar(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
         {
-            Regex re_balancedParenthesis = new Regex("\\([^()]*(((?<Open>\\()[^()]*)+((?<Close-Open>\\))[^()]*)+)*(?(Open)(?!))\\)", RegexOptions.RightToLeft);
-
-            Regex target = new Regex(@"[;\s\t\n\r]*", RegexOptions.RightToLeft);
             int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
             string line = Sci.GetLine(lineNum);
-            Match m = target.Match(line);
-            if (!m.Success)
+            StatementReturnType returnType = GetStatementReturnType(Sci, line, Sci.PositionFromLine(lineNum));
+
+            if (returnType == null)
             {
                 return;
-            }
-            line = line.Substring(0, m.Index);
-
-            if (line.Length == 0)
-            {
-                return;
-            }
-
-            line = ReplaceAllStringContents(line);
-
-            ASResult resolve = null;
-            string word = null;
-            int pos = -1;
-            if (line[line.Length - 1] == ')')
-            {
-                pos = line.IndexOf("(");
-            }
-            else
-            {
-                pos = line.Length;
-            }
-            if (pos != -1)
-            {
-                line = line.Substring(0, pos);
-                pos += Sci.PositionFromLine(lineNum);
-                pos -= line.Length - line.TrimEnd().Length + 1;
-                pos = Sci.WordEndPosition(pos, false);
-                resolve = ASComplete.GetExpressionType(Sci, pos);
-                word = Sci.GetWordFromPosition(pos);
             }
             
             IASContext cntx = inClass.InFile.Context;
@@ -998,6 +967,14 @@ namespace ASCompletion.Completion
             string type = null;
             string varname = null;
             string cleanType = null;
+            ASResult resolve = returnType.resolve;
+            int pos = returnType.position;
+            string word = null;
+
+            if (returnType.resolve != null)
+            {
+                word = Sci.GetWordFromPosition(returnType.position);
+            }
 
             if (resolve != null && !resolve.IsNull())
             {
@@ -1007,7 +984,7 @@ namespace ASCompletion.Completion
                 }
                 else if (resolve.Type != null && resolve.Type.Name != null)
                 {
-                    type = resolve.Type.QualifiedName;
+                    type = returnType.resolve.Type.QualifiedName;
                 }
 
                 if (resolve.Member != null && resolve.Member.Name != null)
@@ -1098,6 +1075,10 @@ namespace ASCompletion.Completion
             int indent = Sci.GetLineIndentation(lineNum);
             pos = Sci.PositionFromLine(lineNum) + indent / Sci.Indent;
 
+            Sci.CurrentPos = pos;
+            Sci.SetSel(pos, pos);
+            InsertCode(pos, sb.ToString());
+
             if (type != null)
             {
                 ClassModel inClassForImport = null;
@@ -1117,10 +1098,6 @@ namespace ASCompletion.Completion
                 l.Add(getQualifiedType(type, inClassForImport));
                 pos += AddImportsByName(l, pos);
             }
-
-            Sci.CurrentPos = pos;
-            Sci.SetSel(pos, pos);
-            InsertCode(pos, sb.ToString());
         }
 
         private static void EventMetatag(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
@@ -1676,6 +1653,25 @@ namespace ASCompletion.Completion
             Visibility varVisi = job.Equals(GeneratorJobType.Variable) ? GetDefaultVisibility() : Visibility.Public;
             FlagType ft = job.Equals(GeneratorJobType.Constant) ? FlagType.Constant : FlagType.Variable;
 
+
+            ASResult returnType = null;
+            int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
+            string line = Sci.GetLine(lineNum);
+            Match m = Regex.Match(line, @"=\s*[^;\s\n\r}}]+");
+            if (m.Success)
+            {
+                int posLineStart = Sci.PositionFromLine(lineNum);
+                if (posLineStart + m.Index >= Sci.CurrentPos)
+                {
+                    line = line.Substring(m.Index);
+                    StatementReturnType rType = GetStatementReturnType(Sci, line, posLineStart + m.Index);
+                    if (rType != null)
+                    {
+                        returnType = rType.resolve;
+                    }
+                }
+            }
+
             // evaluate, if the variable (or constant) should be generated in other class
             ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
             if (varResult != null && varResult.relClass != null && !varResult.relClass.Equals(inClass))
@@ -1758,6 +1754,41 @@ namespace ASCompletion.Completion
                 if (member != null && (member.Flags & FlagType.Static) == 0)
                 {
                     member.Flags |= FlagType.Static;
+                }
+            }
+            else 
+            {
+                ClassModel inClassForImport = null;
+                if (returnType.inClass != null)
+                {
+                    inClassForImport = returnType.inClass;
+                }
+                else if (returnType.relClass != null)
+                {
+                    inClassForImport = returnType.relClass;
+                }
+                else
+                {
+                    inClassForImport = inClass;
+                }
+                List<String> imports = new List<string>();
+                if (returnType.Member != null)
+                {
+                    if (!"void".Equals(returnType.Member.Type, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        contextToken += ":" + FormatType(GetShortType(returnType.Member.Type));
+                        imports.Add(getQualifiedType(returnType.Member.Type, inClassForImport));
+                    }
+                }
+                else if (returnType != null && returnType.Type != null)
+                {
+                    contextToken += ":" + FormatType(GetShortType(returnType.Type.QualifiedName));
+                    imports.Add(getQualifiedType(returnType.Type.QualifiedName, inClassForImport));
+                }
+                if (imports.Count > 0)
+                {
+                    position += AddImportsByName(imports, Sci.LineFromPosition(position));
+                    Sci.SetSel(position, position);
                 }
             }
 
@@ -2257,10 +2288,81 @@ namespace ASCompletion.Completion
             return false;
         }
 
+        private static StatementReturnType GetStatementReturnType(ScintillaNet.ScintillaControl Sci, string line, int startPos)
+        {
+            Regex target = new Regex(@"[;\s\n\r]*", RegexOptions.RightToLeft);
+            Match m = target.Match(line);
+            if (!m.Success)
+            {
+                return null;
+            }
+            line = line.Substring(0, m.Index);
+
+            if (line.Length == 0)
+            {
+                return null;
+            }
+
+            line = ReplaceAllStringContents(line);
+
+            ASResult resolve = null;
+            int pos = -1;
+            if (line[line.Length - 1] == ')')
+            {
+                pos = -1;
+                int lastIndex = 0;
+                int bracesBalance = 0;
+                while (true)
+                {
+                    int pos1 = line.IndexOf("(", lastIndex);
+                    int pos2 = line.IndexOf(")", lastIndex);
+                    if (pos1 != -1 && pos2 != -1)
+                    {
+                        lastIndex = Math.Min(pos1, pos2);
+                    }
+                    else if (pos1 != -1 || pos2 != -1)
+                    {
+                        lastIndex = Math.Max(pos1, pos2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    if (lastIndex == pos1)
+                    {
+                        bracesBalance++;
+                        if (bracesBalance == 1)
+                        {
+                            pos = lastIndex;
+                        }
+                    }
+                    else if (lastIndex == pos2)
+                    {
+                        bracesBalance--;
+                    }
+                    lastIndex++;
+                }
+            }
+            else
+            {
+                pos = line.Length;
+            }
+            if (pos != -1)
+            {
+                line = line.Substring(0, pos);
+                pos += startPos;
+                pos -= line.Length - line.TrimEnd().Length + 1;
+                pos = Sci.WordEndPosition(pos, false);
+                resolve = ASComplete.GetExpressionType(Sci, pos);
+            }
+            return new StatementReturnType(resolve, pos);
+        }
+
         private static string ReplaceAllStringContents(string line)
         {
-            Regex re1 = new Regex(@"'(.*?[^\\'])'");
-            Regex re2 = new Regex("\"(.*?[^\\\\\"])\"");
+            string retLine = line;
+            Regex re1 = new Regex("'(?:[^'\\\\]|(?:\\\\\\\\)|(?:\\\\\\\\)*\\\\.{1})*'");
+            Regex re2 = new Regex("\"(?:[^\"\\\\]|(?:\\\\\\\\)|(?:\\\\\\\\)*\\\\.{1})*\"");
             Match m1 = re1.Match(line);
             Match m2 = re2.Match(line);
             while (m1.Success || m2.Success)
@@ -2285,18 +2387,19 @@ namespace ASCompletion.Completion
                 {
                     m = m2;
                 }
-                string sub = "AA";
-                string val = m.Groups[1].Value;
-                for (int j = 0; j < val.Length; j++)
+                string sub = "";
+                string val = m.Value;
+                for (int j = 0; j < val.Length - 2; j++)
                 {
                     sub += "A";
                 }
-                line = line.Substring(0, m.Groups[1].Index - 1) + sub + line.Substring(m.Groups[1].Index + m.Groups[1].Value.Length + 1);
+                line = line.Substring(0, m.Index) + sub + "AA" + line.Substring(m.Index + m.Value.Length);
+                retLine = retLine.Substring(0, m.Index + 1) + sub + retLine.Substring(m.Index + m.Value.Length - 1);
 
                 m1 = re1.Match(line);
                 m2 = re2.Match(line);
             }
-            return line;
+            return retLine;
         }
 
         private static string GuessVarName(string name, string type)
@@ -3471,6 +3574,18 @@ namespace ASCompletion.Completion
             this.paramType = paramType;
             this.paramQualType = paramQualType;
             this.result = result;
+        }
+    }
+
+    class StatementReturnType
+    {
+        public ASResult resolve;
+        public Int32 position;
+
+        public StatementReturnType(ASResult resolve, Int32 position)
+        {
+            this.resolve = resolve;
+            this.position = position;
         }
     }
     #endregion
