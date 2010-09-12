@@ -3944,7 +3944,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
-    <value>Neue Klasse</value>
+    <value>NeueKlasse</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">

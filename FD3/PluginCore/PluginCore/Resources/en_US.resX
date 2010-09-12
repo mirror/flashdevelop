@@ -3948,7 +3948,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
-    <value>New Class</value>
+    <value>NewClass</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
