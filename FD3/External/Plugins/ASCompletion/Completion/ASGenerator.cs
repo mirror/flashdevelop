@@ -954,7 +954,7 @@ namespace ASCompletion.Completion
         {
             int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
             string line = Sci.GetLine(lineNum);
-            StatementReturnType returnType = GetStatementReturnType(Sci, line, Sci.PositionFromLine(lineNum));
+            StatementReturnType returnType = GetStatementReturnType(Sci, inClass, line, Sci.PositionFromLine(lineNum));
 
             if (returnType == null)
             {
@@ -969,12 +969,7 @@ namespace ASCompletion.Completion
             string cleanType = null;
             ASResult resolve = returnType.resolve;
             int pos = returnType.position;
-            string word = null;
-
-            if (returnType.resolve != null)
-            {
-                word = Sci.GetWordFromPosition(returnType.position);
-            }
+            string word = returnType.word;
 
             if (resolve != null && !resolve.IsNull())
             {
@@ -992,49 +987,17 @@ namespace ASCompletion.Completion
                     varname = GuessVarName(resolve.Member.Name, type);
                 }
             }
-            else
+
+            if (word != null && Char.IsDigit(word[0]))
             {
-                int stylemask = (1 << Sci.StyleBits) - 1;
-                if (word != null)
-                {
-                    if (Char.IsDigit(word[0]))
-                    {
-                        varname = "n";
-                        type = cntx.ResolveType("Number", inClass.InFile).QualifiedName;
-                    }
-                    else if (word == "true" || word == "false")
-                    {
-                        varname = "b";
-                        type = cntx.ResolveType("Boolean", inClass.InFile).QualifiedName;
-                    }
-                }
-                else
-                {
-                    char c = (char)Sci.CharAt(pos - 2);
-                    if (!(ASComplete.IsTextStyle(Sci.StyleAt(pos - 3) & stylemask)))
-                    {
-                        varname = "s";
-                        type = cntx.ResolveType("String", inClass.InFile).QualifiedName;
-                    }
-                    else if (Sci.CharAt(pos - 2) == '}')
-                    {
-                        varname = "o";
-                        type = cntx.ResolveType("Object", inClass.InFile).QualifiedName;
-                    }
-                    else if (Sci.CharAt(pos - 2) == '>')
-                    {
-                        varname = "xml";
-                        type = cntx.ResolveType("XML", inClass.InFile).QualifiedName;
-                    }
-                    
-                }
+                word = null;
             }
             
             if (type == voidWord)
             {
                 type = null;
             }
-            if (varname == null && word != null)
+            if (varname == null)
             {
                 varname = GuessVarName(word, type);
             }
@@ -1653,6 +1616,8 @@ namespace ASCompletion.Completion
             Visibility varVisi = job.Equals(GeneratorJobType.Variable) ? GetDefaultVisibility() : Visibility.Public;
             FlagType ft = job.Equals(GeneratorJobType.Constant) ? FlagType.Constant : FlagType.Variable;
 
+            // evaluate, if the variable (or constant) should be generated in other class
+            ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
 
             ASResult returnType = null;
             int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
@@ -1664,7 +1629,7 @@ namespace ASCompletion.Completion
                 if (posLineStart + m.Index >= Sci.CurrentPos)
                 {
                     line = line.Substring(m.Index);
-                    StatementReturnType rType = GetStatementReturnType(Sci, line, posLineStart + m.Index);
+                    StatementReturnType rType = GetStatementReturnType(Sci, inClass, line, posLineStart + m.Index);
                     if (rType != null)
                     {
                         returnType = rType.resolve;
@@ -1672,8 +1637,6 @@ namespace ASCompletion.Completion
                 }
             }
 
-            // evaluate, if the variable (or constant) should be generated in other class
-            ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
             if (varResult != null && varResult.relClass != null && !varResult.relClass.Equals(inClass))
             {
                 AddLookupPosition();
@@ -1697,7 +1660,7 @@ namespace ASCompletion.Completion
                 }
                 inClass = varResult.relClass;
             }
-
+            
             if (member != null && (member.Flags & FlagType.Static) > 0)
             {
                 member.Flags -= FlagType.Static;
@@ -1756,7 +1719,7 @@ namespace ASCompletion.Completion
                     member.Flags |= FlagType.Static;
                 }
             }
-            else 
+            else if (returnType != null)
             {
                 ClassModel inClassForImport = null;
                 if (returnType.inClass != null)
@@ -2288,7 +2251,7 @@ namespace ASCompletion.Completion
             return false;
         }
 
-        private static StatementReturnType GetStatementReturnType(ScintillaNet.ScintillaControl Sci, string line, int startPos)
+        private static StatementReturnType GetStatementReturnType(ScintillaNet.ScintillaControl Sci, ClassModel inClass, string line, int startPos)
         {
             Regex target = new Regex(@"[;\s\n\r]*", RegexOptions.RightToLeft);
             Match m = target.Match(line);
@@ -2306,7 +2269,11 @@ namespace ASCompletion.Completion
             line = ReplaceAllStringContents(line);
 
             ASResult resolve = null;
-            int pos = -1;
+            int pos = -1; 
+            string word = null;
+            int stylemask = (1 << Sci.StyleBits) - 1;
+            ClassModel type = null;
+
             if (line[line.Length - 1] == ')')
             {
                 pos = -1;
@@ -2352,10 +2319,46 @@ namespace ASCompletion.Completion
                 line = line.Substring(0, pos);
                 pos += startPos;
                 pos -= line.Length - line.TrimEnd().Length + 1;
-                pos = Sci.WordEndPosition(pos, false);
+                pos = Sci.WordEndPosition(pos, true);
                 resolve = ASComplete.GetExpressionType(Sci, pos);
+                word = Sci.GetWordFromPosition(pos);
             }
-            return new StatementReturnType(resolve, pos);
+            char c = (char)Sci.CharAt(pos);
+            if (word != null && Char.IsDigit(word[0]))
+            {
+                type = inClass.InFile.Context.ResolveType("Number", inClass.InFile);
+            }
+            else if (word != null && (word == "true" || word == "false"))
+            {
+                type = inClass.InFile.Context.ResolveType("Boolean", inClass.InFile);
+            }
+            else if (!(ASComplete.IsTextStyle(Sci.StyleAt(pos - 1) & stylemask)))
+            {
+                type = inClass.InFile.Context.ResolveType("String", inClass.InFile);
+            }
+            else if (c == '}')
+            {
+                type = inClass.InFile.Context.ResolveType("Object", inClass.InFile);
+            }
+            else if (c == '>')
+            {
+                type = inClass.InFile.Context.ResolveType("XML", inClass.InFile);
+            }
+            else if (c == ']')
+            {
+                type = inClass.InFile.Context.ResolveType("Array", inClass.InFile);
+            }
+
+            if (resolve == null)
+            {
+                resolve = new ASResult();
+            }
+            if (resolve.Type == null)
+            {
+                resolve.Type = type;
+            }
+
+            return new StatementReturnType(resolve, pos, word);
         }
 
         private static string ReplaceAllStringContents(string line)
@@ -3581,11 +3584,13 @@ namespace ASCompletion.Completion
     {
         public ASResult resolve;
         public Int32 position;
+        public String word;
 
-        public StatementReturnType(ASResult resolve, Int32 position)
+        public StatementReturnType(ASResult resolve, Int32 position, String word)
         {
             this.resolve = resolve;
             this.position = position;
+            this.word = word;
         }
     }
     #endregion
