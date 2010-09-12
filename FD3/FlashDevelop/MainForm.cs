@@ -47,14 +47,16 @@ namespace FlashDevelop
             PluginBase.Initialize(this);
             this.InitializeErrorLog();
             this.InitializeSettings();
-            DialogResult dr = this.InitializeFirstRun();
-            if (dr == DialogResult.Abort) return;
-            this.InitializeRendering();
-            this.InitializeComponents();
-            this.InitializeProcessRunner();
-            this.InitializeSmartDialogs();
-            this.InitializeMainForm();
-            this.InitializeGraphics();
+            if (this.InitializeFirstRun() != DialogResult.Abort)
+            {
+                this.InitializeRendering();
+                this.InitializeComponents();
+                this.InitializeProcessRunner();
+                this.InitializeSmartDialogs();
+                this.InitializeMainForm();
+                this.InitializeGraphics();
+            }
+            else this.Load += new EventHandler(this.MainFormLoaded);
         }
 
         /// <summary>
@@ -72,6 +74,14 @@ namespace FlashDevelop
         {
             Exception exception = new Exception(e.ExceptionObject.ToString());
             ErrorManager.AddToLog("Unhandled exception: ", exception);
+        }
+
+        /// <summary>
+        /// Exit nicely after the form has been loaded
+        /// </summary>
+        private void MainFormLoaded(Object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         #endregion
