@@ -3360,7 +3360,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.LiveObjectsTab" xml:space="preserve">
-    <value>Objektauflistung in Echtzeit</value>
+    <value>Echtzeit-Objektauflistung</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ObjectsTab" xml:space="preserve">
@@ -3884,7 +3884,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryStats" xml:space="preserve">
-    <value>Speicherverbrauch:{0}{1} Kb{0}{0}Memory peak:{0}{2} Kb</value>
+    <value>Speicherverbrauch:{0}{1} KB{0}{0}Max. Verbrauch:{0}{2} KB</value>
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryTab" xml:space="preserve">
@@ -4183,15 +4183,15 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Description.CustomProfilers" xml:space="preserve">
-    <value>User-defined profiling SWFs to be injected using the 'PreloadSWF' feature.</value>
+    <value>Gibt den Pfad zu einer benutzerdefinierten Profiler-SWF an, welche durch das 'PreloadSWF'-Feature eingefügt wird.</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Description.ProfilerTimeout" xml:space="preserve">
-    <value>Automatically stop listening to profiler after a certain time of inactivity.</value>
+    <value>Gibt an, wie lange auf eine Verbindung zum Profiler gewartet wird.</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Label.ActiveProfiler" xml:space="preserve">
-    <value>Active Profiler</value>
+    <value>Aktiver Profiler</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Label.FlashDevelopProfiler" xml:space="preserve">
