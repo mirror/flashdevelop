@@ -25,7 +25,6 @@ namespace ProjectManager.Helpers
 	public class ProjectCreator
 	{
         private static Regex reArgs = new Regex("\\$\\(([a-z]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
 		string projectName;
         string projectId;
         string packageName;
@@ -33,15 +32,13 @@ namespace ProjectManager.Helpers
         string packageDot = "";
         string packageSlash = "";
         Argument[] arguments;
-
         private static Hashtable projectTypes = new Hashtable();
         private static bool projectTypesSet = false;
 
 		/// <summary>
 		/// Creates a new project based on the specified template directory.
 		/// </summary>
-		public Project CreateProject(string templateDirectory,
-            string projectLocation, string projectName, string packageName)
+		public Project CreateProject(string templateDirectory, string projectLocation, string projectName, string packageName)
 		{
             if (!projectTypesSet) SetInitialProjectHash();
 			this.projectName = projectName;
@@ -53,11 +50,9 @@ namespace ProjectManager.Helpers
                 packageDot = packageName + ".";
                 packageSlash = packagePath + "\\";
             }
-            
             string projectTemplate = FindProjectTemplate(templateDirectory);
-            string projectPath = Path.Combine(projectLocation,
-                projectName + Path.GetExtension(projectTemplate));
-
+            string projectPath = Path.Combine(projectLocation, projectName + Path.GetExtension(projectTemplate));
+            projectPath = PathHelper.GetPhysicalPathName(projectPath);
             // notify & let a plugin handle project creation
             Hashtable para = new Hashtable();
             para["template"] = projectTemplate;
@@ -67,27 +62,21 @@ namespace ProjectManager.Helpers
             para["package"] = packageName;
             DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.CreateProject, para);
             EventManager.DispatchEvent(this, de);
-
             if (!de.Handled)
             {
                 int addArgs = 1;
                 arguments = new Argument[PluginBase.MainForm.Settings.CustomArguments.Count + addArgs];
                 arguments[0] = new Argument("FlexSDK", PluginBase.MainForm.ProcessArgString("$(FlexSDK)"));
                 PluginBase.MainForm.Settings.CustomArguments.CopyTo(arguments, addArgs);
-
                 Directory.CreateDirectory(projectLocation);
-
                 // manually copy important files
                 CopyFile(projectTemplate, projectPath);
-
                 CopyProjectFiles(templateDirectory, projectLocation, true);
             }
-
             if (File.Exists(projectPath))
             {
                 de = new DataEvent(EventType.Command, ProjectManagerEvents.ProjectCreated, para);
                 EventManager.DispatchEvent(this, de);
-
                 return ProjectLoader.Load(projectPath);
             }
             else return null;

@@ -367,8 +367,7 @@ namespace FileExplorer
             DirectoryInfo dir = null;
             FileSystemInfo[] infos = null;
             // Check the specified path
-            path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-            path = PathHelper.GetLongPathName(path);
+            path = PathHelper.GetPhysicalPathName(path);
             // Do the actual filesystem querying in the background
             MethodInvoker backgroundMethod = new MethodInvoker(delegate
             {

@@ -39,16 +39,13 @@ namespace ProjectManager.Actions
         public Project NewProject()
         {
             NewProjectDialog dialog = new NewProjectDialog();
-
             if (dialog.ShowDialog(owner) == DialogResult.OK)
             {
                 try
                 {
                     FlashDevelopActions.CheckAuthorName();
-
                     ProjectCreator creator = new ProjectCreator();
-                    return creator.CreateProject(dialog.TemplateDirectory,
-                        dialog.ProjectLocation, dialog.ProjectName, dialog.PackageName);
+                    return creator.CreateProject(dialog.TemplateDirectory, dialog.ProjectLocation, dialog.ProjectName, dialog.PackageName);
                 }
                 catch (Exception exception)
                 {
@@ -74,7 +71,11 @@ namespace ProjectManager.Actions
 
         public Project OpenProjectSilent(string path)
         {
-            try { return ProjectLoader.Load(path); }
+            try 
+            {
+                String physical = PathHelper.GetPhysicalPathName(path);
+                return ProjectLoader.Load(physical); 
+            }
             catch (Exception exception)
             {
                 string msg = TextHelper.GetString("Info.CouldNotOpenProject");

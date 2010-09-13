@@ -523,10 +523,11 @@ namespace FlashDevelop
         /// <summary>
         /// Opens the specified file and creates a editable document
         /// </summary>
-        public DockContent OpenEditableDocument(String file, Encoding encoding, Boolean restorePosition)
+        public DockContent OpenEditableDocument(String org, Encoding encoding, Boolean restorePosition)
         {
             DockContent createdDoc;
             EncodingFileInfo info = new EncodingFileInfo();
+            String file = PathHelper.GetPhysicalPathName(org);
             TextEvent te = new TextEvent(EventType.FileOpening, file);
             EventManager.DispatchEvent(this, te);
             if (te.Handled)
