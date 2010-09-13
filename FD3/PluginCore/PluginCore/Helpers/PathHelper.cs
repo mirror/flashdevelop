@@ -258,6 +258,35 @@ namespace PluginCore.Helpers
                 return shortName;
             }
         }
+
+		/// <summary>
+		/// Gets the correct physical path from the file system
+		/// </summary>
+		[DllImport("shell32.dll")] private static extern uint SHILCreateFromPath([MarshalAs(UnmanagedType.LPWStr)] String pszPath, out IntPtr ppidl, ref int rgflnOut);
+		[DllImport("shell32.dll", EntryPoint = "SHGetPathFromIDListW")] private static extern bool SHGetPathFromIDList(IntPtr pidl, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder pszPath);
+		public static String GetPhysicalPathName(String path)
+		{
+			try
+			{
+				IntPtr ppidl;
+				int rgflnOut = 0;
+				uint r;
+				r = SHILCreateFromPath(path, out ppidl, ref rgflnOut);
+				if (r == 0)
+				{
+					StringBuilder sb = new StringBuilder(260);
+					SHGetPathFromIDList(ppidl, sb);
+					if (path.Substring(path.Length - 1) == Path.DirectorySeparatorChar.ToString()) sb.Append(Path.DirectorySeparatorChar);
+					return sb.ToString();
+				}
+				return path;
+			}
+			catch (Exception ex)
+			{
+				ErrorManager.ShowError(ex);
+				return path;
+			}
+		}
     }
 
 }
