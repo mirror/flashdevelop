@@ -275,9 +275,11 @@ namespace PluginCore.Helpers
 				if (r == 0)
 				{
 					StringBuilder sb = new StringBuilder(260);
-					SHGetPathFromIDList(ppidl, sb);
-					if (path.Substring(path.Length - 1) == Path.DirectorySeparatorChar.ToString()) sb.Append(Path.DirectorySeparatorChar);
-					return sb.ToString();
+					if (SHGetPathFromIDList(ppidl, sb))
+					{
+						if (path.Substring(path.Length - 1) == Path.DirectorySeparatorChar.ToString()) sb.Append(Path.DirectorySeparatorChar);
+						return sb.ToString();
+					}
 				}
 				return path;
 			}
