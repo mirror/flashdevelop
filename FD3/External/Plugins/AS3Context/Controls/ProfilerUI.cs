@@ -230,7 +230,8 @@ namespace AS3Context.Controls
             profilerItems.Add(defaultToolStripMenuItem);
             foreach (string swf in swfs)
             {
-                if (File.Exists(swf))
+                string fileName = swf.Trim();
+                if (fileName.Length > 0)
                 {
                     ToolStripMenuItem item = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(swf));
                     item.Tag = swf;
