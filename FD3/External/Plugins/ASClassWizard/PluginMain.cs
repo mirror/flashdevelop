@@ -339,7 +339,7 @@ namespace ASClassWizard
                 string[] _extends = super.Split('.');
                 extends = " extends " + _extends[_extends.Length - 1];
                 processContext = ASContext.GetLanguageContext(lastFileOptions.Language);
-                if (lastFileOptions.createConstructor && processContext != null)
+                if (lastFileOptions.createConstructor && processContext != null && constructorArgs == null)
                 {
                     cmodel = processContext.GetModel(super.LastIndexOf('.') < 0 ? super : super.Substring(0, super.LastIndexOf('.')), _extends[_extends.Length - 1], "");
                     if (!cmodel.IsVoid())
@@ -367,7 +367,7 @@ namespace ASClassWizard
                 }
                 processContext = null;
             }
-            if (constructorArgs != "")
+            if (constructorArgs != null)
             {
                 paramString = constructorArgs;
                 foreach (String type in constructorArgTypes)

@@ -2182,11 +2182,12 @@ namespace ASCompletion.Completion
             if (String.IsNullOrEmpty(className)) className = "Class";
             string projFilesDir = Path.Combine(PathHelper.TemplateDir, "ProjectFiles");
             string projTemplateDir = Path.Combine(projFilesDir, project.GetType().Name);
+            string paramsString = paramMember.ParametersString(true);
             Hashtable info = new Hashtable();
             info["className"] = className;
             info["templatePath"] = Path.Combine(projTemplateDir, "Class.as.fdt");
             info["inDirectory"] = Path.GetDirectoryName(inClass.InFile.FileName);
-            info["constructorArgs"] = paramMember.ParametersString(true);
+            info["constructorArgs"] = paramsString.Length > 0 ? paramsString : null;
             info["constructorArgTypes"] = constructorArgTypes;
             DataEvent de = new DataEvent(EventType.Command, "ProjectManager.CreateNewFile", info);
             EventManager.DispatchEvent(null, de);
