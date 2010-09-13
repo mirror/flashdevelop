@@ -88,6 +88,7 @@ namespace AS3Context.Controls
             gcButton.Enabled = false;
             autoButton.Image = PluginBase.MainForm.FindImage("514");
 
+            if (PluginMain.Settings.ProfilerTimeout == 0) PluginMain.Settings.ProfilerTimeout = 30;
             detectDisconnect = new Timer();
             detectDisconnect.Interval = Math.Max(5, PluginMain.Settings.ProfilerTimeout) * 1000;
             detectDisconnect.Tick += new EventHandler(detectDisconnect_Tick);
@@ -176,8 +177,13 @@ namespace AS3Context.Controls
             runButton.Text = TextHelper.GetString("Label.StopProfiler");
             gcButton.Enabled = false;
 
-            if (!SetProfilerCfg(true)) 
+            if (!SetProfilerCfg(true))
                 StopProfiling();
+            else
+            {
+                detectDisconnect.Interval = 5000; // expecting connection before 5s
+                detectDisconnect.Start();
+            }
         }
 
         private void autoButton_Click(object sender, EventArgs e)
