@@ -227,12 +227,6 @@ namespace FlashDebugger.Controls
 					SortedList<DataNode, DataNode> statics = new SortedList<DataNode, DataNode>();
 					foreach (Variable member in node.Variable.getValue().getMembers(flashInterface.Session))
 					{
-						if ((member.Scope == VariableAttribute.PRIVATE_SCOPE && member.Level > 0) ||
-							member.Scope == VariableAttribute.INTERNAL_SCOPE)
-						{
-							// Flex Builder doesn't display these so we won't either.
-							continue;
-						}
 						DataNode memberNode = new DataNode(member);
 						if (member.isAttributeSet(VariableAttribute.IS_STATIC))
 						{
