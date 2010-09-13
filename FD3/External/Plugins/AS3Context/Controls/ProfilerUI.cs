@@ -241,15 +241,13 @@ namespace AS3Context.Controls
             }
             profilerChooser.DropDownItems.Clear();
             profilerChooser.DropDownItems.AddRange(profilerItems.ToArray());
-
+            defaultToolStripMenuItem.Checked = false;
             foreach (ToolStripMenuItem item in profilerItems)
                 if (item.Tag as String == profilerSWF)
                 {
                     item.Checked = true;
-                    defaultToolStripMenuItem.Checked = false;
-                    return;
+                    break;
                 }
-            defaultToolStripMenuItem.Checked = true;
         }
 
         void changeProfiler_Click(object sender, EventArgs e)
