@@ -152,11 +152,7 @@ namespace AS3Context
                         }
                         else if (action == "AS3Context.StartProfiler")
                         {
-                            if (profilerUI.AutoStart)
-                            {
-                                profilerUI.StartProfiling();
-                                profilerPanel.Show();
-                            }
+                            if (profilerUI.AutoStart) profilerUI.StartProfiling();
                         }
                         break;
 
@@ -327,6 +323,7 @@ namespace AS3Context
             profilerUI = new ProfilerUI();
             profilerUI.Text = TextHelper.GetString("Title.Profiler");
             profilerPanel = PluginBase.MainForm.CreateDockablePanel(profilerUI, pluginGuid, pluginIcon, DockState.Hidden);
+            profilerUI.PanelRef = profilerPanel;
         }
 
         /// <summary>

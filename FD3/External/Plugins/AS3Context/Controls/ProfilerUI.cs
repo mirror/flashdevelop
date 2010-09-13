@@ -12,6 +12,7 @@ using PluginCore.Managers;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace AS3Context.Controls
 {
@@ -24,6 +25,7 @@ namespace AS3Context.Controls
         static private ProfilerUI instance;
         static private bool gcWanted;
         static private byte[] snapshotWanted;
+        public DockContent PanelRef;
         private bool autoStart;
         private bool running;
         private string current;
@@ -33,6 +35,9 @@ namespace AS3Context.Controls
         private ProfilerMemView memView;
         private ProfilerObjectsView objectRefsView;
         private Timer detectDisconnect;
+        private List<ToolStripMenuItem> profilerItems;
+        private string profilerItemsCheck;
+        private string profilerSWF;
 
         public bool AutoStart
         {
@@ -84,13 +89,15 @@ namespace AS3Context.Controls
             autoButton.Image = PluginBase.MainForm.FindImage("514");
 
             detectDisconnect = new Timer();
-            detectDisconnect.Interval = 30000;
+            detectDisconnect.Interval = Math.Max(5, PluginMain.Settings.ProfilerTimeout) * 1000;
             detectDisconnect.Tick += new EventHandler(detectDisconnect_Tick);
 
             memView = new ProfilerMemView(memLabel, memStatsLabel, memScaleCombo, memoryPage);
             liveObjectsView = new ProfilerLiveObjectsView(listView);
             liveObjectsView.OnViewObject += new ViewObjectEvent(liveObjectsView_OnViewObject);
             objectRefsView = new ProfilerObjectsView(objectRefsGrid);
+
+            configureProfilerChooser();
 
             StopProfiling();
         }
@@ -117,6 +124,8 @@ namespace AS3Context.Controls
             this.liveObjectsPage.Text = TextHelper.GetString("Label.LiveObjectsTab");
             this.objectsPage.Text = TextHelper.GetString("Label.ObjectsTab");
             this.memoryPage.Text = TextHelper.GetString("Label.MemoryTab");
+            this.profilerChooser.Text = TextHelper.GetString("Label.ActiveProfiler");
+            this.defaultToolStripMenuItem.Text = TextHelper.GetString("Label.FlashDevelopProfiler");
         }
 
         void detectDisconnect_Tick(object sender, EventArgs e)
@@ -180,6 +189,78 @@ namespace AS3Context.Controls
 
         #endregion
 
+        #region Profiler selector
+
+        private void configureProfilerChooser()
+        {
+            profilerChooser.Image = PluginBase.MainForm.FindImage("274");
+            profilerChooser.DropDownOpening += new EventHandler(profilerChooser_DropDownOpening);
+
+            profilerItems = new List<ToolStripMenuItem>();
+            defaultToolStripMenuItem.Checked = true;
+            defaultToolStripMenuItem.Click += new EventHandler(changeProfiler_Click);
+
+            profilerSWF = null; // default
+            string active = Path.Combine(Path.Combine(PathHelper.DataDir, "AS3Context"), "activeProfiler.txt");
+            if (File.Exists(active))
+            {
+                string src = File.ReadAllText(active).Trim();
+                if (src.Length > 0 && File.Exists(src))
+                    profilerSWF = src;
+            }
+        }
+
+        void profilerChooser_DropDownOpening(object sender, EventArgs e)
+        {
+            string[] swfs = PluginMain.Settings.CustomProfilers;
+            if (swfs == null || swfs.Length == 0) return;
+
+            string check = "";
+            foreach(string swf in swfs) check += swf;
+            if (check == profilerItemsCheck) return;
+            profilerItemsCheck = check; 
+
+            profilerItems.Clear();
+            profilerItems.Add(defaultToolStripMenuItem);
+            foreach (string swf in swfs)
+            {
+                if (File.Exists(swf))
+                {
+                    ToolStripMenuItem item = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(swf));
+                    item.Tag = swf;
+                    item.Click += new EventHandler(changeProfiler_Click);
+                    profilerItems.Add(item);
+                }
+            }
+            profilerChooser.DropDownItems.Clear();
+            profilerChooser.DropDownItems.AddRange(profilerItems.ToArray());
+
+            foreach (ToolStripMenuItem item in profilerItems)
+                if (item.Tag as String == profilerSWF)
+                {
+                    item.Checked = true;
+                    defaultToolStripMenuItem.Checked = false;
+                    return;
+                }
+            defaultToolStripMenuItem.Checked = true;
+        }
+
+        void changeProfiler_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item == null || item.Checked) return;
+
+            foreach (ToolStripMenuItem it in profilerItems)
+                it.Checked = false;
+            item.Checked = true;
+            profilerSWF = item.Tag as String;
+
+            string active = Path.Combine(Path.Combine(PathHelper.DataDir, "AS3Context"), "activeProfiler.txt");
+            File.WriteAllText(active, profilerSWF ?? "");
+        }
+
+        #endregion
+
         #region Display profiling data
 
         /// <summary>
@@ -210,11 +291,13 @@ namespace AS3Context.Controls
                     previous.Add(current);
                     SetProfilerCfg(false);
                     gcButton.Enabled = true;
+                    PanelRef.Show();
                 }
                 else return false;
             }
 
             detectDisconnect.Stop();
+            detectDisconnect.Interval = Math.Max(5, PluginMain.Settings.ProfilerTimeout) * 1000;
             detectDisconnect.Start();
 
             memView.UpdateStats(info);
@@ -240,13 +323,13 @@ namespace AS3Context.Controls
                 if (active)
                 {
                     // write profiler
-                    string profilerSWF = CheckResource("Profiler4.swf", "Profiler.swf");
+                    string defaultSWF = CheckResource("Profiler4.swf", "Profiler.swf");
                     // local security
                     ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
                     // honor FlashConnect settings
                     FlashConnect.Settings settings = GetFlashConnectSettings();
                     // mm.cfg profiler config
-                    src += "\r\nPreloadSwf=" + profilerSWF + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
+                    src += "\r\nPreloadSwf=" + (profilerSWF ?? defaultSWF) + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
                 }
                 File.WriteAllText(mmCfg, src);
             }

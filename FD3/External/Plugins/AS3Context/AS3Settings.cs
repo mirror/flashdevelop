@@ -192,6 +192,29 @@ namespace AS3Context
         }
         #endregion
 
+        #region Profiler settings
+
+        const int DEFAULT_PROFILER_TIMEOUT = 30;
+        private int profilerTimeout;
+        private string[] customProfilers;
+
+        [DisplayName("Profiler Timeout")]
+        [LocalizedCategory("AS3Context.Category.Profiler"), LocalizedDescription("AS3Context.Description.ProfilerTimeout"), DefaultValue(DEFAULT_PROFILER_TIMEOUT)]
+        public int ProfilerTimeout
+        {
+            get { return profilerTimeout; }
+            set { profilerTimeout = Math.Max(5, value); }
+        }
+
+        [DisplayName("Custom Profilers")]
+        [LocalizedCategory("AS3Context.Category.Profiler"), LocalizedDescription("AS3Context.Description.CustomProfilers")]
+        public string[] CustomProfilers
+        {
+            get { return customProfilers; }
+            set { customProfilers = value; }
+        }
+        #endregion
+
         #region Flex SDK settings
 
         const bool DEFAULT_DISABLEFDB = false;

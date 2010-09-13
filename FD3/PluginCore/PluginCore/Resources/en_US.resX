@@ -4178,4 +4178,24 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Text Document</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="AS3Context.Category.Profiler" xml:space="preserve">
+    <value>Profiler</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="AS3Context.Description.CustomProfilers" xml:space="preserve">
+    <value>User-defined profiling SWFs to be injected using the 'PreloadSWF' feature.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="AS3Context.Description.ProfilerTimeout" xml:space="preserve">
+    <value>Automatically stop listening to profiler after a certain time of inactivity.</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="AS3Context.Label.ActiveProfiler" xml:space="preserve">
+    <value>Active Profiler</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="AS3Context.Label.FlashDevelopProfiler" xml:space="preserve">
+    <value>FlashDevelop Profiler</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>
