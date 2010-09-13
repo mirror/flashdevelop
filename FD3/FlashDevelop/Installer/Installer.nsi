@@ -288,16 +288,6 @@ Section "FlashDevelop" Main
 	
 SectionEnd
 
-Section "Quick Launch Item" QuickShortcut
-	
-	SectionIn 1	
-	SetOverwrite on
-	SetShellVarContext all
-	
-	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-	
-SectionEnd
-
 Section "Desktop Shortcut" DesktopShortcut
 	
 	SectionIn 1
@@ -308,9 +298,19 @@ Section "Desktop Shortcut" DesktopShortcut
 	
 SectionEnd
 
+Section "Quick Launch Item" QuickShortcut
+	
+	SectionIn 1	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
+	
+SectionEnd
+
 Section "Install Flex SDK" InstallFlexSDK
 
-	SectionIn 1
+	SectionIn 1 3
 	SetOverwrite on
 	SetShellVarContext all
 	
