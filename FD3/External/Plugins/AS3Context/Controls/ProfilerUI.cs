@@ -331,10 +331,10 @@ namespace AS3Context.Controls
                     string defaultSWF = CheckResource("Profiler4.swf", "Profiler.swf");
                     // local security
                     ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
-                    // honor FlashConnect settings
+                    // honnor FlashConnect settings
                     FlashConnect.Settings settings = GetFlashConnectSettings();
                     // mm.cfg profiler config
-                    src += "\r\nPreloadSwf=" + (profilerSWF ?? defaultSWF) + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
+                    src += "\r\nPreloadSwf=" + ResolvePath(profilerSWF ?? defaultSWF) + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
                 }
                 File.WriteAllText(mmCfg, src);
             }
@@ -343,6 +343,14 @@ namespace AS3Context.Controls
                 return false; // unable to set the profiler
             }
             return true;
+        }
+
+        private string ResolvePath(string path)
+        {
+            if (PluginBase.CurrentProject != null)
+                return PathHelper.ResolvePath(path, Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath));
+            else
+                return PathHelper.ResolvePath(path);
         }
 
         private FlashConnect.Settings GetFlashConnectSettings()

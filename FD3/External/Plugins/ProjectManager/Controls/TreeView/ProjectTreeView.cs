@@ -221,14 +221,21 @@ namespace ProjectManager.Controls.TreeView
 		#endregion
 
 		#region TreeView Population
+        /// <summary>
+		/// Rebuilds the tree from scratch.
+		/// </summary>
+        public void RebuildTree(bool saveState)
+        {
+            RebuildTree(saveState, true);
+        }
 
 		/// <summary>
 		/// Rebuilds the tree from scratch.
 		/// </summary>
-		public void RebuildTree(bool saveState)
+		public void RebuildTree(bool saveState, bool restoreExpanded)
 		{
 			// store old tree state
-            List<string> previouslyExpanded = ExpandedPaths;
+            List<string> previouslyExpanded = restoreExpanded ? ExpandedPaths : new List<string>();
 			
 			foreach (GenericNode node in Nodes)
 				node.Dispose();

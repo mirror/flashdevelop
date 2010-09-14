@@ -135,14 +135,17 @@ namespace HaXeContext
 
         private string LookupLibrary(string lib)
         {
+            if (haxelibsCache.ContainsKey(lib))
+                return haxelibsCache[lib];
+
             try
             {
-                return haxelibsCache[lib];
-            }
-            catch (KeyNotFoundException)
-            {
+                string haxelib = "haxelib";
+                if (hxsettings.HaXePath != null && Path.IsPathRooted(hxsettings.HaXePath))
+                    haxelib = Path.Combine(hxsettings.HaXePath, haxelib);
+                
                 ProcessStartInfo pi = new ProcessStartInfo();
-                pi.FileName = "haxelib";
+                pi.FileName = haxelib;
                 pi.Arguments = "path " + lib;
                 pi.RedirectStandardOutput = true;
                 pi.UseShellExecute = false;
@@ -154,6 +157,10 @@ namespace HaXeContext
                 p.Close();
                 haxelibsCache.Add(lib, path);
                 return path;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
