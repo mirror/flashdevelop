@@ -4175,23 +4175,23 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Category.Profiler" xml:space="preserve">
-    <value>Profiler</value>
+    <value>Profiler | プロファイラー</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Description.CustomProfilers" xml:space="preserve">
-    <value>User-defined profiling SWFs to be injected using the 'PreloadSWF' feature.</value>
+    <value>代替プロファイラーとして使用する SWF ファイルのパスです。切り替える場合はプロファイラーパネルで指定することができます。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Description.ProfilerTimeout" xml:space="preserve">
-    <value>Automatically stop listening to profiler after a certain time of inactivity.</value>
+    <value>プロファイラーのタイムアウト時間(ミリ秒)です。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Label.ActiveProfiler" xml:space="preserve">
-    <value>Active Profiler</value>
+    <value>有効なプロファイラー</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Label.FlashDevelopProfiler" xml:space="preserve">
-    <value>FlashDevelop Profiler</value>
+    <value>FlashDevelop プロファイラー</value>
     <comment>Added after 3.2.2</comment>
   </data>
 </root>
