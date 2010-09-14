@@ -75,6 +75,7 @@ namespace ProjectManager.Helpers
             }
             if (File.Exists(projectPath))
             {
+                projectPath = PathHelper.GetPhysicalPathName(projectPath);
                 de = new DataEvent(EventType.Command, ProjectManagerEvents.ProjectCreated, para);
                 EventManager.DispatchEvent(this, de);
                 return ProjectLoader.Load(projectPath);
