@@ -279,14 +279,9 @@ namespace PluginCore.Helpers
 					StringBuilder sb = new StringBuilder(260);
 					if (SHGetPathFromIDList(ppidl, sb))
 					{
-                        String newPath = sb.ToString();
-                        String dirSep = Path.DirectorySeparatorChar.ToString();
-                        if (File.Exists(newPath)) return newPath;
-                        else if (Directory.Exists(newPath))
-                        {
-                            if (!newPath.EndsWith(dirSep)) newPath += dirSep;
-                            return newPath;
-                        }
+                        Char sep = Path.DirectorySeparatorChar;
+                        Char alt = Path.AltDirectorySeparatorChar;
+                        return sb.ToString().Replace(alt, sep);
 					}
 				}
 				return path;

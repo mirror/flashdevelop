@@ -6,6 +6,23 @@ namespace System.Windows.Forms
 {
     public class ToolStripSpringComboBox : ToolStripComboBox
     {
+        public ToolStripSpringComboBox()
+        {
+            this.Control.PreviewKeyDown += new PreviewKeyDownEventHandler(this.OnPreviewKeyDown);
+        }
+
+        /// <summary>
+        /// Fixes the Control+Alt (AltGr) key combination handling
+        /// </summary>
+        private void OnPreviewKeyDown(Object sender, PreviewKeyDownEventArgs e)
+        {
+            Keys ctrlAlt = Keys.Control | Keys.Alt;
+            if ((e.KeyData & ctrlAlt) == ctrlAlt) e.IsInputKey = true;
+        }
+
+        /// <summary>
+        /// Makes the control spring automaticly
+        /// </summary>
         public override Size GetPreferredSize(Size constrainingSize)
         {
             // Use the default size if the text box is on the overflow menu
@@ -69,6 +86,23 @@ namespace System.Windows.Forms
     }
     public class ToolStripSpringTextBox : ToolStripTextBox
     {
+        public ToolStripSpringTextBox()
+        {
+            this.Control.PreviewKeyDown += new PreviewKeyDownEventHandler(this.OnPreviewKeyDown);
+        }
+
+        /// <summary>
+        /// Fixes the Control+Alt (AltGr) key combination handling
+        /// </summary>
+        private void OnPreviewKeyDown(Object sender, PreviewKeyDownEventArgs e)
+        {
+            Keys ctrlAlt = Keys.Control | Keys.Alt;
+            if ((e.KeyData & ctrlAlt) == ctrlAlt) e.IsInputKey = true;
+        }
+
+        /// <summary>
+        /// Makes the control spring automaticly
+        /// </summary>
         public override Size GetPreferredSize(Size constrainingSize)
         {
             // Use the default size if the text box is on the overflow menu

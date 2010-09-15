@@ -708,7 +708,10 @@ namespace FlashDevelop.Controls
         {
             public event KeyEscapeEvent OnKeyEscape;
 
-            public EscapeTextBox() : base() {}
+            public EscapeTextBox() : base() 
+            {
+                this.Control.PreviewKeyDown += new PreviewKeyDownEventHandler(this.OnPreviewKeyDown);
+            }
 
             protected override Boolean ProcessCmdKey(ref Message m, Keys keyData)
             {
@@ -716,11 +719,16 @@ namespace FlashDevelop.Controls
                 return false;
             }
 
+            private void OnPreviewKeyDown(Object sender, PreviewKeyDownEventArgs e)
+            {
+                Keys ctrlAlt = Keys.Control | Keys.Alt;
+                if ((e.KeyData & ctrlAlt) == ctrlAlt) e.IsInputKey = true;
+            }
+
             protected void OnPressEscapeKey()
             {
                 if (OnKeyEscape != null) OnKeyEscape();
             }
-
         }
 
         #endregion
