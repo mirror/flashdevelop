@@ -250,7 +250,7 @@ namespace ASCompletion.Completion
                             {
                                 contextMember = resolve.Member;
                                 ShowEventMetatagList(found);
-                                break;
+                                return;
                             }
                             aType = aType.Extends;
                         }
@@ -285,7 +285,8 @@ namespace ASCompletion.Completion
                 else
                 {
                     Match m = Regex.Match(text, String.Format(patternMethodDecl, contextToken));
-                    if (!m.Success)
+                    Match m2 = Regex.Match(text, String.Format(patternMethod, contextToken));
+                    if (!m.Success && m2.Success)
                     {
                         contextMatch = m;
                         ShowChangeMethodDeclList(found);
@@ -1087,6 +1088,8 @@ namespace ASCompletion.Completion
             }
             string template = GetTemplate("EventMetatag", "[Event(name=\"{0}\", type=\"{1}\")]");
             template = String.Format(template + "\n$(Boundary)", value, resolve.inClass.QualifiedName);
+
+            AddLookupPosition();
 
             Sci.CurrentPos = position;
             Sci.SetSel(position, position);
