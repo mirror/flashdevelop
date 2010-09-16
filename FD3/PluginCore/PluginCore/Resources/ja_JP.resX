@@ -208,7 +208,7 @@
     <value>テキストの余計なホワイトスペースを削除します。必要なホワイトスペースだけを残します。</value>
   </data>
   <data name="ASCompletion.Description.DescriptionLinesLimit" xml:space="preserve">
-    <value>ツールチップの説明文の文字数の上限です。</value>
+    <value>ツールチップに表示する説明文の行数の上限です。</value>
   </data>
   <data name="ASCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
     <value>自動的にブロックを閉じる機能を無効にします。</value>
