@@ -26,7 +26,8 @@ namespace ASCompletion
         static public void CreatePanel()
         {
             Image panelIcon = PluginBase.MainForm.FindImage("202");
-            panelCtrl = PluginBase.MainForm.CreateDockablePanel(Instance, panelGuid, panelIcon, DockState.Hidden);
+            panelCtrl = PluginBase.MainForm.CreateDockablePanel(Instance, panelGuid, panelIcon, DockState.Float);
+            panelCtrl.Hide();
         }
         static public void Open()
         {
