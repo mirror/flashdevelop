@@ -44,6 +44,9 @@ namespace CodeRefactor.Commands
                 Sci.SetSel(funcBodyStart, Sci.LineEndPosition(current.LineTo));
                 string currentMethodBody = Sci.SelText;
 
+                bool isExprInSingleQuotes = (expression.StartsWith("'") && expression.EndsWith("'"));
+                bool isExprInDoubleQuotes = (expression.StartsWith("\"") && expression.EndsWith("\""));
+                int stylemask = (1 << Sci.StyleBits) - 1;
                 int lastPos = -1;
                 char prevOrNextChar;
                 Sci.Colourise(0, -1);
@@ -68,13 +71,22 @@ namespace CodeRefactor.Commands
                                 continue;
                             }
                         }
-                        
-                        int stylemask = (1 << Sci.StyleBits) -1;
+
                         int style = Sci.StyleAt(funcBodyStart + lastPos) & stylemask;
-                        if (!ASComplete.IsTextStyle(style))
+                        if (ASComplete.IsCommentStyle(style))
                         {
                             continue;
                         }
+                        else if ((isExprInDoubleQuotes && currentMethodBody[lastPos] == '"' && currentMethodBody[lastPos + expression.Length - 1] == '"')
+                            || (isExprInSingleQuotes && currentMethodBody[lastPos] == '\'' && currentMethodBody[lastPos + expression.Length - 1] == '\''))
+                        {
+                            
+                        }
+                        else if (!ASComplete.IsTextStyle(style))
+                        {
+                            continue;
+                        }
+
                         Sci.SetSel(funcBodyStart + lastPos, funcBodyStart + lastPos + expression.Length);
                         Sci.ReplaceSel(NewName);
                         currentMethodBody = currentMethodBody.Substring(0, lastPos) + NewName + currentMethodBody.Substring(lastPos + expression.Length);
