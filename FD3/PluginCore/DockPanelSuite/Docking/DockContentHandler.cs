@@ -171,7 +171,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 				if ((DockAreas & DockAreas.Float) != 0)
 					return DockState.Float;
 
-				return DockState.Float;
+                return DockState.Unknown;
 			}
 		}
 
