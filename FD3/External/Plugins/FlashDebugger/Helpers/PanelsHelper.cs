@@ -31,18 +31,22 @@ namespace FlashDebugger
             pluginUI = new PluginUI(pluginMain);
             pluginUI.Text = TextHelper.GetString("Title.LocalVariables");
             pluginPanel = PluginBase.MainForm.CreateDockablePanel(pluginUI, pluginGuid, pluginImage, DockState.Hidden);
+            pluginPanel.VisibleState = DockState.Float;
 
             stackframeUI = new StackframeUI(pluginMain, MenusHelper.imageList);
             stackframeUI.Text = TextHelper.GetString("Title.StackTrace");
             stackframePanel = PluginBase.MainForm.CreateDockablePanel(stackframeUI, stackframeGuid, pluginImage, DockState.Hidden);
+            stackframePanel.VisibleState = DockState.Float;
 
 			watchUI = new WatchUI();
 			watchUI.Text = TextHelper.GetString("Title.Watch");
             watchPanel = PluginBase.MainForm.CreateDockablePanel(watchUI, watchGuid, pluginImage, DockState.Hidden);
+            watchPanel.VisibleState = DockState.Float;
 
             breakPointUI = new BreakPointUI(pluginMain, PluginMain.breakPointManager);
             breakPointUI.Text = TextHelper.GetString("Title.Breakpoints");
             breakPointPanel = PluginBase.MainForm.CreateDockablePanel(breakPointUI, breakPointGuid, pluginImage, DockState.Hidden);
+            breakPointPanel.VisibleState = DockState.Float;
         }
 
 	}
