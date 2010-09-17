@@ -477,7 +477,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 			get	{	return m_floatWindows;	}
 		}
 
-        private Size m_defaultFloatWindowSize = new Size(300, 300);
+        private Size m_defaultFloatWindowSize = new Size(600, 400);
         [Category("Layout")]
         [LocalizedDescription("DockPanel_DefaultFloatWindowSize_Description")]
         public Size DefaultFloatWindowSize
@@ -487,7 +487,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         }
         private bool ShouldSerializeDefaultFloatWindowSize()
         {
-            return DefaultFloatWindowSize != new Size(300, 300);
+            return DefaultFloatWindowSize != new Size(600, 400);
         }
 
 		private DocumentStyle m_documentStyle = DocumentStyle.DockingMdi;
