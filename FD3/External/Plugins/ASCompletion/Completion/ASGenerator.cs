@@ -1178,12 +1178,12 @@ namespace ASCompletion.Completion
             {
                 return;
             }
-            if (funcResult != null && funcResult.relClass != null && !funcResult.relClass.Equals(inClass))
+            if (funcResult != null && funcResult.inClass != null && !funcResult.inClass.Equals(inClass))
             {
                 AddLookupPosition();
                 lookupPosition = -1;
 
-                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.inClass.InFile.FileName, true);
                 Sci = ASContext.CurSciControl;
 
                 FileModel fileModel = new FileModel();
@@ -1192,13 +1192,13 @@ namespace ASCompletion.Completion
 
                 foreach (ClassModel cm in fileModel.Classes)
                 {
-                    if (cm.QualifiedName.Equals(funcResult.relClass.QualifiedName))
+                    if (cm.QualifiedName.Equals(funcResult.inClass.QualifiedName))
                     {
-                        funcResult.relClass = cm;
+                        funcResult.inClass = cm;
                         break;
                     }
                 }
-                inClass = funcResult.relClass;
+                inClass = funcResult.inClass;
             }
 
             MemberList members = inClass.Members;
@@ -1299,8 +1299,10 @@ namespace ASCompletion.Completion
                         {
                         }
                     }
-                    AddImportsByName(l, Sci.LineFromPosition(end));
+                    start += AddImportsByName(l, Sci.LineFromPosition(end));
                 }
+
+                Sci.SetSel(start, start);
             }
         }
 
