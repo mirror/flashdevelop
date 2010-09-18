@@ -46,7 +46,7 @@ namespace CodeAnalyzer
         private void RunPMD(String pmdPath, String projectPath, String sourcePath, String pmdRuleset)
         {
             String args = "-Xmx256m -jar \"" + pmdPath + "\" -s \"" + sourcePath + "\" -o \"" + projectPath + "\"";
-            if (pmdRuleset != "" && pmdRuleset != null) args += " -r \"" + pmdRuleset + "\"";
+            if (pmdRuleset != "" && pmdRuleset != null && File.Exists(pmdRuleset)) args += " -r \"" + pmdRuleset + "\"";
             this.SetStatusText(TextHelper.GetString("Info.RunningFlexPMD"));
             this.pmdRunner = new ProcessRunner();
             this.pmdRunner.Run("java", args, true);
