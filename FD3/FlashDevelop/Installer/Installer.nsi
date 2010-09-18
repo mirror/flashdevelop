@@ -267,7 +267,7 @@ Section "FlashDevelop" Main
 	RMDir /r "$INSTDIR\Library"
 
 	; Clean old Flex PMD
-	IfFileExists "$INSTDIR\Tools\flexpmd\flex-pmd-command-line-1.1.jar" +2 0
+	IfFileExists "$INSTDIR\Tools\flexpmd\flex-pmd-command-line-1.1.jar" 0 +2
 	RMDir /r "$INSTDIR\Tools\flexpmd"
 	
 	; Copy all files
