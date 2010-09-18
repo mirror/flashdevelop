@@ -118,14 +118,10 @@ namespace CodeRefactor.Commands
         {
             UserInterfaceManager.ProgressDialog.Show();
             UserInterfaceManager.ProgressDialog.SetTitle(TextHelper.GetString("Info.RenamingReferences"));
-            String projectPath = PluginBase.CurrentProject.ProjectPath;
-            if (projectPath == null) projectPath = String.Empty;
-            else projectPath = System.IO.Path.GetDirectoryName(projectPath) + "\\";
-            int projectPathLength = projectPath.Length;
             PluginCore.Controls.MessageBar.Locked = true;
             foreach (KeyValuePair<String, List<SearchMatch>> entry in eventArgs.Results)
             {
-                UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.Updating") + " \"" + (entry.Key.StartsWith(projectPath) ? entry.Key.Substring(projectPathLength) : entry.Key) + "\"");
+                UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.Updating") + " \"" + entry.Key + "\"");
                 // re-open the document and replace all the text
                 PluginBase.MainForm.OpenEditableDocument(entry.Key);
                 ScintillaControl sci = ASContext.CurSciControl;

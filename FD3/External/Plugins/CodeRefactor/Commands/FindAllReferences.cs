@@ -128,17 +128,13 @@ namespace CodeRefactor.Commands
             {
                 totalMatches += entry.Value.Count;
             }
-            String projectPath = PluginBase.CurrentProject.ProjectPath;
-            if (projectPath == null) projectPath = String.Empty;
-            else projectPath = System.IO.Path.GetDirectoryName(projectPath) + "\\";
-            int projectPathLength = projectPath.Length;
             IDictionary<String, Boolean> filesOpenedAndUsed = new Dictionary<String, Boolean>();
             IDictionary<String, WeifenLuo.WinFormsUI.Docking.DockContent> filesOpenedDocumentReferences = new Dictionary<String, WeifenLuo.WinFormsUI.Docking.DockContent>();
             Boolean foundDeclarationSource = false;
             foreach (KeyValuePair<String, List<SearchMatch>> entry in initialResultsList)
             {
                 String currentFileName = entry.Key;
-                UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferencesIn") + " \"" + (currentFileName.StartsWith(projectPath) ? currentFileName.Substring(projectPathLength) : currentFileName) + "\"");
+                UserInterfaceManager.ProgressDialog.UpdateStatusMessage(TextHelper.GetString("Info.ResolvingReferencesIn") + " \"" + currentFileName + "\"");
                 foreach (SearchMatch match in entry.Value)
                 {
                     // we have to open/reopen the entry's file
@@ -178,7 +174,7 @@ namespace CodeRefactor.Commands
             PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ClearResults");
             foreach (KeyValuePair<String, List<SearchMatch>> entry in this.Results)
             {
-                // outputs the lines as they change
+                // Outputs the lines as they change
                 foreach (SearchMatch match in entry.Value)
                 {
                     Int32 column = match.Column;

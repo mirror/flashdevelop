@@ -6,6 +6,7 @@ using PluginCore.FRService;
 using ASCompletion.Completion;
 using ASCompletion.Context;
 using ASCompletion.Model;
+using PluginCore.Managers;
 using ScintillaNet;
 using PluginCore;
 
@@ -236,31 +237,24 @@ namespace CodeRefactor.Provider
             else
             {
                 // if the target we are trying to rename exists as a local variable or a function parameter we only need to search the current file
-                if (target.Member != null && 
-                    (RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.LocalVar) 
-                     || RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.ParameterVar))
-                     || target.Member.Access == Visibility.Private)
+                if (target.Member != null && (RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.LocalVar)
+                    || RefactoringHelper.CheckFlag(target.Member.Flags, FlagType.ParameterVar))
+                    || target.Member.Access == Visibility.Private)
                 {
                     currentFileOnly = true;
                 }
             }
-            // sets the FindInFiles settings to the project root, *.as files, and recursive
-            String path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-            if (!PluginBase.MainForm.CurrentDocument.FileName.StartsWith(path))
+            FRConfiguration config;
+            IProject project = PluginBase.CurrentProject;
+            String file = PluginBase.MainForm.CurrentDocument.FileName;
+            // This is out of the project, just look for this file...
+            if (currentFileOnly || !IsProjectRelatedFile(project, file))
             {
-                // This is out of the project, just look for this file...
-                currentFileOnly = true;
+                String mask = Path.GetFileName(file);
+                String path = Path.GetDirectoryName(file);
+                config = new FRConfiguration(path, mask, false, GetFRSearch(target.Member.Name));
             }
-            String mask = "*.as;*.hx";
-            Boolean recursive = true;
-            // but if it's only the current file, let's just search that!
-            if (currentFileOnly)
-            {
-                path = Path.GetDirectoryName(PluginBase.MainForm.CurrentDocument.FileName);
-                mask = Path.GetFileName(PluginBase.MainForm.CurrentDocument.FileName);
-                recursive = false;
-            }
-            FRConfiguration config = new FRConfiguration(path, mask, recursive, GetFRSearch(target.Member.Name));
+            else config = new FRConfiguration(GetAllProjectRelatedFiles(project), GetFRSearch(target.Member.Name));
             config.CacheDocuments = true;
             FRRunner runner = new FRRunner();
             if (progressReportHandler != null)
@@ -274,6 +268,46 @@ namespace CodeRefactor.Provider
             if (asynchronous) runner.SearchAsync(config);
             else return runner.SearchSync(config);
             return null;
+        }
+
+        /// <summary>
+        /// Checks if files is related to the project
+        /// </summary>
+        public static Boolean IsProjectRelatedFile(IProject project, String file)
+        {
+            foreach (String path in project.SourcePaths)
+            {
+                String absolute = project.GetAbsolutePath(path);
+                if (file.StartsWith(absolute)) return true;
+            }
+            // If no source paths are defined, is it under the project?
+            if (project.SourcePaths.Length == 0)
+            {
+                String projRoot = Path.GetDirectoryName(project.ProjectPath);
+                if (file.StartsWith(projRoot)) return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets all files related to the project
+        /// </summary>
+        private static List<String> GetAllProjectRelatedFiles(IProject project)
+        {
+            List<String> files = new List<String>();
+            String filter = project.Language.ToLower() == "haxe" ? "*.hx" : "*.as";
+            foreach (String path in project.SourcePaths)
+            {
+                String absolute = project.GetAbsolutePath(path);
+                files.AddRange(Directory.GetFiles(absolute, filter, SearchOption.AllDirectories));
+            }
+            // If no source paths are defined, get files directly from project path
+            if (project.SourcePaths.Length == 0)
+            {
+                String projRoot = Path.GetDirectoryName(project.ProjectPath);
+                files.AddRange(Directory.GetFiles(projRoot, filter, SearchOption.AllDirectories));
+            }
+            return files;
         }
 
 

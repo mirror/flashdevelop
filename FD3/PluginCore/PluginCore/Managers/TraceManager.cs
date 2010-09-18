@@ -98,7 +98,15 @@ namespace PluginCore.Managers
                 if (!synchronizing)
                 {
                     synchronizing = true;
-                    (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate { ProcessQueue(); });
+                    try
+                    {
+                        (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate { ProcessQueue(); });
+                    }
+                    catch (Exception)
+                    {
+                        synchronizing = false;
+                    }
+
                 }
             }
         }

@@ -265,6 +265,10 @@ Section "FlashDevelop" Main
 	
 	; Clean library
 	RMDir /r "$INSTDIR\Library"
+
+	; Clean old Flex PMD
+	IfFileExists "$INSTDIR\Tools\flexpmd\flex-pmd-command-line-1.1.jar" +2 0
+	RMDir /r "$INSTDIR\Tools\flexpmd"
 	
 	; Copy all files
 	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x "..\Bin\Debug\Settings\" /x "..\Bin\Debug\Snippets\" /x "..\Bin\Debug\Templates\" "..\Bin\Debug\*.*"
