@@ -176,7 +176,7 @@ namespace CodeAnalyzer
             if (PluginBase.CurrentProject != null)
             {
                 String pmdDir = Path.Combine(PathHelper.ToolDir, "flexpmd");
-                String pmdJar = Path.Combine(pmdDir, "flex-pmd-command-line-1.1.jar");
+                String pmdJar = Path.Combine(pmdDir, "flex-pmd-command-line-1.2.jar");
                 String ruleFile = Path.Combine(this.GetProjectPath(), "Ruleset.xml");
                 if (!File.Exists(ruleFile)) ruleFile = settingObject.PMDRuleset; // Use default...
                 PMDRunner.Analyze(pmdJar, this.GetProjectPath(), this.GetSourcePath(), ruleFile);
