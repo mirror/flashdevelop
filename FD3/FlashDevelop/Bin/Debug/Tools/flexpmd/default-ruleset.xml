@@ -526,13 +526,6 @@ public class SomeClass
    }
 }]]></example>
   </rule>
-  <rule since="" class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase" message="A class name must start by a majuscule character">
-    <description/>
-    <priority>1</priority>
-    <example><![CDATA[public class foo // VIOLATION
-{
-}]]></example>
-  </rule>
   <rule since="" class="com.adobe.ac.pmd.rules.naming.WronglyNamedVariableRule" message="This variable ({0}) seems to be incorrectly named. Let your creativity flow">
     <description/>
     <priority>3</priority>
