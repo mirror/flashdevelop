@@ -119,20 +119,15 @@ namespace FlashDebugger
         {
             try
             {
-                // Exit on incorrect invoke
-                if (PluginBase.CurrentProject == null || currentProject.Language != "as3")
-                {
-                    return false;
-                }
-                // Give a console warning message to the user
+                IProject project = PluginBase.CurrentProject;
+                if (project == null || project.Language != "as3") return false;
+                ProjectReader reader = new ProjectReader(project.ProjectPath, new AS3Project(project.ProjectPath));
+                currentProject = reader.ReadProject();
+                // Give a console warning for non external player...
                 if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
                 {
                     TraceManager.Add(TextHelper.GetString("Info.CannotDebugActiveXPlayer"));
-                    return false;
                 }
-                String filename = PluginBase.CurrentProject.ProjectPath;
-                ProjectReader reader = new ProjectReader(filename, new AS3Project(filename));
-                currentProject = reader.ReadProject();
             }
             catch (Exception e) 
             { 
