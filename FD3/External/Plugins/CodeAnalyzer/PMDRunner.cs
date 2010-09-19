@@ -16,6 +16,7 @@ namespace CodeAnalyzer
 {
 	public class PMDRunner
     {
+        private String errorLog;
         private String watchedFile;
         private ProcessRunner pmdRunner;
         private FileSystemWatcher pmdWatcher;
@@ -49,7 +50,31 @@ namespace CodeAnalyzer
             if (pmdRuleset != "" && pmdRuleset != null && File.Exists(pmdRuleset)) args += " -r \"" + pmdRuleset + "\"";
             this.SetStatusText(TextHelper.GetString("Info.RunningFlexPMD"));
             this.pmdRunner = new ProcessRunner();
+            this.pmdRunner.ProcessEnded += new ProcessEndedHandler(this.PmdRunnerProcessEnded);
+            this.pmdRunner.Error += new LineOutputHandler(this.PmdRunnerError);
             this.pmdRunner.Run("java", args, true);
+            this.errorLog = String.Empty;
+        }
+
+        /// <summary>
+        /// Trace process done message to the output panel
+        /// </summary>
+        private void PmdRunnerProcessEnded(Object sender, Int32 exitCode)
+        {
+            if (exitCode != 0)
+            {
+                this.pmdWatcher.EnableRaisingEvents = false;
+                PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ClearResults");
+                TraceManager.Add(this.errorLog);
+            }
+        }
+
+        /// <summary>
+        /// Log output so that we can show it on error
+        /// </summary>
+        private void PmdRunnerError(Object sender, String line)
+        {
+            this.errorLog += line + "\n";
         }
 
         /// <summary>
