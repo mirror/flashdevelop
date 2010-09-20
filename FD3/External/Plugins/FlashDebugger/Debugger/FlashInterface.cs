@@ -253,7 +253,11 @@ namespace FlashDebugger
                                 break;
 
                             case SuspendReason.ScriptLoaded:
-                                waitForMetaData();
+                                try
+                                {
+                                     waitForMetaData();
+                                } 
+                                catch (InProgressException) {}
                                 m_CurrentState = DebuggerState.PauseHalt;
                                 if (ScriptLoadedEvent != null)
                                 {
