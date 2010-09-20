@@ -169,6 +169,10 @@ namespace FlashDebugger
 						{
 							return (Int32)val != 0;
 						}
+						else if (val is Variable)
+						{
+							return ((Variable)val).getValue().ValueAsObject != null;
+						}
 					}
 					catch (ExpressionException e)
 					{

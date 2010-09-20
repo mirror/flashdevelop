@@ -54,9 +54,11 @@ namespace Flash.Tools.Debugger.Expression
 			try
 			{
 				if (o is Boolean)
-					value = ((Boolean) o);
+					value = ((Boolean)o);
 				else if (o is ValueType)
-					value = (Convert.ToInt64(((ValueType) o)) != 0)?true:false;
+					value = (Convert.ToInt64(((ValueType)o)) != 0) ? true : false;
+				else if (o is Variable)
+					value = ((Variable)o).getValue().ValueAsObject != null;
 				else
 				{
 					String v = o.ToString().ToLower();

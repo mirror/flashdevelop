@@ -83,6 +83,13 @@ namespace Flash.Tools.Debugger.Expression
 					value = Convert.ToInt64(((ValueType) o));
 				else if (o is Boolean)
 					value = (((Boolean) o))?1:0;
+				else if (o is Variable)
+				{
+					Variable var = (Variable)o;
+					if (var.getValue().getType() == VariableType.BOOLEAN) return (bool)var.getValue().ValueAsObject?1:0;
+					if (var.getValue().getType() == VariableType.NULL) return 0;
+					return var.getValue().ValueAsObject!=null?1:0;
+				}
 				else
 				{
 					value = (long) Double.Parse(o.ToString());
