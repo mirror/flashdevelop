@@ -166,7 +166,10 @@ namespace FlashDebugger
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+				(PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate()
+				{
+					ErrorManager.ShowError("Internal Debugger Exception", ex);
+				});
             }
 			m_PathMap.Clear();
         }
