@@ -262,7 +262,7 @@ namespace PluginCore.Helpers
 		/// <summary>
 		/// Gets the correct physical path from the file system
 		/// </summary>
-		[DllImport("shell32.dll")] 
+        [DllImport("shell32.dll", EntryPoint = "#28")]
         private static extern uint SHILCreateFromPath([MarshalAs(UnmanagedType.LPWStr)] String pszPath, out IntPtr ppidl, ref int rgflnOut);
 		[DllImport("shell32.dll", EntryPoint = "SHGetPathFromIDListW")] 
         private static extern bool SHGetPathFromIDList(IntPtr pidl, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder pszPath);
