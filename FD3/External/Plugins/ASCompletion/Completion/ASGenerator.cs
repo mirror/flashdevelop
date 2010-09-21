@@ -241,14 +241,20 @@ namespace ASCompletion.Completion
             {
                 if (found.inClass != null)
                 {
-                    if (found.inClass.QualifiedName != resolve.inClass.QualifiedName)
+                    int lineStartPos = Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
+                    string lineStart = text.Substring(0, Sci.CurrentPos - lineStartPos);
+                    Match m = Regex.Match(lineStart, String.Format(@"new\s+(?<event>\w+)\s*\(\w+", lineStart));
+                    if (m.Success)
                     {
-                        ClassModel aType = resolve.inClass;
+                        Group g = m.Groups["event"];
+                        ASResult eventResolve = ASComplete.GetExpressionType(Sci, lineStartPos + g.Index + g.Length);
+                        ClassModel aType = eventResolve.Type;
+                        aType.ResolveExtends();
                         while (!aType.IsVoid() && aType.QualifiedName != "Object")
                         {
                             if (aType.QualifiedName == "flash.events.Event")
                             {
-                                contextMember = resolve.Member;
+                                contextParam = eventResolve.Type.QualifiedName;
                                 ShowEventMetatagList(found);
                                 return;
                             }
@@ -1086,8 +1092,44 @@ namespace ASCompletion.Completion
             {
                 value = resolve.Member.Type;
             }
+
+            if (value == "" || value == null)
+            {
+                return;
+            }
+
+            Regex re1 = new Regex("'(?:[^'\\\\]|(?:\\\\\\\\)|(?:\\\\\\\\)*\\\\.{1})*'");
+            Regex re2 = new Regex("\"(?:[^\"\\\\]|(?:\\\\\\\\)|(?:\\\\\\\\)*\\\\.{1})*\"");
+            Match m1 = re1.Match(value);
+            Match m2 = re2.Match(value);
+
+            if (m1.Success || m2.Success)
+            {
+                Match m = null;
+                if (m1.Success && m2.Success)
+                {
+                    if (m1.Index > m2.Index)
+                    {
+                        m = m2;
+                    }
+                    else
+                    {
+                        m = m1;
+                    }
+                }
+                else if (m1.Success)
+                {
+                    m = m1;
+                }
+                else
+                {
+                    m = m2;
+                }
+                value = value.Substring(m.Index + 1, m.Length - 2);
+            }
+
             string template = GetTemplate("EventMetatag", "[Event(name=\"{0}\", type=\"{1}\")]");
-            template = String.Format(template + "\n$(Boundary)", value, resolve.inClass.QualifiedName);
+            template = String.Format(template + "\n$(Boundary)", value, contextParam);
 
             AddLookupPosition();
 
