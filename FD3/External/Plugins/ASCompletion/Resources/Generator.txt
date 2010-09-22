@@ -1,5 +1,5 @@
 ImplementHeader	$(Boundary)\n\n/* INTERFACE {0} */
-ImplementPart	\n\n{0}$(CSLB){{\n\t{1}\n}}
+ImplementPart	\n\n{0} $(CSLB){{\n\t{1}\n}}
 Function	{0} $(CSLB){{\n\t\n}}
 Variable	{0}$(EntryPoint);
 Delegate	{0} function {1}():{2} $(CSLB){{\n\t$(EntryPoint)\n}}

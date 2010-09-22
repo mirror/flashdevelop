@@ -237,17 +237,18 @@ namespace ASCompletion.Completion
 
             if (resolve.Member != null
                 && resolve.Type != null
-                && resolve.Type.QualifiedName == "String")
+                && resolve.Type.QualifiedName == "String"
+                && found.inClass != null)
             {
-                if (found.inClass != null)
+                int lineStartPos = Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
+                string lineStart = text.Substring(0, Sci.CurrentPos - lineStartPos);
+                Match m = Regex.Match(lineStart, String.Format(@"new\s+(?<event>\w+)\s*\(\s*\w+", lineStart));
+                if (m.Success)
                 {
-                    int lineStartPos = Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
-                    string lineStart = text.Substring(0, Sci.CurrentPos - lineStartPos);
-                    Match m = Regex.Match(lineStart, String.Format(@"new\s+(?<event>\w+)\s*\(\w+", lineStart));
-                    if (m.Success)
+                    Group g = m.Groups["event"];
+                    ASResult eventResolve = ASComplete.GetExpressionType(Sci, lineStartPos + g.Index + g.Length);
+                    if (eventResolve != null && eventResolve.Type != null)
                     {
-                        Group g = m.Groups["event"];
-                        ASResult eventResolve = ASComplete.GetExpressionType(Sci, lineStartPos + g.Index + g.Length);
                         ClassModel aType = eventResolve.Type;
                         aType.ResolveExtends();
                         while (!aType.IsVoid() && aType.QualifiedName != "Object")
@@ -290,12 +291,19 @@ namespace ASCompletion.Completion
                 }
                 else
                 {
-                    Match m = Regex.Match(text, String.Format(patternMethodDecl, contextToken));
-                    Match m2 = Regex.Match(text, String.Format(patternMethod, contextToken));
-                    if (!m.Success && m2.Success)
+                    if (resolve != null 
+                        && resolve.inClass != null 
+                        && resolve.inClass.InFile != null 
+                        && resolve.inClass.InFile.FileName.ToLower().IndexOf("playerglobal.swc\\") == -1
+                        && !resolve.inClass.InFile.FileName.StartsWith(PathHelper.AppDir))
                     {
-                        contextMatch = m;
-                        ShowChangeMethodDeclList(found);
+                        Match m = Regex.Match(text, String.Format(patternMethodDecl, contextToken));
+                        Match m2 = Regex.Match(text, String.Format(patternMethod, contextToken));
+                        if (!m.Success && m2.Success)
+                        {
+                            contextMatch = m;
+                            ShowChangeMethodDeclList(found);
+                        }
                     }
                 }
             }
@@ -1627,7 +1635,9 @@ namespace ASCompletion.Completion
             int indent = Sci.GetLineIndentation(Sci.LineFromPosition(Sci.CurrentPos));
             foreach (MemberModel m in members)
             {
-                if ((m.Flags & FlagType.Variable) > 0 && (m.Access & Visibility.Public) > 0)
+                if (((m.Flags & FlagType.Variable) > 0 || (m.Flags & FlagType.Getter) > 0)
+                    && (m.Access & Visibility.Public) > 0
+                    && (m.Flags & FlagType.Constant) == 0)
                 {
                     oneMembersString = new StringBuilder();
                     oneMembersString.Append(" ").Append(m.Name).Append("=\" + ").Append(m.Name).Append(" + ");
