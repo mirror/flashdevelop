@@ -28,6 +28,7 @@ namespace ASCompletion.Completion
         const string BlankLine = "$(Boundary)\n\n";
         const string NewLine = "$(Boundary)\n";
         static private Regex reModifier = new Regex("[a-z \t]*(public |private |protected )", RegexOptions.Compiled);
+        static private Regex reOverride = new Regex("[a-z \t]*(override )", RegexOptions.Compiled);
 
         static private string contextToken;
         static private string contextParam;
@@ -293,8 +294,10 @@ namespace ASCompletion.Completion
                 {
                     if (resolve != null 
                         && resolve.inClass != null 
-                        && resolve.inClass.InFile != null 
-                        && resolve.inClass.InFile.FileName.ToLower().IndexOf("playerglobal.swc\\") == -1
+                        && resolve.inClass.InFile != null
+                        && resolve.Member != null
+                        && (resolve.Member.Flags & FlagType.Function) > 0
+                        && File.Exists(resolve.inClass.InFile.FileName)
                         && !resolve.inClass.InFile.FileName.StartsWith(PathHelper.AppDir))
                     {
                         Match m = Regex.Match(text, String.Format(patternMethodDecl, contextToken));
@@ -2061,7 +2064,7 @@ namespace ASCompletion.Completion
                             }
                             else
                             {
-                                paramType = result.Member.Type;
+                                paramType = FormatType(GetShortType(result.Member.Type));
                                 if (result.inClass == null)
                                 {
                                     paramQualType = result.Type.QualifiedName;
@@ -3438,7 +3441,23 @@ namespace ASCompletion.Completion
                         + m.Groups[1].Value + trimmedLine.Remove(m.Groups[1].Index, m.Groups[1].Length);
                 }
             }
-            return String.Join("\n", lines);
+            src = String.Join("\n", lines);
+
+            lines = src.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                string trimmedLine = line.TrimStart();
+                Match m = reOverride.Match(trimmedLine);
+                if (m.Success)
+                {
+                    lines[i] = line.Substring(0, line.Length - trimmedLine.Length)
+                        + m.Groups[1].Value + trimmedLine.Remove(m.Groups[1].Index, m.Groups[1].Length);
+                }
+            }
+
+            src = String.Join("\n", lines);
+            return src;
         }
 
         private static void UpdateLookupPosition(int position, int delta)
