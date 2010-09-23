@@ -436,20 +436,12 @@ namespace PluginCore.FRService
 
         private void BuildRegex(string pattern)
         {
-            int trimmedCount = pattern.Length - pattern.TrimStart(new char[] { '$' }).Length;
             if (isEscaped) pattern = Unescape(pattern);
             if (!isRegex) pattern = Regex.Escape(pattern);
             if (wholeWord)
             {
-                if (trimmedCount > 0)
-                {
-                    string trimmed = pattern.Substring(0, pattern.IndexOf("\\$"));
-                    pattern = pattern.Substring(0, trimmedCount * 2) + "\\b" + pattern.Substring(trimmedCount * 2) + "\\b";
-                }
-                else
-                {
-                    pattern = "\\b" + pattern + "\\b";
-                }
+                if (pattern.StartsWith("\\$")) pattern += "\\b";
+                else pattern = "\\b" + pattern + "\\b";
             }
             
             RegexOptions options = RegexOptions.None;
@@ -550,11 +542,11 @@ namespace PluginCore.FRService
                         else if (pos > 1)
                             if (literalMatch == 1)
                             {
-                                if (src[pos - 2] != '\\' && c == '"') literalMatch = 0;
+                                if (src[pos - 1] != '\\' && c == '"') literalMatch = 0;
                             }
                             else if (literalMatch == 2)
                             {
-                                if (src[pos - 2] != '\\' && c == '\'') literalMatch = 0;
+                                if (src[pos - 1] != '\\' && c == '\'') literalMatch = 0;
                             }
                         if ((inLiterals && literalMatch == 0) || (outLiterals && literalMatch > 0))
                             continue;
