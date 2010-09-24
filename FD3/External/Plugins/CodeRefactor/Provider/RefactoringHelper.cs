@@ -255,6 +255,14 @@ namespace CodeRefactor.Provider
                 String mask = Path.GetFileName(file);
                 String path = Path.GetDirectoryName(file);
                 config = new FRConfiguration(path, mask, false, GetFRSearch(target.Member.Name));
+                if (mask.Contains("[model]"))
+                {
+                    if (findFinishedHandler != null)
+                    {
+                        findFinishedHandler(new FRResults());
+                    }
+                    return null;
+                }
             }
             else config = new FRConfiguration(GetAllProjectRelatedFiles(project), GetFRSearch(target.Member.Name));
             config.CacheDocuments = true;
