@@ -25,11 +25,11 @@ namespace FlashDebugger.Controls
 			{
 				return 0;
 			}
-			if (thisName[0] == '_')
+			if (thisName.Length>0 && thisName[0] == '_')
 			{
 				thisName = thisName.Substring(1);
 			}
-			if (otherName[0] == '_')
+			if (otherName.Length>0 && otherName[0] == '_')
 			{
 				otherName = otherName.Substring(1);
 			}
@@ -38,7 +38,7 @@ namespace FlashDebugger.Controls
 			{
 				return result;
 			}
-			return m_Value.getName()[0] == '_' ? 1 : -1;
+			return m_Value.getName().Length>0 && m_Value.getName()[0] == '_' ? 1 : -1;
 		}
 
 		public string Value
