@@ -363,7 +363,7 @@ namespace ASCompletion.Settings
 
         const bool DEFAULT_GENERATE_PROTECTED = false;
         const bool DEFAULT_GENERATE_STARTWITHMODIFIERS = false;
-        const bool DEFAULT_GENERATE_ADDCLOSINGBRACES = true;
+        const bool DEFAULT_GENERATE_ADDCLOSINGBRACES = false;
         const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
         const string DEFAULT_GENERATE_PREFIXFIELDS = "_";
 

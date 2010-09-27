@@ -30,23 +30,23 @@ namespace FlashDebugger
         {
             pluginUI = new PluginUI(pluginMain);
             pluginUI.Text = TextHelper.GetString("Title.LocalVariables");
-            pluginPanel = PluginBase.MainForm.CreateDockablePanel(pluginUI, pluginGuid, pluginImage, DockState.Hidden);
-            pluginPanel.VisibleState = DockState.Float;
-
+            pluginPanel = PluginBase.MainForm.CreateDockablePanel(pluginUI, pluginGuid, pluginImage, DockState.DockLeft);
+            pluginPanel.Hide();
+            
             stackframeUI = new StackframeUI(pluginMain, MenusHelper.imageList);
             stackframeUI.Text = TextHelper.GetString("Title.StackTrace");
-            stackframePanel = PluginBase.MainForm.CreateDockablePanel(stackframeUI, stackframeGuid, pluginImage, DockState.Hidden);
-            stackframePanel.VisibleState = DockState.Float;
+            stackframePanel = PluginBase.MainForm.CreateDockablePanel(stackframeUI, stackframeGuid, pluginImage, DockState.DockLeft);
+            stackframePanel.Hide();
 
 			watchUI = new WatchUI();
 			watchUI.Text = TextHelper.GetString("Title.Watch");
-            watchPanel = PluginBase.MainForm.CreateDockablePanel(watchUI, watchGuid, pluginImage, DockState.Hidden);
-            watchPanel.VisibleState = DockState.Float;
+            watchPanel = PluginBase.MainForm.CreateDockablePanel(watchUI, watchGuid, pluginImage, DockState.DockLeft);
+            watchPanel.Hide();
 
             breakPointUI = new BreakPointUI(pluginMain, PluginMain.breakPointManager);
             breakPointUI.Text = TextHelper.GetString("Title.Breakpoints");
-            breakPointPanel = PluginBase.MainForm.CreateDockablePanel(breakPointUI, breakPointGuid, pluginImage, DockState.Hidden);
-            breakPointPanel.VisibleState = DockState.Float;
+            breakPointPanel = PluginBase.MainForm.CreateDockablePanel(breakPointUI, breakPointGuid, pluginImage, DockState.DockLeft);
+            breakPointPanel.Hide();
         }
 
 	}
