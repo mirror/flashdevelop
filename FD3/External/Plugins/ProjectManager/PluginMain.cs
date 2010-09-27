@@ -34,6 +34,7 @@ namespace ProjectManager
         public const string TestMovie = "ProjectManager.TestMovie";
         public const string CompileWithFlexShell = "ProjectManager.CompileWithFlexShell";
         public const string RestartFlexShell = "ProjectManager.RestartFlexShell";
+        public const string SetConfiguration = "ProjectManager.SetConfiguration";
     }
 
     public static class ProjectManagerEvents
@@ -172,9 +173,10 @@ namespace ProjectManager
             menus.GlobalClasspaths.Click += delegate { OpenGlobalClasspaths(); };
             menus.ConfigurationSelector.SelectedIndexChanged += delegate 
             {
+                bool isDebug = menus.ConfigurationSelector.Text == TextHelper.GetString("Info.Debug");
                 FlexCompilerShell.Cleanup();
-                pluginUI.IsTraceDisabled = menus.ConfigurationSelector.SelectedIndex == 1;
-                if (project != null) project.TraceEnabled = !pluginUI.IsTraceDisabled;
+                pluginUI.IsTraceDisabled = !isDebug;
+                if (project != null) project.TraceEnabled = isDebug;
             };
             
             menus.ProjectMenu.NewProject.Click += delegate { NewProject(); };
@@ -401,6 +403,10 @@ namespace ProjectManager
                     {
                         FlexCompilerShell.Cleanup();
                     }
+                    else if (de.Action == ProjectManagerCommands.SetConfiguration)
+                    {
+                        AutoSelectConfiguration((string)de.Data);
+                    }
                     else if (de.Action == "HotBuild")
                     {
                         if (project != null)
@@ -430,7 +436,7 @@ namespace ProjectManager
                     e.Handled = HandleKeyEvent(e as KeyEvent);
                     break;
             }
-		}
+        }
 
         private void AutoSelectConfiguration(string configuration)
         {
