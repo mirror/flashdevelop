@@ -1077,7 +1077,7 @@ namespace ASCompletion.Completion
                 }
                 List<string> l = new List<string>();
                 l.Add(getQualifiedType(type, inClassForImport));
-                pos += AddImportsByName(l, pos);
+                pos += AddImportsByName(l, Sci.LineFromPosition(pos));
             }
         }
 
@@ -1719,6 +1719,8 @@ namespace ASCompletion.Completion
                     }
                 }
                 inClass = varResult.relClass;
+
+                ASContext.Context.UpdateContext(inClass.LineFrom);
             }
             
             if (member != null && (member.Flags & FlagType.Static) > 0)
@@ -2128,6 +2130,8 @@ namespace ASCompletion.Completion
                 }
                 latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
                 inClass = funcResult.relClass;
+
+                ASContext.Context.UpdateContext(inClass.LineFrom);
             }
 
             if (member != null && (member.Flags & FlagType.Static) > 0)
