@@ -186,6 +186,11 @@ namespace FlashDebugger
                     if (m_RequestStop || m_RequestDetach || !haveConnection())
                     {
                         stop = true;
+						if (m_RequestResume)
+						{
+							// resume before we disconnect, this is in case of ExceptionHalt
+							m_Session.resume(); // just throw for now
+						}
                         continue;
                     }
                     if (m_RequestResume)
@@ -725,6 +730,10 @@ namespace FlashDebugger
                 mgr.stopListening();
                 return;
             }
+			if (m_CurrentState == DebuggerState.ExceptionHalt)
+			{
+				m_RequestResume = true;
+			}
 			m_SuspendWait.Set();
 		}
 
