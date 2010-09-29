@@ -177,9 +177,8 @@ namespace AS3Context.Controls
             runButton.Text = TextHelper.GetString("Label.StopProfiler");
             gcButton.Enabled = false;
 
-            if (!SetProfilerCfg(true))
-                StopProfiling();
-            else
+            if (!SetProfilerCfg(true)) StopProfiling();
+            else if (autoStart)
             {
                 detectDisconnect.Interval = 5000; // expecting connection before 5s
                 detectDisconnect.Start();

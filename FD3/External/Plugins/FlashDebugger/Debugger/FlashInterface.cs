@@ -339,17 +339,21 @@ namespace FlashDebugger
                             try
                             {
                                 m_CurrentState = DebuggerState.Pausing;
-                                m_Session.suspend();
-                                // no connection => dump state and end
-                                if (!haveConnection())
+                                try
+                                {
+                                    m_Session.suspend();
+                                }
+                                catch {} // No crash here please...
+                                if (!haveConnection()) // no connection => dump state and end
                                 {
                                     stop = true;
                                     continue;
                                 }
                                 else if (!m_Session.Suspended)
                                 {
-                                    TraceManager.AddAsync(TextHelper.GetString("Info.CouldNotHalt"));
+                                    m_RequestPause = false;
                                     m_CurrentState = DebuggerState.Running;
+                                    TraceManager.AddAsync(TextHelper.GetString("Info.CouldNotHalt"));
                                     if (PauseFailedEvent != null)
                                     {
                                         PauseFailedEvent(this);
@@ -378,7 +382,7 @@ namespace FlashDebugger
                     {
                         System.Threading.Thread.Sleep(m_UpdateDelay);
                     }
-                    catch (System.Threading.ThreadInterruptedException){}
+                    catch {}
                 }
             }
             catch (System.Net.Sockets.SocketException ex)
