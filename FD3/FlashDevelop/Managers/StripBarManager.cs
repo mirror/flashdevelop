@@ -133,8 +133,9 @@ namespace FlashDevelop.Managers
             String enabled = XmlHelper.GetAttribute(node, "enabled");
             String tag = XmlHelper.GetAttribute(node, "tag");
             menu.Tag = new ItemData(tag, flags);
-            menu.Name = name; // Set name for lookups
             menu.Text = GetLocalizedString(label);
+            if (name != null) menu.Name = name; // Use the given name
+            else menu.Name = label; // Use the locale id as a name
             if (enabled != null) menu.Enabled = Convert.ToBoolean(enabled);
             if (image != null) menu.Image = Globals.MainForm.FindImage(image);
             if (click != null) menu.Click += GetEventHandler(click);
@@ -160,10 +161,11 @@ namespace FlashDevelop.Managers
             String enabled = XmlHelper.GetAttribute(node, "enabled");
             String tag = XmlHelper.GetAttribute(node, "tag");
             button.Tag = new ItemData(tag, flags); 
-            button.Name = name; // Set name for lookups
             label = GetStrippedLocalizedString(label);
             if (image != null) button.ToolTipText = label;
             else button.Text = label; // Set text with image
+            if (name != null) button.Name = name; // Use the given name
+            else button.Name = label; // Use the locale id as a name
             if (enabled != null) button.Enabled = Convert.ToBoolean(enabled);
             if (image != null) button.Image = Globals.MainForm.FindImage(image);
             if (click != null) button.Click += GetEventHandler(click);
@@ -187,8 +189,9 @@ namespace FlashDevelop.Managers
             String flags = XmlHelper.GetAttribute(node, "flags");
             String tag = XmlHelper.GetAttribute(node, "tag");
             menu.Tag = new ItemData(tag, flags);
-            menu.Name = name; // Set name for lookups
             menu.Text = GetLocalizedString(label);
+            if (name != null) menu.Name = name; // Use the given name
+            else menu.Name = label; // Use the locale id as a name
             if (image != null) menu.Image = Globals.MainForm.FindImage(image);
             if (enabled != null) menu.Enabled = Convert.ToBoolean(enabled);
             if (shortcut != null) menu.ShortcutKeys = GetKeys(shortcut);

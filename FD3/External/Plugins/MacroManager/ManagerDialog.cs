@@ -368,7 +368,7 @@ namespace MacroManager
             {
                 this.SaveUserMacros();
                 List<Macro> macros = new List<Macro>();
-                Object macrosObject = ObjectSerializer.Deserialize(ofd.FileName, macros);
+                Object macrosObject = ObjectSerializer.Deserialize(ofd.FileName, macros, false);
                 macros = (List<Macro>)macrosObject;
                 this.pluginMain.AppSettings.UserMacros.AddRange(macros);
                 this.PopulateMacroList(this.pluginMain.AppSettings.UserMacros);
