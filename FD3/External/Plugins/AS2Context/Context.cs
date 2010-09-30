@@ -755,6 +755,10 @@ namespace AS2Context
                                         {
                                             correctPath = fullpath.Substring(pm.Path.Length + 1);
                                         }
+                                        else if (fullpath.ToLower() == pm.Path.ToLower())
+                                        {
+                                            correctPath = ""; // We are in root, no package..
+                                        }
                                     }
                                     if (correctPath != null)
                                     {
