@@ -216,7 +216,9 @@ namespace FlashDevelop.Controls
         {
             if (this.webBrowser.DocumentTitle.Trim() == "")
             {
-                this.Parent.Text = this.webBrowser.Document.Domain;
+                String domain = this.webBrowser.Document.Domain.Trim();
+                if (!String.IsNullOrEmpty(domain)) this.Parent.Text = domain;
+                else this.Parent.Text = TextHelper.GetString("Info.UntitledFileStart");
             }
             else this.Parent.Text = this.webBrowser.DocumentTitle;
         }
