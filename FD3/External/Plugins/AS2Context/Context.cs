@@ -744,13 +744,14 @@ namespace AS2Context
 
                             if (regexPackageLine.Length > 0 && pos > -1)
                             {
+                                string orgid = "Info.PackageDontMatchFilePath";
                                 List<PathModel> classpaths = Context.Classpath;
                                 if (classpaths != null)
                                 {
                                     string correctPath = null;
                                     foreach (PathModel pm in classpaths)
                                     {
-                                        if (fullpath.IndexOf(pm.Path) > -1)
+                                        if (fullpath.IndexOf(pm.Path) > -1 && fullpath.Length > pm.Path.Length)
                                         {
                                             correctPath = fullpath.Substring(pm.Path.Length + 1);
                                         }
@@ -760,9 +761,10 @@ namespace AS2Context
                                         correctPath = correctPath.Replace(Path.DirectorySeparatorChar, '.');
                                         CurSciControl.SetSel(pos, pos + regexPackageLine.Length);
                                         CurSciControl.ReplaceSel(regexPackageLine.Replace(cFile.Package, correctPath));
+                                        orgid = "Info.PackageDidntMatchFilePath";
                                     }
                                 }
-                                string org = TextHelper.GetString("Info.PackageDidntMatchFilePath");
+                                string org = TextHelper.GetString(orgid);
                                 string msg = String.Format(org, package) + "\n" + cFile.FileName;
                                 MessageBar.ShowWarning(msg);
                             }
