@@ -40,8 +40,8 @@ namespace CodeRefactor.Controls
             this.SuspendLayout();
             // 
             // btnOK
-            // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            //
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Location = new System.Drawing.Point(157, 283);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 23);
@@ -51,21 +51,20 @@ namespace CodeRefactor.Controls
             this.btnOK.Click += new System.EventHandler(this.OkButtonClick);
             // 
             // checkedListBox
-            // 
-            this.checkedListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            //
+            this.checkedListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBox.CheckOnClick = true;
             this.checkedListBox.FormattingEnabled = true;
-            this.checkedListBox.IntegralHeight = false;
+            this.checkedListBox.Font = PluginBase.Settings.DefaultFont; // Do not remove!!!
             this.checkedListBox.Location = new System.Drawing.Point(9, 9);
             this.checkedListBox.Name = "checkedListBox";
             this.checkedListBox.Size = new System.Drawing.Size(463, 270);
+            this.checkedListBox.IntegralHeight = false;
             this.checkedListBox.TabIndex = 2;
             // 
             // btnCancel
-            // 
-            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            //
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(243, 283);
             this.btnCancel.Name = "btnCancel";
@@ -76,24 +75,23 @@ namespace CodeRefactor.Controls
             this.btnCancel.Click += new System.EventHandler(this.CancelButtonClick);
             // 
             // DelegateMethodsDialog
-            // 
+            //
+            this.ShowIcon = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.ShowInTaskbar = false;
             this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
+            this.MinimumSize = new System.Drawing.Size(400, 200);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(480, 316);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.checkedListBox);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "DelegateMethodsDialog";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
-
         }
 
         #endregion
