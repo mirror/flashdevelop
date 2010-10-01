@@ -656,7 +656,7 @@ namespace AS3Context
             {
                 string insert = null;
                 string line = sci.GetLine(sci.LineFromPosition(position));
-                Match m = Regex.Match(line, @"\svar\s+(?<varname>.+)\s*:\s*Vector\.<(?<indextype>[^>]+)>");
+                Match m = Regex.Match(line, @"\svar\s+(?<varname>.+)\s*:\s*Vector\.<(?<indextype>.+)(?=(>\s*=))");
                 if (m.Success)
                 {
                     insert = String.Format(".<{0}>()", m.Groups["indextype"].Value);

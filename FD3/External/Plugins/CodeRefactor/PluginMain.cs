@@ -415,7 +415,7 @@ namespace CodeRefactor
         {
             try
             {
-                String decl;
+                String name;
                 ASResult result = GetResultFromCurrentPosition();
                 Dictionary<MemberModel, ClassModel> members = new Dictionary<MemberModel, ClassModel>();
                 List<String> memberNames = new List<String>();
@@ -423,6 +423,7 @@ namespace CodeRefactor
                 cm.ResolveExtends();
                 while (cm != null && !cm.IsVoid())
                 {
+                    cm.Members.Sort();
                     foreach (MemberModel m in cm.Members)
                     {
                         if ((m.Flags & FlagType.Function) > 0
@@ -430,10 +431,10 @@ namespace CodeRefactor
                             && (m.Flags & FlagType.Constructor) == 0
                             && (m.Flags & FlagType.Static) == 0)
                         {
-                            decl = m.ToDeclarationString();
-                            if (!memberNames.Contains(decl))
+                            name = m.Name;
+                            if (!memberNames.Contains(name))
                             {
-                                memberNames.Add(decl);
+                                memberNames.Add(name);
                                 members[m] = cm;
                             }
                         }

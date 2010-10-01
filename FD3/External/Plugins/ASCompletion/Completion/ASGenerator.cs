@@ -97,8 +97,18 @@ namespace ASCompletion.Completion
 
                 if (resolve.Member == null && resolve.Type == null) // import declaration
                 {
-                    if (CheckAutoImport(found)) return;
-                    else suggestItemDeclaration = true;
+                    if (CheckAutoImport(found))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        int stylemask = (1 << Sci.StyleBits) - 1;
+                        if (ASComplete.IsTextStyle(Sci.StyleAt(position - 1) & stylemask))
+                        {
+                            suggestItemDeclaration = true;
+                        }
+                    }
                 }
             }
 
@@ -1679,6 +1689,24 @@ namespace ASCompletion.Completion
             // evaluate, if the variable (or constant) should be generated in other class
             ASResult varResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
 
+            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(Sci.CurrentPos, true));
+            MemberModel isStatic = new MemberModel();
+            if (contextOwnerPos != -1)
+            {
+                ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
+                if (contextOwnerResult != null)
+                {
+                    if (contextOwnerResult.Member == null && contextOwnerResult.Type != null)
+                    {
+                        isStatic.Flags |= FlagType.Static;
+                    }
+                }
+            }
+            else if (member != null && (member.Flags & FlagType.Static) > 0)
+            {
+                isStatic.Flags |= FlagType.Static;
+            }
+
             ASResult returnType = null;
             int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
             string line = Sci.GetLine(lineNum);
@@ -1723,23 +1751,6 @@ namespace ASCompletion.Completion
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
             
-            if (member != null && (member.Flags & FlagType.Static) > 0)
-            {
-                member.Flags -= FlagType.Static;
-            }
-
-            if (isOtherClass)
-            {
-                if (member != null)
-                {
-                    // check if it's more sense to generate a static variable (like Config.someStaticVar)
-                    if (varResult.inFile == null && inClass != null && !ClassIsInterface(inClass))
-                    {
-                        member.Flags |= FlagType.Static;
-                    }
-                }
-            }
-
             // if we generate variable in current class..
             if (!isOtherClass && member == null)
             {
@@ -1773,13 +1784,13 @@ namespace ASCompletion.Completion
             }
 
             // if this is a constant, we assign a value to constant
+            int selectConstantStart = -1;
             if (job.Equals(GeneratorJobType.Constant))
             {
-                contextToken += ":String = \"" + Camelize(contextToken) + "\"";
-                if (member != null && (member.Flags & FlagType.Static) == 0)
-                {
-                    member.Flags |= FlagType.Static;
-                }
+                string constDef = ":String = \"" + Camelize(contextToken) + "\"";
+                contextToken += constDef;
+                selectConstantStart = constDef.Length - 1;
+                isStatic.Flags |= FlagType.Static;
             }
             else if (returnType != null)
             {
@@ -1818,8 +1829,45 @@ namespace ASCompletion.Completion
             }
 
             GenerateVariable(
-                NewMember(contextToken, member, ft, varVisi),
+                NewMember(contextToken, isStatic, ft, varVisi),
                         position, detach);
+
+            if (selectConstantStart != -1)
+            {
+                Sci.CurrentPos = Sci.CurrentPos - selectConstantStart;
+                Sci.SetSel(Sci.CurrentPos, Sci.CurrentPos + selectConstantStart);
+            }
+        }
+
+        private static int GetContextOwnerEndPos(ScintillaNet.ScintillaControl Sci, int worsStartPos)
+        {
+            int pos = worsStartPos - 1;
+            bool dotFound = false;
+            while (pos > 0)
+            {
+                char c = (char) Sci.CharAt(pos);
+                if (c == '.' && !dotFound)
+                {
+                    dotFound = true;
+                }
+                else if (c == '\t' || c == '\n' || c == '\r' || c == ' ')
+                {
+
+                }
+                else
+                {
+                    if (dotFound)
+                    {
+                        return pos + 1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+                pos--;
+            }
+            return pos;
         }
 
         static public string Camelize(string name)
@@ -2107,6 +2155,26 @@ namespace ASCompletion.Completion
 
             // evaluate, if the function should be generated in other class
             ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+
+            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(Sci.CurrentPos, true));
+            MemberModel isStatic = new MemberModel();
+            if (contextOwnerPos != -1)
+            {
+                ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
+                if (contextOwnerResult != null)
+                {
+                    if (contextOwnerResult.Member == null && contextOwnerResult.Type != null)
+                    {
+                        isStatic.Flags |= FlagType.Static;
+                    }
+                }
+            }
+            else if (member != null && (member.Flags & FlagType.Static) > 0)
+            {
+                isStatic.Flags |= FlagType.Static;
+            }
+
+
             if (funcResult != null && funcResult.relClass != null && !funcResult.relClass.Equals(inClass))
             {
                 AddLookupPosition();
@@ -2134,21 +2202,6 @@ namespace ASCompletion.Completion
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
 
-            if (member != null && (member.Flags & FlagType.Static) > 0)
-            {
-                member.Flags -= FlagType.Static;
-            }
-
-
-            // if we generate function in current class..
-            if (isOtherClass)
-            {
-                // check if it's more sense to generate a static function (like Config.someStaticFunc)
-                if (member != null && funcResult.inFile == null && inClass != null && !ClassIsInterface(inClass))
-                {
-                    member.Flags |= FlagType.Static;
-                }
-            }
 
             // if we generate function in current class..
             if (!isOtherClass)
@@ -2220,7 +2273,7 @@ namespace ASCompletion.Completion
             string par = m.ParametersString(true);
 
             GenerateFunction(
-                NewMember(contextToken, member, FlagType.Function,
+                NewMember(contextToken, isStatic, FlagType.Function,
                         funcVisi),
                 position, detach, par, inClass);
         }
@@ -3126,15 +3179,36 @@ namespace ASCompletion.Completion
                     isStaticMember = true;
                 }
 
+                inClass.ResolveExtends();
+                
                 Dictionary<MemberModel, ClassModel>.KeyCollection selectedMemberKeys = selectedMembers.Keys;
                 foreach (MemberModel m in selectedMemberKeys)
                 {
                     sb.Append("$(Boundary)\n\n");
 
-                    if ((m.Flags & FlagType.Override) > 0)
+                    bool overrideFound = false;
+                    ClassModel aType = inClass;
+                    while (aType != null && !aType.IsVoid())
                     {
-                        sb.Append("override ");
+                        MemberList inClassMembers = aType.Members;
+                        foreach (MemberModel inClassMember in inClassMembers)
+                        {
+                            if ((inClassMember.Flags & FlagType.Function) > 0
+                               && m.Name.Equals(inClassMember.Name))
+                            {
+                                sb.Append("override ");
+                                overrideFound = true;
+                                break;
+                            }
+                        }
+                        if (overrideFound)
+                        {
+                            break;
+                        }
+                        aType = aType.Extends;
                     }
+                        
+                    
                     if (isStaticMember)
                     {
                         sb.Append("static ");
