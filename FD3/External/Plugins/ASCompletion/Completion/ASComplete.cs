@@ -38,6 +38,8 @@ namespace ASCompletion.Completion
 		#endregion
 
         #region completion_history
+        // stores last char entered
+        static private LastCharData LastChar;
         //stores the currently used class namespace and name
         static private String currentClassHash = null;
         //stores the last completed member for each class
@@ -78,29 +80,12 @@ namespace ASCompletion.Completion
 						return ASDocumentation.OnChar(Sci, Value, position, style);
                     else if (autoHide)
                     {
-                        if (IsTextStyle(Sci.StyleAt(position - 2) & stylemask))
-                        {
-                            if (Value == '"')
-                            {
-                                InsertSymbol(Sci, "\"");
-                            }
-                            else if (Value == '\'')
-                            {
-                                InsertSymbol(Sci, "'");
-                            }
-                        }
+                        HandleClosingChar(Sci, Value, position);
                         return false;
                     } 
 				}
 
-                if (Value == '[')
-                {
-                    ASComplete.InsertSymbol(Sci, "]");
-                }
-                else if (Value == '(')
-                {
-                    ASComplete.InsertSymbol(Sci, ")");
-                }
+                HandleClosingChar(Sci, Value, position);
 
 				// stop here if the class is not valid
 				if (!ASContext.HasContext || !ASContext.Context.IsFileValid) return false;
@@ -197,6 +182,79 @@ namespace ASCompletion.Completion
 			if (!PluginCore.Controls.CompletionList.Active) LastExpression = null;
 			return false;
 		}
+
+        private static void HandleClosingChar(ScintillaNet.ScintillaControl Sci, int Value, int position)
+        {
+            int stylemask = (1 << Sci.StyleBits) - 1;
+            int style = Sci.StyleAt(position - 1) & stylemask;
+            if (IsTextStyle(Sci.StyleAt(position - 2) & stylemask))
+            {
+                if (Value == '"')
+                {
+                    ASComplete.InsertSymbol(Sci, "\"");
+                }
+                else if (Value == '\'')
+                {
+                    ASComplete.InsertSymbol(Sci, "'");
+                }
+                else if (Value == '[')
+                {
+                    ASComplete.InsertSymbol(Sci, "]");
+                }
+                else if (Value == '(')
+                {
+                    ASComplete.InsertSymbol(Sci, ")");
+                }
+                else if (Value == ')')
+                {
+                    if (LastChar != null
+                        && LastChar.Value == '('
+                        && LastChar.Position == position - 1)
+                    {
+                        LastChar = null;
+                        Sci.DeleteBack();
+                        Sci.SetSel(position, position);
+                    }
+                }
+                else if (Value == ']')
+                {
+                    if (LastChar != null
+                        && LastChar.Value == '['
+                        && LastChar.Position == position - 1)
+                    {
+                        LastChar = null;
+                        Sci.DeleteBack();
+                        Sci.SetSel(position, position);
+                    }
+                }
+                LastChar = new LastCharData(Value, position);
+            }
+            else
+            {
+                if (Value == '"')
+                {
+                    if (LastChar != null
+                        && LastChar.Value == '"'
+                        && LastChar.Position == position - 1)
+                    {
+                        LastChar = null;
+                        Sci.DeleteBack();
+                        Sci.SetSel(position, position);
+                    }
+                }
+                else if (Value == '\'')
+                {
+                    if (LastChar != null
+                        && LastChar.Value == '\''
+                        && LastChar.Position == position - 1)
+                    {
+                        LastChar = null;
+                        Sci.DeleteBack();
+                        Sci.SetSel(position, position);
+                    }
+                }
+            }
+        }
 
 		/// <summary>
 		/// Handle shortcuts
@@ -3590,6 +3648,18 @@ namespace ASCompletion.Completion
             return (Type == null && Member == null && !IsPackage);
 		}
 	}
+
+    class LastCharData
+    {
+        public int Value;
+        public int Position;
+
+        public LastCharData(int val, int pos)
+        {
+            this.Value = val;
+            this.Position = pos;
+        }
+    }
 	#endregion
 }
 
