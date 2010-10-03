@@ -341,7 +341,7 @@ namespace ASClassWizard
                 processContext = ASContext.GetLanguageContext(lastFileOptions.Language);
                 if (lastFileOptions.createConstructor && processContext != null && constructorArgs == null)
                 {
-                    cmodel = processContext.GetModel(super.LastIndexOf('.') < 0 ? super : super.Substring(0, super.LastIndexOf('.')), _extends[_extends.Length - 1], "");
+                    cmodel = processContext.GetModel(super.LastIndexOf('.') < 0 ? "" : super.Substring(0, super.LastIndexOf('.')), _extends[_extends.Length - 1], "");
                     if (!cmodel.IsVoid())
                     {
                         foreach (MemberModel member in cmodel.Members)
