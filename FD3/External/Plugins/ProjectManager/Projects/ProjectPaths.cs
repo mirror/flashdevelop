@@ -48,6 +48,8 @@ namespace ProjectManager.Projects
 		{
             if (Path.IsPathRooted(path)) return path;
 
+            path = Environment.ExpandEnvironmentVariables(path);
+
 			string combinedPath = Path.Combine(baseDirectory, path);
 			return Path.GetFullPath(combinedPath);
 		}

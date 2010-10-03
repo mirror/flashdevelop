@@ -188,9 +188,10 @@ namespace CodeAnalyzer
         /// </summary>
         private String GetSourcePath()
         {
-            if (PluginBase.CurrentProject.SourcePaths.Length > 0)
+            IProject project = PluginBase.CurrentProject;
+            if (project.SourcePaths.Length > 0)
             {
-                String first = PluginBase.CurrentProject.SourcePaths[0];
+                String first = project.GetAbsolutePath(project.SourcePaths[0]);
                 return Path.Combine(this.GetProjectPath(), first);
             }
             else return Path.Combine(this.GetProjectPath(), "src");

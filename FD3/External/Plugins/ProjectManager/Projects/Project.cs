@@ -108,8 +108,10 @@ namespace ProjectManager.Projects
 			get
 			{
 				PathCollection absolute = new PathCollection();
-				foreach (string cp in classpaths)
-					absolute.Add(GetAbsolutePath(cp));
+                foreach (string cp in classpaths)
+                {
+                    absolute.Add(GetAbsolutePath(Environment.ExpandEnvironmentVariables(cp)));
+                }
 				return absolute;
 			}
 		}
