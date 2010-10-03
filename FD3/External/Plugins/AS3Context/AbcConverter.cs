@@ -302,16 +302,27 @@ namespace AS3Context
 
         private static void CustomFixes(PathModel path)
         {
-            if (Path.GetFileName(path.Path) == "playerglobal.swc")
+            string file = Path.GetFileName(path.Path);
+            if (file == "playerglobal.swc" || file == "airglobal.swc")
             {
                 string mathPath = Path.Combine(path.Path, "Math").ToUpper();
                 if (path.HasFile(mathPath))
                 {
                     ClassModel mathModel = path.GetFile(mathPath).GetPublicClass();
-                    MemberModel atan2 = mathModel.Members.Search("atan2", 0, 0);
-                    if (atan2 != null && atan2.Parameters != null && atan2.Parameters[0].Name == "x")
+                    foreach(MemberModel member in mathModel.Members)
                     {
-                        atan2.Parameters.Reverse();
+                        if (member.Parameters != null && member.Parameters.Count > 0 && member.Parameters[0].Name == "x")
+                        {
+                            string n = member.Name;
+                            if (member.Parameters.Count > 1)
+                            {
+                                if (n == "atan2") member.Parameters.Reverse();
+                                else if (n == "min" || n == "max") { member.Parameters[0].Name = "val1"; member.Parameters[1].Name = "val2"; }
+                                else if (n == "pow") { member.Parameters[0].Name = "base"; member.Parameters[1].Name = "pow"; }
+                            }
+                            else if (n == "sin" || n == "cos" || n == "tan") member.Parameters[0].Name = "angleRadians";
+                            else member.Parameters[0].Name = "val";
+                        }
                     }
                 }
             }
