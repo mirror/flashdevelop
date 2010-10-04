@@ -185,11 +185,7 @@ namespace Flash.Tools.Debugger.Concrete
 			if (m_serverSocket == null)
 			{
 				System.Net.Sockets.TcpListener temp_tcpListener;
-                //System.Net.IPHostEntry hostEntry = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName());
-				if (Socket.OSSupportsIPv6)
-					temp_tcpListener = new TcpListener(IPAddress.IPv6Any, DProtocol.DEBUG_PORT);
-				else
-					temp_tcpListener = new TcpListener(IPAddress.Any, DProtocol.DEBUG_PORT);
+                temp_tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), DProtocol.DEBUG_PORT);
 				temp_tcpListener.Start();
 				m_serverSocket = temp_tcpListener;
 			}
