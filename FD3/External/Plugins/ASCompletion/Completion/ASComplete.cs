@@ -185,6 +185,8 @@ namespace ASCompletion.Completion
 
         private static void HandleClosingChar(ScintillaNet.ScintillaControl Sci, int Value, int position)
         {
+            if (!ASContext.CommonSettings.AddClosingBraces) return;
+
             int stylemask = (1 << Sci.StyleBits) - 1;
             int style = Sci.StyleAt(position - 1) & stylemask;
             if (IsTextStyle(Sci.StyleAt(position - 2) & stylemask))
