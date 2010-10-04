@@ -120,7 +120,7 @@ namespace FlashDebugger
             try
             {
                 IProject project = PluginBase.CurrentProject;
-                if (project == null || project.Language != "as3") return false;
+                if (project == null || !project.EnableInteractiveDebugger) return false;
                 ProjectReader reader = new ProjectReader(project.ProjectPath, new AS3Project(project.ProjectPath));
                 currentProject = reader.ReadProject();
                 // Give a console warning for non external player...
