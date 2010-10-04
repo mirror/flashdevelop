@@ -3222,23 +3222,77 @@ namespace ASCompletion.Completion
                         sb.Append("return ");
                     }
 
-                    sb.Append(member.Name)
-                        .Append(".")
-                        .Append(m.Name)
-                        .Append("(");
 
                     methodParams = m.Parameters;
+
+                    // check for varargs
+                    bool isVararg = false;
+                    if (methodParams != null && methodParams.Count > 0)
+                    {
+                        MemberModel mm = methodParams[methodParams.Count - 1];
+                        if (mm.Name.StartsWith("..."))
+                        {
+                            isVararg = true;
+                        }
+                    }
+                    if (!isVararg)
+                    {
+                        sb.Append(member.Name)
+                            .Append(".")
+                            .Append(m.Name)
+                            .Append("(");
+
+                        if (methodParams != null)
+                        {
+                            for (int i = 0; i < methodParams.Count; i++)
+                            {
+                                MemberModel param = methodParams[i];
+                                sb.Append(param.Name);
+                                if (i + 1 < methodParams.Count)
+                                {
+                                    sb.Append(", ");
+                                }
+                            }
+                        }
+
+                        sb.Append(");");
+                    }
+                    else 
+                    {
+                        sb.Append(member.Name)
+                            .Append(".")
+                            .Append(m.Name)
+                            .Append(".apply(null, [");
+
+                        for (int i = 0; i < methodParams.Count; i++)
+                        {
+                            MemberModel param = methodParams[i];
+                            if (i + 1 < methodParams.Count)
+                            {
+                                sb.Append(param.Name);
+                                if (i + 2 < methodParams.Count)
+                                {
+                                    sb.Append(", ");
+                                }
+                            }
+                            else
+                            {
+                                sb.Append("].concat(")
+                                    .Append(param.Name.Substring(3))
+                                    .Append(")");
+                            }
+                        }
+
+                        sb.Append(");");
+                    }
+
+                    sb.Append("\n}");
+
                     if (methodParams != null)
                     {
                         for (int i = 0; i < methodParams.Count; i++)
                         {
                             MemberModel param = methodParams[i];
-                            sb.Append(param.Name);
-                            if (i + 1 < methodParams.Count)
-                            {
-                                sb.Append(", ");
-                            }
-
                             if (param.Type != null)
                             {
                                 type = ASContext.Context.ResolveType(param.Type, selectedMembers[m].InFile);
@@ -3246,9 +3300,6 @@ namespace ASCompletion.Completion
                             }
                         }
                     }
-
-                    sb.Append(");")
-                        .Append("\n}");
 
                     if (position < 0)
                     {
