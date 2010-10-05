@@ -199,6 +199,12 @@ namespace OutputPanel
         /// </summary>
         public void ApplyWrapText()
         {
+            if (this.pluginMain.PluginPanel == null) return;
+            if (this.pluginMain.PluginPanel.InvokeRequired)
+            {
+                this.pluginMain.PluginPanel.BeginInvoke((MethodInvoker)delegate { this.ApplyWrapText(); });
+                return;
+            }
             this.wrapTextItem.Checked = this.pluginMain.PluginSettings.WrapOutput;
             this.textLog.WordWrap = this.pluginMain.PluginSettings.WrapOutput;
         }
