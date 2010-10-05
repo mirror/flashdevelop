@@ -2,16 +2,16 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using FlashDevelop.Settings;
 using PluginCore.Utilities;
 using FlashDevelop.Managers;
+using FlashDevelop.Dialogs;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using ScintillaNet;
 using PluginCore;
-using System.Text.RegularExpressions;
-using FlashDevelop.Dialogs;
 
 namespace FlashDevelop.Utilities
 {
@@ -75,7 +75,19 @@ namespace FlashDevelop.Utilities
             else if (PrevSelText.Length > 0) return PrevSelText;
             else return String.Empty;
 		}
-		
+
+        /// <summary>
+        /// Gets the current word
+        /// </summary>
+        public static String GetCurWord()
+        {
+            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
+            String curWord = Globals.SciControl.GetWordFromPosition(Globals.SciControl.CurrentPos);
+            if (!String.IsNullOrEmpty(curWord)) return curWord;
+            else if (PrevSelWord.Length > 0) return PrevSelWord;
+            else return String.Empty;
+        }
+
 		/// <summary>
 		/// Gets the current file
 		/// </summary>
@@ -110,23 +122,6 @@ namespace FlashDevelop.Utilities
         {
             return DateTime.Now.ToString("g");
         }
-
-		/// <summary>
-		/// Gets the current word
-		/// </summary>
-        public static String GetCurWord()
-		{
-            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
-            String curWord = Globals.SciControl.GetWordFromPosition(Globals.SciControl.CurrentPos);
-			if (!String.IsNullOrEmpty(curWord)) return curWord;
-            else if (PrevSelWord.Length > 0)
-            {
-                String toReturn = PrevSelWord;
-                PrevSelWord = String.Empty;
-                return toReturn;
-            }
-            else return String.Empty;
-		}
 		
 		/// <summary>
 		/// Gets the desktop path
@@ -304,6 +299,8 @@ namespace FlashDevelop.Utilities
                 TextEvent te = new TextEvent(EventType.ProcessArgs, result);
                 EventManager.DispatchEvent(Globals.MainForm, te);
                 result = ReplaceArgsWithGUI(te.Value);
+                PrevSelWord = String.Empty;
+                PrevSelText = String.Empty;
                 return result;
             }
             catch (Exception ex)
