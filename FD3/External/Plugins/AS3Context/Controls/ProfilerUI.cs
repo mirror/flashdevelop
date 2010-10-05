@@ -322,19 +322,14 @@ namespace AS3Context.Controls
                     return false;
                 string mmCfg = Path.Combine(home, "mm.cfg");
                 if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
+
                 string src = File.ReadAllText(mmCfg).Trim();
                 src = Regex.Replace(src, "PreloadSwf=.*", "").Trim();
                 if (active)
                 {
-                    // write profiler
-                    string defaultSWF = CheckResource("Profiler4.swf", "Profiler.swf");
-                    // local security
-                    ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(profilerSWF));
-                    // honnor FlashConnect settings
-                    FlashConnect.Settings settings = GetFlashConnectSettings();
-                    // mm.cfg profiler config
-                    src += "\r\nPreloadSwf=" + ResolvePath(profilerSWF ?? defaultSWF) + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
+                    src += AddCustomProfiler() ?? AddDefaultProfiler();
                 }
+
                 File.WriteAllText(mmCfg, src);
             }
             catch 
@@ -342,6 +337,22 @@ namespace AS3Context.Controls
                 return false; // unable to set the profiler
             }
             return true;
+        }
+
+        private string AddDefaultProfiler()
+        {
+            string swfPath = ResolvePath(CheckResource("Profiler4.swf", "Profiler.swf"));
+            ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(swfPath));
+            FlashConnect.Settings settings = GetFlashConnectSettings();
+            return "\r\nPreloadSwf=" + swfPath + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";
+        }
+
+        private string AddCustomProfiler()
+        {
+            string swfPath = ResolvePath(profilerSWF);
+            if (swfPath == null) return null;
+            ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(swfPath));
+            return "\r\nPreloadSwf=" + swfPath + "\r\n";
         }
 
         private string ResolvePath(string path)

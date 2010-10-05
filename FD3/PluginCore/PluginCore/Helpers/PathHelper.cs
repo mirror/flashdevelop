@@ -196,8 +196,8 @@ namespace PluginCore.Helpers
         public static string ResolvePath(String path, String relativeTo)
         {
             String combine;
-            if (Path.IsPathRooted(path)) return path;
             if (path == null || path.Length == 0) return null;
+            if (Path.IsPathRooted(path)) return path;
             if (relativeTo != null)
             {
                 combine = Path.Combine(relativeTo, path);
