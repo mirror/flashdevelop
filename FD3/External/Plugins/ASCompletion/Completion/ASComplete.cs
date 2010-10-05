@@ -87,8 +87,7 @@ namespace ASCompletion.Completion
 				}
 
                 // close brace/parents
-                if (Sci.CharAt(position - 1) == Value)
-                    HandleClosingChar(Sci, Value, position);
+                if (autoHide) HandleClosingChar(Sci, Value, position);
 
 				// stop here if the class is not valid
 				if (!ASContext.HasContext || !ASContext.Context.IsFileValid) return false;
