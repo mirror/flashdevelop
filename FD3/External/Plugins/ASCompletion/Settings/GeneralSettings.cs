@@ -163,7 +163,7 @@ namespace ASCompletion.Settings
         private string spacedChars = DEFAULT_SPACEDCHARS;
         private string addSpaceAfter = DEFAULT_ADDSPACEAFTER;
 
-        [DisplayName("Disable Auto-Close Braces")]
+        [DisplayName("Disable Auto-Close Blocks")]
         [LocalizedCategory("ASCompletion.Category.Helpers"), LocalizedDescription("ASCompletion.Description.DisableAutoCloseBraces"), 
         DefaultValue(DEFAULT_DISABLE_CLOSEBRACE)]
         public bool DisableAutoCloseBraces

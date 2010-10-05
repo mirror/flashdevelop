@@ -764,8 +764,8 @@ namespace ResultsPanel
                         }
                         else
                         { 
-                            start--; 
-                            end = start + 1;
+                            end = start;
+                            start = 0;
                         }
                         if ((start >= 0) && (end > start) && (end < sci.TextLength))
 						{

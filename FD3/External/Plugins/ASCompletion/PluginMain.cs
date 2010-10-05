@@ -667,7 +667,7 @@ namespace ASCompletion
             // scintilla controls listeners
             UITools.Manager.OnCharAdded += new UITools.CharAddedHandler(OnChar);
             UITools.Manager.OnMouseHover += new UITools.MouseHoverHandler(OnMouseHover);
-            UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(ASContext.OnTextChanged);
+            UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(OnTextChanged);
             UITools.CallTip.OnUpdateCallTip += new MethodCallTip.UpdateCallTipHandler(OnUpdateCallTip);
             CompletionList.OnInsert += new InsertedTextHandler(ASComplete.HandleCompletionInsert);
             PluginBase.MainForm.IgnoredKeys.Add(Keys.Control | Keys.Enter);
@@ -818,6 +818,12 @@ namespace ASCompletion
 				UITools.Tip.ShowAtMouseLocation(text);
 			}
 		}
+
+        private void OnTextChanged(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
+        {
+            ASComplete.OnTextChanged(sender, position, length, linesAdded);
+            ASContext.OnTextChanged(sender, position, length, linesAdded);
+        }
 
 		private void OnUpdateCallTip(ScintillaNet.ScintillaControl sci, int position)
 		{

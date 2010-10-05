@@ -80,12 +80,15 @@ namespace ASCompletion.Completion
 						return ASDocumentation.OnChar(Sci, Value, position, style);
                     else if (autoHide)
                     {
+                        // close quotes
                         HandleClosingChar(Sci, Value, position);
                         return false;
                     } 
 				}
 
-                HandleClosingChar(Sci, Value, position);
+                // close brace/parents
+                if (Sci.CharAt(position - 1) == Value)
+                    HandleClosingChar(Sci, Value, position);
 
 				// stop here if the class is not valid
 				if (!ASContext.HasContext || !ASContext.Context.IsFileValid) return false;
@@ -181,7 +184,12 @@ namespace ASCompletion.Completion
 			// CodeAuto context
 			if (!PluginCore.Controls.CompletionList.Active) LastExpression = null;
 			return false;
-		}
+        }
+
+        internal static void OnTextChanged(ScintillaNet.ScintillaControl sci, int position, int length, int linesAdded)
+        {
+            // TODO track text changes -> LastChar
+        }
 
         private static void HandleClosingChar(ScintillaNet.ScintillaControl Sci, int Value, int position)
         {
@@ -189,6 +197,7 @@ namespace ASCompletion.Completion
 
             int stylemask = (1 << Sci.StyleBits) - 1;
             int style = Sci.StyleAt(position - 1) & stylemask;
+
             if (IsTextStyle(Sci.StyleAt(position - 2) & stylemask))
             {
                 if (Value == '"')
