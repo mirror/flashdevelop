@@ -344,7 +344,8 @@ namespace ProjectManager.Controls
         {
             Int32 i = 0;
             List<String> matchedItems = new List<String>();
-            Comparer searchMatch = (searchText.ToUpper() == searchText) ? new Comparer(AdvancedSearchMatch) : new Comparer(SimpleSearchMatch);
+            String firstChar = searchText.Substring(0, 1);
+            Comparer searchMatch = (firstChar == firstChar.ToUpper()) ? new Comparer(AdvancedSearchMatch) : new Comparer(SimpleSearchMatch);
             foreach (String item in source)
             {
                 if (searchMatch(item, searchText, pathSeparator))
@@ -356,14 +357,29 @@ namespace ProjectManager.Controls
             return matchedItems;
         }
 
-        private static Boolean AdvancedSearchMatch(String file, String searchText, String pathSeparator)
+        static private bool AdvancedSearchMatch(String file, String searchText, String pathSeparator)
         {
-            String fileName = "";
-            for (Int32 i = file.LastIndexOf(pathSeparator) + 1; i < file.Length; i++)
+            int i = 0; int j = 0;
+            if (file.Length < searchText.Length) return false;
+            Char[] text = file.Substring(file.LastIndexOf(pathSeparator) + 1).ToCharArray();
+            Char[] pattern = searchText.ToCharArray();
+            while (i < pattern.Length)
             {
-                if (Char.IsUpper(file, i)) fileName += file.Substring(i, 1).ToLower();
+                while (i < pattern.Length && j < text.Length && pattern[i] == text[j])
+                {
+                    i++;
+                    j++;
+                }
+                if (i == pattern.Length) return true;
+                if (Char.IsLower(pattern[i])) return false;
+                while (j < text.Length && Char.IsLower(text[j]))
+                {
+                    j++;
+                }
+                if (j == text.Length) return false;
+                if (pattern[i] != text[j]) return false;
             }
-            return fileName.IndexOf(searchText.ToLower()) == 0;
+            return (i == pattern.Length);
         }
 
         private static Boolean SimpleSearchMatch(String file, String searchText, String pathSeparator)

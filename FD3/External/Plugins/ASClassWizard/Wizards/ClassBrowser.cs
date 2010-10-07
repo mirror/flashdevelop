@@ -6,15 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
-
 using PluginCore;
 using PluginCore.Localization;
-
 using ASCompletion.Model;
-
 using ASClassWizard.Wizards;
 using ASClassWizard.Resources;
-
 
 namespace ASClassWizard.Wizards
 {
@@ -80,7 +76,6 @@ namespace ASClassWizard.Wizards
         private void ClassBrowser_Load(object sender, EventArgs e)
         {
             ASClassWizard.Wizards.GListBox.GListBoxItem node;
-
             this.itemList.BeginUpdate();
             this.itemList.Items.Clear();
             if (this.ClassList != null)
@@ -90,14 +85,9 @@ namespace ASClassWizard.Wizards
                     if (ExcludeFlag > 0) if ((item.Flags & ExcludeFlag) > 0) continue;
                     if (IncludeFlag > 0)
                     {
-                        if (!((item.Flags & IncludeFlag) > 0))
-                        {
-                            continue;
-                        }
+                        if (!((item.Flags & IncludeFlag) > 0)) continue;
                     }
-
                     if (this.itemList.Items.Count > 0 && item.Name == this.itemList.Items[this.itemList.Items.Count - 1].ToString()) continue;
-
                     node = new ASClassWizard.Wizards.GListBox.GListBoxItem(item.Name, (item.Flags & FlagType.Interface) > 0 ? 6 : 8);
                     this.itemList.Items.Add(node);
                     this.DataProvider.Add(node);
@@ -108,7 +98,6 @@ namespace ASClassWizard.Wizards
                 this.itemList.SelectedIndex = 0;
             }
             this.itemList.EndUpdate();
-
             this.filterBox.Focus();
             this.filterBox.SelectAll();
         }
@@ -119,20 +108,21 @@ namespace ASClassWizard.Wizards
         private void filterBox_TextChanged( Object sender, EventArgs e)
         {
             string text = this.filterBox.Text;
-
             this.itemList.BeginUpdate();
             this.itemList.Items.Clear();
 
             topIndex = 0;
-            List<GListBox.GListBoxItem> result = (text == text.ToUpper() && text.IndexOf('_') < 0)
+            List<GListBox.GListBoxItem> result =
+                (text.Length > 0 && text.Substring(0, 1) == text.Substring(0, 1).ToUpper() && text.IndexOf('_') < 0)
                 ? this.FindByAbbreviation(text)
                 : this.FilterSmart();
                 
             this.itemList.Items.AddRange(result.ToArray());
-
             this.itemList.EndUpdate();
             if (this.itemList.Items.Count > 0)
+            {
                 this.itemList.SelectedIndex = Math.Min(topIndex, this.itemList.Items.Count - 1);
+            }
         }
 
         private List<GListBox.GListBoxItem> FindByAbbreviation(String searchText)
@@ -226,13 +216,17 @@ namespace ASClassWizard.Wizards
             {
                 e.SuppressKeyPress = true;
                 if (this.itemList.Items.Count > 0 && this.itemList.SelectedIndex > 0)
+                {
                     --this.itemList.SelectedIndex;
+                }
             }
             else if (e.KeyCode == Keys.Down)
             {
                 e.SuppressKeyPress = true;
                 if (this.itemList.Items.Count > 0 && this.itemList.SelectedIndex < this.itemList.Items.Count - 1)
+                {
                     ++this.itemList.SelectedIndex;
+                }
             }
         }
     }

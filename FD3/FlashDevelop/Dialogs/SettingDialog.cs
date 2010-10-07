@@ -33,6 +33,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label descLabel;
+        private static Int32 lastItemIndex = 0;
 
         public SettingDialog(String itemName, String filter)
         {
@@ -233,6 +234,8 @@ namespace FlashDevelop.Dialogs
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " Settings";
+            this.Shown += new System.EventHandler(this.DialogShown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DialogClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DialogClosed);
             ((System.ComponentModel.ISupportInitialize)(this.infoPictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -500,6 +503,23 @@ namespace FlashDevelop.Dialogs
                     Globals.Settings.DisabledPlugins.Remove(plugin.Guid);
                 }
             }
+        }
+
+        /// <summary>
+        /// Restore the selected index from a static var
+        /// </summary>
+        private void DialogShown(Object sender, EventArgs e)
+        {
+            this.itemListView.SelectedIndices.Add(lastItemIndex);
+            this.itemListView.EnsureVisible(lastItemIndex);
+        }
+
+        /// <summary>
+        /// Save the last selected index to a static var
+        /// </summary>
+        private void FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            lastItemIndex = itemListView.SelectedIndices.Count > 0 ? itemListView.SelectedIndices[0] : 0;
         }
 
         /// <summary>
