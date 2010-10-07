@@ -517,7 +517,7 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Save the last selected index to a static var
         /// </summary>
-        private void FormClosing(Object sender, FormClosingEventArgs e)
+        private void DialogClosing(Object sender, FormClosingEventArgs e)
         {
             lastItemIndex = itemListView.SelectedIndices.Count > 0 ? itemListView.SelectedIndices[0] : 0;
         }
