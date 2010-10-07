@@ -196,6 +196,8 @@ namespace ASCompletion.Completion
 
             int stylemask = (1 << Sci.StyleBits) - 1;
             int style = Sci.StyleAt(position - 1) & stylemask;
+            char c = (char)Sci.CharAt(position);
+            if (c > 32 && ")]}-+/>*,;".IndexOf(c) < 0) return;
 
             if (IsTextStyle(Sci.StyleAt(position - 2) & stylemask))
             {
