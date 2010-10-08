@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 using ASCompletion.Context;
+using System.Globalization;
 
 namespace AS3Context
 {
@@ -509,6 +510,7 @@ namespace AS3Context
             if (value == null) member.Value = "null";
             else if (value is string && value.ToString() != "undefined") member.Value = '"' + value.ToString() + '"';
             else if (value is bool) member.Value = value.ToString().ToLower();
+            else if (value is double) member.Value = ((double)value).ToString(CultureInfo.InvariantCulture.NumberFormat);
             else member.Value = value.ToString();
         }
     }
