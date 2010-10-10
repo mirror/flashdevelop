@@ -24,7 +24,7 @@ namespace ProjectManager.Helpers
 	/// </summary>
 	public class ProjectCreator
 	{
-        private static Regex reArgs = new Regex("\\$\\(([a-z]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex reArgs = new Regex("\\$\\(([a-z$]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		string projectName;
         string projectId;
         string packageName;
@@ -174,6 +174,7 @@ namespace ProjectManager.Helpers
                     case "PACKAGEDOT": return packageDot;
                     case "PACKAGESLASH": return packageSlash;
                     case "PACKAGESLASHALT": return packageSlash.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                    case "$": return "$";
                     default:
                         foreach (Argument arg in arguments)
                             if (arg.Key.ToUpper() == name) return arg.Value;

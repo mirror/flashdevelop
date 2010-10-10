@@ -21,7 +21,7 @@ namespace FlashDevelop.Utilities
         /// Regexes for tab and var replacing
         /// </summary>
         private static Regex reTabs = new Regex("^\\t+", RegexOptions.Multiline | RegexOptions.Compiled);
-        private static Regex reArgs = new Regex("\\$\\(([a-z]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex reArgs = new Regex("\\$\\(([a-z$]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         
         /// <summary>
         /// Regexes and variabled for enhanced arguments
@@ -348,7 +348,8 @@ namespace FlashDevelop.Utilities
                     case "ProgramsDir" : return GetProgramsDir();
                     case "PersonalDir" : return GetPersonalDir();
                     case "WorkingDir" : return GetWorkingDir();
-                    case "Clipboard" : return GetClipboard();
+                    case "Clipboard": return GetClipboard();
+                    case "$": return "$";
                 }
                 foreach (Argument arg in Globals.Settings.CustomArguments)
                 {
