@@ -432,6 +432,14 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Gets the application start args
+        /// </summary>
+        public String[] StartArguments
+        {
+            get { return MainForm.Arguments; }
+        }
+
+        /// <summary>
         /// Gets the application's version
         /// </summary>
         public new String ProductVersion
