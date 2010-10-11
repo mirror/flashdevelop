@@ -349,7 +349,7 @@ namespace FlashDevelop.Utilities
                     case "PersonalDir" : return GetPersonalDir();
                     case "WorkingDir" : return GetWorkingDir();
                     case "Clipboard": return GetClipboard();
-                    case "$": return "$";
+                    case "Dollar": return "$";
                 }
                 foreach (Argument arg in Globals.Settings.CustomArguments)
                 {

@@ -174,7 +174,7 @@ namespace ProjectManager.Helpers
                     case "PACKAGEDOT": return packageDot;
                     case "PACKAGESLASH": return packageSlash;
                     case "PACKAGESLASHALT": return packageSlash.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                    case "$": return "$";
+                    case "DOLLAR": return "$";
                     default:
                         foreach (Argument arg in arguments)
                             if (arg.Key.ToUpper() == name) return arg.Value;

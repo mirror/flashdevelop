@@ -76,6 +76,6 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="$($)(FlexSDK)\bin\adl.exe;application.xml bin" />
+    <option testMovieCommand="$(Dollar)(FlexSDK)\bin\adl.exe;application.xml bin" />
   </options>
 </project>
