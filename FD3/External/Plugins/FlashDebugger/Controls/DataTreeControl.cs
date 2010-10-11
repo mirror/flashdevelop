@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections;
 using System.Windows.Forms;
 using Aga.Controls.Tree;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using Aga.Controls.Tree.NodeControls;
 using Flash.Tools.Debugger;
 using PluginCore.Localization;
+using PluginCore.Utilities;
 using PluginCore;
 
 namespace FlashDebugger.Controls
@@ -120,11 +122,15 @@ namespace FlashDebugger.Controls
 
 		void ValueNodeTextBox_DrawText(object sender, DrawEventArgs e)
 		{
-			DataNode node = e.Node.Tag as DataNode;
-			if (node.Variable != null && node.Variable.hasValueChanged())
-			{
-				e.TextColor = Color.Red;
-			}
+            try
+            {
+                DataNode node = e.Node.Tag as DataNode;
+                if (node.Variable != null && node.Variable.hasValueChanged())
+                {
+                    e.TextColor = Color.Red;
+                }
+            }
+            catch (NullReferenceException) { }
 		}
 
         public DataNode AddNode(DataNode node)
@@ -222,7 +228,7 @@ namespace FlashDebugger.Controls
 				if (node.Nodes.Count == 0)
                 {
 					FlashInterface flashInterface = PluginMain.debugManager.FlashInterface;
-					SortedList<DataNode, DataNode> nodes = new SortedList<DataNode, DataNode>();
+                    SortedList<DataNode, DataNode> nodes = new SortedList<DataNode, DataNode>(new DataNodeComparer());
 					SortedList<DataNode, DataNode> inherited = new SortedList<DataNode, DataNode>();
 					SortedList<DataNode, DataNode> statics = new SortedList<DataNode, DataNode>();
 					foreach (Variable member in node.Variable.getValue().getMembers(flashInterface.Session))
@@ -305,5 +311,18 @@ namespace FlashDebugger.Controls
 		}
 
     }
+
+    #region Comparers
+
+    public class DataNodeComparer : IComparer<DataNode>
+    {
+        public int Compare(DataNode x, DataNode y)
+        {
+            IComparer lc = new LogicalComparer();
+            return lc.Compare(x.Text, y.Text);
+        }
+    }
+
+    #endregion
 
 }
