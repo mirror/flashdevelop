@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using ASCompletion.Model;
+using PluginCore.Controls;
 using PluginCore;
 
 namespace CodeRefactor.Controls
 {
-    public class DelegateMethodsDialog : Form
+    public class DelegateMethodsDialog : SmartForm
     {
         private Button btnOK;
         private Button btnCancel;
@@ -21,6 +22,7 @@ namespace CodeRefactor.Controls
         {
             this.Owner = (Form)PluginBase.MainForm;
             this.Font = PluginBase.Settings.DefaultFont;
+            this.FormGuid = "5e8c8d89-b70d-4840-9f49-1027b226517a";
             this.Text = TextHelper.GetString("Title.DelegateMethods");
             this.InitializeComponent();
             this.btnOK.Focus();

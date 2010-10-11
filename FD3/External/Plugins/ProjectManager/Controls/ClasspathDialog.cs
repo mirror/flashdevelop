@@ -7,11 +7,12 @@ using System.Text;
 using System.Windows.Forms;
 using PluginCore.Localization;
 using PluginCore.Managers;
+using PluginCore.Controls;
 using PluginCore;
 
 namespace ProjectManager.Controls
 {
-	public class ClasspathDialog : Form
+	public class ClasspathDialog : SmartForm
 	{
 		#region Form Designer
 
@@ -148,6 +149,7 @@ namespace ProjectManager.Controls
             InitializeComponent();
             InitializeLocalization();
             this.Font = PluginBase.Settings.DefaultFont;
+            this.FormGuid = "695815f3-0c88-418e-aa88-c86a5dfec7ef";
 		}
 
         public string Language

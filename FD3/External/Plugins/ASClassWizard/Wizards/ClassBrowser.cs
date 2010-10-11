@@ -11,10 +11,11 @@ using PluginCore.Localization;
 using ASCompletion.Model;
 using ASClassWizard.Wizards;
 using ASClassWizard.Resources;
+using PluginCore.Controls;
 
 namespace ASClassWizard.Wizards
 {
-    public partial class ClassBrowser : Form
+    public partial class ClassBrowser : SmartForm
     {
 
         private MemberList all;
@@ -58,11 +59,12 @@ namespace ASClassWizard.Wizards
 
         public ClassBrowser()
         {
+            this.FormGuid = "a076f763-e85e-49a2-8688-a6d35b39e7c6";
             this.DataProvider = new List<GListBox.GListBoxItem>();
             InitializeComponent();
             InitializeLocalization();
             this.Font = PluginBase.Settings.DefaultFont;
-            this.itemList.ImageList =  ASCompletion.Context.ASContext.Panel.TreeIcons;
+            this.itemList.ImageList = ASCompletion.Context.ASContext.Panel.TreeIcons;
             CenterToParent();
         }
 

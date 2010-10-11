@@ -11,12 +11,13 @@ using PluginCore.Localization;
 using FlashDevelop.Utilities;
 using FlashDevelop.Helpers;
 using PluginCore.Managers;
+using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore;
 
 namespace FlashDevelop.Dialogs
 {
-    public class SnippetDialog : Form
+    public class SnippetDialog : SmartForm
     {
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label insertLabel;
@@ -44,6 +45,7 @@ namespace FlashDevelop.Dialogs
         {
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
+            this.FormGuid = "38535b88-d4b2-4db5-a6f5-40cc0ce3cb01";
             this.InitializeComponent();
             this.ApplyLocalizedTexts();
             this.InitializeGraphics();

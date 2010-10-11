@@ -26,8 +26,7 @@ namespace ProjectManager
         public const Keys DEFAULT_TESTMOVIE = Keys.F5;
         public const Keys DEFAULT_BUILDPROJECT = Keys.F8;
         public const Keys DEFAULT_OPENRESOURCE = Keys.Control | Keys.R;
-        
-        private Size resourceFormSize;
+
         private Boolean searchExternalClassPath = true;
         private Keys openResourceShortcut = DEFAULT_OPENRESOURCE;
         List<ProjectPreferences> projectPrefList = new List<ProjectPreferences>();
@@ -84,13 +83,6 @@ namespace ProjectManager
         {
             get { return newProjectDefaultDirectory; }
             set { newProjectDefaultDirectory = value; FireChanged("NewProjectDefaultDirectory"); }
-        }
-
-        [Browsable(false)]
-        public Size ResourceFormSize
-        {
-            get { return resourceFormSize; }
-            set { resourceFormSize = value; }
         }
 
         [DisplayName("Open Resource")]

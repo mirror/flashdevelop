@@ -1,16 +1,17 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using PluginCore.Helpers;
+using PluginCore.Controls;
 using ProjectManager;
 using PluginCore;
-using System.IO;
 
 namespace ProjectManager.Controls
 {
-    public class OpenResourceForm : Form
+    public class OpenResourceForm : SmartForm
     {
         private PluginMain plugin;
         private Int32 MAX_ITEMS = 100;
@@ -26,10 +27,7 @@ namespace ProjectManager.Controls
             this.InitializeComponent();
             this.InitializeLocalization();
             this.Font = PluginBase.Settings.DefaultFont;
-            if (PluginMain.Settings.ResourceFormSize.Width > MinimumSize.Width)
-            {
-                this.Size = PluginMain.Settings.ResourceFormSize;
-            }
+            this.FormGuid = "8e4e0a95-0aff-422c-b8f5-ad9bc8affabb";
             this.CreateFileList();
             this.RefreshListBox();
         }
@@ -97,7 +95,6 @@ namespace ProjectManager.Controls
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Open Resource";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OpenResourceFormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OpenResourceKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -296,14 +293,6 @@ namespace ProjectManager.Controls
                 this.listBox.SelectedIndex--;
                 e.Handled = true;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void OpenResourceFormClosing(Object sender, FormClosingEventArgs e)
-        {
-            PluginMain.Settings.ResourceFormSize = Size;
         }
 
         /// <summary>

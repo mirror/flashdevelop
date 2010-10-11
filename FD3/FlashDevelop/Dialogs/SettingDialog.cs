@@ -11,11 +11,12 @@ using FlashDevelop.Utilities;
 using FlashDevelop.Dialogs;
 using FlashDevelop.Helpers;
 using PluginCore.Managers;
+using PluginCore.Controls;
 using PluginCore;
 
 namespace FlashDevelop.Dialogs
 {
-    public class SettingDialog : Form
+    public class SettingDialog : SmartForm
     {
         private System.String helpUrl;
         private System.Windows.Forms.ListView itemListView;
@@ -39,6 +40,7 @@ namespace FlashDevelop.Dialogs
         {
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
+            this.FormGuid = "48a75ac0-479a-49b9-8ec0-5db7c8d36388";
             this.InitializeComponent();
             this.InitializeGraphics(); 
             this.InitializeItemGroups();

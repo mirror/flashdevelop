@@ -6,19 +6,17 @@ using System.Drawing;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-
 using ProjectManager.Controls;
 using ProjectManager.Projects;
-
 using PluginCore;
 using PluginCore.Localization;
-
+using PluginCore.Controls;
 using ASClassWizard.Controls.TreeView;
 using ASClassWizard.Resources;
 
 namespace ASClassWizard.Wizards
 {
-    public partial class PackageBrowser : Form
+    public partial class PackageBrowser : SmartForm
     {
 
         List<string> classpathList;
@@ -30,6 +28,7 @@ namespace ASClassWizard.Wizards
             InitializeComponent();
             LocalizeTexts();
             CenterToParent();
+            this.FormGuid = "b5a7f1b4-959b-485b-a7d7-9b683191c0cf";
             this.Font = PluginBase.Settings.DefaultFont;
             this.browserView.ImageList = Icons.ImageList;
             this.browserView.BeforeExpand += onBeforeExpandNode;

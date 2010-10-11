@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Drawing;
 using System.Diagnostics;
 using System.Collections;
@@ -7,11 +8,11 @@ using System.Windows.Forms;
 using ProjectManager.Projects;
 using PluginCore.Localization;
 using ProjectManager.Actions;
-using System.IO;
+using PluginCore.Controls;
 
 namespace ProjectManager.Controls
 {
-	public class BuildEventDialog : System.Windows.Forms.Form
+	public class BuildEventDialog : SmartForm
 	{
 		Project project;
 		BuildEventVars vars;
@@ -187,6 +188,7 @@ namespace ProjectManager.Controls
 		{
             InitializeComponent();
             InitializeLocalization();
+            this.FormGuid = "ada69d37-2ec0-4484-b113-72bfeab2f239";
             this.Font = PluginCore.PluginBase.Settings.DefaultFont;
 
 			this.project = project;

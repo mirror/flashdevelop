@@ -8,10 +8,11 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using FlashDevelop.Helpers;
+using PluginCore.Controls;
 
 namespace FlashDevelop.Dialogs
 {
-    public class ErrorDialog : Form
+    public class ErrorDialog : SmartForm
     {
         private System.Windows.Forms.Label countLabel;
         private System.Windows.Forms.Label headerLabel;
@@ -25,6 +26,7 @@ namespace FlashDevelop.Dialogs
         {
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
+            this.FormGuid = "4f534f7c-8078-4053-9c54-343129c513b3";
             this.InitializeComponent();
             this.ApplyLocalizedTexts();
             this.InitializeGraphics();

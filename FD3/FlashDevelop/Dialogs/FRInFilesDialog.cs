@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using FlashDevelop.Utilities;
+using PluginCore.Controls;
 using PluginCore.FRService;
 using PluginCore.Managers;
 using ScintillaNet;
@@ -15,7 +16,7 @@ using PluginCore;
 
 namespace FlashDevelop.Dialogs
 {
-    public class FRInFilesDialog : Form
+    public class FRInFilesDialog : SmartForm
     {
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label findLabel;
@@ -54,6 +55,7 @@ namespace FlashDevelop.Dialogs
         {
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
+            this.FormGuid = "d2dbaf53-35ea-4632-b038-5428c9784a32";
             this.InitializeComponent();
             this.ApplyLocalizedTexts();
             this.InitializeGraphics();
