@@ -1182,7 +1182,8 @@ namespace ProjectManager
         {
             if (PluginBase.CurrentProject != null)
             {
-                new OpenResourceForm(this).ShowDialog();
+                OpenResourceForm opr = new OpenResourceForm(this);
+                opr.ShowDialog(pluginUI);
             }
         }
 

@@ -20,6 +20,7 @@ namespace PluginCore.Controls
             this.formProps = new FormProps();
             this.formGuid = Guid.Empty.ToString();
             this.Load += new EventHandler(this.SmartFormLoad);
+            this.Shown += new EventHandler(this.SmartFormShown);
             this.FormClosing += new FormClosingEventHandler(this.SmartFormClosing);
         }
 
@@ -51,6 +52,17 @@ namespace PluginCore.Controls
                 String formStatesDir = Path.Combine(settingDir, "FormStates");
                 if (!Directory.Exists(formStatesDir)) Directory.CreateDirectory(formStatesDir);
                 return formStatesDir;
+            }
+        }
+
+        /// <summary>
+        /// Center the dialog to parent if requested
+        /// </summary>
+        private void SmartFormShown(Object sender, EventArgs e)
+        {
+            if (this.StartPosition == FormStartPosition.CenterParent)
+            {
+                this.CenterToParent();
             }
         }
 
