@@ -132,14 +132,14 @@ namespace FlashDebugger
 		/// <summary>
 		/// Main loop
 		/// </summary>
-		public void Start()
+		public void Start(Boolean useAny)
 		{
 			m_CurrentState = DebuggerState.Starting;
             SessionManager mgr = Bootstrap.sessionManager();
 			mgr.setDebuggerCallbacks(new FlashDebuggerCallbacks());
 			mgr.setPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT, 5000);
 			m_RequestDetach = false;
-			mgr.startListening();
+            mgr.startListening(useAny);
             try
             {
                 m_Session = mgr.accept(this);

@@ -68,7 +68,7 @@ namespace FlashDebugger
             DisableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DisableAllBreakpoints"), null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
             EnableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.EnableAllBreakpoints"), null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
 
-            StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartContinue_Click), settingObject.StartRemoteSession);
+            StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartRemote_Click), settingObject.StartRemoteSession);
 
             debugItems = new List<ToolStripItem>(new ToolStripItem[]
 			{
@@ -169,12 +169,24 @@ namespace FlashDebugger
         /// </summary>
         void StartContinue_Click(Object sender, EventArgs e)
         {
-			if (PluginMain.debugManager.FlashInterface.isDebuggerStarted)
-			{
-				PluginMain.debugManager.Continue_Click(sender, e);
-			}
-			else PluginMain.debugManager.Start();
+            if (PluginMain.debugManager.FlashInterface.isDebuggerStarted)
+            {
+                PluginMain.debugManager.Continue_Click(sender, e);
+            }
+            else PluginMain.debugManager.Start(false);
 		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void StartRemote_Click(Object sender, EventArgs e)
+        {
+            if (PluginMain.debugManager.FlashInterface.isDebuggerStarted)
+            {
+                PluginMain.debugManager.Continue_Click(sender, e);
+            }
+            else PluginMain.debugManager.Start(true);
+        }
 
 		#region Menus State Management
 

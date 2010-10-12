@@ -36,45 +36,8 @@ namespace FlashDebugger
         private FlashInterface m_FlashInterface;
 		private Location m_CurrentLocation = null;
 		private Dictionary<String, String> m_PathMap = new Dictionary<String, String>();
-        private int m_CurrentFrame = 0;
-        
-		public FlashInterface FlashInterface
-        {
-            get { return m_FlashInterface; }
-        }
-
-		public int CurrentFrame
-		{
-			get { return m_CurrentFrame; }
-			set
-			{
-				if (m_CurrentFrame != value)
-				{
-					m_CurrentFrame = value;
-					UpdateLocalsUI();
-				}
-			}
-		}
-
-		public Location CurrentLocation
-		{
-			get { return m_CurrentLocation; }
-			set
-			{
-				if (m_CurrentLocation != value)
-				{
-					if (m_CurrentLocation != null)
-					{
-						ResetCurrentLocation();
-					}
-					m_CurrentLocation = value;
-					if (m_CurrentLocation != null)
-					{
-						GotoCurrentLocation(true);
-					}
-				}
-			}
-		}
+        private Int32 m_CurrentFrame = 0;
+        private Boolean useAny = false;
 
         public DebuggerManager()
         {
@@ -94,8 +57,9 @@ namespace FlashDebugger
 
         #region Startup
 
-        public bool Start()
+        public bool Start(Boolean useAny)
         {
+            this.useAny = useAny;
             if (!CheckCurrent()) return false;
             PluginMain.debugBuildStart = true;
             UpdateMenuState(DebuggerState.Starting);
@@ -158,11 +122,14 @@ namespace FlashDebugger
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-				m_FlashInterface.Start();
+                m_FlashInterface.Start(this.useAny);
             }
             catch (Exception ex)
             {
@@ -176,6 +143,53 @@ namespace FlashDebugger
 
         #endregion
 
+        #region Properties
+
+        public FlashInterface FlashInterface
+        {
+            get { return m_FlashInterface; }
+        }
+
+        public int CurrentFrame
+        {
+            get { return m_CurrentFrame; }
+            set
+            {
+                if (m_CurrentFrame != value)
+                {
+                    m_CurrentFrame = value;
+                    UpdateLocalsUI();
+                }
+            }
+        }
+
+        public Location CurrentLocation
+        {
+            get { return m_CurrentLocation; }
+            set
+            {
+                if (m_CurrentLocation != value)
+                {
+                    if (m_CurrentLocation != null)
+                    {
+                        ResetCurrentLocation();
+                    }
+                    m_CurrentLocation = value;
+                    if (m_CurrentLocation != null)
+                    {
+                        GotoCurrentLocation(true);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region PathHelpers
+
+        /// <summary>
+        /// 
+        /// </summary>
 		public String GetLocalPath(SourceFile file)
 		{
 			if (File.Exists(file.FullPath))
@@ -197,16 +211,24 @@ namespace FlashDebugger
 				}
 			}
 			return null;
-		}
+        }
+
+        #endregion
 
         #region FlashInterface Control
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Cleanup()
         {
 			m_PathMap.Clear();
 			m_FlashInterface.Cleanup();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdateMenuState(DebuggerState state)
         {
             if (StateChangedEvent != null) StateChangedEvent(this, state);
@@ -215,8 +237,11 @@ namespace FlashDebugger
         #endregion
 
         #region FlashInterface Events
-
-		void flashInterface_StartedEvent(object sender)
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_StartedEvent(object sender)
 		{
 			if ((PluginBase.MainForm as Form).InvokeRequired)
 			{
@@ -238,7 +263,10 @@ namespace FlashDebugger
 			}
 		}
 
-		void flashInterface_DisconnectedEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_DisconnectedEvent(object sender)
 		{
 			if ((PluginBase.MainForm as Form).InvokeRequired)
 			{
@@ -265,7 +293,10 @@ namespace FlashDebugger
             PluginBase.MainForm.ProgressLabel.Visible = false;
         }
 
-		void flashInterface_BreakpointEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_BreakpointEvent(object sender)
 		{
 			Location loc = FlashInterface.getCurrentLocation();
 			if (PluginMain.breakPointManager.ShouldBreak(loc.File, loc.Line))
@@ -278,28 +309,43 @@ namespace FlashDebugger
 			}
 		}
 
-		void flashInterface_FaultEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_FaultEvent(object sender)
 		{
 			UpdateUI(DebuggerState.ExceptionHalt);
 		}
 
-		void flashInterface_StepEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_StepEvent(object sender)
 		{
 			UpdateUI(DebuggerState.BreakHalt);
 		}
 
-		void flashInterface_ScriptLoadedEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_ScriptLoadedEvent(object sender)
 		{
 			m_FlashInterface.UpdateBreakpoints(PluginMain.breakPointManager.GetBreakPointUpdates());
 			m_FlashInterface.Continue();
 		}
 
-		void flashInterface_WatchpointEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_WatchpointEvent(object sender)
 		{
 			UpdateUI(DebuggerState.BreakHalt);
 		}
 
-		void flashInterface_UnknownHaltEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_UnknownHaltEvent(object sender)
 		{
 			UpdateUI(DebuggerState.ExceptionHalt);
 		}
@@ -312,7 +358,10 @@ namespace FlashDebugger
 			UpdateUI(DebuggerState.PauseHalt);
 		}
 
-		void UpdateUI(DebuggerState state)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void UpdateUI(DebuggerState state)
 		{
 			if ((PluginBase.MainForm as Form).InvokeRequired)
 			{
@@ -329,14 +378,20 @@ namespace FlashDebugger
 			(PluginBase.MainForm as Form).Activate();
 		}
 
-		void UpdateStackUI()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void UpdateStackUI()
 		{
 			m_CurrentFrame = 0;
 			Frame[] frames = m_FlashInterface.GetFrames();
 			PanelsHelper.stackframeUI.AddFrames(frames);
 		}
 
-		void UpdateLocalsUI()
+        /// <summary>
+        /// 
+        /// </summary>
+		private void UpdateLocalsUI()
 		{
 			if ((PluginBase.MainForm as Form).InvokeRequired)
 			{
@@ -371,7 +426,10 @@ namespace FlashDebugger
 			else CurrentLocation = null;
 		}
 
-		void ResetCurrentLocation()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ResetCurrentLocation()
 		{
 			if ((PluginBase.MainForm as Form).InvokeRequired)
 			{
@@ -401,7 +459,10 @@ namespace FlashDebugger
 			}
 		}
 
-		void GotoCurrentLocation(bool bSetMarker)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GotoCurrentLocation(bool bSetMarker)
 		{
 			if ((PluginBase.MainForm as Form).InvokeRequired)
 			{
@@ -441,7 +502,10 @@ namespace FlashDebugger
 			}
 		}
 
-		void flashInterface_PauseNotRespondEvent(object sender)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_PauseNotRespondEvent(object sender)
         {
             if ((PluginBase.MainForm as Form).InvokeRequired)
             {
@@ -466,7 +530,10 @@ namespace FlashDebugger
             TraceManager.AddAsync(trace, 1);
         }
 
-        void flashInterface_ProgressEvent(object sender, int current, int total)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void flashInterface_ProgressEvent(object sender, int current, int total)
         {
             if ((PluginBase.MainForm as Form).InvokeRequired)
             {
@@ -552,6 +619,9 @@ namespace FlashDebugger
 			m_FlashInterface.Pause();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal void Finish_Click(Object sender, EventArgs e)
         {
 			CurrentLocation = null;

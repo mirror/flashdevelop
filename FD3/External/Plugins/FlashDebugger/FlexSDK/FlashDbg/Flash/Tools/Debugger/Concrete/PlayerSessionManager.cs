@@ -181,12 +181,17 @@ namespace Flash.Tools.Debugger.Concrete
 		* @see Flash.Tools.Debugger.SessionManager#startListening()
 		*/
         public override void startListening()
+        {
+            startListening(false);
+        }
+        public override void startListening(Boolean useAny)
 		{
 			if (m_serverSocket == null)
 			{
 				System.Net.Sockets.TcpListener temp_tcpListener;
-                temp_tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), DProtocol.DEBUG_PORT);
-				temp_tcpListener.Start();
+                if (useAny) temp_tcpListener = new TcpListener(IPAddress.Any, DProtocol.DEBUG_PORT);
+                else temp_tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), DProtocol.DEBUG_PORT);
+                temp_tcpListener.Start(); // Start now...
 				m_serverSocket = temp_tcpListener;
 			}
 		}

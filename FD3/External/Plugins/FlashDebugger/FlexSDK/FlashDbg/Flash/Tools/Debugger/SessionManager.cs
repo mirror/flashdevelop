@@ -144,7 +144,12 @@ namespace Flash.Tools.Debugger
 		/// <summary>             if opening the server side socket fails
 		/// </summary>
         public abstract void startListening();
-		
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public abstract void startListening(Boolean useAny);
+
 		/// <summary> Stops listening for new Player attempts to open a debug session. The
 		/// method DOES NOT terminate currently connected sessions, but will cause
 		/// threads blocked in <code>accept</code> to throw SocketExceptions.
