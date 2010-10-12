@@ -18,7 +18,7 @@ namespace PluginCore.Controls
         public SmartForm()
         {
             this.formProps = new FormProps();
-            this.formGuid = Guid.Empty.ToString();
+            this.formGuid = Guid.Empty.ToString().ToUpper();
             this.Load += new EventHandler(this.SmartFormLoad);
             this.Shown += new EventHandler(this.SmartFormShown);
             this.FormClosing += new FormClosingEventHandler(this.SmartFormClosing);
@@ -30,7 +30,7 @@ namespace PluginCore.Controls
         public String FormGuid
         {
             get { return this.formGuid; }
-            set { this.formGuid = value; }
+            set { this.formGuid = value.ToUpper(); }
         }
 
         /// <summary>
