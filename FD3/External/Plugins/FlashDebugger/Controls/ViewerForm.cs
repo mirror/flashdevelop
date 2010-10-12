@@ -28,11 +28,12 @@ namespace FlashDebugger.Controls
         {
             this.label1.Text = TextHelper.GetString("Label.Exp");
             this.label2.Text = TextHelper.GetString("Label.Value");
+            this.Closebutton.Text = TextHelper.GetString("Label.Close");
             this.CopyAllbutton.Text = TextHelper.GetString("Label.CopyAll");
             this.WordWrapcheckBox.Text = TextHelper.GetString("Label.WordWrap");
             this.CopyValuebutton.Text = TextHelper.GetString("Label.CopyValue");
             this.CopyExpbutton.Text = TextHelper.GetString("Label.CopyExp");
-            this.Closebutton.Text = TextHelper.GetString("Label.Close");
+            this.Text = " " + TextHelper.GetString("Label.Viewer").Replace("&", "");
         }
 
         private void ViewerForm_FormClosing(object sender, FormClosingEventArgs e)

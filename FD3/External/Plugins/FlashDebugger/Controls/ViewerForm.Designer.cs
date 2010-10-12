@@ -59,11 +59,11 @@ namespace FlashDebugger.Controls
             // 
             this.ExptextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExptextBox.Location = new System.Drawing.Point(0, 26);
-            this.ExptextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ExptextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.ExptextBox.Location = new System.Drawing.Point(10, 25);
             this.ExptextBox.Name = "ExptextBox";
             this.ExptextBox.ReadOnly = true;
-            this.ExptextBox.Size = new System.Drawing.Size(328, 22);
+            this.ExptextBox.Size = new System.Drawing.Size(306, 21);
             this.ExptextBox.TabIndex = 0;
             // 
             // ValuetextBox
@@ -71,12 +71,12 @@ namespace FlashDebugger.Controls
             this.ValuetextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValuetextBox.Location = new System.Drawing.Point(0, 91);
-            this.ValuetextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ValuetextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.ValuetextBox.Location = new System.Drawing.Point(10, 72);
             this.ValuetextBox.Multiline = true;
             this.ValuetextBox.Name = "ValuetextBox";
             this.ValuetextBox.ReadOnly = true;
-            this.ValuetextBox.Size = new System.Drawing.Size(328, 314);
+            this.ValuetextBox.Size = new System.Drawing.Size(306, 157);
             this.ValuetextBox.TabIndex = 1;
             this.ValuetextBox.WordWrap = false;
             // 
@@ -84,10 +84,9 @@ namespace FlashDebugger.Controls
             // 
             this.WordWrapcheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.WordWrapcheckBox.AutoSize = true;
-            this.WordWrapcheckBox.Location = new System.Drawing.Point(0, 419);
-            this.WordWrapcheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WordWrapcheckBox.Location = new System.Drawing.Point(12, 235);
             this.WordWrapcheckBox.Name = "WordWrapcheckBox";
-            this.WordWrapcheckBox.Size = new System.Drawing.Size(87, 19);
+            this.WordWrapcheckBox.Size = new System.Drawing.Size(78, 17);
             this.WordWrapcheckBox.TabIndex = 2;
             this.WordWrapcheckBox.Text = "WordWrap";
             this.WordWrapcheckBox.UseVisualStyleBackColor = true;
@@ -96,10 +95,9 @@ namespace FlashDebugger.Controls
             // Closebutton
             // 
             this.Closebutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Closebutton.Location = new System.Drawing.Point(341, 379);
-            this.Closebutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Closebutton.Location = new System.Drawing.Point(331, 206);
             this.Closebutton.Name = "Closebutton";
-            this.Closebutton.Size = new System.Drawing.Size(96, 28);
+            this.Closebutton.Size = new System.Drawing.Size(96, 23);
             this.Closebutton.TabIndex = 3;
             this.Closebutton.Text = "Close";
             this.Closebutton.UseVisualStyleBackColor = true;
@@ -108,10 +106,9 @@ namespace FlashDebugger.Controls
             // CopyExpbutton
             // 
             this.CopyExpbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CopyExpbutton.Location = new System.Drawing.Point(341, 26);
-            this.CopyExpbutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CopyExpbutton.Location = new System.Drawing.Point(331, 24);
             this.CopyExpbutton.Name = "CopyExpbutton";
-            this.CopyExpbutton.Size = new System.Drawing.Size(96, 28);
+            this.CopyExpbutton.Size = new System.Drawing.Size(96, 23);
             this.CopyExpbutton.TabIndex = 4;
             this.CopyExpbutton.Text = "Copy Exp";
             this.CopyExpbutton.UseVisualStyleBackColor = true;
@@ -120,10 +117,9 @@ namespace FlashDebugger.Controls
             // CopyValuebutton
             // 
             this.CopyValuebutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CopyValuebutton.Location = new System.Drawing.Point(341, 62);
-            this.CopyValuebutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CopyValuebutton.Location = new System.Drawing.Point(331, 53);
             this.CopyValuebutton.Name = "CopyValuebutton";
-            this.CopyValuebutton.Size = new System.Drawing.Size(96, 28);
+            this.CopyValuebutton.Size = new System.Drawing.Size(96, 23);
             this.CopyValuebutton.TabIndex = 5;
             this.CopyValuebutton.Text = "Copy Value";
             this.CopyValuebutton.UseVisualStyleBackColor = true;
@@ -132,10 +128,9 @@ namespace FlashDebugger.Controls
             // CopyAllbutton
             // 
             this.CopyAllbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CopyAllbutton.Location = new System.Drawing.Point(341, 98);
-            this.CopyAllbutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CopyAllbutton.Location = new System.Drawing.Point(331, 82);
             this.CopyAllbutton.Name = "CopyAllbutton";
-            this.CopyAllbutton.Size = new System.Drawing.Size(96, 28);
+            this.CopyAllbutton.Size = new System.Drawing.Size(96, 23);
             this.CopyAllbutton.TabIndex = 6;
             this.CopyAllbutton.Text = "Copy All";
             this.CopyAllbutton.UseVisualStyleBackColor = true;
@@ -144,28 +139,27 @@ namespace FlashDebugger.Controls
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 8);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(9, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 15);
+            this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Exp";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 70);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 15);
+            this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Value";
             // 
             // ViewerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 440);
+            this.ClientSize = new System.Drawing.Size(438, 261);
+            this.MinimumSize = new System.Drawing.Size(250, 200);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CopyAllbutton);
@@ -175,8 +169,8 @@ namespace FlashDebugger.Controls
             this.Controls.Add(this.WordWrapcheckBox);
             this.Controls.Add(this.ValuetextBox);
             this.Controls.Add(this.ExptextBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ViewerForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
