@@ -256,10 +256,10 @@ namespace FlashDebugger
             PluginBase.MainForm.ProgressLabel.Visible = false;
 			if (!PluginMain.settingObject.DisablePanelsAutoshow)
 			{
-				PanelsHelper.pluginPanel.Show();
+                PanelsHelper.watchPanel.Show();
+                PanelsHelper.stackframePanel.Show();
+                PanelsHelper.pluginPanel.Show();
 				PanelsHelper.breakPointPanel.Show();
-				PanelsHelper.stackframePanel.Show();
-				PanelsHelper.watchPanel.Show();
 			}
 		}
 
