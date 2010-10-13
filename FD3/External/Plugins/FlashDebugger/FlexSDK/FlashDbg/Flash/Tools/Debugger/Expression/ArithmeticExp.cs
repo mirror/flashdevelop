@@ -88,7 +88,7 @@ namespace Flash.Tools.Debugger.Expression
 					Variable var = (Variable)o;
 					if (var.getValue().getType() == VariableType.BOOLEAN) return (bool)var.getValue().ValueAsObject?1:0;
 					if (var.getValue().getType() == VariableType.NULL) return 0;
-					return var.getValue().ValueAsObject!=null?1:0;
+					return var.getValue().ValueAsObject!=null?var.getValue().Id:0;
 				}
 				else
 				{
