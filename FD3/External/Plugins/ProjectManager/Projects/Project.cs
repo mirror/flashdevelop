@@ -110,7 +110,7 @@ namespace ProjectManager.Projects
 				PathCollection absolute = new PathCollection();
                 foreach (string cp in classpaths)
                 {
-                    absolute.Add(GetAbsolutePath(Environment.ExpandEnvironmentVariables(cp)));
+                    absolute.Add(GetAbsolutePath(cp));
                 }
 				return absolute;
 			}
@@ -125,7 +125,7 @@ namespace ProjectManager.Projects
 
 		#endregion
 
-		#region Methods
+		#region Project Methods
 
 		// all the Set/Is methods expect absolute paths (as opposed to the way they're
 		// actually stored)
@@ -216,7 +216,7 @@ namespace ProjectManager.Projects
 
 		#endregion
 
-		#region Relative Path Helpers
+		#region Path Helpers
 
         public String[] GetHiddenPaths()
         {
@@ -230,7 +230,8 @@ namespace ProjectManager.Projects
 
 		public string GetAbsolutePath(string path)
 		{
-			return ProjectPaths.GetAbsolutePath(this.Directory,path);
+            path = Environment.ExpandEnvironmentVariables(path);
+            return ProjectPaths.GetAbsolutePath(this.Directory, path);
 		}
 
         /// <summary>
@@ -245,8 +246,6 @@ namespace ProjectManager.Projects
                 return path;
         }
 
-		#endregion
-        
         public static String RemoveDiacritics(String s)
         {
             String normalizedString = s.Normalize(NormalizationForm.FormD);
@@ -261,5 +260,8 @@ namespace ProjectManager.Projects
 
             return stringBuilder.ToString();
         }
+
+		#endregion
+
     }
 }
