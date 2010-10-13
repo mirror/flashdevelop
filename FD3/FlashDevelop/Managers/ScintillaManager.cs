@@ -56,8 +56,7 @@ namespace FlashDevelop.Managers
             {
                 sci.ConfigurationLanguage = language;
             }
-            sci.Colourise(0, -1);
-            sci.Refresh();
+            ApplySciSettings(sci);
         }
 
         /// <summary>
