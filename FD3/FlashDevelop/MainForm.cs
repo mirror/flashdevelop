@@ -2089,7 +2089,7 @@ namespace FlashDevelop
         public void FindNext(Object sender, System.EventArgs e)
         {
             Boolean update = !Globals.Settings.DisableFindTextUpdating;
-            this.frInDocDialog.FindNext(true, update, true);
+            this.frInDocDialog.FindNext(true, update, !this.quickFind.Visible);
         }
 
         /// <summary>
@@ -2098,7 +2098,7 @@ namespace FlashDevelop
         public void FindPrevious(Object sender, System.EventArgs e)
         {
             Boolean update = !Globals.Settings.DisableFindTextUpdating;
-            this.frInDocDialog.FindNext(false, update, true);
+            this.frInDocDialog.FindNext(false, update, !this.quickFind.Visible);
         }
 
         /// <summary>
