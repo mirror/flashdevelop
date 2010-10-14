@@ -35,7 +35,7 @@ namespace FlashDevelop
             MainForm mainForm = new MainForm();
             SingleInstanceApp.NewInstanceMessage += delegate(Object sender, Object message)
             {
-                IntPtr handle = mainForm.Handle;
+                MainForm.Arguments = message as String[];
                 mainForm.ProcessParameters(message as String[]);
             };
             try
