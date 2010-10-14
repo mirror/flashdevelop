@@ -1,6 +1,7 @@
 ﻿using System;
 using Aga.Controls.Tree;
 using Flash.Tools.Debugger;
+using PluginCore.Utilities;
 
 namespace FlashDebugger.Controls
 {
@@ -33,7 +34,7 @@ namespace FlashDebugger.Controls
 			{
 				otherName = otherName.Substring(1);
 			}
-			int result = thisName.CompareTo(otherName);
+			int result = LogicalComparer.Compare(thisName, otherName);
 			if (result != 0)
 			{
 				return result;
