@@ -3,7 +3,7 @@ using System;
 namespace PluginCore
 {
     [Flags]
-    public enum EventType
+    public enum EventType : long
     {
         FileNew = 1 << 1, // TextEvent (file)
         FileOpen = 1 << 2, // TextEvent (file)
@@ -35,7 +35,7 @@ namespace PluginCore
         Trace = 1 << 28, // NotifyEvent
         Keys = 1 << 29, // KeyEvent (keys)
         FileModifyRO = 1 << 30, // TextEvent (file)
-        StartArgs = 1 << 31 // NotifyEvent
+        StartArgs = 1 << 55 // NotifyEvent
     }
 
     public enum SessionType
