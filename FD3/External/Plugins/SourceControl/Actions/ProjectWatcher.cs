@@ -31,10 +31,13 @@ namespace SourceControl.Actions
 
         internal static void Dispose()
         {
-            vcManager.Dispose();
-            fsWatchers.Dispose();
-            ovManager.Dispose();
-            currentProject = null;
+            if (vcManager != null)
+            {
+                vcManager.Dispose();
+                fsWatchers.Dispose();
+                ovManager.Dispose();
+                currentProject = null;
+            }
         }
 
         internal static void SetProject(Project project)

@@ -762,11 +762,9 @@ namespace ResultsPanel
                             if (fixIndexes) end = this.MBSafeColumn(sci, line, end);
                         }
                         else
-                        { 
-                            end = start;
-                            Int32 lineStart = sci.PositionFromLine(line);
-                            Int32 indentPos = sci.LineIndentPosition(line);
-                            start = indentPos - lineStart;
+                        {
+                            start = Math.Max(1, Math.Min(sci.LineLength(line) - 1, start));
+                            end = start--;
                         }
                         if ((start >= 0) && (end > start) && (end < sci.TextLength))
 						{

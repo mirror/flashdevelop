@@ -31,7 +31,7 @@ namespace SourceControl.Managers
         public void Dispose()
         {
             ovManager = null;
-            refreshTimer.Stop();
+            if (refreshTimer != null) refreshTimer.Stop();
         }
 
         void AddVCManager(IVCManager manager)
