@@ -461,7 +461,7 @@ namespace PluginCore.Controls
 					exactMatchInList = false;
                     smartMatchInList = true;
 				}
-                else if (word.Substring(0, 1) == word.Substring(0, 1).ToUpper() && word.IndexOf('_') < 0) // search by abbreviation
+                else if (IsAbbreviation(word)) // search by abbreviation
                 {
                     List<ItemMatch> temp = new List<ItemMatch>(allItems.Count);
                     foreach (ICompletionListItem item in allItems)
@@ -479,6 +479,7 @@ namespace PluginCore.Controls
                         found.Add(itemMatch.Item);
                     }
                     smartMatchInList = found.Capacity > 0;
+                    lastIndex = 0;
                 }
 				else
 				{
@@ -600,7 +601,7 @@ namespace PluginCore.Controls
                             lastIndex = TestDefaultItem(lastIndex, word, len);
                         }
                     }
-					// select first item
+                    // select first item
                     completionList.TopIndex = topIndex;
                     completionList.SelectedIndex = lastIndex;
 				}
@@ -641,6 +642,18 @@ namespace PluginCore.Controls
 				else exactMatchInList = false;
 			}
 		}
+
+        public static bool IsAbbreviation(string word)
+        {
+            int len = word.Length;
+            if (len <= 1 || !Char.IsUpper(word[0])) return false;
+            for (int i = 1; i < len; i++)
+            {
+                if (word[i] == '_') break;
+                if (Char.IsUpper(word[i])) return true;
+            }
+            return false;
+        }
 
         private static int TestDefaultItem(Int32 index, String word, Int32 len)
         {

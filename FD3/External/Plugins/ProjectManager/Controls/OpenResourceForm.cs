@@ -119,14 +119,19 @@ namespace ProjectManager.Controls
         private void ListBoxDrawItem(Object sender, DrawItemEventArgs e)
         {
             Boolean selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
-            if (selected) e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-            else e.Graphics.FillRectangle(new SolidBrush(this.listBox.BackColor), e.Bounds);
             if (e.Index >= 0)
             {
                 var fullName = (String)this.listBox.Items[e.Index];
-                if (!selected)
+                if (fullName == "-----------------")
                 {
-                    Int32 slashIndex = fullName.LastIndexOf("\\");
+                    e.Graphics.FillRectangle(new SolidBrush(this.listBox.BackColor), e.Bounds);
+                    int y = (e.Bounds.Top + e.Bounds.Bottom)/2;
+                    e.Graphics.DrawLine(Pens.Gray, e.Bounds.Left, y, e.Bounds.Right, y);
+                }
+                else if (!selected)
+                {
+                    e.Graphics.FillRectangle(new SolidBrush(this.listBox.BackColor), e.Bounds);
+                    Int32 slashIndex = fullName.LastIndexOf(Path.DirectorySeparatorChar);
                     String path = fullName.Substring(0, slashIndex + 1);
                     String name = fullName.Substring(slashIndex + 1);
                     Int32 pathSize = DrawHelper.MeasureDisplayStringWidth(e.Graphics, path, e.Font) - 2;
@@ -135,7 +140,11 @@ namespace ProjectManager.Controls
                     e.Graphics.DrawString(name, e.Font, Brushes.Black, e.Bounds.Left + pathSize, e.Bounds.Top, StringFormat.GenericDefault);
                     e.DrawFocusRectangle();
                 }
-                else e.Graphics.DrawString(fullName, e.Font, Brushes.White, e.Bounds.Left, e.Bounds.Top, StringFormat.GenericDefault);
+                else
+                {
+                    e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
+                    e.Graphics.DrawString(fullName, e.Font, Brushes.White, e.Bounds.Left, e.Bounds.Top, StringFormat.GenericDefault);
+                }
             }
         }
 
@@ -350,7 +359,7 @@ namespace ProjectManager.Controls
         {
             int i = 0; int j = 0;
             if (file.Length < searchText.Length) return false;
-            Char[] text = file.Substring(file.LastIndexOf(pathSeparator) + 1).ToCharArray();
+            Char[] text = Path.GetFileName(file).ToCharArray();
             Char[] pattern = searchText.ToCharArray();
             while (i < pattern.Length)
             {
@@ -373,7 +382,7 @@ namespace ProjectManager.Controls
 
         private static Boolean SimpleSearchMatch(String file, String searchText, String pathSeparator)
         {
-            String fileName = file.Substring(file.LastIndexOf(pathSeparator) + 1).ToLower();
+            String fileName = Path.GetFileName(file).ToLower();
             return fileName.IndexOf(searchText.ToLower()) > -1;
         }
 

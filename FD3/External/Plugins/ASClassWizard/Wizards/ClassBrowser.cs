@@ -115,8 +115,7 @@ namespace ASClassWizard.Wizards
 
             topIndex = 0;
             List<GListBox.GListBoxItem> result =
-                (text.Length > 0 && text.Substring(0, 1) == text.Substring(0, 1).ToUpper() && text.IndexOf('_') < 0)
-                ? this.FindByAbbreviation(text)
+                CompletionList.IsAbbreviation(text) ? this.FindByAbbreviation(text)
                 : this.FilterSmart();
                 
             this.itemList.Items.AddRange(result.ToArray());
