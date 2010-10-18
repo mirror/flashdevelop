@@ -1495,10 +1495,10 @@ namespace FlashDevelop
             }
             Win32.ActivateWindow(this.Handle);
             /**
-            * Notify plugins that start args are available
+            * Notify plugins about start arguments
             */
-            NotifyEvent ne = new NotifyEvent(EventType.StartArgs);
-            EventManager.DispatchEvent(this, ne);
+            DataEvent de = new DataEvent(EventType.Command, "FlashDevelop.StartArgs", StartArguments);
+            EventManager.DispatchEvent(this, de);
         }
 
         /// <summary>
