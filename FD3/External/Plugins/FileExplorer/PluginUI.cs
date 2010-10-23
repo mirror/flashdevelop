@@ -394,6 +394,7 @@ namespace FileExplorer
             this.pluginMain.Settings.FilePath = path;
             this.selectedPath.Text = path;
             this.fileView.BeginUpdate();
+            this.fileView.ListViewItemSorter = null;
             this.fileView.Items.Clear();
             try
             {
@@ -436,7 +437,7 @@ namespace FileExplorer
                     }
                 }
                 this.watcher.Path = path;
-                this.fileView.Sort();
+                this.fileView.ListViewItemSorter = this.listViewSorter;
             }
             finally
             {
