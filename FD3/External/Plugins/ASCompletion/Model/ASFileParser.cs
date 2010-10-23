@@ -1284,7 +1284,11 @@ namespace ASCompletion.Model
 				{
 					foundKeyword = FlagType.Class;
                     modifiers |= FlagType.Class | FlagType.Interface;
-					if (version == 1) version = 2;
+                    if (version == 1)
+                    {
+                        version = 2;
+                        hasPackageSection = true;
+                    }
                 }
                 else if (features.hasTypeDefs && token == "typedef")
                 {
