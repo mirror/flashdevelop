@@ -121,6 +121,8 @@ namespace FlashDebugger
                 ITabbedDocument doc = ScintillaHelper.GetDocument(filefullpath);
                 if (doc != null)
                 {
+					// This logic should be handled by BPMAnager, wo we'll just work arround bad BPs and ignore them
+					if (line < 1 || (doc.SciControl != null && line > doc.SciControl.LineCount)) return;
 					Boolean m = ScintillaHelper.IsMarkerSet(doc.SciControl, ScintillaHelper.markerBPDisabled, line - 1);
 					if (m)
 					{

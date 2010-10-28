@@ -199,6 +199,7 @@ namespace FlashDebugger
                     {
 						if (info.FileFullPath == sci.FileName && !info.IsDeleted)
                         {
+							if (info.Line < 0 || info.Line + 1 > sci.LineCount) continue;
 							sci.MarkerAdd(info.Line, info.IsEnabled ? ScintillaHelper.markerBPEnabled : ScintillaHelper.markerBPDisabled);
                         }
                     }
@@ -221,6 +222,7 @@ namespace FlashDebugger
                     {
                         if (info.FileFullPath == sci.FileName && !info.IsDeleted)
                         {
+							if (info.Line < 0 || info.Line + 1 > sci.LineCount) continue;
 							sci.MarkerAdd(info.Line, info.IsEnabled ? ScintillaHelper.markerBPEnabled : ScintillaHelper.markerBPDisabled);
                         }
                     }
