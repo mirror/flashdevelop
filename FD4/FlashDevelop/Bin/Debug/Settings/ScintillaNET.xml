@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<includes>
+		<include file="$(BaseDir)\Settings\Languages\AS2.xml" />
+		<include file="$(BaseDir)\Settings\Languages\AS3.xml" />
+		<include file="$(BaseDir)\Settings\Languages\CSS.xml" />
+		<include file="$(BaseDir)\Settings\Languages\HaXe.xml" />
+		<include file="$(BaseDir)\Settings\Languages\HTML.xml" />
+		<include file="$(BaseDir)\Settings\Languages\JScript.xml" />
+		<include file="$(BaseDir)\Settings\Languages\Python.xml" />
+		<include file="$(BaseDir)\Settings\Languages\Text.xml" />
+		<include file="$(BaseDir)\Settings\Languages\XML.xml" />
+	</includes>
+</Scintilla>

@@ -1,0 +1,14 @@
+for (var $(ItmUniqueVar):int = 0; $(ItmUniqueVar) < $(TypClosestListName).length; $(ItmUniqueVar)++) $(CSLB){
+	var item:$(TypClosestListItemType)$(EntryPoint) = $(TypClosestListName)[$(ItmUniqueVar)];
+	
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+for each (var item:$(TypClosestListItemType)$(EntryPoint) in $(TypClosestListName)) $(CSLB){
+	
+}
+
+
