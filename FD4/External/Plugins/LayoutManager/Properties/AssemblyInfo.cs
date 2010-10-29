@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyProduct("LayoutManager")]
-[assembly: AssemblyCopyright("FlashDevelop.org 2005-2010")]
+[assembly: AssemblyCopyright("FlashDevelop.org 2005-2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]

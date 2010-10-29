@@ -3637,7 +3637,7 @@ namespace ASCompletion.Completion
             templates = new Dictionary<string, string>();
             try
             {
-                string res = Path.Combine(Path.Combine(PathHelper.DataDir, "ASCompletion"), "Generator.txt");
+                string res = Path.Combine(Path.Combine(PathHelper.TemplateDir, "Common"), "CodeGenerator.txt");
                 if (!File.Exists(res) && !WriteDefaultTemplates(res))
                     return;
 

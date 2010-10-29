@@ -8,8 +8,8 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "3.3.2"
-!define BUILD "RTM"
+!define VERSION "4.0.0"
+!define BUILD "Alpha"
 
 ; Define Flex SDK version
 !define FLEX "4.1.0.16076"
@@ -17,7 +17,7 @@
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
 VIAddVersionKey "ProductName" "FlashDevelop Installer"
-VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2010"
+VIAddVersionKey "LegalCopyright" "FlashDevelop.org 2005-2011"
 VIAddVersionKey "FileDescription" "FlashDevelop Installer"
 VIAddVersionKey "ProductVersion" "${VERSION}.0"
 VIAddVersionKey "FileVersion" "${VERSION}.0"

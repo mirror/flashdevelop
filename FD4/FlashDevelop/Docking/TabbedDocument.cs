@@ -211,6 +211,7 @@ namespace FlashDevelop.Docking
                 }
                 else return;
             }
+            String oldFile = this.SciControl.FileName;
             Boolean otherFile = (this.SciControl.FileName != file);
             if (otherFile)
             {
@@ -235,9 +236,9 @@ namespace FlashDevelop.Docking
                 if (otherFile)
                 {
                     ScintillaManager.UpdateControlSyntax(this.SciControl);
-                    Globals.MainForm.OnFileSave(this, true);
+                    Globals.MainForm.OnFileSave(this, oldFile);
                 }
-                else Globals.MainForm.OnFileSave(this, false);
+                else Globals.MainForm.OnFileSave(this, null);
             }
             this.UpdateToolTipText();
             this.UpdateTabText();

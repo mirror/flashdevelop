@@ -757,6 +757,9 @@ namespace FlashDevelop
             this.toolStrip.Font = Globals.Settings.DefaultFont;
             this.menuStrip.Font = Globals.Settings.DefaultFont;
             this.editorMenu.Font = Globals.Settings.DefaultFont;
+            this.tabMenu.Renderer = new DockPanelStripRenderer(false);
+            this.editorMenu.Renderer = new DockPanelStripRenderer(false);
+            this.menuStrip.Renderer = new DockPanelStripRenderer(false);
             this.toolStrip.Renderer = new DockPanelStripRenderer(false);
             this.toolStrip.Padding = new Padding(0, 1, 0, 0);
             this.toolStrip.Size = new Size(500, 26);
@@ -1336,17 +1339,20 @@ namespace FlashDevelop
         /// <summary>
         /// Notifies the plugins for the FileSave event
         /// </summary>
-        public void OnFileSave(ITabbedDocument document, Boolean newFile)
+        public void OnFileSave(ITabbedDocument document, String oldFile)
         {
-            if (newFile)
+            if (oldFile != null)
             {
-                TextEvent te1 = new TextEvent(EventType.FileOpen, document.FileName);
-                EventManager.DispatchEvent(this, te1);
+                String args = document.FileName + ";" + oldFile;
+                TextEvent rename = new TextEvent(EventType.FileRename, args);
+                EventManager.DispatchEvent(this, rename);
+                TextEvent open = new TextEvent(EventType.FileOpen, document.FileName);
+                EventManager.DispatchEvent(this, open);
             }
             this.OnUpdateMainFormDialogTitle();
             if (document.IsEditable) document.SciControl.MarkerDeleteAll(2);
-            TextEvent te2 = new TextEvent(EventType.FileSave, document.FileName);
-            EventManager.DispatchEvent(this, te2);
+            TextEvent save = new TextEvent(EventType.FileSave, document.FileName);
+            EventManager.DispatchEvent(this, save);
             ButtonManager.UpdateFlaggedButtons();
         }
 
@@ -1497,8 +1503,8 @@ namespace FlashDevelop
             /**
             * Notify plugins about start arguments
             */
-            DataEvent de = new DataEvent(EventType.Command, "FlashDevelop.StartArgs", StartArguments);
-            EventManager.DispatchEvent(this, de);
+            NotifyEvent ne = new NotifyEvent(EventType.StartArgs);
+            EventManager.DispatchEvent(this, ne);
         }
 
         /// <summary>
