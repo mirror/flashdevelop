@@ -255,8 +255,12 @@ namespace BookmarkPanel
         /// </summary>
         private void InitializeLayout()
         {
+            this.toolStrip.Font = PluginBase.Settings.DefaultFont;
             this.toolStrip.Renderer = new DockPanelStripRenderer();
+            this.statusStrip.Font = PluginBase.Settings.DefaultFont;
             this.statusStrip.Renderer = new DockPanelStripRenderer();
+            this.contextMenuStrip.Font = PluginBase.Settings.DefaultFont;
+            this.contextMenuStrip.Renderer = new DockPanelStripRenderer(false);
             this.searchBox.FlatStyle = PluginBase.Settings.ComboBoxFlatStyle;
         }
 

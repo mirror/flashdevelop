@@ -277,6 +277,7 @@ namespace ResultsPanel
             menu.Items.Add(this.previousEntry);
             this.entriesView.ContextMenuStrip = menu;
             menu.Font = PluginBase.Settings.DefaultFont;
+            menu.Renderer = new DockPanelStripRenderer(false);
             this.toolStripFilters.Renderer = new DockPanelStripRenderer();
             if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.NextError);
             if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.PreviousError);

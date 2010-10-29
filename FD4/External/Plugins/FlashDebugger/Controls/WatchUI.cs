@@ -11,7 +11,7 @@ using Flash.Tools.Debugger.Expression;
 
 namespace FlashDebugger.Controls
 {
-	public partial class WatchUI : DockPanelControl
+	public class WatchUI : DockPanelControl
 	{
 		private DataTreeControl treeControl;
 		private List<String> watches;

@@ -32,6 +32,8 @@ namespace AS3Context.Controls
             openItem.Click += new EventHandler(objectsGrid_Open);
 
             objectsGrid.ContextMenuStrip = new ContextMenuStrip();
+            objectsGrid.ContextMenuStrip.Font = PluginBase.Settings.DefaultFont;
+            objectsGrid.ContextMenuStrip.Renderer = new DockPanelStripRenderer(false);
             objectsGrid.ContextMenuStrip.Items.Add(openItem);
             objectsGrid.DoubleClick += new EventHandler(objectsGrid_Open);
         }

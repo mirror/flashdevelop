@@ -597,6 +597,33 @@ namespace FlashDevelop.Controls
                 e.Graphics.DrawLine(SystemPens.ControlDark, r.Left, r.Top, r.Right, r.Top);
             }
 
+            protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
+            {
+                if (renderer is ToolStripProfessionalRenderer)
+                {
+                    if (e.Item.Selected || ((ToolStripButton)e.Item).Checked)
+                    {
+                        Rectangle rect = new Rectangle(0, 0, e.Item.Width, e.Item.Height);
+                        Rectangle rect2 = new Rectangle(1, 1, e.Item.Width - 2, e.Item.Height - 2);
+                        LinearGradientBrush b = new LinearGradientBrush(rect, DockDrawHelper.ColorSelectedBG_White, DockDrawHelper.ColorSelectedBG_Blue, LinearGradientMode.Vertical);
+                        e.Graphics.FillRectangle(b, rect);
+                        Rectangle rect3 = new Rectangle(rect2.Left - 1, rect2.Top - 1, rect2.Width + 1, rect2.Height + 1);
+                        Rectangle rect4 = new Rectangle(rect3.Left + 1, rect3.Top + 1, rect3.Width - 2, rect3.Height - 2);
+                        e.Graphics.DrawRectangle(new Pen(DockDrawHelper.ColorSelectedBG_Border), rect3);
+                        e.Graphics.DrawRectangle(new Pen(DockDrawHelper.ColorSelectedBG_White), rect4);
+                    }
+                    if (e.Item.Pressed)
+                    {
+                        Rectangle rect = new Rectangle(1, 1, e.Item.Width - 2, e.Item.Height - 2);
+                        LinearGradientBrush b = new LinearGradientBrush(rect, DockDrawHelper.ColorSelectedBG_White, DockDrawHelper.ColorSelectedBG_Blue, LinearGradientMode.Vertical);
+                        e.Graphics.FillRectangle(b, rect);
+                        Rectangle rect2 = new Rectangle(rect.Left - 1, rect.Top - 1, rect.Width + 1, rect.Height + 1);
+                        e.Graphics.DrawRectangle(new Pen(DockDrawHelper.ColorSelectedBG_Border), rect2);
+                    }
+                }
+                else renderer.DrawButtonBackground(e);
+            }
+
             #region Reuse Some Renderer Stuff
 
             protected override void OnRenderGrip(ToolStripGripRenderEventArgs e)
@@ -607,11 +634,6 @@ namespace FlashDevelop.Controls
             protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
             {
                 this.renderer.DrawSeparator(e);
-            }
-
-            protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
-            {
-                this.renderer.DrawButtonBackground(e);
             }
 
             protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)

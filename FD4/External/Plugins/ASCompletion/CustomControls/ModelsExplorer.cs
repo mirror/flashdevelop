@@ -102,7 +102,9 @@ namespace ASCompletion
             InitializeComponent();
             InitializeLocalization();
             this.toolStrip.Font = PluginBase.Settings.DefaultFont;
+            this.toolStrip.Renderer = new DockPanelStripRenderer();
             this.outlineContextMenuStrip.Font = PluginBase.Settings.DefaultFont;
+            this.outlineContextMenuStrip.Renderer = new DockPanelStripRenderer();
             searchButton.Image = PluginBase.MainForm.FindImage("251");
             refreshButton.Image = PluginBase.MainForm.FindImage("24");
             rebuildButton.Image = PluginBase.MainForm.FindImage("153");

@@ -58,6 +58,7 @@ namespace ProjectManager.Controls.TreeView
 
         public ProjectContextMenu()
         {
+            this.Renderer = new DockPanelStripRenderer();
             this.Font = PluginCore.PluginBase.Settings.DefaultFont;
             NothingToDo.Enabled = false;
             NoProjectOutput.Enabled = false;

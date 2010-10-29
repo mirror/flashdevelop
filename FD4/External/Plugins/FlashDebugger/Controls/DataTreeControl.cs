@@ -68,6 +68,7 @@ namespace FlashDebugger.Controls
 			if (PluginBase.MainForm != null && PluginBase.Settings != null)
 			{
 				_contextMenuStrip.Font = PluginBase.Settings.DefaultFont;
+                _contextMenuStrip.Renderer = new DockPanelStripRenderer(false);
 			}
 			_tree.ContextMenuStrip = _contextMenuStrip;
             this.NameTreeColumn.Header = TextHelper.GetString("Label.Name");

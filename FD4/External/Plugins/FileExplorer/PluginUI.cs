@@ -267,6 +267,7 @@ namespace FileExplorer
             this.menu.Items.Add(this.separator);
             this.menu.Items.AddRange(new ToolStripMenuItem[6]{this.runButton, this.editButton, this.copyButton, this.pasteButton, this.renameButton, this.deleteButton});
             this.menu.Font = PluginBase.Settings.DefaultFont;
+            this.menu.Renderer = new DockPanelStripRenderer(false);
             this.fileView.ContextMenuStrip = this.menu;
         }
 

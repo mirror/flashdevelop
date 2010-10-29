@@ -4,7 +4,7 @@ using Flash.Tools.Debugger;
 
 namespace FlashDebugger
 {
-    class StackframeUI : DockPanelControl
+    public class StackframeUI : DockPanelControl
     {
         private ListView lv;
         private ColumnHeader imageColumnHeader;

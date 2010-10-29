@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using PluginCore;
 
 namespace AS3Context.Controls
 {
@@ -35,6 +36,8 @@ namespace AS3Context.Controls
             viewObjectsItem.Click += new EventHandler(onViewObjects);
 
             listView.ContextMenuStrip = new ContextMenuStrip();
+            listView.ContextMenuStrip.Font = PluginBase.Settings.DefaultFont;
+            listView.ContextMenuStrip.Renderer = new DockPanelStripRenderer(false);
             listView.ContextMenuStrip.Items.Add(viewObjectsItem);
 
             listView.DoubleClick += new EventHandler(onViewObjects);

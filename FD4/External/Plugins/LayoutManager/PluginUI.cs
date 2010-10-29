@@ -189,6 +189,7 @@ namespace LayoutManager
             menu.Items.AddRange(new ToolStripMenuItem[4] { this.menuLoadButton, this.menuDeleteButton, this.menuSaveButton, this.menuSettingButton});
             menu.Items.Insert(3, new ToolStripSeparator());
             menu.Font = PluginBase.Settings.DefaultFont;
+            menu.Renderer = new DockPanelStripRenderer(false);
             this.layoutsListView.ContextMenuStrip = menu;
         }
 

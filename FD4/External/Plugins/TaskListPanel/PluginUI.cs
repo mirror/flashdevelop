@@ -197,7 +197,9 @@ namespace TaskListPanel
         private void InitializeContextMenu()
         {
             this.contextMenu = new ContextMenuStrip();
+            this.contextMenu.Renderer = new DockPanelStripRenderer(false);
             this.contextMenu.Font = PluginBase.Settings.DefaultFont;
+            this.statusStrip.Renderer = new DockPanelStripRenderer(false);
             this.statusStrip.Font = PluginBase.Settings.DefaultFont;
             Image image = PluginBase.MainForm.FindImage("66");
             String label = TextHelper.GetString("FlashDevelop.Label.Refresh");
