@@ -215,7 +215,10 @@ namespace FlashDevelop.Docking
             Boolean otherFile = (this.SciControl.FileName != file);
             if (otherFile)
             {
+                String args = this.FileName + ";" + file;
                 RecoveryManager.RemoveTemporaryFile(this.FileName);
+                TextEvent renaming = new TextEvent(EventType.FileRenaming, args);
+                EventManager.DispatchEvent(this, renaming);
                 TextEvent close = new TextEvent(EventType.FileClose, this.FileName);
                 EventManager.DispatchEvent(this, close);
             }

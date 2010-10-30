@@ -124,13 +124,30 @@ namespace DataEncoder
                     }
                     break;
 
-                case EventType.FileSaving:
-                    TextEvent te = (TextEvent)e;
-                    if (this.IsFileOpen(te.Value))
+                case EventType.FileRenaming:
+                    TextEvent re = (TextEvent)e;
+                    String[] files = re.Value.Split(';');
+                    if (this.IsFileOpen(files[0]))
                     {
-                        if (!this.IsXmlSaveable(te.Value))
+                        // Update file path...
+                        foreach (TypeData objType in this.objectTypes)
                         {
-                            te.Handled = true;
+                            if (objType.File == files[0])
+                            {
+                                objType.File = files[1];
+                                break;
+                            }
+                        }
+                    }
+                    break;
+
+                case EventType.FileSaving:
+                    TextEvent se = (TextEvent)e;
+                    if (this.IsFileOpen(se.Value))
+                    {
+                        if (!this.IsXmlSaveable(se.Value))
+                        {
+                            se.Handled = true;
                         }
                     }
                     break;
@@ -151,9 +168,8 @@ namespace DataEncoder
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileSaving);
-            EventManager.AddEventHandler(this, EventType.FileEncode);
-            EventManager.AddEventHandler(this, EventType.FileDecode);
+            EventType events = EventType.FileSaving | EventType.FileEncode | EventType.FileDecode | EventType.FileRenaming;
+            EventManager.AddEventHandler(this, events);
         }
 
         /// <summary>

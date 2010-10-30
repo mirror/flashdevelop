@@ -71,7 +71,7 @@ namespace System.Windows.Forms
             if (e.ToolStrip is ToolStripDropDownMenu)
             {
                 renderer.DrawToolStripBorder(e);
-                if (renderer is ToolStripProfessionalRenderer)
+                if (renderer is ToolStripProfessionalRenderer && e.ConnectedArea.Width > 0)
                 {
                     e.Graphics.DrawLine(SystemPens.ControlLight, e.ConnectedArea.Left, e.ConnectedArea.Top, e.ConnectedArea.Right - 1, e.ConnectedArea.Top);
                 }

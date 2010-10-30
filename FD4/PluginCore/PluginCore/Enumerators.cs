@@ -17,26 +17,27 @@ namespace PluginCore
         FileReload = 1 << 10, // TextEvent (file)
         FileRevert = 1 << 11, // TextEvent (file)
         FileRename = 1 << 12, // TextEvent (old;new)
-        FileEncode = 1 << 13, // DataEvent (file, text)
-        FileDecode = 1 << 14, // DataEvent (file, null)
-        FileEmpty = 1 << 15, // NotifyEvent
-        FileTemplate = 1 << 16, // TextEvent (file)
-        RestoreSession = 1 << 17, // DataEvent (file, session)
-        RestoreLayout = 1 << 18, // TextEvent (file)
-        SyntaxChange = 1 << 19, // TextEvent (language)
-        SyntaxDetect = 1 << 20, // TextEvent (language)
-        UIStarted = 1 << 21, // NotifyEvent
-        UIRefresh = 1 << 22, // NotifyEvent
-        UIClosing = 1 << 23, // NotifyEvent
-        ApplySettings = 1 << 24, // NotifyEvent
-        SettingChanged = 1 << 25, // TextEvent (setting)
-        ProcessArgs = 1 << 26, // TextEvent (content)
-        ProcessStart = 1 << 27, // NotifyEvent
-        ProcessEnd = 1 << 28, // TextEvent (result)
-        StartArgs = 1 << 29, // NotifyEvent
-        Command = 1 << 30, // DataEvent (command)
-        Trace = 1 << 31, // NotifyEvent
-        Keys = 1 << 32, // KeyEvent (keys)
+        FileRenaming = 1 << 13, // TextEvent (old;new)
+        FileEncode = 1 << 14, // DataEvent (file, text)
+        FileDecode = 1 << 15, // DataEvent (file, null)
+        FileEmpty = 1 << 16, // NotifyEvent
+        FileTemplate = 1 << 17, // TextEvent (file)
+        RestoreSession = 1 << 18, // DataEvent (file, session)
+        RestoreLayout = 1 << 19, // TextEvent (file)
+        SyntaxChange = 1 << 20, // TextEvent (language)
+        SyntaxDetect = 1 << 21, // TextEvent (language)
+        UIStarted = 1 << 22, // NotifyEvent
+        UIRefresh = 1 << 23, // NotifyEvent
+        UIClosing = 1 << 24, // NotifyEvent
+        ApplySettings = 1 << 25, // NotifyEvent
+        SettingChanged = 1 << 26, // TextEvent (setting)
+        ProcessArgs = 1 << 27, // TextEvent (content)
+        ProcessStart = 1 << 28, // NotifyEvent
+        ProcessEnd = 1 << 29, // TextEvent (result)
+        StartArgs = 1 << 30, // NotifyEvent
+        Command = 1 << 31, // DataEvent (command)
+        Trace = 1 << 32, // NotifyEvent
+        Keys = 1 << 33, // KeyEvent (keys)
     }
 
     public enum SessionType
