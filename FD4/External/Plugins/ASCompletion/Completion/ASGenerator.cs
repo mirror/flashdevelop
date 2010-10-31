@@ -1506,14 +1506,16 @@ namespace ASCompletion.Completion
             }
             string varName = paramName;
 
+            bool addThis = true;
             if (ASContext.CommonSettings.PrefixFields.Length > 0 && !paramName.StartsWith(ASContext.CommonSettings.PrefixFields))
             {
                 varName = ASContext.CommonSettings.PrefixFields + varName;
+                addThis = ASContext.CommonSettings.GenerateScope;
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("this.")
-                .Append(varName)
+            if (addThis) sb.Append("this.");
+            sb.Append(varName)
                 .Append(" = ")
                 .Append(paramName)
                 .Append(";")
