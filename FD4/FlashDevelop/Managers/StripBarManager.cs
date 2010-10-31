@@ -14,7 +14,7 @@ namespace FlashDevelop.Managers
     {
         public static List<Keys> ShortcutKeys = new List<Keys>();
         public static List<ToolStripItem> Items = new List<ToolStripItem>();
-        
+
         /// <summary>
         /// Finds the tool or menu strip item by name
         /// </summary>
@@ -40,6 +40,21 @@ namespace FlashDevelop.Managers
                 if (item.Name == name) found.Add(item);
             }
             return found;
+        }
+
+        /// <summary>
+        /// Populates the specified list with all items in the menu
+        /// </summary>
+        public static void PopulateMenuList(ToolStripItemCollection children, List<ToolStripItem> all)
+        {
+            foreach (ToolStripItem item in children)
+            {
+                all.Add(item);
+                if (item is ToolStripMenuItem && ((ToolStripMenuItem)item).HasDropDownItems)
+                {
+                    PopulateMenuList(((ToolStripMenuItem)item).DropDownItems, all);
+                }
+            }
         }
 
         /// <summary>

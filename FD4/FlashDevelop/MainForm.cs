@@ -1386,6 +1386,19 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Gets all items from TabMenu, MenuStrip, ToolStrip and EditorMenu
+        /// </summary>
+        public List<ToolStripItem> GetCurrentMenuItems()
+        {
+            List<ToolStripItem> all = new List<ToolStripItem>();
+            StripBarManager.PopulateMenuList(this.TabMenu.Items, all);
+            StripBarManager.PopulateMenuList(this.MenuStrip.Items, all);
+            StripBarManager.PopulateMenuList(this.ToolStrip.Items, all);
+            StripBarManager.PopulateMenuList(this.EditorMenu.Items, all);
+            return all;
+        }
+
+        /// <summary>
         /// Lets you update menu items using the flag functionality
         /// </summary>
         public void AutoUpdateMenuItem(ToolStripItem item, String action)
