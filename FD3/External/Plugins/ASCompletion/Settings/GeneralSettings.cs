@@ -366,6 +366,7 @@ namespace ASCompletion.Settings
         const bool DEFAULT_GENERATE_ADDCLOSINGBRACES = false;
         const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
         const string DEFAULT_GENERATE_PREFIXFIELDS = "_";
+        const bool DEFAULT_GENERATE_SCOPE = false;
 
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
               "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
@@ -378,6 +379,7 @@ namespace ASCompletion.Settings
         private PropertiesGenerationLocations propertiesGenerationLocation;
         private string prefixFields = DEFAULT_GENERATE_PREFIXFIELDS;
         private bool addClosingBraces = DEFAULT_GENERATE_ADDCLOSINGBRACES;
+        private bool generateScope = DEFAULT_GENERATE_SCOPE;
 
         [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -403,6 +405,15 @@ namespace ASCompletion.Settings
         {
             get { return startWithModifiers; }
             set { startWithModifiers = value; }
+        }
+
+        [DisplayName("Generate Explicit Scope")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.GenerateScope"),
+        DefaultValue(DEFAULT_GENERATE_SCOPE)]
+        public bool GenerateScope
+        {
+            get { return generateScope; }
+            set { generateScope = value; }
         }
 
         [DisplayName("Properties Generation Location")]

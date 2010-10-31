@@ -4198,4 +4198,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>FlashDevelop Profiler</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="ASCompletion.Description.GenerateScope" xml:space="preserve">
+    <value>Generate explicit scope reference - typically 'this' keyword.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
 </root>
