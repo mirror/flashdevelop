@@ -5,39 +5,41 @@ namespace PluginCore
     [Flags]
     public enum EventType : long
     {
-        FileNew = 1 << 1, // TextEvent (file)
-        FileOpen = 1 << 2, // TextEvent (file)
-        FileOpening = 1 << 3, // TextEvent (file)
-        FileClose = 1 << 4, // TextEvent (file)
-        FileSwitch = 1 << 5, // NotifyEvent
-        FileModify = 1 << 6, // TextEvent (file)
-        FileModifyRO = 1 << 7, // TextEvent (file)
-        FileSave = 1 << 8, // TextEvent (file)
-        FileSaving = 1 << 9, // TextEvent (file)
-        FileReload = 1 << 10, // TextEvent (file)
-        FileRevert = 1 << 11, // TextEvent (file)
-        FileRename = 1 << 12, // TextEvent (old;new)
-        FileRenaming = 1 << 13, // TextEvent (old;new)
-        FileEncode = 1 << 14, // DataEvent (file, text)
-        FileDecode = 1 << 15, // DataEvent (file, null)
-        FileEmpty = 1 << 16, // NotifyEvent
-        FileTemplate = 1 << 17, // TextEvent (file)
-        RestoreSession = 1 << 18, // DataEvent (file, session)
-        RestoreLayout = 1 << 19, // TextEvent (file)
-        SyntaxChange = 1 << 20, // TextEvent (language)
-        SyntaxDetect = 1 << 21, // TextEvent (language)
-        UIStarted = 1 << 22, // NotifyEvent
-        UIRefresh = 1 << 23, // NotifyEvent
-        UIClosing = 1 << 24, // NotifyEvent
-        ApplySettings = 1 << 25, // NotifyEvent
-        SettingChanged = 1 << 26, // TextEvent (setting)
-        ProcessArgs = 1 << 27, // TextEvent (content)
-        ProcessStart = 1 << 28, // NotifyEvent
-        ProcessEnd = 1 << 29, // TextEvent (result)
-        StartArgs = 1 << 30, // NotifyEvent
-        Command = 1 << 31, // DataEvent (command)
-        Trace = 1 << 32, // NotifyEvent
-        Keys = 1 << 33, // KeyEvent (keys)
+        // You can copy new values from:
+        // http://stackoverflow.com/questions/1060760/what-to-do-when-bit-mask-flags-enum-gets-too-large
+        FileNew = 1, // TextEvent (file)
+        FileOpen = 2, // TextEvent (file)
+        FileOpening = 4, // TextEvent (file)
+        FileClose = 8, // TextEvent (file)
+        FileSwitch = 16, // NotifyEvent
+        FileModify = 32, // TextEvent (file)
+        FileModifyRO = 64, // TextEvent (file)
+        FileSave = 128, // TextEvent (file)
+        FileSaving = 256, // TextEvent (file)
+        FileReload = 512, // TextEvent (file)
+        FileRevert = 1024, // TextEvent (file)
+        FileRename = 2048, // TextEvent (old;new)
+        FileRenaming = 4096, // TextEvent (old;new)
+        FileEncode = 8192, // DataEvent (file, text)
+        FileDecode = 16384, // DataEvent (file, null)
+        FileEmpty = 32768, // NotifyEvent
+        FileTemplate = 65536, // TextEvent (file)
+        RestoreSession = 131072, // DataEvent (file, session)
+        RestoreLayout = 262144, // TextEvent (file)
+        SyntaxChange = 524288, // TextEvent (language)
+        SyntaxDetect = 1048576, // TextEvent (language)
+        UIStarted = 2097152, // NotifyEvent
+        UIRefresh = 4194304, // NotifyEvent
+        UIClosing = 8388608, // NotifyEvent
+        ApplySettings = 16777216, // NotifyEvent
+        SettingChanged = 33554432, // TextEvent (setting)
+        ProcessArgs = 67108864, // TextEvent (content)
+        ProcessStart = 134217728, // NotifyEvent
+        ProcessEnd = 268435456, // TextEvent (result)
+        StartArgs = 536870912, // NotifyEvent
+        Command = 1073741824, // DataEvent (command)
+        Trace = 2147483648, // NotifyEvent
+        Keys = 4294967296 // KeyEvent (keys)
     }
 
     public enum SessionType
