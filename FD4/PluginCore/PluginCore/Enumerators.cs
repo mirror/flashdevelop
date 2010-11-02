@@ -37,9 +37,10 @@ namespace PluginCore
         ProcessStart = 134217728, // NotifyEvent
         ProcessEnd = 268435456, // TextEvent (result)
         StartArgs = 536870912, // NotifyEvent
-        Command = 1073741824, // DataEvent (command)
-        Trace = 2147483648, // NotifyEvent
-        Keys = 4294967296 // KeyEvent (keys)
+        Shortcut = 1073741824, // DataEvent (id, keys)
+        Command = 2147483648, // DataEvent (command)
+        Trace = 4294967296, // NotifyEvent
+        Keys = 8589934592 // KeyEvent (keys)
     }
 
     public enum SessionType

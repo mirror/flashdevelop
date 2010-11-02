@@ -95,6 +95,7 @@
     <Compile Include="Managers\FilePollManager.cs" />
     <Compile Include="Managers\MarkerManager.cs" />
     <Compile Include="Managers\OldTabsManager.cs" />
+    <Compile Include="Managers\ShortcutManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\Browser.cs">
       <SubType>UserControl</SubType>

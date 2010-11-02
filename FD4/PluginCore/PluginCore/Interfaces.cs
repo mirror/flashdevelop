@@ -96,6 +96,7 @@ namespace PluginCore
         void ShowErrorDialog(Object sender, Exception ex);
         void ShowSettingsDialog(String itemName, String filter);
         void AutoUpdateMenuItem(ToolStripItem item, String action);
+        void RegisterShortcutItem(String key, ToolStripMenuItem item);
         void FileFromTemplate(String templatePath, String newFilePath);
         DockContent OpenEditableDocument(String file, Boolean restoreFileState);
         DockContent OpenEditableDocument(String file);
@@ -289,13 +290,24 @@ namespace PluginCore
     
     public class ItemData
     {
+        private String id = String.Empty;
         private String tag = String.Empty;
         private String flags = String.Empty;
 
-        public ItemData(String tag, String flags)
+        public ItemData(String id, String tag, String flags)
         {
+            if (id != null) this.id = id;
             if (tag != null) this.tag = tag;
             if (flags != null) this.flags = flags;
+        }
+
+        /// <summary>
+        /// Gets and sets the id
+        /// </summary> 
+        public String Id
+        {
+            get { return this.id; }
+            set { this.id = value; }
         }
 
         /// <summary>

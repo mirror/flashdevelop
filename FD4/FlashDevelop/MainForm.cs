@@ -236,7 +236,7 @@ namespace FlashDevelop
         /// </summary>
         public List<Keys> IgnoredKeys
         {
-            get { return StripBarManager.ShortcutKeys; }
+            get { return ShortcutManager.AllShortcuts; }
         }
 
         /// <summary>
@@ -833,7 +833,7 @@ namespace FlashDevelop
             this.AllowDrop = true;
             this.Name = "MainForm";
             this.Text = "FlashDevelop";
-            this.Size = new Size(500, 350);
+            this.Size = new Size(800, 600);
             this.Controls.Add(this.dockPanel);
             this.Controls.Add(this.toolStripPanel);
             this.Controls.Add(this.statusStrip);
@@ -947,6 +947,10 @@ namespace FlashDevelop
             * Start polling for file changes outside of the editor
             */
             FilePollManager.InitializePolling();
+            /**
+            * Apply all shortcuts to the items
+            */ 
+            ShortcutManager.ApplyAllShortcuts();
         }
 
         /// <summary>
@@ -1408,6 +1412,14 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Registers a new menu item with the shortcut manager
+        /// </summary>
+        public void RegisterShortcutItem(String key,  ToolStripMenuItem item)
+        {
+            ShortcutManager.RegisterItem(key, item);
+        }
+
+        /// <summary>
         /// Finds the specified composed/ready image
         /// </summary>
         public Image FindImage(String data)
@@ -1557,6 +1569,7 @@ namespace FlashDevelop
             this.toolStrip.Visible = this.appSettings.ViewToolBar;
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
             ButtonManager.UpdateFlaggedButtons();
+            ShortcutManager.ApplyAllShortcuts();
         }
 
         /// <summary>
@@ -2995,7 +3008,7 @@ namespace FlashDevelop
                 System.Reflection.MethodInfo method = mfType.GetMethod(name);
                 if (method == null) throw new MethodAccessException();
                 ToolStripMenuItem button = new ToolStripMenuItem();
-                button.Tag = new ItemData(tag, null); // Tag is used for args
+                button.Tag = new ItemData(null, tag, null); // Tag is used for args
                 Object[] parameters = new Object[2];
                 parameters[0] = button; parameters[1] = null;
                 method.Invoke(this, parameters);
