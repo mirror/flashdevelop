@@ -426,12 +426,16 @@ namespace CodeRefactor
                     cm.Members.Sort();
                     foreach (MemberModel m in cm.Members)
                     {
-                        if ((m.Flags & FlagType.Function) > 0
+                        if (((m.Flags & FlagType.Function) > 0 || (m.Flags & FlagType.Getter) > 0 || (m.Flags & FlagType.Setter) > 0)
                             && (m.Access & Visibility.Public) > 0
                             && (m.Flags & FlagType.Constructor) == 0
                             && (m.Flags & FlagType.Static) == 0)
                         {
                             name = m.Name;
+                            if ((m.Flags & FlagType.Getter) > 0)
+                                name = "get " + name;
+                            if ((m.Flags & FlagType.Setter) > 0)
+                                name = "set " + name;
                             if (!memberNames.Contains(name))
                             {
                                 memberNames.Add(name);

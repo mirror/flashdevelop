@@ -66,6 +66,7 @@ namespace ASCompletion.Model
             }
 			copy.Type = Type;
 			copy.Comments = Comments;
+            copy.Value = Value;
 			return copy;
 		}
 		

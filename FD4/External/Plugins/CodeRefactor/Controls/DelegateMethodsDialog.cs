@@ -6,6 +6,8 @@ using PluginCore.Localization;
 using ASCompletion.Model;
 using PluginCore.Controls;
 using PluginCore;
+using ASCompletion.Completion;
+using PluginCore.Helpers;
 
 namespace CodeRefactor.Controls
 {
@@ -120,7 +122,19 @@ namespace CodeRefactor.Controls
                     separatorInserted = qname;
                     items.Add("--- " + qname);
                 }
-                label = member.ToDeclarationString();
+                label = TemplateUtils.ToDeclarationString(member, TemplateUtils.GetTemplate("MethodDeclaration"));
+                label = label.Replace(SnippetHelper.BOUNDARY, "")
+                    .Replace(SnippetHelper.ENTRYPOINT, "")
+                    .Replace(SnippetHelper.EXITPOINT, "");
+                if ((member.Flags & FlagType.Getter) > 0) 
+                {
+                    label = "get " + label;
+                }
+                else if ((member.Flags & FlagType.Setter) > 0) 
+                {
+                    label = "set " + label;
+                }
+                
                 items.Add(label, false);
                 members2.Add(label, member);
             }

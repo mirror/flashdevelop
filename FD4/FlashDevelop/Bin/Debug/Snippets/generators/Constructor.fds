@@ -1,0 +1,3 @@
+$(modifiers) function $(name)($(arguments)) $(CSLB){
+	super($(EntryPoint));
+}

@@ -1,0 +1,3 @@
+($(arguments)):$(type) $(CSLB){
+	$(EntryPoint)$(method)
+}

@@ -1,0 +1,3 @@
+$(modifiers) function $(name)(e:$(type)):$(void) $(CSLB){
+	$(EntryPoint)
+}

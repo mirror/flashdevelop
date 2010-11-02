@@ -63,7 +63,11 @@ namespace CodeRefactor.Commands
                 }
 
                 string selText = Sci.SelText;
-                Sci.ReplaceSel(NewName + "();");
+                string template = TemplateUtils.GetTemplate("CallFunction");
+                template = TemplateUtils.ReplaceTemplateVariable(template, "name", NewName);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "arguments", "");
+
+                Sci.ReplaceSel(template + ";");
 
                 cFile = ASContext.Context.CurrentModel;
                 ASFileParser parser = new ASFileParser();
@@ -80,23 +84,19 @@ namespace CodeRefactor.Commands
                 int position = Sci.PositionFromLine(found.member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                 Sci.SetSel(position, position);
 
-                StringBuilder sb = new StringBuilder();
-                sb.Append("$(Boundary)\n\n");
+                FlagType flags = FlagType.Function;
                 if ((found.member.Flags & FlagType.Static) > 0)
                 {
-                    sb.Append("static ");
+                    flags |= FlagType.Static;
                 }
-                sb.Append(ASGenerator.GetPrivateKeyword());
-                sb.Append(" function ");
-                sb.Append(NewName);
-                sb.Append("():");
-                sb.Append(isAs3 ? "void " : "Void ");
-                sb.Append("$(CSLB){\n\t");
-                sb.Append(selText);
-                sb.Append("$(EntryPoint)");
-                sb.Append("\n}\n$(Boundary)");
 
-                ASGenerator.InsertCode(position, sb.ToString());
+                MemberModel m = new MemberModel(NewName, isAs3 ? "void" : "Void", flags, ASGenerator.GetDefaultVisibility());
+
+                template = TemplateUtils.GetTemplate("Function");
+                template = TemplateUtils.ToDeclarationWithModifiersString(m, template);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "body", selText);
+
+                ASGenerator.InsertCode(position, "$(Boundary)\n\n" + template + "$(Boundary)");
             }
             finally
             {
