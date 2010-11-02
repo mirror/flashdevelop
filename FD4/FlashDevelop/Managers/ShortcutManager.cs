@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
+using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using PluginCore.Managers;
 using PluginCore;
-using System.Collections;
 
 namespace FlashDevelop.Managers
 {
