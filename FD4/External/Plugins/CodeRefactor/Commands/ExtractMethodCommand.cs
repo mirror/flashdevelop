@@ -67,7 +67,7 @@ namespace CodeRefactor.Commands
                 template = TemplateUtils.ReplaceTemplateVariable(template, "name", NewName);
                 template = TemplateUtils.ReplaceTemplateVariable(template, "arguments", "");
 
-                Sci.ReplaceSel(template + ";");
+                ASGenerator.InsertCode(Sci.CurrentPos, template + ";");
 
                 cFile = ASContext.Context.CurrentModel;
                 ASFileParser parser = new ASFileParser();

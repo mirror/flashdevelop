@@ -62,17 +62,25 @@ namespace ASCompletion.Completion
         public static string ToDeclarationString(MemberModel m, string template)
         {
             // Insert Name
-            string res = ReplaceTemplateVariable(template, "name", m.Name);
+            if (m.Name != null)
+                template = ReplaceTemplateVariable(template, "name", m.Name);
+            else
+                template = ReplaceTemplateVariable(template, "name", null);
 
             // If method, insert arguments
-            res = ReplaceTemplateVariable(res, "arguments", ParametersString(m, true));
+            template = ReplaceTemplateVariable(template, "arguments", ParametersString(m, true));
 
             if (m.Type != null && m.Type.Length > 0)
-                res = ReplaceTemplateVariable(res, "type", FormatType(m.Type));
+                template = ReplaceTemplateVariable(template, "type", FormatType(m.Type));
             else
-                res = ReplaceTemplateVariable(res, "type", null);
+                template = ReplaceTemplateVariable(template, "type", null);
 
-            return res;
+            if (m.Value != null)
+                template = ReplaceTemplateVariable(template, "value", m.Value);
+            else
+                template = ReplaceTemplateVariable(template, "value", null);
+
+            return template;
         }
 
         public static string ParametersString(MemberModel member, bool formated)

@@ -101,7 +101,12 @@ namespace CodeRefactor.Commands
                 Sci.CurrentPos = funcBodyStart;
                 Sci.SetSel(Sci.CurrentPos, Sci.CurrentPos);
 
-                string snippet = "var " + NewName + ":$(EntryPoint) = " + expression + ";\n$(Boundary)";
+                MemberModel m = new MemberModel(NewName, "", FlagType.LocalVar, 0);
+                m.Value = expression;
+
+                string snippet = TemplateUtils.GetTemplate("Variable");
+                snippet = TemplateUtils.ReplaceTemplateVariable(snippet, "modifiers", null);
+                snippet = TemplateUtils.ToDeclarationString(m, snippet);
                 SnippetHelper.InsertSnippetText(Sci, Sci.CurrentPos, snippet);
             }
             finally
