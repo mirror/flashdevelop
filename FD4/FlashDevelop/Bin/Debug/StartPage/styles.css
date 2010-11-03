@@ -17,9 +17,9 @@ hr
 body 
 {
 	background-color: #FEFFF9;
-	background-image: url(images/pageBackground.jpg);
-	background-repeat: repeat-x;
-	background-position: top;
+	background-image: url(images/wrapperBackgroundLogo.jpg);
+	background-repeat: no-repeat;
+	background-position: right top;
 	padding: 0px;
 	margin: 0px;
 }
@@ -35,9 +35,6 @@ a:hover
 }
 div#wrapper 
 {
-	background-image: url(images/wrapperBackgroundLogo.jpg);
-	background-repeat: no-repeat;
-	background-position: right top;
 	margin-bottom: 50px;
 	height: 300px;
 }
@@ -45,8 +42,8 @@ div#title
 {
 	background-image: url(images/pageTitle.gif);
 	background-repeat: no-repeat;
-	background-position: 20px 70px;
-	height: 105px;
+	background-position: 20px 40px;
+	height: 75px;
 	width: 300px;
 	clear: both;
 }
@@ -126,6 +123,7 @@ div#rssContent li span a:hover
 {
 	padding: 0px;
 	text-align: left;
+	background-color: #FFFFFF;
 	width: 100%;
 }
 .windowTopLeft 

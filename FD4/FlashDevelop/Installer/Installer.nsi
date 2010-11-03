@@ -9,7 +9,7 @@
 
 ; Define version info
 !define VERSION "4.0.0"
-!define BUILD "Alpha"
+!define BUILD "Beta"
 
 ; Define Flex SDK version
 !define FLEX "4.1.0.16076"

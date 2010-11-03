@@ -15,8 +15,8 @@ namespace StartPage.Controls
             this.AutoSize = false;
             this.AllowDrop = true;
             this.DragOver += new DragEventHandler(this.PanelDragOver);
-            this.DragDrop += new DragEventHandler(this.PanelDragDrop);
-            this.Width = 105;
+            this.DragDrop += new DragEventHandler(this.PanelDragDrop); 
+            this.Height = 75;
         }
 
         /// <summary>
