@@ -16,9 +16,9 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Registers a shortcut item
         /// </summary>
-        public static void RegisterItem(String key, ToolStripMenuItem item)
+        public static void RegisterItem(String key, String location, ToolStripMenuItem item)
         {
-            ShortcutItem registered = new ShortcutItem(key, item);
+            ShortcutItem registered = new ShortcutItem(key, location, item);
             RegistedItems.Add(registered);
         }
 
@@ -47,19 +47,6 @@ namespace FlashDevelop.Managers
                 keys.Add(item.Item.ShortcutKeys);
             }
             return AllShortcuts = keys;
-        }
-
-    }
-
-    class ShortcutItem
-    {
-        public String Key;
-        public ToolStripMenuItem Item;
-
-        public ShortcutItem(String key, ToolStripMenuItem Item)
-        {
-            this.Key = key;
-            this.Item = Item;
         }
 
     }

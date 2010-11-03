@@ -1416,7 +1416,16 @@ namespace FlashDevelop
         /// </summary>
         public void RegisterShortcutItem(String key,  ToolStripMenuItem item)
         {
-            ShortcutManager.RegisterItem(key, item);
+            String location = Assembly.GetCallingAssembly().GetName().Name;
+            ShortcutManager.RegisterItem(key, location, item);
+        }
+
+        /// <summary>
+        /// Registers a new menu item with the shortcut manager
+        /// </summary>
+        public List<ShortcutItem> GetRegisteredShortcutItems()
+        {
+            return ShortcutManager.RegistedItems;
         }
 
         /// <summary>

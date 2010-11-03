@@ -210,7 +210,7 @@ namespace FlashDevelop.Managers
             if (shortcut != null)
             {
                 menu.ShortcutKeys = GetKeys(shortcut);
-                ShortcutManager.RegisterItem("FlashDevelop." + label, menu);
+                Globals.MainForm.RegisterShortcutItem(label, menu);
             }
             Items.Add(menu);
             return menu;

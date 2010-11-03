@@ -105,6 +105,7 @@ namespace PluginCore
 		DockContent CreateDockablePanel(Control form, String guid, Image image, DockState defaultDockState);
         Boolean CallCommand(String command, String arguments);
         List<ToolStripItem> FindMenuItemsByName(String name);
+        List<ShortcutItem> GetRegisteredShortcutItems();
         List<ToolStripItem> GetCurrentMenuItems();
         ToolStripItem FindMenuItem(String name);
         String ProcessArgString(String args);
@@ -290,42 +291,30 @@ namespace PluginCore
     
     public class ItemData
     {
-        private String id = String.Empty;
-        private String tag = String.Empty;
-        private String flags = String.Empty;
+        public String Id = String.Empty;
+        public String Tag = String.Empty;
+        public String Flags = String.Empty;
 
         public ItemData(String id, String tag, String flags)
         {
-            if (id != null) this.id = id;
-            if (tag != null) this.tag = tag;
-            if (flags != null) this.flags = flags;
+            if (id != null) this.Id = id;
+            if (tag != null) this.Tag = tag;
+            if (flags != null) this.Flags = flags;
         }
 
-        /// <summary>
-        /// Gets and sets the id
-        /// </summary> 
-        public String Id
-        {
-            get { return this.id; }
-            set { this.id = value; }
-        }
+    }
 
-        /// <summary>
-        /// Gets and sets the tag
-        /// </summary> 
-        public String Tag
-        {
-            get { return this.tag; }
-            set { this.tag = value; }
-        }
+    public class ShortcutItem
+    {
+        public String Key = String.Empty;
+        public String Location = String.Empty;
+        public ToolStripMenuItem Item = null;
 
-        /// <summary>
-        /// Gets and sets the flags
-        /// </summary> 
-        public String Flags
+        public ShortcutItem(String key, String location, ToolStripMenuItem Item)
         {
-            get { return this.flags; }
-            set { this.flags = value; }
+            this.Key = key;
+            this.Item = Item;
+            this.Location = location;
         }
 
     }
