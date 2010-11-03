@@ -491,6 +491,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 			m_toolTip = new ToolTip(Components);
             m_selectMenu = new ContextMenuStrip(Components);
             m_selectMenu.Font = PluginCore.PluginBase.Settings.DefaultFont;
+            m_selectMenu.Renderer = new DockPanelStripRenderer(false);
 
 			ResumeLayout();
 		}

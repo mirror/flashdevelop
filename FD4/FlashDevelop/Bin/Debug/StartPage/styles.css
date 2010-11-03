@@ -17,9 +17,9 @@ hr
 body 
 {
 	background-color: #FEFFF9;
-	background-image: url(images/wrapperBackgroundLogo.jpg);
-	background-repeat: no-repeat;
-	background-position: right top;
+	background-image: url(images/pageHeader.jpg);
+	background-repeat: repeat-x;
+	background-position: top;
 	padding: 0px;
 	margin: 0px;
 }
@@ -35,6 +35,9 @@ a:hover
 }
 div#wrapper 
 {
+	background-image: url(images/wrapperBackgroundLogo.jpg);
+	background-repeat: no-repeat;
+	background-position: right top;	
 	margin-bottom: 50px;
 	height: 300px;
 }
