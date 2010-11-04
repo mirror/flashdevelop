@@ -1,9 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ASCompletion.Model;
 using PluginCore.Helpers;
+using PluginCore;
 
 namespace ASCompletion.Completion
 {
@@ -175,20 +176,14 @@ namespace ASCompletion.Completion
         /// </summary>
         public static string GetTemplate(string name)
         {
-            string path = Path.Combine(PathHelper.SnippetDir, generators_folder);
+            string lang = PluginBase.MainForm.CurrentDocument.SciControl.ConfigurationLanguage.ToLower();
+            string path = Path.Combine(PathHelper.SnippetDir, lang);
+            path = Path.Combine(path, generators_folder);
             path = Path.Combine(path, name + ".fds");
-            if (!File.Exists(path))
-            {
-                path = Path.Combine(PathHelper.SnippetDir, PluginCore.PluginBase.MainForm.CurrentDocument.SciControl.ConfigurationLanguage);
-                path = Path.Combine(path, generators_folder);
-                path = Path.Combine(path, name + ".fds");
-                if (!File.Exists(path))
-                    return "";
-            }
+            if (!File.Exists(path)) return "";
 
             Stream src = File.OpenRead(path);
-            if (src == null) 
-                return "";
+            if (src == null) return "";
 
             String content;
             using (StreamReader sr = new StreamReader(src))

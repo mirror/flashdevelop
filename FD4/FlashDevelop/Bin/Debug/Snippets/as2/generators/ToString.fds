@@ -1,0 +1,3 @@
+$(modifiers) function $(name)():String $(CSLB){
+	return $(body);$(EntryPoint)
+}

@@ -1,0 +1,1 @@
+function $(name)($(arguments)):$(type);$(EntryPoint)

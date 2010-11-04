@@ -1,0 +1,1 @@
+$(modifiers) const $(name):$(type)<< = $(value)>>$(EntryPoint);

@@ -1,0 +1,3 @@
+$(modifiers) function $(name)($(arguments))<<:$(type)>> $(CSLB){
+	<<$(return) >>$(body)
+}
