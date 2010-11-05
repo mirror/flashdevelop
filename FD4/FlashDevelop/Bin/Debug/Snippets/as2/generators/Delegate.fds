@@ -1,3 +1,3 @@
-$(modifiers) function $(name)():$(void) $(CSLB){
+$(Modifiers) function $(Name)():$(Void) $(CSLB){
 	$(EntryPoint)
 }

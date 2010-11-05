@@ -52,7 +52,7 @@ namespace ASCompletion.Completion
                 methodModifiers = (GetStaticExternOverride(m) + GetModifiers(m)).Trim();
 
             // Insert Modifiers (private, static, etc)
-            string res = ReplaceTemplateVariable(template, "modifiers", methodModifiers);
+            string res = ReplaceTemplateVariable(template, "Modifiers", methodModifiers);
 
             // Insert Declaration
             res = ToDeclarationString(m, res);
@@ -64,22 +64,22 @@ namespace ASCompletion.Completion
         {
             // Insert Name
             if (m.Name != null)
-                template = ReplaceTemplateVariable(template, "name", m.Name);
+                template = ReplaceTemplateVariable(template, "Name", m.Name);
             else
-                template = ReplaceTemplateVariable(template, "name", null);
+                template = ReplaceTemplateVariable(template, "Name", null);
 
             // If method, insert arguments
-            template = ReplaceTemplateVariable(template, "arguments", ParametersString(m, true));
+            template = ReplaceTemplateVariable(template, "Arguments", ParametersString(m, true));
 
             if (m.Type != null && m.Type.Length > 0)
-                template = ReplaceTemplateVariable(template, "type", FormatType(m.Type));
+                template = ReplaceTemplateVariable(template, "Type", FormatType(m.Type));
             else
-                template = ReplaceTemplateVariable(template, "type", null);
+                template = ReplaceTemplateVariable(template, "Type", null);
 
             if (m.Value != null)
-                template = ReplaceTemplateVariable(template, "value", m.Value);
+                template = ReplaceTemplateVariable(template, "Value", m.Value);
             else
-                template = ReplaceTemplateVariable(template, "value", null);
+                template = ReplaceTemplateVariable(template, "Value", null);
 
             return template;
         }
@@ -96,21 +96,21 @@ namespace ASCompletion.Completion
                     string one = template;
 
                     if (i + 1 < member.Parameters.Count)
-                        one = ReplaceTemplateVariable(one, "p_comma", ",");
+                        one = ReplaceTemplateVariable(one, "PComma", ",");
                     else
-                        one = ReplaceTemplateVariable(one, "p_comma", null);
+                        one = ReplaceTemplateVariable(one, "PComma", null);
 
-                    one = ReplaceTemplateVariable(one, "p_name", param.Name);
+                    one = ReplaceTemplateVariable(one, "PName", param.Name);
 
                     if (param.Type != null && param.Type.Length > 0)
-                        one = ReplaceTemplateVariable(one, "p_type", formated ? FormatType(param.Type) : param.Type);
+                        one = ReplaceTemplateVariable(one, "PType", formated ? FormatType(param.Type) : param.Type);
                     else
-                        one = ReplaceTemplateVariable(one, "p_type", null);
+                        one = ReplaceTemplateVariable(one, "PType", null);
 
                     if (param.Value != null)
-                        one = ReplaceTemplateVariable(one, "p_default_value", param.Value.Trim());
+                        one = ReplaceTemplateVariable(one, "PDefaultValue", param.Value.Trim());
                     else
-                        one = ReplaceTemplateVariable(one, "p_default_value", null);
+                        one = ReplaceTemplateVariable(one, "PDefaultValue", null);
 
                     res += one;
                 }
@@ -130,14 +130,14 @@ namespace ASCompletion.Completion
                     string one = template;
 
                     if (i + 1 < member.Parameters.Count)
-                        one = ReplaceTemplateVariable(one, "p_comma", ",");
+                        one = ReplaceTemplateVariable(one, "PComma", ",");
                     else
-                        one = ReplaceTemplateVariable(one, "p_comma", null);
+                        one = ReplaceTemplateVariable(one, "PComma", null);
 
-                    one = ReplaceTemplateVariable(one, "p_name", param.Name);
+                    one = ReplaceTemplateVariable(one, "PName", param.Name);
 
-                    one = ReplaceTemplateVariable(one, "p_type", null);
-                    one = ReplaceTemplateVariable(one, "p_default_value", null);
+                    one = ReplaceTemplateVariable(one, "PType", null);
+                    one = ReplaceTemplateVariable(one, "PDefaultValue", null);
 
                     res += one;
                 }

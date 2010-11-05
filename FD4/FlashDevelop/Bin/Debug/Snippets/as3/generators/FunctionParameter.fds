@@ -1,1 +1,1 @@
-$(p_name)<<:$(p_type)>><< = $(p_default_value)>><<$(p_comma) >>
+$(PName)<<:$(PType)>><< = $(PDefaultValue)>><<$(PComma) >>

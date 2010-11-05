@@ -64,8 +64,8 @@ namespace CodeRefactor.Commands
 
                 string selText = Sci.SelText;
                 string template = TemplateUtils.GetTemplate("CallFunction");
-                template = TemplateUtils.ReplaceTemplateVariable(template, "name", NewName);
-                template = TemplateUtils.ReplaceTemplateVariable(template, "arguments", "");
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Name", NewName);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Arguments", "");
 
                 ASGenerator.InsertCode(Sci.CurrentPos, template + ";");
 
@@ -94,7 +94,7 @@ namespace CodeRefactor.Commands
 
                 template = TemplateUtils.GetTemplate("Function");
                 template = TemplateUtils.ToDeclarationWithModifiersString(m, template);
-                template = TemplateUtils.ReplaceTemplateVariable(template, "body", selText);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Body", selText);
 
                 ASGenerator.InsertCode(position, "$(Boundary)\n\n" + template + "$(Boundary)");
             }

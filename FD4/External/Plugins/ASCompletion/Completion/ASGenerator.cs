@@ -1049,14 +1049,14 @@ namespace ASCompletion.Completion
             string template = TemplateUtils.GetTemplate("AssignVariable");
 
             if (varname != null)
-                template = TemplateUtils.ReplaceTemplateVariable(template, "name", varname);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Name", varname);
             else
-                template = TemplateUtils.ReplaceTemplateVariable(template, "name", null);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Name", null);
 
             if (cleanType != null)
-                template = TemplateUtils.ReplaceTemplateVariable(template, "type", cleanType);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Type", cleanType);
             else
-                template = TemplateUtils.ReplaceTemplateVariable(template, "type", null);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Type", null);
 
             int indent = Sci.GetLineIndentation(lineNum);
             pos = Sci.PositionFromLine(lineNum) + indent / Sci.Indent;
@@ -1145,8 +1145,8 @@ namespace ASCompletion.Completion
             }
 
             string template = TemplateUtils.GetTemplate("EventMetatag");
-            template = TemplateUtils.ReplaceTemplateVariable(template, "name", value);
-            template = TemplateUtils.ReplaceTemplateVariable(template, "type", contextParam);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Name", value);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Type", contextParam);
             template += "\n$(Boundary)";
 
             AddLookupPosition();
@@ -1510,8 +1510,8 @@ namespace ASCompletion.Completion
             }
 
             string template = TemplateUtils.GetTemplate("FieldFromParameter");
-            template = TemplateUtils.ReplaceTemplateVariable(template, "name", varName);
-            template = TemplateUtils.ReplaceTemplateVariable(template, "value", paramName);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Name", varName);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Value", paramName);
             template += "\n$(Boundary)";
 
             SnippetHelper.InsertSnippetText(Sci, funcBodyStart, template);
@@ -1665,7 +1665,7 @@ namespace ASCompletion.Completion
 
             string template = TemplateUtils.GetTemplate("ToString");
             string result = TemplateUtils.ToDeclarationWithModifiersString(resultMember, template);
-            result = TemplateUtils.ReplaceTemplateVariable(result, "body", "\"[" + inClass.Name + membersString.ToString() + "]\"");
+            result = TemplateUtils.ReplaceTemplateVariable(result, "Body", "\"[" + inClass.Name + membersString.ToString() + "]\"");
 
             InsertCode(Sci.CurrentPos, result);
         }
@@ -2556,7 +2556,7 @@ namespace ASCompletion.Completion
         {
             List<string> typesUsed = new List<string>();
 
-            StringBuilder sb = new StringBuilder(TemplateUtils.ReplaceTemplateVariable(TemplateUtils.GetTemplate("ImplementHeader"), "class", aType.Type));
+            StringBuilder sb = new StringBuilder(TemplateUtils.ReplaceTemplateVariable(TemplateUtils.GetTemplate("ImplementHeader"), "Class", aType.Type));
             bool entry = true;
             ASResult result = new ASResult();
             IASContext context = ASContext.Context;
@@ -2578,9 +2578,9 @@ namespace ASCompletion.Completion
                     ASComplete.FindMember(method.Name, cClass, result, method.Flags, 0);
                     if (!result.IsNull()) continue;
 
-                    string decl = TemplateUtils.ReplaceTemplateVariable(template, "declaration", 
+                    string decl = TemplateUtils.ReplaceTemplateVariable(template, "Declaration", 
                         TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Function")));
-                    decl = TemplateUtils.ReplaceTemplateVariable(decl, "body", null);
+                    decl = TemplateUtils.ReplaceTemplateVariable(decl, "Body", null);
 
                     if (!entry)
                     {
@@ -2691,7 +2691,7 @@ namespace ASCompletion.Completion
             {
                 template = TemplateUtils.GetTemplate("Function");
                 result = TemplateUtils.ToDeclarationWithModifiersString(member, template);
-                result = TemplateUtils.ReplaceTemplateVariable(result, "body", null);
+                result = TemplateUtils.ReplaceTemplateVariable(result, "Body", null);
             }
 
             if (detach) result = BlankLine + result;
@@ -2711,9 +2711,9 @@ namespace ASCompletion.Completion
                 string template = TemplateUtils.GetTemplate("Constant");
                 result = TemplateUtils.ToDeclarationWithModifiersString(member, template);
                 if (member.Value == null) 
-                    result = TemplateUtils.ReplaceTemplateVariable(result, "value", null);
+                    result = TemplateUtils.ReplaceTemplateVariable(result, "Value", null);
                 else
-                    result = TemplateUtils.ReplaceTemplateVariable(result, "value", member.Value);
+                    result = TemplateUtils.ReplaceTemplateVariable(result, "Value", member.Value);
             }
             else
             {
@@ -2838,9 +2838,9 @@ namespace ASCompletion.Completion
         {
             string acc = GetPrivateAccessor(afterMethod);
             string template = TemplateUtils.GetTemplate("Delegate");
-            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "modifiers", acc);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "name", name);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "void", ASContext.Context.Features.voidKey);
+            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey);
             InsertCode(position, decl);
         }
 
@@ -2866,10 +2866,10 @@ namespace ASCompletion.Completion
                 }
                 string acc = GetPrivateAccessor(afterMethod);
                 string template = TemplateUtils.GetTemplate("EventHandler");
-                string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "modifiers", acc);
-                decl = TemplateUtils.ReplaceTemplateVariable(decl, "name", name);
-                decl = TemplateUtils.ReplaceTemplateVariable(decl, "type", type);
-                decl = TemplateUtils.ReplaceTemplateVariable(decl, "void", ASContext.Context.Features.voidKey);
+                string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+                decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
+                decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", type);
+                decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey);
 
                 string eventName = contextMatch.Groups["event"].Value;
                 string autoRemove = AddRemoveEvent(eventName);
@@ -2908,10 +2908,10 @@ namespace ASCompletion.Completion
         {
             string acc = GetPublicAccessor(member);
             string template = TemplateUtils.GetTemplate("Getter");
-            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "modifiers", acc);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "name", name);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "type", FormatType(member.Type));
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "member", member.Name);
+            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", FormatType(member.Type));
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Member", member.Name);
             InsertCode(position, decl);
         }
 
@@ -2919,11 +2919,11 @@ namespace ASCompletion.Completion
         {
             string acc = GetPublicAccessor(member);
             string template = TemplateUtils.GetTemplate("Setter");
-            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "modifiers", acc);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "name", name);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "type", FormatType(member.Type));
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "member", member.Name);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "void", ASContext.Context.Features.voidKey ?? "void");
+            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", FormatType(member.Type));
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Member", member.Name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey ?? "void");
             InsertCode(position, decl);
         }
 
@@ -3173,9 +3173,9 @@ namespace ASCompletion.Completion
                 if (!noRet) typesUsed.Add(getQualifiedType(type, ofClass));
                 string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed, ofClass);
                 string template = TemplateUtils.GetTemplate("MethodOverride");
-                template = TemplateUtils.ReplaceTemplateVariable(template, "arguments", TemplateUtils.ParametersString(member, true));
-                template = TemplateUtils.ReplaceTemplateVariable(template, "type", type);
-                template = TemplateUtils.ReplaceTemplateVariable(template, "method", action);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Arguments", TemplateUtils.ParametersString(member, true));
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Type", type);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Method", action);
                 decl += member.Name
                     + template;
             }
@@ -3204,7 +3204,7 @@ namespace ASCompletion.Completion
             {
                 string result = TemplateUtils.ReplaceTemplateVariable(
                     TemplateUtils.GetTemplate("DelegateMethodsHeader"), 
-                    "class", 
+                    "Class", 
                     classModel.Type);
 
                 int position = -1;
@@ -3251,33 +3251,33 @@ namespace ASCompletion.Completion
 
                     if ((m.Flags & FlagType.Setter) > 0)
                     {
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "declaration", TemplateUtils.GetTemplate("Setter"));
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "modifiers", 
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Declaration", TemplateUtils.GetTemplate("Setter"));
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Modifiers", 
                             (TemplateUtils.GetStaticExternOverride(m) + TemplateUtils.GetModifiers(m)).Trim());
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "name", m.Name);
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Name", m.Name);
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "EntryPoint", "");
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "type", m.Parameters[0].Type);
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "member", member.Name + "." + m.Name);
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "void", ASContext.Context.Features.voidKey ?? "void");
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Type", m.Parameters[0].Type);
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Member", member.Name + "." + m.Name);
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Void", ASContext.Context.Features.voidKey ?? "void");
                     }
                     else if ((m.Flags & FlagType.Getter) > 0)
                     {
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "declaration", TemplateUtils.GetTemplate("Getter"));
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "modifiers",
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Declaration", TemplateUtils.GetTemplate("Getter"));
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Modifiers",
                             (TemplateUtils.GetStaticExternOverride(m) + TemplateUtils.GetModifiers(m)).Trim());
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "name", m.Name);
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Name", m.Name);
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "EntryPoint", "");
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "type", FormatType(m.Type));
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "member", member.Name + "." + m.Name);
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Type", FormatType(m.Type));
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Member", member.Name + "." + m.Name);
                     }
                     else
                     {
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "declaration", TemplateUtils.GetTemplate("DelegateMethod"));
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Declaration", TemplateUtils.GetTemplate("DelegateMethod"));
                         methodTemplate = TemplateUtils.ToDeclarationWithModifiersString(mCopy, methodTemplate);
                         if (m.Type != null && m.Type.ToLower() != "void")
-                            methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "return", "return");
+                            methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Return", "return");
                         else
-                            methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "return", null);
+                            methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Return", null);
 
                         // check for varargs
                         bool isVararg = false;
@@ -3291,8 +3291,8 @@ namespace ASCompletion.Completion
                         string callMethodTemplate = TemplateUtils.GetTemplate("CallFunction");
                         if (!isVararg)
                         {
-                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "name", member.Name + "." + m.Name);
-                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "arguments", 
+                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "Name", member.Name + "." + m.Name);
+                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "Arguments", 
                                 TemplateUtils.CallParametersString(m));
                             callMethodTemplate += ";";
                         }
@@ -3300,13 +3300,13 @@ namespace ASCompletion.Completion
                         {
                             List<MemberModel> pseudoParamsList = new List<MemberModel>();
                             pseudoParamsList.Add(new MemberModel("null", null, FlagType.ParameterVar, 0));
-                            pseudoParamsList.Add(new MemberModel("[$(subarguments)].concat($(lastsubargument))", null, FlagType.ParameterVar, 0));
+                            pseudoParamsList.Add(new MemberModel("[$(Subarguments)].concat($(Lastsubargument))", null, FlagType.ParameterVar, 0));
                             MemberModel pseudoParamsOwner = new MemberModel();
                             pseudoParamsOwner.Parameters = pseudoParamsList;
 
-                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "name",
+                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "Name",
                                 member.Name + "." + m.Name + ".apply");
-                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "arguments",
+                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "Arguments",
                                 TemplateUtils.CallParametersString(pseudoParamsOwner));
                             callMethodTemplate += ";";
 
@@ -3319,14 +3319,14 @@ namespace ASCompletion.Completion
 
                             pseudoParamsOwner.Parameters = arrayParamsList;
 
-                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "subarguments",
+                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "Subarguments",
                                 TemplateUtils.CallParametersString(pseudoParamsOwner));
 
-                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "lastsubargument", 
+                            callMethodTemplate = TemplateUtils.ReplaceTemplateVariable(callMethodTemplate, "Lastsubargument", 
                                 m.Parameters[m.Parameters.Count - 1].Name.TrimStart(new char[] { '.', ' '}));
                         }
 
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "body", callMethodTemplate);
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Body", callMethodTemplate);
                     }
                     result += methodTemplate;
 

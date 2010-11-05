@@ -105,7 +105,7 @@ namespace CodeRefactor.Commands
                 m.Value = expression;
 
                 string snippet = TemplateUtils.GetTemplate("Variable");
-                snippet = TemplateUtils.ReplaceTemplateVariable(snippet, "modifiers", null);
+                snippet = TemplateUtils.ReplaceTemplateVariable(snippet, "Modifiers", null);
                 snippet = TemplateUtils.ToDeclarationString(m, snippet);
                 SnippetHelper.InsertSnippetText(Sci, Sci.CurrentPos, snippet);
             }

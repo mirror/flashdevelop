@@ -1,3 +1,3 @@
-$(modifiers) function $(name)($(arguments))<<:$(type)>> $(CSLB){
-	<<$(return) >>$(body)
+$(Modifiers) function $(Name)($(Arguments))<<:$(Type)>> $(CSLB){
+	<<$(Return) >>$(Body)
 }

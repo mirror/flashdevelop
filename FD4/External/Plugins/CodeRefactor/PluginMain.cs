@@ -421,7 +421,7 @@ namespace CodeRefactor
                 List<String> memberNames = new List<String>();
                 ClassModel cm = result.Type;
                 cm.ResolveExtends();
-                while (cm != null && !cm.IsVoid())
+                while (cm != null && !cm.IsVoid() && cm.Type != "Object")
                 {
                     cm.Members.Sort();
                     foreach (MemberModel m in cm.Members)

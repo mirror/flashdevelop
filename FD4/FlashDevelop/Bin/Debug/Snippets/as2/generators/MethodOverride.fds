@@ -1,3 +1,3 @@
-($(arguments)):$(type) $(CSLB){
-	$(EntryPoint)$(method)
+($(Arguments)):$(Type) $(CSLB){
+	$(EntryPoint)$(Method)
 }

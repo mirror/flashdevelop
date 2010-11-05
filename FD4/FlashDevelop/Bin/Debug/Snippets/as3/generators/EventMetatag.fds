@@ -1,1 +1,1 @@
-[Event(name="$(name)", type="$(type)")]
+[Event(name="$(Name)", type="$(Type)")]

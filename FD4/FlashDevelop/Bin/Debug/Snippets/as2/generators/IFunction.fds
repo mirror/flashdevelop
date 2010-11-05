@@ -1,1 +1,1 @@
-function $(name)($(arguments)):$(type);$(EntryPoint)
+function $(Name)($(Arguments)):$(Type);$(EntryPoint)

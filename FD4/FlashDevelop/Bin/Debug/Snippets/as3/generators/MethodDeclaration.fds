@@ -1,1 +1,1 @@
-$(name)($(arguments))<<:$(type)>>
+$(Name)($(Arguments))<<:$(Type)>>
