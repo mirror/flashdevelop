@@ -80,7 +80,9 @@ namespace PluginCore.Utilities
                 {
                     if (!this.knownPathes.Contains(dir))
                     {
-                        this.ExploreFolderWithMasks(dir, masks);
+                        FileInfo info = new FileInfo(dir);
+                        if ((info.Attributes & FileAttributes.Hidden) == 0)
+                            this.ExploreFolderWithMasks(dir, masks);
                     }
                 }
                 catch { /* Might be system folder.. */ };
