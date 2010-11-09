@@ -96,7 +96,8 @@ namespace PluginCore
         void ShowErrorDialog(Object sender, Exception ex);
         void ShowSettingsDialog(String itemName, String filter);
         void AutoUpdateMenuItem(ToolStripItem item, String action);
-        void RegisterShortcutItem(String key, ToolStripMenuItem item);
+        void RegisterShortcutItem(String id, Keys keys);
+        void RegisterShortcutItem(String id, ToolStripMenuItem item);
         void FileFromTemplate(String templatePath, String newFilePath);
         DockContent OpenEditableDocument(String file, Boolean restoreFileState);
         DockContent OpenEditableDocument(String file);
@@ -105,7 +106,6 @@ namespace PluginCore
 		DockContent CreateDockablePanel(Control form, String guid, Image image, DockState defaultDockState);
         Boolean CallCommand(String command, String arguments);
         List<ToolStripItem> FindMenuItemsByName(String name);
-        List<ShortcutItem> GetRegisteredShortcutItems();
         List<ToolStripItem> GetCurrentMenuItems();
         ToolStripItem FindMenuItem(String name);
         String ProcessArgString(String args);
@@ -288,7 +288,7 @@ namespace PluginCore
     }
 
     #region Structs And Classes
-    
+
     public class ItemData
     {
         public String Id = String.Empty;
@@ -300,21 +300,6 @@ namespace PluginCore
             if (id != null) this.Id = id;
             if (tag != null) this.Tag = tag;
             if (flags != null) this.Flags = flags;
-        }
-
-    }
-
-    public class ShortcutItem
-    {
-        public String Key = String.Empty;
-        public String Location = String.Empty;
-        public ToolStripMenuItem Item = null;
-
-        public ShortcutItem(String key, String location, ToolStripMenuItem Item)
-        {
-            this.Key = key;
-            this.Item = Item;
-            this.Location = location;
         }
 
     }

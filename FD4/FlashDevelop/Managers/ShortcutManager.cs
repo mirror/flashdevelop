@@ -16,9 +16,18 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Registers a shortcut item
         /// </summary>
-        public static void RegisterItem(String key, String location, ToolStripMenuItem item)
+        public static void RegisterItem(String key, Keys keys)
         {
-            ShortcutItem registered = new ShortcutItem(key, location, item);
+            ShortcutItem registered = new ShortcutItem(key, keys);
+            RegistedItems.Add(registered);
+        }
+
+        /// <summary>
+        /// Registers a shortcut item
+        /// </summary>
+        public static void RegisterItem(String key, ToolStripMenuItem item)
+        {
+            ShortcutItem registered = new ShortcutItem(key, item);
             RegistedItems.Add(registered);
         }
 
@@ -29,9 +38,13 @@ namespace FlashDevelop.Managers
         {
             foreach (ShortcutItem item in RegistedItems)
             {
-                DataEvent de = new DataEvent(EventType.Shortcut, item.Key, item.Item.ShortcutKeys);
-                EventManager.DispatchEvent(Globals.MainForm, de); // Ask from plugins...
-                if (de.Handled) item.Item.ShortcutKeys = (Keys)de.Data;
+                if (item.Default == item.Custom) return;
+                if (item.Item == null) // Tell plugins to apply...
+                {
+                    DataEvent de = new DataEvent(EventType.Shortcut, item.Id, item.Custom);
+                    EventManager.DispatchEvent(Globals.MainForm, de);
+                }
+                else item.Item.ShortcutKeys = item.Custom;
             }
             UpdateAllShortcuts();
         }
@@ -47,6 +60,28 @@ namespace FlashDevelop.Managers
                 keys.Add(item.Item.ShortcutKeys);
             }
             return AllShortcuts = keys;
+        }
+
+    }
+
+    public class ShortcutItem
+    {
+        public Keys Custom = Keys.None;
+        public Keys Default = Keys.None;
+        public ToolStripMenuItem Item = null;
+        public String Id = String.Empty;
+
+        public ShortcutItem(String id, Keys keys)
+        {
+            this.Id = id;
+            this.Default = keys;
+        }
+
+        public ShortcutItem(String id, ToolStripMenuItem item)
+        {
+            this.Id = id;
+            this.Item = item;
+            this.Default = item.ShortcutKeys;
         }
 
     }
