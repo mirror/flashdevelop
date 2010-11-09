@@ -145,8 +145,9 @@ namespace ProjectManager.Building.AS3
             {
                 string output;
                 string[] errors;
+				string[] warnings;
                 string jvmarg = VMARGS + " -Dapplication.home=\""+ sdkPath + "\" -jar \"" + fcshPath + "\"";
-                fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, jvmarg);
+                fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, out warnings, jvmarg);
 
                 string[] lines = output.Split('\n');
                 foreach (string line in lines)
@@ -154,6 +155,8 @@ namespace ProjectManager.Building.AS3
                     if (!line.StartsWith("Recompile:") && !line.StartsWith("Reason:"))
                         Console.Write(line);
                 }
+				foreach (string warning in warnings)
+					Console.Error.WriteLine(warning);
                 foreach (string error in errors)
                     Console.Error.WriteLine(error);
 
