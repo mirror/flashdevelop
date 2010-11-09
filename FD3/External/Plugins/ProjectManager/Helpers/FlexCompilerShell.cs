@@ -16,6 +16,10 @@ namespace ProjectManager.Helpers
     {
         public static string FcshPath;
 
+        //C:\...\Main.as(17): col: 15 Warning: variable 'yc' has no type declaration.
+        private static readonly Regex reWarning
+            = new Regex("\\([0-9]+\\): col: [0-9]+ Warning:", RegexOptions.Compiled);
+
         // fcsh.exe process
         static Process process;
         static string workingDir;
@@ -23,6 +27,7 @@ namespace ProjectManager.Helpers
         // error handling
         static Thread errorThread;
         static List<string> errorList;
+		static List<string> warningList;
         static volatile bool foundErrors;
 
         // incremental compilation
@@ -32,6 +37,7 @@ namespace ProjectManager.Helpers
         string Initialize(string jvmarg, string projectPath)
         {
             errorList = new List<string>();
+			warningList = new List<string>();
 
             if (jvmarg == null)
             {
@@ -76,7 +82,7 @@ namespace ProjectManager.Helpers
         }
 
         public void Compile(string projectPath, bool configChanged, string arguments,
-            out string output, out string[] errors, string jvmarg)
+            out string output, out string[] errors, out string[] warnings, string jvmarg)
         {
             StringBuilder o = new StringBuilder();
             
@@ -84,9 +90,13 @@ namespace ProjectManager.Helpers
             if (projectPath != workingDir) Cleanup();
             
             // start up fcsh if necessary
-            if (process == null || process.HasExited)
-                o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath));
-            else errorList.Clear();
+			if (process == null || process.HasExited)
+				o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath));
+			else
+			{
+				errorList.Clear();
+				warningList.Clear();
+			}
 
             // success?
             if (process == null)
@@ -94,6 +104,7 @@ namespace ProjectManager.Helpers
                 output = o.ToString();
                 errorList.Add("Could not compile because the fcsh process could not be started.");
                 errors = errorList.ToArray();
+				warnings = warningList.ToArray();
                 return;
             }
 
@@ -128,12 +139,16 @@ namespace ProjectManager.Helpers
                 // force a fresh compile
                 lastCompileID = 0;
                 lastArguments = null;
-                Compile(projectPath, true, arguments, out output, out errors, jvmarg);
+                Compile(projectPath, true, arguments, out output, out errors, out warnings, jvmarg);
                 return;
             }
             
             lock (errorList)
-                errors = errorList.ToArray();
+				lock (warningList)
+				{
+					errors = errorList.ToArray();
+					warnings = warningList.ToArray();
+				}
         }
 
         void ClearOldCompile()
@@ -147,13 +162,30 @@ namespace ProjectManager.Helpers
         // Run in a separate thread to read errors as they accumulate
         static void ReadErrors()
         {
+            bool skipWarning = false;
             while (process != null && !process.StandardError.EndOfStream)
             {
                 string line = process.StandardError.ReadLine().Trim();
                 lock (errorList)
+				lock (warningList)
                 {
-                    if (line.Length > 0) errorList.Add(line);
-                    foundErrors = true;
+					if (line.Length > 0)
+					{
+                        if (skipWarning)
+                        {
+                            if (line == "^") skipWarning = false;
+                        }
+						else if (line.Contains("Warning:"))
+						{
+							warningList.Add(line);
+                            if (reWarning.IsMatch(line)) skipWarning = true;
+						}
+						else
+						{
+							errorList.Add(line);
+							foundErrors = true;
+						}
+					}
                 }
             }
         }
