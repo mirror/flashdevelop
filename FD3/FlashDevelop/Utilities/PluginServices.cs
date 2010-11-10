@@ -119,7 +119,7 @@ namespace FlashDevelop.Utilities
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowError(ex);
+                ErrorManager.ShowError("Unable to load plugin:\n" + fileName, ex);
             }
 		}
 	}
