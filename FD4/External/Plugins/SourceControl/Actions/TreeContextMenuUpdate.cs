@@ -89,6 +89,7 @@ namespace SourceControl.Actions
             RemoveItem(menuItems.Revert);
             RemoveItem(menuItems.UndoAdd);
             RemoveItem(menuItems.Update);
+            RemoveItem(menuItems.Ignore);
         }
 
         private static void RemoveItem(ToolStripItem item)
