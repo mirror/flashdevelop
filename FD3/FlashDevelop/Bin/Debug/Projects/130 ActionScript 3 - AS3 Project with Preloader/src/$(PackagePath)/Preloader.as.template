@@ -53,8 +53,7 @@
 		
 		private function startup():void $(CSLB){
 			var mainClass:Class = getDefinitionByName("$(PackageDot)Main") as Class;
-			if (parent == stage) stage.addChildAt(new mainClass() as DisplayObject, 0);
-			else addChildAt(new mainClass() as DisplayObject, 0);
+			addChild(new mainClass() as DisplayObject);
 		}
 		
 	}
