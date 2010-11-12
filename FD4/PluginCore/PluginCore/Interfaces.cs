@@ -105,8 +105,7 @@ namespace PluginCore
         DockContent CreateEditableDocument(String file, String text, Int32 codepage);
 		DockContent CreateDockablePanel(Control form, String guid, Image image, DockState defaultDockState);
         Boolean CallCommand(String command, String arguments);
-        List<ToolStripItem> FindMenuItemsByName(String name);
-        List<ToolStripItem> GetCurrentMenuItems();
+        List<ToolStripItem> FindMenuItems(String name);
         ToolStripItem FindMenuItem(String name);
         String ProcessArgString(String args);
         IPlugin FindPlugin(String guid);

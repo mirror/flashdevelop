@@ -89,6 +89,9 @@
     <Compile Include="Dialogs\EditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\ShortcutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\SnippetDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,7 +128,8 @@
     <Compile Include="Managers\FileStateManager.cs" />
     <Compile Include="Managers\RecoveryManager.cs" />
     <Compile Include="Managers\SessionManager.cs" />
-    <Compile Include="Managers\StripBarManager.cs" />
+    <Compile Include="Managers\StripBarManager.cs">
+    </Compile>
     <Compile Include="Settings\Accessors.cs" />
     <Compile Include="Settings\Properties.cs" />
     <Compile Include="Settings\Reflection.cs" />

@@ -946,7 +946,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   </data>
   <data name="FlashDevelop.Label.LineComment" xml:space="preserve">
     <value>Li&amp;ne Comment</value>
-    <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CompareFiles" xml:space="preserve">
     <value>&amp;Compare Files...</value>
@@ -1499,7 +1498,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   </data>
   <data name="ProjectManager.Description.EnableMxmlMapping" xml:space="preserve">
     <value>Group MXML source files (mx:Script, mx:Style) under the MXML file linking them.</value>
-    <comment>Modified after 3.2</comment>
   </data>
   <data name="ProjectManager.Description.EnableDebug" xml:space="preserve">
     <value>Activate the ability to use the interactive debugger.</value>
@@ -2214,22 +2212,18 @@ Never - the start page will not show based on startup.</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
     <value>Generate public function</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
     <value>Assign statement to variable</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
     <value>Change method declaration</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
     <value>Generate interface definition</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
     <value>Add to interface</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter</value>
@@ -2251,7 +2245,6 @@ Never - the start page will not show based on startup.</value>
   </data>
   <data name="ASCompletion.Label.GeneratePublicVar" xml:space="preserve">
     <value>Declare public variable</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
     <value>Implement interface methods</value>
@@ -2958,7 +2951,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Label.BlockComment" xml:space="preserve">
     <value>Block Co&amp;mment</value>
-    <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.CommentLine" xml:space="preserve">
     <value>Comment Li&amp;ne</value>
@@ -2974,272 +2966,207 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Info.RequiresRestart" xml:space="preserve">
     <value>To apply all changes, you need to restart FlashDevelop.</value>
-    <comment>Added after 3.0.0</comment>
   </data>
   <data name="FlashDevelop.Label.Restart" xml:space="preserve">
     <value>Res&amp;tart</value>
-    <comment>Added after 3.0.0</comment>
   </data>
   <data name="ASCompletion.Description.StartWithModifiers" xml:space="preserve">
     <value>Generated declarations should always begin with access modifiers (ie. always before "static" or "override").</value>
   </data>
   <data name="ProjectManager.Info.DuplicatingFile" xml:space="preserve">
     <value>Duplicating '{0}':</value>
-    <comment>Added after 3.0.1</comment>
   </data>
   <data name="ProjectManager.Info.NewDuplicateName" xml:space="preserve">
     <value>New name:</value>
-    <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
     <value>By default, haXe code completion is populated by calling haXe compiler instead of using FlashDevelop native (but limited) haXe support.</value>
-    <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
     <value>By default haXe completion is alimented both by the haXe compiler and FlashDevelop automatic completion.</value>
-    <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
     <value>Set to false, haXe completion will be displayed only when CTRL-Space or CTRL-Shift-Space is pressed.</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
     <value>Disables the find text update when the quick find is used.</value>
-    <comment>Added after 3.0.1</comment>
   </data>
   <data name="HaXeContext.Description.ExportHXML" xml:space="preserve">
     <value>Always export a HXML when the HXPROJ is modified.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>Defines where new properties (getter, setter) are to be generated.</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
     <value>Adds that prefix to the fields that were generated using "Generate fields from parameters" generator.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>Adds an ActionScript class wizard to FlashDevelop.</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Add" xml:space="preserve">
     <value>&amp;Add</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Browse" xml:space="preserve">
     <value>Browse...</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Cancel" xml:space="preserve">
     <value>&amp;Cancel</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Ok" xml:space="preserve">
     <value>&amp;OK</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Remove" xml:space="preserve">
     <value>&amp;Remove</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Error.InvalidClassName" xml:space="preserve">
     <value>Class name contains invalid characters.</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.ChosePackage" xml:space="preserve">
     <value>Choose a package folder:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.CodeGeneration" xml:space="preserve">
     <value>Code generation:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.GenerateConstructor" xml:space="preserve">
     <value>Generate constructor matching base class</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.GenerateInherited" xml:space="preserve">
     <value>Generate interface methods implementations</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.Interfaces" xml:space="preserve">
     <value>Interfaces:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.Modifiers" xml:space="preserve">
     <value>Modifiers:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.Name" xml:space="preserve">
     <value>Name:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewAs2Class" xml:space="preserve">
     <value>New ActionScript 2 Class</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewAs3Class" xml:space="preserve">
     <value>New ActionScript 3 Class</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.OpenType" xml:space="preserve">
     <value>Open Type</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.Package" xml:space="preserve">
     <value>Package:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.PackageSelection" xml:space="preserve">
     <value>Package Selection</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.SuperClass" xml:space="preserve">
     <value>Base Class:</value>
-    <comment>Added after 3.0.2</comment>
   </data>
   <data name="CodeRefactor.Info.Description" xml:space="preserve">
     <value>Adds refactoring capabilities to FlashDevelop.</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.FindingReferences" xml:space="preserve">
     <value>Finding References...</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.RenamingReferences" xml:space="preserve">
     <value>Renaming References...</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.ResolvingReferences" xml:space="preserve">
     <value>Resolving References...</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.ResolvingReferencesIn" xml:space="preserve">
     <value>Resolving References in</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.SearchingFiles" xml:space="preserve">
     <value>Searching Files...</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.Status" xml:space="preserve">
     <value>Status:</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Info.Updating" xml:space="preserve">
     <value>Updating</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.FindAllReferences" xml:space="preserve">
     <value>Find A&amp;ll References</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.NewName" xml:space="preserve">
     <value>New name:</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Refactor" xml:space="preserve">
     <value>&amp;Refactor</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.Rename" xml:space="preserve">
     <value>&amp;Rename...</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.ExtractMethod" xml:space="preserve">
     <value>Extract &amp;Method...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Label.ExtractLocalVariable" xml:space="preserve">
     <value>&amp;Extract Local Variable...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Label.SurroundWith" xml:space="preserve">
     <value>&amp;Surround With</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Title.RenameDialog" xml:space="preserve">
     <value>Rename '{0}'</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Title.ExtractMethodDialog" xml:space="preserve">
     <value>Extract Method</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Title.ExtractLocalVariableDialog" xml:space="preserve">
     <value>Extract Local Variable</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="CodeRefactor.Title.DelegateMethods" xml:space="preserve">
     <value>Delegate Methods</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.DisableReplaceFilesConfirm" xml:space="preserve">
     <value>Disables the confirmation of the replace in files operation.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Info.AreYouSureToReplaceInFiles" xml:space="preserve">
     <value>Are you sure you want to replace in files? The changes cannot be undone.</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.UndoClose" xml:space="preserve">
     <value>&amp;Undo Close</value>
   </data>
   <data name="CodeRefactor.Label.OrganizeImports" xml:space="preserve">
     <value>&amp;Organize Imports</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.TruncateImports" xml:space="preserve">
     <value>&amp;Truncate Imports</value>
-    <comment>Added after 3.0.4</comment>
   </data>
   <data name="CodeRefactor.Label.DelegateMethods" xml:space="preserve">
     <value>&amp;Generate Delegate Methods...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.UseSystemColors" xml:space="preserve">
     <value>Forces FlashDevelop to use only system colors in the controls.</value>
   </data>
   <data name="ProjectManager.Label.FindHere" xml:space="preserve">
     <value>Find And Replace</value>
-    <comment>Added after 3.0.5</comment>
   </data>
   <data name="FlashDevelop.Description.FilePollInterval" xml:space="preserve">
     <value>Interval in milliseconds to check changes to open files.</value>
-    <comment>Added after 3.0.5</comment>
   </data>
   <data name="TaskListPanel.Description.ExcludedPaths" xml:space="preserve">
     <value>Tasks under the excluded paths are not shown in the task list.</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Description.StaticLinkRSL" xml:space="preserve">
     <value>Include Runtime Shared Libraries in the project SWF instead of loading them at run time.</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="XMLCompletion.Description.DisableZenCoding" xml:space="preserve">
     <value>Disable HTML Zen Coding feature</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Description.CompilerConstants" xml:space="preserve">
     <value>Enter one compiler constant per ligne - ie: NAMESPACE::variable,value</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Label.SaveBOM" xml:space="preserve">
     <value>&amp;Save Byte Order Mark</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Label.BuildProjectFiles" xml:space="preserve">
     <value>&amp;Build Project Files</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
     <value>Disables the find option syncing between the find dialog and the quick find control.</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="CodeRefactor.Category.Shortcuts" xml:space="preserve">
     <value>Shortcuts</value>
@@ -3267,18 +3194,15 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
     <value>Build All Projects</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Label.TestAllProjects" xml:space="preserve">
     <value>Test All Projects</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="ProjectManager.Label.CopyClassName" xml:space="preserve">
     <value>Copy Class Name</value>
   </data>
   <data name="FlashViewer.Description.DisableAutoConfig" xml:space="preserve">
     <value>Disables the auto-configuration feature so that OS level file association can be used.</value>
-    <comment>Added after 3.0.6</comment>
   </data>
   <data name="OutputPanel.Label.ClearSearchText" xml:space="preserve">
     <value>Clear Search Text</value>
@@ -3303,509 +3227,384 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="AS3Context.Column.Count" xml:space="preserve">
     <value>Count</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Maximum" xml:space="preserve">
     <value>Maximum</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Memory" xml:space="preserve">
     <value>Memory</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Package" xml:space="preserve">
     <value>Package</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Column.Type" xml:space="preserve">
     <value>Type</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryDisplay" xml:space="preserve">
     <value>Memory: {0} Kb / {1} Kb</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.RunGC" xml:space="preserve">
     <value>Run Garbage Collector</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StartProfiler" xml:space="preserve">
     <value>Start Profiler</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.StopProfiler" xml:space="preserve">
     <value>Stop Profiler</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ViewMenuItem" xml:space="preserve">
     <value>SWF Profil&amp;er</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Title.Profiler" xml:space="preserve">
     <value>Profiler</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.File" xml:space="preserve">
     <value>File</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.Line" xml:space="preserve">
     <value>Line</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Columns.Method" xml:space="preserve">
     <value>Method</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.LiveObjectsTab" xml:space="preserve">
     <value>Live Objects Count</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ObjectsTab" xml:space="preserve">
     <value>Objects</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.OpenMethodFile" xml:space="preserve">
     <value>Open</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.ViewObjectsItem" xml:space="preserve">
     <value>View Objects</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Category.Misc" xml:space="preserve">
     <value>Misc</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Category.Shortcuts" xml:space="preserve">
     <value>Shortcuts</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Category.View" xml:space="preserve">
     <value>View</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Current" xml:space="preserve">
     <value>Shortcut of the Current command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
     <value>Shortcut of the Disable All Breakpoints command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.EnableAllBreakPoints" xml:space="preserve">
     <value>Shortcut of the Enable All Breakpoints command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.EnableLogging" xml:space="preserve">
     <value>Enabled debugger logging (requires restart).</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Finish" xml:space="preserve">
     <value>Shortcut of the Finish command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Next" xml:space="preserve">
     <value>Shortcut of the Next command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Pause" xml:space="preserve">
     <value>Shortcut of the Pause command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
     <value>Shortcut of the Run To Cursor Line command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
     <value>Save and restore breakpoints.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.SourcePaths" xml:space="preserve">
     <value>Additional paths to search for source.  Useful for specifying the location of any frameworks or library sources.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.StartContinue" xml:space="preserve">
     <value>Shortcut of the Start/Continue command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
     <value>Start debugger on Test Movie.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Step" xml:space="preserve">
     <value>Shortcut of the Step command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.Stop" xml:space="preserve">
     <value>Shortcut of the Stop command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.ToggleBreakPoint" xml:space="preserve">
     <value>Shortcut of the Toggle Breakpoint command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Description.ToggleBreakPointEnable" xml:space="preserve">
     <value>Shortcut of the Toggle Breakpoint command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>Cannot debug a movie running in ActiveX Flash Player.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
     <value>Cannot find the output file.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
     <value>The Flex SDK is not properly configured. See AS3Context from main Program Settings.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
     <value>Continuing due to error '${error}'</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.CouldNotHalt" xml:space="preserve">
     <value>Couldn't halt, no ActionScript is running.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.DebuggerListenAborted" xml:space="preserve">
     <value>Debugger listen aborted.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.DebuggingSessionAlreadyRunning" xml:space="preserve">
     <value>Debugging session already running.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.DebugWithoutCompile" xml:space="preserve">
     <value>Compile failed, start debugger anyways?</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.Description" xml:space="preserve">
     <value>Adds an ActionScript 3 debugger to FlashDevelop.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.EscapingFromDebuggerPendingLoop" xml:space="preserve">
     <value>Escaping from debugger pending loop, setting $nowaiting = 1</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.ExecutionHalted" xml:space="preserve">
     <value>Execution halted</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FaultHasNoTableEntry" xml:space="preserve">
     <value>Fault ${faultName} has no table entry</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FixBreakpoints" xml:space="preserve">
     <value>Fix or remove bad breakpoints, then type 'continue'.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.FlashPlayerGenericName" xml:space="preserve">
     <value>Flash Player</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.HaltedInFile" xml:space="preserve">
     <value>${reasonForHalting}, ${fileAndLine}</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.HaltedInFunction" xml:space="preserve">
     <value>${reasonForHalting}, ${functionName}() at ${fileAndLine}</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.HitBreakpoint" xml:space="preserve">
     <value>Breakpoint ${breakpointNumber}</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.InformationAboutFault" xml:space="preserve">
     <value>, information=</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.LanguageNotAS3" xml:space="preserve">
     <value>Language is not ActionScript 3.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.LinePrefixWhenDisplayingConsoleError" xml:space="preserve">
     <value>[Error]</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.LinePrefixWhenDisplayingFault" xml:space="preserve">
     <value>[Fault]</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.LinePrefixWhenSwfLoaded" xml:space="preserve">
     <value>[SWF]</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.LinePrefixWhenSwfUnloaded" xml:space="preserve">
     <value>[UnloadSWF]</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.NoMainClass" xml:space="preserve">
     <value>This project does not have a main class.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.NoSourceFilesFound" xml:space="preserve">
     <value>No source files found.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.PlayerAlreadyRunning" xml:space="preserve">
     <value>Player is already running, no need to resume.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.PlayerDidNotStop" xml:space="preserve">
     <value>Player did not stop as expected.  Press 'Enter' key to halt it</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.PlayerStillRunning" xml:space="preserve">
     <value>The player is still running, do you want to stop it?</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.ProcessNotResponding" xml:space="preserve">
     <value>Process not responding.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.ProjectNotOpen" xml:space="preserve">
     <value>You must open a project before starting the debugger.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.SessionTerminated" xml:space="preserve">
     <value>Player session terminated.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.SetAdditionalBreakpoints" xml:space="preserve">
     <value>Set additional breakpoints as desired, and then type 'continue'.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.SizeAfterDecompression" xml:space="preserve">
     <value>${size} bytes after decompression.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnableToStartDebugger" xml:space="preserve">
     <value>Unable to start the interactive debugger.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnknownEvent" xml:space="preserve">
     <value>Received unknown event of type '${type}', info = ${info}.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.UnknownFilename" xml:space="preserve">
     <value>&lt;unknown&gt;</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.WaitingForPlayer" xml:space="preserve">
     <value>Waiting for Flash Player to connect to debugger.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.WarningNotAllCommandsSupported" xml:space="preserve">
     <value>WARNING: The Flash Player that you are using does not support all debugger commands.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Info.WebBrowserGenericName" xml:space="preserve">
     <value>Web Browser</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Close" xml:space="preserve">
     <value>Close</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Continue" xml:space="preserve">
     <value>&amp;Continue</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Copy" xml:space="preserve">
     <value>C&amp;opy</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.CopyAll" xml:space="preserve">
     <value>Copy &amp;All</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.CopyExp" xml:space="preserve">
     <value>Copy &amp;Exp</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.CopyValue" xml:space="preserve">
     <value>Copy &amp;Value</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Current" xml:space="preserve">
     <value>Current &amp;Line</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Debug" xml:space="preserve">
     <value>&amp;Debug</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.DeleteAllBreakpoints" xml:space="preserve">
     <value>Delete All Breakpoints</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.DisableAllBreakpoints" xml:space="preserve">
     <value>Disable All Breakpoints</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.EnableAllBreakpoints" xml:space="preserve">
     <value>Enable All Breakpoints</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Exp" xml:space="preserve">
     <value>Exp</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
     <value>&amp;Finish</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Next" xml:space="preserve">
     <value>&amp;Step Over</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Pause" xml:space="preserve">
     <value>&amp;Pause</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.RunToCursor" xml:space="preserve">
     <value>Run To C&amp;ursor Line</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Start" xml:space="preserve">
     <value>&amp;Start</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Step" xml:space="preserve">
     <value>Step &amp;Into</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Stop" xml:space="preserve">
     <value>S&amp;top</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ToggleBreakpoint" xml:space="preserve">
     <value>Toggle Breakpoint</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ToggleBreakpointEnabled" xml:space="preserve">
     <value>Toggle Breakpoint Enabled</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Value" xml:space="preserve">
     <value>Value</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewBreakpointsPanel" xml:space="preserve">
     <value>Brea&amp;kpoints Panel</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.Viewer" xml:space="preserve">
     <value>&amp;Viewer</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewLocalVariablesPanel" xml:space="preserve">
     <value>&amp;Local Variables Panel</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.ViewStackframePanel" xml:space="preserve">
     <value>Stackframe Panel</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Label.WordWrap" xml:space="preserve">
     <value>Word Wrap</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Title.Breakpoints" xml:space="preserve">
     <value>Breakpoints</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Title.CloseProcess" xml:space="preserve">
     <value>Close Process?</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Title.LocalVariables" xml:space="preserve">
     <value>Locals</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashDebugger.Title.StackTrace" xml:space="preserve">
     <value>Stack</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Description.AnalyzeShortcut" xml:space="preserve">
     <value>Shortcut of the analyze project command.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Description.PMDRuleset" xml:space="preserve">
     <value>Default custom ruleset file for the Flex PMD.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Info.Decription" xml:space="preserve">
     <value>Integrates Flex PMD code analyzer into FlashDevelop.</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Label.AnalyzeProject" xml:space="preserve">
     <value>Analy&amp;ze Project Source Code...</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Info.RunningFlexPMD" xml:space="preserve">
     <value>Flex PMD Running</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Label.RulesetCreator" xml:space="preserve">
     <value>Code A&amp;nalyzer Ruleset Creator...</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="CodeAnalyzer.Info.FlexPMDFinished" xml:space="preserve">
     <value>Flex PMD Done</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="ASCompletion.Label.GenerateClass" xml:space="preserve">
     <value>Create new class</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Label.ConstName" xml:space="preserve">
     <value>Constant name:</value>
   </data>
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
     <value>Generate constructor</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
     <value>Generate field from parameter</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
     <value>Generate toString()</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateEventMetatag" xml:space="preserve">
     <value>Generate [Event] metatag</value>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
     <value>AS2 Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.AS3Document" xml:space="preserve">
     <value>AS3 Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.BlankDocument" xml:space="preserve">
     <value>Blank Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.CSSDocument" xml:space="preserve">
     <value>CSS Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.HTMLDocument" xml:space="preserve">
     <value>HTML Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.MXMLDocument" xml:space="preserve">
     <value>MXML Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.PHPDocument" xml:space="preserve">
     <value>PHP Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.XHTMLDocument" xml:space="preserve">
     <value>XHTML Document</value>
@@ -3813,393 +3612,325 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Label.XMLDocument" xml:space="preserve">
     <value>XML Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.BackupSettings" xml:space="preserve">
     <value>&amp;Backup All Settings...</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS2Context.Info.MTASCDone" xml:space="preserve">
     <value>MTASC Done</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS2Context.Info.MTASCRunning" xml:space="preserve">
     <value>MTASC Running</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS3Context.MXMLCDone" xml:space="preserve">
     <value>MXMLC Done</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS3Context.MXMLCRunning" xml:space="preserve">
     <value>MXMLC Running</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Info.ExtendsNode" xml:space="preserve">
     <value>Extends</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Info.ImplementsNode" xml:space="preserve">
     <value>Implements</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Info.ImportsNode" xml:space="preserve">
     <value>Imports</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Info.RegionsNode" xml:space="preserve">
     <value>Regions</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.AmbiguousType" xml:space="preserve">
     <value>Ambiguous Type</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
     <value>HaXe Done</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
     <value>Haxe.exe can not be located.{0}{0}Please run 'haxesetup' in HaXe installation and restart FlashDevelop,{0}or configure the path to HaXe installation in HaxeContext settings.</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
     <value>HaXe Running</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">
     <value>PHP Done</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="PHPContext.Info.PHPRunning" xml:space="preserve">
     <value>PHP Running</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="AS3Context.Label.AutoStartProfilerON" xml:space="preserve">
     <value>Auto-start Profiler Enabled</value>
-    <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.AutoStartProfilerOFF" xml:space="preserve">
     <value>Auto-start Profiler Disabled</value>
-    <comment>Added after 3.1</comment>
   </data>
   <data name="AS3Context.Label.MemoryGraphScale" xml:space="preserve">
     <value>Graph scale:</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryStats" xml:space="preserve">
     <value>Current memory usage:{0}{1} Kb{0}{0}Memory peak:{0}{2} Kb</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="AS3Context.Label.MemoryTab" xml:space="preserve">
     <value>Memory</value>
-    <comment>Added after 3.1.0</comment>
   </data>
   <data name="FlashLogViewer.Label.Filter" xml:space="preserve">
     <value>Filter:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.FlashLog" xml:space="preserve">
     <value>Flash Log</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.PolicyLog" xml:space="preserve">
     <value>Policy Log</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashLogViewer.Label.View" xml:space="preserve">
     <value>View:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Enable" xml:space="preserve">
     <value>Enable</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.File" xml:space="preserve">
     <value>File</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Line" xml:space="preserve">
     <value>Line</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Name" xml:space="preserve">
     <value>Name</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Label.Path" xml:space="preserve">
     <value>Path</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Errors" xml:space="preserve">
     <value>Errors</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Filter" xml:space="preserve">
     <value>Filter:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Informations" xml:space="preserve">
     <value>Messages</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ResultsPanel.Filters.Warnings" xml:space="preserve">
     <value>Warnings</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
     <value>NewClass</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
     <value>Shortcut of the Delete All Breakpoints command.</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
     <value>Debug line:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.DisabledLineBack" xml:space="preserve">
     <value>Disabled line:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.ErrorLineBack" xml:space="preserve">
     <value>Error line:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ProjectManager.ToolTip.Synchronize" xml:space="preserve">
     <value>Synchronize</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Info.FilterSettings" xml:space="preserve">
     <value>Filter settings:</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="ProjectManager.Description.DisableExtFlashIntegration" xml:space="preserve">
     <value>Extended Flash IDE integration allows to debug/profile SWFs compiled with the Flash IDE in FlashDevelop.</value>
-    <comment>Added after 3.2</comment>
   </data>
   <data name="FlashDebugger.Label.StartRemoteDebugging" xml:space="preserve">
     <value>Start Remote Session</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.VerboseOutput" xml:space="preserve">
     <value>Display detailed debugging information, like SWF load/unload events.</value>
   </data>
   <data name="ProjectManager.Info.ReservedDirName" xml:space="preserve">
     <value>Name '{0}' is a reserved directory name.</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.Unwatch" xml:space="preserve">
     <value>Delete Watch</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.ViewWatchPanel" xml:space="preserve">
     <value>Watch Panel</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Label.Watch" xml:space="preserve">
     <value>Add Watch</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Title.Watch" xml:space="preserve">
     <value>Watch</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseFunctions" xml:space="preserve">
     <value>Collapse Functions</value>
-    <comment>Added after 3.2.1</comment>
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
     <value>When debugging an application the debugger panels appear/disappear automatically.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
     <value>Shortcut to OpenResource dialog.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>Enable searching files in external classpath.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Label.OpenResource" xml:space="preserve">
     <value>Open &amp;Resource...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Label.SearchString" xml:space="preserve">
     <value>Search string: (UPPERCASE for search by abbreviation)</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Title.OpenResource" xml:space="preserve">
     <value>Open Resource</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Description.ShowInvalidCSS" xml:space="preserve">
     <value>Shows a warning when a style property is set in CSS on a component that does not support that property.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Category.GIT" xml:space="preserve">
     <value>GIT</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Category.SVN" xml:space="preserve">
     <value>SVN</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.EnableGIT" xml:space="preserve">
     <value>Enable GIT integration with projects.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.EnableSVN" xml:space="preserve">
     <value>Enable SVN integration with projects.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.GITPath" xml:space="preserve">
     <value>Path to GIT command line tool. Example: 'git' if the tool is already installed in the environment path.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.SVNPath" xml:space="preserve">
     <value>PathPath to SVN command line tool. Example: 'svn.exe' if the tool is already installed in the environment path.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.TortoiseGITProcPath" xml:space="preserve">
     <value>Path to TortoiseGit's TortoiseProc tool. Example: 'TortoiseProc.exe'.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Description.TortoiseSVNProcPath" xml:space="preserve">
     <value>Path to TortoiseSVN's TortoiseProc tool. Example: 'TortoiseProc.exe'.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.ConfirmLocalModsDelete" xml:space="preserve">
     <value>Some elements have local modifications, remove them anyway?</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.ConfirmUnversionedDelete" xml:space="preserve">
     <value>Some elements are not under source control, delete them anyway?</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.Description" xml:space="preserve">
     <value>Adds source control integration to FlashDevelop.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.ElementsLocatedInDiffDirs" xml:space="preserve">
     <value>Elements located in different directories.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.EnterMessage" xml:space="preserve">
     <value>Enter a message:</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.MixedSelectionOfElements" xml:space="preserve">
     <value>Mixed selection of versioned and non-versioned elements.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.UnableToStartCommand" xml:space="preserve">
     <value>Unable to start command:</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Info.UnsafeDeleteOperation" xml:space="preserve">
     <value>Unsafe 'Delete' operation.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Add" xml:space="preserve">
     <value>Add...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.AddToIgnoreList" xml:space="preserve">
     <value>Add To Ignore List</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Commit" xml:space="preserve">
     <value>Commit...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.DiffWithPrevious" xml:space="preserve">
     <value>Diff With Previous Version</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.EditConflict" xml:space="preserve">
     <value>Edit Conflict...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.GIT" xml:space="preserve">
     <value>GIT</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Diff" xml:space="preserve">
     <value>Diff</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Pull" xml:space="preserve">
     <value>Pull</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Push" xml:space="preserve">
     <value>Push...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Revert" xml:space="preserve">
     <value>Revert...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.ShowLog" xml:space="preserve">
     <value>Show Log...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.SVN" xml:space="preserve">
     <value>SVN</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.UnableToGetRepoStatus" xml:space="preserve">
     <value>Unable to get repository status:</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.UndoAdd" xml:space="preserve">
     <value>Undo Add...</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.Update" xml:space="preserve">
     <value>Update</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="SourceControl.Label.SourceControl" xml:space="preserve">
     <value>Source Control</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDebugger.Description.StartRemoteSession" xml:space="preserve">
     <value>Shortcut of the Start Remote Session command.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Info.Language" xml:space="preserve">
     <value>Language:</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.TextDocument" xml:space="preserve">
     <value>Text Document</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Category.Profiler" xml:space="preserve">
     <value>Profiler</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Description.CustomProfilers" xml:space="preserve">
     <value>User-defined profiling SWFs to be injected using the 'PreloadSWF' feature.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Description.ProfilerTimeout" xml:space="preserve">
     <value>Automatically stop listening to profiler after a certain time of inactivity.</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Label.ActiveProfiler" xml:space="preserve">
     <value>Active Profiler</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Label.FlashDevelopProfiler" xml:space="preserve">
     <value>FlashDevelop Profiler</value>
-    <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Description.GenerateScope" xml:space="preserve">
     <value>Generate explicit scope reference - typically 'this' keyword.</value>
-    <comment>Added after 3.3.2</comment>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.ShortcutsWillTakeEffect" xml:space="preserve">
+    <value>Shortcuts will take effect as soon as you edit them successfully.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.Command" xml:space="preserve">
+    <value>Command</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.KeyboardShortcuts" xml:space="preserve">
+    <value>Keyboard S&amp;hortcuts...</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.RemoveShortcut" xml:space="preserve">
+    <value>&amp;Remove Shortcut</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.RevertToDefault" xml:space="preserve">
+    <value>Revert To &amp;Default</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.Shortcut" xml:space="preserve">
+    <value>Shortcut</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Title.Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+    <comment>Added after 3.3.1</comment>
   </data>
 </root>

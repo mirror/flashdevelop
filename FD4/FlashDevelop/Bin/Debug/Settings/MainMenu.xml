@@ -66,13 +66,13 @@
 		<button label="Label.Exit" click="Exit" />
 	</menu>
 	<menu label="Label.Edit" name="EditMenu">
-		<button label="Label.Undo" click="ScintillaCommand" tag="Undo" keytext="Control|Z" image="73" flags="Enable:IsEditable|CanUndo" />
-		<button label="Label.Redo" click="ScintillaCommand" tag="Redo" keytext="Control|Y" image="65" flags="Enable:IsEditable|CanRedo"  />
+		<button label="Label.Undo" click="ScintillaCommand" tag="Undo" shortcut="Control|Z" image="73" flags="Enable:IsEditable|CanUndo" />
+		<button label="Label.Redo" click="ScintillaCommand" tag="Redo" shortcut="Control|Y" image="65" flags="Enable:IsEditable|CanRedo"  />
 		<separator />
-		<button label="Label.Cut" click="ScintillaCommand" tag="Cut" keytext="Control|X" image="158" flags="Enable:IsEditable|HasSelection" />
-		<button label="Label.Copy" click="ScintillaCommand" tag="Copy" keytext="Control|C" image="278" flags="Enable:IsEditable|HasSelection" />
-		<button label="Label.Paste" click="ScintillaCommand" tag="Paste" keytext="Control|V" image="283" flags="Enable:IsEditable|CanPaste" />
-		<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" keytext="Control|A" flags="Enable:IsEditable" />
+		<button label="Label.Cut" click="ScintillaCommand" tag="Cut" shortcut="Control|X" image="158" flags="Enable:IsEditable|HasSelection" />
+		<button label="Label.Copy" click="ScintillaCommand" tag="Copy" shortcut="Control|C" image="278" flags="Enable:IsEditable|HasSelection" />
+		<button label="Label.Paste" click="ScintillaCommand" tag="Paste" shortcut="Control|V" image="283" flags="Enable:IsEditable|CanPaste" />
+		<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" shortcut="Control|A" flags="Enable:IsEditable" />
 		<separator />
 		<button label="Label.CutLine" click="ScintillaCommand" tag="LineCut" shortcut="Control|Shift|X" flags="Enable:IsEditable" />
 		<button label="Label.CopyLine" click="ScintillaCommand" tag="LineCopy" shortcut="Control|Shift|C" flags="Enable:IsEditable" />
@@ -155,6 +155,7 @@
 		<separator />
 		<button label="Label.CodeSnippets" click="EditSnippets" image="341|5|2|2" />
 		<button label="Label.SyntaxColoring" click="EditSyntax" image="55|30|2|3" />
+		<button label="Label.KeyboardShortcuts" click="EditShortcuts" image="49|15|2|2" />
 		<button label="Label.CustomArguments" click="ShowArguments" image="242" />
 		<separator />
 		<button label="Label.BackupSettings" click="BackupSettings" image="54|9|3|3" flags="Enable:!StandaloneMode" />
@@ -177,7 +178,7 @@
 		<button label="Label.FDHome" click="Browse" tag="http://www.flashdevelop.org/" image="224" />
 		<button label="Label.CheckUpdates" click="CheckUpdates" image="181|8|0|4" />
 		<separator />
-		<menu label="Label.TechnicalSpecifications">
+		<menu label="Label.TechnicalSpecifications" name="TechSpecsMenu">
 			<button label="&amp;CSS 1.0" click="Browse" tag="http://www.w3.org/TR/CSS1" />
 			<button label="&amp;HTML 4.01" click="Browse" tag="http://www.w3.org/TR/html401" />
 			<button label="&amp;XHTML 1.0" click="Browse" tag="http://www.w3.org/TR/xhtml1" />
@@ -186,7 +187,7 @@
 			<button label="&amp;DOM Level 3" click="Browse" tag="http://www.w3.org/TR/DOM-Level-3-Core" />
 			<button label="&amp;WCAG 1.0" click="Browse" tag="http://www.w3.org/TR/WCAG10" />
 		</menu>
-		<menu label="Label.LanguageReferences">
+		<menu label="Label.LanguageReferences" name="LangRefsMenu">
 			<button label="&amp;Flash" click="Browse" tag="http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/index.html" />
 			<button label="&amp;HaXe" click="Browse" tag="http://haxe.org/ref" />
 			<button label="&amp;MYSQL" click="Browse" tag="http://dev.mysql.com/doc/mysql/en/" />

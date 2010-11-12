@@ -717,6 +717,7 @@ namespace FlashDevelop
                 if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
                 else if (!this.StandaloneMode) Directory.CreateDirectory(userPluginDir);
                 LayoutManager.BuildLayoutSystems(FileNameHelper.LayoutData);
+                ShortcutManager.LoadCustomShortcuts();
                 PluginCore.Controls.UITools.Init();
             }
             catch (Exception ex)
@@ -734,8 +735,8 @@ namespace FlashDevelop
             this.dockPanel = new DockPanel();
             this.statusStrip = new StatusStrip();
             this.toolStripPanel = new ToolStripPanel();
-            this.menuStrip = StripBarManager.GetMenuStrip(FileNameHelper.MainMenu);
             this.toolStrip = StripBarManager.GetToolStrip(FileNameHelper.ToolBar);
+            this.menuStrip = StripBarManager.GetMenuStrip(FileNameHelper.MainMenu);
             this.editorMenu = StripBarManager.GetContextMenu(FileNameHelper.ScintillaMenu);
             this.tabMenu = StripBarManager.GetContextMenu(FileNameHelper.TabMenu);
             this.toolStripStatusLabel = new ToolStripStatusLabel();
@@ -974,6 +975,7 @@ namespace FlashDevelop
             {
                 String file = FileNameHelper.SessionData;
                 SessionManager.SaveSession(file, session);
+                ShortcutManager.SaveCustomShortcuts();
                 PluginServices.DisposePlugins();
                 this.SaveAllSettings();
             }
@@ -1374,7 +1376,7 @@ namespace FlashDevelop
         }
         
         /// <summary>
-        /// Finds the specified menu item
+        /// Finds the specified menu item by name
         /// </summary>
         public ToolStripItem FindMenuItem(String name)
         {
@@ -1384,22 +1386,9 @@ namespace FlashDevelop
         /// <summary>
         /// Finds the menu items that have the specified name
         /// </summary>
-        public List<ToolStripItem> FindMenuItemsByName(String name)
+        public List<ToolStripItem> FindMenuItems(String name)
         {
-            return StripBarManager.FindMenuItemsByName(name);
-        }
-
-        /// <summary>
-        /// Gets all items from TabMenu, MenuStrip, ToolStrip and EditorMenu
-        /// </summary>
-        public List<ToolStripItem> GetCurrentMenuItems()
-        {
-            List<ToolStripItem> all = new List<ToolStripItem>();
-            StripBarManager.PopulateMenuList(this.TabMenu.Items, all);
-            StripBarManager.PopulateMenuList(this.MenuStrip.Items, all);
-            StripBarManager.PopulateMenuList(this.ToolStrip.Items, all);
-            StripBarManager.PopulateMenuList(this.EditorMenu.Items, all);
-            return all;
+            return StripBarManager.FindMenuItems(name);
         }
 
         /// <summary>
@@ -2179,6 +2168,14 @@ namespace FlashDevelop
         public void QuickFind(Object sender, System.EventArgs e)
         {
             this.quickFind.ShowControl();
+        }
+
+        /// <summary>
+        /// Opens the edit shortcut dialog
+        /// </summary>
+        public void EditShortcuts(Object sender, System.EventArgs e)
+        {
+            ShortcutDialog.Show();
         }
 
         /// <summary>

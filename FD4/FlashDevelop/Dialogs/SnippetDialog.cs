@@ -640,7 +640,7 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Shows the settings dialog
+        /// Shows the snippets dialog
         /// </summary>
         public static new void Show()
         {

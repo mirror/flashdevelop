@@ -651,9 +651,7 @@ namespace ASCompletion
                 if (emenu != null)
                 {
                     image = mainForm.FindImage("99|9|3|-3");
-                    k = settingObject.GotoDeclaration;
-                    if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                    item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
+                    item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration));
                     emenu.Items.Insert(4, item);
                     emenu.Items.Insert(5, new ToolStripSeparator());
                     menuItems.Add(item);

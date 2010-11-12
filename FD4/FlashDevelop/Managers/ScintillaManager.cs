@@ -225,11 +225,9 @@ namespace FlashDevelop.Managers
                 /**
                 * Add missing ignored keys
                 */
-                Int32 count = Globals.MainForm.IgnoredKeys.Count;
-                for (Int32 i = 0; i < count; i++)
+                foreach (Keys keys in ShortcutManager.AllShortcuts)
                 {
-                    Keys keys = (Keys)Globals.MainForm.IgnoredKeys[i];
-                    if (!sci.ContainsIgnoredKeys(keys))
+                    if (keys != Keys.None && !sci.ContainsIgnoredKeys(keys))
                     {
                         sci.AddIgnoredKeys(keys);
                     }

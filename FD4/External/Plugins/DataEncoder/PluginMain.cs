@@ -22,6 +22,7 @@ namespace DataEncoder
         private String pluginDesc = "Converts the file data for specific files to view them properly in FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private List<TypeData> objectTypes = new List<TypeData>();
+        private String oldFileName = String.Empty;
 
 	    #region Required Properties
 
@@ -124,23 +125,6 @@ namespace DataEncoder
                     }
                     break;
 
-                case EventType.FileRenaming:
-                    TextEvent re = (TextEvent)e;
-                    String[] files = re.Value.Split(';');
-                    if (this.IsFileOpen(files[0]))
-                    {
-                        // Update file path...
-                        foreach (TypeData objType in this.objectTypes)
-                        {
-                            if (objType.File == files[0])
-                            {
-                                objType.File = files[1];
-                                break;
-                            }
-                        }
-                    }
-                    break;
-
                 case EventType.FileSaving:
                     TextEvent se = (TextEvent)e;
                     if (this.IsFileOpen(se.Value))
@@ -148,6 +132,24 @@ namespace DataEncoder
                         if (!this.IsXmlSaveable(se.Value))
                         {
                             se.Handled = true;
+                        }
+                    }
+                    this.oldFileName = String.Empty;
+                    break;
+
+                case EventType.FileRenaming:
+                    TextEvent re = (TextEvent)e;
+                    String[] files = re.Value.Split(';');
+                    this.oldFileName = files[0]; // Save for later..
+                    if (this.IsFileOpen(this.oldFileName))
+                    {
+                        foreach (TypeData objType in this.objectTypes)
+                        {
+                            if (objType.File == this.oldFileName)
+                            {
+                                objType.File = files[1];
+                                break;
+                            }
                         }
                     }
                     break;
@@ -183,7 +185,7 @@ namespace DataEncoder
                 MemoryStream stream = new MemoryStream();
                 settings = ObjectSerializer.Deserialize(file, settings);
                 XmlSerializer xs = new XmlSerializer(settings.GetType());
-                xs.Serialize(stream, settings);
+                xs.Serialize(stream, settings); // Obj -> XML
                 XmlTextWriter xw = new XmlTextWriter(stream, Encoding.UTF8);
                 xw.Formatting = Formatting.Indented; stream.Close();
                 this.objectTypes.Add(new TypeData(file, settings.GetType()));
@@ -208,7 +210,7 @@ namespace DataEncoder
                 MemoryStream stream = new MemoryStream(buffer);
                 TypeData typeData = this.GetFileObjectType(file);
                 XmlSerializer xs = new XmlSerializer(typeData.Type);
-                settings = xs.Deserialize(stream);
+                settings = xs.Deserialize(stream); // XML -> Obj
                 ObjectSerializer.Serialize(file, settings);
                 stream.Close();
             }
@@ -225,7 +227,7 @@ namespace DataEncoder
         {
             foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
             {
-                if (document.IsEditable && document.FileName == file)
+                if (document.IsEditable && document.FileName == file || document.FileName == this.oldFileName)
                 {
                     try
                     {
