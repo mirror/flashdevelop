@@ -79,10 +79,10 @@ namespace HaXeContext
             {
                 string cl = Context.Context.CurrentModel.Package + "." + file.Substring(start, end - start);
                 string libToAdd = file.Split(new string[] { "\\" + String.Join("\\", cl.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries)) }, StringSplitOptions.RemoveEmptyEntries).GetValue(0).ToString();
-                hxml = "-cp \"" + libToAdd + "\" "+cl+" "+hxml;
+                hxml = hxml+" "+"-cp \"" + libToAdd + "\" "+cl;
             }
             else
-                hxml = file.Substring(start, end - start)+" "+hxml;
+                hxml = hxml + " " + file.Substring(start, end - start);
 
             // Build haXe built-in completion command
             string args = "--display \"" + file + "\"@" + pos.ToString() + " "+hxml;
