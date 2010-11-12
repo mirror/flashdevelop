@@ -8,6 +8,7 @@ using PluginCore.Managers;
 using FlashDevelop;
 using PluginCore;
 using PluginCore.Helpers;
+using PluginCore.Localization;
 
 namespace FlashDevelop.Utilities 
 {
@@ -119,7 +120,8 @@ namespace FlashDevelop.Utilities
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowError("Unable to load plugin:\n" + fileName, ex);
+                String message = TextHelper.GetString("Info.UnableToLoadPlugin");
+                ErrorManager.ShowError(message + "\n" + fileName, ex);
             }
 		}
 	}

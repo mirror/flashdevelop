@@ -3608,7 +3608,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Label.XHTMLDocument" xml:space="preserve">
     <value>XHTML Document</value>
-    <comment>Added after 3.1.1</comment>
   </data>
   <data name="FlashDevelop.Label.XMLDocument" xml:space="preserve">
     <value>XML Document</value>
@@ -3931,6 +3930,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Title.Shortcuts" xml:space="preserve">
     <value>Shortcuts</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
+    <value>Unable to load a plugin:</value>
     <comment>Added after 3.3.1</comment>
   </data>
 </root>
