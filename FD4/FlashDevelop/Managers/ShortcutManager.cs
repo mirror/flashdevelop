@@ -54,7 +54,7 @@ namespace FlashDevelop.Managers
             List<Keys> keys = new List<Keys>();
             foreach (ShortcutItem item in RegistedItems)
             {
-                keys.Add(item.Item.ShortcutKeys);
+                keys.Add(item.Custom);
             }
             AllShortcuts = keys;
         }

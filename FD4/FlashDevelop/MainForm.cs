@@ -1401,6 +1401,16 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Gets the specified item's shortcut keys
+        /// </summary>
+        public Keys GetShortcutItemKeys(String id)
+        {
+            ShortcutItem item = ShortcutManager.GetRegisteredItem(id);
+            if (item != null) return item.Custom;
+            else return Keys.None;
+        }
+
+        /// <summary>
         /// Registers a new menu item with the shortcut manager
         /// </summary>
         public void RegisterShortcutItem(String id, Keys keys)

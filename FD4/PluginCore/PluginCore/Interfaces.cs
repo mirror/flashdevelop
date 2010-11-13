@@ -108,6 +108,7 @@ namespace PluginCore
         List<ToolStripItem> FindMenuItems(String name);
         ToolStripItem FindMenuItem(String name);
         String ProcessArgString(String args);
+        Keys GetShortcutItemKeys(String id);
         IPlugin FindPlugin(String guid);
         Image FindImage(String data);
 
