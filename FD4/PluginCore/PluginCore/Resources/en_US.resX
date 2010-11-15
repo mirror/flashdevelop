@@ -260,21 +260,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
     <value>Automatically fix package of the class if it's not matching file path. Executed on file open.</value>
   </data>
-  <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
-    <value>Go back to the previous location before a Goto Declaration action.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>Find and open the declaration or the element at caret position.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
-    <value>Run the compiler against the current file. This action may require compiler instructions to be present in the source.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
-    <value>Check the current file syntax.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
-    <value>Open the project types explorer.</value>
-  </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
     <value>Parse javadoc tags in documentation block to enrich the completion tips.</value>
   </data>
@@ -2205,9 +2190,6 @@ Never - the start page will not show based on startup.</value>
   <data name="XMLCompletion.Info.Description" xml:space="preserve">
     <value>Adds simple HTML and XML completion to FlashDevelop.</value>
   </data>
-  <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
-    <value>Shortcut for calling the contextual code generator.</value>
-  </data>
   <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
     <value>Generate private function</value>
   </data>
@@ -2297,21 +2279,6 @@ Never - the start page will not show based on startup.</value>
   </data>
   <data name="TaskListPanel.Info.Description" xml:space="preserve">
     <value>Adds a task list panel to FlashDevelop.</value>
-  </data>
-  <data name="ProjectManager.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
-  </data>
-  <data name="ProjectManager.Description.ShortcutBuild" xml:space="preserve">
-    <value>Shortcut to Build Project action.</value>
-  </data>
-  <data name="ProjectManager.Description.ShortcutTestMovie" xml:space="preserve">
-    <value>Shortcut to Test Movie action.</value>
-  </data>
-  <data name="ResultsPanel.Description.NextError" xml:space="preserve">
-    <value>Shortcut to jump to next error in results.</value>
-  </data>
-  <data name="ResultsPanel.Description.PreviousError" xml:space="preserve">
-    <value>Shortcut to jump to previous error in results.</value>
   </data>
   <data name="ResultsPanel.Label.NextEntry" xml:space="preserve">
     <value>&amp;Next Entry</value>
@@ -2515,9 +2482,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Category.OutlineView" xml:space="preserve">
     <value>OutlineView</value>
   </data>
-  <data name="ASCompletion.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
-  </data>
   <data name="ASCompletion.Info.TypeDeclMissing" xml:space="preserve">
     <value>Type declaration missing for '{0}'.</value>
   </data>
@@ -2544,9 +2508,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Group.Other" xml:space="preserve">
     <value>Other</value>
-  </data>
-  <data name="ResultsPanel.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
   </data>
   <data name="ASCompletion.Description.DisableLiveSyntaxChecking" xml:space="preserve">
     <value>Disable as-you-type syntax checking.</value>
@@ -2839,9 +2800,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="MacroManager.Title.MacroDialog" xml:space="preserve">
     <value>Macros</value>
   </data>
-  <data name="MacroManager.Description.EditShortcut" xml:space="preserve">
-    <value>Shortcut of the "Edit Macros" menu item.</value>
-  </data>
   <data name="MacroManager.Description.AutoRun" xml:space="preserve">
     <value>Runs the macro automaticly when FlashDevelop starts. If enabled, the menu item will not be shown.</value>
   </data>
@@ -2850,9 +2808,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="MacroManager.Description.Label" xml:space="preserve">
     <value>Menu label of the macro.</value>
-  </data>
-  <data name="MacroManager.Description.Shortcut" xml:space="preserve">
-    <value>Menu key shortcut of the macro.</value>
   </data>
   <data name="ProjectManager.Label.BuildProjectFile" xml:space="preserve">
     <value>&amp;Build Project File</value>
@@ -3169,30 +3124,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
     <value>Disables the find option syncing between the find dialog and the quick find control.</value>
   </data>
-  <data name="CodeRefactor.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
-  </data>
-  <data name="CodeRefactor.Description.FindRefsShortcut" xml:space="preserve">
-    <value>Shortcut of the find all references menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.OrganizeShortcut" xml:space="preserve">
-    <value>Shortcut of the organize  imports menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.RenameShortcut" xml:space="preserve">
-    <value>Shortcut of the rename menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
-    <value>Shortcut of the truncate imports menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.ExtractLocalVariableShortcut" xml:space="preserve">
-    <value>Shortcut of the extract local variable menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.ExtractMethodShortcut" xml:space="preserve">
-    <value>Shortcut of the extract method menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.GenerateDelegateMethodsShortcut" xml:space="preserve">
-    <value>Shortcut of the generate delegate methods menu item.</value>
-  </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
     <value>Build All Projects</value>
   </data>
@@ -3283,35 +3214,11 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDebugger.Category.Misc" xml:space="preserve">
     <value>Misc</value>
   </data>
-  <data name="FlashDebugger.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
-  </data>
   <data name="FlashDebugger.Category.View" xml:space="preserve">
     <value>View</value>
   </data>
-  <data name="FlashDebugger.Description.Current" xml:space="preserve">
-    <value>Shortcut of the Current command.</value>
-  </data>
-  <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
-    <value>Shortcut of the Disable All Breakpoints command.</value>
-  </data>
-  <data name="FlashDebugger.Description.EnableAllBreakPoints" xml:space="preserve">
-    <value>Shortcut of the Enable All Breakpoints command.</value>
-  </data>
   <data name="FlashDebugger.Description.EnableLogging" xml:space="preserve">
     <value>Enabled debugger logging (requires restart).</value>
-  </data>
-  <data name="FlashDebugger.Description.Finish" xml:space="preserve">
-    <value>Shortcut of the Finish command.</value>
-  </data>
-  <data name="FlashDebugger.Description.Next" xml:space="preserve">
-    <value>Shortcut of the Next command.</value>
-  </data>
-  <data name="FlashDebugger.Description.Pause" xml:space="preserve">
-    <value>Shortcut of the Pause command.</value>
-  </data>
-  <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
-    <value>Shortcut of the Run To Cursor Line command.</value>
   </data>
   <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
     <value>Save and restore breakpoints.</value>
@@ -3319,23 +3226,8 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDebugger.Description.SourcePaths" xml:space="preserve">
     <value>Additional paths to search for source.  Useful for specifying the location of any frameworks or library sources.</value>
   </data>
-  <data name="FlashDebugger.Description.StartContinue" xml:space="preserve">
-    <value>Shortcut of the Start/Continue command.</value>
-  </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
     <value>Start debugger on Test Movie.</value>
-  </data>
-  <data name="FlashDebugger.Description.Step" xml:space="preserve">
-    <value>Shortcut of the Step command.</value>
-  </data>
-  <data name="FlashDebugger.Description.Stop" xml:space="preserve">
-    <value>Shortcut of the Stop command.</value>
-  </data>
-  <data name="FlashDebugger.Description.ToggleBreakPoint" xml:space="preserve">
-    <value>Shortcut of the Toggle Breakpoint command.</value>
-  </data>
-  <data name="FlashDebugger.Description.ToggleBreakPointEnable" xml:space="preserve">
-    <value>Shortcut of the Toggle Breakpoint command.</value>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>Cannot debug a movie running in ActiveX Flash Player.</value>
@@ -3547,9 +3439,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDebugger.Title.StackTrace" xml:space="preserve">
     <value>Stack</value>
   </data>
-  <data name="CodeAnalyzer.Description.AnalyzeShortcut" xml:space="preserve">
-    <value>Shortcut of the analyze project command.</value>
-  </data>
   <data name="CodeAnalyzer.Description.PMDRuleset" xml:space="preserve">
     <value>Default custom ruleset file for the Flex PMD.</value>
   </data>
@@ -3715,9 +3604,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
     <value>NewClass</value>
   </data>
-  <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
-    <value>Shortcut of the Delete All Breakpoints command.</value>
-  </data>
   <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
     <value>Debug line:</value>
   </data>
@@ -3762,9 +3648,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
     <value>When debugging an application the debugger panels appear/disappear automatically.</value>
-  </data>
-  <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
-    <value>Shortcut to OpenResource dialog.</value>
   </data>
   <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>Enable searching files in external classpath.</value>
@@ -3877,9 +3760,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="SourceControl.Label.SourceControl" xml:space="preserve">
     <value>Source Control</value>
   </data>
-  <data name="FlashDebugger.Description.StartRemoteSession" xml:space="preserve">
-    <value>Shortcut of the Start Remote Session command.</value>
-  </data>
   <data name="FlashDevelop.Info.Language" xml:space="preserve">
     <value>Language:</value>
   </data>
@@ -3940,5 +3820,8 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
     <value>&amp;Invoke Code Generator</value>
     <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="MacroManager.Description.Shortcut" xml:space="preserve">
+    <value>Menu key shortcut of the macro.</value>
   </data>
 </root>

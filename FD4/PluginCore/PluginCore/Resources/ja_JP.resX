@@ -258,21 +258,6 @@
   <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
     <value>ファイルパスの一致しないクラスのパッケージを自動的に修正します。ファイルが開かれた時に実行されます。</value>
   </data>
-  <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
-    <value>"定義から戻る"のショートカットです。</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>"定義に移動"のショートカットです。</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
-    <value>"クイックビルド"のショートカットです。この操作は、ソース内でのコンパイラーの指定が必要です。</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
-    <value>"シンタックスチェック"のショートカットです。</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
-    <value>"タイプエクスプローラーを開く"のショートカットです。</value>
-  </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
     <value>補完機能を強化するためにドキュメンテーションブロック内の ASDoc タグを解析します。</value>
   </data>
@@ -2198,9 +2183,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="XMLCompletion.Info.Description" xml:space="preserve">
     <value>FlashDevelop にシンプルな HTML や XML の補完機能を追加します。</value>
   </data>
-  <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
-    <value>"コンテクスチュアル コード ジェネレーター"のショートカットです。</value>
-  </data>
   <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
     <value>private メソッド スタブの生成</value>
   </data>
@@ -2287,21 +2269,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="TaskListPanel.Info.Description" xml:space="preserve">
     <value>FlashDevelop にタスク一覧パネルを追加します。</value>
-  </data>
-  <data name="ProjectManager.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts | ショートカット</value>
-  </data>
-  <data name="ProjectManager.Description.ShortcutBuild" xml:space="preserve">
-    <value>"プロジェクトのビルド"のショートカットです。</value>
-  </data>
-  <data name="ProjectManager.Description.ShortcutTestMovie" xml:space="preserve">
-    <value>"プロジェクトのテスト"のショートカットです。</value>
-  </data>
-  <data name="ResultsPanel.Description.NextError" xml:space="preserve">
-    <value>"次のエントリに移動"のショートカットです。</value>
-  </data>
-  <data name="ResultsPanel.Description.PreviousError" xml:space="preserve">
-    <value>"前のエントリに移動"のショートカットです。</value>
   </data>
   <data name="ResultsPanel.Label.NextEntry" xml:space="preserve">
     <value>次のエントリに移動(&amp;N)</value>
@@ -2503,9 +2470,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ASCompletion.Category.OutlineView" xml:space="preserve">
     <value>Outline View | アウトライン表示</value>
   </data>
-  <data name="ASCompletion.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts | ショートカット</value>
-  </data>
   <data name="ASCompletion.Info.TypeDeclMissing" xml:space="preserve">
     <value>'{0}' の型宣言が見つかりません。</value>
   </data>
@@ -2532,9 +2496,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDevelop.Group.Other" xml:space="preserve">
     <value>その他</value>
-  </data>
-  <data name="ResultsPanel.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts | ショートカット</value>
   </data>
   <data name="ASCompletion.Description.DisableLiveSyntaxChecking" xml:space="preserve">
     <value>ライブシンタックスチェックを無効にします。</value>
@@ -2823,9 +2784,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="MacroManager.Title.MacroDialog" xml:space="preserve">
     <value>マクロ</value>
-  </data>
-  <data name="MacroManager.Description.EditShortcut" xml:space="preserve">
-    <value>"マクロの編集"のショートカットです。</value>
   </data>
   <data name="MacroManager.Description.AutoRun" xml:space="preserve">
     <value>FlashDevelop 起動時に自動的にマクロを実行します。有効な場合、メニューにその項目は表示されません。</value>
@@ -3152,30 +3110,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
     <value>検索と置換ダイアログとクイック検索での、検索対象文字列の共有を無効にします。</value>
   </data>
-  <data name="CodeRefactor.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts | ショートカット</value>
-  </data>
-  <data name="CodeRefactor.Description.FindRefsShortcut" xml:space="preserve">
-    <value>"すべての参照を検索"のショートカットです。</value>
-  </data>
-  <data name="CodeRefactor.Description.OrganizeShortcut" xml:space="preserve">
-    <value>"import 文の整理"のショートカットです。</value>
-  </data>
-  <data name="CodeRefactor.Description.RenameShortcut" xml:space="preserve">
-    <value>"名前の変更"のショートカットです。</value>
-  </data>
-  <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
-    <value>"import 文の短縮"のショートカットです。</value>
-  </data>
-  <data name="CodeRefactor.Description.ExtractLocalVariableShortcut" xml:space="preserve">
-    <value>Shortcut of the extract local variable menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.ExtractMethodShortcut" xml:space="preserve">
-    <value>Shortcut of the extract method menu item.</value>
-  </data>
-  <data name="CodeRefactor.Description.GenerateDelegateMethodsShortcut" xml:space="preserve">
-    <value>Shortcut of the generate delegate methods menu item.</value>
-  </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
     <value>すべてのプロジェクトをビルド(&amp;B)</value>
   </data>
@@ -3269,35 +3203,11 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDebugger.Category.Misc" xml:space="preserve">
     <value>Misc | その他</value>
   </data>
-  <data name="FlashDebugger.Category.Shortcuts" xml:space="preserve">
-    <value>Shortcuts | ショートカット</value>
-  </data>
   <data name="FlashDebugger.Category.View" xml:space="preserve">
     <value>View | ビュー</value>
   </data>
-  <data name="FlashDebugger.Description.Current" xml:space="preserve">
-    <value>"現在の行"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
-    <value>"すべてのブレークポイントを無効"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.EnableAllBreakPoints" xml:space="preserve">
-    <value>"すべてのブレークポイントを有効"のショートカットです。</value>
-  </data>
   <data name="FlashDebugger.Description.EnableLogging" xml:space="preserve">
     <value>デバッガーのログを有効にします。(再起動が必要です)</value>
-  </data>
-  <data name="FlashDebugger.Description.Finish" xml:space="preserve">
-    <value>"ステップアウト"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.Next" xml:space="preserve">
-    <value>"次へ"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.Pause" xml:space="preserve">
-    <value>"一時停止"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
-    <value>"次のブレークポイントへ"のショートカットです。</value>
   </data>
   <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
     <value>ブレークポイントを保存・復元します。</value>
@@ -3305,23 +3215,8 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDebugger.Description.SourcePaths" xml:space="preserve">
     <value>その他のパス：ソースを検索するために、任意のフレームワークやライブラリのパスを指定します。</value>
   </data>
-  <data name="FlashDebugger.Description.StartContinue" xml:space="preserve">
-    <value>"開始/続ける"のショートカットです。</value>
-  </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
     <value>ムービーのテスト時にデバッガーを開始します。</value>
-  </data>
-  <data name="FlashDebugger.Description.Step" xml:space="preserve">
-    <value>"ステップ"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.Stop" xml:space="preserve">
-    <value>"停止"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.ToggleBreakPoint" xml:space="preserve">
-    <value>"ブレークポイントの設定/解除"のショートカットです。</value>
-  </data>
-  <data name="FlashDebugger.Description.ToggleBreakPointEnable" xml:space="preserve">
-    <value>"ブレークポイントの有効/無効"のショートカットです。</value>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>ActiveX プレーヤーではデバッグを開始することができません。</value>
@@ -3533,9 +3428,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDebugger.Title.StackTrace" xml:space="preserve">
     <value>コールスタック</value>
   </data>
-  <data name="CodeAnalyzer.Description.AnalyzeShortcut" xml:space="preserve">
-    <value>"ソースコード分析"のショートカットです。</value>
-  </data>
   <data name="CodeAnalyzer.Description.PMDRuleset" xml:space="preserve">
     <value>Flex PMD に使用するための既定のカスタムルールセットファイルを指定します。</value>
   </data>
@@ -3686,9 +3578,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ResultsPanel.Filters.Warnings" xml:space="preserve">
     <value>警告</value>
   </data>
-  <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
-    <value>"すべてのブレークポイントを解除"のショートカットです。</value>
-  </data>
   <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
     <value>デバッグ行の背景:</value>
   </data>
@@ -3754,9 +3643,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
     <value>デバッグ中、デバッグパネルの表示/非表示切り替えを自動的に行います。</value>
-  </data>
-  <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
-    <value>"リソースを開く"ダイアログのショートカットです。</value>
   </data>
   <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>外部クラスパスでのファイル検索を有効にします。</value>
@@ -3868,9 +3754,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="SourceControl.Label.SourceControl" xml:space="preserve">
     <value>バージョン管理</value>
-  </data>
-  <data name="FlashDebugger.Description.StartRemoteSession" xml:space="preserve">
-    <value>リモートセッション開始コマンドのショートカット</value>
   </data>
   <data name="FlashDevelop.Info.Language" xml:space="preserve">
     <value>言語:</value>
