@@ -347,15 +347,6 @@ namespace ASCompletion.Completion
                 ResolveElement(Sci, "ShowDocumentation");
 				return true;
 			}
-            // generators
-            else if (keys == ASContext.ContextualGenerator)
-            {
-                if (ASContext.HasContext && ASContext.Context.IsFileValid)
-                {
-                    ASGenerator.ContextualGenerator(Sci);
-                    return true;
-                }
-            }
             return false;
         }
 

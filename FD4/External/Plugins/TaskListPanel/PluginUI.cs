@@ -167,8 +167,7 @@ namespace TaskListPanel
             // 
             // statusStrip
             // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel});
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.toolStripLabel});
             this.statusStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(278, 22);
@@ -199,7 +198,6 @@ namespace TaskListPanel
             this.contextMenu = new ContextMenuStrip();
             this.contextMenu.Renderer = new DockPanelStripRenderer(false);
             this.contextMenu.Font = PluginBase.Settings.DefaultFont;
-            this.statusStrip.Renderer = new DockPanelStripRenderer(false);
             this.statusStrip.Font = PluginBase.Settings.DefaultFont;
             Image image = PluginBase.MainForm.FindImage("66");
             String label = TextHelper.GetString("FlashDevelop.Label.Refresh");

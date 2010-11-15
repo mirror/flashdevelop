@@ -72,8 +72,6 @@ namespace ASCompletion.Context
 
         #region static properties
 
-        public static Keys ContextualGenerator = Keys.Control | Keys.Shift | Keys.D1;
-
         static public IMainForm MainForm
 		{
             get { return PluginBase.MainForm; }

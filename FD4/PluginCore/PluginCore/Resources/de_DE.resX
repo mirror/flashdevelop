@@ -2113,6 +2113,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   </data>
   <data name="ResultsPanel.Label.CopyEntry" xml:space="preserve">
     <value>&amp;Kopiere Eintrag</value>
+    <comment>Modified after 3.3.1</comment>
   </data>
   <data name="ResultsPanel.Label.IgnoreEntry" xml:space="preserve">
     <value>&amp;Ignoriere Eintrag</value>
@@ -3934,6 +3935,10 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
     <value>Unable to load a plugin:</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
+    <value>&amp;Invoke Code Generator</value>
     <comment>Added after 3.3.1</comment>
   </data>
 </root>

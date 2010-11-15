@@ -47,8 +47,7 @@ namespace ASCompletion
             EventType.Command |
             EventType.ProcessEnd |
             EventType.ApplySettings |
-            EventType.ProcessArgs |
-            EventType.Shortcut;
+            EventType.ProcessArgs;
         private List<ToolStripItem> menuItems;
         private ToolStripItem quickBuildItem;
         private int currentPos;
@@ -464,20 +463,19 @@ namespace ASCompletion
                                 ASComplete.OnShortcut(Keys.Control | Keys.Alt | Keys.Space, ASContext.CurSciControl);
                                 e.Handled = true;
                             }
+                            else if (command == "ASCompletion.ContextualGenerator")
+                            {
+                                if (ASContext.HasContext && ASContext.Context.IsFileValid)
+                                {
+                                    ASGenerator.ContextualGenerator(ASContext.CurSciControl);
+                                }
+                            }
                         }
                         return;
 
                     case EventType.ProcessEnd:
                         string result = (e as TextEvent).Value;
                         ASContext.Context.OnProcessEnd(result);
-                        break;
-
-                    case EventType.Shortcut:
-                        DataEvent sde = (DataEvent)e;
-                        if (sde.Action == "ASCompletion.ContextualGenerator")
-                        {
-                            ASContext.ContextualGenerator = (Keys)sde.Data;
-                        }
                         break;
                 }
             }
@@ -656,9 +654,6 @@ namespace ASCompletion
                     menuItems.Add(item);
                 }
             }
-
-            // register ContextualGenerator
-            PluginBase.MainForm.RegisterShortcutItem("ASCompletion.ContextualGenerator", ASContext.ContextualGenerator);
         }
 
         private void AddEventHandlers()

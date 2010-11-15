@@ -2097,7 +2097,8 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>&amp;Clear Entries</value>
   </data>
   <data name="ResultsPanel.Label.CopyEntry" xml:space="preserve">
-    <value>Copy &amp;Entry</value>
+    <value>Copy &amp;Entry Details</value>
+    <comment>Modified after 3.3.1</comment>
   </data>
   <data name="ResultsPanel.Label.IgnoreEntry" xml:space="preserve">
     <value>Ignore &amp;Entry</value>
@@ -3934,6 +3935,10 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
     <value>Unable to load a plugin:</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
+    <value>&amp;Invoke Code Generator</value>
     <comment>Added after 3.3.1</comment>
   </data>
 </root>

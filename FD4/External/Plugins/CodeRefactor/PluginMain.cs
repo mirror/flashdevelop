@@ -145,6 +145,7 @@ namespace CodeRefactor
             this.refactorMainMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorMainMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorMainMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
+            this.refactorMainMenu.CodeGeneratorMenuItem.Click += new EventHandler(this.CodeGeneratorMenuItemClicked);
             //
             this.refactorContextMenu = new RefactorMenu(false);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
@@ -153,6 +154,7 @@ namespace CodeRefactor
             this.refactorContextMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorContextMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorContextMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
+            this.refactorContextMenu.CodeGeneratorMenuItem.Click += new EventHandler(this.CodeGeneratorMenuItemClicked);
             //
             this.surroundContextMenu = new SurroundMenu();
             editorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
@@ -504,6 +506,15 @@ namespace CodeRefactor
             {
                 ErrorManager.ShowError(ex);
             }
+        }
+
+        /// <summary>
+        /// Invokes the ASCompletion contextual generator
+        /// </summary>
+        private void CodeGeneratorMenuItemClicked(Object sender, EventArgs e)
+        {
+            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.ContextualGenerator", null);
+            EventManager.DispatchEvent(this, de);
         }
 
         /// <summary>

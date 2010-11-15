@@ -2,8 +2,8 @@
 using System.Text;
 using System.Windows.Forms;
 using PluginCore.Localization;
-using PluginCore;
 using CodeRefactor.CustomControls;
+using PluginCore;
 
 namespace CodeRefactor.Controls
 {
@@ -13,8 +13,9 @@ namespace CodeRefactor.Controls
         private ToolStripMenuItem renameMenuItem;
         private ToolStripMenuItem truncateMenuItem;
         private ToolStripMenuItem organizeMenuItem;
-        private ToolStripMenuItem extractMethodMenuItem;
         private ToolStripMenuItem delegateMenuItem;
+        private ToolStripMenuItem generatorMenuItem;
+        private ToolStripMenuItem extractMethodMenuItem;
         private ToolStripMenuItem extractLocalVariableMenuItem;
 
         public RefactorMenu(Boolean createSurroundMenu)
@@ -29,6 +30,9 @@ namespace CodeRefactor.Controls
                 this.surroundMenu = new SurroundMenu();
                 this.DropDownItems.Add(this.surroundMenu);
             }
+            this.DropDownItems.Add(new ToolStripSeparator());
+            this.generatorMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.InvokeCodeGenerator"), null, null, createSurroundMenu ? Keys.Control | Keys.Shift | Keys.D1 : Keys.None);
+            this.DropDownItems.Add(this.generatorMenuItem);
             this.DropDownItems.Add(new ToolStripSeparator());
             this.organizeMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.OrganizeImports"), null) as ToolStripMenuItem;
             this.truncateMenuItem = this.DropDownItems.Add(TextHelper.GetString("Label.TruncateImports"), null) as ToolStripMenuItem;
@@ -46,6 +50,7 @@ namespace CodeRefactor.Controls
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.GenerateDelegateMethods", this.delegateMenuItem);
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.OrganizeImports", this.organizeMenuItem);
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.TruncateImports", this.truncateMenuItem);
+            PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.InvokeGenerator", this.generatorMenuItem);
         }
 
         /// <summary>
@@ -102,6 +107,14 @@ namespace CodeRefactor.Controls
         public ToolStripMenuItem ExtractLocalVariableMenuItem
         {
             get { return this.extractLocalVariableMenuItem; }
+        }
+
+        /// <summary>
+        /// Accessor to the CodeGeneratorMenuItem
+        /// </summary>
+        public ToolStripMenuItem CodeGeneratorMenuItem
+        {
+            get { return this.generatorMenuItem; }
         }
 
     }
