@@ -1,13 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using PluginCore.Managers;
-using PluginCore;
 using PluginCore.Utilities;
 using FlashDevelop.Helpers;
-using System.IO;
+using PluginCore;
 
 namespace FlashDevelop.Managers
 {
@@ -54,9 +54,11 @@ namespace FlashDevelop.Managers
             List<Keys> keys = new List<Keys>();
             foreach (ShortcutItem item in RegistedItems)
             {
-                keys.Add(item.Custom);
+                if (!AllShortcuts.Contains(item.Custom))
+                {
+                    AllShortcuts.Add(item.Custom);
+                }
             }
-            AllShortcuts = keys;
         }
 
         /// <summary>
@@ -73,7 +75,6 @@ namespace FlashDevelop.Managers
                     EventManager.DispatchEvent(Globals.MainForm, de);
                 }
             }
-            UpdateAllShortcuts();
         }
 
         /// <summary>
