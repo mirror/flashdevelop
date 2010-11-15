@@ -409,36 +409,6 @@ namespace PluginCore.Controls
             sci.Focus();
             ReplaceText(sci, '\0');
 		}
-        
-        public static Int32 AbbreviationMatch(string source, string searchText)
-        {
-            int i = 0; int j = 0;
-            if (source.Length < searchText.Length) return -1;
-            Char[] text = source.Substring(source.LastIndexOf(".") + 1).ToCharArray();
-            Char[] pattern = searchText.ToCharArray();
-            while (i < pattern.Length)
-            {
-                while (i < pattern.Length && j < text.Length && pattern[i] == text[j])
-                {
-                    i++;
-                    j++;
-                }
-                if (i == pattern.Length) return 1;
-                if (Char.IsLower(pattern[i])) return -1;
-                while (j < text.Length && Char.IsLower(text[j]))
-                {
-                    j++;
-                }
-                if (j == text.Length) return -1;
-                if (pattern[i] != text[j]) return -1;
-            }
-            return (i == pattern.Length) ? 1 : -1;
-        }
-
-        static int ScoreComparer(ItemMatch item1, ItemMatch item2)
-        {
-            return item1.Score - item2.Score;
-        }
 
         /// <summary>
         /// Filter the completion list with the letter typed
@@ -461,26 +431,6 @@ namespace PluginCore.Controls
 					exactMatchInList = false;
                     smartMatchInList = true;
 				}
-                else if (IsAbbreviation(word)) // search by abbreviation
-                {
-                    List<ItemMatch> temp = new List<ItemMatch>(allItems.Count);
-                    foreach (ICompletionListItem item in allItems)
-                    {
-                        Int32 score = AbbreviationMatch(item.Label, word);
-                        if (score >= 0)
-                        {
-                            temp.Add(new ItemMatch(score, item));
-                        }
-                    }
-                    temp.Sort(ScoreComparer);
-                    found = new List<ICompletionListItem>();
-                    foreach (ItemMatch itemMatch in temp)
-                    {
-                        found.Add(itemMatch.Item);
-                    }
-                    smartMatchInList = found.Capacity > 0;
-                    lastIndex = 0;
-                }
 				else
 				{
                     List<ItemMatch> temp = new List<ItemMatch>(allItems.Count);
@@ -643,18 +593,6 @@ namespace PluginCore.Controls
 			}
 		}
 
-        public static bool IsAbbreviation(string word)
-        {
-            int len = word.Length;
-            if (len <= 1 || !Char.IsUpper(word[0])) return false;
-            for (int i = 1; i < len; i++)
-            {
-                if (word[i] == '_') break;
-                if (Char.IsUpper(word[i])) return true;
-            }
-            return false;
-        }
-
         private static int TestDefaultItem(Int32 index, String word, Int32 len)
         {
             if (defaultItem != null && completionList.Items.Contains(defaultItem))
@@ -668,6 +606,9 @@ namespace PluginCore.Controls
         static public int SmartMatch(string label, string word, int len)
         {
             if (label.Length < len) return 0;
+            if (label.Contains("ArgumentError"))
+            {
+            }
             // simple matching
             if (disableSmartMatch)
             {
@@ -678,11 +619,20 @@ namespace PluginCore.Controls
                 }
                 return 0;
             }
+
+            // try abbreviation
+            bool firstUpper = Char.IsUpper(word[0]);
+            if (firstUpper)
+            {
+                int abbr = IsAbbreviation(label, word);
+                if (abbr > 0) return abbr;
+            }
+                   
             int p = label.IndexOf(word, StringComparison.OrdinalIgnoreCase);
             if (p >= 0)
             {
                 int p2;
-                if (Char.IsUpper(word[0])) // try case sensitive search
+                if (firstUpper) // try case sensitive search
                 {
                     p2 = label.IndexOf(word);
                     if (p2 >= 0)
@@ -732,6 +682,7 @@ namespace PluginCore.Controls
                     return 5;
                 }
             }
+
             // loose
             int n = label.Length;
             int firstChar = label.IndexOf(word[0].ToString(), StringComparison.OrdinalIgnoreCase);
@@ -739,9 +690,61 @@ namespace PluginCore.Controls
             p = firstChar;
             while (i < len && p >= 0)
             {
-                p = label.IndexOf(word[i++].ToString(), p, StringComparison.OrdinalIgnoreCase);
+                p = label.IndexOf(word[i++].ToString(), p + 1, StringComparison.OrdinalIgnoreCase);
             }
             return (p > 0) ? 7 : 0;
+        }
+
+        static public int IsAbbreviation(string label, string word)
+        {
+            int len = word.Length;
+            int i = 1;
+            char c = word[0];
+            int p;
+            int p2;
+            int score = 0;
+            if (label[0] == c) { p2 = 0; score = 1; }
+            else if (label.IndexOf('.') < 0)
+            {
+                p2 = label.IndexOf(c);
+                if (p2 < 0) return 0;
+                score = 3;
+            }
+            else 
+            {
+                p2 = label.IndexOf("." + c);
+                if (p2 >= 0) { score = 2; p2++; }
+                else
+                {
+                    p2 = label.IndexOf(c);
+                    if (p2 < 0) return 0;
+                    score = 4;
+                }
+            }
+            int dist = 0;
+
+            while (i < len)
+            {
+                p = p2;
+                c = word[i++];
+                if (Char.IsUpper(c)) p2 = label.IndexOf(c.ToString(), p + 1);
+                else p2 = label.IndexOf(c.ToString(), p + 1, StringComparison.OrdinalIgnoreCase);
+                if (p2 < 0) return 0;
+
+                int ups = 0; 
+                for (int i2 = p + 1; i2 < p2; i2++) 
+                    if (label[i2] == '_') { ups = 0; }
+                    else if (Char.IsUpper(label[i2])) ups++;
+                score += Math.Min(3, ups); // malus if skipped upper chars
+
+                dist += p2 - p;
+            }
+            if (dist == len - 1)
+            {
+                if (label == word || label.EndsWith("." + word)) return 1;
+                return score;
+            }
+            else return score + 2;
         }
 
         /// <summary>

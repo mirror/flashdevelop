@@ -114,9 +114,7 @@ namespace ASClassWizard.Wizards
             this.itemList.Items.Clear();
 
             topIndex = 0;
-            List<GListBox.GListBoxItem> result =
-                CompletionList.IsAbbreviation(text) ? this.FindByAbbreviation(text)
-                : this.FilterSmart();
+            List<GListBox.GListBoxItem> result = this.FilterSmart();
                 
             this.itemList.Items.AddRange(result.ToArray());
             this.itemList.EndUpdate();
@@ -124,27 +122,6 @@ namespace ASClassWizard.Wizards
             {
                 this.itemList.SelectedIndex = Math.Min(topIndex, this.itemList.Items.Count - 1);
             }
-        }
-
-        private List<GListBox.GListBoxItem> FindByAbbreviation(String searchText)
-        {
-            List<GListBox.GListBoxItem> result = new List<GListBox.GListBoxItem>();
-            foreach (GListBox.GListBoxItem item in DataProvider)
-            {
-                Int32 score = PluginCore.Controls.CompletionList.AbbreviationMatch(item.Text, searchText);
-                if (score >= 0)
-                {
-                    result.Add(item);
-                    item.matchScore = score;
-                }
-            }
-            result.Sort(ScoreComparer);
-            return result;
-        }
-
-        private int ScoreComparer(GListBox.GListBoxItem item1, GListBox.GListBoxItem item2)
-        {
-            return item1.matchScore - item2.matchScore;
         }
 
         /// <summary>
