@@ -113,7 +113,7 @@ namespace MacroManager
                         {
                             foreach (String entry in macro.Entries)
                             {
-                                String[] parts = entry.Split(new Char[1] { '|' });
+                                String[] parts = entry.Split(new Char[1] {'|'});
                                 PluginBase.MainForm.CallCommand(parts[0], parts[1]);
                             }
                         }
@@ -123,10 +123,6 @@ namespace MacroManager
                 {
                     ErrorManager.AddToLog("Macro AutoRun Failed.", ex);
                 }
-            }
-            if (e.Type == EventType.ApplySettings)
-            {
-                this.UpdateMenuShortcut();
             }
 		}
 		
@@ -151,7 +147,6 @@ namespace MacroManager
             String dataPath = Path.Combine(PathHelper.DataDir, "MacroManager");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
-            EventManager.AddEventHandler(this, EventType.ApplySettings);
             EventManager.AddEventHandler(this, EventType.UIStarted);
         }
 
@@ -161,13 +156,10 @@ namespace MacroManager
         private void CreateMainMenuItems()
         {
             MenuStrip mainMenu = PluginBase.MainForm.MenuStrip;
-            this.macroMenuItem = new ToolStripMenuItem();
-            this.macroMenuItem.Text = TextHelper.GetString("Label.Macros");
-            this.editMenuItem = new ToolStripMenuItem();
-            this.editMenuItem.Text = TextHelper.GetString("Label.EditMacros");
-            this.editMenuItem.Click += new EventHandler(this.EditMenuItemClick);
-            Int32 index = mainMenu.Items.Count - 2;
-            mainMenu.Items.Insert(index, this.macroMenuItem);
+            this.macroMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.Macros"));
+            this.editMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.EditMacros"), null, this.EditMenuItemClick, Keys.Control | Keys.F10);
+            PluginBase.MainForm.RegisterShortcutItem("MacrosMenu.EditMacros", this.editMenuItem);
+            mainMenu.Items.Insert(mainMenu.Items.Count - 2, this.macroMenuItem);
         }
 
         /// <summary>
@@ -198,7 +190,6 @@ namespace MacroManager
             }
             this.macroMenuItem.DropDownItems.Add(new ToolStripSeparator());
             this.macroMenuItem.DropDownItems.Add(this.editMenuItem);
-            this.UpdateMenuShortcut();
         }
 
         /// <summary>
@@ -236,19 +227,6 @@ namespace MacroManager
         private void SaveSettings()
         {
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-        }
-
-        /// <summary>
-        /// Updates the edit macros menu item shortcut
-        /// </summary>
-        private void UpdateMenuShortcut()
-        {
-            Keys shortcut = this.settingObject.EditShortcut;
-            if (!PluginBase.MainForm.IgnoredKeys.Contains(shortcut))
-            {
-                PluginBase.MainForm.IgnoredKeys.Add(shortcut);
-            }
-            this.editMenuItem.ShortcutKeys = shortcut;
         }
 
         /// <summary>

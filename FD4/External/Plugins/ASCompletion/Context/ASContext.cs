@@ -1,7 +1,6 @@
-/*
- * Autocompletion context manager
- */
-
+/**
+* Autocompletion context manager
+*/
 using System;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
@@ -72,10 +71,14 @@ namespace ASCompletion.Context
         #endregion
 
         #region static properties
+
+        public static Keys ContextualGenerator = Keys.Control | Keys.Shift | Keys.D1;
+
         static public IMainForm MainForm
 		{
             get { return PluginBase.MainForm; }
         }
+
         static public ScintillaNet.ScintillaControl CurSciControl
         {
             get 

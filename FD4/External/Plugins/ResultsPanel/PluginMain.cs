@@ -25,6 +25,10 @@ namespace ResultsPanel
         private PluginUI pluginUI;
         private Image pluginImage;
 
+        // Shortcut management
+        public Keys NextError = Keys.F12;
+        public Keys PrevError = Keys.Shift | Keys.F12;
+
 	    #region Required Properties
 
         /// <summary>
@@ -144,15 +148,27 @@ namespace ResultsPanel
 
                 case EventType.Keys:
                     KeyEvent ke = (KeyEvent)e;
-                    if (ke.Value == this.settingObject.NextError)
+                    if (ke.Value == this.NextError)
                     {
                         ke.Handled = true;
                         this.pluginUI.NextEntry(null, null);
                     }
-                    else if (ke.Value == this.settingObject.PreviousError)
+                    else if (ke.Value == this.PrevError)
                     {
                         ke.Handled = true;
                         this.pluginUI.PreviousEntry(null, null);
+                    }
+                    break;
+
+                case EventType.Shortcut:
+                    DataEvent de = (DataEvent)e;
+                    if (de.Action == "ResultsPanel.ShowNextResult")
+                    {
+                        this.NextError = (Keys)de.Data;
+                    }
+                    else if (de.Action == "ResultsPanel.ShowPrevResult")
+                    {
+                        this.PrevError = (Keys)de.Data;
                     }
                     break;
             }
@@ -201,7 +217,7 @@ namespace ResultsPanel
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventType eventMask = EventType.ProcessEnd | EventType.ProcessStart | EventType.FileOpen | EventType.Command | EventType.Trace | EventType.Keys | EventType.ApplySettings;
+            EventType eventMask = EventType.ProcessEnd | EventType.ProcessStart | EventType.FileOpen | EventType.Command | EventType.Trace | EventType.Keys | EventType.Shortcut | EventType.ApplySettings;
             EventManager.AddEventHandler(this, eventMask);
         }
 
@@ -212,7 +228,11 @@ namespace ResultsPanel
         {
             String title = TextHelper.GetString("Label.ViewMenuItem");
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(title, this.pluginImage, new EventHandler(this.OpenPanel)));
+            ToolStripMenuItem viewItem = new ToolStripMenuItem(title, this.pluginImage, new EventHandler(this.OpenPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ResultsPanel.ShowNextResult", this.NextError);
+            PluginBase.MainForm.RegisterShortcutItem("ResultsPanel.ShowPrevResult", this.PrevError);
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowResults", viewItem);
+            viewMenu.DropDownItems.Add(viewItem);
         }
 
         /// <summary>

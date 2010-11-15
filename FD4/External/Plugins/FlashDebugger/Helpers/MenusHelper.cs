@@ -36,11 +36,20 @@ namespace FlashDebugger
 			imageList.Images.Add("Next", Resource.Next);
 			imageList.Images.Add("Finish", Resource.Finish);
 
+            ToolStripMenuItem tempItem;
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewBreakpointsPanel"), pluginImage, new EventHandler(this.OpenBreakPointPanel)));
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanel"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel)));
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewStackframePanel"), pluginImage, new EventHandler(this.OpenStackframePanel)));
-			viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewWatchPanel"), pluginImage, new EventHandler(this.OpenWatchPanel)));
+            tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewBreakpointsPanel"), pluginImage, new EventHandler(this.OpenBreakPointPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowBreakpoints", tempItem);
+            viewMenu.DropDownItems.Add(tempItem);
+            tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewLocalVariablesPanel"), pluginImage, new EventHandler(this.OpenLocalVariablesPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowLocalVariables", tempItem);
+            viewMenu.DropDownItems.Add(tempItem);
+            tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewStackframePanel"), pluginImage, new EventHandler(this.OpenStackframePanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowStackframe", tempItem);
+            viewMenu.DropDownItems.Add(tempItem);
+            tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewWatchPanel"), pluginImage, new EventHandler(this.OpenWatchPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowWatch", tempItem);
+            viewMenu.DropDownItems.Add(tempItem);
 
             // Menu           
             ToolStripMenuItem debugMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("DebugMenu");
@@ -53,22 +62,36 @@ namespace FlashDebugger
                 PluginBase.MainForm.MenuStrip.Items.Insert(idx, debugMenu);
             }
 
-			StartContinueMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Start"), imageList.Images["StartContinue"], new EventHandler(StartContinue_Click), settingObject.StartContinue);
-			PauseMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Pause"), imageList.Images["Pause"], new EventHandler(debugManager.Pause_Click), settingObject.Pause);
-			StopMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Stop"), imageList.Images["Stop"], new EventHandler(debugManager.Stop_Click), settingObject.Stop);
-			CurrentMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Current"), imageList.Images["Current"], new EventHandler(debugManager.Current_Click), settingObject.Current);
-			RunToCursorMenu = new ToolStripMenuItem(TextHelper.GetString("Label.RunToCursor"), imageList.Images["RunToCursor"], new EventHandler(ScintillaHelper.RunToCursor_Click), settingObject.RunToCursor);
-			StepMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Step"), imageList.Images["Step"], new EventHandler(debugManager.Step_Click), settingObject.Step);
-			NextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(debugManager.Next_Click), settingObject.Next);
-            FinishMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Finish"), imageList.Images["Finish"], new EventHandler(debugManager.Finish_Click), settingObject.Finish);
+			StartContinueMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Start"), imageList.Images["StartContinue"], new EventHandler(StartContinue_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Start", StartContinueMenu);
+            PauseMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Pause"), imageList.Images["Pause"], new EventHandler(debugManager.Pause_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Pause", PauseMenu);
+            StopMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Stop"), imageList.Images["Stop"], new EventHandler(debugManager.Stop_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Stop", StopMenu);
+            CurrentMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Current"), imageList.Images["Current"], new EventHandler(debugManager.Current_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Current", CurrentMenu);
+            RunToCursorMenu = new ToolStripMenuItem(TextHelper.GetString("Label.RunToCursor"), imageList.Images["RunToCursor"], new EventHandler(ScintillaHelper.RunToCursor_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.RunToCursor", RunToCursorMenu);
+            StepMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Step"), imageList.Images["Step"], new EventHandler(debugManager.Step_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Step", StepMenu);
+            NextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(debugManager.Next_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Next", NextMenu);
+            FinishMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Finish"), imageList.Images["Finish"], new EventHandler(debugManager.Finish_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Finish", FinishMenu);
 
-            ToggleBreakPointMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ToggleBreakpoint"), null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), settingObject.ToggleBreakPoint);
-            DeleteAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DeleteAllBreakpoints"), null, new EventHandler(ScintillaHelper.DeleteAllBreakPoints_Click), settingObject.DeleteAllBreakPoints);
-            ToggleBreakPointEnableMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ToggleBreakpointEnabled"), null, new EventHandler(ScintillaHelper.ToggleBreakPointEnable_Click), settingObject.ToggleBreakPointEnable);
-            DisableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DisableAllBreakpoints"), null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), settingObject.DisableAllBreakPoints);
-            EnableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.EnableAllBreakpoints"), null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), settingObject.EnableAllBreakPoints);
+            ToggleBreakPointMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ToggleBreakpoint"), null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.ToggleBreakpoint", ToggleBreakPointMenu);
+            DeleteAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DeleteAllBreakpoints"), null, new EventHandler(ScintillaHelper.DeleteAllBreakPoints_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.DeleteAllBreakpoints", DeleteAllBreakPointsMenu);
+            ToggleBreakPointEnableMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ToggleBreakpointEnabled"), null, new EventHandler(ScintillaHelper.ToggleBreakPointEnable_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.ToggleBreakpointEnabled", ToggleBreakPointEnableMenu);
+            DisableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.DisableAllBreakpoints"), null, new EventHandler(ScintillaHelper.DisableAllBreakPoints_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.DisableAllBreakpoints", DisableAllBreakPointsMenu);
+            EnableAllBreakPointsMenu = new ToolStripMenuItem(TextHelper.GetString("Label.EnableAllBreakpoints"), null, new EventHandler(ScintillaHelper.EnableAllBreakPoints_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.EnableAllBreakpoints", EnableAllBreakPointsMenu);
 
-            StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartRemote_Click), settingObject.StartRemoteSession);
+            StartRemoteDebuggingMenu = new ToolStripMenuItem(TextHelper.GetString("Label.StartRemoteDebugging"), null, new EventHandler(StartRemote_Click), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.StartRemoteDebugging", StartRemoteDebuggingMenu);
 
             debugItems = new List<ToolStripItem>(new ToolStripItem[]
 			{
@@ -78,7 +101,6 @@ namespace FlashDebugger
 				StartRemoteDebuggingMenu
             });
 
-            AddIgnoredShortcutKeys();
             debugMenu.DropDownItems.AddRange(debugItems.ToArray());
 
             // ToolStrip
@@ -104,38 +126,6 @@ namespace FlashDebugger
             
             // Events
             PluginMain.debugManager.StateChangedEvent += UpdateMenuState;
-        }
-
-        public void ApplyShortcutKeys()
-        {
-            StartContinueMenu.ShortcutKeys = settingObject.StartContinue;
-            PauseMenu.ShortcutKeys = settingObject.Pause;
-            StopMenu.ShortcutKeys = settingObject.Stop;
-            CurrentMenu.ShortcutKeys = settingObject.Current;
-            RunToCursorMenu.ShortcutKeys = settingObject.RunToCursor;
-            StepMenu.ShortcutKeys = settingObject.Step;
-            NextMenu.ShortcutKeys = settingObject.Next;
-            FinishMenu.ShortcutKeys = settingObject.Finish;
-            ToggleBreakPointMenu.ShortcutKeys = settingObject.ToggleBreakPoint;
-            DeleteAllBreakPointsMenu.ShortcutKeys = settingObject.DeleteAllBreakPoints;
-            ToggleBreakPointEnableMenu.ShortcutKeys = settingObject.ToggleBreakPointEnable;
-            DisableAllBreakPointsMenu.ShortcutKeys = settingObject.DisableAllBreakPoints;
-            EnableAllBreakPointsMenu.ShortcutKeys = settingObject.EnableAllBreakPoints;
-            StartRemoteDebuggingMenu.ShortcutKeys = settingObject.StartRemoteSession;
-        }
-
-        public void AddIgnoredShortcutKeys()
-        {
-            foreach (ToolStripItem item in debugItems)
-            {
-                if (item is ToolStripMenuItem)
-                {
-                    if ((item as ToolStripMenuItem).ShortcutKeys != Keys.None)
-                    {
-                        PluginBase.MainForm.IgnoredKeys.Add((item as ToolStripMenuItem).ShortcutKeys);
-                    }
-                }
-            }
         }
 
         public void AddToolStripItems()

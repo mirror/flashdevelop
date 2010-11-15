@@ -304,7 +304,8 @@ namespace LayoutManager
                 ListViewItem item = GetSelectedItem();
                 if (!FileHelper.Recycle(item.Tag.ToString()))
                 {
-                    throw new Exception("Could not be recycled: " + item.Tag.ToString());
+                    String message = TextHelper.GetString("FlashDevelop.Info.CouldNotBeRecycled");
+                    throw new Exception(message + " " + item.Tag.ToString());
                 }
                 this.PopulateLayoutsListView();
             }

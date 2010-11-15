@@ -139,8 +139,6 @@ namespace FlashDebugger
 
                 case EventType.ApplySettings:
                     menusHelper.UpdateMenuState(this);
-                    menusHelper.AddIgnoredShortcutKeys();
-                    menusHelper.ApplyShortcutKeys();
                     break;
 
                 case EventType.ProcessEnd:

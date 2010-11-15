@@ -23,12 +23,7 @@ namespace ProjectManager
     {
         public event SettingChangeHandler Changed;
 
-        public const Keys DEFAULT_TESTMOVIE = Keys.F5;
-        public const Keys DEFAULT_BUILDPROJECT = Keys.F8;
-        public const Keys DEFAULT_OPENRESOURCE = Keys.Control | Keys.R;
-
         private Boolean searchExternalClassPath = true;
-        private Keys openResourceShortcut = DEFAULT_OPENRESOURCE;
         List<ProjectPreferences> projectPrefList = new List<ProjectPreferences>();
         List<string> recentProjects = new List<string>();
         bool showProjectClasspaths = true;
@@ -41,8 +36,6 @@ namespace ProjectManager
         bool disableExtFlashIntegration = false;
         string newProjectDefaultDirectory = string.Empty;
         bool enableMxmlMapping = false;
-        Keys shortcutTestMovie = DEFAULT_TESTMOVIE;
-        Keys shortcutBuildProject = DEFAULT_BUILDPROJECT;
 
         // These are string arrays because they are only edited by the propertygrid (which deals with them nicely)
         string[] excludedFileTypes = new string[] { ".p", ".abc", ".bak", ".tmp" };
@@ -83,16 +76,6 @@ namespace ProjectManager
         {
             get { return newProjectDefaultDirectory; }
             set { newProjectDefaultDirectory = value; FireChanged("NewProjectDefaultDirectory"); }
-        }
-
-        [DisplayName("Open Resource")]
-        [LocalizedCategory("ProjectManager.Category.Shortcuts")]
-        [LocalizedDescription("ProjectManager.Description.OpenResourceShortcut")]
-        [DefaultValue(DEFAULT_OPENRESOURCE)]
-        public Keys ShortcutOpenResource
-        {
-            get { return openResourceShortcut; }
-            set { openResourceShortcut = value; }
         }
 
         [DisplayName("Search In External Classpath")]
@@ -208,26 +191,6 @@ namespace ProjectManager
         {
             get { return alternateTemplateDir; }
             set { alternateTemplateDir = value; FireChanged("AlternateTemplateDir"); }
-        }
-
-        [DisplayName("Test Movie Shortcut")]
-        [LocalizedDescription("ProjectManager.Description.ShortcutTestMovie")]
-        [LocalizedCategory("ProjectManager.Category.Shortcuts")]
-        [DefaultValue(DEFAULT_TESTMOVIE)]
-        public Keys ShortcutTestMovie
-        {
-            get { return shortcutTestMovie; }
-            set { shortcutTestMovie = value; }
-        }
-
-        [DisplayName("Build Project Shortcut")]
-        [LocalizedDescription("ProjectManager.Description.ShortcutBuild")]
-        [LocalizedCategory("ProjectManager.Category.Shortcuts")]
-        [DefaultValue(DEFAULT_BUILDPROJECT)]
-        public Keys ShortcutBuildProject
-        {
-            get { return shortcutBuildProject; }
-            set { shortcutBuildProject = value; }
         }
 
         #endregion

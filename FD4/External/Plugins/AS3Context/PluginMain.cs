@@ -133,8 +133,7 @@ namespace AS3Context
                         {
                             e.Handled = OpenVirtualFileModel(de.Data as String);
                         }
-                        else if (!(settingObject as AS3Settings).DisableFDB
-                            && action == "AS3Context.StartDebugger")
+                        else if (!(settingObject as AS3Settings).DisableFDB && action == "AS3Context.StartDebugger")
                         {
                             string workDir = (PluginBase.CurrentProject != null)
                                 ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
@@ -147,7 +146,6 @@ namespace AS3Context
                             {
                                 flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
                             }
-
                             e.Handled = FlexDebugger.Start(workDir, flexSdk, null);
                         }
                         else if (action == "AS3Context.StartProfiler")
@@ -160,7 +158,7 @@ namespace AS3Context
                         if (inMXML)
                         {
                             KeyEvent ke = e as KeyEvent;
-                            if (ke.Value == ASCompletion.Context.ASContext.CommonSettings.GotoDeclaration)
+                            if (ke.Value == PluginBase.MainForm.GetShortcutItemKeys("SearchMenu.GotoDeclaration"))
                             {
                                 if (MxmlComplete.GotoDeclaration())
                                 {
@@ -279,13 +277,10 @@ namespace AS3Context
 
             string container = virtualPath.Substring(0, p);
             string ext = Path.GetExtension(container).ToLower();
-            if (ext != ".swc" && ext != ".swf")
-                return false;
-            if (!File.Exists(container))
-                return false;
+            if (ext != ".swc" && ext != ".swf") return false;
+            if (!File.Exists(container)) return false;
 
-            string fileName = Path.Combine(container, 
-                virtualPath.Substring(p + 2).Replace('.', Path.DirectorySeparatorChar));
+            string fileName = Path.Combine(container, virtualPath.Substring(p + 2).Replace('.', Path.DirectorySeparatorChar));
             PathModel path = new PathModel(container, contextInstance);
             SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
             parser.Run();
@@ -336,6 +331,7 @@ namespace AS3Context
             if (menu == null) return;
 
             ToolStripMenuItem viewItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), pluginIcon, new EventHandler(OpenPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowProfiler", viewItem);
             menu.DropDownItems.Add(viewItem);
 
             viewButton = new ToolStripButton(pluginIcon);
@@ -351,8 +347,13 @@ namespace AS3Context
             ToolStripItem checkSyntax = null;
             ToolStrip toolbar = PluginBase.MainForm.ToolStrip;
             foreach (ToolStripItem item in toolbar.Items)
-                if (item.Name == "CheckSyntax") { checkSyntax = item; break; }
-
+            {
+                if (item.Name == "CheckSyntax") 
+                { 
+                    checkSyntax = item; 
+                    break;
+                }
+            }
             if (checkSyntax != null) toolbar.Items.Insert(toolbar.Items.IndexOf(checkSyntax) + 1, viewButton);
             else
             {
@@ -368,9 +369,10 @@ namespace AS3Context
         public void OpenPanel(object sender, System.EventArgs e)
         {
             if (sender is ToolStripButton && profilerPanel.Visible && profilerPanel.DockState.ToString().IndexOf("AutoHide") < 0)
+            {
                 profilerPanel.Hide();
-            else 
-                profilerPanel.Show();
+            }
+            else profilerPanel.Show();
         }
 
         /// <summary>
@@ -429,21 +431,21 @@ namespace AS3Context
             if (flashPath == null)
             {
                 flashPath = CallFlashIDE.FindFlashIDE(true);
-                if (flashPath == null)
-                    return null;
+                if (flashPath == null) return null;
             }
             string ext = Path.GetExtension(flashPath).ToLower();
             if (ext == ".exe" || ext == ".bat" || ext == ".cmd")
+            {
                 flashPath = Path.GetDirectoryName(flashPath);
+            }
             string basePath = flashPath;
-
             string deflang = System.Globalization.CultureInfo.CurrentUICulture.Name;
             deflang = deflang.Substring(0, 2);
-
             // CS4+ default configuration
             if (Directory.Exists(basePath + "\\Common\\Configuration\\ActionScript 3.0"))
+            {
                 return basePath + "\\Common\\Configuration\\";
-
+            }
             // default language
             if (Directory.Exists(basePath + deflang + "\\Configuration\\ActionScript 3.0"))
             {
@@ -456,11 +458,14 @@ namespace AS3Context
                 foreach (string dir in dirs)
                 {
                     if (Directory.Exists(dir + "\\Configuration\\ActionScript 3.0"))
+                    {
                         return dir + "\\Configuration\\";
+                    }
                 }
             }
             return null;
         }
+
         #endregion
     
     }

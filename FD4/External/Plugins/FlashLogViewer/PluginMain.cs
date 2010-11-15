@@ -166,7 +166,9 @@ namespace FlashLogViewer
         public void CreateMenuItem()
         {
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), this.pluginImage, new EventHandler(this.OpenPanel)));
+            ToolStripMenuItem viewItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), this.pluginImage, new EventHandler(this.OpenPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowLogs", viewItem);
+            viewMenu.DropDownItems.Add(viewItem);
         }  
 
         /// <summary>

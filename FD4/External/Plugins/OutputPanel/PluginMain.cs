@@ -191,7 +191,9 @@ namespace OutputPanel
         {
             String label = TextHelper.GetString("Label.ViewMenuItem");
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(label, this.pluginImage, new EventHandler(this.OpenPanel)));
+            ToolStripMenuItem viewItem = new ToolStripMenuItem(label, this.pluginImage, new EventHandler(this.OpenPanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowOutput", viewItem);
+            viewMenu.DropDownItems.Add(viewItem);
         }
 
         /// <summary>

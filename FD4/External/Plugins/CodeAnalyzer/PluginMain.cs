@@ -106,11 +106,6 @@ namespace CodeAnalyzer
 		{
             switch (e.Type)
             {
-                case EventType.ApplySettings:
-                    PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.AnalyzeShortcut);
-                    this.analyzeMenuItem.ShortcutKeys = this.settingObject.AnalyzeShortcut;
-                    break;
-
                 case EventType.Command:
                     if (((DataEvent)e).Action == "ProjectManager.Project")
                     {
@@ -141,8 +136,7 @@ namespace CodeAnalyzer
         /// </summary>
         private void AddEventHandlers()
         {
-            EventType events = EventType.ApplySettings | EventType.Command;
-            EventManager.AddEventHandler(this, events);
+            EventManager.AddEventHandler(this, EventType.Command);
         }
 
 		/// <summary>
@@ -152,8 +146,9 @@ namespace CodeAnalyzer
 		{
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("FlashToolsMenu");
             this.creatorMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.RulesetCreator"), null, new EventHandler(this.OpenCreator));
-            this.analyzeMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.AnalyzeProject"), null, new EventHandler(this.AnalyzeProject), this.settingObject.AnalyzeShortcut);
-			PluginBase.MainForm.IgnoredKeys.Add(this.settingObject.AnalyzeShortcut);
+            this.analyzeMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.AnalyzeProject"), null, new EventHandler(this.AnalyzeProject), Keys.None);
+            PluginBase.MainForm.RegisterShortcutItem("MainMenu.ToolsMenu.FlashToolsMenu.AnalyzeProject", this.analyzeMenuItem);
+            PluginBase.MainForm.RegisterShortcutItem("MainMenu.ToolsMenu.FlashToolsMenu.RulesetCreator", this.creatorMenuItem);
             viewMenu.DropDownItems.Insert(2, this.analyzeMenuItem);
             viewMenu.DropDownItems.Insert(3, this.creatorMenuItem);
             this.analyzeMenuItem.Enabled = false;

@@ -64,7 +64,7 @@ namespace FlashDevelop.Managers
             XmlNode rootNode = XmlHelper.LoadXmlDocument(file);
             foreach (XmlNode subNode in rootNode.ChildNodes)
             {
-                FillMenuItems(contextMenu.Items, subNode, null);
+                FillMenuItems(contextMenu.Items, subNode);
             }
             return contextMenu;
         }
@@ -78,7 +78,7 @@ namespace FlashDevelop.Managers
             XmlNode rootNode = XmlHelper.LoadXmlDocument(file);
             foreach (XmlNode subNode in rootNode.ChildNodes)
             {
-                FillMenuItems(menuStrip.Items, subNode, "MainMenu");
+                FillMenuItems(menuStrip.Items, subNode);
             }
             return menuStrip;
         }
@@ -86,22 +86,23 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Fills items to the specified tool strip item collection
         /// </summary>
-        public static void FillMenuItems(ToolStripItemCollection items, XmlNode node, String root)
+        public static void FillMenuItems(ToolStripItemCollection items, XmlNode node)
         {
             switch (node.Name)
             {
                 case "menu" :
-                    items.Add(GetMenu(node, root));
+                    items.Add(GetMenu(node));
                     break;
                 case "separator" :
                     items.Add(GetSeparator(node));
                     break;
                 case "button" :
                     ToolStripMenuItem menu = GetMenuItem(node);
-                    items.Add(menu); // Add menu first to get the id correct...
-                    if (!String.IsNullOrEmpty(root))
+                    items.Add(menu); // Add menu first to get the id correct
+                    String id = GetMenuItemId(menu);
+                    if (id.IndexOf('.') > -1)
                     {
-                        Globals.MainForm.RegisterShortcutItem(GetMenuItemId(menu, root), menu);
+                        Globals.MainForm.RegisterShortcutItem(GetMenuItemId(menu), menu);
                     }
                     break;
             }
@@ -126,7 +127,7 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Gets a menu from the specified xml node
         /// </summary>
-        public static ToolStripMenuItem GetMenu(XmlNode node, String root)
+        public static ToolStripMenuItem GetMenu(XmlNode node)
         {
             ToolStripMenuItem menu = new ToolStripMenuItem();
             String name = XmlHelper.GetAttribute(node, "name");
@@ -145,7 +146,7 @@ namespace FlashDevelop.Managers
             if (click != null) menu.Click += GetEventHandler(click);
             foreach (XmlNode subNode in node.ChildNodes)
             {
-                FillMenuItems(menu.DropDownItems, subNode, root);
+                FillMenuItems(menu.DropDownItems, subNode);
             }
             Items.Add(menu);
             return menu;
@@ -243,14 +244,14 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Gets the id of the menu item from owner tree
         /// </summary>
-        public static String GetMenuItemId(ToolStripMenuItem menu, String root)
+        public static String GetMenuItemId(ToolStripMenuItem menu)
         {
             if (menu.OwnerItem != null)
             {
                 ToolStripMenuItem parent = menu.OwnerItem as ToolStripMenuItem;
-                return GetMenuItemId(parent, root) + "." + GetStrippedString(menu.Name);
+                return GetMenuItemId(parent) + "." + GetStrippedString(menu.Name);
             }
-            else return root + "." + GetStrippedString(menu.Name);
+            else return GetStrippedString(menu.Name);
         }
 
         /// <summary>

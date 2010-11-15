@@ -269,18 +269,16 @@ namespace ResultsPanel
             menu.Items.Add(new ToolStripSeparator());
             this.nextEntry = new ToolStripMenuItem(TextHelper.GetString("Label.NextEntry"), null, new EventHandler(this.NextEntry));
             this.nextEntry.Enabled = false;
-            this.nextEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(this.Settings.NextError);
+            this.nextEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(this.pluginMain.NextError);
             menu.Items.Add(this.nextEntry);
             this.previousEntry = new ToolStripMenuItem(TextHelper.GetString("Label.PreviousEntry"), null, new EventHandler(this.PreviousEntry));
             this.previousEntry.Enabled = false;
-            this.previousEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(this.Settings.PreviousError);
+            this.previousEntry.ShortcutKeyDisplayString = DataConverter.KeysToString(this.pluginMain.PrevError);
             menu.Items.Add(this.previousEntry);
             this.entriesView.ContextMenuStrip = menu;
             menu.Font = PluginBase.Settings.DefaultFont;
             menu.Renderer = new DockPanelStripRenderer(false);
             this.toolStripFilters.Renderer = new DockPanelStripRenderer();
-            if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.NextError);
-            if (this.Settings.NextError != Keys.None) PluginBase.MainForm.IgnoredKeys.Add(this.Settings.PreviousError);
         }
 
         /// <summary>

@@ -104,19 +104,6 @@ namespace ProjectManager
                 Object obj = ObjectSerializer.Deserialize(SettingsPath, Settings);
                 Settings = (ProjectManagerSettings)obj;
             }
-            // Fix empty key bindings...
-            if (Settings.ShortcutTestMovie == Keys.None)
-            {
-                Settings.ShortcutTestMovie = ProjectManagerSettings.DEFAULT_TESTMOVIE;
-            }
-            if (Settings.ShortcutBuildProject == Keys.None)
-            {
-                Settings.ShortcutBuildProject = ProjectManagerSettings.DEFAULT_BUILDPROJECT;
-            }
-            if (Settings.ShortcutOpenResource == Keys.None)
-            {
-                Settings.ShortcutOpenResource = ProjectManagerSettings.DEFAULT_OPENRESOURCE;
-            }
             // set manually to avoid dependency in FDBuild
             FileInspector.ExecutableFileTypes = Settings.ExecutableFileTypes;
             Settings.Changed += SettingChanged;
@@ -156,10 +143,6 @@ namespace ProjectManager
 
             showProjectClasspaths = Settings.ShowProjectClasspaths;
             showGlobalClasspaths = Settings.ShowGlobalClasspaths;
-
-            MainForm.IgnoredKeys.Add(Settings.ShortcutTestMovie);
-            MainForm.IgnoredKeys.Add(Settings.ShortcutBuildProject);
-            MainForm.IgnoredKeys.Add(Settings.ShortcutOpenResource);
 
             #region Actions and Event Listeners
 
@@ -339,15 +322,6 @@ namespace ProjectManager
                         Tree.RefreshNode(Tree.NodeMap[path]);
                     break;
 
-                case EventType.ApplySettings:
-                    MainForm.IgnoredKeys.Add(Settings.ShortcutTestMovie);
-                    MainForm.IgnoredKeys.Add(Settings.ShortcutBuildProject);
-                    MainForm.IgnoredKeys.Add(Settings.ShortcutOpenResource);
-                    menus.ProjectMenu.OpenResource.ShortcutKeyDisplayString = DataConverter.KeysToString(Settings.ShortcutOpenResource);
-                    menus.ProjectMenu.BuildProject.ShortcutKeyDisplayString = DataConverter.KeysToString(Settings.ShortcutBuildProject);
-                    menus.ProjectMenu.TestMovie.ShortcutKeyDisplayString = DataConverter.KeysToString(Settings.ShortcutTestMovie);
-                    break;
-
                 case EventType.ProcessStart:
                     buildActions.NotifyBuildStarted();
                     break;
@@ -450,9 +424,6 @@ namespace ProjectManager
         private bool HandleKeyEvent(KeyEvent ke)
         {
             if (project == null) return false;
-            if (ke.Value == Settings.ShortcutBuildProject) BuildProject();
-            else if (ke.Value == Settings.ShortcutTestMovie) TestMovie();
-            else if (ke.Value == Settings.ShortcutOpenResource) OpenResource();
             // Handle tree-level simple shortcuts like copy/paste/del
             else if (Tree.Focused && !pluginUI.IsEditingLabel && ke != null)
             {

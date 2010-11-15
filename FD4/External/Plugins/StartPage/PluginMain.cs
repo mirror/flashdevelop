@@ -217,7 +217,9 @@ namespace StartPage
         {
             String title = TextHelper.GetString("Label.ViewMenuItem");
             ToolStripMenuItem viewMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("ViewMenu");
-            viewMenu.DropDownItems.Add(new ToolStripMenuItem(title, this.pluginImage, new EventHandler(this.ViewMenuClick)));
+            ToolStripMenuItem viewItem = new ToolStripMenuItem(title, this.pluginImage, new EventHandler(this.ViewMenuClick));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowStartPage", viewItem);
+            viewMenu.DropDownItems.Add(viewItem);
         }
 
         /// <summary>

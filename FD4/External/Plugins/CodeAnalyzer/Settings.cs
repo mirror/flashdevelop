@@ -18,7 +18,6 @@ namespace CodeAnalyzer
 	public class Settings
 	{
         private String pmdRuleset = String.Empty;
-        private Keys analyzeShortcut = Keys.None;
         
         /// <summary>
         /// Get and sets the ruleset file
@@ -30,17 +29,6 @@ namespace CodeAnalyzer
 		{
 			get { return pmdRuleset; }
             set { pmdRuleset = value; }
-		}
-		
-		/// <summary>
-		/// Get and sets the shortcut
-		/// </summary>
-        [LocalizedDescription("CodeAnalyzer.Description.AnalyzeShortcut")]
-        [DisplayName("Analyze Project Shortcut"), DefaultValue(Keys.None)]
-        public Keys AnalyzeShortcut
-		{
-            get { return this.analyzeShortcut; }
-            set { this.analyzeShortcut = value; }
 		}
 
 	}

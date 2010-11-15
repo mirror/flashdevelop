@@ -121,7 +121,7 @@ namespace FlashDevelop.Utilities
             catch (Exception ex)
             {
                 String message = TextHelper.GetString("Info.UnableToLoadPlugin");
-                ErrorManager.ShowError(message + "\n" + fileName, ex);
+                ErrorManager.ShowError(message + " \n" + fileName, ex);
             }
 		}
 	}

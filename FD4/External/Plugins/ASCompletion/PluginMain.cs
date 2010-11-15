@@ -47,7 +47,8 @@ namespace ASCompletion
             EventType.Command |
             EventType.ProcessEnd |
             EventType.ApplySettings |
-            EventType.ProcessArgs;
+            EventType.ProcessArgs |
+            EventType.Shortcut;
         private List<ToolStripItem> menuItems;
         private ToolStripItem quickBuildItem;
         private int currentPos;
@@ -470,6 +471,14 @@ namespace ASCompletion
                         string result = (e as TextEvent).Value;
                         ASContext.Context.OnProcessEnd(result);
                         break;
+
+                    case EventType.Shortcut:
+                        DataEvent sde = (DataEvent)e;
+                        if (sde.Action == "ASCompletion.ContextualGenerator")
+                        {
+                            ASContext.ContextualGenerator = (Keys)sde.Data;
+                        }
+                        break;
                 }
             }
             catch(Exception ex)
@@ -552,11 +561,12 @@ namespace ASCompletion
             ToolStripMenuItem menu = (ToolStripMenuItem)mainForm.FindMenuItem("ViewMenu");
             if (menu != null)
             {
-                menu.DropDownItems.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), pluginIcon, new EventHandler(OpenPanel)));
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.ViewMenuItem"), pluginIcon, new EventHandler(OpenPanel));
+                PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowOutline", item);
+                menu.DropDownItems.Add(item);
             }
-            Keys k;
-            System.Drawing.Image image;
 
+            System.Drawing.Image image;
             // tools items
             menu = (ToolStripMenuItem)mainForm.FindMenuItem("FlashToolsMenu");
             if (menu != null)
@@ -565,17 +575,15 @@ namespace ASCompletion
 
                 // check actionscript
                 image = pluginUI.GetIcon(PluginUI.ICON_CHECK_SYNTAX);
-                k = settingObject.CheckSyntax;
-                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                item = new ToolStripMenuItem(TextHelper.GetString("Label.CheckSyntax"), image, new EventHandler(CheckSyntax), k);
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.CheckSyntax"), image, new EventHandler(CheckSyntax), Keys.F7);
+                PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.CheckSyntax", item);
                 menu.DropDownItems.Add(item);
                 menuItems.Add(item);
 
                 // quick build
                 image = pluginUI.GetIcon(PluginUI.ICON_QUICK_BUILD);
-                k = settingObject.QuickBuild;
-                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                quickBuildItem = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), k);
+                quickBuildItem = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), Keys.Control | Keys.F8);
+                PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.QuickBuild", item);
                 menu.DropDownItems.Add(quickBuildItem);
                 menuItems.Add(item);
 
@@ -583,18 +591,19 @@ namespace ASCompletion
 
                 // type explorer
                 image = mainForm.FindImage("202");
-                k = settingObject.TypesExplorer;
-                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                item = new ToolStripMenuItem(TextHelper.GetString("Label.TypesExplorer"), image, new EventHandler(TypesExplorer), k);
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.TypesExplorer"), image, new EventHandler(TypesExplorer), Keys.Control | Keys.J);
+                PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.TypeExplorer", item);
                 menu.DropDownItems.Add(item);
 
                 // model cleanup
                 image = mainForm.FindImage("153");
                 item = new ToolStripMenuItem(TextHelper.GetString("Label.RebuildClasspathCache"), image, new EventHandler(RebuildClasspath));
+                PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.RebuildClasspathCache", item);
                 menu.DropDownItems.Add(item);
 
                 // convert to intrinsic
                 item = new ToolStripMenuItem(TextHelper.GetString("Label.ConvertToIntrinsic"), null, new EventHandler(MakeIntrinsic));
+                PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.ConvertToIntrinsic", item);
                 menu.DropDownItems.Add(item);
                 menuItems.Add(item);
             }
@@ -613,14 +622,6 @@ namespace ASCompletion
                 button.Click += new EventHandler(CheckSyntax);
                 toolStrip.Items.Add(button);
                 menuItems.Add(button);
-
-                // build
-                /*image = pluginUI.GetIcon(PluginUI.ICON_QUICK_BUILD);
-                button = new ToolStripButton(image);
-                button.ToolTipText = TextHelper.GetString("Label.QuickBuild").Replace("&", "");
-                button.Click += new EventHandler(QuickBuild);
-                toolStrip.Items.Add(button);
-                menuItems.Add(button);*/
             }
 
             // search items
@@ -631,17 +632,15 @@ namespace ASCompletion
 
                 // goto declaration
                 image = mainForm.FindImage("99|9|3|-3");
-                k = settingObject.GotoDeclaration;
-                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), k);
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.GotoDeclaration"), image, new EventHandler(GotoDeclaration), Keys.F4);
+                PluginBase.MainForm.RegisterShortcutItem("SearchMenu.GotoDeclaration", item);
                 menu.DropDownItems.Add(item);
                 menuItems.Add(item);
 
                 // goto back from declaration
                 image = mainForm.FindImage("99|1|-3|-3");
-                k = settingObject.BackFromDeclaration;
-                if (k != Keys.None) mainForm.IgnoredKeys.Add(k);
-                item = new ToolStripMenuItem(TextHelper.GetString("Label.BackFromDeclaration"), image, new EventHandler(BackDeclaration), k);
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.BackFromDeclaration"), image, new EventHandler(BackDeclaration), Keys.Shift | Keys.F4);
+                PluginBase.MainForm.RegisterShortcutItem("SearchMenu.BackFromDeclaration", item);
                 menu.DropDownItems.Add(item);
                 pluginUI.LookupMenuItem = item;
                 item.Enabled = false;
@@ -658,6 +657,8 @@ namespace ASCompletion
                 }
             }
 
+            // register ContextualGenerator
+            PluginBase.MainForm.RegisterShortcutItem("ASCompletion.ContextualGenerator", ASContext.ContextualGenerator);
         }
 
         private void AddEventHandlers()
@@ -668,15 +669,16 @@ namespace ASCompletion
             UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(OnTextChanged);
             UITools.CallTip.OnUpdateCallTip += new MethodCallTip.UpdateCallTipHandler(OnUpdateCallTip);
             CompletionList.OnInsert += new InsertedTextHandler(ASComplete.HandleCompletionInsert);
+
+            // shortcuts
             PluginBase.MainForm.IgnoredKeys.Add(Keys.Control | Keys.Enter);
             PluginBase.MainForm.IgnoredKeys.Add(Keys.F1);
             PluginBase.MainForm.IgnoredKeys.Add(Keys.Space | Keys.Control | Keys.Alt); // complete project types
-            if (settingObject.ContextualGenerator == Keys.None)
-                settingObject.ContextualGenerator = Keys.Control | Keys.Shift | Keys.D1;
-            PluginBase.MainForm.IgnoredKeys.Add(settingObject.ContextualGenerator);
+
             // application events
             EventManager.AddEventHandler(this, eventMask);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
+
             // flash IDE events
             flashErrorsWatcher = new FlashErrorsWatcher();
         }

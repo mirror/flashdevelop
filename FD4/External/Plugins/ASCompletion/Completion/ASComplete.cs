@@ -348,7 +348,7 @@ namespace ASCompletion.Completion
 				return true;
 			}
             // generators
-            else if (keys == ASContext.CommonSettings.ContextualGenerator)
+            else if (keys == ASContext.ContextualGenerator)
             {
                 if (ASContext.HasContext && ASContext.Context.IsFileValid)
                 {

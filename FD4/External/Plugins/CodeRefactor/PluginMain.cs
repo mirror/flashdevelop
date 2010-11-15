@@ -112,14 +112,7 @@ namespace CodeRefactor
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-            switch (e.Type)
-            {
-                case EventType.ApplySettings:
-                    this.refactorContextMenu.ApplyShortcutKeys();
-                    this.refactorMainMenu.ApplyShortcutKeys();
-                    this.ApplyIgnoredKeys();
-                    break;
-            }
+            // Nothing here...
 		}
 
         #endregion
@@ -133,7 +126,6 @@ namespace CodeRefactor
         {
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            EventManager.AddEventHandler(this, EventType.ApplySettings | EventType.UIRefresh | EventType.FileSwitch);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
         }
@@ -145,35 +137,37 @@ namespace CodeRefactor
         {
             MenuStrip mainMenu = PluginBase.MainForm.MenuStrip;
             ContextMenuStrip editorMenu = PluginBase.MainForm.EditorMenu;
-            this.refactorMainMenu = new RefactorMenu(this.settingObject, true);
+            this.refactorMainMenu = new RefactorMenu(true);
+            //
             this.refactorMainMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             this.refactorMainMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorMainMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorMainMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
-            this.refactorContextMenu = new RefactorMenu(this.settingObject, false);
+            //
+            this.refactorContextMenu = new RefactorMenu(false);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorContextMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
             this.refactorContextMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorContextMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorContextMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
+            //
             this.surroundContextMenu = new SurroundMenu();
             editorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
             mainMenu.MenuActivate += new EventHandler(this.MainMenuActivate);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             editorMenu.Items.Insert(4, this.surroundContextMenu);
             mainMenu.Items.Insert(5, this.refactorMainMenu);
+            //
             ToolStripMenuItem searchMenu = PluginBase.MainForm.FindMenuItem("SearchMenu") as ToolStripMenuItem;
             this.viewReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             this.editorReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
-            this.editorReferencesItem.ShortcutKeys = this.settingObject.FindRefsShortcut;
-            this.viewReferencesItem.ShortcutKeys = this.settingObject.FindRefsShortcut;
+            PluginBase.MainForm.RegisterShortcutItem("MainMenu.SearchMenu.ViewReferences", this.viewReferencesItem);
             searchMenu.DropDownItems.Add(new ToolStripSeparator());
             searchMenu.DropDownItems.Add(this.viewReferencesItem);
             editorMenu.Items.Insert(7, this.editorReferencesItem);
-            this.ApplyIgnoredKeys();
         }
 
         /// <summary>
@@ -254,9 +248,7 @@ namespace CodeRefactor
                     if (result.Type != null && result.inClass != null && result.inFile != null)
                     {
                         FlagType flags = result.Member.Flags;
-                        if ((flags & FlagType.Variable) > 0
-                            && (flags & FlagType.LocalVar) == 0
-                            && (flags & FlagType.ParameterVar) == 0)
+                        if ((flags & FlagType.Variable) > 0 && (flags & FlagType.LocalVar) == 0 && (flags & FlagType.ParameterVar) == 0)
                         {
                             this.refactorContextMenu.DelegateMenuItem.Enabled = true;
                             this.refactorMainMenu.DelegateMenuItem.Enabled = true;
@@ -432,10 +424,8 @@ namespace CodeRefactor
                             && (m.Flags & FlagType.Static) == 0)
                         {
                             name = m.Name;
-                            if ((m.Flags & FlagType.Getter) > 0)
-                                name = "get " + name;
-                            if ((m.Flags & FlagType.Setter) > 0)
-                                name = "set " + name;
+                            if ((m.Flags & FlagType.Getter) > 0) name = "get " + name;
+                            if ((m.Flags & FlagType.Setter) > 0) name = "set " + name;
                             if (!memberNames.Contains(name))
                             {
                                 memberNames.Add(name);
@@ -513,42 +503,6 @@ namespace CodeRefactor
             catch (Exception ex)
             {
                 ErrorManager.ShowError(ex);
-            }
-        }
-
-        /// <summary>
-        /// Applies the ignored keys to the mainform
-        /// </summary>
-        private void ApplyIgnoredKeys()
-        {
-            IMainForm mainForm = PluginBase.MainForm;
-            if (this.settingObject.RenameShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.RenameShortcut);
-            }
-            if (this.settingObject.FindRefsShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.FindRefsShortcut);
-            }
-            if (this.settingObject.OrganizeShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.OrganizeShortcut);
-            }
-            if (this.settingObject.TruncateShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.TruncateShortcut);
-            }
-            if (this.settingObject.ExtractLocalVariableShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.ExtractLocalVariableShortcut);
-            }
-            if (this.settingObject.ExtractMethodShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.ExtractMethodShortcut);
-            }
-            if (this.settingObject.GenerateDelegateMethodsShortcut != Keys.None)
-            {
-                mainForm.IgnoredKeys.Add(this.settingObject.GenerateDelegateMethodsShortcut);
             }
         }
 
