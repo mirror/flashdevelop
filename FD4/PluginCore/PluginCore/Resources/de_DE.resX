@@ -3824,4 +3824,8 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>&amp;Invoke Code Generator</value>
     <comment>Added after 3.3.1</comment>
   </data>
+  <data name="FlashDevelop.Info.ShortcutIsAlreadyUsed" xml:space="preserve">
+    <value>The shortcut has already been assigned to another command.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
 </root>
