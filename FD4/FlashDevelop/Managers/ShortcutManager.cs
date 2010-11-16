@@ -66,6 +66,7 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void ApplyAllShortcuts()
         {
+            ShortcutManager.UpdateAllShortcuts();
             foreach (ShortcutItem item in RegistedItems)
             {
                 if (item.Item != null) item.Item.ShortcutKeys = item.Custom;

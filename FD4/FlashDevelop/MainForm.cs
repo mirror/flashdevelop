@@ -949,9 +949,9 @@ namespace FlashDevelop
             */
             FilePollManager.InitializePolling();
             /**
-            * Apply all shortcuts to the items
-            */ 
-            ShortcutManager.ApplyAllShortcuts();
+            * Apply all settings to all documents
+            */
+            this.ApplyAllSettings();
         }
 
         /// <summary>
@@ -1566,6 +1566,7 @@ namespace FlashDevelop
         /// </summary>
         public void ApplyAllSettings()
         {
+            ShortcutManager.ApplyAllShortcuts();
             EventManager.DispatchEvent(this, new NotifyEvent(EventType.ApplySettings));
             for (Int32 i = 0; i < this.Documents.Length; i++)
             {
@@ -1576,7 +1577,6 @@ namespace FlashDevelop
             this.toolStrip.Visible = this.appSettings.ViewToolBar;
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
             ButtonManager.UpdateFlaggedButtons();
-            ShortcutManager.ApplyAllShortcuts();
         }
 
         /// <summary>

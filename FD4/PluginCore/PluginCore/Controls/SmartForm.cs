@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Managers;
 using PluginCore.Utilities;
@@ -13,15 +14,24 @@ namespace PluginCore.Controls
     public class SmartForm : Form
     {
         private String formGuid;
+        private String helpLink;
         private FormProps formProps;
 
         public SmartForm()
         {
             this.formProps = new FormProps();
-            this.formGuid = Guid.Empty.ToString().ToUpper();
             this.Load += new EventHandler(this.SmartFormLoad);
             this.Shown += new EventHandler(this.SmartFormShown);
             this.FormClosing += new FormClosingEventHandler(this.SmartFormClosing);
+        }
+
+        /// <summary>
+        /// Gets or sets the help link
+        /// </summary>
+        public String HelpLink
+        {
+            get { return this.helpLink; }
+            set { this.helpLink = value; }
         }
 
         /// <summary>
@@ -71,14 +81,19 @@ namespace PluginCore.Controls
         /// </summary>
         private void SmartFormLoad(Object sender, EventArgs e)
         {
-            if (File.Exists(this.FormPropsFile))
+            if (!String.IsNullOrEmpty(this.formGuid) && File.Exists(this.FormPropsFile))
             {
                 Object obj = ObjectSerializer.Deserialize(this.FormPropsFile, this.formProps);
                 this.formProps = (FormProps)obj;
+                if (!this.formProps.WindowSize.IsEmpty)
+                {
+                    this.Size = this.formProps.WindowSize;
+                }
             }
-            if (!this.formProps.WindowSize.IsEmpty)
+            if (!String.IsNullOrEmpty(this.helpLink))
             {
-                this.Size = this.formProps.WindowSize;
+                this.HelpButton = true;
+                this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.SmartFormHelpButtonClick);
             }
         }
 
@@ -87,11 +102,19 @@ namespace PluginCore.Controls
         /// </summary>
         private void SmartFormClosing(Object sender, FormClosingEventArgs e)
         {
-            if (!this.Size.IsEmpty)
+            if (!String.IsNullOrEmpty(this.formGuid) && !this.Size.IsEmpty)
             {
                 this.formProps.WindowSize = this.Size;
                 ObjectSerializer.Serialize(this.FormPropsFile, this.formProps);
             }
+        }
+
+        /// <summary>
+        /// Browse to the specified help link
+        /// </summary>
+        private void SmartFormHelpButtonClick(Object sender, CancelEventArgs e)
+        {
+            PluginBase.MainForm.CallCommand("Browse", this.helpLink);
         }
 
     }
