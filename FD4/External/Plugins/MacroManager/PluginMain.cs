@@ -105,24 +105,13 @@ namespace MacroManager
 		{
             if (e.Type == EventType.UIStarted)
             {
-                try
+                String initScript = Path.Combine(PathHelper.BaseDir, "InitScript.cs");
+                if (File.Exists(initScript))
                 {
-                    foreach (Macro macro in this.settingObject.UserMacros)
-                    {
-                        if (macro.AutoRun)
-                        {
-                            foreach (String entry in macro.Entries)
-                            {
-                                String[] parts = entry.Split(new Char[1] {'|'});
-                                PluginBase.MainForm.CallCommand(parts[0], parts[1]);
-                            }
-                        }
-                    }
+                    String command = "Internal;" + initScript;
+                    PluginBase.MainForm.CallCommand("ExecuteScript", command);
                 }
-                catch (Exception ex) 
-                {
-                    ErrorManager.AddToLog("Macro AutoRun Failed.", ex);
-                }
+                this.RunAutoRunMacros();
             }
 		}
 		
@@ -222,11 +211,28 @@ namespace MacroManager
         }
 
         /// <summary>
-        /// Saves the plugin settings
+        /// Runs the macros that have autorun enabled
         /// </summary>
-        private void SaveSettings()
+        private void RunAutoRunMacros()
         {
-            ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
+            try
+            {
+                foreach (Macro macro in this.settingObject.UserMacros)
+                {
+                    if (macro.AutoRun)
+                    {
+                        foreach (String entry in macro.Entries)
+                        {
+                            String[] parts = entry.Split(new Char[1] { '|' });
+                            PluginBase.MainForm.CallCommand(parts[0], parts[1]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.AddToLog("Macro AutoRun Failed.", ex);
+            }
         }
 
         /// <summary>
@@ -266,6 +272,14 @@ namespace MacroManager
         private void EditMenuItemClick(Object sender, EventArgs e)
         {
             ManagerDialog.Show(this);
+        }
+
+        /// <summary>
+        /// Saves the plugin settings
+        /// </summary>
+        private void SaveSettings()
+        {
+            ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
         }
 
 		#endregion
