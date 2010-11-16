@@ -121,16 +121,16 @@
     <value>In Konstante konvertieren</value>
   </data>
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
-    <value>Ändere Methoden-Deklaration</value>
+    <value>Methodendeklaration ändern</value>
   </data>
   <data name="ASCompletion.Label.AddAsParameter" xml:space="preserve">
-    <value>Als Methoden-Parameter hinzufügen</value>
+    <value>Als Parameter hinzufügen</value>
   </data>
   <data name="ASCompletion.Label.ConvertToConst" xml:space="preserve">
     <value>In Konstante konvertieren</value>
   </data>
   <data name="ASCompletion.Label.ConstName" xml:space="preserve">
-    <value>Konstanten-Name:</value>
+    <value>Konstantenname:</value>
   </data>
   <data name="ASCompletion.Label.GenerateEventMetatag" xml:space="preserve">
     <value>Event-Tag erstellen</value>
@@ -336,13 +336,13 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Überprüfe S&amp;yntax</value>
   </data>
   <data name="ASCompletion.Label.CompleteDocDetails" xml:space="preserve">
-    <value>Methoden Details</value>
+    <value>Methodendetails</value>
   </data>
   <data name="ASCompletion.Label.CompleteDocEmpty" xml:space="preserve">
     <value>Leer</value>
   </data>
   <data name="ASCompletion.Label.ConvertToIntrinsic" xml:space="preserve">
-    <value>Konvertiere in &amp;Intrinsic-Klasse</value>
+    <value>&amp;Intrinsic-Klasse erstellen</value>
   </data>
   <data name="ASCompletion.Label.DocBoxTemplate" xml:space="preserve">
     <value>Dokumentations-Box-Vorlage</value>
@@ -354,7 +354,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Gehe zu &amp;Deklaration</value>
   </data>
   <data name="ASCompletion.Label.ModelConvert" xml:space="preserve">
-    <value>&amp;Konvertiere zu Intrinsic-Klassen</value>
+    <value>&amp;In Intrinsic-Klassen konvertieren</value>
   </data>
   <data name="ASCompletion.Label.ModelEdit" xml:space="preserve">
     <value>&amp;Bearbeiten</value>
@@ -363,19 +363,19 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>D&amp;urchsuchen</value>
   </data>
   <data name="ASCompletion.Label.QuickBuild" xml:space="preserve">
-    <value>&amp;Erstelle aktuelle Datei</value>
+    <value>&amp;Aktuelle Datei erstellen</value>
   </data>
   <data name="ASCompletion.Label.RebuildClasspathCache" xml:space="preserve">
-    <value>Aktualisiere Klassenpfad-Zwischenspeicher</value>
+    <value>&amp;Aktualisiere Klassenzwischenspeicher</value>
   </data>
   <data name="ASCompletion.Label.TypesExplorer" xml:space="preserve">
-    <value>Typ E&amp;xplorer...</value>
+    <value>Typ B&amp;rowser...</value>
   </data>
   <data name="ASCompletion.Label.ViewMenuItem" xml:space="preserve">
     <value>&amp;Gliederung</value>
   </data>
   <data name="ASCompletion.Title.ModelExplorer" xml:space="preserve">
-    <value>Typ Explorer</value>
+    <value>Typ Browser</value>
   </data>
   <data name="ASCompletion.Title.PluginPanel" xml:space="preserve">
     <value>Gliederung</value>
@@ -2225,47 +2225,47 @@ Never - Startseite wird nie angezeigt.</value>
     <value>Tastenkombination zur kontextabhängigen Code Erstellung.</value>
   </data>
   <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
-    <value>Erstell private-Methode</value>
+    <value>Private Methode erstellen</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionPublic" xml:space="preserve">
-    <value>Erstelle Public-Methode</value>
+    <value>Public Methode erstellen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
-    <value>Erstelle Schnittstellendefinition</value>
+    <value>Schnittstellendefinition erstellen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
-    <value>Füge der Schnittstelle hinzu</value>
+    <value>Zu Schnittstelle hinzufügen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter</value>
   </data>
   <data name="ASCompletion.Label.GenerateGetSet" xml:space="preserve">
-    <value>Getter und setter</value>
+    <value>Getter und Setter</value>
   </data>
   <data name="ASCompletion.Label.GenerateHandler" xml:space="preserve">
-    <value>Erstelle {0}-Handler</value>
+    <value>{0} Handler erstellen</value>
   </data>
   <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
     <value>Setter</value>
   </data>
   <data name="ASCompletion.Label.GenerateConstant" xml:space="preserve">
-    <value>Deklariere Konstante</value>
+    <value>Konstante erstellen</value>
   </data>
   <data name="ASCompletion.Label.GeneratePrivateVar" xml:space="preserve">
-    <value>Deklariere private-Variable</value>
+    <value>Private Variable erstellen</value>
   </data>
   <data name="ASCompletion.Label.GeneratePublicVar" xml:space="preserve">
-    <value>Deklariere public-Variable</value>
+    <value>Public Variable erstellen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.ImplementInterface" xml:space="preserve">
-    <value>Implementiere Schnittstellenmethoden</value>
+    <value>Schnittstelle implementieren</value>
   </data>
   <data name="ASCompletion.Label.PromoteLocal" xml:space="preserve">
-    <value>Konvertiere in einen Klassen-Member</value>
+    <value>In Klassenmember konvertieren</value>
   </data>
   <data name="ProjectManager.Info.AboutPackages" xml:space="preserve">
     <value>(Nicht in jedem Projekt verfügbar)</value>
@@ -3760,19 +3760,19 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.1.0</comment>
   </data>
   <data name="ASCompletion.Label.GenerateClass" xml:space="preserve">
-    <value>Erstelle neue Klasse</value>
+    <value>Neue Klasse erstellen</value>
     <comment>Added after 3.1.1</comment>
   </data>
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
-    <value>Erstelle Konstruktor</value>
+    <value>Konstruktor erstellen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
-    <value>Erstelle Feld aus Parameter</value>
+    <value>Membervariable erstellen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
-    <value>Erstelle toString()</value>
+    <value>toString() erstellen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.AS2Document" xml:space="preserve">
@@ -4175,7 +4175,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Label.AssignStatementToVar" xml:space="preserve">
-    <value>Anweisung einer Variable zuweisen</value>
+    <value>Einer Variable zuweisen</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="AS3Context.Category.Profiler" xml:space="preserve">
@@ -4199,7 +4199,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Description.GenerateScope" xml:space="preserve">
-    <value>Generate explicit scope reference - typically 'this' keyword.</value>
+    <value>Erzeuge Code mit explizitem Bereichsverweis ('this' Schlüsselwort)</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>
