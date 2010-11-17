@@ -45,12 +45,12 @@ namespace ProjectManager.Controls
             this.listBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // label1
+            // infoLabel
             // 
             this.infoLabel.AutoSize = true;
             this.infoLabel.Location = new System.Drawing.Point(11, 8);
-            this.infoLabel.Name = "label1";
-            this.infoLabel.Size = new System.Drawing.Size(271, 13);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(273, 13);
             this.infoLabel.TabIndex = 0;
             this.infoLabel.Text = "Search string: (UPPERCASE for search by abbreviation)";
             // 
@@ -59,7 +59,7 @@ namespace ProjectManager.Controls
             this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox.Location = new System.Drawing.Point(12, 25);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(355, 22);
+            this.textBox.Size = new System.Drawing.Size(478, 22);
             this.textBox.TabIndex = 1;
             this.textBox.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             this.textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
@@ -72,7 +72,7 @@ namespace ProjectManager.Controls
             this.listBox.ItemHeight = this.listBox.Font.Height + 2;
             this.listBox.Location = new System.Drawing.Point(12, 53);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(355, 194);
+            this.listBox.Size = new System.Drawing.Size(478, 276);
             this.listBox.TabIndex = 2;
             this.listBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxDrawItem);
             this.listBox.Resize += new System.EventHandler(this.ListBoxResize);
@@ -82,7 +82,7 @@ namespace ProjectManager.Controls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 250);
+            this.ClientSize = new System.Drawing.Size(502, 336);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.infoLabel);

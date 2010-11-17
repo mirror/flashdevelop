@@ -106,7 +106,7 @@ namespace FlashDevelop.Dialogs
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(446, 16);
             this.infoLabel.TabIndex = 3;
-            this.infoLabel.Text = "Shortcuts will take effect as soon as you edit them successfully.";
+            this.infoLabel.Text = "Shortcuts can be edited by selecting an item and pressing valid menu item shortcut keys.";
             // 
             // ShortcutDialog
             // 
@@ -162,7 +162,7 @@ namespace FlashDevelop.Dialogs
         {
             this.idHeader.Text = TextHelper.GetString("Label.Command");
             this.keyHeader.Text = TextHelper.GetString("Label.Shortcut");
-            this.infoLabel.Text = TextHelper.GetString("Info.ShortcutsWillTakeEffect");
+            this.infoLabel.Text = TextHelper.GetString("Info.ShortcutEditInfo");
             this.closeButton.Text = TextHelper.GetString("Label.Close");
             this.Text = " " + TextHelper.GetString("Title.Shortcuts");
         }

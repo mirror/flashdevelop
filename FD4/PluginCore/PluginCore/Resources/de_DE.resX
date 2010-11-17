@@ -3788,8 +3788,8 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Erzeuge Code mit explizitem Bereichsverweis ('this' Schlüsselwort)</value>
     <comment>Added after 3.3.1</comment>
   </data>
-  <data name="FlashDevelop.Info.ShortcutsWillTakeEffect" xml:space="preserve">
-    <value>Shortcuts will take effect as soon as you edit them successfully.</value>
+  <data name="FlashDevelop.Info.ShortcutEditInfo" xml:space="preserve">
+    <value>Shortcuts can be edited by selecting an item and pressing valid menu item shortcut keys.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Command" xml:space="preserve">
@@ -3821,7 +3821,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
-    <value>&amp;Invoke Code Generator</value>
+    <value>&amp;Code Generator</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.ShortcutIsAlreadyUsed" xml:space="preserve">
