@@ -123,6 +123,9 @@
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
     <value>Methodendeklaration ändern</value>
   </data>
+  <data name="ASCompletion.Label.ChangeConstructorDecl" xml:space="preserve">
+    <value>Change constructor declaration</value>
+  </data>
   <data name="ASCompletion.Label.AddAsParameter" xml:space="preserve">
     <value>Als Parameter hinzufügen</value>
   </data>

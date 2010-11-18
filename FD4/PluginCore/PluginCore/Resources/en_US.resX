@@ -2202,6 +2202,9 @@ Never - the start page will not show based on startup.</value>
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
     <value>Change method declaration</value>
   </data>
+  <data name="ASCompletion.Label.ChangeConstructorDecl" xml:space="preserve">
+    <value>Change constructor declaration</value>
+  </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
     <value>Generate interface definition</value>
   </data>

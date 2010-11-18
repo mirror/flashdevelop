@@ -302,8 +302,8 @@ namespace ASCompletion.Completion
                 }
                 else
                 {
-                    if (resolve != null 
-                        && resolve.inClass != null 
+                    if (resolve != null
+                        && resolve.inClass != null
                         && resolve.inClass.InFile != null
                         && resolve.Member != null
                         && (resolve.Member.Flags & FlagType.Function) > 0
@@ -316,6 +316,20 @@ namespace ASCompletion.Completion
                         {
                             contextMatch = m;
                             ShowChangeMethodDeclList(found);
+                        }
+                    }
+                    else if (resolve != null
+                        && resolve.Type != null
+                        && resolve.Type.InFile != null
+                        && resolve.relClass != null
+                        && File.Exists(resolve.Type.InFile.FileName)
+                        && !resolve.Type.InFile.FileName.StartsWith(PathHelper.AppDir))
+                    {
+                        Match m = Regex.Match(text, String.Format(patternClass, contextToken));
+                        if (m.Success)
+                        {
+                            contextMatch = m;
+                            ShowChangeConstructorDeclList(found);
                         }
                     }
                 }
@@ -522,6 +536,14 @@ namespace ASCompletion.Completion
             List<ICompletionListItem> known = new List<ICompletionListItem>();
             string label = TextHelper.GetString("ASCompletion.Label.ChangeMethodDecl");
             known.Add(new GeneratorItem(label, GeneratorJobType.ChangeMethodDecl, found.member, found.inClass));
+            CompletionList.Show(known, false);
+        }
+
+        private static void ShowChangeConstructorDeclList(FoundDeclaration found)
+        {
+            List<ICompletionListItem> known = new List<ICompletionListItem>();
+            string label = TextHelper.GetString("ASCompletion.Label.ChangeConstructorDecl");
+            known.Add(new GeneratorItem(label, GeneratorJobType.ChangeConstructorDecl, found.member, found.inClass));
             CompletionList.Show(known, false);
         }
 
@@ -952,6 +974,18 @@ namespace ASCompletion.Completion
                     }
                     break;
 
+                case GeneratorJobType.ChangeConstructorDecl:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        ChangeConstructorDecl(Sci, member, inClass);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
+
                 case GeneratorJobType.EventMetatag:
                     Sci.BeginUndoAction();
                     try
@@ -1258,6 +1292,8 @@ namespace ASCompletion.Completion
                     }
                 }
                 inClass = funcResult.inClass;
+
+                ASContext.Context.UpdateContext(inClass.LineFrom);
             }
 
             MemberList members = inClass.Members;
@@ -1269,15 +1305,70 @@ namespace ASCompletion.Completion
                 }
             }
 
+            ChangeDecl(Sci, funcResult.Member, functionParameters);
+        }
+
+        private static void ChangeConstructorDecl(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
+        {
+            int wordPos = Sci.WordEndPosition(Sci.CurrentPos, true);
+            List<FunctionParameter> functionParameters = ParseFunctionParameters(Sci, wordPos);
+
+            ASResult funcResult = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
+            if (funcResult == null || funcResult.Type == null)
+            {
+                return;
+            }
+            if (funcResult != null && funcResult.Type != null && !funcResult.Type.Equals(inClass))
+            {
+                AddLookupPosition();
+                lookupPosition = -1;
+
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.Type.InFile.FileName, true);
+                Sci = ASContext.CurSciControl;
+
+                FileModel fileModel = new FileModel();
+                ASFileParser parser = new ASFileParser();
+                parser.ParseSrc(fileModel, Sci.Text);
+
+                foreach (ClassModel cm in fileModel.Classes)
+                {
+                    if (cm.QualifiedName.Equals(funcResult.Type.QualifiedName))
+                    {
+                        funcResult.Type = cm;
+                        break;
+                    }
+                }
+                inClass = funcResult.Type;
+
+                ASContext.Context.UpdateContext(inClass.LineFrom);
+            }
+
+            MemberList members = inClass.Members;
+            foreach (MemberModel m in members)
+            {
+                if ((m.Flags & FlagType.Constructor) > 0)
+                {
+                    funcResult.Member = m;
+                }
+            }
+
+            if (funcResult.Member == null)
+                return;
+
+            ChangeDecl(Sci, funcResult.Member, functionParameters);
+        }
+
+        private static void ChangeDecl(ScintillaNet.ScintillaControl Sci, MemberModel memberModel, List<FunctionParameter> functionParameters)
+        {
             bool paramsDiffer = false;
-            if (funcResult.Member.Parameters != null)
+            if (memberModel.Parameters != null)
             {
                 // check that parameters have one and the same type
-                if (funcResult.Member.Parameters.Count == functionParameters.Count)
+                if (memberModel.Parameters.Count == functionParameters.Count)
                 {
                     if (functionParameters.Count > 0)
                     {
-                        List<MemberModel> parameters = funcResult.Member.Parameters;
+                        List<MemberModel> parameters = memberModel.Parameters;
                         for (int i = 0; i < parameters.Count; i++)
                         {
                             MemberModel p = parameters[i];
@@ -1294,7 +1385,7 @@ namespace ASCompletion.Completion
                     paramsDiffer = true;
                 }
             }
-                // check that parameters count differs
+            // check that parameters count differs
             else if (functionParameters.Count != 0)
             {
                 paramsDiffer = true;
@@ -1304,7 +1395,7 @@ namespace ASCompletion.Completion
             {
                 int app = 0;
                 List<MemberModel> newParameters = new List<MemberModel>();
-                List<MemberModel> existingParameters = funcResult.Member.Parameters;
+                List<MemberModel> existingParameters = memberModel.Parameters;
                 for (int i = 0; i < functionParameters.Count; i++)
                 {
                     FunctionParameter p = functionParameters[i];
@@ -1320,16 +1411,16 @@ namespace ASCompletion.Completion
                         {
                             app++;
                         }
-                        newParameters.Add(new MemberModel(p.param, p.paramType, FlagType.ParameterVar, 0));
+                        newParameters.Add(new MemberModel(p.paramName, p.paramType, FlagType.ParameterVar, 0));
                     }
                 }
-                funcResult.Member.Parameters = newParameters;
+                memberModel.Parameters = newParameters;
 
-                int posStart = Sci.PositionFromLine(funcResult.Member.LineFrom);
-                int posEnd = Sci.LineEndPosition(funcResult.Member.LineTo);
+                int posStart = Sci.PositionFromLine(memberModel.LineFrom);
+                int posEnd = Sci.LineEndPosition(memberModel.LineTo);
                 Sci.SetSel(posStart, posEnd);
                 string selectedText = Sci.SelText;
-                Regex rStart = new Regex(@"\s{1}" + funcResult.Member.Name + @"\s*\(([^\)]*)\)(\s*:\s*([^({{|\n|\r|\s|;)]+))?");
+                Regex rStart = new Regex(@"\s{1}" + memberModel.Name + @"\s*\(([^\)]*)\)(\s*:\s*([^({{|\n|\r|\s|;)]+))?");
                 Match mStart = rStart.Match(selectedText);
                 if (!mStart.Success)
                 {
@@ -1341,7 +1432,7 @@ namespace ASCompletion.Completion
 
                 Sci.SetSel(start, end);
 
-                string decl = TemplateUtils.ToDeclarationString(funcResult.Member, TemplateUtils.GetTemplate("MethodDeclaration"));
+                string decl = TemplateUtils.ToDeclarationString(memberModel, TemplateUtils.GetTemplate("MethodDeclaration"));
                 InsertCode(Sci.CurrentPos, "$(Boundary) " + decl);
 
                 // add imports to function argument types
@@ -2079,7 +2170,6 @@ namespace ASCompletion.Completion
                         string paramType = null;
                         string paramQualType = null;
 
-                        paramName = "arg" + (prms.Count + 1);
                         if (result.Member == null)
                         {
                             paramType = result.Type.Name;
@@ -2109,19 +2199,41 @@ namespace ASCompletion.Completion
                                 }
                             }
                         }
-
                         prms.Add(new FunctionParameter(paramName, paramType, paramQualType, result));
                     }
                     types = new List<ASResult>();
                     sb = new StringBuilder();
                 }
             }
+
             for (int i = 0; i < prms.Count; i++)
             {
-                ASResult rslt = prms[i].result;
-                string name = prms[i].param;
-                string type = prms[i].paramType;
-                prms[i].param = GuessVarName(name, FormatType(GetShortType(type)));
+                prms[i].paramName = GuessVarName(prms[i].paramName, FormatType(GetShortType(prms[i].paramType)));
+            }
+
+            for (int i = 0; i < prms.Count; i++)
+            {
+                int iterator = -1;
+                bool nameUnique = false;
+                string name = prms[i].paramName;
+                string suggestedName = name;
+                while (!nameUnique) 
+                {
+                    iterator++;
+                    suggestedName = name + (iterator == 0 ? "" : iterator + "");
+                    bool gotMatch = false;
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (prms[j] != prms[i]
+                            && prms[j].paramName == suggestedName)
+                        {
+                            gotMatch = true;
+                            break;
+                        }
+                    }
+                    nameUnique = !gotMatch;
+                }
+                prms[i].paramName = suggestedName;
             }
             return prms;
         }
@@ -2249,7 +2361,7 @@ namespace ASCompletion.Completion
             List<MemberModel> parameters = new List<MemberModel>();
             for (int i = 0; i < functionParameters.Count; i++)
             {
-                string name = functionParameters[i].param;
+                string name = functionParameters[i].paramName;
                 string type = functionParameters[i].paramType;
                 parameters.Add(new MemberModel(name, type, FlagType.ParameterVar, 0));
             }
@@ -2271,7 +2383,7 @@ namespace ASCompletion.Completion
             for (int i = 0; i < parameters.Count; i++)
             {
                 FunctionParameter p = parameters[i];
-                constructorArgs.Add(new MemberModel(p.param, p.paramType, FlagType.ParameterVar, 0));
+                constructorArgs.Add(new MemberModel(p.paramName, p.paramType, FlagType.ParameterVar, 0));
                 constructorArgTypes.Add(CleanType(getQualifiedType(p.paramQualType, inClass)));
             }
             
@@ -3682,6 +3794,7 @@ namespace ASCompletion.Completion
         ChangeMethodDecl = 21,
         EventMetatag = 22,
         AssignStatementToVar = 23,
+        ChangeConstructorDecl = 24,
     }
 
     /// <summary>
@@ -3742,12 +3855,12 @@ namespace ASCompletion.Completion
     {
         public string paramType;
         public string paramQualType;
-        public string param;
+        public string paramName;
         public ASResult result;
 
         public FunctionParameter(string parameter, string paramType, string paramQualType, ASResult result)
         {
-            this.param = parameter;
+            this.paramName = parameter;
             this.paramType = paramType;
             this.paramQualType = paramQualType;
             this.result = result;
