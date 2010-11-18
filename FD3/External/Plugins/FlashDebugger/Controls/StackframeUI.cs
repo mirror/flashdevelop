@@ -96,8 +96,17 @@ namespace FlashDebugger
         {
 			if (lv.SelectedIndices.Count > 0)
 			{
-				PluginMain.debugManager.CurrentFrame = lv.SelectedIndices[0];
-				ActiveItem();
+				if (PluginMain.debugManager.CurrentFrame == lv.SelectedIndices[0])
+				{
+					Location tmp = PluginMain.debugManager.CurrentLocation;
+					PluginMain.debugManager.CurrentLocation = null;
+					PluginMain.debugManager.CurrentLocation = tmp;
+				}
+				else
+				{
+					PluginMain.debugManager.CurrentFrame = lv.SelectedIndices[0];
+					ActiveItem();
+				}
 			}
         }
 
