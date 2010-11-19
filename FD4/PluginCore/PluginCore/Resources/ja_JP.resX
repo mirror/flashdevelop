@@ -3826,4 +3826,453 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>The shortcut has already been assigned to another command.</value>
     <comment>Added after 3.3.1</comment>
   </data>
+  <data name="AirProperties.Alert.Message.AppDescriptorNotFound" xml:space="preserve">
+    <value>Unable to locate the default application descriptor file (application.xml). Do you want to select the application descriptor file manually?</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.FileNamePrefixInvalid" xml:space="preserve">
+    <value>You must enter a valid value for the {0} property before you can select an icon.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.ImagePathInvalid" xml:space="preserve">
+    <value>The image you have selected is located</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.InvalidIconDimensions" xml:space="preserve">
+    <value>The selected icon image must be {0} x {1} pixels in size.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.InvalidProperties" xml:space="preserve">
+    <value>One or more properties contains an invalid value. Please update the invalid value(s).</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.UnsupportedAirDescriptorFile" xml:space="preserve">
+    <value>The file '{0}' is not a supported AIR application descriptor file. The AIR runtime version '{1}' specified in the file is not supported by the property editor. Click OK to continue and edit the file using AIR {2} properties only.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.AppDescriptorNotFound" xml:space="preserve">
+    <value>Application Descriptor File Not Found</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.FileNamePrefixInvalid" xml:space="preserve">
+    <value>Use Uniform File Names Validation</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.InvalidIconDimensions" xml:space="preserve">
+    <value>Invalid Image Size</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.InvalidProperties" xml:space="preserve">
+    <value>Invalid Property Value(s)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.UnsupportedAirDescriptorFile" xml:space="preserve">
+    <value>Warning</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.AspectRatio.Landscape" xml:space="preserve">
+    <value>Landscape</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.AspectRatio.Portrait" xml:space="preserve">
+    <value>Portrait</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.PackageIconsFolder" xml:space="preserve">
+    <value>Folder containing packaged icons, relative to the application root directory. Leave blank if files are in application root. Non-default value may require reconfiguring of package script.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.ProjectIconsFolder" xml:space="preserve">
+    <value>Folder for storing icons, relative to the project folder. Adding icons from within the project will have no effect. Non-default value may require reconfiguring of package script.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.RenameIconsWithSize" xml:space="preserve">
+    <value>Rename icon file names with the relevant size when copying to the icons folder. Does not apply when Use Uniform File Names is true.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.SelectPropertiesFileOnOpen" xml:space="preserve">
+    <value>Prompt to manually select the project's application descriptor file on open.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.UseUniformFileNames" xml:space="preserve">
+    <value>Rename icon file names using a combination of the File Name property and the image size when copying to the icons folder.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Exception.Message.NotAirDescriptorFile" xml:space="preserve">
+    <value>The file '{0}' is not a valid AIR application descriptor file. It has an unsupported namespace.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Exception.Title.Initialization" xml:space="preserve">
+    <value>Error Opening Descriptor File</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Info.Description" xml:space="preserve">
+    <value>Adds an AIR application properties management form for AIR projects.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Add" xml:space="preserve">
+    <value>&amp;Add</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AddCustomLocale" xml:space="preserve">
+    <value>Add Custom Locale</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AndroidAdditions" xml:space="preserve">
+    <value>Android Manifest Additions</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Application" xml:space="preserve">
+    <value>Application</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AspectRatio" xml:space="preserve">
+    <value>Aspect Ratio</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AutoOrients" xml:space="preserve">
+    <value>Auto Orients</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.BrowserInvocation" xml:space="preserve">
+    <value>Allow Browser Invocation</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Cancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Content" xml:space="preserve">
+    <value>Content</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ContentType" xml:space="preserve">
+    <value>Content Type</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Copyright" xml:space="preserve">
+    <value>Copyright</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.CustomUpdateUI" xml:space="preserve">
+    <value>Custom Update UI</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.DefaultLocales" xml:space="preserve">
+    <value>Default Locales</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Description" xml:space="preserve">
+    <value>Description</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Desktop" xml:space="preserve">
+    <value>Desktop</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Details" xml:space="preserve">
+    <value>Details</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ExtendedDesktop" xml:space="preserve">
+    <value>Extended Desktop</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ExtendedTv" xml:space="preserve">
+    <value>Extended TV</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Extension" xml:space="preserve">
+    <value>Extension</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ExtensionId" xml:space="preserve">
+    <value>Extension ID</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Extensions" xml:space="preserve">
+    <value>Extensions</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.FileName" xml:space="preserve">
+    <value>File Name</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.FileTypes" xml:space="preserve">
+    <value>File Types</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Fullscreen" xml:space="preserve">
+    <value>Fullscreen</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Help" xml:space="preserve">
+    <value>&amp;Help</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Icon" xml:space="preserve">
+    <value>Icon</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Icons" xml:space="preserve">
+    <value>Icons</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Id" xml:space="preserve">
+    <value>ID</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.InitialLocation" xml:space="preserve">
+    <value>Initial Location</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.InitialSize" xml:space="preserve">
+    <value>Initial Size</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Installation" xml:space="preserve">
+    <value>Installation</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.InstallFolder" xml:space="preserve">
+    <value>Install Folder</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.IPhoneAdditions" xml:space="preserve">
+    <value>IPhone Info Additions</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Locale" xml:space="preserve">
+    <value>Locale</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Locales" xml:space="preserve">
+    <value>Locales</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Maximizable" xml:space="preserve">
+    <value>Maximizable</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MaximumSize" xml:space="preserve">
+    <value>Maximum Size</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Minimizable" xml:space="preserve">
+    <value>Minimizable</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MinimumSize" xml:space="preserve">
+    <value>Minimum Size</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MinPatchLevel" xml:space="preserve">
+    <value>Minimum Patch Level</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MobileDevice" xml:space="preserve">
+    <value>Mobile Device</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.New" xml:space="preserve">
+    <value>New</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.NonWindowedPlatforms" xml:space="preserve">
+    <value>Non-Windowed Platforms</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Ok" xml:space="preserve">
+    <value>&amp;OK</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ProgramMenuFolder" xml:space="preserve">
+    <value>Program Menu Folder</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
+    <value>AIR Application Properties...</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.PublisherId" xml:space="preserve">
+    <value>Publisher ID</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.RenderMode" xml:space="preserve">
+    <value>Render Mode</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Resizable" xml:space="preserve">
+    <value>Resizable</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.SelectedLocales" xml:space="preserve">
+    <value>Selected Locales</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.SupportedProfiles" xml:space="preserve">
+    <value>Supported Profiles</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.SystemChrome" xml:space="preserve">
+    <value>System Chrome</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Title" xml:space="preserve">
+    <value>Title</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.TitleDesc" xml:space="preserve">
+    <value>Configure the properties of your AIR application. For a detailed explanation of the available{0}properties and their accepted values, please click the Help button for online help.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Transparent" xml:space="preserve">
+    <value>Transparent</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Tv" xml:space="preserve">
+    <value>TV</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.VersionNo" xml:space="preserve">
+    <value>Version No.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Visible" xml:space="preserve">
+    <value>Visible</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.WindowBounds" xml:space="preserve">
+    <value>Window Bounds</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.WindowedPlatforms" xml:space="preserve">
+    <value>Windowed Platforms</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.ChineseSimplified" xml:space="preserve">
+    <value>Chinese Simplified (zh)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.ChineseTraditional" xml:space="preserve">
+    <value>Chinese Trad. (zh-Hant)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Czech" xml:space="preserve">
+    <value>Czech (cs)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Default" xml:space="preserve">
+    <value>Default</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Dutch" xml:space="preserve">
+    <value>Dutch (nl)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.English" xml:space="preserve">
+    <value>English (en)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.French" xml:space="preserve">
+    <value>French (fr)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.German" xml:space="preserve">
+    <value>German (de)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Italian" xml:space="preserve">
+    <value>Italian (it)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Japanese" xml:space="preserve">
+    <value>Japanese (jp)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Korean" xml:space="preserve">
+    <value>Korean (ko)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Polish" xml:space="preserve">
+    <value>Polish (pl)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Portuguese" xml:space="preserve">
+    <value>Portuguese Braz.(pt-BR)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Russian" xml:space="preserve">
+    <value>Russian (ru)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Spanish" xml:space="preserve">
+    <value>Spanish (es)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Swedish" xml:space="preserve">
+    <value>Swedish (sv)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Turkish" xml:space="preserve">
+    <value>Turkish (tr)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.RenderMode.Auto" xml:space="preserve">
+    <value>Auto</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.RenderMode.CPU" xml:space="preserve">
+    <value>CPU</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.RenderMode.GPU" xml:space="preserve">
+    <value>GPU</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.SystemChrome.None" xml:space="preserve">
+    <value>None</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.SystemChrome.Standard" xml:space="preserve">
+    <value>Standard</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Title.AirWizard" xml:space="preserve">
+    <value>AIR Application Properties</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Title.LocaleManager" xml:space="preserve">
+    <value>Configure AIR Application Installer Locales</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidExtension" xml:space="preserve">
+    <value>The {0} Extension ID is invalid.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidFileType" xml:space="preserve">
+    <value>The {0} File Type has one or more invalid properties.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidLocale" xml:space="preserve">
+    <value>The value entered for the custom locale is not valid.
+Custom locales must be an extension of a default locale, e.g. en-US.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidProperty" xml:space="preserve">
+    <value>The {0} property is not valid.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
 </root>

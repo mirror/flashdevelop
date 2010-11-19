@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C# Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelop", "FlashDevelop\FlashDevelop.csproj", "{EFD07485-9A64-4EEC-94E7-ACBD4DA5CA93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61885F70-B4DC-4B44-852D-5D6D03F2A734} = {61885F70-B4DC-4B44-852D-5D6D03F2A734}
@@ -61,6 +61,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "External\Plugins\CodeAnalyzer\CodeAnalyzer.csproj", "{E4504497-89BF-4ED5-A0CC-6F02E96C2652}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceControl", "External\Plugins\SourceControl\SourceControl.csproj", "{CDB62A9F-0887-43AE-815D-4593A8E35E44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirProperties", "External\Plugins\AirProperties\AirProperties.csproj", "{F2CED639-1DA7-489D-9DBB-909F7B590C3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -271,11 +273,21 @@ Global
 		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Release|x86.ActiveCfg = Release|x86
 		{E4504497-89BF-4ED5-A0CC-6F02E96C2652}.Release|x86.Build.0 = Release|x86
 		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Debug|x86.ActiveCfg = Debug|x86
 		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Debug|x86.Build.0 = Debug|x86
 		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Release|x86.ActiveCfg = Release|x86
 		{CDB62A9F-0887-43AE-815D-4593A8E35E44}.Release|x86.Build.0 = Release|x86
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Debug|x86.ActiveCfg = Debug|x86
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Debug|x86.Build.0 = Debug|x86
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|x86.ActiveCfg = Release|x86
+		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
