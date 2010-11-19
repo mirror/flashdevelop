@@ -50,7 +50,7 @@ namespace CodeRefactor.Controls
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.GenerateDelegateMethods", this.delegateMenuItem);
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.OrganizeImports", this.organizeMenuItem);
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.TruncateImports", this.truncateMenuItem);
-            PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.InvokeGenerator", this.generatorMenuItem);
+            PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.CodeGenerator", this.generatorMenuItem);
         }
 
         /// <summary>

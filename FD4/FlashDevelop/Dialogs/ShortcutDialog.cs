@@ -176,20 +176,6 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Validates if the shortcut is valid item shortcut
-        /// </summary>
-        private Boolean IsValidShortcut(Keys keys)
-        {
-            try
-            {
-                ToolStripMenuItem tmp = new ToolStripMenuItem();
-                tmp.ShortcutKeys = keys;
-                return true;
-            }
-            catch { return false; }
-        }
-
-        /// <summary>
         /// Updates the font highlight of the item
         /// </summary>
         private void UpdateItemHighlightFont(ListViewItem lvi, ShortcutItem si)
@@ -237,7 +223,7 @@ namespace FlashDevelop.Dialogs
             {
                 ListViewItem selected = this.listView.SelectedItems[0];
                 ShortcutItem item = selected.Tag as ShortcutItem;
-                if (item.Custom != e.KeyData && this.IsValidShortcut(e.KeyData))
+                if (item.Custom != e.KeyData && ToolStripManager.IsValidShortcut(e.KeyData))
                 {
                     selected.SubItems[1].Text = GetKeysAsString(e.KeyData);
                     item.Custom = e.KeyData; selected.Selected = true;

@@ -97,6 +97,7 @@ namespace AirProperties
 		{
             this.InitBasics();
             this.LoadSettings();
+            this.CreateMenuItems();
             this.AddEventHandlers();
         }
 		
@@ -151,14 +152,21 @@ namespace AirProperties
         }
 
         /// <summary>
+        /// Create and registers the menu item
+        /// </summary>
+        private void CreateMenuItems()
+        {
+            this.pluginMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.ProjectMenuItem"), GetImage("blockdevice_small.png"), new EventHandler(this.OpenWizard), null);
+            PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.AirApplicationProperties", this.pluginMenuItem);
+            this.pluginMenuItem.Enabled = false;
+        }
+
+        /// <summary>
         /// Adds the necessary menu item to the project menu
         /// </summary>
         private void AddMenuItems(ToolStripMenuItem projectMenu)
         {
-            this.pluginMenuItem = new ToolStripMenuItem(TextHelper.GetString("Label.ProjectMenuItem"), GetImage("blockdevice_small.png"), new EventHandler(this.OpenWizard), null);
             projectMenu.DropDownItems.Insert(projectMenu.DropDownItems.Count - 1, this.pluginMenuItem);
-            PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.AirApplicationProperties", this.pluginMenuItem);
-            this.pluginMenuItem.Enabled = false;
         }
 
         /// <summary>

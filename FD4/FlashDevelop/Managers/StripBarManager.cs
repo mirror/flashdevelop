@@ -168,7 +168,7 @@ namespace FlashDevelop.Managers
             button.Tag = new ItemData(label, tag, flags);
             if (name != null) button.Name = name; // Use the given name
             else button.Name = label.Replace("Label.", ""); // Assign from id
-            String stripped = GetStrippedString(GetLocalizedString(label));
+            String stripped = GetStrippedString(GetLocalizedString(label), false);
             if (image != null) button.ToolTipText = stripped;
             else button.Text = stripped; // Use text instead...
             if (enabled != null) button.Enabled = Convert.ToBoolean(enabled);
@@ -217,10 +217,15 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Strips normal label characters from the string
         /// </summary>
-        private static String GetStrippedString(String text)
+        private static String GetStrippedString(String text, Boolean removeWhite)
         {
             text = text.Replace("&", "");
             text = text.Replace("...", "");
+            if (removeWhite)
+            {
+                text = text.Replace(" ", "");
+                text = text.Replace("\t", "");
+            }
             return text;
         }
 
@@ -249,9 +254,9 @@ namespace FlashDevelop.Managers
             if (menu.OwnerItem != null)
             {
                 ToolStripMenuItem parent = menu.OwnerItem as ToolStripMenuItem;
-                return GetMenuItemId(parent) + "." + GetStrippedString(menu.Name);
+                return GetMenuItemId(parent) + "." + GetStrippedString(menu.Name, true);
             }
-            else return GetStrippedString(menu.Name);
+            else return GetStrippedString(menu.Name, true);
         }
 
         /// <summary>
