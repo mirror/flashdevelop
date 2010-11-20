@@ -14,10 +14,13 @@ namespace SourceControl
     {
         private String gitPath;
         private String svnPath;
+        private String hgPath;
         private String tortoiseSVNProcPath;
         private String tortoiseGitProcPath;
+        private String tortoiseHGProcPath;
         private Boolean enableSVN;
         private Boolean enableGIT;
+        private Boolean enableHG;
 
         [DefaultValue(false)]
         [DisplayName("Enable SVN")]
@@ -34,7 +37,7 @@ namespace SourceControl
         [LocalizedCategory("SourceControl.Category.SVN")]
         [LocalizedDescription("SourceControl.Description.SVNPath")]
         [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
-        public String SVNPath 
+        public String SVNPath
         {
             get { return this.svnPath ?? "svn.exe"; }
             set { this.svnPath = value; }
@@ -81,6 +84,38 @@ namespace SourceControl
         {
             get { return this.tortoiseGitProcPath ?? "TortoiseProc.exe"; }
             set { this.tortoiseGitProcPath = value; }
+        }
+
+        [DefaultValue(false)]
+        [DisplayName("Enable HG")]
+        [LocalizedCategory("SourceControl.Category.HG")]
+        [LocalizedDescription("SourceControl.Description.EnableHG")]
+        public Boolean EnableHG
+        {
+            get { return this.enableHG; }
+            set { this.enableHG = value; }
+        }
+
+        [DefaultValue("hg")]
+        [DisplayName("HG Path")]
+        [LocalizedCategory("SourceControl.Category.HG")]
+        [LocalizedDescription("SourceControl.Description.HGPath")]
+        [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
+        public String HGPath
+        {
+            get { return this.hgPath ?? "hg"; }
+            set { this.hgPath = value; }
+        }
+
+        [DefaultValue("TortoiseProc.exe")]
+        [DisplayName("TortoiseHG Proc Path")]
+        [LocalizedCategory("SourceControl.Category.HG")]
+        [LocalizedDescription("SourceControl.Description.TortoiseHGProcPath")]
+        [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
+        public String TortoiseHGProcPath
+        {
+            get { return this.tortoiseHGProcPath ?? "hgtk"; }
+            set { this.tortoiseHGProcPath = value; }
         }
 
     }

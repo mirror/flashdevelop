@@ -7,6 +7,7 @@ using SourceControl.Actions;
 using SourceControl.Sources;
 using SourceControl.Sources.Subversion;
 using SourceControl.Sources.Git;
+using SourceControl.Sources.Mercurial;
 
 namespace SourceControl.Managers
 {
@@ -21,6 +22,7 @@ namespace SourceControl.Managers
 
             if (PluginMain.SCSettings.EnableSVN) AddVCManager(new SubversionManager());
             if (PluginMain.SCSettings.EnableGIT) AddVCManager(new GitManager());
+            if (PluginMain.SCSettings.EnableHG) AddVCManager(new MercurialManager());
 
             refreshTimer = new Timer();
             refreshTimer.Interval = 100;
