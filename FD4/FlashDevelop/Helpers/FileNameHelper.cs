@@ -120,17 +120,6 @@ namespace FlashDevelop.Helpers
         }
 
         /// <summary>
-        /// Path to the shortcuts file
-        /// </summary>
-        public static String ShortcutData
-        {
-            get
-            {
-                return Path.Combine(PathHelper.SettingDir, "ShortcutData.fdb");
-            }
-        }
-
-        /// <summary>
         /// Path to the recovery directory
         /// </summary>
         public static String RecoveryDir

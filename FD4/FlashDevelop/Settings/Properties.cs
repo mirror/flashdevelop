@@ -36,6 +36,7 @@ namespace FlashDevelop.Settings
         private Int32 backupInterval = 15000;
         private Int32 filePollInterval = 3000;
         private LocaleVersion localeVersion = LocaleVersion.en_US;
+        private List<Argument> customShortcuts = new List<Argument>();
         private List<Argument> customArguments = new List<Argument>();
         private List<String> previousDocuments = new List<String>();
         private List<String> disabledPlugins = new List<String>();

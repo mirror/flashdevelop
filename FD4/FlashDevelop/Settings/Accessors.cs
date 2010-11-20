@@ -684,6 +684,15 @@ namespace FlashDevelop.Settings
             set { this.customArguments = value; }
         }
 
+        [DisplayName("Custom Shortcuts")]
+        [LocalizedCategory("FlashDevelop.Category.State")]
+        [LocalizedDescription("FlashDevelop.Description.CustomShortcuts")]
+        public List<Argument> CustomShortcuts
+        {
+            get { return this.customShortcuts; }
+            set { this.customShortcuts = value; }
+        }
+
         #endregion
 
         #region Controls

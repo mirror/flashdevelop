@@ -4284,4 +4284,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   <data name="SourceControl.Description.TortoiseHGProcPath" xml:space="preserve">
     <value>Path to TortoiseHG's TortoiseProc tool. Example 'hgtk'.</value>
   </data>
+  <data name="FlashDevelop.Description.CustomShortcuts" xml:space="preserve">
+    <value>List of user defined override shortcuts.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
 </root>

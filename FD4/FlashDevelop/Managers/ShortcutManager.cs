@@ -83,15 +83,10 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void LoadCustomShortcuts()
         {
-            ShortcutData sd = new ShortcutData();
-            if (File.Exists(FileNameHelper.ShortcutData))
+            foreach (Argument arg in Globals.Settings.CustomShortcuts)
             {
-                Object obj = ObjectSerializer.Deserialize(FileNameHelper.ShortcutData, sd, false);
-                foreach (Argument arg in ((ShortcutData)obj).Shortcuts)
-                {
-                    ShortcutItem item = GetRegisteredItem(arg.Key);
-                    if (item != null) item.Custom = (Keys)Enum.Parse(typeof(Keys), arg.Value);
-                }
+                ShortcutItem item = GetRegisteredItem(arg.Key);
+                if (item != null) item.Custom = (Keys)Enum.Parse(typeof(Keys), arg.Value);
             }
         }
 
@@ -100,16 +95,14 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void SaveCustomShortcuts()
         {
-            ShortcutData sd = new ShortcutData();
+            Globals.Settings.CustomShortcuts.Clear();
             foreach (ShortcutItem item in RegistedItems)
             {
                 if (item.Custom != item.Default)
                 {
-                    sd.Shortcuts.Add(new Argument(item.Id, item.Custom.ToString()));
+                    Globals.Settings.CustomShortcuts.Add(new Argument(item.Id, item.Custom.ToString()));
                 }
             }
-            String file = FileNameHelper.ShortcutData;
-            ObjectSerializer.Serialize(file, sd);
         }
 
     }
@@ -136,18 +129,6 @@ namespace FlashDevelop.Managers
             this.Default = this.Custom = item.ShortcutKeys;
         }
 
-    }
-
-    [Serializable]
-    public class ShortcutData
-    {
-        public List<Argument> Shortcuts = new List<Argument>();
-
-        public ShortcutData() {}
-        public ShortcutData(List<Argument> shortcuts)
-        {
-            this.Shortcuts = shortcuts;
-        }
     }
 
     #endregion

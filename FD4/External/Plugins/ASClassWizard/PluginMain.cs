@@ -39,9 +39,7 @@ namespace ASClassWizard
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Provides an ActionScript class wizard for FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
-        
-        private String settingFilename;
-        private Settings settingObject;
+
         private AS3ClassOptions lastFileOptions;
         private String lastFileFromTemplate;
         private IASContext processContext;
@@ -106,21 +104,18 @@ namespace ASClassWizard
 
 		public void Initialize()
 		{
-            this.InitBasics();
-            this.LoadSettings();
             this.AddEventHandlers();
             this.InitLocalization();
         }
 		
 		public void Dispose()
 		{
-            this.SaveSettings();
+            // Nothing here...
 		}
 		
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
             Project project;
-
             switch (e.Type)
             {
                 case EventType.Command:
@@ -133,8 +128,7 @@ namespace ASClassWizard
                         {
                             evt.Handled = true;
                             String className = table.ContainsKey("className") ? table["className"] as String : TextHelper.GetString("Wizard.Label.NewClass");
-							DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String, className, 
-                                table["constructorArgs"] as String, table["constructorArgTypes"] as List<String>);
+							DisplayClassWizard(table["inDirectory"] as String, table["templatePath"] as String, className, table["constructorArgs"] as String, table["constructorArgTypes"] as List<String>);
                         }
                     }
                     break;
@@ -172,33 +166,6 @@ namespace ASClassWizard
         }
 		
 		#endregion
-
-        #region Setting Management
-
-        public void InitBasics()
-        {
-            String dataPath = Path.Combine(PathHelper.DataDir, "ASClassWizard");
-            if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
-        }
-
-        public void LoadSettings()
-        {
-            this.settingObject = new Settings();
-            if (!File.Exists(this.settingFilename)) this.SaveSettings();
-            else
-            {
-                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
-                this.settingObject = (Settings)obj;
-            }
-        }
-
-        public void SaveSettings()
-        {
-            ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-        }
-
-        #endregion
 
         #region Custom Methods
 

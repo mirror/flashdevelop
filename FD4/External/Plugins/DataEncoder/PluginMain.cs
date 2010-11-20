@@ -105,7 +105,8 @@ namespace DataEncoder
             {
                 case EventType.FileEncode :
                     DataEvent fe = (DataEvent)e;
-                    if (Path.GetExtension(fe.Action) == ".fdb" || Path.GetExtension(fe.Action) == ".fda")
+                    String ext = Path.GetExtension(fe.Action);
+                    if (ext == ".fdb" || ext == ".fda" || ext == ".fdm")
                     {
                         this.SaveBinaryFile(fe.Action, fe.Data as String);
                         fe.Handled = true;
@@ -114,7 +115,8 @@ namespace DataEncoder
 
                 case EventType.FileDecode:
                     DataEvent fd = (DataEvent)e;
-                    if (Path.GetExtension(fd.Action) == ".fdb" || Path.GetExtension(fd.Action) == ".fda")
+                    String ext1 = Path.GetExtension(fd.Action);
+                    if (ext1 == ".fdb" || ext1 == ".fda" || ext1 == ".fdm")
                     {
                         String text = this.LoadBinaryFile(fd.Action);
                         if (text != null)
@@ -183,7 +185,7 @@ namespace DataEncoder
             {
                 Object settings = new Object();
                 MemoryStream stream = new MemoryStream();
-                settings = ObjectSerializer.Deserialize(file, settings);
+                settings = ObjectSerializer.Deserialize(file, settings, false);
                 XmlSerializer xs = new XmlSerializer(settings.GetType());
                 xs.Serialize(stream, settings); // Obj -> XML
                 XmlTextWriter xw = new XmlTextWriter(stream, Encoding.UTF8);

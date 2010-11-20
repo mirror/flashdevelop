@@ -70,9 +70,6 @@
     <Compile Include="Resources\ASClassOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluginMain.cs" />
-    <Compile Include="Settings.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Wizards\AS3ClassWizard.cs">
       <SubType>Form</SubType>
     </Compile>
