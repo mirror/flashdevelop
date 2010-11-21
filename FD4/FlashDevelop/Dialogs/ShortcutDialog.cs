@@ -21,7 +21,10 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.ColumnHeader idHeader;
         private System.Windows.Forms.ColumnHeader keyHeader;
+        private System.Windows.Forms.TextBox filterTextBox;
+        private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button closeButton;
+        private System.String searchInvitation;
     
         public ShortcutDialog()
         {
@@ -32,7 +35,6 @@ namespace FlashDevelop.Dialogs
             this.InitializeContextMenu();
             this.ApplyLocalizedTexts();
             this.InitializeGraphics();
-            this.PopulateListView();
         }
 
         #region Windows Form Designer Generated Code
@@ -49,6 +51,8 @@ namespace FlashDevelop.Dialogs
             this.closeButton = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.infoLabel = new System.Windows.Forms.Label();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.filterTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,11 +72,11 @@ namespace FlashDevelop.Dialogs
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.idHeader, this.keyHeader});
             this.listView.GridLines = true;
             this.listView.FullRowSelect = true;
-            this.listView.Location = new System.Drawing.Point(12, 12);
+            this.listView.Location = new System.Drawing.Point(12, 40);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(562, 363);
-            this.listView.TabIndex = 1;
+            this.listView.Size = new System.Drawing.Size(562, 335);
+            this.listView.TabIndex = 4;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
             this.listView.KeyDown += new KeyEventHandler(this.ListViewKeyDown);
@@ -96,7 +100,7 @@ namespace FlashDevelop.Dialogs
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(16, 16);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 2;
+            this.pictureBox.TabIndex = 5;
             this.pictureBox.TabStop = false;
             // 
             // infoLabel
@@ -105,8 +109,30 @@ namespace FlashDevelop.Dialogs
             this.infoLabel.Location = new System.Drawing.Point(33, 386);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(446, 16);
-            this.infoLabel.TabIndex = 3;
+            this.infoLabel.TabIndex = 6;
             this.infoLabel.Text = "Shortcuts can be edited by selecting an item and pressing valid menu item shortcut keys.";
+            // 
+            // clearButton
+            //
+            this.clearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearButton.Location = new System.Drawing.Point(549, 10);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(26, 23);
+            this.clearButton.TabIndex = 2;
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.ClearFilterClick);
+            // 
+            // filterTextBox
+            // 
+            this.filterTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.filterTextBox.Location = new System.Drawing.Point(12, 12);
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(530, 20);
+            this.filterTextBox.TabIndex = 1;
+            this.filterTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.filterTextBox.TextChanged += new System.EventHandler(this.FilterTextChanged);
+            this.filterTextBox.Leave += new System.EventHandler(this.FilterTextBoxLeave);
+            this.filterTextBox.Enter += new System.EventHandler(this.FilterTextBoxEnter);
             // 
             // ShortcutDialog
             // 
@@ -119,6 +145,8 @@ namespace FlashDevelop.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 416);
+            this.Controls.Add(this.filterTextBox);
+            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.closeButton);
@@ -128,6 +156,7 @@ namespace FlashDevelop.Dialogs
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
@@ -140,6 +169,7 @@ namespace FlashDevelop.Dialogs
         private void InitializeGraphics()
         {
             this.pictureBox.Image = Globals.MainForm.FindImage("229");
+            this.clearButton.Image = Globals.MainForm.FindImage("153");
         }
 
         /// <summary>
@@ -153,6 +183,10 @@ namespace FlashDevelop.Dialogs
             cms.Items.Add(TextHelper.GetString("Label.RemoveShortcut"), null, this.RemoveShortcutClick);
             cms.Items.Add(TextHelper.GetString("Label.RevertToDefault"), null, this.RevertToDefaultClick);
             this.listView.ContextMenuStrip = cms;
+            // Search Invitation...
+            this.searchInvitation = TextHelper.GetString("Label.Search");
+            this.searchInvitation = this.searchInvitation.Replace("&", "") + "...";
+            this.filterTextBox.Text = this.searchInvitation;
         }
 
         /// <summary>
@@ -188,14 +222,14 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Populates the shortcut list view
         /// </summary>
-        private void PopulateListView()
+        private void PopulateListView(String filter)
         {
             this.listView.BeginUpdate();
             this.listView.Items.Clear();
             this.listView.ListViewItemSorter = new ListViewComparer();
             foreach (ShortcutItem item in ShortcutManager.RegistedItems)
             {
-                if (!this.listView.Items.ContainsKey(item.Id))
+                if (item.Id.ToLower().Contains(filter.ToLower()) && !this.listView.Items.ContainsKey(item.Id))
                 {
                     ListViewItem lvi = new ListViewItem();
                     lvi.Text = lvi.Name = item.Id; lvi.Tag = item;
@@ -279,6 +313,53 @@ namespace FlashDevelop.Dialogs
                 item.Custom = Keys.None;
                 this.UpdateItemHighlightFont(selected, item);
             }
+        }
+
+        /// <summary>
+        /// When user enters control, handle it
+        /// </summary>
+        private void FilterTextBoxEnter(Object sender, System.EventArgs e)
+        {
+            if (this.filterTextBox.Text == searchInvitation)
+            {
+                this.filterTextBox.TextChanged -= new EventHandler(this.FilterTextChanged);
+                this.filterTextBox.Text = "";
+                this.filterTextBox.TextChanged += new EventHandler(this.FilterTextChanged);
+                this.filterTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            }
+        }
+
+        /// <summary>
+        /// When user leaves control, handle it
+        /// </summary>
+        private void FilterTextBoxLeave(Object sender, System.EventArgs e)
+        {
+            if (this.filterTextBox.Text == "")
+            {
+                this.filterTextBox.TextChanged -= new EventHandler(this.FilterTextChanged);
+                this.filterTextBox.Text = searchInvitation;
+                this.filterTextBox.TextChanged += new EventHandler(this.FilterTextChanged);
+                this.filterTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
+            }
+        }
+
+        /// <summary>
+        /// Clears the filter text field
+        /// </summary>
+        private void ClearFilterClick(Object sender, EventArgs e)
+        {
+            this.filterTextBox.Text = "";
+            this.FilterTextBoxLeave(null, null);
+        }
+
+        /// <summary>
+        /// Updated the list with the filter
+        /// </summary>
+        private void FilterTextChanged(Object sender, EventArgs e)
+        {
+            String searchText = this.filterTextBox.Text.Trim();
+            if (searchText == searchInvitation) searchText = "";
+            this.PopulateListView(searchText);
         }
 
         /// <summary>
