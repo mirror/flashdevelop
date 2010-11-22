@@ -3278,18 +3278,18 @@ namespace ASCompletion.Completion
                     ErrorManager.ShowInfo(message);
                     return;
                 }
-                if (acc.Length > 0) acc += " ";
                 decl = acc + features.functionKey + " ";
                 bool noRet = type.Equals("void", StringComparison.OrdinalIgnoreCase);
                 type = (noRet) ? ASContext.Context.Features.voidKey : type;
                 if (!noRet) typesUsed.Add(getQualifiedType(type, ofClass));
                 string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed, ofClass);
                 string template = TemplateUtils.GetTemplate("MethodOverride");
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+                template = TemplateUtils.ReplaceTemplateVariable(template, "Name", member.Name);
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Arguments", TemplateUtils.ParametersString(member, true));
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Type", type);
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Method", action);
-                decl += member.Name
-                    + template;
+                decl = template;
             }
 
             Sci.BeginUndoAction();

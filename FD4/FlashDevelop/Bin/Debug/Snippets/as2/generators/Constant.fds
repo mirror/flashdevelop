@@ -1,1 +1,1 @@
-$(Modifiers) const $(Name):$(Type)<< = $(Value)>>$(EntryPoint);
+$(Modifiers) var $(Name):$(Type)<< = $(Value)>>$(EntryPoint);

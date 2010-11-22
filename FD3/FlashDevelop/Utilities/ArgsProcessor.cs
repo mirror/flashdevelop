@@ -377,11 +377,15 @@ namespace FlashDevelop.Utilities
             if (reUserArgs.IsMatch(args)) // User arguments
 			{
                 ArgReplaceDialog rvd = new ArgReplaceDialog(args, reUserArgs);
-				if (rvd.ShowDialog() == DialogResult.OK)
-				{
-					userArgs = rvd.Dictionary;
+                if (rvd.ShowDialog() == DialogResult.OK)
+                {
+                    userArgs = rvd.Dictionary;
                     args = reUserArgs.Replace(args, new MatchEvaluator(ReplaceUserArgs));
-				}
+                }
+                else
+                {
+                    return "";
+                }
 			}
             return args;
         }

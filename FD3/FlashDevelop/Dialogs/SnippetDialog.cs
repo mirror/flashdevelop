@@ -625,7 +625,7 @@ namespace FlashDevelop.Dialogs
             String path = Path.Combine(this.SnippetDir, this.currentSyntax);
             path = Path.Combine(path, name + ".fds");
             file = File.CreateText(path);
-            file.WriteLine(content);
+            file.Write(content);
             file.Close();
             this.UpdateSnippetList();
         }
