@@ -108,8 +108,22 @@ namespace AS3Context.Compiler
 
         public void CheckAS3(string filename, string flexPath, string src)
 		{
-            if (running || filename.EndsWith(".mxml")) 
+            if (running) return;
+
+            // let other plugins preprocess source/handle checking
+            Hashtable data = new Hashtable();
+            data["filename"] = filename;
+            data["src"] = src;
+            data["ext"] = Path.GetExtension(filename);
+            DataEvent de = new DataEvent(EventType.Command, "AS3Context.CheckSyntax", data);
+            EventManager.DispatchEvent(this, de);
+            if (de.Handled) return;
+
+            src = (string)data["src"];
+            filename = (string)data["filename"];
+            if (".mxml" == (string)data["ext"]) // MXML not supported by ASC without preprocessing
                 return;
+
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);

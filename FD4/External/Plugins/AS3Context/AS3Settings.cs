@@ -160,6 +160,7 @@ namespace AS3Context
 
         private int flashVersion = 10;
         private string as3ClassPath;
+        private string[] as3FileTypes;
 
         [DisplayName("Default Flash Version")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.DefaultFlashVersion"), DefaultValue(DEFAULT_FLASHVERSION)]
@@ -187,6 +188,19 @@ namespace AS3Context
             {
                 if (value == as3ClassPath) return;
                 as3ClassPath = value;
+                FireChanged();
+            }
+        }
+
+        [DisplayName("AS3 File Types")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.AS3FileTypes")]
+        public string[] AS3FileTypes
+        {
+            get { return as3FileTypes; }
+            set
+            {
+                if (value == as3FileTypes) return;
+                as3FileTypes = value;
                 FireChanged();
             }
         }
