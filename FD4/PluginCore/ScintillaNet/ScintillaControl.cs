@@ -8,6 +8,9 @@ using System.Drawing.Printing;
 using PluginCore.Managers;
 using System.Drawing;
 using System.Text;
+using PluginCore.FRService;
+using PluginCore.Utilities;
+using System.Collections.Generic;
 
 namespace ScintillaNet
 {
@@ -19,6 +22,7 @@ namespace ScintillaNet
 		private IntPtr hwndScintilla;
 		private bool ignoreAllKeys = false;
 		private bool isBraceMatching = true;
+        private bool isHiliteSelected = true;
         private bool useHighlightGuides = true;
 		private static Scintilla sciConfiguration = null;
 		private Enums.SmartIndent smartIndent = Enums.SmartIndent.CPP;
@@ -41,7 +45,9 @@ namespace ScintillaNet
                 hwndScintilla = WinAPI.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
                 directPointer = (int)SlowPerform(2185, 0, 0);
                 UpdateUI += new UpdateUIHandler(OnBraceMatch);
+                UpdateUI += new UpdateUIHandler(OnCancelHighlight);
                 DoubleClick += new DoubleClickHandler(OnBlockSelect);
+                DoubleClick += new DoubleClickHandler(OnSelectHighlight);
                 CharAdded += new CharAddedHandler(OnSmartIndent);
                 Resize += new EventHandler(OnResize);
                 directPointer = DirectPointer;
@@ -558,6 +564,21 @@ namespace ScintillaNet
             set 
             { 
                 ignoreAllKeys = value; 
+            }
+        }
+
+        /// <summary>
+        /// Enables the selected word highlighting.
+        /// </summary>
+        public bool IsHiliteSelected
+        {
+            get
+            {
+                return isHiliteSelected;
+            }
+            set
+            {
+                isHiliteSelected = value;
             }
         }
 
@@ -5039,6 +5060,31 @@ namespace ScintillaNet
 		#region Automated Features
 
         /// <summary>
+        /// Provides basic highlighting of selected text
+        /// </summary>
+        private void OnSelectHighlight(ScintillaControl sci)
+        {
+            this.RemoveHighlights();
+            if (this.SelText.Trim() != String.Empty)
+            {
+                Language language = Configuration.GetLanguage(this.ConfigurationLanguage);
+                Int32 color = language.editorstyle.HighlightBackColor;
+                String pattern = this.SelText.Trim();
+                FRSearch search = new FRSearch(pattern);
+                search.WholeWord = true; search.NoCase = false;
+                search.Filter = SearchFilter.None; // Everywhere
+                this.AddHighlights(search.Matches(sci.Text), color);
+            }
+        }
+        private void OnCancelHighlight(ScintillaControl sci)
+        {
+            if (this.SelText.Trim().Length == 0)
+            {
+                this.RemoveHighlights();
+            }
+        }
+
+        /// <summary>
         /// Provides the support for code block selection
         /// </summary>
         private void OnBlockSelect(ScintillaControl sci)
@@ -5862,7 +5908,38 @@ namespace ScintillaNet
 		public int BaseStyleAt(int pos)
 		{
 			return (int)(SPerform(2010, (uint)pos, 0) & ((1 << this.StyleBits) - 1));
-		}	
+		}
+
+        /// <summary>
+        /// Adds the specified highlights to the control
+        /// </summary>
+        public void AddHighlights(List<SearchMatch> matches, Int32 highlightColor)
+        {
+            if (matches == null) return;
+            foreach (SearchMatch match in matches)
+            {
+                Int32 start = this.MBSafePosition(match.Index);
+                Int32 end = start + this.MBSafeTextLength(match.Value);
+                Int32 line = this.LineFromPosition(start);
+                Int32 position = start; Int32 mask = 1 << this.StyleBits;
+                this.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox);
+                this.SetIndicFore(0, highlightColor);
+                this.StartStyling(position, mask);
+                this.SetStyling(end - start, mask);
+                this.StartStyling(this.EndStyled, mask - 1);
+            }
+        }
+
+        /// <summary>
+        /// Removes the highlights from the control
+        /// </summary>
+        public void RemoveHighlights()
+        {
+            Int32 mask = (1 << this.StyleBits);
+            this.StartStyling(0, mask);
+            this.SetStyling(this.TextLength, 0);
+            this.StartStyling(this.EndStyled, mask - 1);
+        }
 
 		#endregion
 
