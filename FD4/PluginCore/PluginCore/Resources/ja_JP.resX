@@ -4288,4 +4288,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>List of user defined override shortcuts.</value>
     <comment>Added after 3.3.1</comment>
   </data>
+  <data name="SourceControl.Category.HG" xml:space="preserve">
+    <value>HG</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
 </root>
