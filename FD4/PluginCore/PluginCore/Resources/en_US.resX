@@ -339,7 +339,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Project Type E&amp;xplorer...</value>
   </data>
   <data name="ASCompletion.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Outline Panel</value>
+    <value>Outline Panel</value>
   </data>
   <data name="ASCompletion.Title.ModelExplorer" xml:space="preserve">
     <value>Type Explorer</value>
@@ -441,7 +441,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Add To &amp;Trusted Paths</value>
   </data>
   <data name="FileExplorer.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;File Explorer</value>
+    <value>File Explorer</value>
   </data>
   <data name="FileExplorer.Title.PluginPanel" xml:space="preserve">
     <value>Files</value>
@@ -900,7 +900,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Ca&amp;ncel</value>
   </data>
   <data name="FlashDevelop.Label.CheckUpdates" xml:space="preserve">
-    <value>Check For Updates...</value>
+    <value>&amp;Check For Updates...</value>
   </data>
   <data name="FlashDevelop.Label.ClearBookmarks" xml:space="preserve">
     <value>Cle&amp;ar Bookmarks</value>
@@ -1377,7 +1377,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>S&amp;how Settings...</value>
   </data>
   <data name="LayoutManager.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Layout Manager</value>
+    <value>Layout Manager</value>
   </data>
   <data name="LayoutManager.Title.PluginPanel" xml:space="preserve">
     <value>Layouts</value>
@@ -1401,7 +1401,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Copy &amp;Output</value>
   </data>
   <data name="OutputPanel.Label.ViewMenuItem" xml:space="preserve">
-    <value>Output Pa&amp;nel</value>
+    <value>Output Panel</value>
   </data>
   <data name="OutputPanel.Label.WrapText" xml:space="preserve">
     <value>&amp;Wrap Text</value>
@@ -1911,7 +1911,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>&amp;Framerate:</value>
   </data>
   <data name="ProjectManager.Label.GlobalClasspaths" xml:space="preserve">
-    <value>&amp;Global Classpaths...</value>
+    <value>G&amp;lobal Classpaths...</value>
   </data>
   <data name="ProjectManager.Label.HideFile" xml:space="preserve">
     <value>&amp;Hide File</value>
@@ -1944,7 +1944,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>&amp;Location:</value>
   </data>
   <data name="ProjectManager.Label.MainMenuItem" xml:space="preserve">
-    <value>&amp;Project Manager</value>
+    <value>Project Manager</value>
   </data>
   <data name="ProjectManager.Label.Name" xml:space="preserve">
     <value>&amp;Name:</value>
@@ -2092,7 +2092,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Clear &amp;Ignored &amp; Entries</value>
   </data>
   <data name="ResultsPanel.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Results Panel</value>
+    <value>Results Panel</value>
   </data>
   <data name="ResultsPanel.Title.PluginPanel" xml:space="preserve">
     <value>Results</value>
@@ -2128,7 +2128,7 @@ Never - the start page will not show based on startup.</value>
     <value>Uses the custom start page instead of the default start page.</value>
   </data>
   <data name="StartPage.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Start Page</value>
+    <value>Start Page</value>
   </data>
   <data name="StartPage.Title.StartPage" xml:space="preserve">
     <value>Start Page</value>
@@ -2167,7 +2167,7 @@ Never - the start page will not show based on startup.</value>
     <value>Error: Please verify your plugin settings.</value>
   </data>
   <data name="TaskListPanel.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Task List</value>
+    <value>Task List</value>
   </data>
   <data name="TaskListPanel.Title.PluginPanel" xml:space="preserve">
     <value>Tasks</value>
@@ -2348,7 +2348,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Remove Bookmarks</value>
   </data>
   <data name="BookmarkPanel.Label.ViewMenuItem" xml:space="preserve">
-    <value>&amp;Bookmark Panel</value>
+    <value>Bookmark Panel</value>
   </data>
   <data name="BookmarkPanel.Title.PluginPanel" xml:space="preserve">
     <value>Bookmarks</value>
@@ -2570,7 +2570,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Copy &amp;Output</value>
   </data>
   <data name="FlashLogViewer.Label.ViewMenuItem" xml:space="preserve">
-    <value>Flash Log &amp;Viewer</value>
+    <value>Flash Log Viewer</value>
   </data>
   <data name="FlashLogViewer.Label.WrapText" xml:space="preserve">
     <value>&amp;Wrap Text</value>
@@ -2789,7 +2789,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>&amp;Delete</value>
   </data>
   <data name="MacroManager.Label.EditMacros" xml:space="preserve">
-    <value>&amp;Edit Macros...</value>
+    <value>Edit &amp;Macros...</value>
   </data>
   <data name="MacroManager.Label.ExportMacros" xml:space="preserve">
     <value>&amp;Export Macros...</value>
@@ -3188,7 +3188,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Stop Profiler</value>
   </data>
   <data name="AS3Context.Label.ViewMenuItem" xml:space="preserve">
-    <value>SWF Profil&amp;er</value>
+    <value>SWF Profiler</value>
   </data>
   <data name="AS3Context.Title.Profiler" xml:space="preserve">
     <value>Profiler</value>
@@ -3416,13 +3416,13 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Value</value>
   </data>
   <data name="FlashDebugger.Label.ViewBreakpointsPanel" xml:space="preserve">
-    <value>Brea&amp;kpoints Panel</value>
+    <value>Breakpoints Panel</value>
   </data>
   <data name="FlashDebugger.Label.Viewer" xml:space="preserve">
     <value>&amp;Viewer</value>
   </data>
   <data name="FlashDebugger.Label.ViewLocalVariablesPanel" xml:space="preserve">
-    <value>&amp;Local Variables Panel</value>
+    <value>Local Variables Panel</value>
   </data>
   <data name="FlashDebugger.Label.ViewStackframePanel" xml:space="preserve">
     <value>Stackframe Panel</value>
@@ -3924,7 +3924,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
-    <value>AIR Application Properties...</value>
+    <value>&amp;AIR Application Properties...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.ChineseSimplified" xml:space="preserve">
