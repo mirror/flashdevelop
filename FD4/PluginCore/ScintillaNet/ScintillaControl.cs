@@ -1,25 +1,26 @@
 using System;
 using System.Collections;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using ScintillaNet.Configuration;
 using System.Drawing.Printing;
+using PluginCore.FRService;
+using PluginCore.Utilities;
 using PluginCore.Managers;
 using System.Drawing;
 using System.Text;
-using PluginCore.FRService;
-using PluginCore.Utilities;
-using System.Collections.Generic;
 
 namespace ScintillaNet
 {
 	public class ScintillaControl : Control
 	{
-		private Encoding encoding;
         private bool saveBOM;
+        private Encoding encoding;
 		private int directPointer;
 		private IntPtr hwndScintilla;
+        private bool hasHighlights = false;
 		private bool ignoreAllKeys = false;
 		private bool isBraceMatching = true;
         private bool isHiliteSelected = true;
@@ -5064,23 +5065,25 @@ namespace ScintillaNet
         /// </summary>
         private void OnSelectHighlight(ScintillaControl sci)
         {
-            this.RemoveHighlights();
-            if (this.SelText.Trim() != String.Empty)
+            sci.RemoveHighlights();
+            if (Control.ModifierKeys == Keys.Control && sci.SelText.Length != 0)
             {
-                Language language = Configuration.GetLanguage(this.ConfigurationLanguage);
+                Language language = Configuration.GetLanguage(sci.ConfigurationLanguage);
                 Int32 color = language.editorstyle.HighlightBackColor;
-                String pattern = this.SelText.Trim();
+                String pattern = sci.SelText.Trim();
                 FRSearch search = new FRSearch(pattern);
                 search.WholeWord = true; search.NoCase = false;
                 search.Filter = SearchFilter.None; // Everywhere
-                this.AddHighlights(search.Matches(sci.Text), color);
+                sci.AddHighlights(search.Matches(sci.Text), color);
+                sci.hasHighlights = true;
             }
         }
         private void OnCancelHighlight(ScintillaControl sci)
         {
-            if (this.SelText.Trim().Length == 0)
+            if (sci.isHiliteSelected && sci.hasHighlights && sci.SelText.Length == 0)
             {
-                this.RemoveHighlights();
+                sci.RemoveHighlights();
+                sci.hasHighlights = false;
             }
         }
 
