@@ -69,7 +69,14 @@ namespace FlashDevelop.Managers
             ShortcutManager.UpdateAllShortcuts();
             foreach (ShortcutItem item in RegistedItems)
             {
-                if (item.Item != null) item.Item.ShortcutKeys = item.Custom;
+                if (item.Item != null)
+                {
+                    if (item.Item.Owner != null && item.Item.Owner.InvokeRequired)
+                    {
+                        item.Item.Owner.BeginInvoke((MethodInvoker)delegate { item.Item.ShortcutKeys = item.Custom; });
+                    }
+                    else item.Item.ShortcutKeys = item.Custom;
+                }
                 else if (item.Default != item.Custom)
                 {
                     DataEvent de = new DataEvent(EventType.Shortcut, item.Id, item.Custom);
