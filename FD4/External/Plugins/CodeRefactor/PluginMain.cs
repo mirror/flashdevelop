@@ -112,7 +112,14 @@ namespace CodeRefactor
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-            // Nothing here...
+            switch (e.Type)
+            {
+                case EventType.UIStarted:
+                    // Expose plugin's refactor menu...
+                    DataEvent menu = new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu);
+                    EventManager.DispatchEvent(this, menu);
+                    break;
+            }
 		}
 
         #endregion
@@ -124,6 +131,7 @@ namespace CodeRefactor
         /// </summary>
         public void InitBasics()
         {
+            EventManager.AddEventHandler(this, EventType.UIStarted);
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
@@ -138,7 +146,6 @@ namespace CodeRefactor
             MenuStrip mainMenu = PluginBase.MainForm.MenuStrip;
             ContextMenuStrip editorMenu = PluginBase.MainForm.EditorMenu;
             this.refactorMainMenu = new RefactorMenu(true);
-            //
             this.refactorMainMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorMainMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
             this.refactorMainMenu.TruncateMenuItem.Click += new EventHandler(this.TruncateImportsClicked);
@@ -146,7 +153,6 @@ namespace CodeRefactor
             this.refactorMainMenu.DelegateMenuItem.Click += new EventHandler(this.DelegateMethodsClicked);
             this.refactorMainMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
             this.refactorMainMenu.CodeGeneratorMenuItem.Click += new EventHandler(this.CodeGeneratorMenuItemClicked);
-            //
             this.refactorContextMenu = new RefactorMenu(false);
             this.refactorContextMenu.RenameMenuItem.Click += new EventHandler(this.RenameClicked);
             this.refactorContextMenu.OrganizeMenuItem.Click += new EventHandler(this.OrganizeImportsClicked);
@@ -155,14 +161,12 @@ namespace CodeRefactor
             this.refactorContextMenu.ExtractMethodMenuItem.Click += new EventHandler(this.ExtractMethodClicked);
             this.refactorContextMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
             this.refactorContextMenu.CodeGeneratorMenuItem.Click += new EventHandler(this.CodeGeneratorMenuItemClicked);
-            //
             this.surroundContextMenu = new SurroundMenu();
             editorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
             mainMenu.MenuActivate += new EventHandler(this.MainMenuActivate);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             editorMenu.Items.Insert(4, this.surroundContextMenu);
             mainMenu.Items.Insert(5, this.refactorMainMenu);
-            //
             ToolStripMenuItem searchMenu = PluginBase.MainForm.FindMenuItem("SearchMenu") as ToolStripMenuItem;
             this.viewReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));
             this.editorReferencesItem = new ToolStripMenuItem(TextHelper.GetString("Label.FindAllReferences"), null, new EventHandler(this.FindAllReferencesClicked));

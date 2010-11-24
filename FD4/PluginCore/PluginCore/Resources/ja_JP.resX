@@ -4296,4 +4296,20 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>File extensions explored in classpath. Defaults to *.as, *.mxml (enter one filetype per line).</value>
     <comment>After 3.3.1</comment>
   </data>
+  <data name="CodeFormatter.Info.CouldNotFormat" xml:space="preserve">
+    <value>Syntax errors encountered. Could not format code.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeFormatter.Info.Description" xml:space="preserve">
+    <value>Adds an MXML and ActionScript code formatter to FlashDevelop.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeFormatter.Info.NoDescriptionAvailable" xml:space="preserve">
+    <value>No description available.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeFormatter.Label.CodeFormatter" xml:space="preserve">
+    <value>Code &amp;Formatter</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
 </root>

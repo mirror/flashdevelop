@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceControl", "External\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirProperties", "External\Plugins\AirProperties\AirProperties.csproj", "{F2CED639-1DA7-489D-9DBB-909F7B590C3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFormatter", "External\Plugins\CodeFormatter\CodeFormatter.csproj", "{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -288,6 +290,12 @@ Global
 		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|x86.ActiveCfg = Release|x86
 		{F2CED639-1DA7-489D-9DBB-909F7B590C3D}.Release|x86.Build.0 = Release|x86
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
