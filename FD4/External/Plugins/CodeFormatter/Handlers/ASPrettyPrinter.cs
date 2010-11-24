@@ -24,6 +24,7 @@ namespace CodeFormatter.Handlers
 		public const int BraceStyle_Sun = 4;
 		public const int BraceStyle_Adobe = 5;
 
+        private bool mIndentMultilineComments = true;
 		private bool mIsKeepingExcessDeclWhitespace = false;
 		private bool mInParameterDecl = false;
 		private int mIndentStyle = INDENT_LIKE_SUBITEM;
@@ -440,8 +441,8 @@ namespace CodeFormatter.Handlers
 			mCRBeforeOpenBrace = braceOnNewLine;
 		}
 		
-		public const String mStartExcludeProcessing="{FlexFormatter:Off}";
-		public const String mStopExcludeProcessing="{FlexFormatter:On}";
+		public const String mStartExcludeProcessing = "{CodeFormatter:Off}";
+        public const String mStopExcludeProcessing = "{CodeFormatter:On}";
 		
 		public void Emit(CommonToken tok)
 		{
@@ -682,16 +683,18 @@ namespace CodeFormatter.Handlers
 								String data = commentLines[j].Trim(); // This removes the \r, if it exists
 								if (onLastLine && j > 0) // If we're on the last line and there's more than one line
 								{
-									indentAmount++;
+                                    if (mIndentMultilineComments) indentAmount++;
 								}
 								else if (j > 0)
 								{
-									// TODO: Handler comment indent (Mika)
-                                    // On a middle line, we have 2 cases.  If the line starts with an asterisk, then attempt to line the
-									// asterisk up with the asterisk on the first line.  Otherwise, indent the text to the right of the open asterisk.
+                                    // FIXED: Multiline comment indent support added
 									String nextLine = data;
-									if (nextLine.Length > 0 && (nextLine.ToCharArray())[0] == '*') indentAmount+=1;
-									else indentAmount+=3;
+                                    if (nextLine.Length > 0 && (nextLine.ToCharArray())[0] == '*')
+                                    {
+                                        if (mIndentMultilineComments) indentAmount += 1;
+                                        else indentAmount += 0;
+                                    }
+                                    else indentAmount += 3;
 								}
 								// Only add indent if on an empty line
 								if (data.Length > 0)
@@ -1253,6 +1256,16 @@ namespace CodeFormatter.Handlers
         {
 			mBlockIndent = blockIndent;
 		}
+
+        public bool IsIndentMultilineComments()
+        {
+            return mIndentMultilineComments;
+        }
+
+        public void SetIndentMultilineComments(bool indentMultilineComments)
+        {
+            mIndentMultilineComments = indentMultilineComments;
+        }
 
 		public bool IsKeepSingleLineCommentsAtColumn1() 
         {

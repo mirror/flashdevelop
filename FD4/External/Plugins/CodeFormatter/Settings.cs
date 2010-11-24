@@ -65,6 +65,7 @@ namespace CodeFormatter
 		private int pref_AS_Tweak_SpacesAroundEqualsInOptionalParameters = 0;
 		private bool pref_AS_DoAutoFormat = true;
 		private bool pref_AS_AutoFormatStyle = true;
+        private bool pref_AS_IndentMultilineComments = true;
 		
 		////////////////// MXML ///////////////////////////////////////
 
@@ -572,6 +573,16 @@ namespace CodeFormatter
 			get { return this.pref_AS_Tweak_SpacesAroundEqualsInOptionalParameters; }
 			set { this.pref_AS_Tweak_SpacesAroundEqualsInOptionalParameters = value; }
 		}
+
+        [DefaultValue(true)]
+        [Category("ActionScript")]
+        [DisplayName("Indent Multiline Comments")]
+        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        public bool Pref_AS_IndentMultilineComments
+        {
+            get { return this.pref_AS_IndentMultilineComments; }
+            set { this.pref_AS_IndentMultilineComments = value; }
+        }
 
         [Browsable(false)]
 		public bool Pref_AS_DoAutoFormat

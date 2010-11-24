@@ -76,6 +76,7 @@ namespace CodeFormatter.Utilities
 
         public static void ConfigureASPrinter(ASPrettyPrinter printer, Settings settings, int tabSize)
         {
+            printer.SetIndentMultilineComments(settings.Pref_AS_IndentMultilineComments);
             printer.SetBlankLinesBeforeFunction(settings.Pref_AS_BlankLinesBeforeFunctions);
             printer.SetBlankLinesBeforeClass(settings.Pref_AS_BlankLinesBeforeClasses);
             printer.SetBlankLinesBeforeControlStatement(settings.Pref_AS_BlankLinesBeforeControlStatements);
