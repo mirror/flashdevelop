@@ -4195,7 +4195,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ASCompletion.Description.GenerateScope" xml:space="preserve">
-    <value>Generate explicit scope reference - typically 'this' keyword.</value>
+    <value>明示的なスコープの参照を生成します。一般的には 'this' キーワードなどです。</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>
