@@ -12,9 +12,8 @@ namespace PluginCore.Utilities
         /// </summary>
         public static String CalculateMD5(String input)
         {
-            MD5 md5 = MD5.Create();
             Byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-            Byte[] hash = md5.ComputeHash(inputBytes);
+            Byte[] hash = MD5.Compute(inputBytes);
             StringBuilder builder = new StringBuilder();
             for (Int32 i = 0; i < hash.Length; i++)
             {
@@ -28,9 +27,8 @@ namespace PluginCore.Utilities
         /// </summary>
         public static String CalculateSHA1(String input)
         {
-            SHA1 sha1 = SHA1.Create();
             Byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-            Byte[] hash = sha1.ComputeHash(inputBytes);
+            Byte[] hash = SHA1.Compute(inputBytes);
             StringBuilder builder = new StringBuilder();
             for (Int32 i = 0; i < hash.Length; i++)
             {

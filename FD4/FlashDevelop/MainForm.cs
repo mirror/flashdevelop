@@ -2552,6 +2552,18 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Inserts a custom hash to the editor
+        /// </summary>
+        public void InsertHash(Object sender, System.EventArgs e)
+        {
+            HashDialog cd = new HashDialog();
+            if (cd.ShowDialog() == DialogResult.OK)
+            {
+                Globals.SciControl.ReplaceSel(cd.HashResultText);
+            }
+        }
+
+        /// <summary>
         /// Inserts a color to the editor
         /// </summary>
         public void InsertColor(Object sender, System.EventArgs e)

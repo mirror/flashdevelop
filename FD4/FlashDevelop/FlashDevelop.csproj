@@ -90,6 +90,9 @@
     <Compile Include="Dialogs\ArgReplaceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\HashDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\EditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>

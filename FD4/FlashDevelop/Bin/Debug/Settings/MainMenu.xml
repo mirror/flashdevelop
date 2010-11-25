@@ -129,6 +129,8 @@
 		<button label="Label.Snippet" click="InsertSnippet" shortcut="Control|B" tag="null" flags="Enable:IsEditable" />
 		<button label="Label.Color" click="InsertColor" shortcut="Control|Shift|K" flags="Enable:IsEditable" />
 		<button label="Label.GUID" click="InsertGUID" shortcut="Control|Shift|I" flags="Enable:IsEditable" />
+		<separator />
+		<button label="Label.Hash" click="InsertHash" shortcut="Control|Shift|H" flags="Enable:IsEditable" />
 	</menu>
 	<menu label="Label.Tools" name="ToolsMenu">
 		<button label="Label.KillRunningProcess" click="KillProcess" flags="Enable:ProcessIsRunning" />
