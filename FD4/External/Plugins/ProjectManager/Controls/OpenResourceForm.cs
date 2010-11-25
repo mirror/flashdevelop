@@ -91,6 +91,7 @@ namespace ProjectManager.Controls
             this.MinimumSize = new System.Drawing.Size(320, 200);
             this.Name = "OpenResourceForm";
             this.ShowIcon = false;
+            this.KeyPreview = true;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Open Resource";
