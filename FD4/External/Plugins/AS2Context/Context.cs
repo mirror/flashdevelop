@@ -38,7 +38,6 @@ namespace AS2Context
 
         #region initialization
 
-        protected int flashVersion;
         protected bool hasLevels = true;
         protected string docType;
 
@@ -136,18 +135,10 @@ namespace AS2Context
             if (as2settings == null) throw new Exception("BuildClassPath() must be overridden");
 
 			// external version definition
-            // expected from project manager: "8;path;path..."
-            flashVersion = as2settings.DefaultFlashVersion;
-            string exPath = externalClassPath ?? "";
-			if (exPath.Length > 0)
-			{
-				try {
-					int p = exPath.IndexOf(';');
-					flashVersion = Convert.ToInt16(exPath.Substring(0, p));
-					exPath = exPath.Substring(p+1).Trim();
-				}
-				catch {}
-			}
+            platform = "Flash Player";
+            majorVersion = as2settings.DefaultFlashVersion;
+            minorVersion = 0;
+            string exPath = ExtractPlatformVersion();
 			
             //
 			// Class pathes
@@ -162,13 +153,13 @@ namespace AS2Context
 			{
 				try 
 				{
-                    if (flashVersion == 9)
+                    if (majorVersion == 9)
                     {
                         path = Path.Combine(mtascPath, "std9");
                         if (System.IO.Directory.Exists(path)) AddPath(path);
-                        else flashVersion = 8;
+                        else majorVersion = 8;
                     }
-                    if (flashVersion == 8)
+                    if (majorVersion == 8)
                     {
                         path = Path.Combine(mtascPath, "std8");
                         if (System.IO.Directory.Exists(path)) AddPath(path);
@@ -184,7 +175,7 @@ namespace AS2Context
                 if (classPath.Count == 0)
                 {
                     // Flash CS3: the FP9 classpath overrides some classes of FP8
-                    int tempVersion = flashVersion;
+                    int tempVersion = majorVersion;
                     if (tempVersion > 8)
                     {
                         path = Path.Combine(as2settings.MMClassPath, "FP" + tempVersion);
@@ -1217,7 +1208,7 @@ namespace AS2Context
 
                 command += ";\"" + CurrentFile + "\"";
 				if (append == null || append.IndexOf("-swf-version") < 0)
-                    command += " -version "+flashVersion;
+                    command += " -version "+majorVersion;
 				// classpathes
 				foreach(PathModel aPath in classPath)
                 if (aPath.Path != temporaryPath

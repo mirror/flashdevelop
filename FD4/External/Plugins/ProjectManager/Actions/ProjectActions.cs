@@ -14,6 +14,7 @@ using ProjectManager.Projects.AS2;
 using ProjectManager.Projects.AS3;
 using PluginCore.Helpers;
 using ProjectManager.Controls.TreeView;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Actions
 {
@@ -122,20 +123,19 @@ namespace ProjectManager.Actions
 			
             if (project != null)
             {
-                // add player version
-                classPaths.Add(project.MovieOptions.Version.ToString());
-
-                // add special features
-                if (project is AS3Project)
+                // platform/version
+                classPaths.Add(project.MovieOptions.Platform);
+                string version = project.MovieOptions.Version;
+                if (project.MovieOptions.Platform == "AIR")
                 {
-                    string[] additional = (project.CompilerOptions as MxmlcOptions).Additional;
-                    if (additional != null)
-                        foreach (string param in additional)
-                        {
-                            if (param.IndexOf("configname=air") >= 0)
-                                classPaths.Add("AIR");
-                        }
+                    switch (version)
+                    {
+                        case "1.5": classPaths.Add("10.0"); break;
+                        case "2.0": classPaths.Add("10.1"); break;
+                        case "2.5": classPaths.Add("10.2"); break;
+                    }
                 }
+                else classPaths.Add(version);
 
                 // add project classpaths
                 foreach (string cp in project.AbsoluteClasspaths)

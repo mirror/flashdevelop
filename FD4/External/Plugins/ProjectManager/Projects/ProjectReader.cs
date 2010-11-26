@@ -10,6 +10,7 @@ namespace ProjectManager.Projects
 	public class ProjectReader : XmlTextReader
 	{
 		Project project;
+        protected int version;
 
 		public ProjectReader(string filename, Project project) : base(filename)
 		{
@@ -27,11 +28,20 @@ namespace ProjectManager.Projects
             while (Read())
                 ProcessNode(Name);
 
+            Close();
+            PostProcess();
 			return project;
 		}
 
+        protected virtual void PostProcess()
+        {
+            // to override
+        }
+
         protected virtual void ProcessRootNode()
         {
+            version = 1;
+            int.TryParse(GetAttribute("version") ?? "1", out version);
         }
 
         protected virtual void ProcessNode(string name)

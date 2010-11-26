@@ -53,7 +53,10 @@ namespace ASCompletion.Context
         protected IContextSettings settings;
         protected ContextFeatures features;
 		protected string externalClassPath = "";
-		protected string temporaryPath;
+        protected string temporaryPath;
+        protected string platform;
+        protected int majorVersion;
+        protected int minorVersion;
 		// Checking / Quick Build
 		protected bool runAfterBuild;
 		protected string outputFile;
@@ -497,7 +500,31 @@ namespace ASCompletion.Context
         }
         #endregion
 
-		#region classpath management
+        #region classpath management
+
+        /// <summary>
+        /// Gets target platform and version from the beginning of 'externalClassPath' 
+        /// and returns the rest of the paths
+        /// </summary>
+        protected virtual string ExtractPlatformVersion()
+        {
+            // expected from project manager: "Flash Player;9.0;path;path..."
+            string exPath = externalClassPath ?? "";
+            if (exPath.Length > 0)
+            {
+                int p = exPath.IndexOf(';');
+                if (p >= 0)
+                {
+                    platform = exPath.Substring(0, p);
+                    exPath = exPath.Substring(p + 1).Trim();
+                    p = exPath.IndexOf(';');
+                    if (p > 0)
+                        ParseVersion(exPath.Substring(0, p), ref majorVersion, ref minorVersion);
+                    exPath = exPath.Substring(p + 1).Trim();
+                }
+            }
+            return exPath;
+        }
 
         /// <summary>
         /// Mark pathes as "not in use"
@@ -1497,6 +1524,14 @@ namespace ASCompletion.Context
             if (sep == null) return str;
             int p = str.LastIndexOf(sep);
             return (p >= 0) ? str.Substring(p + 1) : str;
+        }
+
+        static public void ParseVersion(string version, ref int majorVersion, ref int minorVersion)
+        {
+            if (version == null || version == "") return;
+            string[] parts = version.Split('.');
+            int.TryParse(parts[0], out majorVersion);
+            if (parts.Length > 1) int.TryParse(parts[1], out minorVersion);
         }
         #endregion
     }

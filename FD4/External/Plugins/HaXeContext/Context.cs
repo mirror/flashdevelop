@@ -114,23 +114,23 @@ namespace HaXeContext
 
         public bool IsFlashTarget
         {
-            get { return flashVersion < 11; }
+            get { return platform == "Flash Player" || platform == "AIR"; }
         }
         public bool IsJavaScriptTarget
         {
-            get { return flashVersion == 11; }
+            get { return platform == "Javascript"; }
         }
         public bool IsNekoTarget
         {
-            get { return flashVersion == 12; }
+            get { return platform == "Neko"; }
         }
         public bool IsPhpTarget
         {
-            get { return flashVersion == 13; }
+            get { return platform == "PHP"; }
         }
         public bool IsCppTarget
         {
-            get { return flashVersion == 14; }
+            get { return platform == "C++"; }
         }
 
         private string LookupLibrary(string lib)
@@ -174,19 +174,10 @@ namespace HaXeContext
             if (hxsettings == null) throw new Exception("BuildClassPath() must be overridden");
 
             // external version definition
-            // expected from project manager: "9;path;path..."
-            flashVersion = hxsettings.DefaultFlashVersion;
-            string exPath = externalClassPath ?? "";
-            if (exPath.Length > 0)
-            {
-                try
-                {
-                    int p = exPath.IndexOf(';');
-                    flashVersion = Convert.ToInt16(exPath.Substring(0, p));
-                    exPath = exPath.Substring(p + 1).Trim();
-                }
-                catch { }
-            }
+            platform = "Flash Player";
+            majorVersion = hxsettings.DefaultFlashVersion;
+            minorVersion = 0;
+            string exPath = ExtractPlatformVersion();
 
             // NOTE: version > 10 for non-Flash platforms
             string lang = null;
@@ -214,8 +205,8 @@ namespace HaXeContext
             else
             {
                 features.Directives.Add("flash");
-                features.Directives.Add("flash" + flashVersion);
-                lang = (flashVersion >= 9) ? "flash9" : "flash";
+                features.Directives.Add("flash" + majorVersion);
+                lang = (majorVersion >= 9) ? "flash9" : "flash";
             }
             features.Directives.Add("true");
 
@@ -252,7 +243,7 @@ namespace HaXeContext
             HaxeProject proj = PluginBase.CurrentProject as HaxeProject;
 
             // swf-libs
-            if (IsFlashTarget && flashVersion >= 9 && proj != null )
+            if (IsFlashTarget && majorVersion >= 9 && proj != null )
             {
                 foreach(LibraryAsset asset in proj.LibraryAssets)
                     if (asset.IsSwf)
@@ -456,7 +447,7 @@ namespace HaXeContext
                 // HX files are "modules": when imported all the classes contained are available
                 string fileName = item.Type.Replace(".", dirSeparator) + ".hx";
                 
-                if (fileName.StartsWith("flash" + dirSeparator) && flashVersion > 8) // flash9 remap
+                if (fileName.StartsWith("flash" + dirSeparator) && majorVersion > 8) // flash9 remap
                     fileName = "flash9" + fileName.Substring(5);
 
                 foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
@@ -644,7 +635,7 @@ namespace HaXeContext
         /// <returns>Package folders and types</returns>
         public override FileModel ResolvePackage(string name, bool lazyMode)
         {
-            if ((settings.LazyClasspathExploration || lazyMode) && flashVersion >= 9 && name == "flash") 
+            if ((settings.LazyClasspathExploration || lazyMode) && majorVersion >= 9 && name == "flash") 
                 name = "flash9";
             return base.ResolvePackage(name, lazyMode);
         }
@@ -999,7 +990,7 @@ namespace HaXeContext
                 command += cname;
 
                 if (IsFlashTarget && (append == null || append.IndexOf("-swf-version") < 0)) 
-                    command += " -swf-version " + flashVersion;
+                    command += " -swf-version " + majorVersion;
                 // classpathes
                 foreach (PathModel aPath in classPath)
                     if (aPath.Path != temporaryPath

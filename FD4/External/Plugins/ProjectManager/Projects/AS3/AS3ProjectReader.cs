@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -17,6 +18,33 @@ namespace ProjectManager.Projects.AS3
         public new AS3Project ReadProject()
         {
             return base.ReadProject() as AS3Project;
+        }
+
+        protected override void PostProcess()
+        {
+            if (version > 1) return;
+
+            if (project.MovieOptions.MajorVersion > 10)
+            {
+                project.MovieOptions.MajorVersion = 10;
+                project.MovieOptions.MinorVersion = 1;
+            }
+
+            bool isAIR = project.MovieOptions.Platform.IndexOf("AIR") >= 0;
+            if (project.CompilerOptions.Additional != null)
+            {
+                string add = String.Join("\n", project.CompilerOptions.Additional).Trim().Replace("\n\n", "\n");
+                bool airdef = add.IndexOf("configname=air") >= 0;
+                if (!isAIR && airdef)
+                {
+                    add = Regex.Replace(add, "(\\+)?configname=air", "");
+                    project.CompilerOptions.Additional = add.Trim().Replace("\n\n", "\n").Split('\n');
+                    project.MovieOptions.Platform = "AIR";
+                    project.MovieOptions.MajorVersion = 2;
+                    project.MovieOptions.MinorVersion = 0;
+                    project.Save();
+                }
+            }
         }
 
         // process AS3-specific stuff

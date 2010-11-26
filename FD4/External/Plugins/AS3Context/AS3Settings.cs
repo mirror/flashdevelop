@@ -156,25 +156,22 @@ namespace AS3Context
 
         #region AS3 specific members
 
-        const int DEFAULT_FLASHVERSION = 10;
+        const string DEFAULT_FLASHVERSION = "10.0";
 
-        private int flashVersion = 10;
+        private string flashVersion = DEFAULT_FLASHVERSION;
         private string as3ClassPath;
         private string[] as3FileTypes;
 
         [DisplayName("Default Flash Version")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.DefaultFlashVersion"), DefaultValue(DEFAULT_FLASHVERSION)]
-        public int DefaultFlashVersion
+        public string DefaultFlashVersion
         {
             get { return flashVersion; }
             set
             {
                 if (value == flashVersion) return;
-                if (value <= 10)
-                {
-                    flashVersion = value;
-                    FireChanged();
-                }
+                flashVersion = value;
+                FireChanged();
             }
         }
 

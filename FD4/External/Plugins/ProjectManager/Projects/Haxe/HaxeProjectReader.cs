@@ -19,6 +19,25 @@ namespace ProjectManager.Projects.Haxe
             return base.ReadProject() as HaxeProject;
         }
 
+        protected override void PostProcess()
+        {
+            if (version > 1) return;
+
+            if (project.MovieOptions.MajorVersion > 10)
+            {
+                string platform = null;
+                switch (project.MovieOptions.MajorVersion)
+                {
+                    case 11: platform = "Javascript"; break;
+                    case 12: platform = "Neko"; break;
+                    case 13: platform = "PHP"; break;
+                    case 14: platform = "C++"; break;
+                }
+                project.MovieOptions.Platform = platform;
+            }
+            project.Save();
+        }
+
         // process HaXe-specific stuff
         protected override void ProcessNode(string name)
         {

@@ -32,6 +32,8 @@ namespace ProjectManager.Building.AS3
 
         public void AddOptions(bool noTrace, bool incremental)
         {
+            if (project.MovieOptions.Platform == "AIR") AddEq("+configname", "air");
+
             if (!noTrace) AddEq("-debug", "true");
             if (incremental) AddEq("-incremental", "true");
 

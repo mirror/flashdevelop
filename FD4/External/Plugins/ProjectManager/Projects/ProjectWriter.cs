@@ -25,6 +25,7 @@ namespace ProjectManager.Projects
             // old .fdp format
 			WriteStartDocument();
 			WriteStartElement("project");
+            WriteAttributeString("version", "2");
             OnAfterBeginProject();
             WriteOutputOptions();
             WriteClasspaths();

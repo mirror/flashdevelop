@@ -127,27 +127,12 @@ namespace AS3Context
             if (as3settings == null) throw new Exception("BuildClassPath() must be overridden");
 
             // external version definition
-            // expected from project manager: "9;path;path..."
-            flashVersion = as3settings.DefaultFlashVersion;
-            string exPath = externalClassPath ?? "";
-            if (exPath.Length > 0)
-            {
-                try
-                {
-                    int p = exPath.IndexOf(';');
-                    flashVersion = Convert.ToInt16(exPath.Substring(0, p));
-                    exPath = exPath.Substring(p + 1).Trim();
-                }
-                catch { }
-            }
-            
-            // special features
-            if (exPath.Length > 0 && exPath.StartsWith("AIR;"))
-            {
-                exPath = exPath.Substring(4);
-                hasAIRSupport = true;
-            }
-            else hasAIRSupport = false;
+            platform = "Flash Player";
+            majorVersion = 10;
+            minorVersion = 0;
+            ParseVersion(as3settings.DefaultFlashVersion, ref majorVersion, ref minorVersion);
+            string exPath = ExtractPlatformVersion();
+            hasAIRSupport = platform == "AIR";
 
             //
             // Class pathes
@@ -184,15 +169,17 @@ namespace AS3Context
                 }
                 else
                 {
-                    if (flashVersion < 10 && Directory.Exists(libPlayer + S + "9"))
-                        addLibs.Add("player" + S + "9" + S + "playerglobal.swc");
-                    else if (flashVersion > 10 && Directory.Exists(libPlayer + S + "10.1"))
-                        addLibs.Add("player" + S + "10.1" + S + "playerglobal.swc");
-                    else if (Directory.Exists(libPlayer + S + "10.0"))
-                        addLibs.Add("player" + S + "10.0" + S + "playerglobal.swc");
-                    else if (Directory.Exists(libPlayer + S + "10"))
-                        addLibs.Add("player" + S + "10" + S + "playerglobal.swc");
-                    string p = libPlayer + S + "10";
+                    string playerglobal = null;
+                    if (Directory.Exists(libPlayer + S + majorVersion))
+                        playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
+
+                    for (int i = minorVersion; i >= 0; i--)
+                    {
+                        string version = majorVersion + "." + i;
+                        if (Directory.Exists(libPlayer + S + version))
+                            playerglobal = "player" + S + version + S + "playerglobal.swc";
+                    }
+                    if (playerglobal != null) addLibs.Add(playerglobal);
                 }
                 addLocales.Add("playerglobal_rb.swc");
 
@@ -251,14 +238,11 @@ namespace AS3Context
             // intrinsics (deprecated, excepted for FP10 Vector.<T>)
             string fp9cp = as3settings.AS3ClassPath + S + "FP9";
             AddPath(PathHelper.ResolvePath(fp9cp));
-            if (flashVersion > 9)
+            if (majorVersion > 9)
             {
-                string fp10cp = as3settings.AS3ClassPath + S + "FP10";
+                string fp10cp = as3settings.AS3ClassPath + S + "FP" + majorVersion;
                 AddPath(PathHelper.ResolvePath(fp10cp));
-            }
-            else if (flashVersion > 10)
-            {
-                string fp101cp = as3settings.AS3ClassPath + S + "FP10.1";
+                string fp101cp = as3settings.AS3ClassPath + S + "FP" + majorVersion + "." + minorVersion;
                 AddPath(PathHelper.ResolvePath(fp101cp));
             }
 
