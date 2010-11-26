@@ -12,6 +12,14 @@ namespace ProjectManager.Projects.Haxe
             Platform = TargetPlatforms[0];
         }
 
+        public override bool DebuggerSupported
+        {
+            get
+            {
+                return (Platform == "Flash Player" && MajorVersion >= 9) || Platform == "AIR";
+            }
+        }
+
         public override string[] TargetPlatforms
         {
             get
@@ -37,11 +45,11 @@ namespace ProjectManager.Projects.Haxe
                 return new string[] { "1.0" };
         }
 
-        public override bool DebuggerSupported
+        public override string DefaultVersion(string platform)
         {
-            get { 
-                return (Platform == "Flash Player" && MajorVersion >= 9) || Platform == "AIR"; 
-            }
+            if (platform == "AIR") return "2.0";
+            else if (platform == "Flash Player") return "10.0";
+            else return "1.0";
         }
     }
 }

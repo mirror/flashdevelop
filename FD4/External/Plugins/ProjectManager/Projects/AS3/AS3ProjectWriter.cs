@@ -94,6 +94,7 @@ namespace ProjectManager.Projects.AS3
             WriteOption("additional", string.Join("\n", options.Additional));
             WriteOption("compilerConstants", string.Join("\n", options.CompilerConstants));
             WriteOption("customSDK", options.CustomSDK);
+            WriteOption("minorVersion", options.MinorVersion);
 
             WriteEndElement();
         }

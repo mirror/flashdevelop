@@ -98,6 +98,7 @@ namespace ProjectManager.Controls
             this.tabControl = new System.Windows.Forms.TabControl();
             this.movieTab = new System.Windows.Forms.TabPage();
             this.platformGroupBox = new System.Windows.Forms.GroupBox();
+            this.versionCombo = new System.Windows.Forms.ComboBox();
             this.platformCombo = new System.Windows.Forms.ComboBox();
             this.noOutputCheckBox = new System.Windows.Forms.CheckBox();
             this.generalGroupBox = new System.Windows.Forms.GroupBox();
@@ -135,7 +136,6 @@ namespace ProjectManager.Controls
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.agressiveTip = new System.Windows.Forms.ToolTip(this.components);
-            this.versionCombo = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.movieTab.SuspendLayout();
             this.platformGroupBox.SuspendLayout();
@@ -220,12 +220,20 @@ namespace ProjectManager.Controls
             this.platformGroupBox.TabStop = false;
             this.platformGroupBox.Text = "Platform";
             // 
+            // versionCombo
+            // 
+            this.versionCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.versionCombo.Location = new System.Drawing.Point(234, 19);
+            this.versionCombo.Name = "versionCombo";
+            this.versionCombo.Size = new System.Drawing.Size(75, 21);
+            this.versionCombo.TabIndex = 13;
+            // 
             // platformCombo
             // 
             this.platformCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.platformCombo.Location = new System.Drawing.Point(11, 19);
             this.platformCombo.Name = "platformCombo";
-            this.platformCombo.Size = new System.Drawing.Size(182, 21);
+            this.platformCombo.Size = new System.Drawing.Size(219, 21);
             this.platformCombo.TabIndex = 13;
             // 
             // noOutputCheckBox
@@ -607,14 +615,6 @@ namespace ProjectManager.Controls
             // 
             this.agressiveTip.AutomaticDelay = 0;
             // 
-            // versionCombo
-            // 
-            this.versionCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.versionCombo.Location = new System.Drawing.Point(202, 19);
-            this.versionCombo.Name = "versionCombo";
-            this.versionCombo.Size = new System.Drawing.Size(107, 21);
-            this.versionCombo.TabIndex = 13;
-            // 
             // PropertiesDialog
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -714,6 +714,7 @@ namespace ProjectManager.Controls
 
         #endregion
 
+        #region localization
         private void InitializeLocalization()
         {
             this.btnOK.Text = TextHelper.GetString("Label.OK");
@@ -754,6 +755,7 @@ namespace ProjectManager.Controls
             });
             this.editCommandButton.Text = TextHelper.GetString("Info.EditCommand");
         }
+        #endregion
 
         protected virtual void BuildDisplay()
 		{
@@ -909,7 +911,7 @@ namespace ProjectManager.Controls
 		private void testMovieCombo_SelectedIndexChanged(object sender, System.EventArgs e) 
         { 
             Modified();
-            editCommandButton.Visible = testMovieCombo.SelectedIndex >= 4;
+            editCommandButton.Visible = testMovieCombo.Text.IndexOf("..") > 0;
         }
 
 		private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -921,6 +923,8 @@ namespace ProjectManager.Controls
         {
             this.versionCombo.Items.Clear();
             this.versionCombo.Items.AddRange(project.MovieOptions.TargetVersions(this.platformCombo.Text));
+            this.versionCombo.SelectedIndex = Math.Max(0, this.versionCombo.Items.IndexOf(
+                        project.MovieOptions.DefaultVersion(this.platformCombo.Text)));
             Modified();
         }
 

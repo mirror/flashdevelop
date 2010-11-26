@@ -12,6 +12,11 @@ namespace ProjectManager.Projects.AS3
             Platform = TargetPlatforms[0];
         }
 
+        public override bool DebuggerSupported
+        {
+            get { return true; }
+        }
+
         public override string[] TargetPlatforms
         {
             get
@@ -31,9 +36,10 @@ namespace ProjectManager.Projects.AS3
                 return new string[] { "9.0", "10.0", "10.1", "10.2" };
         }
 
-        public override bool DebuggerSupported
+        public override string DefaultVersion(string platform)
         {
-            get { return true; }
+            if (platform == "AIR") return "2.0";
+            else return "10.0";
         }
     }
 }

@@ -12,6 +12,11 @@ namespace ProjectManager.Projects.AS2
             Platform = TargetPlatforms[0];
         }
 
+        public override bool DebuggerSupported
+        {
+            get { return false; }
+        }
+
         public override string[] TargetPlatforms
         {
             get
@@ -27,9 +32,9 @@ namespace ProjectManager.Projects.AS2
             return new string[] { "6.0", "7.0", "8.0", "9.0" }; 
         }
 
-        public override bool DebuggerSupported
+        public override string DefaultVersion(string platform)
         {
-            get { return false; }
+            return "9.0";
         }
     }
 }

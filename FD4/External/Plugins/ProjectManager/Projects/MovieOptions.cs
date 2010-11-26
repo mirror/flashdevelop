@@ -39,6 +39,7 @@ namespace ProjectManager.Projects
 
         public abstract string[] TargetPlatforms { get; }
         public abstract string[] TargetVersions(string platform);
+        public abstract string DefaultVersion(string platform);
 
         public virtual string Version 
         { 
