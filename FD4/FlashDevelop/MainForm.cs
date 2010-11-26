@@ -1181,7 +1181,6 @@ namespace FlashDevelop
                 this.BeginInvoke((MethodInvoker)delegate { this.OnScintillaControlDropFiles(null, data); });
                 return;
             }
-            this.Activate(); this.Focus();
             String[] files = Regex.Split(data.Substring(1, data.Length - 2), "\" \"");
             foreach (String file in files)
             {
@@ -1259,6 +1258,18 @@ namespace FlashDevelop
             }
             if (!ke.Handled)
             {
+                /**
+                * Ignore basic control keys if sci doesn't have focus.
+                */ 
+                if (Globals.SciControl == null || !Globals.SciControl.IsFocus)
+                {
+                    if (keyData == (Keys.Control | Keys.C)) return false;
+                    else if (keyData == (Keys.Control | Keys.V)) return false;
+                    else if (keyData == (Keys.Control | Keys.X)) return false;
+                    else if (keyData == (Keys.Control | Keys.A)) return false;
+                    else if (keyData == (Keys.Control | Keys.Z)) return false;
+                    else if (keyData == (Keys.Control | Keys.V)) return false;
+                }
                 /**
                 * Process special key combinations and allow "chaining" of 
                 * Ctrl-Tab commands if you keep holding control down.
