@@ -26,8 +26,7 @@ namespace ProjectManager.Projects.Haxe
         { 
             get 
             {
-                return (movieOptions.Version == 9 || movieOptions.Version == 10) 
-                    && CompilerOptions.EnableDebug;
+                return movieOptions.DebuggerSupported && CompilerOptions.EnableDebug;
             } 
         }
 
@@ -44,23 +43,23 @@ namespace ProjectManager.Projects.Haxe
 
         public bool IsFlashOutput
         {
-            get { return MovieOptions.Version < 11; }
+            get { return movieOptions.Platform == "Flash Player" || movieOptions.Platform == "AIR"; }
         }
         public bool IsJavacriptOutput
         {
-            get { return MovieOptions.Version == 11; }
+            get { return movieOptions.Platform == "Javascript"; }
         }
         public bool IsNekoOutput
         {
-            get { return MovieOptions.Version == 12; }
+            get { return movieOptions.Platform == "Neko"; }
         }
         public bool IsPhpOutput
         {
-            get { return MovieOptions.Version == 13; }
+            get { return movieOptions.Platform == "PHP"; }
         }
         public bool IsCppOutput
         {
-            get { return MovieOptions.Version == 14; }
+            get { return movieOptions.Platform == "C++"; }
         }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
@@ -103,7 +102,8 @@ namespace ProjectManager.Projects.Haxe
 
             // compilation mode
             string mode = null;
-            if (IsFlashOutput) mode = (MovieOptions.Version >= 9) ? "swf9" : "swf";
+            if (IsFlashOutput) 
+                mode = (MovieOptions.MajorVersion < 6/*AIR*/ || MovieOptions.MajorVersion >= 9) ? "swf9" : "swf";
             else if (IsJavacriptOutput) mode = "js";
             else if (IsNekoOutput) mode = "neko";
             else if (IsPhpOutput) mode = "php";
@@ -129,15 +129,20 @@ namespace ProjectManager.Projects.Haxe
                 if( CompilerOptions.FlashStrict )
                     pr.Add("--flash-strict");
 
-                if( MovieOptions.Version < 8 || MovieOptions.Version > 9 )
-                    pr.Add("-swf-version " + MovieOptions.Version);
+                // TODO AIR options, FP > 10
+                if (MovieOptions.MajorVersion < 6)
+                {
+                    pr.Add("-swf-version 10");
+                }
+                else if (MovieOptions.MajorVersion != 9)
+                    pr.Add("-swf-version " + MovieOptions.MajorVersion);
             }
 
             // debug 
             if (!release)
             {
                 pr.Add("-debug");
-                if( IsFlashOutput && MovieOptions.Version >= 9 && CompilerOptions.EnableDebug )
+                if( IsFlashOutput && MovieOptions.DebuggerSupported && CompilerOptions.EnableDebug )
                     pr.Add("-D fdb");
             }
 

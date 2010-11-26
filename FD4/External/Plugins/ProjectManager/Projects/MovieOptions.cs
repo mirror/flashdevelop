@@ -9,7 +9,9 @@ namespace ProjectManager.Projects
 		public int Fps;
 		public int Width;
 		public int Height;
-		public int Version;
+		public int MajorVersion;
+        public int MinorVersion;
+        public string Platform;
 		public string Background;
 
 		public MovieOptions()
@@ -17,7 +19,6 @@ namespace ProjectManager.Projects
 			Fps = 30;
 			Width = 800;
 			Height = 600;
-			Version = 9;
 			Background = "#FFFFFF";
 		}
 
@@ -37,6 +38,19 @@ namespace ProjectManager.Projects
         }
 
         public abstract string[] TargetPlatforms { get; }
-        public abstract int Platform { get; set; }
+        public abstract string[] TargetVersions(string platform);
+
+        public virtual string Version 
+        { 
+            get { return MajorVersion + "." + MinorVersion; }
+            set
+            {
+                string[] p = value.Split('.');
+                MajorVersion = int.Parse(p[0]);
+                if (p.Length > 1) MinorVersion = int.Parse(p[1]); else MinorVersion = 0;
+            }
+        }
+
+        public abstract bool DebuggerSupported { get; }
 	}
 }

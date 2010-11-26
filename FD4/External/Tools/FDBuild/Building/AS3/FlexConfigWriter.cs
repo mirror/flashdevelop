@@ -71,14 +71,9 @@ namespace FDBuild.Building.AS3
 
         private void AddTargetPlayer()
         {
-            int majorVersion = project.MovieOptions.Version;
+            int majorVersion = project.MovieOptions.MajorVersion;
             string minorVersion = project.CompilerOptions.MinorVersion;
-            if (majorVersion == 11)
-            {
-                majorVersion = 10;
-                minorVersion = "1.0";
-            }
-            if (minorVersion.Length == 0) minorVersion = "0.0";
+            if (minorVersion.Length == 0) minorVersion = project.MovieOptions.MinorVersion + ".0";
 
             WriteElementString("target-player", majorVersion + "." + minorVersion);
         }

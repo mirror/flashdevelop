@@ -34,7 +34,7 @@ namespace ProjectManager.Building
 			WriteStartElement("movie");
 
             int maxFlashVersion = (project.Language == "haxe") ? 10 : 9;
-            int flashVersion = Math.Max(6, Math.Min(maxFlashVersion, project.MovieOptions.Version));
+            int flashVersion = Math.Max(6, Math.Min(maxFlashVersion, project.MovieOptions.MajorVersion));
             WriteAttributeString("version", flashVersion.ToString());
 
 			WriteAttributeString("width", project.MovieOptions.Width.ToString());

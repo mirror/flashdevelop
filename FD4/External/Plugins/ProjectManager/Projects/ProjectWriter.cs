@@ -55,7 +55,9 @@ namespace ProjectManager.Projects
             WriteOption("movie", "fps", project.MovieOptions.Fps);
             WriteOption("movie", "width", project.MovieOptions.Width);
             WriteOption("movie", "height", project.MovieOptions.Height);
-            WriteOption("movie", "version", project.MovieOptions.Version);
+            WriteOption("movie", "version", project.MovieOptions.MajorVersion);
+            WriteOption("movie", "minorVersion", project.MovieOptions.MinorVersion);
+            WriteOption("movie", "platform", project.MovieOptions.Platform);
             WriteOption("movie", "background", project.MovieOptions.Background);
             WriteEndElement();
         }

@@ -6,22 +6,30 @@ namespace ProjectManager.Projects.AS2
 {
     public class AS2MovieOptions: MovieOptions
     {
+        public AS2MovieOptions()
+        {
+            MajorVersion = 9;
+            Platform = TargetPlatforms[0];
+        }
+
         public override string[] TargetPlatforms
         {
             get
             {
                 return new string[] {
-                    "Flash Player 6", 
-                    "Flash Player 7",
-                    "Flash Player 8",
-                    "Flash Player 9"
+                    "Flash Player"
                 };
             }
         }
-        public override int Platform
+
+        public override string[] TargetVersions(string platform)
         {
-            get { return Version - 6; }
-            set { Version = value + 6; }
+            return new string[] { "6.0", "7.0", "8.0", "9.0" }; 
+        }
+
+        public override bool DebuggerSupported
+        {
+            get { return false; }
         }
     }
 }

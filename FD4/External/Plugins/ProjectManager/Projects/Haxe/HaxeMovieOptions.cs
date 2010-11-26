@@ -6,16 +6,19 @@ namespace ProjectManager.Projects.Haxe
 {
     public class HaxeMovieOptions : MovieOptions
     {
+        public HaxeMovieOptions()
+        {
+            MajorVersion = 10;
+            Platform = TargetPlatforms[0];
+        }
+
         public override string[] TargetPlatforms
         {
             get
             {
                 return new string[] {
-                    "Flash Player 6", 
-                    "Flash Player 7",
-                    "Flash Player 8",
-                    "Flash Player 9",
-                    "Flash Player 10",
+                    "Flash Player",
+                    "AIR",
                     "JavaScript",
                     "Neko",
                     "PHP",
@@ -23,10 +26,22 @@ namespace ProjectManager.Projects.Haxe
                 };
             }
         }
-        public override int Platform
+
+        public override string[] TargetVersions(string platform)
         {
-            get { return Version - 6; }
-            set { Version = value + 6; }
+            if (platform == "AIR")
+                return new string[] { "1.5", "2.0", "2.5" };
+            else if (platform == "Flash Player")
+                return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2" };
+            else 
+                return new string[] { "1.0" };
+        }
+
+        public override bool DebuggerSupported
+        {
+            get { 
+                return (Platform == "Flash Player" && MajorVersion >= 9) || Platform == "AIR"; 
+            }
         }
     }
 }

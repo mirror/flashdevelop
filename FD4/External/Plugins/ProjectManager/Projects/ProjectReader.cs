@@ -62,7 +62,9 @@ namespace ProjectManager.Projects
                     case "fps": project.MovieOptions.Fps = IntValue; break;
                     case "width": project.MovieOptions.Width = IntValue; break;
                     case "height": project.MovieOptions.Height = IntValue; break;
-                    case "version": project.MovieOptions.Version = IntValue; break;
+                    case "version": project.MovieOptions.MajorVersion = IntValue; break;
+                    case "minorVersion": project.MovieOptions.MinorVersion = IntValue; break;
+                    case "platform": project.MovieOptions.Platform = Value; break;
                     case "background": project.MovieOptions.Background = Value; break;
                 }
                 Read();

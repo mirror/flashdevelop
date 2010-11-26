@@ -83,7 +83,7 @@ namespace ProjectManager.Building.AS2
 
 		public void AddOptions(bool noTrace)
 		{
-            Add("-version", Math.Max(Math.Min(project.MovieOptions.Version, 8), 6).ToString());
+            Add("-version", Math.Max(Math.Min(project.MovieOptions.MajorVersion, 8), 6).ToString());
 			
 			if (project.CompilerOptions.UseMX)
 				Add("-mx");

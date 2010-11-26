@@ -54,8 +54,7 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.CheckBox noOutputCheckBox;
         private System.Windows.Forms.GroupBox platformGroupBox;
-        private System.Windows.Forms.ComboBox versionCombo;
-        private System.Windows.Forms.Label exportforLabel;
+        private System.Windows.Forms.ComboBox platformCombo;
         private System.Windows.Forms.Button editCommandButton;
         protected System.Windows.Forms.TabControl tabControl;
         protected System.Windows.Forms.TextBox colorTextBox;
@@ -64,6 +63,7 @@ namespace ProjectManager.Controls
         protected System.Windows.Forms.TextBox heightTextBox;
         protected System.Windows.Forms.TextBox widthTextBox;
         private ClasspathControl classpathControl;
+        private ComboBox versionCombo;
 
 		/// <summary>
 		/// Required designer variable.
@@ -98,8 +98,7 @@ namespace ProjectManager.Controls
             this.tabControl = new System.Windows.Forms.TabControl();
             this.movieTab = new System.Windows.Forms.TabPage();
             this.platformGroupBox = new System.Windows.Forms.GroupBox();
-            this.versionCombo = new System.Windows.Forms.ComboBox();
-            this.exportforLabel = new System.Windows.Forms.Label();
+            this.platformCombo = new System.Windows.Forms.ComboBox();
             this.noOutputCheckBox = new System.Windows.Forms.CheckBox();
             this.generalGroupBox = new System.Windows.Forms.GroupBox();
             this.widthTextBox = new System.Windows.Forms.TextBox();
@@ -136,6 +135,7 @@ namespace ProjectManager.Controls
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.agressiveTip = new System.Windows.Forms.ToolTip(this.components);
+            this.versionCombo = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.movieTab.SuspendLayout();
             this.platformGroupBox.SuspendLayout();
@@ -183,7 +183,9 @@ namespace ProjectManager.Controls
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.movieTab);
             this.tabControl.Controls.Add(this.classpathsTab);
             this.tabControl.Controls.Add(this.buildTab);
@@ -210,7 +212,7 @@ namespace ProjectManager.Controls
             // platformGroupBox
             // 
             this.platformGroupBox.Controls.Add(this.versionCombo);
-            this.platformGroupBox.Controls.Add(this.exportforLabel);
+            this.platformGroupBox.Controls.Add(this.platformCombo);
             this.platformGroupBox.Location = new System.Drawing.Point(8, 3);
             this.platformGroupBox.Name = "platformGroupBox";
             this.platformGroupBox.Size = new System.Drawing.Size(319, 49);
@@ -218,23 +220,13 @@ namespace ProjectManager.Controls
             this.platformGroupBox.TabStop = false;
             this.platformGroupBox.Text = "Platform";
             // 
-            // versionCombo
+            // platformCombo
             // 
-            this.versionCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.versionCombo.Location = new System.Drawing.Point(109, 18);
-            this.versionCombo.Name = "versionCombo";
-            this.versionCombo.Size = new System.Drawing.Size(121, 21);
-            this.versionCombo.TabIndex = 13;
-            this.versionCombo.SelectedIndexChanged += new System.EventHandler(this.versionCombo_SelectedIndexChanged);
-            // 
-            // exportforLabel
-            // 
-            this.exportforLabel.Location = new System.Drawing.Point(14, 21);
-            this.exportforLabel.Name = "exportforLabel";
-            this.exportforLabel.Size = new System.Drawing.Size(90, 20);
-            this.exportforLabel.TabIndex = 12;
-            this.exportforLabel.Text = "&Target:";
-            this.exportforLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.platformCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.platformCombo.Location = new System.Drawing.Point(11, 19);
+            this.platformCombo.Name = "platformCombo";
+            this.platformCombo.Size = new System.Drawing.Size(182, 21);
+            this.platformCombo.TabIndex = 13;
             // 
             // noOutputCheckBox
             // 
@@ -249,7 +241,9 @@ namespace ProjectManager.Controls
             // 
             // generalGroupBox
             // 
-            this.generalGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.generalGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.generalGroupBox.Controls.Add(this.widthTextBox);
             this.generalGroupBox.Controls.Add(this.outputBrowseButton);
             this.generalGroupBox.Controls.Add(this.heightTextBox);
@@ -404,7 +398,8 @@ namespace ProjectManager.Controls
             // 
             // playGroupBox
             // 
-            this.playGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.playGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.playGroupBox.Controls.Add(this.testMovieCombo);
             this.playGroupBox.Controls.Add(this.editCommandButton);
             this.playGroupBox.Location = new System.Drawing.Point(8, 216);
@@ -452,7 +447,9 @@ namespace ProjectManager.Controls
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(8, 3);
             this.groupBox3.Name = "groupBox3";
@@ -470,7 +467,6 @@ namespace ProjectManager.Controls
             this.label2.Size = new System.Drawing.Size(288, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Project classpaths are relative to the project location";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             // 
             // label3
             // 
@@ -480,7 +476,8 @@ namespace ProjectManager.Controls
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(313, 31);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Global classpaths are specific to your machine\r\nand are not stored in the project file.";
+            this.label3.Text = "Global classpaths are specific to your machine\r\nand are not stored in the project" +
+                " file.";
             // 
             // btnGlobalClasspaths
             // 
@@ -505,7 +502,8 @@ namespace ProjectManager.Controls
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.alwaysExecuteCheckBox);
             this.groupBox5.Controls.Add(this.postBuilderButton);
             this.groupBox5.Controls.Add(this.postBuildBox);
@@ -538,7 +536,9 @@ namespace ProjectManager.Controls
             // 
             // postBuildBox
             // 
-            this.postBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.postBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.postBuildBox.Location = new System.Drawing.Point(13, 31);
             this.postBuildBox.Multiline = true;
             this.postBuildBox.Name = "postBuildBox";
@@ -548,7 +548,8 @@ namespace ProjectManager.Controls
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.preBuilderButton);
             this.groupBox4.Controls.Add(this.preBuildBox);
             this.groupBox4.Location = new System.Drawing.Point(8, 3);
@@ -570,7 +571,9 @@ namespace ProjectManager.Controls
             // 
             // preBuildBox
             // 
-            this.preBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.preBuildBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.preBuildBox.Location = new System.Drawing.Point(13, 30);
             this.preBuildBox.Multiline = true;
             this.preBuildBox.Name = "preBuildBox";
@@ -603,6 +606,14 @@ namespace ProjectManager.Controls
             // agressiveTip
             // 
             this.agressiveTip.AutomaticDelay = 0;
+            // 
+            // versionCombo
+            // 
+            this.versionCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.versionCombo.Location = new System.Drawing.Point(202, 19);
+            this.versionCombo.Name = "versionCombo";
+            this.versionCombo.Size = new System.Drawing.Size(107, 21);
+            this.versionCombo.TabIndex = 13;
             // 
             // PropertiesDialog
             // 
@@ -723,7 +734,6 @@ namespace ProjectManager.Controls
             this.btnGlobalClasspaths.Text = TextHelper.GetString("Label.EditGlobalClasspaths");
             this.alwaysExecuteCheckBox.Text = TextHelper.GetString("Info.AlwaysExecute");
             this.bgcolorLabel.Text = TextHelper.GetString("Label.BackgroundColor");
-            this.exportforLabel.Text = TextHelper.GetString("Info.TargetVersion");
             this.framerateLabel.Text = TextHelper.GetString("Label.FrameRate");
             this.compilerTab.Text = TextHelper.GetString("Info.CompilerOptions");
             this.platformGroupBox.Text = TextHelper.GetString("Info.Platform");
@@ -747,8 +757,6 @@ namespace ProjectManager.Controls
 
         protected virtual void BuildDisplay()
 		{
-            this.versionCombo.Items.AddRange(project.MovieOptions.TargetPlatforms);
-
             this.Text = " " + project.Name + " (" + project.Language.ToUpper() + ") " + TextHelper.GetString("Info.Properties");
 
 			MovieOptions options = project.MovieOptions;
@@ -764,7 +772,12 @@ namespace ProjectManager.Controls
 			colorTextBox.Text = options.Background;
 			fpsTextBox.Text = options.Fps.ToString();
 
-            versionCombo.SelectedIndex = Math.Max(0, Math.Min(versionCombo.Items.Count - 1, options.Platform));
+            this.platformCombo.Items.AddRange(project.MovieOptions.TargetPlatforms);
+            platformCombo.SelectedIndex = Math.Max(0, platformCombo.Items.IndexOf(project.MovieOptions.Platform));
+            platformCombo.SelectedIndexChanged += new EventHandler(platformCombo_SelectedIndexChanged);
+            this.versionCombo.Items.AddRange(project.MovieOptions.TargetVersions(this.platformCombo.Text));
+            versionCombo.SelectedIndex = Math.Max(0, versionCombo.Items.IndexOf(project.MovieOptions.Version));
+            versionCombo.SelectedIndexChanged += new EventHandler(versionCombo_SelectedIndexChanged);
 
             if (project.TestMovieBehavior == TestMovieBehavior.NewTab) testMovieCombo.SelectedIndex = 1;
             else if (project.TestMovieBehavior == TestMovieBehavior.NewWindow) testMovieCombo.SelectedIndex = 2;
@@ -795,12 +808,6 @@ namespace ProjectManager.Controls
 			btnApply.Enabled = false;
 		}
 
-		void classpathControl_Changed(object sender, EventArgs e)
-		{
-			classpathsChanged = true; // keep special track of this, it's a big deal
-			Modified();
-		}
-
 		protected void Modified()
 		{
 			btnApply.Enabled = true;
@@ -826,7 +833,8 @@ namespace ProjectManager.Controls
 				options.Height = int.Parse(heightTextBox.Text);
 				options.BackgroundColor = Color.FromArgb(255, colorLabel.BackColor);
 				options.Fps = int.Parse(fpsTextBox.Text);
-                options.Platform = versionCombo.SelectedIndex;
+                options.Platform = platformCombo.Text;
+                options.Version = versionCombo.Text;
 				project.PreBuildEvent = preBuildBox.Text;
 				project.PostBuildEvent = postBuildBox.Text;
 				project.AlwaysRunPostBuild = alwaysExecuteCheckBox.Checked;
@@ -906,14 +914,26 @@ namespace ProjectManager.Controls
 
 		private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{ 
-            Modified(); 
+            Modified();
+        }
+
+        void platformCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.versionCombo.Items.Clear();
+            this.versionCombo.Items.AddRange(project.MovieOptions.TargetVersions(this.platformCombo.Text));
+            Modified();
         }
 
 		private void versionCombo_SelectedIndexChanged(object sender, EventArgs e)
-		{
+        {
+            Modified();
+        }
+
+        void classpathControl_Changed(object sender, EventArgs e)
+        {
             classpathsChanged = true; // keep special track of this, it's a big deal
             Modified();
-		}
+        }
 
 		private void colorLabel_Click(object sender, EventArgs e)
 		{
