@@ -34,6 +34,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label descLabel;
+        private String itemFilter = String.Empty;
         private static Int32 lastItemIndex = 0;
 
         public SettingDialog(String itemName, String filter)
@@ -331,6 +332,7 @@ namespace FlashDevelop.Dialogs
                     this.pluginsGroup.Items.Add(item);
                 }
             }
+            itemFilter = itemName;
             this.SelectCorrectItem(itemName);
         }
 
@@ -508,12 +510,15 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Restore the selected index from a static var
+        /// Restore the selected index - only if a item id hasn't been provided
         /// </summary>
         private void DialogShown(Object sender, EventArgs e)
         {
-            this.itemListView.SelectedIndices.Add(lastItemIndex);
-            this.itemListView.EnsureVisible(lastItemIndex);
+            if (String.IsNullOrEmpty(this.itemFilter) || this.itemFilter == "FlashDevelop")
+            {
+                this.itemListView.SelectedIndices.Add(lastItemIndex);
+                this.itemListView.EnsureVisible(lastItemIndex);
+            }
         }
 
         /// <summary>
