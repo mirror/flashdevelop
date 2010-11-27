@@ -71,9 +71,21 @@ namespace FDBuild.Building.AS3
 
         private void AddTargetPlayer()
         {
+            bool isAIR = project.MovieOptions.Platform == "AIR";
             int majorVersion = project.MovieOptions.MajorVersion;
-            string minorVersion = project.CompilerOptions.MinorVersion;
-            if (minorVersion.Length == 0) minorVersion = project.MovieOptions.MinorVersion + ".0";
+            string minorVersion = "" + project.MovieOptions.MinorVersion;
+            if (isAIR)
+            {
+                majorVersion = 10;
+                switch (project.MovieOptions.Version)
+                {
+                    case "1.5": minorVersion = "0.0"; break;
+                    case "2.0": minorVersion = "1.0"; break;
+                    case "2.5": minorVersion = "2.0"; break;
+                }
+            }
+            if (project.CompilerOptions.MinorVersion.Length == 0)
+                minorVersion = project.CompilerOptions.MinorVersion;
 
             WriteElementString("target-player", majorVersion + "." + minorVersion);
         }
