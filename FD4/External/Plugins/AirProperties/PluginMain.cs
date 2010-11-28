@@ -187,6 +187,7 @@ namespace AirProperties
             this.pmMenuButton.Image = GetImage("blockdevice_small.png");
             this.pmMenuButton.Text = TextHelper.GetString("Label.ProjectMenuItem").Replace("&", "").Replace("...", "");
             this.pmMenuButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            this.pmMenuButton.Click += new EventHandler(this.OpenWizard);
             toolStrip.Items.Insert(5, this.pmMenuButton);
         }
 
@@ -197,13 +198,12 @@ namespace AirProperties
         {
             Boolean pluginActive = false;
             ToolStrip mainToolStrip = (ToolStrip)PluginBase.MainForm.ToolStrip;
-            if (PluginBase.CurrentProject != null 
-                && PluginBase.CurrentProject is ProjectManager.Projects.AS3.AS3Project)
+            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject is ProjectManager.Projects.AS3.AS3Project)
             {
                 ProjectManager.Projects.AS3.AS3Project project = (ProjectManager.Projects.AS3.AS3Project)PluginBase.CurrentProject;
                 pluginActive = (project.MovieOptions.Platform == "AIR");
             }
-            this.pluginMenuItem.Enabled = pluginActive;
+            this.pluginMenuItem.Enabled = this.pmMenuButton.Enabled = pluginActive;
         }
                
         /// <summary>
