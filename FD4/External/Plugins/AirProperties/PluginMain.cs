@@ -21,6 +21,7 @@ namespace AirProperties
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginAuth = "FlashDevelop Team";
         private ToolStripMenuItem pluginMenuItem;
+        private ToolStripButton pmMenuButton;
         private String settingFilename;
         private Settings settingObject;
         private Image pluginImage;
@@ -124,8 +125,13 @@ namespace AirProperties
                     }
                     else if (cmd == "ProjectManager.Menu")
                     {
-                        Object data = (e as DataEvent).Data;
-                        this.AddMenuItems(data as ToolStripMenuItem);
+                        Object menu = (e as DataEvent).Data;
+                        this.AddMenuItems(menu as ToolStripMenuItem);
+                    }
+                    else if (cmd == "ProjectManager.ToolBar")
+                    {
+                        Object toolStrip = (e as DataEvent).Data;
+                        this.AddToolBarItems(toolStrip as ToolStrip);
                     }
                     break;
             } 
@@ -170,6 +176,18 @@ namespace AirProperties
         private void AddMenuItems(ToolStripMenuItem projectMenu)
         {
             projectMenu.DropDownItems.Insert(projectMenu.DropDownItems.Count - 1, this.pluginMenuItem);
+        }
+
+        /// <summary>
+        /// Adds the necessary project manager toolstrip button
+        /// </summary>
+        private void AddToolBarItems(ToolStrip toolStrip)
+        {
+            this.pmMenuButton = new ToolStripButton();
+            this.pmMenuButton.Image = GetImage("blockdevice_small.png");
+            this.pmMenuButton.Text = TextHelper.GetString("Label.ProjectMenuItem").Replace("&", "").Replace("...", "");
+            this.pmMenuButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStrip.Items.Insert(5, this.pmMenuButton);
         }
 
         /// <summary>

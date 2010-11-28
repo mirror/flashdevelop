@@ -40,6 +40,7 @@ namespace ProjectManager
     public static class ProjectManagerEvents
     {
         public const string Menu = "ProjectManager.Menu";
+        public const string ToolBar = "ProjectManager.ToolBar";
         public const string Project = "ProjectManager.Project";
         public const string TestProject = "ProjectManager.TestingProject";
         public const string BuildProject = "ProjectManager.BuildingProject";
@@ -270,7 +271,12 @@ namespace ProjectManager
                 case EventType.UIStarted:
                     // for some reason we have to do this on the next message loop for the tree
                     // state to be restored properly.
-                    pluginUI.BeginInvoke((MethodInvoker)delegate { BroadcastMenuInfo(); OpenLastProject(); });
+                    pluginUI.BeginInvoke((MethodInvoker)delegate 
+                    { 
+                        BroadcastMenuInfo(); 
+                        BroadcastToolBarInfo(); 
+                        OpenLastProject(); 
+                    });
                     break;
 
                 // replace $(SomeVariable) type stuff with things we know about
@@ -861,6 +867,12 @@ namespace ProjectManager
         public void BroadcastMenuInfo()
         {
             DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.Menu, this.menus.ProjectMenu);
+            EventManager.DispatchEvent(this, de);
+        }
+
+        public void BroadcastToolBarInfo()
+        {
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.ToolBar, this.pluginUI.TreeBar);
             EventManager.DispatchEvent(this, de);
         }
 
