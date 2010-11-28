@@ -131,6 +131,8 @@ namespace SourceControl.Managers
         {
             if (lastDirtyPath != null && e.FullPath.StartsWith(lastDirtyPath))
                 return;
+            if (Path.GetFileName(e.FullPath).StartsWith("hg-checkexec"))
+                return;
             lastDirtyPath = e.FullPath;
             
             FileSystemWatcher watcher = (FileSystemWatcher)sender;
