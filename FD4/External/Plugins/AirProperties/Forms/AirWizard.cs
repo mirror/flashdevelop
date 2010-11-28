@@ -35,6 +35,7 @@ namespace AirProperties
                
         private PluginMain _pluginMain;
         private String _propertiesFilePath;
+        private String _propertiesFile;
         private Boolean _isPropertiesLoaded;
         private List<string> _locales = new List<string>();
         private List<PropertyManager.AirFileType> _fileTypes = new List<PropertyManager.AirFileType>();
@@ -71,7 +72,6 @@ namespace AirProperties
             else
             {
                 _propertiesFilePath = Path.GetDirectoryName(PluginCore.PluginBase.CurrentProject.ProjectPath);
-                _propertiesFilePath += @"\application.xml";
                 LoadProperties(true);
             }
             String airVersion = PropertyManager.Version;
@@ -274,14 +274,17 @@ namespace AirProperties
             string[] minSizeProperty;
             string[] maxSizeProperty;
             _isPropertiesLoaded = false;
-            if (File.Exists(_propertiesFilePath))
+
+            _propertiesFile = LookupPropertiesFile();
+
+            if (File.Exists(_propertiesFile))
             {
-                if (PropertyManager.InitializeProperties(_propertiesFilePath))
+                if (PropertyManager.InitializeProperties(_propertiesFile))
                 {
                     if (PropertyManager.IsUnsupportedVersion)
                     {
                         if (MessageBox.Show(String.Format(TextHelper.GetString("Alert.Message.UnsupportedAirDescriptorFile"),
-                            _propertiesFilePath, PropertyManager.Version, PropertyManager.MaxSupportedVersion),
+                            _propertiesFile, PropertyManager.Version, PropertyManager.MaxSupportedVersion),
                             TextHelper.GetString("Alert.Title.UnsupportedAirDescriptorFile"),
                             MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != System.Windows.Forms.DialogResult.OK)
                             return;
@@ -413,11 +416,35 @@ namespace AirProperties
                 }
             }
         }
+
+        private String LookupPropertiesFile()
+        {
+            String path = Path.Combine(_propertiesFilePath, "application.xml");
+            if (File.Exists(path)) return path;
+            String[] files = Directory.GetFiles(_propertiesFilePath, "*-app.xml");
+            foreach (String file in files)
+                if (LooksLikeAIRProperties(file)) return file;
+            files = Directory.GetFiles(_propertiesFilePath, "*.xml");
+            foreach (String file in files)
+                if (LooksLikeAIRProperties(file)) return file;
+            return path; // not found
+        }
+
+        private bool LooksLikeAIRProperties(string file)
+        {
+            try
+            {
+                String src = File.ReadAllText(file);
+                if (src.IndexOf("xmlns=\"http://ns.adobe.com/air/") > 0) return true;
+            }
+            catch { }
+            return false;
+        }
                 
         private void SaveProperties()
         {
             string supportedProfilesProperty = String.Empty;
-            if (File.Exists(_propertiesFilePath))
+            if (File.Exists(_propertiesFile))
             {
                 // Details tab
                 PropertyManager.SetProperty("id", IDField);
@@ -517,7 +544,7 @@ namespace AirProperties
                 {
                     PropertyManager.SetPropertyCData("android/manifestAdditions", AndroidManifestAdditionsField);
                 }
-                PropertyManager.CommitProperties(_propertiesFilePath);
+                PropertyManager.CommitProperties(_propertiesFile);
             }
         }
 
@@ -525,7 +552,7 @@ namespace AirProperties
         {
             if (OpenPropertiesFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _propertiesFilePath = OpenPropertiesFileDialog.FileName;
+                _propertiesFile = OpenPropertiesFileDialog.FileName;
                 LoadProperties(false);
             }
         }
