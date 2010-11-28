@@ -132,7 +132,8 @@ namespace ProjectManager.Projects.Haxe
                 // TODO AIR options, FP > 10
                 if (MovieOptions.MajorVersion < 6)
                 {
-                    pr.Add("-swf-version 10");
+                    if (MovieOptions.MajorVersion >= 2) 
+                        pr.Add("-swf-version 10");
                 }
                 else if (MovieOptions.MajorVersion != 9)
                     pr.Add("-swf-version " + MovieOptions.MajorVersion);
