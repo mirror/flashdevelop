@@ -65,7 +65,9 @@ namespace ProjectManager.Controls
 		public static FDImage HtmlFile;
 		public static FDImage AddFile;
 		public static FDImage OpenFile;
-		public static FDImage EditFile;
+        public static FDImage EditFile;
+        public static FDImage Browse;
+        public static FDImage FindInFiles;
 		public static FDImage Cut;
 		public static FDImage Copy;
 		public static FDImage Paste;
@@ -122,7 +124,9 @@ namespace ProjectManager.Controls
             HtmlFile = GetResource("Icons.HtmlFile.png");
             AddFile = GetResource("Icons.AddFile.png"); //Get("304|0|5|4");
 			OpenFile = Get(214);
-			EditFile = Get(282);
+            EditFile = Get(282);
+            Browse = Get(46);
+            FindInFiles = Get(209);
 			Cut = Get(158);
 			Copy = Get(292);
 			Paste = Get(283);

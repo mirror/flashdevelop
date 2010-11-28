@@ -29,7 +29,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem AddExistingFile = new ToolStripMenuItem(TextHelper.GetString("Label.ExistingFile"), Icons.SilkPage.Img);
         public ToolStripMenuItem Open = new ToolStripMenuItem(TextHelper.GetString("Label.Open"), Icons.OpenFile.Img);
         public ToolStripMenuItem Execute = new ToolStripMenuItem(TextHelper.GetString("Label.Execute"));
-        public ToolStripMenuItem Browse = new ToolStripMenuItem(TextHelper.GetString("Label.BrowseDirectory"));
+        public ToolStripMenuItem Browse = new ToolStripMenuItem(TextHelper.GetString("Label.BrowseDirectory"), Icons.Browse.Img);
         public ToolStripMenuItem Insert = new ToolStripMenuItem(TextHelper.GetString("Label.InsertIntoDocument"), Icons.EditFile.Img);
         public ToolStripMenuItem Cut = new ToolStripMenuItem(TextHelper.GetString("Label.Cut"), Icons.Cut.Img);
         public ToolStripMenuItem Copy = new ToolStripMenuItem(TextHelper.GetString("Label.Copy"), Icons.Copy.Img);
@@ -52,7 +52,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem BuildAllProjects = new ToolStripMenuItem(TextHelper.GetString("Label.BuildAllProjects"));
         public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
         public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"));
-        public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"));
+        public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"), Icons.FindInFiles.Img);
         public ToolStripMenuItem CopyClassName = new ToolStripMenuItem(TextHelper.GetString("Label.CopyClassName"));
         public event FileAddHandler AddFileFromTemplate;
 
