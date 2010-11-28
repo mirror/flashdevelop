@@ -118,7 +118,10 @@ namespace AirProperties
             {
                 case EventType.Command:
                     String cmd = (e as DataEvent).Action;
-                    if (cmd == "ProjectManager.Project") this.UpdateMenuItems();
+                    if (cmd == "ProjectManager.Project" || cmd == "ASCompletion.ClassPath")
+                    {
+                        this.UpdateMenuItems();
+                    }
                     else if (cmd == "ProjectManager.Menu")
                     {
                         Object data = (e as DataEvent).Data;
@@ -176,14 +179,11 @@ namespace AirProperties
         {
             Boolean pluginActive = false;
             ToolStrip mainToolStrip = (ToolStrip)PluginBase.MainForm.ToolStrip;
-            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject is ProjectManager.Projects.AS3.AS3Project)
+            if (PluginBase.CurrentProject != null 
+                && PluginBase.CurrentProject is ProjectManager.Projects.AS3.AS3Project)
             {
                 ProjectManager.Projects.AS3.AS3Project project = (ProjectManager.Projects.AS3.AS3Project)PluginBase.CurrentProject;
-                String[] compilerOptions = project.CompilerOptions.Additional;
-                foreach (string compilerOption in compilerOptions)
-                {
-                    if (compilerOption.Contains("configname=air")) pluginActive = true;
-                }
+                pluginActive = (project.MovieOptions.Platform == "AIR");
             }
             this.pluginMenuItem.Enabled = pluginActive;
         }

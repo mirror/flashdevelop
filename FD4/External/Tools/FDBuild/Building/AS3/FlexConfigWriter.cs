@@ -71,23 +71,18 @@ namespace FDBuild.Building.AS3
 
         private void AddTargetPlayer()
         {
-            bool isAIR = project.MovieOptions.Platform == "AIR";
             int majorVersion = project.MovieOptions.MajorVersion;
-            string minorVersion = "" + project.MovieOptions.MinorVersion;
-            if (isAIR)
-            {
-                majorVersion = 10;
-                switch (project.MovieOptions.Version)
-                {
-                    case "1.5": minorVersion = "0.0"; break;
-                    case "2.0": minorVersion = "1.0"; break;
-                    case "2.5": minorVersion = "2.0"; break;
-                }
-            }
-            if (project.CompilerOptions.MinorVersion.Length == 0)
-                minorVersion = project.CompilerOptions.MinorVersion;
+            int minorVersion = project.MovieOptions.MinorVersion;
+            if (project.MovieOptions.Platform == "AIR") 
+                AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
-            WriteElementString("target-player", majorVersion + "." + minorVersion);
+            string version;
+            if (project.CompilerOptions.MinorVersion.Length == 0)
+                version = majorVersion + "." + project.CompilerOptions.MinorVersion;
+            else
+                version = majorVersion + "." + minorVersion;
+
+            WriteElementString("target-player", version);
         }
 
         private void AddLibraries()

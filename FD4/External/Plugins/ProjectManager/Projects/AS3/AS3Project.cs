@@ -217,5 +217,13 @@ namespace ProjectManager.Projects.AS3
         }
 
         #endregion
+
+        static public void GuessFlashPlayerForAIR(ref int majorVersion, ref int minorVersion)
+        {
+            double v = majorVersion + minorVersion / 10;
+            if (v < 2) { majorVersion = 9; minorVersion = 0; }
+            else if (v < 2.5) { majorVersion = 10; minorVersion = 0; }
+            else { majorVersion = 10; minorVersion = 2; }
+        }
     }
 }

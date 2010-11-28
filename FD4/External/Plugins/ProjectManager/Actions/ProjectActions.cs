@@ -125,17 +125,11 @@ namespace ProjectManager.Actions
             {
                 // platform/version
                 classPaths.Add(project.MovieOptions.Platform);
-                string version = project.MovieOptions.Version;
+                int majorVersion = project.MovieOptions.MajorVersion;
+                int minorVersion = project.MovieOptions.MinorVersion;
                 if (project.MovieOptions.Platform == "AIR")
-                {
-                    switch (version)
-                    {
-                        case "1.5": classPaths.Add("10.0"); break;
-                        case "2.0": classPaths.Add("10.1"); break;
-                        case "2.5": classPaths.Add("10.2"); break;
-                    }
-                }
-                else classPaths.Add(version);
+                    AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
+                classPaths.Add(majorVersion + "." + minorVersion);
 
                 // add project classpaths
                 foreach (string cp in project.AbsoluteClasspaths)
