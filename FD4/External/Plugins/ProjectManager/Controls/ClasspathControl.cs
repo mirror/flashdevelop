@@ -311,20 +311,23 @@ namespace ProjectManager.Controls
 			}
 		}
 
+        private Point prevPoint = new Point(0, 0); // blocks too frequent updates
 		private void listBox_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-			int selectedIndex = listBox.IndexFromPoint(e.X, e.Y);
+            if (prevPoint.Equals(new Point(e.X, e.Y))) return;
+            prevPoint = new Point(e.X, e.Y);
+            int selectedIndex = listBox.IndexFromPoint(e.X, e.Y);
 			if (selectedIndex > -1)
 			{
 				string path = listBox.Items[selectedIndex].ToString();
 				Graphics g = listBox.CreateGraphics();
-				if (g.MeasureString(path,listBox.Font).Width > listBox.ClientRectangle.Width)
+				if (g.MeasureString(path, listBox.Font).Width > listBox.ClientRectangle.Width)
 				{
-					toolTip.SetToolTip(listBox,path);
+					toolTip.SetToolTip(listBox, path);
 					return;
 				}
 			}
-			toolTip.SetToolTip(listBox,"");
+			toolTip.SetToolTip(listBox, "");
 		}
 
 		private void btnUp_Click(object sender, System.EventArgs e)

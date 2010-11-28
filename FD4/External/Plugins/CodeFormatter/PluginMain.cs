@@ -110,8 +110,13 @@ namespace CodeFormatter
                     DataEvent de = (DataEvent)e;
                     if (de.Action == "CodeRefactor.Menu")
                     {
-                        ToolStripMenuItem refactorMenu = (ToolStripMenuItem)de.Data;
-                        this.CreateMenuItem(refactorMenu);
+                        ToolStripMenuItem mainMenu = (ToolStripMenuItem)de.Data;
+                        this.CreateMainMenuItem(mainMenu);
+                    }
+                    else if (de.Action == "CodeRefactor.ContextMenu")
+                    {
+                        ToolStripMenuItem contextMenu = (ToolStripMenuItem)de.Data;
+                        this.CreateContextMenuItem(contextMenu);
                     }
                     break;
             }
@@ -136,13 +141,23 @@ namespace CodeFormatter
 		/// <summary>
 		/// Creates a menu item for the plugin
 		/// </summary>
-		public void CreateMenuItem(ToolStripMenuItem refactorMenu)
+		public void CreateMainMenuItem(ToolStripMenuItem mainMenu)
 		{
             String label = TextHelper.GetString("Label.CodeFormatter");
             ToolStripMenuItem menuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.Control | Keys.Shift | Keys.D2);
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.CodeFormatter", menuItem);
-            refactorMenu.DropDownItems.Insert(7, menuItem);
+            mainMenu.DropDownItems.Insert(7, menuItem);
 		}
+
+        /// <summary>
+        /// Creates a context menu item for the plugin
+        /// </summary>
+        public void CreateContextMenuItem(ToolStripMenuItem contextMenu)
+        {
+            String label = TextHelper.GetString("Label.CodeFormatter");
+            ToolStripMenuItem menuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.None);
+            contextMenu.DropDownItems.Insert(6, menuItem);
+        }
 
 		/// <summary>
 		/// Loads the plugin settings

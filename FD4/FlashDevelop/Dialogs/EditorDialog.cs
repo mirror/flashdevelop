@@ -166,28 +166,27 @@ namespace FlashDevelop.Dialogs
             this.marginBackLabel = new System.Windows.Forms.Label();
             this.markerBackLabel = new System.Windows.Forms.Label();
             this.markerForeLabel = new System.Windows.Forms.Label();
-            this.printMarginLabel = new System.Windows.Forms.Label();
-            this.highlightBackLabel = new System.Windows.Forms.Label();
-            this.modifiedLineLabel = new System.Windows.Forms.Label();
-            this.bookmarkLineLabel = new System.Windows.Forms.Label();
             this.printMarginButton = new System.Windows.Forms.Button();
-            this.highlightBackButton = new System.Windows.Forms.Button();
-            this.modifiedLineButton = new System.Windows.Forms.Button();
-            this.bookmarkLineButton = new System.Windows.Forms.Button();
+            this.printMarginLabel = new System.Windows.Forms.Label();
             this.printMarginTextBox = new System.Windows.Forms.TextBox();
+            this.highlightBackButton = new System.Windows.Forms.Button();
+            this.highlightBackLabel = new System.Windows.Forms.Label();
             this.highlightBackTextBox = new System.Windows.Forms.TextBox();
+            this.modifiedLineButton = new System.Windows.Forms.Button();
+            this.modifiedLineLabel = new System.Windows.Forms.Label();
             this.modifiedLineTextBox = new System.Windows.Forms.TextBox();
+            this.bookmarkLineButton = new System.Windows.Forms.Button();
+            this.bookmarkLineLabel = new System.Windows.Forms.Label();
             this.bookmarkLineTextBox = new System.Windows.Forms.TextBox();
-            this.errorLineLabel = new System.Windows.Forms.Label();
-            this.debugLineLabel = new System.Windows.Forms.Label();
-            this.disabledLineLabel = new System.Windows.Forms.Label();
             this.errorLineButton = new System.Windows.Forms.Button();
-            this.debugLineButton = new System.Windows.Forms.Button();
-            this.disabledLineButton = new System.Windows.Forms.Button();
+            this.errorLineLabel = new System.Windows.Forms.Label();
             this.errorLineTextBox = new System.Windows.Forms.TextBox();
+            this.debugLineButton = new System.Windows.Forms.Button();
+            this.debugLineLabel = new System.Windows.Forms.Label();
             this.debugLineTextBox = new System.Windows.Forms.TextBox();
+            this.disabledLineButton = new System.Windows.Forms.Button();
+            this.disabledLineLabel = new System.Windows.Forms.Label();
             this.disabledLineTextBox = new System.Windows.Forms.TextBox();
-            //
             this.languageDropDown = new System.Windows.Forms.ComboBox();
             this.exportButton = new System.Windows.Forms.Button();
             this.itemGroupBox.SuspendLayout();
@@ -414,7 +413,7 @@ namespace FlashDevelop.Dialogs
             this.caretForeButton.Location = new System.Drawing.Point(126, 37);
             this.caretForeButton.Name = "caretForeButton";
             this.caretForeButton.Size = new System.Drawing.Size(33, 30);
-            this.caretForeButton.TabIndex = 3;
+            this.caretForeButton.TabIndex = 2;
             this.caretForeButton.Click += new System.EventHandler(this.CaretForeButtonClick);
             // 
             // caretlineBackButton
@@ -422,7 +421,7 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackButton.Location = new System.Drawing.Point(126, 86);
             this.caretlineBackButton.Name = "caretlineBackButton";
             this.caretlineBackButton.Size = new System.Drawing.Size(33, 30);
-            this.caretlineBackButton.TabIndex = 6;
+            this.caretlineBackButton.TabIndex = 4;
             this.caretlineBackButton.Click += new System.EventHandler(this.CaretlineBackButtonClick);
             // 
             // selectionBackButton
@@ -430,7 +429,7 @@ namespace FlashDevelop.Dialogs
             this.selectionBackButton.Location = new System.Drawing.Point(286, 86);
             this.selectionBackButton.Name = "selectionBackButton";
             this.selectionBackButton.Size = new System.Drawing.Size(33, 30);
-            this.selectionBackButton.TabIndex = 12;
+            this.selectionBackButton.TabIndex = 14;
             this.selectionBackButton.Click += new System.EventHandler(this.SelectionBackButtonClick);
             // 
             // selectionForeButton
@@ -438,7 +437,7 @@ namespace FlashDevelop.Dialogs
             this.selectionForeButton.Location = new System.Drawing.Point(286, 37);
             this.selectionForeButton.Name = "selectionForeButton";
             this.selectionForeButton.Size = new System.Drawing.Size(33, 30);
-            this.selectionForeButton.TabIndex = 9;
+            this.selectionForeButton.TabIndex = 12;
             this.selectionForeButton.Click += new System.EventHandler(this.SelectionForeButtonClick);
             // 
             // caretForeTextBox
@@ -446,7 +445,7 @@ namespace FlashDevelop.Dialogs
             this.caretForeTextBox.Location = new System.Drawing.Point(14, 40);
             this.caretForeTextBox.Name = "caretForeTextBox";
             this.caretForeTextBox.Size = new System.Drawing.Size(103, 23);
-            this.caretForeTextBox.TabIndex = 2;
+            this.caretForeTextBox.TabIndex = 1;
             this.caretForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // caretlineBackTextBox
@@ -454,7 +453,7 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackTextBox.Location = new System.Drawing.Point(14, 90);
             this.caretlineBackTextBox.Name = "caretlineBackTextBox";
             this.caretlineBackTextBox.Size = new System.Drawing.Size(103, 23);
-            this.caretlineBackTextBox.TabIndex = 5;
+            this.caretlineBackTextBox.TabIndex = 3;
             this.caretlineBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // selectionForeTextBox
@@ -462,7 +461,7 @@ namespace FlashDevelop.Dialogs
             this.selectionForeTextBox.Location = new System.Drawing.Point(174, 40);
             this.selectionForeTextBox.Name = "selectionForeTextBox";
             this.selectionForeTextBox.Size = new System.Drawing.Size(103, 23);
-            this.selectionForeTextBox.TabIndex = 8;
+            this.selectionForeTextBox.TabIndex = 11;
             this.selectionForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // selectionBackTextBox
@@ -470,7 +469,7 @@ namespace FlashDevelop.Dialogs
             this.selectionBackTextBox.Location = new System.Drawing.Point(174, 90);
             this.selectionBackTextBox.Name = "selectionBackTextBox";
             this.selectionBackTextBox.Size = new System.Drawing.Size(103, 23);
-            this.selectionBackTextBox.TabIndex = 11;
+            this.selectionBackTextBox.TabIndex = 13;
             this.selectionBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // marginForeButton
@@ -478,7 +477,7 @@ namespace FlashDevelop.Dialogs
             this.marginForeButton.Location = new System.Drawing.Point(126, 136);
             this.marginForeButton.Name = "marginForeButton";
             this.marginForeButton.Size = new System.Drawing.Size(33, 30);
-            this.marginForeButton.TabIndex = 3;
+            this.marginForeButton.TabIndex = 6;
             this.marginForeButton.Click += new System.EventHandler(this.MarginForeButtonClick);
             // 
             // marginBackButton
@@ -486,7 +485,7 @@ namespace FlashDevelop.Dialogs
             this.marginBackButton.Location = new System.Drawing.Point(126, 187);
             this.marginBackButton.Name = "marginBackButton";
             this.marginBackButton.Size = new System.Drawing.Size(33, 30);
-            this.marginBackButton.TabIndex = 6;
+            this.marginBackButton.TabIndex = 8;
             this.marginBackButton.Click += new System.EventHandler(this.MarginBackButtonClick);
             // 
             // markerBackButton
@@ -494,7 +493,7 @@ namespace FlashDevelop.Dialogs
             this.markerBackButton.Location = new System.Drawing.Point(286, 187);
             this.markerBackButton.Name = "markerBackButton";
             this.markerBackButton.Size = new System.Drawing.Size(33, 30);
-            this.markerBackButton.TabIndex = 12;
+            this.markerBackButton.TabIndex = 18;
             this.markerBackButton.Click += new System.EventHandler(this.MarkerBackButtonClick);
             // 
             // markerForeButton
@@ -502,71 +501,15 @@ namespace FlashDevelop.Dialogs
             this.markerForeButton.Location = new System.Drawing.Point(286, 136);
             this.markerForeButton.Name = "markerForeButton";
             this.markerForeButton.Size = new System.Drawing.Size(33, 30);
-            this.markerForeButton.TabIndex = 9;
+            this.markerForeButton.TabIndex = 16;
             this.markerForeButton.Click += new System.EventHandler(this.MarkerForeButtonClick);
-            // 
-            // printMarginButton
-            // 
-            this.printMarginButton.Location = new System.Drawing.Point(446, 37);
-            this.printMarginButton.Name = "printMarginButton";
-            this.printMarginButton.Size = new System.Drawing.Size(33, 30);
-            this.printMarginButton.TabIndex = 3;
-            this.printMarginButton.Click += new System.EventHandler(this.PrintMarginButtonClick);
-            // 
-            // highlightBackButton
-            // 
-            this.highlightBackButton.Location = new System.Drawing.Point(446, 86);
-            this.highlightBackButton.Name = "highlightBackButton";
-            this.highlightBackButton.Size = new System.Drawing.Size(33, 30);
-            this.highlightBackButton.TabIndex = 6;
-            this.highlightBackButton.Click += new System.EventHandler(this.HighlightBackButtonClick);
-            // 
-            // modifiedLineButton
-            // 
-            this.modifiedLineButton.Location = new System.Drawing.Point(446, 187);
-            this.modifiedLineButton.Name = "modifiedLineButton";
-            this.modifiedLineButton.Size = new System.Drawing.Size(33, 30);
-            this.modifiedLineButton.TabIndex = 12;
-            this.modifiedLineButton.Click += new System.EventHandler(this.ModifiedLineButtonClick);
-            // 
-            // errorLineButton
-            // 
-            this.errorLineButton.Location = new System.Drawing.Point(126, 236);
-            this.errorLineButton.Name = "errorLineButton";
-            this.errorLineButton.Size = new System.Drawing.Size(33, 30);
-            this.errorLineButton.TabIndex = 3;
-            this.errorLineButton.Click += new System.EventHandler(this.ErrorLineButtonClick);
-            // 
-            // debugLineButton
-            // 
-            this.debugLineButton.Location = new System.Drawing.Point(286, 236);
-            this.debugLineButton.Name = "debugLineButton";
-            this.debugLineButton.Size = new System.Drawing.Size(33, 30);
-            this.debugLineButton.TabIndex = 6;
-            this.debugLineButton.Click += new System.EventHandler(this.DebugLineButtonClick);
-            // 
-            // disabledLineButton
-            // 
-            this.disabledLineButton.Location = new System.Drawing.Point(446, 236);
-            this.disabledLineButton.Name = "disabledLineButton";
-            this.disabledLineButton.Size = new System.Drawing.Size(33, 30);
-            this.disabledLineButton.TabIndex = 12;
-            this.disabledLineButton.Click += new System.EventHandler(this.DisabledLineButtonClick);
-            // 
-            // bookmarkLineButton
-            // 
-            this.bookmarkLineButton.Location = new System.Drawing.Point(446, 136);
-            this.bookmarkLineButton.Name = "bookmarkLineButton";
-            this.bookmarkLineButton.Size = new System.Drawing.Size(33, 30);
-            this.bookmarkLineButton.TabIndex = 9;
-            this.bookmarkLineButton.Click += new System.EventHandler(this.BookmarkLineButtonClick);
             // 
             // marginForeTextBox
             // 
             this.marginForeTextBox.Location = new System.Drawing.Point(14, 140);
             this.marginForeTextBox.Name = "marginForeTextBox";
             this.marginForeTextBox.Size = new System.Drawing.Size(103, 23);
-            this.marginForeTextBox.TabIndex = 2;
+            this.marginForeTextBox.TabIndex = 5;
             this.marginForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // marginBackTextBox
@@ -574,7 +517,7 @@ namespace FlashDevelop.Dialogs
             this.marginBackTextBox.Location = new System.Drawing.Point(14, 190);
             this.marginBackTextBox.Name = "marginBackTextBox";
             this.marginBackTextBox.Size = new System.Drawing.Size(103, 23);
-            this.marginBackTextBox.TabIndex = 5;
+            this.marginBackTextBox.TabIndex = 7;
             this.marginBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // markerForeTextBox
@@ -582,7 +525,7 @@ namespace FlashDevelop.Dialogs
             this.markerForeTextBox.Location = new System.Drawing.Point(174, 140);
             this.markerForeTextBox.Name = "markerForeTextBox";
             this.markerForeTextBox.Size = new System.Drawing.Size(103, 23);
-            this.markerForeTextBox.TabIndex = 8;
+            this.markerForeTextBox.TabIndex = 15;
             this.markerForeTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // markerBackTextBox
@@ -590,64 +533,8 @@ namespace FlashDevelop.Dialogs
             this.markerBackTextBox.Location = new System.Drawing.Point(174, 190);
             this.markerBackTextBox.Name = "markerBackTextBox";
             this.markerBackTextBox.Size = new System.Drawing.Size(103, 23);
-            this.markerBackTextBox.TabIndex = 11;
+            this.markerBackTextBox.TabIndex = 17;
             this.markerBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // printMarginTextBox
-            // 
-            this.printMarginTextBox.Location = new System.Drawing.Point(334, 40);
-            this.printMarginTextBox.Name = "printMarginTextBox";
-            this.printMarginTextBox.Size = new System.Drawing.Size(103, 23);
-            this.printMarginTextBox.TabIndex = 2;
-            this.printMarginTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // highlightBackTextBox
-            // 
-            this.highlightBackTextBox.Location = new System.Drawing.Point(334, 90);
-            this.highlightBackTextBox.Name = "highlightBackTextBox";
-            this.highlightBackTextBox.Size = new System.Drawing.Size(103, 23);
-            this.highlightBackTextBox.TabIndex = 5;
-            this.highlightBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // modifiedLineTextBox
-            // 
-            this.modifiedLineTextBox.Location = new System.Drawing.Point(334, 190);
-            this.modifiedLineTextBox.Name = "modifiedLineTextBox";
-            this.modifiedLineTextBox.Size = new System.Drawing.Size(103, 23);
-            this.modifiedLineTextBox.TabIndex = 8;
-            this.modifiedLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // bookmarkLineTextBox
-            // 
-            this.bookmarkLineTextBox.Location = new System.Drawing.Point(334, 140);
-            this.bookmarkLineTextBox.Name = "bookmarkLineTextBox";
-            this.bookmarkLineTextBox.Size = new System.Drawing.Size(103, 23);
-            this.bookmarkLineTextBox.TabIndex = 11;
-            this.bookmarkLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // errorLineTextBox
-            // 
-            this.errorLineTextBox.Location = new System.Drawing.Point(14, 240);
-            this.errorLineTextBox.Name = "errorLineTextBox";
-            this.errorLineTextBox.Size = new System.Drawing.Size(103, 23);
-            this.errorLineTextBox.TabIndex = 12;
-            this.errorLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // debugLineTextBox
-            // 
-            this.debugLineTextBox.Location = new System.Drawing.Point(174, 240);
-            this.debugLineTextBox.Name = "debugLineTextBox";
-            this.debugLineTextBox.Size = new System.Drawing.Size(103, 23);
-            this.debugLineTextBox.TabIndex = 14;
-            this.debugLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
-            // 
-            // disabledLineTextBox
-            // 
-            this.disabledLineTextBox.Location = new System.Drawing.Point(334, 240);
-            this.disabledLineTextBox.Name = "disabledLineTextBox";
-            this.disabledLineTextBox.Size = new System.Drawing.Size(103, 23);
-            this.disabledLineTextBox.TabIndex = 14;
-            this.disabledLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // saveFileDialog
             // 
@@ -709,54 +596,14 @@ namespace FlashDevelop.Dialogs
             this.languageGroupBox.TabStop = false;
             this.languageGroupBox.Text = "Editor Style";
             // 
-            // printMarginLabel
-            // 
-            this.printMarginLabel.AutoSize = true;
-            this.printMarginLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.printMarginLabel.Location = new System.Drawing.Point(334, 20);
-            this.printMarginLabel.Name = "printMarginLabel";
-            this.printMarginLabel.Size = new System.Drawing.Size(113, 16);
-            this.printMarginLabel.TabIndex = 1;
-            this.printMarginLabel.Text = "Print margin fore:";
-            // 
-            // highlightBackLabel
-            // 
-            this.highlightBackLabel.AutoSize = true;
-            this.highlightBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.highlightBackLabel.Location = new System.Drawing.Point(334, 70);
-            this.highlightBackLabel.Name = "highlightBackLabel";
-            this.highlightBackLabel.Size = new System.Drawing.Size(116, 16);
-            this.highlightBackLabel.TabIndex = 4;
-            this.highlightBackLabel.Text = "Highlight back:";
-            // 
-            // modifiedLineLabel
-            // 
-            this.modifiedLineLabel.AutoSize = true;
-            this.modifiedLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.modifiedLineLabel.Location = new System.Drawing.Point(334, 170);
-            this.modifiedLineLabel.Name = "modifiedLineLabel";
-            this.modifiedLineLabel.Size = new System.Drawing.Size(116, 16);
-            this.modifiedLineLabel.TabIndex = 10;
-            this.modifiedLineLabel.Text = "Modified line back:";
-            // 
-            // bookmarkLineLabel
-            // 
-            this.bookmarkLineLabel.AutoSize = true;
-            this.bookmarkLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.bookmarkLineLabel.Location = new System.Drawing.Point(334, 120);
-            this.bookmarkLineLabel.Name = "bookmarkLineLabel";
-            this.bookmarkLineLabel.Size = new System.Drawing.Size(113, 16);
-            this.bookmarkLineLabel.TabIndex = 7;
-            this.bookmarkLineLabel.Text = "Bookmark line back:";
-            // 
             // caretForeLabel
             // 
             this.caretForeLabel.AutoSize = true;
             this.caretForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.caretForeLabel.Location = new System.Drawing.Point(14, 20);
             this.caretForeLabel.Name = "caretForeLabel";
-            this.caretForeLabel.Size = new System.Drawing.Size(105, 16);
-            this.caretForeLabel.TabIndex = 1;
+            this.caretForeLabel.Size = new System.Drawing.Size(65, 16);
+            this.caretForeLabel.TabIndex = 0;
             this.caretForeLabel.Text = "Caret fore:";
             // 
             // caretlineBackLabel
@@ -765,8 +612,8 @@ namespace FlashDevelop.Dialogs
             this.caretlineBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.caretlineBackLabel.Location = new System.Drawing.Point(14, 70);
             this.caretlineBackLabel.Name = "caretlineBackLabel";
-            this.caretlineBackLabel.Size = new System.Drawing.Size(130, 16);
-            this.caretlineBackLabel.TabIndex = 4;
+            this.caretlineBackLabel.Size = new System.Drawing.Size(90, 16);
+            this.caretlineBackLabel.TabIndex = 0;
             this.caretlineBackLabel.Text = "Caret line back:";
             // 
             // selectionBackLabel
@@ -775,8 +622,8 @@ namespace FlashDevelop.Dialogs
             this.selectionBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.selectionBackLabel.Location = new System.Drawing.Point(174, 70);
             this.selectionBackLabel.Name = "selectionBackLabel";
-            this.selectionBackLabel.Size = new System.Drawing.Size(127, 16);
-            this.selectionBackLabel.TabIndex = 10;
+            this.selectionBackLabel.Size = new System.Drawing.Size(87, 16);
+            this.selectionBackLabel.TabIndex = 0;
             this.selectionBackLabel.Text = "Selection back:";
             // 
             // selectionForeLabel
@@ -785,8 +632,8 @@ namespace FlashDevelop.Dialogs
             this.selectionForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.selectionForeLabel.Location = new System.Drawing.Point(174, 20);
             this.selectionForeLabel.Name = "selectionForeLabel";
-            this.selectionForeLabel.Size = new System.Drawing.Size(124, 16);
-            this.selectionForeLabel.TabIndex = 7;
+            this.selectionForeLabel.Size = new System.Drawing.Size(84, 16);
+            this.selectionForeLabel.TabIndex = 0;
             this.selectionForeLabel.Text = "Selection fore:";
             // 
             // marginForeLabel
@@ -795,8 +642,8 @@ namespace FlashDevelop.Dialogs
             this.marginForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.marginForeLabel.Location = new System.Drawing.Point(14, 120);
             this.marginForeLabel.Name = "marginForeLabel";
-            this.marginForeLabel.Size = new System.Drawing.Size(113, 16);
-            this.marginForeLabel.TabIndex = 1;
+            this.marginForeLabel.Size = new System.Drawing.Size(73, 16);
+            this.marginForeLabel.TabIndex = 0;
             this.marginForeLabel.Text = "Margin fore:";
             // 
             // marginBackLabel
@@ -805,8 +652,8 @@ namespace FlashDevelop.Dialogs
             this.marginBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.marginBackLabel.Location = new System.Drawing.Point(14, 170);
             this.marginBackLabel.Name = "marginBackLabel";
-            this.marginBackLabel.Size = new System.Drawing.Size(116, 16);
-            this.marginBackLabel.TabIndex = 4;
+            this.marginBackLabel.Size = new System.Drawing.Size(76, 16);
+            this.marginBackLabel.TabIndex = 0;
             this.marginBackLabel.Text = "Margin back:";
             // 
             // markerBackLabel
@@ -815,8 +662,8 @@ namespace FlashDevelop.Dialogs
             this.markerBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.markerBackLabel.Location = new System.Drawing.Point(174, 170);
             this.markerBackLabel.Name = "markerBackLabel";
-            this.markerBackLabel.Size = new System.Drawing.Size(116, 16);
-            this.markerBackLabel.TabIndex = 10;
+            this.markerBackLabel.Size = new System.Drawing.Size(76, 16);
+            this.markerBackLabel.TabIndex = 0;
             this.markerBackLabel.Text = "Marker back:";
             // 
             // markerForeLabel
@@ -825,9 +672,121 @@ namespace FlashDevelop.Dialogs
             this.markerForeLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.markerForeLabel.Location = new System.Drawing.Point(174, 120);
             this.markerForeLabel.Name = "markerForeLabel";
-            this.markerForeLabel.Size = new System.Drawing.Size(113, 16);
-            this.markerForeLabel.TabIndex = 7;
+            this.markerForeLabel.Size = new System.Drawing.Size(73, 16);
+            this.markerForeLabel.TabIndex = 0;
             this.markerForeLabel.Text = "Marker fore:";
+            // 
+            // printMarginButton
+            // 
+            this.printMarginButton.Location = new System.Drawing.Point(446, 37);
+            this.printMarginButton.Name = "printMarginButton";
+            this.printMarginButton.Size = new System.Drawing.Size(33, 30);
+            this.printMarginButton.TabIndex = 22;
+            this.printMarginButton.Click += new System.EventHandler(this.PrintMarginButtonClick);
+            // 
+            // printMarginLabel
+            // 
+            this.printMarginLabel.AutoSize = true;
+            this.printMarginLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.printMarginLabel.Location = new System.Drawing.Point(334, 20);
+            this.printMarginLabel.Name = "printMarginLabel";
+            this.printMarginLabel.Size = new System.Drawing.Size(102, 16);
+            this.printMarginLabel.TabIndex = 0;
+            this.printMarginLabel.Text = "Print margin fore:";
+            // 
+            // printMarginTextBox
+            // 
+            this.printMarginTextBox.Location = new System.Drawing.Point(334, 40);
+            this.printMarginTextBox.Name = "printMarginTextBox";
+            this.printMarginTextBox.Size = new System.Drawing.Size(103, 23);
+            this.printMarginTextBox.TabIndex = 21;
+            this.printMarginTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // highlightBackButton
+            // 
+            this.highlightBackButton.Location = new System.Drawing.Point(446, 86);
+            this.highlightBackButton.Name = "highlightBackButton";
+            this.highlightBackButton.Size = new System.Drawing.Size(33, 30);
+            this.highlightBackButton.TabIndex = 24;
+            this.highlightBackButton.Click += new System.EventHandler(this.HighlightBackButtonClick);
+            // 
+            // highlightBackLabel
+            // 
+            this.highlightBackLabel.AutoSize = true;
+            this.highlightBackLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.highlightBackLabel.Location = new System.Drawing.Point(334, 70);
+            this.highlightBackLabel.Name = "highlightBackLabel";
+            this.highlightBackLabel.Size = new System.Drawing.Size(88, 16);
+            this.highlightBackLabel.TabIndex = 0;
+            this.highlightBackLabel.Text = "Highlight back:";
+            // 
+            // highlightBackTextBox
+            // 
+            this.highlightBackTextBox.Location = new System.Drawing.Point(334, 90);
+            this.highlightBackTextBox.Name = "highlightBackTextBox";
+            this.highlightBackTextBox.Size = new System.Drawing.Size(103, 23);
+            this.highlightBackTextBox.TabIndex = 23;
+            this.highlightBackTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // modifiedLineButton
+            // 
+            this.modifiedLineButton.Location = new System.Drawing.Point(446, 187);
+            this.modifiedLineButton.Name = "modifiedLineButton";
+            this.modifiedLineButton.Size = new System.Drawing.Size(33, 30);
+            this.modifiedLineButton.TabIndex = 28;
+            this.modifiedLineButton.Click += new System.EventHandler(this.ModifiedLineButtonClick);
+            // 
+            // modifiedLineLabel
+            // 
+            this.modifiedLineLabel.AutoSize = true;
+            this.modifiedLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.modifiedLineLabel.Location = new System.Drawing.Point(334, 170);
+            this.modifiedLineLabel.Name = "modifiedLineLabel";
+            this.modifiedLineLabel.Size = new System.Drawing.Size(107, 16);
+            this.modifiedLineLabel.TabIndex = 0;
+            this.modifiedLineLabel.Text = "Modified line back:";
+            // 
+            // modifiedLineTextBox
+            // 
+            this.modifiedLineTextBox.Location = new System.Drawing.Point(334, 190);
+            this.modifiedLineTextBox.Name = "modifiedLineTextBox";
+            this.modifiedLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.modifiedLineTextBox.TabIndex = 27;
+            this.modifiedLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // bookmarkLineButton
+            // 
+            this.bookmarkLineButton.Location = new System.Drawing.Point(446, 136);
+            this.bookmarkLineButton.Name = "bookmarkLineButton";
+            this.bookmarkLineButton.Size = new System.Drawing.Size(33, 30);
+            this.bookmarkLineButton.TabIndex = 26;
+            this.bookmarkLineButton.Click += new System.EventHandler(this.BookmarkLineButtonClick);
+            // 
+            // bookmarkLineLabel
+            // 
+            this.bookmarkLineLabel.AutoSize = true;
+            this.bookmarkLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.bookmarkLineLabel.Location = new System.Drawing.Point(334, 120);
+            this.bookmarkLineLabel.Name = "bookmarkLineLabel";
+            this.bookmarkLineLabel.Size = new System.Drawing.Size(114, 16);
+            this.bookmarkLineLabel.TabIndex = 0;
+            this.bookmarkLineLabel.Text = "Bookmark line back:";
+            // 
+            // bookmarkLineTextBox
+            // 
+            this.bookmarkLineTextBox.Location = new System.Drawing.Point(334, 140);
+            this.bookmarkLineTextBox.Name = "bookmarkLineTextBox";
+            this.bookmarkLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.bookmarkLineTextBox.TabIndex = 25;
+            this.bookmarkLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // errorLineButton
+            // 
+            this.errorLineButton.Location = new System.Drawing.Point(126, 236);
+            this.errorLineButton.Name = "errorLineButton";
+            this.errorLineButton.Size = new System.Drawing.Size(33, 30);
+            this.errorLineButton.TabIndex = 10;
+            this.errorLineButton.Click += new System.EventHandler(this.ErrorLineButtonClick);
             // 
             // errorLineLabel
             // 
@@ -835,9 +794,25 @@ namespace FlashDevelop.Dialogs
             this.errorLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.errorLineLabel.Location = new System.Drawing.Point(14, 220);
             this.errorLineLabel.Name = "errorLineLabel";
-            this.errorLineLabel.Size = new System.Drawing.Size(116, 16);
-            this.errorLineLabel.TabIndex = 4;
+            this.errorLineLabel.Size = new System.Drawing.Size(89, 16);
+            this.errorLineLabel.TabIndex = 0;
             this.errorLineLabel.Text = "Error line back:";
+            // 
+            // errorLineTextBox
+            // 
+            this.errorLineTextBox.Location = new System.Drawing.Point(14, 240);
+            this.errorLineTextBox.Name = "errorLineTextBox";
+            this.errorLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.errorLineTextBox.TabIndex = 9;
+            this.errorLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // debugLineButton
+            // 
+            this.debugLineButton.Location = new System.Drawing.Point(286, 236);
+            this.debugLineButton.Name = "debugLineButton";
+            this.debugLineButton.Size = new System.Drawing.Size(33, 30);
+            this.debugLineButton.TabIndex = 20;
+            this.debugLineButton.Click += new System.EventHandler(this.DebugLineButtonClick);
             // 
             // debugLineLabel
             // 
@@ -845,19 +820,43 @@ namespace FlashDevelop.Dialogs
             this.debugLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.debugLineLabel.Location = new System.Drawing.Point(174, 220);
             this.debugLineLabel.Name = "debugLineLabel";
-            this.debugLineLabel.Size = new System.Drawing.Size(116, 16);
-            this.debugLineLabel.TabIndex = 10;
+            this.debugLineLabel.Size = new System.Drawing.Size(96, 16);
+            this.debugLineLabel.TabIndex = 0;
             this.debugLineLabel.Text = "Debug line back:";
+            // 
+            // debugLineTextBox
+            // 
+            this.debugLineTextBox.Location = new System.Drawing.Point(174, 240);
+            this.debugLineTextBox.Name = "debugLineTextBox";
+            this.debugLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.debugLineTextBox.TabIndex = 19;
+            this.debugLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
+            // 
+            // disabledLineButton
+            // 
+            this.disabledLineButton.Location = new System.Drawing.Point(446, 236);
+            this.disabledLineButton.Name = "disabledLineButton";
+            this.disabledLineButton.Size = new System.Drawing.Size(33, 30);
+            this.disabledLineButton.TabIndex = 30;
+            this.disabledLineButton.Click += new System.EventHandler(this.DisabledLineButtonClick);
             // 
             // disabledLineLabel
             // 
             this.disabledLineLabel.AutoSize = true;
             this.disabledLineLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.disabledLineLabel.Location = new System.Drawing.Point(334, 220);
-            this.disabledLineLabel.Name = "markerForeLabel";
-            this.disabledLineLabel.Size = new System.Drawing.Size(113, 16);
-            this.disabledLineLabel.TabIndex = 7;
+            this.disabledLineLabel.Name = "disabledLineLabel";
+            this.disabledLineLabel.Size = new System.Drawing.Size(107, 16);
+            this.disabledLineLabel.TabIndex = 0;
             this.disabledLineLabel.Text = "Disabled line back:";
+            // 
+            // disabledLineTextBox
+            // 
+            this.disabledLineTextBox.Location = new System.Drawing.Point(334, 240);
+            this.disabledLineTextBox.Name = "disabledLineTextBox";
+            this.disabledLineTextBox.Size = new System.Drawing.Size(103, 23);
+            this.disabledLineTextBox.TabIndex = 29;
+            this.disabledLineTextBox.TextChanged += new System.EventHandler(this.EditorItemChanged);
             // 
             // languageDropDown
             // 

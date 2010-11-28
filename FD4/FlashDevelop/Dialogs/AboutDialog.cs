@@ -49,7 +49,7 @@ namespace FlashDevelop.Dialogs
             this.imageBox.Size = new System.Drawing.Size(450, 300);
             this.imageBox.TabIndex = 0;
             this.imageBox.TabStop = false;
-            this.imageBox.Click += new System.EventHandler(this.CloseClick);
+            this.imageBox.Click += new System.EventHandler(this.DialogCloseClick);
             // 
             // copyLabel
             // 
@@ -60,7 +60,7 @@ namespace FlashDevelop.Dialogs
             this.copyLabel.Size = new System.Drawing.Size(400, 31);
             this.copyLabel.TabIndex = 0;
             this.copyLabel.Text = "FlashDevelop logo, domain and the name are copyright of Mika Palmu.\r\nDevelopment: Mika Palmu, Philippe Elsass and all helpful contributors.";
-            this.copyLabel.Click += new System.EventHandler(this.CloseClick);
+            this.copyLabel.Click += new System.EventHandler(this.DialogCloseClick);
             // 
             // versionLabel
             // 
@@ -70,8 +70,8 @@ namespace FlashDevelop.Dialogs
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(400, 14);
             this.versionLabel.TabIndex = 0;
-            this.versionLabel.Text = "FlashDevelop 3.0.0 RTM for Microsoft.NET 2.0 (R1234)";
-            this.versionLabel.Click += new System.EventHandler(this.CloseClick);
+            this.versionLabel.Text = "FlashDevelop 4.0.0 RTM for Microsoft.NET 2.0 (R1234)";
+            this.versionLabel.Click += new System.EventHandler(this.DialogCloseClick);
             // 
             // AboutDialog
             //
@@ -84,6 +84,7 @@ namespace FlashDevelop.Dialogs
             this.MinimizeBox = false;
             this.Name = "AboutDialog";
             this.ShowInTaskbar = false;
+            this.KeyDown += new KeyEventHandler(this.DialogKeyDown);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " About FlashDevelop";
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).EndInit();
@@ -114,10 +115,21 @@ namespace FlashDevelop.Dialogs
             this.versionLabel.Text = Application.ProductName;
         }
 
+        /// <summary>
+        /// Closes the about dialog
+        /// </summary>
+        private void DialogKeyDown(Object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter || e.KeyData == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
 		/// <summary>
 		/// Closes the about dialog
 		/// </summary>
-        private void CloseClick(Object sender, EventArgs e)
+        private void DialogCloseClick(Object sender, EventArgs e)
 		{
 			this.Close();
 		}

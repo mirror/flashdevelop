@@ -62,7 +62,7 @@ namespace MacroManager
             this.propertyGrid.Location = new System.Drawing.Point(182, 12);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.Size = new System.Drawing.Size(355, 299);
-            this.propertyGrid.TabIndex = 1;
+            this.propertyGrid.TabIndex = 2;
             this.propertyGrid.ToolbarVisible = false;
             this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyValueChanged);
             // 
@@ -76,7 +76,7 @@ namespace MacroManager
             this.listView.View = System.Windows.Forms.View.Details;
             this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView.Size = new System.Drawing.Size(160, 270);
-            this.listView.TabIndex = 2;
+            this.listView.TabIndex = 1;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.SelectedIndexChanged += new System.EventHandler(this.ListViewIndexChanged);
             this.listView.Columns.Add(this.columnHeader);
@@ -112,7 +112,7 @@ namespace MacroManager
             this.closeButton.Location = new System.Drawing.Point(438, 319);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(100, 23);
-            this.closeButton.TabIndex = 5;
+            this.closeButton.TabIndex = 0;
             this.closeButton.Text = "&Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.CloseButtonClick);
@@ -124,7 +124,7 @@ namespace MacroManager
             this.pictureBox.Location = new System.Drawing.Point(13, 324);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox.TabIndex = 6;
+            this.pictureBox.TabIndex = 5;
             this.pictureBox.TabStop = false;
             // 
             // infoLabel
@@ -135,7 +135,7 @@ namespace MacroManager
             this.infoLabel.Location = new System.Drawing.Point(34, 325);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(358, 20);
-            this.infoLabel.TabIndex = 7;
+            this.infoLabel.TabIndex = 6;
             this.infoLabel.Text = "Macros will take effect soon as you edit them successfully.";
             // 
             // ManagerDialog

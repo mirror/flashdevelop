@@ -216,7 +216,7 @@ namespace ProjectManager.Controls
             this.platformGroupBox.Location = new System.Drawing.Point(8, 3);
             this.platformGroupBox.Name = "platformGroupBox";
             this.platformGroupBox.Size = new System.Drawing.Size(319, 49);
-            this.platformGroupBox.TabIndex = 41;
+            this.platformGroupBox.TabIndex = 4;
             this.platformGroupBox.TabStop = false;
             this.platformGroupBox.Text = "Platform";
             // 
@@ -234,7 +234,7 @@ namespace ProjectManager.Controls
             this.platformCombo.Location = new System.Drawing.Point(11, 19);
             this.platformCombo.Name = "platformCombo";
             this.platformCombo.Size = new System.Drawing.Size(219, 21);
-            this.platformCombo.TabIndex = 13;
+            this.platformCombo.TabIndex = 12;
             // 
             // noOutputCheckBox
             // 
@@ -242,7 +242,7 @@ namespace ProjectManager.Controls
             this.noOutputCheckBox.Location = new System.Drawing.Point(11, 61);
             this.noOutputCheckBox.Name = "noOutputCheckBox";
             this.noOutputCheckBox.Size = new System.Drawing.Size(241, 17);
-            this.noOutputCheckBox.TabIndex = 40;
+            this.noOutputCheckBox.TabIndex = 5;
             this.noOutputCheckBox.Text = "No output, only run pre/post build commands.";
             this.noOutputCheckBox.UseVisualStyleBackColor = true;
             this.noOutputCheckBox.CheckedChanged += new System.EventHandler(this.noOutputCheckBox_CheckedChanged);
@@ -269,7 +269,7 @@ namespace ProjectManager.Controls
             this.generalGroupBox.Location = new System.Drawing.Point(8, 81);
             this.generalGroupBox.Name = "generalGroupBox";
             this.generalGroupBox.Size = new System.Drawing.Size(319, 129);
-            this.generalGroupBox.TabIndex = 0;
+            this.generalGroupBox.TabIndex = 6;
             this.generalGroupBox.TabStop = false;
             this.generalGroupBox.Text = "General";
             // 
@@ -326,7 +326,7 @@ namespace ProjectManager.Controls
             this.colorTextBox.MaxLength = 7;
             this.colorTextBox.Name = "colorTextBox";
             this.colorTextBox.Size = new System.Drawing.Size(55, 20);
-            this.colorTextBox.TabIndex = 37;
+            this.colorTextBox.TabIndex = 9;
             this.colorTextBox.Text = "#FFFFFF";
             this.colorTextBox.TextChanged += new System.EventHandler(this.colorTextBox_TextChanged);
             // 
@@ -353,7 +353,7 @@ namespace ProjectManager.Controls
             this.fpsTextBox.MaxLength = 3;
             this.fpsTextBox.Name = "fpsTextBox";
             this.fpsTextBox.Size = new System.Drawing.Size(27, 20);
-            this.fpsTextBox.TabIndex = 9;
+            this.fpsTextBox.TabIndex = 37;
             this.fpsTextBox.Text = "30";
             this.fpsTextBox.TextChanged += new System.EventHandler(this.fpsTextBox_TextChanged);
             // 
@@ -413,7 +413,7 @@ namespace ProjectManager.Controls
             this.playGroupBox.Location = new System.Drawing.Point(8, 216);
             this.playGroupBox.Name = "playGroupBox";
             this.playGroupBox.Size = new System.Drawing.Size(319, 47);
-            this.playGroupBox.TabIndex = 1;
+            this.playGroupBox.TabIndex = 7;
             this.playGroupBox.TabStop = false;
             this.playGroupBox.Text = "Test &Movie";
             // 
@@ -714,7 +714,8 @@ namespace ProjectManager.Controls
 
         #endregion
 
-        #region localization
+        #region Localization
+
         private void InitializeLocalization()
         {
             this.btnOK.Text = TextHelper.GetString("Label.OK");
@@ -755,6 +756,7 @@ namespace ProjectManager.Controls
             });
             this.editCommandButton.Text = TextHelper.GetString("Info.EditCommand");
         }
+
         #endregion
 
         protected virtual void BuildDisplay()

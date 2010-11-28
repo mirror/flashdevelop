@@ -106,7 +106,7 @@ namespace FlashDevelop.Dialogs
             // replaceButton
             // 
             this.replaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.replaceButton.Location = new System.Drawing.Point(112, 171);
+            this.replaceButton.Location = new System.Drawing.Point(113, 171);
             this.replaceButton.Name = "replaceButton";
             this.replaceButton.Size = new System.Drawing.Size(90, 23);
             this.replaceButton.TabIndex = 8;
@@ -311,7 +311,7 @@ namespace FlashDevelop.Dialogs
             // cancelButton
             //
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancelButton.Location = new System.Drawing.Point(213, 171);
+            this.cancelButton.Location = new System.Drawing.Point(215, 171);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(90, 23);
             this.cancelButton.TabIndex = 9;

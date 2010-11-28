@@ -63,7 +63,7 @@ namespace ProjectManager.Controls
             this.classpathControl.Location = new System.Drawing.Point(10, 19);
             this.classpathControl.Name = "classpathControl";
             this.classpathControl.Size = new System.Drawing.Size(357, 135);
-            this.classpathControl.TabIndex = 0;
+            this.classpathControl.TabIndex = 1;
             this.classpathControl.LanguageBox.SelectedIndexChanged += new System.EventHandler(this.classpathControl_IndexChanged);
             this.classpathControl.Changed += new System.EventHandler(this.classpathControl_Changed);
             // 
@@ -86,7 +86,7 @@ namespace ProjectManager.Controls
             this.btnOK.Location = new System.Drawing.Point(233, 206);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 21);
-            this.btnOK.TabIndex = 2;
+            this.btnOK.TabIndex = 3;
             this.btnOK.Text = "&OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -97,7 +97,7 @@ namespace ProjectManager.Controls
             this.label2.Location = new System.Drawing.Point(8, 165);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(358, 23);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Global classpaths will be saved along with your FlashDevelop settings.";
             // 
             // groupBox1
@@ -109,7 +109,7 @@ namespace ProjectManager.Controls
             this.groupBox1.Location = new System.Drawing.Point(11, 7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(377, 192);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Global Classpaths";
             // 

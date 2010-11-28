@@ -115,9 +115,9 @@ namespace CodeRefactor
             switch (e.Type)
             {
                 case EventType.UIStarted:
-                    // Expose plugin's refactor menu...
-                    DataEvent menu = new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu);
-                    EventManager.DispatchEvent(this, menu);
+                    // Expose plugin's refactor main menu & context menu...
+                    EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu));
+                    EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.ContextMenu", this.refactorContextMenu));
                     break;
             }
 		}
@@ -298,10 +298,7 @@ namespace CodeRefactor
                         this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = true;
                         this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = true;
                         // Generate context menu items
-                        foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
-                        {
-                            item.Click -= this.SurroundWithClicked;
-                        }
+                        this.surroundContextMenu.DropDownItems.Clear(); // Full refresh
                         this.surroundContextMenu.GenerateSnippets(document.SciControl);
                         foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
                         {

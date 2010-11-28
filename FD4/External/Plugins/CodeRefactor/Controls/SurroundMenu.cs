@@ -15,7 +15,6 @@ namespace CodeRefactor.CustomControls
         public SurroundMenu()
         {
             this.Text = TextHelper.GetString("Label.SurroundWith");
-            this.DropDownItems.Add(new ToolStripMenuItem()); // Dummy
         }
 
         /// <summary>
