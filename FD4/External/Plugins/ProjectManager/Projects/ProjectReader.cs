@@ -61,6 +61,12 @@ namespace ProjectManager.Projects
 
         private void ReadPluginStorage()
         {
+            if (IsEmptyElement)
+            {
+                Read();
+                return;
+            }
+
             ReadStartElement("storage");
             while (Name == "entry")
             {

@@ -122,15 +122,15 @@ namespace ProjectManager.Projects
 
         private void WriteStorage()
         {
-            if (project.storage.Keys.Count == 0) return;
-            
             WriteComment(" Plugin storage ");
             WriteStartElement("storage");
             foreach (string key in project.storage.Keys)
             {
+                string value = project.storage[key];
+                if (value == null) continue;
                 WriteStartElement("entry");
                 WriteAttributeString("key", key);
-                WriteCData(project.storage[key]);
+                WriteCData(value);
                 WriteEndElement();
             }
             WriteEndElement();
