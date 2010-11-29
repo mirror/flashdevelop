@@ -42,6 +42,9 @@
 				<keyword key="1" class="js-additional-keywords" />
 				<keyword key="2" class="js-documentation-keywords" />
 				<keyword key="3" class="js-primary-keywords" />
+				<keyword key="5" class="js-additional-keywords3" />
+				<keyword key="6" class="js-additional-keywords4" />
+				<keyword key="7" class="js-additional-keywords5" />
 			</use-keywords>
 			<!-- COLORING_START -->
 			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
@@ -63,6 +66,9 @@
 				<style name="regex" />
 				<style name="commentlinedoc" fore="0x008000" />
 				<style name="word2" fore="0x008080" />
+				<style name="word3" />
+				<style name="word4" />
+				<style name="word5" />
 				<style name="commentdockeyword" fore="0x800000" />
 				<style name="commentdockeyworderror" fore="0xff0000" />
 				<style name="globalclass" fore="0x1518ff" />

@@ -61,7 +61,6 @@
 				<keyword key="1" class="as3-additional-keywords" />
 				<keyword key="2" class="as3-documentation-keywords" />
 				<keyword key="3" class="as3-primary-keywords" />
-				<!--<keyword key="4" class="cpp-directives-keywords" />-->
 				<keyword key="5" class="as3-additional-keywords3" />
 				<keyword key="6" class="as3-additional-keywords4" />
 				<keyword key="7" class="as3-additional-keywords5" />
@@ -86,12 +85,12 @@
 				<style name="regex" fore="0xff00ff" />
 				<style name="commentlinedoc" fore="0x008000" />
 				<style name="word2" fore="0x0080aa" />
+				<style name="word3" fore="0x0060ff" />
 				<style name="word4" fore="0x333399" />
 				<style name="word5" fore="0x000099" />
 				<style name="commentdockeyword" fore="0x800000" />
 				<style name="commentdockeyworderror" fore="0xff0000" />
 				<style name="globalclass" fore="0x1518ff" />
-				<style name="word3" fore="0x0060ff" />
 				<style name="gdefault" fore="0xc0c0c0" />
 				<style name="linenumber" fore="0x666666" />
 				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" bold="true" />
