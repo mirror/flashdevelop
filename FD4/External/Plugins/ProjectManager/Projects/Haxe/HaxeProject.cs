@@ -129,14 +129,20 @@ namespace ProjectManager.Projects.Haxe
                 if( CompilerOptions.FlashStrict )
                     pr.Add("--flash-strict");
 
-                // TODO AIR options, FP > 10
-                if (MovieOptions.MajorVersion < 6)
+                // convert Flash version to haxe supported parameter
+                string param = null;
+                double version = MovieOptions.MajorVersion + MovieOptions.MinorVersion / 10;
+                if (version < 6) // AIR
                 {
-                    if (MovieOptions.MajorVersion >= 2) 
-                        pr.Add("-swf-version 10");
+                    if (version >= 2.5) param = "10.2";
+                    else if (version >= 2) param = "10";
                 }
-                else if (MovieOptions.MajorVersion != 9)
-                    pr.Add("-swf-version " + MovieOptions.MajorVersion);
+                else if (version >= 10)
+                {
+                    if (version >= 10.2) param = "10.2";
+                    else param = "10";
+                }
+                if (param != null) pr.Add("-swf-version " + param);
             }
 
             // debug 

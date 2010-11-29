@@ -170,15 +170,17 @@ namespace AS3Context
                 else
                 {
                     string playerglobal = null;
-                    if (Directory.Exists(libPlayer + S + majorVersion))
-                        playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
-
                     for (int i = minorVersion; i >= 0; i--)
                     {
                         string version = majorVersion + "." + i;
                         if (Directory.Exists(libPlayer + S + version))
+                        {
                             playerglobal = "player" + S + version + S + "playerglobal.swc";
+                            break;
+                        }
                     }
+                    if (playerglobal == null && Directory.Exists(libPlayer + S + majorVersion))
+                        playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
                     if (playerglobal != null) addLibs.Add(playerglobal);
                 }
                 addLocales.Add("playerglobal_rb.swc");
@@ -321,6 +323,7 @@ namespace AS3Context
                 string message = TextHelper.GetString("Info.ExceptionWhileParsing");
                 TraceManager.AddAsync(message + " " + path.Path);
                 TraceManager.AddAsync(ex.Message);
+                TraceManager.AddAsync(ex.StackTrace);
             }
         }
 
