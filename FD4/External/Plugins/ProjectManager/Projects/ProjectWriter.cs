@@ -122,6 +122,8 @@ namespace ProjectManager.Projects
 
         private void WriteStorage()
         {
+            if (project.storage.Keys.Count == 0) return;
+            
             WriteComment(" Plugin storage ");
             WriteStartElement("storage");
             foreach (string key in project.storage.Keys)
