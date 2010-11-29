@@ -118,6 +118,17 @@ namespace ProjectManager.Actions
                     return false;
                 }
             }
+            
+            // close running AIR projector
+            if (project.MovieOptions.Platform == "AIR")
+            {
+                foreach (Process proc in Process.GetProcessesByName("adl"))
+                {
+                    try { proc.Kill(); proc.WaitForExit(10 * 1000); }
+                    catch { }
+                }
+            }
+
             return FDBuild(project, runOutput, noTrace, compiler);
         }
 
