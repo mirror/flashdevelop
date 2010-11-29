@@ -55,7 +55,28 @@ namespace ProjectManager.Projects
                 case "preBuildCommand": ReadPreBuildCommand(); break;
                 case "postBuildCommand": ReadPostBuildCommand(); break;
                 case "options": ReadProjectOptions(); break;
+                case "storage": ReadPluginStorage(); break;
             }
+        }
+
+        private void ReadPluginStorage()
+        {
+            ReadStartElement("storage");
+            while (Name == "entry")
+            {
+                string key = GetAttribute("key");
+                if (IsEmptyElement)
+                {
+                    Read();
+                    continue;
+                }
+
+                Read();
+                if (key != null) project.storage.Add(key, Value);
+                Read();
+                ReadEndElement();
+            }
+            ReadEndElement();
         }
 
         public void ReadOutputOptions()

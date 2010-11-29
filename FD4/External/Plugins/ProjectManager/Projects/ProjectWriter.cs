@@ -36,6 +36,7 @@ namespace ProjectManager.Projects
 			WritePreBuildCommand();
 			WritePostBuildCommand();
 			WriteProjectOptions();
+            WriteStorage();
             OnBeforeEndProject();
 			WriteEndElement();
 			WriteEndDocument();
@@ -117,7 +118,21 @@ namespace ProjectManager.Projects
                 || project.TestMovieBehavior == TestMovieBehavior.OpenDocument)
                 WriteOption("testMovieCommand", project.TestMovieCommand ?? "");
 			WriteEndElement();
-		}
+        }
+
+        private void WriteStorage()
+        {
+            WriteComment(" Plugin storage ");
+            WriteStartElement("storage");
+            foreach (string key in project.storage.Keys)
+            {
+                WriteStartElement("entry");
+                WriteAttributeString("key", key);
+                WriteCData(project.storage[key]);
+                WriteEndElement();
+            }
+            WriteEndElement();
+        }
 
 		public void WriteOption(string optionName, object optionValue)
 		{

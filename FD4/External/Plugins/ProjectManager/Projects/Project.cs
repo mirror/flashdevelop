@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace ProjectManager.Projects
 {
@@ -29,6 +30,7 @@ namespace ProjectManager.Projects
 		PathCollection compileTargets;
         HiddenPathCollection hiddenPaths;
         AssetCollection libraryAssets;
+        internal Dictionary<string, string> storage;
         bool traceEnabled; // selected configuration 
 
         public bool NoOutput; // Disable file building
@@ -53,6 +55,7 @@ namespace ProjectManager.Projects
 			compileTargets = new PathCollection();
 			hiddenPaths = new HiddenPathCollection();
             libraryAssets = new AssetCollection(this);
+            storage = new Dictionary<string, string>();
 
             InputPath = "";
 			OutputPath = "";
@@ -96,6 +99,7 @@ namespace ProjectManager.Projects
 		public HiddenPathCollection HiddenPaths { get { return hiddenPaths; } }
         public AssetCollection LibraryAssets { get { return libraryAssets; } }
         public virtual String LibrarySWFPath { get { return OutputPath; } }
+        public Dictionary<string, string> Storage { get { return storage; } }
 
         public CompilerOptions CompilerOptions
         {
