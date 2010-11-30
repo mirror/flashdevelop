@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using PluginCore.PluginCore.System.Bridge;
+using PluginCore.Bridge;
 using PluginCore.Managers;
 
-namespace PluginCore.PluginCore.System
+namespace PluginCore.Bridge
 {
     public class WatcherEx
     {

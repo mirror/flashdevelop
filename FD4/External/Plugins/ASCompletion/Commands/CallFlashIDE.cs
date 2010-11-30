@@ -8,7 +8,7 @@ using PluginCore.Localization;
 using System.IO;
 using ASCompletion.Context;
 using PluginCore.Helpers;
-using PluginCore.PluginCore.System;
+using PluginCore.Bridge;
 
 namespace ASCompletion.Commands
 {

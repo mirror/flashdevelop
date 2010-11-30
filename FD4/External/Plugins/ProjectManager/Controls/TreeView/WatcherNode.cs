@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using ProjectManager.Projects;
 using PluginCore.Localization;
 using System.Text.RegularExpressions;
-using PluginCore.PluginCore.System;
+using PluginCore.Bridge;
 
 namespace ProjectManager.Controls.TreeView
 {

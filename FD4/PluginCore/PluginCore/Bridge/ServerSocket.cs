@@ -4,7 +4,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
-namespace PluginCore.PluginCore.System.Bridge
+namespace PluginCore.Bridge
 {
 	public class ServerSocket
 	{

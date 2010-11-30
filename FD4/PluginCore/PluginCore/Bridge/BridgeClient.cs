@@ -2,7 +2,7 @@ using System;
 using System.Net.NetworkInformation;
 using System.IO;
 
-namespace PluginCore.PluginCore.System.Bridge
+namespace PluginCore.Bridge
 {
     public class BridgeClient : ServerSocket
     {

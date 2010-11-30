@@ -10,7 +10,7 @@ using PluginCore.Managers;
 using PluginCore;
 using PluginCore.Localization;
 using ASCompletion.Commands;
-using PluginCore.PluginCore.System;
+using PluginCore.Bridge;
 
 namespace ASCompletion.Helpers
 {

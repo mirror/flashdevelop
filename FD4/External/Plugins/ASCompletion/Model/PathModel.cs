@@ -7,7 +7,7 @@ using System.IO;
 using ASCompletion.Context;
 using PluginCore.Managers;
 using System.Windows.Forms;
-using PluginCore.PluginCore.System;
+using PluginCore.Bridge;
 
 namespace ASCompletion.Model
 {

@@ -21,7 +21,7 @@ using PluginCore.Managers;
 using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore;
-using PluginCore.PluginCore.System;
+using PluginCore.Bridge;
 
 namespace ProjectManager
 {

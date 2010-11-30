@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PluginCore.PluginCore.System.Bridge;
+using PluginCore.Bridge;
 using PluginCore.Managers;
 using System.IO;
 
-namespace PluginCore.PluginCore.System
+namespace PluginCore.Bridge
 {
     public class BridgeManager
     {
