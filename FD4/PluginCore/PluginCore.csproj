@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{61885F70-B4DC-4B44-852D-5D6D03F2A734}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -285,6 +285,11 @@
     <Compile Include="PluginCore\Localization\LocaleVersion.cs" />
     <Compile Include="PluginCore\Localization\TextHelper.cs" />
     <Compile Include="PluginCore\Managers\DocumentManager.cs" />
+    <Compile Include="PluginCore\System\BridgeManager.cs" />
+    <Compile Include="PluginCore\System\Bridge\BridgeClient.cs" />
+    <Compile Include="PluginCore\System\Bridge\ServerSocket.cs" />
+    <Compile Include="PluginCore\System\Bridge\WinOS.cs" />
+    <Compile Include="PluginCore\System\WatcherEx.cs" />
     <Compile Include="PluginCore\Utilities\CryptoClasses.cs" />
     <Compile Include="PluginCore\Utilities\ImageKonverter.cs" />
     <Compile Include="PluginCore\Utilities\LogicalComparer.cs" />

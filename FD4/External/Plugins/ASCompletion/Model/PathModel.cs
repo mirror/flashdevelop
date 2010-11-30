@@ -7,6 +7,7 @@ using System.IO;
 using ASCompletion.Context;
 using PluginCore.Managers;
 using System.Windows.Forms;
+using PluginCore.PluginCore.System;
 
 namespace ASCompletion.Model
 {
@@ -25,11 +26,7 @@ namespace ASCompletion.Model
         {
             foreach (PathModel model in pathes.Values)
             {
-                if (model.watcher != null)
-                {
-                    model.watcher.EnableRaisingEvents = false;
-                    model.watcher.Dispose();
-                }
+                model.ReleaseWatcher();
             }
             pathes.Clear();
         }
@@ -70,7 +67,7 @@ namespace ASCompletion.Model
             if (pathes.ContainsKey(modelName))
             {
                 aPath = pathes[modelName] as PathModel;
-                if (aPath.IsTemporaryPath)
+                if (aPath.IsTemporaryPath || !aPath.IsValid)
                 {
                     pathes[modelName] = aPath = new PathModel(path, context);
                 }
@@ -82,7 +79,6 @@ namespace ASCompletion.Model
 
         public volatile bool Updating;
         public bool WasExplored;
-        public bool InUse;
         public bool IsTemporaryPath;
         public Dictionary<string, FileModel> Files;
         public DateTime LastAccess;
@@ -90,20 +86,38 @@ namespace ASCompletion.Model
         public IASContext Owner;
         public bool IsValid;
         public bool IsVirtual;
-        private FileSystemWatcher watcher;
+        private bool inUse;
+        private WatcherEx watcher;
         private Timer updater;
         private string[] masks;
         private string basePath;
         private List<string> toExplore;
         private List<string> toRemove;
 
+        public bool InUse
+        {
+            get { return inUse; }
+            set
+            {
+                if (Files == null) Init();
+                inUse = value;
+            }
+        }
+
         public PathModel(string path, IASContext context)
         {
             Owner = context;
             Path = path.TrimEnd(new char[] { '\\', '/' });
+
             Files = new Dictionary<string, FileModel>();
             LastAccess = DateTime.Now;
+            
+            IsValid = Owner != null && 
+                ((Directory.Exists(Path) && Path.Length > 3) || File.Exists(Path));
+        }
 
+        private void Init()
+        {
             updater = new Timer();
             updater.Interval = 2000;
             updater.Tick += new EventHandler(updater_Tick);
@@ -111,9 +125,9 @@ namespace ASCompletion.Model
             toRemove = new List<string>();
             
             // generic models container
-            if (context == null)
+            if (Owner == null)
             {
-                IsValid = true;
+                IsValid = false;
             }
             // watched path
             else if (Directory.Exists(Path) && Path.Length > 3)
@@ -123,17 +137,17 @@ namespace ASCompletion.Model
                 {
                     try
                     {
-                        watcher = new FileSystemWatcher();
-                        watcher.Path = System.IO.Path.GetDirectoryName(Path);
-                        basePath = path;
+                        basePath = Path;
                         masks = Owner.GetExplorerMask();
-                        watcher.IncludeSubdirectories = true;
-                        watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;
-                        watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
-                        watcher.Changed += new FileSystemEventHandler(watcher_Changed);
-                        watcher.Renamed += new RenamedEventHandler(watcher_Renamed);
-                        watcher.EnableRaisingEvents = true;
-                        watcher.InternalBufferSize = 4096 * 8;
+                        watcher = new WatcherEx(Path); //System.IO.Path.GetDirectoryName(Path));
+                        if (!IsTemporaryPath || !watcher.IsRemote)
+                        {
+                            watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
+                            watcher.Changed += new FileSystemEventHandler(watcher_Changed);
+                            watcher.Renamed += new RenamedEventHandler(watcher_Renamed);
+                            watcher.EnableRaisingEvents = true;
+                        }
+                        
                     }
                     catch
                     {
@@ -142,17 +156,18 @@ namespace ASCompletion.Model
                     }
                 }
             }
-            else if (File.Exists(Path) && Owner != null)
+            else if (File.Exists(Path))
             {
                 IsValid = true;
                 IsVirtual = true;
                 try
                 {
-                    watcher = new FileSystemWatcher();
+                    /*watcher = new FileSystemWatcher();
                     basePath = watcher.Path = System.IO.Path.GetDirectoryName(Path);
-                    masks = new string[] { System.IO.Path.GetFileName(path) };
                     watcher.IncludeSubdirectories = false;
-                    watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;
+                    watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;*/
+                    masks = new string[] { System.IO.Path.GetFileName(Path) };
+                    watcher = new WatcherEx(System.IO.Path.GetDirectoryName(Path), System.IO.Path.GetFileName(Path));
                     watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
                     watcher.Changed += new FileSystemEventHandler(watcher_Changed);
                     watcher.Renamed += new RenamedEventHandler(watcher_Renamed);

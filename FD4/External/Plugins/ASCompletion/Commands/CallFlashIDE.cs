@@ -8,6 +8,7 @@ using PluginCore.Localization;
 using System.IO;
 using ASCompletion.Context;
 using PluginCore.Helpers;
+using PluginCore.PluginCore.System;
 
 namespace ASCompletion.Commands
 {
@@ -65,18 +66,22 @@ namespace ASCompletion.Commands
         /// <returns>Operation successful</returns>
         static public bool Run(string pathToIDE, string cmdData)
         {
-            if (pathToIDE != null && Path.GetExtension(pathToIDE) == "")
-                pathToIDE = Path.Combine(pathToIDE, "Flash.exe");
-            if (pathToIDE == null || !System.IO.File.Exists(pathToIDE))
+            if (BridgeManager.Active) pathToIDE = "Flash";
+            else
             {
-                string msg = TextHelper.GetString("Info.ConfigureFlashPath");
-                string title = TextHelper.GetString("Info.ConfigurationRequired");
-                DialogResult result = MessageBox.Show(msg, title, MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
+                if (pathToIDE != null && Path.GetExtension(pathToIDE) == "")
+                    pathToIDE = Path.Combine(pathToIDE, "Flash.exe");
+                if (pathToIDE == null || !System.IO.File.Exists(pathToIDE))
                 {
-                    PluginBase.MainForm.ShowSettingsDialog("ASCompletion", "Flash");
+                    string msg = TextHelper.GetString("Info.ConfigureFlashPath");
+                    string title = TextHelper.GetString("Info.ConfigurationRequired");
+                    DialogResult result = MessageBox.Show(msg, title, MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
+                    {
+                        PluginBase.MainForm.ShowSettingsDialog("ASCompletion", "Flash");
+                    }
+                    return false;
                 }
-                return false;
             }
             
             TimeSpan diff = DateTime.Now.Subtract(lastRun);
@@ -94,6 +99,26 @@ namespace ASCompletion.Commands
             ASContext.SetStatusText(TextHelper.GetString("Info.CallingFlashIDE"));
             PluginBase.MainForm.CallCommand("SaveAllModified", null);
             EventManager.DispatchEvent(null, new NotifyEvent(EventType.ProcessStart));
+
+            try
+            {
+                string file = args.StartsWith("\"") ? args.Substring(1, args.Length-2) : args;
+                if (BridgeManager.TargetRemoteIDE 
+                    && File.Exists(file) && Path.GetExtension(file) == ".jsfl" && file[0] <= 'H')
+                {
+                    string folder = Path.Combine(BridgeManager.SharedFolder, "flashide");
+                    string[] logs = Directory.GetFiles(folder, "*.log");
+                    foreach (string log in logs)
+                        File.Delete(log);
+
+                    string shared = Path.Combine(folder, Path.GetFileName(file));
+                    File.Copy(file, shared, true);
+                    BridgeManager.RemoteOpen(shared);
+                    return true;
+                }
+            }
+            catch { }
+
             if (args != null) ProcessHelper.StartAsync(pathToIDE, args);
             else ProcessHelper.StartAsync(pathToIDE);
             return true;

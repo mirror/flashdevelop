@@ -21,6 +21,7 @@ using PluginCore.Managers;
 using PluginCore.Controls;
 using PluginCore.Helpers;
 using PluginCore;
+using PluginCore.PluginCore.System;
 
 namespace ProjectManager
 {
@@ -602,12 +603,7 @@ namespace ProjectManager
 
         public void OpenFile(string path)
         {
-            if (FileInspector.ShouldUseShellExecute(path))
-            {
-                ProcessStartInfo psi = new ProcessStartInfo(path);
-                psi.WorkingDirectory = Path.GetDirectoryName(path);
-                ProcessHelper.StartAsync(psi);
-            }
+            if (FileInspector.ShouldUseShellExecute(path)) ShellOpenFile(path);
             else if (FileInspector.IsSwf(path, Path.GetExtension(path).ToLower())) PlaySwf(path);
             else if (path.IndexOf("::") > 0)
             {
@@ -937,11 +933,23 @@ namespace ProjectManager
         private void TreeExecuteItems()
         {
             foreach (string path in Tree.SelectedPaths)
+                ShellOpenFile(path);
+        }
+
+        private void ShellOpenFile(string path)
+        {
+            if (!BridgeManager.AlwaysOpenLocal(path))
             {
-                ProcessStartInfo psi = new ProcessStartInfo(path);
-                psi.WorkingDirectory = Path.GetDirectoryName(path);
-                ProcessHelper.StartAsync(psi);
+                string sharedPath = BridgeManager.GetSharedPath(path);
+                if (sharedPath != null)
+                {
+                    BridgeManager.RemoteOpen(sharedPath);
+                    return;
+                }
             }
+            ProcessStartInfo psi = new ProcessStartInfo(path);
+            psi.WorkingDirectory = Path.GetDirectoryName(path);
+            ProcessHelper.StartAsync(psi);
         }
 
         private void TreeInsertItem()
@@ -969,6 +977,15 @@ namespace ProjectManager
         private void TreeBrowseItem()
         {
             string path = Tree.SelectedPath;
+            if (BridgeManager.UseRemoteExplorer)
+            {
+                string sharedPath = BridgeManager.GetSharedPath(path);
+                if (sharedPath != null)
+                {
+                    BridgeManager.RemoteOpen(sharedPath);
+                    return;
+                }
+            }
             ProcessStartInfo psi = new ProcessStartInfo("explorer.exe");
             psi.Arguments = "/e,\"" + path + "\"";
             psi.WorkingDirectory = path;

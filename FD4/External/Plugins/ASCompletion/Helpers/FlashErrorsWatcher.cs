@@ -10,6 +10,7 @@ using PluginCore.Managers;
 using PluginCore;
 using PluginCore.Localization;
 using ASCompletion.Commands;
+using PluginCore.PluginCore.System;
 
 namespace ASCompletion.Helpers
 {
@@ -18,7 +19,7 @@ namespace ASCompletion.Helpers
         private string logFile;
         private string docInfo;
         private string publishInfo;
-        private FileSystemWatcher fsWatcher;
+        private WatcherEx fsWatcher;
         private Timer updater;
 
         private Regex reError = new Regex(
@@ -34,13 +35,20 @@ namespace ASCompletion.Helpers
             try
             {
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string logLocation = Path.Combine(appData, Path.Combine("Adobe", "FlashDevelop"));
+                string logLocation;
+                if (BridgeManager.TargetRemoteIDE)
+                {
+                    logLocation = Path.Combine(BridgeManager.SharedFolder, "flashide");
+                    Directory.CreateDirectory(logLocation);
+                }
+                else
+                    logLocation = Path.Combine(appData, Path.Combine("Adobe", "FlashDevelop"));
                 Directory.CreateDirectory(logLocation);
                 logFile = Path.Combine(logLocation, "FlashErrors.log");
                 docInfo = Path.Combine(logLocation, "FlashDocument.log");
                 publishInfo = Path.Combine(logLocation, "FlashPublish.log");
 
-                fsWatcher = new FileSystemWatcher(logLocation, "*.log");
+                fsWatcher = new WatcherEx(logLocation, "*.log");
                 fsWatcher.EnableRaisingEvents = true;
                 fsWatcher.Changed += new FileSystemEventHandler(fsWatcher_Changed);
 
@@ -118,6 +126,13 @@ namespace ASCompletion.Helpers
 
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
         {
+            if (fsWatcher.IsRemote)
+            {
+                string logLocation = Path.GetDirectoryName(e.FullPath);
+                logFile = Path.Combine(logLocation, "FlashErrors.log");
+                docInfo = Path.Combine(logLocation, "FlashDocument.log");
+                publishInfo = Path.Combine(logLocation, "FlashPublish.log");
+            }
             SetTimer();
         }
 

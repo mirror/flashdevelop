@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using ProjectManager.Projects;
 using PluginCore.Localization;
 using System.Text.RegularExpressions;
+using PluginCore.PluginCore.System;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -17,7 +18,7 @@ namespace ProjectManager.Controls.TreeView
     public class WatcherNode : DirectoryNode
 	{
         Timer updateTimer;
-        FileSystemWatcher watcher;
+        WatcherEx watcher;
         List<String> changedPaths;
         String[] excludedFiles;
         String[] excludedDirs;
@@ -42,11 +43,15 @@ namespace ProjectManager.Controls.TreeView
             {
                 if (Directory.Exists(BackingPath))
                 {
-                    watcher = new FileSystemWatcher(BackingPath);
-                    watcher.Created += watcher_Created;
-                    watcher.Deleted += watcher_Deleted;
-                    watcher.Renamed += watcher_Renamed;
-                    watcher.IncludeSubdirectories = true;
+                    watcher = new WatcherEx(BackingPath);
+                    if (watcher.IsRemote)
+                        watcher.Changed += watcher_Changed;
+                    else
+                    {
+                        watcher.Created += watcher_Created;
+                        watcher.Deleted += watcher_Deleted;
+                        watcher.Renamed += watcher_Renamed;
+                    }
                     watcher.EnableRaisingEvents = true;
                 }
             }
@@ -84,30 +89,40 @@ namespace ProjectManager.Controls.TreeView
         {
             lock (this.changedPaths)
             {
-                String path = Path.GetDirectoryName(e.FullPath);
+                String fullPath = e.FullPath.TrimEnd('\\');
+                String path = Path.GetDirectoryName(fullPath);
                 if (this.excludedDirs != null) // filter ignored paths
                 {
                     Char separator = Path.DirectorySeparatorChar;
                     foreach (String excludedDir in this.excludedDirs)
                     {
-                        if (Regex.IsMatch(path, Regex.Escape(separator + excludedDir + separator))) return;
+                        if (path.IndexOf(separator + excludedDir + separator) > 0) return;
                     }
                 }
-                if (this.excludedFiles != null && File.Exists(e.FullPath)) // filter ignored filetypes
+                if (this.excludedFiles != null && File.Exists(fullPath)) // filter ignored filetypes
                 {
-                    String extension = Path.GetExtension(e.FullPath);
+                    String extension = Path.GetExtension(fullPath);
                     foreach (String excludedFile in this.excludedFiles)
                     {
                         if (extension == excludedFile) return;
                     }
                 }
-                if (!this.changedPaths.Contains(path) && Directory.Exists(path))
+                if (!this.changedPaths.Contains(fullPath) && Directory.Exists(fullPath))
+                {
+                    this.changedPaths.Add(fullPath);
+                }
+                else if (!this.changedPaths.Contains(path) && Directory.Exists(path))
                 {
                     this.changedPaths.Add(path);
                 }
             }
         }
 
+        private void watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            AppendPath(e);
+            Changed();
+        }
 		private void watcher_Created(object sender, FileSystemEventArgs e) 
         {
             AppendPath(e);
