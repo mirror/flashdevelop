@@ -111,9 +111,12 @@ namespace ASCompletion.Model
 
             Files = new Dictionary<string, FileModel>();
             LastAccess = DateTime.Now;
-            
-            IsValid = Owner != null && 
-                ((Directory.Exists(Path) && Path.Length > 3) || File.Exists(Path));
+
+            if (Owner != null)
+            {
+                if (Directory.Exists(path)) IsValid = path.Length > 3 /*no root drive*/;
+                else if (File.Exists(Path)) { IsValid = true; IsVirtual = true; }
+            }
         }
 
         private void Init()
@@ -125,14 +128,26 @@ namespace ASCompletion.Model
             toRemove = new List<string>();
             
             // generic models container
-            if (Owner == null)
+            if (IsVirtual)
             {
-                IsValid = false;
+                try
+                {
+                    masks = new string[] { System.IO.Path.GetFileName(Path) };
+                    watcher = new WatcherEx(System.IO.Path.GetDirectoryName(Path), System.IO.Path.GetFileName(Path));
+                    watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
+                    watcher.Changed += new FileSystemEventHandler(watcher_Changed);
+                    watcher.Renamed += new RenamedEventHandler(watcher_Renamed);
+                    watcher.EnableRaisingEvents = true;
+                }
+                catch
+                {
+                    watcher = null;
+                    IsValid = false;
+                }
             }
             // watched path
-            else if (Directory.Exists(Path) && Path.Length > 3)
+            else if (IsValid)
             {
-                IsValid = true;
                 if (Owner != null)
                 {
                     try
@@ -154,29 +169,6 @@ namespace ASCompletion.Model
                         watcher = null;
                         IsValid = false;
                     }
-                }
-            }
-            else if (File.Exists(Path))
-            {
-                IsValid = true;
-                IsVirtual = true;
-                try
-                {
-                    /*watcher = new FileSystemWatcher();
-                    basePath = watcher.Path = System.IO.Path.GetDirectoryName(Path);
-                    watcher.IncludeSubdirectories = false;
-                    watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;*/
-                    masks = new string[] { System.IO.Path.GetFileName(Path) };
-                    watcher = new WatcherEx(System.IO.Path.GetDirectoryName(Path), System.IO.Path.GetFileName(Path));
-                    watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
-                    watcher.Changed += new FileSystemEventHandler(watcher_Changed);
-                    watcher.Renamed += new RenamedEventHandler(watcher_Renamed);
-                    watcher.EnableRaisingEvents = true;
-                }
-                catch
-                {
-                    watcher = null;
-                    IsValid = false;
                 }
             }
         }

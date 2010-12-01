@@ -632,21 +632,21 @@ namespace ASCompletion.Context
                 path.IsTemporaryPath = false;
                 path.WasExplored = false;
             }
-            if (Settings != null)
-            if (!path.WasExplored && !Settings.LazyClasspathExploration && path.IsValid)
-            {
-                //TraceManager.Add("EXPLORE: " + path.Path);
-                PathExplorer explorer = new PathExplorer(this, path);
-                explorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
-                explorer.OnExplorationProgress += new PathExplorer.ExplorationProgressHandler(ExplorationProgress);
-                explorer.UseCache = !ASContext.CommonSettings.DisableCache;
-                explorer.Run();
-                return true;
-            }
-            else if (path.IsVirtual)
-            {
-                ASContext.Context.ExploreVirtualPath(path);
-            }
+            if (Settings != null && path.IsValid)
+                if (path.IsVirtual)
+                {
+                    ASContext.Context.ExploreVirtualPath(path);
+                }
+                if (!path.WasExplored && !Settings.LazyClasspathExploration)
+                {
+                    //TraceManager.Add("EXPLORE: " + path.Path);
+                    PathExplorer explorer = new PathExplorer(this, path);
+                    explorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
+                    explorer.OnExplorationProgress += new PathExplorer.ExplorationProgressHandler(ExplorationProgress);
+                    explorer.UseCache = !ASContext.CommonSettings.DisableCache;
+                    explorer.Run();
+                    return true;
+                }
 			return false;
 		}
 
