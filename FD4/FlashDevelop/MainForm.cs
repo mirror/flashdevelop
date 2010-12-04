@@ -2845,7 +2845,8 @@ namespace FlashDevelop
             Int32 curLine = sci.LineFromPosition(position);
             Int32 startPosInLine = position - sci.PositionFromLine(curLine);
             Int32 finalPos = position;
-            Int32 line = sci.LineFromPosition(sci.SelectionStart);
+            Int32 startLine = sci.LineFromPosition(sci.SelectionStart);
+            Int32 line = startLine;
             Int32 endLine = sci.LineFromPosition(sci.SelectionEnd);
             if (endLine > line && curLine == endLine && startPosInLine == 0)
             {
@@ -2874,7 +2875,11 @@ namespace FlashDevelop
                     }
                     line++;
                 }
-                sci.SetSel(finalPos, finalPos);
+                sci.SetSel(finalPos, finalPos); 
+                if (startLine == endLine && (endLine < sci.LineCount) && this.appSettings.MoveCursorAfterComment)
+                {
+                    sci.LineDown();
+                }
             }
             finally
             {
