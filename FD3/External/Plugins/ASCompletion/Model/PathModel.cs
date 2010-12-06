@@ -186,11 +186,8 @@ namespace ASCompletion.Model
 
             if (IsVirtual)
             {
-                lock (Files.Values)
-                {
-                    Files.Clear();
-                    Owner.ExploreVirtualPath(this);
-                }
+                WasExplored = false;
+                Owner.ExploreVirtualPath(this);
             }
             else
             {
