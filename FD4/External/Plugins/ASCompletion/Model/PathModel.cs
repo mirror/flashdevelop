@@ -86,6 +86,7 @@ namespace ASCompletion.Model
         public IASContext Owner;
         public bool IsValid;
         public bool IsVirtual;
+        private bool inited;
         private bool inUse;
         private WatcherEx watcher;
         private Timer updater;
@@ -99,7 +100,7 @@ namespace ASCompletion.Model
             get { return inUse; }
             set
             {
-                if (Files == null) Init();
+                if (!inited) Init();
                 inUse = value;
             }
         }
@@ -114,13 +115,18 @@ namespace ASCompletion.Model
 
             if (Owner != null)
             {
-                if (Directory.Exists(path)) IsValid = path.Length > 3 /*no root drive*/;
-                else if (File.Exists(Path)) { IsValid = true; IsVirtual = true; }
+                if (Directory.Exists(Path)) IsValid = Path.Length > 3 /*no root drive*/;
+                else if (System.IO.Path.GetExtension(path).Length > 1) 
+                { 
+                    IsValid = File.Exists(Path); 
+                    IsVirtual = true; 
+                }
             }
         }
 
         private void Init()
         {
+            inited = true;
             updater = new Timer();
             updater.Interval = 2000;
             updater.Tick += new EventHandler(updater_Tick);
@@ -132,6 +138,7 @@ namespace ASCompletion.Model
             {
                 try
                 {
+                    basePath = System.IO.Path.GetDirectoryName(Path);
                     masks = new string[] { System.IO.Path.GetFileName(Path) };
                     watcher = new WatcherEx(System.IO.Path.GetDirectoryName(Path), System.IO.Path.GetFileName(Path));
                     watcher.Deleted += new FileSystemEventHandler(watcher_Deleted);
@@ -193,11 +200,8 @@ namespace ASCompletion.Model
 
             if (IsVirtual)
             {
-                lock (Files.Values)
-                {
-                    Files.Clear();
-                    Owner.ExploreVirtualPath(this);
-                }
+                WasExplored = false;
+                Owner.ExploreVirtualPath(this);
             }
             else
             {

@@ -311,11 +311,16 @@ namespace AS3Context
 
             try
             {
-                if (File.Exists(path.Path))
+                if (File.Exists(path.Path) && !path.WasExplored)
                 {
-                    SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
-                    parser.Run();
-                    AbcConverter.Convert(parser, path, this);
+                    //TraceManager.AddAsync("parse " + path.Path);
+                    lock (path)
+                    {
+                        path.WasExplored = true;
+                        SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
+                        parser.Run();
+                        AbcConverter.Convert(parser, path, this);
+                    }
                 }
             }
             catch (Exception ex)

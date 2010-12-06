@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using ProjectManager.Projects.AS3;
 
 namespace ProjectManager.Projects.Haxe
 {
@@ -131,16 +132,14 @@ namespace ProjectManager.Projects.Haxe
 
                 // convert Flash version to haxe supported parameter
                 string param = null;
-                double version = MovieOptions.MajorVersion + MovieOptions.MinorVersion / 10;
-                if (version < 6) // AIR
+                int majorVersion = MovieOptions.MajorVersion;
+                int minorVersion = MovieOptions.MinorVersion;
+                if (MovieOptions.Platform == "AIR")
+                    AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
+                if (majorVersion == 10)
                 {
-                    if (version >= 2.5) param = "10.2";
-                    else if (version >= 2) param = "10";
-                }
-                else if (version >= 10)
-                {
-                    if (version >= 10.2) param = "10.2";
-                    else param = "10";
+                    if (minorVersion > 0) param = majorVersion + "." + minorVersion;
+                    else param = "" + majorVersion;
                 }
                 if (param != null) pr.Add("-swf-version " + param);
             }

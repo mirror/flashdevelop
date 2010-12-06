@@ -152,7 +152,6 @@ namespace ASCompletion.Model
         private void BackgroundRun()
 		{
             pathModel.Updating = true;
-            pathModel.WasExplored = true;
             try
             {
                 if (pathModel.IsVirtual)
@@ -160,6 +159,7 @@ namespace ASCompletion.Model
                     string ext = Path.GetExtension(pathModel.Path).ToLower();
                     if (ext == ".jar" || ext == ".zip")
                     {
+                        pathModel.WasExplored = true;
                         ExtractFilesFromArchive();
                     }
 
@@ -177,6 +177,7 @@ namespace ASCompletion.Model
                 }
                 else
                 {
+                    pathModel.WasExplored = true;
                     bool writeCache = false;
                     string cacheFileName = null;
                     if (UseCache)

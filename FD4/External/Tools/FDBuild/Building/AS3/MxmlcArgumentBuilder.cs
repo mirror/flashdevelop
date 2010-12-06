@@ -32,8 +32,6 @@ namespace ProjectManager.Building.AS3
 
         public void AddOptions(bool noTrace, bool incremental)
         {
-            if (project.MovieOptions.Platform == "AIR") AddEq("+configname", "air");
-
             if (!noTrace) AddEq("-debug", "true");
             if (incremental) AddEq("-incremental", "true");
 
@@ -64,7 +62,23 @@ namespace ProjectManager.Building.AS3
             if (options.LinkReport.Length > 0) AddEq("-link-report", options.LinkReport);
             if (options.LoadExterns.Length > 0) AddEq("-load-externs", options.LoadExterns);
 
-            if (options.Additional != null) Add(options.Additional, noTrace);
+            bool hasConfig = false;
+            bool hasVersion = false;
+            if (options.Additional != null)
+            {
+                Add(options.Additional, noTrace);
+                foreach (string line in options.Additional)
+                {
+                    if (line.IndexOf("configname=") > 0) { hasConfig = true; }
+                    if (line.IndexOf("swf-version=") > 0) { hasVersion = true; }
+                }
+            }
+
+            if (project.MovieOptions.Version == "10.2" && !hasVersion)
+                AddEq("-swf-version", "11");
+
+            if (project.MovieOptions.Platform == "AIR" && !hasConfig)
+                AddEq("+configname", "air");
         }
 
         void AddEq(string argument, string value)
