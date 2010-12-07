@@ -79,6 +79,10 @@ namespace SourceControl.Managers
                 foreach (string path in project.AbsoluteClasspaths)
                     CreateWatchers(path);
 
+            if (ProjectManager.PluginMain.Settings.ShowGlobalClasspaths)
+                foreach (string path in ProjectManager.PluginMain.Settings.GlobalClasspaths)
+                    CreateWatchers(path);
+
             updateTimer.Interval = 1000;
             updateTimer.Start();
         }
