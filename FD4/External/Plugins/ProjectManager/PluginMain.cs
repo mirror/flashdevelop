@@ -171,6 +171,7 @@ namespace ProjectManager
             menus.ProjectMenu.OpenResource.Click += delegate { OpenResource(); };
             menus.ProjectMenu.TestMovie.Click += delegate { TestMovie(); };
             menus.ProjectMenu.BuildProject.Click += delegate { BuildProject(); };
+            menus.ProjectMenu.CleanProject.Click += delegate { CleanProject(); };
             menus.ProjectMenu.Properties.Click += delegate { OpenProjectProperties(); };
             menus.RecentProjects.ProjectSelected += delegate(string projectPath) { OpenProjectSilent(projectPath); };
 
@@ -802,6 +803,13 @@ namespace ProjectManager
             {
                 BroadcastBuildFailed();
             }
+        }
+
+        private void CleanProject()
+        {
+            FlexCompilerShell.Cleanup();
+            if (!project.Clean())
+                ErrorManager.ShowInfo(TextHelper.GetString("Info.UnableToCleanProject"));
         }
 
         private void FileDeleted(string path)

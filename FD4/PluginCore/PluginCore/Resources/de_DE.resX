@@ -4340,4 +4340,12 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Insert Hash</value>
     <comment>Added after 3.3.1</comment>
   </data>
+  <data name="ProjectManager.Label.CleanProject" xml:space="preserve">
+    <value>&amp;Clean Project</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="ProjectManager.Info.UnableToCleanProject" xml:space="preserve">
+    <value>Unable to delete output file</value>
+    <comment>Added in FD4</comment>
+  </data>
 </root>

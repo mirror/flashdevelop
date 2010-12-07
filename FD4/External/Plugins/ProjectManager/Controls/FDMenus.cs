@@ -97,6 +97,7 @@ namespace ProjectManager.Controls
         public ToolStripMenuItem OpenResource;
         public ToolStripMenuItem TestMovie;
         public ToolStripMenuItem BuildProject;
+        public ToolStripMenuItem CleanProject;
         public ToolStripMenuItem Properties;
 
 		public ProjectMenu()
@@ -129,6 +130,10 @@ namespace ProjectManager.Controls
             BuildProject.ShortcutKeys = Keys.F8;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.BuildProject", BuildProject);
 
+            CleanProject = new ToolStripMenuItem(TextHelper.GetString("Label.CleanProject"));
+            CleanProject.ShortcutKeys = Keys.Shift | Keys.F8;
+            PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.CleanProject", CleanProject);
+
             Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"));
 			Properties.Image = Icons.Options.Img;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.Properties", Properties);
@@ -143,6 +148,7 @@ namespace ProjectManager.Controls
             base.DropDownItems.Add(new ToolStripSeparator());
             base.DropDownItems.Add(TestMovie);
             base.DropDownItems.Add(BuildProject);
+            base.DropDownItems.Add(CleanProject);
             base.DropDownItems.Add(new ToolStripSeparator());
             base.DropDownItems.Add(Properties);
 		}
@@ -153,7 +159,8 @@ namespace ProjectManager.Controls
 			{
 				CloseProject.Enabled = value;
 				TestMovie.Enabled = value;
-				BuildProject.Enabled = value;
+                BuildProject.Enabled = value;
+                CleanProject.Enabled = value;
 				Properties.Enabled = value;
                 OpenResource.Enabled = value;
 			}

@@ -76,6 +76,19 @@ namespace ProjectManager.Projects.AS3
             return ext == ".txt" || ext == ".xml";
         }
 
+        public override bool Clean()
+        {
+            try
+            {
+                if (OutputPath != null && OutputPath.Length > 0 && File.Exists(GetAbsolutePath(OutputPath)))
+                    File.Delete(GetAbsolutePath(OutputPath));
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+
         #region SWC assets management
 
         public AssetCollection SwcLibraries;

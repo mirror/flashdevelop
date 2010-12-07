@@ -218,6 +218,12 @@ namespace ProjectManager.Projects
             return null;
         }
 
+        public virtual bool Clean()
+        {
+            // to be implemented
+            return true;
+        }
+
 		#endregion
 
 		#region Path Helpers
