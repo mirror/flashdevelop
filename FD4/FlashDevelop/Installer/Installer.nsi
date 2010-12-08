@@ -11,6 +11,9 @@
 !define VERSION "4.0.0"
 !define BUILD "Beta"
 
+; Define AIR SDK version
+!define AIR "2.5.x"
+
 ; Define Flex SDK version
 !define FLEX "4.1.0.16076"
 
@@ -148,6 +151,17 @@ Function GetFDVersion
 	Push $0
 	ClearErrors
 	ReadRegStr $0 HKLM Software\FlashDevelop "CurrentVersion"
+	IfErrors 0 +2
+	StrCpy $0 "not_found"
+	Exch $0
+	
+FunctionEnd
+
+Function GetAirSDKVersion
+	
+	Push $0
+	ClearErrors
+	ReadRegStr $0 HKLM Software\FlashDevelop "AirSDKVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
@@ -325,7 +339,7 @@ Section "Install Flex SDK" InstallFlexSDK
 	NSISdl::download http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +3
-	MessageBox MB_OK "Download canceled. The installer will now continue normally."
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
 	; Extract the Flex SDK zip
@@ -343,6 +357,47 @@ Section "Install Flex SDK" InstallFlexSDK
 	
 	; Delete temporary Flex SDK zip file
 	Delete "$TEMP\flex_sdk_${FLEX}.zip"
+	
+	Finish:
+	
+	${EndIf}
+
+SectionEnd
+
+Section "Install AIR SDK" InstallAirSDK
+
+	SectionIn 1 3
+	SetOverwrite on
+	SetShellVarContext all
+	
+	Call GetAirSDKVersion
+	Pop $0
+	
+	${If} $0 != ${AIR}
+	
+	; Download Air SDK zip file. If the extract failed previously, use the old file.
+	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +6 0
+	NSISdl::download http://airdownload.adobe.com/air/win/download/latest/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
+	Pop $R0
+	StrCmp $R0 "success" +3
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
+	Goto Finish
+	
+	; Extract the AIR SDK zip
+	IfFileExists "${SDKPATH}\*.*" +2
+	CreateDirectory "${SDKPATH}"
+	DetailPrint "Extracting AIR SDK..."
+	nsisunz::Unzip "$TEMP\air_sdk_${AIR}.zip" "${SDKPATH}"
+	Pop $R0
+	StrCmp $R0 "success" +3
+	MessageBox MB_OK "Archive extraction failed. The installer will now continue normally."
+	Goto Finish
+	
+	; Save version to registry
+	WriteRegStr HKLM "Software\FlashDevelop" "AirSDKVersion" "${AIR}"
+	
+	; Delete temporary AIR SDK zip file
+	Delete "$TEMP\air_sdk_${AIR}.zip"
 	
 	Finish:
 	
@@ -459,6 +514,7 @@ SectionGroupEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
 !insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to use standalone mode and upgrading needs some manual work."
 !insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallAirSDK} "Downloads and installs the latest free Adobe AIR SDK with FlashDevelop. The AIR SDK will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs the latest free Adobe Flex SDK with FlashDevelop. The Flex SDK will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${StartMenuGroup} "Creates a start menu group and adds default FlashDevelop links to the group."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
