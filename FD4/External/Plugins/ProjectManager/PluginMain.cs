@@ -283,7 +283,7 @@ namespace ProjectManager
 
                 // replace $(SomeVariable) type stuff with things we know about
                 case EventType.ProcessArgs:
-                    if (project != null && te.Value.IndexOf('$') >= 0)
+                    if (!ProjectCreator.IsRunning && project != null && te.Value.IndexOf('$') >= 0)
                     {
                         // steal macro names and values from the very useful BuildEvent macros
                         BuildEventVars vars = new BuildEventVars(project);
@@ -292,7 +292,7 @@ namespace ProjectManager
                         string cpath = BuildActions.GetCompilerPath(project);
                         if (File.Exists(cpath)) cpath = Path.GetDirectoryName(cpath);
 
-                        //vars.AddVar("FlexSDK", cpath);
+                        if (project.Language == "as3") vars.AddVar("FlexSDK", cpath);
                         vars.AddVar("CompilerPath", cpath);
                         vars.AddVar("CompilerConfiguration", menus.ConfigurationSelector.Text);
                         vars.AddVar("BuildConfiguration", pluginUI.IsTraceDisabled ? "release" : "debug");
