@@ -84,7 +84,7 @@ namespace HaXeContext
             else
                 hxml = hxml + " " + file.Substring(start, end - start);
 
-            // Build haXe built-in completion command
+            // Build haXe built-in completion/check syntax command
             string args = completionMode 
                 ? "--display \"" + file + "\"@" + pos.ToString() + " " + hxml
                 : "--no-output " + hxml;
