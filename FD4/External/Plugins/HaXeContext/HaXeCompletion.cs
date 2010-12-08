@@ -31,7 +31,7 @@ namespace HaXeContext
             nbErrors = 0;
         }
 
-        private void initProcess()
+        private void initProcess(bool completionMode)
         {
             // check haxe project & context
             if (PluginBase.CurrentProject == null || !(PluginBase.CurrentProject is HaxeProject)
@@ -85,7 +85,9 @@ namespace HaXeContext
                 hxml = hxml + " " + file.Substring(start, end - start);
 
             // Build haXe built-in completion command
-            string args = "--display \"" + file + "\"@" + pos.ToString() + " "+hxml;
+            string args = completionMode 
+                ? "--display \"" + file + "\"@" + pos.ToString() + " " + hxml
+                : "--no-output " + hxml;
 
             // compiler path
             string haxePath = Environment.GetEnvironmentVariable("HAXEPATH");
@@ -120,8 +122,13 @@ namespace HaXeContext
 
         public ArrayList getList()
         {
+            return getList(true);
+        }
+
+        public ArrayList getList(bool completionMode)
+        {
             // Prepare haXe command
-            initProcess();
+            initProcess(completionMode);
             
             // If project is uncompletly set, return the errors
             if (p == null)

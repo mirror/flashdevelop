@@ -934,16 +934,19 @@ namespace HaXeContext
         /// </summary>
         public override void CheckSyntax()
         {
-            // compile current class into a dummy temporary file
-            if (TemporaryOutputFile == null) TemporaryOutputFile = Path.GetTempFileName();
-            string output = "-swf ";
-
-            if (IsJavaScriptTarget) output = "-js ";
-            else if (IsNekoTarget) output = "-neko ";
-            else if (IsPhpTarget) output = "-php ";
-            else if (IsCppTarget) output = "-cpp ";
-
-            RunCMD(output + "\"" + TemporaryOutputFile + "\" " + hxsettings.HaXeCheckParameters);
+            EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
+            HaXeCompletion hc = new HaXeCompletion(ASContext.CurSciControl, 0);
+            ArrayList result = hc.getList(false);
+            if (result.Count == 0 || (string)result[0] != "error")
+            {
+                EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(0)"));
+                return;
+            }
+            foreach (string line in result)
+            {
+                if (line != "error") TraceManager.Add(line);
+            }
+            EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(1)"));
         }
 
         /// <summary>

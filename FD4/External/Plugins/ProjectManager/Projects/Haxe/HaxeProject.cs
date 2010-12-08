@@ -48,7 +48,7 @@ namespace ProjectManager.Projects.Haxe
         }
         public bool IsJavacriptOutput
         {
-            get { return movieOptions.Platform == "Javascript"; }
+            get { return movieOptions.Platform == "JavaScript"; }
         }
         public bool IsNekoOutput
         {
