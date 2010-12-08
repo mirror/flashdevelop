@@ -32,14 +32,19 @@ namespace ProjectManager.Helpers
         string packageDot = "";
         string packageSlash = "";
         Argument[] arguments;
+
         private static Hashtable projectTypes = new Hashtable();
-        private static bool projectTypesSet = false;
+        private static bool projectTypesSet;
+
+        private static bool isRunning;
+        public static bool IsRunning { get { return isRunning; } }
 
 		/// <summary>
 		/// Creates a new project based on the specified template directory.
 		/// </summary>
 		public Project CreateProject(string templateDirectory, string projectLocation, string projectName, string packageName)
 		{
+            isRunning = true;
             if (!projectTypesSet) SetInitialProjectHash();
 			this.projectName = projectName;
             this.packageName = packageName;
@@ -73,6 +78,7 @@ namespace ProjectManager.Helpers
                 CopyFile(projectTemplate, projectPath);
                 CopyProjectFiles(templateDirectory, projectLocation, true);
             }
+            isRunning = false;
             if (File.Exists(projectPath))
             {
                 projectPath = PathHelper.GetPhysicalPathName(projectPath);

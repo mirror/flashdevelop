@@ -126,6 +126,14 @@ namespace AS3Context
             {
                 switch (e.Type)
                 {
+                    case EventType.ProcessArgs:
+                        TextEvent te = e as TextEvent;
+                        if (te.Value.IndexOf("$(FlexSDK)") >= 0)
+                        {
+                            te.Value = te.Value.Replace("$(FlexSDK)", contextInstance.GetCompilerPath());
+                        }
+                        break;
+
                     case EventType.Command:
                         DataEvent de = e as DataEvent;
                         string action = de.Action;
@@ -178,14 +186,6 @@ namespace AS3Context
             {
                 switch (e.Type)
                 {
-                    case EventType.ProcessArgs:
-                        TextEvent te = e as TextEvent;
-                        if (te.Value.IndexOf("$(FlexSDK)") >= 0)
-                        {
-                            te.Value = te.Value.Replace("$(FlexSDK)", contextInstance.GetCompilerPath());
-                        }
-                        break;
-
                     case EventType.UIStarted:
                         contextInstance = new Context(settingObject);
                         AddToolbarItems();
