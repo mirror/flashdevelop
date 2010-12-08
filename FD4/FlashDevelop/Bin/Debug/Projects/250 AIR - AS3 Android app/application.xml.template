@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/2.5">
+	
+	<id>$(PACKAGEDOT)$(PROJECTID)</id> 
+	<versionNumber>0.1</versionNumber> 
+	<supportedProfiles>mobileDevice</supportedProfiles>
+	<filename>$(PROJECTID)</filename> 
+	
+	<name>$(PROJECTNAME)</name> 
+	<description></description> 
+	<copyright></copyright> 
+	
+	<initialWindow> 
+		<title>$(PROJECTNAME)</title> 
+		<content>$(PROJECTID).swf</content> 
+		<visible>true</visible> 
+	</initialWindow> 
+	
+	<icon>
+		<image72x72>icons/icon_72.png</image72x72>
+	</icon>
+	<!-- 
+	More options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	-->
+</application>
