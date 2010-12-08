@@ -1,1 +1,0 @@
-A project for creating a custom preloader to use in other projects

@@ -1,1 +1,0 @@
-A project that generates a SWF containing reusable code and/or assets
