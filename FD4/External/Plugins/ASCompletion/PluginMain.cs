@@ -49,7 +49,6 @@ namespace ASCompletion
             EventType.ApplySettings |
             EventType.ProcessArgs;
         private List<ToolStripItem> menuItems;
-        private ToolStripItem quickBuildItem;
         private int currentPos;
         private string currentDoc;
         private bool started;
@@ -580,9 +579,9 @@ namespace ASCompletion
 
                 // quick build
                 image = pluginUI.GetIcon(PluginUI.ICON_QUICK_BUILD);
-                quickBuildItem = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), Keys.Control | Keys.F8);
+                item = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), Keys.Control | Keys.F8);
                 PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.QuickBuild", item);
-                menu.DropDownItems.Add(quickBuildItem);
+                menu.DropDownItems.Add(item);
                 menuItems.Add(item);
 
                 menu.DropDownItems.Add(new ToolStripSeparator());
