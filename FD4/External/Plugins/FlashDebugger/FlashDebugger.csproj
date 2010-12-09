@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Debugger\BreakPointManager.cs" />
     <Compile Include="Controls\BreakPointUI.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\DataNode.cs" />
     <Compile Include="Controls\DataTipForm.cs">
