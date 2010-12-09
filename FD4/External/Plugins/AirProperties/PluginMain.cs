@@ -198,9 +198,9 @@ namespace AirProperties
         {
             Boolean pluginActive = false;
             ToolStrip mainToolStrip = (ToolStrip)PluginBase.MainForm.ToolStrip;
-            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject is ProjectManager.Projects.AS3.AS3Project)
+            if (PluginBase.CurrentProject != null)
             {
-                ProjectManager.Projects.AS3.AS3Project project = (ProjectManager.Projects.AS3.AS3Project)PluginBase.CurrentProject;
+                ProjectManager.Projects.Project project = (ProjectManager.Projects.Project)PluginBase.CurrentProject;
                 pluginActive = (project.MovieOptions.Platform == "AIR");
             }
             this.pluginMenuItem.Enabled = this.pmMenuButton.Enabled = pluginActive;
