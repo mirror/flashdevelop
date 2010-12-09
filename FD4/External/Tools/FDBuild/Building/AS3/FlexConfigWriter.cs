@@ -77,7 +77,7 @@ namespace FDBuild.Building.AS3
                 AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
             string version;
-            if (project.CompilerOptions.MinorVersion.Length == 0)
+            if (project.CompilerOptions.MinorVersion.Length > 0)
                 version = majorVersion + "." + project.CompilerOptions.MinorVersion;
             else
                 version = majorVersion + "." + minorVersion;
