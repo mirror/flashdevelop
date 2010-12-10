@@ -6,6 +6,7 @@ using ProjectManager.Controls;
 using PluginCore.Localization;
 using PluginCore;
 using PluginCore.Utilities;
+using System.Collections.Generic;
 
 namespace ProjectManager.Controls
 {
@@ -100,43 +101,56 @@ namespace ProjectManager.Controls
         public ToolStripMenuItem CleanProject;
         public ToolStripMenuItem Properties;
 
+        private List<ToolStripItem> AllItems;
+
 		public ProjectMenu()
 		{
+            AllItems = new List<ToolStripItem>();
+
             NewProject = new ToolStripMenuItem(TextHelper.GetString("Label.NewProject"));
 			NewProject.Image = Icons.NewProject.Img;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.NewProject", NewProject);
+            AllItems.Add(NewProject);
 
             OpenProject = new ToolStripMenuItem(TextHelper.GetString("Label.OpenProject"));
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.OpenProject", OpenProject);
+            AllItems.Add(OpenProject);
 
             ImportProject = new ToolStripMenuItem(TextHelper.GetString("Label.ImportProject"));
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.ImportProject", ImportProject);
+            AllItems.Add(ImportProject);
 
             CloseProject = new ToolStripMenuItem(TextHelper.GetString("Label.CloseProject"));
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.CloseProject", CloseProject);
+            AllItems.Add(CloseProject);
 
             OpenResource = new ToolStripMenuItem(TextHelper.GetString("Label.OpenResource"));
             OpenResource.Image = PluginBase.MainForm.FindImage("209");
             OpenResource.ShortcutKeys = Keys.Control | Keys.R;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.OpenResource", OpenResource);
+            AllItems.Add(OpenResource);
 
             TestMovie = new ToolStripMenuItem(TextHelper.GetString("Label.TestMovie"));
 			TestMovie.Image = Icons.GreenCheck.Img;
             TestMovie.ShortcutKeys = Keys.F5;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.TestMovie", TestMovie);
+            AllItems.Add(TestMovie);
 
             BuildProject = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProject"));
 			BuildProject.Image = Icons.Gear.Img;
             BuildProject.ShortcutKeys = Keys.F8;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.BuildProject", BuildProject);
+            AllItems.Add(BuildProject);
 
             CleanProject = new ToolStripMenuItem(TextHelper.GetString("Label.CleanProject"));
             CleanProject.ShortcutKeys = Keys.Shift | Keys.F8;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.CleanProject", CleanProject);
+            AllItems.Add(CleanProject);
 
             Properties = new ToolStripMenuItem(TextHelper.GetString("Label.Properties"));
 			Properties.Image = Icons.Options.Img;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.Properties", Properties);
+            AllItems.Add(Properties);
 
             base.Text = TextHelper.GetString("Label.Project");
             base.DropDownItems.Add(NewProject);
@@ -172,9 +186,12 @@ namespace ProjectManager.Controls
             {
                 foreach (ToolStripItem item in DropDownItems)
                 {
-                    item.Enabled = value;
+                    // Toggle items only if it's our creation
+                    if (AllItems.Contains(item)) item.Enabled = value;
                 }
             }
         }
+
 	}
+
 }
