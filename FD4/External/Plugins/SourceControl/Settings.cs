@@ -107,7 +107,7 @@ namespace SourceControl
             set { this.hgPath = value; }
         }
 
-        [DefaultValue("TortoiseProc.exe")]
+        [DefaultValue("hgtk")]
         [DisplayName("TortoiseHG Proc Path")]
         [LocalizedCategory("SourceControl.Category.HG")]
         [LocalizedDescription("SourceControl.Description.TortoiseHGProcPath")]
