@@ -35,6 +35,9 @@ void MainWindow::initMapping()
     QStringList map = settings.allKeys();
     if (map.length() == 0)
     {
+        // VirtualBox: \\VBOXSVR\
+        // Parallels: \\.PSF\
+        // VMWare: \\.HOST\
         settings.setValue("VBOXSVR/Dev", QDir::homePath() + "/Dev");
         map = settings.allKeys();
     }

@@ -23,3 +23,7 @@ HEADERS  += mainwindow.h \
     bridgethread.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES +=
+
+ICON = images/FDIcon.icns
