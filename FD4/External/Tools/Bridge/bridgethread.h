@@ -22,6 +22,7 @@ class BridgeHandler : public QObject
     void watchPath(QString param);
     QString getSpecialPath();
     QString getRemotePath(QString path);
+    void copyPatched(QString filePath, QString destPath);
 
 public:
     BridgeHandler(QObject *parent = 0);

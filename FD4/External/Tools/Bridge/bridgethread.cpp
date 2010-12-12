@@ -1,5 +1,6 @@
 #include <QtNetwork>
 #include <QDebug>
+#include <QSettings>
 #include "bridgethread.h"
 
 #define EOL "*"
@@ -129,17 +130,20 @@ QString BridgeHandler::getSpecialPath()
 QString BridgeHandler::getLocalPath(QString path)
 {
     QString local = "";
-    QRegExp rePath("//([^/]+)/([^/]+)/(.*)");
+    QRegExp rePath("//([^/]+/[^/]+)/(.*)");
 
     if (path.startsWith("//"))
     {
         if (rePath.indexIn(path) >= 0)
         {
-            QString root("/Users/pelsass/");
-            //QString machine(rePath.cap(1));
-            QString folder(rePath.cap(2));
-            QString rest(rePath.cap(3));
-            local = root + folder + "/" + rest;
+            QString remoteRoot(rePath.cap(1));
+            QSettings settings;
+            settings.beginGroup("localRemoteMap");
+            if (settings.contains(remoteRoot))
+            {
+                QString rest(rePath.cap(2));
+                local = settings.value(remoteRoot).toString() + "/" + rest;
+            }
         }
     }
     else local = path;
@@ -179,9 +183,7 @@ void BridgeHandler::localChanged(QString path)
 
         foreach(QString name, files)
         {
-            QFile file(path + name);
-            if (file.exists())
-                file.copy(localPath + "/" + name);
+            copyPatched(path + name, localPath + "/" + name);
         }
         path = localPath;
     }
@@ -194,4 +196,27 @@ void BridgeHandler::localChanged(QString path)
         qDebug() << "changed" << path;
         emit notifyChanged(path);
     }
+}
+
+void BridgeHandler::copyPatched(QString filePath, QString destPath)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly)) return;
+    QString src = QString::fromUtf8(file.readAll().data());
+    file.close();
+
+    // replace local paths by remote paths
+    QSettings settings;
+    settings.beginGroup("localRemoteMap");
+    foreach(QString key, settings.allKeys())
+    {
+        QString remote(QString("//" + key).replace("/", "\\"));
+        QString local(settings.value(key).toString());
+        src = src.replace(local, remote);
+    }
+
+    QFile dest(destPath);
+    if (!dest.open(QIODevice::WriteOnly)) return;
+    dest.write(src.toUtf8());
+    dest.close();
 }
