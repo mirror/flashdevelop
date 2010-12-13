@@ -985,7 +985,7 @@ namespace ProjectManager
         private void TreeBrowseItem()
         {
             string path = Tree.SelectedPath;
-            if (BridgeManager.UseRemoteExplorer)
+            if (BridgeManager.Settings.UseRemoteExplorer)
             {
                 string sharedPath = BridgeManager.GetSharedPath(path);
                 if (sharedPath != null)

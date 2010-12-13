@@ -103,10 +103,10 @@ namespace ASCompletion.Commands
             try
             {
                 string file = args.StartsWith("\"") ? args.Substring(1, args.Length-2) : args;
-                if (BridgeManager.TargetRemoteIDE 
+                if (BridgeManager.Settings.TargetRemoteIDE 
                     && File.Exists(file) && Path.GetExtension(file) == ".jsfl" && file[0] <= 'H')
                 {
-                    string folder = Path.Combine(BridgeManager.SharedFolder, "flashide");
+                    string folder = Path.Combine(BridgeManager.Settings.SharedFolder, "flashide");
                     string[] logs = Directory.GetFiles(folder, "*.log");
                     foreach (string log in logs)
                         File.Delete(log);

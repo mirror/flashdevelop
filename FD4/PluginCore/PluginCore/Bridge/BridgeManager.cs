@@ -9,51 +9,26 @@ namespace PluginCore.Bridge
 {
     public class BridgeManager
     {
+        static private IBridgeSettings settings;
         static private BridgeClient remoteClient;
 
         #region Properties
 
         /// <summary>
-        /// FlashDevelop should delegate most of the cpu/application load 
-        /// to a host system running the FlashDevelop Bridge
+        /// Enable delegation to host system
         /// </summary>
         static public bool Active
         {
-            get
-            {
-                return false; // TODO add to global settings
-            }
+            get { return settings != null ? settings.Active : false; }
         }
 
         /// <summary>
-        /// Use Flash CS from the host system
+        /// Bridge configuration is externalized in a plugin
         /// </summary>
-        static public bool TargetRemoteIDE
+        static public IBridgeSettings Settings
         {
-            get
-            {
-                return Active && true; // TODO add to global settings
-            }
-        }
-
-        /// <summary>
-        /// Use file explorer of the host system
-        /// </summary>
-        public static bool UseRemoteExplorer
-        {
-            get
-            {
-                if (!Active) return false;
-                return true; // TODO add to settings
-            }
-        }
-
-        static public string SharedFolder
-        {
-            get
-            {
-                return "Z:\\.FlashDevelop"; // TODO add to global settings
-            }
+            get { return settings; }
+            set { settings = value; }
         }
 
         #endregion
@@ -67,8 +42,8 @@ namespace PluginCore.Bridge
         {
             if (!Active) return true;
             string ext = Path.GetExtension(path).ToLower();
-            if (ext == ".exe" || ext == ".com" || ext == ".bat" || ext == ".cmd") // TODO add to settings
-                return true;
+            foreach (string item in settings.AlwaysOpenLocal)
+                if (ext == item) return true;
             return false;
         }
 
