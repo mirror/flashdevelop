@@ -103,7 +103,7 @@ namespace ProjectManager.Projects.Haxe
 
             // compilation mode
             string mode = null;
-            if (IsFlashOutput) mode = (MovieOptions.Version >= 9) ? "swf9" : "swf";
+            if (IsFlashOutput) mode = "swf";
             else if (IsJavacriptOutput) mode = "js";
             else if (IsNekoOutput) mode = "neko";
             else if (IsPhpOutput) mode = "php";
@@ -121,6 +121,7 @@ namespace ProjectManager.Projects.Haxe
                 if( htmlColor.Length > 0 )
                     htmlColor = ":" + htmlColor;
 
+                pr.Add("-swf-version " + MovieOptions.Version);
                 pr.Add("-swf-header " + string.Format("{0}:{1}:{2}{3}", MovieOptions.Width, MovieOptions.Height, MovieOptions.Fps, htmlColor));
 
                 if( !UsesInjection && LibraryAssets.Count > 0 )
@@ -129,8 +130,6 @@ namespace ProjectManager.Projects.Haxe
                 if( CompilerOptions.FlashStrict )
                     pr.Add("--flash-strict");
 
-                if( MovieOptions.Version < 8 || MovieOptions.Version > 9 )
-                    pr.Add("-swf-version " + MovieOptions.Version);
             }
 
             // debug 
