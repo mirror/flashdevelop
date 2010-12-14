@@ -336,6 +336,7 @@ namespace ASCompletion
                             // call the Flash IDE
                             else if (command == "ASCompletion.CallFlashIDE")
                             {
+                                if (flashErrorsWatcher == null) flashErrorsWatcher = new FlashErrorsWatcher();
                                 e.Handled = Commands.CallFlashIDE.Run(settingObject.PathToFlashIDE, cmdData);
                             }
 
@@ -672,9 +673,6 @@ namespace ASCompletion
             // application events
             EventManager.AddEventHandler(this, eventMask);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
-
-            // flash IDE events
-            flashErrorsWatcher = new FlashErrorsWatcher();
         }
 
         #endregion
