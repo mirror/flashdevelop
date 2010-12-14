@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtGui>
 #include "bridgeserver.h"
 #include "filesystemwatcherex.h"
 
@@ -18,13 +19,10 @@ public:
     ~MainWindow();
 
 private slots:
-
+    void bridgeStatus(int threads, int watchers);
     void on_btAdd_clicked();
-
     void on_btRemove_clicked();
-
     void on_listMap_itemSelectionChanged();
-
     void on_listMap_cellChanged(int row, int column);
 
 private:
@@ -32,6 +30,10 @@ private:
     BridgeServer *server;
     bool lockSettings;
 
+    QLabel *statusLabel;
+    QStatusBar *statusBar;
+
+    void initStatusBar();
     void initMapping();
     void updateSettings();
 };

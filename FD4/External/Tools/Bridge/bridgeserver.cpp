@@ -11,7 +11,13 @@ BridgeServer::BridgeServer(QObject *parent)
 {
     QHostAddress host("127.0.0.1");
     listen(host, 8007);
+    runningThreads = 0;
     qDebug() << "Server started...";
+}
+
+void BridgeServer::notifyStatus()
+{
+    emit bridgeStatus(runningThreads, watched.keys().count());
 }
 
 void BridgeServer::incomingConnection(int socketDescriptor)
@@ -20,6 +26,8 @@ void BridgeServer::incomingConnection(int socketDescriptor)
     connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));
     connect(thread, SIGNAL(command(QString,QString)), this, SLOT(command(QString,QString)));
     thread->start();
+    runningThreads++;
+    notifyStatus();
 }
 
 void BridgeServer::command(QString cmd, QString value)
@@ -64,6 +72,7 @@ BridgeHandler* BridgeServer::createWatchHandler(QString path)
         handler = new BridgeHandler(this);
         handler->command("watch", path);
         watched[path] = handler;
+        notifyStatus();
     }
     return handler;
 }
@@ -74,6 +83,8 @@ void BridgeServer::threadFinished()
     //qDebug() << "disconnected" << thread;
     releaseHandler(thread);
     thread->deleteLater();
+    runningThreads--;
+    notifyStatus();
 }
 
 void BridgeServer::releaseHandler(BridgeThread *thread)

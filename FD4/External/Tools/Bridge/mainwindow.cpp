@@ -9,15 +9,33 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    initStatusBar();
     initMapping();
 
     server = new BridgeServer(parent);
+    connect(server, SIGNAL(bridgeStatus(int,int)), this, SLOT(bridgeStatus(int,int)));
 }
 
 MainWindow::~MainWindow()
 {
     delete server;
     delete ui;
+}
+
+void MainWindow::initStatusBar()
+{
+    statusLabel = new QLabel();
+    statusLabel->setContentsMargins(10, 0,0,0);
+    statusBar = new QStatusBar();
+    statusBar->addWidget(statusLabel, 1);
+    setStatusBar(statusBar);
+}
+
+void MainWindow::bridgeStatus(int threads, int watchers)
+{
+    QString msg = QString("Running: %1 threads, %2 watchers").arg(threads).arg(watchers);
+    statusLabel->setText(msg);
 }
 
 
