@@ -126,6 +126,7 @@ namespace ASCompletion.Model
 
         private void Init()
         {
+            if (inited && IsValid) return;
             inited = true;
             updater = new Timer();
             updater.Interval = 2000;
