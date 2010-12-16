@@ -67,13 +67,25 @@ namespace PluginCore.Bridge
         /// </summary>
         static public string GetSharedPath(string path)
         {
+            if (settings == null || path == null || path == "") return null;
             if (path.StartsWith("\\\\")) return path;
-            if (path[0] > 'H' && path[1] == ':')
+
+            if (Char.ToUpper(path[0]) > 'H' && path[1] == ':')
             {
-                UNCInfo realPath = WinOS.GetUNC(path);
-                if (realPath != null)
-                    if (Directory.Exists(path)) return realPath.UniversalName + "\\";
-                    else return realPath.UniversalName;
+                try
+                {
+                    UNCInfo realPath = WinOS.GetUNC(path);
+                    if (realPath != null && realPath.UniversalName != null && realPath.UniversalName.Length > 0)
+                    {
+                        if (Directory.Exists(path)) return realPath.UniversalName + "\\";
+                        else return realPath.UniversalName;
+                    }
+                    else TraceManager.AddAsync("Maping failed: " + path);
+                }
+                catch (Exception ex)
+                {
+                    ErrorManager.AddToLog("Maping error: " + path, ex);
+                }
             }
             else if (path[0] == '~' || path[0] == '/') return path;
             return null;

@@ -19,12 +19,11 @@ namespace PluginCore.Bridge
             IntPtr buffer = Marshal.AllocHGlobal(bufferSize); 
             int ret = WNetGetUniversalName(path, 2, buffer, ref bufferSize); 
 			UNCInfo unc = null;
-            if (ret == 0) 
-            { 
-                    unc = new UNCInfo(); 
-                    Marshal.PtrToStructure(buffer, unc); 
-                    Console.WriteLine(unc.UniversalName); 
-            } 
+            if (ret == 0)
+            {
+                unc = new UNCInfo();
+                Marshal.PtrToStructure(buffer, unc);
+            }
             Marshal.FreeHGlobal(buffer); 
             return unc; 
         } 

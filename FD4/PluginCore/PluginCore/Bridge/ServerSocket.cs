@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using PluginCore.Managers;
 
 namespace PluginCore.Bridge
 {
@@ -13,13 +14,25 @@ namespace PluginCore.Bridge
 		protected IPAddress ipAddress;
 		protected int portNum;
         protected Socket conn;
+        protected bool isInvalid;
         
         public event DataReceivedEventHandler DataReceived;
 		
         public ServerSocket(String address, Int32 port)
         {
-            if (address == null || address == "invalid") return;
-        	ipAddress = IPAddress.Parse(address);
+            if (address == null || address == "invalid")
+            {
+                isInvalid = true;
+                return;
+            }
+            try
+            {
+                ipAddress = IPAddress.Parse(address);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.AddToLog("Invalid IP adress: " + address, ex);
+            }
         	portNum = port;
         }
 		
@@ -84,7 +97,7 @@ namespace PluginCore.Bridge
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+                ErrorManager.AddToLog("Failed to connect bridge socket: " + ipAddress + ":" + portNum, ex);
 				return false;
 			}
 			return true;

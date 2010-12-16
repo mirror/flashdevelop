@@ -1,6 +1,7 @@
 using System;
 using System.Net.NetworkInformation;
 using System.IO;
+using PluginCore.Managers;
 
 namespace PluginCore.Bridge
 {
@@ -18,10 +19,7 @@ namespace PluginCore.Bridge
                 {
                     ip = DetectIP();
                     if (ip == null)
-                    {
                         ip = "invalid";
-                        Console.WriteLine("Gateway not detected");
-                    }
                 }
                 return ip;
             }
@@ -31,14 +29,23 @@ namespace PluginCore.Bridge
 
         static string DetectIP()
         {
-            foreach (NetworkInterface f in NetworkInterface.GetAllNetworkInterfaces())
+            try
             {
-                //Console.WriteLine(f.Description);
-                if (f.OperationalStatus == OperationalStatus.Up)
-                    foreach (GatewayIPAddressInformation d in f.GetIPProperties().GatewayAddresses)
-                    {
-                        return d.Address.ToString();
-                    }
+                string issue = "Unable to find a gateway";
+                foreach (NetworkInterface f in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    issue += "\n" + f.Name + ", " + f.Description;
+                    if (f.OperationalStatus == OperationalStatus.Up)
+                        foreach (GatewayIPAddressInformation d in f.GetIPProperties().GatewayAddresses)
+                        {
+                            return d.Address.ToString();
+                        }
+                }
+                throw new Exception(issue);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.AddToLog("Gateway detection", ex);
             }
             return null;
         }
@@ -50,15 +57,7 @@ namespace PluginCore.Bridge
         public BridgeClient()
             : base(BridgeIP, BridgePort)
         {
-            if (ConnectClient()) return;
-
-            while (true)
-            {
-                string msg = Console.ReadLine();
-                if (msg.Length == 0)
-                    break;
-                Send(msg);
-            }
+            if (!isInvalid) ConnectClient();
         }
     }
 }
