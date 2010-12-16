@@ -107,7 +107,7 @@ namespace ProjectManager.Controls.TreeView
                         if (extension == excludedFile) return;
                     }
                 }
-                if (e.ChangeType != WatcherChangeTypes.Created 
+                if (e.ChangeType != WatcherChangeTypes.Created && e.ChangeType != WatcherChangeTypes.Renamed
                     && !this.changedPaths.Contains(fullPath) && Directory.Exists(fullPath))
                 {
                     this.changedPaths.Add(fullPath);
