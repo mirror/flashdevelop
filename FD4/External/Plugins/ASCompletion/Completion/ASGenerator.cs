@@ -153,6 +153,39 @@ namespace ASCompletion.Completion
                             return;
                         }
                     }
+                    else
+                    {
+                        Match m = Regex.Match(text, String.Format(patternEvent, ""), RegexOptions.IgnoreCase);
+                        if (m.Success)
+                        {
+                            contextToken = TemplateUtils.GetTemplate("EventHandlerName");
+                            int regexIndex = m.Index + Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
+                            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(regexIndex, true));
+                            if (contextOwnerPos != -1)
+                            {
+                                ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
+                                if (contextOwnerResult != null && !contextOwnerResult.IsNull()
+                                    && contextOwnerResult.Member != null)
+                                    contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
+                                else
+                                    contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", "");
+                            }
+                            else
+                            {
+                                contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", "");
+                            }
+
+                            string eventName = m.Groups["event"].Value;
+                            string[] eventParts = eventName.Split(new char[] { '.' });
+                            eventName = eventParts.Length > 1 ? eventParts[1] : eventName;
+                            contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "EventName", Camelize(eventName));
+                            InsertCode(position, contextToken);
+                            contextMatch = m;
+                            contextParam = CheckEventType(m.Groups["event"].Value);
+                            ShowEventList(found);
+                            return;
+                        }
+                    }
                 }
 
                 // "Generate fields from parameters" suggestion
@@ -762,7 +795,7 @@ namespace ASCompletion.Completion
                     PropertiesGenerationLocations location = ASContext.CommonSettings.PropertiesGenerationLocation;
                     if (location == PropertiesGenerationLocations.AfterLastPropertyDeclaration)
                     {
-                        latest = FindLatest(FlagType.Getter | FlagType.Setter, inClass);
+                        latest = FindLatest(FlagType.Getter | FlagType.Setter, 0, inClass, false, false);
                     }
                     else latest = member;
                     if (latest == null) return;
@@ -805,7 +838,10 @@ namespace ASCompletion.Completion
 
                 case GeneratorJobType.BasicEvent:
                 case GeneratorJobType.ComplexEvent:
-                    position = Sci.PositionFromLine(member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                    latest = GetLatestMemberForFunction(inClass, GetDefaultVisibility(), member);
+                    if (latest == null)
+                        latest = member;
+                    position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                     Sci.SetSel(position, position);
                     string type = contextParam;
                     if (job == GeneratorJobType.BasicEvent)
@@ -850,7 +886,10 @@ namespace ASCompletion.Completion
                     ClassModel aType = ASContext.Context.ResolveType(contextParam, ASContext.Context.CurrentModel);
                     if (aType.IsVoid()) return;
 
-                    latest = FindLatest(FlagType.Function, inClass);
+                    latest = GetLatestMemberForFunction(inClass, Visibility.Public, null);
+                    if (latest == null)
+                        latest = FindLatest(0, 0, inClass, false, false);
+
                     if (latest == null) return;
 
                     position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
@@ -861,7 +900,7 @@ namespace ASCompletion.Completion
                 case GeneratorJobType.PromoteLocal:
                     if (!RemoveLocalDeclaration(Sci, contextMember)) return;
 
-                    latest = FindLatest(FlagType.Variable | FlagType.Constant, inClass);
+                    latest = GetLatestMemberForVariable(GeneratorJobType.Variable, inClass, GetDefaultVisibility(), member);
                     if (latest == null) return;
 
                     position = FindNewVarPosition(Sci, inClass, latest);
@@ -1240,8 +1279,8 @@ namespace ASCompletion.Completion
             }
             else
             {
-                latest = FindLatest(FlagType.Constant, GetDefaultVisibility(), inClass)
-                    ?? FindLatest(FlagType.Variable, GetDefaultVisibility(), inClass);
+                latest = GetLatestMemberForVariable(GeneratorJobType.Constant, inClass, 
+                    Visibility.Private, new MemberModel("", "", FlagType.Static, 0));
                 if (latest != null)
                 {
                     position = FindNewVarPosition(Sci, inClass, latest);
@@ -1512,7 +1551,7 @@ namespace ASCompletion.Completion
             DockContent dc = ASContext.MainForm.OpenEditableDocument(aType.InFile.FileName, true);
             Sci = ASContext.CurSciControl;
 
-            MemberModel latest = FindLatest(FlagType.Function, aType);
+            MemberModel latest = GetLatestMemberForFunction(aType, Visibility.Default, new MemberModel());
             int position;
             if (latest == null)
             {
@@ -1520,13 +1559,14 @@ namespace ASCompletion.Completion
             }
             else
             {
-                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 1 : 0);
+                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                 template = NewLine + template;
             }
             Sci.SetSel(position, position);
             Sci.CurrentPos = position;
 
             template = TemplateUtils.ToDeclarationString(member, template);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "BlankLine", NewLine);
 
             List<string> importsList = new List<string>();
             string t;
@@ -1617,7 +1657,7 @@ namespace ASCompletion.Completion
                 }
             }
 
-            MemberModel latest = FindLatest(FlagType.Variable | FlagType.Constant, GetDefaultVisibility(), inClass);
+            MemberModel latest = GetLatestMemberForVariable(GeneratorJobType.Variable, inClass, GetDefaultVisibility(), new MemberModel());
             if (latest == null) return;
 
             int position = FindNewVarPosition(Sci, inClass, latest);
@@ -1835,6 +1875,8 @@ namespace ASCompletion.Completion
 
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
+
+            latest = GetLatestMemberForVariable(job, inClass, varVisi, isStatic);
             
             // if we generate variable in current class..
             if (!isOtherClass && member == null)
@@ -1846,15 +1888,6 @@ namespace ASCompletion.Completion
             }
             else // if we generate variable in another class
             {
-                if (job.Equals(GeneratorJobType.Constant))
-                {
-                    latest = FindLatest(FlagType.Constant, varVisi, inClass)
-                        ?? FindLatest(FlagType.Variable, varVisi, inClass);
-                }
-                else
-                {
-                    latest = FindLatest(FlagType.Variable | FlagType.Constant, varVisi, inClass);
-                }
                 if (latest != null)
                 {
                     position = FindNewVarPosition(Sci, inClass, latest);
@@ -2292,11 +2325,12 @@ namespace ASCompletion.Completion
                         break;
                     }
                 }
-                latest = FindLatest(FlagType.Function, funcVisi, funcResult.relClass);
                 inClass = funcResult.relClass;
 
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
+
+            latest = GetLatestMemberForFunction(inClass, funcVisi, isStatic);
 
 
             // if we generate function in current class..
@@ -2308,6 +2342,11 @@ namespace ASCompletion.Completion
                     lookupPosition = -1;
                     position = Sci.WordStartPosition(Sci.CurrentPos, true);
                     Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                }
+                else if (latest != null)
+                {
+                    position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                    Sci.SetSel(position, position);
                 }
                 else
                 {
@@ -2403,6 +2442,176 @@ namespace ASCompletion.Completion
             DataEvent de = new DataEvent(EventType.Command, "ProjectManager.CreateNewFile", info);
             EventManager.DispatchEvent(null, de);
             if (de.Handled) return;
+        }
+
+        public static void GenerateExtractVariable(ScintillaNet.ScintillaControl Sci, string NewName)
+        {
+            FileModel cFile;
+            IASContext context = ASContext.Context;
+            Int32 pos = Sci.CurrentPos;
+
+            string expression = Sci.SelText.Trim(new char[] { '=', ' ', '\t', '\n', '\r', ';', '.' });
+            expression = expression.TrimEnd(new char[] { '(', '[', '{', '<' });
+            expression = expression.TrimStart(new char[] { ')', ']', '}', '>' });
+
+            cFile = ASContext.Context.CurrentModel;
+            ASFileParser parser = new ASFileParser();
+            parser.ParseSrc(cFile, Sci.Text);
+
+            MemberModel current = cFile.Context.CurrentMember;
+
+            string characterClass = ScintillaNet.ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
+
+            int funcBodyStart = ASGenerator.GetBodyStart(current.LineFrom, current.LineTo, Sci);
+            Sci.SetSel(funcBodyStart, Sci.LineEndPosition(current.LineTo));
+            string currentMethodBody = Sci.SelText;
+
+            bool isExprInSingleQuotes = (expression.StartsWith("'") && expression.EndsWith("'"));
+            bool isExprInDoubleQuotes = (expression.StartsWith("\"") && expression.EndsWith("\""));
+            int stylemask = (1 << Sci.StyleBits) - 1;
+            int lastPos = -1;
+            char prevOrNextChar;
+            Sci.Colourise(0, -1);
+            while (true)
+            {
+                lastPos = currentMethodBody.IndexOf(expression, lastPos + 1);
+                if (lastPos > -1)
+                {
+                    if (lastPos > 0)
+                    {
+                        prevOrNextChar = currentMethodBody[lastPos - 1];
+                        if (characterClass.IndexOf(prevOrNextChar) > -1)
+                        {
+                            continue;
+                        }
+                    }
+                    if (lastPos + expression.Length < currentMethodBody.Length)
+                    {
+                        prevOrNextChar = currentMethodBody[lastPos + expression.Length];
+                        if (characterClass.IndexOf(prevOrNextChar) > -1)
+                        {
+                            continue;
+                        }
+                    }
+
+                    int style = Sci.StyleAt(funcBodyStart + lastPos) & stylemask;
+                    if (ASComplete.IsCommentStyle(style))
+                    {
+                        continue;
+                    }
+                    else if ((isExprInDoubleQuotes && currentMethodBody[lastPos] == '"' && currentMethodBody[lastPos + expression.Length - 1] == '"')
+                        || (isExprInSingleQuotes && currentMethodBody[lastPos] == '\'' && currentMethodBody[lastPos + expression.Length - 1] == '\''))
+                    {
+
+                    }
+                    else if (!ASComplete.IsTextStyle(style))
+                    {
+                        continue;
+                    }
+
+                    Sci.SetSel(funcBodyStart + lastPos, funcBodyStart + lastPos + expression.Length);
+                    Sci.ReplaceSel(NewName);
+                    currentMethodBody = currentMethodBody.Substring(0, lastPos) + NewName + currentMethodBody.Substring(lastPos + expression.Length);
+                    lastPos += NewName.Length;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Sci.CurrentPos = funcBodyStart;
+            Sci.SetSel(Sci.CurrentPos, Sci.CurrentPos);
+
+            MemberModel m = new MemberModel(NewName, "", FlagType.LocalVar, 0);
+            m.Value = expression;
+
+            string snippet = TemplateUtils.GetTemplate("Variable");
+            snippet = TemplateUtils.ReplaceTemplateVariable(snippet, "Modifiers", null);
+            snippet = TemplateUtils.ToDeclarationString(m, snippet);
+            snippet += NewLine + "$(Boundary)";
+            SnippetHelper.InsertSnippetText(Sci, Sci.CurrentPos, snippet);
+        }
+
+        public static void GenerateExtractMethod(ScintillaNet.ScintillaControl Sci, string NewName)
+        {
+            FileModel cFile;
+            IASContext context = ASContext.Context;
+
+            string selection = Sci.SelText;
+            if (selection == null || selection.Length == 0)
+            {
+                return;
+            }
+
+            if (selection.TrimStart().Length == 0)
+            {
+                return;
+            }
+
+            Sci.SetSel(Sci.SelectionStart + selection.Length - selection.TrimStart().Length,
+                Sci.SelectionEnd);
+            Sci.CurrentPos = Sci.SelectionEnd;
+
+            Int32 pos = Sci.CurrentPos;
+
+            int lineStart = Sci.LineFromPosition(Sci.SelectionStart);
+            int lineEnd = Sci.LineFromPosition(Sci.SelectionEnd);
+            int firstLineIndent = Sci.GetLineIndentation(lineStart);
+            int entryPointIndent = Sci.Indent;
+
+            for (int i = lineStart; i <= lineEnd; i++)
+            {
+                int indent = Sci.GetLineIndentation(i);
+                if (i > lineStart)
+                {
+                    Sci.SetLineIndentation(i, indent - firstLineIndent + entryPointIndent);
+                }
+            }
+
+            string selText = Sci.SelText;
+            string template = TemplateUtils.GetTemplate("CallFunction");
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Name", NewName);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Arguments", "");
+
+            ASGenerator.InsertCode(Sci.CurrentPos, template + ";");
+
+            cFile = ASContext.Context.CurrentModel;
+            ASFileParser parser = new ASFileParser();
+            parser.ParseSrc(cFile, Sci.Text);
+
+            bool isAs3 = cFile.Context.Settings.LanguageId == "AS3";
+
+            FoundDeclaration found = GetDeclarationAtLine(Sci, lineStart);
+            if (found == null || found.member == null)
+            {
+                return;
+            }
+
+            lookupPosition = Sci.CurrentPos;
+            AddLookupPosition();
+
+            MemberModel latest = GetLatestMemberForFunction(found.inClass, ASGenerator.GetDefaultVisibility(), found.member);
+
+            if (latest == null)
+                latest = found.member;
+
+            int position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+            Sci.SetSel(position, position);
+
+            FlagType flags = FlagType.Function;
+            if ((found.member.Flags & FlagType.Static) > 0)
+            {
+                flags |= FlagType.Static;
+            }
+
+            MemberModel m = new MemberModel(NewName, context.Features.voidKey, flags, ASGenerator.GetDefaultVisibility());
+
+            template = NewLine + TemplateUtils.GetTemplate("Function");
+            template = TemplateUtils.ToDeclarationWithModifiersString(m, template);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Body", selText);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "BlankLine", NewLine);
+            InsertCode(position, template);
         }
 
         private static int FindNewVarPosition(ScintillaNet.ScintillaControl Sci, ClassModel inClass, MemberModel latest)
@@ -2669,13 +2878,13 @@ namespace ASCompletion.Completion
             List<string> typesUsed = new List<string>();
 
             StringBuilder sb = new StringBuilder(TemplateUtils.ReplaceTemplateVariable(TemplateUtils.GetTemplate("ImplementHeader"), "Class", aType.Type));
+            sb.Append(NewLine);
             bool entry = true;
             ASResult result = new ASResult();
             IASContext context = ASContext.Context;
             ClassModel cClass = context.CurrentClass;
             ContextFeatures features = context.Features;
             bool canGenerate = false;
-            string template = TemplateUtils.GetTemplate("ImplementPart");
 
             aType.ResolveExtends(); // resolve inheritance chain
             while (!aType.IsVoid() && aType.QualifiedName != "Object")
@@ -2690,14 +2899,17 @@ namespace ASCompletion.Completion
                     ASComplete.FindMember(method.Name, cClass, result, method.Flags, 0);
                     if (!result.IsNull()) continue;
 
-                    string decl = TemplateUtils.ReplaceTemplateVariable(template, "Declaration", 
-                        TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Function")));
+                    string decl = entry ? NewLine : "";
+                    decl = TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Function"));
                     decl = TemplateUtils.ReplaceTemplateVariable(decl, "Body", null);
+                    decl = TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", NewLine);
 
                     if (!entry)
                     {
                         decl = TemplateUtils.ReplaceTemplateVariable(decl, "EntryPoint", null);
                     }
+
+                    decl += NewLine;
 
                     entry = false;
 
@@ -2806,7 +3018,14 @@ namespace ASCompletion.Completion
                 result = TemplateUtils.ReplaceTemplateVariable(result, "Body", null);
             }
 
-            if (detach) result = BlankLine + result;
+            if (detach)
+            {
+                result = NewLine + TemplateUtils.ReplaceTemplateVariable(result, "BlankLine", NewLine);
+            }
+            else
+            {
+                result = TemplateUtils.ReplaceTemplateVariable(result, "BlankLine", null);
+            }
             InsertCode(position, result);
         }
 
@@ -2978,7 +3197,7 @@ namespace ASCompletion.Completion
                 }
                 string acc = GetPrivateAccessor(afterMethod);
                 string template = TemplateUtils.GetTemplate("EventHandler");
-                string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+                string decl = NewLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
                 decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
                 decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", type);
                 decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey);
@@ -3020,10 +3239,11 @@ namespace ASCompletion.Completion
         {
             string acc = GetPublicAccessor(member);
             string template = TemplateUtils.GetTemplate("Getter");
-            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+            string decl = NewLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", FormatType(member.Type));
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Member", member.Name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", NewLine);
             InsertCode(position, decl);
         }
 
@@ -3031,11 +3251,12 @@ namespace ASCompletion.Completion
         {
             string acc = GetPublicAccessor(member);
             string template = TemplateUtils.GetTemplate("Setter");
-            string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+            string decl = NewLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", FormatType(member.Type));
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Member", member.Name);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey ?? "void");
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", NewLine);
             InsertCode(position, decl);
         }
 
@@ -3060,6 +3281,72 @@ namespace ASCompletion.Completion
             string acc = ASContext.Context.Features.publicKey ?? "public";
             if ((member.Flags & FlagType.Static) > 0) acc = (ASContext.Context.Features.staticKey ?? "static") + " " + acc;
             return acc;
+        }
+
+        private static MemberModel GetLatestMemberForFunction(ClassModel inClass, Visibility funcVisi, MemberModel isStatic)
+        {
+            MemberModel latest = null;
+            if (isStatic != null && (isStatic.Flags & FlagType.Static) > 0)
+            {
+                latest = FindLatest(FlagType.Function | FlagType.Static, funcVisi, inClass);
+                if (latest == null)
+                {
+                    latest = FindLatest(FlagType.Function | FlagType.Static, 0, inClass, true, false);
+                }
+            }
+            else
+            {
+                latest = FindLatest(FlagType.Function, funcVisi, inClass);
+            }
+            if (latest == null)
+            {
+                latest = FindLatest(FlagType.Function, 0, inClass, true, false);
+            }
+            if (latest == null)
+            {
+                latest = FindLatest(FlagType.Function, 0, inClass, false, false);
+            }
+            return latest;
+        }
+
+        private static MemberModel GetLatestMemberForVariable(GeneratorJobType job, ClassModel inClass, Visibility varVisi, MemberModel isStatic)
+        {
+            MemberModel latest = null;
+            if (job.Equals(GeneratorJobType.Constant))
+            {
+                if ((isStatic.Flags & FlagType.Static) > 0)
+                {
+                    latest = FindLatest(FlagType.Constant | FlagType.Static, varVisi, inClass);
+                }
+                else
+                {
+                    latest = FindLatest(FlagType.Constant, varVisi, inClass);
+                }
+                if (latest == null)
+                {
+                    latest = FindLatest(FlagType.Constant, 0, inClass, true, false);
+                }
+            }
+            else
+            {
+                if ((isStatic.Flags & FlagType.Static) > 0)
+                {
+                    latest = FindLatest(FlagType.Variable | FlagType.Static, varVisi, inClass);
+                    if (latest == null)
+                    {
+                        latest = FindLatest(FlagType.Variable | FlagType.Static, 0, inClass, true, false);
+                    }
+                }
+                else
+                {
+                    latest = FindLatest(FlagType.Variable, varVisi, inClass);
+                }
+            }
+            if (latest == null)
+            {
+                latest = FindLatest(FlagType.Variable, varVisi, inClass, false, false);
+            }
+            return latest;
         }
 
         static private MemberModel FindMember(string name, ClassModel inClass)
@@ -3088,24 +3375,57 @@ namespace ASCompletion.Completion
 
         static private MemberModel FindLatest(FlagType match, Visibility visi, ClassModel inClass)
         {
+            return FindLatest(match, visi, inClass, true, true);
+        }
+
+        static private MemberModel FindLatest(FlagType match, Visibility visi, ClassModel inClass,
+                bool isFlagMatchStrict, bool isVisibilityMatchStrict)
+        {
             MemberList list;
             if (inClass == ClassModel.VoidClass)
                 list = ASContext.Context.CurrentModel.Members;
-            else list = inClass.Members;
+            else
+                list = inClass.Members;
 
-            MemberModel fallback = null;
             MemberModel latest = null;
+            MemberModel fallback = null;
             foreach (MemberModel member in list)
             {
                 fallback = member;
-                if ((member.Flags & match) > 0 && (visi == 0 || (member.Access & visi) > 0))
+                if (isFlagMatchStrict && isVisibilityMatchStrict)
                 {
-                    latest = member;
+                    if ((member.Flags & match) == match && (visi == 0 || (member.Access & visi) == visi))
+                    {
+                        latest = member;
+                    }
                 }
+                else if (isFlagMatchStrict && !isVisibilityMatchStrict)
+                {
+                    if ((member.Flags & match) == match && (visi == 0 || (member.Access & visi) > 0))
+                    {
+                        latest = member;
+                    }
+                }
+                else if (!isFlagMatchStrict && isVisibilityMatchStrict)
+                {
+                    if ((member.Flags & match) > 0 && (visi == 0 || (member.Access & visi) == visi))
+                    {
+                        latest = member;
+                    }
+                }
+                else
+                {
+                    if ((member.Flags & match) > 0 && (visi == 0 || (member.Access & visi) > 0))
+                    {
+                        latest = member;
+                    }
+                }
+
             }
+            if (isFlagMatchStrict || isVisibilityMatchStrict)
+                fallback = null;
             return latest ?? fallback;
         }
-
         
         static private string GetDeclaration(MemberModel member)
         {
@@ -3334,7 +3654,7 @@ namespace ASCompletion.Completion
                 {
                     MemberModel mCopy = (MemberModel) m.Clone();
 
-                    string methodTemplate = TemplateUtils.GetTemplate("DelegateMethodsPart");
+                    string methodTemplate = NewLine;
 
                     bool overrideFound = false;
                     ClassModel baseClassType = inClass;
@@ -3363,7 +3683,7 @@ namespace ASCompletion.Completion
 
                     if ((m.Flags & FlagType.Setter) > 0)
                     {
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Declaration", TemplateUtils.GetTemplate("Setter"));
+                        methodTemplate += TemplateUtils.GetTemplate("Setter");
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Modifiers", 
                             (TemplateUtils.GetStaticExternOverride(m) + TemplateUtils.GetModifiers(m)).Trim());
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Name", m.Name);
@@ -3374,7 +3694,7 @@ namespace ASCompletion.Completion
                     }
                     else if ((m.Flags & FlagType.Getter) > 0)
                     {
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Declaration", TemplateUtils.GetTemplate("Getter"));
+                        methodTemplate += TemplateUtils.GetTemplate("Getter");
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Modifiers",
                             (TemplateUtils.GetStaticExternOverride(m) + TemplateUtils.GetModifiers(m)).Trim());
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Name", m.Name);
@@ -3384,7 +3704,9 @@ namespace ASCompletion.Completion
                     }
                     else
                     {
-                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Declaration", TemplateUtils.GetTemplate("DelegateMethod"));
+                        methodTemplate += TemplateUtils.GetTemplate("Function");
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Body", "<<$(Return) >>$(Body)");
+                        methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "EntryPoint", null);
                         methodTemplate = TemplateUtils.ToDeclarationWithModifiersString(mCopy, methodTemplate);
                         if (m.Type != null && m.Type.ToLower() != "void")
                             methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Return", "return");
@@ -3440,6 +3762,7 @@ namespace ASCompletion.Completion
 
                         methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "Body", callMethodTemplate);
                     }
+                    methodTemplate = TemplateUtils.ReplaceTemplateVariable(methodTemplate, "BlankLine", NewLine);
                     result += methodTemplate;
 
                     if (m.Parameters != null)
@@ -3457,7 +3780,7 @@ namespace ASCompletion.Completion
 
                     if (position < 0)
                     {
-                        MemberModel latest = FindLatest(FlagType.Function, inClass);
+                        MemberModel latest = GetLatestMemberForFunction(inClass, mCopy.Access, mCopy);
                         if (latest == null)
                         {
                             position = Sci.WordStartPosition(Sci.CurrentPos, true);
@@ -3761,7 +4084,7 @@ namespace ASCompletion.Completion
                 ASContext.Panel.SetLastLookupPosition(ASContext.Context.CurrentFile, lookupLine, lookupCol);
             }
         }
-        #endregion
+        #endregion     
     }
 
     #region related structures
