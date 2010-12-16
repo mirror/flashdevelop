@@ -602,7 +602,13 @@ namespace FlashDevelop
             }
             TabbedDocument document = (TabbedDocument)createdDoc;
             document.SciControl.SaveBOM = info.ContainsBOM;
-            document.SciControl.BeginInvoke((MethodInvoker)delegate { FileStateManager.ApplyFileState(document, restorePosition); });
+            document.SciControl.BeginInvoke((MethodInvoker)delegate
+            {
+                if (this.appSettings.RestoreFileStates)
+                {
+                    FileStateManager.ApplyFileState(document, restorePosition);
+                }
+            });
             ButtonManager.UpdateFlaggedButtons();
             return createdDoc;
         }
