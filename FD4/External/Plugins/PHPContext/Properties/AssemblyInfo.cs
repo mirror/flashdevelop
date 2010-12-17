@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the information which is associated with the assembly you compile.
 [assembly: AssemblyTitle("PHPContext")]
-[assembly: AssemblyDescription("PHPContext Plugin For ASCompletion In FlashDevelop")]
+[assembly: AssemblyDescription("PHPContext Plugin For ASCompletion In FlashDevelop.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyProduct("PHPContext")]

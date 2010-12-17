@@ -2287,7 +2287,8 @@ namespace FlashDevelop
         {
             try
             {
-                String zipFile = "";
+                String zipLog = String.Empty;
+                String zipFile = String.Empty;
                 Boolean silentInstall = false;
                 Boolean requiresRestart = false;
                 ToolStripItem button = (ToolStripItem)sender;
@@ -2304,6 +2305,7 @@ namespace FlashDevelop
                 if (MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     ZipEntry entry = null;
+                    zipLog += "FDZ: " + zipFile + "\n";
                     ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open, FileAccess.Read));
                     while ((entry = zis.GetNextEntry()) != null)
                     {
@@ -2318,6 +2320,7 @@ namespace FlashDevelop
                                 fdpath += ".new";
                                 requiresRestart = true;
                             }
+                            zipLog += "Extract: " + fdpath + "\n";
                             FileStream extracted = new FileStream(fdpath, FileMode.Create);
                             while (true)
                             {
@@ -2328,10 +2331,21 @@ namespace FlashDevelop
                             extracted.Close();
                             extracted.Dispose();
                         }
-                        else Directory.CreateDirectory(fdpath);
+                        else
+                        {
+                            zipLog += "Create: " + fdpath + "\n";
+                            Directory.CreateDirectory(fdpath);
+
+                        }
                     }
                     String finish = TextHelper.GetString("Info.ZipExtractDone");
-                    if (requiresRestart) finish += "\n" + TextHelper.GetString("Info.RequiresRestart");
+                    if (requiresRestart)
+                    {
+                        zipLog += "Restart required.\n";
+                        finish += "\n" + TextHelper.GetString("Info.RequiresRestart");
+                    }
+                    String logFile = Path.Combine(PathHelper.BaseDir, "ExtensionLog.txt");
+                    File.AppendAllText(logFile, zipLog + "Done.\n\n", Encoding.UTF8);
                     ErrorManager.ShowInfo(finish);
                 }
             }

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 
 // Information about this assembly is defined by the following attributes. 
 // Change them to the information which is associated with the assembly you compile.
-[assembly: AssemblyTitle("AS2Context")]
-[assembly: AssemblyDescription("AS2Context Plugin For ASCompletion In FlashDevelop.")]
+[assembly: AssemblyTitle("BridgeSettings")]
+[assembly: AssemblyDescription("BridgeSettings Plugin For FlashDevelop.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
-[assembly: AssemblyProduct("AS2Context")]
+[assembly: AssemblyProduct("BridgeSettings")]
 [assembly: AssemblyCopyright("FlashDevelop.org 2005-2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

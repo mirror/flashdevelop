@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Text;
+using System.Collections.Generic;
 using PluginCore.Localization;
 using PluginCore.Utilities;
-using PluginCore;
 using System.ComponentModel;
 using PluginCore.Helpers;
+using PluginCore;
 
-namespace Bridge
+namespace BridgeSettings
 {
     public class PluginMain: IPlugin
     {
-        private String pluginName = "Bridge";
+        private String pluginName = "BridgeSettings";
         private String pluginGuid = "30727dde-3e23-4fb8-a8fb-9feb958402fc";
         private String pluginHelp = "www.flashdevelop.org/community/";
-        private String pluginDesc = "Virtualization bridge configuration";
+        private String pluginDesc = "Adds virtualization bridge configuration to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private String settingFilename;
         private Settings settingObject;
@@ -104,14 +103,14 @@ namespace Bridge
 
         #endregion
 
-        #region custom methods
+        #region Custom methods
 
         /// <summary>
         /// Sets up the basic stuff
         /// </summary> 
         private void InitBasics()
         {
-            String dataPath = Path.Combine(PathHelper.DataDir, "Bridge");
+            String dataPath = Path.Combine(PathHelper.DataDir, "BridgeSettings");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
@@ -140,5 +139,7 @@ namespace Bridge
         }
 
         #endregion
+
     }
+
 }

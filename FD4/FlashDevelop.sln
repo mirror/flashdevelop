@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C# Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelop", "FlashDevelop\FlashDevelop.csproj", "{EFD07485-9A64-4EEC-94E7-ACBD4DA5CA93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61885F70-B4DC-4B44-852D-5D6D03F2A734} = {61885F70-B4DC-4B44-852D-5D6D03F2A734}
@@ -66,7 +66,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirProperties", "External\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFormatter", "External\Plugins\CodeFormatter\CodeFormatter.csproj", "{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge", "External\Plugins\Bridge\Bridge.csproj", "{3074D447-A469-4CA2-A7E5-FE53DB45CB11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BridgeSettings", "External\Plugins\BridgeSettings\BridgeSettings.csproj", "{3074D447-A469-4CA2-A7E5-FE53DB45CB11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -297,13 +297,15 @@ Global
 		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|x86.ActiveCfg = Release|Any CPU
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|x86.ActiveCfg = Release|x86
+		{B97FEDD3-8F61-4006-ACCD-AD735069B0CA}.Release|x86.Build.0 = Release|x86
 		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Release|x86.ActiveCfg = Release|Any CPU
+		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Release|x86.ActiveCfg = Release|x86
+		{3074D447-A469-4CA2-A7E5-FE53DB45CB11}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

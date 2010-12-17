@@ -4348,28 +4348,28 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Unable to delete output file</value>
     <comment>Added in FD4</comment>
   </data>
-  <data name="Bridge.Info.Description" xml:space="preserve">
-    <value>Virtualization bridge configuration</value>
-    <comment>Added in FD4</comment>
+  <data name="BridgeSettings.Info.Description" xml:space="preserve">
+    <value>Add virtualization bridge configuration to FlashDevelop.</value>
+    <comment>Added after 3.3.2</comment>
   </data>
-  <data name="Bridge.Description.Active" xml:space="preserve">
-    <value>Enable delegation to host system, typically when running FlashDevelop virtualized in a MacOS host.</value>
-    <comment>Added in FD4</comment>
+  <data name="BridgeSettings.Description.Active" xml:space="preserve">
+    <value>Enables delegation to host system, typically when running FlashDevelop virtualized in a MacOS or Linux host.</value>
+    <comment>Added after 3.3.2</comment>
   </data>
-  <data name="Bridge.Description.AlwaysOpenLocal" xml:space="preserve">
+  <data name="BridgeSettings.Description.AlwaysOpenLocal" xml:space="preserve">
     <value>List of file extensions which must always be executed by Windows and never by the host system.</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
-  <data name="Bridge.Description.SharedFolder" xml:space="preserve">
+  <data name="BridgeSettings.Description.SharedFolder" xml:space="preserve">
     <value>Hidden location for sharing files between host and guest system. Must be of the form "Z:\.FlashDevelop"; the drive can be changed but the path must be shared by the host.</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
-  <data name="Bridge.Description.TargetRemoteIDE" xml:space="preserve">
-    <value>Use Flash CS from the host system if FLA or JSFL is located on the host drive.</value>
-    <comment>Added in FD4</comment>
+  <data name="BridgeSettings.Description.TargetRemoteIDE" xml:space="preserve">
+    <value>Use Flash CS* from the host system if FLA or JSFL is located on the host drive.</value>
+    <comment>Added after 3.3.2</comment>
   </data>
-  <data name="Bridge.Description.UseRemoteExplorer" xml:space="preserve">
+  <data name="BridgeSettings.Description.UseRemoteExplorer" xml:space="preserve">
     <value>Use file explorer of the host system if path is located on the host shared drive.</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
 </root>
