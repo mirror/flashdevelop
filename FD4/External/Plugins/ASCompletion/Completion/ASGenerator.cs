@@ -180,6 +180,9 @@ namespace ASCompletion.Completion
                             eventName = eventParts.Length > 1 ? eventParts[1] : eventName;
                             contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "EventName", Camelize(eventName));
                             InsertCode(position, contextToken);
+                            position = Sci.WordEndPosition(position, true);
+                            Sci.CurrentPos = position;
+                            Sci.SetSel(Sci.CurrentPos, Sci.CurrentPos);
                             contextMatch = m;
                             contextParam = CheckEventType(m.Groups["event"].Value);
                             ShowEventList(found);
