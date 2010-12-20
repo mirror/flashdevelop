@@ -2344,7 +2344,7 @@ namespace FlashDevelop
                         zipLog += "Restart required.\n";
                         finish += "\n" + TextHelper.GetString("Info.RequiresRestart");
                     }
-                    String logFile = Path.Combine(PathHelper.BaseDir, "ExtensionLog.txt");
+                    String logFile = Path.Combine(PathHelper.BaseDir, "Extensions.log");
                     File.AppendAllText(logFile, zipLog + "Done.\n\n", Encoding.UTF8);
                     ErrorManager.ShowInfo(finish);
                 }
