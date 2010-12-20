@@ -155,6 +155,7 @@ namespace ASCompletion.Completion
                     }
                     else
                     {
+                        // insert a default handler name, then "generate event handlers" suggestion
                         Match m = Regex.Match(text, String.Format(patternEvent, ""), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
@@ -176,13 +177,13 @@ namespace ASCompletion.Completion
                             }
 
                             string eventName = m.Groups["event"].Value;
-                            string[] eventParts = eventName.Split(new char[] { '.' });
-                            eventName = eventParts.Length > 1 ? eventParts[1] : eventName;
+                            eventName = eventName.Substring(eventName.LastIndexOf('.') + 1);
                             contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "EventName", Camelize(eventName));
                             InsertCode(position, contextToken);
                             position = Sci.WordEndPosition(position, true);
-                            Sci.CurrentPos = position;
-                            Sci.SetSel(Sci.CurrentPos, Sci.CurrentPos);
+                            Sci.SetSel(position, position);
+                            Sci.ReplaceSel(");");
+                            Sci.SetSel(position, position);
                             contextMatch = m;
                             contextParam = CheckEventType(m.Groups["event"].Value);
                             ShowEventList(found);
