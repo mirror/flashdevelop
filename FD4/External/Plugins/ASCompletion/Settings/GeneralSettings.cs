@@ -300,6 +300,7 @@ namespace ASCompletion.Settings
         const bool DEFAULT_GENERATE_STARTWITHMODIFIERS = false;
         const bool DEFAULT_GENERATE_ADDCLOSINGBRACES = false;
         const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
+        const MethodsGenerationLocations DEFAULT_GENERATE_METHODS = MethodsGenerationLocations.AfterCurrentMethod;
         const string DEFAULT_GENERATE_PREFIXFIELDS = "_";
         const bool DEFAULT_GENERATE_SCOPE = false;
 
@@ -312,6 +313,7 @@ namespace ASCompletion.Settings
         private string[] eventListenersAutoRemove;
         private bool startWithModifiers;
         private PropertiesGenerationLocations propertiesGenerationLocation;
+        private MethodsGenerationLocations methodsGenerationLocation;
         private string prefixFields = DEFAULT_GENERATE_PREFIXFIELDS;
         private bool addClosingBraces = DEFAULT_GENERATE_ADDCLOSINGBRACES;
         private bool generateScope = DEFAULT_GENERATE_SCOPE;
@@ -360,6 +362,15 @@ namespace ASCompletion.Settings
             set { propertiesGenerationLocation = value; }
         }
 
+        [DisplayName("Methods Generation Location")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.MethodsGenerationLocation"),
+        DefaultValue(DEFAULT_GENERATE_METHODS)]
+        public MethodsGenerationLocations MethodsGenerationLocations
+        {
+            get { return methodsGenerationLocation; }
+            set { methodsGenerationLocation = value; }
+        }
+
         [DisplayName("Add Closing Braces")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.AddClosingBraces"),
         DefaultValue(DEFAULT_GENERATE_ADDCLOSINGBRACES)]
@@ -386,5 +397,11 @@ namespace ASCompletion.Settings
         AfterLastPropertyDeclaration = 0,
         AfterVariableDeclaration = 1,
         BeforeVariableDeclaration = 2
+    }
+
+    public enum MethodsGenerationLocations
+    {
+        AfterCurrentMethod = 0,
+        AfterSimilarAccessorMethod = 1
     }
 }

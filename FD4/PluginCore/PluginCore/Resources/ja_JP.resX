@@ -2942,6 +2942,9 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>どこに新しいプロパティ( getter, setter )を作成するかを設定します。</value>
   </data>
+  <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
+    <value>Defines where new methods are to be generated.</value>
+  </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>「 ( 」または「 [ 」または「 " 」を入力したとき、自動的に対になる閉じ括弧（引用符）を入力する。</value>
   </data>

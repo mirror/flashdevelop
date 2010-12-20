@@ -2339,6 +2339,7 @@ namespace ASCompletion.Completion
             // if we generate function in current class..
             if (!isOtherClass)
             {
+                MethodsGenerationLocations location = ASContext.CommonSettings.MethodsGenerationLocations;
                 if (member == null)
                 {
                     detach = false;
@@ -2346,7 +2347,7 @@ namespace ASCompletion.Completion
                     position = Sci.WordStartPosition(Sci.CurrentPos, true);
                     Sci.SetSel(position, Sci.WordEndPosition(position, true));
                 }
-                else if (latest != null)
+                else if (latest != null && location == MethodsGenerationLocations.AfterSimilarAccessorMethod)
                 {
                     position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                     Sci.SetSel(position, position);

@@ -2962,6 +2962,9 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>Gibt an, wo neue Eigenschaften (Getter, Setter) erstellt werden.</value>
   </data>
+  <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
+    <value>Defines where new methods are to be generated.</value>
+  </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Gibt an, ob automatisch eine schließenden Klammer nach Eingabe von "(" oder "[" eingefügt werden soll. Gilt auch für Anführungszeichen.</value>
   </data>

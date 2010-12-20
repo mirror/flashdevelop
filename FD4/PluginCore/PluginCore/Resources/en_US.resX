@@ -2956,6 +2956,9 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>Defines where new properties (getter, setter) are to be generated.</value>
   </data>
+  <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
+    <value>Defines where new methods are to be generated.</value>
+  </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
   </data>
