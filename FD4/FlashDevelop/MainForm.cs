@@ -2305,7 +2305,7 @@ namespace FlashDevelop
                 if (MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     ZipEntry entry = null;
-                    zipLog += "FDZ: " + zipFile + "\n";
+                    zipLog += "FDZ: " + zipFile + "\r\n";
                     ZipInputStream zis = new ZipInputStream(new FileStream(zipFile, FileMode.Open, FileAccess.Read));
                     while ((entry = zis.GetNextEntry()) != null)
                     {
@@ -2320,7 +2320,7 @@ namespace FlashDevelop
                                 fdpath += ".new";
                                 requiresRestart = true;
                             }
-                            zipLog += "Extract: " + fdpath + "\n";
+                            zipLog += "Extract: " + fdpath + "\r\n";
                             FileStream extracted = new FileStream(fdpath, FileMode.Create);
                             while (true)
                             {
@@ -2333,7 +2333,7 @@ namespace FlashDevelop
                         }
                         else
                         {
-                            zipLog += "Create: " + fdpath + "\n";
+                            zipLog += "Create: " + fdpath + "\r\n";
                             Directory.CreateDirectory(fdpath);
 
                         }
@@ -2341,11 +2341,11 @@ namespace FlashDevelop
                     String finish = TextHelper.GetString("Info.ZipExtractDone");
                     if (requiresRestart)
                     {
-                        zipLog += "Restart required.\n";
+                        zipLog += "Restart required.\r\n";
                         finish += "\n" + TextHelper.GetString("Info.RequiresRestart");
                     }
                     String logFile = Path.Combine(PathHelper.BaseDir, "Extensions.log");
-                    File.AppendAllText(logFile, zipLog + "Done.\n\n", Encoding.UTF8);
+                    File.AppendAllText(logFile, zipLog + "Done.\r\n\r\n", Encoding.UTF8);
                     ErrorManager.ShowInfo(finish);
                 }
             }

@@ -12,10 +12,11 @@ using PluginCore.Managers;
 using PluginCore.Localization;
 using ProjectManager.Controls.AS2;
 using ProjectManager.Controls.AS3;
+using PluginCore.Controls;
 
 namespace ProjectManager.Controls
 {
-	public class PropertiesDialog : Form
+	public class PropertiesDialog : SmartForm
 	{
 		#region Form Designer
 
@@ -648,13 +649,14 @@ namespace ProjectManager.Controls
 		public event EventHandler OpenGlobalClasspaths;
 
         public PropertiesDialog() 
-        { 
+        {
+            this.Font = PluginBase.Settings.DefaultFont;
+            this.FormGuid = "4216fccc-781b-4b06-89f6-d9f7e77c2e5f";
             this.InitializeComponent();
             this.CreateClassPathControl();
             this.InitializeLocalization();
             this.AcceptButton = btnOK;
             this.CancelButton = btnCancel;
-            this.Font = PluginBase.Settings.DefaultFont;
         }
 
         private void CreateClassPathControl()

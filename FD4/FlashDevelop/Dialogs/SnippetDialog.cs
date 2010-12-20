@@ -272,6 +272,7 @@ namespace FlashDevelop.Dialogs
             this.Name = "SnippetDialog";
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = " Snippet Editor";
             this.ResumeLayout(false);
             this.PerformLayout();

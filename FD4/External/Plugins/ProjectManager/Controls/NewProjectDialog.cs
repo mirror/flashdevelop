@@ -13,10 +13,11 @@ using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore;
 using System.Collections.Generic;
+using PluginCore.Controls;
 
 namespace ProjectManager.Controls
 {
-	public class NewProjectDialog : System.Windows.Forms.Form
+	public class NewProjectDialog : SmartForm
 	{
 		string defaultProjectImage;
 
@@ -267,6 +268,7 @@ namespace ProjectManager.Controls
 		public NewProjectDialog()
 		{
             this.Font = PluginBase.Settings.DefaultFont;
+            this.FormGuid = "128470dc-9372-46cd-ad32-e5ca27e3c366";
             this.InitializeComponent();
             this.InitializeLocalization();
 
