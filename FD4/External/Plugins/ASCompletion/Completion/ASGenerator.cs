@@ -160,6 +160,7 @@ namespace ASCompletion.Completion
                         if (m.Success)
                         {
                             contextToken = TemplateUtils.GetTemplate("EventHandlerName");
+                            bool noOwner = true;
                             int regexIndex = m.Index + Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
                             int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(regexIndex, true));
                             if (contextOwnerPos != -1)
@@ -167,13 +168,15 @@ namespace ASCompletion.Completion
                                 ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
                                 if (contextOwnerResult != null && !contextOwnerResult.IsNull()
                                     && contextOwnerResult.Member != null)
+                                {
+                                    noOwner = false;
                                     contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
-                                else
-                                    contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", "");
+                                }
                             }
-                            else
+                            if (noOwner)
                             {
-                                contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", "");
+                                contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", "")
+                                    .Replace("_$(EventName)", "$(EventName)");
                             }
 
                             string eventName = m.Groups["event"].Value;
@@ -182,7 +185,8 @@ namespace ASCompletion.Completion
                             InsertCode(position, contextToken);
                             position = Sci.WordEndPosition(position, true);
                             Sci.SetSel(position, position);
-                            Sci.ReplaceSel(");");
+                            char c = (char)Sci.CharAt(position);
+                            if (c <= 32) Sci.ReplaceSel(");");
                             Sci.SetSel(position, position);
                             contextMatch = m;
                             contextParam = CheckEventType(m.Groups["event"].Value);
