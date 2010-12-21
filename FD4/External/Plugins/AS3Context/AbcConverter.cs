@@ -748,19 +748,12 @@ namespace AS3Context
             ReadStartElement();
             while (Name != eon)
             {
-                if (NodeType == XmlNodeType.Element)
+                switch (NodeType)
                 {
-                    ReadStartElement();
-                    //if (!sEmptyElement) desc += "<" + Name + "/>";
-                    //else desc += "<" + Name + ">";
+                    case XmlNodeType.Element: ReadStartElement(); break;
+                    case XmlNodeType.EndElement: ReadEndElement(); break;
+                    case XmlNodeType.Text: desc += ReadString(); break;
                 }
-                else if (NodeType == XmlNodeType.EndElement)
-                {
-                    //desc += "</" + Name + ">";
-                    ReadEndElement();
-                }
-                else if (NodeType == XmlNodeType.Text)
-                    desc += ReadString();
             }
             return desc;
         }

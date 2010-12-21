@@ -554,7 +554,7 @@ namespace SwfOp.Data
         {
             int len = readU32(br);
             byte[] buffer = new byte[len];
-            for (int i = 0; i < len; i++)
+            for (int i = 0; i < len; ++i)
             {
                 buffer[i] = br.ReadByte();
             }

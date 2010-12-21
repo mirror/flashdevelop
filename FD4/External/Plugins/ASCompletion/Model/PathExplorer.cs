@@ -352,7 +352,7 @@ namespace ASCompletion.Model
 		{
             if (stopExploration || !Directory.Exists(path)) return;
 			explored.Add(path);
-            Thread.Sleep(1);
+            Thread.Sleep(5);
 
             // The following try/catch is used to handle "There are no more files" IOException.
             // For some undocumented reason, on a networks share, and when using a mask, 
@@ -362,8 +362,9 @@ namespace ASCompletion.Model
                 foreach (string mask in masks)
                 {
                     string[] files = Directory.GetFiles(path, mask);
-                    if (files != null) 
+                    if (files != null)
                         foreach (string file in files) foundFiles.Add(file);
+                    Thread.Sleep(5);
                 }
             }
             catch { }
