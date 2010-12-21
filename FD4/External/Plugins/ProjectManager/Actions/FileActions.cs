@@ -66,7 +66,7 @@ namespace ProjectManager.Actions
 
         #region Add File From Template
 
-        public void AddFileFromTemplate(Project project, string inDirectory, string templatePath)
+        public void AddFileFromTemplate(Project project, string inDirectory, string templatePath, bool noName)
         {
             try
             {
@@ -80,7 +80,8 @@ namespace ProjectManager.Actions
                     // it's something like Class.as.fdt
                     extension = Path.GetExtension(fileName); // .as
                     caption += Path.GetFileNameWithoutExtension(fileName);
-                    fileName = TextHelper.GetString("Label.New") + Path.GetFileNameWithoutExtension(fileName).Replace(" ", ""); // just Class
+                    if (noName) fileName = TextHelper.GetString("Label.NewFile");
+                    else fileName = TextHelper.GetString("Label.New") + Path.GetFileNameWithoutExtension(fileName).Replace(" ", ""); // just Class
                 }
                 else
                 {

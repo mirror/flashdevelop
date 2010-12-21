@@ -13,7 +13,7 @@ using PluginCore.Helpers;
 
 namespace ProjectManager.Controls.TreeView
 {
-    public delegate void FileAddHandler(string templatePath);
+    public delegate void FileAddHandler(string templatePath, bool noName);
 
     /// <summary>
     /// Provides a smart context menu for a ProjectTreeView.
@@ -153,23 +153,30 @@ namespace ProjectManager.Controls.TreeView
             ToolStripMenuItem item = new ToolStripMenuItem("New " + actualName + "...", image);
             item.Click += delegate
             {
-                if (AddFileFromTemplate != null)
-                    AddFileFromTemplate(file);
+                if (AddFileFromTemplate != null) AddFileFromTemplate(file, false);
             };
             return item;
         }
 
         private ToolStripMenuItem GetGenericAddFile(string file)
         {
-            string ext = "." + Path.GetFileNameWithoutExtension(file);
+            string ext = string.Empty;
+            string actual = Path.GetFileNameWithoutExtension(file);
+            bool isDoubleExt = Path.GetFileName(file).Split('.').Length > 2;
+            if (isDoubleExt) // Double extension...
+            {
+                actual = Path.GetFileNameWithoutExtension(actual);
+                ext = Path.GetExtension(actual);
+            }
+            else ext = "." + actual;
             Image image = Icons.GetImageForFile(ext).Img;
             image = Icons.Overlay(image, Icons.BulletAdd.Img, 5, 4);
             String nlabel = TextHelper.GetString("Label.New");
             String flabel = TextHelper.GetString("Label.File");
-            ToolStripMenuItem item = new ToolStripMenuItem(nlabel + " " + Path.GetFileNameWithoutExtension(file) + " " + flabel + "...", image);
-            item.Click += delegate
+            ToolStripMenuItem item = new ToolStripMenuItem(nlabel + " " + actual + " " + flabel + "...", image);
+            item.Click += delegate 
             {
-                if (AddFileFromTemplate != null) AddFileFromTemplate(file);
+                if (AddFileFromTemplate != null) AddFileFromTemplate(file, true);
             };
             return item;
         }

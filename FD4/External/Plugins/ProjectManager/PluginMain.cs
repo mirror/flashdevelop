@@ -1030,9 +1030,9 @@ namespace ProjectManager
             }
         }
 
-        private void TreeAddFileFromTemplate(string templatePath)
+        private void TreeAddFileFromTemplate(string templatePath, bool noName)
         {
-            fileActions.AddFileFromTemplate(project, Tree.SelectedPath, templatePath);
+            fileActions.AddFileFromTemplate(project, Tree.SelectedPath, templatePath, noName);
         }
 
         private void TreeAddFolder()
