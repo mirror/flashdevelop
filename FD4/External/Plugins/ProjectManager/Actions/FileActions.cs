@@ -71,17 +71,24 @@ namespace ProjectManager.Actions
             try
             {
                 // the template could be named something like "MXML.fdt", or maybe "Class.as.fdt"
-                string fileName = Path.GetFileNameWithoutExtension(templatePath);
                 string extension = "";
+                string fileName = Path.GetFileNameWithoutExtension(templatePath);
                 string caption = TextHelper.GetString("Label.AddNew") + " ";
 
                 if (fileName.IndexOf('.') > -1)
                 {
                     // it's something like Class.as.fdt
                     extension = Path.GetExtension(fileName); // .as
-                    caption += Path.GetFileNameWithoutExtension(fileName);
-                    if (noName) fileName = TextHelper.GetString("Label.NewFile");
-                    else fileName = TextHelper.GetString("Label.New") + Path.GetFileNameWithoutExtension(fileName).Replace(" ", ""); // just Class
+                    if (noName)
+                    {
+                        caption += extension.Substring(1).ToUpper() + " " + TextHelper.GetString("Label.File");
+                        fileName = TextHelper.GetString("Label.NewFile");
+                    }
+                    else
+                    {
+                        caption += Path.GetFileNameWithoutExtension(fileName);
+                        fileName = TextHelper.GetString("Label.New") + Path.GetFileNameWithoutExtension(fileName).Replace(" ", ""); // just Class
+                    }
                 }
                 else
                 {
