@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
 using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using System.ComponentModel;
 using PluginCore.Localization;
 using PluginCore.Helpers;
 using PluginCore.Managers;
@@ -152,7 +152,7 @@ namespace HaXeContext
             if (this.settingObject.HaXePath == null) // default values
             {
                 string eVariable = System.Environment.GetEnvironmentVariable("HAXEPATH");
-                settingObject.HaXePath = eVariable ?? @"C:\Program Files\Motion-Twin\haxe";
+                settingObject.HaXePath = eVariable ?? @"C:\Motion-Twin\haxe";
             }
             this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
