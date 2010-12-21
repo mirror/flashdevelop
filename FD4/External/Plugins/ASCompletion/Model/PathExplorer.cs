@@ -29,10 +29,23 @@ namespace ASCompletion.Model
             get { return explorerThread != null; }
         }
 
+        static private bool uistarted;
         static private Queue<PathExplorer> waiting = new Queue<PathExplorer>();
         static private volatile Thread explorerThread;
         static private volatile bool stopExploration;
         static private volatile int toWait = 1000; // initial delay before exploring the filesystem
+
+        static public void OnUIStarted()
+        {
+            if (!uistarted)
+            {
+                uistarted = true;
+                lock (waiting)
+                {
+                    StartBackgroundThread();
+                }
+            }
+        }
 
         static public void StopBackgroundExploration()
         {
@@ -98,16 +111,18 @@ namespace ASCompletion.Model
                     if (exp.pathModel == pathModel) return;
                 waiting.Enqueue(this);
 
-                if (explorerThread == null)
-                {
-                    // status
-                    NotifyProgress(TextHelper.GetString("Info.Exploring"), 0, 1);
+                StartBackgroundThread();
+            }
+        }
 
-                    explorerThread = new Thread(ExploreInBackground);
-                    explorerThread.Name = "ExplorerThread";
-                    explorerThread.Priority = ThreadPriority.Lowest;
-                    explorerThread.Start();
-                }
+        private static void StartBackgroundThread()
+        {
+            if (uistarted && explorerThread == null)
+            {
+                explorerThread = new Thread(ExploreInBackground);
+                explorerThread.Name = "ExplorerThread";
+                explorerThread.Priority = ThreadPriority.Lowest;
+                explorerThread.Start();
             }
 		}
 

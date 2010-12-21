@@ -152,6 +152,7 @@ namespace ASCompletion
                 if (!started && e.Type == EventType.UIStarted)
                 {
                     started = true;
+                    PathExplorer.OnUIStarted();
                     // associate context to initial document
                     e = new NotifyEvent(EventType.SyntaxChange);
                 }
