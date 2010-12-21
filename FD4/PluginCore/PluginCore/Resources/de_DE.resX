@@ -2964,6 +2964,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
     <value>Defines where new methods are to be generated.</value>
+    <comment>Added after 3.3.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Gibt an, ob automatisch eine schließenden Klammer nach Eingabe von "(" oder "[" eingefügt werden soll. Gilt auch für Anführungszeichen.</value>
@@ -4373,6 +4374,14 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="BridgeSettings.Info.Description" xml:space="preserve">
     <value>Add virtualization bridge configuration to FlashDevelop.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Description.ConfirmOnExit" xml:space="preserve">
+    <value>Confirms closing on program exit.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Info.AreYouSureToExit" xml:space="preserve">
+    <value>Are you sure you want to exit FlashDevelop?</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>

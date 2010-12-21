@@ -574,6 +574,15 @@ namespace FlashDevelop.Settings
 
         #region State
 
+        [DisplayName("Confirm On Exit")]
+        [LocalizedCategory("FlashDevelop.Category.State")]
+        [LocalizedDescription("FlashDevelop.Description.ConfirmOnExit")]
+        public Boolean ConfirmOnExit
+        {
+            get { return this.confirmOnExit; }
+            set { this.confirmOnExit = value; }
+        }
+
         [DisplayName("Disable Replace In Files Confirm")]
         [LocalizedCategory("FlashDevelop.Category.State")]
         [LocalizedDescription("FlashDevelop.Description.DisableReplaceFilesConfirm")]

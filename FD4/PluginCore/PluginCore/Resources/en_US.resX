@@ -2958,6 +2958,7 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
     <value>Defines where new methods are to be generated.</value>
+    <comment>Added after 3.3.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
@@ -4373,6 +4374,14 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="BridgeSettings.Description.UseRemoteExplorer" xml:space="preserve">
     <value>Use file explorer of the host system if path is located on the host shared drive.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Description.ConfirmOnExit" xml:space="preserve">
+    <value>Confirms closing on program exit.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Info.AreYouSureToExit" xml:space="preserve">
+    <value>Are you sure you want to exit FlashDevelop?</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>

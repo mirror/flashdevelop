@@ -977,6 +977,19 @@ namespace FlashDevelop
                 this.closingEntirely = false;
                 e.Cancel = true;
             }
+            if (!e.Cancel && Globals.Settings.ConfirmOnExit)
+            {
+                if (this.Documents.Length == 0)
+                {
+                    NotifyEvent fe = new NotifyEvent(EventType.FileEmpty);
+                    EventManager.DispatchEvent(this, fe);
+                    if (!fe.Handled) this.New(null, null);
+                }
+                String title = TextHelper.GetString("Title.ConfirmDialog");
+                String message = TextHelper.GetString("Info.AreYouSureToExit");
+                DialogResult result = MessageBox.Show(Globals.MainForm, message, " " + title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) e.Cancel = true;
+            }
             if (!e.Cancel)
             {
                 String file = FileNameHelper.SessionData;
