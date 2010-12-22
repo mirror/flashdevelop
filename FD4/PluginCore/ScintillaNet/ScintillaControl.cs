@@ -5944,6 +5944,46 @@ namespace ScintillaNet
             this.StartStyling(this.EndStyled, mask - 1);
         }
 
+        /// <summary>
+        /// Moves the current line(s) down
+        /// </summary>
+        public void MoveLineDown()
+        {
+            int start = this.SelectionStart < this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
+            int end = this.SelectionStart > this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
+            int len = this.LineFromPosition(end) - this.LineFromPosition(start);
+            this.BeginUndoAction();
+            this.SelectionStart = this.PositionFromLine(this.LineFromPosition(start));
+            this.SelectionEnd = this.PositionFromLine(this.LineFromPosition(end) + 1);
+            string selectStr = this.SelText;
+            this.Clear();
+            this.LineDown();
+            this.InsertText(this.PositionFromLine(this.LineFromPosition(this.CurrentPos)), selectStr);
+            this.SelectionStart = this.PositionFromLine(start = this.LineFromPosition(this.CurrentPos));
+            this.SelectionEnd = this.LineEndPosition(start + len);
+            this.EndUndoAction();
+        }
+
+        /// <summary>
+        /// Moves the current line(s) up
+        /// </summary>
+        public void MoveLineUp()
+        {
+            int start = this.SelectionStart < this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
+            int end = this.SelectionStart > this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
+            int len = this.LineFromPosition(end) - this.LineFromPosition(start);
+            this.BeginUndoAction();
+            this.SelectionStart = this.PositionFromLine(this.LineFromPosition(start));
+            this.SelectionEnd = this.PositionFromLine(this.LineFromPosition(end) + 1);
+            string selectStr = this.SelText;
+            this.Clear();
+            this.LineUp();
+            this.InsertText(this.PositionFromLine(this.LineFromPosition(this.CurrentPos)), selectStr);
+            this.SelectionStart = this.PositionFromLine(start = this.LineFromPosition(this.CurrentPos));
+            this.SelectionEnd = this.LineEndPosition(start + len);
+            this.EndUndoAction();
+        }
+
 		#endregion
 
     }

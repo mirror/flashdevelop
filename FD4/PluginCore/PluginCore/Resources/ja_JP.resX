@@ -4379,4 +4379,12 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Are you sure you want to exit FlashDevelop?</value>
     <comment>Added after 3.3.2</comment>
   </data>
+  <data name="FlashDevelop.Label.MoveLineDown" xml:space="preserve">
+    <value>Move Line Down</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="FlashDevelop.Label.MoveLineUp" xml:space="preserve">
+    <value>Move Line Up</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
 </root>
