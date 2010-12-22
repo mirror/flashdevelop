@@ -4,6 +4,8 @@
 		<button label="Label.CutLine" click="ScintillaCommand" tag="LineCut" flags="Enable:IsEditable" />
 		<button label="Label.CopyLine" click="ScintillaCommand" tag="LineCopy" flags="Enable:IsEditable" />
 		<button label="Label.DeleteLine" click="ScintillaCommand" tag="LineDelete" flags="Enable:IsEditable" />
+		<button label="Label.MoveLineUp" click="ScintillaCommand" tag="MoveLineUp" flags="Enable:IsEditable" />
+		<button label="Label.MoveLineDown" click="ScintillaCommand" tag="MoveLineDown" flags="Enable:IsEditable" />
 		<button label="Label.TransposeLines" click="ScintillaCommand" tag="LineTranspose" flags="Enable:IsEditable" />
 		<button label="Label.DuplicateSelection" click="ScintillaCommand" tag="SelectionDuplicate" flags="Enable:IsEditable" />
 		<button label="Label.SortLineGroups" click="SortLineGroups" flags="Enable:IsEditable|Enable:HasSelection" />
