@@ -3583,19 +3583,28 @@ namespace ASCompletion.Completion
 
                 if (ofClass.Members.Search(name, FlagType.Getter, 0) != null)
                 {
-                    decl += String.Format(TemplateUtils.GetTemplate("Getter"),
-                        acc, name, type, "super." + name);
+                    string tpl = TemplateUtils.GetTemplate("Getter");
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Modifiers", acc);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Name", name);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Type", type);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Member", "super." + name);
+                    decl += tpl;
                 }
                 if (ofClass.Members.Search(name, FlagType.Setter, 0) != null)
                 {
                     string tpl = TemplateUtils.GetTemplate("Setter");
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Modifiers", acc);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Name", name);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Type", type);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Type", type);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Member", "super." + name);
+                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Void", ASContext.Context.Features.voidKey ?? "void");
                     if (decl.Length > 0)
                     {
                         decl += "\n\n";
                         tpl = tpl.Replace("$(EntryPoint)", "");
                     }
-                    decl += String.Format(tpl,
-                        acc, name, type, "super." + name, ASContext.Context.Features.voidKey ?? "void");
+                    decl += tpl;
                 }
             }
             else
