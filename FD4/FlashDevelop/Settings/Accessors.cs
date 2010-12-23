@@ -93,36 +93,6 @@ namespace FlashDevelop.Settings
         #region Display
 
         [DefaultValue(false)]
-        [DisplayName("Highlight Caret Line")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.CaretLineVisible")]
-        public Boolean CaretLineVisible
-        {
-            get { return this.caretLineVisible; }
-            set { this.caretLineVisible = value; }
-        }
-
-        [DefaultValue(true)]
-        [DisplayName("Disable Highlight Guide")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.HighlightGuide")]
-        public Boolean HighlightGuide
-        {
-            get { return this.highlightGuide; }
-            set { this.highlightGuide = value; }
-        }
-
-        [DefaultValue(0)]
-        [DisplayName("Print Margin Column")]
-        [LocalizedCategory("FlashDevelop.Category.Display")]
-        [LocalizedDescription("FlashDevelop.Description.PrintMarginColumn")]
-        public Int32 PrintMarginColumn
-        {
-            get { return this.printMarginColumn; }
-            set { this.printMarginColumn = value; }
-        }
-
-        [DefaultValue(false)]
         [DisplayName("View EOL Characters")]
         [LocalizedCategory("FlashDevelop.Category.Display")]
         [LocalizedDescription("FlashDevelop.Description.ViewEOL")]
@@ -262,6 +232,154 @@ namespace FlashDevelop.Settings
         {
             get { return this.defaultFont; }
             set { this.defaultFont = value; }
+        }
+
+        #endregion
+
+        #region Editor
+
+        [DefaultValue(false)]
+        [DisplayName("Highlight Caret Line")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.CaretLineVisible")]
+        public Boolean CaretLineVisible
+        {
+            get { return this.caretLineVisible; }
+            set { this.caretLineVisible = value; }
+        }
+
+        [DefaultValue(true)]
+        [DisplayName("Disable Highlight Guide")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.HighlightGuide")]
+        public Boolean HighlightGuide
+        {
+            get { return this.highlightGuide; }
+            set { this.highlightGuide = value; }
+        }
+
+        [DefaultValue(0)]
+        [DisplayName("Print Margin Column")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.PrintMarginColumn")]
+        public Int32 PrintMarginColumn
+        {
+            get { return this.printMarginColumn; }
+            set { this.printMarginColumn = value; }
+        }
+
+        [DisplayName("Virtual Space Mode")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.VirtualSpaceMode")]
+        [DefaultValue(ScintillaNet.Enums.VirtualSpaceMode.RectangularSelection)]
+        public ScintillaNet.Enums.VirtualSpaceMode VirtualSpaceMode
+        {
+            get { return this.virtualSpaceMode; }
+            set { this.virtualSpaceMode = value; }
+        }
+
+        [DisplayName("End Of Line Mode")]
+        [DefaultValue(ScintillaNet.Enums.EndOfLine.CRLF)]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.EOLMode")]
+        public ScintillaNet.Enums.EndOfLine EOLMode
+        {
+            get { return this.eolMode; }
+            set { this.eolMode = value; }
+        }
+
+        [DefaultValue(500)]
+        [DisplayName("Caret Period")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.CaretPeriod")]
+        public Int32 CaretPeriod
+        {
+            get { return this.caretPeriod; }
+            set { this.caretPeriod = value; }
+        }
+
+        [DefaultValue(2)]
+        [DisplayName("Caret Width")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.CaretWidth")]
+        public Int32 CaretWidth
+        {
+            get { return this.caretWidth; }
+            set { this.caretWidth = value; }
+        }
+
+        [DefaultValue(3000)]
+        [DisplayName("Scroll Area Width")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.ScrollWidth")]
+        public Int32 ScrollWidth
+        {
+            get { return this.scrollWidth; }
+            set { this.scrollWidth = value; }
+        }
+
+        [DefaultValue("as")]
+        [DisplayName("Default File Extension")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.DefaultFileExtension")]
+        public String DefaultFileExtension
+        {
+            get { return this.defaultFileExtension; }
+            set { this.defaultFileExtension = value; }
+        }
+
+        [DefaultValue(15000)]
+        [DisplayName("Backup Interval")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.BackupInterval")]
+        public Int32 BackupInterval
+        {
+            get { return this.backupInterval; }
+            set { this.backupInterval = value; }
+        }
+
+        [DefaultValue(3000)]
+        [DisplayName("File Poll Interval")]
+        [LocalizedCategory("FlashDevelop.Category.Editor")]
+        [LocalizedDescription("FlashDevelop.Description.FilePollInterval")]
+        public Int32 FilePollInterval
+        {
+            get { return this.filePollInterval; }
+            set { this.filePollInterval = value; }
+        }
+
+        #endregion
+
+        #region Locale
+
+        [DisplayName("Selected Locale")]
+        [DefaultValue(LocaleVersion.en_US)]
+        [LocalizedCategory("FlashDevelop.Category.Locale")]
+        [LocalizedDescription("FlashDevelop.Description.LocaleVersion")]
+        public LocaleVersion LocaleVersion
+        {
+            get { return this.localeVersion; }
+            set { this.localeVersion = value; }
+        }
+
+        [DefaultValue(CodePage.UTF8)]
+        [DisplayName("Default CodePage")]
+        [LocalizedCategory("FlashDevelop.Category.Locale")]
+        [LocalizedDescription("FlashDevelop.Description.DefaultCodePage")]
+        public CodePage DefaultCodePage
+        {
+            get { return this.defaultCodePage; }
+            set { this.defaultCodePage = value; }
+        }
+
+        [DefaultValue(false)]
+        [DisplayName("Create Unicode With BOM")]
+        [LocalizedCategory("FlashDevelop.Category.Locale")]
+        [LocalizedDescription("FlashDevelop.Description.SaveUnicodeWithBOM")]
+        public Boolean SaveUnicodeWithBOM
+        {
+            get { return this.saveUnicodeWithBOM; }
+            set { this.saveUnicodeWithBOM = value; }
         }
 
         #endregion
@@ -490,116 +608,6 @@ namespace FlashDevelop.Settings
         {
             get { return this.disableFindTextUpdating; }
             set { this.disableFindTextUpdating = value; }
-        }
-
-        [DisplayName("End Of Line Mode")]
-        [DefaultValue(ScintillaNet.Enums.EndOfLine.CRLF)]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.EOLMode")]
-        public ScintillaNet.Enums.EndOfLine EOLMode
-        {
-            get { return this.eolMode; }
-            set { this.eolMode = value; }
-        }
-
-        [DefaultValue(500)]
-        [DisplayName("Caret Period")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.CaretPeriod")]
-        public Int32 CaretPeriod
-        {
-            get { return this.caretPeriod; }
-            set { this.caretPeriod = value; }
-        }
-
-        [DefaultValue(2)]
-        [DisplayName("Caret Width")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.CaretWidth")]
-        public Int32 CaretWidth
-        {
-            get { return this.caretWidth; }
-            set { this.caretWidth = value; }
-        }
-
-        [DefaultValue(3000)]
-        [DisplayName("Scroll Area Width")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.ScrollWidth")]
-        public Int32 ScrollWidth
-        {
-            get { return this.scrollWidth; }
-            set { this.scrollWidth = value; }
-        }
-
-        [DefaultValue(15000)]
-        [DisplayName("Backup Interval")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.BackupInterval")]
-        public Int32 BackupInterval
-        {
-            get { return this.backupInterval; }
-            set { this.backupInterval = value; }
-        }
-
-        [DefaultValue(3000)]
-        [DisplayName("File Poll Interval")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.FilePollInterval")]
-        public Int32 FilePollInterval
-        {
-            get { return this.filePollInterval; }
-            set { this.filePollInterval = value; }
-        }
-
-        [DisplayName("Selected Locale")]
-        [DefaultValue(LocaleVersion.en_US)]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.LocaleVersion")]
-        public LocaleVersion LocaleVersion
-        {
-            get { return this.localeVersion; }
-            set { this.localeVersion = value; }
-        }
-
-        [DefaultValue("as")]
-        [DisplayName("Default File Extension")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.DefaultFileExtension")]
-        public String DefaultFileExtension
-        {
-            get { return this.defaultFileExtension; }
-            set { this.defaultFileExtension = value; }
-        }
-
-        [DefaultValue(CodePage.UTF8)]
-        [DisplayName("Default CodePage")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.DefaultCodePage")]
-        public CodePage DefaultCodePage
-        {
-            get { return this.defaultCodePage; }
-            set { this.defaultCodePage = value; }
-        }
-
-        [DefaultValue(false)]
-        [DisplayName("Create Unicode With BOM")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.SaveUnicodeWithBOM")]
-        public Boolean SaveUnicodeWithBOM
-        {
-            get { return this.saveUnicodeWithBOM; }
-            set { this.saveUnicodeWithBOM = value; }
-        }
-
-        [DisplayName("Virtual Space Mode")]
-        [LocalizedCategory("FlashDevelop.Category.Features")]
-        [LocalizedDescription("FlashDevelop.Description.VirtualSpaceMode")]
-        [DefaultValue(ScintillaNet.Enums.VirtualSpaceMode.RectangularSelection)]
-        public ScintillaNet.Enums.VirtualSpaceMode VirtualSpaceMode
-        {
-            get { return this.virtualSpaceMode; }
-            set { this.virtualSpaceMode = value; }
         }
 
         #endregion

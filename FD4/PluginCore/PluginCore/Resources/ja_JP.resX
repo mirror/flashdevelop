@@ -4391,4 +4391,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Sets the virtual space mode with rectangular selection.</value>
     <comment>Added after 3.3.2</comment>
   </data>
+  <data name="FlashDevelop.Category.Locale" xml:space="preserve">
+    <value>Locale</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
 </root>
