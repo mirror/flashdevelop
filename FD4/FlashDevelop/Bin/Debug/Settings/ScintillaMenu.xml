@@ -28,6 +28,8 @@
 		<button label="Label.Snippet" click="InsertSnippet" tag="null" flags="Enable:IsEditable" />
 		<button label="Label.Color" click="InsertColor" flags="Enable:IsEditable" />
 		<button label="Label.GUID" click="InsertGUID" flags="Enable:IsEditable" />
+		<separator />
+		<button label="Label.Hash" click="InsertHash" flags="Enable:IsEditable" />
 	</menu>
 	<menu label="Label.Search" name="SearchMenu">
 		<button label="Label.GotoMatchingBrace" click="GoToMatchingBrace" image="67" flags="Enable:IsEditable" />
