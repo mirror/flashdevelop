@@ -388,7 +388,15 @@ namespace ScintillaNet.Enums
         AutoCCancelled = 2025,
         AutoCCharDeleted = 2026
 	}
-	
+
+    public enum VirtualSpaceMode
+    {
+        None = 0,
+        RectangularSelection = 1, 
+        CursorMovement = 2,
+        Both = 3
+    }
+
 	public enum Lexer
     {    
 		CONTAINER = 0,

@@ -4387,4 +4387,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Move Line Up</value>
     <comment>Added after 3.2.2</comment>
   </data>
+  <data name="FlashDevelop.Description.VirtualSpaceMode" xml:space="preserve">
+    <value>Sets the virtual space mode with rectangular selection.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
 </root>

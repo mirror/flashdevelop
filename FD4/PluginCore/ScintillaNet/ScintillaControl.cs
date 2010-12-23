@@ -4793,6 +4793,40 @@ namespace ScintillaNet
             return Encoding.GetEncoding(this.CodePage).GetString(buffer, 0, sz - 1);
         }
 
+        /// <summary>
+        /// Set caret behavior in virtual space. (1 = allow rectangular selection, 2 = allow cursor movement, 3 = both)
+        /// </summary>
+        public void SetVirtualSpaceOptions(int options)
+        {
+            SPerform(2596, (uint)options, 0);
+        }
+
+        /// <summary>
+        /// Returns caret behavior in virtual space. (1 = allow rectangular selection, 2 = allow cursor movement, 3 = both)
+        /// </summary>
+        public int GetVirtualSpaceOptions()
+        {
+            return (int)SPerform(2597, 0, 0);
+        }
+
+        /// <summary>
+        /// Set whether pasting, typing, backspace, and delete work on all lines of a multiple selection
+        /// </summary>
+        public void SetMultiSelectionTyping(bool flag)
+        {
+            uint option = (uint)(flag ? 1 : 0);
+            SPerform(2565, option, 0);
+            SPerform(2614, option, 0);
+        }
+
+        /// <summary>
+        /// Returns whether pasting, typing, backspace, and delete work on all lines of a multiple selection
+        /// </summary>
+        public bool GetMultiSelectionTyping()
+        {
+            return SPerform(2566, 0, 0) != 0;
+        }
+
 		#endregion
 		
 		#region Scintilla Constants

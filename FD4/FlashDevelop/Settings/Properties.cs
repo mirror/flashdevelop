@@ -20,6 +20,7 @@ namespace FlashDevelop.Settings
         private ScintillaNet.Enums.EndOfLine eolMode = ScintillaNet.Enums.EndOfLine.CRLF;
         private ScintillaNet.Enums.FoldFlag foldFlags = ScintillaNet.Enums.FoldFlag.LineAfterContracted;
         private ScintillaNet.Enums.SmartIndent smartIndentType = ScintillaNet.Enums.SmartIndent.CPP;
+        private ScintillaNet.Enums.VirtualSpaceMode virtualSpaceMode = ScintillaNet.Enums.VirtualSpaceMode.RectangularSelection;
         private UiRenderMode uiRenderMode = UiRenderMode.Professional;
         private CodingStyle codingStyle = CodingStyle.BracesAfterLine;
         private CommentBlockStyle commentBlockStyle = CommentBlockStyle.Indented;
