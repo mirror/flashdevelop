@@ -214,6 +214,7 @@ namespace PluginCore
         FlatStyle ComboBoxFlatStyle { get; set; }
         String DefaultFileExtension { get; set; }
         String LatestDialogPath { get; set; }
+        Boolean ConfirmOnExit { get; set; }
         Boolean DisableFindOptionSync { get; set; }
         Boolean DisableReplaceFilesConfirm { get; set; }
         Boolean AutoReloadModifiedFiles { get; set; }
@@ -253,6 +254,7 @@ namespace PluginCore
         ScintillaNet.Enums.EndOfLine EOLMode { get; set; }
         ScintillaNet.Enums.FoldFlag FoldFlags { get; set; }
         ScintillaNet.Enums.SmartIndent SmartIndentType { get; set; }
+        ScintillaNet.Enums.VirtualSpaceMode VirtualSpaceMode { get; set; }
         CodePage DefaultCodePage { get; set; }
         Int32 TabWidth { get; set; }
         Int32 IndentSize { get; set; }
