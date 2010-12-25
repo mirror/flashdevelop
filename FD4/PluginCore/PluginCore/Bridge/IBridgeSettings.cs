@@ -12,6 +12,16 @@ namespace PluginCore.Bridge
         bool Active { get; }
 
         /// <summary>
+        /// Provide a custom IP to override auto-detection
+        /// </summary>
+        string CustomIP { get; }
+
+        /// <summary>
+        /// Bridge port number (default 8007)
+        /// </summary>
+        int Port { get; }
+
+        /// <summary>
         /// Use Flash CS from the host system
         /// </summary>
         bool TargetRemoteIDE { get; }

@@ -103,7 +103,7 @@ namespace ASCompletion.Commands
             try
             {
                 string file = args.StartsWith("\"") ? args.Substring(1, args.Length-2) : args;
-                if (BridgeManager.Settings.TargetRemoteIDE 
+                if (BridgeManager.Active && BridgeManager.Settings.TargetRemoteIDE 
                     && File.Exists(file) && Path.GetExtension(file) == ".jsfl" && file[0] <= 'H')
                 {
                     string folder = Path.Combine(BridgeManager.Settings.SharedFolder, "flashide");

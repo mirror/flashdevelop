@@ -4395,4 +4395,12 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Locale</value>
     <comment>Added after 3.3.2</comment>
   </data>
+  <data name="BridgeSettings.Description.BridgePort" xml:space="preserve">
+    <value>Bridge socket connection port (default 8007).</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="BridgeSettings.Description.CustomBridgeIP" xml:space="preserve">
+    <value>Provide a specific IP to override auto-detection.</value>
+    <comment>Added in FD4</comment>
+  </data>
 </root>

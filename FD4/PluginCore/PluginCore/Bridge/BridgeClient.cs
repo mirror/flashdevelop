@@ -9,23 +9,22 @@ namespace PluginCore.Bridge
     {
         #region configuration
         static private string ip;
-        static private int port = 8007;
 
         static public string BridgeIP
         {
             get
             {
-                if (ip == null)
+                if (BridgeManager.Settings.CustomIP.Length > 0) return BridgeManager.Settings.CustomIP;
+                else if (ip == null)
                 {
                     ip = DetectIP();
-                    if (ip == null)
-                        ip = "invalid";
+                    if (ip == null) ip = "invalid";
                 }
                 return ip;
             }
         }
 
-        static public int BridgePort { get { return port; } }
+        static public int BridgePort { get { return BridgeManager.Settings.Port; } }
 
         static string DetectIP()
         {

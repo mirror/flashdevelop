@@ -11,9 +11,12 @@ namespace BridgeSettings
     class Settings : IBridgeSettings
     {
         const string DEFAULT_SHARED_FOLDER = "Z:\\.FlashDevelop";
+        const int DEFAULT_PORT_NUM = 8007;
         static private string[] DEFAULT_EXTENSIONS = { ".exe", ".com", ".bat", ".cmd" };
 
         private bool active = false;
+        private string ip;
+        private int port = DEFAULT_PORT_NUM;
         private bool targetRemoteIDE = true;
         private bool useRemoteExplorer = true;
         private string sharedFolder = DEFAULT_SHARED_FOLDER;
@@ -26,6 +29,20 @@ namespace BridgeSettings
             set { active = value; }
         }
 
+        [DisplayName("Custom Bridge IP"), LocalizedDescription("BridgeSettings.Description.CustomBridgeIP"), DefaultValue("")]
+        public string CustomIP
+        {
+            get { return ip ?? ""; }
+            set { ip = value; }
+        }
+
+        [DisplayName("Bride Port"), LocalizedDescription("BridgeSettings.Description.BridgePort"), DefaultValue(DEFAULT_PORT_NUM)]
+        public int Port
+        {
+            get { return port > 0 ? port : DEFAULT_PORT_NUM; }
+            set { port = value; }
+        }
+        
         [DisplayName("Target Remote IDE"), LocalizedDescription("BridgeSettings.Description.TargetRemoteIDE"), DefaultValue(true)]
         public bool TargetRemoteIDE
         {

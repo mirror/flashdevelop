@@ -36,7 +36,7 @@ namespace ASCompletion.Helpers
             {
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string logLocation;
-                if (BridgeManager.Settings.TargetRemoteIDE)
+                if (BridgeManager.Active && BridgeManager.Settings.TargetRemoteIDE)
                 {
                     logLocation = Path.Combine(BridgeManager.Settings.SharedFolder, "flashide");
                     Directory.CreateDirectory(logLocation);
