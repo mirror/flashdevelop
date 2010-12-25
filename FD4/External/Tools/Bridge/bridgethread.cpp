@@ -14,6 +14,7 @@ BridgeThread::BridgeThread(int descriptor, QObject *parent) : QThread(parent)
 void BridgeThread::run()
 {
     client = new QTcpSocket();
+    client->moveToThread(this);
     if (!client->setSocketDescriptor(socketDescriptor))
     {
         //emit error(client.error());
