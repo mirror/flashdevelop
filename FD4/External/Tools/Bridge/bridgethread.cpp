@@ -130,19 +130,16 @@ QString BridgeHandler::getSpecialPath()
 QString BridgeHandler::getLocalPath(QString path)
 {
     QString local = "";
-    QRegExp rePath("//([^/]+/[^/]+)/(.*)");
-
     if (path.startsWith("//"))
     {
-        if (rePath.indexIn(path) >= 0)
+        QSettings settings;
+        settings.beginGroup("localRemoteMap");
+        foreach(QString key, settings.allKeys())
         {
-            QString remoteRoot(rePath.cap(1));
-            QSettings settings;
-            settings.beginGroup("localRemoteMap");
-            if (settings.contains(remoteRoot))
+            QString remoteRoot = QString("//" + key + "/");
+            if (path.startsWith(remoteRoot))
             {
-                QString rest(rePath.cap(2));
-                local = settings.value(remoteRoot).toString() + "/" + rest;
+                local = settings.value(remoteRoot).toString() + "/" + path.mid(remoteRoot.length());
             }
         }
     }

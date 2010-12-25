@@ -53,10 +53,12 @@ void MainWindow::initMapping()
     QStringList map = settings.allKeys();
     if (map.length() == 0)
     {
-        // VirtualBox: \\VBOXSVR\
-        // Parallels: \\.PSF\
-        // VMWare: \\.HOST\
+        // VirtualBox: \\VBOXSVR\xxx
+        // Parallels: \\.PSF\xxx
+        // VMWare: \\.HOST\Shared Folders\xxx
         settings.setValue("VBOXSVR/Dev", QDir::homePath() + "/Dev");
+        settings.endGroup();
+        settings.beginGroup("localRemoteMap");
         map = settings.allKeys();
     }
 
@@ -140,7 +142,7 @@ void MainWindow::updateSettings()
     QColor valid(ui->listMap->palette().base().color());
 
     int lines = ui->listMap->rowCount();
-    QRegExp reRemote("//([^/]+)/([^/]+)");
+    QRegExp reRemote("//([^/]+)/(.+)");
     for (int i = 0; i < lines; ++i)
     {
         QTableWidgetItem *item = ui->listMap->item(i, 0);
