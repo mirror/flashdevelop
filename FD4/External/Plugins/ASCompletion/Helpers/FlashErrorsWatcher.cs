@@ -23,7 +23,7 @@ namespace ASCompletion.Helpers
         private Timer updater;
 
         private Regex reError = new Regex(
-            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>.*)$",
+            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>[^\n\r]*)",
             RegexOptions.Compiled | RegexOptions.Multiline);
 
         private Regex reFlashFile = new Regex(
