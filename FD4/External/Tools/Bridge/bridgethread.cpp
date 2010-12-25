@@ -13,47 +13,67 @@ BridgeThread::BridgeThread(int descriptor, QObject *parent) : QThread(parent)
 
 void BridgeThread::run()
 {
-    QTcpSocket client;
-    if (!client.setSocketDescriptor(socketDescriptor)) {
+    client = new QTcpSocket();
+    if (!client->setSocketDescriptor(socketDescriptor))
+    {
         //emit error(client.error());
-        qDebug() << "Socket init error:" << client.errorString();
+        qDebug() << "Socket init error:" << client->errorString();
         return;
     }
+    connect(client, SIGNAL(disconnected()), this, SLOT(client_disconnected()));
+    connect(client, SIGNAL(readyRead()), this, SLOT(client_readyRead()));
 
-    while (isRunning())
+    timer.setSingleShot(true);
+    connect(&timer, SIGNAL(timeout()), this, SLOT(timer_elapsed()));
+
+    exec(); // loop
+
+    disconnect(&timer, SIGNAL(timeout()), this, SLOT(timer_elapsed()));
+    disconnect(client, SIGNAL(disconnected()), this, SLOT(client_disconnected()));
+    disconnect(client, SIGNAL(readyRead()), this, SLOT(client_readyRead()));
+    delete client;
+}
+
+void BridgeThread::timer_elapsed()
+{
+    QMutexLocker locker(&mutex);
+    if (queue.length() > 0)
     {
-        if (client.waitForReadyRead(0))
+        foreach(QString message, queue)
         {
-            QString msg(client.readLine().trimmed());
-            //qDebug() << "in:" << msg;
-            QStringList params = msg.split(':', QString::KeepEmptyParts);
-            QString cmd(params[0]);
-            emit command(cmd, params[1]);
-            if (cmd == "close" || cmd == "unwatch") break;
+            qDebug() << message;
+            client->write(message.toUtf8());
+            client->write(EOL);
         }
-        if (queue.length() > 0)
-        {
-            mutex.lock();
-            foreach(QString message, queue)
-            {
-                qDebug() << "send" << message;
-                client.write(message.toUtf8());
-                client.write(EOL);
-            }
-            client.flush();
-            queue.clear();
-            mutex.unlock();
-        }
-        msleep(100);
+        client->flush();
+        queue.clear();
     }
+}
+
+void BridgeThread::client_readyRead()
+{
+    QString msg(client->readLine().trimmed());
+    //qDebug() << "in:" << msg;
+    int colon = msg.indexOf(':');
+    if (colon > 0)
+    {
+        QString cmd = msg.mid(0, colon);
+        emit command(cmd, msg.mid(colon + 1));
+        if (cmd == "close" || cmd == "unwatch") exit();
+    }
+}
+
+void BridgeThread::client_disconnected()
+{
+    exit();
 }
 
 void BridgeThread::sendMessage(QString message)
 {
-    mutex.lock();
+    QMutexLocker locker(&mutex);
     if (!queue.contains(message))
         queue << message;
-    mutex.unlock();
+    timer.start(100);
 }
 
 
@@ -102,7 +122,7 @@ void BridgeHandler::watchPath(QString param)
     }
 
     watchedPath = localPath;
-    qDebug() << "watch" << watchedPath << filter << isSpecial;
+    qDebug() << "watch" << watchedPath << filter;
 
     fsw = new FileSystemWatcherEx(this);
     connect(fsw, SIGNAL(fileSystemChanged(QString)), this, SLOT(localChanged(QString)));
@@ -130,20 +150,18 @@ QString BridgeHandler::getSpecialPath()
 QString BridgeHandler::getLocalPath(QString path)
 {
     QString local = "";
-    if (path.startsWith("//"))
+    QSettings settings;
+    settings.beginGroup("localRemoteMap");
+    foreach(QString key, settings.allKeys())
     {
-        QSettings settings;
-        settings.beginGroup("localRemoteMap");
-        foreach(QString key, settings.allKeys())
+        QString remoteRoot = QString(key + ":/");
+        if (path.startsWith(remoteRoot))
         {
-            QString remoteRoot = QString("//" + key + "/");
-            if (path.startsWith(remoteRoot))
-            {
-                local = settings.value(remoteRoot).toString() + "/" + path.mid(remoteRoot.length());
-            }
+            local = settings.value(key).toString() + "/" + path.mid(remoteRoot.length());
+            break;
         }
     }
-    else local = path;
+    if (local.isEmpty()) local = path;
 
     if (local.contains(".FlashDevelop"))
     {
@@ -164,7 +182,7 @@ QString BridgeHandler::getRemotePath(QString path)
     {
         int len = localPath.length();
         if (path.length() < len) return "";
-        return remotePath + path.mid(len);
+        return QString(remotePath + path.mid(len)).replace('/', '\\');
     }
 }
 
@@ -185,12 +203,10 @@ void BridgeHandler::localChanged(QString path)
         path = localPath;
     }
 
-    qDebug() << "changed" << path;
     path = getRemotePath(path);
-    qDebug() << "local=" << path;
     if (path.length() > 0)
     {
-        qDebug() << "changed" << path;
+        //qDebug() << "changed" << path;
         emit notifyChanged(path);
     }
 }
@@ -207,7 +223,7 @@ void BridgeHandler::copyPatched(QString filePath, QString destPath)
     settings.beginGroup("localRemoteMap");
     foreach(QString key, settings.allKeys())
     {
-        QString remote(QString("//" + key).replace("/", "\\"));
+        QString remote(key + ":\\");
         QString local(settings.value(key).toString());
         src = src.replace(local, remote);
     }

@@ -53,21 +53,19 @@ void MainWindow::initMapping()
     QStringList map = settings.allKeys();
     if (map.length() == 0)
     {
-        // VirtualBox: \\VBOXSVR\xxx
-        // Parallels: \\.PSF\xxx
-        // VMWare: \\.HOST\Shared Folders\xxx
-        settings.setValue("VBOXSVR/Dev", QDir::homePath() + "/Dev");
+        settings.setValue("Z", QDir::homePath() + "/Dev");
         settings.endGroup();
         settings.beginGroup("localRemoteMap");
         map = settings.allKeys();
     }
 
     ui->listMap->setRowCount(map.length());
+    ui->listMap->setColumnWidth(0, 100);
 
     int line = 0;
     foreach(QString key, map)
     {
-        QTableWidgetItem *item = new QTableWidgetItem(QString("//" + key).replace("/", "\\"));
+        QTableWidgetItem *item = new QTableWidgetItem(key + ":\\");
         ui->listMap->setItem(line, 0, item);
         item = new QTableWidgetItem(settings.value(key).toString());
         ui->listMap->setItem(line, 1, item);
@@ -142,7 +140,7 @@ void MainWindow::updateSettings()
     QColor valid(ui->listMap->palette().base().color());
 
     int lines = ui->listMap->rowCount();
-    QRegExp reRemote("//([^/]+)/(.+)");
+    QRegExp reRemote("([H-Z]):\\\\");
     for (int i = 0; i < lines; ++i)
     {
         QTableWidgetItem *item = ui->listMap->item(i, 0);
@@ -150,16 +148,15 @@ void MainWindow::updateSettings()
         bool remoteValid = false;
         if (!remote.isEmpty())
         {
-            remote = remote.replace("\\", "/");
             if (reRemote.indexIn(remote) < 0)
             {
                 // invalide remote path
                 item->setBackgroundColor(error);
-                item->setToolTip("Path doesn't match \\\\MACHINE_NAME\\folder_name");
+                item->setToolTip("Path doesn't match '<drive letter>:\\' (drive allowed: H to Z)");
             }
             else
             {
-                remote = reRemote.cap(1) + "/" + reRemote.cap(2);
+                remote = reRemote.cap(1);
                 item->setBackgroundColor(valid);
                 item->setToolTip("");
                 remoteValid = true;

@@ -10,7 +10,7 @@ BridgeServer::BridgeServer(QObject *parent)
  : QTcpServer(parent)
 {
     QHostAddress host("127.0.0.1");
-    listen(host, 8007);
+    listen(host, 8009); // TODO make a setting of port number
     runningThreads = 0;
     qDebug() << "Server started...";
 }

@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QTcpSocket>
 #include <QMutex>
+#include <QTimer>
 #include <QStringList>
 #include "filesystemwatcherex.h"
 
@@ -48,6 +49,8 @@ class BridgeThread : public QThread
     Q_OBJECT
 
     int socketDescriptor;
+    QTcpSocket *client;
+    QTimer timer;
     QStringList queue;
     QMutex mutex;
 
@@ -60,6 +63,11 @@ signals:
 
 public slots:
     void sendMessage(QString message);
+
+private slots:
+    void client_disconnected();
+    void client_readyRead();
+    void timer_elapsed();
 
 protected:
     void run();
