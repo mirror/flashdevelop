@@ -22,7 +22,7 @@ void FileSystemWatcherEx::setPath(QString path, bool includeSubdirectories)
 
     if (dir.exists())
     {
-        qDebug() << "Watching:" << path;
+        //qDebug() << "Watching:" << path;
         basePath = path;
         includeSubs = includeSubdirectories;
         fsw = new QFileSystemWatcher(this);

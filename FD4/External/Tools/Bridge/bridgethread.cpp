@@ -9,24 +9,24 @@ BridgeThread::BridgeThread(int descriptor, QObject *parent) : QThread(parent)
 {
     socketDescriptor = descriptor;
     handler = 0;
-}
-
-void BridgeThread::run()
-{
     client = new QTcpSocket();
-    client->moveToThread(this);
+
     if (!client->setSocketDescriptor(socketDescriptor))
     {
         //emit error(client.error());
         qDebug() << "Socket init error:" << client->errorString();
         return;
     }
+
     connect(client, SIGNAL(disconnected()), this, SLOT(client_disconnected()));
     connect(client, SIGNAL(readyRead()), this, SLOT(client_readyRead()));
 
     timer.setSingleShot(true);
     connect(&timer, SIGNAL(timeout()), this, SLOT(timer_elapsed()));
+}
 
+void BridgeThread::run()
+{
     exec(); // loop
 
     disconnect(&timer, SIGNAL(timeout()), this, SLOT(timer_elapsed()));
