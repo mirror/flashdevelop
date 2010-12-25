@@ -11,12 +11,12 @@ namespace PluginCore.Bridge
     {
         string path;
         string filter;
-        string realPath;
+        bool isRemote;
         bool enabled;
         FileSystemWatcher watcher;
         BridgeClient bridge;
 
-        public bool IsRemote { get { return realPath != null; } }
+        public bool IsRemote { get { return isRemote; } }
 
         /// <summary>
         /// Either watch a single file (if specified) or an entire directory tree.
@@ -30,13 +30,17 @@ namespace PluginCore.Bridge
         {
             this.path = path;
             this.filter = file;
-            realPath = BridgeManager.GetSharedPath(path);
-            if (realPath == null) SetupRegularWatcher();
+            isRemote = path.ToUpper().StartsWith(BridgeManager.Settings.SharedDrive);
+            if (!isRemote) SetupRegularWatcher();
         }
 
         public void Dispose()
         {
-            if (watcher != null) watcher.Dispose();
+            if (watcher != null)
+            {
+                watcher.Dispose();
+                watcher = null;
+            }
         }
 
         #region FSW emulation
@@ -64,17 +68,18 @@ namespace PluginCore.Bridge
                     }
                     else
                     {
-                        TraceManager.AddAsync("Connected: " + realPath + " " + filter);
+                        if (Directory.Exists(path) && !path.EndsWith("\\")) path += "\\";
+                        TraceManager.AddAsync("Connected: " + path + " " + filter);
                         bridge.DataReceived += new DataReceivedEventHandler(bridge_DataReceived);
-                        if (filter == null) bridge.Send("watch:" + realPath);
-                        else bridge.Send("watch:" + Path.Combine(realPath, filter));
+                        if (filter == null) bridge.Send("watch:" + path);
+                        else bridge.Send("watch:" + Path.Combine(path, filter));
                     }
                 }
                 else if (bridge != null)
                 {
                     if (bridge.Connected)
                     {
-                        bridge.Send("unwatch:");
+                        //bridge.Send("unwatch:");
                         try
                         {
                             bridge.Disconnect();
@@ -88,13 +93,10 @@ namespace PluginCore.Bridge
 
         void bridge_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            TraceManager.AddAsync("received: " + e.Text);
-            string remotePath = e.Text.Replace('/', '\\');
-            if (!remotePath.EndsWith("\\")) remotePath += '\\';
-            int len = realPath.Length;
-            if (len > remotePath.Length) return;
-            string fullPath = path + '\\' + remotePath.Substring(len);
-            TraceManager.AddAsync("changed: " + fullPath); 
+            TraceManager.AddAsync("changed: " + e.Text);
+            string fullPath = e.Text;
+            if (!fullPath.EndsWith("\\")) fullPath += '\\';
+            if (fullPath.Length < 3) return;
             string folder = Path.GetDirectoryName(fullPath);
             string name = Path.GetFileName(fullPath);
             if (Changed != null) 

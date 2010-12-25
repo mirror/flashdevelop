@@ -106,7 +106,7 @@ namespace ASCompletion.Commands
                 if (BridgeManager.Active && BridgeManager.Settings.TargetRemoteIDE 
                     && File.Exists(file) && Path.GetExtension(file) == ".jsfl" && file[0] <= 'H')
                 {
-                    string folder = Path.Combine(BridgeManager.Settings.SharedFolder, "flashide");
+                    string folder = Path.Combine(BridgeManager.Settings.SharedDrive, ".FlashDevelop\\flashide");
                     string[] logs = Directory.GetFiles(folder, "*.log");
                     foreach (string log in logs)
                         File.Delete(log);

@@ -4360,10 +4360,6 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>List of file extensions which must always be executed by Windows and never by the host system.</value>
     <comment>Added after 3.3.2</comment>
   </data>
-  <data name="BridgeSettings.Description.SharedFolder" xml:space="preserve">
-    <value>Hidden location for sharing files between host and guest system. Must be of the form "Z:\.FlashDevelop"; the drive can be changed but the path must be shared by the host.</value>
-    <comment>Added after 3.3.2</comment>
-  </data>
   <data name="BridgeSettings.Description.TargetRemoteIDE" xml:space="preserve">
     <value>Use Flash CS* from the host system if FLA or JSFL is located on the host drive.</value>
     <comment>Added after 3.3.2</comment>
@@ -4406,6 +4402,10 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="BridgeSettings.Description.CustomBridgeIP" xml:space="preserve">
     <value>Provide a specific IP to override auto-detection.</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="BridgeSettings.Description.SharedDrive" xml:space="preserve">
+    <value>Drive shared by host system with guest Windows OS.</value>
     <comment>Added in FD4</comment>
   </data>
 </root>

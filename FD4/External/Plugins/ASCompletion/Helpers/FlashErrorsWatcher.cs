@@ -38,7 +38,7 @@ namespace ASCompletion.Helpers
                 string logLocation;
                 if (BridgeManager.Active && BridgeManager.Settings.TargetRemoteIDE)
                 {
-                    logLocation = Path.Combine(BridgeManager.Settings.SharedFolder, "flashide");
+                    logLocation = Path.Combine(BridgeManager.Settings.SharedDrive, ".FlashDevelop\\flashide");
                     Directory.CreateDirectory(logLocation);
                 }
                 else

@@ -946,14 +946,10 @@ namespace ProjectManager
 
         private void ShellOpenFile(string path)
         {
-            if (!BridgeManager.AlwaysOpenLocal(path))
+            if (BridgeManager.Active && BridgeManager.IsRemote(path) && !BridgeManager.AlwaysOpenLocal(path))
             {
-                string sharedPath = BridgeManager.GetSharedPath(path);
-                if (sharedPath != null)
-                {
-                    BridgeManager.RemoteOpen(sharedPath);
-                    return;
-                }
+                BridgeManager.RemoteOpen(path);
+                return;
             }
             ProcessStartInfo psi = new ProcessStartInfo(path);
             psi.WorkingDirectory = Path.GetDirectoryName(path);
@@ -985,14 +981,10 @@ namespace ProjectManager
         private void TreeBrowseItem()
         {
             string path = Tree.SelectedPath;
-            if (BridgeManager.Settings.UseRemoteExplorer)
+            if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteExplorer)
             {
-                string sharedPath = BridgeManager.GetSharedPath(path);
-                if (sharedPath != null)
-                {
-                    BridgeManager.RemoteOpen(sharedPath);
-                    return;
-                }
+                BridgeManager.RemoteOpen(path);
+                return;
             }
             ProcessStartInfo psi = new ProcessStartInfo("explorer.exe");
             psi.Arguments = "/e,\"" + path + "\"";

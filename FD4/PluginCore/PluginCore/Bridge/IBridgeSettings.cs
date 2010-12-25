@@ -32,9 +32,9 @@ namespace PluginCore.Bridge
         bool UseRemoteExplorer { get; }
 
         /// <summary>
-        /// Hidden location for sharing files between host and guest system
+        /// Drive mapped to shared location between host and guest system
         /// </summary>
-        string SharedFolder { get; }
+        string SharedDrive { get; }
 
         /// <summary>
         /// List of file extensions which must always be executed by Windows

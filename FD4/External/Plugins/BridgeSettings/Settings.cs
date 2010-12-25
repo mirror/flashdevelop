@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using PluginCore.Localization;
 using PluginCore.Bridge;
+using System.Text.RegularExpressions;
 
 namespace BridgeSettings
 {
     [Serializable]
     class Settings : IBridgeSettings
     {
-        const string DEFAULT_SHARED_FOLDER = "Z:\\.FlashDevelop";
-        const int DEFAULT_PORT_NUM = 8007;
+        const string DEFAULT_SHARED_DRIVE = "Z:\\";
+        const int DEFAULT_PORT_NUM = 8009;
         static private string[] DEFAULT_EXTENSIONS = { ".exe", ".com", ".bat", ".cmd" };
 
         private bool active = false;
@@ -19,7 +20,7 @@ namespace BridgeSettings
         private int port = DEFAULT_PORT_NUM;
         private bool targetRemoteIDE = true;
         private bool useRemoteExplorer = true;
-        private string sharedFolder = DEFAULT_SHARED_FOLDER;
+        private string sharedDrive = DEFAULT_SHARED_DRIVE;
         private string[] alwaysOpenLocal = DEFAULT_EXTENSIONS;
 
         [LocalizedDescription("BridgeSettings.Description.Active"), DefaultValue(false)]
@@ -57,11 +58,15 @@ namespace BridgeSettings
             set { useRemoteExplorer = value; }
         }
 
-        [DisplayName("Shared Folder"), LocalizedDescription("BridgeSettings.Description.SharedFolder"), DefaultValue(DEFAULT_SHARED_FOLDER)]
-        public string SharedFolder
+        [DisplayName("Shared Drive"), LocalizedDescription("BridgeSettings.Description.SharedDrive"), DefaultValue(DEFAULT_SHARED_DRIVE)]
+        public string SharedDrive
         {
-            get { return sharedFolder ?? DEFAULT_SHARED_FOLDER; }
-            set { sharedFolder = value; }
+            get { return sharedDrive ?? DEFAULT_SHARED_DRIVE; }
+            set
+            {
+                if (Regex.IsMatch(value ?? "", "[H-Z]:\\", RegexOptions.IgnoreCase))
+                    sharedDrive = Char.ToUpper(value[0]) + ":\\";
+            }
         }
 
         [DisplayName("Always Open Local"), LocalizedDescription("BridgeSettings.Description.AlwaysOpenLocal")]

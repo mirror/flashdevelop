@@ -10,6 +10,7 @@ namespace PluginCore.Bridge
 	public class ServerSocket
 	{
 		static protected readonly byte[] EOL = new byte[] { 13 };
+        static protected bool bridgeNotFound;
 		
 		protected IPAddress ipAddress;
 		protected int portNum;
@@ -89,6 +90,8 @@ namespace PluginCore.Bridge
 		
         public bool ConnectClient()
 		{
+            if (bridgeNotFound) return false; // don't fail repeatedly if bridge is not running
+
 			try
 			{
 				conn = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
@@ -98,6 +101,7 @@ namespace PluginCore.Bridge
 			catch (Exception ex)
 			{
                 ErrorManager.AddToLog("Failed to connect bridge socket: " + ipAddress + ":" + portNum, ex);
+                bridgeNotFound = true;
 				return false;
 			}
 			return true;
