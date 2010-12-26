@@ -11,9 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QIcon icon(":/images/FDIcon.png");
-    qApp->setWindowIcon(icon);
-    setWindowIcon(icon);
     setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     showOnStart = false;
 
@@ -88,7 +85,7 @@ void MainWindow::initServer()
         statusLabel->setText( QString("Listening to port %1").arg(settings.value("port").toString()) );
 
         QString msg = QString("Is now listening to port %1").arg(settings.value("port").toString());
-        sti->showMessage("FlashDevelop Bridge", msg, QSystemTrayIcon::NoIcon);
+        sti->showMessage("FlashDevelop Bridge", msg/*, QSystemTrayIcon::NoIcon*/);
     }
     else statusLabel->setText( QString("Failed to listen to port %1").arg(settings.value("port").toInt()) );
 }
