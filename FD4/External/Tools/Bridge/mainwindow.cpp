@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QSettings>
+#include <QSystemTrayIcon>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -10,11 +11,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QIcon icon(":/images/FDIcon.png");
+    qApp->setWindowIcon(icon);
+    setWindowIcon(icon);
+    setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    showOnStart = false;
+
+    initTray();
     initStatusBar();
     initMapping();
+    initServer();
 
-    server = new BridgeServer(parent);
-    connect(server, SIGNAL(bridgeStatus(int,int)), this, SLOT(bridgeStatus(int,int)));
+    if (showOnStart) show();
 }
 
 MainWindow::~MainWindow()
@@ -22,6 +30,71 @@ MainWindow::~MainWindow()
     delete server;
     delete ui;
 }
+
+
+/* TRAY ICON */
+
+void MainWindow::initTray()
+{
+    sti = new QSystemTrayIcon(this);
+    QIcon img(":/images/trayicon.png");
+    sti->setIcon(img);
+    sti->setVisible(true);
+
+    QMenu *stiMenu = new QMenu(this);
+    sti->setContextMenu(stiMenu);
+
+    QAction *item = new QAction("Configure", this);
+    stiMenu->addAction(item);
+    connect(item, SIGNAL(triggered()), this, SLOT(showWindow()));
+
+    item = new QAction("Exit", this);
+    stiMenu->addAction(item);
+    connect(item, SIGNAL(triggered()), this, SLOT(quit()));
+}
+
+void MainWindow::quit()
+{
+    qApp->exit();
+}
+
+void MainWindow::showWindow()
+{
+    show();
+    activateWindow();
+    raise();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    hide();
+    event->ignore();
+}
+
+
+/* HELPER SERVER */
+
+void MainWindow::initServer()
+{
+    QSettings settings;
+    settings.beginGroup("server");
+    if (!settings.contains("host")) settings.setValue("host", "127.0.0.1");
+    if (!settings.contains("port")) settings.setValue("port", 8009);
+
+    server = new BridgeServer();
+    if (server->isListening())
+    {
+        connect(server, SIGNAL(bridgeStatus(int,int)), this, SLOT(bridgeStatus(int,int)));
+        statusLabel->setText( QString("Listening to port %1").arg(settings.value("port").toString()) );
+
+        QString msg = QString("Is now listening to port %1").arg(settings.value("port").toString());
+        sti->showMessage("FlashDevelop Bridge", msg, QSystemTrayIcon::NoIcon);
+    }
+    else statusLabel->setText( QString("Failed to listen to port %1").arg(settings.value("port").toInt()) );
+}
+
+
+/* STATUS BAR */
 
 void MainWindow::initStatusBar()
 {
@@ -44,15 +117,12 @@ void MainWindow::bridgeStatus(int threads, int watchers)
 void MainWindow::initMapping()
 {
     lockSettings = true;
-    QCoreApplication::setApplicationName("Bridge");
-    QCoreApplication::setOrganizationDomain("flashdevelop.org");
-    QCoreApplication::setOrganizationName("FlashDevelop");
-
     QSettings settings;
     settings.beginGroup("localRemoteMap");
     QStringList map = settings.allKeys();
     if (map.length() == 0)
     {
+        showOnStart = true;
         settings.setValue("Z", QDir::homePath() + "/Dev");
         settings.endGroup();
         settings.beginGroup("localRemoteMap");
@@ -186,3 +256,4 @@ void MainWindow::updateSettings()
             settings.setValue(remote, local);
     }
 }
+

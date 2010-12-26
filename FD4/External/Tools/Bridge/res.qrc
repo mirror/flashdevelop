@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/trayicon.png</file>
+        <file>images/FDIcon.png</file>
+    </qresource>
+</RCC>

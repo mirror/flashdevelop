@@ -24,6 +24,9 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-RESOURCES +=
+RESOURCES += \
+    res.qrc
 
 ICON = images/FDIcon.icns
+
+QMAKE_INFO_PLIST = DMG/app.plist

@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QSettings>
 #include <QDir>
 #include <QProcess>
 
@@ -9,10 +10,13 @@
 BridgeServer::BridgeServer(QObject *parent)
  : QTcpServer(parent)
 {
-    QHostAddress host("127.0.0.1");
-    listen(host, 8009); // TODO make a setting of port number
     runningThreads = 0;
-    qDebug() << "Server started...";
+
+    QSettings settings;
+    settings.beginGroup("server");
+
+    QHostAddress host(settings.value("host").toString());
+    listen(host, settings.value("port").toInt());
 }
 
 void BridgeServer::notifyStatus()
