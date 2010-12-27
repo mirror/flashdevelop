@@ -1533,8 +1533,10 @@ namespace ASCompletion.Completion
                 int line = Sci.LineFromPosition(position);
                 if (cMember == null)
                 {
-                    if (ASContext.Context.CurrentModel.Version >= 2) 
+                    if (expr.Value != null && expr.Value.Length > 0)
                         return HandleDeclarationCompletion(Sci, expr.Value, autoHide);
+                    else if (ASContext.Context.CurrentModel.Version >= 2)
+                        return ASGenerator.HandleGeneratorCompletion(Sci, autoHide, features.overrideKey);
                 }
                 else if (line == cMember.LineFrom)
                 {
@@ -3214,6 +3216,7 @@ namespace ASCompletion.Completion
             ContextFeatures features = ASContext.Context.Features;
             FileModel cFile = ASContext.Context.CurrentModel;
             ClassModel cClass = ASContext.Context.CurrentClass;
+            MemberModel cMember = ASContext.Context.CurrentMember;
             FileModel inFile = null;
             MemberModel import = null;
 
@@ -3232,6 +3235,18 @@ namespace ASCompletion.Completion
                 if (context.Member != null && expr.Separator == ' '
                     && expr.WordBefore == features.overrideKey)
                 {
+                    ASGenerator.GenerateOverride(sci, context.inClass, context.Member, position);
+                    return false;
+                }
+                else if (context.Member != null && cMember == null)
+                {
+                    string ins = features.overrideKey + " ";
+                    string w = sci.GetWordFromPosition(position);
+                    sci.SetSel(position, position);
+                    sci.ReplaceSel(ins);
+                    position = position + ins.Length;
+                    sci.CurrentPos = position;
+                    sci.SetSel(position, position);
                     ASGenerator.GenerateOverride(sci, context.inClass, context.Member, position);
                     return false;
                 }
