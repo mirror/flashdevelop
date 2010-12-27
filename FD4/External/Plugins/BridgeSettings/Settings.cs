@@ -37,7 +37,7 @@ namespace BridgeSettings
             set { ip = value; }
         }
 
-        [DisplayName("Bride Port"), LocalizedDescription("BridgeSettings.Description.BridgePort"), DefaultValue(DEFAULT_PORT_NUM)]
+        [DisplayName("Bridge Port"), LocalizedDescription("BridgeSettings.Description.BridgePort"), DefaultValue(DEFAULT_PORT_NUM)]
         public int Port
         {
             get { return port > 0 ? port : DEFAULT_PORT_NUM; }
