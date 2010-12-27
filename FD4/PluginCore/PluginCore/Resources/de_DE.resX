@@ -4303,7 +4303,7 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="AS3Context.Description.AS3FileTypes" xml:space="preserve">
     <value>File extensions explored in classpath. Defaults to *.as, *.mxml (enter one filetype per line).</value>
-    <comment>After 3.3.1</comment>
+    <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Info.CouldNotFormat" xml:space="preserve">
     <value>Syntax errors encountered. Could not format code.</value>
@@ -4346,11 +4346,11 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="ProjectManager.Label.CleanProject" xml:space="preserve">
     <value>&amp;Clean Project</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Info.UnableToCleanProject" xml:space="preserve">
     <value>Unable to delete output file</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.Active" xml:space="preserve">
     <value>Enables delegation to host system, typically when running FlashDevelop virtualized in a MacOS or Linux host.</value>
@@ -4398,14 +4398,14 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="BridgeSettings.Description.BridgePort" xml:space="preserve">
     <value>Bridge socket connection port (default 8009).</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.CustomBridgeIP" xml:space="preserve">
     <value>Provide a specific IP to override auto-detection.</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.SharedDrive" xml:space="preserve">
     <value>Drive shared by host system with guest Windows OS.</value>
-    <comment>Added in FD4</comment>
+    <comment>Added after 3.3.2</comment>
   </data>
 </root>

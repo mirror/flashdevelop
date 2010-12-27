@@ -308,6 +308,7 @@ namespace FlashDevelop.Managers
             sci.SetMarginMaskN(1, 0);
             sci.SetMarginTypeN(2, 0);
             sci.SetMarginMaskN(2, -33554432 | 1 << 2);
+            sci.SetMultiSelectionTyping(true);
             sci.MarginSensitiveN(2, true);
             sci.MarkerDefinePixmap(0, XpmBookmark);
             sci.SetMarginMaskN(0, MarkerManager.MARKERS);
