@@ -8,7 +8,8 @@
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
-    <movie version="13" />
+    <movie version="1" />
+    <movie platform="PHP" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->

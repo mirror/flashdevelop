@@ -25,13 +25,19 @@ namespace ProjectManager.Projects.Haxe
 
             if (project.MovieOptions.MajorVersion > 10)
             {
+                // old projects fix
                 string platform = null;
                 switch (project.MovieOptions.MajorVersion)
                 {
-                    case 11: platform = "Javascript"; break;
-                    case 12: platform = "Neko"; break;
-                    case 13: platform = "PHP"; break;
-                    case 14: platform = "C++"; break;
+                    case 11: platform = "JavaScript"; project.MovieOptions.MajorVersion = 1; break;
+                    case 12: platform = "Neko"; project.MovieOptions.MajorVersion = 1; break;
+                    case 13: platform = "PHP"; project.MovieOptions.MajorVersion = 1; break;
+                    case 14: platform = "C++"; project.MovieOptions.MajorVersion = 1; break;
+                }
+                if (platform == null)
+                {
+                    platform = "Flash Player";
+                    project.MovieOptions.MajorVersion = 10;
                 }
                 project.MovieOptions.Platform = platform;
             }
