@@ -57,6 +57,11 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.GroupBox platformGroupBox;
         private System.Windows.Forms.ComboBox platformCombo;
         private System.Windows.Forms.Button editCommandButton;
+        private System.Windows.Forms.ComboBox versionCombo;
+        private System.Windows.Forms.TabPage sdkTabPage;
+        private System.Windows.Forms.GroupBox sdkGroupBox;
+        private System.Windows.Forms.Button manageButton;
+        private System.Windows.Forms.ComboBox sdkComboBox;
         protected System.Windows.Forms.TabControl tabControl;
         protected System.Windows.Forms.TextBox colorTextBox;
         protected System.Windows.Forms.Label colorLabel;
@@ -64,7 +69,6 @@ namespace ProjectManager.Controls
         protected System.Windows.Forms.TextBox heightTextBox;
         protected System.Windows.Forms.TextBox widthTextBox;
         private ClasspathControl classpathControl;
-        private ComboBox versionCombo;
 
 		/// <summary>
 		/// Required designer variable.
@@ -136,7 +140,13 @@ namespace ProjectManager.Controls
             this.compilerTab = new System.Windows.Forms.TabPage();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.sdkTabPage = new System.Windows.Forms.TabPage();
+            this.sdkGroupBox = new System.Windows.Forms.GroupBox();
+            this.manageButton = new System.Windows.Forms.Button();
+            this.sdkComboBox = new System.Windows.Forms.ComboBox();
             this.agressiveTip = new System.Windows.Forms.ToolTip(this.components);
+            this.sdkTabPage.SuspendLayout();
+            this.sdkGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.movieTab.SuspendLayout();
             this.platformGroupBox.SuspendLayout();
@@ -189,6 +199,7 @@ namespace ProjectManager.Controls
             this.tabControl.Controls.Add(this.classpathsTab);
             this.tabControl.Controls.Add(this.buildTab);
             this.tabControl.Controls.Add(this.compilerTab);
+            this.tabControl.Controls.Add(this.sdkTabPage);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -285,7 +296,7 @@ namespace ProjectManager.Controls
             // 
             this.outputBrowseButton.Location = new System.Drawing.Point(233, 15);
             this.outputBrowseButton.Name = "outputBrowseButton";
-            this.outputBrowseButton.Size = new System.Drawing.Size(75, 21);
+            this.outputBrowseButton.Size = new System.Drawing.Size(76, 21);
             this.outputBrowseButton.TabIndex = 2;
             this.outputBrowseButton.Text = "&Browse...";
             this.outputBrowseButton.Click += new System.EventHandler(this.outputBrowseButton_Click);
@@ -302,7 +313,7 @@ namespace ProjectManager.Controls
             // 
             // xLabel
             // 
-            this.xLabel.Location = new System.Drawing.Point(145, 45);
+            this.xLabel.Location = new System.Drawing.Point(145, 44);
             this.xLabel.Name = "xLabel";
             this.xLabel.Size = new System.Drawing.Size(13, 17);
             this.xLabel.TabIndex = 21;
@@ -557,7 +568,7 @@ namespace ProjectManager.Controls
             // preBuilderButton
             // 
             this.preBuilderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.preBuilderButton.Location = new System.Drawing.Point(232, 102);
+            this.preBuilderButton.Location = new System.Drawing.Point(232, 103);
             this.preBuilderButton.Name = "preBuilderButton";
             this.preBuilderButton.Size = new System.Drawing.Size(75, 21);
             this.preBuilderButton.TabIndex = 1;
@@ -596,15 +607,60 @@ namespace ProjectManager.Controls
             this.propertyGrid.ToolbarVisible = false;
             this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
             // 
+            // sdkTabPage
+            // 
+            this.sdkTabPage.Controls.Add(this.sdkGroupBox);
+            this.sdkTabPage.Location = new System.Drawing.Point(4, 22);
+            this.sdkTabPage.Name = "sdkTabPage";
+            this.sdkTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.sdkTabPage.Size = new System.Drawing.Size(334, 272);
+            this.sdkTabPage.TabIndex = 5;
+            this.sdkTabPage.Text = "SDK";
+            this.sdkTabPage.UseVisualStyleBackColor = true;
+            // 
+            // sdkGroupBox
+            //
+            this.sdkGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.sdkGroupBox.Controls.Add(this.sdkComboBox);
+            this.sdkGroupBox.Controls.Add(this.manageButton);
+            this.sdkGroupBox.Location = new System.Drawing.Point(8, 3);
+            this.sdkGroupBox.Name = "sdkGroupBox";
+            this.sdkGroupBox.Size = new System.Drawing.Size(319, 74);
+            this.sdkGroupBox.TabIndex = 0;
+            this.sdkGroupBox.TabStop = false;
+            this.sdkGroupBox.Text = "SDK";
+            // 
+            // manageButton
+            // 
+            this.manageButton.Location = new System.Drawing.Point(225, 42);
+            this.manageButton.Name = "manageButton";
+            this.manageButton.Size = new System.Drawing.Size(85, 21);
+            this.manageButton.TabIndex = 2;
+            this.manageButton.Text = "Manage...";
+            this.manageButton.UseVisualStyleBackColor = true;
+            this.manageButton.Click += new EventHandler(this.manageButton_Click);
+            // 
+            // sdkComboBox
+            // 
+            this.sdkComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sdkComboBox.FormattingEnabled = true;
+            this.sdkComboBox.Location = new System.Drawing.Point(11, 19);
+            this.sdkComboBox.Name = "sdkComboBox";
+            this.sdkComboBox.Size = new System.Drawing.Size(298, 21);
+            this.sdkComboBox.TabIndex = 1;
+            this.sdkComboBox.SelectedIndexChanged += new EventHandler(this.sdkCombo_SelectedIndexChanged);
+            // 
             // agressiveTip
             // 
             this.agressiveTip.AutomaticDelay = 0;
             // 
             // PropertiesDialog
             // 
+            this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(366, 348);
-            this.MinimumSize = new System.Drawing.Size(372, 368);
+            this.MinimumSize = new System.Drawing.Size(375, 372);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
@@ -632,6 +688,10 @@ namespace ProjectManager.Controls
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.compilerTab.ResumeLayout(false);
+            this.sdkGroupBox.ResumeLayout(false);
+            this.sdkGroupBox.PerformLayout();
+            this.sdkTabPage.ResumeLayout(false);
+            this.sdkTabPage.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -655,8 +715,6 @@ namespace ProjectManager.Controls
             this.InitializeComponent();
             this.CreateClassPathControl();
             this.InitializeLocalization();
-            this.AcceptButton = btnOK;
-            this.CancelButton = btnCancel;
         }
 
         private void CreateClassPathControl()
@@ -743,6 +801,9 @@ namespace ProjectManager.Controls
                 TextHelper.GetString("Info.Custom")
             });
             this.editCommandButton.Text = TextHelper.GetString("Info.EditCommand");
+            this.manageButton.Text = TextHelper.GetString("Label.Manage");
+            this.sdkGroupBox.Text = TextHelper.GetString("Label.FlexSDK");
+            this.sdkTabPage.Text = TextHelper.GetString("Label.FlexSDK");
         }
 
         #endregion
@@ -1011,6 +1072,16 @@ namespace ProjectManager.Controls
         private void noOutputCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             generalGroupBox.Enabled = !noOutputCheckBox.Checked;
+            Modified();
+        }
+
+        private void manageButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sdkCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
             Modified();
         }
 
