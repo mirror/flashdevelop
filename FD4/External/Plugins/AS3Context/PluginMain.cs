@@ -532,6 +532,18 @@ namespace AS3Context
                 {
                     sdk.Name = mName.Groups[1].Value;
                     sdk.Version = mVer.Groups[1].Value;
+
+                    descriptor = Path.Combine(path, "AIR SDK Readme.txt");
+                    if (File.Exists(descriptor))
+                    {
+                        raw = File.ReadAllText(descriptor);
+                        Match mAIR = Regex.Match(raw, "Adobe AIR ([0-9.]+) SDK");
+                        if (mAIR.Success)
+                        {
+                            sdk.Name += ", AIR " + mAIR.Groups[1].Value;
+                            sdk.Version += ", " + mAIR.Groups[1].Value;
+                        }
+                    }
                     return true;
                 }
                 else ErrorManager.ShowInfo("Invalid SDK descriptor:\n" + descriptor);

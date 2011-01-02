@@ -1141,7 +1141,7 @@ namespace ProjectManager.Controls
         {
             DataEvent de = new DataEvent(EventType.Command, "ASCompletion.ShowSettings", project.Language);
             EventManager.DispatchEvent(this, de);
-            if (de.Handled) Close();
+            if (de.Handled) InitSDKTab();
         }
 
         private void sdkCombo_SelectedIndexChanged(object sender, EventArgs e)
