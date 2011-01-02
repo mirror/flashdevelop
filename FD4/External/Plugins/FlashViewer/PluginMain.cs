@@ -385,7 +385,7 @@ namespace FlashViewer
         {
             try
             {
-                String player = this.settingObject.PlayerPath;
+                String player = PathHelper.ResolvePath(this.settingObject.PlayerPath);
                 if (File.Exists(player)) ProcessHelper.StartAsync(player, file); 
                 else ProcessHelper.StartAsync(file);
             }
