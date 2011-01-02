@@ -143,8 +143,7 @@ namespace AS3Context
 
             // SDK
             string compiler = MainForm.ProcessArgString("$(CompilerPath)");
-            if (compiler == "$(CompilerPath)") 
-                compiler = Regex.Replace(as3settings.FlexSDK ?? "", @"[\\/]bin[\\/]?$", ""); ;
+            if (compiler == "$(CompilerPath)") compiler = as3settings.GetDefaultSDK().Path ?? "Tools\\flexsdk";
             char S = Path.DirectorySeparatorChar;
             string frameworks = compiler + S + "frameworks";
             string sdkLibs = frameworks + S + "libs";
@@ -479,7 +478,7 @@ namespace AS3Context
             ClearSquiggles(sci);
 
             string src = CurSciControl.Text;
-            FlexShells.Instance.CheckAS3(CurrentFile, as3settings.FlexSDK, src);
+            FlexShells.Instance.CheckAS3(CurrentFile, as3settings.GetDefaultSDK().Path, src);
         }
 
         private void ClearSquiggles(ScintillaNet.ScintillaControl sci)
@@ -824,7 +823,7 @@ namespace AS3Context
         /// </summary>
         public override string GetCompilerPath()
         {
-            return Regex.Replace(as3settings.FlexSDK ?? "", @"[\\/]bin[\\/]?$", "");
+            return as3settings.GetDefaultSDK().Path ?? "Tools\\flexsdk";
         }
 
         /// <summary>
@@ -835,7 +834,7 @@ namespace AS3Context
             if (IsFileValid && cFile.InlinedIn == null)
             {
                 PluginBase.MainForm.CallCommand("Save", null);
-                FlexShells.Instance.CheckAS3(cFile.FileName, as3settings.FlexSDK);
+                FlexShells.Instance.CheckAS3(cFile.FileName, as3settings.GetDefaultSDK().Path);
             }
         }
 
@@ -852,7 +851,7 @@ namespace AS3Context
             }
 
             string command = (append ?? "") + " -- " + CurrentFile;
-            FlexShells.Instance.RunMxmlc(command, as3settings.FlexSDK);
+            FlexShells.Instance.RunMxmlc(command, as3settings.GetDefaultSDK().Path);
         }
 
         private bool IsCompilationTarget()
@@ -873,7 +872,7 @@ namespace AS3Context
             
             MainForm.CallCommand("SaveAllModified", null);
 
-            FlexShells.Instance.QuickBuild(CurrentModel, as3settings.FlexSDK, failSilently, as3settings.PlayAfterBuild);
+            FlexShells.Instance.QuickBuild(CurrentModel, as3settings.GetDefaultSDK().Path, failSilently, as3settings.PlayAfterBuild);
             return true;
         }
         #endregion

@@ -57,11 +57,36 @@ namespace ASCompletion.Settings
         /// </summary>
         bool CheckSyntaxOnSave { get; set; }
 
+        /// <summary>
+        /// Automatically play project after build
+        /// </summary>
         bool PlayAfterBuild { get; set; }
 
+        /// <summary>
+        /// On opening a file, automatically change the package declaration 
+        /// if it doesn't match the classpath
+        /// </summary>
         bool FixPackageAutomatically { get; set; }
 
+        /// <summary>
+        /// Language SDKs list
+        /// </summary>
+        PluginCore.InstalledSDK[] InstalledSDKs { get; set; }
+
+        /// <summary>
+        /// Return default language SDK
+        /// - if no (valid) SDK is defined, this method must return InstalledSDK.INVALID_SDK;
+        /// </summary>
+        PluginCore.InstalledSDK GetDefaultSDK();
+
+        /// <summary>
+        /// Status text when running syntax check
+        /// </summary>
         string CheckSyntaxRunning { get; }
+
+        /// <summary>
+        /// Status text when syntax checking is finished
+        /// </summary>
         string CheckSyntaxDone { get; }
 
     }

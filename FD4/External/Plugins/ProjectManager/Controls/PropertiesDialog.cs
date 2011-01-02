@@ -13,6 +13,7 @@ using PluginCore.Localization;
 using ProjectManager.Controls.AS2;
 using ProjectManager.Controls.AS3;
 using PluginCore.Controls;
+using System.Collections;
 
 namespace ProjectManager.Controls
 {
@@ -196,10 +197,10 @@ namespace ProjectManager.Controls
             // 
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.movieTab);
+            this.tabControl.Controls.Add(this.sdkTabPage);
             this.tabControl.Controls.Add(this.classpathsTab);
             this.tabControl.Controls.Add(this.buildTab);
             this.tabControl.Controls.Add(this.compilerTab);
-            this.tabControl.Controls.Add(this.sdkTabPage);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -705,6 +706,7 @@ namespace ProjectManager.Controls
         private Boolean propertiesChanged;
         private Boolean classpathsChanged;
         private Boolean assetsChanged;
+        private Boolean sdkChanged;
 
 		public event EventHandler OpenGlobalClasspaths;
 
@@ -802,8 +804,8 @@ namespace ProjectManager.Controls
             });
             this.editCommandButton.Text = TextHelper.GetString("Info.EditCommand");
             this.manageButton.Text = TextHelper.GetString("Label.Manage");
-            this.sdkGroupBox.Text = TextHelper.GetString("Label.FlexSDK");
-            this.sdkTabPage.Text = TextHelper.GetString("Label.FlexSDK");
+            this.sdkGroupBox.Text = TextHelper.GetString("Label.SDKGroup");
+            this.sdkTabPage.Text = TextHelper.GetString("Label.SDKTab");
         }
 
         #endregion
@@ -812,18 +814,92 @@ namespace ProjectManager.Controls
 		{
             this.Text = " " + project.Name + " (" + project.Language.ToUpper() + ") " + TextHelper.GetString("Info.Properties");
 
-			MovieOptions options = project.MovieOptions;
+            InitOutputTab();
+            InitSDKTab();
+            InitClasspathTab();
+            InitBuildTab();
+            InitOptionsTab();
+
+			btnApply.Enabled = false;
+		}
+
+        private void InitOptionsTab()
+        {
+            // clone the compiler options object because the PropertyGrid modifies its
+            // object directly
+            optionsCopy = project.CompilerOptions.Clone();
+            propertyGrid.SelectedObject = optionsCopy;
+            propertiesChanged = false;
+        }
+
+        private void InitBuildTab()
+        {
+            preBuildBox.Text = project.PreBuildEvent;
+            postBuildBox.Text = project.PostBuildEvent;
+            alwaysExecuteCheckBox.Checked = project.AlwaysRunPostBuild;
+        }
+
+        private void InitClasspathTab()
+        {
+            classpathControl.Changed += new EventHandler(classpathControl_Changed);
+            classpathControl.Project = project;
+            classpathControl.Classpaths = project.Classpaths.ToArray();
+            classpathControl.Language = project.Language;
+            classpathControl.LanguageBox.Visible = false;
+            classpathsChanged = false;
+        }
+
+        private void InitSDKTab()
+        {
+            sdkComboBox.Items.Clear();
+            int select = 0;
+
+            // retrieve SDK list
+            Hashtable infos = new Hashtable();
+            infos["language"] = project.Language;
+            infos["project"] = project;
+            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.InstalledSDKs", infos);
+            EventManager.DispatchEvent(this, de);
+            if (infos.ContainsKey("sdks") && infos["sdks"] != null)
+            {
+                InstalledSDK[] sdks = (InstalledSDK[])infos["sdks"];
+                if (sdks.Length > 0)
+                {
+                    sdkComboBox.Items.Add("Default");
+                    sdkComboBox.Items.AddRange(sdks);
+                }
+                if (infos.ContainsKey("match"))
+                {
+                    InstalledSDK sdk = infos["match"] as InstalledSDK;
+                    select = 1 + Array.IndexOf(sdks, sdk);
+                    if (select == 0)
+                    {
+                        // TODO display custom sdk information
+                    }
+                }
+            }
+
+            if (sdkComboBox.Items.Count == 0)
+                sdkComboBox.Items.Add("No SDK configured");
+
+            sdkComboBox.SelectedIndex = select;
+            sdkChanged = false;
+        }
+
+        private void InitOutputTab()
+        {
+            MovieOptions options = project.MovieOptions;
 
             noOutputCheckBox.Checked = project.NoOutput;
-			outputSwfBox.Text = project.OutputPath;
-			widthTextBox.Text = options.Width.ToString();
-			heightTextBox.Text = options.Height.ToString();
-			
-			// bugfix -- direct color assignment doesn't work (copies by ref?)
-			//colorLabel.BackColor = Color.FromArgb(255,options.BackgroundColor);
+            outputSwfBox.Text = project.OutputPath;
+            widthTextBox.Text = options.Width.ToString();
+            heightTextBox.Text = options.Height.ToString();
 
-			colorTextBox.Text = options.Background;
-			fpsTextBox.Text = options.Fps.ToString();
+            // bugfix -- direct color assignment doesn't work (copies by ref?)
+            //colorLabel.BackColor = Color.FromArgb(255,options.BackgroundColor);
+
+            colorTextBox.Text = options.Background;
+            fpsTextBox.Text = options.Fps.ToString();
 
             this.platformCombo.Items.AddRange(project.MovieOptions.TargetPlatforms);
             platformCombo.SelectedIndex = Math.Max(0, platformCombo.Items.IndexOf(project.MovieOptions.Platform));
@@ -839,27 +915,7 @@ namespace ProjectManager.Controls
             else if (project.TestMovieBehavior == TestMovieBehavior.Custom) testMovieCombo.SelectedIndex = 5;
             else testMovieCombo.SelectedIndex = 0;
             editCommandButton.Visible = testMovieCombo.SelectedIndex >= 4;
-
-			classpathControl.Changed += new EventHandler(classpathControl_Changed);
-			classpathControl.Project = project;
-            classpathControl.Classpaths = project.Classpaths.ToArray();
-            classpathControl.Language = project.Language;
-            classpathControl.LanguageBox.Visible = false;
-
-			preBuildBox.Text = project.PreBuildEvent;
-			postBuildBox.Text = project.PostBuildEvent;
-			alwaysExecuteCheckBox.Checked = project.AlwaysRunPostBuild;
-
-            // clone the compiler options object because the PropertyGrid modifies its
-            // object directly
-            optionsCopy = project.CompilerOptions.Clone();
-            propertyGrid.SelectedObject = optionsCopy;
-
-			propertiesChanged = false;
-			classpathsChanged = false;
-			assetsChanged = false;
-			btnApply.Enabled = false;
-		}
+        }
 
 		protected void Modified()
 		{
@@ -891,6 +947,12 @@ namespace ProjectManager.Controls
 				project.PreBuildEvent = preBuildBox.Text;
 				project.PostBuildEvent = postBuildBox.Text;
 				project.AlwaysRunPostBuild = alwaysExecuteCheckBox.Checked;
+
+                if (sdkChanged)
+                {
+                    InstalledSDK sdk = sdkComboBox.SelectedItem as InstalledSDK;
+                    project.PreferredSDK = sdk != null ? sdk.ToPreferredSDK() : null;
+                }
 
                 if (testMovieCombo.SelectedIndex == 1) project.TestMovieBehavior = TestMovieBehavior.NewTab;
                 else if (testMovieCombo.SelectedIndex == 2) project.TestMovieBehavior = TestMovieBehavior.NewWindow;
@@ -1077,11 +1139,14 @@ namespace ProjectManager.Controls
 
         private void manageButton_Click(object sender, EventArgs e)
         {
-
+            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.ShowSettings", project.Language);
+            EventManager.DispatchEvent(this, de);
+            if (de.Handled) Close();
         }
 
         private void sdkCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            sdkChanged = true;
             Modified();
         }
 

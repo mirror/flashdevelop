@@ -28,6 +28,7 @@ namespace ProjectManager.Controls.AS2
             base.BuildDisplay();
             injectionCheckBox.Checked = project.UsesInjection;
             inputSwfBox.Text = project.InputPath;
+            AssetsChanged = false;
         }
 
         private void InitializeLocalization()

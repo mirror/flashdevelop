@@ -4403,12 +4403,16 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Drive shared by host system with guest Windows OS.</value>
     <comment>Added after 3.3.2</comment>
   </data>
-  <data name="ProjectManager.Label.FlexSDK" xml:space="preserve">
-    <value>Flex SDK</value>
-    <comment>Added after 3.3.2</comment>
-  </data>
   <data name="ProjectManager.Label.Manage" xml:space="preserve">
     <value>&amp;Manage...</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKGroup" xml:space="preserve">
+    <value>Compiler SDK</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKTab" xml:space="preserve">
+    <value>SDK</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>

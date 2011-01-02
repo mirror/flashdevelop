@@ -249,11 +249,12 @@ namespace ASCompletion
 
                     // some commands work all the time
                     case EventType.Command:
-                        string command = (e as DataEvent).Action ?? "";
+                        DataEvent de = e as DataEvent;
+                        string command = de.Action ?? "";
 
                         if (command.StartsWith("ASCompletion."))
                         {
-                            string cmdData = (e as DataEvent).Data as string;
+                            string cmdData = (de.Data is string) ? (string)de.Data : null;
 
                             // add a custom classpath
                             if (command == "ASCompletion.ClassPath")
@@ -271,7 +272,7 @@ namespace ASCompletion
                             // send a UserClasspath
                             else if (command == "ASCompletion.GetUserClasspath")
                             {
-                                Hashtable info = (e as DataEvent).Data as Hashtable;
+                                Hashtable info = de.Data as Hashtable;
                                 if (info != null && info.ContainsKey("language"))
                                 {
                                     IASContext context = ASContext.GetLanguageContext(info["language"] as string);
@@ -284,7 +285,7 @@ namespace ASCompletion
                             // update a UserClasspath
                             else if (command == "ASCompletion.SetUserClasspath")
                             {
-                                Hashtable info = (e as DataEvent).Data as Hashtable;
+                                Hashtable info = de.Data as Hashtable;
                                 if (info != null && info.ContainsKey("language") && info.ContainsKey("cp"))
                                 {
                                     IASContext context = ASContext.GetLanguageContext(info["language"] as string);
@@ -301,11 +302,19 @@ namespace ASCompletion
                             // send the language's compiler path
                             else if (command == "ASCompletion.GetCompilerPath")
                             {
-                                Hashtable info = (e as DataEvent).Data as Hashtable;
+                                Hashtable info = de.Data as Hashtable;
                                 if (info != null && info.ContainsKey("language"))
                                 {
                                     IASContext context = ASContext.GetLanguageContext(info["language"] as string);
-                                    info["compiler"] = context != null ? context.GetCompilerPath() : null;
+                                    if (context != null)
+                                    {
+                                        if (PluginBase.CurrentProject != null)
+                                        {
+                                            InstalledSDK sdk = MatchSDK(context.Settings.InstalledSDKs, PluginBase.CurrentProject.PreferredSDK);
+                                            info["compiler"] = PathHelper.ResolvePath(sdk.Path);
+                                        }
+                                        else info["compiler"] = context.GetCompilerPath();
+                                    }
                                 }
                                 e.Handled = true;
                             }
@@ -373,6 +382,25 @@ namespace ASCompletion
                                         }
                                     }
                                 }
+                            }
+                            else if (command == "ASCompletion.InstalledSDKs")
+                            {
+                                Hashtable info = de.Data as Hashtable;
+                                if (info != null && info.ContainsKey("language"))
+                                {
+                                    IASContext context = ASContext.GetLanguageContext(info["language"] as string);
+                                    if (context != null)
+                                    {
+                                        info["sdks"] = context.Settings.InstalledSDKs;
+                                        if (info.ContainsKey("project"))
+                                        {
+                                            IProject project = info["project"] as IProject;
+                                            if (!String.IsNullOrEmpty(project.PreferredSDK))
+                                                info["match"] = MatchSDK(context.Settings.InstalledSDKs, project.PreferredSDK);
+                                        }
+                                    }
+                                }
+                                e.Handled = true;
                             }
                         }
                         else if (command == "ProjectManager.OpenVirtualFile")
@@ -485,6 +513,29 @@ namespace ASCompletion
                 ErrorManager.ShowError(ex);
             }
 		}
+
+        private InstalledSDK MatchSDK(InstalledSDK[] sdks, string preferredSDK)
+        {
+            // default sdk
+            if (String.IsNullOrEmpty(preferredSDK))
+            {
+                foreach (InstalledSDK sdk in sdks)
+                    if (sdk.IsValid) return sdk;
+                return InstalledSDK.INVALID_SDK;
+            }
+
+            string[] parts = ((preferredSDK ?? "") + ";;").Split(';'); // name;version;path
+            // match name
+            foreach (InstalledSDK sdk in sdks)
+                if (sdk.Name == parts[0]) return sdk;
+            // match version
+            foreach (InstalledSDK sdk in sdks)
+                if (sdk.Version == parts[1]) return sdk;
+            // new SDK from path
+            InstalledSDK newSdk = new InstalledSDK();
+            newSdk.Path = parts[2];
+            return newSdk;
+        }
 
 		#endregion
 

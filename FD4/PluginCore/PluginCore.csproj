@@ -282,6 +282,7 @@
     <Compile Include="PluginCore\Helpers\ResourceHelper.cs" />
     <Compile Include="PluginCore\Helpers\SnippetHelper.cs" />
     <Compile Include="PluginCore\Helpers\DrawHelper.cs" />
+    <Compile Include="PluginCore\StructsAndClasses.cs" />
     <Compile Include="PluginCore\Localization\Attributes.cs" />
     <Compile Include="PluginCore\Localization\LocaleVersion.cs" />
     <Compile Include="PluginCore\Localization\TextHelper.cs" />

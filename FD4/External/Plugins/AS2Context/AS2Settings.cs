@@ -8,6 +8,7 @@ using System.Windows.Forms.Design;
 using System.IO;
 using ASCompletion.Context;
 using PluginCore.Localization;
+using PluginCore;
 
 namespace AS2Context
 {
@@ -16,6 +17,7 @@ namespace AS2Context
     [Serializable]
     public class AS2Settings : ASCompletion.Settings.IContextSettings
     {
+        [field: NonSerialized]
         public event ClasspathChangedEvent OnClasspathChanged;
 
         #region IContextSettings Documentation
@@ -77,6 +79,7 @@ namespace AS2Context
         protected bool playAfterBuild = DEFAULT_PLAY;
         protected bool fixPackageAutomatically = DEFAULT_FIXPACKAGEAUTOMATICALLY;
         protected string[] userClasspath = null;
+        protected InstalledSDK[] installedSDKs = null;
 
         [Browsable(false)]
         public string LanguageId 
@@ -120,6 +123,26 @@ namespace AS2Context
                 userClasspath = value;
                 FireChanged();
             }
+        }
+
+        [DisplayName("Installed MTASC SDKs")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS2Context.Description.MtascPath")]
+        public InstalledSDK[] InstalledSDKs
+        {
+            get { return installedSDKs; }
+            set
+            {
+                installedSDKs = value;
+                FireChanged();
+            }
+        }
+
+        public InstalledSDK GetDefaultSDK()
+        {
+            if (installedSDKs == null || installedSDKs.Length == 0) return null;
+            foreach (InstalledSDK sdk in installedSDKs)
+                if (sdk.IsValid) return sdk;
+            return InstalledSDK.INVALID_SDK;
         }
 
         [DisplayName("Enable Completion")]
@@ -191,13 +214,11 @@ namespace AS2Context
 
         #region AS2 specific settings
 
-        const string DEFAULT_MTASCPATH = "Tools\\mtasc";
         const bool DEFAULT_USEMTASC = true;
         const int DEFAULT_FLASHVERSION = 9; // Flash CS3 has a specific FP9 support for AS2
         const string DEFAULT_MTASCCHECKPARAMS = "-mx -wimp";
 
         private int flashVersion = 9;
-        private string mtascPath = DEFAULT_MTASCPATH;
         private string mmClassPath;
         private bool useMtascIntrinsic = DEFAULT_USEMTASC;
         private string mtascCheckParameters = DEFAULT_MTASCCHECKPARAMS;
@@ -210,19 +231,6 @@ namespace AS2Context
             set
             {
                 useMtascIntrinsic = value;
-                FireChanged();
-            }
-        }
-
-        [DisplayName("MTASC Location")]
-        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS2Context.Description.MtascPath"), DefaultValue(DEFAULT_MTASCPATH)]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
-        public string MtascPath
-        {
-            get { return mtascPath; }
-            set {
-                if (value == mtascPath) return;
-                mtascPath = value;
                 FireChanged();
             }
         }

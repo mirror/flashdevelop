@@ -103,6 +103,7 @@ namespace ProjectManager.Projects
                     case "minorVersion": project.MovieOptions.MinorVersion = IntValue; break;
                     case "platform": project.MovieOptions.Platform = Value; break;
                     case "background": project.MovieOptions.Background = Value; break;
+                    case "preferredSDK": project.PreferredSDK = Value; break;
                 }
                 Read();
             }

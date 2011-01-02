@@ -194,6 +194,7 @@ namespace PluginCore
         Boolean TraceEnabled { get; }
         Boolean EnableInteractiveDebugger { get; }
         String ProjectPath { get; }
+        String PreferredSDK { get; }
 
         #endregion
     }
@@ -288,57 +289,5 @@ namespace PluginCore
 
         #endregion
     }
-
-    #region Structs And Classes
-
-    public class ItemData
-    {
-        public String Id = String.Empty;
-        public String Tag = String.Empty;
-        public String Flags = String.Empty;
-
-        public ItemData(String id, String tag, String flags)
-        {
-            if (id != null) this.Id = id;
-            if (tag != null) this.Tag = tag;
-            if (flags != null) this.Flags = flags;
-        }
-
-    }
-
-    [Serializable]
-    public class Argument
-    {
-        private String key = String.Empty;
-        private String value = String.Empty;
-
-        public Argument() {}
-        public Argument(String key, String value) 
-        {
-            this.key = key;
-            this.value = value;
-        }
-
-        /// <summary>
-        /// Gets and sets the key
-        /// </summary> 
-        public String Key
-        {
-            get { return this.key; }
-            set { this.key = value; }
-        }
-
-        /// <summary>
-        /// Gets and sets the value
-        /// </summary> 
-        public String Value
-        {
-            get { return this.value; }
-            set { this.value = value; }
-        }
-
-    }
-
-    #endregion
 
 }

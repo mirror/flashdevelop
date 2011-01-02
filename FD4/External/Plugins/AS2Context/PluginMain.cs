@@ -7,10 +7,11 @@ using PluginCore.Managers;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
 using PluginCore;
+using System.Text.RegularExpressions;
 
 namespace AS2Context
 {
-    public class PluginMain : IPlugin
+    public class PluginMain : IPlugin, InstalledSDKOwner
     {
         private String pluginName = "AS2Context";
         private String pluginGuid = "1f387fab-421b-42ac-a985-72a03534f731";
@@ -103,6 +104,7 @@ namespace AS2Context
             {
                 case EventType.UIStarted:
                     contextInstance = new Context(settingObject);
+                    ValidateSettings();
                     // Associate this context with AS2 language
                     ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "as2");
                     break;
@@ -141,8 +143,11 @@ namespace AS2Context
             if (!File.Exists(this.settingFilename)) this.SaveSettings();
             else
             {
-                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
-                this.settingObject = (AS2Settings)obj;
+                using (new InstalledSDKContext(this))
+                {
+                    Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                    this.settingObject = (AS2Settings)obj;
+                }
             }
             if (this.settingObject.MMClassPath == null) this.settingObject.MMClassPath = FindMMClassPath();
             if (this.settingObject.UserClasspath == null)
@@ -150,7 +155,24 @@ namespace AS2Context
                 if (this.settingObject.MMClassPath != null) this.settingObject.UserClasspath = new String[] { this.settingObject.MMClassPath };
                 else this.settingObject.UserClasspath = new String[] {};
             }
-            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
+        }
+
+        /// <summary>
+        /// Fix some settings values when the context has been created
+        /// </summary>
+        private void ValidateSettings()
+        {
+            if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0)
+            {
+                string includedSDK = "Tools\\mtasc";
+                if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
+                {
+                    InstalledSDK sdk = new InstalledSDK(this);
+                    sdk.Path = includedSDK;
+                    settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
+                }
+            }
+            settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
@@ -166,8 +188,46 @@ namespace AS2Context
         /// </summary>
         public void SaveSettings()
         {
-            this.settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
+        }
+
+        #endregion
+
+        #region InstalledSDKOwner Membres
+
+        public bool ValidateSDK(InstalledSDK sdk)
+        {
+            string path = PathHelper.ResolvePath(sdk.Path);
+            try
+            {
+                if (path == null || (!Directory.Exists(path) && !File.Exists(path)))
+                {
+                    ErrorManager.ShowInfo("Path not found:\n" + sdk.Path);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowInfo("Invalid path (" + ex.Message + "):\n" + sdk.Path);
+                return false;
+            }
+
+            if (!Directory.Exists(path)) path = Path.GetDirectoryName(path);
+            string descriptor = Path.Combine(path, "changes.txt");
+            if (File.Exists(descriptor))
+            {
+                string raw = File.ReadAllText(descriptor);
+                Match mVer = Regex.Match(raw, "[0-9\\-]+\\s*:\\s*([0-9.]+)");
+                if (mVer.Success)
+                {
+                    sdk.Version = mVer.Groups[1].Value;
+                    sdk.Name = "Mtasc " + sdk.Version;
+                    return true;
+                }
+                else ErrorManager.ShowInfo("Invalid changes.txt file:\n" + descriptor);
+            }
+            else ErrorManager.ShowInfo("No change.txt found:\n" + descriptor);
+            return false;
         }
 
         #endregion

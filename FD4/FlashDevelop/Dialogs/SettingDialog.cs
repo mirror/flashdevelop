@@ -36,6 +36,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label descLabel;
         private String itemFilter = String.Empty;
         private static Int32 lastItemIndex = 0;
+        private InstalledSDKContext sdkContext;
 
         public SettingDialog(String itemName, String filter)
         {
@@ -362,6 +363,7 @@ namespace FlashDevelop.Dialogs
                 Int32 selectedIndex = this.itemListView.SelectedIndices[0];
                 if (selectedIndex == 0)
                 {
+                    sdkContext = new InstalledSDKContext(null);
                     this.itemPropertyGrid.Enabled = true;
                     this.itemPropertyGrid.SelectedObject = Globals.Settings;
                     this.descLabel.Text = TextHelper.GetString("Info.AppDescription");
@@ -374,6 +376,7 @@ namespace FlashDevelop.Dialogs
                 else
                 {
                     IPlugin plugin = (IPlugin)itemListView.SelectedItems[0].Tag;
+                    sdkContext = new InstalledSDKContext(plugin as InstalledSDKOwner);
                     this.disableCheckBox.Checked = Globals.Settings.DisabledPlugins.Contains(plugin.Guid);
                     this.itemPropertyGrid.SelectedObject = plugin.Settings;
                     this.itemPropertyGrid.Enabled = plugin.Settings != null;
@@ -534,6 +537,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void DialogClosed(Object sender, FormClosedEventArgs e)
         {
+            if (sdkContext != null) sdkContext.Dispose();
             Globals.MainForm.ApplyAllSettings();
         }
 

@@ -54,6 +54,7 @@ namespace AS3Context.Compiler
         static private bool silentChecking;
         static private string checkedSDK;
         static private bool isFlex4SDK;
+        static private string currentSDK;
 		
 		static private string CheckResource(string resName, string fileName)
 		{
@@ -131,8 +132,6 @@ namespace AS3Context.Compiler
             // asc.jar in Flex2SDK
             if (flexPath != null && Directory.Exists(flexPath))
             {
-                if (flexPath.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
-                    flexPath = Path.GetDirectoryName(flexPath);
                 ascPath = Path.Combine(flexPath, "lib\\asc.jar");
             }
             // asc_authoring.jar in Flash CS3
@@ -169,7 +168,8 @@ namespace AS3Context.Compiler
 			{
                 running = true;
                 if (src == null) EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
-				if (ascRunner == null || !ascRunner.IsRunning) StartAscRunner();
+                if (ascRunner == null || !ascRunner.IsRunning || currentSDK != flexPath)
+                    StartAscRunner(flexPath);
 
 				notificationSent = false;
                 if (src == null)
@@ -203,8 +203,6 @@ namespace AS3Context.Compiler
 
             if (flexPath != null && Directory.Exists(flexPath))
             {
-                if (flexPath.EndsWith("bin", StringComparison.OrdinalIgnoreCase))
-                    flexPath = Path.GetDirectoryName(flexPath);
                 mxmlcPath = Path.Combine(Path.Combine(flexPath, "lib"), "mxmlc.jar");
             }
 			if (mxmlcPath == null || !File.Exists(mxmlcPath)) 
@@ -232,8 +230,9 @@ namespace AS3Context.Compiler
 			{
                 running = true;
 				EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
-				
-				if (mxmlcRunner == null || !mxmlcRunner.IsRunning) StartMxmlcRunner(flexPath);
+
+                if (mxmlcRunner == null || !mxmlcRunner.IsRunning || currentSDK != flexPath) 
+                    StartMxmlcRunner(flexPath);
 				
 				//cmd = mainForm.ProcessArgString(cmd);
 				//TraceManager.Add("MxmlcShell command: "+cmd, -1);
@@ -413,8 +412,11 @@ namespace AS3Context.Compiler
 		/// <summary>
 		/// Start background process
 		/// </summary>
-		private void StartAscRunner()
+        private void StartAscRunner(string flexPath)
 		{
+            currentSDK = flexPath;
+            if (ascRunner != null && ascRunner.IsRunning) ascRunner.KillProcess();
+
             string cmd = "-Duser.language=en -Duser.region=US"
                 + " -classpath \"" + ascPath + ";" + flexShellsPath + "\" AscShell";
             TraceManager.Add(TextHelper.GetString("Info.StartAscRunner") + " java " + cmd, -1);
@@ -434,6 +436,9 @@ namespace AS3Context.Compiler
 		/// </summary>
 		private void StartMxmlcRunner(string flexPath)
 		{
+            currentSDK = flexPath;
+            if (mxmlcRunner != null && mxmlcRunner.IsRunning) mxmlcRunner.KillProcess();
+
             CheckIsFlex4SDK(flexPath);
             string shell = isFlex4SDK ? "Mxmlc4Shell" : "MxmlcShell";
 

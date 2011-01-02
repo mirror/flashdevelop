@@ -141,8 +141,9 @@ namespace HaXeContext
             try
             {
                 string haxelib = "haxelib";
-                if (hxsettings.HaXePath != null && Path.IsPathRooted(hxsettings.HaXePath))
-                    haxelib = Path.Combine(hxsettings.HaXePath, haxelib);
+                string hxPath = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+                if (hxPath != null && Path.IsPathRooted(hxPath))
+                    haxelib = Path.Combine(hxPath, haxelib);
                 
                 ProcessStartInfo pi = new ProcessStartInfo();
                 pi.FileName = haxelib;
@@ -215,9 +216,10 @@ namespace HaXeContext
             //
             classPath = new List<PathModel>();
             // haXe std
-            if (hxsettings.HaXePath != null)
+            string hxPath = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+            if (hxPath != null)
             {
-                string haxeCP = Path.Combine(hxsettings.HaXePath, "std");
+                string haxeCP = Path.Combine(hxPath, "std");
                 if (Directory.Exists(haxeCP))
                 {
                     PathModel std = PathModel.GetModel(haxeCP, this);
@@ -926,7 +928,7 @@ namespace HaXeContext
         /// </summary>
         public override string GetCompilerPath()
         {
-            return hxsettings.HaXePath;
+            return hxsettings.GetDefaultSDK().Path;
         }
 
         /// <summary>
@@ -958,10 +960,7 @@ namespace HaXeContext
             if (!IsFileValid || !File.Exists(CurrentFile))
                 return;
 
-            string basePath = null;
-            if (PluginBase.CurrentProject != null)
-                basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-            string haxePath = PathHelper.ResolvePath(hxsettings.HaXePath, basePath);
+            string haxePath = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
             if (!Directory.Exists(haxePath) && !File.Exists(haxePath))
             {
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.InvalidHaXePath"));
@@ -995,9 +994,10 @@ namespace HaXeContext
                 if (IsFlashTarget && (append == null || append.IndexOf("-swf-version") < 0)) 
                     command += " -swf-version " + majorVersion;
                 // classpathes
+                string hxPath = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
                 foreach (PathModel aPath in classPath)
                     if (aPath.Path != temporaryPath
-                        && !aPath.Path.StartsWith(hxsettings.HaXePath, StringComparison.OrdinalIgnoreCase))
+                        && !aPath.Path.StartsWith(hxPath, StringComparison.OrdinalIgnoreCase))
                         command += " -cp \"" + aPath.Path.TrimEnd('\\') + "\"";
                 command = command.Replace(filePath, "");
 

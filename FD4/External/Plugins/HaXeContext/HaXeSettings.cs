@@ -6,6 +6,7 @@ using System.Windows.Forms.Design;
 using System.ComponentModel;
 using PluginCore.Localization;
 using ProjectManager.Projects.Haxe;
+using PluginCore;
 
 namespace HaXeContext
 {
@@ -14,6 +15,7 @@ namespace HaXeContext
     [Serializable]
     public class HaXeSettings : ASCompletion.Settings.IContextSettings
     {
+        [field: NonSerialized]
         public event ClasspathChangedEvent OnClasspathChanged;
 
         #region IContextSettings Documentation
@@ -51,6 +53,7 @@ namespace HaXeContext
         protected bool playAfterBuild = DEFAULT_PLAY;
         protected bool fixPackageAutomatically = DEFAULT_FIXPACKAGEAUTOMATICALLY;
         protected string[] userClasspath = null;
+        protected InstalledSDK[] installedSDKs = null;
 
         [Browsable(false)]
         public string LanguageId
@@ -94,6 +97,26 @@ namespace HaXeContext
                 userClasspath = value;
                 FireChanged();
             }
+        }
+
+        [DisplayName("Installed haXe SDKs")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.HaXePath")]
+        public InstalledSDK[] InstalledSDKs
+        {
+            get { return installedSDKs; }
+            set
+            {
+                installedSDKs = value;
+                FireChanged();
+            }
+        }
+
+        public InstalledSDK GetDefaultSDK()
+        {
+            if (installedSDKs == null || installedSDKs.Length == 0) return null;
+            foreach (InstalledSDK sdk in installedSDKs)
+                if (sdk.IsValid) return sdk;
+            return InstalledSDK.INVALID_SDK;
         }
 
         [DisplayName("Enable Completion")]
@@ -165,15 +188,14 @@ namespace HaXeContext
 
         #region haXe specific members
 
-        const int DEFAULT_FLASHVERSION = 9;
+        const int DEFAULT_FLASHVERSION = 10;
         const string DEFAULT_HAXECHECKPARAMS = "";
         const bool DEFAULT_DISABLECOMPILERCOMPLETION = false;
         const bool DEFAULT_DISABLEMIXEDCOMPLETION = false;
         const bool DEFAULT_DISABLECOMPLETIONONDEMAND = true;
         const bool DEFAULT_EXPORTHXML = false;
 
-        private int flashVersion = 9;
-        private string hxPath;
+        private int flashVersion = 10;
         private string haXeCheckParameters = DEFAULT_HAXECHECKPARAMS;
         private bool disableCompilerCompletion = DEFAULT_DISABLECOMPILERCOMPLETION;
         private bool disableMixedCompletion = DEFAULT_DISABLEMIXEDCOMPLETION;
@@ -188,24 +210,11 @@ namespace HaXeContext
             set
             {
                 if (value == flashVersion) return;
-                if (value >= 6 && value <= 11)
+                if (value >= 6 && value <= 12)
                 {
                     flashVersion = value;
                     FireChanged();
                 }
-            }
-        }
-
-        [DisplayName("HaXe Path")]
-        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.HaXePath")]
-        public string HaXePath
-        {
-            get { return hxPath; }
-            set
-            {
-                if (value == hxPath) return;
-                hxPath = value;
-                FireChanged();
             }
         }
 

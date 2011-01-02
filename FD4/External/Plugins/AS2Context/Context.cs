@@ -145,7 +145,7 @@ namespace AS2Context
             //
 			classPath = new List<PathModel>();
             // MTASC
-            string mtascPath = PathHelper.ResolvePath(as2settings.MtascPath) ?? "";
+            string mtascPath = PathHelper.ResolvePath(as2settings.GetDefaultSDK().Path) ?? "";
             if (Path.GetExtension(mtascPath) != "") mtascPath = Path.GetDirectoryName(mtascPath);
             string path;
             if ((as2settings.UseMtascIntrinsic || as2settings.MMClassPath.Length == 0)
@@ -1145,7 +1145,7 @@ namespace AS2Context
         /// </summary>
         public override string GetCompilerPath()
         {
-            if (as2settings != null) return as2settings.MtascPath;
+            if (as2settings != null) return as2settings.GetDefaultSDK().Path;
             else return null;
         }
 
@@ -1186,7 +1186,7 @@ namespace AS2Context
             string basePath = null;
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-            string mtascPath = PathHelper.ResolvePath(as2settings.MtascPath, basePath);
+            string mtascPath = PathHelper.ResolvePath(as2settings.GetDefaultSDK().Path, basePath);
             if (!Directory.Exists(mtascPath) && !File.Exists(mtascPath))
 			{
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.InvalidMtascPath"));
@@ -1366,6 +1366,6 @@ namespace AS2Context
 			RunCMD(command);
 			return true;
 		}
-		#endregion
+        #endregion
 	}
 }

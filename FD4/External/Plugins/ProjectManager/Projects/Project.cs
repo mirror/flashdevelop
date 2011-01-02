@@ -32,6 +32,7 @@ namespace ProjectManager.Projects
         AssetCollection libraryAssets;
         internal Dictionary<string, string> storage;
         bool traceEnabled; // selected configuration 
+        string preferredSDK;
 
         public bool NoOutput; // Disable file building
         public string InputPath; // For code injection
@@ -126,6 +127,8 @@ namespace ProjectManager.Projects
         {
             get { return GetAbsolutePath(OutputPath); } 
         }
+
+        public string PreferredSDK { get { return preferredSDK; } set { preferredSDK = value; } }
 
 		#endregion
 

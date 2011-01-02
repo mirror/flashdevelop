@@ -8,10 +8,11 @@ using PluginCore.Helpers;
 using PluginCore.Managers;
 using PluginCore.Utilities;
 using PluginCore;
+using System.Text.RegularExpressions;
 
 namespace HaXeContext
 {
-    public class PluginMain : IPlugin
+    public class PluginMain : IPlugin, InstalledSDKOwner
     {
         private String pluginName = "HaXeContext";
         private String pluginGuid = "ccf2c534-db6b-4c58-b90e-cd0b837e61c5";
@@ -146,15 +147,31 @@ namespace HaXeContext
             if (!File.Exists(this.settingFilename)) this.SaveSettings();
             else
             {
-                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
-                this.settingObject = (HaXeSettings)obj;
+                using (new InstalledSDKContext(this))
+                {
+                    Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                    this.settingObject = (HaXeSettings)obj;
+                }
             }
-            if (this.settingObject.HaXePath == null) // default values
+        }
+
+        /// <summary>
+        /// Fix some settings values when the context has been created
+        /// </summary>
+        private void ValidateSettings()
+        {
+            if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0)
             {
                 string eVariable = System.Environment.GetEnvironmentVariable("HAXEPATH");
-                settingObject.HaXePath = eVariable ?? @"C:\Motion-Twin\haxe";
+                string includedSDK = eVariable ?? @"C:\Motion-Twin\haxe";
+                if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
+                {
+                    InstalledSDK sdk = new InstalledSDK(this);
+                    sdk.Path = includedSDK;
+                    settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
+                }
             }
-            this.settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
+            settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
         /// <summary>
@@ -170,8 +187,45 @@ namespace HaXeContext
         /// </summary>
         private void SaveSettings()
         {
-            this.settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
+        }
+
+        #endregion
+
+        #region InstalledSDKOwner Membres
+
+        public bool ValidateSDK(InstalledSDK sdk)
+        {
+            string path = PathHelper.ResolvePath(sdk.Path);
+            try
+            {
+                if (path == null || !Directory.Exists(path))
+                {
+                    ErrorManager.ShowInfo("Path not found:\n" + sdk.Path);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowInfo("Invalid path (" + ex.Message + "):\n" + sdk.Path);
+                return false;
+            }
+
+            string descriptor = Path.Combine(path, "changes.txt");
+            if (File.Exists(descriptor))
+            {
+                string raw = File.ReadAllText(descriptor);
+                Match mVer = Regex.Match(raw, "[0-9\\-]+\\s*:\\s*([0-9.]+)");
+                if (mVer.Success)
+                {
+                    sdk.Version = mVer.Groups[1].Value;
+                    sdk.Name = "Haxe " + sdk.Version;
+                    return true;
+                }
+                else ErrorManager.ShowInfo("Invalid changes.txt file:\n" + descriptor);
+            }
+            else ErrorManager.ShowInfo("No change.txt found:\n" + descriptor);
+            return false;
         }
 
         #endregion

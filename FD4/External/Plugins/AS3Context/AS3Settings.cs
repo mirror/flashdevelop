@@ -5,15 +5,22 @@ using System.Drawing.Design;
 using System.Windows.Forms.Design;
 using System.ComponentModel;
 using PluginCore.Localization;
+using PluginCore;
+using System.IO;
 
 namespace AS3Context
 {
     public delegate void ClasspathChangedEvent();
+    public delegate void InstalledSDKsChangedEvent();
 
     [Serializable]
     public class AS3Settings : ASCompletion.Settings.IContextSettings
     {
+        [field: NonSerialized]
         public event ClasspathChangedEvent OnClasspathChanged;
+
+        [field: NonSerialized]
+        public event InstalledSDKsChangedEvent OnInstalledSDKsChanged;
 
         #region IContextSettings Documentation
 
@@ -51,6 +58,7 @@ namespace AS3Context
         protected bool playAfterBuild = DEFAULT_PLAY;
         protected bool fixPackageAutomatically = DEFAULT_FIXPACKAGEAUTOMATICALLY;
         protected string[] userClasspath = null;
+        protected InstalledSDK[] installedSDKs = null;
 
         [Browsable(false)]
         public string LanguageId
@@ -94,6 +102,27 @@ namespace AS3Context
                 userClasspath = value;
                 FireChanged();
             }
+        }
+
+        [DisplayName("Installed Flex SDKs")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.FlexSDK")]
+        public InstalledSDK[] InstalledSDKs
+        {
+            get { return installedSDKs; }
+            set
+            {
+                installedSDKs = value;
+                FireChanged();
+                if (OnInstalledSDKsChanged != null) OnInstalledSDKsChanged();
+            }
+        }
+
+        public InstalledSDK GetDefaultSDK()
+        {
+            if (installedSDKs == null || installedSDKs.Length == 0) return null;
+            foreach (InstalledSDK sdk in installedSDKs)
+                if (sdk.IsValid) return sdk;
+            return InstalledSDK.INVALID_SDK;
         }
 
         [DisplayName("Enable Completion")]
@@ -232,23 +261,9 @@ namespace AS3Context
         const bool DEFAULT_VERBOSEFDB = false;
         const bool DEFAULT_DISABLELIVECHECKING = false;
 
-        private string flexSDK;
         private bool disableFDB;
         private bool verboseFDB;
         private bool disableLiveChecking;
-
-        [DisplayName("Flex SDK Location")]
-        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.FlexSDK")]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
-        public string FlexSDK
-        {
-            get { return flexSDK; }
-            set 
-            { 
-                flexSDK = value;
-                FireChanged();
-            }
-        }
 
         [DisplayName("Disable Flex Debugger Hosting")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("ASCompletion.Description.DisableFDB"), DefaultValue(DEFAULT_DISABLEFDB)]
@@ -276,7 +291,6 @@ namespace AS3Context
 
         #endregion
 
-        [Browsable(false)]
         private void FireChanged()
         {
             if (OnClasspathChanged != null) OnClasspathChanged();

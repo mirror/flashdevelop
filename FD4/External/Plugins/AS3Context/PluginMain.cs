@@ -20,7 +20,7 @@ using PluginCore;
 
 namespace AS3Context
 {
-    public class PluginMain : IPlugin
+    public class PluginMain : IPlugin, InstalledSDKOwner
     {
         private String pluginName = "AS3Context";
         private String pluginGuid = "ccf2c534-db6b-4c58-b90e-cd0b837e61c4";
@@ -147,10 +147,10 @@ namespace AS3Context
                                 ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)
                                 : Environment.CurrentDirectory;
 
-                            string flexSdk = (settingObject as AS3Settings).FlexSDK;
+                            string flexSdk = (settingObject as AS3Settings).GetDefaultSDK().Path;
 
                             // if the default sdk is not defined ask for project sdk
-                            if (flexSdk == null || flexSdk == String.Empty)
+                            if (String.IsNullOrEmpty(flexSdk))
                             {
                                 flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
                             }
@@ -186,6 +186,7 @@ namespace AS3Context
                 {
                     case EventType.UIStarted:
                         contextInstance = new Context(settingObject);
+                        ValidateSettings();
                         AddToolbarItems();
                         // Associate this context with AS3 language
                         ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "as3");
@@ -394,16 +395,46 @@ namespace AS3Context
             if (!File.Exists(this.settingFilename)) this.SaveSettings();
             else
             {
-                Object obj = ObjectSerializer.Deserialize(this.settingFilename, settingObject);
-                settingObject = (AS3Settings)obj;
+                using (new InstalledSDKContext(this))
+                {
+                    Object obj = ObjectSerializer.Deserialize(this.settingFilename, settingObject);
+                    settingObject = (AS3Settings)obj;
+                }
             }
             if (settingObject.AS3ClassPath == null) settingObject.AS3ClassPath = @"Library\AS3\intrinsic";
-            if (settingObject.FlexSDK == null || settingObject.FlexSDK == String.Empty)
+        }
+
+        /// <summary>
+        /// Fix some settings values when the context has been created
+        /// </summary>
+        private void ValidateSettings()
+        {
+            if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0)
             {
-                String includedSDK = Path.Combine(PathHelper.ToolDir, "flexsdk");
-                if (Directory.Exists(includedSDK)) settingObject.FlexSDK = includedSDK;
+                string includedSDK = "Tools\\flexsdk";
+                if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
+                {
+                    InstalledSDK sdk = new InstalledSDK(this);
+                    sdk.Path = includedSDK;
+                    settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
+                }
             }
+
             settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
+            settingObject.OnInstalledSDKsChanged += settingObjectOnInstalledSDKsChanged;
+        }
+
+        /// <summary>
+        /// Notify of SDK collection changes
+        /// </summary>
+        void settingObjectOnInstalledSDKsChanged()
+        {
+            if (contextInstance != null)
+            {
+                contextInstance.BuildClassPath();
+                EventManager.DispatchEvent(contextInstance,
+                    new DataEvent(EventType.Command, "ASContext.InstalledSDKsChanged", settingObject.InstalledSDKs));
+            }
         }
 
         /// <summary>
@@ -419,7 +450,6 @@ namespace AS3Context
         /// </summary>
         public void SaveSettings()
         {
-            settingObject.OnClasspathChanged -= SettingObjectOnClasspathChanged;
             ObjectSerializer.Serialize(this.settingFilename, settingObject);
         }
 
@@ -464,6 +494,50 @@ namespace AS3Context
                 }
             }
             return null;
+        }
+
+        #endregion
+
+        #region InstalledSDKOwner Membres
+
+        public bool ValidateSDK(InstalledSDK sdk)
+        {
+            string path = sdk.Path;
+            Match mBin = Regex.Match(path, "[/\\\\]bin$", RegexOptions.IgnoreCase);
+            if (mBin.Success)
+                path = path.Substring(0, mBin.Index);
+            path = PathHelper.ResolvePath(path);
+
+            try
+            {
+                if (path == null || !Directory.Exists(path))
+                {
+                    ErrorManager.ShowInfo("Path not found:\n" + sdk.Path);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowInfo("Invalid path (" + ex.Message + "):\n" + sdk.Path);
+                return false;
+            }
+
+            string descriptor = Path.Combine(path, "flex-sdk-description.xml");
+            if (File.Exists(descriptor))
+            {
+                string raw = File.ReadAllText(descriptor);
+                Match mName = Regex.Match(raw, "<name>([^<]+)</name>");
+                Match mVer = Regex.Match(raw, "<version>([^<]+)</version>");
+                if (mName.Success && mVer.Success)
+                {
+                    sdk.Name = mName.Groups[1].Value;
+                    sdk.Version = mVer.Groups[1].Value;
+                    return true;
+                }
+                else ErrorManager.ShowInfo("Invalid SDK descriptor:\n" + descriptor);
+            }
+            else ErrorManager.ShowInfo("No SDK descriptor found:\n" + descriptor);
+            return false;
         }
 
         #endregion

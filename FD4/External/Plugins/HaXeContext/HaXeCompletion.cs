@@ -91,9 +91,12 @@ namespace HaXeContext
 
             // compiler path
             string haxePath = Environment.GetEnvironmentVariable("HAXEPATH");
-            string customHaxePath = (Context.Context.Settings as HaXeSettings).HaXePath;
+            string customHaxePath = (Context.Context.Settings as HaXeSettings).GetDefaultSDK().Path; // TODO not clean
             if (customHaxePath != null && customHaxePath.Length > 0)
-                haxePath = PathHelper.ResolvePath(customHaxePath);
+            {
+                customHaxePath = PathHelper.ResolvePath(customHaxePath);
+                if (customHaxePath != null) haxePath = customHaxePath;
+            }
             
             string process = Path.Combine(haxePath, "haxe.exe");
             if (!File.Exists(process))

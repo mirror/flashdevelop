@@ -61,6 +61,7 @@ namespace ProjectManager.Projects
             WriteOption("movie", "minorVersion", project.MovieOptions.MinorVersion);
             WriteOption("movie", "platform", project.MovieOptions.Platform);
             WriteOption("movie", "background", project.MovieOptions.Background);
+            if (project.PreferredSDK != null) WriteOption("movie", "preferredSDK", project.PreferredSDK);
             WriteEndElement();
         }
 
