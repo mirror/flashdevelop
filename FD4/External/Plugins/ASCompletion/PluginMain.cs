@@ -516,6 +516,9 @@ namespace ASCompletion
 
         private InstalledSDK MatchSDK(InstalledSDK[] sdks, string preferredSDK)
         {
+            if (sdks == null || sdks.Length == 0) 
+                return InstalledSDK.INVALID_SDK;
+
             // default sdk
             if (String.IsNullOrEmpty(preferredSDK))
             {
