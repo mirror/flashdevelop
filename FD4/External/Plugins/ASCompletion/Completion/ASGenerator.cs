@@ -3601,11 +3601,11 @@ namespace ASCompletion.Completion
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Void", ASContext.Context.Features.voidKey ?? "void");
                     if (decl.Length > 0)
                     {
-                        decl += "\n\n";
                         tpl = tpl.Replace("$(EntryPoint)", "");
                     }
                     decl += tpl;
                 }
+                decl = "$(Boundary)" + TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", "\n\n");
             }
             else
             {
