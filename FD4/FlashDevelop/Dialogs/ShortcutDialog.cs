@@ -215,8 +215,19 @@ namespace FlashDevelop.Dialogs
         private void UpdateItemHighlightFont(ListViewItem lvi, ShortcutItem si)
         {
             Font def = Globals.Settings.DefaultFont;
-            if (si.Default != si.Custom) lvi.Font = new Font(def, FontStyle.Bold);
-            else lvi.Font = new Font(def, FontStyle.Regular);
+            ListViewItem.ListViewSubItem lvsi = lvi.SubItems[1];
+            if (lvsi.Text == "None") lvsi.ForeColor = SystemColors.GrayText;
+            else lvsi.ForeColor = SystemColors.ControlText;
+            if (si.Default != si.Custom)
+            {
+                lvi.Font = new Font(def, FontStyle.Bold);
+                lvi.UseItemStyleForSubItems = true;
+            }
+            else
+            {
+                lvi.Font = new Font(def, FontStyle.Regular);
+                lvi.UseItemStyleForSubItems = false;
+            }
         }
 
         /// <summary>
@@ -229,7 +240,9 @@ namespace FlashDevelop.Dialogs
             this.listView.ListViewItemSorter = new ListViewComparer();
             foreach (ShortcutItem item in ShortcutManager.RegistedItems)
             {
-                if (item.Id.ToLower().Contains(filter.ToLower()) && !this.listView.Items.ContainsKey(item.Id))
+                if (!this.listView.Items.ContainsKey(item.Id) && 
+                    item.Id.ToLower().Contains(filter.ToLower()) || 
+                    GetKeysAsString(item.Custom).ToLower().Contains(filter.ToLower()))
                 {
                     ListViewItem lvi = new ListViewItem();
                     lvi.Text = lvi.Name = item.Id; lvi.Tag = item;
@@ -255,17 +268,24 @@ namespace FlashDevelop.Dialogs
         {
             if (this.listView.SelectedItems.Count > 0)
             {
-                ListViewItem selected = this.listView.SelectedItems[0];
-                ShortcutItem item = selected.Tag as ShortcutItem;
-                if (item.Custom != e.KeyData && ToolStripManager.IsValidShortcut(e.KeyData))
+                if (e.KeyData == Keys.Delete) this.RemoveShortcutClick(null, null);
+                else 
                 {
-                    selected.SubItems[1].Text = GetKeysAsString(e.KeyData);
-                    item.Custom = e.KeyData; selected.Selected = true;
-                    this.UpdateItemHighlightFont(selected, item);
-                    if (this.CountItemsByKey(e.KeyData) > 1)
+                    ListViewItem selected = this.listView.SelectedItems[0];
+                    ShortcutItem item = selected.Tag as ShortcutItem;
+                    if (item.Custom != e.KeyData && ToolStripManager.IsValidShortcut(e.KeyData))
                     {
-                        String message = TextHelper.GetString("Info.ShortcutIsAlreadyUsed");
-                        ErrorManager.ShowWarning(message, null);
+                        selected.SubItems[1].Text = GetKeysAsString(e.KeyData);
+                        item.Custom = e.KeyData; selected.Selected = true;
+                        this.UpdateItemHighlightFont(selected, item);
+                        if (this.CountItemsByKey(e.KeyData) > 1)
+                        {
+                            String message = TextHelper.GetString("Info.ShortcutIsAlreadyUsed");
+                            ErrorManager.ShowWarning(message, null);
+                            this.filterTextBox.Focus(); // Set focus to filter...
+                            this.filterTextBox.Text = GetKeysAsString(e.KeyData);
+                            this.filterTextBox.SelectAll();
+                        }
                     }
                 }
             }
