@@ -1988,6 +1988,7 @@ namespace ASCompletion.Completion
 
         static public string Camelize(string name)
         {
+            name = name.Trim(new char[] { '\'', '"' });
             string[] parts = name.ToLower().Split('_');
             string result = "";
             foreach (string part in parts)
