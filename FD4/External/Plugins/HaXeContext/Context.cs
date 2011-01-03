@@ -141,7 +141,10 @@ namespace HaXeContext
             try
             {
                 string haxelib = "haxelib";
-                string hxPath = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+
+                string hxPath = PluginBase.CurrentProject != null
+                        ? PluginBase.CurrentProject.CurrentSDK
+                        : PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
                 if (hxPath != null && Path.IsPathRooted(hxPath))
                     haxelib = Path.Combine(hxPath, haxelib);
                 
@@ -216,7 +219,9 @@ namespace HaXeContext
             //
             classPath = new List<PathModel>();
             // haXe std
-            string hxPath = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+            string hxPath = PluginBase.CurrentProject != null
+                    ? PluginBase.CurrentProject.CurrentSDK
+                    : PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
             if (hxPath != null)
             {
                 string haxeCP = Path.Combine(hxPath, "std");

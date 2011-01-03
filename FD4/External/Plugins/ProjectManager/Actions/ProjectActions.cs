@@ -117,6 +117,11 @@ namespace ProjectManager.Actions
 
 		#region Update ASCompletion
 
+        public void DetectSDK(Project project)
+        {
+            BuildActions.GetCompilerPath(project);
+        }
+
 		public void UpdateASCompletion(IMainForm mainForm, Project project)
 		{
             List<string> classPaths = new List<string>();

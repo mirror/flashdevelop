@@ -165,7 +165,6 @@ namespace ProjectManager.Projects.AS3
                     case "staticLinkRSL": options.StaticLinkRSL = BoolValue; break;
                     case "additional": options.Additional = Value.Split('\n'); break;
                     case "compilerConstants": options.CompilerConstants = Value.Split('\n'); break;
-                    case "customSDK": options.CustomSDK = Value; break;
                     case "minorVersion": options.MinorVersion = Value; break;
                 }
                 Read();

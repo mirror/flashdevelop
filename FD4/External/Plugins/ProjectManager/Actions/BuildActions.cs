@@ -198,30 +198,6 @@ namespace ProjectManager.Actions
             return true;
 		}
 
-        /// <summary>
-        /// Retrieve the project language's default compiler path
-        /// </summary>
-        /// <param name="project"></param>
-        static public string GetCompilerPath(Project project)
-        {
-            if (project.Language == "as3" && (project as AS3Project).CompilerOptions.CustomSDK.Length > 0)
-            {
-                usingProjectDefinedCompiler = true;
-                return PathHelper.ResolvePath((project as AS3Project).CompilerOptions.CustomSDK, project.Directory);
-            }
-            usingProjectDefinedCompiler = false;
-
-            Hashtable info = new Hashtable();
-            info["language"] = project.Language;
-            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.GetCompilerPath", info);
-            EventManager.DispatchEvent(project, de);
-            if (de.Handled && info.ContainsKey("compiler"))
-            {
-                return PathHelper.ResolvePath(info["compiler"] as string, project.Directory);
-            }
-            else return null;
-        }
-
         void OnBuildComplete(bool runOutput)
         {
             if (BuildComplete != null) BuildComplete(runOutput);
@@ -245,6 +221,60 @@ namespace ProjectManager.Actions
 		public void NotifyBuildEnded(string result) { fdProcess.ProcessEndedEventCaught(result); }
         public void SetStatusBar(string text) { mainForm.StatusLabel.Text = " " + text; }
 
-	}
+        /* SDK MANAGEMENT */
+
+        static public string GetCompilerPath(Project project)
+        {
+            if (project == null) return null;
+            if (project.CurrentSDK == null)
+            {
+                InstalledSDK[] sdks = GetInstalledSDKS(project);
+                project.CurrentSDK = PathHelper.ResolvePath(MatchSDK(sdks, project).Path, project.Directory);
+            }
+            return project.CurrentSDK;
+        }
+
+        static public InstalledSDK MatchSDK(InstalledSDK[] sdks, IProject project)
+        {
+            if (sdks == null || sdks.Length == 0)
+                return InstalledSDK.INVALID_SDK;
+            string preferredSDK = project.PreferredSDK;
+
+            // default sdk
+            if (String.IsNullOrEmpty(preferredSDK))
+            {
+                foreach (InstalledSDK sdk in sdks)
+                    if (sdk.IsValid) return sdk;
+                return InstalledSDK.INVALID_SDK;
+            }
+
+            string[] parts = ((preferredSDK ?? "") + ";;").Split(';'); // name;version;path
+            // match name
+            foreach (InstalledSDK sdk in sdks)
+                if (sdk.Name == parts[0]) return sdk;
+            // match version
+            foreach (InstalledSDK sdk in sdks)
+                if (sdk.Version == parts[1]) return sdk;
+            // new SDK from path
+            InstalledSDK newSdk = new InstalledSDK();
+            newSdk.Path = parts[2];
+            return newSdk;
+        }
+
+        static public InstalledSDK[] GetInstalledSDKS(IProject project)
+        {
+            return GetInstalledSDKS(project.Language);
+        }
+
+        static public InstalledSDK[] GetInstalledSDKS(string language)
+        {
+            Hashtable infos = new Hashtable();
+            infos["language"] = language;
+            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.InstalledSDKs", infos);
+            EventManager.DispatchEvent(null, de);
+            if (infos.ContainsKey("sdks") && infos["sdks"] != null) return (InstalledSDK[])infos["sdks"];
+            else return null;
+        }
+    }
 
 }

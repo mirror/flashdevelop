@@ -36,6 +36,7 @@ namespace ProjectManager
         public const string CompileWithFlexShell = "ProjectManager.CompileWithFlexShell";
         public const string RestartFlexShell = "ProjectManager.RestartFlexShell";
         public const string SetConfiguration = "ProjectManager.SetConfiguration";
+        public const string InstalledSDKsChanged = "ProjectManager.InstalledSDKsChanged";
     }
 
     public static class ProjectManagerEvents
@@ -288,12 +289,6 @@ namespace ProjectManager
                         // steal macro names and values from the very useful BuildEvent macros
                         BuildEventVars vars = new BuildEventVars(project);
 
-                        // this operation requires a message to ASCompletion so we don't add it to the BuildEventVars
-                        string cpath = BuildActions.GetCompilerPath(project);
-                        if (File.Exists(cpath)) cpath = Path.GetDirectoryName(cpath);
-
-                        if (project.Language == "as3") vars.AddVar("FlexSDK", cpath);
-                        vars.AddVar("CompilerPath", cpath);
                         vars.AddVar("CompilerConfiguration", menus.ConfigurationSelector.Text);
                         vars.AddVar("BuildConfiguration", pluginUI.IsTraceDisabled ? "release" : "debug");
                         vars.AddVar("BuildIPC", buildActions.IPCName);
@@ -340,6 +335,7 @@ namespace ProjectManager
                     break;
 
                 case EventType.Command:
+                    if (de.Action.StartsWith("ProjectManager."))
                     if (de.Action == ProjectManagerCommands.NewProject)
                     {
                         NewProject();
@@ -357,6 +353,11 @@ namespace ProjectManager
                     else if (de.Action == ProjectManagerCommands.SendProject)
                     {
                         BroadcastProjectInfo();
+                        e.Handled = true;
+                    }
+                    else if (de.Action == ProjectManagerCommands.InstalledSDKsChanged)
+                    {
+                        projectActions.DetectSDK(project);
                         e.Handled = true;
                     }
                     else if (de.Action == ProjectManagerCommands.BuildProject)
@@ -482,22 +483,29 @@ namespace ProjectManager
 
             this.project = project;
 
+            // init
             Environment.CurrentDirectory = project.Directory;
             Settings.LastProject = project.ProjectPath;
             Settings.Language = project.Language;
-            pluginUI.SetProject(project);
-            project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
 
+            // ui
+            pluginUI.SetProject(project);
             menus.RecentProjects.AddOpenedProject(project.ProjectPath);
             menus.ConfigurationSelector.Enabled = true; //!project.NoOutput;
             menus.ProjectMenu.ProjectItemsEnabled = true;
             menus.TestMovie.Enabled = true;
             menus.BuildProject.Enabled = true;
 
+            // notify
             PluginBase.CurrentProject = project;
             PluginBase.MainForm.RefreshUI();
             BroadcastProjectInfo();
 
+            projectActions.DetectSDK(project);
+            projectActions.UpdateASCompletion(MainForm, project); 
+            project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
+
+            // activate
             if (!internalOpening) RestoreProjectSession();
 
             if (stealFocus)
@@ -505,13 +513,6 @@ namespace ProjectManager
                 OpenPanel();
                 pluginUI.Focus();
             }
-
-            // We can't update ASCompletion right now because we could be starting up and ASCompletion
-            // might not be ready yet. So we'll let this thread finish first.
-            Timer timer = new Timer();
-            timer.Interval = 100;
-            timer.Tick += delegate { projectActions.UpdateASCompletion(MainForm, project); timer.Stop(); };
-            timer.Start();
         }
         void SetProject(Project project, Boolean stealFocus)
         {
@@ -586,9 +587,6 @@ namespace ProjectManager
                 dialog.OpenGlobalClasspaths += delegate { OpenGlobalClasspaths(); };
                 dialog.ShowDialog(pluginUI);
 
-                if (dialog.ClasspathsChanged || dialog.PropertiesChanged)
-                    projectActions.UpdateASCompletion(MainForm, project);
-
                 if (dialog.ClasspathsChanged || dialog.AssetsChanged)
                     Tree.RebuildTree(true);
 
@@ -599,6 +597,9 @@ namespace ProjectManager
                     BroadcastProjectInfo();
                     project.Save();
                 }
+
+                if (dialog.ClasspathsChanged || dialog.PropertiesChanged)
+                    projectActions.UpdateASCompletion(MainForm, project);
             }
         }
 

@@ -299,7 +299,7 @@ namespace ASCompletion
                                 }
                                 e.Handled = true;
                             }
-                            // send the language's compiler path
+                            // send the language's default compiler path
                             else if (command == "ASCompletion.GetCompilerPath")
                             {
                                 Hashtable info = de.Data as Hashtable;
@@ -307,19 +307,12 @@ namespace ASCompletion
                                 {
                                     IASContext context = ASContext.GetLanguageContext(info["language"] as string);
                                     if (context != null)
-                                    {
-                                        if (PluginBase.CurrentProject != null)
-                                        {
-                                            InstalledSDK sdk = MatchSDK(context.Settings.InstalledSDKs, PluginBase.CurrentProject.PreferredSDK);
-                                            info["compiler"] = PathHelper.ResolvePath(sdk.Path);
-                                        }
-                                        else info["compiler"] = context.GetCompilerPath();
-                                    }
+                                        info["compiler"] = context.GetCompilerPath();
                                 }
                                 e.Handled = true;
                             }
 
-                            // show a language's settings
+                            // show a language's compiler settings
                             else if (command == "ASCompletion.ShowSettings")
                             {
                                 e.Handled = true;
@@ -329,9 +322,9 @@ namespace ASCompletion
                                 string name = "";
                                 switch (cmdData.ToUpper())
                                 {
-                                    case "AS2": name = "AS2Context"; filter = "MTASC"; break;
+                                    case "AS2": name = "AS2Context"; filter = "SDK"; break;
                                     case "AS3": name = "AS3Context"; filter = "SDK"; break;
-                                    case "HAXE": name = "HaXeContext"; filter = "HaXe"; break;
+                                    case "HAXE": name = "HaXeContext"; filter = "SDK"; break;
                                     default: name = cmdData.ToUpper() + "Context"; break;
                                 }
                                 PluginBase.MainForm.ShowSettingsDialog(name, filter);
@@ -360,6 +353,8 @@ namespace ASCompletion
                                         e.Handled = Commands.CreateTrustFile.Run(args[0], args[1]);
                                 }
                             }
+
+                            // 
                             else if (command == "ASCompletion.GetClassPath")
                             {
                                 if (cmdData != null)
@@ -383,6 +378,8 @@ namespace ASCompletion
                                     }
                                 }
                             }
+
+                            // Return requested language SDK list
                             else if (command == "ASCompletion.InstalledSDKs")
                             {
                                 Hashtable info = de.Data as Hashtable;
@@ -390,22 +387,16 @@ namespace ASCompletion
                                 {
                                     IASContext context = ASContext.GetLanguageContext(info["language"] as string);
                                     if (context != null)
-                                    {
                                         info["sdks"] = context.Settings.InstalledSDKs;
-                                        if (info.ContainsKey("project"))
-                                        {
-                                            IProject project = info["project"] as IProject;
-                                            if (!String.IsNullOrEmpty(project.PreferredSDK))
-                                                info["match"] = MatchSDK(context.Settings.InstalledSDKs, project.PreferredSDK);
-                                        }
-                                    }
                                 }
                                 e.Handled = true;
                             }
                         }
+
+                        // Create a fake document from a FileModel
                         else if (command == "ProjectManager.OpenVirtualFile")
                         {
-                            string cmdData = (e as DataEvent).Data as string;
+                            string cmdData = de.Data as string;
                             if (Regex.IsMatch(cmdData, "\\.(swf|swc)::"))
                             {
                                 string[] path = Regex.Split(cmdData, "::");
@@ -513,32 +504,6 @@ namespace ASCompletion
                 ErrorManager.ShowError(ex);
             }
 		}
-
-        private InstalledSDK MatchSDK(InstalledSDK[] sdks, string preferredSDK)
-        {
-            if (sdks == null || sdks.Length == 0) 
-                return InstalledSDK.INVALID_SDK;
-
-            // default sdk
-            if (String.IsNullOrEmpty(preferredSDK))
-            {
-                foreach (InstalledSDK sdk in sdks)
-                    if (sdk.IsValid) return sdk;
-                return InstalledSDK.INVALID_SDK;
-            }
-
-            string[] parts = ((preferredSDK ?? "") + ";;").Split(';'); // name;version;path
-            // match name
-            foreach (InstalledSDK sdk in sdks)
-                if (sdk.Name == parts[0]) return sdk;
-            // match version
-            foreach (InstalledSDK sdk in sdks)
-                if (sdk.Version == parts[1]) return sdk;
-            // new SDK from path
-            InstalledSDK newSdk = new InstalledSDK();
-            newSdk.Path = parts[2];
-            return newSdk;
-        }
 
 		#endregion
 

@@ -193,12 +193,6 @@ namespace ProjectManager.Controls
 
 			this.project = project;
             this.vars = new BuildEventVars(project);
-
-            // this operation requires a message to ASCompletion so we don't add it to the BuildEventVars
-            string path = BuildActions.GetCompilerPath(project);
-            if (File.Exists(path)) path = Path.GetDirectoryName(path);
-            vars.AddVar("CompilerPath", path);
-
 			foreach (BuildEventInfo info in vars.GetVars()) Add(info);
 		}
 

@@ -431,9 +431,9 @@ namespace AS3Context
         {
             if (contextInstance != null)
             {
-                contextInstance.BuildClassPath();
-                EventManager.DispatchEvent(contextInstance,
-                    new DataEvent(EventType.Command, "ASContext.InstalledSDKsChanged", settingObject.InstalledSDKs));
+                DataEvent de = new DataEvent(EventType.Command, "ProjectManager.InstalledSDKsChanged", "as3");
+                EventManager.DispatchEvent(contextInstance, de);
+                if (!de.Handled) contextInstance.BuildClassPath();
             }
         }
 

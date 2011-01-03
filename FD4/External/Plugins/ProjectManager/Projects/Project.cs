@@ -33,6 +33,7 @@ namespace ProjectManager.Projects
         internal Dictionary<string, string> storage;
         bool traceEnabled; // selected configuration 
         string preferredSDK;
+        string currentSDK;
 
         public bool NoOutput; // Disable file building
         public string InputPath; // For code injection
@@ -129,6 +130,19 @@ namespace ProjectManager.Projects
         }
 
         public string PreferredSDK { get { return preferredSDK; } set { preferredSDK = value; } }
+
+        public string CurrentSDK
+        {
+            get { return currentSDK; }
+            set
+            {
+                if (value != currentSDK)
+                {
+                    currentSDK = value; 
+                    OnClasspathChanged();
+                }
+            }
+        }
 
 		#endregion
 

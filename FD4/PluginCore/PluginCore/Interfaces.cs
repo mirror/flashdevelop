@@ -195,6 +195,7 @@ namespace PluginCore
         Boolean EnableInteractiveDebugger { get; }
         String ProjectPath { get; }
         String PreferredSDK { get; }
+        String CurrentSDK { get; }
 
         #endregion
     }

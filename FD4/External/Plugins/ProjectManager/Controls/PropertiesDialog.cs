@@ -14,6 +14,7 @@ using ProjectManager.Controls.AS2;
 using ProjectManager.Controls.AS3;
 using PluginCore.Controls;
 using System.Collections;
+using ProjectManager.Actions;
 
 namespace ProjectManager.Controls
 {
@@ -855,32 +856,23 @@ namespace ProjectManager.Controls
             int select = 0;
 
             // retrieve SDK list
-            Hashtable infos = new Hashtable();
-            infos["language"] = project.Language;
-            infos["project"] = project;
-            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.InstalledSDKs", infos);
-            EventManager.DispatchEvent(this, de);
-            if (infos.ContainsKey("sdks") && infos["sdks"] != null)
+            InstalledSDK[] sdks = BuildActions.GetInstalledSDKS(project);
+            if (sdks != null && sdks.Length > 0)
             {
-                InstalledSDK[] sdks = (InstalledSDK[])infos["sdks"];
-                if (sdks.Length > 0)
+                sdkComboBox.Items.Add("Default");
+                sdkComboBox.Items.AddRange(sdks);
+            }
+            else sdkComboBox.Items.Add("No SDK configured");
+
+            InstalledSDK sdk = BuildActions.MatchSDK(sdks, project);
+            if (sdk != InstalledSDK.INVALID_SDK)
+            {
+                select = 1 + Array.IndexOf(sdks, sdk);
+                if (select == 0)
                 {
-                    sdkComboBox.Items.Add("Default");
-                    sdkComboBox.Items.AddRange(sdks);
-                }
-                if (infos.ContainsKey("match"))
-                {
-                    InstalledSDK sdk = infos["match"] as InstalledSDK;
-                    select = 1 + Array.IndexOf(sdks, sdk);
-                    if (select == 0)
-                    {
-                        // TODO display custom sdk information
-                    }
+                    // TODO display custom sdk information
                 }
             }
-
-            if (sdkComboBox.Items.Count == 0)
-                sdkComboBox.Items.Add("No SDK configured");
 
             sdkComboBox.SelectedIndex = select;
             sdkChanged = false;

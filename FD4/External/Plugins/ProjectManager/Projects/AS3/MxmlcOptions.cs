@@ -143,14 +143,6 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue(new string[] { })]
         public string[] CompilerConstants { get { return compilerConstants; } set { compilerConstants = value; } }
 
-        string customSDK = "";
-        [LocalizedCategory("ProjectManager.Category.Advanced")]
-        [DisplayName("Custom Path to Flex SDK")]
-        [LocalizedDescription("ProjectManager.Description.CustomSDK")]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
-        [DefaultValue("")]
-        public string CustomSDK { get { return customSDK; } set { customSDK = value; } }
-
         string minorVersion = "";
         [LocalizedCategory("ProjectManager.Category.Advanced")]
         [DisplayName("Player Minor Version")]
