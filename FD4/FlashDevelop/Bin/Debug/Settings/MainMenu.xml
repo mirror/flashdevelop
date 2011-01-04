@@ -37,6 +37,7 @@
 			<button label="Label.BigEndian" click="ChangeEncoding" tag="1201" flags="Check:IsEditable|IsActiveEncoding" />
 			<button label="Label.LittleEndian" click="ChangeEncoding" tag="1200" flags="Check:IsEditable|IsActiveEncoding" />
 			<button label="Label.UTF8" click="ChangeEncoding" tag="65001" flags="Check:IsEditable|IsActiveEncoding" />
+			<button label="Label.UTF7" click="ChangeEncoding" tag="65000" flags="Check:IsEditable|IsActiveEncoding" />
 			<separator />
 			<button label="Label.SaveBOM" click="ToggleSaveBOM" flags="Check:IsEditable|SaveBOM+Disable:IsDefaultEncoding" />
 			<separator />
@@ -45,12 +46,14 @@
 				<button label="Label.BigEndian" click="ConvertEncoding" tag="1201" />
 				<button label="Label.LittleEndian" click="ConvertEncoding" tag="1200" />
 				<button label="Label.UTF8" click="ConvertEncoding" tag="65001" />
+				<button label="Label.UTF7" click="ConvertEncoding" tag="65000" />
 			</menu>
 			<menu label="Label.OpenFilesIn" name="OpenInMenu" flags="Enable:IsEditable">
 				<button label="Label.8Bits" click="OpenIn" tag="0" />
 				<button label="Label.BigEndian" click="OpenIn" tag="1201" />
 				<button label="Label.LittleEndian" click="OpenIn" tag="1200" />
 				<button label="Label.UTF8" click="OpenIn" tag="65001" />
+				<button label="Label.UTF7" click="OpenIn" tag="65000" />
 			</menu>
 		</menu>
 		<menu label="Label.LineEnds" name="EOLMenu" flags="Enable:IsEditable">

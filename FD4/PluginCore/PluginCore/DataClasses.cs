@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using System.Drawing.Design;
 
 namespace PluginCore
 {
-    #region structs
+    #region Data Objects
 
     /// <summary>
     /// Menus items
@@ -66,9 +66,10 @@ namespace PluginCore
             return String.IsNullOrEmpty(this.key) ? "New argument" : "$(" + this.key + ")";
         }
     }
+
     #endregion
 
-    #region SDKs management
+    #region SDK Management
 
     /// <summary>
     /// A SDK should be associated to an object able to provide custom validation
@@ -197,4 +198,5 @@ namespace PluginCore
     }
 
     #endregion
+
 }

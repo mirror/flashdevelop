@@ -4420,4 +4420,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>SDK</value>
     <comment>Added after 3.3.2</comment>
   </data>
+  <data name="FlashDevelop.Label.UTF7" xml:space="preserve">
+    <value>U&amp;TF-7</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
 </root>

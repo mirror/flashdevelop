@@ -274,24 +274,25 @@ namespace FlashDevelop.Managers
             ITabbedDocument document = Globals.CurrentDocument;
             if (document != null && document.IsEditable)
             {
+                Boolean hasBOM = document.SciControl.SaveBOM;
                 Int32 codepage = document.SciControl.Encoding.CodePage;
                 if (codepage == Encoding.UTF8.CodePage)
                 {
-                    return GetLabelAsPlainText("Label.UTF8");
+                    return GetLabelAsPlainText("Label.UTF8", hasBOM);
                 }
                 else if (codepage == Encoding.UTF7.CodePage)
                 {
-                    return GetLabelAsPlainText("Label.UTF7");
+                    return GetLabelAsPlainText("Label.UTF7", hasBOM);
                 }
                 else if (codepage == Encoding.BigEndianUnicode.CodePage)
                 {
-                    return GetLabelAsPlainText("Label.BigEndian");
+                    return GetLabelAsPlainText("Label.BigEndian", hasBOM);
                 }
                 else if (codepage == Encoding.Unicode.CodePage)
                 {
-                    return GetLabelAsPlainText("Label.LittleEndian");
+                    return GetLabelAsPlainText("Label.LittleEndian", hasBOM);
                 }
-                else return GetLabelAsPlainText("Label.8Bits");
+                else return GetLabelAsPlainText("Label.8Bits", false);
             }
             else return TextHelper.GetString("Info.Unknown");
         }
@@ -299,10 +300,10 @@ namespace FlashDevelop.Managers
         /// <summary>
         /// Gets a label as plain text by removing the accelerator key
         /// </summary>
-        public static String GetLabelAsPlainText(String name)
+        public static String GetLabelAsPlainText(String name, Boolean hasBOM)
         {
-            String label = TextHelper.GetString(name);
-            return label.Replace("&", "");
+            String label = TextHelper.GetString(name).Replace("&", "");
+            return hasBOM ? label + " (BOM)" : label;
         }
 
     }
