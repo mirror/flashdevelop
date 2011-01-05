@@ -29,7 +29,6 @@ namespace ProjectManager.Actions
         FDMenus menus;
 		FDProcessRunner fdProcess;
         string ipcName;
-        static bool usingProjectDefinedCompiler;
 
 		public event BuildCompleteHandler BuildComplete;
         public event BuildCompleteHandler BuildFailed;
@@ -100,21 +99,8 @@ namespace ProjectManager.Actions
                 compiler = GetCompilerPath(project);
                 if (compiler == null || (!Directory.Exists(compiler) && !File.Exists(compiler)))
                 {
-                    if (usingProjectDefinedCompiler)
-                    {
-                        string info = TextHelper.GetString("Info.InvalidCustomCompiler");
-                        MessageBox.Show(info, TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.OK);
-                    }
-                    else
-                    {
-                        string info = String.Format(TextHelper.GetString("Info.SpecifyCompilerPath"), project.Language.ToUpper());
-                        DialogResult result = MessageBox.Show(info, TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.OKCancel);
-                        if (result == DialogResult.OK)
-                        {
-                            DataEvent de = new DataEvent(EventType.Command, "ASCompletion.ShowSettings", project.Language);
-                            EventManager.DispatchEvent(this, de);
-                        }
-                    }
+                    string info = TextHelper.GetString("Info.InvalidCustomCompiler");
+                    MessageBox.Show(info, TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.OK);
                     return false;
                 }
             }

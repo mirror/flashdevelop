@@ -30,7 +30,7 @@ namespace PluginCore.Bridge
         {
             this.path = path;
             this.filter = file;
-            isRemote = path.ToUpper().StartsWith(BridgeManager.Settings.SharedDrive);
+            isRemote = BridgeManager.Active && path.ToUpper().StartsWith(BridgeManager.Settings.SharedDrive);
             if (!isRemote) SetupRegularWatcher();
         }
 

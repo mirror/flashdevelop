@@ -1962,25 +1962,9 @@ namespace ASCompletion.Completion
             while (pos > 0)
             {
                 char c = (char) Sci.CharAt(pos);
-                if (c == '.' && !dotFound)
-                {
-                    dotFound = true;
-                }
-                else if (c == '\t' || c == '\n' || c == '\r' || c == ' ')
-                {
-
-                }
-                else
-                {
-                    if (dotFound)
-                    {
-                        return pos + 1;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
-                }
+                if (c == '.' && !dotFound) dotFound = true;
+                else if (c == '\t' || c == '\n' || c == '\r' || c == ' ') { /* skip */ }
+                else return dotFound ? pos + 1 : -1;
                 pos--;
             }
             return pos;
