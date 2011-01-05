@@ -791,7 +791,7 @@ namespace ASCompletion.Completion
             lookupPosition = Sci.CurrentPos;
 
             int position;
-            MemberModel latest;
+            MemberModel latest = null;
             bool detach = true;
             switch (job)
             {
@@ -846,7 +846,8 @@ namespace ASCompletion.Completion
 
                 case GeneratorJobType.BasicEvent:
                 case GeneratorJobType.ComplexEvent:
-                    latest = GetLatestMemberForFunction(inClass, GetDefaultVisibility(), member);
+                    if (ASContext.CommonSettings.MethodsGenerationLocations == MethodsGenerationLocations.AfterSimilarAccessorMethod)
+                        latest = GetLatestMemberForFunction(inClass, GetDefaultVisibility(), member);
                     if (latest == null)
                         latest = member;
                     position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
