@@ -38,6 +38,7 @@ namespace FlashLogViewer
         private Regex reWarning;
         private Regex reFilter;
         private Regex reError;
+        private long lastPosition;
         
 		public PluginUI(PluginMain pluginMain)
 		{
@@ -306,6 +307,7 @@ namespace FlashLogViewer
         /// </summary>
         private void ClearFilterButtonClick(Object sender, System.EventArgs e)
         {
+            this.lastPosition = 0;
             this.filterComboBox.Text = "";
             if (this.tracking) this.RefreshDisplay(true);
         }
@@ -356,22 +358,38 @@ namespace FlashLogViewer
         /// </summary>
         public void RefreshDisplay(Boolean forceScroll)
         {
-            this.logTextBox.Clear();
-            String logContents = this.GetLogFileContents();
-            String[] logLines = logContents.Split('\n');
-            foreach (String line in logLines)
+            using (StreamReader s = new StreamReader(
+                    File.Open(this.curLogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite), 
+                    Encoding.UTF8))
             {
-                Int32 start = this.logTextBox.TextLength;
-                this.logTextBox.Select(start, 0);
-                if (this.Settings.ColourWarnings && reWarning.IsMatch(line)) this.logTextBox.SelectionColor = Color.Orange;
-                else if (this.Settings.ColourWarnings && reError.IsMatch(line)) this.logTextBox.SelectionColor = Color.Red;
-                else this.logTextBox.SelectionColor = Color.Black;
-                this.logTextBox.AppendText(line + "\n");
+                if (s.BaseStream.Length > lastPosition) 
+                    s.BaseStream.Seek(lastPosition, SeekOrigin.Begin);
+
+                RichTextBox log = this.logTextBox;
+                bool colorize = this.Settings.ColourWarnings;
+                Color currentColor = Color.White; // undefined
+
+                while (!s.EndOfStream)
+                {
+                    string line = s.ReadLine();
+                    if (!this.PassesFilter(line)) continue;
+                    Color newColor = Color.Black;
+                    if (colorize)
+                        if (reWarning.IsMatch(line)) newColor = Color.Orange;
+                        else if (reError.IsMatch(line)) newColor = Color.Red;
+                    if (newColor != currentColor)
+                    {
+                        log.Select(log.TextLength, 0);
+                        log.SelectionColor = currentColor = newColor;
+                    }
+                    log.AppendText(line);
+                    log.AppendText("\n");
+                }
+                lastPosition = s.BaseStream.Length;
+                s.Close();
             }
-            if (forceScroll)
-            {
-                this.logTextBox.ScrollToCaret();
-            }
+
+            if (forceScroll) this.logTextBox.ScrollToCaret();
         }
 
         /// <summary>
@@ -506,29 +524,6 @@ namespace FlashLogViewer
                 catch { this.filterComboBox.ForeColor = Color.Red; }
             }
             this.RefreshDisplay(false);
-        }
-
-        /// <summary>
-        /// Gets the contents of the current log file
-        /// </summary>
-        private String GetLogFileContents()
-        {
-            try
-            {
-                String contents = "";
-                StringBuilder contentsBuilder = new StringBuilder();
-                StreamReader sr = File.OpenText(this.curLogFile);
-                String s = sr.ReadLine();
-                while (s != null)
-                {
-                    if (this.PassesFilter(s)) contentsBuilder.AppendLine(s);
-                    s = sr.ReadLine();
-                }
-                sr.Close();
-                contents = contentsBuilder.ToString();
-                return contents.TrimEnd(null);
-            }
-            catch { return ""; }
         }
 
         /// <summary>
