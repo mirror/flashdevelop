@@ -15,7 +15,7 @@ using PluginCore;
 
 namespace FlashLogViewer
 {
-	public class PluginUI : DockPanelControl
+    public class PluginUI : DockPanelControl
     {
         private Form popupForm;
         private Boolean tracking;
@@ -38,27 +38,28 @@ namespace FlashLogViewer
         private Regex reWarning;
         private Regex reFilter;
         private Regex reError;
-        
-		public PluginUI(PluginMain pluginMain)
-		{
+        private long lastPosition;
+
+        public PluginUI(PluginMain pluginMain)
+        {
             this.Font = PluginBase.Settings.DefaultFont;
             this.pluginMain = pluginMain;
             this.InitializeSettings();
-			this.InitializeComponent();
+            this.InitializeComponent();
             this.InitializeContextMenu();
             this.InitializeGraphics();
             this.InitializeControls();
             this.UpdateMainRegexes();
-		}
+        }
 
-		#region Windows Forms Designer Generated Code
+        #region Windows Forms Designer Generated Code
 
-		/// <summary>
-		/// This method is required for Windows Forms designer support.
-		/// Do not change the method contents inside the source code editor. The Forms designer might
-		/// not be able to load this method if it was changed manually.
-		/// </summary>
-		private void InitializeComponent() 
+        /// <summary>
+        /// This method is required for Windows Forms designer support.
+        /// Do not change the method contents inside the source code editor. The Forms designer might
+        /// not be able to load this method if it was changed manually.
+        /// </summary>
+        private void InitializeComponent()
         {
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toggleButton = new System.Windows.Forms.ToolStripButton();
@@ -177,12 +178,12 @@ namespace FlashLogViewer
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         #region Methods And Event Handlers
-        
+
         /// <summary>
         /// Accessor for the setting from the PluginMain
         /// </summary>
@@ -268,6 +269,7 @@ namespace FlashLogViewer
         {
             ContextMenuStrip menu = new ContextMenuStrip();
             menu.Font = PluginBase.Settings.DefaultFont;
+            menu.Renderer = new DockPanelStripRenderer(false);
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.ClearLog"), null, new EventHandler(this.ClearOutput)));
             menu.Items.Add(new ToolStripMenuItem(TextHelper.GetString("Label.CopyOutput"), null, new EventHandler(this.CopyOutput)));
             menu.Items.Add(new ToolStripSeparator());
@@ -305,6 +307,7 @@ namespace FlashLogViewer
         /// </summary>
         private void ClearFilterButtonClick(Object sender, System.EventArgs e)
         {
+            this.lastPosition = 0;
             this.filterComboBox.Text = "";
             if (this.tracking) this.RefreshDisplay(true);
         }
@@ -321,7 +324,7 @@ namespace FlashLogViewer
                 sw.Write("");
                 sw.Close();
             }
-            catch {}
+            catch { }
         }
 
         /// <summary>
@@ -355,22 +358,38 @@ namespace FlashLogViewer
         /// </summary>
         public void RefreshDisplay(Boolean forceScroll)
         {
-            this.logTextBox.Clear();
-            String logContents = this.GetLogFileContents();
-            String[] logLines = logContents.Split('\n');
-            foreach (String line in logLines)
+            using (StreamReader s = new StreamReader(
+                    File.Open(this.curLogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite),
+                    Encoding.UTF8))
             {
-                Int32 start = this.logTextBox.TextLength;
-                this.logTextBox.Select(start, 0);
-                if (this.Settings.ColourWarnings && reWarning.IsMatch(line)) this.logTextBox.SelectionColor = Color.Orange;
-                else if (this.Settings.ColourWarnings && reError.IsMatch(line)) this.logTextBox.SelectionColor = Color.Red;
-                else this.logTextBox.SelectionColor = Color.Black;
-                this.logTextBox.AppendText(line + "\n");
+                if (s.BaseStream.Length > lastPosition)
+                    s.BaseStream.Seek(lastPosition, SeekOrigin.Begin);
+
+                RichTextBox log = this.logTextBox;
+                bool colorize = this.Settings.ColourWarnings;
+                Color currentColor = Color.White; // undefined
+
+                while (!s.EndOfStream)
+                {
+                    string line = s.ReadLine();
+                    if (!this.PassesFilter(line)) continue;
+                    Color newColor = Color.Black;
+                    if (colorize)
+                        if (reWarning.IsMatch(line)) newColor = Color.Orange;
+                        else if (reError.IsMatch(line)) newColor = Color.Red;
+                    if (newColor != currentColor)
+                    {
+                        log.Select(log.TextLength, 0);
+                        log.SelectionColor = currentColor = newColor;
+                    }
+                    log.AppendText(line);
+                    log.AppendText("\n");
+                }
+                lastPosition = s.BaseStream.Length;
+                s.Close();
             }
-            if (forceScroll)
-            {
-                this.logTextBox.ScrollToCaret();
-            }
+
+            if (forceScroll) this.logTextBox.ScrollToCaret();
         }
 
         /// <summary>
@@ -460,7 +479,7 @@ namespace FlashLogViewer
             {
                 writeTime = File.GetLastWriteTimeUtc(this.curLogFile);
             }
-            catch {}
+            catch { }
             if (this.curLogFile == this.Settings.FlashLogFile)
             {
                 if (this.flashLogWrited != writeTime)
@@ -508,29 +527,6 @@ namespace FlashLogViewer
         }
 
         /// <summary>
-        /// Gets the contents of the current log file
-        /// </summary>
-        private String GetLogFileContents()
-        {
-            try
-            {
-                String contents = "";
-                StringBuilder contentsBuilder = new StringBuilder();
-                StreamReader sr = File.OpenText(this.curLogFile);
-                String s = sr.ReadLine();
-                while (s != null)
-                {
-                    if (this.PassesFilter(s)) contentsBuilder.AppendLine(s);
-                    s = sr.ReadLine();
-                }
-                sr.Close();
-                contents = contentsBuilder.ToString();
-                return contents.TrimEnd(null);
-            }
-            catch { return ""; }
-        }
-
-        /// <summary>
         /// Updates the regexes from setting and ensures their validity
         /// </summary>
         private void UpdateMainRegexes()
@@ -539,8 +535,8 @@ namespace FlashLogViewer
             {
                 this.reError = new Regex(this.Settings.RegexError, RegexOptions.IgnoreCase);
             }
-            catch 
-            { 
+            catch
+            {
                 this.Settings.RegexError = "Error #";
                 this.reError = new Regex(this.Settings.RegexError, RegexOptions.IgnoreCase);
             }
@@ -548,8 +544,8 @@ namespace FlashLogViewer
             {
                 this.reWarning = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
             }
-            catch 
-            { 
+            catch
+            {
                 this.Settings.RegexError = "Warning: ";
                 this.reWarning = new Regex(this.Settings.RegexWarning, RegexOptions.IgnoreCase);
             }
