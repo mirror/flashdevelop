@@ -167,11 +167,11 @@ namespace AS3Context.Controls
             current = null;
             gcWanted = false;
             snapshotWanted = null;
-            
+
             liveObjectsView.Clear();
             memView.Clear();
 
-            if (tabControl.SelectedTab == objectsPage) 
+            if (tabControl.SelectedTab == objectsPage)
                 tabControl.SelectedTab = liveObjectsPage;
             runButton.Image = PluginBase.MainForm.FindImage("126");
             runButton.Text = TextHelper.GetString("Label.StopProfiler");
@@ -223,7 +223,7 @@ namespace AS3Context.Controls
             string check = "";
             foreach(string swf in swfs) check += swf;
             if (check == profilerItemsCheck) return;
-            profilerItemsCheck = check; 
+            profilerItemsCheck = check;
 
             profilerItems.Clear();
             profilerItems.Add(defaultToolStripMenuItem);
@@ -279,7 +279,7 @@ namespace AS3Context.Controls
             string[] info = data.Substring(0, p).Split('/');
 
             // type snapshot
-            if (info[0] == "stacks") 
+            if (info[0] == "stacks")
             {
                 objectRefsView.Display(info[1], data.Substring(p + 1).Split('|'));
                 return true;
@@ -317,7 +317,8 @@ namespace AS3Context.Controls
         {
             try
             {
-                string home = Environment.GetEnvironmentVariable("USERPROFILE");
+                string home = Environment.GetEnvironmentVariable("HOMEDRIVE")
+                    + Environment.GetEnvironmentVariable("HOMEPATH");
                 if (!Directory.Exists(home))
                     return false;
                 string mmCfg = Path.Combine(home, "mm.cfg");
@@ -332,7 +333,7 @@ namespace AS3Context.Controls
 
                 File.WriteAllText(mmCfg, src);
             }
-            catch 
+            catch
             {
                 return false; // unable to set the profiler
             }
@@ -412,6 +413,6 @@ namespace AS3Context.Controls
 
     }
 
-    
+
 
 }
