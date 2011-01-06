@@ -317,7 +317,8 @@ namespace AS3Context.Controls
         {
             try
             {
-                string home = Environment.GetEnvironmentVariable("USERPROFILE");
+                string home = Environment.GetEnvironmentVariable("HOMEDRIVE")
+                    + Environment.GetEnvironmentVariable("HOMEPATH");
                 if (!Directory.Exists(home))
                     return false;
                 string mmCfg = Path.Combine(home, "mm.cfg");
