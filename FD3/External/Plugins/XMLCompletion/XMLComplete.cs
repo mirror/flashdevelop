@@ -87,7 +87,7 @@ namespace XMLCompletion
         /**
         * Extract the tag name
         */
-		private static readonly Regex tagName = new Regex("^<[/]?(?<name>[a-z!][-a-z0-9_:]*)[\\s/>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex tagName = new Regex("^<[/]?(?<name>[a-z][-a-z0-9_:]*)[\\s/>]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		
 		/**
         * Check if the text ends with a closing tag
@@ -303,14 +303,15 @@ namespace XMLCompletion
 								c = (Char)sci.CharAt(position);
 							}
 							while (position > 0 && c != '>');
-							ctag = GetXMLContextTag(sci, position);
+							ctag = GetXMLContextTag(sci, c == '>' ? position + 1 : position);
 							if ((Char)sci.CharAt(position-1) == '/') return;
                             // Insert blank line if we pressed Enter between a tag & it's closing tag
                             Int32 indent = sci.GetLineIndentation(line2 + 1);
 							String checkStart = null;
                             bool subIndent = true;
 							if (text.EndsWith("<!--")) { checkStart = "-->"; subIndent = false; }
-							else if (text.EndsWith("<![CDATA[")) { checkStart = "]]>"; subIndent = false; }
+                            else if (text.EndsWith("<![CDATA[")) { checkStart = "]]>"; subIndent = false; }
+                            else if (ctag.Closed) subIndent = false;
                             else if (ctag.Name != null)
                             {
                                 checkStart = "</" + ctag.Name;
@@ -403,7 +404,7 @@ namespace XMLCompletion
                     if (PluginSettings.CloseTags)
 					{
 						ctag = GetXMLContextTag(sci, position);
-						if (ctag.Name != null && !ctag.Tag.TrimEnd().EndsWith("/>"))
+						if (ctag.Name != null && !ctag.Closed)
 						{
                             // Allow another plugin to handle this
                             de = new DataEvent(EventType.Command, "XMLCompletion.CloseElement", ctag);
@@ -706,12 +707,22 @@ namespace XMLCompletion
 			{
 				xtag.Name = mTag.Groups["name"].Value;
                 xtag.Closing = tag[1] == '/';
-                xtag.Closed = tag.EndsWith("/>") || tag.EndsWith("-->") || tag.EndsWith("]]>");
+                xtag.Closed = tag.EndsWith("/>") || tag.EndsWith("-->");
 				if (xtag.Name.IndexOf(':') > 0)
 				{
 					xtag.NameSpace = xtag.Name.Substring(0, xtag.Name.IndexOf(':'));
 				}
 			}
+            else if (tag.StartsWith("<!--"))
+            {
+                xtag.Name = "!--";
+                xtag.Closed = tag.EndsWith("-->");
+            }
+            else if (tag.StartsWith("<![CDATA["))
+            {
+                xtag.Name = "![CDATA[";
+                xtag.Closed = tag.EndsWith("]]>");
+            }
 			return xtag;
 		}
 
