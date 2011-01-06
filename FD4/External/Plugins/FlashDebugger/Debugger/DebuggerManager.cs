@@ -203,7 +203,8 @@ namespace FlashDebugger
 			Char pathSeparator = Path.DirectorySeparatorChar;
 			foreach (Folder folder in PluginMain.settingObject.SourcePaths)
 			{
-				String localPath = folder.Path + pathSeparator + file.getPackageName() + pathSeparator + file.Name;
+				String pathFromPackage = file.getPackageName().Replace('/', pathSeparator);
+                String localPath = folder.Path + pathSeparator + pathFromPackage + pathSeparator + file.Name;
 				if (File.Exists(localPath))
 				{
 					m_PathMap[file.FullPath] = localPath;
