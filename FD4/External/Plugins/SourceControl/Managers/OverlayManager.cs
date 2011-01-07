@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace SourceControl.Managers
 {
-    class OverlayManager
+    public class OverlayManager
     {
         public const string META_VC = "SourceControl.VC";
         public const string META_ROOT = "SourceControl.ROOT";
@@ -159,15 +159,7 @@ namespace SourceControl.Managers
 
         private static Image GetSkin()
         {
-            try
-            {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                return new Bitmap(assembly.GetManifestResourceStream("SourceControl.Resources.icons.png"));
-            }
-            catch
-            {
-                return new Bitmap(160, 16);
-            }
+            return ProjectWatcher.Skin; //can be changed by external SC-Plugin
         }
 
         static public void Reset()
@@ -217,7 +209,7 @@ namespace SourceControl.Managers
 
     #region Project Selection State
 
-    class ProjectSelectionState
+    public class ProjectSelectionState
     {
         public int Files = 0;
         public int Dirs = 0;
@@ -227,6 +219,8 @@ namespace SourceControl.Managers
         public int Revert = 0;
         public int Diff = 0;
         public int Conflict = 0;
+        public int Modified = 0;
+        public int Replaced = 0;
         public int Other = 0;
         public int Total = 0;
         public IVCManager Manager = null;
@@ -256,8 +250,9 @@ namespace SourceControl.Managers
                 else if (status == VCItemStatus.Ignored) Ignored++;
                 else if (status == VCItemStatus.Added) Added++;
                 else if (status == VCItemStatus.Conflicted) Conflict++;
-                else if (status == VCItemStatus.Modified || status == VCItemStatus.Deleted) { Revert++; Diff++; }
-                else if (status == VCItemStatus.Replaced) Revert++;
+                else if (status == VCItemStatus.Modified) { Modified++; Revert++; Diff++; }
+                else if (status == VCItemStatus.Deleted) { Revert++; Diff++; }
+                else if (status == VCItemStatus.Replaced) { Replaced++; Revert++; }
                 else Other++;
                 Total++;
             }

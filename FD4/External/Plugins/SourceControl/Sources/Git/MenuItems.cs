@@ -44,6 +44,9 @@ namespace SourceControl.Sources.Git
         public ToolStripItem Revert { get { return revert; } }
         public ToolStripItem EditConflict { get { return editConflict; } }
 
+        private Dictionary<ToolStripItem, VCMenutItemProperties> items = new Dictionary<ToolStripItem, VCMenutItemProperties>();
+        public Dictionary<ToolStripItem, VCMenutItemProperties> Items { get { return items; } }
+
         public MenuItems()
         {
             update = new ToolStripMenuItem(TextHelper.GetString("Label.Pull"), PluginBase.MainForm.FindImage("159|1|-3|3"), Update_Click);

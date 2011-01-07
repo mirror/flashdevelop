@@ -43,6 +43,9 @@ namespace SourceControl.Sources.Subversion
         public ToolStripItem Revert { get { return revert; } }
         public ToolStripItem EditConflict { get { return editConflict; } }
 
+        private Dictionary<ToolStripItem, VCMenutItemProperties> items = new Dictionary<ToolStripItem, VCMenutItemProperties>();
+        public Dictionary<ToolStripItem, VCMenutItemProperties> Items { get { return items; } }
+
         public MenuItems()
         {
             update = new ToolStripMenuItem(TextHelper.GetString("Label.Update"), PluginBase.MainForm.FindImage("159|1|-3|3"), Update_Click);

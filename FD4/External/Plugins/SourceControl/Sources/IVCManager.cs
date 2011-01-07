@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using SourceControl.Managers;
 
 namespace SourceControl.Sources
 {
@@ -50,6 +51,9 @@ namespace SourceControl.Sources
     /// 
     /// An item should handle the Click action and use the provided Nodes & Manager references 
     /// to process the item action.
+    /// 
+    /// Items can be provided by setting some/all the classic menu items (display rules hardcoded)
+    /// OR provide a completely custom list of VCMenuItemProperties to provide (item + display rule).
     /// </summary>
     public interface IVCMenuItems
     {
@@ -63,7 +67,7 @@ namespace SourceControl.Sources
         /// </summary>
         IVCManager CurrentManager { set; }
 
-        /* menu items - return null to disable an item */
+        /* classic VC menu items - return null to disable an item */
         ToolStripItem Update { get; }
         ToolStripItem Commit { get; }
         ToolStripItem Push { get; }
@@ -76,6 +80,16 @@ namespace SourceControl.Sources
         ToolStripItem UndoAdd { get; }
         ToolStripItem Revert { get; }
         ToolStripItem EditConflict { get; }
+
+        /* OR completely custom items list */
+        Dictionary<ToolStripItem, VCMenutItemProperties> Items { get; }
+    }
+
+    public delegate bool ShowVCMenuItemDelegate(ProjectSelectionState state);
+    public struct VCMenutItemProperties
+    {
+        public ShowVCMenuItemDelegate Show;
+        public ShowVCMenuItemDelegate Enable;
     }
 
     /// <summary>
@@ -84,10 +98,17 @@ namespace SourceControl.Sources
     /// </summary>
     public interface IVCFileActions
     {
+        bool FileOpen(string path);
+        bool FileReload(string path);
+        bool FileModifyRO(string path);
+
         bool FileBeforeRename(string path);
         bool FileRename(string path, string newName);
         bool FileDelete(string[] paths, bool confirm);
         bool FileMove(string fromPath, string toPath);
+
+        bool BuildProject();
+        bool TestProject();
     }
 
     /// <summary>

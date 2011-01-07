@@ -11,7 +11,7 @@ using SourceControl.Sources.Mercurial;
 
 namespace SourceControl.Managers
 {
-    class VCManager
+    public class VCManager
     {
         Timer refreshTimer;
         OverlayManager ovManager;
@@ -36,7 +36,7 @@ namespace SourceControl.Managers
             refreshTimer.Stop();
         }
 
-        void AddVCManager(IVCManager manager)
+        public void AddVCManager(IVCManager manager)
         {
             ProjectWatcher.VCManagers.Add(manager);
             manager.OnChange += manager_OnChange;

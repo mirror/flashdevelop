@@ -33,5 +33,12 @@ namespace SourceControl.Sources.Subversion
             new MoveCommand(fromPath, toPath);
             return true;
         }
+
+        public bool FileOpen(string path) { return false; }
+        public bool FileReload(string path) { return false; }
+        public bool FileModifyRO(string path) { return false; }
+
+        public bool BuildProject() { return false; }
+        public bool TestProject() { return false; }
     }
 }

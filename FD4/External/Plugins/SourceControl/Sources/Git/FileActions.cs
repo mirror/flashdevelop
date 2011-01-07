@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace SourceControl.Sources.Git
 {
-    class FileActions:IVCFileActions
+    class FileActions : IVCFileActions
     {
         public bool FileBeforeRename(string path)
         {
@@ -33,5 +33,12 @@ namespace SourceControl.Sources.Git
             new MoveCommand(fromPath, toPath);
             return true;
         }
+
+        public bool FileOpen(string path) { return false; }
+        public bool FileReload(string path) { return false; }
+        public bool FileModifyRO(string path) { return false; }
+
+        public bool BuildProject() { return false; }
+        public bool TestProject() { return false; }
     }
 }

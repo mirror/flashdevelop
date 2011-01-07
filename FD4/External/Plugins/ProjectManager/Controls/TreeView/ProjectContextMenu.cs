@@ -320,7 +320,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
             menu.Add(AlwaysCompile, 2, alwaysCompile);
-            menu.Add(CopyClassName, 4);
+            menu.Add(CopyClassName, 2);
             AddFileItems(menu, path);
         }
 

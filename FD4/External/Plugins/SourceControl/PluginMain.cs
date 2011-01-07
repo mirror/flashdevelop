@@ -193,6 +193,63 @@ namespace SourceControl
                                 de.Handled = true;
                             }
                             break;
+
+                        case ProjectManagerEvents.BuildProject:
+                            try
+                            {
+                                de.Handled = ProjectWatcher.HandleBuildProject();
+                            }
+                            catch (Exception ex)
+                            {
+                                ErrorManager.ShowError(ex);
+                                de.Handled = true;
+                            }
+                            break;
+
+                        case ProjectManagerEvents.TestProject:
+                            try
+                            {
+                                de.Handled = ProjectWatcher.HandleTestProject();
+                            }
+                            catch (Exception ex)
+                            {
+                                ErrorManager.ShowError(ex);
+                                de.Handled = true;
+                            }
+                            break;
+                    }
+                    break;
+                case EventType.FileOpen:
+                    try
+                    {
+                        e.Handled = ProjectWatcher.HandleFileOpen((e as TextEvent).Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorManager.ShowError(ex);
+                        e.Handled = true;
+                    }
+                    break;
+                case EventType.FileReload:
+                    try
+                    {
+                        e.Handled = ProjectWatcher.HandleFileReload((e as TextEvent).Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorManager.ShowError(ex);
+                        e.Handled = true;
+                    }
+                    break;
+                case EventType.FileModifyRO:
+                    try
+                    {
+                        e.Handled = ProjectWatcher.HandleFileModifyRO((e as TextEvent).Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorManager.ShowError(ex);
+                        e.Handled = true;
                     }
                     break;
             }
@@ -227,7 +284,7 @@ namespace SourceControl
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.Command);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.Command | EventType.FileModifyRO | EventType.FileOpen | EventType.FileReload);
         }
 
         /// <summary>

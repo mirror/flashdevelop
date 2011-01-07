@@ -10,7 +10,7 @@ using ProjectManager.Projects;
 
 namespace SourceControl.Managers
 {
-    class FSWatchers
+    public class FSWatchers
     {
         Dictionary<FileSystemWatcher, IVCManager> watchers = new Dictionary<FileSystemWatcher, IVCManager>();
         List<IVCManager> dirtyVC = new List<IVCManager>();
@@ -112,7 +112,7 @@ namespace SourceControl.Managers
                 {
                     var watcher = new FileSystemWatcher(path);
                     watcher.IncludeSubdirectories = true;
-                    watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;
+                    watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size | NotifyFilters.Attributes;
                     watcher.Changed += new FileSystemEventHandler(watcher_Changed);
                     watcher.Deleted += new FileSystemEventHandler(watcher_Changed);
                     watcher.EnableRaisingEvents = true;

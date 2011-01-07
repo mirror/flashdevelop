@@ -7,26 +7,54 @@ using SourceControl.Sources;
 using SourceControl.Managers;
 using ProjectManager.Projects;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Reflection;
 using PluginCore.Managers;
 using PluginCore.Localization;
+using System.Threading;
 
 namespace SourceControl.Actions
 {
     public class ProjectWatcher
     {
+        private static bool initialized = false;
+
         static internal readonly List<IVCManager> VCManagers = new List<IVCManager>();
         static VCManager vcManager;
         static FSWatchers fsWatchers;
         static OverlayManager ovManager;
         static Project currentProject;
 
-        internal static void Init()
+        public static bool Initialized { get { return initialized; } }
+        public static Image Skin { get; set; }
+        public static Project CurrentProject { get { return currentProject; } }
+        public static VCManager VcManager { get { return vcManager; } }
+
+        public static void Init()
         {
+            if (initialized)
+                return;
+
+            if (Skin == null)
+            {
+                try
+                {
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    Skin = new Bitmap(assembly.GetManifestResourceStream("SourceControl.Resources.icons.png"));
+                }
+                catch
+                {
+                    Skin = new Bitmap(160, 16);
+                }
+            }
+            
             fsWatchers = new FSWatchers();
             ovManager = new OverlayManager(fsWatchers);
             vcManager = new VCManager(ovManager);
 
             SetProject(PluginBase.CurrentProject as Project);
+
+            initialized = true;
         }
 
         internal static void Dispose()
@@ -46,6 +74,9 @@ namespace SourceControl.Actions
 
             fsWatchers.SetProject(project);
             ovManager.Reset();
+
+            foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
+                HandleFileReload(document.FileName);
         }
 
         internal static void SelectionChanged()
@@ -185,6 +216,60 @@ namespace SourceControl.Actions
                 return false; // target dir not under VC, ignore
 
             return result.Manager.FileActions.FileMove(paths[0], paths[1]);
+        }
+
+        internal static bool HandleBuildProject()
+        {
+            WatcherVCResult result = fsWatchers.ResolveVC(currentProject.OutputPathAbsolute, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.BuildProject();
+        }
+
+        internal static bool HandleTestProject()
+        {
+            WatcherVCResult result = fsWatchers.ResolveVC(currentProject.OutputPathAbsolute, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.TestProject();
+        }
+
+        internal static bool HandleFileOpen(string path)
+        {
+            if (!initialized)
+                return true;
+
+            WatcherVCResult result = fsWatchers.ResolveVC(path, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.FileOpen(path);
+        }
+
+        internal static bool HandleFileReload(string path)
+        {
+            if (!initialized)
+                return true;
+
+            WatcherVCResult result = fsWatchers.ResolveVC(path, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.FileReload(path);
+        }
+
+        internal static bool HandleFileModifyRO(string path)
+        {
+            if (!initialized)
+                return true;
+
+            WatcherVCResult result = fsWatchers.ResolveVC(path, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.FileModifyRO(path);
         }
 
         #endregion
