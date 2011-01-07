@@ -83,6 +83,7 @@ namespace ProjectManager
         private Boolean buildingAll;
         private Queue<String> buildQueue;
         private Timer buildTimer;
+        private bool listenToPathChange;
 
         private ProjectTreeView Tree { get { return pluginUI.Tree; } }
         public static IMainForm MainForm { get { return PluginBase.MainForm; } }
@@ -358,7 +359,7 @@ namespace ProjectManager
                     }
                     else if (de.Action == ProjectManagerCommands.InstalledSDKsChanged)
                     {
-                        projectActions.DetectSDK(project);
+                        BuildActions.GetCompilerPath(project);
                         e.Handled = true;
                     }
                     else if (de.Action == ProjectManagerCommands.BuildProject)
@@ -502,10 +503,10 @@ namespace ProjectManager
             PluginBase.MainForm.RefreshUI();
             BroadcastProjectInfo();
 
-            projectActions.DetectSDK(project);
-            projectActions.UpdateASCompletion(MainForm, project); 
-            project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
-            project.BeforeSave += new BeforeSaveHandler(project_BeforeSave);
+            projectActions.UpdateASCompletion(MainForm, project);
+            project.ClasspathChanged += new ChangedHandler(ProjectClasspathsChanged);
+            project.BeforeSave += new BeforeSaveHandler(ProjectBeforeSave);
+            listenToPathChange = true;
 
             // activate
             if (!internalOpening) RestoreProjectSession();
@@ -515,13 +516,6 @@ namespace ProjectManager
                 OpenPanel();
                 pluginUI.Focus();
             }
-        }
-
-        bool project_BeforeSave()
-        {
-            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BeforeSave, project);
-            EventManager.DispatchEvent(this, de);
-            return !de.Handled; // saving handled or not allowed
         }
 
         void SetProject(Project project, Boolean stealFocus)
@@ -607,8 +601,7 @@ namespace ProjectManager
                     BroadcastProjectInfo();
                     project.Save();
                 }
-
-                if (dialog.ClasspathsChanged || dialog.PropertiesChanged)
+                else if (dialog.ClasspathsChanged)
                     projectActions.UpdateASCompletion(MainForm, project);
             }
         }
@@ -764,11 +757,21 @@ namespace ProjectManager
             BroadcastBuildFailed();
         }
 
+        private bool ProjectBeforeSave()
+        {
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BeforeSave, project);
+            EventManager.DispatchEvent(this, de);
+            return !de.Handled; // saving handled or not allowed
+        }
+
         private void ProjectClasspathsChanged()
         {
+            if (!listenToPathChange) return;
+            listenToPathChange = false;
             projectActions.UpdateASCompletion(MainForm, project);
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
             Tree.RebuildTree(true);
+            listenToPathChange = true;
         }
 
         private void NewProject()

@@ -138,7 +138,15 @@ namespace ProjectManager.Projects
             get { return GetAbsolutePath(OutputPath); } 
         }
 
-        public string PreferredSDK { get { return preferredSDK; } set { preferredSDK = value; } }
+        public string PreferredSDK
+        {
+            get { return preferredSDK; }
+            set
+            {
+                preferredSDK = value;
+                currentSDK = null;
+            }
+        }
 
         public string CurrentSDK
         {

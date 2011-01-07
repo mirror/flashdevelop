@@ -4408,7 +4408,7 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKGroup" xml:space="preserve">
-    <value>Compiler SDK</value>
+    <value>Installed SDK(s)</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKTab" xml:space="preserve">

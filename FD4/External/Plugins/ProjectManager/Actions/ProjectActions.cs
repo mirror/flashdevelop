@@ -117,17 +117,14 @@ namespace ProjectManager.Actions
 
 		#region Update ASCompletion
 
-        public void DetectSDK(Project project)
-        {
-            BuildActions.GetCompilerPath(project);
-        }
-
 		public void UpdateASCompletion(IMainForm mainForm, Project project)
 		{
             List<string> classPaths = new List<string>();
 			
             if (project != null)
             {
+                BuildActions.GetCompilerPath(project);
+
                 // platform/version
                 classPaths.Add(project.MovieOptions.Platform);
                 int majorVersion = project.MovieOptions.MajorVersion;

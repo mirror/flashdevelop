@@ -61,9 +61,15 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.Button editCommandButton;
         private System.Windows.Forms.ComboBox versionCombo;
         private System.Windows.Forms.TabPage sdkTabPage;
-        private System.Windows.Forms.GroupBox sdkGroupBox;
         private System.Windows.Forms.Button manageButton;
         private System.Windows.Forms.ComboBox sdkComboBox;
+        private System.Windows.Forms.GroupBox sdkGroupBox;
+        private System.Windows.Forms.GroupBox customGroupBox;
+        private System.Windows.Forms.Label labelUseGlobal;
+        private System.Windows.Forms.Button browseButton;
+        private System.Windows.Forms.TextBox customTextBox;
+        private System.Windows.Forms.Label labelUseCustom;
+
         protected System.Windows.Forms.TabControl tabControl;
         protected System.Windows.Forms.TextBox colorTextBox;
         protected System.Windows.Forms.Label colorLabel;
@@ -143,12 +149,18 @@ namespace ProjectManager.Controls
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.sdkTabPage = new System.Windows.Forms.TabPage();
-            this.sdkGroupBox = new System.Windows.Forms.GroupBox();
             this.manageButton = new System.Windows.Forms.Button();
             this.sdkComboBox = new System.Windows.Forms.ComboBox();
+            this.sdkGroupBox = new System.Windows.Forms.GroupBox();
+            this.labelUseGlobal = new System.Windows.Forms.Label();
+            this.customGroupBox = new System.Windows.Forms.GroupBox();
+            this.browseButton = new System.Windows.Forms.Button();
+            this.customTextBox = new System.Windows.Forms.TextBox();
+            this.labelUseCustom = new System.Windows.Forms.Label();
             this.agressiveTip = new System.Windows.Forms.ToolTip(this.components);
             this.sdkTabPage.SuspendLayout();
             this.sdkGroupBox.SuspendLayout();
+            this.customGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.movieTab.SuspendLayout();
             this.platformGroupBox.SuspendLayout();
@@ -612,6 +624,7 @@ namespace ProjectManager.Controls
             // sdkTabPage
             // 
             this.sdkTabPage.Controls.Add(this.sdkGroupBox);
+            this.sdkTabPage.Controls.Add(this.customGroupBox);
             this.sdkTabPage.Location = new System.Drawing.Point(4, 22);
             this.sdkTabPage.Name = "sdkTabPage";
             this.sdkTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -619,18 +632,6 @@ namespace ProjectManager.Controls
             this.sdkTabPage.TabIndex = 5;
             this.sdkTabPage.Text = "SDK";
             this.sdkTabPage.UseVisualStyleBackColor = true;
-            // 
-            // sdkGroupBox
-            //
-            this.sdkGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.sdkGroupBox.Controls.Add(this.sdkComboBox);
-            this.sdkGroupBox.Controls.Add(this.manageButton);
-            this.sdkGroupBox.Location = new System.Drawing.Point(8, 3);
-            this.sdkGroupBox.Name = "sdkGroupBox";
-            this.sdkGroupBox.Size = new System.Drawing.Size(319, 74);
-            this.sdkGroupBox.TabIndex = 0;
-            this.sdkGroupBox.TabStop = false;
-            this.sdkGroupBox.Text = "SDK";
             // 
             // manageButton
             // 
@@ -640,17 +641,81 @@ namespace ProjectManager.Controls
             this.manageButton.TabIndex = 2;
             this.manageButton.Text = "Manage...";
             this.manageButton.UseVisualStyleBackColor = true;
-            this.manageButton.Click += new EventHandler(this.manageButton_Click);
+            this.manageButton.Click += new EventHandler(manageButton_Click);
             // 
             // sdkComboBox
             // 
             this.sdkComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sdkComboBox.FormattingEnabled = true;
-            this.sdkComboBox.Location = new System.Drawing.Point(11, 19);
+            this.sdkComboBox.Location = new System.Drawing.Point(11, 42);
             this.sdkComboBox.Name = "sdkComboBox";
-            this.sdkComboBox.Size = new System.Drawing.Size(298, 21);
+            this.sdkComboBox.Size = new System.Drawing.Size(204, 21);
             this.sdkComboBox.TabIndex = 1;
-            this.sdkComboBox.SelectedIndexChanged += new EventHandler(this.sdkCombo_SelectedIndexChanged);
+            this.sdkComboBox.SelectedIndexChanged += new EventHandler(sdkCombo_SelectedIndexChanged);
+            // 
+            // sdkGroupBox
+            // 
+            this.sdkGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.sdkGroupBox.Controls.Add(this.labelUseGlobal);
+            this.sdkGroupBox.Controls.Add(this.sdkComboBox);
+            this.sdkGroupBox.Controls.Add(this.manageButton);
+            this.sdkGroupBox.Location = new System.Drawing.Point(8, 3);
+            this.sdkGroupBox.Name = "sdkGroupBox";
+            this.sdkGroupBox.Size = new System.Drawing.Size(319, 74);
+            this.sdkGroupBox.TabIndex = 1;
+            this.sdkGroupBox.TabStop = false;
+            this.sdkGroupBox.Text = "Installed SDKs";
+            // 
+            // labelUseGlobal
+            // 
+            this.labelUseGlobal.AutoSize = true;
+            this.labelUseGlobal.Location = new System.Drawing.Point(8, 20);
+            this.labelUseGlobal.Name = "labelUseGlobal";
+            this.labelUseGlobal.Size = new System.Drawing.Size(154, 13);
+            this.labelUseGlobal.TabIndex = 3;
+            this.labelUseGlobal.Text = "Use a SDK configured globally.";
+            // 
+            // customGroupBox
+            // 
+            this.customGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.customGroupBox.Controls.Add(this.browseButton);
+            this.customGroupBox.Controls.Add(this.customTextBox);
+            this.customGroupBox.Controls.Add(this.labelUseCustom);
+            this.customGroupBox.Location = new System.Drawing.Point(8, 92);
+            this.customGroupBox.Name = "customGroupBox";
+            this.customGroupBox.Size = new System.Drawing.Size(319, 74);
+            this.customGroupBox.TabIndex = 2;
+            this.customGroupBox.TabStop = false;
+            this.customGroupBox.Text = "Custom SDK";
+            // 
+            // browseButton
+            // 
+            this.browseButton.Location = new System.Drawing.Point(225, 39);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(85, 21);
+            this.browseButton.TabIndex = 6;
+            this.browseButton.Text = "Browse...";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new EventHandler(browseButton_Click);
+            // 
+            // customTextBox
+            // 
+            this.customTextBox.Location = new System.Drawing.Point(11, 40);
+            this.customTextBox.Name = "customTextBox";
+            this.customTextBox.Size = new System.Drawing.Size(204, 20);
+            this.customTextBox.TabIndex = 5;
+            this.customTextBox.TextChanged += new EventHandler(customTextBox_TextChanged);
+            // 
+            // labelUseCustom
+            // 
+            this.labelUseCustom.AutoSize = true;
+            this.labelUseCustom.Location = new System.Drawing.Point(8, 20);
+            this.labelUseCustom.Name = "labelUseCustom";
+            this.labelUseCustom.Size = new System.Drawing.Size(213, 13);
+            this.labelUseCustom.TabIndex = 4;
+            this.labelUseCustom.Text = "Relative or absolute path to a specific SDK.";
             // 
             // agressiveTip
             // 
@@ -692,6 +757,8 @@ namespace ProjectManager.Controls
             this.compilerTab.ResumeLayout(false);
             this.sdkGroupBox.ResumeLayout(false);
             this.sdkGroupBox.PerformLayout();
+            this.customGroupBox.ResumeLayout(false);
+            this.customGroupBox.PerformLayout();
             this.sdkTabPage.ResumeLayout(false);
             this.sdkTabPage.PerformLayout();
             this.ResumeLayout(false);
@@ -868,10 +935,7 @@ namespace ProjectManager.Controls
             if (sdk != InstalledSDK.INVALID_SDK)
             {
                 select = 1 + Array.IndexOf(sdks, sdk);
-                if (select == 0)
-                {
-                    // TODO display custom sdk information
-                }
+                if (select == 0) customTextBox.Text = sdk.Path;
             }
 
             sdkComboBox.SelectedIndex = select;
@@ -942,8 +1006,12 @@ namespace ProjectManager.Controls
 
                 if (sdkChanged)
                 {
-                    InstalledSDK sdk = sdkComboBox.SelectedItem as InstalledSDK;
-                    project.PreferredSDK = sdk != null ? sdk.ToPreferredSDK() : null;
+                    if (customTextBox.Text.Length > 0) project.PreferredSDK = ";;" + customTextBox.Text;
+                    else
+                    {
+                        InstalledSDK sdk = sdkComboBox.SelectedItem as InstalledSDK;
+                        project.PreferredSDK = sdk != null ? sdk.ToPreferredSDK() : null;
+                    }
                 }
 
                 if (testMovieCombo.SelectedIndex == 1) project.TestMovieBehavior = TestMovieBehavior.NewTab;
@@ -1136,8 +1204,26 @@ namespace ProjectManager.Controls
             if (de.Handled) InitSDKTab();
         }
 
+        void customTextBox_TextChanged(object sender, EventArgs e)
+        {
+            sdkChanged = true;
+            Modified();
+        }
+
+        private void browseButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            if (customTextBox.Text.Length > 0 && Directory.Exists(customTextBox.Text))
+                folder.SelectedPath = customTextBox.Text;
+            if (folder.ShowDialog() == DialogResult.OK)
+            {
+                customTextBox.Text = folder.SelectedPath;
+            }
+        }
+
         private void sdkCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            customTextBox.Text = "";
             sdkChanged = true;
             Modified();
         }
