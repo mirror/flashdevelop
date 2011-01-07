@@ -109,6 +109,7 @@ namespace HaXeContext
             {
                 case EventType.UIStarted:
                     contextInstance = new Context(settingObject);
+                    ValidateSettings();
                     // Associate this context with haXe language
                     ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "haxe");
                     break;
@@ -162,9 +163,15 @@ namespace HaXeContext
         {
             if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0)
             {
-                string eVariable = System.Environment.GetEnvironmentVariable("HAXEPATH");
-                string includedSDK = eVariable ?? @"C:\Motion-Twin\haxe";
-                if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
+                string includedSDK = System.Environment.GetEnvironmentVariable("HAXEPATH");
+                if (includedSDK == null)
+                {
+                    string programFiles = System.Environment.GetEnvironmentVariable("ProgramFiles");
+                    if (Directory.Exists(Path.Combine(programFiles, @"Motion-Twin\haxe")))
+                        includedSDK = Path.Combine(programFiles, @"Motion-Twin\haxe");
+                    else if (Directory.Exists(@"C:\Motion-Twin\haxe")) includedSDK = @"C:\Motion-Twin\haxe";
+                }
+                if (includedSDK != null)
                 {
                     InstalledSDK sdk = new InstalledSDK(this);
                     sdk.Path = includedSDK;

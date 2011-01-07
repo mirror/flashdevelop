@@ -64,7 +64,7 @@ namespace BridgeSettings
             get { return sharedDrive ?? DEFAULT_SHARED_DRIVE; }
             set
             {
-                if (Regex.IsMatch(value ?? "", "[H-Z]:\\", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(value ?? "", "[H-Z]:\\\\", RegexOptions.IgnoreCase))
                     sharedDrive = Char.ToUpper(value[0]) + ":\\";
             }
         }
