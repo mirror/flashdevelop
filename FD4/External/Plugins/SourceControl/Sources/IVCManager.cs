@@ -6,28 +6,64 @@ using System.Windows.Forms;
 
 namespace SourceControl.Sources
 {
+    public delegate void VCManagerStatusChange(IVCManager sender);
+
+    /// <summary>
+    /// Some version control solution manager
+    /// </summary>
     public interface IVCManager
     {
+        /// <summary>
+        /// Notify that some versionned files' state changed (to update treeview)
+        /// </summary>
         event VCManagerStatusChange OnChange;
 
         IVCMenuItems MenuItems { get; }
         IVCFileActions FileActions { get; }
 
+        /// <summary>
+        /// Return if the location is under VC 
+        /// - if true, all the subtree will be considered under VC too.
+        /// </summary>
         bool IsPathUnderVC(string path);
 
+        /// <summary>
+        /// Return a file/dir status
+        /// </summary>
         VCItemStatus GetOverlay(string path, string rootPath);
         List<VCStatusReport> GetAllOverlays(string path, string rootPath);
 
+        /// <summary>
+        /// SC request for refreshing status of items
+        /// - expected that OnChange is fired to notify when status has been updated
+        /// </summary>
         void GetStatus(string rootPath);
 
+        /// <summary>
+        /// SC notification that IO changes happened in a location under VC 
+        /// </summary>
         bool SetPathDirty(string path, string rootPath);
     }
 
+    /// <summary>
+    /// Expose context menu items
+    /// 
+    /// An item should handle the Click action and use the provided Nodes & Manager references 
+    /// to process the item action.
+    /// </summary>
     public interface IVCMenuItems
     {
+        /// <summary>
+        /// Set by SC plugin to provide the selected files/dirs
+        /// </summary>
         TreeNode[] CurrentNodes { set; }
+
+        /// <summary>
+        /// Set by SC plugin to provide the manager instance
+        /// </summary>
         IVCManager CurrentManager { set; }
 
+        /* menu items - return null to disable an item */
         ToolStripItem Update { get; }
         ToolStripItem Commit { get; }
         ToolStripItem Push { get; }
@@ -42,6 +78,10 @@ namespace SourceControl.Sources
         ToolStripItem EditConflict { get; }
     }
 
+    /// <summary>
+    /// Let a manager handle or prevent file/dir operations.
+    /// Return false to handle the action.
+    /// </summary>
     public interface IVCFileActions
     {
         bool FileBeforeRename(string path);
@@ -50,6 +90,9 @@ namespace SourceControl.Sources
         bool FileMove(string fromPath, string toPath);
     }
 
+    /// <summary>
+    /// Struct to provide the status of a file/dir element
+    /// </summary>
     public class VCStatusReport
     {
         public string Path;
@@ -62,8 +105,9 @@ namespace SourceControl.Sources
         }
     }
 
-    public delegate void VCManagerStatusChange(IVCManager sender);
-
+    /// <summary>
+    /// File/dir element possible status states
+    /// </summary>
     public enum VCItemStatus : int
     {
         Unknown = 0,
