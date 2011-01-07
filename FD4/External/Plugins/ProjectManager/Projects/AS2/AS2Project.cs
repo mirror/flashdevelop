@@ -72,6 +72,7 @@ namespace ProjectManager.Projects.AS2
 
         public override void SaveAs(string fileName)
         {
+            if (!AllowedSaving()) return;
             try
             {
                 AS2ProjectWriter writer = new AS2ProjectWriter(this, fileName);

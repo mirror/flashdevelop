@@ -219,6 +219,7 @@ namespace ProjectManager.Projects.Haxe
 
         public override void SaveAs(string fileName)
         {
+            if (!AllowedSaving()) return;
             try
             {
                 HaxeProjectWriter writer = new HaxeProjectWriter(this, fileName);

@@ -19,6 +19,7 @@ namespace ProjectManager.Projects
     }
 
     public delegate void ChangedHandler();
+    public delegate bool BeforeSaveHandler();
 
     public abstract class Project : PluginCore.IProject
 	{
@@ -45,6 +46,7 @@ namespace ProjectManager.Projects
         public TestMovieBehavior TestMovieBehavior;
         public string TestMovieCommand;
         public event ChangedHandler ClasspathChanged; // inner operation changed the classpath
+        public event BeforeSaveHandler BeforeSave;
 
 		public Project(string path, CompilerOptions compilerOptions)
 		{
@@ -74,6 +76,13 @@ namespace ProjectManager.Projects
 
         public abstract void Save();
         public abstract void SaveAs(string fileName);
+
+        protected bool AllowedSaving()
+        {
+            if (BeforeSave != null) return BeforeSave();
+            else return true;
+        }
+
         public virtual void PropertiesChanged() { }
 
         internal virtual ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()

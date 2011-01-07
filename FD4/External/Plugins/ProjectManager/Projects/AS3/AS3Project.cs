@@ -193,6 +193,7 @@ namespace ProjectManager.Projects.AS3
 
         public override void SaveAs(string fileName)
         {
+            if (!AllowedSaving()) return;
             try
             {
                 AS3ProjectWriter writer = new AS3ProjectWriter(this, fileName);

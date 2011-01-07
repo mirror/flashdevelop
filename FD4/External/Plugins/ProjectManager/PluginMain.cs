@@ -56,6 +56,7 @@ namespace ProjectManager
         public const string FileMoved = "ProjectManager.FileMoved";
         public const string FilePasted = "ProjectManager.FilePasted";
         public const string UserRefreshTree = "ProjectManager.UserRefreshTree";
+        public const string BeforeSave = "ProjectManager.BeforeSave";
     }
 
 	public class PluginMain : IPlugin
@@ -504,6 +505,7 @@ namespace ProjectManager
             projectActions.DetectSDK(project);
             projectActions.UpdateASCompletion(MainForm, project); 
             project.ClasspathChanged += delegate { ProjectClasspathsChanged(); };
+            project.BeforeSave += new BeforeSaveHandler(project_BeforeSave);
 
             // activate
             if (!internalOpening) RestoreProjectSession();
@@ -514,6 +516,14 @@ namespace ProjectManager
                 pluginUI.Focus();
             }
         }
+
+        bool project_BeforeSave()
+        {
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BeforeSave, project);
+            EventManager.DispatchEvent(this, de);
+            return !de.Handled; // saving handled or not allowed
+        }
+
         void SetProject(Project project, Boolean stealFocus)
         {
             SetProject(project, stealFocus, false);
