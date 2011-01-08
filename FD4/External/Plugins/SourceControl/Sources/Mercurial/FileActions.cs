@@ -34,11 +34,13 @@ namespace SourceControl.Sources.Mercurial
             return true;
         }
 
+        public bool FileNew(string path) { return false; }
         public bool FileOpen(string path) { return false; }
         public bool FileReload(string path) { return false; }
         public bool FileModifyRO(string path) { return false; }
 
         public bool BuildProject() { return false; }
         public bool TestProject() { return false; }
+        public bool SaveProject() { return false; }
     }
 }

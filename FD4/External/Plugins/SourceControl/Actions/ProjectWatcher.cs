@@ -236,6 +236,27 @@ namespace SourceControl.Actions
             return result.Manager.FileActions.TestProject();
         }
 
+        internal static bool HandleSaveProject(string fileName)
+        {
+            WatcherVCResult result = fsWatchers.ResolveVC(fileName, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.SaveProject();
+        }
+
+        internal static bool HandleFileNew(string path)
+        {
+            if (!initialized)
+                return true;
+
+            WatcherVCResult result = fsWatchers.ResolveVC(path, true);
+            if (result == null || result.Status == VCItemStatus.Unknown)
+                return false;
+
+            return result.Manager.FileActions.FileNew(path);
+        }
+
         internal static bool HandleFileOpen(string path)
         {
             if (!initialized)

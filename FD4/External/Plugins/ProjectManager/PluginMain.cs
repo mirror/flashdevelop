@@ -757,10 +757,10 @@ namespace ProjectManager
             BroadcastBuildFailed();
         }
 
-        private bool ProjectBeforeSave()
+        private bool ProjectBeforeSave(string fileName)
         {
-            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BeforeSave, project);
-            EventManager.DispatchEvent(this, de);
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BeforeSave, fileName);
+            EventManager.DispatchEvent(project, de);
             return !de.Handled; // saving handled or not allowed
         }
 

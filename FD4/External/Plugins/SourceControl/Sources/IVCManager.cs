@@ -98,6 +98,7 @@ namespace SourceControl.Sources
     /// </summary>
     public interface IVCFileActions
     {
+        bool FileNew(string path);
         bool FileOpen(string path);
         bool FileReload(string path);
         bool FileModifyRO(string path);
@@ -109,6 +110,7 @@ namespace SourceControl.Sources
 
         bool BuildProject();
         bool TestProject();
+        bool SaveProject();
     }
 
     /// <summary>

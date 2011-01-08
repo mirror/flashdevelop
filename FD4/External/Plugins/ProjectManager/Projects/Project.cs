@@ -19,7 +19,7 @@ namespace ProjectManager.Projects
     }
 
     public delegate void ChangedHandler();
-    public delegate bool BeforeSaveHandler();
+    public delegate bool BeforeSaveHandler(string fileName);
 
     public abstract class Project : PluginCore.IProject
 	{
@@ -77,9 +77,9 @@ namespace ProjectManager.Projects
         public abstract void Save();
         public abstract void SaveAs(string fileName);
 
-        protected bool AllowedSaving()
+        protected bool AllowedSaving(string fileName)
         {
-            if (BeforeSave != null) return BeforeSave();
+            if (BeforeSave != null) return BeforeSave(fileName);
             else return true;
         }
 

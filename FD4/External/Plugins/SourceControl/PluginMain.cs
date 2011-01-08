@@ -217,6 +217,18 @@ namespace SourceControl
                                 de.Handled = true;
                             }
                             break;
+
+                        case ProjectManagerEvents.BeforeSave:
+                            try
+                            {
+                                de.Handled = ProjectWatcher.HandleSaveProject();
+                            }
+                            catch (Exception ex)
+                            {
+                                ErrorManager.ShowError(ex);
+                                de.Handled = true;
+                            }
+                            break;
                     }
                     break;
                 case EventType.FileOpen:
@@ -245,6 +257,18 @@ namespace SourceControl
                     try
                     {
                         e.Handled = ProjectWatcher.HandleFileModifyRO((e as TextEvent).Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorManager.ShowError(ex);
+                        e.Handled = true;
+                    }
+                    break;
+                case EventType.FileNew:
+                case EventType.FileTemplate:
+                    try
+                    {
+                        e.Handled = ProjectWatcher.HandleFileNew((e as TextEvent).Value);
                     }
                     catch (Exception ex)
                     {
@@ -284,7 +308,7 @@ namespace SourceControl
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.Command | EventType.FileModifyRO | EventType.FileOpen | EventType.FileReload);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.Command | EventType.FileModifyRO | EventType.FileOpen | EventType.FileReload | EventType.FileNew | EventType.FileTemplate);
         }
 
         /// <summary>
