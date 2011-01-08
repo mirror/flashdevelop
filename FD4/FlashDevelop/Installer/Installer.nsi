@@ -161,6 +161,7 @@ Function GetAirSDKVersion
 	
 	Push $0
 	ClearErrors
+	IfFileExists "$INSTDIR\.local" +3 0
 	ReadRegStr $0 HKLM Software\FlashDevelop "AirSDKVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
@@ -172,6 +173,7 @@ Function GetFlexSDKVersion
 	
 	Push $0
 	ClearErrors
+	IfFileExists "$INSTDIR\.local" +3 0
 	ReadRegStr $0 HKLM Software\FlashDevelop "FlexSDKVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
