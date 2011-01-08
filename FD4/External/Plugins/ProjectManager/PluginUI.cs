@@ -119,7 +119,10 @@ namespace ProjectManager
             Menu.ShowHidden.Checked = show;
         }
 
-        #region Public Properties
+        internal void NotifyIssues()
+        {
+            treeBar.ProjectHasIssues = BuildActions.LatestSDKMatchQuality > 0;
+        }
 
         public void SetProject(Project project)
         {
@@ -139,6 +142,8 @@ namespace ProjectManager
                 NoOutput = project.NoOutput;
             }
         }
+
+        #region Public Properties
 
         public ProjectTreeView Tree  { get { return this.tree; }  }
         public ProjectContextMenu Menu  { get { return this.menu; }  }

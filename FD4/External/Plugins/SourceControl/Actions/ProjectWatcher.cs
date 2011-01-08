@@ -248,7 +248,7 @@ namespace SourceControl.Actions
         internal static bool HandleFileNew(string path)
         {
             if (!initialized)
-                return true;
+                return false;
 
             WatcherVCResult result = fsWatchers.ResolveVC(path, true);
             if (result == null || result.Status == VCItemStatus.Unknown)
@@ -260,7 +260,7 @@ namespace SourceControl.Actions
         internal static bool HandleFileOpen(string path)
         {
             if (!initialized)
-                return true;
+                return false;
 
             WatcherVCResult result = fsWatchers.ResolveVC(path, true);
             if (result == null || result.Status == VCItemStatus.Unknown)
@@ -272,7 +272,7 @@ namespace SourceControl.Actions
         internal static bool HandleFileReload(string path)
         {
             if (!initialized)
-                return true;
+                return false;
 
             WatcherVCResult result = fsWatchers.ResolveVC(path, true);
             if (result == null || result.Status == VCItemStatus.Unknown)
@@ -284,7 +284,7 @@ namespace SourceControl.Actions
         internal static bool HandleFileModifyRO(string path)
         {
             if (!initialized)
-                return true;
+                return false;
 
             WatcherVCResult result = fsWatchers.ResolveVC(path, true);
             if (result == null || result.Status == VCItemStatus.Unknown)

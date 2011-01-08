@@ -504,6 +504,7 @@ namespace ProjectManager
             BroadcastProjectInfo();
 
             projectActions.UpdateASCompletion(MainForm, project);
+            pluginUI.NotifyIssues();
             project.ClasspathChanged += new ChangedHandler(ProjectClasspathsChanged);
             project.BeforeSave += new BeforeSaveHandler(ProjectBeforeSave);
             listenToPathChange = true;
@@ -769,6 +770,7 @@ namespace ProjectManager
             if (!listenToPathChange) return;
             listenToPathChange = false;
             projectActions.UpdateASCompletion(MainForm, project);
+            pluginUI.NotifyIssues();
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
             Tree.RebuildTree(true);
             listenToPathChange = true;

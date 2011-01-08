@@ -72,7 +72,8 @@ namespace ProjectManager.Controls
 		public static FDImage Copy;
 		public static FDImage Paste;
 		public static FDImage Delete;
-		public static FDImage Options;
+        public static FDImage Options;
+        public static FDImage OptionsWithIssues;
 		public static FDImage NewProject;
 		public static FDImage GreenCheck;
 		public static FDImage Gear;
@@ -131,7 +132,8 @@ namespace ProjectManager.Controls
 			Copy = Get(292);
 			Paste = Get(283);
 			Delete = Get(111);
-			Options = Get(54);
+            Options = Get(54);
+            OptionsWithIssues = Get("54|6|3|3");
             NewProject = Get("274|0|5|4");
             GreenCheck = Get(351);
 			Gear = Get(127);

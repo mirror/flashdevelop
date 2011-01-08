@@ -64,6 +64,13 @@ namespace ProjectManager.Controls
             Items.Add(ProjectTypes);
         }
 
+        public bool ProjectHasIssues
+        {
+            set
+            {
+                ProjectProperties.Image = value ? Icons.OptionsWithIssues.Img : Icons.Options.Img;
+            }
+        }
 	}    
 
 }

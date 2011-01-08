@@ -66,6 +66,8 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.GroupBox sdkGroupBox;
         private System.Windows.Forms.GroupBox customGroupBox;
         private System.Windows.Forms.Label labelUseGlobal;
+        private System.Windows.Forms.PictureBox warningImage;
+        private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.TextBox customTextBox;
         private System.Windows.Forms.Label labelUseCustom;
@@ -157,6 +159,8 @@ namespace ProjectManager.Controls
             this.browseButton = new System.Windows.Forms.Button();
             this.customTextBox = new System.Windows.Forms.TextBox();
             this.labelUseCustom = new System.Windows.Forms.Label();
+            this.warningImage = new System.Windows.Forms.PictureBox();
+            this.labelWarning = new System.Windows.Forms.Label();
             this.agressiveTip = new System.Windows.Forms.ToolTip(this.components);
             this.sdkTabPage.SuspendLayout();
             this.sdkGroupBox.SuspendLayout();
@@ -658,11 +662,13 @@ namespace ProjectManager.Controls
             this.sdkGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.sdkGroupBox.Controls.Add(this.labelUseGlobal);
+            this.sdkGroupBox.Controls.Add(this.labelWarning);
+            this.sdkGroupBox.Controls.Add(this.warningImage);
             this.sdkGroupBox.Controls.Add(this.sdkComboBox);
             this.sdkGroupBox.Controls.Add(this.manageButton);
             this.sdkGroupBox.Location = new System.Drawing.Point(8, 3);
             this.sdkGroupBox.Name = "sdkGroupBox";
-            this.sdkGroupBox.Size = new System.Drawing.Size(319, 74);
+            this.sdkGroupBox.Size = new System.Drawing.Size(319, 92);
             this.sdkGroupBox.TabIndex = 1;
             this.sdkGroupBox.TabStop = false;
             this.sdkGroupBox.Text = "Installed SDKs";
@@ -676,6 +682,24 @@ namespace ProjectManager.Controls
             this.labelUseGlobal.TabIndex = 3;
             this.labelUseGlobal.Text = "Use a SDK configured globally.";
             // 
+            // warningImage
+            // 
+            this.warningImage.Location = new System.Drawing.Point(11, 70);
+            this.warningImage.Name = "warningImage";
+            this.warningImage.Size = new System.Drawing.Size(16, 16);
+            this.warningImage.TabIndex = 4;
+            this.warningImage.TabStop = false;
+            this.warningImage.Visible = false;
+            // 
+            // labelWarning
+            // 
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.Location = new System.Drawing.Point(30, 71);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(242, 13);
+            this.labelWarning.TabIndex = 5;
+            this.labelWarning.Text = "";
+            // 
             // customGroupBox
             // 
             this.customGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -683,7 +707,7 @@ namespace ProjectManager.Controls
             this.customGroupBox.Controls.Add(this.browseButton);
             this.customGroupBox.Controls.Add(this.customTextBox);
             this.customGroupBox.Controls.Add(this.labelUseCustom);
-            this.customGroupBox.Location = new System.Drawing.Point(8, 92);
+            this.customGroupBox.Location = new System.Drawing.Point(8, 116);
             this.customGroupBox.Name = "customGroupBox";
             this.customGroupBox.Size = new System.Drawing.Size(319, 74);
             this.customGroupBox.TabIndex = 2;
@@ -921,6 +945,9 @@ namespace ProjectManager.Controls
         {
             sdkComboBox.Items.Clear();
             int select = 0;
+            BuildActions.LatestSDKMatchQuality = -1;
+            warningImage.Visible = false;
+            labelWarning.Text = "";
 
             // retrieve SDK list
             InstalledSDK[] sdks = BuildActions.GetInstalledSDKS(project);
@@ -935,10 +962,18 @@ namespace ProjectManager.Controls
             if (sdk != InstalledSDK.INVALID_SDK)
             {
                 select = 1 + Array.IndexOf(sdks, sdk);
-                if (select == 0) customTextBox.Text = sdk.Path;
+                if (BuildActions.LatestSDKMatchQuality > 0)
+                {
+                    string icon = BuildActions.LatestSDKMatchQuality < 10 ? "196" : "197";
+                    warningImage.Image = PluginBase.MainForm.FindImage(icon);
+                    warningImage.Visible = true;
+                    string[] p = (project.PreferredSDK + ";;").Split(';');
+                    labelWarning.Text = "Expected: " + p[0] + " (" + p[1] + ")";
+                }
             }
 
             sdkComboBox.SelectedIndex = select;
+            if (select == 0) customTextBox.Text = sdk.Path;
             sdkChanged = false;
         }
 
@@ -1006,7 +1041,7 @@ namespace ProjectManager.Controls
 
                 if (sdkChanged)
                 {
-                    if (customTextBox.Text.Length > 0) project.PreferredSDK = ";;" + customTextBox.Text;
+                    if (customTextBox.Text.Length > 0) project.PreferredSDK = customTextBox.Text;
                     else
                     {
                         InstalledSDK sdk = sdkComboBox.SelectedItem as InstalledSDK;

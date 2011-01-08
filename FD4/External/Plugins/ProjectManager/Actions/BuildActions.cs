@@ -25,6 +25,8 @@ namespace ProjectManager.Actions
 	/// </summary>
 	public class BuildActions
 	{
+        static public int LatestSDKMatchQuality;
+
 		IMainForm mainForm;
         FDMenus menus;
 		FDProcessRunner fdProcess;
@@ -229,22 +231,86 @@ namespace ProjectManager.Actions
             // default sdk
             if (String.IsNullOrEmpty(preferredSDK))
             {
+                LatestSDKMatchQuality = -1;
                 foreach (InstalledSDK sdk in sdks)
                     if (sdk.IsValid) return sdk;
                 return InstalledSDK.INVALID_SDK;
             }
 
-            string[] parts = ((preferredSDK ?? "") + ";;").Split(';'); // name;version;path
+            string[] parts = (";;" + preferredSDK).Split(';'); // name;version;path
+            
             // match name
-            foreach (InstalledSDK sdk in sdks)
-                if (sdk.Name == parts[0]) return sdk;
+            string name = parts[parts.Length - 3];
+            if (name != "")
+                foreach (InstalledSDK sdk in sdks)
+                    if (sdk.IsValid && sdk.Name == name)
+                    {
+                        LatestSDKMatchQuality = 0;
+                        return sdk;
+                    }
+
             // match version
-            foreach (InstalledSDK sdk in sdks)
-                if (sdk.Version == parts[1]) return sdk;
+            string version = parts[parts.Length - 2];
+            if (version != "")
+            {
+                InstalledSDK bestMatch = null;
+                int bestScore = int.MaxValue;
+                foreach (InstalledSDK sdk in sdks)
+                {
+                    if (!sdk.IsValid) continue;
+                    int score = CompareVersions(sdk.Version ?? "", version);
+                    if (score < bestScore)
+                    {
+                        bestScore = score;
+                        bestMatch = sdk;
+                    }
+                }
+                if (bestMatch != null)
+                {
+                    LatestSDKMatchQuality = bestScore;
+                    return bestMatch;
+                }
+            }
+
             // new SDK from path
             InstalledSDK newSdk = new InstalledSDK();
-            newSdk.Path = parts[2];
+            newSdk.Path = parts[parts.Length - 1];
+            LatestSDKMatchQuality = -1;
             return newSdk;
+        }
+
+        private static int CompareVersions(string sdkVersion, string version)
+        {
+            int score = 0;
+            string[] sa = sdkVersion.Split(',');
+            string[] sb = version.Split(',');
+
+            for (int j = 0; j < sb.Length; j++)
+            {
+                try
+                {
+                    string[] pa = (sa[j].Trim() + ".0.0").Split('.');
+                    string[] pb = (sb[j].Trim() + ".0.0").Split('.');
+                    int major = int.Parse(pa[0]) - int.Parse(pb[0]);
+                    if (major < 0) return int.MaxValue;
+                    else if (major > 0) score += 10;
+                    else
+                    {
+                        int minor = int.Parse(pa[1]) - int.Parse(pb[1]);
+                        if (minor < 0) score += 5;
+                        else if (minor > 0) score += 2;
+                        else
+                        {
+                            int detail = int.Parse(pa[2]) - int.Parse(pb[2]);
+                            if (detail < 0) score += 2;
+                            else if (minor > 0) score += 1;
+                        }
+                    }
+                }
+                catch { score += 40; }
+            }
+            if (sb.Length > sa.Length) score += 20;
+            return score;
         }
 
         static public InstalledSDK[] GetInstalledSDKS(IProject project)

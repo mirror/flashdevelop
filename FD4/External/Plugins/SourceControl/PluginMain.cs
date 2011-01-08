@@ -221,7 +221,7 @@ namespace SourceControl
                         case ProjectManagerEvents.BeforeSave:
                             try
                             {
-                                de.Handled = ProjectWatcher.HandleSaveProject();
+                                de.Handled = ProjectWatcher.HandleSaveProject((string)de.Data);
                             }
                             catch (Exception ex)
                             {
