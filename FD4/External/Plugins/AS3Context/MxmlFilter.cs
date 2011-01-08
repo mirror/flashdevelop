@@ -247,7 +247,9 @@ namespace AS3Context
                     }
                     else if (c == '=' && i > 4) // <node id="..."
                     {
-                        if (src[i - 3] == ' ' && src[i - 2] == 'i' && src[i - 1] == 'd')
+                        int off = i - 1;
+                        while (src[off] == ' ' && off > 4) off--;
+                        if (src[off - 2] <= 32 && src[off - 1] == 'i' && src[off] == 'd')
                         {
                             string tag = GetXMLContextTag(src, i);
                             if (tag != null)
