@@ -898,6 +898,10 @@ namespace ProjectManager.Controls
             this.manageButton.Text = TextHelper.GetString("Label.Manage");
             this.sdkGroupBox.Text = TextHelper.GetString("Label.SDKGroup");
             this.sdkTabPage.Text = TextHelper.GetString("Label.SDKTab");
+            this.customGroupBox.Text = TextHelper.GetString("Label.SDKTabCustom");
+            this.browseButton.Text = TextHelper.GetString("Label.SDKBrowse");
+            this.labelUseCustom.Text = TextHelper.GetString("Label.SDKUseCustom");
+            this.labelUseGlobal.Text = TextHelper.GetString("Label.SDKUseGlobal");
         }
 
         #endregion
@@ -953,27 +957,30 @@ namespace ProjectManager.Controls
             InstalledSDK[] sdks = BuildActions.GetInstalledSDKS(project);
             if (sdks != null && sdks.Length > 0)
             {
-                sdkComboBox.Items.Add("Default");
+                sdkComboBox.Items.Add(TextHelper.GetString("Label.SDKComboDefault"));
                 sdkComboBox.Items.AddRange(sdks);
             }
-            else sdkComboBox.Items.Add("No SDK configured");
+            else sdkComboBox.Items.Add(TextHelper.GetString("Label.SDKComboNoSDK"));
 
             InstalledSDK sdk = BuildActions.MatchSDK(sdks, project);
             if (sdk != InstalledSDK.INVALID_SDK)
             {
-                select = 1 + Array.IndexOf(sdks, sdk);
+                if (BuildActions.LatestSDKMatchQuality >= 0)
+                    select = 1 + Array.IndexOf(sdks, sdk);
+
                 if (BuildActions.LatestSDKMatchQuality > 0)
                 {
                     string icon = BuildActions.LatestSDKMatchQuality < 10 ? "196" : "197";
                     warningImage.Image = PluginBase.MainForm.FindImage(icon);
                     warningImage.Visible = true;
                     string[] p = (project.PreferredSDK + ";;").Split(';');
-                    labelWarning.Text = "Expected: " + p[0] + " (" + p[1] + ")";
+                    labelWarning.Text = TextHelper.GetString("Label.SDKExpected") 
+                        + " " + p[0] + " (" + p[1] + ")";
                 }
             }
 
             sdkComboBox.SelectedIndex = select;
-            if (select == 0) customTextBox.Text = sdk.Path;
+            if (Array.IndexOf(sdks, sdk) < 0) customTextBox.Text = sdk.Path;
             sdkChanged = false;
         }
 

@@ -4683,4 +4683,32 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Style of the indent wrapping.</value>
     <comment>Added after 3.3.2</comment>
   </data>
+  <data name="ProjectManager.Label.SDKBrowse" xml:space="preserve">
+    <value>Browse...</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKComboDefault" xml:space="preserve">
+    <value>Default</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKComboNoSDK" xml:space="preserve">
+    <value>No SDK configured</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKExpected" xml:space="preserve">
+    <value>Expected:</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKTabCustom" xml:space="preserve">
+    <value>Custom SDK</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKUseCustom" xml:space="preserve">
+    <value>Relative or absolute path to a specific SDK.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
+    <value>Use a SDK configured globally.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
 </root>
