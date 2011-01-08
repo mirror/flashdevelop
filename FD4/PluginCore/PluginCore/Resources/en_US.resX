@@ -4313,10 +4313,6 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Adds an MXML and ActionScript code formatter to FlashDevelop.</value>
     <comment>Added after 3.3.1</comment>
   </data>
-  <data name="CodeFormatter.Info.NoDescriptionAvailable" xml:space="preserve">
-    <value>No description available.</value>
-    <comment>Added after 3.3.1</comment>
-  </data>
   <data name="CodeFormatter.Label.CodeFormatter" xml:space="preserve">
     <value>Code &amp;Formatter</value>
     <comment>Added after 3.3.1</comment>
@@ -4422,6 +4418,274 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="FlashDevelop.Label.UTF7" xml:space="preserve">
     <value>U&amp;TF-7</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesAfterColons" xml:space="preserve">
+    <value>Advanced amount of spaces after colons.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesBeforeColons" xml:space="preserve">
+    <value>Advanced amount of spaces before colons.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayDeclarationBrackets" xml:space="preserve">
+    <value>Advanced amount of spaces inside array declaration brackets.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayReferenceBrackets" xml:space="preserve">
+    <value>Advanced amount of spaces inside array reference brackets.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideLiteralBraces" xml:space="preserve">
+    <value>Advanced amount of spaces inside literal braces.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideParens" xml:space="preserve">
+    <value>Advanced amount of spaces inside parens.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AlwaysGenerateIndent" xml:space="preserve">
+    <value>Always generate code indent.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeClasses" xml:space="preserve">
+    <value>Amount of blank lines before classes.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeControlStatements" xml:space="preserve">
+    <value>Amount of blank lines before control statements.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeFunctions" xml:space="preserve">
+    <value>Amount of blank lines before functions.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeProperties" xml:space="preserve">
+    <value>Amount of blank lines before properties.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesToKeep" xml:space="preserve">
+    <value>Amount of blank lines to keep.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BraceStyle" xml:space="preserve">
+    <value>Style of the braces.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BreakLinesBeforeComma" xml:space="preserve">
+    <value>Break the lines before each comma.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.CatchOnNewLine" xml:space="preserve">
+    <value>Place catch on new line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.CollapseSpacesForAdjacentParens" xml:space="preserve">
+    <value>Collapse spaces for adjacent parens.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.DontIndentPackageItems" xml:space="preserve">
+    <value>Do not indent package items.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.ElseIfOnSameLine" xml:space="preserve">
+    <value>Place elseif on new line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.ElseOnNewLine" xml:space="preserve">
+    <value>Place else on new line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.IndentMultilineComments" xml:space="preserve">
+    <value>Indent multiline comments.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.KeepBlankLines" xml:space="preserve">
+    <value>Keep the document's blank lines.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.KeepSingleLineCommentsOnColumnOne" xml:space="preserve">
+    <value>Keep single line comments on column one.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.LeaveExtraWhitespaceAroundVarDeclarations" xml:space="preserve">
+    <value>Leave extra whitespace around var declarations.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.MaxLineLength" xml:space="preserve">
+    <value>Maximum amount of characters on line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.NewLineAfterBindable" xml:space="preserve">
+    <value>Place new line after bindable.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.OpenBraceOnNewLine" xml:space="preserve">
+    <value>Place open brace on new line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.PutEmptyStatementsOnNewLine" xml:space="preserve">
+    <value>Place empty statements on new line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAfterComma" xml:space="preserve">
+    <value>Amount of spaces after comma.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAfterLabel" xml:space="preserve">
+    <value>Amount of spaces after label.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundAssignment" xml:space="preserve">
+    <value>Amount of spaces around assignments.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundColons" xml:space="preserve">
+    <value>Amount of spaces around colons.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundEqualsInOptionalParameters" xml:space="preserve">
+    <value>Amount of spaces around equals in optional parameters.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundSymbolicOperator" xml:space="preserve">
+    <value>Amount of spaces around symbolic operators.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesBeforeComma" xml:space="preserve">
+    <value>Amount of spaces before comma.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesBeforeOpenControlParen" xml:space="preserve">
+    <value>Amount of spaces before control paren.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesInsideParens" xml:space="preserve">
+    <value>Amount of spaces inside parens.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.TrimTrailingWhitespace" xml:space="preserve">
+    <value>Trim trailing whitespace characters.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseBraceStyle" xml:space="preserve">
+    <value>Use the BraceStyle setting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseGlobalSpacesAroundColons" xml:space="preserve">
+    <value>Use the GlobalSpacesAroundColons setting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseGlobalSpacesInsideParens" xml:space="preserve">
+    <value>Use the GlobalSpacesInsideParens setting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseSpacesAroundEqualsInOptionalParameters" xml:space="preserve">
+    <value>Use the SpacesAroundEqualsInOptionalParameters setting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseTabs" xml:space="preserve">
+    <value>Use tabs instead of braces with indenting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapArrayDeclarationMode" xml:space="preserve">
+    <value>Mode of the array declaration wrapping.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapExpressionMode" xml:space="preserve">
+    <value>Mode of the expression wrapping.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapIndentStyle" xml:space="preserve">
+    <value>Style of the wrap indent.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapMethodCallMode" xml:space="preserve">
+    <value>Mode of the method call wrapping.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapMethodDeclarationMode" xml:space="preserve">
+    <value>Mode of the method declaration wrapping.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapXMLMode" xml:space="preserve">
+    <value>Mode of the xml wrapping.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AddNewLineAfterLastAttribute" xml:space="preserve">
+    <value>Add new line after last attribute.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AttributesPerLine" xml:space="preserve">
+    <value>Maximum amount of attributes on line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AttributesToKeepOnSameLine" xml:space="preserve">
+    <value>List of attributes to keep on the same line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AttributeWrapMode" xml:space="preserve">
+    <value>Mode of the attribute wrapping.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.BlankLinesBeforeTags" xml:space="preserve">
+    <value>Amount of blank lines before tags.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.KeepBlankLines" xml:space="preserve">
+    <value>Keep the document's blank lines.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.MaxLineLength" xml:space="preserve">
+    <value>Maximum amount of characters on line.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.RequireCDATAForAS3Formatting" xml:space="preserve">
+    <value>Require CDATA for AS3 code formatting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SortAttributeData" xml:space="preserve">
+    <value>Sort the attribute data.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SortAttributeMode" xml:space="preserve">
+    <value>Mode of the attribute sorting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SortExtraAttributes" xml:space="preserve">
+    <value>Sort the extra attributes.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SpacesAroundEquals" xml:space="preserve">
+    <value>Amount of spaces around equals.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SpacesBeforeEmptyTagEnd" xml:space="preserve">
+    <value>Amount of spaces before empty tag's end.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.TagsThatCanFormat" xml:space="preserve">
+    <value>List of tags that are formatted.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.TagsThatCannotFormat" xml:space="preserve">
+    <value>List of tags that are not formatted.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.TagsWithBlankLinesBefore" xml:space="preserve">
+    <value>List of tags that have blank line before it.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.UseAttributesToKeepOnSameLine" xml:space="preserve">
+    <value>Use the AttributesToKeepOnSameLine setting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.UseTabs" xml:space="preserve">
+    <value>Use tabs instead of braces with indenting.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.WrapIndentStyle" xml:space="preserve">
+    <value>Style of the indent wrapping.</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>

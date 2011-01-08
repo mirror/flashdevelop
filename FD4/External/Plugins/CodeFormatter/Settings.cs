@@ -92,32 +92,22 @@ namespace CodeFormatter
 		private bool pref_MXML_AutoFormatStyle = true;
 		private bool pref_MXML_DoAutoFormat = true;
 
+        ////////////////// ActionScript ///////////////////////////////////////
+
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Use Tabs")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.UseTabs")]
 		public bool Pref_Flex_UseTabs
 		{
 			get { return this.pref_Flex_UseTabs; }
 			set { this.pref_Flex_UseTabs = value; }
 		}
 
-        [DefaultValue(true)]
-        [Category("MXML")]
-        [DisplayName("Use Tabs")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
-        public bool Pref_Flex2_UseTabs
-        {
-            get { return this.pref_Flex_UseTabs; }
-            set { this.pref_Flex_UseTabs = value; }
-        }
-
-        ////////////////// ActionScript ///////////////////////////////////////
-
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Spaces Before Comma")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesBeforeComma")]
 		public int Pref_AS_SpacesBeforeComma
 		{
 			get { return this.pref_AS_SpacesBeforeComma; }
@@ -127,7 +117,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Spaces After Comma")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesAfterComma")]
 		public int Pref_AS_SpacesAfterComma
 		{
 			get { return this.pref_AS_SpacesAfterComma; }
@@ -137,7 +127,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Spaces Around Colons")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesAroundColons")]
 		public int Pref_AS_SpacesAroundColons
 		{
 			get { return this.pref_AS_SpacesAroundColons; }
@@ -147,7 +137,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Use Global Spaces Around Colons")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.UseGlobalSpacesAroundColons")]
 		public bool Pref_AS_UseGlobalSpacesAroundColons
 		{
 			get { return this.pref_AS_UseGlobalSpacesAroundColons; }
@@ -157,7 +147,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Advanced Spaces Before Colons")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AdvancedSpacesBeforeColons")]
 		public int Pref_AS_AdvancedSpacesBeforeColons
 		{
 			get { return this.pref_AS_AdvancedSpacesBeforeColons; }
@@ -167,7 +157,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Advanced Spaces After Colons")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AdvancedSpacesAfterColons")]
 		public int Pref_AS_AdvancedSpacesAfterColons
 		{
 			get { return this.pref_AS_AdvancedSpacesAfterColons; }
@@ -177,7 +167,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Blank Lines Before Functions")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BlankLinesBeforeFunctions")]
 		public int Pref_AS_BlankLinesBeforeFunctions
 		{
 			get { return this.pref_AS_BlankLinesBeforeFunctions; }
@@ -187,7 +177,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Blank Lines Before Classes")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BlankLinesBeforeClasses")]
 		public int Pref_AS_BlankLinesBeforeClasses
 		{
 			get { return this.pref_AS_BlankLinesBeforeClasses; }
@@ -197,7 +187,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Blank Lines Before Properties")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BlankLinesBeforeProperties")]
 		public int Pref_AS_BlankLinesBeforeProperties
 		{
 			get { return this.pref_AS_BlankLinesBeforeProperties; }
@@ -207,7 +197,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Blank Lines Before Control Statements")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BlankLinesBeforeControlStatements")]
 		public int Pref_AS_BlankLinesBeforeControlStatements
 		{
 			get { return this.pref_AS_BlankLinesBeforeControlStatements; }
@@ -217,7 +207,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("ActionScript")]
         [DisplayName("Keep Blank Lines")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.KeepBlankLines")]
 		public bool Pref_AS_KeepBlankLines
 		{
 			get { return this.pref_AS_KeepBlankLines; }
@@ -227,7 +217,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Blank Lines To Keep")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BlankLinesToKeep")]
 		public int Pref_AS_BlankLinesToKeep
 		{
 			get { return this.pref_AS_BlankLinesToKeep; }
@@ -237,7 +227,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Open Brace On New Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.OpenBraceOnNewLine")]
 		public bool Pref_AS_OpenBraceOnNewLine
 		{
 			get { return this.pref_AS_OpenBraceOnNewLine; }
@@ -247,7 +237,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Else On New Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.ElseOnNewLine")]
 		public bool Pref_AS_ElseOnNewLine
 		{
 			get { return this.pref_AS_ElseOnNewLine; }
@@ -257,7 +247,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Catch On New Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.CatchOnNewLine")]
 		public bool Pref_AS_CatchOnNewLine
 		{
 			get { return this.pref_AS_CatchOnNewLine; }
@@ -267,7 +257,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("ElseIf On Same Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.ElseIfOnSameLine")]
 		public bool Pref_AS_ElseIfOnSameLine
 		{
 			get { return this.pref_AS_ElseIfOnSameLine; }
@@ -277,7 +267,7 @@ namespace CodeFormatter
         [DefaultValue(200)]
         [Category("ActionScript")]
         [DisplayName("Max Line Length")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.MaxLineLength")]
 		public int Pref_AS_MaxLineLength
 		{
 			get { return this.pref_AS_MaxLineLength; }
@@ -287,7 +277,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Spaces Around Assignment")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesAroundAssignment")]
 		public int Pref_AS_SpacesAroundAssignment
 		{
 			get { return this.pref_AS_SpacesAroundAssignment; }
@@ -297,7 +287,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Spaces Around Symbolic Operator")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesAroundSymbolicOperator")]
 		public int Pref_AS_SpacesAroundSymbolicOperator
 		{
 			get { return this.pref_AS_SpacesAroundSymbolicOperator; }
@@ -307,7 +297,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Keep Single Line Comments On Column One")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.KeepSingleLineCommentsOnColumnOne")]
 		public bool Pref_AS_KeepSLCommentsOnColumn1
 		{
 			get { return this.pref_AS_KeepSLCommentsOnColumn1; }
@@ -317,7 +307,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("ActionScript")]
         [DisplayName("Break Lines Before Comma")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BreakLinesBeforeComma")]
 		public bool Pref_AS_BreakLinesBeforeComma
 		{
 			get { return this.pref_AS_BreakLinesBeforeComma; }
@@ -327,7 +317,7 @@ namespace CodeFormatter
         [DefaultValue(WrapType.None)]
         [Category("ActionScript")]
         [DisplayName("Wrap Expression Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.WrapExpressionMode")]
 		public WrapType Pref_AS_WrapExpressionMode
 		{
 			get { return this.pref_AS_WrapExpressionMode; }
@@ -337,7 +327,7 @@ namespace CodeFormatter
         [DefaultValue(WrapType.None)]
         [Category("ActionScript")]
         [DisplayName("Wrap Method Declaration Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.WrapMethodDeclarationMode")]
         public WrapType Pref_AS_WrapMethodDeclMode
 		{
 			get { return this.pref_AS_WrapMethodDeclMode; }
@@ -347,7 +337,7 @@ namespace CodeFormatter
         [DefaultValue(WrapType.None)]
         [Category("ActionScript")]
         [DisplayName("Wrap Method Call Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.WrapMethodCallMode")]
         public WrapType Pref_AS_WrapMethodCallMode
 		{
 			get { return this.pref_AS_WrapMethodCallMode; }
@@ -357,7 +347,7 @@ namespace CodeFormatter
         [DefaultValue(WrapType.None)]
         [Category("ActionScript")]
         [DisplayName("Wrap Array Declaration Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.WrapArrayDeclarationMode")]
         public WrapType Pref_AS_WrapArrayDeclMode
 		{
 			get { return this.pref_AS_WrapArrayDeclMode; }
@@ -367,7 +357,7 @@ namespace CodeFormatter
         [DefaultValue(WrapType.DontProcess)]
         [Category("ActionScript")]
         [DisplayName("Wrap XML Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.WrapXMLMode")]
         public WrapType Pref_AS_WrapXMLMode
 		{
 			get { return this.pref_AS_WrapXMLMode; }
@@ -377,7 +367,7 @@ namespace CodeFormatter
         [DefaultValue(WrapIndent.Normal)]
         [Category("ActionScript")]
         [DisplayName("Wrap Indent Style")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.WrapIndentStyle")]
         public WrapIndent Pref_AS_WrapIndentStyle
 		{
 			get { return this.pref_AS_WrapIndentStyle; }
@@ -387,7 +377,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Collapse Spaces For Adjacent Parens")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.CollapseSpacesForAdjacentParens")]
 		public bool Pref_AS_CollapseSpacesForAdjacentParens
 		{
 			get { return this.pref_AS_CollapseSpacesForAdjacentParens; }
@@ -397,7 +387,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("New Line After Bindable")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.NewLineAfterBindable")]
 		public bool Pref_AS_NewlineAfterBindable
 		{
 			get { return this.pref_AS_NewlineAfterBindable; }
@@ -407,7 +397,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Spaces After Label")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesAfterLabel")]
 		public int Pref_AS_SpacesAfterLabel
 		{
 			get { return this.pref_AS_SpacesAfterLabel; }
@@ -417,7 +407,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("ActionScript")]
         [DisplayName("Trim Trailing Whitespace")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.TrimTrailingWhitespace")]
 		public bool Pref_AS_TrimTrailingWhitespace
 		{
 			get { return this.pref_AS_TrimTrailingWhitespace; }
@@ -426,8 +416,8 @@ namespace CodeFormatter
 
         [DefaultValue(true)]
         [Category("ActionScript")]
-        [DisplayName("Put Empty Statements On New Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [DisplayName("Empty Statements On New Line")]
+        [LocalizedDescription("CodeFormatter.Description.AS.PutEmptyStatementsOnNewLine")]
 		public bool Pref_AS_PutEmptyStatementsOnNewLine
 		{
 			get { return this.pref_AS_PutEmptyStatementsOnNewLine; }
@@ -437,7 +427,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Spaces Before Open Control Paren")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesBeforeOpenControlParen")]
 		public int Pref_AS_SpacesBeforeOpenControlParen
 		{
 			get { return this.pref_AS_SpacesBeforeOpenControlParen; }
@@ -447,7 +437,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Always Generate Indent")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AlwaysGenerateIndent")]
 		public bool Pref_AS_AlwaysGenerateIndent
 		{
 			get { return this.pref_AS_AlwaysGenerateIndent; }
@@ -457,7 +447,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("ActionScript")]
         [DisplayName("Don't Indent Package Items")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.DontIndentPackageItems")]
 		public bool Pref_AS_DontIndentPackageItems
 		{
 			get { return this.pref_AS_DontIndentPackageItems; }
@@ -467,7 +457,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("ActionScript")]
         [DisplayName("Leave Extra Whitespace Around Var Declarations")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.LeaveExtraWhitespaceAroundVarDeclarations")]
 		public bool Pref_AS_LeaveExtraWhitespaceAroundVarDecls
 		{
 			get { return this.pref_AS_LeaveExtraWhitespaceAroundVarDecls; }
@@ -477,7 +467,7 @@ namespace CodeFormatter
         [DefaultValue(BraceStyle.AfterLine)]
         [Category("ActionScript")]
         [DisplayName("Brace Style")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.BraceStyle")]
         public BraceStyle Pref_AS_BraceStyle
 		{
 			get { return this.pref_AS_BraceStyle; }
@@ -487,7 +477,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Use Brace Style")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.UseBraceStyle")]
 		public bool Pref_AS_UseBraceStyle
 		{
 			get { return this.pref_AS_UseBraceStyle; }
@@ -497,7 +487,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Spaces Inside Parens")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesInsideParens")]
 		public int Pref_AS_SpacesInsideParens
 		{
 			get { return this.pref_AS_SpacesInsideParens; }
@@ -507,7 +497,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Use Global Spaces Inside Parens")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.UseGlobalSpacesInsideParens")]
 		public bool Pref_AS_UseGlobalSpacesInsideParens
 		{
 			get { return this.pref_AS_UseGlobalSpacesInsideParens; }
@@ -517,7 +507,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Advanced Spaces Inside Array Declaration Brackets")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AdvancedSpacesInsideArrayDeclarationBrackets")]
 		public int Pref_AS_AdvancedSpacesInsideArrayDeclBrackets
 		{
 			get { return this.pref_AS_AdvancedSpacesInsideArrayDeclBrackets; }
@@ -527,7 +517,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Advanced Spaces Inside Array Reference Brackets")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AdvancedSpacesInsideArrayReferenceBrackets")]
 		public int Pref_AS_AdvancedSpacesInsideArrayRefBrackets
 		{
 			get { return this.pref_AS_AdvancedSpacesInsideArrayRefBrackets; }
@@ -537,7 +527,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("ActionScript")]
         [DisplayName("Advanced Spaces Inside Literal Braces")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AdvancedSpacesInsideLiteralBraces")]
 		public int Pref_AS_AdvancedSpacesInsideLiteralBraces
 		{
 			get { return this.pref_AS_AdvancedSpacesInsideLiteralBraces; }
@@ -547,7 +537,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Advanced Spaces Inside Parens")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.AdvancedSpacesInsideParens")]
 		public int Pref_AS_AdvancedSpacesInsideParens
 		{
 			get { return this.pref_AS_AdvancedSpacesInsideParens; }
@@ -557,7 +547,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("ActionScript")]
         [DisplayName("Use Spaces Around Equals In Optional Parameters")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.UseSpacesAroundEqualsInOptionalParameters")]
 		public bool Pref_AS_Tweak_UseSpacesAroundEqualsInOptionalParameters
 		{
 			get { return this.pref_AS_Tweak_UseSpacesAroundEqualsInOptionalParameters; }
@@ -567,7 +557,7 @@ namespace CodeFormatter
         [DefaultValue(0)]
         [Category("ActionScript")]
         [DisplayName("Spaces Around Equals In Optional Parameters")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.SpacesAroundEqualsInOptionalParameters")]
 		public int Pref_AS_Tweak_SpacesAroundEqualsInOptionalParameters
 		{
 			get { return this.pref_AS_Tweak_SpacesAroundEqualsInOptionalParameters; }
@@ -577,7 +567,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("ActionScript")]
         [DisplayName("Indent Multiline Comments")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.AS.IndentMultilineComments")]
         public bool Pref_AS_IndentMultilineComments
         {
             get { return this.pref_AS_IndentMultilineComments; }
@@ -599,11 +589,21 @@ namespace CodeFormatter
 		}
 		
 		////////////////// MXML ///////////////////////////////////////
+        
+        [DefaultValue(true)]
+        [Category("MXML")]
+        [DisplayName("Use Tabs")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.UseTabs")]
+        public bool Pref_Flex2_UseTabs
+        {
+            get { return this.pref_Flex_UseTabs; }
+            set { this.pref_Flex_UseTabs = value; }
+        }
 
         [DefaultValue(0)]
         [Category("MXML")]
         [DisplayName("Spaces Around Equals")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.SpacesAroundEquals")]
 		public int Pref_MXML_SpacesAroundEquals
 		{
 			get { return this.pref_MXML_SpacesAroundEquals; }
@@ -613,7 +613,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("MXML")]
         [DisplayName("Sort Extra Attributes")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.SortExtraAttributes")]
 		public bool Pref_MXML_SortExtraAttrs
 		{
 			get { return this.pref_MXML_SortExtraAttrs; }
@@ -623,7 +623,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("MXML")]
         [DisplayName("Add New Line After Last Attribute")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.AddNewLineAfterLastAttribute")]
 		public bool Pref_MXML_AddNewlineAfterLastAttr
 		{
 			get { return this.pref_MXML_AddNewlineAfterLastAttr; }
@@ -633,7 +633,7 @@ namespace CodeFormatter
         [DefaultValue("")]
         [Category("MXML")]
         [DisplayName("Sort Attribute Data")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.SortAttributeData")]
 		public string Pref_MXML_SortAttrData
 		{
 			get { return this.pref_MXML_SortAttrData; }
@@ -643,7 +643,7 @@ namespace CodeFormatter
         [DefaultValue(SortMode.UseData)]
         [Category("MXML")]
         [DisplayName("Sort Attribute Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.SortAttributeMode")]
         public SortMode Pref_MXML_SortAttrMode
 		{
 			get { return this.pref_MXML_SortAttrMode; }
@@ -653,7 +653,7 @@ namespace CodeFormatter
         [DefaultValue(200)]
         [Category("MXML")]
         [DisplayName("Max Line Length")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.MaxLineLength")]
 		public int Pref_MXML_MaxLineLength
 		{
 			get { return this.pref_MXML_MaxLineLength; }
@@ -663,7 +663,7 @@ namespace CodeFormatter
         [DefaultValue(WrapMode.CountPerLine)]
         [Category("MXML")]
         [DisplayName("Attribute Wrap Mode")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.AttributeWrapMode")]
         public WrapMode Pref_MXML_AttrWrapMode
 		{
 			get { return this.pref_MXML_AttrWrapMode; }
@@ -673,7 +673,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("MXML")]
         [DisplayName("Attributes Per Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.AttributesPerLine")]
 		public int Pref_MXML_AttrsPerLine
 		{
 			get { return this.pref_MXML_AttrsPerLine; }
@@ -683,7 +683,7 @@ namespace CodeFormatter
         [DefaultValue(true)]
         [Category("MXML")]
         [DisplayName("Keep Blank Lines")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.KeepBlankLines")]
 		public bool Pref_MXML_KeepBlankLines
 		{
 			get { return this.pref_MXML_KeepBlankLines; }
@@ -693,7 +693,7 @@ namespace CodeFormatter
         [DefaultValue(WrapIndent.WrapElement)]
         [Category("MXML")]
         [DisplayName("Wrap Indent Style")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.WrapIndentStyle")]
 		public WrapIndent Pref_MXML_WrapIndentStyle
 		{
 			get { return this.pref_MXML_WrapIndentStyle; }
@@ -703,7 +703,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("MXML")]
         [DisplayName("Blank Lines Before Tags")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.BlankLinesBeforeTags")]
 		public int Pref_MXML_BlankLinesBeforeTags
 		{
 			get { return this.pref_MXML_BlankLinesBeforeTags; }
@@ -713,7 +713,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("MXML")]
         [DisplayName("Use Attributes To Keep On Same Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.UseAttributesToKeepOnSameLine")]
 		public bool Pref_MXML_UseAttrsToKeepOnSameLine
 		{
 			get { return this.pref_MXML_UseAttrsToKeepOnSameLine; }
@@ -723,7 +723,7 @@ namespace CodeFormatter
         [DefaultValue(4)]
         [Category("MXML")]
         [DisplayName("Attributes To Keep On Same Line")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.AttributesToKeepOnSameLine")]
 		public int Pref_MXML_AttrsToKeepOnSameLine
 		{
 			get { return this.pref_MXML_AttrsToKeepOnSameLine; }
@@ -733,7 +733,7 @@ namespace CodeFormatter
         [DefaultValue(1)]
         [Category("MXML")]
         [DisplayName("Spaces Before Empty Tag End")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.SpacesBeforeEmptyTagEnd")]
 		public int Pref_MXML_SpacesBeforeEmptyTagEnd
 		{
 			get { return this.pref_MXML_SpacesBeforeEmptyTagEnd; }
@@ -743,7 +743,7 @@ namespace CodeFormatter
         [DefaultValue(false)]
         [Category("MXML")]
         [DisplayName("Require CDATA For AS3 Formatting")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.RequireCDATAForAS3Formatting")]
 		public bool Pref_MXML_RequireCDATAForASFormatting
 		{
 			get { return this.pref_MXML_RequireCDATAForASFormatting; }
@@ -752,7 +752,7 @@ namespace CodeFormatter
 
         [Category("MXML")]
         [DisplayName("Tags That Can Format")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.TagsThatCanFormat")]
         public string Pref_MXML_TagsCanFormat
         {
             get { return this.pref_MXML_TagsCanFormat; }
@@ -761,7 +761,7 @@ namespace CodeFormatter
 
         [Category("MXML")]
         [DisplayName("Tags That Cannot Format")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.TagsThatCannotFormat")]
         public string Pref_MXML_TagsCannotFormat
         {
             get { return this.pref_MXML_TagsCannotFormat; }
@@ -770,7 +770,7 @@ namespace CodeFormatter
 
         [Category("MXML")]
         [DisplayName("Tags With Blank Lines Before")]
-        [LocalizedDescription("CodeFormatter.Info.NoDescriptionAvailable")]
+        [LocalizedDescription("CodeFormatter.Description.MXML.TagsWithBlankLinesBefore")]
         public string Pref_MXML_TagsWithBlankLinesBefore
         {
             get { return this.pref_MXML_TagsWithBlankLinesBefore; }
