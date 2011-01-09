@@ -71,7 +71,6 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.TextBox customTextBox;
         private System.Windows.Forms.Label labelUseCustom;
-
         protected System.Windows.Forms.TabControl tabControl;
         protected System.Windows.Forms.TextBox colorTextBox;
         protected System.Windows.Forms.Label colorLabel;
@@ -639,28 +638,27 @@ namespace ProjectManager.Controls
             // 
             // manageButton
             // 
-            this.manageButton.Location = new System.Drawing.Point(225, 42);
+            this.manageButton.Location = new System.Drawing.Point(224, 37);
             this.manageButton.Name = "manageButton";
             this.manageButton.Size = new System.Drawing.Size(85, 21);
             this.manageButton.TabIndex = 2;
             this.manageButton.Text = "Manage...";
             this.manageButton.UseVisualStyleBackColor = true;
-            this.manageButton.Click += new EventHandler(manageButton_Click);
+            this.manageButton.Click += new EventHandler(this.manageButton_Click);
             // 
             // sdkComboBox
             // 
             this.sdkComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sdkComboBox.FormattingEnabled = true;
-            this.sdkComboBox.Location = new System.Drawing.Point(11, 42);
+            this.sdkComboBox.Location = new System.Drawing.Point(11, 39);
             this.sdkComboBox.Name = "sdkComboBox";
             this.sdkComboBox.Size = new System.Drawing.Size(204, 21);
             this.sdkComboBox.TabIndex = 1;
-            this.sdkComboBox.SelectedIndexChanged += new EventHandler(sdkCombo_SelectedIndexChanged);
+            this.sdkComboBox.SelectedIndexChanged += new EventHandler(this.sdkCombo_SelectedIndexChanged);
             // 
             // sdkGroupBox
             // 
-            this.sdkGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.sdkGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.sdkGroupBox.Controls.Add(this.labelUseGlobal);
             this.sdkGroupBox.Controls.Add(this.labelWarning);
             this.sdkGroupBox.Controls.Add(this.warningImage);
@@ -676,7 +674,7 @@ namespace ProjectManager.Controls
             // labelUseGlobal
             // 
             this.labelUseGlobal.AutoSize = true;
-            this.labelUseGlobal.Location = new System.Drawing.Point(8, 20);
+            this.labelUseGlobal.Location = new System.Drawing.Point(8, 18);
             this.labelUseGlobal.Name = "labelUseGlobal";
             this.labelUseGlobal.Size = new System.Drawing.Size(154, 13);
             this.labelUseGlobal.TabIndex = 3;
@@ -684,7 +682,7 @@ namespace ProjectManager.Controls
             // 
             // warningImage
             // 
-            this.warningImage.Location = new System.Drawing.Point(11, 70);
+            this.warningImage.Location = new System.Drawing.Point(12, 67);
             this.warningImage.Name = "warningImage";
             this.warningImage.Size = new System.Drawing.Size(16, 16);
             this.warningImage.TabIndex = 4;
@@ -694,7 +692,7 @@ namespace ProjectManager.Controls
             // labelWarning
             // 
             this.labelWarning.AutoSize = true;
-            this.labelWarning.Location = new System.Drawing.Point(30, 71);
+            this.labelWarning.Location = new System.Drawing.Point(30, 68);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(242, 13);
             this.labelWarning.TabIndex = 5;
@@ -702,12 +700,11 @@ namespace ProjectManager.Controls
             // 
             // customGroupBox
             // 
-            this.customGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.customGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.customGroupBox.Controls.Add(this.browseButton);
             this.customGroupBox.Controls.Add(this.customTextBox);
             this.customGroupBox.Controls.Add(this.labelUseCustom);
-            this.customGroupBox.Location = new System.Drawing.Point(8, 116);
+            this.customGroupBox.Location = new System.Drawing.Point(8, 102);
             this.customGroupBox.Name = "customGroupBox";
             this.customGroupBox.Size = new System.Drawing.Size(319, 74);
             this.customGroupBox.TabIndex = 2;
@@ -716,26 +713,26 @@ namespace ProjectManager.Controls
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(225, 39);
+            this.browseButton.Location = new System.Drawing.Point(224, 37);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(85, 21);
             this.browseButton.TabIndex = 6;
             this.browseButton.Text = "Browse...";
             this.browseButton.UseVisualStyleBackColor = true;
-            this.browseButton.Click += new EventHandler(browseButton_Click);
+            this.browseButton.Click += new EventHandler(this.browseButton_Click);
             // 
             // customTextBox
             // 
-            this.customTextBox.Location = new System.Drawing.Point(11, 40);
+            this.customTextBox.Location = new System.Drawing.Point(11, 38);
             this.customTextBox.Name = "customTextBox";
-            this.customTextBox.Size = new System.Drawing.Size(204, 20);
+            this.customTextBox.Size = new System.Drawing.Size(204, 21);
             this.customTextBox.TabIndex = 5;
-            this.customTextBox.TextChanged += new EventHandler(customTextBox_TextChanged);
+            this.customTextBox.TextChanged += new EventHandler(this.customTextBox_TextChanged);
             // 
             // labelUseCustom
             // 
             this.labelUseCustom.AutoSize = true;
-            this.labelUseCustom.Location = new System.Drawing.Point(8, 20);
+            this.labelUseCustom.Location = new System.Drawing.Point(8, 18);
             this.labelUseCustom.Name = "labelUseCustom";
             this.labelUseCustom.Size = new System.Drawing.Size(213, 13);
             this.labelUseCustom.TabIndex = 4;
@@ -786,7 +783,6 @@ namespace ProjectManager.Controls
             this.sdkTabPage.ResumeLayout(false);
             this.sdkTabPage.PerformLayout();
             this.ResumeLayout(false);
-
 		}
 
 		#endregion
