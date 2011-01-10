@@ -197,10 +197,7 @@ Function GetNeedsReset
 	Call GetFDVersion
 	Pop $1
 	Push $2
-	${VersionCompare} $1 "4.0.0-Alpha" $3
 	${If} $1 == "not_found"
-	StrCpy $2 "do_reset"
-	${ElseIf} $3 == 2
 	StrCpy $2 "do_reset"
 	${Else}
 	StrCpy $2 "is_ok"
