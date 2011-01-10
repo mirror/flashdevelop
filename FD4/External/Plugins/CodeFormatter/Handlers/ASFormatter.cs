@@ -142,17 +142,19 @@ namespace CodeFormatter.Handlers
 		{
 			StringBuilder newBuffer1 = new StringBuilder();
 			StringBuilder newBuffer2 = new StringBuilder();
-			for (int i = 0; i < s1.Length; i++)
+            Char[] s1Arr = s1.ToCharArray();
+            Char[] s2Arr = s2.ToCharArray();
+            for (int i = 0; i < s1Arr.Length; i++)
 			{
-				char c = s1.ToCharArray()[i];
+                char c = s1Arr[i];
 				if (!Char.IsWhiteSpace(c))
 				{
 					newBuffer1.Append(c);
 				}
 			}
-			for (int i = 0; i < s2.Length; i++)
+            for (int i = 0; i < s2Arr.Length; i++)
 			{
-				char c = s2.ToCharArray()[i];
+                char c = s2Arr[i];
 				if (!Char.IsWhiteSpace(c))
 				{
 					newBuffer2.Append(c);
