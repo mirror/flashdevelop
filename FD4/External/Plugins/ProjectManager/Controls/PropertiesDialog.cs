@@ -976,7 +976,8 @@ namespace ProjectManager.Controls
             }
 
             sdkComboBox.SelectedIndex = select;
-            if (Array.IndexOf(sdks, sdk) < 0) customTextBox.Text = sdk.Path;
+            if (sdk != InstalledSDK.INVALID_SDK && (sdks == null || Array.IndexOf(sdks, sdk) < 0)) 
+                customTextBox.Text = sdk.Path;
             sdkChanged = false;
         }
 
