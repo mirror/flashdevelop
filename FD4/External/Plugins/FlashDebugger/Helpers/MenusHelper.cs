@@ -73,9 +73,9 @@ namespace FlashDebugger
             RunToCursorMenu = new ToolStripMenuItem(TextHelper.GetString("Label.RunToCursor"), imageList.Images["RunToCursor"], new EventHandler(ScintillaHelper.RunToCursor_Click), Keys.None);
             PluginBase.MainForm.RegisterShortcutItem("DebugMenu.RunToCursor", RunToCursorMenu);
             StepMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Step"), imageList.Images["Step"], new EventHandler(debugManager.Step_Click), Keys.None);
-            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Step", StepMenu);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.StepInto", StepMenu);
             NextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(debugManager.Next_Click), Keys.None);
-            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Next", NextMenu);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.StepOver", NextMenu);
             FinishMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Finish"), imageList.Images["Finish"], new EventHandler(debugManager.Finish_Click), Keys.None);
             PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Finish", FinishMenu);
 

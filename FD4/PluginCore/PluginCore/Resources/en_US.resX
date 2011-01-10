@@ -3928,7 +3928,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
-    <value>&amp;AIR Application Properties...</value>
+    <value>&amp;AIR App Properties...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.ChineseSimplified" xml:space="preserve">
