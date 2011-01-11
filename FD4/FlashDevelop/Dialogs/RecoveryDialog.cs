@@ -47,7 +47,7 @@ namespace FlashDevelop.Dialogs
             this.deleteButton.Location = new System.Drawing.Point(133, 88);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(85, 23);
-            this.deleteButton.TabIndex = 0;
+            this.deleteButton.TabIndex = 2;
             this.deleteButton.Text = "&Delete Files";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
@@ -58,7 +58,7 @@ namespace FlashDevelop.Dialogs
             this.openButton.Location = new System.Drawing.Point(42, 88);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(85, 23);
-            this.openButton.TabIndex = 1;
+            this.openButton.TabIndex = 3;
             this.openButton.Text = "&Open Files";
             this.openButton.UseVisualStyleBackColor = true;
             this.openButton.Click += new System.EventHandler(this.OpenButtonClick);
@@ -69,7 +69,7 @@ namespace FlashDevelop.Dialogs
             this.notifyButton.Location = new System.Drawing.Point(224, 88);
             this.notifyButton.Name = "notifyButton";
             this.notifyButton.Size = new System.Drawing.Size(85, 23);
-            this.notifyButton.TabIndex = 2;
+            this.notifyButton.TabIndex = 1;
             this.notifyButton.Text = "&Notify Later";
             this.notifyButton.UseVisualStyleBackColor = true;
             this.notifyButton.Click += new System.EventHandler(this.NotifyButtonClick);
@@ -81,7 +81,7 @@ namespace FlashDevelop.Dialogs
             this.infoLabel.Location = new System.Drawing.Point(13, 13);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(331, 66);
-            this.infoLabel.TabIndex = 3;
+            this.infoLabel.TabIndex = 4;
             this.infoLabel.Text = "The recovery folder contains temporary backup files and this possibly means that your previous coding session was interrupted. \r\n\r\nWhat do you want to do to these files?";
             this.infoLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -166,7 +166,6 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private static String[] GetRecoveryFiles()
         {
-            
             String folder = Path.Combine(PathHelper.SettingDir, "Recovery");
             if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
             return Directory.GetFiles(folder);
