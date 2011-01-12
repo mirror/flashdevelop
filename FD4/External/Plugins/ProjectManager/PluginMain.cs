@@ -37,6 +37,8 @@ namespace ProjectManager
         public const string RestartFlexShell = "ProjectManager.RestartFlexShell";
         public const string SetConfiguration = "ProjectManager.SetConfiguration";
         public const string InstalledSDKsChanged = "ProjectManager.InstalledSDKsChanged";
+        public const string LineEntryDialog = "ProjectManager.LineEntryDialog";
+        public const string HotBuild = "ProjectManager.HotBuild";
     }
 
     public static class ProjectManagerEvents
@@ -392,7 +394,7 @@ namespace ProjectManager
                     {
                         AutoSelectConfiguration((string)de.Data);
                     }
-                    else if (de.Action == "HotBuild")
+                    else if (de.Action == ProjectManagerCommands.HotBuild)
                     {
                         if (project != null)
                         {
@@ -401,7 +403,7 @@ namespace ProjectManager
                             e.Handled = true;
                         }
                     }
-                    else if (de.Action == "LineEntryDialog")
+                    else if (de.Action == ProjectManagerCommands.LineEntryDialog)
                     {
                         Hashtable info = (Hashtable)de.Data;
                         LineEntryDialog askName = new LineEntryDialog((string)info["title"], (string)info["label"], (string)info["suggestion"]);

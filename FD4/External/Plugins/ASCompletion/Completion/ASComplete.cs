@@ -317,7 +317,7 @@ namespace ASCompletion.Completion
 			else if (keys == (Keys.Control | Keys.Enter))
 			{
 				// project build
-                DataEvent de = new DataEvent(EventType.Command, "HotBuild", null);
+                DataEvent de = new DataEvent(EventType.Command, "ProjectManager.HotBuild", null);
 				EventManager.DispatchEvent(ASContext.Context, de);
 				//
 				if (!de.Handled)

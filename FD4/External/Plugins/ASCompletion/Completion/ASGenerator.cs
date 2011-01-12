@@ -1248,7 +1248,7 @@ namespace ASCompletion.Completion
             info["suggestion"] = suggestion;
             info["label"] = label;
             info["title"] = title;
-            DataEvent de = new DataEvent(EventType.Command, "LineEntryDialog", info);
+            DataEvent de = new DataEvent(EventType.Command, "ProjectManager.LineEntryDialog", info);
             EventManager.DispatchEvent(null, de);
             if (!de.Handled)
             {
