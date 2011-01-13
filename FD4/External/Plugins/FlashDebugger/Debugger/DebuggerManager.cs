@@ -91,6 +91,7 @@ namespace FlashDebugger
                 if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
                 {
                     TraceManager.Add(TextHelper.GetString("Info.CannotDebugActiveXPlayer"));
+					return false;
                 }
             }
             catch (Exception e) 
