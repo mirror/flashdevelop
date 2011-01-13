@@ -3,8 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using ASCompletion.Settings;
-using Flash.Tools.Debugger;
-using Flash.Tools.Debugger.Events;
+using flash.tools.debugger;
+using flash.tools.debugger.events;
 using PluginCore.Localization;
 using PluginCore.Managers;
 
@@ -74,7 +74,7 @@ namespace FlashDebugger
 		{
 			get
 			{
-				return m_Session.Suspended;
+				return m_Session.isSuspended();
 			}
 		}
 
@@ -132,18 +132,18 @@ namespace FlashDebugger
 		/// <summary>
 		/// Main loop
 		/// </summary>
-		public void Start(Boolean useAny)
+		public void Start(/*Boolean useAny*/)
 		{
 			m_CurrentState = DebuggerState.Starting;
             SessionManager mgr = Bootstrap.sessionManager();
-			mgr.setDebuggerCallbacks(new FlashDebuggerCallbacks());
-			mgr.setPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT, 5000);
+			//mgr.setDebuggerCallbacks(new FlashDebuggerCallbacks()); // obsoleted
+			mgr.setPreference(SessionManager_.PREF_GETVAR_RESPONSE_TIMEOUT, 5000);
 			m_RequestDetach = false;
-            mgr.startListening(useAny);
+            mgr.startListening(/*useAny*/);
             try
             {
                 m_Session = mgr.accept(this);
-                if (mgr.Listening) mgr.stopListening();
+                if (mgr.isListening()) mgr.stopListening();
                 TraceManager.AddAsync("[Starting debug session with FDB]", -1);
                 if (m_Session == null)
                 {
@@ -170,7 +170,7 @@ namespace FlashDebugger
                 // now poke to see if the player is good enough
                 try
                 {
-                    if (m_Session.getPreference(SessionManager.PLAYER_SUPPORTS_GET) == 0)
+                    if (m_Session.getPreference(SessionManager_.PLAYER_SUPPORTS_GET) == 0)
                     {
                         TraceManager.AddAsync(TextHelper.GetString("Info.WarningNotAllCommandsSupported"));
                     }
@@ -180,7 +180,7 @@ namespace FlashDebugger
                 bool stop = false;
                 while (!stop)
                 {
-					if (m_Session != null && m_Session.EventCount > 0) m_SuspendWaiting = false;
+					if (m_Session != null && m_Session.getEventCount() > 0) m_SuspendWaiting = false;
                     processEvents();
                     // not there, not connected
                     if (m_RequestStop || m_RequestDetach || !haveConnection())
@@ -211,7 +211,7 @@ namespace FlashDebugger
                         m_CurrentState = DebuggerState.Running;
                         continue;
                     }
-                    if (m_Session.Suspended)
+                    if (m_Session.isSuspended())
                     {
                         /*
                         * We have stopped for some reason.
@@ -221,7 +221,7 @@ namespace FlashDebugger
                         * we get info on the swf.
                         */
                         int tries = 3;
-                        while (tries-- > 0 && m_Session.suspendReason() == SuspendReason.Unknown)
+                        while (tries-- > 0 && m_Session.suspendReason() == SuspendReason_.Unknown)
                         {
                             try
                             {
@@ -233,7 +233,7 @@ namespace FlashDebugger
                         m_SuspendWait.Reset();
                         switch (m_SuspendWaiting ? -1 : suspendReason)
                         {
-                            case SuspendReason.Breakpoint:
+                            case 1://SuspendReason_.Breakpoint:
                                 m_CurrentState = DebuggerState.BreakHalt;
                                 if (BreakpointEvent != null)
                                 {
@@ -245,7 +245,7 @@ namespace FlashDebugger
                                 }
                                 break;
 
-                            case SuspendReason.Fault:
+                            case 3://SuspendReason_.Fault:
                                 m_CurrentState = DebuggerState.ExceptionHalt;
                                 if (FaultEvent != null)
                                 {
@@ -257,7 +257,7 @@ namespace FlashDebugger
                                 }
                                 break;
 
-                            case SuspendReason.ScriptLoaded:
+                            case 7://SuspendReason_.ScriptLoaded:
                                 try
                                 {
                                      waitForMetaData();
@@ -274,7 +274,7 @@ namespace FlashDebugger
                                 }
                                 break;
 
-                            case SuspendReason.Step:
+                            case 5://SuspendReason_.Step:
                                 m_CurrentState = DebuggerState.BreakHalt;
                                 if (StepEvent != null)
                                 {
@@ -286,7 +286,7 @@ namespace FlashDebugger
                                 }
                                 break;
 
-                            case SuspendReason.StopRequest:
+                            case 4://SuspendReason_.StopRequest:
                                 m_CurrentState = DebuggerState.PauseHalt;
                                 if (PauseEvent != null)
                                 {
@@ -298,7 +298,7 @@ namespace FlashDebugger
                                 }
                                 break;
 
-                            case SuspendReason.Watch:
+                            case 2://SuspendReason_.Watch:
                                 m_CurrentState = DebuggerState.BreakHalt;
                                 if (WatchpointEvent != null)
                                 {
@@ -349,7 +349,7 @@ namespace FlashDebugger
                                     stop = true;
                                     continue;
                                 }
-                                else if (!m_Session.Suspended)
+                                else if (!m_Session.isSuspended())
                                 {
                                     m_RequestPause = false;
                                     m_CurrentState = DebuggerState.Running;
@@ -447,7 +447,7 @@ namespace FlashDebugger
 				m_Session = null;
 			}
             SessionManager mgr = Bootstrap.sessionManager();
-            if (mgr.Listening) mgr.stopListening();
+            if (mgr.isListening()) mgr.stopListening();
             m_CurrentState = DebuggerState.Stopped;
         }
 
@@ -459,7 +459,7 @@ namespace FlashDebugger
 
 		private bool haveConnection()
 		{
-			return m_Session != null && m_Session.Connected;
+			return m_Session != null && m_Session.isConnected();
 		}
 
 		private void waitForMetaData()
@@ -524,12 +524,12 @@ namespace FlashDebugger
 				try
 				{
 					// we need to ask the session since our fileinfocache will hide the exception
-					SwfInfo[] swfs = m_Session.Swfs;
+					SwfInfo[] swfs = m_Session.getSwfs();
 					for (int i = 0; i < swfs.Length; i++)
 					{
 						// check if our processing is finished.
 						SwfInfo swf = swfs[i];
-						if (swf != null && !swf.ProcessingComplete)
+						if (swf != null && !swf.isProcessingComplete())
 						{
 							allLoaded = false;
 							break;
@@ -555,7 +555,7 @@ namespace FlashDebugger
 		/// <summary> Process the incoming debug event queue</summary>
 		internal virtual void processEvents()
 		{
-			while (m_Session != null && m_Session.EventCount > 0)
+			while (m_Session != null && m_Session.getEventCount() > 0)
 			{
 				DebugEvent e = m_Session.nextEvent();
 				if (e is TraceEvent)
@@ -611,7 +611,7 @@ namespace FlashDebugger
 			if (!haveConnection()) throw new System.InvalidOperationException();
 			// spin for a while waiting for a halt; updating trace messages as we get them
 			waitForSuspend(m_HaltTimeout, m_UpdateDelay);
-			if (!m_Session.Suspended)
+			if (!m_Session.isSuspended())
 			{
 				throw new System.Threading.SynchronizationLockException();
 			}
@@ -630,7 +630,7 @@ namespace FlashDebugger
 			{
 				// dump our events to the console while we are waiting.
 				processEvents();
-				if (m_Session.Suspended)
+				if (m_Session.isSuspended())
 				{
 					break;
 				}
@@ -666,7 +666,7 @@ namespace FlashDebugger
                 sb.Append(TextHelper.GetString("Info.LinePrefixWhenDisplayingFault")); //$NON-NLS-1$
 				sb.Append(' ');
 				sb.Append(name);
-				if (e.information != null && e.information.Length > 0)
+				if ((string)e.information != null && e.information.length() > 0)
 				{
                     sb.Append(TextHelper.GetString("Info.InformationAboutFault")); //$NON-NLS-1$
 					sb.Append(e.information);
@@ -681,8 +681,8 @@ namespace FlashDebugger
 		internal virtual void dumpSwfLoadedEvent(SwfLoadedEvent e)
 		{
 			// now rip off any trailing ? options
-			int at = e.path.LastIndexOf('?');
-			String name = (at > -1) ? e.path.Substring(0, (at) - (0)) : e.path;
+			int at = e.path.lastIndexOf('?');
+			String name = (at > -1) ? e.path.substring(0, (at) - (0)) : e.path;
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(TextHelper.GetString("Info.LinePrefixWhenSwfLoaded"));
 			sb.Append(' ');
@@ -700,8 +700,8 @@ namespace FlashDebugger
 		internal virtual void dumpSwfUnloadedEvent(SwfUnloadedEvent e)
 		{
 			// now rip off any trailing ? options
-			int at = e.path.LastIndexOf('?');
-			String name = (at > -1) ? e.path.Substring(0, (at) - (0)) : e.path;
+			int at = e.path.lastIndexOf('?');
+			String name = (at > -1) ? e.path.substring(0, (at) - (0)) : e.path;
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			sb.Append(TextHelper.GetString("Info.LinePrefixWhenSwfUnloaded")); //$NON-NLS-1$
 			sb.Append(' ');
@@ -714,9 +714,9 @@ namespace FlashDebugger
 			Location where = null;
 			try
 			{
-				Frame[] frames = m_Session.Frames;
+				Frame[] frames = m_Session.getFrames();
 
-				where = frames.Length > 0 ? frames[0].Location : null;
+				where = frames.Length > 0 ? frames[0].getLocation() : null;
 			}
 			catch (PlayerDebugException)
 			{
@@ -751,7 +751,7 @@ namespace FlashDebugger
 
 		public void Next()
 		{
-			if (m_Session.Suspended)
+			if (m_Session.isSuspended())
 			{
 				m_Session.stepOver();
 				m_SuspendWait.Set();
@@ -760,7 +760,7 @@ namespace FlashDebugger
 
 		public void Step()
 		{
-			if (m_Session.Suspended)
+			if (m_Session.isSuspended())
 			{
 				m_Session.stepInto();
 				m_SuspendWait.Set();
@@ -769,7 +769,7 @@ namespace FlashDebugger
 
 		public void StepResume()
 		{
-			if (m_Session.Suspended)
+			if (m_Session.isSuspended())
 			{
 				m_StepResume = true;
 				m_RequestResume = true;
@@ -779,7 +779,7 @@ namespace FlashDebugger
 
 		public void Continue()
 		{
-			if (m_Session.Suspended)
+			if (m_Session.isSuspended())
 			{
 				m_RequestResume = true;
 				m_SuspendWait.Set();
@@ -788,7 +788,7 @@ namespace FlashDebugger
 
 		public void Pause()
 		{
-			if (!m_Session.Suspended)
+			if (!m_Session.isSuspended())
 			{
 				m_RequestPause = true;
 			}
@@ -796,7 +796,7 @@ namespace FlashDebugger
 
 		public void Finish()
 		{
-			if (m_Session.Suspended)
+			if (m_Session.isSuspended())
 			{
 				m_Session.stepOut();
 				m_SuspendWait.Set();
@@ -805,22 +805,22 @@ namespace FlashDebugger
 
 		public Frame[] GetFrames()
 		{
-			return m_Session.Frames;
+			return m_Session.getFrames();
 		}
 
 		public Variable[] GetArgs(int frameNumber)
 		{
-			return m_Session.Frames[frameNumber].getArguments(m_Session);
+			return m_Session.getFrames()[frameNumber].getArguments(m_Session);
 		}
 
 		public Variable GetThis(int frameNumber)
 		{
-			return m_Session.Frames[frameNumber].getThis(m_Session);
+			return m_Session.getFrames()[frameNumber].getThis(m_Session);
 		}
 
 		public Variable[] GetLocals(int frameNumber)
 		{
-			return m_Session.Frames[frameNumber].getLocals(m_Session);
+			return m_Session.getFrames()[frameNumber].getLocals(m_Session);
 		}
 
 		public Value GetValue(int idValue)
@@ -847,7 +847,7 @@ namespace FlashDebugger
 			int nFiles = files.Count;
 			if (nFiles > 0)
 			{
-				foreach (SwfInfo swf in m_Session.Swfs)
+				foreach (SwfInfo swf in m_Session.getSwfs())
 				{
 					if (swf == null) continue;
 					try
@@ -857,7 +857,7 @@ namespace FlashDebugger
 							String localPath = PluginMain.debugManager.GetLocalPath(src);
 							if (localPath != null && files.ContainsKey(localPath) && files[localPath] == 0)
 							{
-								files[localPath] = src.Id;
+								files[localPath] = src.getId();
 								nFiles--;
 								if (nFiles == 0)
 								{

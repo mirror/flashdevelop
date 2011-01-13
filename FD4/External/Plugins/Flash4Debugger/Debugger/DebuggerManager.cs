@@ -3,13 +3,14 @@ using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Flash.Tools.Debugger;
+using flash.tools.debugger;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using ProjectManager.Projects;
 using ProjectManager.Projects.AS3;
 using ScintillaNet;
 using PluginCore;
+using net.sf.jni4net;
 
 namespace FlashDebugger
 {
@@ -37,7 +38,7 @@ namespace FlashDebugger
 		private Location m_CurrentLocation = null;
 		private Dictionary<String, String> m_PathMap = new Dictionary<String, String>();
         private Int32 m_CurrentFrame = 0;
-        private Boolean useAny = false;
+        //private Boolean useAny = false;
 
         public DebuggerManager()
         {
@@ -57,9 +58,9 @@ namespace FlashDebugger
 
         #region Startup
 
-        public bool Start(Boolean useAny)
+        public bool Start(/*Boolean useAny*/)
         {
-            this.useAny = useAny;
+            //this.useAny = useAny;
             if (!CheckCurrent()) return false;
             PluginMain.debugBuildStart = true;
             UpdateMenuState(DebuggerState.Starting);
@@ -102,11 +103,25 @@ namespace FlashDebugger
 			return true;
         }
 
+        private static bool jvm_up = false;
         /// <summary>
         /// 
         /// </summary>
         internal void Start(String filename)
         {
+            // load JVM.. only once
+            if (!jvm_up)
+            {
+                var bridgeSetup = new BridgeSetup();
+                bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
+                string flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
+                bridgeSetup.AddAllJarsClassPath(flexSdk+@"\lib");
+                Bridge.CreateJVM(bridgeSetup);
+                Bridge.RegisterAssembly(typeof(IProgress).Assembly); // ??
+                Bridge.RegisterAssembly(typeof(Bootstrap).Assembly);
+                jvm_up = true;
+            }
+
             PluginMain.debugBuildStart = false;
 			m_FlashInterface.currentProject = currentProject;
 			m_FlashInterface.outputFileFullPath = filename;
@@ -130,7 +145,7 @@ namespace FlashDebugger
         {
             try
             {
-                m_FlashInterface.Start(this.useAny);
+                m_FlashInterface.Start(/*this.useAny*/);
             }
             catch (Exception ex)
             {
@@ -193,22 +208,22 @@ namespace FlashDebugger
         /// </summary>
 		public String GetLocalPath(SourceFile file)
 		{
-			if (File.Exists(file.FullPath))
+			if (File.Exists(file.getFullPath()))
 			{
-				return file.FullPath;
+				return file.getFullPath();
 			}
-			if (m_PathMap.ContainsKey(file.FullPath))
+			if (m_PathMap.ContainsKey(file.getFullPath()))
 			{
-				return m_PathMap[file.FullPath];
+				return m_PathMap[file.getFullPath()];
 			}
 			Char pathSeparator = Path.DirectorySeparatorChar;
 			foreach (Folder folder in PluginMain.settingObject.SourcePaths)
 			{
-				String pathFromPackage = file.getPackageName().Replace('/', pathSeparator);
-                String localPath = folder.Path + pathSeparator + pathFromPackage + pathSeparator + file.Name;
+				String pathFromPackage = file.getPackageName().replaceAll("/", pathSeparator.ToString());
+                String localPath = folder.Path + pathSeparator + pathFromPackage + pathSeparator + file.getName();
 				if (File.Exists(localPath))
 				{
-					m_PathMap[file.FullPath] = localPath;
+					m_PathMap[file.getFullPath()] = localPath;
 					return localPath;
 				}
 			}
@@ -301,7 +316,7 @@ namespace FlashDebugger
         private void flashInterface_BreakpointEvent(object sender)
 		{
 			Location loc = FlashInterface.getCurrentLocation();
-			if (PluginMain.breakPointManager.ShouldBreak(loc.File, loc.Line))
+			if (PluginMain.breakPointManager.ShouldBreak(loc.getFile(), loc.getLine()))
 			{
 				UpdateUI(DebuggerState.BreakHalt);
 			}
@@ -422,7 +437,7 @@ namespace FlashDebugger
 				{
 					PanelsHelper.pluginUI.SetData(locals);
 				}
-				CurrentLocation = frames[m_CurrentFrame].Location;
+				CurrentLocation = frames[m_CurrentFrame].getLocation();
 				PanelsHelper.watchUI.UpdateElements();
 			}
 			else CurrentLocation = null;
@@ -441,10 +456,10 @@ namespace FlashDebugger
 				});
 				return;
 			}
-			if (CurrentLocation.File != null)
+			if (CurrentLocation.getFile() != null)
 			{
 				ScintillaControl sci;
-				String localPath = GetLocalPath(CurrentLocation.File);
+				String localPath = GetLocalPath(CurrentLocation.getFile());
 				if (localPath != null)
 				{
 					sci = ScintillaHelper.GetScintillaControl(localPath);
@@ -453,7 +468,7 @@ namespace FlashDebugger
 						Int32 i = ScintillaHelper.GetScintillaControlIndex(sci);
 						if (i != -1)
 						{
-							Int32 line = CurrentLocation.Line - 1;
+							Int32 line = CurrentLocation.getLine() - 1;
 							sci.MarkerDelete(line, ScintillaHelper.markerCurrentLine);
 						}
 					}
@@ -474,10 +489,10 @@ namespace FlashDebugger
 				});
 				return;
 			}
-			if (CurrentLocation != null && CurrentLocation.File != null)
+			if (CurrentLocation != null && CurrentLocation.getFile() != null)
 			{
 				ScintillaControl sci;
-				String localPath = GetLocalPath(CurrentLocation.File);
+				String localPath = GetLocalPath(CurrentLocation.getFile());
 				if (localPath != null)
 				{
 					sci = ScintillaHelper.GetScintillaControl(localPath);
@@ -492,7 +507,7 @@ namespace FlashDebugger
 						if (i != -1)
 						{
 							PluginBase.MainForm.Documents[i].Activate();
-							Int32 line = CurrentLocation.Line - 1;
+							Int32 line = CurrentLocation.getLine() - 1;
 							sci.GotoLine(line);
 							if (bSetMarker)
 							{

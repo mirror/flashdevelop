@@ -1,7 +1,107 @@
+#if true
 using System;
-using Flash.Tools.Debugger;
-using Flash.Tools.Debugger.Events;
-using Flash.Tools.Debugger.Expression;
+using flash.tools.debugger;
+using flash.tools.debugger.expression;
+using flash.tools.debugger.concrete;
+
+namespace FlashDebugger
+{
+    public class ExpressionContext : Context
+    {
+        Session session;
+        Frame frame;
+        Value contextVal;
+
+        public ExpressionContext(Session session, Frame frame, Value contextVal)
+            : this(session, frame)
+        {
+            this.contextVal = contextVal;
+        }
+        public ExpressionContext(Session session, Frame frame)
+        {
+            this.session = session;
+            this.frame = frame;
+        }
+
+        public void assign(java.lang.Object par0, Value par1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Context createContext(java.lang.Object par0)
+        {
+            return new ExpressionContext(session, frame, ((Variable)par0).getValue()); // always value?
+        }
+
+        public void createPseudoVariables(bool par0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Session getSession()
+        {
+            return session;
+        }
+
+        public java.lang.Object lookup(java.lang.Object par0)
+        {
+            if (par0 is java.lang.String)
+            {
+                if (null != contextVal)
+                {
+                    foreach (Variable v in contextVal.getMembers(session))
+                    {
+                        if (v.getName().Equals(par0)) return (java.lang.Object)v;
+                    }
+                    throw new NoSuchVariableException(par0);
+                }
+
+                if ((java.lang.String)par0 == "this")
+                {
+                    return (java.lang.Object)frame.getThis(session);
+                }
+                foreach (Variable v in frame.getArguments(session))
+                {
+                    if (v.getName().Equals(par0)) return (java.lang.Object)v;
+                }
+                foreach (Variable v in frame.getLocals(session))
+                {
+                    if (v.getName().Equals(par0)) return (java.lang.Object)v;
+                }
+                foreach (Variable v in frame.getThis(session).getValue().getMembers(session))
+                {
+                    if (v.getName().Equals(par0)) return (java.lang.Object)v;
+                }
+            }
+            throw new NoSuchVariableException(par0);
+            //Value_.UNDEFINED;
+        }
+
+        public java.lang.Object lookupMembers(java.lang.Object par0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Value toValue(java.lang.Object par0)
+        {
+            if (par0 is Value) return (Value)par0;
+            if (par0 is Variable) return ((Variable)par0).getValue();
+            var val = DValue.forPrimitive(par0);
+            return val;
+        }
+
+        public Value toValue()
+        {
+            return contextVal;
+        }
+    }
+}
+#else
+using System;
+using flash.tools.debugger;
+using flash.tools.debugger.events;
+using flash.tools.debugger.expression;
+
 
 namespace FlashDebugger
 {
@@ -12,6 +112,11 @@ namespace FlashDebugger
 			set { m_current = value; }
 		}
 
+        public Session getSession()
+        {
+            return Session;
+        }
+
 		public virtual Session Session
 		{
 			get { return m_session; }
@@ -21,10 +126,10 @@ namespace FlashDebugger
 		{
 			get
 			{
-				Location loc = Session.Frames[Depth].Location;
-				if (loc != null && loc.File != null)
+                Location loc = Session.getFrames()[Depth].getLocation();
+				if (loc != null && loc.getFile() != null)
 				{
-					return loc.File.getPackageName().Replace('\\', '.');
+					return loc.getFile().getPackageName().Replace('\\', '.');
 				}
 				return null;
 			}
@@ -108,11 +213,11 @@ namespace FlashDebugger
 			try
 			{
 				Variable var = resolveToVariable(o);
-				if (var == null) throw new NoSuchVariableException(m_current);
+				if (var == null) throw new NoSuchVariableException((java.lang.Object)m_current);
 				// set the value, for the case of a variable that does not exist it will not have a type
 				// so we try to glean one from v.
 				int type = determineType(var, v);
-				FaultEvent faultEvent = var.setValue(type, v.ToString());
+				FaultEvent faultEvent = var.setValue(Session, type, v.ToString());
 				if (faultEvent != null) throw new PlayerFaultException(faultEvent);
 				worked = true;
 			}
@@ -323,7 +428,7 @@ namespace FlashDebugger
 		/// name.
 		/// </summary>
 		/// <throws>  NoSuchVariableException if id is UNKNOWN_ID </throws>
-		internal virtual Variable memberNamed(int id, String name)
+		internal virtual Variable memberNamed(long id, String name)
 		{
 			Variable v = null;
 			Value parent = Session.getValue((int) id);
@@ -345,13 +450,13 @@ namespace FlashDebugger
 		/// </summary>
 		internal virtual int determineContext(String name)
 		{
-			long id = Value.UNKNOWN_ID;
+			long id = Value_.UNKNOWN_ID;
 			// have we already resolved our context...
 			if (m_current != null)
 			{
 				Object value;
-				if (m_current is Variable) value = ((Variable) m_current).getValue().ValueAsObject;
-				else if (m_current is Value) value = ((Value) m_current).ValueAsObject;
+				if (m_current is Variable) value = ((Variable) m_current).getValue().getValueAsObject();
+				else if (m_current is Value) value = ((Value) m_current).getValueAsObject();
 				else value = m_current;
 				try
 				{
@@ -391,19 +496,19 @@ namespace FlashDebugger
 
 				}
 				// now try to see if 'name' exists off of _root
-				else if (setName("_root") && (val = locateParentForNamed(Value.ROOT_ID, name, true)) != null)
+				else if (setName("_root") && (val = locateParentForNamed((int)Value_.ROOT_ID, name, true)) != null)
 				//$NON-NLS-1$
 				{
 
 				}
 				// now try to see if 'name' exists off of _global
-				else if (setName("_global") && (val = locateParentForNamed(Value.GLOBAL_ID, name, true)) != null)
+				else if (setName("_global") && (val = locateParentForNamed((int)Value_.GLOBAL_ID, name, true)) != null)
 				//$NON-NLS-1$
 				{
 
 				}
 				// now try off of class level, if such a thing can be found
-				else if (((contextVal = locate(Value.GLOBAL_ID, CurrentPackageName, false)) != null) && (setName("_global." + CurrentPackageName) && (val = locateParentForNamed(contextVal.Id, name, true)) != null))
+				else if (((contextVal = locate((int)Value_.GLOBAL_ID, CurrentPackageName, false)) != null) && (setName("_global." + CurrentPackageName) && (val = locateParentForNamed(contextVal.Id, name, true)) != null))
 				//$NON-NLS-1$
 				{
 
@@ -411,7 +516,7 @@ namespace FlashDebugger
 				// if we found it then stake this as our context!
 				if (val != null)
 				{
-					id = val.Id;
+					id = val.getId()
 					pushName(name);
 					lockName();
 				}
@@ -428,7 +533,7 @@ namespace FlashDebugger
 		/// 
 		/// No exceptions are thrown
 		/// </summary>
-		internal virtual Value locateParentForNamed(int id, String name, bool traverseProto)
+		internal virtual Value locateParentForNamed(long id, String name, bool traverseProto)
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			Variable var = null;
@@ -445,7 +550,7 @@ namespace FlashDebugger
 					if (proto == null) traverseProto = false;
 					else
 					{
-						id = proto.getValue().Id;
+						id = proto.getValue().getId();
 						var = memberNamed(id, name);
 						if (var == null) sb.Append('.');
 					}
@@ -506,3 +611,4 @@ namespace FlashDebugger
 	}
 
 }
+#endif

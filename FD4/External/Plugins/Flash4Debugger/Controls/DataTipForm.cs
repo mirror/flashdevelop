@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Aga.Controls.Tree;
-using Flash.Tools.Debugger;
+using flash.tools.debugger;
 using PluginCore;
 
 namespace FlashDebugger.Controls

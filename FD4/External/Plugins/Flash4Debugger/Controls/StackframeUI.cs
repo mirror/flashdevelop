@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Flash.Tools.Debugger;
+using flash.tools.debugger;
 
 namespace FlashDebugger
 {
@@ -72,8 +72,8 @@ namespace FlashDebugger
             {
                 foreach (Frame item in frames)
                 {
-					String title = item.CallSignature;
-					if (item.Location.File != null) title += " at " + item.Location.File + ":" + item.Location.Line;
+					String title = item.getCallSignature();
+                    if (item.getLocation().getFile() != null) title += " at " + item.getLocation().getFile() + ":" + item.getLocation().getLine();
                     lv.Items.Add(new ListViewItem(new string[] {"", title}, -1));
                 }
 				lv.Items[0].ImageIndex = currentImageIndex;

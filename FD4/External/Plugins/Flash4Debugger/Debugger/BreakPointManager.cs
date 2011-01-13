@@ -3,8 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using Flash.Tools.Debugger;
-using Flash.Tools.Debugger.Expression;
+using flash.tools.debugger;
+using flash.tools.debugger.expression;
 using PluginCore.Helpers;
 using PluginCore.Utilities;
 using PluginCore.Managers;
@@ -157,25 +157,27 @@ namespace FlashDebugger
 				BreakPointInfo bpInfo = m_BreakPointList[index];
 				if (bpInfo.ParsedExpression != null)
 				{
-					ExpressionContext context = new ExpressionContext(PluginMain.debugManager.FlashInterface.Session);
-					try
+                    try
+                    {
+                        var ctx = new ExpressionContext(PluginMain.debugManager.FlashInterface.Session, PluginMain.debugManager.FlashInterface.Session.getFrames()[PluginMain.debugManager.CurrentFrame]);
+                        var val = bpInfo.ParsedExpression.evaluate(ctx);
+                        if (val is java.lang.Boolean)
+                        {
+                            return ((java.lang.Boolean)val).booleanValue();
+                        }
+                        if (val is Value)
+                        {
+                            return ECMA.toBoolean(((Value)val));
+                        }
+                        if (val is Variable)
+                        {
+                            return ECMA.toBoolean(((Variable)val).getValue());
+                        }
+                        throw new NotImplementedException(val.toString());
+                    }
+					catch (/*Expression*/Exception e)
 					{
-						object val = bpInfo.ParsedExpression.evaluate(context);
-						if (val is Boolean)
-						{
-							return (Boolean)val;
-						}
-						else if (val is Int32)
-						{
-							return (Int32)val != 0;
-						}
-						else if (val is Variable)
-						{
-							return ((Variable)val).getValue().ValueAsObject != null;
-						}
-					}
-					catch (ExpressionException e)
-					{
+                        TraceManager.AddAsync("[Problem in breakpoint: "+e.ToString()+"]", 4);
                         ErrorManager.ShowError(e);
 						return true;
 					}
@@ -284,13 +286,18 @@ namespace FlashDebugger
 			string exp = string.Empty;
 			if (cbinfo != null)
             {
-				cbinfo.IsDeleted = bDeleted;
+                bool chn = (cbinfo.IsDeleted != bDeleted || cbinfo.IsEnabled != bEnabled);
+                cbinfo.IsDeleted = bDeleted;
 				cbinfo.IsEnabled = bEnabled;
 				exp = cbinfo.Exp;
+                // TMP
+                if (chn && PluginMain.debugManager.FlashInterface.isDebuggerStarted) PluginMain.debugManager.FlashInterface.UpdateBreakpoints(this.GetBreakPointUpdates());
             }
 			else if (!bDeleted)
             {
 				m_BreakPointList.Add(new BreakPointInfo(filefullpath, line, exp, bDeleted, bEnabled));
+                // TMP
+                if (PluginMain.debugManager.FlashInterface.isDebuggerStarted) PluginMain.debugManager.FlashInterface.UpdateBreakpoints(this.GetBreakPointUpdates());
             }
             if (ChangeBreakPointEvent != null)
             {
@@ -442,22 +449,32 @@ namespace FlashDebugger
 			get { return m_ConditionalExpression; }
 			set
 			{
-				m_ConditionalExpression = value;
-				if (m_ConditionalExpression != null && m_ConditionalExpression.Length > 0)
-				{
-					ASTBuilder builder = new ASTBuilder(true);
-					TextReader reader = new StringReader(m_ConditionalExpression);
-					m_ParsedExpression = builder.parse(reader);
-				}
-				else m_ParsedExpression = null;
+                m_ConditionalExpression = value;
+                m_ParsedExpression = null;
 			}
         }
 
 		[XmlIgnore]
 		public ValueExp ParsedExpression
         {
-			get { return m_ParsedExpression; }
-			set { m_ParsedExpression = value; }
+			get
+            {
+                if (m_ParsedExpression != null) return m_ParsedExpression;
+                if (m_ConditionalExpression != null && m_ConditionalExpression.Length > 0)
+                {
+                    try
+                    {
+                        // todo, we need to optimize in case of bad expession (to not clog the logs)
+                        IASTBuilder builder = new ASTBuilder(false);
+                        m_ParsedExpression = builder.parse(new java.io.StringReader(m_ConditionalExpression));
+                    }
+                    catch (Exception e)
+                    {
+                        ErrorManager.ShowError(e);
+                    }
+                }
+                return m_ParsedExpression; 
+            }
         }
 
         public BreakPointInfo()

@@ -5,9 +5,10 @@ using Aga.Controls.Tree;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Aga.Controls.Tree.NodeControls;
-using Flash.Tools.Debugger;
+using flash.tools.debugger;
 using PluginCore.Localization;
 using PluginCore;
+using flash.tools.debugger.expression;
 
 namespace FlashDebugger.Controls
 {
@@ -113,7 +114,7 @@ namespace FlashDebugger.Controls
 		{
             DataNode node = e.Node.Tag as DataNode;
 			int type = node.Variable.getValue().getType();
-			if (type != VariableType.BOOLEAN && type != VariableType.NUMBER && type != VariableType.STRING)
+			if (type != VariableType_.BOOLEAN && type != VariableType_.NUMBER && type != VariableType_.STRING)
 			{
 				e.Value = false;
 			}
@@ -124,7 +125,8 @@ namespace FlashDebugger.Controls
             try
             {
                 DataNode node = e.Node.Tag as DataNode;
-                if (node.Variable != null && node.Variable.hasValueChanged())
+                FlashInterface flashInterface = PluginMain.debugManager.FlashInterface;
+                if (node.Variable != null && node.Variable.hasValueChanged(flashInterface.Session))
                 {
                     e.TextColor = Color.Red;
                 }
@@ -233,11 +235,12 @@ namespace FlashDebugger.Controls
 					foreach (Variable member in node.Variable.getValue().getMembers(flashInterface.Session))
 					{
 						DataNode memberNode = new DataNode(member);
-						if (member.isAttributeSet(VariableAttribute.IS_STATIC))
+                        
+						if (member.isAttributeSet(VariableAttribute_.IS_STATIC))
 						{
 							statics.Add(memberNode, memberNode);
 						}
-						else if (member.Level > 0)
+						else if (member.getLevel() > 0)
 						{
 							inherited.Add(memberNode, memberNode);
 						}
@@ -264,6 +267,58 @@ namespace FlashDebugger.Controls
 						}
 						node.Nodes.Add(staticNode);
 					}
+					//test children
+					foreach (String ch in node.Variable.getValue().getClassHierarchy(false))
+					{
+						if (ch.Equals("flash.display::DisplayObjectContainer"))
+						{
+							double numChildren = ((java.lang.Double)node.Variable.getValue().getMemberNamed(flashInterface.Session, "numChildren").getValue().getValueAsObject()).doubleValue();
+							DataNode childrenNode = new DataNode("[children]");
+							for (int i = 0; i < numChildren; i++)
+							{
+								try
+								{
+                                    IASTBuilder b = new ASTBuilder(false);
+                                    string cmd = GetVariablePath(node) + ".getChildAt(" + i + ")";
+                                    ValueExp exp = b.parse(new java.io.StringReader(cmd));
+                                    var ctx = new ExpressionContext(flashInterface.Session, flashInterface.Session.getFrames()[PluginMain.debugManager.CurrentFrame]);
+                                    var obj = exp.evaluate(ctx);
+                                    if (obj is flash.tools.debugger.concrete.DValue) obj = new flash.tools.debugger.concrete.DVariable("child_" + i, (flash.tools.debugger.concrete.DValue)obj);
+									DataNode childNode = new DataNode((Variable)obj);
+									childrenNode.Nodes.Add(childNode);
+								}
+                                catch (Exception) { }
+							}
+							node.Nodes.Add(childrenNode);
+						}
+                        if (ch.Equals("flash.events::EventDispatcher"))
+                        {
+                            Variable list = node.Variable.getValue().getMemberNamed(flashInterface.Session, "listeners");
+                            var omg = list.getName();
+                            /*
+                            double numChildren = ((java.lang.Double)node.Variable.getValue().getMemberNamed(flashInterface.Session, "numChildren").getValue().getValueAsObject()).doubleValue();
+                            DataNode childrenNode = new DataNode("[children]");
+                            for (int i = 0; i < numChildren; i++)
+                            {
+                                try
+                                {
+
+                                    IASTBuilder b = new ASTBuilder(false);
+                                    string cmd = GetVariablePath(node) + ".getChildAt(" + i + ")";
+                                    ValueExp exp = b.parse(new java.io.StringReader(cmd));
+                                    var ctx = new ExpressionContext(flashInterface.Session, flashInterface.Session.getFrames()[PluginMain.debugManager.CurrentFrame]);
+                                    var obj = exp.evaluate(ctx);
+                                    if (obj is flash.tools.debugger.concrete.DValue) obj = new flash.tools.debugger.concrete.DVariable("child_" + i, (flash.tools.debugger.concrete.DValue)obj);
+                                    DataNode childNode = new DataNode((Variable)obj);
+                                    childrenNode.Nodes.Add(childNode);
+                                }
+                                catch (Exception) { }
+                            }
+                            node.Nodes.Add(childrenNode);
+                             * */
+                        }
+					}
+					//test children
 					foreach (DataNode item in nodes.Keys)
 					{
 						node.Nodes.Add(item);

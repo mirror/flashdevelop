@@ -1,6 +1,6 @@
 ﻿using System;
 using Aga.Controls.Tree;
-using Flash.Tools.Debugger;
+using flash.tools.debugger;
 using PluginCore.Utilities;
 
 namespace FlashDebugger.Controls
@@ -39,7 +39,7 @@ namespace FlashDebugger.Controls
 			{
 				return result;
 			}
-			return m_Value.getName().Length>0 && m_Value.getName()[0] == '_' ? 1 : -1;
+			return m_Value.getName().length()>0 && m_Value.getName().startsWith("_") ? 1 : -1;
 		}
 
 		public string Value
@@ -51,13 +51,13 @@ namespace FlashDebugger.Controls
 					return string.Empty;
 				}
 				int type = m_Value.getValue().getType();
-				if (type == VariableType.MOVIECLIP || type == VariableType.OBJECT)
+				if (type == VariableType_.MOVIECLIP || type == VariableType_.OBJECT)
 				{
-					return m_Value.getValue().getTypeName().Replace("::", ".").Replace("@", " (@") + ")";
+                    return m_Value.getValue().getTypeName().replaceAll("::", ".").replaceAll("@", " (@") + ")";
 				}
-				else if (type == VariableType.NUMBER)
+				else if (type == VariableType_.NUMBER)
 				{
-					double number = (double)m_Value.getValue().ValueAsObject;
+					double number = ((java.lang.Double)m_Value.getValue().getValueAsObject()).doubleValue();
 					if (!Double.IsNaN(number) && (double)(long)number == number)
 					{
 						if (!m_bEditing)
@@ -74,13 +74,13 @@ namespace FlashDebugger.Controls
 						else return number.ToString();
 					}
 				}
-				else if (type == VariableType.BOOLEAN)
+				else if (type == VariableType_.BOOLEAN)
 				{
-					return m_Value.getValue().ValueAsString.ToLower();
+					return m_Value.getValue().getValueAsString().toLowerCase();
 				}
-				else if (type == VariableType.STRING)
+				else if (type == VariableType_.STRING)
 				{
-					if (m_Value.getValue().ValueAsObject != null)
+					if (m_Value.getValue().getValueAsObject() != null)
 					{
 						if (!m_bEditing)
 						{
@@ -92,13 +92,14 @@ namespace FlashDebugger.Controls
 						}
 					}
 				}
-				else if (type == VariableType.NULL)
+				else if (type == VariableType_.NULL)
 				{
 					return "null";
 				}
-				else if (type == VariableType.FUNCTION)
+				else if (type == VariableType_.FUNCTION)
 				{
-					return "<setter>";
+                    m_Value.ToString();
+					//return "<setter>";
 				}
 				return m_Value.ToString();
 			}
@@ -108,8 +109,10 @@ namespace FlashDebugger.Controls
 				{
 					return;
 				}
+                throw new NotImplementedException();
+#if false
 				int type = m_Value.getValue().getType();
-				if (type == VariableType.NUMBER)
+				if (type == VariableType_.NUMBER)
 				{
 					m_Value.setValue(type, value);
 				}
@@ -121,6 +124,7 @@ namespace FlashDebugger.Controls
 				{
 					m_Value.setValue(type, value);
 				}
+#endif
 			}
         }
 
@@ -140,7 +144,7 @@ namespace FlashDebugger.Controls
 				{
 					return (this.Nodes.Count == 0);
 				}
-				return m_Value.getValue().getType() != VariableType.MOVIECLIP && m_Value.getValue().getType() != VariableType.OBJECT;
+				return m_Value.getValue().getType() != VariableType_.MOVIECLIP && m_Value.getValue().getType() != VariableType_.OBJECT;
             }
         }
 

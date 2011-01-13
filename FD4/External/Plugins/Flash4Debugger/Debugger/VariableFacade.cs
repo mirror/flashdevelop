@@ -1,6 +1,6 @@
 using System;
-using Flash.Tools.Debugger;
-using Flash.Tools.Debugger.Events;
+using flash.tools.debugger;
+using flash.tools.debugger.events;
 
 namespace FlashDebugger
 {
@@ -17,41 +17,25 @@ namespace FlashDebugger
         internal String m_name;
         internal String m_path;
 
-        virtual public String QualifiedName
-		{
-			get
-			{
-				return m_var.QualifiedName;
-			}
-			
-		}
+        public java.lang.String getQualifiedName()
+        {
+            return m_var.getQualifiedName();
+        }
 
-		virtual public String Namespace
-		{
-			get
-			{
-				return m_var.Namespace;
-			}
-			
-		}
+        public java.lang.String getNamespace()
+        {
+            return m_var.getNamespace();
+        }
 
-		virtual public int Level
-		{
-			get
-			{
-				return m_var.Level;
-			}
-			
-		}
+        public int getLevel()
+        {
+            return m_var.getLevel();
+        }
 
-		virtual public int Scope
-		{
-			get
-			{
-				return m_var.Scope;
-			}
-			
-		}
+        public int getScope()
+        {
+            return m_var.getScope();
+        }
 
 		virtual public String Path
 		{
@@ -104,12 +88,12 @@ namespace FlashDebugger
 		}
 		
 		/// <summary> The variable interface </summary>
-		public virtual String getName()
+		public virtual java.lang.String getName()
 		{
-			return (m_var == null)?m_name:m_var.getName();
+			return (m_var == null)?m_name:(string)m_var.getName();
 		}
 
-		public virtual String getDefiningClass()
+		public virtual java.lang.String getDefiningClass()
 		{
 			return m_var.getDefiningClass();
 		}
@@ -129,14 +113,14 @@ namespace FlashDebugger
 			return m_var.getValue();
 		}
 
-		public virtual bool hasValueChanged()
+		public virtual bool hasValueChanged(Session session)
 		{
-			return m_var.hasValueChanged();
+            return m_var.hasValueChanged(session);
 		}
 
-		public virtual FaultEvent setValue(int type, String value)
+		public virtual FaultEvent setValue(Session session, int type, java.lang.String value)
 		{
-			return m_var.setValue(type, value);
+			return m_var.setValue(session, type, value);
 		}
 
 		public override String ToString()
@@ -149,9 +133,9 @@ namespace FlashDebugger
 			return m_var.needsToInvokeGetter();
 		}
 
-		public virtual void  invokeGetter()
+		public virtual void  invokeGetter(Session session)
 		{
-			m_var.invokeGetter();
+			m_var.invokeGetter(session);
 		}
 
 	}

@@ -6,8 +6,8 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using PluginCore;
-using Flash.Tools.Debugger;
-using Flash.Tools.Debugger.Expression;
+using flash.tools.debugger;
+using flash.tools.debugger.expression;
 
 namespace FlashDebugger.Controls
 {
@@ -69,12 +69,11 @@ namespace FlashDebugger.Controls
 				DataNode node = new DataNode(item); // todo, introduce new Node types.
 				try
 				{
-					ASTBuilder builder = new ASTBuilder(true);
-					ValueExp exp = builder.parse(new System.IO.StringReader(item));
-					ExpressionContext context = new ExpressionContext(PluginMain.debugManager.FlashInterface.Session);
-					context.Depth = PluginMain.debugManager.CurrentFrame;
-					Object obj = exp.evaluate(context);
-					node = new DataNode((Variable)obj);
+                    IASTBuilder builder = new ASTBuilder(false);
+                    ValueExp exp = builder.parse(new java.io.StringReader(item));
+                    var ctx = new ExpressionContext(PluginMain.debugManager.FlashInterface.Session, PluginMain.debugManager.FlashInterface.Session.getFrames()[PluginMain.debugManager.CurrentFrame]);
+                    var obj = exp.evaluate(ctx);
+                    node = new DataNode((Variable)obj);
 				}
 				catch { }
 				node.Text = item;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Flash.Tools.Debugger;
+using flash.tools.debugger;
 using FlashDebugger.Controls;
 using PluginCore;
 

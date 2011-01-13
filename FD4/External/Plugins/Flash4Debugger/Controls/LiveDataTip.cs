@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Flash.Tools.Debugger;
-using Flash.Tools.Debugger.Expression;
+using flash.tools.debugger;
+using flash.tools.debugger.expression;
 using PluginCore.Controls;
 using FlashDebugger.Controls;
 using ScintillaNet;
@@ -58,9 +58,9 @@ namespace FlashDebugger
 			FlashInterface flashInterface = debugManager.FlashInterface;
 			if (!PluginBase.MainForm.EditorMenu.Visible && flashInterface != null && flashInterface.isDebuggerStarted && flashInterface.isDebuggerSuspended)
 			{
-				if (debugManager.CurrentLocation != null && debugManager.CurrentLocation.File != null)
+				if (debugManager.CurrentLocation != null && debugManager.CurrentLocation.getFile() != null)
 				{
-					String localPath = debugManager.GetLocalPath(debugManager.CurrentLocation.File);
+					String localPath = debugManager.GetLocalPath(debugManager.CurrentLocation.getFile());
 					if (localPath == null || localPath != PluginBase.MainForm.CurrentDocument.FileName)
 					{
 						return;
@@ -79,12 +79,11 @@ namespace FlashDebugger
 				{
 					try
 					{
-						ASTBuilder builder = new ASTBuilder(true);
-						ValueExp exp = builder.parse(new System.IO.StringReader(leftword));
-						ExpressionContext context = new ExpressionContext(flashInterface.Session);
-						context.Depth = debugManager.CurrentFrame;
-						Object obj = exp.evaluate(context);
-						Show(dataTipPoint, (Variable)obj);
+                        IASTBuilder b = new ASTBuilder(false);
+                        ValueExp exp = b.parse(new java.io.StringReader(leftword));
+                        var ctx = new ExpressionContext(flashInterface.Session, flashInterface.Session.getFrames()[debugManager.CurrentFrame]);
+                        var obj = exp.evaluate(ctx);
+                        Show(dataTipPoint, (Variable)obj);
 					}
 					catch (Exception){}
 				}
