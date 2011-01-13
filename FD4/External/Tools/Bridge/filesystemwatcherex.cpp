@@ -12,7 +12,13 @@ FileSystemWatcherEx::FileSystemWatcherEx(QObject *parent) :
 FileSystemWatcherEx::~FileSystemWatcherEx()
 {
     if (basePath != "")
+    {
+        QStringList dirs = fsw->directories();
+        if (dirs.length() > 0) fsw->removePaths(dirs);
+        QStringList files = fsw->files();
+        if (files.length() > 0) fsw->removePaths(fsw->files());
         delete fsw;
+    }
 }
 
 void FileSystemWatcherEx::setPath(QString path, bool includeSubdirectories)
@@ -40,7 +46,7 @@ void FileSystemWatcherEx::setFile(QString path)
 
     if (file.exists())
     {
-        qDebug() << "Watching:" << path;
+        //qDebug() << "Watching:" << path;
         basePath = file.dir().absolutePath();
         watchedFile = new WatchedFile(file);
         fsw = new QFileSystemWatcher(this);
@@ -98,7 +104,12 @@ void FileSystemWatcherEx::directoryChanged(QString path)
     QDir dir(path);
     if (dir.exists()) // content changed
     {
-        if (includeSubs) fsw->addPaths(subFoldersList(path));
+        if (includeSubs)
+        {
+            QStringList dirs = fsw->directories();
+            foreach(QString sub, subFoldersList(path))
+                if (!dirs.contains(sub)) fsw->addPath(sub);
+        }
         emit fileSystemChanged(path);
     }
     else // dir removed/renames -> update parent

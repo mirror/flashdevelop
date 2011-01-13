@@ -56,7 +56,7 @@
       </attribute>
       <column>
        <property name="text">
-        <string>Remote drive</string>
+        <string>Windows drive</string>
        </property>
       </column>
       <column>
