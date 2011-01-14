@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
 using System.Drawing.Design;
 using System.Windows.Forms.Design;
 using System.ComponentModel;
 using PluginCore.Localization;
+using ASCompletion.Settings;
+using PluginCore;
 
 namespace PHPContext
 {
     public delegate void ClasspathChangedEvent();
 
     [Serializable]
-    public class ContextSettings : ASCompletion.Settings.IContextSettings
+    public class ContextSettings : IContextSettings, InstalledSDKOwner
     {
         public event ClasspathChangedEvent OnClasspathChanged;
 
@@ -160,6 +162,7 @@ namespace PHPContext
             get { return fixPackageAutomatically; }
             set { fixPackageAutomatically = value; }
         }
+
         #endregion
 
         #region Language specific members
@@ -182,10 +185,33 @@ namespace PHPContext
 
         #endregion
 
+        #region Interface Implementations
+
+        public InstalledSDK GetDefaultSDK()
+        {
+            return null;
+        }
+
+        public bool ValidateSDK(InstalledSDK sdk)
+        {
+            return true;
+        }
+
+        [Browsable(false)]
+        public InstalledSDK[] InstalledSDKs
+        {
+            get { return new InstalledSDK[0]; }
+            set { /* Do nothing..*/ }
+        }
+
+        #endregion
+        
         [Browsable(false)]
         private void FireChanged()
         {
             if (OnClasspathChanged != null) OnClasspathChanged();
         }
+
     }
+
 }
