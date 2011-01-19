@@ -223,9 +223,7 @@ namespace OutputPanel
         /// </summary>
         public void ClearOutput(Object sender, System.EventArgs e)
         {
-            this.textLog.ScrollBars = RichTextBoxScrollBars.None;
-            this.textLog.Text = "";
-            this.textLog.ScrollBars = RichTextBoxScrollBars.Both;
+            this.textLog.Clear();
         }
 
         /// <summary>
