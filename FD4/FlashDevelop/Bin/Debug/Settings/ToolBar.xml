@@ -11,7 +11,7 @@
 	<separator />
 	<button label="Label.Cut" click="ScintillaCommand" tag="Cut" image="158" flags="Enable:IsEditable|HasSelection" />
 	<button label="Label.Copy" click="ScintillaCommand" tag="Copy" image="278" flags="Enable:IsEditable|HasSelection" />
-	<button label="Label.Paste" click="ScintillaCommand" tag="Paste" image="283" flags="Enable:IsEditable|CanPaste" />
+	<button label="Label.Paste" click="SmartPaste" image="283" flags="Enable:IsEditable|CanPaste" />
 	<separator />
 	<button label="Label.ToggleBookmark" click="ToggleBookmark" image="402" flags="Enable:IsEditable" />
 	<button label="Label.NextBookmark" click="NextBookmark" image="402|9|3|3" flags="Enable:IsEditable" />

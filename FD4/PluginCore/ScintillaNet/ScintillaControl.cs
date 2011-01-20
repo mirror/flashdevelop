@@ -11,6 +11,7 @@ using PluginCore.Utilities;
 using PluginCore.Managers;
 using System.Drawing;
 using System.Text;
+using PluginCore;
 
 namespace ScintillaNet
 {
@@ -5240,6 +5241,27 @@ namespace ScintillaNet
                                 if (bracePos >= 0 && CharAt(bracePos) == '{' && BaseStyleAt(bracePos) == 10) 
                                     previousIndent += TabWidth;
                             }
+                            // TODO: Should this test a config variable for indenting after case : statements?
+                            if (true && tempText.EndsWith(":"))
+                            {
+                                int prevLine = tempLine;
+                                while (--prevLine > 0)
+                                {
+                                    tempText = GetLine(prevLine).Trim();
+                                    if (tempText.Length != 0 && !tempText.StartsWith("//"))
+                                    {
+                                        int prevIndent = GetLineIndentation(prevLine);
+                                        if ((tempText.EndsWith(";") && previousIndent == prevIndent) ||
+                                            (tempText.EndsWith(":") && previousIndent == prevIndent + Indent))
+                                        {
+                                            previousIndent -= Indent;
+                                            SetLineIndentation(tempLine, previousIndent);
+                                        }
+                                        break;
+                                    }
+                                }
+                                previousIndent += Indent;
+                            }
                             IndentLine(curLine, previousIndent);
                             int position = LineIndentPosition(curLine);
                             SetSel(position, position);
@@ -5979,43 +6001,214 @@ namespace ScintillaNet
         }
 
         /// <summary>
-        /// Moves the current line(s) down
+        /// Move the current line (or selected lines) up
+        /// </summary>
+        public void MoveLineUp()
+        {
+            MoveLine(-1);
+        }
+
+        /// <summary>
+        /// Move the current line (or selected lines) down
         /// </summary>
         public void MoveLineDown()
         {
+            MoveLine(1);
+        }
+
+        /// <summary>
+        /// Moves the current line(s) down or down
+        /// </summary>
+        public void MoveLine(int dir)
+        {
             int start = this.SelectionStart < this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
             int end = this.SelectionStart > this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
-            int len = this.LineFromPosition(end) - this.LineFromPosition(start);
+            int startLine = this.LineFromPosition(start);
+            int endLine = this.LineFromPosition(end);
+            // selection was not made in whole lines, so extend the end of selection to the start of the next line
+            if (this.PositionFromLine(endLine) != end || startLine == endLine) ++endLine;
+            if (this.SelectionStart == this.SelectionEnd && PluginBase.MainForm.Settings.CodingStyle == CodingStyle.BracesAfterLine)
+            {
+                // TODO? do we need a better test for moving open brace and line above it together
+                if (this.GetLine(startLine).Trim().StartsWith("{")) --startLine;
+                else if (this.GetLine(startLine + 1).Trim().StartsWith("{")) ++endLine;
+            }
+            int len = endLine - startLine;
             this.BeginUndoAction();
-            this.SelectionStart = this.PositionFromLine(this.LineFromPosition(start));
-            this.SelectionEnd = this.PositionFromLine(this.LineFromPosition(end) + 1);
+            this.SelectionStart = this.PositionFromLine(startLine);
+            this.SelectionEnd = this.PositionFromLine(endLine);
             string selectStr = this.SelText;
             this.Clear();
-            this.LineDown();
-            this.InsertText(this.PositionFromLine(this.LineFromPosition(this.CurrentPos)), selectStr);
-            this.SelectionStart = this.PositionFromLine(start = this.LineFromPosition(this.CurrentPos));
-            this.SelectionEnd = this.LineEndPosition(start + len);
+            if (dir > 0) this.LineDown();
+            else this.LineUp();
+            startLine += dir;
+            // line # moved past limits, so back out the change
+            if (startLine == 0 || startLine > this.LineCount) startLine -= dir;
+            else
+            {
+                int ctrlBlock = 0;
+                if (len <= 2) ctrlBlock = this.IsControlBlock(selectStr);
+                // if we're moving a single control block start/end, reindent the affected lines that are moving in or out of the block
+                if (ctrlBlock != 0)
+                {
+                    int line = startLine;
+                    if (dir > 0) --line;
+                    int indent = dir * this.Indent;
+                    if (ctrlBlock < 0)indent = -indent;
+                    this.SetLineIndentation(line, this.GetLineIndentation(line) + indent);
+                }
+            }
+            start = this.PositionFromLine(startLine);
+            this.InsertText(start, selectStr);
+            this.ReindentLines(startLine, len);
+            this.SelectionStart = start;
+            this.SelectionEnd = this.PositionFromLine(startLine + len);
             this.EndUndoAction();
         }
 
         /// <summary>
-        /// Moves the current line(s) up
+        /// Reindents a block of pasted or moved lines to match the indentation of the destination pos
         /// </summary>
-        public void MoveLineUp()
+        public void ReindentLines(int startLine, int nLines)
         {
-            int start = this.SelectionStart < this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
-            int end = this.SelectionStart > this.SelectionEnd ? this.SelectionStart : this.SelectionEnd;
-            int len = this.LineFromPosition(end) - this.LineFromPosition(start);
-            this.BeginUndoAction();
-            this.SelectionStart = this.PositionFromLine(this.LineFromPosition(start));
-            this.SelectionEnd = this.PositionFromLine(this.LineFromPosition(end) + 1);
-            string selectStr = this.SelText;
-            this.Clear();
-            this.LineUp();
-            this.InsertText(this.PositionFromLine(this.LineFromPosition(this.CurrentPos)), selectStr);
-            this.SelectionStart = this.PositionFromLine(start = this.LineFromPosition(this.CurrentPos));
-            this.SelectionEnd = this.LineEndPosition(start + len);
-            this.EndUndoAction();
+            if (nLines <= 0) return;
+            String lineComment = Configuration.GetLanguage(ConfigurationLanguage).linecomment;
+            String pasteStr = "";
+            String destStr = "";
+            int commentIndent = -1;
+            int pasteIndent = -1;
+            int line;
+            // Scan pasted lines to find their indentation
+            for (line = startLine; line < startLine + nLines; ++line)
+            {
+                pasteStr = GetLine(line).Trim();
+                if (pasteStr != "")
+                {
+                    if (lineComment != "" && pasteStr.StartsWith(lineComment))
+                    {
+                        // Indent of the first commented line
+                        if (commentIndent < 0) commentIndent = GetLineIndentation(line);
+
+                    }
+                    else // We found code, so we won't be using comment-based indenting
+                    {
+                        commentIndent = -1;
+                        pasteIndent = GetLineIndentation(line);
+                        break;
+                    }
+                }
+            }
+            // Scan the destination to determine its indentation
+            int destIndent = -1;
+            for (line = startLine; --line >= 1; )
+            {
+                destStr = GetLine(line).Trim();
+                if (destStr != "")
+                {
+                    if (pasteIndent < 0)
+                    {
+                        // no code lines were found in the paste, so use the comment indentation
+                        pasteIndent = commentIndent;
+                        destIndent = GetLineIndentation(line);  // destination indent at any non-blank line
+                        break;
+                    }
+                    else
+                    {
+                        if (lineComment == "" || !destStr.StartsWith(lineComment))
+                        {
+                            destIndent = GetLineIndentation(line); // destination indent at first code-line
+                            if (IsControlBlock(destStr) < 0)
+                            {
+                                // Indent when we're pasting at the start of a control block (unless we're pasting an end block),
+                                if (IsControlBlock(pasteStr) <= 0) destIndent += Indent;
+                            }
+                            else
+                            {
+                                // Outdent when we're pasting the end of a control block anywhere but after the start of a control block
+                                if (IsControlBlock(pasteStr) > 0) destIndent -= Indent;
+                            }
+                            if (true) // TODO: Should test a config value for indenting after "case:" statements?
+                            {
+                                if (CodeEndsWith(destStr, ":") && !CodeEndsWith(FirstLine(pasteStr), ":"))
+                                {
+                                    // If dest line ends with ":" and paste line doesn't
+                                    destIndent += Indent;
+                                }
+                                if (CodeEndsWith(FirstLine(pasteStr), ":") && CodeEndsWith(destStr, ";"))
+                                {
+                                    // If paste line ends with ':' and dest line doesn't
+                                    destIndent -= Indent;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            if (pasteIndent < 0) pasteIndent = 0;
+            if (destIndent < 0) destIndent = 0;
+            while (--nLines >= 0)
+            {
+                int indent = GetLineIndentation(startLine);
+                if (indent != 0) // TODO: || (startIndent == 0 && not a comment, or preprocessor line)
+                {
+                    SetLineIndentation(startLine, destIndent + indent - pasteIndent);
+                }
+                ++startLine;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the input string is a start/end of a control block
+        /// Returns -1:start, 1:end, 0:neither
+        /// <!summary>
+        public int IsControlBlock(string str)
+        {
+            int ret = 0;
+            str = str.Trim();
+            // TODO: Is there a lexer test for "start/end of control block"?
+            if (ConfigurationLanguage == "xml" || ConfigurationLanguage == "html" || ConfigurationLanguage == "css")
+            {
+                if (str.StartsWith("</")) ret = 1;
+                else if (str.IndexOf('/') < 0) ret = -1; // TODO: More robust test for a block start?
+            }
+            else
+            {
+                if (str[0] == '}') ret = 1;
+                else if (CodeEndsWith(str, "{")) ret = -1;
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// Tests whether the code-portion of a string ends with a string value
+        /// <!summary>
+        public bool CodeEndsWith(string str, string value)
+        {
+            bool ret = false;
+            int startIndex = str.LastIndexOf(value);
+            if (startIndex >= 0)
+            {
+                String lineComment = Configuration.GetLanguage(ConfigurationLanguage).linecomment;
+                if (lineComment != "")
+                {
+                    int slashIndex = str.LastIndexOf(lineComment);
+                    if (slashIndex >= startIndex) str = str.Substring(0, slashIndex);
+                }
+                if (str.Trim().EndsWith(value)) ret = true;
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns the first line of a string
+        /// <!summary>
+        public string FirstLine(string str)
+        {
+            char newline = (EOLMode == 1) ? '\r' : '\n';
+            int eol = str.IndexOf(newline);
+            if (eol < 0) return str;
+            else return str.Substring(0, eol);
         }
 
 		#endregion

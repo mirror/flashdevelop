@@ -1863,6 +1863,30 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Pastes lines at the correct indent level
+        /// </summary>
+        public void SmartPaste(Object sender, System.EventArgs e)
+        {
+            ScintillaControl sci = Globals.SciControl;
+            if (sci.CanPaste)
+            {
+                // if clip is not line-based, then just do simple paste
+                if (!Clipboard.GetText().EndsWith("\n") || Clipboard.ContainsData("MSDEVColumnSelect")) sci.Paste();
+                else
+                {
+                    sci.BeginUndoAction();
+                    sci.Home();
+                    int pos = sci.CurrentPos;
+                    int lines = sci.LineCount;
+                    sci.Paste();
+                    lines = sci.LineCount - lines; // = # of lines in the pasted text
+                    sci.ReindentLines(sci.LineFromPosition(pos), lines);
+                    sci.EndUndoAction();
+                }
+            }
+        }
+
+        /// <summary>
         /// Saves the current file session
         /// </summary>
         public void SaveSession(Object sender, System.EventArgs e)

@@ -46,7 +46,7 @@
 	<separator />
 	<button label="Label.Cut" click="ScintillaCommand" tag="Cut" image="158" flags="Enable:HasSelection" />
 	<button label="Label.Copy" click="ScintillaCommand" tag="Copy" image="278" flags="Enable:HasSelection" />
-	<button label="Label.Paste" click="ScintillaCommand" tag="Paste" image="283" flags="Enable:CanPaste" />
+	<button label="Label.Paste" click="SmartPaste" image="283" flags="Enable:CanPaste" />
 	<separator />
 	<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" />
 </scintillamenu>
