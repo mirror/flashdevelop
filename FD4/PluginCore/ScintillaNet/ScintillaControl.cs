@@ -6211,6 +6211,36 @@ namespace ScintillaNet
             else return str.Substring(0, eol);
         }
 
+        /// <summary>
+        /// Select the word at the caret location.
+        /// </summary>
+        public void SelectWord()
+        {
+            int startPos = this.WordStartPosition(this.CurrentPos, true);
+            int endPos = this.WordEndPosition(this.CurrentPos, true);
+            this.SetSel(startPos, endPos);
+        }
+
+        /// <summary>
+        /// Copy the word at the caret location.
+        /// </summary>
+        public void CopyWord()
+        {
+            this.SelectWord();
+            this.Copy();
+        }
+
+        /// <summary>
+        /// Replace-paste the word at the caret location.
+        /// </summary>
+        public void ReplaceWord()
+        {
+            this.BeginUndoAction();
+            this.SelectWord();
+            this.Paste();
+            this.EndUndoAction();
+        }
+
 		#endregion
 
     }
