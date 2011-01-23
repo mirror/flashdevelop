@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
 using WeifenLuo.WinFormsUI.Docking;
+using ScintillaNet.Configuration;
 using PluginCore.Localization;
 using CodeFormatter.Handlers;
 using CodeFormatter.Utilities;
@@ -24,6 +25,8 @@ namespace CodeFormatter
 		private String pluginDesc = "Adds an MXML and ActionScript code formatter to FlashDevelop.";
         private String pluginHelp = "www.flashdevelop.org/community/";
 		private String pluginAuth = "FlashDevelop Team";
+        private ToolStripMenuItem contextMenuItem;
+        private ToolStripMenuItem mainMenuItem;
 		private String settingFilename;
 		private Settings settingObject;
 
@@ -119,6 +122,13 @@ namespace CodeFormatter
                         this.CreateContextMenuItem(contextMenu);
                     }
                     break;
+
+                case EventType.FileSwitch:
+                    if (this.mainMenuItem == null || this.contextMenuItem == null) return;
+                    ITabbedDocument doc = PluginBase.MainForm.CurrentDocument as ITabbedDocument;
+                    Boolean isValid = doc != null && doc.IsEditable && this.IsSupportedLanguage(doc.FileName);
+                    this.mainMenuItem.Enabled = this.contextMenuItem.Enabled = isValid;
+                    break;
             }
 		}
 		
@@ -132,6 +142,7 @@ namespace CodeFormatter
 		public void InitBasics()
 		{
             EventManager.AddEventHandler(this, EventType.Command);
+            EventManager.AddEventHandler(this, EventType.FileSwitch);
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeFormatter");
 			if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
 			this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
@@ -144,9 +155,9 @@ namespace CodeFormatter
 		public void CreateMainMenuItem(ToolStripMenuItem mainMenu)
 		{
             String label = TextHelper.GetString("Label.CodeFormatter");
-            ToolStripMenuItem menuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.Control | Keys.Shift | Keys.D2);
-            PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.CodeFormatter", menuItem);
-            mainMenu.DropDownItems.Insert(7, menuItem);
+            this.mainMenuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.Control | Keys.Shift | Keys.D2);
+            PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.CodeFormatter", this.mainMenuItem);
+            mainMenu.DropDownItems.Insert(7, this.mainMenuItem);
 		}
 
         /// <summary>
@@ -155,8 +166,18 @@ namespace CodeFormatter
         public void CreateContextMenuItem(ToolStripMenuItem contextMenu)
         {
             String label = TextHelper.GetString("Label.CodeFormatter");
-            ToolStripMenuItem menuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.None);
-            contextMenu.DropDownItems.Insert(6, menuItem);
+            this.contextMenuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.None);
+            contextMenu.DropDownItems.Insert(6, this.contextMenuItem);
+        }
+
+        /// <summary>
+        /// Checks if the language is supported
+        /// </summary>
+        public Boolean IsSupportedLanguage(String file)
+        {
+            String lang = ScintillaControl.Configuration.GetLanguageFromFile(file);
+            if (lang == "as2" || lang == "as3" || lang == "haxe" || lang == "jscript" || lang == "html" || lang == "xml") return true;
+            else return false;
         }
 
 		/// <summary>

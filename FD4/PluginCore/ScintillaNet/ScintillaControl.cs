@@ -6062,7 +6062,7 @@ namespace ScintillaNet
             this.InsertText(start, selectStr);
             this.ReindentLines(startLine, len);
             this.SelectionStart = start;
-            this.SelectionEnd = this.PositionFromLine(startLine + len);
+            this.SelectionEnd = this.LineEndPosition(startLine);
             this.EndUndoAction();
         }
 

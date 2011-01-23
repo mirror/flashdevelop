@@ -200,7 +200,7 @@ namespace CodeRefactor
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document != null && document.IsEditable)
             {
-                return document.FileName.ToLower().EndsWith(".hx");
+                return document.SciControl.ConfigurationLanguage == "haxe";
             }
             else return false;
         }
@@ -213,8 +213,8 @@ namespace CodeRefactor
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document != null && document.IsEditable)
             {
-                String extension = document.FileName.ToLower();
-                return (extension.EndsWith(".as") || extension.EndsWith(".hx"));
+                String lang = document.SciControl.ConfigurationLanguage;
+                return (lang == "as2" || lang == "as3" || lang == "haxe");
             }
             else return false;
         }
@@ -238,9 +238,9 @@ namespace CodeRefactor
         {
             try
             {
-                this.refactorContextMenu.DelegateMenuItem.Enabled = false;
-                this.refactorMainMenu.DelegateMenuItem.Enabled = false;
                 Boolean isValid = this.GetLanguageIsValid();
+                this.refactorMainMenu.DelegateMenuItem.Enabled = false;
+                this.refactorContextMenu.DelegateMenuItem.Enabled = false;
                 ASResult result = isValid ? GetResultFromCurrentPosition() : null;
                 if (result != null && result.Member != null)
                 {
@@ -285,7 +285,7 @@ namespace CodeRefactor
                 this.refactorMainMenu.ExtractMethodMenuItem.Enabled = false;
                 this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = false;
                 ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                if (document != null && document.SciControl != null && ASContext.Context.IsFileValid && document.SciControl.SelTextSize > 1)
+                if (document != null && document.IsEditable && ASContext.Context.IsFileValid && document.SciControl.SelTextSize > 1)
                 {
                     Int32 selEnd = document.SciControl.SelectionEnd;
                     Int32 selStart = document.SciControl.SelectionStart;
@@ -316,6 +316,8 @@ namespace CodeRefactor
                         }
                     }
                 }
+                this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
+                this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
             }
             catch {}
         }

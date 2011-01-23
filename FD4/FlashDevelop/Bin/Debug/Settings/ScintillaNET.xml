@@ -6,6 +6,7 @@
 		<include file="$(BaseDir)\Settings\Languages\CSS.xml" />
 		<include file="$(BaseDir)\Settings\Languages\HaXe.xml" />
 		<include file="$(BaseDir)\Settings\Languages\HTML.xml" />
+		<include file="$(BaseDir)\Settings\Languages\CSharp.xml" />
 		<include file="$(BaseDir)\Settings\Languages\JScript.xml" />
 		<include file="$(BaseDir)\Settings\Languages\Python.xml" />
 		<include file="$(BaseDir)\Settings\Languages\Text.xml" />
