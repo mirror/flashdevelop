@@ -6084,7 +6084,7 @@ namespace ScintillaNet
                 pasteStr = GetLine(line).Trim();
                 if (pasteStr != "")
                 {
-                    if (lineComment != "" && pasteStr.StartsWith(lineComment))
+                    if (!String.IsNullOrEmpty(lineComment) && pasteStr.StartsWith(lineComment))
                     {
                         // Indent of the first commented line
                         if (commentIndent < 0) commentIndent = GetLineIndentation(line);
@@ -6114,7 +6114,7 @@ namespace ScintillaNet
                     }
                     else
                     {
-                        if (lineComment == "" || !destStr.StartsWith(lineComment))
+                        if (String.IsNullOrEmpty(lineComment) || !destStr.StartsWith(lineComment))
                         {
                             destIndent = GetLineIndentation(line); // destination indent at first code-line
                             if (IsControlBlock(destStr) < 0)
@@ -6190,7 +6190,7 @@ namespace ScintillaNet
             if (startIndex >= 0)
             {
                 String lineComment = Configuration.GetLanguage(ConfigurationLanguage).linecomment;
-                if (lineComment != "")
+                if (!String.IsNullOrEmpty(lineComment))
                 {
                     int slashIndex = str.LastIndexOf(lineComment);
                     if (slashIndex >= startIndex) str = str.Substring(0, slashIndex);
