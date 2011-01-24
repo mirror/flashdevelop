@@ -6043,7 +6043,7 @@ namespace ScintillaNet
             else this.LineUp();
             startLine += dir;
             // line # moved past limits, so back out the change
-            if (startLine == 0 || startLine > this.LineCount) startLine -= dir;
+            if (startLine < 0 || startLine >= this.LineCount) startLine -= dir;
             else
             {
                 int ctrlBlock = 0;
@@ -6062,7 +6062,7 @@ namespace ScintillaNet
             this.InsertText(start, selectStr);
             this.ReindentLines(startLine, len);
             this.SelectionStart = start;
-            this.SelectionEnd = this.LineEndPosition(startLine);
+            this.SelectionEnd = this.LineEndPosition(startLine + len - 1);
             this.EndUndoAction();
         }
 
@@ -6239,6 +6239,15 @@ namespace ScintillaNet
             this.SelectWord();
             this.Paste();
             this.EndUndoAction();
+        }
+
+        /// <summary>
+        /// Cut the selection, if selection empty cut the line with the caret
+        /// </summary>
+        public void CutAllowLine()
+        {
+            if (this.SelTextSize == 0) this.LineCut();
+            else this.Cut();
         }
 
 		#endregion
