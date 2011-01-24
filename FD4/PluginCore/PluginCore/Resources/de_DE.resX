@@ -1485,7 +1485,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Gibt einen benutzerdefinierten Projektvorlagenpfad an. Lassen Sie dieses Feld leer, um den Standardpfad zu verwenden.</value>
   </data>
   <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
-    <value>Die Quelldatei mit dem Haupteinstiegspunk (die Applikation).</value>
+    <value>Die Quelldatei mit dem Haupteinstiegspunk (die Anwendung).</value>
   </data>
   <data name="ProjectManager.Description.Benchmark" xml:space="preserve">
     <value>Gibt detailierte Zeitangaben des Komiliervorgangs im Ausgabefenster aus.</value>
@@ -1824,7 +1824,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Das Vorlagenverzeichnis wurde nicht gefunden. Sie können keine neuen Projekte anlegen. Eventuell sollten Sie FlashDevelop neu installieren.</value>
   </data>
   <data name="ProjectManager.Info.WillCreate" xml:space="preserve">
-    <value>Wird erzeugen:</value>
+    <value>Erstellt:</value>
   </data>
   <data name="ProjectManager.Info.WillMoveToRecycleBin" xml:space="preserve">
     <value>wird in den Papierkorb verschoben.</value>
@@ -3624,7 +3624,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Synchronisieren</value>
   </data>
   <data name="FlashDevelop.Info.FilterSettings" xml:space="preserve">
-    <value>Filter settings:</value>
+    <value>Suche:</value>
   </data>
   <data name="ProjectManager.Description.DisableExtFlashIntegration" xml:space="preserve">
     <value>Deaktiviere die erweiterte Adobe Flash IDE Integration. Sie erlaubt das Debuggen/Profilen von SWF-Dateien welche mit der Adobe Flash IDE erstellt wurden.</value>
@@ -3796,35 +3796,35 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.ShortcutEditInfo" xml:space="preserve">
-    <value>Shortcuts can be edited by selecting an item and pressing valid menu item shortcut keys.</value>
+    <value>Wählen Sie einen Eintrag aus und drücken Sie die gewünschte Tastenkombination.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Command" xml:space="preserve">
-    <value>Command</value>
+    <value>Befehl</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.KeyboardShortcuts" xml:space="preserve">
-    <value>Keyboard S&amp;hortcuts...</value>
+    <value>Tasten&amp;kombinationen...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.RemoveShortcut" xml:space="preserve">
-    <value>&amp;Remove Shortcut</value>
+    <value>&amp;Tastenkombination entfernen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.RevertToDefault" xml:space="preserve">
-    <value>Revert To &amp;Default</value>
+    <value>Standardzuweisung &amp;wiederherstellen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Shortcut" xml:space="preserve">
-    <value>Shortcut</value>
+    <value>Tastenkombination</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Title.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
+    <value>Tastenkombinationen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
-    <value>Unable to load a plugin:</value>
+    <value>Folgendes Plugin konnte nicht geladen werden:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
@@ -3832,131 +3832,131 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.ShortcutIsAlreadyUsed" xml:space="preserve">
-    <value>The shortcut has already been assigned to another command.</value>
+    <value>Die Tastenkombination wird bereits von einem anderen Befehl verwendet.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.AppDescriptorNotFound" xml:space="preserve">
-    <value>Unable to locate the default application descriptor file (application.xml). Do you want to select the application descriptor file manually?</value>
+    <value>Die Standard Application Descriptor Datei (application.xml) konnte nicht gefunden werden. Möchten Sie sie selbst auswählen?</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.FileNamePrefixInvalid" xml:space="preserve">
-    <value>You must enter a valid value for the {0} property before you can select an icon.</value>
+    <value>Sie müssen der Eigenschaft {0} einen gültigen Wert zuweisen bevor Sie ein Symbol auswählen können.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.ImagePathInvalid" xml:space="preserve">
-    <value>The image you have selected is located</value>
+    <value>Der angegegebene Bild-Pfad ist ungültig.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.InvalidIconDimensions" xml:space="preserve">
-    <value>The selected icon image must be {0} x {1} pixels in size.</value>
+    <value>Das ausgewählte Symbol muss eine Auflösung von {0} x {1} Pixel haben.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.InvalidProperties" xml:space="preserve">
-    <value>One or more properties contains an invalid value. Please update the invalid value(s).</value>
+    <value>Eine oder mehrere Eigenschaften haben ungültige Werte. Korrigieren Sie bitte diese Angaben.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.UnsupportedAirDescriptorFile" xml:space="preserve">
-    <value>The file '{0}' is not a supported AIR application descriptor file. The AIR runtime version '{1}' specified in the file is not supported by the property editor. Click OK to continue and edit the file using AIR {2} properties only.</value>
+    <value>Die Datei '{0}' ist keine unterstützte AIR Application Descriptor Datei. Die AIR Laufzeitversion '{1}' wird von dem Eigenschafteneditor nicht unterstützt. Klicken Sie auf OK um fortzufahren und nur die erkannten AIR {2} Einstellungen zu übernehmen.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.AppDescriptorNotFound" xml:space="preserve">
-    <value>Application Descriptor File Not Found</value>
+    <value>Application Descriptor Datei wurde nicht gefunden</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.FileNamePrefixInvalid" xml:space="preserve">
-    <value>Use Uniform File Names Validation</value>
+    <value>Verwende Uniform File Names Validation</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.InvalidIconDimensions" xml:space="preserve">
-    <value>Invalid Image Size</value>
+    <value>Ungültige Bildauflösung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.InvalidProperties" xml:space="preserve">
-    <value>Invalid Property Value(s)</value>
+    <value>Ungültige Eigenschaftswerte</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.UnsupportedAirDescriptorFile" xml:space="preserve">
-    <value>Warning</value>
+    <value>Warnung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.AspectRatio.Landscape" xml:space="preserve">
-    <value>Landscape</value>
+    <value>Querformat</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.AspectRatio.Portrait" xml:space="preserve">
-    <value>Portrait</value>
+    <value>Hochformat</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.PackageIconsFolder" xml:space="preserve">
-    <value>Folder containing packaged icons, relative to the application root directory. Leave blank if files are in application root. Non-default value may require reconfiguring of package script.</value>
+    <value>Verzeichnis das die eingebundenen Symbole enthält, relativ zum Hauptverzeichnis der Anwendung. Leer lassen falls sich die Dateien im Hauptverzeichnis befinden. Für nicht-standardkonforme Werte muss möglicherweise das Package Skript angepasst werden.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.ProjectIconsFolder" xml:space="preserve">
-    <value>Folder for storing icons, relative to the project folder. Adding icons from within the project will have no effect. Non-default value may require reconfiguring of package script.</value>
+    <value>Verzeichnis zum Speichern der Symbole, relativ zum Projektverzeichnis. Das Hinzufügen von Symbolen aus dem Projekt heraus hat keine Auswirkungen. Für nicht-standardkonforme Werte muss möglicherweise das Package Skript angepasst werden.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.RenameIconsWithSize" xml:space="preserve">
-    <value>Rename icon file names with the relevant size when copying to the icons folder. Does not apply when Use Uniform File Names is true.</value>
+    <value>Benenne Symbole mit den relevanten Abmessungen um wenn sie in das Symbolverzeichnis kopiert werden. Gilt nicht wenn Use Uniform File Names verwendet wird.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.SelectPropertiesFileOnOpen" xml:space="preserve">
-    <value>Prompt to manually select the project's application descriptor file on open.</value>
+    <value>Frage beim Öffnen nach der Application Descriptior Datei.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.UseUniformFileNames" xml:space="preserve">
-    <value>Rename icon file names using a combination of the File Name property and the image size when copying to the icons folder.</value>
+    <value>Benenne Symboldateien mit Hilfe einer Kombination aus Dateinamen und Bildabmessungen um wenn sie in das Symbolverzeichnis kopiert werden.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Exception.Message.NotAirDescriptorFile" xml:space="preserve">
-    <value>The file '{0}' is not a valid AIR application descriptor file. It has an unsupported namespace.</value>
+    <value>Die Datei '{0}' ist keine gültige AIR Application Descriptor Datei. Sie verwendet einen nicht unterstützten Namespace.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Exception.Title.Initialization" xml:space="preserve">
-    <value>Error Opening Descriptor File</value>
+    <value>Fehler beim Öffnen der Descriptor Datei</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Info.Description" xml:space="preserve">
-    <value>Adds an AIR application properties management form for AIR projects.</value>
+    <value>Fügt AIR Projekten eine AIR Application Eigenschaftenverwaltung hinzu.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Add" xml:space="preserve">
-    <value>&amp;Add</value>
+    <value>&amp;Hinzufügen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AddCustomLocale" xml:space="preserve">
-    <value>Add Custom Locale</value>
+    <value>Füge eigene Lokalisierung hinzu</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AndroidAdditions" xml:space="preserve">
-    <value>Android Manifest Additions</value>
+    <value>Android Manifest Ergänzungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Application" xml:space="preserve">
-    <value>Application</value>
+    <value>Anwendung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AspectRatio" xml:space="preserve">
-    <value>Aspect Ratio</value>
+    <value>Seitenverhältnis</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AutoOrients" xml:space="preserve">
-    <value>Auto Orients</value>
+    <value>Automatische Ausrichtung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.BrowserInvocation" xml:space="preserve">
-    <value>Allow Browser Invocation</value>
+    <value>Browseraufruf erlauben</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Cancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>&amp;Abbrechen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Content" xml:space="preserve">
-    <value>Content</value>
+    <value>Inhalt</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ContentType" xml:space="preserve">
-    <value>Content Type</value>
+    <value>Inhaltstyp</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Copyright" xml:space="preserve">
@@ -3964,15 +3964,15 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.CustomUpdateUI" xml:space="preserve">
-    <value>Custom Update UI</value>
+    <value>Eigene Update Oberfläche</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.DefaultLocales" xml:space="preserve">
-    <value>Default Locales</value>
+    <value>Standard Lokalisierungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Beschreibung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Desktop" xml:space="preserve">
@@ -3984,47 +3984,47 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ExtendedDesktop" xml:space="preserve">
-    <value>Extended Desktop</value>
+    <value>Erweiterter Desktop</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ExtendedTv" xml:space="preserve">
-    <value>Extended TV</value>
+    <value>Erweiterer TV</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Extension" xml:space="preserve">
-    <value>Extension</value>
+    <value>Erweiterung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ExtensionId" xml:space="preserve">
-    <value>Extension ID</value>
+    <value>Erweiterungs-ID</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Extensions" xml:space="preserve">
-    <value>Extensions</value>
+    <value>Erweiterungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.FileName" xml:space="preserve">
-    <value>File Name</value>
+    <value>Dateiname</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.FileTypes" xml:space="preserve">
-    <value>File Types</value>
+    <value>Dateitypen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Fullscreen" xml:space="preserve">
-    <value>Fullscreen</value>
+    <value>Vollbild</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Help" xml:space="preserve">
-    <value>&amp;Help</value>
+    <value>&amp;Hilfe</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Icon" xml:space="preserve">
-    <value>Icon</value>
+    <value>Symbol</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Icons" xml:space="preserve">
-    <value>Icons</value>
+    <value>Symbole</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Id" xml:space="preserve">
@@ -4032,11 +4032,11 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InitialLocation" xml:space="preserve">
-    <value>Initial Location</value>
+    <value>Anfängliche Position</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InitialSize" xml:space="preserve">
-    <value>Initial Size</value>
+    <value>Anfängliche Größe</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Installation" xml:space="preserve">
@@ -4044,43 +4044,43 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InstallFolder" xml:space="preserve">
-    <value>Install Folder</value>
+    <value>Installationsverzeichnis</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.IPhoneAdditions" xml:space="preserve">
-    <value>IPhone Info Additions</value>
+    <value>IPhone Informationsergänzungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Locale" xml:space="preserve">
-    <value>Locale</value>
+    <value>Sprachumgebung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Locales" xml:space="preserve">
-    <value>Locales</value>
+    <value>Sprachumgebungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Maximizable" xml:space="preserve">
-    <value>Maximizable</value>
+    <value>Maximierbar</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MaximumSize" xml:space="preserve">
-    <value>Maximum Size</value>
+    <value>Maximale Größe</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Minimizable" xml:space="preserve">
-    <value>Minimizable</value>
+    <value>Minimierbar</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MinimumSize" xml:space="preserve">
-    <value>Minimum Size</value>
+    <value>Mindestgröße</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MinPatchLevel" xml:space="preserve">
-    <value>Minimum Patch Level</value>
+    <value>Minimales Patch Level</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MobileDevice" xml:space="preserve">
-    <value>Mobile Device</value>
+    <value>Mobilgerät</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Name" xml:space="preserve">
@@ -4088,11 +4088,11 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.New" xml:space="preserve">
-    <value>New</value>
+    <value>Neu</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.NonWindowedPlatforms" xml:space="preserve">
-    <value>Non-Windowed Platforms</value>
+    <value>Fensterlose Platformen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Ok" xml:space="preserve">
@@ -4100,47 +4100,47 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProgramMenuFolder" xml:space="preserve">
-    <value>Program Menu Folder</value>
+    <value>Programm Verzeichnis</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
-    <value>&amp;AIR App Properties...</value>
+    <value>&amp;AIR Anwendungseigenschaften...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.PublisherId" xml:space="preserve">
-    <value>Publisher ID</value>
+    <value>Herausgeber ID</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Entfernen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.RenderMode" xml:space="preserve">
-    <value>Render Mode</value>
+    <value>Rendermodus</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Resizable" xml:space="preserve">
-    <value>Resizable</value>
+    <value>Größenveränderbar</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SelectedLocales" xml:space="preserve">
-    <value>Selected Locales</value>
+    <value>Ausgewählte Sprachumgebungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SupportedProfiles" xml:space="preserve">
-    <value>Supported Profiles</value>
+    <value>Unterstütze Profile</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SystemChrome" xml:space="preserve">
-    <value>System Chrome</value>
+    <value>Rahmen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.TitleDesc" xml:space="preserve">
-    <value>Configure the properties of your AIR application. For a detailed explanation of the available{0}properties and their accepted values, please click the Help button for online help.</value>
+    <value>Stellen Sie hier die Eigenschaften Ihrer AIR Anwendung ein. Um zu detailierte Erläuterungen der verfügbaren{0}Eigenschaften und deren gültige Werte zu gelangen, klicken Sie bitte den Hilfe-Button um zur Online-Hilfe zu gelagen.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Transparent" xml:space="preserve">
@@ -4156,39 +4156,39 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.VersionNo" xml:space="preserve">
-    <value>Version No.</value>
+    <value>Version Nr.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Visible" xml:space="preserve">
-    <value>Visible</value>
+    <value>Sichtbar</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.WindowBounds" xml:space="preserve">
-    <value>Window Bounds</value>
+    <value>Fensterumgrenzungen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.WindowedPlatforms" xml:space="preserve">
-    <value>Windowed Platforms</value>
+    <value>Platformen mit Fenstern</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.ChineseSimplified" xml:space="preserve">
-    <value>Chinese Simplified (zh)</value>
+    <value>Chinesisch vereinfacht (zh)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.ChineseTraditional" xml:space="preserve">
-    <value>Chinese Trad. (zh-Hant)</value>
+    <value>Chinesisch traditionell (zh-Hant)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Czech" xml:space="preserve">
-    <value>Czech (cs)</value>
+    <value>Tschechisch (cs)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Standard</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Dutch" xml:space="preserve">
-    <value>Dutch (nl)</value>
+    <value>Niederländisch (nl)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.English" xml:space="preserve">
@@ -4196,63 +4196,63 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.French" xml:space="preserve">
-    <value>French (fr)</value>
+    <value>Französisch (fr)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.German" xml:space="preserve">
-    <value>German (de)</value>
+    <value>Deutsch (de)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Italian" xml:space="preserve">
-    <value>Italian (it)</value>
+    <value>Italienisch (it)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Japanese" xml:space="preserve">
-    <value>Japanese (jp)</value>
+    <value>Japanisch (jp)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Korean" xml:space="preserve">
-    <value>Korean (ko)</value>
+    <value>Koreanisch (ko)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Polish" xml:space="preserve">
-    <value>Polish (pl)</value>
+    <value>Polnisch (pl)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Portuguese" xml:space="preserve">
-    <value>Portuguese Braz.(pt-BR)</value>
+    <value>Portugisisch Brasilien (pt-BR)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Russian" xml:space="preserve">
-    <value>Russian (ru)</value>
+    <value>Russisch (ru)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Spanish" xml:space="preserve">
-    <value>Spanish (es)</value>
+    <value>Spanisch (es)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Swedish" xml:space="preserve">
-    <value>Swedish (sv)</value>
+    <value>Schwedisch (sv)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Turkish" xml:space="preserve">
-    <value>Turkish (tr)</value>
+    <value>Türkisch (tr)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.RenderMode.Auto" xml:space="preserve">
-    <value>Auto</value>
+    <value>Automatisch</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.RenderMode.CPU" xml:space="preserve">
-    <value>CPU</value>
+    <value>Prozessor</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.RenderMode.GPU" xml:space="preserve">
-    <value>GPU</value>
+    <value>Grafikkarte</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.SystemChrome.None" xml:space="preserve">
-    <value>None</value>
+    <value>Kein Rahmen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.SystemChrome.Standard" xml:space="preserve">
@@ -4260,41 +4260,40 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Title.AirWizard" xml:space="preserve">
-    <value>AIR Application Properties</value>
+    <value>AIR Anwendungseigenschaften</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Title.LocaleManager" xml:space="preserve">
-    <value>Configure AIR Application Installer Locales</value>
+    <value>AIR Anwendungssetup Sprachumgebungen einstellen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidExtension" xml:space="preserve">
-    <value>The {0} Extension ID is invalid.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidFileType" xml:space="preserve">
-    <value>The {0} File Type has one or more invalid properties.</value>
+    <value>Der '{0}' Dateityp hat eine oder mehrere ungültige Eigenschaften.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidLocale" xml:space="preserve">
-    <value>The value entered for the custom locale is not valid.
-Custom locales must be an extension of a default locale, e.g. en-US.</value>
+    <value>Die Werte der eigenen Sprachumgebung ist nicht gültig.
+Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sein (z.B. en-US).</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidProperty" xml:space="preserve">
-    <value>The {0} property is not valid.</value>
+    <value>Die '{0}' Eigenschaft ist nicht gültig.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="SourceControl.Description.EnableHG" xml:space="preserve">
-    <value>Enable Mercurial (Hg) integration in FlashDevelop</value>
+    <value>Mercurial (Hg) Integration aktivieren</value>
   </data>
   <data name="SourceControl.Description.HGPath" xml:space="preserve">
-    <value>Path to Mercurial command line tool. Example: 'hg' if the tool is already installed in the environment path.</value>
+    <value>Pfad zum Mercurial Befehlszeilenprogramm. Z.B.: 'hg' wenn das Programm bereits im Umgebungspfad installiert ist.</value>
   </data>
   <data name="SourceControl.Description.TortoiseHGProcPath" xml:space="preserve">
-    <value>Path to TortoiseHG's TortoiseProc tool. Example 'hgtk'.</value>
+    <value>Pfad zum TortoiseHG's TortoiseProc programm. Z.B. 'hgtk'.</value>
   </data>
   <data name="FlashDevelop.Description.CustomShortcuts" xml:space="preserve">
-    <value>List of user defined override shortcuts.</value>
+    <value>Liste der benutzerdefinierten Tastenkombinationenen.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="SourceControl.Category.HG" xml:space="preserve">
@@ -4302,114 +4301,114 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AS3Context.Description.AS3FileTypes" xml:space="preserve">
-    <value>File extensions explored in classpath. Defaults to *.as, *.mxml (enter one filetype per line).</value>
+    <value>Erkannte Dateierweiterungen im Klassenpfad. Standard: *.as, *.mxml (ein Dateityp pro Zeile).</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Info.CouldNotFormat" xml:space="preserve">
-    <value>Syntax errors encountered. Could not format code.</value>
+    <value>Syntax Fehler festgestellt. Code konnte nicht formatiert werden.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Info.Description" xml:space="preserve">
-    <value>Adds an MXML and ActionScript code formatter to FlashDevelop.</value>
+    <value>Fügt eine MXML und ActionScript Code-Formatierung hinzu.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Label.CodeFormatter" xml:space="preserve">
-    <value>Code &amp;Formatter</value>
+    <value>Code-&amp;Formatierung</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.EncodingInput" xml:space="preserve">
-    <value>Encoding:</value>
+    <value>Kodierung:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Hash" xml:space="preserve">
     <value>&amp;Hash...</value>
   </data>
   <data name="FlashDevelop.Label.HashInput" xml:space="preserve">
-    <value>Hash:</value>
+    <value>Hashverfahren:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.InputText" xml:space="preserve">
-    <value>Input:</value>
+    <value>Eingabe:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.OutputText" xml:space="preserve">
-    <value>Output:</value>
+    <value>Ausgabe:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Title.HashDialog" xml:space="preserve">
-    <value>Insert Hash</value>
+    <value>Hash einfügen</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="ProjectManager.Label.CleanProject" xml:space="preserve">
-    <value>&amp;Clean Project</value>
+    <value>Project be&amp;reinigen</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Info.UnableToCleanProject" xml:space="preserve">
-    <value>Unable to delete output file</value>
+    <value>Ausgabedatei konnte nicht gelöscht werden</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.Active" xml:space="preserve">
-    <value>Enables delegation to host system, typically when running FlashDevelop virtualized in a MacOS or Linux host.</value>
+    <value>Ermöglicht die Weiterleitung an ein Hostsystem, typischerweise falls FlashDevelop in einer Virtuellen Umgebung unter MacOS oder Linux ausgeführt wird.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.AlwaysOpenLocal" xml:space="preserve">
-    <value>List of file extensions which must always be executed by Windows and never by the host system.</value>
+    <value>Liste der Dateierweiterungen welche immer von Windows und nicht vom Hostsystem ausgeführt werden müssen.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.TargetRemoteIDE" xml:space="preserve">
-    <value>Use Flash CS* from the host system if FLA or JSFL is located on the host drive.</value>
+    <value>Verwende Flash CS* des Hostsystems falls FLA oder JSFL auf dem Hostsystem vorhanden ist.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.UseRemoteExplorer" xml:space="preserve">
-    <value>Use file explorer of the host system if path is located on the host shared drive.</value>
+    <value>Verwende den Dateiexplorer des Hostsystems falls der Pfad auf einer Host-Freigabe liegt.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Info.Description" xml:space="preserve">
-    <value>Add virtualization bridge configuration to FlashDevelop.</value>
+    <value>Fügt eine Virtualisierungsbrücke hinzu.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Description.ConfirmOnExit" xml:space="preserve">
-    <value>Confirms closing on program exit.</value>
+    <value>Abfrage beim Schließen des Programms.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Info.AreYouSureToExit" xml:space="preserve">
-    <value>Are you sure you want to exit FlashDevelop?</value>
+    <value>Möchten Sie FlashDevelop wirklich beenden?</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Label.MoveLineDown" xml:space="preserve">
-    <value>Move Line Down</value>
+    <value>Zeile hinunterschieben</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.MoveLineUp" xml:space="preserve">
-    <value>Move Line Up</value>
+    <value>Zeile hinaufschieben</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.VirtualSpaceMode" xml:space="preserve">
-    <value>Sets the virtual space mode with rectangular selection.</value>
+    <value>Virtueller Raum bei rechteckiger Auswahl.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Category.Locale" xml:space="preserve">
-    <value>Locale</value>
+    <value>Sprachumgebung</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.BridgePort" xml:space="preserve">
-    <value>Bridge socket connection port (default 8009).</value>
+    <value>Brücken Socket Port (Standard 8009).</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.CustomBridgeIP" xml:space="preserve">
-    <value>Provide a specific IP to override auto-detection.</value>
+    <value>Spezielle IP um die Autoerkennung zu umgehen.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.SharedDrive" xml:space="preserve">
-    <value>Drive shared by host system with guest Windows OS.</value>
+    <value>Vom Hostsystem fregegebene Partition welche mit Windows geteilt wird.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.Manage" xml:space="preserve">
-    <value>&amp;Manage...</value>
+    <value>&amp;Verwalten...</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKGroup" xml:space="preserve">
-    <value>Installed SDK(s)</value>
+    <value>Installierte SDK(s)</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKTab" xml:space="preserve">
@@ -4421,19 +4420,19 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesAfterColons" xml:space="preserve">
-    <value>Advanced amount of spaces after colons.</value>
+    <value>Zusätzliche Leerschritte nach einem Doppelpunkt.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesBeforeColons" xml:space="preserve">
-    <value>Advanced amount of spaces before colons.</value>
+    <value>Zusätzliche Leerzeichen vor einem Doppelpunkt.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayDeclarationBrackets" xml:space="preserve">
-    <value>Advanced amount of spaces inside array declaration brackets.</value>
+    <value>Zusätzliche Leerzeichen in Array-Definitionsklammern.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayReferenceBrackets" xml:space="preserve">
-    <value>Advanced amount of spaces inside array reference brackets.</value>
+    <value>Zusätzliche Leerzeichen in Array-Indexklammern.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideLiteralBraces" xml:space="preserve">
@@ -4689,31 +4688,31 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKBrowse" xml:space="preserve">
-    <value>Browse...</value>
+    <value>Durchsuchen...</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKComboDefault" xml:space="preserve">
-    <value>Default</value>
+    <value>Standard</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKComboNoSDK" xml:space="preserve">
-    <value>No SDK configured</value>
+    <value>Kein SDK konfiguriert</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKExpected" xml:space="preserve">
-    <value>Expected:</value>
+    <value>Erwartet:</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKTabCustom" xml:space="preserve">
-    <value>Custom SDK</value>
+    <value>Eigenes SDK</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKUseCustom" xml:space="preserve">
-    <value>Relative or absolute path to a specific SDK.</value>
+    <value>Relativer order absoluter Pfad zu einem speziellen SDK.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
-    <value>Use a SDK configured globally.</value>
+    <value>Standard-SDK verwenden.</value>
     <comment>Added after 3.3.2</comment>
   </data>
 </root>
