@@ -183,7 +183,9 @@ QString BridgeHandler::getRemotePath(QString path)
     {
         int len = localPath.length();
         if (path.length() < len) return "";
-        return QString(remotePath + path.mid(len)).replace('/', '\\');
+        QString sub = path.mid(len);
+        if (sub == "/obj") return "";
+        return QString(remotePath + sub).replace('/', '\\');
     }
 }
 

@@ -2,6 +2,8 @@
 #include <QSettings>
 #include <QDir>
 #include <QProcess>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "bridgeserver.h"
 #include "bridgethread.h"
@@ -63,7 +65,8 @@ void BridgeServer::openDocument(QString path)
     qDebug() << "open" << localPath;
 
     QFile file(localPath);
-    if (file.exists()) QProcess::startDetached("open \"" + localPath + "\"");
+    if (file.exists())
+        QDesktopServices::openUrl(QUrl::fromLocalFile(localPath));
     else qDebug() << "File not found" << path;
 }
 
