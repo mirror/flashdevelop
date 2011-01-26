@@ -113,7 +113,16 @@ namespace FlashDevelop.Utilities
 		{
             if (!Globals.CurrentDocument.IsEditable) return String.Empty;
             else return Path.GetFileName(GetCurFile());
-		}
+        }
+
+        /// <summary>
+        /// Gets the name of the current file without extension
+        /// </summary>
+        public static String GetCurFilenameNoExt()
+        {
+            if (!Globals.CurrentDocument.IsEditable) return String.Empty;
+            else return Path.GetFileNameWithoutExtension(GetCurFile());
+        }
 
         /// <summary>
         /// Gets the timestamp
@@ -334,7 +343,8 @@ namespace FlashDevelop.Utilities
                     case "UserAppDir" : return GetUserAppDir();
                     case "BaseDir" : return GetBaseDir();
                     case "SelText" : return GetSelText();
-                    case "CurFilename" : return GetCurFilename();
+                    case "CurFilename": return GetCurFilename();
+                    case "CurFilenameNoExt": return GetCurFilenameNoExt();
                     case "CurFile" : return GetCurFile();
                     case "CurDir" : return GetCurDir();
                     case "CurWord" : return GetCurWord();

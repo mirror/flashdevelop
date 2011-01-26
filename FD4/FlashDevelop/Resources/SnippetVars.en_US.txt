@@ -13,6 +13,7 @@ $(Clipboard) - Clipboard content
 - FILE -------------------------------------------------------------------------
 $(CurFile) - Current file
 $(CurFilename) - Current file's name
+$(CurFilenameNoExt) - Current file's name without extension
 $(CurDir) - Current file's directory
 - DIRECTORY -------------------------------------------------------------------------
 $(DesktopDir) - User's desktop directory

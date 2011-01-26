@@ -13,6 +13,7 @@ $(Clipboard) - Inhalt der Zwischenablage
 - DATEI -------------------------------------------------------------------------
 $(CurFile) - Aktuelle Datei
 $(CurFilename) - Dateiname der aktuellen Datei
+$(CurFilenameNoExt) - Dateiname der aktuellen Datei
 $(CurDir) - Dateiordner der aktuellen Datei
 - VERZEICHNIS -------------------------------------------------------------------------
 $(DesktopDir) - Desktop des Benutzers
