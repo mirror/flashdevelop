@@ -10,6 +10,7 @@ namespace ASCompletion.Completion
 {
     public class TemplateUtils
     {
+        public static string boundaries_folder = "boundaries";
         public static string generators_folder = "generators";
         public static string template_variable = @"<<[^\$]*?\$\({0}\).*?>>";
 
@@ -171,6 +172,22 @@ namespace ASCompletion.Completion
             return MemberModel.FormatType(type);
         }
 
+        public static MemberModel GetTemplateBlockMember(ScintillaNet.ScintillaControl Sci, string blockTmpl)
+        {
+            MemberModel latest = null;
+            blockTmpl = blockTmpl.Replace("\n", ASComplete.GetNewLineMarker(Sci.EOLMode));
+            string allText = Sci.Text;
+            int funcBlockIndex = allText.IndexOf(blockTmpl);
+            if (funcBlockIndex != -1)
+            {
+                int blockLine = Sci.LineFromPosition(funcBlockIndex);
+                latest = new MemberModel();
+                latest.LineFrom = blockLine;
+                latest.LineTo = blockLine;
+            }
+            return latest;
+        }
+
         /// <summary>
         /// Templates are stored in the plugin's Data folder
         /// </summary>
@@ -192,6 +209,26 @@ namespace ASCompletion.Completion
                 sr.Close();
             }
             return "$(Boundary)" + content + "$(Boundary)";
+        }
+
+        public static string GetBoundary(string name)
+        {
+            string lang = PluginBase.MainForm.CurrentDocument.SciControl.ConfigurationLanguage.ToLower();
+            string path = Path.Combine(PathHelper.SnippetDir, lang);
+            path = Path.Combine(path, boundaries_folder);
+            path = Path.Combine(path, name + ".fds");
+            if (!File.Exists(path)) return "";
+
+            Stream src = File.OpenRead(path);
+            if (src == null) return "";
+
+            String content;
+            using (StreamReader sr = new StreamReader(src))
+            {
+                content = sr.ReadToEnd();
+                sr.Close();
+            }
+            return content;
         }
     }
 }

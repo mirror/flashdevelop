@@ -799,13 +799,22 @@ namespace ASCompletion.Completion
                 case GeneratorJobType.Setter:
                 case GeneratorJobType.GetterSetter:
                     string name = GetPropertyNameFor(member);
-
                     PropertiesGenerationLocations location = ASContext.CommonSettings.PropertiesGenerationLocation;
-                    if (location == PropertiesGenerationLocations.AfterLastPropertyDeclaration)
+
+                    latest = TemplateUtils.GetTemplateBlockMember(Sci,
+                        TemplateUtils.GetBoundary("AccessorsMethods"));
+                    if (latest != null)
                     {
-                        latest = FindLatest(FlagType.Getter | FlagType.Setter, 0, inClass, false, false);
+                        location = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
                     }
-                    else latest = member;
+                    else
+                    {
+                        if (location == PropertiesGenerationLocations.AfterLastPropertyDeclaration)
+                        {
+                            latest = FindLatest(FlagType.Getter | FlagType.Setter, 0, inClass, false, false);
+                        }
+                        else latest = member;
+                    }
                     if (latest == null) return;
 
                     Sci.BeginUndoAction();
@@ -846,10 +855,17 @@ namespace ASCompletion.Completion
 
                 case GeneratorJobType.BasicEvent:
                 case GeneratorJobType.ComplexEvent:
-                    if (ASContext.CommonSettings.MethodsGenerationLocations == MethodsGenerationLocations.AfterSimilarAccessorMethod)
-                        latest = GetLatestMemberForFunction(inClass, GetDefaultVisibility(), member);
+
+                    latest = TemplateUtils.GetTemplateBlockMember(Sci,
+                        TemplateUtils.GetBoundary("EventhandlersMethods"));
                     if (latest == null)
-                        latest = member;
+                    {
+                        if (ASContext.CommonSettings.MethodsGenerationLocations == MethodsGenerationLocations.AfterSimilarAccessorMethod)
+                            latest = GetLatestMemberForFunction(inClass, GetDefaultVisibility(), member);
+                        if (latest == null)
+                            latest = member;
+                    }
+
                     position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                     Sci.SetSel(position, position);
                     string type = contextParam;
@@ -2324,8 +2340,24 @@ namespace ASCompletion.Completion
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
 
-            latest = GetLatestMemberForFunction(inClass, funcVisi, isStatic);
-
+            string blockTmpl = null;
+            if ((isStatic.Flags & FlagType.Static) > 0)
+            {
+                blockTmpl = TemplateUtils.GetBoundary("StaticMethods");
+            }
+            else if ((funcVisi & Visibility.Public) > 0)
+            {
+                blockTmpl = TemplateUtils.GetBoundary("PublicMethods");
+            }
+            else
+            {
+                blockTmpl = TemplateUtils.GetBoundary("PrivateMethods");
+            }
+            latest = TemplateUtils.GetTemplateBlockMember(Sci, blockTmpl);
+            if (latest == null)
+            {
+                latest = GetLatestMemberForFunction(inClass, funcVisi, isStatic);
+            }
 
             // if we generate function in current class..
             if (!isOtherClass)
