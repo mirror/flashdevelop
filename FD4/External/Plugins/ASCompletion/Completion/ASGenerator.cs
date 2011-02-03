@@ -857,7 +857,7 @@ namespace ASCompletion.Completion
                 case GeneratorJobType.ComplexEvent:
 
                     latest = TemplateUtils.GetTemplateBlockMember(Sci,
-                        TemplateUtils.GetBoundary("EventhandlersMethods"));
+                        TemplateUtils.GetBoundary("EventHandlers"));
                     if (latest == null)
                     {
                         if (ASContext.CommonSettings.MethodsGenerationLocations == MethodsGenerationLocations.AfterSimilarAccessorMethod)
