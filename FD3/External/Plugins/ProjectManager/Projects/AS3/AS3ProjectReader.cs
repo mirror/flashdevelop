@@ -14,9 +14,23 @@ namespace ProjectManager.Projects.AS3
             this.project = base.Project as AS3Project;
         }
 
-        public new AS3Project ReadProject()
+        public override Project ReadProject()
         {
-            return base.ReadProject() as AS3Project;
+            AS3Project project = base.ReadProject() as AS3Project;
+
+            // re-import FlashDevelop 4 AIR projects
+            if (project.MovieOptions.Version <= 2)
+            {
+                project.MovieOptions.Version = project.MovieOptions.Version < 2 ? 9 : 10;
+                List<String> add = new List<string>();
+                add.Add("+configname=air");
+                if (project.CompilerOptions.Additional != null) add.AddRange(project.CompilerOptions.Additional);
+                project.CompilerOptions.Additional = add.ToArray();
+
+                project.TestMovieBehavior = TestMovieBehavior.Custom;
+                project.TestMovieCommand = @"$(FlexSDK)\bin\adl.exe;application.xml bin";
+            }
+            return project;
         }
 
         // process AS3-specific stuff
