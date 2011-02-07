@@ -331,7 +331,7 @@ namespace TaskListPanel
             Settings settings = (Settings)this.pluginMain.Settings;
             foreach (String exclude in settings.ExcludedPaths)
             {
-                if (Directory.Exists(exclude) && path.StartsWith(exclude))
+                if (Directory.Exists(exclude) && path.StartsWith(exclude, StringComparison.OrdinalIgnoreCase))
                 {
                     return false;
                 }

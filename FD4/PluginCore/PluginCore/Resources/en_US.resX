@@ -1472,9 +1472,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ProjectManager.Description.Benchmark" xml:space="preserve">
     <value>Prints detailed compile times to the output panel.</value>
   </data>
-  <data name="ProjectManager.Description.CustomSDK" xml:space="preserve">
-    <value>Use this option to set a different path to the Flex SDK.</value>
-  </data>
   <data name="ProjectManager.Description.DeclareOverride" xml:space="preserve">
     <value>Ensure overriden methods are declared with "override".</value>
   </data>
@@ -2446,9 +2443,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="FlashDevelop.Label.Debug" xml:space="preserve">
     <value>&amp;Debug</value>
   </data>
-  <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
-    <value>The Project's Custom Path to Flex SDK is invalid. Please correct it in the Project Properties (Compiler Options).</value>
-  </data>
   <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
     <value>FlashDevelop Arguments (*.fda)</value>
   </data>
@@ -3241,9 +3235,6 @@ Please note that with injection enabled, you will not be able to use many projec
   </data>
   <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
     <value>Cannot find the output file.</value>
-  </data>
-  <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
-    <value>The Flex SDK is not properly configured. See AS3Context from main Program Settings.</value>
   </data>
   <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
     <value>Continuing due to error '${error}'</value>
@@ -4715,5 +4706,9 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
     <value>Use a SDK configured globally.</value>
     <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
+    <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
+    <comment>Added in FD4</comment>
   </data>
 </root>

@@ -130,7 +130,9 @@ namespace ProjectManager
 
             this.project = project;
             menu.Project = project;
+
             tree.Project = project;
+            tree_AfterSelect(tree, null);
 
             help.Visible = (project == null);
 
@@ -248,7 +250,7 @@ namespace ProjectManager
             menu.Configure(tree.SelectedNodes);
             // notify other plugins of tree nodes selection - ourben@fdc
             DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.TreeSelectionChanged, tree.SelectedNodes);
-            EventManager.DispatchEvent(sender, de); 
+            EventManager.DispatchEvent(tree, de); 
         }
 
         /// <summary>

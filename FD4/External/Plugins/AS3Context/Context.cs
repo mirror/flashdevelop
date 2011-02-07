@@ -26,6 +26,9 @@ namespace AS3Context
         static readonly protected Regex re_syntaxError =
             new Regex("(?<filename>.*)\\$raw\\$:(?<line>[0-9]+): col: (?<col>[0-9]+):(?<desc>.*)", RegexOptions.Compiled);
         
+        static readonly protected Regex re_customAPI =
+            new Regex("[/\\\\](player|air)global\\.swc", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         #region initialization
         private AS3Settings as3settings;
         private bool hasAIRSupport;
@@ -133,6 +136,7 @@ namespace AS3Context
             ParseVersion(as3settings.DefaultFlashVersion, ref majorVersion, ref minorVersion);
             string exPath = ExtractPlatformVersion();
             hasAIRSupport = platform == "AIR";
+            bool hasCustomAPI = re_customAPI.IsMatch(exPath);
 
             //
             // Class pathes
@@ -164,30 +168,43 @@ namespace AS3Context
             if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
             {
                 string libPlayer = sdkLibs + S + "player";
-                if (hasAIRSupport)
-                {
-                    addLibs.Add("air" + S + "airglobal.swc");
-                    addLibs.Add("air" + S + "aircore.swc");
-                    addLibs.Add("air" + S + "applicationupdater.swc");
-                }
-                else
-                {
-                    string playerglobal = null;
-                    for (int i = minorVersion; i >= 0; i--)
+                // core API SWC
+                if (!hasCustomAPI)
+                    if (hasAIRSupport)
                     {
-                        string version = majorVersion + "." + i;
-                        if (Directory.Exists(libPlayer + S + version))
-                        {
-                            playerglobal = "player" + S + version + S + "playerglobal.swc";
-                            break;
-                        }
+                        addLibs.Add("air" + S + "airglobal.swc");
+                        addLibs.Add("air" + S + "aircore.swc");
+                        addLibs.Add("air" + S + "applicationupdater.swc");
                     }
-                    if (playerglobal == null && Directory.Exists(libPlayer + S + majorVersion))
-                        playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
-                    if (playerglobal != null) addLibs.Add(playerglobal);
-                }
+                    else 
+                    {
+                        string playerglobal = null;
+                        for (int i = minorVersion; i >= 0; i--)
+                        {
+                            string version = majorVersion + "." + i;
+                            if (Directory.Exists(libPlayer + S + version))
+                            {
+                                playerglobal = "player" + S + version + S + "playerglobal.swc";
+                                break;
+                            }
+                        }
+                        if (playerglobal == null && Directory.Exists(libPlayer + S + majorVersion))
+                            playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
+                        if (playerglobal == null) // fallback
+                        {
+                            string[] dirs = Directory.GetDirectories(libPlayer);
+                            foreach(string dir in dirs)
+                                if (File.Exists(dir + S + "playerglobal.swc"))
+                                {
+                                    playerglobal = dir + S + "playerglobal.swc";
+                                    break;
+                                }
+                        }
+                        if (playerglobal != null) addLibs.Add(playerglobal);
+                    }
                 addLocales.Add("playerglobal_rb.swc");
 
+                // framework SWCs
                 string test = exPath.Replace('\\', '/');
                 string as3Fmk = PathHelper.ResolvePath("Library" + S + "AS3" + S + "frameworks");
 

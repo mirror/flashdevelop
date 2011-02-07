@@ -1471,9 +1471,6 @@
   <data name="ProjectManager.Description.Benchmark" xml:space="preserve">
     <value>出力パネルにコンパイル結果の詳細を表示します。</value>
   </data>
-  <data name="ProjectManager.Description.CustomSDK" xml:space="preserve">
-    <value>プロジェクトで使用する Flex SDK を指定します。</value>
-  </data>
   <data name="ProjectManager.Description.DeclareOverride" xml:space="preserve">
     <value>オーバーライドしたメソッドが確実に "override" 付きで宣言されるようにします。</value>
   </data>
@@ -2434,9 +2431,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="FlashDevelop.Label.Debug" xml:space="preserve">
     <value>デバッグ(&amp;D)</value>
   </data>
-  <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
-    <value>このプロジェクトの Flex SDK へのパスが間違っています。プロジェクト設定のコンパイル設定を修正してください。</value>
-  </data>
   <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
     <value>FlashDevelop アーギュメント (*.fda)</value>
   </data>
@@ -3230,9 +3224,6 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
     <value>出力ファイルが見つかりませんでした。</value>
-  </data>
-  <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
-    <value>Flex SDK が正しく設定されていません。 AS3Context の設定を確認してください。</value>
   </data>
   <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
     <value>継続エラー '${error}'</value>
@@ -4710,5 +4701,9 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
     <value>Use a SDK configured globally.</value>
     <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
+    <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
+    <comment>Added in FD4</comment>
   </data>
 </root>

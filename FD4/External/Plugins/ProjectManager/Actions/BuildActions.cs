@@ -101,7 +101,7 @@ namespace ProjectManager.Actions
                 compiler = GetCompilerPath(project);
                 if (compiler == null || (!Directory.Exists(compiler) && !File.Exists(compiler)))
                 {
-                    string info = TextHelper.GetString("Info.InvalidCustomCompiler");
+                    string info = TextHelper.GetString("Info.CheckSDKSettings");
                     MessageBox.Show(info, TextHelper.GetString("Title.ConfigurationRequired"), MessageBoxButtons.OK);
                     return false;
                 }

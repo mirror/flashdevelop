@@ -1490,9 +1490,6 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   <data name="ProjectManager.Description.Benchmark" xml:space="preserve">
     <value>Gibt detailierte Zeitangaben des Komiliervorgangs im Ausgabefenster aus.</value>
   </data>
-  <data name="ProjectManager.Description.CustomSDK" xml:space="preserve">
-    <value>Wenn dieses Projekt eine spezielle Version des Flex SDKs verwendet, geben Sie sie hier an.</value>
-  </data>
   <data name="ProjectManager.Description.DeclareOverride" xml:space="preserve">
     <value>Wenn aktiviert müssen Sie zum Überschreiben einer Methodedas Schlüsselwort "override" verwenden.</value>
   </data>
@@ -2449,9 +2446,6 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   <data name="FlashDevelop.Label.Debug" xml:space="preserve">
     <value>&amp;Debuggen</value>
   </data>
-  <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
-    <value>Der benutzerdefinierte Adobe Flex SDK Pfad ist ungültig. Bitte überprüfen Sie die Einstellung in den Projekteinstellungen.</value>
-  </data>
   <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
     <value>FlashDevelop Argumente (*.fda)</value>
   </data>
@@ -3247,9 +3241,6 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
     <value>Die SWF-Datei konnte nicht gefunden werden.</value>
-  </data>
-  <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
-    <value>Der Pfad zum Flex SDK ist ungültig. Ändern Sie die Einstellung "Flex SDK Verzeichnis" in den AS3Context-Einstellungen.</value>
   </data>
   <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
     <value>Aufgrund des Fehlers '${error}' wird weiter fortgefahren.</value>
@@ -4714,5 +4705,9 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
     <value>Standard-SDK verwenden.</value>
     <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
+    <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
+    <comment>Added in FD4</comment>
   </data>
 </root>
