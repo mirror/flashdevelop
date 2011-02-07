@@ -16,12 +16,13 @@ using PluginCore.Managers;
 using PluginCore.Controls;
 using ScintillaNet;
 using PluginCore;
+using System.Threading;
 
 namespace TaskListPanel
 {
     public class PluginUI : DockPanelControl, IEventHandler
     {
-        private Timer parseTimer;
+        private System.Windows.Forms.Timer parseTimer;
         private Int32 totalFiles;
         private Int32 currentPos;
         private List<String> groups;
@@ -46,6 +47,7 @@ namespace TaskListPanel
         private ColumnHeader columnName;
         private ColumnHeader columnPath;
         private ListView listView;
+        private BackgroundWorker bgWork;
 
         public PluginUI(PluginMain pluginMain)
         {
@@ -78,7 +80,7 @@ namespace TaskListPanel
                 ErrorManager.ShowError(ex);
                 this.isEnabled = false;
             }
-            this.parseTimer = new Timer();
+            this.parseTimer = new System.Windows.Forms.Timer();
             this.parseTimer.Interval = 2000;
             this.parseTimer.Tick += delegate { this.ParseNextFile(); };
             this.parseTimer.Enabled = false;
@@ -274,30 +276,34 @@ namespace TaskListPanel
         /// <summary>
         /// Get all available files with extension matches, filters out hidden paths.
         /// </summary>
-        private List<String> GetFiles(String projectPath)
+        private List<String> GetFiles(String path, ExplorationContext context)
         {
             List<String> files = new List<String>();
-            if (!Directory.Exists(projectPath))
-            {
-                return files;
-            }
+
             foreach (String extension in this.extensions)
             {
-                String[] hiddenPaths = PluginBase.CurrentProject.GetHiddenPaths();
-                String[] allFiles = Directory.GetFiles(projectPath, "*" + extension, SearchOption.AllDirectories);
+                String[] allFiles = Directory.GetFiles(path, "*" + extension);
                 files.AddRange(allFiles);
                 foreach (String file in allFiles)
                 {
-                   foreach (String path in hiddenPaths)
-                   {
-                       String compFile = Path.GetFullPath(file);
-                       String compPath = PluginBase.CurrentProject.GetAbsolutePath(path);
-                       if (compFile.ToUpper().StartsWith(compPath.ToUpper()))
-                       {
-                           files.Remove(file);
-                       }
-                   }
+                    foreach (String hidden in context.HiddenPaths)
+                    {
+                        if (file.StartsWith(hidden, StringComparison.OrdinalIgnoreCase))
+                        {
+                            files.Remove(file);
+                        }
+                    }
                 }
+            }
+            // in depth
+            foreach (String dir in Directory.GetDirectories(path))
+            {
+                if (context.Worker.CancellationPending)
+                    return new List<string>();
+                Thread.Sleep(5);
+
+                if (this.shouldBeScanned(dir, context.ExcludedPaths)) 
+                    files.AddRange(GetFiles(dir, context));
             }
             return files;
         }
@@ -305,18 +311,20 @@ namespace TaskListPanel
         /// <summary>
         /// Get all available files with extension match
         /// </summary>
-        private List<String> GetFiles(String[] paths)
+        private List<String> GetFiles(ExplorationContext context)
         {
             List<String> files = new List<String>();
-            foreach (String path in paths)
+            foreach (String path in context.Directories)
             {
+                if (context.Worker.CancellationPending)
+                    return new List<string>();
+                Thread.Sleep(5);
+
                 try
                 {
                     String projDir = PluginBase.CurrentProject.GetAbsolutePath(path);
-                    if (this.shouldBeScanned(projDir))
-                    {
-                        files.AddRange(this.GetFiles(projDir));
-                    }
+                    if (this.shouldBeScanned(projDir, context.ExcludedPaths))
+                        files.AddRange(this.GetFiles(projDir, context));
                 }
                 catch {}
             }
@@ -326,15 +334,14 @@ namespace TaskListPanel
         /// <summary>
         /// Checks if the path should be scanned for tasks
         /// </summary>
-        private Boolean shouldBeScanned(String path)
+        private Boolean shouldBeScanned(String path, string[] excludedPaths)
         {
-            Settings settings = (Settings)this.pluginMain.Settings;
-            foreach (String exclude in settings.ExcludedPaths)
+            String name = Path.GetFileName(path);
+            if ("._- ".IndexOf(name[0]) >= 0) return false;
+            foreach (String exclude in excludedPaths)
             {
-                if (Directory.Exists(exclude) && path.StartsWith(exclude, StringComparison.OrdinalIgnoreCase))
-                {
+                if (!Directory.Exists(path) || path.StartsWith(exclude, StringComparison.OrdinalIgnoreCase))
                     return false;
-                }
             }
             return true;
         }
@@ -365,22 +372,59 @@ namespace TaskListPanel
         {
             this.currentPos = -1;
             this.currentFileName = null;
+
             if (this.isEnabled && PluginBase.CurrentProject != null)
             {
                 this.RefreshEnabled = false;
+
+                // stop current exploration
                 if (this.parseTimer.Enabled) this.parseTimer.Stop();
-                Hashtable table = new Hashtable();
-                table["status"] = 0;
-                table["files"] = this.GetFiles(PluginBase.CurrentProject.SourcePaths);
-                this.parseTimer.Tag = table;
-                this.parseTimer.Interval = 2000;
-                this.parseTimer.Enabled = true;
-                this.parseTimer.Start();
-                this.totalFiles = ((List<String>)table["files"]).Count;
-                this.processedFiles = 0;
+                this.parseTimer.Tag = null;
+                if (bgWork != null && bgWork.IsBusy)
+                    bgWork.CancelAsync();
+                
+                // context
+                ExplorationContext context = new ExplorationContext();
+                Settings settings = (Settings)this.pluginMain.Settings;
+                context.ExcludedPaths = (string[])settings.ExcludedPaths.Clone();
+                context.Directories = (string[])PluginBase.CurrentProject.SourcePaths.Clone();
+                context.HiddenPaths = PluginBase.CurrentProject.GetHiddenPaths();
+                for (int i = 0; i < context.HiddenPaths.Length; i++)
+                    context.HiddenPaths[i] = PluginBase.CurrentProject.GetAbsolutePath(context.HiddenPaths[i]);
+
+                // run background
+                bgWork = new BackgroundWorker();
+                context.Worker = bgWork;
+                bgWork.WorkerSupportsCancellation = true;
+                bgWork.DoWork += new DoWorkEventHandler(bgWork_DoWork);
+                bgWork.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWork_RunWorkerCompleted);
+                bgWork.RunWorkerAsync(context);
+                
                 String message = TextHelper.GetString("Info.Refreshing");
                 this.toolStripLabel.Text = message;
             }
+        }
+
+        void bgWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled) return;
+
+            ExplorationContext context = e.Result as ExplorationContext;
+            this.parseTimer.Tag = context;
+            this.parseTimer.Interval = 2000;
+            this.parseTimer.Enabled = true;
+            this.parseTimer.Start();
+            this.totalFiles = context.Files.Count;
+            this.processedFiles = 0;
+        }
+
+        void bgWork_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ExplorationContext context = e.Argument as ExplorationContext;
+            context.Files = this.GetFiles(context);
+            if (context.Worker.CancellationPending) 
+                e.Cancel = true;
+            else e.Result = context;
         }
 
         /// <summary>
@@ -390,19 +434,19 @@ namespace TaskListPanel
         {
             String path;
             Int32 status;
-            Hashtable table;
-            if (this.parseTimer.Tag is Hashtable)
+            ExplorationContext context;
+            if (this.parseTimer.Tag is ExplorationContext)
             {
-                table = (Hashtable)this.parseTimer.Tag;
-                status = (Int32)table["status"];
+                context = (ExplorationContext)this.parseTimer.Tag;
+                status = context.Status;
                 if (status == 0)
                 {
-                    table["status"] = 1;
-                    this.parseTimer.Interval = 80;
+                    context.Status = 1;
+                    this.parseTimer.Interval = 10;
                 }
                 else if (status == 1)
                 {
-                    List<string> files = table["files"] as List<string>;
+                    List<string> files = context.Files;
                     if (files != null && files.Count > 0)
                     {
                         Boolean parseFile = false;
@@ -424,7 +468,7 @@ namespace TaskListPanel
                         this.toolStripLabel.Text = String.Format(message, processedFiles, totalFiles);
                         this.refreshButton.Enabled = false;
                     }
-                    else table["status"] = 2;
+                    else context.Status = 2;
                 }
                 else this.ParseTimerCompleted();
             }
@@ -454,7 +498,8 @@ namespace TaskListPanel
         private void ParseFile(String path)
         {
             if (!File.Exists(path)) return;
-            Hashtable itemTag; ListViewItem item;
+            Hashtable itemTag; 
+            ListViewItem item;
             EncodingFileInfo info = FileHelper.GetEncodingFileInfo(path);
             if (info.CodePage == -1) return; // If the file is locked, stop.
             MatchCollection matches = this.todoParser.Matches(info.Contents);
@@ -749,4 +794,13 @@ namespace TaskListPanel
 
     }
 
+    class ExplorationContext
+    {
+        public int Status = 0;
+        public List<String> Files;
+        public BackgroundWorker Worker;
+        public string[] Directories;
+        public string[] ExcludedPaths;
+        public string[] HiddenPaths;
+    }
 }
