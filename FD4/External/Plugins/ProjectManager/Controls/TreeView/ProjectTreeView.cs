@@ -21,6 +21,7 @@ namespace ProjectManager.Controls.TreeView
         Dictionary<string, GenericNode> nodeMap;
 		Project project;
 		string pathToSelect;
+        List<string> previouslyExpanded;
 
 		public static ProjectTreeView Instance;
 		public event DragPathEventHandler MovePath;
@@ -123,10 +124,25 @@ namespace ProjectManager.Controls.TreeView
 			set
 			{
 				project = value;
-				RebuildTree(false);
 
-                if (project != null)
-                    ExpandedPaths = PluginMain.Settings.GetPrefs(project).ExpandedPaths;
+                BeginUpdate();
+                try
+                {
+                    Visible = false;
+                    RebuildTree(false, false);
+
+                    if (project != null)
+                    {
+                        ExpandedPaths = PluginMain.Settings.GetPrefs(project).ExpandedPaths;
+                        Win32.Scrolling.SetScrollPos(this, new Point());
+                    }
+                    if (Nodes.Count > 0) SelectedNode = Nodes[0] as GenericNode;
+                }
+                finally
+                {
+                    Visible = true;
+                    EndUpdate();
+                }
 			}
 		}
 
@@ -204,7 +220,7 @@ namespace ProjectManager.Controls.TreeView
 							node.Expand();
 							node.Refresh(false);
 						}
-					}	
+					}
 			}
 		}
 
@@ -235,114 +251,116 @@ namespace ProjectManager.Controls.TreeView
 		public void RebuildTree(bool saveState, bool restoreExpanded)
 		{
 			// store old tree state
-            List<string> previouslyExpanded = restoreExpanded ? ExpandedPaths : new List<string>();
-			
-			foreach (GenericNode node in Nodes)
-				node.Dispose();
+            List<string> previouslyExpanded = restoreExpanded ? ExpandedPaths : null;
+            Point scrollPos = restoreExpanded ? Win32.Scrolling.GetScrollPos(this) : new Point();
 
-			BeginUpdate();
-
-			SelectedNodes = null;
-			Nodes.Clear();
-			nodeMap.Clear();
-			ShowRootLines = false;
-			
-			if (project == null)
-			{
-				EndUpdate();
-				return;
-			}
-
-			// create the top-level project node
-			ProjectNode projectNode = new ProjectNode(project);
-			Nodes.Add(projectNode);
-			projectNode.Refresh(true);
-			projectNode.Expand();
-
-            ArrayList projectClasspaths = new ArrayList();
-            ArrayList globalClasspaths = new ArrayList();
-
-            if (PluginMain.Settings.ShowProjectClasspaths)
-                projectClasspaths.AddRange(project.Classpaths);
-
-			if (PluginMain.Settings.ShowGlobalClasspaths)
-                globalClasspaths.AddRange(PluginMain.Settings.GlobalClasspaths);
-
-            ClasspathNode cpNode;
-
-            foreach (string projectClasspath in projectClasspaths)
+            BeginUpdate();
+            try
             {
-                string absolute = projectClasspath;
-                if (!Path.IsPathRooted(absolute))
-                    absolute = project.GetAbsolutePath(projectClasspath);
-                if ((absolute + "\\").StartsWith(project.Directory + "\\"))
-                    continue;
+                foreach (GenericNode node in Nodes)
+                    node.Dispose();
 
-                cpNode = new ProjectClasspathNode(project, absolute, projectClasspath);
-                Nodes.Add(cpNode);
-                cpNode.Refresh(true);
-                ShowRootLines = true;
-            }
+                SelectedNodes = null;
+                Nodes.Clear();
+                nodeMap.Clear();
+                ShowRootLines = false;
 
-            foreach (string globalClasspath in globalClasspaths)
-            {
-                string absolute = globalClasspath;
-                if (!Path.IsPathRooted(absolute))
-                    absolute = project.GetAbsolutePath(globalClasspath);
-                if (absolute.StartsWith(project.Directory + Path.DirectorySeparatorChar.ToString()))
-                    continue;
+                if (project == null)
+                    return;
 
-                cpNode = new ClasspathNode(project, absolute, globalClasspath);
-                Nodes.Add(cpNode);
-                cpNode.Refresh(true);
-                ShowRootLines = true;
-            }
+                // create the top-level project node
+                ProjectNode projectNode = new ProjectNode(project);
+                Nodes.Add(projectNode);
+                projectNode.Refresh(true);
+                projectNode.Expand();
 
+                ArrayList projectClasspaths = new ArrayList();
+                ArrayList globalClasspaths = new ArrayList();
 
-            // add external libraries at the top level also
-            if (project is AS3Project)
-            foreach (LibraryAsset asset in (project as AS3Project).SwcLibraries)
-            {
-                if (!asset.IsSwc) continue;
-                // check if SWC is inside the project or inside a classpath
-                string absolute = asset.Path;
-                if (!Path.IsPathRooted(absolute))
-                    absolute = project.GetAbsolutePath(asset.Path);
+                if (PluginMain.Settings.ShowProjectClasspaths)
+                    projectClasspaths.AddRange(project.Classpaths);
 
-                bool showNode = true;
-                if (absolute.StartsWith(project.Directory))
-                    showNode = false;
-                foreach (string path in project.AbsoluteClasspaths)
-                    if (absolute.StartsWith(path))
-                    {
-                        showNode = false;
-                        break;
-                    }
-                foreach (string path in PluginMain.Settings.GlobalClasspaths)
-                    if (absolute.StartsWith(path))
-                    {
-                        showNode = false;
-                        break;
-                    }
+                if (PluginMain.Settings.ShowGlobalClasspaths)
+                    globalClasspaths.AddRange(PluginMain.Settings.GlobalClasspaths);
 
-                if (showNode && File.Exists(absolute))
+                ClasspathNode cpNode;
+
+                foreach (string projectClasspath in projectClasspaths)
                 {
-                    SwfFileNode swcNode = new SwfFileNode(absolute);
-                    Nodes.Add(swcNode);
-                    swcNode.Refresh(true);
+                    string absolute = projectClasspath;
+                    if (!Path.IsPathRooted(absolute))
+                        absolute = project.GetAbsolutePath(projectClasspath);
+                    if ((absolute + "\\").StartsWith(project.Directory + "\\"))
+                        continue;
+
+                    cpNode = new ProjectClasspathNode(project, absolute, projectClasspath);
+                    Nodes.Add(cpNode);
+                    cpNode.Refresh(true);
                     ShowRootLines = true;
                 }
+
+                foreach (string globalClasspath in globalClasspaths)
+                {
+                    string absolute = globalClasspath;
+                    if (!Path.IsPathRooted(absolute))
+                        absolute = project.GetAbsolutePath(globalClasspath);
+                    if (absolute.StartsWith(project.Directory + Path.DirectorySeparatorChar.ToString()))
+                        continue;
+
+                    cpNode = new ClasspathNode(project, absolute, globalClasspath);
+                    Nodes.Add(cpNode);
+                    cpNode.Refresh(true);
+                    ShowRootLines = true;
+                }
+
+
+                // add external libraries at the top level also
+                if (project is AS3Project)
+                    foreach (LibraryAsset asset in (project as AS3Project).SwcLibraries)
+                    {
+                        if (!asset.IsSwc) continue;
+                        // check if SWC is inside the project or inside a classpath
+                        string absolute = asset.Path;
+                        if (!Path.IsPathRooted(absolute))
+                            absolute = project.GetAbsolutePath(asset.Path);
+
+                        bool showNode = true;
+                        if (absolute.StartsWith(project.Directory))
+                            showNode = false;
+                        foreach (string path in project.AbsoluteClasspaths)
+                            if (absolute.StartsWith(path))
+                            {
+                                showNode = false;
+                                break;
+                            }
+                        foreach (string path in PluginMain.Settings.GlobalClasspaths)
+                            if (absolute.StartsWith(path))
+                            {
+                                showNode = false;
+                                break;
+                            }
+
+                        if (showNode && File.Exists(absolute))
+                        {
+                            SwfFileNode swcNode = new SwfFileNode(absolute);
+                            Nodes.Add(swcNode);
+                            swcNode.Refresh(true);
+                            ShowRootLines = true;
+                        }
+                    }
+
+                // restore tree state
+                if (restoreExpanded)
+                {
+                    ExpandedPaths = previouslyExpanded;
+                    SelectedNode = projectNode;
+                    Win32.Scrolling.SetScrollPos(this, scrollPos);
+                }
             }
-
-			// restore tree state
-			ExpandedPaths = previouslyExpanded;
-
-			// scroll to the top
-			projectNode.EnsureVisible();
-			SelectedNode = projectNode;
-			Win32.Scrolling.scrollToLeft(this);
-
-			EndUpdate();
+            finally
+            {
+                EndUpdate();
+            }
 		}
 
 		/// <summary>

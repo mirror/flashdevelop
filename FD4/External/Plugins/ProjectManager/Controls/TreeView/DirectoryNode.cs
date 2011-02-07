@@ -10,10 +10,12 @@ using PluginCore.Managers;
 using ProjectManager.Projects;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Controls.AS3;
+using System.Runtime.InteropServices;
 
 namespace ProjectManager.Controls.TreeView
 {
     public delegate void DirectoryNodeRefresh(DirectoryNode node);
+    public delegate void DirectoryNodeMapping(DirectoryNode node, FileMappingRequest request);
 
     public class PlaceholderNode : GenericNode
     {
@@ -23,6 +25,7 @@ namespace ProjectManager.Controls.TreeView
     public class DirectoryNode : GenericNode
 	{
         static public event DirectoryNodeRefresh OnDirectoryNodeRefresh;
+        static public event DirectoryNodeMapping OnDirectoryNodeMapping;
 
 		bool dirty;
 
@@ -41,6 +44,9 @@ namespace ProjectManager.Controls.TreeView
                 node.Dispose();
 		}
 
+        [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
+        static extern bool PathIsDirectoryEmpty([In] string lpszPath);
+
 		public override void Refresh(bool recursive)
 		{
 			if (IsInvalid) return;
@@ -57,7 +63,7 @@ namespace ProjectManager.Controls.TreeView
 			SelectedImageIndex = ImageIndex;
 
 			// make the plus/minus sign correct
-            bool empty = !Directory.Exists(BackingPath) || Directory.GetFileSystemEntries(BackingPath).Length == 0;
+            bool empty = !Directory.Exists(BackingPath) || PathIsDirectoryEmpty(BackingPath);
 
             //ForeColor = SystemColors.ControlText;
 			if (!empty)
@@ -197,7 +203,7 @@ namespace ProjectManager.Controls.TreeView
                 GenericNode node = Tree.NodeMap[file];
 
                 // ensure this file is in the right spot
-                if (mapping.ContainsKey(file) && Tree.NodeMap.ContainsKey(mapping[file]))
+                if (mapping != null && mapping.ContainsKey(file) && Tree.NodeMap.ContainsKey(mapping[file]))
                     EnsureParentedBy(node, Tree.NodeMap[mapping[file]]);
                 else
                     EnsureParentedBy(node, this);
@@ -216,17 +222,17 @@ namespace ProjectManager.Controls.TreeView
         // Let another plugin extend the tree by specifying mapping
         private FileMapping GetFileMapping(string[] files)
         {
-            // Give plugins a chance to respond first
             FileMappingRequest request = new FileMappingRequest(files);
-            DataEvent e = new DataEvent(EventType.Command, ProjectManagerEvents.FileMapping, request);
-            EventManager.DispatchEvent(this, e);
+
+            // Give plugins a chance to respond first
+            if (OnDirectoryNodeMapping != null) OnDirectoryNodeMapping(this, request);
 
             // No one cares?  ok, well we do know one thing: Mxml
             if (request.Mapping.Count == 0 && Tree.Project is AS3Project 
                 && PluginMain.Settings.EnableMxmlMapping)
                 MxmlFileMapping.AddMxmlMapping(request);
 
-            return request.Mapping;
+            return request.Mapping.Count > 0 ? request.Mapping : null;
         }
 
 		/// <summary>
@@ -245,8 +251,8 @@ namespace ProjectManager.Controls.TreeView
 				if (node is FileNode && existingNode is DirectoryNode)
 					continue;
 
-				if (string.Compare(existingNode.Text,node.Text,true) > 0 ||
-					node is DirectoryNode && existingNode is FileNode)
+				if ((node is DirectoryNode && existingNode is FileNode)
+                    || string.Compare(existingNode.Text, node.Text, true) > 0)
 				{
 					nodes.Insert(i,node);
 					inserted = true;

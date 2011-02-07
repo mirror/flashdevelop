@@ -6,6 +6,7 @@ using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using PluginCore;
+using System.Drawing;
 
 namespace Win32
 {
@@ -23,10 +24,13 @@ namespace Win32
 		
 		[DllImport("User32.dll" )]
 		public static extern int GetScrollPos(IntPtr hWnd, int nBar);
+
+        [DllImport("user32.dll")]
+        static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
 		
 		[DllImport("user32", CharSet=CharSet.Auto)] 
 		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-		
+
 		public static void scrollToBottom(Control ctrl)
 		{
 		    int min, max;
@@ -50,5 +54,18 @@ namespace Win32
 		{
 			SendMessage(ctrl.Handle, WM_HSCROLL, SB_LEFT, 0);
 		}
+
+        public static Point GetScrollPos(Control ctrl)
+        {
+            return new Point(
+                GetScrollPos(ctrl.Handle, SB_HORZ),
+                GetScrollPos(ctrl.Handle, SB_VERT));
+        }
+
+        public static void SetScrollPos(Control ctrl, Point scrollPosition)
+        {
+            SetScrollPos(ctrl.Handle, SB_HORZ, scrollPosition.X, true);
+            SetScrollPos(ctrl.Handle, SB_VERT, scrollPosition.Y, true);
+        }
 	}
 }
