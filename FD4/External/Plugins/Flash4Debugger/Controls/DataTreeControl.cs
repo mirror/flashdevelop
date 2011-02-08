@@ -283,8 +283,9 @@ namespace FlashDebugger.Controls
                                     ValueExp exp = b.parse(new java.io.StringReader(cmd));
                                     var ctx = new ExpressionContext(flashInterface.Session, flashInterface.Session.getFrames()[PluginMain.debugManager.CurrentFrame]);
                                     var obj = exp.evaluate(ctx);
-                                    if (obj is flash.tools.debugger.concrete.DValue) obj = new flash.tools.debugger.concrete.DVariable("child_" + i, (flash.tools.debugger.concrete.DValue)obj);
-									DataNode childNode = new DataNode((Variable)obj);
+                                    if (obj is flash.tools.debugger.concrete.DValue) obj = new flash.tools.debugger.concrete.DVariable("getChildAt(" + i + ")", (flash.tools.debugger.concrete.DValue)obj);
+                                    DataNode childNode = new DataNode((Variable)obj);
+                                    childNode.Text = "child_" + i;
 									childrenNode.Nodes.Add(childNode);
 								}
                                 catch (Exception) { }
