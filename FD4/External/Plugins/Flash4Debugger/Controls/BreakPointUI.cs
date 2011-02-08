@@ -214,6 +214,17 @@ namespace FlashDebugger
             return -1;
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BreakPointUI
+            // 
+            this.Name = "BreakPointUI";
+            this.ResumeLayout(false);
+
+        }
+
     }
 
 }

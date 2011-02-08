@@ -50,6 +50,9 @@ namespace FlashDebugger
             tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewWatchPanel"), pluginImage, new EventHandler(this.OpenWatchPanel));
             PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowWatch", tempItem);
             viewMenu.DropDownItems.Add(tempItem);
+            tempItem = new ToolStripMenuItem("Immediate"/*TextHelper.GetString("Label.ViewImmediatePanel")*/, pluginImage, new EventHandler(this.OpenImmediatePanel));
+            PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowImmediate", tempItem);
+            viewMenu.DropDownItems.Add(tempItem);
 
             // Menu           
             ToolStripMenuItem debugMenu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("DebugMenu");
@@ -149,12 +152,17 @@ namespace FlashDebugger
             PanelsHelper.stackframePanel.Show();
         }
 
-		public void OpenWatchPanel(Object sender, System.EventArgs e)
-		{
-			PanelsHelper.watchPanel.Show();
-		}
+        public void OpenWatchPanel(Object sender, System.EventArgs e)
+        {
+            PanelsHelper.watchPanel.Show();
+        }
 
-		/// <summary>
+        public void OpenImmediatePanel(Object sender, System.EventArgs e)
+        {
+            PanelsHelper.immediatePanel.Show();
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         void StartContinue_Click(Object sender, EventArgs e)

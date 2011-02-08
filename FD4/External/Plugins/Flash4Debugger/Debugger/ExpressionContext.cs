@@ -30,7 +30,11 @@ namespace FlashDebugger
 
         public Context createContext(java.lang.Object par0)
         {
-            return new ExpressionContext(session, frame, ((Variable)par0).getValue()); // always value?
+            Value val;
+            if (par0 is Variable) val = ((Variable)par0).getValue();
+            else if (par0 is Value) val = (Value)par0;
+            else throw new NotImplementedException();
+            return new ExpressionContext(session, frame, val);
         }
 
         public void createPseudoVariables(bool par0)
@@ -79,7 +83,54 @@ namespace FlashDebugger
 
         public java.lang.Object lookupMembers(java.lang.Object par0)
         {
+            java.lang.String name = "?";
+            Value val = null;
+
+            if (par0 is Value)
+            {
+                val = (Value)par0;
+            }
+            
+            if (par0 is Variable)
+            {
+                Variable var0 = (Variable)par0;
+                name = var0.getName();
+                val = var0.getValue();
+            }
+
+            if (val != null)
+            {
+   				int type = val.getType();
+                if (type == VariableType_.MOVIECLIP || type == VariableType_.OBJECT)
+                {
+                    java.lang.String ret = name + " = " + FormatValue(val) + "\r\n";
+                    foreach (Variable v in val.getMembers(session))
+                    {
+                        ret += " " + v.getName() + " = " + FormatValue(v.getValue()) + "\r\n";
+                    }
+                    return ret;
+                }
+                return new java.lang.String(name + " = " + val.getValueAsString());
+            }
+
+            //NoSuchVariableException
+
             throw new NotImplementedException();
+        }
+
+        public java.lang.String FormatValue(Value val)
+        {
+            java.lang.String ret = "";
+			int type = val.getType();
+            if (type == VariableType_.MOVIECLIP || type == VariableType_.OBJECT)
+            {
+                ret = val.getTypeName();
+            }
+            else
+            {
+                ret = val.getValueAsString();
+            }
+            return ret;
         }
 
         public Value toValue(java.lang.Object par0)

@@ -26,6 +26,10 @@ namespace FlashDebugger
 		static public DockContent watchPanel;
 		static public WatchUI watchUI;
 
+        static public String immediateGuid = "7ce31ab1-5a40-42d5-ad32-5df567707afc";
+        static public DockContent immediatePanel;
+        static public ImmediateUI immediateUI;
+
         public PanelsHelper(PluginMain pluginMain, Image pluginImage)
         {
             pluginUI = new PluginUI(pluginMain);
@@ -47,6 +51,11 @@ namespace FlashDebugger
             breakPointUI.Text = TextHelper.GetString("Title.Breakpoints");
             breakPointPanel = PluginBase.MainForm.CreateDockablePanel(breakPointUI, breakPointGuid, pluginImage, DockState.DockLeft);
             breakPointPanel.Hide();
+
+            immediateUI = new ImmediateUI();
+            immediateUI.Text = "Immediate";// TextHelper.GetString("Title.Immediate");
+            immediatePanel = PluginBase.MainForm.CreateDockablePanel(immediateUI, immediateGuid, pluginImage, DockState.DockLeft);
+            immediatePanel.Hide();
         }
 
 	}

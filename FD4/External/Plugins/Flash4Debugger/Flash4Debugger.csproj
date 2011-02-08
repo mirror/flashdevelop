@@ -84,6 +84,12 @@
     <Compile Include="Controls\DataTreeModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\ImmediateUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImmediateUI.Designer.cs">
+      <DependentUpon>ImmediateUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LiveDataTip.cs" />
     <Compile Include="Controls\WatchUI.cs">
       <SubType>UserControl</SubType>
