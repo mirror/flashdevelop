@@ -159,7 +159,11 @@ namespace ProjectManager.Controls.TreeView
                         nodesToDie.Remove(node);
                         continue;
                     }
-                    else Nodes.Remove(node);
+                    else 
+                    {
+                        TreeNode fake = Tree.NodeMap[directory];
+                        if (fake.Parent != null) fake.Parent.Nodes.Remove(fake);
+                    }
 				}
 
 				node = new DirectoryNode(directory);
