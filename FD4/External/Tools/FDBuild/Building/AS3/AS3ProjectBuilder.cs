@@ -7,6 +7,8 @@ using ProjectManager.Helpers;
 using System.IO;
 using FDBuild.Building.AS3;
 using System.Collections;
+using PluginCore.PluginCore.Helpers;
+
 
 namespace ProjectManager.Building.AS3
 {
@@ -24,7 +26,7 @@ namespace ProjectManager.Building.AS3
             : base(project, compilerPath)
         {
             this.project = project;
-
+			
             DetectFlexSdk(compilerPath);
 
             bool hostedInFD = (ipcName != null && ipcName != "");
@@ -68,11 +70,15 @@ namespace ProjectManager.Building.AS3
                     flexsdkPath = reader.ReadLine();
                 }
             }
-            if (Path.GetFileName(flexsdkPath) == "bin") flexsdkPath = Path.GetDirectoryName(flexsdkPath);
+
+            if (Path.GetFileName(flexsdkPath) == "bin")
+				flexsdkPath = Path.GetDirectoryName(flexsdkPath);
+
             sdkPath = flexsdkPath;
             mxmlcPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "mxmlc.jar");
             fcshPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "fcsh.jar");
             jvmConfig = PluginCore.PluginCore.Helpers.JvmConfigHelper.ReadConfig(Path.Combine(flexsdkPath, "bin\\jvm.config"));
+
             if (jvmConfig.ContainsKey("java.args") && jvmConfig["java.args"].ToString().Trim().Length > 0)
                 VMARGS = jvmConfig["java.args"].ToString();
         }
@@ -145,9 +151,9 @@ namespace ProjectManager.Building.AS3
             {
                 string output;
                 string[] errors;
-				string[] warnings;
-                string jvmarg = VMARGS + " -Dapplication.home=\""+ sdkPath + "\" -jar \"" + fcshPath + "\"";
-                fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, out warnings, jvmarg);
+                string[] warnings;
+                string jvmarg = VMARGS + " -Dapplication.home=\"" + sdkPath + "\" -jar \"" + fcshPath + "\"";
+                fcsh.Compile(workingdir, configChanged, arguments, out output, out errors, out warnings, jvmarg, JvmConfigHelper.GetJavaEXE(jvmConfig, sdkPath));
 
                 string[] lines = output.Split('\n');
                 foreach (string line in lines)
@@ -155,8 +161,8 @@ namespace ProjectManager.Building.AS3
                     if (!line.StartsWith("Recompile:") && !line.StartsWith("Reason:"))
                         Console.Write(line);
                 }
-				foreach (string warning in warnings)
-					Console.Error.WriteLine(warning);
+                foreach (string warning in warnings)
+                    Console.Error.WriteLine(warning);
                 foreach (string error in errors)
                     Console.Error.WriteLine(error);
 
@@ -166,7 +172,7 @@ namespace ProjectManager.Building.AS3
             else
             {
                 string jvmarg = VMARGS + " -jar \"" + mxmlcPath + "\" +flexlib=\"" + Path.Combine(sdkPath, "frameworks") + "\" ";
-                if (!ProcessRunner.Run("java.exe", jvmarg + arguments, false))
+                if (!ProcessRunner.Run(JvmConfigHelper.GetJavaEXE(jvmConfig, sdkPath), jvmarg + arguments, false))
                     throw new BuildException("Build halted with errors (mxmlc).");
             }
         }

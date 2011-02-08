@@ -34,15 +34,13 @@ namespace ProjectManager.Helpers
         static string lastArguments;
         static int lastCompileID;
 
-        string Initialize(string jvmarg, string projectPath)
+        string Initialize( string jvmarg, string projectPath, string javaExe )
         {
             errorList = new List<string>();
 			warningList = new List<string>();
 
             if (jvmarg == null)
             {
-                //  || !File.Exists(fcshPath)
-                // removed! how can i guess file existence using jvm arguments?
                 process = null;
                 return "Failed, no compiler configured";
             }
@@ -56,9 +54,10 @@ namespace ProjectManager.Helpers
             process.StartInfo.StandardOutputEncoding = Encoding.Default;
             process.StartInfo.StandardErrorEncoding = Encoding.Default;
             process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.FileName = "java.exe";
+			process.StartInfo.FileName = javaExe;
             process.StartInfo.Arguments = jvmarg;
             process.StartInfo.WorkingDirectory = workingDir;
+
             try
             {
                 process.Start();
@@ -81,30 +80,53 @@ namespace ProjectManager.Helpers
             throw new Exception("Process Exited");
         }
 
-        public void Compile(string projectPath, bool configChanged, string arguments,
-            out string output, out string[] errors, out string[] warnings, string jvmarg)
+
+        public void Compile(string projectPath,
+                            bool configChanged,
+                            string arguments,
+                            out string output,
+                            out string[] errors,
+                            out string[] warnings,
+                            string jvmarg)
+        {
+            Compile(projectPath, configChanged, arguments, out output, out errors, out warnings, jvmarg, "java.exe" /*or JvmConfigHelper.GetJavaEXE( null )*/ );
+        }
+
+        public void Compile(string projectPath,
+                            bool configChanged,
+                            string arguments,
+                            out string output,
+                            out string[] errors,
+                            out string[] warnings,
+                            string jvmarg,
+                            string javaExe)
         {
             StringBuilder o = new StringBuilder();
-            
+
             // shut down fcsh if our working path has changed
-            if (projectPath != workingDir) Cleanup();
-            
+            if (projectPath != workingDir)
+                Cleanup();
+
             // start up fcsh if necessary
-			if (process == null || process.HasExited)
-				o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath));
-			else
-			{
-				errorList.Clear();
-				warningList.Clear();
-			}
+            if (process == null || process.HasExited)
+                o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath, javaExe));
+            else
+            {
+                errorList.Clear();
+                warningList.Clear();
+            }
 
             // success?
-            if (process == null)
+            if (process != null)
+            {
+                o.AppendLine("Starting java as " + process.StartInfo.FileName);
+            }
+            else
             {
                 output = o.ToString();
                 errorList.Add("Could not compile because the fcsh process could not be started.");
                 errors = errorList.ToArray();
-				warnings = warningList.ToArray();
+                warnings = warningList.ToArray();
                 return;
             }
 
@@ -128,7 +150,7 @@ namespace ProjectManager.Helpers
             }
 
             o.Append(ReadUntilPrompt());
-            
+
             // this is hacky.  allow some time for errors to accumulate in our separate thread.
             do { foundErrors = false; Thread.Sleep(100); }
             while (foundErrors);
@@ -139,16 +161,16 @@ namespace ProjectManager.Helpers
                 // force a fresh compile
                 lastCompileID = 0;
                 lastArguments = null;
-                Compile(projectPath, true, arguments, out output, out errors, out warnings, jvmarg);
+                Compile(projectPath, true, arguments, out output, out errors, out warnings, jvmarg, javaExe);
                 return;
             }
-            
+
             lock (errorList)
-				lock (warningList)
-				{
-					errors = errorList.ToArray();
-					warnings = warningList.ToArray();
-				}
+                lock (warningList)
+                {
+                    errors = errorList.ToArray();
+                    warnings = warningList.ToArray();
+                }
         }
 
         void ClearOldCompile()

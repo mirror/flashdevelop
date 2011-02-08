@@ -195,21 +195,32 @@ namespace PluginCore.Helpers
         /// </summary>
         public static string ResolvePath(String path, String relativeTo)
         {
-            String combine;
-            if (path == null || path.Length == 0) return null;
-            if (Path.IsPathRooted(path)) return path;
+            if (path == null || path.Length == 0)
+                return null;
+
+            Boolean isPathNetworked = path.StartsWith("\\\\") || path.StartsWith("//");
+            Boolean isPathAbsSlashed = (path.StartsWith("\\") || path.StartsWith("/")) && !isPathNetworked;
+            if (isPathAbsSlashed) path = Path.GetPathRoot(AppDir) + path.Substring(1);
+
+            if (Path.IsPathRooted(path) || isPathNetworked)
+                return path;
+
+            String resolvedPath;
             if (relativeTo != null)
             {
-                combine = Path.Combine(relativeTo, path);
-                if (Directory.Exists(combine) || File.Exists(combine)) return combine;
+                resolvedPath = Path.Combine(relativeTo, path);
+                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
+                    return resolvedPath;
             }
             if (!PluginBase.MainForm.StandaloneMode)
             {
-                combine = Path.Combine(UserAppDir, path);
-                if (Directory.Exists(combine) || File.Exists(combine)) return combine;
+                resolvedPath = Path.Combine(UserAppDir, path);
+                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
+                    return resolvedPath;
             }
-            combine = Path.Combine(AppDir, path);
-            if (Directory.Exists(combine) || File.Exists(combine)) return combine;
+            resolvedPath = Path.Combine(AppDir, path);
+            if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
+                return resolvedPath;
             return null;
         }
 
