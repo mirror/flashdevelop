@@ -63,19 +63,19 @@ namespace ProjectManager.Building.AS3
             if (options.LoadExterns.Length > 0) AddEq("-load-externs", options.LoadExterns);
 
             bool hasConfig = false;
-            bool hasVersion = false;
+            //bool hasVersion = false;
             if (options.Additional != null)
             {
                 Add(options.Additional, noTrace);
                 foreach (string line in options.Additional)
                 {
                     if (line.IndexOf("configname=") > 0) { hasConfig = true; }
-                    if (line.IndexOf("swf-version=") > 0) { hasVersion = true; }
+                    //if (line.IndexOf("swf-version=") > 0) { hasVersion = true; }
                 }
             }
 
-            if (project.MovieOptions.Version == "10.2" && !hasVersion)
-                AddEq("-swf-version", "11");
+            //if (project.MovieOptions.Version == "10.2" && !hasVersion)
+            //    AddEq("-swf-version", "11");
 
             if (project.MovieOptions.Platform == "AIR" && !hasConfig)
                 AddEq("+configname", "air");

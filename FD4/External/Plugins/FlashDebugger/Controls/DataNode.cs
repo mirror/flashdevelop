@@ -51,6 +51,7 @@ namespace FlashDebugger.Controls
 					return string.Empty;
 				}
 				int type = m_Value.getValue().getType();
+                string temp = null;
 				if (type == VariableType.MOVIECLIP || type == VariableType.OBJECT)
 				{
 					return m_Value.getValue().getTypeName().Replace("::", ".").Replace("@", " (@") + ")";
@@ -84,11 +85,11 @@ namespace FlashDebugger.Controls
 					{
 						if (!m_bEditing)
 						{
-							return "\"" + m_Value.ToString() + "\"";
+							temp = "\"" + m_Value.ToString() + "\"";
 						}
 						else
 						{
-							return m_Value.ToString();
+							temp = m_Value.ToString();
 						}
 					}
 				}
@@ -100,7 +101,10 @@ namespace FlashDebugger.Controls
 				{
 					return "<setter>";
 				}
-				return m_Value.ToString();
+                if (temp == null) temp = m_Value.ToString();
+                if (temp.Length > 65535) 
+                    temp = temp.Substring(0, 65535 - 5) + "[...]";
+                return temp;
 			}
 			set
 			{

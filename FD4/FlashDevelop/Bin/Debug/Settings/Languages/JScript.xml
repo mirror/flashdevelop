@@ -47,7 +47,7 @@
 				<keyword key="7" class="js-additional-keywords5" />
 			</use-keywords>
 			<!-- COLORING_START -->
-			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x000000" />
+			<editor-style caret-fore="0x000000" caretline-back="0xececec" selection-fore="0xffffff" selection-back="0x3399ff" />
 			<use-styles>
 				<style name="default" fore="0x000000" back="0xffffff" size="9" font="Courier New" />
 				<style name="comment" fore="0x008000" />

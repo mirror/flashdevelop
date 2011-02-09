@@ -576,7 +576,7 @@ namespace AS3Context
 
         private void ProcessDeclarationNodes(DocItem doc)
         {
-            if (NodeType == XmlNodeType.Element)
+            if (NodeType != XmlNodeType.Element) return;
             switch (Name)
             {
                 case "shortdesc": doc.ShortDesc = ReadValue(); break;
@@ -586,14 +586,39 @@ namespace AS3Context
                 case "style": ReadStyleMeta(doc); break;
                 case "Exclude": ReadExcludeMeta(doc); break;
                 case "adobeApiEvent": ReadEventMeta(doc); break;
+                case "apiName": break; // TODO validate event name
                 case "apiClassifier": 
                 case "apiConstructor": 
                 case "apiValue": 
                 case "apiOperation": ReadDeclaration(); break;
                 case "apiParam": ReadParamDesc(doc); break;
                 case "apiReturn": ReadReturnsDesc(doc); break;
+                case "apiInheritDoc": break; // TODO link inherited doc?
 
+                case "apiConstructorDetail":
+                case "apiClassifierDetail":
+                case "apiOperationDetail":
+                case "apiValueDetail": 
+                case "apiDetail": 
+                case "related-links": SkipContents(); break;
+
+                case "prolog": SkipContents(); break; // TODO parse metadata
+
+                default: 
+                    Console.WriteLine("Unhandled node: " + Name); 
+                    SkipContents(); 
+                    break;
             }
+        }
+
+        private void SkipContents()
+        {
+            if (IsEmptyElement) return;
+
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+                Read();
         }
 
         private void ReadReturnsDesc(DocItem doc)

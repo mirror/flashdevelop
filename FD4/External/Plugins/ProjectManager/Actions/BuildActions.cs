@@ -216,7 +216,7 @@ namespace ProjectManager.Actions
             if (project == null) return null;
             if (project.CurrentSDK == null)
             {
-                InstalledSDK[] sdks = GetInstalledSDKS(project);
+                InstalledSDK[] sdks = GetInstalledSDKs(project);
                 project.CurrentSDK = PathHelper.ResolvePath(MatchSDK(sdks, project).Path, project.Directory);
             }
             return project.CurrentSDK;
@@ -312,12 +312,12 @@ namespace ProjectManager.Actions
             return score;
         }
 
-        static public InstalledSDK[] GetInstalledSDKS(IProject project)
+        static public InstalledSDK[] GetInstalledSDKs(IProject project)
         {
-            return GetInstalledSDKS(project.Language);
+            return GetInstalledSDKs(project.Language);
         }
 
-        static public InstalledSDK[] GetInstalledSDKS(string language)
+        static public InstalledSDK[] GetInstalledSDKs(string language)
         {
             Hashtable infos = new Hashtable();
             infos["language"] = language;

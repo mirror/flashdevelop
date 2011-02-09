@@ -950,7 +950,7 @@ namespace ProjectManager.Controls
             labelWarning.Text = "";
 
             // retrieve SDK list
-            InstalledSDK[] sdks = BuildActions.GetInstalledSDKS(project);
+            InstalledSDK[] sdks = BuildActions.GetInstalledSDKs(project);
             if (sdks != null && sdks.Length > 0)
             {
                 sdkComboBox.Items.Add(TextHelper.GetString("Label.SDKComboDefault"));
