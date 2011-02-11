@@ -188,7 +188,7 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <PreBuildEvent>cd $(ProjectDir)
-build.cmd</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
