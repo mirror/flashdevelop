@@ -4706,4 +4706,16 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
     <comment>Added in FD4</comment>
   </data>
+  <data name="ProjectManager.Description.OmitTraces" xml:space="preserve">
+    <value>Remove trace() calls from your code when compiling in release (not debug) mode.</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="ProjectManager.Label.DocumentClass" xml:space="preserve">
+    <value>Set Document &amp;Class</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="ProjectManager.Label.AddSourcePath" xml:space="preserve">
+    <value>Add &amp;Source Path</value>
+    <comment>Added in FD4</comment>
+  </data>
 </root>

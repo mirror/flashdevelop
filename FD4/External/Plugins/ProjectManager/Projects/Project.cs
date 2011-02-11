@@ -35,6 +35,7 @@ namespace ProjectManager.Projects
         bool traceEnabled; // selected configuration 
         string preferredSDK;
         string currentSDK;
+        PathCollection absClasspaths;
 
         public bool NoOutput; // Disable file building
         public string InputPath; // For code injection
@@ -90,8 +91,9 @@ namespace ProjectManager.Projects
             return new ProjectManager.Controls.PropertiesDialog();
         }
 
-        protected void OnClasspathChanged()
+        internal void OnClasspathChanged()
         {
+            absClasspaths = null;
             if (ClasspathChanged != null) ClasspathChanged();
         }
 
@@ -122,11 +124,15 @@ namespace ProjectManager.Projects
 		{
 			get
 			{
+                // property is accessed quite intensively, adding some caching here
+                if (absClasspaths != null) return absClasspaths;
+
 				PathCollection absolute = new PathCollection();
                 foreach (string cp in classpaths)
                 {
                     absolute.Add(GetAbsolutePath(cp));
                 }
+                absClasspaths = absolute;
 				return absolute;
 			}
 		}
@@ -196,6 +202,8 @@ namespace ProjectManager.Projects
 
 		public bool IsCompileTarget(string path) { return compileTargets.Contains(GetRelativePath(path)); }
 
+        public bool IsClassPath(string path) { return AbsoluteClasspaths.Contains(path); }
+
         public virtual void SetLibraryAsset(string path, bool isLibraryAsset)
         {
             if (isLibraryAsset)
@@ -250,6 +258,15 @@ namespace ProjectManager.Projects
         {
             // to be implemented
             return null;
+        }
+
+        /// <summary>
+        /// Indicate if the path can be flagged as "Always Compile"
+        /// </summary>
+        internal virtual CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        {
+            // to be implemented
+            return CompileTargetType.None;
         }
 
         public virtual bool Clean()
@@ -307,5 +324,12 @@ namespace ProjectManager.Projects
 
 		#endregion
 
+    }
+
+    internal enum CompileTargetType
+    {
+        None,
+        AlwaysCompile,
+        DocumentClass
     }
 }

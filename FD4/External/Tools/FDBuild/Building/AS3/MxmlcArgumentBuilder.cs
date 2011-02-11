@@ -30,52 +30,23 @@ namespace ProjectManager.Building.AS3
             Add("-o", path);
         }
 
-        public void AddOptions(bool noTrace, bool incremental)
+        public void AddOptions(bool releaseMode, bool incremental)
         {
-            if (!noTrace) AddEq("-debug", "true");
-            if (incremental) AddEq("-incremental", "true");
+            if (!releaseMode) AddEq("-debug", true);
+            if (incremental) AddEq("-incremental", true);
 
             MxmlcOptions options = project.CompilerOptions;
-            if (options.Locale.Length > 0) AddEq("-locale", options.Locale);
-            if (options.Accessible) AddEq("-accessible", "true");
-            if (options.AllowSourcePathOverlap) AddEq("-allow-source-path-overlap", "true");
-            if (!options.Benchmark) AddEq("-benchmark", "false");
-            else AddEq("-benchmark", "true");
-            if (options.ES)
-            {
-                AddEq("-es", "true");
-                AddEq("-as3", "false");
-            }
-            if (noTrace && options.Optimize) AddEq("-optimize", "true");
-            if (!options.ShowActionScriptWarnings) AddEq("-show-actionscript-warnings", "false");
-            if (!options.ShowBindingWarnings) AddEq("-show-binding-warnings", "false");
-            if (!options.ShowInvalidCSS) AddEq("-show-invalid-css-property-warnings", "false");
-            if (!options.ShowDeprecationWarnings) AddEq("-show-deprecation-warnings", "false");
-            if (!options.ShowUnusedTypeSelectorWarnings) AddEq("-show-unused-type-selector-warnings", "false");
-            if (!options.Strict) AddEq("-strict", "false");
-            if (!options.UseNetwork) AddEq("-use-network", "false");
-            if (!options.UseResourceBundleMetadata) AddEq("-use-resource-bundle-metadata", "false");
-            if (!options.Warnings) AddEq("-warnings", "false");
-            AddEq("-static-link-runtime-shared-libraries", options.StaticLinkRSL ? "true" : "false");
-            if (!noTrace && options.VerboseStackTraces) AddEq("-verbose-stacktraces", "true");
-            
-            if (options.LinkReport.Length > 0) AddEq("-link-report", options.LinkReport);
-            if (options.LoadExterns.Length > 0) AddEq("-load-externs", options.LoadExterns);
+
+            if (options.LinkReport.Length > 0) Add("-link-report", options.LinkReport);
+            if (options.LoadExterns.Length > 0) Add("-load-externs", options.LoadExterns);
 
             bool hasConfig = false;
-            //bool hasVersion = false;
             if (options.Additional != null)
             {
-                Add(options.Additional, noTrace);
+                Add(options.Additional, releaseMode);
                 foreach (string line in options.Additional)
-                {
                     if (line.IndexOf("configname=") > 0) { hasConfig = true; }
-                    //if (line.IndexOf("swf-version=") > 0) { hasVersion = true; }
-                }
             }
-
-            //if (project.MovieOptions.Version == "10.2" && !hasVersion)
-            //    AddEq("-swf-version", "11");
 
             if (project.MovieOptions.Platform == "AIR" && !hasConfig)
                 AddEq("+configname", "air");

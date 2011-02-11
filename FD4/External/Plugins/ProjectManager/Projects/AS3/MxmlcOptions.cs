@@ -62,6 +62,13 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue(false)]
         public bool Optimize { get { return optimize; } set { optimize = value; } }
 
+        bool omitTraces = true;
+        [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
+        [DisplayName("Omit Trace Statements")]
+        [LocalizedDescription("ProjectManager.Description.OmitTraces")]
+        [DefaultValue(true)]
+        public bool OmitTraces { get { return omitTraces; } set { omitTraces = value; } }
+
         bool showBindingWarnings = true;
         [LocalizedCategory("ProjectManager.Category.CompilerOptions")]
         [DisplayName("Show Binding Warnings")]

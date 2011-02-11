@@ -77,6 +77,7 @@ namespace ProjectManager.Projects.AS3
             WriteOption("locale", options.Locale);
             WriteOption("loadConfig", options.LoadConfig);
             WriteOption("optimize", options.Optimize);
+            WriteOption("omitTraces", options.OmitTraces);
             WriteOption("showActionScriptWarnings", options.ShowActionScriptWarnings);
             WriteOption("showBindingWarnings", options.ShowBindingWarnings);
             WriteOption("showInvalidCSS", options.ShowInvalidCSS);

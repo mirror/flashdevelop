@@ -362,18 +362,12 @@ namespace ASCompletion
                                     string[] args = cmdData.Split(';');
                                     if (args.Length == 1)
                                     {
-                                        FileModel fm = ASFileParser.ParseFile(args[0], ASContext.Context);
-                                        if (fm != null)
+                                        FileModel model = ASContext.Context.GetFileModel(args[0]);
+                                        ClassModel aClass = model.GetPublicClass();
+                                        if (!aClass.IsVoid())
                                         {
-                                            if (fm.Classes != null && fm.Classes.Count > 0)
-                                            {
-                                                string classpath = fm.Classes[0].QualifiedName;
-                                                if (classpath != null)
-                                                {
-                                                    Clipboard.SetText(classpath);
-                                                    e.Handled = true;
-                                                }
-                                            }
+                                            Clipboard.SetText(aClass.QualifiedName);
+                                            e.Handled = true;
                                         }
                                     }
                                 }

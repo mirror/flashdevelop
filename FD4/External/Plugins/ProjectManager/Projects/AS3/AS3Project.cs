@@ -76,6 +76,17 @@ namespace ProjectManager.Projects.AS3
             return ext == ".txt" || ext == ".xml";
         }
 
+        internal override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        {
+            if (isDirectory || (Path.GetExtension(path) != ".as" && Path.GetExtension(path) != ".mxml")) 
+                return CompileTargetType.None;
+
+            foreach (string cp in AbsoluteClasspaths)
+                if (path.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
+                    return CompileTargetType.DocumentClass;
+            return CompileTargetType.None;
+        }
+
         public override bool Clean()
         {
             try

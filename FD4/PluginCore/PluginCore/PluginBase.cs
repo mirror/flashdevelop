@@ -8,7 +8,7 @@ namespace PluginCore
     public class PluginBase
     {
         private static IProject project;
-        private static ISolution solution;
+        private static IProject solution;
         private static IMainForm instance;
         
         /// <summary>
@@ -50,7 +50,7 @@ namespace PluginCore
         /// <summary>
         /// Sets and gets the current solution
         /// </summary>
-        public static ISolution CurrentSolution
+        public static IProject CurrentSolution
         {
             get { return solution; }
             set { solution = value; }

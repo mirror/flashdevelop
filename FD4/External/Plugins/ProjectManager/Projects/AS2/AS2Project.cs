@@ -46,6 +46,16 @@ namespace ProjectManager.Projects.AS2
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
         }
 
+        internal override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        {
+            if (!isDirectory && Path.GetExtension(path) != ".as") return CompileTargetType.None;
+
+            foreach(string cp in AbsoluteClasspaths)
+                if (path.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
+                    return CompileTargetType.AlwaysCompile;
+            return CompileTargetType.None;
+        }
+
         #region Load/Save
 
 		public static AS2Project Load(string path)

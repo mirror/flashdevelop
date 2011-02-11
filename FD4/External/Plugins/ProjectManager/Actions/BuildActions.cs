@@ -236,7 +236,7 @@ namespace ProjectManager.Actions
                 return InstalledSDK.INVALID_SDK;
             }
 
-            string[] parts = (";;" + preferredSDK).Split(';'); // name;version;path
+            string[] parts = (";;" + preferredSDK).Split(';'); // name;version
             
             // match name
             string name = parts[parts.Length - 3];

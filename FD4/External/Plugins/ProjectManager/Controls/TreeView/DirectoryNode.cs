@@ -28,6 +28,9 @@ namespace ProjectManager.Controls.TreeView
         static public event DirectoryNodeMapping OnDirectoryNodeMapping;
 
 		bool dirty;
+        DirectoryNode insideClasspath;
+
+        public DirectoryNode InsideClasspath { get { return insideClasspath; } }
 
 		public DirectoryNode(string directory) : base(directory)
 		{
@@ -53,24 +56,32 @@ namespace ProjectManager.Controls.TreeView
 
 			base.Refresh(recursive);
 
-			if (Project.IsPathHidden(BackingPath))
-				ImageIndex = Icons.HiddenFolder.Index;
-			else if (Project.IsCompileTarget(BackingPath))
-				ImageIndex = Icons.FolderCompile.Index;
-			else
-				ImageIndex = Icons.Folder.Index;
+            // item icon
+            if (Parent is DirectoryNode) 
+                insideClasspath = (Parent as DirectoryNode).insideClasspath;
 
-			SelectedImageIndex = ImageIndex;
+            if (Project.IsPathHidden(BackingPath))
+                ImageIndex = Icons.HiddenFolder.Index;
+            else if (insideClasspath == null && Project.IsClassPath(BackingPath))
+            {
+                insideClasspath = this;
+                ImageIndex = Icons.Classpath.Index;
+            }
+            else if (insideClasspath != null && Project.IsCompileTarget(BackingPath))
+                ImageIndex = Icons.FolderCompile.Index;
+            else
+                ImageIndex = Icons.Folder.Index;
+
+            SelectedImageIndex = ImageIndex;
 
 			// make the plus/minus sign correct
             bool empty = !Directory.Exists(BackingPath) || PathIsDirectoryEmpty(BackingPath);
 
-            //ForeColor = SystemColors.ControlText;
 			if (!empty)
 			{
 				// we want the plus sign because we have *something* in here
 				if (Nodes.Count == 0)
-					Nodes.Add(new PlaceholderNode(Path.Combine(BackingPath,"placeholder")));
+					Nodes.Add(new PlaceholderNode(Path.Combine(BackingPath, "placeholder")));
 
 				// we're already expanded, so refresh our children
 				if (IsExpanded || Path.GetDirectoryName(Tree.PathToSelect) == BackingPath)
@@ -153,9 +164,7 @@ namespace ProjectManager.Controls.TreeView
 					node = Tree.NodeMap[directory] as DirectoryNode;
                     if (node != null) // ASClassWizard injects SimpleDirectoryNode != DirectoryNode
                     {
-                        if (recursive)
-                            node.Refresh(recursive);
-
+                        if (recursive) node.Refresh(recursive);
                         nodesToDie.Remove(node);
                         continue;
                     }

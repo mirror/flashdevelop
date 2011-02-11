@@ -150,6 +150,7 @@ namespace ProjectManager.Projects.AS3
                     case "locale": options.Locale = Value; break;
                     case "loadConfig": options.LoadConfig = Value; break;
                     case "optimize": options.Optimize = BoolValue; break;
+                    case "omitTraces": options.OmitTraces = BoolValue; break;
                     case "showActionScriptWarnings": options.ShowActionScriptWarnings = BoolValue; break;
                     case "showBindingWarnings": options.ShowBindingWarnings = BoolValue; break;
                     case "showInvalidCSS": options.ShowInvalidCSS = BoolValue; break;

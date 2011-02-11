@@ -152,23 +152,6 @@ namespace PluginCore
         #endregion
     }
 
-    public interface ISolution
-    {
-        #region ISolution Methods
-
-        String GetRelativePath(String path);
-        String GetAbsolutePath(String path);
-        
-        #endregion
-
-        #region ISolution Properties
-
-        String Name { get; }
-        List<IProject> Projects { get; }
-
-        #endregion
-    }
-
     public interface IProject
     {
         #region IProject Methods

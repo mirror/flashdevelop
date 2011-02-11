@@ -268,6 +268,11 @@ namespace ProjectManager.Controls.TreeView
                 if (project == null)
                     return;
 
+                // cleanup
+                EndUpdate();
+                Refresh();
+                BeginUpdate();
+
                 // create the top-level project node
                 ProjectNode projectNode = new ProjectNode(project);
                 Nodes.Add(projectNode);

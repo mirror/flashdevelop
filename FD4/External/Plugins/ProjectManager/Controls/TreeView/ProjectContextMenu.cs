@@ -50,10 +50,11 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem ShellMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ShellMenu"));
         public ToolStripMenuItem TestAllProjects = new ToolStripMenuItem(TextHelper.GetString("Label.TestAllProjects"));
         public ToolStripMenuItem BuildAllProjects = new ToolStripMenuItem(TextHelper.GetString("Label.BuildAllProjects"));
-        public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"));
-        public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"));
+        public ToolStripMenuItem BuildProjectFile = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFile"), Icons.Gear.Img);
+        public ToolStripMenuItem BuildProjectFiles = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProjectFiles"), Icons.Gear.Img);
         public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"), Icons.FindInFiles.Img);
         public ToolStripMenuItem CopyClassName = new ToolStripMenuItem(TextHelper.GetString("Label.CopyClassName"));
+        public ToolStripMenuItem AddSourcePath = new ToolStripMenuItem(TextHelper.GetString("Label.AddSourcePath"), Icons.Classpath.Img);
         public event FileAddHandler AddFileFromTemplate;
 
         public ProjectContextMenu()
@@ -257,9 +258,9 @@ namespace ProjectManager.Controls.TreeView
             else if (node is FileNode)
             {
                 string ext = Path.GetExtension(path).ToLower();
-                if (FileInspector.IsActionScript(path, ext)) AddActionScriptItems(menu, path);
-                else if (FileInspector.IsHaxeFile(path, ext)) AddHaxeFileItems(menu, path);
-                else if (FileInspector.IsMxml(path, ext)) AddMxmlItems(menu, path);
+                if (FileInspector.IsActionScript(path, ext)) AddClassItems(menu, path);
+                else if (FileInspector.IsHaxeFile(path, ext)) AddClassItems(menu, path);
+                else if (FileInspector.IsMxml(path, ext)) AddClassItems(menu, path);
                 else if (FileInspector.IsCss(path, ext)) AddCssItems(menu, path);
                 else if (FileInspector.IsSwf(path, ext)) AddSwfItems(menu, path);
                 else if (FileInspector.IsSwc(path, ext)) AddSwcItems(menu, path);
@@ -304,59 +305,53 @@ namespace ProjectManager.Controls.TreeView
 
         private void AddFolderItems(MergableMenu menu, string path)
         {
-            bool alwaysCompile = project.IsCompileTarget(path);
             menu.Add(AddMenu, 0);
             menu.Add(Browse, 0);
             menu.Add(FindInFiles, 0);
             menu.Add(ShellMenu, 0);
-            if (project.Language == "as2") menu.Add(AlwaysCompile, 2, alwaysCompile);
+
+            CompileTargetType result = project.AllowCompileTarget(path, true);
+            if (result != CompileTargetType.None)
+            {
+                AlwaysCompile.Text = result == CompileTargetType.AlwaysCompile
+                    ? TextHelper.GetString("Label.AlwaysCompile")
+                    : TextHelper.GetString("Label.DocumentClass");
+                menu.Add(AlwaysCompile, 2, project.IsCompileTarget(path));
+            }
+
+            if (projectTree.SelectedPaths.Length == 1)
+            {
+                DirectoryNode node = projectTree.SelectedNode as DirectoryNode;
+                if (node != null && (node.InsideClasspath == null || node.InsideClasspath is ProjectNode))
+                    menu.Add(AddSourcePath, 2);
+            }
+
             AddFileItems(menu, path, true);
         }
 
-        private void AddActionScriptItems(MergableMenu menu, string path)
+        private void AddClassItems(MergableMenu menu, string path)
         {
-            bool alwaysCompile = project.IsCompileTarget(path);
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
-            menu.Add(AlwaysCompile, 2, alwaysCompile);
-            menu.Add(CopyClassName, 2);
-            AddFileItems(menu, path);
-        }
 
-        private void AddHaxeFileItems(MergableMenu menu, string path)
-        {
-            bool alwaysCompile = project.IsCompileTarget(path);
-            menu.Add(Open, 0);
-            menu.Add(Execute, 0);
-            menu.Add(ShellMenu, 0);
-            menu.Add(AlwaysCompile, 2, alwaysCompile);
-            AddFileItems(menu, path);
-        }
+            CompileTargetType result = project.AllowCompileTarget(path, false);
+            if (result != CompileTargetType.None)
+            {
+                AlwaysCompile.Text = result == CompileTargetType.AlwaysCompile
+                    ? TextHelper.GetString("Label.AlwaysCompile")
+                    : TextHelper.GetString("Label.DocumentClass");
+                menu.Add(AlwaysCompile, 2, project.IsCompileTarget(path));
+                menu.Add(CopyClassName, 2);
+            }
 
-        private void AddMxmlItems(MergableMenu menu, string path)
-        {
-            bool alwaysCompile = project.IsCompileTarget(path);
-            menu.Add(Open, 0);
-            menu.Add(Execute, 0);
-            menu.Add(ShellMenu, 0);
-            menu.Add(AlwaysCompile, 2, alwaysCompile);
             AddFileItems(menu, path);
         }
 
         private void AddCssItems(MergableMenu menu, string path)
         {
-            if (project.Language != "as3")
-            {
-                AddGenericFileItems(menu, path);
-                return;
-            }
-            bool alwaysCompile = project.IsCompileTarget(path);
-            menu.Add(Open, 0);
-            menu.Add(Execute, 0);
-            menu.Add(ShellMenu, 0);
-            menu.Add(AlwaysCompile, 2, alwaysCompile);
-            AddFileItems(menu, path);
+            if (project.Language == "as3") AddClassItems(menu, path);
+            else AddGenericFileItems(menu, path);
         }
 
         private void AddOtherResourceItems(MergableMenu menu, string path)
@@ -439,8 +434,11 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
             menu.Add(Insert, 0);
-            if (IsBuildable(path) && projectTree.SelectedPaths.Length == 1) menu.Add(BuildProjectFile, 0);
-            if (IsBuildable(path) && projectTree.SelectedPaths.Length > 1) menu.Add(BuildProjectFiles, 0);
+            if (IsBuildable(path))
+            {
+                if (projectTree.SelectedPaths.Length == 1) menu.Add(BuildProjectFile, 2);
+                else menu.Add(BuildProjectFiles, 2);
+            }
             AddFileItems(menu, path);
         }
 

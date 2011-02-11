@@ -14,7 +14,7 @@ namespace ProjectManager.Building
 			args = new ArrayList();
         }
 
-        public void Add(string[] arguments, bool noTrace)
+        public void Add(string[] arguments, bool releaseMode)
         {
             foreach (string argument in arguments)
                 if (argument != null && argument.Length > 0)
@@ -25,12 +25,12 @@ namespace ProjectManager.Building
                     // conditional arguments
                     if (line.StartsWith("DEBUG:"))
                     {
-                        if (noTrace) continue;
+                        if (releaseMode) continue;
                         else line = line.Substring("DEBUG:".Length).Trim();
                     }
                     if (line.StartsWith("RELEASE:"))
                     {
-                        if (!noTrace) continue;
+                        if (!releaseMode) continue;
                         else line = line.Substring("RELEASE:".Length).Trim();
                     }
 

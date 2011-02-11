@@ -4259,6 +4259,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidExtension" xml:space="preserve">
+    <value />
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidFileType" xml:space="preserve">
@@ -4708,6 +4709,18 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   </data>
   <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
     <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="ProjectManager.Description.OmitTraces" xml:space="preserve">
+    <value>Remove trace() calls from your code when compiling in release (not debug) mode.</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="ProjectManager.Label.DocumentClass" xml:space="preserve">
+    <value>Set Document &amp;Class</value>
+    <comment>Added in FD4</comment>
+  </data>
+  <data name="ProjectManager.Label.AddSourcePath" xml:space="preserve">
+    <value>Add &amp;Source Path</value>
     <comment>Added in FD4</comment>
   </data>
 </root>

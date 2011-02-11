@@ -237,6 +237,7 @@ namespace ProjectManager
             pluginUI.Menu.TestAllProjects.Click += delegate { TestBuild(); };
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
             pluginUI.Menu.CopyClassName.Click += delegate { CopyClassName(); };
+            pluginUI.Menu.AddSourcePath.Click += delegate { AddSourcePath(); };
             pluginUI.Menu.Opening += new CancelEventHandler(this.MenuOpening);
 
             Tree.MovePath += fileActions.Move;
@@ -495,12 +496,13 @@ namespace ProjectManager
             // ui
             pluginUI.SetProject(project);
             menus.RecentProjects.AddOpenedProject(project.ProjectPath);
-            menus.ConfigurationSelector.Enabled = true; //!project.NoOutput;
+            menus.ConfigurationSelector.Enabled = true;
             menus.ProjectMenu.ProjectItemsEnabled = true;
             menus.TestMovie.Enabled = true;
             menus.BuildProject.Enabled = true;
 
             // notify
+            PluginBase.CurrentSolution = project;
             PluginBase.CurrentProject = project;
             PluginBase.MainForm.RefreshUI();
             BroadcastProjectInfo();
@@ -553,6 +555,7 @@ namespace ProjectManager
                 menus.BuildProject.Enabled = false;
                 menus.ConfigurationSelector.Enabled = false;
 
+                PluginBase.CurrentSolution = null;
                 PluginBase.CurrentProject = null;
                 PluginBase.MainForm.RefreshUI();
 
@@ -1165,6 +1168,15 @@ namespace ProjectManager
             else if (FileInspector.IsAS3Project(path, ext)) return true;
             else if (FileInspector.IsHaxeProject(path, ext)) return true;
             else return false;
+        }
+
+        private void AddSourcePath()
+        {
+            String path = Tree.SelectedPath;
+            if (path.StartsWith(project.Directory)) path = project.GetRelativePath(path);
+            project.Classpaths.Add(path);
+            project.Save();
+            project.OnClasspathChanged();
         }
 
         private void CopyClassName()

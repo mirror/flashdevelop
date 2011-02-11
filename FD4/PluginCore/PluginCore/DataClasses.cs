@@ -165,7 +165,10 @@ namespace PluginCore
 
         public string ToPreferredSDK()
         {
-            return (this.name ?? "") + ";" + (this.version ?? "") + ";" + (this.path ?? "");
+            if (!String.IsNullOrEmpty(this.version))
+                return (this.name ?? "") + ";" + (this.version ?? "") + ";";
+            else
+                return (this.name ?? "") + ";" + (this.version ?? "") + ";" + (this.path ?? "");
         }
     }
 
