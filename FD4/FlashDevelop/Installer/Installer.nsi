@@ -281,7 +281,7 @@ Section "FlashDevelop" Main
 	RMDir /r "$INSTDIR\Tools\flexpmd"
 	
 	; Copy all files
-	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x "..\Bin\Debug\Settings\" /x "..\Bin\Debug\Snippets\" /x "..\Bin\Debug\Templates\" "..\Bin\Debug\*.*"
+	File /r /x .svn /x *.db /x Exceptions.log /x .local /x .multi /x *.pdb /x *.vshost.exe /x *.vshost.exe.config /x *.vshost.exe.manifest /x "..\Bin\Debug\Data\" /x "..\Bin\Debug\Settings\" /x "..\Bin\Debug\Snippets\" /x "..\Bin\Debug\Templates\" "..\Bin\Debug\*.*"
 	
 	SetOverwrite off
 	
@@ -558,6 +558,7 @@ Section "un.FlashDevelop" UninstMain
 	Delete "$INSTDIR\PluginCore.dll"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\Scripting.dll"
+	Delete "$INSTDIR\Antlr3.dll"
 	Delete "$INSTDIR\SwfOp.dll"
 	Delete "$INSTDIR\Aga.dll"
 	
