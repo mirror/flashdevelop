@@ -37,18 +37,6 @@ namespace FlashDebugger
 
 		public BreakPointManager m_BreakPointManager = null;
 
-		public string outputFileFullPath
-		{
-			get
-			{
-				return m_OutputFileFullPath;
-			}
-			set
-			{
-				m_OutputFileFullPath = value;
-			}
-		}
-
 		public ProjectManager.Projects.Project currentProject
 		{
 			get
@@ -118,7 +106,6 @@ namespace FlashDebugger
 		private int m_MetadataNotAvailable;		// counter for failures
 		private int m_MetadataAttempts;
 		private int m_PlayerFullSupport;
-		private string m_OutputFileFullPath;
 
 		#endregion
 
@@ -132,14 +119,14 @@ namespace FlashDebugger
 		/// <summary>
 		/// Main loop
 		/// </summary>
-		public void Start(/*Boolean useAny*/)
+		public void Start()
 		{
 			m_CurrentState = DebuggerState.Starting;
             SessionManager mgr = Bootstrap.sessionManager();
 			//mgr.setDebuggerCallbacks(new FlashDebuggerCallbacks()); // obsoleted
 			mgr.setPreference(SessionManager_.PREF_GETVAR_RESPONSE_TIMEOUT, 5000);
 			m_RequestDetach = false;
-            mgr.startListening(/*useAny*/);
+            mgr.startListening();
             try
             {
                 m_Session = mgr.accept(this);

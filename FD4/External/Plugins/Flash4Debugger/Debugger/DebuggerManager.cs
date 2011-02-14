@@ -38,7 +38,7 @@ namespace FlashDebugger
 		private Location m_CurrentLocation = null;
 		private Dictionary<String, String> m_PathMap = new Dictionary<String, String>();
         private Int32 m_CurrentFrame = 0;
-        //private Boolean useAny = false;
+        private static bool jvm_up = false;
 
         public DebuggerManager()
         {
@@ -57,25 +57,6 @@ namespace FlashDebugger
         }
 
         #region Startup
-
-        public bool Start(/*Boolean useAny*/)
-        {
-            //this.useAny = useAny;
-            if (!CheckCurrent()) return false;
-            PluginMain.debugBuildStart = true;
-            UpdateMenuState(DebuggerState.Starting);
-            if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
-            {
-                if (currentProject.NoOutput || currentProject.TestMovieBehavior == TestMovieBehavior.Custom || currentProject.TestMovieBehavior == TestMovieBehavior.OpenDocument)
-                {
-                    // Wait for a SWF to connect...
-                    Start(null);
-                }
-                else ErrorManager.ShowWarning(TextHelper.GetString("Info.CannotFindOutputFile"), null);
-            }
-            else Start(currentProject.OutputPathAbsolute);
-            return true;
-        }
 
         /// <summary>
         /// 
@@ -103,28 +84,47 @@ namespace FlashDebugger
 			return true;
         }
 
-        private static bool jvm_up = false;
         /// <summary>
         /// 
         /// </summary>
-        internal void Start(String filename)
+        internal bool Start()
         {
+            if (!CheckCurrent()) return false;
+            UpdateMenuState(DebuggerState.Starting);
+
             // load JVM.. only once
             if (!jvm_up)
             {
-                var bridgeSetup = new BridgeSetup();
-                bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
-                string flexSdk = PluginBase.MainForm.ProcessArgString("$(CompilerPath)");
-                bridgeSetup.AddAllJarsClassPath(flexSdk+@"\lib");
-                Bridge.CreateJVM(bridgeSetup);
-                Bridge.RegisterAssembly(typeof(IProgress).Assembly); // ??
-                Bridge.RegisterAssembly(typeof(Bootstrap).Assembly);
-                jvm_up = true;
+                try
+                {
+                    InstalledSDK[] sdks = ProjectManager.Actions.BuildActions.GetInstalledSDKs("as3");
+                    if (sdks == null) return false;
+                    //InstalledSDK sdk = ProjectManager.Actions.BuildActions.MatchSDK
+                    BridgeSetup bridgeSetup = null;
+                    foreach (InstalledSDK sdk in sdks)
+                    {
+                        if (sdk.Version.Contains("4.1.0"))
+                        {
+                            bridgeSetup = new BridgeSetup();
+                            bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
+                            bridgeSetup.AddAllJarsClassPath(sdk.Path + @"\lib");
+                            break;
+                        }
+                    }
+                    if (bridgeSetup == null) return false;
+                    Bridge.CreateJVM(bridgeSetup);
+                    Bridge.RegisterAssembly(typeof(IProgress).Assembly); // ??
+                    Bridge.RegisterAssembly(typeof(Bootstrap).Assembly);
+                    jvm_up = true;
+                }
+                catch (Exception ex)
+                {
+                    TraceManager.Add("Debugger startup error: "+ex.ToString());
+                    return false;
+                }
             }
 
-            PluginMain.debugBuildStart = false;
 			m_FlashInterface.currentProject = currentProject;
-			m_FlashInterface.outputFileFullPath = filename;
             PluginBase.MainForm.ProgressBar.Visible = true;
             PluginBase.MainForm.ProgressLabel.Visible = true;
             PluginBase.MainForm.ProgressLabel.Text = TextHelper.GetString("Info.WaitingForPlayer");
@@ -136,6 +136,7 @@ namespace FlashDebugger
                 bgWorker.DoWork += bgWorker_DoWork;
                 bgWorker.RunWorkerAsync();
             }
+            return true;
         }
 
         /// <summary>
@@ -145,7 +146,7 @@ namespace FlashDebugger
         {
             try
             {
-                m_FlashInterface.Start(/*this.useAny*/);
+                m_FlashInterface.Start();
             }
             catch (Exception ex)
             {

@@ -243,16 +243,6 @@ namespace FlashDebugger
 			PluginBase.MainForm.RefreshUI();
         }
 
-        internal void OnBuildFailed()
-        {
-            StartContinueMenu.Enabled = true;
-        }
-
-        internal void OnBuildComplete()
-        {
-			StartContinueMenu.Enabled = true;
-        }
-
         #endregion
 
     }

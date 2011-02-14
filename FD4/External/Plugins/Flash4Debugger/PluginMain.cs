@@ -30,8 +30,6 @@ namespace FlashDebugger
         static internal DebuggerManager debugManager;
 		static internal BreakPointManager breakPointManager;
         static internal Boolean disableDebugger = false;
-        static internal Boolean debugBuildStart;
-        private Boolean buildCmpFlg = false;
 
 	    #region Required Properties
 
@@ -141,22 +139,13 @@ namespace FlashDebugger
                     menusHelper.UpdateMenuState(this);
                     break;
 
-                case EventType.ProcessEnd:
-                    TextEvent textevnt = (TextEvent)e;
-                    if (buildCmpFlg && textevnt.Value != "Done(0)")
-                    {
-                        buildCmpFlg = false;
-						menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
-                    }
-                    break;
-
                 case EventType.Command:
                     PluginCore.DataEvent buildevnt = (PluginCore.DataEvent)e;
                     if (buildevnt.Action == "AS3Context.StartDebugger")
                     {
                         if (settingObject.StartDebuggerOnTestMovie)
                         {
-                            if (debugManager.Start(/*false*/)) buildevnt.Handled = true;
+                            if (debugManager.Start()) buildevnt.Handled = true;
                         }
                         return;
                     }
@@ -187,13 +176,7 @@ namespace FlashDebugger
                         }
                     }
                     else if (disableDebugger) return;
-                    if (debugBuildStart && buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildFailed)
-                    {
-                        debugBuildStart = false;
-                        buildCmpFlg = false;
-                        menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
-                    }
-                    else if (buildevnt.Action == ProjectManager.ProjectManagerEvents.TestProject)
+                    if (buildevnt.Action == ProjectManager.ProjectManagerEvents.TestProject)
                     {
                         if (debugManager.FlashInterface.isDebuggerStarted)
                         {
@@ -204,30 +187,7 @@ namespace FlashDebugger
                             e.Handled = true;
                             return;
                         }
-                        debugBuildStart = false;
-                        buildCmpFlg = false;
                         menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
-                    }
-                    else if (debugBuildStart && buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildProject && buildevnt.Data.ToString() == "Debug")
-                    {
-                        buildCmpFlg = true;
-                    }
-                    else if (buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildFailed)
-                    {
-                        menusHelper.OnBuildFailed();
-                        debugBuildStart = false;
-                        buildCmpFlg = false;
-                    }
-                    else if (buildCmpFlg && buildevnt.Action == ProjectManager.ProjectManagerEvents.BuildComplete)
-                    {
-                        if (buildCmpFlg)
-                        {
-                            debugManager.Start(debugManager.currentProject.OutputPathAbsolute);
-                        }
-                        else menusHelper.OnBuildComplete();
-                        debugBuildStart = false;
-                        buildCmpFlg = false;
-                        menusHelper.UpdateMenuState(this, DebuggerState.Stopped);
                     }
                     break;
             }
@@ -280,7 +240,7 @@ namespace FlashDebugger
         /// </summary> 
         private void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.ProcessStart | EventType.ProcessEnd | EventType.Command | EventType.UIClosing | EventType.ApplySettings);
+            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.ProcessStart | EventType.ProcessEnd | EventType.UIClosing | EventType.ApplySettings);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
         }
