@@ -8,7 +8,7 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "3.3.3"
+!define VERSION "3.3.4"
 !define BUILD "RTM"
 
 ; Define Flex SDK version
