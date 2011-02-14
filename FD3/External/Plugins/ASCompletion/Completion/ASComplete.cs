@@ -1375,6 +1375,7 @@ namespace ASCompletion.Completion
                         FindMember(method.Name, model, iResult, 0, 0);
                         if (iResult.Member != null)
                         {
+                            iResult.relClass = result.relClass;
                             result = iResult;
                             method = iResult.Member;
                             break;

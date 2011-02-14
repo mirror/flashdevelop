@@ -598,16 +598,10 @@ namespace AS3Context
                 case "apiConstructorDetail":
                 case "apiClassifierDetail":
                 case "apiOperationDetail":
-                case "apiValueDetail":
                 case "apiDetail":
                 case "related-links": SkipContents(); break;
 
                 case "prolog": SkipContents(); break; // TODO parse metadata
-
-                default:
-                    Console.WriteLine("Unhandled node: " + Name);
-                    SkipContents();
-                    break;
             }
         }
 
