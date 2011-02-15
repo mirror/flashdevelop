@@ -65,7 +65,7 @@ namespace ProjectManager.Controls.TreeView
             else if (insideClasspath == null && Project.IsClassPath(BackingPath))
             {
                 insideClasspath = this;
-                ImageIndex = Icons.Classpath.Index;
+                ImageIndex = Icons.ClasspathFolder.Index;
             }
             else if (insideClasspath != null && Project.IsCompileTarget(BackingPath))
                 ImageIndex = Icons.FolderCompile.Index;
