@@ -224,8 +224,12 @@ namespace ProjectManager.Actions
 
         static public InstalledSDK MatchSDK(InstalledSDK[] sdks, IProject project)
         {
+            return MatchSDK(sdks, project.PreferredSDK);
+        }
+
+        static public InstalledSDK MatchSDK(InstalledSDK[] sdks, string preferredSDK)
+        {
             if (sdks == null) sdks = new InstalledSDK[] { };
-            string preferredSDK = project.PreferredSDK;
 
             // default sdk
             if (String.IsNullOrEmpty(preferredSDK))
