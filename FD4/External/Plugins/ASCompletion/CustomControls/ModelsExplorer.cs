@@ -42,7 +42,8 @@ namespace ASCompletion
         class ClasspathTreeNode : TreeNode
         {
             public string Path;
-            public ClasspathTreeNode(string path): base(path, PluginUI.ICON_FOLDER_CLOSED, PluginUI.ICON_FOLDER_OPEN) 
+            public ClasspathTreeNode(string path, int count)
+                : base(path + " (" + count + ")", PluginUI.ICON_FOLDER_CLOSED, PluginUI.ICON_FOLDER_OPEN) 
             {
                 Path = path;
             }
@@ -176,7 +177,7 @@ namespace ASCompletion
 
                 foreach (PathModel path in current.Classpath)
                 {
-                    ClasspathTreeNode node = new ClasspathTreeNode(path.Path);
+                    ClasspathTreeNode node = new ClasspathTreeNode(path.Path, path.Files.Count);
                     outlineTreeView.Nodes.Add(node);
                     rootNodes = node.Nodes;
 

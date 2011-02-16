@@ -310,22 +310,13 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(FindInFiles, 0);
             menu.Add(ShellMenu, 0);
 
-            CompileTargetType result = project.AllowCompileTarget(path, true);
-            if (result != CompileTargetType.None)
-            {
-                AlwaysCompile.Text = result == CompileTargetType.AlwaysCompile
-                    ? TextHelper.GetString("Label.AlwaysCompile")
-                    : TextHelper.GetString("Label.DocumentClass");
-                menu.Add(AlwaysCompile, 2, project.IsCompileTarget(path));
-            }
-
+            AddCompileTargetItems(menu, path, true);
             if (projectTree.SelectedPaths.Length == 1)
             {
                 DirectoryNode node = projectTree.SelectedNode as DirectoryNode;
                 if (node != null && (node.InsideClasspath == null || node.InsideClasspath is ProjectNode))
                     menu.Add(AddSourcePath, 2);
             }
-
             AddFileItems(menu, path, true);
         }
 
@@ -334,18 +325,22 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Open, 0);
             menu.Add(Execute, 0);
             menu.Add(ShellMenu, 0);
+            AddCompileTargetItems(menu, path, false);
+            AddFileItems(menu, path);
+        }
 
-            CompileTargetType result = project.AllowCompileTarget(path, false);
+        private void AddCompileTargetItems(MergableMenu menu, string path, bool isFolder)
+        {
+            CompileTargetType result = project.AllowCompileTarget(path, isFolder);
             if (result != CompileTargetType.None)
             {
+                bool isTarget = project.IsCompileTarget(path);
                 AlwaysCompile.Text = result == CompileTargetType.AlwaysCompile
                     ? TextHelper.GetString("Label.AlwaysCompile")
-                    : TextHelper.GetString("Label.DocumentClass");
-                menu.Add(AlwaysCompile, 2, project.IsCompileTarget(path));
-                menu.Add(CopyClassName, 2);
+                    : (isTarget ? TextHelper.GetString("Label.DocumentClass")
+                       : TextHelper.GetString("Label.SetDocumentClass"));
+                menu.Add(AlwaysCompile, 2, isTarget);
             }
-
-            AddFileItems(menu, path);
         }
 
         private void AddCssItems(MergableMenu menu, string path)

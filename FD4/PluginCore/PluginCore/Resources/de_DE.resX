@@ -4723,4 +4723,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Add &amp;Source Path</value>
     <comment>Added after 3.3.3</comment>
   </data>
+  <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
+    <value>Set Document &amp;Class</value>
+    <comment>Added after 3.3.3</comment>
+  </data>
 </root>
