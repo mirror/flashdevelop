@@ -2618,7 +2618,11 @@ namespace ASCompletion.Completion
             lookupPosition = Sci.CurrentPos;
             AddLookupPosition();
 
-            MemberModel latest = GetLatestMemberForFunction(found.inClass, ASGenerator.GetDefaultVisibility(), found.member);
+            MemberModel latest = TemplateUtils.GetTemplateBlockMember(Sci,
+                        TemplateUtils.GetBoundary("PrivateMethods"));
+
+            if (latest == null)
+                latest = GetLatestMemberForFunction(found.inClass, ASGenerator.GetDefaultVisibility(), found.member);
 
             if (latest == null)
                 latest = found.member;
