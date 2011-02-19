@@ -174,18 +174,22 @@ namespace ASCompletion.Completion
 
         public static MemberModel GetTemplateBlockMember(ScintillaNet.ScintillaControl Sci, string blockTmpl)
         {
-            MemberModel latest = null;
             blockTmpl = blockTmpl.Replace("\n", ASComplete.GetNewLineMarker(Sci.EOLMode));
-            string allText = Sci.Text;
-            int funcBlockIndex = allText.IndexOf(blockTmpl);
-            if (funcBlockIndex != -1)
+            int lineNum = 0;
+            while (lineNum < Sci.LineCount)
             {
-                int blockLine = Sci.LineFromPosition(funcBlockIndex);
-                latest = new MemberModel();
-                latest.LineFrom = blockLine;
-                latest.LineTo = blockLine;
+                string line = Sci.GetLine(lineNum);
+                int funcBlockIndex = line.IndexOf(blockTmpl);
+                if (funcBlockIndex != -1)
+                {
+                    MemberModel latest = new MemberModel();
+                    latest.LineFrom = lineNum;
+                    latest.LineTo = lineNum;
+                    return latest;
+                }
+                lineNum++;
             }
-            return latest;
+            return null;
         }
 
         /// <summary>

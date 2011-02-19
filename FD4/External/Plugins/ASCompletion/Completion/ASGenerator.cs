@@ -2357,44 +2357,48 @@ namespace ASCompletion.Completion
             if (latest == null)
             {
                 latest = GetLatestMemberForFunction(inClass, funcVisi, isStatic);
-            }
 
-            // if we generate function in current class..
-            if (!isOtherClass)
-            {
-                MethodsGenerationLocations location = ASContext.CommonSettings.MethodsGenerationLocations;
-                if (member == null)
+                // if we generate function in current class..
+                if (!isOtherClass)
                 {
-                    detach = false;
-                    lookupPosition = -1;
-                    position = Sci.WordStartPosition(Sci.CurrentPos, true);
-                    Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                    MethodsGenerationLocations location = ASContext.CommonSettings.MethodsGenerationLocations;
+                    if (member == null)
+                    {
+                        detach = false;
+                        lookupPosition = -1;
+                        position = Sci.WordStartPosition(Sci.CurrentPos, true);
+                        Sci.SetSel(position, Sci.WordEndPosition(position, true));
+                    }
+                    else if (latest != null && location == MethodsGenerationLocations.AfterSimilarAccessorMethod)
+                    {
+                        position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                        Sci.SetSel(position, position);
+                    }
+                    else
+                    {
+                        position = Sci.PositionFromLine(member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                        Sci.SetSel(position, position);
+                    }
                 }
-                else if (latest != null && location == MethodsGenerationLocations.AfterSimilarAccessorMethod)
+                else // if we generate function in another class..
                 {
-                    position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
-                    Sci.SetSel(position, position);
-                }
-                else
-                {
-                    position = Sci.PositionFromLine(member.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                    if (latest != null)
+                    {
+                        position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
+                    }
+                    else
+                    {
+                        position = GetBodyStart(inClass.LineFrom, inClass.LineTo, Sci);
+                        detach = false;
+                    }
                     Sci.SetSel(position, position);
                 }
             }
-            else // if we generate function in another class..
+            else
             {
-                if (latest != null)
-                {
-                    position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
-                }
-                else
-                {
-                    position = GetBodyStart(inClass.LineFrom, inClass.LineTo, Sci);
-                    detach = false;
-                }
+                position = Sci.PositionFromLine(latest.LineTo + 1) - ((Sci.EOLMode == 0) ? 2 : 1);
                 Sci.SetSel(position, position);
             }
-
 
             // add imports to function argument types
             if (functionParameters.Count > 0)
