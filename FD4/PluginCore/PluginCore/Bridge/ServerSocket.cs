@@ -170,11 +170,14 @@ namespace PluginCore.Bridge
                     int star = chunk.IndexOf('*');
                     if (star >= 0)// .EndsWith("\0"))
                     {
-						so.Data.Append(chunk.Substring(0, star));
-                   		if (this.DataReceived != null) 
-							this.DataReceived(this, new DataReceivedEventArgs(so.Data.ToString(), so.Client));
+						so.Data.Append(chunk);
+                        string[] lines = so.Data.ToString().Split('*');
+                        foreach (string line in lines)
+                        {
+                            if (line.Length > 0 && this.DataReceived != null)
+                                this.DataReceived(this, new DataReceivedEventArgs(line, so.Client));
+                        }
 						so.Data = new StringBuilder();
-                        so.Data.Append(chunk.Substring(star + 1));
                     }
 					else so.Data.Append(chunk);
 					

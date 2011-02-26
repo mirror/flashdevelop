@@ -677,7 +677,7 @@ namespace AS3Context
                 Match m = Regex.Match(line, @"\svar\s+(?<varname>.+)\s*:\s*Vector\.<(?<indextype>.+)(?=(>\s*=))");
                 if (m.Success)
                 {
-                    insert = String.Format(".<{0}>()", m.Groups["indextype"].Value);
+                    insert = String.Format(".<{0}>", m.Groups["indextype"].Value);
                     sci.InsertText(position + text.Length, insert);
                     sci.CurrentPos = position + text.Length + insert.Length;
                     sci.SetSel(sci.CurrentPos, sci.CurrentPos);
@@ -693,7 +693,7 @@ namespace AS3Context
                             m = Regex.Match(result.Member.Type, @"(?<=<).+(?=>)");
                             if (m.Success)
                             {
-                                insert = String.Format(".<{0}>()", m.Value);
+                                insert = String.Format(".<{0}>", m.Value);
                                 sci.InsertText(position + text.Length, insert);
                                 sci.CurrentPos = position + text.Length + insert.Length;
                                 sci.SetSel(sci.CurrentPos, sci.CurrentPos);

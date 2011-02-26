@@ -108,9 +108,10 @@ namespace ProjectManager.Controls.TreeView
                     }
                 }
                 if (e.ChangeType != WatcherChangeTypes.Created && e.ChangeType != WatcherChangeTypes.Renamed
-                    && !this.changedPaths.Contains(fullPath) && Directory.Exists(fullPath))
+                    && Directory.Exists(fullPath))
                 {
-                    this.changedPaths.Add(fullPath);
+                    if (!this.changedPaths.Contains(fullPath))
+                        this.changedPaths.Add(fullPath);
                 }
                 else if (!this.changedPaths.Contains(path) && Directory.Exists(path))
                 {

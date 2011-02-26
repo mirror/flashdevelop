@@ -169,8 +169,26 @@ namespace ASCompletion.Completion
                                 if (contextOwnerResult != null && !contextOwnerResult.IsNull()
                                     && contextOwnerResult.Member != null)
                                 {
-                                    noOwner = false;
-                                    contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
+                                    if (contextOwnerResult.Member.Name == "contentLoaderInfo" && Sci.CharAt(contextOwnerPos) == '.')
+                                    {
+                                        // we want to name the event from the loader var and not from the contentLoaderInfo parameter
+                                        contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(contextOwnerPos - 1, true));
+                                        if (contextOwnerPos != -1)
+                                        {
+                                            contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
+                                            if (contextOwnerResult != null && !contextOwnerResult.IsNull()
+                                                && contextOwnerResult.Member != null)
+                                            {
+                                                noOwner = false;
+                                                contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        noOwner = false;
+                                        contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
+                                    }
                                 }
                             }
                             if (noOwner)
@@ -182,11 +200,16 @@ namespace ASCompletion.Completion
                             string eventName = m.Groups["event"].Value;
                             eventName = eventName.Substring(eventName.LastIndexOf('.') + 1);
                             contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "EventName", Camelize(eventName));
+
+                            char c = (char)Sci.CharAt(position - 1);
+                            if (c == ',') contextToken = contextToken.Replace("$(Boundary)", "$(Boundary) ");
                             InsertCode(position, contextToken);
-                            position = Sci.WordEndPosition(position, true);
+
+                            position = Sci.WordEndPosition(position + 1, true);
                             Sci.SetSel(position, position);
-                            char c = (char)Sci.CharAt(position);
+                            c = (char)Sci.CharAt(position);
                             if (c <= 32) Sci.ReplaceSel(");");
+                            
                             Sci.SetSel(position, position);
                             contextMatch = m;
                             contextParam = CheckEventType(m.Groups["event"].Value);
