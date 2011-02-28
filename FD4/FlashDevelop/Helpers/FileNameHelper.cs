@@ -120,6 +120,28 @@ namespace FlashDevelop.Helpers
         }
 
         /// <summary>
+        /// Path to the shortcut file
+        /// </summary>
+        public static String ShortcutData
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "ShortcutData.fda");
+            }
+        }
+
+        /// <summary>
+        /// Path to the argument file
+        /// </summary>
+        public static String UserArgData
+        {
+            get
+            {
+                return Path.Combine(PathHelper.SettingDir, "UserArgData.fda");
+            }
+        }
+
+        /// <summary>
         /// Path to the recovery directory
         /// </summary>
         public static String RecoveryDir

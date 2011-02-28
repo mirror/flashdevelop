@@ -90,10 +90,16 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void LoadCustomShortcuts()
         {
-            foreach (Argument arg in Globals.Settings.CustomShortcuts)
+            String file = FileNameHelper.ShortcutData;
+            if (File.Exists(file))
             {
-                ShortcutItem item = GetRegisteredItem(arg.Key);
-                if (item != null) item.Custom = (Keys)Enum.Parse(typeof(Keys), arg.Value);
+                List<Argument> shortcuts = new List<Argument>();
+                shortcuts = (List<Argument>)ObjectSerializer.Deserialize(file, shortcuts, false);
+                foreach (Argument arg in shortcuts)
+                {
+                    ShortcutItem item = GetRegisteredItem(arg.Key);
+                    if (item != null) item.Custom = (Keys)Enum.Parse(typeof(Keys), arg.Value);
+                }
             }
         }
 
@@ -102,14 +108,16 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void SaveCustomShortcuts()
         {
-            Globals.Settings.CustomShortcuts.Clear();
+            List<Argument> shortcuts = new List<Argument>();
             foreach (ShortcutItem item in RegistedItems)
             {
                 if (item.Custom != item.Default)
                 {
-                    Globals.Settings.CustomShortcuts.Add(new Argument(item.Id, item.Custom.ToString()));
+                    shortcuts.Add(new Argument(item.Id, item.Custom.ToString()));
                 }
             }
+            String file = FileNameHelper.ShortcutData;
+            ObjectSerializer.Serialize(file, shortcuts);
         }
 
     }

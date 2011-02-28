@@ -191,7 +191,6 @@ namespace PluginCore
         Font ConsoleFont { get; set; }
         List<String> DisabledPlugins { get; set; }
         List<String> PreviousDocuments { get; set; }
-        List<Argument> CustomArguments { get; set; }
         LocaleVersion LocaleVersion { get; set; }
         UiRenderMode RenderMode { get; set; }
         CodingStyle CodingStyle { get; set; }

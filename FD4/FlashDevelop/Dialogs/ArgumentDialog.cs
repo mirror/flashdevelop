@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Text;
 using System.Drawing;
@@ -7,6 +8,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using FlashDevelop.Settings;
+using FlashDevelop.Helpers;
 using PluginCore.Utilities;
 using PluginCore;
 
@@ -14,6 +16,7 @@ namespace FlashDevelop.Dialogs
 {
     public class ArgumentDialog : Form
     {
+        private static List<Argument> arguments;
         private System.Windows.Forms.Label keyLabel;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label valueLabel;
@@ -31,6 +34,7 @@ namespace FlashDevelop.Dialogs
 
         public ArgumentDialog()
         {
+            arguments = new List<Argument>();
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
             this.InitializeComponent();
@@ -225,6 +229,14 @@ namespace FlashDevelop.Dialogs
         #endregion
 
         #region Methods And Event Handlers
+        
+        /// <summary>
+        /// List of all custom arguments
+        /// </summary>
+        public static List<Argument> CustomArguments
+        {
+            get { return arguments; }
+        }
 
         /// <summary>
         /// Initializes the external graphics
@@ -288,26 +300,38 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Loads the argument list from settings
+        /// Loads the argument list from file
         /// </summary>
         private void LoadCustomArguments()
         {
-            List<Argument> arguments = Globals.Settings.CustomArguments;
+            String file = FileNameHelper.UserArgData;
+            if (File.Exists(file))
+            {
+                List<Argument> args = new List<Argument>();
+                Object data = ObjectSerializer.Deserialize(file, args, false);
+                arguments = (List<Argument>)data;
+            }
+            else
+            {
+                arguments.Add(new Argument("DefaultUser", "..."));
+                ObjectSerializer.Serialize(file, arguments);
+            }
             this.PopulateArgumentList(arguments);
         }
 
         /// <summary>
-        /// Saves the argument list to settings
+        /// Saves the argument list to file
         /// </summary>
         private void SaveCustomArguments()
         {
-            List<Argument> arguments = new List<Argument>();
+            arguments.Clear();
             foreach (ListViewItem item in this.argsListView.Items)
             {
                 Argument argument = item.Tag as Argument;
                 arguments.Add(argument);
             }
-            Globals.Settings.CustomArguments = arguments;
+            String file = FileNameHelper.UserArgData;
+            ObjectSerializer.Serialize(file, arguments);
         }
 
         /// <summary>
@@ -445,11 +469,7 @@ namespace FlashDevelop.Dialogs
             sfd.InitialDirectory = Globals.MainForm.WorkingDirectory;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                List<Argument> arguments = new List<Argument>();
-                foreach (ListViewItem item in this.argsListView.SelectedItems)
-                {
-                    arguments.Add((Argument)item.Tag);
-                }
+                this.SaveCustomArguments();
                 ObjectSerializer.Serialize(sfd.FileName, arguments);
             }
         }
@@ -465,11 +485,10 @@ namespace FlashDevelop.Dialogs
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 this.SaveCustomArguments();
-                List<Argument> arguments = new List<Argument>();
-                Object argumentsObject = ObjectSerializer.Deserialize(ofd.FileName, arguments);
-                arguments = (List<Argument>)argumentsObject;
-                Globals.Settings.CustomArguments.AddRange(arguments);
-                this.PopulateArgumentList(Globals.Settings.CustomArguments);
+                List<Argument> args = new List<Argument>();
+                args = (List<Argument>)ObjectSerializer.Deserialize(ofd.FileName, args, false);
+                arguments.AddRange(args); // Append imported
+                this.PopulateArgumentList(arguments);
             }
         }
 

@@ -713,24 +713,6 @@ namespace FlashDevelop.Settings
             set { this.disabledPlugins = value; }
         }
 
-        [DisplayName("Custom Arguments")]
-        [LocalizedCategory("FlashDevelop.Category.State")]
-        [LocalizedDescription("FlashDevelop.Description.CustomArguments")]
-        public List<Argument> CustomArguments
-        {
-            get { return this.customArguments; }
-            set { this.customArguments = value; }
-        }
-
-        [DisplayName("Custom Shortcuts")]
-        [LocalizedCategory("FlashDevelop.Category.State")]
-        [LocalizedDescription("FlashDevelop.Description.CustomShortcuts")]
-        public List<Argument> CustomShortcuts
-        {
-            get { return this.customShortcuts; }
-            set { this.customShortcuts = value; }
-        }
-
         #endregion
 
         #region Controls

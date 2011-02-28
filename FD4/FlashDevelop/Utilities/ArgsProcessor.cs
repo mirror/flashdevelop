@@ -361,7 +361,7 @@ namespace FlashDevelop.Utilities
                     case "Clipboard": return GetClipboard();
                     case "Dollar": return "$";
                 }
-                foreach (Argument arg in Globals.Settings.CustomArguments)
+                foreach (Argument arg in ArgumentDialog.CustomArguments)
                 {
                     if (name == arg.Key) return arg.Value;
                 }

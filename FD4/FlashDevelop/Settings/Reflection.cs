@@ -81,9 +81,6 @@ namespace FlashDevelop.Settings
         {
             SettingObject settings = new SettingObject();
             settings.DefaultFont = SystemFonts.MenuFont;
-            List<Argument> arguments = new List<Argument>();
-            arguments.Add(new Argument("DefaultUser", "..."));
-            settings.CustomArguments = arguments;
             return settings;
         }
 
