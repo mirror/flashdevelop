@@ -70,9 +70,9 @@ namespace ProjectManager.Helpers
             if (!de.Handled)
             {
                 int addArgs = 1;
-                arguments = new Argument[PluginBase.MainForm.Settings.CustomArguments.Count + addArgs];
+                arguments = new Argument[PluginBase.MainForm.CustomArguments.Count + addArgs];
                 arguments[0] = new Argument("FlexSDK", PluginBase.MainForm.ProcessArgString("$(FlexSDK)"));
-                PluginBase.MainForm.Settings.CustomArguments.CopyTo(arguments, addArgs);
+                PluginBase.MainForm.CustomArguments.CopyTo(arguments, addArgs);
                 Directory.CreateDirectory(projectLocation);
                 // manually copy important files
                 CopyFile(projectTemplate, projectPath);

@@ -440,6 +440,14 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Gets the application custom args
+        /// </summary>
+        public List<Argument> CustomArguments
+        {
+            get { return ArgumentDialog.CustomArguments; }
+        }
+
+        /// <summary>
         /// Gets the application's version
         /// </summary>
         public new String ProductVersion

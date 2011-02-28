@@ -36,7 +36,7 @@ namespace ProjectManager.Actions
         {
             if (nameAsked) return;
             nameAsked = true;
-            foreach (Argument arg in PluginBase.Settings.CustomArguments)
+            foreach (Argument arg in PluginBase.MainForm.CustomArguments)
             {
                 if (arg.Key == "DefaultUser" && arg.Value == "...")
                 {

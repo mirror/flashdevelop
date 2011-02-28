@@ -122,6 +122,7 @@ namespace PluginCore
         Scintilla SciConfig { get; }
         DockPanel DockPanel { get; }
         String[] StartArguments { get; }
+        List<Argument> CustomArguments { get; }
         StatusStrip StatusStrip { get; }
         String WorkingDirectory { get; set; }
         ToolStripPanel ToolStripPanel { get; }
