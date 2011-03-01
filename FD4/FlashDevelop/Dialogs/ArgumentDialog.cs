@@ -34,7 +34,6 @@ namespace FlashDevelop.Dialogs
 
         public ArgumentDialog()
         {
-            arguments = new List<Argument>();
             this.Owner = Globals.MainForm;
             this.Font = Globals.Settings.DefaultFont;
             this.InitializeComponent();
@@ -235,7 +234,14 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         public static List<Argument> CustomArguments
         {
-            get { return arguments; }
+            get 
+            {
+                if (arguments == null)
+                {
+                    arguments = new List<Argument>();
+                }
+                return arguments; 
+            }
         }
 
         /// <summary>
