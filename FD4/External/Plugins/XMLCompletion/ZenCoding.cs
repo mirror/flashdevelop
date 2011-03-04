@@ -15,7 +15,7 @@ using LitJson;
 namespace XMLCompletion
 {
     #region zen settings
-    class ZenElementTypes
+    public class ZenElementTypes
     {
         public Hashtable empty = new Hashtable();
         public Hashtable block_level = new Hashtable();
@@ -36,7 +36,7 @@ namespace XMLCompletion
         }
     }
 
-    class ZenLang 
+    public class ZenLang 
     {
         public Hashtable snippets = new Hashtable();
         public Hashtable abbreviations = new Hashtable();
@@ -45,7 +45,7 @@ namespace XMLCompletion
         public ZenElementTypes element_types;
     }
 
-    class ZenSettings
+    public class ZenSettings
     {
         public Hashtable variables;
         public Dictionary<string, ZenLang> langs = new Dictionary<string, ZenLang>();

@@ -356,7 +356,7 @@ public class AS3_exParser : Parser
 
 
     //options
-    private List<Exception> mParseErrors;
+    //private List<Exception> mParseErrors;
 
     private ASPrettyPrinter mPrinter;
     private CommonTokenStream mRawTokens;
@@ -2283,7 +2283,7 @@ public class AS3_exParser : Parser
         AS3_exParser.allKeywords_return allKeywords12 = null;
 
 
-        object lexToken_tree = null;
+        //object lexToken_tree = null;
 
         try
         {
@@ -8556,7 +8556,7 @@ public class AS3_exParser : Parser
 
 
         object F_tree = null;
-        object funcType_tree = null;
+        //object funcType_tree = null;
         object I_tree = null;
         object C_tree = null;
 
@@ -9621,7 +9621,7 @@ public class AS3_exParser : Parser
 
         IToken x = null;
 
-        object x_tree = null;
+        //object x_tree = null;
 
         try
         {
@@ -13248,14 +13248,14 @@ public class AS3_exParser : Parser
                         {
                             alt96 = 2;
                         }
-                        else
+                        /*else
                         {
                             if (state.backtracking > 0) { state.failed = true; return retval; }
                             NoViableAltException nvae_d96s2 =
                                 new NoViableAltException("", 96, 2, input);
 
                             throw nvae_d96s2;
-                        }
+                        }*/
                     }
                     break;
                 case NATIVE:
@@ -13279,14 +13279,14 @@ public class AS3_exParser : Parser
                         {
                             alt96 = 2;
                         }
-                        else
+                        /*else
                         {
                             if (state.backtracking > 0) { state.failed = true; return retval; }
                             NoViableAltException nvae_d96s3 =
                                 new NoViableAltException("", 96, 3, input);
 
                             throw nvae_d96s3;
-                        }
+                        }*/
                     }
                     break;
                 case AS:
@@ -16239,11 +16239,11 @@ public class AS3_exParser : Parser
         IToken LAND_ASSIGN254 = null;
 
         object s_tree = null;
-        object a_tree = null;
-        object t1_tree = null;
-        object t2_tree = null;
-        object t3_tree = null;
-        object t4_tree = null;
+        //object a_tree = null;
+        //object t1_tree = null;
+        //object t2_tree = null;
+        //object t3_tree = null;
+        //object t4_tree = null;
         object ASSIGN244_tree = null;
         object DIV_ASSIGN245_tree = null;
         object MOD_ASSIGN246_tree = null;
@@ -18087,7 +18087,7 @@ public class AS3_exParser : Parser
         AS3_exParser.relationalExpression_return relationalExpression282 = null;
 
 
-        object eq_tree = null;
+        //object eq_tree = null;
 
         try
         {
@@ -18216,7 +18216,7 @@ public class AS3_exParser : Parser
         AS3_exParser.relationalExpressionNoIn_return relationalExpressionNoIn284 = null;
 
 
-        object eq_tree = null;
+        //object eq_tree = null;
 
         try
         {
@@ -18349,7 +18349,7 @@ public class AS3_exParser : Parser
 
         object g_tree = null;
         object assign_tree = null;
-        object eq_tree = null;
+        //object eq_tree = null;
 
         try
         {
@@ -18553,7 +18553,7 @@ public class AS3_exParser : Parser
 
         object g_tree = null;
         object assign_tree = null;
-        object eq_tree = null;
+        //object eq_tree = null;
 
         try
         {
@@ -18762,9 +18762,9 @@ public class AS3_exParser : Parser
         AS3_exParser.additiveExpression_return additiveExpression290 = null;
 
 
-        object t1_tree = null;
-        object t2_tree = null;
-        object t3_tree = null;
+        //object t1_tree = null;
+        //object t2_tree = null;
+        //object t3_tree = null;
         RewriteRuleTokenStream stream_GT = new RewriteRuleTokenStream(adaptor, "token GT");
         RewriteRuleTokenStream stream_SHL = new RewriteRuleTokenStream(adaptor, "token SHL");
         RewriteRuleSubtreeStream stream_additiveExpression = new RewriteRuleSubtreeStream(adaptor, "rule additiveExpression");
@@ -19057,7 +19057,7 @@ public class AS3_exParser : Parser
         AS3_exParser.multiplicativeExpression_return multiplicativeExpression292 = null;
 
 
-        object op_tree = null;
+        //object op_tree = null;
 
         try
         {
@@ -19179,7 +19179,7 @@ public class AS3_exParser : Parser
         AS3_exParser.unaryExpression_return unaryExpression294 = null;
 
 
-        object op_tree = null;
+        //object op_tree = null;
 
         try
         {
@@ -19305,7 +19305,7 @@ public class AS3_exParser : Parser
         AS3_exParser.postfixExpression_return postfixExpression298 = null;
 
 
-        object op_tree = null;
+        //object op_tree = null;
 
         try
         {
@@ -19430,7 +19430,7 @@ public class AS3_exParser : Parser
 
         IToken op = null;
 
-        object op_tree = null;
+        //object op_tree = null;
 
         try
         {
@@ -19602,7 +19602,7 @@ public class AS3_exParser : Parser
 
         IToken op = null;
 
-        object op_tree = null;
+        //object op_tree = null;
 
         try
         {
@@ -20590,14 +20590,14 @@ public class AS3_exParser : Parser
                         {
                             alt147 = 3;
                         }
-                        else
+                        /*else
                         {
                             if (state.backtracking > 0) { state.failed = true; return retval; }
                             NoViableAltException nvae_d147s3 =
                                 new NoViableAltException("", 147, 3, input);
 
                             throw nvae_d147s3;
-                        }
+                        }*/
                     }
                     break;
                 case NATIVE:
@@ -20621,14 +20621,14 @@ public class AS3_exParser : Parser
                         {
                             alt147 = 3;
                         }
-                        else
+                        /*else
                         {
                             if (state.backtracking > 0) { state.failed = true; return retval; }
                             NoViableAltException nvae_d147s4 =
                                 new NoViableAltException("", 147, 4, input);
 
                             throw nvae_d147s4;
-                        }
+                        }*/
                     }
                     break;
                 default:
@@ -20907,7 +20907,7 @@ public class AS3_exParser : Parser
 
         IToken word = null;
 
-        object word_tree = null;
+        //object word_tree = null;
 
         try
         {
@@ -21102,7 +21102,7 @@ public class AS3_exParser : Parser
 
         IToken word = null;
 
-        object word_tree = null;
+        //object word_tree = null;
 
         try
         {
