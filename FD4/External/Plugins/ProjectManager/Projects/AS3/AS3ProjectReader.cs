@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -22,8 +23,10 @@ namespace ProjectManager.Projects.AS3
 
         protected override void PostProcess()
         {
+            base.PostProcess();
             if (version > 1) return;
 
+            // import FD3 project
             if (project.MovieOptions.MajorVersion > 10)
             {
                 project.MovieOptions.MajorVersion = 10;
@@ -95,7 +98,7 @@ namespace ProjectManager.Projects.AS3
             List<string> elements = new List<string>();
             while (Name == "element")
             {
-                string path = GetAttribute("path").Replace('/', '\\');
+                string path = OSPath(GetAttribute("path"));
                 elements.Add(path);
 
                 if (mode != SwfAssetMode.Ignore)
