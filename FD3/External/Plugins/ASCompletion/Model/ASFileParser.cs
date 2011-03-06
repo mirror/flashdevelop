@@ -633,7 +633,8 @@ namespace ASCompletion.Model
                             else paramTempCount--;
                         }
                     }
-                    else if (inValue && c1 == '/' && valueLength == 0) // lookup native regex
+                    else if (inValue && (inParams || inType || inConst)
+                        && c1 == '/' && valueLength == 0) // lookup native regex
                     {
                         int itemp = i;
                         valueBuffer[valueLength++] = '/';
