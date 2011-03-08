@@ -111,7 +111,11 @@ namespace FlashDebugger
                             break;
                         }
                     }
-                    if (bridgeSetup == null) return false;
+                    if (bridgeSetup == null)
+                    {
+                        TraceManager.Add("Debugger needs 4.1.0 FlexSDK");
+                        return false;
+                    }
                     Bridge.CreateJVM(bridgeSetup);
                     Bridge.RegisterAssembly(typeof(IProgress).Assembly); // ??
                     Bridge.RegisterAssembly(typeof(Bootstrap).Assembly);
@@ -278,7 +282,7 @@ namespace FlashDebugger
                 PanelsHelper.stackframePanel.Show();
                 PanelsHelper.pluginPanel.Show();
 				PanelsHelper.breakPointPanel.Show();
-                PanelsHelper.immediatePanel.Show();
+                //PanelsHelper.immediatePanel.Show();
 			}
 		}
 
@@ -303,7 +307,7 @@ namespace FlashDebugger
                 PanelsHelper.breakPointPanel.Hide();
                 PanelsHelper.stackframePanel.Hide();
                 PanelsHelper.watchPanel.Hide();
-                PanelsHelper.immediatePanel.Hide();
+                //PanelsHelper.immediatePanel.Hide();
             }
 			PanelsHelper.pluginUI.TreeControl.Nodes.Clear();
 			PanelsHelper.stackframeUI.ClearItem();
