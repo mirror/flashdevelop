@@ -741,7 +741,7 @@ namespace ASCompletion.Model
 					else if (version > 2 && (curMember.Flags & FlagType.Variable) > 0)
 					{
                         curMember.Value = param;
-                        if (inConst)
+                        if (inConst && c1 != ',')
                         {
                             context = 0;
                             inConst = false;
@@ -750,7 +750,7 @@ namespace ASCompletion.Model
 					//
 					valueLength = 0;
 					//length = 0;
-                    if (!inParams) continue;
+                    if (!inParams && !(inConst && context != 0)) continue;
 				}
 
 				/* TOKENIZATION */
