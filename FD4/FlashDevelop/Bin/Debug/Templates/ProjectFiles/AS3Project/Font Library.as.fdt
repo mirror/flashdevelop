@@ -7,7 +7,7 @@ Suggested workflow:
 - one font library can contain several font classes (duplicate embed and registration code)
 
 FlashDevelop QuickBuild options: (just press Ctrl+F8 to compile this library)
-@mxmlc -o bin/$(FileName).swf -noplay
+@mxmlc -o bin/$(FileName).swf -static-link-runtime-shared-libraries=true -noplay
 */
 package $(Package) $(CSLB){
 	import flash.display.Sprite;
