@@ -236,10 +236,7 @@ namespace FlashDevelop.Dialogs
         {
             get 
             {
-                if (arguments == null)
-                {
-                    arguments = new List<Argument>();
-                }
+                if (arguments == null) LoadCustomArguments();
                 return arguments; 
             }
         }
@@ -308,7 +305,7 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Loads the argument list from file
         /// </summary>
-        private void LoadCustomArguments()
+        static private void LoadCustomArguments()
         {
             String file = FileNameHelper.UserArgData;
             if (File.Exists(file))
@@ -319,10 +316,10 @@ namespace FlashDevelop.Dialogs
             }
             else
             {
+                arguments = new List<Argument>();
                 arguments.Add(new Argument("DefaultUser", "..."));
                 ObjectSerializer.Serialize(file, arguments);
             }
-            this.PopulateArgumentList(arguments);
         }
 
         /// <summary>
@@ -503,7 +500,8 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void DialogLoad(Object sender, EventArgs e)
         {
-            this.LoadCustomArguments();
+            LoadCustomArguments();
+            this.PopulateArgumentList(arguments);
         }
 
         /// <summary>
