@@ -4718,6 +4718,12 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Add &amp;Source Path</value>
     <comment>Added after 3.3.3</comment>
   </data>
+  <data name="FlashDebugger.Label.ViewImmediatePanel" xml:space="preserve">
+    <value>Immediate Panel</value>
+  </data>
+  <data name="FlashDebugger.Title.Immediate" xml:space="preserve">
+    <value>Immediate</value>
+  </data>
   <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
     <value>Set Document &amp;Class</value>
     <comment>Added after 3.3.3</comment>

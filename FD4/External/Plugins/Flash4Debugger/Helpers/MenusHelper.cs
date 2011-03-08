@@ -50,7 +50,7 @@ namespace FlashDebugger
             tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewWatchPanel"), pluginImage, new EventHandler(this.OpenWatchPanel));
             PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowWatch", tempItem);
             viewMenu.DropDownItems.Add(tempItem);
-            tempItem = new ToolStripMenuItem("Immediate"/*TextHelper.GetString("Label.ViewImmediatePanel")*/, pluginImage, new EventHandler(this.OpenImmediatePanel));
+            tempItem = new ToolStripMenuItem(TextHelper.GetString("Label.ViewImmediatePanel"), pluginImage, new EventHandler(this.OpenImmediatePanel));
             PluginBase.MainForm.RegisterShortcutItem("ViewMenu.ShowImmediate", tempItem);
             viewMenu.DropDownItems.Add(tempItem);
 

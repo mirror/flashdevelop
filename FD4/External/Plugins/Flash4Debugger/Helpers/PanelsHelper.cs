@@ -53,7 +53,7 @@ namespace FlashDebugger
             breakPointPanel.Hide();
 
             immediateUI = new ImmediateUI();
-            immediateUI.Text = "Immediate";// TextHelper.GetString("Title.Immediate");
+            immediateUI.Text = TextHelper.GetString("Title.Immediate");
             immediatePanel = PluginBase.MainForm.CreateDockablePanel(immediateUI, immediateGuid, pluginImage, DockState.DockLeft);
             immediatePanel.Hide();
         }
