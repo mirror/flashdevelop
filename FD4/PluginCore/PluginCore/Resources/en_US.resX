@@ -4717,7 +4717,7 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="ProjectManager.Label.DocumentClass" xml:space="preserve">
     <value>Document &amp;Class</value>
-    <comment>Added after 3.3.3</comment>
+    <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.AddSourcePath" xml:space="preserve">
     <value>Add &amp;Source Path</value>
@@ -4731,6 +4731,58 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
     <value>Set Document &amp;Class</value>
-    <comment>Added after 3.3.3</comment>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Info.NoAssociatedIDE" xml:space="preserve">
+    <value>This target doesn't have an associated external IDE.</value>
+    <comment>added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Info.OutputType" xml:space="preserve">
+    <value>Compilation &amp;Target:</value>
+    <comment>added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeApplication" xml:space="preserve">
+    <value>Application</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeCustomBuild" xml:space="preserve">
+    <value>Custom Build</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeLibrary" xml:space="preserve">
+    <value>Library</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeOtherIDE" xml:space="preserve">
+    <value>Other IDE</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeWebsite" xml:space="preserve">
+    <value>Website</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieCustom" xml:space="preserve">
+    <value>Run Custom Command...</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieDefault" xml:space="preserve">
+    <value>Play: FlashViewer Default</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieExternalPlayer" xml:space="preserve">
+    <value>Play: External Player</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieNewTab" xml:space="preserve">
+    <value>Play: Open in new Tab</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieNewWindow" xml:space="preserve">
+    <value>Play: Open in Popup</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieOpenDocument" xml:space="preserve">
+    <value>Open Document...</value>
+    <comment>Added after 3.3.4</comment>
   </data>
 </root>

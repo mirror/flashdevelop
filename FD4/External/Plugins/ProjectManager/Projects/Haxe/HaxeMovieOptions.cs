@@ -6,6 +6,14 @@ namespace ProjectManager.Projects.Haxe
 {
     public class HaxeMovieOptions : MovieOptions
     {
+        public const string FLASHPLAYER_PLATFORM = "Flash Player";
+        public const string AIR_PLATFORM = "AIR";
+        public const string CUSTOM_PLATFORM = "Custom";
+        public const string JAVASCRIPT_PLATFORM = "JavaScript";
+        public const string NEKO_PLATFORM = "Neko";
+        public const string PHP_PLATFORM = "PHP";
+        public const string CPP_PLATFORM = "C++";
+        
         public HaxeMovieOptions()
         {
             MajorVersion = 10;
@@ -16,40 +24,55 @@ namespace ProjectManager.Projects.Haxe
         {
             get
             {
-                return (Platform == "Flash Player" && MajorVersion >= 9) || Platform == "AIR";
+                return (Platform == FLASHPLAYER_PLATFORM && MajorVersion >= 9) || Platform == AIR_PLATFORM;
             }
         }
 
         public override string[] TargetPlatforms
         {
-            get
-            {
-                return new string[] {
-                    "Flash Player",
-                    "AIR",
-                    "JavaScript",
-                    "Neko",
-                    "PHP",
-                    "C++"
-                };
-            }
+            get { return new string[] { 
+                FLASHPLAYER_PLATFORM, AIR_PLATFORM, JAVASCRIPT_PLATFORM, 
+                NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
+            }; }
         }
 
         public override string[] TargetVersions(string platform)
         {
-            if (platform == "AIR")
-                return new string[] { "1.5", "2.0", "2.5" };
-            else if (platform == "Flash Player")
-                return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2" };
-            else 
-                return new string[] { "1.0" };
+            switch (platform)
+            {
+                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5" };
+                case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2" };
+                default: return new string[] { "0.0" };
+            }
         }
 
         public override string DefaultVersion(string platform)
         {
-            if (platform == "AIR") return "2.0";
-            else if (platform == "Flash Player") return "10.0";
-            else return "1.0";
+            switch (platform)
+            {
+                case AIR_PLATFORM: return "2.0";
+                case FLASHPLAYER_PLATFORM: return "10.0";
+                default: return "0.0";
+            }
+        }
+
+        public override OutputType[] OutputTypes
+        {
+            get
+            {
+                return new OutputType[] { 
+                    OutputType.CustomBuild, OutputType.Application, OutputType.Website };
+            }
+        }
+
+        public override OutputType DefaultOutput(string platform)
+        {
+            return OutputType.Application;
+        }
+
+        public override bool IsGraphical(string platform)
+        {
+            return platform == AIR_PLATFORM || platform == FLASHPLAYER_PLATFORM;
         }
     }
 }

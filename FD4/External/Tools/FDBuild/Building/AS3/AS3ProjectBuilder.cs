@@ -8,6 +8,7 @@ using System.IO;
 using FDBuild.Building.AS3;
 using System.Collections;
 using PluginCore.PluginCore.Helpers;
+using ProjectManager.Projects;
 
 
 namespace ProjectManager.Building.AS3
@@ -33,7 +34,7 @@ namespace ProjectManager.Building.AS3
             bool mxmlcExists = File.Exists(mxmlcPath);
             bool fcshExists = File.Exists(fcshPath);
 
-            if (!mxmlcExists && !project.NoOutput)
+            if (!mxmlcExists && (project.OutputType == OutputType.Application || project.OutputType == OutputType.Library))
                 throw new Exception("Could not locate lib\\mxmlc.jar in Flex SDK. Please set the correct path to the Flex SDK in AS3Context plugin settings.");
 
             if (hostedInFD && fcshExists)

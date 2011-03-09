@@ -29,14 +29,26 @@ namespace ProjectManager.Projects.Haxe
                 string platform = null;
                 switch (project.MovieOptions.MajorVersion)
                 {
-                    case 11: platform = "JavaScript"; project.MovieOptions.MajorVersion = 1; break;
-                    case 12: platform = "Neko"; project.MovieOptions.MajorVersion = 1; break;
-                    case 13: platform = "PHP"; project.MovieOptions.MajorVersion = 1; break;
-                    case 14: platform = "C++"; project.MovieOptions.MajorVersion = 1; break;
+                    case 11: 
+                        platform = HaxeMovieOptions.JAVASCRIPT_PLATFORM; 
+                        project.MovieOptions.MajorVersion = 0; 
+                        break;
+                    case 12: 
+                        platform = HaxeMovieOptions.NEKO_PLATFORM; 
+                        project.MovieOptions.MajorVersion = 0; 
+                        break;
+                    case 13: 
+                        platform = HaxeMovieOptions.PHP_PLATFORM; 
+                        project.MovieOptions.MajorVersion = 0; 
+                        break;
+                    case 14: 
+                        platform = HaxeMovieOptions.CPP_PLATFORM; 
+                        project.MovieOptions.MajorVersion = 0; 
+                        break;
                 }
                 if (platform == null)
                 {
-                    platform = "Flash Player";
+                    platform = HaxeMovieOptions.FLASHPLAYER_PLATFORM;
                     project.MovieOptions.MajorVersion = 10;
                 }
                 project.MovieOptions.Platform = platform;

@@ -27,7 +27,7 @@ namespace ProjectManager.Projects.AS3
         }
 
         public override string Language { get { return "as3"; } }
-        public override bool HasLibraries { get { return !NoOutput; } }
+        public override bool HasLibraries { get { return OutputType == OutputType.Application || OutputType == OutputType.Library; } }
         public override int MaxTargetsCount { get { return 1; } }
 
         public new MxmlcOptions CompilerOptions { get { return (MxmlcOptions)base.CompilerOptions; } }
@@ -98,6 +98,12 @@ namespace ProjectManager.Projects.AS3
             catch {
                 return false;
             }
+        }
+
+        public override string GetOtherIDE(bool runOutput, bool releaseMode, out string error)
+        {
+            error = null;
+            return "FlashIDE";
         }
 
         #region SWC assets management

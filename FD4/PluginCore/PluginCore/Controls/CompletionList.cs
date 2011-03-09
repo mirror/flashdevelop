@@ -825,6 +825,10 @@ namespace PluginCore.Controls
                 {
                     CompletionList.Hide('\0');
                 }
+                else if (word.Length == 0 && (currentItem == null || currentItem == allItems[0]))
+                {
+                    CompletionList.Hide('\0');
+                }
                 else if (word.Length > 0 || c == '.' || c == '(' || c == '[' || c == '<' || c == ',' || c == ';')
                 {
                     ReplaceText(sci, c.ToString(), c);

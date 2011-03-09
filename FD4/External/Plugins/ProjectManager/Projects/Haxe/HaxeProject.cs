@@ -20,7 +20,7 @@ namespace ProjectManager.Projects.Haxe
         }
 
         public override string Language { get { return "haxe"; } }
-        public override bool HasLibraries { get { return !NoOutput && IsFlashOutput; } }
+        public override bool HasLibraries { get { return OutputType == OutputType.Application && IsFlashOutput; } }
         public override bool RequireLibrary { get { return IsFlashOutput; } }
         
         public override bool EnableInteractiveDebugger 
@@ -44,23 +44,24 @@ namespace ProjectManager.Projects.Haxe
 
         public bool IsFlashOutput
         {
-            get { return movieOptions.Platform == "Flash Player" || movieOptions.Platform == "AIR"; }
+            get { return movieOptions.Platform == HaxeMovieOptions.FLASHPLAYER_PLATFORM 
+                || movieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM; }
         }
         public bool IsJavacriptOutput
         {
-            get { return movieOptions.Platform == "JavaScript"; }
+            get { return movieOptions.Platform == HaxeMovieOptions.JAVASCRIPT_PLATFORM; }
         }
         public bool IsNekoOutput
         {
-            get { return movieOptions.Platform == "Neko"; }
+            get { return movieOptions.Platform == HaxeMovieOptions.NEKO_PLATFORM; }
         }
         public bool IsPhpOutput
         {
-            get { return movieOptions.Platform == "PHP"; }
+            get { return movieOptions.Platform == HaxeMovieOptions.PHP_PLATFORM; }
         }
         public bool IsCppOutput
         {
-            get { return movieOptions.Platform == "C++"; }
+            get { return movieOptions.Platform == HaxeMovieOptions.CPP_PLATFORM; }
         }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
@@ -69,7 +70,8 @@ namespace ProjectManager.Projects.Haxe
             if (export != null) return export;
             if (IsLibraryAsset(path) && !isInjectionTarget)
                 return GetAsset(path).ID;
-            else if (!NoOutput && FileInspector.IsHaxeFile(inFile, Path.GetExtension(inFile).ToLower()))
+            
+            if (FileInspector.IsHaxeFile(inFile, Path.GetExtension(inFile).ToLower()))
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(ProjectPath), path).Replace('\\', '/');
             else
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');

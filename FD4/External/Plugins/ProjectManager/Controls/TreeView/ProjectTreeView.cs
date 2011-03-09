@@ -21,7 +21,6 @@ namespace ProjectManager.Controls.TreeView
         Dictionary<string, GenericNode> nodeMap;
 		Project project;
 		string pathToSelect;
-        List<string> previouslyExpanded;
 
 		public static ProjectTreeView Instance;
 		public event DragPathEventHandler MovePath;

@@ -241,7 +241,7 @@ namespace ProjectManager
             CleanOldPrefs();
 
             ProjectPreferences newPrefs = new ProjectPreferences(project.ProjectPath);
-            newPrefs.DebugMode = !project.NoOutput && project.OutputPath != "";
+            newPrefs.DebugMode = project.OutputType != OutputType.OtherIDE && project.OutputPath != "";
             projectPrefList.Add(newPrefs);
             return newPrefs;
         }

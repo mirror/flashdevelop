@@ -299,6 +299,17 @@ namespace AS3Context
 
             // some SWCs need manual fixes
             CustomFixes(path);
+
+            // fake SWC (like 'playerglobal_rb.swc', only provides documentation)
+            if (path.Files.Count == 1)
+            {
+                foreach (FileModel model in path.Files.Values)
+                    if (model.GetPublicClass().QualifiedName == "Empty")
+                    {
+                        path.Files.Clear();
+                        break;
+                    }
+            }
         }
 
         private static void CustomFixes(PathModel path)

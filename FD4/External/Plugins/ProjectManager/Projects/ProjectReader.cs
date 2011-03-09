@@ -35,7 +35,15 @@ namespace ProjectManager.Projects
 
         protected virtual void PostProcess()
         {
-            // to override
+            if (version > 1) return;
+
+            // import FD3 project
+            if (project.OutputType == OutputType.Unknown)
+                project.OutputType = project.MovieOptions.DefaultOutput(project.MovieOptions.Platform);
+
+            else if (project.OutputType == OutputType.OtherIDE
+                && (!String.IsNullOrEmpty(project.PreBuildEvent) || !String.IsNullOrEmpty(project.PostBuildEvent)))
+                project.OutputType = OutputType.CustomBuild;
         }
 
         protected virtual void ProcessRootNode()
@@ -93,7 +101,13 @@ namespace ProjectManager.Projects
                 MoveToFirstAttribute();
                 switch (Name)
                 {
-                    case "disabled": project.NoOutput = BoolValue; break;
+                    case "disabled": 
+                        project.OutputType = BoolValue ? OutputType.OtherIDE : OutputType.Application; 
+                        break;
+                    case "outputType":
+                        if (Enum.IsDefined(typeof(OutputType), Value))
+                            project.OutputType = (OutputType)Enum.Parse(typeof(OutputType), Value); 
+                        break;
                     case "input": project.InputPath = OSPath(Value); break;
                     case "path": project.OutputPath = OSPath(Value); break;
                     case "fps": project.MovieOptions.Fps = IntValue; break;

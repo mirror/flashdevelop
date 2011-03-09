@@ -66,7 +66,8 @@ namespace ProjectManager.Building
                     Console.WriteLine("Running Pre-Build Command Line...");
                     runner.Run(project.PreBuildEvent, debugMode);
                 }
-                if (!project.NoOutput) DoBuild(extraClasspaths, debugMode);
+
+                if (project.OutputType == OutputType.Application) DoBuild(extraClasspaths, debugMode);
                 attempedPostBuildEvent = true;
 
                 if (!noPostBuild && project.PostBuildEvent.Length > 0)

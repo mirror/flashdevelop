@@ -15,6 +15,7 @@ using ProjectManager.Controls.AS3;
 using PluginCore.Controls;
 using System.Collections;
 using ProjectManager.Actions;
+using System.Collections.Generic;
 
 namespace ProjectManager.Controls
 {
@@ -55,7 +56,8 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.ComboBox testMovieCombo;
         private System.Windows.Forms.TabPage compilerTab;
         private System.Windows.Forms.PropertyGrid propertyGrid;
-        private System.Windows.Forms.CheckBox noOutputCheckBox;
+        private System.Windows.Forms.Label outputTypeLabel;
+        private System.Windows.Forms.ComboBox outputCombo;
         private System.Windows.Forms.GroupBox platformGroupBox;
         private System.Windows.Forms.ComboBox platformCombo;
         private System.Windows.Forms.Button editCommandButton;
@@ -114,7 +116,8 @@ namespace ProjectManager.Controls
             this.platformGroupBox = new System.Windows.Forms.GroupBox();
             this.versionCombo = new System.Windows.Forms.ComboBox();
             this.platformCombo = new System.Windows.Forms.ComboBox();
-            this.noOutputCheckBox = new System.Windows.Forms.CheckBox();
+            this.outputTypeLabel = new System.Windows.Forms.Label();
+            this.outputCombo = new System.Windows.Forms.ComboBox();
             this.generalGroupBox = new System.Windows.Forms.GroupBox();
             this.widthTextBox = new System.Windows.Forms.TextBox();
             this.outputBrowseButton = new System.Windows.Forms.Button();
@@ -226,7 +229,6 @@ namespace ProjectManager.Controls
             // movieTab
             // 
             this.movieTab.Controls.Add(this.platformGroupBox);
-            this.movieTab.Controls.Add(this.noOutputCheckBox);
             this.movieTab.Controls.Add(this.generalGroupBox);
             this.movieTab.Controls.Add(this.playGroupBox);
             this.movieTab.Location = new System.Drawing.Point(4, 22);
@@ -241,9 +243,11 @@ namespace ProjectManager.Controls
             this.platformGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.platformGroupBox.Controls.Add(this.versionCombo);
             this.platformGroupBox.Controls.Add(this.platformCombo);
+            this.platformGroupBox.Controls.Add(this.outputTypeLabel);
+            this.platformGroupBox.Controls.Add(this.outputCombo);
             this.platformGroupBox.Location = new System.Drawing.Point(8, 3);
             this.platformGroupBox.Name = "platformGroupBox";
-            this.platformGroupBox.Size = new System.Drawing.Size(319, 49);
+            this.platformGroupBox.Size = new System.Drawing.Size(319, 74);
             this.platformGroupBox.TabIndex = 4;
             this.platformGroupBox.TabStop = false;
             this.platformGroupBox.Text = "Platform";
@@ -263,17 +267,23 @@ namespace ProjectManager.Controls
             this.platformCombo.Name = "platformCombo";
             this.platformCombo.Size = new System.Drawing.Size(219, 21);
             this.platformCombo.TabIndex = 12;
+            //
+            // outputTypeLabel
+            //
+            this.outputTypeLabel.Location = new System.Drawing.Point(8, 45);
+            this.outputTypeLabel.Name = "outputTypeLabel";
+            this.outputTypeLabel.Size = new System.Drawing.Size(96, 18);
+            this.outputTypeLabel.TabIndex = 13;
+            this.outputTypeLabel.Text = "Compilation &Target:";
+            this.outputTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // noOutputCheckBox
+            // outputCombo
             // 
-            this.noOutputCheckBox.AutoSize = true;
-            this.noOutputCheckBox.Location = new System.Drawing.Point(11, 61);
-            this.noOutputCheckBox.Name = "noOutputCheckBox";
-            this.noOutputCheckBox.Size = new System.Drawing.Size(241, 17);
-            this.noOutputCheckBox.TabIndex = 5;
-            this.noOutputCheckBox.Text = "No output, only run pre/post build commands.";
-            this.noOutputCheckBox.UseVisualStyleBackColor = true;
-            this.noOutputCheckBox.CheckedChanged += new System.EventHandler(this.noOutputCheckBox_CheckedChanged);
+            this.outputCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.outputCombo.Location = new System.Drawing.Point(108, 45);
+            this.outputCombo.Name = "outputCombo";
+            this.outputCombo.Size = new System.Drawing.Size(202, 21);
+            this.outputCombo.TabIndex = 14;
             // 
             // generalGroupBox
             // 
@@ -292,7 +302,7 @@ namespace ProjectManager.Controls
             this.generalGroupBox.Controls.Add(this.pxLabel);
             this.generalGroupBox.Controls.Add(this.bgcolorLabel);
             this.generalGroupBox.Controls.Add(this.fpsLabel);
-            this.generalGroupBox.Location = new System.Drawing.Point(8, 81);
+            this.generalGroupBox.Location = new System.Drawing.Point(8, 82);
             this.generalGroupBox.Name = "generalGroupBox";
             this.generalGroupBox.Size = new System.Drawing.Size(319, 129);
             this.generalGroupBox.TabIndex = 6;
@@ -445,7 +455,6 @@ namespace ProjectManager.Controls
             // testMovieCombo
             //
             this.testMovieCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.testMovieCombo.Items.AddRange(new object[] {"Document", "External", "Popup", "Custom"});
             this.testMovieCombo.Location = new System.Drawing.Point(11, 17);
             this.testMovieCombo.Name = "testMovieCombo";
             this.testMovieCombo.Size = new System.Drawing.Size(219, 21);
@@ -862,7 +871,7 @@ namespace ProjectManager.Controls
             this.preBuilderButton.Text = TextHelper.GetString("Info.Builder");
             this.postBuilderButton.Text = TextHelper.GetString("Info.Builder");
             this.label2.Text = TextHelper.GetString("Info.ProjectClasspaths");
-            this.noOutputCheckBox.Text = TextHelper.GetString("Info.NoOutput");
+            this.outputTypeLabel.Text = TextHelper.GetString("Info.OutputType");
             this.outputBrowseButton.Text = TextHelper.GetString("Label.Browse");
             this.groupBox3.Text = TextHelper.GetString("Label.ProjectClasspaths").Replace("...", "");
             this.groupBox5.Text = TextHelper.GetString("Info.PostBuildCmdLine");
@@ -881,15 +890,6 @@ namespace ProjectManager.Controls
             this.Text = " " + TextHelper.GetString("Title.ProjectProperties");
             this.generalGroupBox.Text = TextHelper.GetString("Info.General");
             this.playGroupBox.Text = TextHelper.GetString("Label.TestMovie");
-            this.testMovieCombo.Items.Clear();
-            this.testMovieCombo.Items.AddRange(new Object[] { 
-                TextHelper.GetString("Info.Default"),
-                TextHelper.GetString("Info.Document"), 
-                TextHelper.GetString("Info.Popup"),
-                TextHelper.GetString("Info.External"), 
-                TextHelper.GetString("Info.OpenDocument"),
-                TextHelper.GetString("Info.Custom")
-            });
             this.editCommandButton.Text = TextHelper.GetString("Info.EditCommand");
             this.manageButton.Text = TextHelper.GetString("Label.Manage");
             this.sdkGroupBox.Text = TextHelper.GetString("Label.SDKGroup");
@@ -985,31 +985,91 @@ namespace ProjectManager.Controls
         {
             MovieOptions options = project.MovieOptions;
 
-            noOutputCheckBox.Checked = project.NoOutput;
+            string[] types = Array.ConvertAll<OutputType, string>(
+                    project.MovieOptions.OutputTypes, 
+                    (ot) => ot.ToString()
+                );
+            InitCombo(outputCombo, types, project.OutputType, "Label.OutputType");
+            outputCombo.SelectedIndexChanged += new System.EventHandler(this.outputCombo_SelectedIndexChanged);
+            
             outputSwfBox.Text = project.OutputPath;
             widthTextBox.Text = options.Width.ToString();
             heightTextBox.Text = options.Height.ToString();
-
-            // bugfix -- direct color assignment doesn't work (copies by ref?)
-            //colorLabel.BackColor = Color.FromArgb(255,options.BackgroundColor);
-
             colorTextBox.Text = options.Background;
             fpsTextBox.Text = options.Fps.ToString();
 
-            this.platformCombo.Items.AddRange(project.MovieOptions.TargetPlatforms);
-            platformCombo.SelectedIndex = Math.Max(0, platformCombo.Items.IndexOf(project.MovieOptions.Platform));
+            InitCombo(platformCombo, project.MovieOptions.TargetPlatforms, project.MovieOptions.Platform);
             platformCombo.SelectedIndexChanged += new EventHandler(platformCombo_SelectedIndexChanged);
-            this.versionCombo.Items.AddRange(project.MovieOptions.TargetVersions(this.platformCombo.Text));
-            versionCombo.SelectedIndex = Math.Max(0, versionCombo.Items.IndexOf(project.MovieOptions.Version));
+
+            InitCombo(versionCombo, project.MovieOptions.TargetVersions(this.platformCombo.Text), project.MovieOptions.Version);
             versionCombo.SelectedIndexChanged += new EventHandler(versionCombo_SelectedIndexChanged);
 
-            if (project.TestMovieBehavior == TestMovieBehavior.NewTab) testMovieCombo.SelectedIndex = 1;
-            else if (project.TestMovieBehavior == TestMovieBehavior.NewWindow) testMovieCombo.SelectedIndex = 2;
-            else if (project.TestMovieBehavior == TestMovieBehavior.ExternalPlayer) testMovieCombo.SelectedIndex = 3;
-            else if (project.TestMovieBehavior == TestMovieBehavior.OpenDocument) testMovieCombo.SelectedIndex = 4;
-            else if (project.TestMovieBehavior == TestMovieBehavior.Custom) testMovieCombo.SelectedIndex = 5;
-            else testMovieCombo.SelectedIndex = 0;
-            editCommandButton.Visible = testMovieCombo.SelectedIndex >= 4;
+            InitTestMovieOptions();
+            UpdateGeneralPanel();
+            UpdateEditCommandButton();
+        }
+
+        private void UpdateEditCommandButton()
+        {
+            TestMovieBehavior state = GetTestMovie();
+            editCommandButton.Visible = (state == TestMovieBehavior.Custom || state == TestMovieBehavior.OpenDocument);
+        }
+
+        private void InitTestMovieOptions()
+        {
+            OutputType output = GetOutput();
+            string platform = GetPlatform();
+
+            List<TestMovieBehavior> options = new List<TestMovieBehavior>();
+            if (platform == "Flash Player" && output == OutputType.Application)
+            {
+                options.Add(TestMovieBehavior.Default);
+                options.Add(TestMovieBehavior.NewTab);
+                options.Add(TestMovieBehavior.NewWindow);
+                options.Add(TestMovieBehavior.ExternalPlayer);
+            }
+            options.Add(TestMovieBehavior.OpenDocument);
+            options.Add(TestMovieBehavior.Custom);
+            List<string> items = options.ConvertAll<string>((item) => item.ToString());
+
+            InitCombo(testMovieCombo, items.ToArray(), project.TestMovieBehavior.ToString(), "Label.TestMovie");
+        }
+
+        private void InitCombo(ComboBox combo, object[] items, object select)
+        {
+            InitCombo(combo, items, select, null);
+        }
+
+        private void InitCombo(ComboBox combo, object[] values, object select, string localizePrefix)
+        {
+            combo.Items.Clear();
+            ComboItem[] items = Array.ConvertAll<object, ComboItem>(values, (value) => new ComboItem(value, localizePrefix));
+            combo.Items.AddRange(items);
+
+            if (select != null)
+            {
+                string value = select.ToString();
+                int index = Array.FindIndex<ComboItem>(items, (item) => item.Value.ToString() == value);
+                if (index >= 0) combo.SelectedIndex = index;
+            }
+        }
+
+        private string GetPlatform()
+        {
+            if (platformCombo.SelectedIndex < 0) return null;
+            else return (platformCombo.SelectedItem as ComboItem).Value.ToString();
+        }
+
+        private OutputType GetOutput()
+        {
+            if (outputCombo.SelectedIndex < 0) return OutputType.Unknown;
+            else return (OutputType)Enum.Parse(typeof(OutputType), (outputCombo.SelectedItem as ComboItem).Value.ToString());
+        }
+
+        private TestMovieBehavior GetTestMovie()
+        {
+            if (testMovieCombo.SelectedIndex < 0) return TestMovieBehavior.Unknown;
+            else return (TestMovieBehavior)Enum.Parse(typeof(TestMovieBehavior), (testMovieCombo.SelectedItem as ComboItem).Value.ToString());
         }
 
 		protected void Modified()
@@ -1023,25 +1083,20 @@ namespace ProjectManager.Controls
 
 			try
 			{
-                project.NoOutput = noOutputCheckBox.Checked;
+                project.OutputType = GetOutput();
 				project.OutputPath = outputSwfBox.Text;
-                if (project.OutputPath.Length > 0 
-                    && Path.GetExtension(project.OutputPath).Length == 0
-                    && (project.Language == "as2" || project.Language == "as3"))
-                {
-                    project.OutputPath += ".swf";
-                }
 				project.Classpaths.Clear();
 				project.Classpaths.AddRange(classpathControl.Classpaths);
 				options.Width = int.Parse(widthTextBox.Text);
 				options.Height = int.Parse(heightTextBox.Text);
 				options.BackgroundColor = Color.FromArgb(255, colorLabel.BackColor);
 				options.Fps = int.Parse(fpsTextBox.Text);
-                options.Platform = platformCombo.Text;
+                options.Platform = GetPlatform();
                 options.Version = versionCombo.Text;
 				project.PreBuildEvent = preBuildBox.Text;
 				project.PostBuildEvent = postBuildBox.Text;
 				project.AlwaysRunPostBuild = alwaysExecuteCheckBox.Checked;
+                project.TestMovieBehavior = GetTestMovie();
 
                 if (sdkChanged)
                 {
@@ -1052,13 +1107,6 @@ namespace ProjectManager.Controls
                         project.PreferredSDK = sdk != null ? sdk.ToPreferredSDK() : null;
                     }
                 }
-
-                if (testMovieCombo.SelectedIndex == 1) project.TestMovieBehavior = TestMovieBehavior.NewTab;
-                else if (testMovieCombo.SelectedIndex == 2) project.TestMovieBehavior = TestMovieBehavior.NewWindow;
-                else if (testMovieCombo.SelectedIndex == 3) project.TestMovieBehavior = TestMovieBehavior.ExternalPlayer;
-                else if (testMovieCombo.SelectedIndex == 4) project.TestMovieBehavior = TestMovieBehavior.OpenDocument;
-                else if (testMovieCombo.SelectedIndex == 5) project.TestMovieBehavior = TestMovieBehavior.Custom;
-                else if (testMovieCombo.SelectedIndex == 0) project.TestMovieBehavior = TestMovieBehavior.Default;
 			}
 			catch (Exception exception)
 			{
@@ -1137,6 +1185,11 @@ namespace ProjectManager.Controls
             this.versionCombo.Items.AddRange(project.MovieOptions.TargetVersions(this.platformCombo.Text));
             this.versionCombo.SelectedIndex = Math.Max(0, this.versionCombo.Items.IndexOf(
                         project.MovieOptions.DefaultVersion(this.platformCombo.Text)));
+
+            InitTestMovieOptions();
+            UpdateGeneralPanel();
+            UpdateEditCommandButton();
+
             Modified();
         }
 
@@ -1230,10 +1283,22 @@ namespace ProjectManager.Controls
 			}
 		}
 
-        private void noOutputCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void outputCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            generalGroupBox.Enabled = !noOutputCheckBox.Checked;
+            UpdateGeneralPanel();
+            InitTestMovieOptions();
             Modified();
+        }
+
+        private void UpdateGeneralPanel()
+        {
+            OutputType output = GetOutput();
+            generalGroupBox.Enabled = (output == OutputType.Application || output == OutputType.Library);
+            testMovieCombo.Enabled = (output != OutputType.Library);
+            
+            bool isGraphical = project.MovieOptions.IsGraphical(GetPlatform());
+            widthTextBox.Enabled = heightTextBox.Enabled = fpsTextBox.Enabled
+                = colorTextBox.Enabled = colorLabel.Enabled = isGraphical;
         }
 
         private void manageButton_Click(object sender, EventArgs e)
@@ -1269,4 +1334,20 @@ namespace ProjectManager.Controls
 
 	}
 
+    class ComboItem
+    {
+        public string Label;
+        public object Value;
+
+        public ComboItem(object value, string localizePrefix)
+        {
+            Value = value;
+            Label = localizePrefix != null ? TextHelper.GetString(localizePrefix + value) : value.ToString();
+        }
+
+        public override string ToString()
+        {
+ 	         return Label;
+        }
+    }
 }

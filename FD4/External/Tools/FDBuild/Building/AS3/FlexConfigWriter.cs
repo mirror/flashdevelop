@@ -93,7 +93,7 @@ namespace FDBuild.Building.AS3
             if (!options.UseResourceBundleMetadata) WriteElementString("use-resource-bundle-metadata", "false");
 
             if (!debugMode && options.Optimize) WriteElementString("optimize", "true");
-            if (debugMode && options.OmmitTraces) WriteElementString("omit-trace-statements", "true");
+            if (debugMode && options.OmitTraces) WriteElementString("omit-trace-statements", "true");
             if (debugMode && options.VerboseStackTraces) WriteElementString("verbose-stacktraces", "true");
         }
 

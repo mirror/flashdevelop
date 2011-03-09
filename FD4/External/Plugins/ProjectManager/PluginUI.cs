@@ -141,7 +141,6 @@ namespace ProjectManager
                 TreeBar.ShowHidden.Checked = project.ShowHiddenPaths;
                 IsTraceDisabled = !PluginMain.Settings.GetPrefs(project).DebugMode;
                 project.TraceEnabled = !IsTraceDisabled;
-                NoOutput = project.NoOutput;
             }
         }
 
@@ -150,11 +149,6 @@ namespace ProjectManager
         public ProjectTreeView Tree  { get { return this.tree; }  }
         public ProjectContextMenu Menu  { get { return this.menu; }  }
         public TreeBar TreeBar  { get { return this.treeBar; } }
-
-        public bool NoOutput
-        {
-            set { menus.ConfigurationSelector.Enabled = true/*!value*/; }
-        }
 
         public bool IsTraceDisabled
         {

@@ -15,7 +15,8 @@ namespace ProjectManager.Projects
         NewWindow,
         ExternalPlayer,
         OpenDocument,
-        Custom
+        Custom,
+        Unknown
     }
 
     public delegate void ChangedHandler();
@@ -37,15 +38,16 @@ namespace ProjectManager.Projects
         string currentSDK;
         PathCollection absClasspaths;
 
-        public bool NoOutput; // Disable file building
+        public OutputType OutputType = OutputType.Unknown;
         public string InputPath; // For code injection
-		public string OutputPath;
+        public string OutputPath;
 		public string PreBuildEvent;
 		public string PostBuildEvent;
 		public bool AlwaysRunPostBuild;
 		public bool ShowHiddenPaths;
         public TestMovieBehavior TestMovieBehavior;
         public string TestMovieCommand;
+
         public event ChangedHandler ClasspathChanged; // inner operation changed the classpath
         public event BeforeSaveHandler BeforeSave;
 
@@ -269,10 +271,24 @@ namespace ProjectManager.Projects
             return CompileTargetType.None;
         }
 
+        /// <summary>
+        /// Clear output
+        /// </summary>
         public virtual bool Clean()
         {
             // to be implemented
             return true;
+        }
+
+        /// <summary>
+        /// Return name of external IDE to use for compilation:
+        /// - Adobe Flash Professional: "FlashIDE"
+        /// - other value will be dispatched as a "ProjectManager.RunWithAssociatedIDE" command event
+        /// </summary>
+        public virtual string GetOtherIDE(bool runOutput, bool releaseMode, out string error)
+        {
+            error = "Info.NoAssociatedIDE";
+            return null;
         }
 
 		#endregion
@@ -307,6 +323,9 @@ namespace ProjectManager.Projects
                 return path;
         }
 
+        /// <summary>
+        /// Replace accented characters and remove whitespace
+        /// </summary>
         public static String RemoveDiacritics(String s)
         {
             String normalizedString = s.Normalize(NormalizationForm.FormD);
@@ -324,6 +343,17 @@ namespace ProjectManager.Projects
 
 		#endregion
 
+
+    }
+
+    public enum OutputType
+    {
+        Unknown,
+        OtherIDE,
+        CustomBuild,
+        Application,
+        Library,
+        Website
     }
 
     internal enum CompileTargetType

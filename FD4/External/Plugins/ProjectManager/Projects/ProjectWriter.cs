@@ -51,7 +51,7 @@ namespace ProjectManager.Projects
         {
             WriteComment(" Output SWF options ");
             WriteStartElement("output");
-            WriteOption("movie", "disabled", project.NoOutput);
+            WriteOption("movie", "outputType", project.OutputType);
             WriteOption("movie", "input", project.InputPath);
             WriteOption("movie", "path", project.OutputPath);
             WriteOption("movie", "fps", project.MovieOptions.Fps);

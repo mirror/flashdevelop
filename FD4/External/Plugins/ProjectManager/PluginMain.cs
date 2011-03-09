@@ -603,7 +603,6 @@ namespace ProjectManager
                 if (dialog.PropertiesChanged)
                 {
                     project.PropertiesChanged();
-                    pluginUI.NoOutput = project.NoOutput;
                     BroadcastProjectInfo();
                     project.Save();
                 }
@@ -1174,6 +1173,8 @@ namespace ProjectManager
         {
             String path = Tree.SelectedPath;
             if (path.StartsWith(project.Directory)) path = project.GetRelativePath(path);
+            if (project.Classpaths.Count == 1 && project.Classpaths[0] == ".")
+                project.Classpaths.Clear();
             project.Classpaths.Add(path);
             project.Save();
             project.OnClasspathChanged();

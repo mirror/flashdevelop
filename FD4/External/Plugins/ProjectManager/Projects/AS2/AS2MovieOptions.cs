@@ -6,6 +6,8 @@ namespace ProjectManager.Projects.AS2
 {
     public class AS2MovieOptions: MovieOptions
     {
+        public const string FLASHPLAYER_PLATFORM = "Flash Player";
+
         public AS2MovieOptions()
         {
             MajorVersion = 9;
@@ -19,12 +21,7 @@ namespace ProjectManager.Projects.AS2
 
         public override string[] TargetPlatforms
         {
-            get
-            {
-                return new string[] {
-                    "Flash Player"
-                };
-            }
+            get { return new string[] { FLASHPLAYER_PLATFORM }; }
         }
 
         public override string[] TargetVersions(string platform)
@@ -35,6 +32,25 @@ namespace ProjectManager.Projects.AS2
         public override string DefaultVersion(string platform)
         {
             return "9.0";
+        }
+
+        public override OutputType[] OutputTypes
+        {
+            get
+            {
+                return new OutputType[] { 
+                    OutputType.OtherIDE, OutputType.CustomBuild, OutputType.Application };
+            }
+        }
+
+        public override OutputType DefaultOutput(string platform)
+        {
+            return OutputType.Application;
+        }
+
+        public override bool IsGraphical(string platform)
+        {
+            return true;
         }
     }
 }

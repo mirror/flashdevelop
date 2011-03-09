@@ -40,6 +40,9 @@ namespace ProjectManager.Projects
         public abstract string[] TargetPlatforms { get; }
         public abstract string[] TargetVersions(string platform);
         public abstract string DefaultVersion(string platform);
+        public abstract OutputType[] OutputTypes { get; }
+        public abstract OutputType DefaultOutput(string platform);
+        public abstract bool IsGraphical(string platform);
 
         public virtual string Version 
         { 

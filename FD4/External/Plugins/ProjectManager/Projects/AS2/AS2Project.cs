@@ -16,7 +16,7 @@ namespace ProjectManager.Projects.AS2
 
         public override string Language { get { return "as2"; } }
         public override bool UsesInjection { get { return InputPath != ""; } }
-        public override bool HasLibraries { get { return !NoOutput && !UsesInjection; } }
+        public override bool HasLibraries { get { return OutputType == OutputType.Application && !UsesInjection; } }
         public override bool RequireLibrary { get { return true; } }
 
         public new MtascOptions CompilerOptions { get { return (MtascOptions)base.CompilerOptions; } }
@@ -40,7 +40,8 @@ namespace ProjectManager.Projects.AS2
             if (export != null) return export;
             if (IsLibraryAsset(path) && !isInjectionTarget)
                 return GetAsset(path).ID;
-            else if (!NoOutput && FileInspector.IsActionScript(inFile, Path.GetExtension(inFile).ToLower()))
+
+            if (FileInspector.IsActionScript(inFile, Path.GetExtension(inFile).ToLower()))
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(ProjectPath), path).Replace('\\', '/');
             else
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
@@ -54,6 +55,12 @@ namespace ProjectManager.Projects.AS2
                 if (path.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
                     return CompileTargetType.AlwaysCompile;
             return CompileTargetType.None;
+        }
+
+        public override string GetOtherIDE(bool runOutput, bool releaseMode, out string error)
+        {
+            error = null;
+            return "FlashIDE";
         }
 
         #region Load/Save

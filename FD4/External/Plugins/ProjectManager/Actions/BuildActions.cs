@@ -57,32 +57,50 @@ namespace ProjectManager.Actions
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(FlexCompilerShell), "FlexCompilerShell", WellKnownObjectMode.Singleton);
         }
 
-        public bool Build(Project project, bool runOutput, bool noTrace)
+        public bool Build(Project project, bool runOutput, bool releaseMode)
         {
             // save modified files
             mainForm.CallCommand("SaveAllModified", null);
-            string compiler = null;
-            project.TraceEnabled = !noTrace;
-            if (project.NoOutput)
+
+            string compiler = GetCompilerPath(project);
+            project.TraceEnabled = !releaseMode;
+
+            if (project.OutputType == OutputType.OtherIDE)
             {
-                // get the compiler for as3 projects, or else the FDBuildCommand pre/post command in FDBuild will fail on "No Output" projects
-                if (project.Language == "as3") compiler = GetCompilerPath(project);
-                
-                if (project.PreBuildEvent.Trim().Length == 0 && project.PostBuildEvent.Trim().Length == 0)
+                // compile using associated IDE
+                string error;
+                string command = project.GetOtherIDE(runOutput, releaseMode, out error);
+
+                if (error != null) ErrorManager.ShowInfo(TextHelper.GetString(error));
+                else
                 {
-                    // no output and no build commands
-                    if (project is AS2Project || project is AS3Project) RunFlashIDE(runOutput, noTrace);
+                    if (command == "FlashIDE") RunFlashIDE(project, runOutput, releaseMode);
                     else
                     {
-                        String info = TextHelper.GetString("Info.NoOutputAndNoBuild");
-                        ErrorManager.ShowInfo(info);
+                        Hashtable data = new Hashtable();
+                        data["command"] = command;
+                        data["project"] = project;
+                        data["runOutput"] = runOutput;
+                        data["releaseMode"] = releaseMode;
+                        DataEvent de = new DataEvent(EventType.Command, "ProjectManager.RunWithAssociatedIDE", data);
+                        EventManager.DispatchEvent(project, de);
                     }
+                }
+                return false;
+            }
+            else if (project.OutputType == OutputType.CustomBuild)
+            {
+                // validate commands not empty
+                if (project.PreBuildEvent.Trim().Length == 0 && project.PostBuildEvent.Trim().Length == 0)
+                {
+                    String info = TextHelper.GetString("Info.NoOutputAndNoBuild");
+                    ErrorManager.ShowInfo(info);
                     return false;
                 }
             }
             else
             {
-                // Ask the project to validate itself
+                // ask the project to validate itself
                 string error;
                 project.ValidateBuild(out error);
 
@@ -98,7 +116,7 @@ namespace ProjectManager.Actions
                     ErrorManager.ShowInfo(info);
                     return false;
                 }
-                compiler = GetCompilerPath(project);
+
                 if (compiler == null || (!Directory.Exists(compiler) && !File.Exists(compiler)))
                 {
                     string info = TextHelper.GetString("Info.CheckSDKSettings");
@@ -117,16 +135,16 @@ namespace ProjectManager.Actions
                 }
             }
 
-            return FDBuild(project, runOutput, noTrace, compiler);
+            return FDBuild(project, runOutput, releaseMode, compiler);
         }
 
-        private void RunFlashIDE(bool runOutput, bool noTrace)
+        static public void RunFlashIDE(Project project, bool runOutput, bool releaseMode)
         {
             string cmd = (runOutput) ? "testmovie" : "buildmovie";
             if (!PluginMain.Settings.DisableExtFlashIntegration) cmd += "-fd";
 
             cmd += ".jsfl";
-            if (!noTrace) cmd = "debug-" + cmd;
+            if (!releaseMode) cmd = "debug-" + cmd;
 
             cmd = Path.Combine("Tools", Path.Combine("flashide", cmd));
             cmd = PathHelper.ResolvePath(cmd, null);
@@ -137,11 +155,11 @@ namespace ProjectManager.Actions
             else
             {
                 DataEvent de = new DataEvent(EventType.Command, "ASCompletion.CallFlashIDE", cmd);
-                EventManager.DispatchEvent(this, de);
+                EventManager.DispatchEvent(project, de);
             }
         }
 
-        public bool FDBuild(Project project, bool runOutput, bool noTrace, string compiler)
+        public bool FDBuild(Project project, bool runOutput, bool releaseMode, string compiler)
 		{
             string directory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = project.Directory;
@@ -151,7 +169,7 @@ namespace ProjectManager.Actions
 
 			string arguments = " -ipc " + ipcName;
             if (compiler != null && compiler.Length > 0) arguments += " -compiler \"" + compiler + "\"";
-			if (noTrace) arguments += " -notrace";
+            if (releaseMode) arguments += " -notrace";
             arguments += " -library \"" + PathHelper.LibraryDir + "\"";
 
             foreach (string cp in PluginMain.Settings.GlobalClasspaths)
