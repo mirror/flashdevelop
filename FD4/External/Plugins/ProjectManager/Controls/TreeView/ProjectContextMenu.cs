@@ -340,6 +340,7 @@ namespace ProjectManager.Controls.TreeView
                     : (isTarget ? TextHelper.GetString("Label.DocumentClass")
                        : TextHelper.GetString("Label.SetDocumentClass"));
                 menu.Add(AlwaysCompile, 2, isTarget);
+                menu.Add(CopyClassName, 2);
             }
         }
 
