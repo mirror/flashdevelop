@@ -732,6 +732,7 @@ namespace FlashDevelop
                 else if (!this.StandaloneMode) Directory.CreateDirectory(userPluginDir);
                 LayoutManager.BuildLayoutSystems(FileNameHelper.LayoutData);
                 ShortcutManager.LoadCustomShortcuts();
+                ArgumentDialog.LoadCustomArguments();
                 PluginCore.Controls.UITools.Init();
             }
             catch (Exception ex)
@@ -1003,6 +1004,7 @@ namespace FlashDevelop
                 String file = FileNameHelper.SessionData;
                 SessionManager.SaveSession(file, session);
                 ShortcutManager.SaveCustomShortcuts();
+                ArgumentDialog.SaveCustomArguments();
                 PluginServices.DisposePlugins();
                 this.SaveAllSettings();
             }

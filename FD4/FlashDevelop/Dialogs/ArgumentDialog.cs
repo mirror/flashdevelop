@@ -32,6 +32,11 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button addButton;
 
+        static ArgumentDialog()
+        {
+            arguments = new List<Argument>();
+        }
+
         public ArgumentDialog()
         {
             this.Owner = Globals.MainForm;
@@ -216,7 +221,6 @@ namespace FlashDevelop.Dialogs
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " Custom Arguments";
             this.Load += new System.EventHandler(this.DialogLoad);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DialogClosed);
             this.detailsGroupBox.ResumeLayout(false);
             this.detailsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.infoPictureBox)).EndInit();
@@ -234,11 +238,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         public static List<Argument> CustomArguments
         {
-            get 
-            {
-                if (arguments == null) LoadCustomArguments();
-                return arguments; 
-            }
+            get { return arguments; }
         }
 
         /// <summary>
@@ -303,41 +303,6 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Loads the argument list from file
-        /// </summary>
-        static private void LoadCustomArguments()
-        {
-            String file = FileNameHelper.UserArgData;
-            if (File.Exists(file))
-            {
-                List<Argument> args = new List<Argument>();
-                Object data = ObjectSerializer.Deserialize(file, args, false);
-                arguments = (List<Argument>)data;
-            }
-            else
-            {
-                arguments = new List<Argument>();
-                arguments.Add(new Argument("DefaultUser", "..."));
-                ObjectSerializer.Serialize(file, arguments);
-            }
-        }
-
-        /// <summary>
-        /// Saves the argument list to file
-        /// </summary>
-        private void SaveCustomArguments()
-        {
-            arguments.Clear();
-            foreach (ListViewItem item in this.argsListView.Items)
-            {
-                Argument argument = item.Tag as Argument;
-                arguments.Add(argument);
-            }
-            String file = FileNameHelper.UserArgData;
-            ObjectSerializer.Serialize(file, arguments);
-        }
-
-        /// <summary>
         /// Populates the argument list
         /// </summary>
         private void PopulateArgumentList(List<Argument> arguments)
@@ -380,6 +345,7 @@ namespace FlashDevelop.Dialogs
             }
             item.Tag = argument; 
             item.Selected = true;
+            arguments.Add(argument);
         }
 
         /// <summary>
@@ -396,6 +362,8 @@ namespace FlashDevelop.Dialogs
             foreach (ListViewItem item in this.argsListView.SelectedItems)
             {
                 this.argsListView.Items.Remove(item);
+                Argument argument = item.Tag as Argument;
+                arguments.Remove(argument);
             }
             this.argsListView.EndUpdate();
             if (this.argsListView.Items.Count > 0)
@@ -472,8 +440,12 @@ namespace FlashDevelop.Dialogs
             sfd.InitialDirectory = Globals.MainForm.WorkingDirectory;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                this.SaveCustomArguments();
-                ObjectSerializer.Serialize(sfd.FileName, arguments);
+                List<Argument> args = new List<Argument>();
+                foreach (ListViewItem item in this.argsListView.SelectedItems)
+                {
+                    args.Add((Argument)item.Tag);
+                }
+                ObjectSerializer.Serialize(sfd.FileName, args);
             }
         }
 
@@ -487,7 +459,6 @@ namespace FlashDevelop.Dialogs
             ofd.InitialDirectory = Globals.MainForm.WorkingDirectory;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                this.SaveCustomArguments();
                 List<Argument> args = new List<Argument>();
                 args = (List<Argument>)ObjectSerializer.Deserialize(ofd.FileName, args, false);
                 arguments.AddRange(args); // Append imported
@@ -500,16 +471,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void DialogLoad(Object sender, EventArgs e)
         {
-            LoadCustomArguments();
             this.PopulateArgumentList(arguments);
-        }
-
-        /// <summary>
-        /// Saves the arguments when the dialog is closed
-        /// </summary>
-        private void DialogClosed(Object sender, FormClosedEventArgs e)
-        {
-            this.SaveCustomArguments();
         }
 
         /// <summary>
@@ -519,6 +481,36 @@ namespace FlashDevelop.Dialogs
         {
             ArgumentDialog argumentDialog = new ArgumentDialog();
             argumentDialog.ShowDialog();
+        }
+
+        #endregion
+
+        #region User Argument Management
+
+        /// <summary>
+        /// Loads the argument list from file
+        /// </summary>
+        public static void LoadCustomArguments()
+        {
+            String file = FileNameHelper.UserArgData;
+            if (File.Exists(file))
+            {
+                Object data = ObjectSerializer.Deserialize(file, arguments, false);
+                arguments = (List<Argument>)data;
+            }
+            if (!File.Exists(file) || arguments.Count == 0)
+            {
+                arguments.Add(new Argument("DefaultUser", "..."));
+            }
+        }
+
+        /// <summary>
+        /// Saves the argument list to file
+        /// </summary>
+        public static void SaveCustomArguments()
+        {
+            String file = FileNameHelper.UserArgData;
+            ObjectSerializer.Serialize(file, arguments);
         }
 
         #endregion
