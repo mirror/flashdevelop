@@ -71,7 +71,7 @@ namespace ProjectManager.Projects
 				// special behavior if we're running in flashdevelop.exe
                 if (Path.GetFileName(uri.LocalPath).ToLower() == "flashdevelop.exe")
                 {
-                    string startupDir = Path.Combine(Path.GetDirectoryName(uri.LocalPath), "FirstRun");
+                    string startupDir = Path.GetDirectoryName(uri.LocalPath);
                     string local = Path.Combine(Path.GetDirectoryName(uri.LocalPath), ".local");
                     if (!File.Exists(local))
                     {
