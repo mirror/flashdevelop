@@ -65,7 +65,9 @@ namespace FlashDebugger
             UpdateMenuState(DebuggerState.Starting);
             if (!File.Exists(Path.Combine(Path.GetDirectoryName(currentProject.ProjectPath), currentProject.OutputPath)))
             {
-                if (currentProject.NoOutput || currentProject.TestMovieBehavior == TestMovieBehavior.Custom || currentProject.TestMovieBehavior == TestMovieBehavior.OpenDocument)
+                if ((currentProject.OutputType == OutputType.Application)
+                    || currentProject.TestMovieBehavior == TestMovieBehavior.Custom 
+                    || currentProject.TestMovieBehavior == TestMovieBehavior.OpenDocument)
                 {
                     // Wait for a SWF to connect...
                     Start(null);
