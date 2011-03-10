@@ -270,17 +270,17 @@ namespace ProjectManager.Controls
             //
             // outputTypeLabel
             //
-            this.outputTypeLabel.Location = new System.Drawing.Point(8, 45);
+            this.outputTypeLabel.Location = new System.Drawing.Point(9, 44);
             this.outputTypeLabel.Name = "outputTypeLabel";
             this.outputTypeLabel.Size = new System.Drawing.Size(96, 18);
             this.outputTypeLabel.TabIndex = 13;
             this.outputTypeLabel.Text = "Compilation &Target:";
-            this.outputTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.outputTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // outputCombo
             // 
             this.outputCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.outputCombo.Location = new System.Drawing.Point(108, 45);
+            this.outputCombo.Location = new System.Drawing.Point(107, 45);
             this.outputCombo.Name = "outputCombo";
             this.outputCombo.Size = new System.Drawing.Size(202, 21);
             this.outputCombo.TabIndex = 14;
