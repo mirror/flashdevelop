@@ -2377,7 +2377,7 @@ namespace ASCompletion.Completion
                 blockTmpl = TemplateUtils.GetBoundary("PrivateMethods");
             }
             latest = TemplateUtils.GetTemplateBlockMember(Sci, blockTmpl);
-            if (latest == null)
+            if (latest == null || (!isOtherClass && member == null))
             {
                 latest = GetLatestMemberForFunction(inClass, funcVisi, isStatic);
 
