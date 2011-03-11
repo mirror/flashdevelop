@@ -97,25 +97,10 @@ namespace FlashDebugger
             {
                 try
                 {
-                    InstalledSDK[] sdks = ProjectManager.Actions.BuildActions.GetInstalledSDKs("as3");
-                    if (sdks == null) return false;
-                    //InstalledSDK sdk = ProjectManager.Actions.BuildActions.MatchSDK
                     BridgeSetup bridgeSetup = null;
-                    foreach (InstalledSDK sdk in sdks)
-                    {
-                        if (sdk.Version.Contains("4.1.0"))
-                        {
-                            bridgeSetup = new BridgeSetup();
-                            bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
-                            bridgeSetup.AddAllJarsClassPath(sdk.Path + @"\lib");
-                            break;
-                        }
-                    }
-                    if (bridgeSetup == null)
-                    {
-                        TraceManager.Add("Debugger needs 4.1.0 FlexSDK");
-                        return false;
-                    }
+                    bridgeSetup = new BridgeSetup();
+                    bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
+                    bridgeSetup.AddAllJarsClassPath(Path.Combine(PluginCore.Helpers.PathHelper.ToolDir, @"flexlibs\lib"));
                     Bridge.CreateJVM(bridgeSetup);
                     Bridge.RegisterAssembly(typeof(IProgress).Assembly); // ??
                     Bridge.RegisterAssembly(typeof(Bootstrap).Assembly);
