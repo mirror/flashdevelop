@@ -55,6 +55,8 @@ namespace ASCompletion.Model
 		static public Regex re_balancedBraces = new Regex("{[^{}]*(((?<Open>{)[^{}]*)+((?<Close-Open>})[^{}]*)+)*(?(Open)(?!))}", ro_cs);
         static public Regex re_import = new Regex("^[\\s]*import[\\s]+(?<package>[\\w.]+)", ro_cm);
 		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
+		static private Regex re_param = new Regex( "[\\(,]\\s*((?<pName>(\\.\\.\\.)?[\\w\\$]+)\\s*(\\:\\s*(?<pType>[\\w\\$\\*\\.\\<\\>]+))?)", RegexOptions.Compiled );
+		static private Regex re_functType = new Regex( "\\)\\s*\\:\\s*(?<fType>[\\w\\$\\.\\<\\>]+)", RegexOptions.Compiled );
         static private Regex re_validTypeName = new Regex("^(\\s*of\\s*)?(?<type>[\\w.\\$]*)$", RegexOptions.Compiled);
         static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
 		#endregion
@@ -1546,6 +1548,19 @@ namespace ASCompletion.Model
                         lastComment = null;
                     }
 				}
+                else if (curMember.Type == "Function" && lastComment != null)
+                {
+                    MemberModel fnModel = ParseCallbackDeclaration(lastComment);
+
+                    if (fnModel != null)
+                    {
+                        curMember.Type = fnModel.Type;
+                        curMember.Flags = fnModel.Flags;
+                        curMember.Parameters = fnModel.Parameters;
+
+                        lastComment = null;
+                    }
+                }
 			}
             else if (hadContext && (hadKeyword || inParams || inEnum || inTypedef))
 			{
@@ -1857,6 +1872,44 @@ namespace ASCompletion.Model
 			int p = token.LastIndexOf(separator);
 			return (p >= 0) ? token.Substring(p+1) : token;
 		}
+
+		/// <summary>
+		/// Callback comment declaration parsing
+        /// (contributed by [i.o.])
+		/// </summary>
+        private MemberModel ParseCallbackDeclaration(string decl)
+        {
+            if (decl == null || decl.Length == 0)
+                return null;
+            int idxBraceOp = decl.IndexOf("(");
+            int idxBraceCl = decl.IndexOf(")");
+            if (idxBraceOp != 0 || decl.LastIndexOf("(") != idxBraceOp
+                || idxBraceCl < 0 || decl.LastIndexOf(")") != idxBraceCl)
+                return null;
+
+            MemberModel fm = new MemberModel("unknown", "*", FlagType.Function, Visibility.Default);
+            fm.Parameters = new List<MemberModel>();
+
+            // return type
+            Match m = re_functType.Match(decl.Substring(idxBraceCl));
+            if (m.Success)
+                fm.Type = m.Groups["fType"].Value;
+
+            // parameters
+            String pBody = decl.Substring(idxBraceOp, 1 + idxBraceCl - idxBraceOp);
+            MatchCollection pMatches = re_param.Matches(pBody);
+            int i, l = pMatches.Count;
+            for (i = 0; i < l; i++)
+            {
+                fm.Parameters.Add(new MemberModel(
+                    pMatches[i].Groups["pName"].Value,
+                    pMatches[i].Groups["pType"].Value,
+                    FlagType.ParameterVar,
+                    Visibility.Default));
+            }
+
+            return fm;
+        }
 		#endregion
 	}
 }
