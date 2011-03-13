@@ -129,13 +129,12 @@ namespace AS3Context.Compiler
             if (PluginBase.CurrentProject != null)
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
             flexPath = PathHelper.ResolvePath(flexPath, basePath);
-            // asc.jar in Flex2SDK
+            // asc.jar in FlexSDK
             if (flexPath != null && Directory.Exists(flexPath))
-            {
                 ascPath = Path.Combine(flexPath, "lib\\asc.jar");
-            }
-            // asc_authoring.jar in Flash CS3
-            if (ascPath == null) ascPath = FindAscAuthoring();
+            // included asc.jar
+            if (ascPath == null) 
+                ascPath = PathHelper.ResolvePath(Path.Combine(PathHelper.ToolDir, "flexlibs/lib/asc.jar"));
 
             if (ascPath == null)
             {
@@ -369,17 +368,6 @@ namespace AS3Context.Compiler
 			
 			// restaure working directory
 			Environment.CurrentDirectory = currentPath;
-        }
-
-        private string FindAscAuthoring()
-        {
-            string flashPath = ASContext.CommonSettings.PathToFlashIDE;
-            if (flashPath == null) return null;
-            string configPath = PluginMain.FindAuthoringConfigurationPath(flashPath);
-            if (configPath == null) return null;
-            string ascJar = Path.Combine(configPath, "ActionScript 3.0\\asc_authoring.jar");
-            if (File.Exists(ascJar)) return ascJar;
-            else return null;
         }
 
         private void CheckIsFlex4SDK(string flexPath)

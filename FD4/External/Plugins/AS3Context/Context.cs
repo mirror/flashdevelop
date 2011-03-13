@@ -156,18 +156,18 @@ namespace AS3Context
             string frameworks = compiler + S + "frameworks";
             string sdkLibs = frameworks + S + "libs";
             string sdkLocales = frameworks + S + "locale" + S + PluginBase.MainForm.Settings.LocaleVersion;
-            string fallbackLocales = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "locale" + S + "en_US");
+            string fallbackLibs = PathHelper.ResolvePath(PathHelper.ToolDir + S + "flexlibs" + S + "frameworks" + S + "libs");
+            string fallbackLocale = PathHelper.ResolvePath(PathHelper.ToolDir + S + "flexlibs" + S + "frameworks" + S + "locale" + S + "en_US");
             List<string> addLibs = new List<string>();
             List<string> addLocales = new List<string>();
 
             if (!Directory.Exists(sdkLibs) && !sdkLibs.StartsWith("$")) // fallback
             {
-                sdkLibs = PathHelper.ResolvePath(PathHelper.LibraryDir + S + "AS3" + S + "intrinsic" + S + "libs");
+                sdkLibs = PathHelper.ResolvePath(PathHelper.ToolDir + S + "flexlibs" + S + "framework" + S + "player" + S + "libs");
             }
 
             if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
             {
-                string libPlayer = sdkLibs + S + "player";
                 // core API SWC
                 if (!hasCustomAPI)
                     if (hasAIRSupport)
@@ -178,29 +178,34 @@ namespace AS3Context
                     }
                     else 
                     {
-                        string playerglobal = null;
-                        for (int i = minorVersion; i >= 0; i--)
+                        bool swcPresent = false;
+                        string playerglobal = MatchPlayerGlobalExact(majorVersion, minorVersion, sdkLibs);
+                        if (playerglobal != null) swcPresent = true;
+                        else playerglobal = MatchPlayerGlobalExact(majorVersion, minorVersion, fallbackLibs);
+                        if (playerglobal == null) playerglobal = MatchPlayerGlobalAny(majorVersion, minorVersion, sdkLibs);
+                        if (playerglobal == null) playerglobal = MatchPlayerGlobalAny(majorVersion, minorVersion, fallbackLibs);
+                        if (playerglobal != null)
                         {
-                            string version = majorVersion + "." + i;
-                            if (Directory.Exists(libPlayer + S + version))
+                            // add missing SWC in new SDKs
+                            if (!swcPresent && Directory.Exists(compiler))
                             {
-                                playerglobal = "player" + S + version + S + "playerglobal.swc";
-                                break;
-                            }
-                        }
-                        if (playerglobal == null && Directory.Exists(libPlayer + S + majorVersion))
-                            playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
-                        if (playerglobal == null) // fallback
-                        {
-                            string[] dirs = Directory.GetDirectories(libPlayer);
-                            foreach(string dir in dirs)
-                                if (File.Exists(dir + S + "playerglobal.swc"))
+                                string swcDir = sdkLibs + S + "player" + S;
+                                if (minorVersion > 0 || (!Directory.Exists(sdkLibs + "9") && !Directory.Exists(sdkLibs + "10")))
+                                    swcDir += majorVersion + "." + minorVersion;
+                                else
+                                    swcDir += majorVersion;
+                                try
                                 {
-                                    playerglobal = dir + S + "playerglobal.swc";
-                                    break;
+                                    Directory.CreateDirectory(swcDir);
+                                    File.Copy(playerglobal, swcDir + S + "playerglobal.swc");
+                                    File.WriteAllText(swcDir + S + "FlashDevelop Warning.txt",
+                                        "This 'playerglobal.swc' was copied here automatically by FlashDevelop from:\n" + playerglobal);
+                                    playerglobal = swcDir + S + "playerglobal.swc";
                                 }
+                                catch { }
+                            }
+                            addLibs.Add(playerglobal);
                         }
-                        if (playerglobal != null) addLibs.Add(playerglobal);
                     }
                 addLocales.Add("playerglobal_rb.swc");
 
@@ -251,11 +256,14 @@ namespace AS3Context
             foreach (string file in addLocales)
             {
                 string swcItem = sdkLocales + S + file;
-                if (!File.Exists(swcItem)) swcItem = fallbackLocales + S + file;
+                if (!File.Exists(swcItem)) swcItem = fallbackLocale + S + file;
                 AddPath(swcItem);
             }
             foreach (string file in addLibs)
-                AddPath(sdkLibs + S + file);
+            {
+                if (File.Exists(file)) AddPath(file);
+                else AddPath(sdkLibs + S + file);
+            }
 
             // intrinsics (deprecated, excepted for FP10 Vector.<T>)
             string fp9cp = as3settings.AS3ClassPath + S + "FP9";
@@ -302,6 +310,53 @@ namespace AS3Context
                 SetTemporaryPath(tempPath);
             }
             FinalizeClasspath();
+        }
+
+        /// <summary>
+        /// Find any playerglobal.swc
+        /// </summary>
+        private string MatchPlayerGlobalAny(int majorVersion, int minorVersion, string sdkLibs)
+        {
+            char S = Path.DirectorySeparatorChar;
+            string libPlayer = sdkLibs + S + "player";
+            string playerglobal = null;
+            for (int i = minorVersion; i >= 0; i--)
+            {
+                string version = majorVersion + "." + i;
+                if (Directory.Exists(libPlayer + S + version))
+                {
+                    playerglobal = libPlayer + S + version + S + "playerglobal.swc";
+                    break;
+                }
+            }
+            if (playerglobal == null && Directory.Exists(libPlayer + S + majorVersion))
+                playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
+
+            if (playerglobal == null)
+            {
+                string[] dirs = Directory.GetDirectories(sdkLibs + S + "player");
+                foreach (string dir in dirs)
+                    if (File.Exists(dir + S + "playerglobal.swc"))
+                    {
+                        playerglobal = dir + S + "playerglobal.swc";
+                    }
+            }
+            return playerglobal;
+        }
+
+        /// <summary>
+        /// Find version-matching playerglobal.swc
+        /// </summary>
+        private string MatchPlayerGlobalExact(int majorVersion, int minorVersion, string sdkLibs)
+        {
+            string playerglobal = null;
+            char S = Path.DirectorySeparatorChar;
+            string libPlayer = sdkLibs + S + "player";
+            if (Directory.Exists(libPlayer + S + majorVersion + "." + minorVersion))
+                playerglobal = libPlayer + S + majorVersion + "." + minorVersion + S + "playerglobal.swc";
+            if (minorVersion == 0 && Directory.Exists(libPlayer + S + majorVersion))
+                playerglobal = libPlayer + S + majorVersion + S + "playerglobal.swc";
+            return playerglobal;
         }
         
         /// <summary>
