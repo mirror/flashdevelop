@@ -494,6 +494,12 @@ namespace ScintillaNet
                             }
                         }
                     }
+                    // Set all whitespace color to indentguide color
+                    if (usestyle.key == (Int32)ScintillaNet.Enums.StylesCommon.IndentGuide)
+                    {
+                        SetWhitespaceBack(true, usestyle.BackgroundColor);
+                        SetWhitespaceFore(true, usestyle.ForegroundColor);
+                    }
                     if (usestyle.HasForegroundColor) StyleSetFore(usestyle.key, usestyle.ForegroundColor);
                     if (usestyle.HasBackgroundColor) StyleSetBack(usestyle.key, usestyle.BackgroundColor);
                     if (usestyle.HasFontName) StyleSetFont(usestyle.key, usestyle.FontName);
