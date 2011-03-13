@@ -66,7 +66,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BridgeSettings", "External\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHPContext", "External\Plugins\PHPContext\PHPContext.csproj", "{2F93393B-9629-470E-B7B8-0D8CFA25315A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flash4Debugger", "External\Plugins\Flash4Debugger\Flash4Debugger.csproj", "{2DC1C74D-A767-4354-A370-5185F81F6547}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDebugger", "External\Plugins\FlashDebugger\FlashDebugger.csproj", "{2DC1C74D-A767-4354-A370-5185F81F6547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
