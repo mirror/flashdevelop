@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C# Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelop", "FlashDevelop\FlashDevelop.csproj", "{EFD07485-9A64-4EEC-94E7-ACBD4DA5CA93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61885F70-B4DC-4B44-852D-5D6D03F2A734} = {61885F70-B4DC-4B44-852D-5D6D03F2A734}
@@ -66,7 +66,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BridgeSettings", "External\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHPContext", "External\Plugins\PHPContext\PHPContext.csproj", "{2F93393B-9629-470E-B7B8-0D8CFA25315A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDebugger", "External\Plugins\FlashDebugger\FlashDebugger.csproj", "{2DC1C74D-A767-4354-A370-5185F81F6547}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDebugger", "External\Plugins\FlashDebugger\FlashDebugger.csproj", "{194B58C9-9D2B-4D5E-9256-773FD3222582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -300,14 +300,14 @@ Global
 		{2F93393B-9629-470E-B7B8-0D8CFA25315A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2F93393B-9629-470E-B7B8-0D8CFA25315A}.Release|x86.ActiveCfg = Release|x86
 		{2F93393B-9629-470E-B7B8-0D8CFA25315A}.Release|x86.Build.0 = Release|x86
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Debug|x86.ActiveCfg = Debug|x86
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Debug|x86.Build.0 = Debug|x86
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Release|x86.ActiveCfg = Release|x86
-		{2DC1C74D-A767-4354-A370-5185F81F6547}.Release|x86.Build.0 = Release|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|x86.ActiveCfg = Debug|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Debug|x86.Build.0 = Debug|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|x86.ActiveCfg = Release|x86
+		{194B58C9-9D2B-4D5E-9256-773FD3222582}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
