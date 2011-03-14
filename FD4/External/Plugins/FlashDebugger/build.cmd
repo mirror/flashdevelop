@@ -1,6 +1,6 @@
 @echo off
 
-set FLEX_HOME="D:\tools\flex4air2"
+set FLEX_HOME="..\..\..\FlashDEvelop\bin\Debug\Tools\flexlibs"
 
 mkdir generated
 
