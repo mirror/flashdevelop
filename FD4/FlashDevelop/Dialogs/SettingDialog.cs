@@ -218,9 +218,9 @@ namespace FlashDevelop.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(697, 482);
-            this.Controls.Add(this.filterLabel);
             this.Controls.Add(this.clearFilterButton);
             this.Controls.Add(this.filterText);
+            this.Controls.Add(this.filterLabel);
             this.Controls.Add(this.helpLabel);
             this.Controls.Add(this.disableCheckBox);
             this.Controls.Add(this.descLabel);
