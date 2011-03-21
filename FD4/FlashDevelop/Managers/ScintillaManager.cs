@@ -196,6 +196,7 @@ namespace FlashDevelop.Managers
                 sci.SetProperty("fold.preprocessor", Convert.ToInt32(Globals.Settings.FoldPreprocessor).ToString());
                 sci.SetProperty("fold.at.else", Convert.ToInt32(Globals.Settings.FoldAtElse).ToString());
                 sci.SetProperty("fold.html", Convert.ToInt32(Globals.Settings.FoldHtml).ToString());
+                sci.SetProperty("lexer.cpp.track.preprocessor", "0");
                 sci.SetVirtualSpaceOptions((Int32)Globals.Settings.VirtualSpaceMode);
                 sci.SetFoldFlags((Int32)Globals.Settings.FoldFlags);
                 /** 
