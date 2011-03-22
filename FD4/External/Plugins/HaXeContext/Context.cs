@@ -210,7 +210,7 @@ namespace HaXeContext
             {
                 features.Directives.Add("flash");
                 features.Directives.Add("flash" + majorVersion);
-                lang = (majorVersion >= 9) ? "flash9" : "flash";
+                lang = (majorVersion < 6 || majorVersion >= 9) ? "flash9" : "flash";
             }
             features.Directives.Add("true");
 
@@ -250,7 +250,7 @@ namespace HaXeContext
             HaxeProject proj = PluginBase.CurrentProject as HaxeProject;
 
             // swf-libs
-            if (IsFlashTarget && majorVersion >= 9 && proj != null )
+            if (IsFlashTarget && (majorVersion < 6 || majorVersion >= 9) && proj != null )
             {
                 foreach(LibraryAsset asset in proj.LibraryAssets)
                     if (asset.IsSwf)

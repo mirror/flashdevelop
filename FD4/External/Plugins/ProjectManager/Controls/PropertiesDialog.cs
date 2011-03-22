@@ -801,6 +801,7 @@ namespace ProjectManager.Controls
 		private Project project;
         private CompilerOptions optionsCopy;
         private Boolean propertiesChanged;
+        private Boolean platformChanged;
         private Boolean classpathsChanged;
         private Boolean assetsChanged;
         private Boolean sdkChanged;
@@ -851,10 +852,17 @@ namespace ProjectManager.Controls
             get { return classpathsChanged; }
             protected set { classpathsChanged = value; }
         }
+
 		public bool AssetsChanged
         {
             get { return assetsChanged; }
             protected set { assetsChanged = value; }
+        }
+
+        public bool PlatformChanged
+        {
+            get { return platformChanged; }
+            protected set { platformChanged = value; }
         }
 
         #endregion
@@ -1190,11 +1198,13 @@ namespace ProjectManager.Controls
             UpdateGeneralPanel();
             UpdateEditCommandButton();
 
+            platformChanged = true;
             Modified();
         }
 
 		private void versionCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            platformChanged = true;
             Modified();
         }
 
