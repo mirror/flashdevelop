@@ -148,11 +148,12 @@ namespace ProjectManager.Projects.Haxe
                 int minorVersion = MovieOptions.MinorVersion;
                 if (MovieOptions.Platform == "AIR")
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
-                if (majorVersion == 10)
+                if (majorVersion >= 10)
                 {
                     if (minorVersion > 0) param = majorVersion + "." + minorVersion;
                     else param = "" + majorVersion;
                 }
+                else param = "" + majorVersion;
                 if (param != null) pr.Add("-swf-version " + param);
             }
 
