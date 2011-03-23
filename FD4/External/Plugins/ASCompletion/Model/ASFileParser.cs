@@ -751,8 +751,8 @@ namespace ASCompletion.Model
 					}
 					//
 					valueLength = 0;
-					//length = 0;
                     if (!inParams && !(inConst && context != 0)) continue;
+                    else length = 0;
 				}
 
 				/* TOKENIZATION */
