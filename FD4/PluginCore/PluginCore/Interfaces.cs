@@ -180,6 +180,7 @@ namespace PluginCore
         String ProjectPath { get; }
         String PreferredSDK { get; }
         String CurrentSDK { get; }
+        String DefaultSearchFilter { get; }
 
         #endregion
     }

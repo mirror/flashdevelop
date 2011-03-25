@@ -76,6 +76,7 @@ namespace ProjectManager.Projects
         public virtual bool RequireLibrary { get { return false; } }
         public virtual void ValidateBuild(out string error) { error = null; }
         public virtual int MaxTargetsCount { get { return 0; } }
+        public abstract string DefaultSearchFilter { get; }
 
         public abstract void Save();
         public abstract void SaveAs(string fileName);

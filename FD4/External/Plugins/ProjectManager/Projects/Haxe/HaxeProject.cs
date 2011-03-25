@@ -22,6 +22,7 @@ namespace ProjectManager.Projects.Haxe
         public override string Language { get { return "haxe"; } }
         public override bool HasLibraries { get { return OutputType == OutputType.Application && IsFlashOutput; } }
         public override bool RequireLibrary { get { return IsFlashOutput; } }
+        public override string DefaultSearchFilter { get { return "*.hx"; } }
         
         public override bool EnableInteractiveDebugger 
         { 
