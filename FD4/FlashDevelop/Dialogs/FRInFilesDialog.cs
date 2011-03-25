@@ -866,7 +866,16 @@ namespace FlashDevelop.Dialogs
             this.redirectCheckBox.CheckedChanged += new EventHandler(this.RedirectCheckBoxCheckChanged);
             if (!this.extensionComboBox.Text.StartsWith("*."))
             {
-                this.extensionComboBox.Text = "*." + Globals.Settings.DefaultFileExtension;
+                if (PluginBase.CurrentProject != null)
+                {
+                    String filter = PluginBase.CurrentProject.DefaultSearchFilter;
+                    this.extensionComboBox.Text = filter;
+                }
+                else
+                {
+                    String def = Globals.Settings.DefaultFileExtension;
+                    this.extensionComboBox.Text = "*." + def;
+                }
             }
             if (document.IsEditable && document.SciControl.SelText.Length > 0)
             {
