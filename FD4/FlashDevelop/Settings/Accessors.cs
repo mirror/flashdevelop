@@ -4,8 +4,10 @@ using System.Drawing;
 using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Windows.Forms.Design;
 using PluginCore.Localization;
 using System.Windows.Forms;
 using PluginCore.Managers;
@@ -802,6 +804,32 @@ namespace FlashDevelop.Settings
         {
             get { return this.uiInsertionTriggers; }
             set { this.uiInsertionTriggers = value; }
+        }
+
+        #endregion
+
+        #region Paths
+
+        [DefaultValue("")]
+        [DisplayName("Custom Snippet Directory")]
+        [LocalizedCategory("FlashDevelop.Category.Paths")]
+        [LocalizedDescription("FlashDevelop.Description.CustomSnippetDir")]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        public String CustomSnippetDir
+        {
+            get { return this.customSnippetDir; }
+            set { this.customSnippetDir = value; }
+        }
+
+        [DefaultValue("")]
+        [DisplayName("Custom Template Directory")]
+        [LocalizedCategory("FlashDevelop.Category.Paths")]
+        [LocalizedDescription("FlashDevelop.Description.CustomTemplateDir")]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        public String CustomTemplateDir
+        {
+            get { return this.customTemplateDir; }
+            set { this.customTemplateDir = value; }
         }
 
         #endregion

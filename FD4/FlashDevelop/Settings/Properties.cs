@@ -27,6 +27,8 @@ namespace FlashDevelop.Settings
         private FlatStyle comboBoxFlatStyle = FlatStyle.Popup;
         private Font consoleFont = new Font("Courier New", 8.75F);
         private Font defaultFont = new Font("Tahoma", 8.25F);
+        private String customTemplateDir = String.Empty;
+        private String customSnippetDir = String.Empty;
         private Int32 tabWidth = 4;
         private Int32 indentSize = 4;
         private Int32 caretPeriod = 500;

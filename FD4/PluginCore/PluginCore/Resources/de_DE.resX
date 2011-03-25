@@ -4757,4 +4757,16 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Open Document...</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="FlashDevelop.Category.Paths" xml:space="preserve">
+    <value>Paths</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomSnippetDir" xml:space="preserve">
+    <value>Path to the custom snippets directory.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
+    <value>Path to the custom templates directory.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

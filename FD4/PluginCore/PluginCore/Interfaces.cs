@@ -201,6 +201,8 @@ namespace PluginCore
         String DefaultFileExtension { get; set; }
         String LatestDialogPath { get; set; }
         Boolean ConfirmOnExit { get; set; }
+        String CustomSnippetDir { get; set; }
+        String CustomTemplateDir { get; set; }
         Boolean DisableFindOptionSync { get; set; }
         Boolean DisableReplaceFilesConfirm { get; set; }
         Boolean AutoReloadModifiedFiles { get; set; }

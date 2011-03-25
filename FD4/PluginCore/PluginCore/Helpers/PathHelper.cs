@@ -74,7 +74,22 @@ namespace PluginCore.Helpers
         {
             get
             {
-                return Path.Combine(BaseDir, "Snippets");
+                String custom = PluginBase.Settings.CustomSnippetDir;
+                if (!String.IsNullOrEmpty(custom) && Directory.Exists(custom)) return custom;
+                else return Path.Combine(BaseDir, "Snippets");
+            }
+        }
+
+        /// <summary>
+        /// Path to the templates directory
+        /// </summary>
+        public static String TemplateDir
+        {
+            get
+            {
+                String custom = PluginBase.Settings.CustomTemplateDir;
+                if (!String.IsNullOrEmpty(custom) && Directory.Exists(custom)) return custom;
+                else return Path.Combine(BaseDir, "Templates");
             }
         }
 
@@ -86,17 +101,6 @@ namespace PluginCore.Helpers
             get
             {
                 return Path.Combine(BaseDir, "Settings");
-            }
-        }
-
-        /// <summary>
-        /// Path to the templates directory
-        /// </summary>
-        public static String TemplateDir
-        {
-            get
-            {
-                return Path.Combine(BaseDir, "Templates");
             }
         }
 
