@@ -846,17 +846,18 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void UpdateDialogArguments()
         {
+            IProject project = PluginBase.CurrentProject;
             ITabbedDocument document = Globals.CurrentDocument;
-            if (PluginBase.CurrentProject != null)
+            Boolean doRefresh = lastProject != null && lastProject != project;
+            if (project != null)
             {
-                String path = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
-                if (String.IsNullOrEmpty(this.folderComboBox.Text) || (lastProject != null && lastProject != PluginBase.CurrentProject))
+                String path = Path.GetDirectoryName(project.ProjectPath);
+                if (String.IsNullOrEmpty(this.folderComboBox.Text) || doRefresh)
                 {
                     this.folderComboBox.Text = path;
                 }
-                lastProject = PluginBase.CurrentProject;
             }
-            else if (String.IsNullOrEmpty(this.folderComboBox.Text) || !Globals.MainForm.WorkingDirectory.StartsWith(this.folderComboBox.Text))
+            else if (String.IsNullOrEmpty(this.folderComboBox.Text) || doRefresh)
             {
                 this.folderComboBox.Text = Globals.MainForm.WorkingDirectory;
             }
@@ -864,11 +865,11 @@ namespace FlashDevelop.Dialogs
             this.redirectCheckBox.CheckedChanged -= new EventHandler(this.RedirectCheckBoxCheckChanged);
             this.redirectCheckBox.Checked = Globals.Settings.RedirectFilesResults;
             this.redirectCheckBox.CheckedChanged += new EventHandler(this.RedirectCheckBoxCheckChanged);
-            if (!this.extensionComboBox.Text.StartsWith("*."))
+            if (!this.extensionComboBox.Text.StartsWith("*.") || doRefresh)
             {
-                if (PluginBase.CurrentProject != null)
+                if (project != null)
                 {
-                    String filter = PluginBase.CurrentProject.DefaultSearchFilter;
+                    String filter = project.DefaultSearchFilter;
                     this.extensionComboBox.Text = filter;
                 }
                 else
@@ -881,6 +882,7 @@ namespace FlashDevelop.Dialogs
             {
                 this.findComboBox.Text = document.SciControl.SelText;
             }
+            if (project != null) lastProject = project;
         }
 
         /// <summary>
