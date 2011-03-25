@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <!-- List of Java classes which should have proxy generated -->
   <JavaClass TypeName="java.io.Reader"/>
   <JavaClass TypeName="java.io.StringReader"/>
+  <JavaClass TypeName="java.net.SocketException"/>
+  <JavaClass TypeName="java.net.SocketTimeoutException"/>
 
   <JavaClass TypeName="flash.tools.debugger.Bootstrap"/>
   <JavaClass TypeName="flash.tools.debugger.SessionManager"/>

@@ -372,12 +372,12 @@ namespace FlashDebugger
                     catch {}
                 }
             }
-            catch (System.Net.Sockets.SocketException ex)
+            catch (java.net.SocketException ex)
             {
                 // No errors if requested
                 if (!m_RequestStop) throw ex;
             }
-			catch (IOException ex)
+			catch (java.net.SocketTimeoutException ex)
 			{
 				if (m_CurrentState != DebuggerState.Starting) throw ex;
 				TraceManager.AddAsync("[No debug Flash player connection request]", -1);

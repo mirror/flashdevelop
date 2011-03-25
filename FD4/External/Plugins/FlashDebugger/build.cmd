@@ -20,6 +20,8 @@ javac -nowarn -d generated\bin -sourcepath generated\jvm -cp "jni4net.j-0.8.2.0.
 IF %ERRORLEVEL% NEQ 0 goto err
 javac -nowarn -d generated\bin -sourcepath generated\jvm -cp "jni4net.j-0.8.2.0.jar";"%FLEX_HOME%\lib\fdb.jar" generated\jvm\java_\io\*.java
 IF %ERRORLEVEL% NEQ 0 goto err
+javac -nowarn -d generated\bin -sourcepath generated\jvm -cp "jni4net.j-0.8.2.0.jar";"%FLEX_HOME%\lib\fdb.jar" generated\jvm\java_\net\*.java
+IF %ERRORLEVEL% NEQ 0 goto err
 ::javac -nowarn -d generated\bin -sourcepath generated\jvm -cp "jni4net.j-0.8.2.0.jar";"%FLEX_HOME%\lib\fdb.jar" generated\jvm\flex\tools\debugger\cli\*.java
 ::IF %ERRORLEVEL% NEQ 0 goto err
 javac -nowarn -d generated\bin -sourcepath generated\jvm -cp "jni4net.j-0.8.2.0.jar";"%FLEX_HOME%\lib\fdb.jar" generated\jvm\flash\tools\debugger\concrete\*.java
