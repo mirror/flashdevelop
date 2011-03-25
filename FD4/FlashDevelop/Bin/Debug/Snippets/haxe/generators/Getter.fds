@@ -1,0 +1,5 @@
+$(BlankLine)$(Modifiers) var $(Name)(get_$(Name), default):$(Type);
+
+private function get_$(Name)():$(Type) $(CSLB){
+	return $(Member)$(EntryPoint);
+}

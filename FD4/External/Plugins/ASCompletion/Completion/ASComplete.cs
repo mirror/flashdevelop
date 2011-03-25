@@ -3125,7 +3125,12 @@ namespace ASCompletion.Completion
             else if ((ft & FlagType.Namespace) > 0)
                 return String.Format("{0}namespace {1}{2}", modifiers, member.Name, foundIn);
             else if ((ft & FlagType.Constant) > 0)
-                return String.Format("{0}const {1}{2}", modifiers, member.ToString(), foundIn);
+            {
+                if (member.Value == null)
+                    return String.Format("{0}const {1}{2}", modifiers, member.ToString(), foundIn);
+                else
+                    return String.Format("{0}const {1} = {2}{3}", modifiers, member.ToString(), member.Value, foundIn);
+            }
             else if ((ft & FlagType.Variable) > 0)
                 return String.Format("{0}var {1}{2}", modifiers, member.ToString(), foundIn);
             else

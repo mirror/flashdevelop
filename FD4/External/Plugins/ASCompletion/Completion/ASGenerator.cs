@@ -859,15 +859,23 @@ namespace ASCompletion.Completion
                             atLine = latest.LineTo;
                         position = Sci.PositionFromLine(atLine) - ((Sci.EOLMode == 0) ? 2 : 1);
 
-                        if (job != GeneratorJobType.Getter)
+                        if (job == GeneratorJobType.GetterSetter)
                         {
                             Sci.SetSel(position, position);
-                            GenerateSetter(name, member, position);
+                            GenerateGetterSetter(name, member, position);
                         }
-                        if (job != GeneratorJobType.Setter)
+                        else
                         {
-                            Sci.SetSel(position, position);
-                            GenerateGetter(name, member, position);
+                            if (job != GeneratorJobType.Getter)
+                            {
+                                Sci.SetSel(position, position);
+                                GenerateSetter(name, member, position);
+                            }
+                            if (job != GeneratorJobType.Setter)
+                            {
+                                Sci.SetSel(position, position);
+                                GenerateGetter(name, member, position);
+                            }
                         }
                     }
                     finally
@@ -3309,6 +3317,26 @@ namespace ASCompletion.Completion
         {
             string acc = GetPublicAccessor(member);
             string template = TemplateUtils.GetTemplate("Setter");
+            string decl = NewLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", FormatType(member.Type));
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Member", member.Name);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey ?? "void");
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", NewLine);
+            InsertCode(position, decl);
+        }
+
+        static private void GenerateGetterSetter(string name, MemberModel member, int position)
+        {
+            string template = TemplateUtils.GetTemplate("GetterSetter");
+            if (template == "")
+            {
+                GenerateSetter(name, member, position);
+                ASContext.CurSciControl.SetSel(position, position);
+                GenerateGetter(name, member, position);
+                return;
+            }
+            string acc = GetPublicAccessor(member);
             string decl = NewLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", FormatType(member.Type));
