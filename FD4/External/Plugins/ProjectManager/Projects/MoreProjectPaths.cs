@@ -11,12 +11,7 @@ namespace ProjectManager.Projects
     {
         public static string ProjectTemplatesDirectory
         {
-            get
-            {
-                string altpath = PluginMain.Settings.AlternateTemplateDir;
-                if (altpath != null && altpath.Length > 0) return altpath;
-                else return PathHelper.ProjectsDir;
-            }
+            get { return PathHelper.ProjectsDir; }
         }
 
         public static string FileTemplatesDirectory

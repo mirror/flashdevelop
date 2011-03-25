@@ -94,6 +94,19 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Path to the project templates directory
+        /// </summary>
+        public static String ProjectsDir
+        {
+            get
+            {
+                String custom = PluginBase.Settings.CustomProjectsDir;
+                if (!String.IsNullOrEmpty(custom) && Directory.Exists(custom)) return custom;
+                else return Path.Combine(AppDir, "Projects");
+            }
+        }
+
+        /// <summary>
         /// Path to the settings directory
         /// </summary>
         public static String SettingDir
@@ -101,17 +114,6 @@ namespace PluginCore.Helpers
             get
             {
                 return Path.Combine(BaseDir, "Settings");
-            }
-        }
-
-        /// <summary>
-        /// Path to the project templates directory
-        /// </summary>
-        public static String ProjectsDir
-        {
-            get
-            {
-                return Path.Combine(AppDir, "Projects");
             }
         }
 

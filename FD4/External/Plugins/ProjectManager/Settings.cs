@@ -29,7 +29,6 @@ namespace ProjectManager
         bool showProjectClasspaths = true;
         bool showGlobalClasspaths = false;
         int maxRecentProjects = 10;
-        string alternateTemplateDir;
         string lastProject = string.Empty;
         bool createProjectDirectory = false;
         bool useProjectSessions = false;
@@ -181,16 +180,6 @@ namespace ProjectManager
         {
             get { return enableMxmlMapping; }
             set { enableMxmlMapping = value; FireChanged("ShowGlobalClasspaths"); }
-        }
-
-        [DisplayName("Alternate Templates Directory")]
-        [LocalizedDescription("ProjectManager.Description.AlternateTemplateDir")]
-        [LocalizedCategory("ProjectManager.Category.OtherOptions")]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
-        public string AlternateTemplateDir
-        {
-            get { return alternateTemplateDir; }
-            set { alternateTemplateDir = value; FireChanged("AlternateTemplateDir"); }
         }
 
         #endregion

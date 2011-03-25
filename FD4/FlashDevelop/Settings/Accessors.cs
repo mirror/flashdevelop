@@ -832,6 +832,17 @@ namespace FlashDevelop.Settings
             set { this.customTemplateDir = value; }
         }
 
+        [DefaultValue("")]
+        [DisplayName("Custom Projects Directory")]
+        [LocalizedCategory("FlashDevelop.Category.Paths")]
+        [LocalizedDescription("FlashDevelop.Description.CustomProjectsDir")]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        public String CustomProjectsDir
+        {
+            get { return this.customProjectsDir; }
+            set { this.customProjectsDir = value; }
+        }
+
         #endregion
 
     }

@@ -1462,9 +1462,6 @@
   <data name="ProjectManager.Description.AllowSourcePathOverlap" xml:space="preserve">
     <value>ソースパスエントリが他のソースパスのサブディレクトリである場合、パスのオーバーラップをチェックします。</value>
   </data>
-  <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
-    <value>プロジェクトテンプレートフォルダーの読み込み先を変更します。(空白の場合はデフォルト)</value>
-  </data>
   <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
     <value>コンパイルするソースファイルを指定します。</value>
   </data>
@@ -4762,6 +4759,10 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
     <value>Path to the custom templates directory.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomProjectsDir" xml:space="preserve">
+    <value>Path to the custom project templates directory.</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>

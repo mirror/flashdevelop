@@ -1463,9 +1463,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="ProjectManager.Description.AllowSourcePathOverlap" xml:space="preserve">
     <value>Checks if a source-path entry is a subdirectory of another source-path entry.</value>
   </data>
-  <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
-    <value>If you would like to store your project templates in a custom directory, you can specify one here.  Leave it blank to use the default location.</value>
-  </data>
   <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
     <value>Specifies the source file to compile.</value>
   </data>
@@ -4795,6 +4792,10 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
     <value>Path to the custom templates directory.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomProjectsDir" xml:space="preserve">
+    <value>Path to the custom project templates directory.</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>

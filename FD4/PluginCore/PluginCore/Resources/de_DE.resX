@@ -1481,9 +1481,6 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   <data name="ProjectManager.Description.AllowSourcePathOverlap" xml:space="preserve">
     <value>Erlaubt, dass ein Klassenpfad ein Unterordner eines anderen Klassenpfads ist.</value>
   </data>
-  <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
-    <value>Gibt einen benutzerdefinierten Projektvorlagenpfad an. Lassen Sie dieses Feld leer, um den Standardpfad zu verwenden.</value>
-  </data>
   <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
     <value>Die Quelldatei mit dem Haupteinstiegspunk (die Anwendung).</value>
   </data>
@@ -4767,6 +4764,10 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   </data>
   <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
     <value>Path to the custom templates directory.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomProjectsDir" xml:space="preserve">
+    <value>Path to the custom project templates directory.</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>

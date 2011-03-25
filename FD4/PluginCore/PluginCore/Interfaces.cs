@@ -203,6 +203,7 @@ namespace PluginCore
         Boolean ConfirmOnExit { get; set; }
         String CustomSnippetDir { get; set; }
         String CustomTemplateDir { get; set; }
+        String CustomProjectsDir { get; set; }
         Boolean DisableFindOptionSync { get; set; }
         Boolean DisableReplaceFilesConfirm { get; set; }
         Boolean AutoReloadModifiedFiles { get; set; }
