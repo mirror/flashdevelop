@@ -337,7 +337,7 @@ namespace AS3Context
                         ExploreMetadatas(incModel, mix, excludes, ns);
                         break;
                 }
-                if (add != null)
+                if (add != null && meta.Params.ContainsKey("name"))
                     mix.Add(new HtmlAttributeItem(meta.Params["name"] + add, type, className, ns));
             }
         }
