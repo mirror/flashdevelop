@@ -87,7 +87,7 @@ namespace AS3Context
             features.importKey = "import";
             features.typesPreKeys = new string[] { "import", "new", "typeof", "is", "as", "extends", "implements" };
             features.codeKeywords = new string[] { 
-                "var", "function", "new", "delete", "typeof", "is", "as", "return", "break", "continue",
+                "var", "function", "const", "new", "delete", "typeof", "is", "as", "return", "break", "continue",
                 "if", "else", "for", "each", "in", "while", "do", "switch", "case", "default", "with",
                 "null", "true", "false", "try", "catch", "finally", "throw", "use", "namespace"
             };
