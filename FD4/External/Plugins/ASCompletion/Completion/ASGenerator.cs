@@ -3648,7 +3648,7 @@ namespace ASCompletion.Completion
             {
                 string type = member.Type;
                 string name = member.Name;
-                if (member.Parameters != null && member.Parameters.Count > 0)
+                if (member.Parameters != null && member.Parameters.Count == 1)
                     type = member.Parameters[0].Type;
                 type = FormatType(type);
                 if (type == null)
@@ -3658,31 +3658,38 @@ namespace ASCompletion.Completion
                     return;
                 }
 
-                if (ofClass.Members.Search(name, FlagType.Getter, 0) != null)
+                bool genGetter = ofClass.Members.Search(name, FlagType.Getter, 0) != null;
+                bool genSetter = ofClass.Members.Search(name, FlagType.Setter, 0) != null;
+                
+                if (ASContext.Context.Settings.LanguageId == "HAXE")
                 {
-                    string tpl = TemplateUtils.GetTemplate("Getter");
+                    acc = features.privateKey;
+                }
+
+                if (genGetter)
+                {
+                    string tpl = TemplateUtils.GetTemplate("OverrideGetter", "Getter");
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Modifiers", acc);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Name", name);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Type", type);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Member", "super." + name);
                     decl += tpl;
                 }
-                if (ofClass.Members.Search(name, FlagType.Setter, 0) != null)
+                if (genSetter)
                 {
-                    string tpl = TemplateUtils.GetTemplate("Setter");
+                    string tpl = TemplateUtils.GetTemplate("OverrideSetter", "Setter");
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Modifiers", acc);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Name", name);
-                    tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Type", type);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Type", type);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Member", "super." + name);
                     tpl = TemplateUtils.ReplaceTemplateVariable(tpl, "Void", ASContext.Context.Features.voidKey ?? "void");
                     if (decl.Length > 0)
                     {
-                        tpl = tpl.Replace("$(EntryPoint)", "");
+                        tpl = "\n\n" + tpl.Replace("$(EntryPoint)", "");
                     }
                     decl += tpl;
                 }
-                decl = "$(Boundary)" + TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", "\n\n");
+                decl = "$(Boundary)" + TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", "");
             }
             else
             {

@@ -195,6 +195,16 @@ namespace ASCompletion.Completion
         /// <summary>
         /// Templates are stored in the plugin's Data folder
         /// </summary>
+        public static string GetTemplate(string name, string altName)
+        {
+            string tmp = GetTemplate(name);
+            if (tmp == "") return GetTemplate(altName);
+            else return tmp;
+        }
+
+        /// <summary>
+        /// Templates are stored in the plugin's Data folder
+        /// </summary>
         public static string GetTemplate(string name)
         {
             string lang = PluginBase.MainForm.CurrentDocument.SciControl.ConfigurationLanguage.ToLower();
