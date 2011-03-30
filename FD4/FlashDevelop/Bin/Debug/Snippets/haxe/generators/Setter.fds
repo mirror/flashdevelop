@@ -1,5 +1,5 @@
-$(BlankLine)$(Modifiers) var $(Name)(default, set_$(Name)):$(Type);
+$(BlankLine)$(Modifiers) var $(Name)(null, set_$(Name)):$(Type);
 
-private function set_$(Name)(value:$(Type)):$(Void) $(CSLB){
-	$(Member) = value$(EntryPoint);
+private function set_$(Name)(value:$(Type)):$(Type) $(CSLB){
+	return $(Member) = value$(EntryPoint);
 }

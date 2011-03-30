@@ -337,7 +337,7 @@ namespace PluginCore.Controls
 			ICompletionListItem item = completionList.Items[e.Index] as ICompletionListItem;
 			e.DrawBackground();
             bool selected = (e.State & DrawItemState.Selected) > 0;
-			Brush textBrush = (selected) ? Brushes.White : Brushes.Black;
+			Brush textBrush = (selected) ? SystemBrushes.HighlightText : SystemBrushes.WindowText;
             Brush packageBrush = Brushes.Gray;
 			Rectangle tbounds = new Rectangle(18, e.Bounds.Top + 1, e.Bounds.Width, e.Bounds.Height);
 			if (item != null)
