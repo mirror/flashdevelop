@@ -5,5 +5,5 @@ private function get_$(Name)():$(Type) $(CSLB){
 }
 
 private function set_$(Name)(value:$(Type)):$(Type) $(CSLB){
-	$(Member) = value;
+	return $(Member) = value;
 }
