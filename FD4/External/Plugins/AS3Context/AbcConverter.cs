@@ -631,9 +631,9 @@ namespace AS3Context
                 case "apiReturn": ReadReturnsDesc(doc); break;
                 case "apiInheritDoc": break; // TODO link inherited doc?
 
-                case "apiConstructorDetail":
+                //case "apiConstructorDetail":
+                //case "apiOperationDetail":
                 case "apiClassifierDetail":
-                case "apiOperationDetail":
 				case "apiDetail": 
 				case "related-links": SkipContents(); break;
 
