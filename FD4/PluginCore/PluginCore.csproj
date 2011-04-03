@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{61885F70-B4DC-4B44-852D-5D6D03F2A734}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -269,6 +269,16 @@
     <Compile Include="LitJsonLib\JsonWriter.cs" />
     <Compile Include="LitJsonLib\Lexer.cs" />
     <Compile Include="LitJsonLib\ParserToken.cs" />
+    <Compile Include="BBCode\BBCodeStyle.cs" />
+    <Compile Include="BBCode\BBCodeTagHandler.cs" />
+    <Compile Include="BBCode\BBCodeTagInfo.cs" />
+    <Compile Include="BBCode\BBCodeTagMatch.cs" />
+    <Compile Include="BBCode\BBCodeTagMatcher.cs" />
+    <Compile Include="BBCode\BBCodeUtils.cs" />
+    <Compile Include="BBCode\BottomUpParser.cs" />
+    <Compile Include="BBCode\IndexTree.cs" />
+    <Compile Include="BBCode\IPairTag.cs" />
+    <Compile Include="BBCode\PairTag.cs" />
     <Compile Include="PluginCore\Bridge\IBridgeSettings.cs" />
     <Compile Include="PluginCore\Controls\Common.cs">
       <SubType>Component</SubType>
@@ -277,6 +287,7 @@
     <Compile Include="PluginCore\Controls\SmartForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PluginCore\Controls\WinFormUtils.cs" />
     <Compile Include="PluginCore\Helpers\JvmConfigHelper.cs" />
     <Compile Include="PluginCore\Helpers\ProcessHelper.cs" />
     <Compile Include="PluginCore\Helpers\ResourceHelper.cs" />

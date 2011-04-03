@@ -20,6 +20,10 @@ namespace ASCompletion.Model
 	/// </summary>
 	public class MemberModel: ICloneable, IComparable
     {
+		public static String TypedCallbackHLStart = "<[BGCOLOR=#EEE:SUBTRACT]";
+		public static String TypedCallbackHLEnd = "[/BGCOLOR]>";
+
+
         public FileModel InFile;
         public bool IsPackageLevel;
 
@@ -73,39 +77,80 @@ namespace ASCompletion.Model
 		public override string ToString()
 		{
 			string res = Name;
-            if ((Flags & (FlagType.Setter | FlagType.Getter)) > 0)
-            {
-                if ((Flags & FlagType.Setter) > 0)
-                {
-                    if (Parameters != null && Parameters.Count > 0 && Parameters[0].Type != null && Parameters[0].Type.Length > 0)
-                        return res + " : " + FormatType(Parameters[0].Type);
-                }
-            }
-            else if ((Flags & FlagType.Function) > 0)
-            {
-                res += " (" + ParametersString(true) + ")";
-            }
+			string type = (Type != null && Type.Length > 0) ? FormatType(Type) : null;
+			string comment = "";
+			if ((Flags & FlagType.Function) > 0)
+			{
+				string functDecl = "(" + ParametersString(true) + ")";
+
+				if ((Flags & FlagType.Variable) > 0 || (Flags & FlagType.Getter) > 0)
+				{
+					if (type != null && type.Length > 0)
+						functDecl += ":" + type;
+
+					res += " : Function" + TypedCallbackHLStart + functDecl + TypedCallbackHLEnd;
+					return res;
+				}
+
+				res += " " + functDecl;
+			}
+			else if ((Flags & (FlagType.Setter | FlagType.Getter)) > 0)
+			{
+				if ((Flags & FlagType.Setter) > 0)
+				{
+					if (Parameters != null && Parameters.Count > 0 && Parameters[0].Type != null && Parameters[0].Type.Length > 0)
+						return res + ":" + FormatType(Parameters[0].Type);
+				}
+			}
+
 			if ((Flags & FlagType.Constructor) > 0)
 				return res;
-            else if (Type != null && Type.Length > 0)
-                return res + " : " + FormatType(Type);
-            else
-                return res;
+			
+			if (type != null && type.Length > 0)
+				res += " : " + type + comment;
+
+            return res;
 		}
 
         public string ToDeclarationString()
         {
             string res = Name;
+			string type = null;
+			string comment = "";
             if ((Flags & (FlagType.Function | FlagType.Setter | FlagType.Getter)) > 0)
             {
-                res += "(" + ParametersString(true) + ")";
+				if ((Flags & FlagType.Function) > 0 && (Flags & FlagType.Getter) > 0)
+				{
+					res += "()";
+
+					if ((Flags & FlagType.Function) > 0)
+					{
+						type = "Function";
+
+						if (Parameters != null && Parameters.Count > 0)
+						{
+							comment = "/*(" + ParametersString(true) + ")";
+							if (Type != null && Type.Length > 0)
+								comment += " : " + FormatType(Type);
+							comment += "*/";
+						}
+					}
+				}
+				else
+				{
+					res += "(" + ParametersString(true) + ")";
+				}
             }
-            if ((Flags & FlagType.Constructor) > 0)
-                return res;
-            else if (Type != null && Type.Length > 0)
-                return res + ":" + FormatType(Type);
-            else
-                return res;
+
+			if ((type == null || type.Length == 0) && (Type != null && Type.Length > 0))
+				type = FormatType(Type);
+
+			if ((Flags & FlagType.Constructor) > 0)
+				return res;
+			else if (type != null && type.Length > 0)
+				res += " : " + type;
+
+			return res + comment;
         }
 
         public string ParametersString()
@@ -155,13 +200,26 @@ namespace ASCompletion.Model
             else return string.Compare(Name, to.Name, false);
 		}
 
-        static public string FormatType(string type)
+		static public string FormatType(string type)
+		{
+			return FormatType(type, false);
+		}
+        static public string FormatType(string type, bool allowBBCode)
         {
             if (type == null || type.Length == 0)
                 return null;
             int p = type.IndexOf('@');
-            if (p > 0) return "/*" + type.Substring(p + 1) + "*/" + type.Substring(0, p);
-            else return type;
+			if (p > 0)
+			{
+				string bbCodeOpen = allowBBCode ? "[BGCOLOR=#EEE:SUBTRACT]" : "";
+				string bbCodeClose = allowBBCode ? "[/BGCOLOR]" : "";
+
+				if (type.Substring(0, p) == "Array")
+					return type.Substring(0, p) + bbCodeOpen + "/*" + type.Substring(p + 1) + "*/" + bbCodeClose;
+				else
+					return bbCodeOpen + "/*" + type.Substring(p + 1) + "*/" + bbCodeClose + type.Substring(0, p);
+			}
+			return type;
         }
 	}
 	

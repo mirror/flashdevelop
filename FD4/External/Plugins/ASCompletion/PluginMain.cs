@@ -834,9 +834,7 @@ namespace ASCompletion
 		private void OnUpdateCallTip(ScintillaNet.ScintillaControl sci, int position)
 		{
 			if (ASComplete.HasCalltip())
-			{
-				ASComplete.HandleFunctionCompletion(sci, false);
-			}
+				ASComplete.HandleFunctionCompletion(sci, false, true);
 		}
         #endregion
     }

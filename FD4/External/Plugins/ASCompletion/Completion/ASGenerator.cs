@@ -3175,9 +3175,14 @@ namespace ASCompletion.Completion
         {
             ContextFeatures features = ASContext.Context.Features;
             string kind = features.varKey;
-            if ((member.Flags & FlagType.Getter) > 0) kind = features.getKey;
-            else if ((member.Flags & FlagType.Setter) > 0) kind = features.setKey;
-            else if ((member.Flags & FlagType.Function) > 0) kind = features.functionKey;
+
+            if ((member.Flags & FlagType.Getter) > 0)
+				kind = features.getKey;
+            else if ((member.Flags & FlagType.Setter) > 0)
+				kind = features.setKey;
+			else if (member.Flags == FlagType.Function)
+				kind = features.functionKey;
+
             Regex reMember = new Regex(String.Format(@"{0}\s+({1})[\s:]", kind, member.Name));
 
             string line;
@@ -3534,7 +3539,7 @@ namespace ASCompletion.Completion
                 return String.Format("{0}function get {1}", modifiers, member.ToDeclarationString());
             else if ((ft & FlagType.Setter) > 0)
                 return String.Format("{0}function set {1}", modifiers, member.ToDeclarationString());
-            else if ((ft & FlagType.Function) > 0)
+			else if (ft == FlagType.Function)
                 return String.Format("{0}function {1}", modifiers, member.ToDeclarationString());
             else if (((ft & FlagType.Constant) > 0) && ASContext.Context.Settings.LanguageId != "AS2")
                 return String.Format("{0}const {1}", modifiers, member.ToDeclarationString());

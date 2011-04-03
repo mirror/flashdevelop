@@ -902,9 +902,9 @@ namespace ASCompletion.Completion
 
         private static string GetKind(FlagType flags, ContextFeatures features)
         {
+			if (flags == FlagType.Function) return features.functionKey;
             if ((flags & FlagType.Constant) > 0) return features.constKey;
             if ((flags & (FlagType.Getter | FlagType.Setter)) > 0) return features.varKey;
-            if ((flags & FlagType.Function) > 0) return features.functionKey;
             if ((flags & FlagType.Interface) > 0) return "interface";
             if ((flags & FlagType.Class) > 0) return "class";
             return "";
@@ -1164,6 +1164,11 @@ namespace ASCompletion.Completion
 		/// <param name="paramNumber">Highlight param number</param>
 		static private void ShowCalltip(ScintillaNet.ScintillaControl Sci, int paramNumber)
 		{
+			ShowCalltip(Sci, paramNumber, false);
+		}
+
+		static private void ShowCalltip(ScintillaNet.ScintillaControl Sci, int paramNumber, bool forceRedraw)
+		{
 			// measure highlighting
 			int start = calltipDef.IndexOf('(');
             while ((start >= 0) && (paramNumber-- > 0))
@@ -1178,15 +1183,15 @@ namespace ASCompletion.Completion
 			{
                 paramName = calltipDef.Substring(start + 1, end - start - 1).Trim();
 				int p = paramName.IndexOf(':');
-                if (p > 0) paramName = paramName.Substring(0, p).TrimEnd();
-                if (paramName.Length > 0)
+                if (p > 0)
+					paramName = paramName.Substring(0, p).TrimEnd();
+				if (paramName.Length > 0)
 				{
-					Match mParam = Regex.Match(calltipMember.Comments, "@param\\s+"+Regex.Escape(paramName)+"[ \t:]+(?<desc>[^\r\n]*)");
+					Match mParam = Regex.Match(calltipMember.Comments, "@param\\s+" + Regex.Escape(paramName) + "[ \t:]+(?<desc>[^\r\n]*)");
 					if (mParam.Success)
-					{
-						paramInfo = "\n[B]"+paramName+":[/B] "+mParam.Groups["desc"].Value.Trim();
-					}
-					else paramInfo = "";
+						paramInfo = "\n" + "[U]" + paramName + ":" + "[/U]" + mParam.Groups["desc"].Value.Trim();
+					else
+						paramInfo = "";
 				}
 				else paramInfo = "";
 			}
@@ -1197,18 +1202,12 @@ namespace ASCompletion.Completion
 				prevParam = paramName;
                 calltipDetails = UITools.Manager.ShowDetails;
 				string text = calltipDef + ASDocumentation.GetTipDetails(calltipMember, paramName);
-                UITools.CallTip.CallTipShow(Sci, calltipPos - calltipOffset, text);
+                UITools.CallTip.CallTipShow(Sci, calltipPos - calltipOffset, text, forceRedraw);
 			}
 
 			// highlight
-			if ((start < 0) || (end < 0))
-			{
-				/*UITools.CallTip.Hide();
-				calltipDef = null;
-				calltipPos = -1;*/
-                UITools.CallTip.CallTipSetHlt(0, 0);
-			}
-            else UITools.CallTip.CallTipSetHlt(start + 1, end);
+			if ((start < 0) || (end < 0)) UITools.CallTip.CallTipSetHlt(0, 0, true);
+			else UITools.CallTip.CallTipSetHlt(start + 1, end, true);
 		}
 
 		/// <summary>
@@ -1217,6 +1216,11 @@ namespace ASCompletion.Completion
 		/// <param name="Sci">Scintilla control</param>
 		/// <returns>Auto-completion has been handled</returns>
 		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide)
+		{
+			return HandleFunctionCompletion(Sci, autoHide, false);
+		}
+
+		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide, bool forceRedraw)
 		{
 			// find method
 			int position = Sci.CurrentPos - 1;
@@ -1289,7 +1293,7 @@ namespace ASCompletion.Completion
 			{
 				if (calltipPos == position)
 				{
-					ShowCalltip(Sci, comaCount);
+					ShowCalltip(Sci, comaCount, forceRedraw);
 					return true;
 				}
                 else UITools.CallTip.Hide();
@@ -1384,7 +1388,7 @@ namespace ASCompletion.Completion
 				prevParam = "";
                 if (comaCount == 0 && result.relClass != null && method.Name.EndsWith("EventListener"))
                     ShowListeners(Sci, position, result.relClass);
-                else ShowCalltip(Sci, comaCount);
+				else ShowCalltip(Sci, comaCount, forceRedraw);
 			}
 			return true;
 		}
@@ -2104,10 +2108,16 @@ namespace ASCompletion.Completion
 			{
 				if (var.Name == token)
 				{
+					result.Member = var;
                     result.inFile = inFile;
 					result.inClass = inClass;
                     result.Type = context.ResolveType(var.Type, inClass.InFile);
-					result.Member = var;
+					
+					if ((var.Flags & FlagType.Function) > 0)
+						result.Type = ASContext.Context.ResolveType("Function", null);
+					else
+						result.Type = context.ResolveType(var.Type, inClass.InFile);
+
 					return result;
 				}
 			}
@@ -2912,9 +2922,19 @@ namespace ASCompletion.Completion
 			FileModel model;
             if (expression.FunctionBody != null && expression.FunctionBody.Length > 0)
             {
+				MemberModel cm = expression.ContextMember;
                 model = ASContext.Context.GetCodeModel(expression.FunctionBody);
                 foreach (MemberModel member in model.Members)
                 {
+					if (cm.Name == member.Name
+						&& cm.Namespace == member.Namespace
+						&& cm.Type == member.Type
+						&& cm.Flags == member.Flags
+						&& cm.Access == member.Access)
+					{
+						continue;
+					}
+
                     member.Flags |= FlagType.LocalVar;
                     member.LineFrom += expression.FunctionOffset;
                     member.LineTo += expression.FunctionOffset;
@@ -3118,10 +3138,8 @@ namespace ASCompletion.Completion
             }
             if ((ft & (FlagType.Getter | FlagType.Setter)) > 0)
                 return String.Format("{0}property {1}{2}", modifiers, member.ToString(), foundIn);
-            else if ((ft & FlagType.Function) > 0)
-            {
+			else if (ft == FlagType.Function)
                 return String.Format("{0}function {1}{2}", modifiers, member.ToString(), foundIn);
-            }
             else if ((ft & FlagType.Namespace) > 0)
                 return String.Format("{0}namespace {1}{2}", modifiers, member.Name, foundIn);
             else if ((ft & FlagType.Constant) > 0)
@@ -3472,15 +3490,15 @@ namespace ASCompletion.Completion
             if ((type & (FlagType.Getter | FlagType.Setter)) > 0)
                 icon = ((acc & Visibility.Private) > 0) ? PluginUI.ICON_PRIVATE_PROPERTY :
                     ((acc & Visibility.Protected) > 0) ? PluginUI.ICON_PROTECTED_PROPERTY : PluginUI.ICON_PROPERTY;
-            else if ((type & FlagType.Function) > 0)
-                icon = ((acc & Visibility.Private) > 0) ? PluginUI.ICON_PRIVATE_FUNCTION :
-                    ((acc & Visibility.Protected) > 0) ? PluginUI.ICON_PROTECTED_FUNCTION : PluginUI.ICON_FUNCTION;
             else if ((type & FlagType.Constant) > 0)
                 icon = ((acc & Visibility.Private) > 0) ? PluginUI.ICON_PRIVATE_CONST :
                     ((acc & Visibility.Protected) > 0) ? PluginUI.ICON_PROTECTED_CONST : PluginUI.ICON_CONST;
             else if ((type & FlagType.Variable) > 0)
                 icon = ((acc & Visibility.Private) > 0) ? PluginUI.ICON_PRIVATE_VAR :
                     ((acc & Visibility.Protected) > 0) ? PluginUI.ICON_PROTECTED_VAR : PluginUI.ICON_VAR;
+			else if ((type & FlagType.Function) > 0)
+				icon = ((acc & Visibility.Private) > 0) ? PluginUI.ICON_PRIVATE_FUNCTION :
+					((acc & Visibility.Protected) > 0) ? PluginUI.ICON_PROTECTED_FUNCTION : PluginUI.ICON_FUNCTION;
             else if ((type & FlagType.Intrinsic) > 0)
                 icon = PluginUI.ICON_INTRINSIC_TYPE;
             else if ((type & FlagType.Interface) > 0)

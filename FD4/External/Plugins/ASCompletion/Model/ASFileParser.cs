@@ -54,9 +54,10 @@ namespace ASCompletion.Model
 		static public RegexOptions ro_cs = RegexOptions.Compiled | RegexOptions.Singleline;
 		static public Regex re_balancedBraces = new Regex("{[^{}]*(((?<Open>{)[^{}]*)+((?<Close-Open>})[^{}]*)+)*(?(Open)(?!))}", ro_cs);
         static public Regex re_import = new Regex("^[\\s]*import[\\s]+(?<package>[\\w.]+)", ro_cm);
+		static public Regex re_quotedString = new Regex("(\"(\\\\.|[^\"\\\\])*\")|('(\\\\.|[^'\\\\])*')", RegexOptions.Compiled);
 		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
-		static private Regex re_param = new Regex( "[\\(,]\\s*((?<pName>(\\.\\.\\.)?[\\w\\$]+)\\s*(\\:\\s*(?<pType>[\\w\\$\\*\\.\\<\\>]+))?)", RegexOptions.Compiled );
-		static private Regex re_functType = new Regex( "\\)\\s*\\:\\s*(?<fType>[\\w\\$\\.\\<\\>]+)", RegexOptions.Compiled );
+		static private Regex re_param = new Regex(@"[\(,]\s*((?<pName>(\.\.\.)?[\w\$]+)\s*(\:\s*(?<pType>[\w\$\*\.\<\>\@]+))?(\s*\=\s*(?<pVal>[^\,\)]+))?)", RegexOptions.Compiled);
+		static private Regex re_functType = new Regex( @"\)\s*\:\s*(?<fType>[\w\$\.\<\>\@]+)", RegexOptions.Compiled );
         static private Regex re_validTypeName = new Regex("^(\\s*of\\s*)?(?<type>[\\w.\\$]*)$", RegexOptions.Compiled);
         static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
 		#endregion
@@ -171,16 +172,22 @@ namespace ASCompletion.Model
         /// </summary>
         /// <param name="fileModel">Model</param>
         /// <param name="ba">Source</param>
+		///
 		public void ParseSrc(FileModel fileModel, string ba)
 		{
-            //TraceManager.Add("Parsing " + Path.GetFileName(fileModel.FileName));
+			ParseSrc(fileModel, ba, true);
+		}
+		public void ParseSrc(FileModel fileModel, string ba, bool allowBaReExtract)
+		{
+			//TraceManager.Add("Parsing " + Path.GetFileName(fileModel.FileName));
             model = fileModel;
             model.OutOfDate = false;
             model.CachedModel = false;
 
             // pre-filtering
-            if (model.HasFiltering && model.Context != null)
-                ba = model.Context.FilterSource(fileModel.FileName, ba);
+			if (allowBaReExtract && model.HasFiltering && model.Context != null)
+				ba = model.Context.FilterSource(fileModel.FileName, ba);
+
             model.InlinedIn = null;
             model.InlinedRanges = null;
 
@@ -1143,6 +1150,8 @@ namespace ASCompletion.Model
             // post-filtering
             if (cachedPath == null && model.HasFiltering && model.Context != null)
                 model.Context.FilterSource(model);
+
+		//	Debug.WriteLine("out model: " + model.GenerateIntrinsic(false));
 		}
 
         private bool LookupMeta(ref string ba, ref int i)
@@ -1386,41 +1395,42 @@ namespace ASCompletion.Model
                     }
 
                     // other modifiers
-                    if (foundModifier == 0)
-                        if (token == "static")
-                        {
-                            foundModifier = FlagType.Static;
-                        }
-                        else if (version <= 3 && token == "intrinsic")
-                        {
-                            foundModifier = FlagType.Intrinsic;
-                        }
-                        else if (version == 3 && token == "override")
-                        {
-                            foundModifier = FlagType.Override;
-                        }
-                        else if (version == 3 && token == "native")
-                        {
-                            foundModifier = FlagType.Intrinsic | FlagType.Native;
-                        }
-                        else if (version == 4 && token == "extern")
-                        {
-                            foundModifier = FlagType.Intrinsic | FlagType.Extern;
-                        }
-                        else if (token == "dynamic")
-                        {
-                            foundModifier = FlagType.Dynamic;
-                        }
-                        // namespace modifier
-                        else if (features.hasNamespaces && model.Namespaces.Count > 0) 
-                            foreach (KeyValuePair<string, Visibility> ns in model.Namespaces)
-                                if (token == ns.Key)
-                                {
-                                    curAccess = ns.Value;
-                                    curNamespace = token;
-                                    foundModifier = FlagType.Namespace;
-                                }
-
+					if (foundModifier == 0)
+					{
+						if (token == "static")
+						{
+							foundModifier = FlagType.Static;
+						}
+						else if (version <= 3 && token == "intrinsic")
+						{
+							foundModifier = FlagType.Intrinsic;
+						}
+						else if (version == 3 && token == "override")
+						{
+							foundModifier = FlagType.Override;
+						}
+						else if (version == 3 && token == "native")
+						{
+							foundModifier = FlagType.Intrinsic | FlagType.Native;
+						}
+						else if (version == 4 && token == "extern")
+						{
+							foundModifier = FlagType.Intrinsic | FlagType.Extern;
+						}
+						else if (token == "dynamic")
+						{
+							foundModifier = FlagType.Dynamic;
+						}
+						// namespace modifier
+						else if (features.hasNamespaces && model.Namespaces.Count > 0)
+							foreach (KeyValuePair<string, Visibility> ns in model.Namespaces)
+								if (token == ns.Key)
+								{
+									curAccess = ns.Value;
+									curNamespace = token;
+									foundModifier = FlagType.Namespace;
+								}
+					}
                     // a declaration modifier was recognized
                     if (foundModifier != 0)
                     {
@@ -1548,18 +1558,45 @@ namespace ASCompletion.Model
                         lastComment = null;
                     }
 				}
-                else if (curMember.Type == "Function" && lastComment != null)
-                {
-                    MemberModel fnModel = ParseCallbackDeclaration(lastComment);
+				else if (curMember.Type == "Function" && lastComment != null)
+                {					
+					if ((curMember.Flags & FlagType.Function) == 0)
+					{
+						/*
+						Debug.WriteLine("0-curMember.Flags: " + curMember.Flags.ToString());
+						Debug.WriteLine("         flags: " + curMember.Flags.ToString());
+						Debug.WriteLine("          name: " + curMember.Name.ToString());
+						Debug.WriteLine("     namespace: " + curMember.Namespace.ToString());
+						Debug.WriteLine("          type: " + curMember.Type);
+						Debug.WriteLine("        access: " + curMember.Access);
+						*/
+						MemberModel fnModel = ParseCallbackDeclaration(lastComment);
+						if (fnModel != null)
+						{
+							curMember.Type = fnModel.Type;// + "@" + lastComment;
+							curMember.Flags |= FlagType.Access | FlagType.Function;
+						//	curMember.Namespace = fnModel.Namespace;
+							curMember.Parameters = fnModel.Parameters;
 
-                    if (fnModel != null)
-                    {
-                        curMember.Type = fnModel.Type;
-                        curMember.Flags = fnModel.Flags;
-                        curMember.Parameters = fnModel.Parameters;
+							if (curMember.Namespace == "internal")
+							{
+								if((curMember.Access & Visibility.Public) == 0)
+									curMember.Access = Visibility.Internal;
 
-                        lastComment = null;
-                    }
+								curMember.Namespace = "";
+							}
+							curMember.Access = Visibility.Public;
+							/*
+							Debug.WriteLine("1-curMember.Flags: " + curMember.Flags.ToString());
+							Debug.WriteLine("         flags: " + curMember.Flags.ToString());
+							Debug.WriteLine("          name: " + curMember.Name.ToString());
+							Debug.WriteLine("     namespace: " + curMember.Namespace.ToString());
+							Debug.WriteLine("          type: " + curMember.Type);
+							Debug.WriteLine("        access: " + curMember.Access);
+							*/
+							lastComment = null;
+						}
+					}
                 }
 			}
             else if (hadContext && (hadKeyword || inParams || inEnum || inTypedef))
@@ -1881,8 +1918,30 @@ namespace ASCompletion.Model
         {
             if (decl == null || decl.Length == 0)
                 return null;
+
             int idxBraceOp = decl.IndexOf("(");
             int idxBraceCl = decl.IndexOf(")");
+
+			if (idxBraceOp != 0 || idxBraceCl < 1)
+				return null;
+
+			// replace strings by temp replacements
+			MatchCollection qStrMatches = re_quotedString.Matches(decl);
+			Dictionary<String, String> qStrRepls = new Dictionary<string, string>();
+			int i = qStrMatches.Count;
+			while (i-- > 0)
+			{
+				String strRepl = GenRandomStringRepl();
+				qStrRepls.Add(strRepl, qStrMatches[i].Value);
+				decl = decl.Substring(0, qStrMatches[i].Index) + strRepl + decl.Substring(qStrMatches[i].Index + qStrMatches[i].Length);
+			}
+
+		//	System.Diagnostics.Debug.WriteLine("decl: " + decl);
+
+			// refreshing
+			idxBraceOp = decl.IndexOf("(");
+			idxBraceCl = decl.IndexOf(")");
+
             if (idxBraceOp != 0 || decl.LastIndexOf("(") != idxBraceOp
                 || idxBraceCl < 0 || decl.LastIndexOf(")") != idxBraceCl)
                 return null;
@@ -1892,24 +1951,87 @@ namespace ASCompletion.Model
 
             // return type
             Match m = re_functType.Match(decl.Substring(idxBraceCl));
-            if (m.Success)
-                fm.Type = m.Groups["fType"].Value;
+			if (m.Success)
+				fm.Type = m.Groups["fType"].Value;
 
             // parameters
             String pBody = decl.Substring(idxBraceOp, 1 + idxBraceCl - idxBraceOp);
             MatchCollection pMatches = re_param.Matches(pBody);
-            int i, l = pMatches.Count;
+            int l = pMatches.Count;
             for (i = 0; i < l; i++)
             {
-                fm.Parameters.Add(new MemberModel(
-                    pMatches[i].Groups["pName"].Value,
-                    pMatches[i].Groups["pType"].Value,
-                    FlagType.ParameterVar,
-                    Visibility.Default));
+				string pName = pMatches[i].Groups["pName"].Value;
+				if (pName != null && pName.Length > 0)
+				{
+					foreach (KeyValuePair<String,String> replEntry in qStrRepls)
+					{
+						if (pName.IndexOf(replEntry.Key) > -1)
+						{
+							pName = "[COLOR=#F00][I]InvalidName[/I][/COLOR]";
+							break;
+						}
+					}
+				}
+
+				string pType = pMatches[i].Groups["pType"].Value;
+				if (pType != null && pType.Length > 0)
+				{
+					foreach (KeyValuePair<String,String> replEntry in qStrRepls)
+					{
+						if (pType.IndexOf(replEntry.Key) > -1)
+						{
+							pType = "[COLOR=#F00][I]InvalidType[/I][/COLOR]";
+							break;
+						}
+					}
+				}
+
+				string pVal = pMatches[i].Groups["pVal"].Value;
+				if (pVal != null && pVal.Length > 0)
+				{
+					if (qStrRepls.ContainsKey(pVal))
+					{
+						pVal = qStrRepls[pVal];
+					}
+					else
+					{
+						foreach (KeyValuePair<String,String> replEntry in qStrRepls)
+						{
+							if (pVal.IndexOf(replEntry.Key) > -1)
+							{
+								pVal = "[COLOR=#F00][I]InvalidValue[/I][/COLOR]";
+								break;
+							}
+						}
+					}
+				}
+				else
+				{
+					pVal = null;
+				}
+
+				MemberModel pModel = new MemberModel();
+				pModel.Name = pName;
+				pModel.Type = pType;
+				pModel.Value = pVal;
+				pModel.Flags = FlagType.ParameterVar;
+				pModel.Access = Visibility.Default;
+
+                fm.Parameters.Add(pModel);
             }
 
             return fm;
         }
+
+
+		private static Random rnd = new Random(123456);
+
+		private static string GenRandomStringRepl()
+		{
+			rnd.NextDouble();
+			return "StringRerl" + rnd.Next(0xFFFFFFF).ToString();
+		}
+
 		#endregion
 	}
 }

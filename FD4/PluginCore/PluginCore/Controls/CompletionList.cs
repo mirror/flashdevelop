@@ -821,11 +821,11 @@ namespace PluginCore.Controls
 			{
                 // check for fast typing
                 long millis = (DateTime.Now.Ticks - showTime) / 10000;
-                if (!exactMatchInList && (word.Length > 0 || millis < 400))
+                if (!exactMatchInList && (word.Length > 0 || millis < 400) && defaultItem == null)
                 {
                     CompletionList.Hide('\0');
                 }
-                else if (word.Length == 0 && (currentItem == null || currentItem == allItems[0]))
+                else if (word.Length == 0 && (currentItem == null || currentItem == allItems[0]) && defaultItem == null)
                 {
                     CompletionList.Hide('\0');
                 }

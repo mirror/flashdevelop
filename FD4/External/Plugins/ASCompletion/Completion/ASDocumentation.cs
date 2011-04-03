@@ -401,8 +401,11 @@ namespace ASCompletion.Completion
 			{
 				for(int i=0; i<cb.ParamName.Count; i++)
 				{
-					if (highlightParam == (string)cb.ParamName[i]) {
-                        details += "\n[B]" + highlightParam + ":[/B] " + Get2LinesOf((string)cb.ParamDesc[i]).TrimStart();
+					if (highlightParam == (string)cb.ParamName[i])
+					{
+                        details += "\n" + MethodCallTip.HLTextStyleBeg + highlightParam + ":" + MethodCallTip.HLTextStyleEnd 
+                                + " " + Get2LinesOf((string)cb.ParamDesc[i]).TrimStart();
+
 						return details;
 					}
 				}
@@ -479,9 +482,14 @@ namespace ASCompletion.Completion
 				for(int i=0; i<cb.ParamName.Count; i++)
 				{
 					details += "\n    ";
-					if (highlightParam == (string)cb.ParamName[i]) details += "[B]"+highlightParam+"[/B]: ";
-					else details += cb.ParamName[i]+": ";
-					details += (string)cb.ParamDesc[i];
+					if (highlightParam == (string)cb.ParamName[i])
+					{
+						details += MethodCallTip.HLBgStyleBeg 
+                                + MethodCallTip.HLTextStyleBeg + highlightParam + ":" + MethodCallTip.HLTextStyleEnd + " "
+                                + (string)cb.ParamDesc[i] 
+                                + MethodCallTip.HLBgStyleEnd;
+					}
+					else details += cb.ParamName[i] + ": " + (string)cb.ParamDesc[i];
 				}
 			}
 			
