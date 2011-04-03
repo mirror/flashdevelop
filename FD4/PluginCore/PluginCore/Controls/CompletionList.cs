@@ -369,15 +369,31 @@ namespace PluginCore.Controls
         /// </summary> 
         static public void UpdateTip(Object sender, System.Timers.ElapsedEventArgs e)
 		{
-            tempoTip.Stop();
-			if (currentItem == null || faded) return;
-            UITools.Tip.Text = currentItem.Description ?? "";
-            UITools.Tip.Location = new Point(completionList.Right, completionList.Top);
-            if (!UITools.Tip.AutoSize(completionList.Left) && UITools.Tip.Size.Width > 200)
-            {
-                UITools.Tip.Location = new Point(completionList.Left - UITools.Tip.Size.Width, completionList.Top);
-            }
-            UITools.Tip.Show();
+			tempoTip.Stop();
+			if (currentItem == null || faded)
+				return;
+
+			UITools.Tip.SetText(currentItem.Description ?? "", false);
+			UITools.Tip.Redraw(false);
+
+			int rightWidth = ((Form)PluginBase.MainForm).ClientRectangle.Right - completionList.Right - 10;
+			int leftWidth = completionList.Left;
+
+			Point posTarget = new Point(completionList.Right, completionList.Top);
+			int widthTarget = rightWidth;
+			if (rightWidth < 220 && leftWidth > 220)
+			{
+				widthTarget = leftWidth;
+				posTarget = new Point(0, completionList.Top);
+			}
+
+			UITools.Tip.Location = posTarget;
+			UITools.Tip.AutoSize(widthTarget, 500);
+
+			if (widthTarget == leftWidth)
+				UITools.Tip.Location = new Point(completionList.Left - UITools.Tip.Size.Width, posTarget.Y);
+
+			UITools.Tip.Show();
 		}
 
         /// <summary>

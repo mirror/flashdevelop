@@ -97,7 +97,11 @@ namespace PluginCore.Controls
 		{
 			return AutoSize(0);
 		}
-		public bool AutoSize(int availableRightSize)
+		public bool AutoSize(int availableWidth)
+		{
+			return AutoSize(availableWidth, 800);
+		}
+		public bool AutoSize(int availableWidth, int maxWidth)
 		{
 			bool tooSmall = false;
 			bool wordWrap = false;
@@ -108,25 +112,28 @@ namespace PluginCore.Controls
 			int limitRight = ((Form)PluginBase.MainForm).ClientRectangle.Right - 10;
 			int limitBottom = ((Form)PluginBase.MainForm).ClientRectangle.Bottom - 26;
 			//
+			int maxW = availableWidth > 0 ? availableWidth : limitRight - limitLeft;
+			if (maxW > maxWidth && maxWidth > 0)
+				maxW = maxWidth;
+
 			int w = txtSize.Width + 4;
-			if (w > limitRight - limitLeft)
+			if (w > maxW)
 			{
 				wordWrap = true;
-				w = limitRight - limitLeft;
-                if (w < 300)
-                {
-                    tooSmall = true;
-					w = Math.Max(200, w);
-				//	w = Math.Max(200, availableRightSize - 20);
-                }
+				w = maxW;
+				if (w < 200)
+				{
+					w = 200;
+					tooSmall = true;
+				}
 
 				txtSize = WinFormUtils.MeasureRichTextBox(toolTipRTB, false, w, 1000, true);
 				w = txtSize.Width + 4;
 			}
 
-            int h = txtSize.Height + 2;
-            int dh = 1;
-            int dw = 2;
+			int h = txtSize.Height + 2;
+			int dh = 1;
+			int dw = 2;
 			if (h > (limitBottom - toolTip.Top))
 			{
 				w += 15;
@@ -138,7 +145,7 @@ namespace PluginCore.Controls
 			}
 
 			toolTipRTB.Size = new Size(w, h);
-            toolTip.Size = new Size(w + dw, h + dh);
+			toolTip.Size = new Size(w + dw, h + dh);
 
 			if (toolTip.Left < limitLeft)
 				toolTip.Left = limitLeft;
@@ -202,9 +209,14 @@ namespace PluginCore.Controls
 
 		public void Redraw()
 		{
+			Redraw(true);
+		}
+		public void Redraw(bool autoSize)
+		{
 			toolTipRTB.Rtf = getRtfFor(rawText);
 
-			AutoSize();
+			if (autoSize)
+				AutoSize();
 		}
 
 		protected String getRtfFor(String bbcodeText)

@@ -18,14 +18,11 @@ namespace ASCompletion.Model
         static private List<ClassModel> extensionList;
 
 		static private Regex reSpacesAfterEOL = new Regex("(?<!(\n[ \t]*))(\n[ \t]+)(?!\n)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-		static private Regex reEOLAndStar = new Regex(@"(\r\n|\n|\r)\s*\*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+		static private Regex reEOLAndStar = new Regex(@"[\r\n]+\s*\*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		static private Regex reMultiSpacedEOL = new Regex("([ \t]*\n[ \t]*){2,}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		static private Regex reAsdocWordSpace = new Regex("\\s+(?=\\@\\w+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		static private Regex reAsdocWord = new Regex("(\\n[ \\t]*)?\\@\\w+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-		static private Regex reEOL = new Regex("\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-
-
+		
         static ClassModel()
         {
             VoidClass = new ClassModel();
@@ -542,7 +539,7 @@ namespace ASCompletion.Model
 
 				if (i < l)
 				{
-					if (i == 0 && reEOL.Matches(comment).Count > 5)
+					if (i == 0 && MoreLines(comment, 5))
 						outComment += "\n";
 
 					outComment += mc[i].Value;
@@ -552,6 +549,17 @@ namespace ASCompletion.Model
 
 			return outComment;
 		}
+
+        private static bool MoreLines(string text, int count)
+        {
+            int p = text.IndexOf('\n');
+            while (p > 0 && count >= 0)
+            {
+                count--;
+                p = text.IndexOf('\n', p);
+            }
+            return count >= 0;
+        }
         #endregion
     }
 }
