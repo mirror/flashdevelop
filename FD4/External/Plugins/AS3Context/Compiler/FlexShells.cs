@@ -188,7 +188,8 @@ namespace AS3Context.Compiler
 			}
 			catch(Exception ex)
 			{
-                ErrorManager.ShowError(TextHelper.GetString("Info.CheckError"), ex);
+                ErrorManager.AddToLog(TextHelper.GetString("Info.CheckError"), ex);
+                TraceManager.AddAsync(TextHelper.GetString("Info.CheckError") + "\n" + ex.Message);
 			}
 		}
 

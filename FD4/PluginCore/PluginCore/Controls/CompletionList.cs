@@ -837,7 +837,7 @@ namespace PluginCore.Controls
 			{
                 // check for fast typing
                 long millis = (DateTime.Now.Ticks - showTime) / 10000;
-                if (!exactMatchInList && (word.Length > 0 || millis < 400) && defaultItem == null)
+                if (!exactMatchInList && (word.Length > 0 || (millis < 400 && defaultItem == null)))
                 {
                     CompletionList.Hide('\0');
                 }

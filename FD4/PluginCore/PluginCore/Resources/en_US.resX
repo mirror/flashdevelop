@@ -621,7 +621,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Behaviour of the tabbing.</value>
   </data>
   <data name="FlashDevelop.Description.ShowDetails" xml:space="preserve">
-    <value>Show detailed tooltips.</value>
+    <value>Show detailed tooltips by default (details can be toggled by pressing F1).</value>
   </data>
   <data name="FlashDevelop.Description.SmartIndentType" xml:space="preserve">
     <value>Type of the automatic indenting.</value>

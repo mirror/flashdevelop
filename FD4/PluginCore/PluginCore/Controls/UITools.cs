@@ -91,6 +91,7 @@ namespace PluginCore.Controls
 
         private UITools()
         {
+            showDetails = PluginBase.Settings.ShowDetails;
 			//
 			// CONTROLS
 			//
