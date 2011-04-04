@@ -99,7 +99,7 @@ namespace PluginCore.Controls
 		}
 		public bool AutoSize(int availableWidth)
 		{
-			return AutoSize(availableWidth, 800);
+			return AutoSize(availableWidth, 1024);
 		}
 		public bool AutoSize(int availableWidth, int maxWidth)
 		{
@@ -213,7 +213,7 @@ namespace PluginCore.Controls
 		}
 		public void Redraw(bool autoSize)
 		{
-			toolTipRTB.Rtf = getRtfFor(rawText);
+            toolTipRTB.Rtf = getRtfFor(rawText);
 
 			if (autoSize)
 				AutoSize();
