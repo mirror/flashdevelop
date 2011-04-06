@@ -346,7 +346,7 @@ namespace System.Windows.Forms
 	/// </summary>
 	public class MultiSelectTreeNode : TreeNode
 	{
-		Color foreColorRequest;
+		Color foreColorRequest = SystemColors.ControlText;
 		internal bool Painted;
 
 		public Color ForeColorRequest
