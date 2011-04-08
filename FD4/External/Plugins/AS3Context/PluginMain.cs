@@ -383,7 +383,7 @@ namespace AS3Context
         {
             EventManager.AddEventHandler(this, EventType.UIStarted | EventType.ProcessArgs | EventType.FileSwitch | EventType.FileSave);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
-            EventManager.AddEventHandler(this, EventType.Command | EventType.Keys, HandlingPriority.Low);
+            EventManager.AddEventHandler(this, EventType.Command | EventType.Keys | EventType.ProcessArgs, HandlingPriority.Low);
         }
 
         /// <summary>
