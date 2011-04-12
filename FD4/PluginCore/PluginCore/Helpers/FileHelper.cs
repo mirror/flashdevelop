@@ -40,19 +40,11 @@ namespace PluginCore.Helpers
 		/// </summary>
         public static String ReadFile(String file, Encoding encoding)
         {
-            try
+            using (StreamReader sr = new StreamReader(file, encoding))
             {
-                using (StreamReader sr = new StreamReader(file, encoding))
-                {
-                    String src = sr.ReadToEnd();
-                    sr.Close();
-                    return src;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-                return null;
+                String src = sr.ReadToEnd();
+                sr.Close();
+                return src;
             }
         }
         
@@ -69,18 +61,11 @@ namespace PluginCore.Helpers
         /// </summary>
         public static void WriteFile(String file, String text, Encoding encoding, Boolean saveBOM)
         {
-            try
+            Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && !saveBOM);
+            using (StreamWriter sw = useSkipBomWriter ? new StreamWriter(file, false) : new StreamWriter(file, false, encoding))
             {
-                Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && !saveBOM);
-                using (StreamWriter sw = useSkipBomWriter ? new StreamWriter(file, false) : new StreamWriter(file, false, encoding))
-                {
-                    sw.Write(text);
-                    sw.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
+                sw.Write(text);
+                sw.Close();
             }
         }
 
@@ -89,17 +74,10 @@ namespace PluginCore.Helpers
         /// </summary>
         public static void AddToFile(String file, String text, Encoding encoding)
         {
-            try
+            using (StreamWriter sw = new StreamWriter(file, true, encoding))
             {
-                using (StreamWriter sw = new StreamWriter(file, true, encoding))
-                {
-                    sw.Write(text);
-                    sw.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
+                sw.Write(text);
+                sw.Close();
             }
         }
 
@@ -124,7 +102,7 @@ namespace PluginCore.Helpers
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowError(ex);
+                ErrorManager.AddToLog("Can't update files.", ex);
             }
         }
 
@@ -133,26 +111,18 @@ namespace PluginCore.Helpers
         /// </summary>
         public static String EnsureUniquePath(String original)
         {
-            try
+            Int32 counter = 0;
+            String result = original;
+            String folder = Path.GetDirectoryName(original);
+            String filename = Path.GetFileNameWithoutExtension(original);
+            String extension = Path.GetExtension(original);
+            while (File.Exists(result))
             {
-                Int32 counter = 0;
-                String result = original;
-                String folder = Path.GetDirectoryName(original);
-                String filename = Path.GetFileNameWithoutExtension(original);
-                String extension = Path.GetExtension(original);
-                while (File.Exists(result))
-                {
-                    counter++;
-                    String fullname = filename + " (" + counter + ")" + extension;
-                    result = Path.Combine(folder, fullname);
-                }
-                return result;
+                counter++;
+                String fullname = filename + " (" + counter + ")" + extension;
+                result = Path.Combine(folder, fullname);
             }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-                return String.Empty;
-            }
+            return result;
         }
 
         /// <summary>
@@ -167,9 +137,8 @@ namespace PluginCore.Helpers
                 if ((fileAttr & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) return true;
                 else return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorManager.ShowError(ex);
                 return false;
             }
         }
@@ -280,10 +249,9 @@ namespace PluginCore.Helpers
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 info = new EncodingFileInfo();
-                ErrorManager.ShowError(ex);
             }
             return info;
         }

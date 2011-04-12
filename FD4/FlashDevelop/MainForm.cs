@@ -581,6 +581,7 @@ namespace FlashDevelop
             else
             {
                 info = FileHelper.GetEncodingFileInfo(file);
+                if (info.CodePage == -1) return null; // If the file is locked, stop.
                 info.Contents = FileHelper.ReadFile(file, encoding);
                 info.CodePage = encoding.CodePage;
             }
@@ -726,10 +727,13 @@ namespace FlashDevelop
                 if (position.X < -4 || position.Y < -4) this.Location = new Point(0, 0);
                 else this.Location = position; // Set zero position if window is hidden
                 String pluginDir = PathHelper.PluginDir; // Plugins of all users
-                String userPluginDir = PathHelper.UserPluginDir; // Plugins of the user
                 if (Directory.Exists(pluginDir)) PluginServices.FindPlugins(pluginDir);
-                if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
-                else if (!this.StandaloneMode) Directory.CreateDirectory(userPluginDir);
+                if (!this.StandaloneMode) // No user plugins on standalone...
+                {
+                    String userPluginDir = PathHelper.UserPluginDir;
+                    if (Directory.Exists(userPluginDir)) PluginServices.FindPlugins(userPluginDir);
+                    else Directory.CreateDirectory(userPluginDir);
+                }
                 LayoutManager.BuildLayoutSystems(FileNameHelper.LayoutData);
                 ShortcutManager.LoadCustomShortcuts();
                 ArgumentDialog.LoadCustomArguments();
@@ -1991,21 +1995,28 @@ namespace FlashDevelop
         /// </summary>
         public void SaveAsSnippet(Object sender, System.EventArgs e)
         {
-            this.saveFileDialog.FileName = "";
-            this.saveFileDialog.DefaultExt = ".fds";
-            String prevFilter = this.saveFileDialog.Filter;
-            String snippetFilter = TextHelper.GetString("Info.SnippetFilter");
-            this.saveFileDialog.Filter = snippetFilter + "|*.fds";
-            String prevRootPath = this.saveFileDialog.InitialDirectory;
-            this.saveFileDialog.InitialDirectory = PathHelper.SnippetDir;
-            if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+            try
             {
-                String contents = Globals.SciControl.SelText;
-                String file = this.saveFileDialog.FileName;
-                FileHelper.WriteFile(file, contents, Encoding.UTF8);
+                this.saveFileDialog.FileName = "";
+                this.saveFileDialog.DefaultExt = ".fds";
+                String prevFilter = this.saveFileDialog.Filter;
+                String snippetFilter = TextHelper.GetString("Info.SnippetFilter");
+                this.saveFileDialog.Filter = snippetFilter + "|*.fds";
+                String prevRootPath = this.saveFileDialog.InitialDirectory;
+                this.saveFileDialog.InitialDirectory = PathHelper.SnippetDir;
+                if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+                {
+                    String contents = Globals.SciControl.SelText;
+                    String file = this.saveFileDialog.FileName;
+                    FileHelper.WriteFile(file, contents, Encoding.UTF8);
+                }
+                this.saveFileDialog.InitialDirectory = prevRootPath;
+                this.saveFileDialog.Filter = prevFilter;
             }
-            this.saveFileDialog.InitialDirectory = prevRootPath;
-            this.saveFileDialog.Filter = prevFilter;
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
         }
 
         /// <summary>
@@ -2013,21 +2024,28 @@ namespace FlashDevelop
         /// </summary>
         public void SaveAsTemplate(Object sender, System.EventArgs e)
         {
-            this.saveFileDialog.FileName = "";
-            this.saveFileDialog.DefaultExt = ".fdt";
-            String prevFilter = this.saveFileDialog.Filter;
-            String templateFilter = TextHelper.GetString("Info.TemplateFilter");
-            this.saveFileDialog.Filter = templateFilter + "|*.fdt";
-            String prevRootPath = this.saveFileDialog.InitialDirectory;
-            this.saveFileDialog.InitialDirectory = PathHelper.TemplateDir;
-            if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+            try
             {
-                String contents = Globals.SciControl.SelText;
-                String file = this.saveFileDialog.FileName;
-                FileHelper.WriteFile(file, contents, Encoding.UTF8);
+                this.saveFileDialog.FileName = "";
+                this.saveFileDialog.DefaultExt = ".fdt";
+                String prevFilter = this.saveFileDialog.Filter;
+                String templateFilter = TextHelper.GetString("Info.TemplateFilter");
+                this.saveFileDialog.Filter = templateFilter + "|*.fdt";
+                String prevRootPath = this.saveFileDialog.InitialDirectory;
+                this.saveFileDialog.InitialDirectory = PathHelper.TemplateDir;
+                if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+                {
+                    String contents = Globals.SciControl.SelText;
+                    String file = this.saveFileDialog.FileName;
+                    FileHelper.WriteFile(file, contents, Encoding.UTF8);
+                }
+                this.saveFileDialog.InitialDirectory = prevRootPath;
+                this.saveFileDialog.Filter = prevFilter;
             }
-            this.saveFileDialog.InitialDirectory = prevRootPath;
-            this.saveFileDialog.Filter = prevFilter;
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
         }
 
         /// <summary>
