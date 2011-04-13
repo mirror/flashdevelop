@@ -152,10 +152,12 @@ namespace ASCompletion.Model
 			else if (type != null && type.Length > 0)
 				res += colon + type;
 
+            res += comment;
+
 			if (concatValue && Value != null)
 				res += (wrapWithSpaces ? " = " : "=") + Value.Trim();
 
-			return res + comment;
+			return res;
         }
 
         public string ParametersString()
