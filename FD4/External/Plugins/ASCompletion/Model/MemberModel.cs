@@ -20,7 +20,7 @@ namespace ASCompletion.Model
 	/// </summary>
 	public class MemberModel: ICloneable, IComparable
     {
-		public static String TypedCallbackHLStart = "<[BGCOLOR=#EEE:SUBTRACT]";
+		public static String TypedCallbackHLStart = "<[BGCOLOR=#2F90:NORMAL]"; // <- with alpha (0x02)
 		public static String TypedCallbackHLEnd = "[/BGCOLOR]>";
 
 
@@ -112,28 +112,30 @@ namespace ASCompletion.Model
             return res;
 		}
 
-        public string ToDeclarationString()
+		public string ToDeclarationString()
+		{
+			return ToDeclarationString(true, false);
+		}
+        public string ToDeclarationString(bool wrapWithSpaces, bool concatValue)
         {
+			string colon = wrapWithSpaces ? " : " : ":";
             string res = Name;
 			string type = null;
 			string comment = "";
             if ((Flags & (FlagType.Function | FlagType.Setter | FlagType.Getter)) > 0)
             {
-				if ((Flags & FlagType.Function) > 0 && (Flags & FlagType.Getter) > 0)
+				if ((Flags & FlagType.Function) > 0 && (Flags & FlagType.Getter | Flags & FlagType.Variable) > 0)
 				{
-					res += "()";
+					if ((Flags & FlagType.Variable) == 0)
+						res += "()";
 
-					if ((Flags & FlagType.Function) > 0)
+					type = "Function";
+					if (Parameters != null && Parameters.Count > 0)
 					{
-						type = "Function";
-
-						if (Parameters != null && Parameters.Count > 0)
-						{
-							comment = "/*(" + ParametersString(true) + ")";
-							if (Type != null && Type.Length > 0)
-								comment += " : " + FormatType(Type);
-							comment += "*/";
-						}
+						comment = "/*(" + ParametersString(true) + ")";
+						if (Type != null && Type.Length > 0)
+							comment += colon + FormatType(Type);
+						comment += "*/";
 					}
 				}
 				else
@@ -148,7 +150,10 @@ namespace ASCompletion.Model
 			if ((Flags & FlagType.Constructor) > 0)
 				return res;
 			else if (type != null && type.Length > 0)
-				res += " : " + type;
+				res += colon + type;
+
+			if (concatValue && Value != null)
+				res += (wrapWithSpaces ? " = " : "=") + Value.Trim();
 
 			return res + comment;
         }
@@ -168,11 +173,15 @@ namespace ASCompletion.Model
                 {
                     if (addSep) res += ", ";
                     else addSep = true;
+
+					res += param.ToDeclarationString(false, true);
+					/*
                     res += param.Name;
                     if (param.Type != null && param.Type.Length > 0)
                         res += ":" + (formated ? FormatType(param.Type) : param.Type);
                     if (param.Value != null)
                         res += " = " + param.Value.Trim();
+					*/
                 }
             }
             return res;

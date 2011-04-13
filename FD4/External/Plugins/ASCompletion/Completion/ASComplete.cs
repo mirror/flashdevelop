@@ -1171,11 +1171,12 @@ namespace ASCompletion.Completion
 		{
 			// measure highlighting
 			int start = calltipDef.IndexOf('(');
-            while ((start >= 0) && (paramNumber-- > 0))
-                start = calltipDef.IndexOf(',', start + 1);
-            int end = calltipDef.IndexOf(',', start + 1);
-            if (end < 0)
-                end = calltipDef.IndexOf(')', start + 1);
+			while ((start >= 0) && (paramNumber-- > 0))
+				start = FindNearSymbolInFunctDef(calltipDef, ",", start + 1);
+
+			int end = FindNearSymbolInFunctDef(calltipDef, ",", start + 1);
+			if (end < 0)
+				end = FindNearSymbolInFunctDef(calltipDef, ")", start + 1);
 
 			// get parameter name
 			string paramName = "";
@@ -1208,6 +1209,25 @@ namespace ASCompletion.Completion
 			// highlight
 			if ((start < 0) || (end < 0)) UITools.CallTip.CallTipSetHlt(0, 0, true);
 			else UITools.CallTip.CallTipSetHlt(start + 1, end, true);
+		}
+
+		static private int FindNearSymbolInFunctDef(string defBody, string symbol, int startAt)
+		{
+			int end = -1;
+			int commentBeg = -1;
+			int commentEnd = -1;
+			while (true)
+			{
+				end = defBody.IndexOf(symbol, startAt);
+				commentBeg = defBody.IndexOf("/*", startAt);
+				if (commentBeg > end || end < 0 || commentBeg < 0)
+					break;
+
+				commentEnd = defBody.IndexOf("*/", commentBeg);
+				startAt = commentEnd;
+			}
+
+			return end;
 		}
 
 		/// <summary>

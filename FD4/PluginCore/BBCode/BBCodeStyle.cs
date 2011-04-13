@@ -172,6 +172,7 @@ namespace PluginCore.BBCode
 				float backG = ((float)((back.color >> 8) & 0xFF) / 255.0f);
 				float backB = ((float)((back.color) & 0xFF) / 255.0f);
 
+				float foreA = ((float)((fore.color >> 24) & 0xFF) / 255.0f);
 				float foreR = ((float)((fore.color >> 16) & 0xFF) / 255.0f);
 				float foreG = ((float)((fore.color >> 8) & 0xFF) / 255.0f);
 				float foreB = ((float)((fore.color) & 0xFF) / 255.0f);
@@ -179,6 +180,11 @@ namespace PluginCore.BBCode
 				float outR = MixChannel(backR, foreR, fore.mode);
 				float outG = MixChannel(backG, foreG, fore.mode);
 				float outB = MixChannel(backB, foreB, fore.mode);
+
+				// simplified version
+				outR = lerp(backR, outR, foreA);
+				outG = lerp(backG, outG, foreA);
+				outB = lerp(backB, outB, foreA);
 
 				if (outR < 0.0f) outR = 0.0f;
 				if (outR > 1.0f) outR = 1.0f;
@@ -189,7 +195,10 @@ namespace PluginCore.BBCode
 				if (outB < 0.0f) outB = 0.0f;
 				if (outB > 1.0f) outB = 1.0f;
 
-				return new Color((uint)(((uint)(255.0f * outR) << 16) | ((uint)(255.0f * outG) << 8) | ((uint)(255.0f * outB))), Mode.NORMAL);
+				return new Color((uint)( ((uint)0xFF000000)
+										|((uint)(255.0f * outR) << 16)
+										|((uint)(255.0f * outG) << 8)
+										|((uint)(255.0f * outB))), Mode.NORMAL);
 			}
 
 			public static float MixChannel(float back, float fore, Mode mode)
@@ -213,6 +222,11 @@ namespace PluginCore.BBCode
 					return _colorChannelMixersHash[modeStr];
 
 				return Mode.NORMAL;
+			}
+
+			private static float lerp(float a, float b, float pos)
+			{
+				return a + pos * (b - a);
 			}
 
 
@@ -308,7 +322,7 @@ namespace PluginCore.BBCode
 			}
 
 
-			public uint color = 0x000000;
+			public uint color = 0xFF000000;
 			public Mode mode = Mode.NORMAL;
 
 

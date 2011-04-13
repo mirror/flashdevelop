@@ -138,8 +138,8 @@ namespace PluginCore.BBCode
 			rootStyle.fontName = tf.Font.Name;
 			rootStyle.fontSize = tf.Font.Size;
 			rootStyle.isAbsFontSize = true;
-			rootStyle.foreColor = new BBCodeStyle.Color((uint)(tf.SelectionColor.ToArgb() & (int)0xFFFFFF), BBCodeStyle.Mode.NORMAL);
-			rootStyle.backColor = new BBCodeStyle.Color((uint)(tf.SelectionBackColor.ToArgb() & (int)0xFFFFFF), BBCodeStyle.Mode.NORMAL);
+			rootStyle.foreColor = new BBCodeStyle.Color((uint)0xFF000000 | (uint)(tf.SelectionColor.ToArgb() & (int)0xFFFFFF), BBCodeStyle.Mode.NORMAL);
+			rootStyle.backColor = new BBCodeStyle.Color((uint)0xFF000000 | (uint)(tf.SelectionBackColor.ToArgb() & (int)0xFFFFFF), BBCodeStyle.Mode.NORMAL);
 			rootStyle.isBold = tf.Font.Bold ? StateMode.ON : StateMode.OFF;
 			rootStyle.isItalic = tf.Font.Italic ? StateMode.ON : StateMode.OFF;
 			rootStyle.isStriked = tf.Font.Strikeout ? StateMode.ON : StateMode.OFF;

@@ -462,11 +462,11 @@ namespace ASCompletion.Model
                 if ((ft & FlagType.Constant) > 0)
                 {
                     if (member.Value == null)
-                        return String.Format("{0}const {1}", modifiers, member.ToString());
+						return String.Format("{0}const {1}", modifiers, member.ToDeclarationString());
                     else
-                        return String.Format("{0}const {1} = {2}", modifiers, member.ToString(), member.Value);
+						return String.Format("{0}const {1} = {2}", modifiers, member.ToDeclarationString(), member.Value);
                 }
-                else return String.Format("{0}var {1}", modifiers, member.ToString());
+				else return String.Format("{0}var {1}", modifiers, member.ToDeclarationString());
             }
 			else if ((ft & (FlagType.Getter | FlagType.Setter)) > 0)
 			{

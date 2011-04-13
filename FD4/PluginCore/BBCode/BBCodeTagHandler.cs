@@ -186,13 +186,25 @@ namespace PluginCore.BBCode
 			String colorStr = null;
 			String modeStr = null;
 
-			if (p.Length >= 6 && (colonIndex < 0 || colonIndex == 6))
+			if (p.Length >= 8 && (colonIndex < 0 || colonIndex == 8))
 			{
-				colorStr = p.Substring(0, 6);
+				colorStr = p.Substring(0, 8);
+			}
+			else if (p.Length >= 6 && (colonIndex < 0 || colonIndex == 6))
+			{
+				colorStr = "FF" + p.Substring(0, 6);
+			}
+			else if (p.Length >= 4 && (colonIndex < 0 || colonIndex == 4))
+			{
+				colorStr = p.Substring(0, 1) + p.Substring(0, 1)
+						 + p.Substring(1, 1) + p.Substring(1, 1)
+						 + p.Substring(2, 1) + p.Substring(2, 1)
+						 + p.Substring(3, 1) + p.Substring(3, 1);
 			}
 			else if (p.Length >= 3 && (colonIndex < 0 || colonIndex == 3))
 			{
-				colorStr = p.Substring(0, 1) + p.Substring(0, 1)
+				colorStr = "FF"
+						 + p.Substring(0, 1) + p.Substring(0, 1)
 						 + p.Substring(1, 1) + p.Substring(1, 1)
 						 + p.Substring(2, 1) + p.Substring(2, 1);
 			}
@@ -201,7 +213,7 @@ namespace PluginCore.BBCode
 				if (colonIndex > -1)
 					colorStr = p.Substring(0, colonIndex);
 
-				colorStr += "000000";
+				colorStr = "FF" + colorStr + "000000";
 				colorStr = colorStr.Substring(0, 6);
 			}
 
