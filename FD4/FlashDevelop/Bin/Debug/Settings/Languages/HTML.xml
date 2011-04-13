@@ -54,7 +54,7 @@
 		<language name="html">
 			<lexer name="html" style-bits="7" />
 			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-_$]]></character-class>
-			<file-extensions>php,php3,php4,php5,html,htm,shtm,shtml,phtml,asp,aspx,jsp,cf,htc,mtt</file-extensions>
+			<file-extensions>php,php3,php4,php5,html,htm,shtm,shtml,phtml,asp,aspx,jsp,cf,htc,mtt,tpl</file-extensions>
 			<comment-start><![CDATA[<!--]]></comment-start>
 			<comment-end><![CDATA[-->]]></comment-end>
 			<use-keywords>
