@@ -344,6 +344,16 @@ namespace AS3Context
                         }
                     }
                 }
+                string objPath = Path.Combine(path.Path, "Object").ToUpper();
+                if (path.HasFile(objPath))
+                {
+                    ClassModel objModel = path.GetFile(objPath).GetPublicClass();
+                    if (objModel.Members.Search("prototype", 0, 0) == null)
+                    {
+                        MemberModel proto = new MemberModel("prototype", "Object", FlagType.Dynamic | FlagType.Variable, Visibility.Public);
+                        objModel.Members.Add(proto);
+                    }
+                }
             }
         }
 
