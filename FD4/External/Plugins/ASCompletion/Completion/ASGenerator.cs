@@ -3656,12 +3656,12 @@ namespace ASCompletion.Completion
                 if (member.Parameters != null && member.Parameters.Count == 1)
                     type = member.Parameters[0].Type;
                 type = FormatType(type);
-                if (type == null)
-                {
+                if (type == null) type = features.objectKey;
+                /*{
                     string message = String.Format(TextHelper.GetString("Info.TypeDeclMissing"), member.Name);
                     ErrorManager.ShowInfo(message);
                     return;
-                }
+                }*/
 
                 bool genGetter = ofClass.Members.Search(name, FlagType.Getter, 0) != null;
                 bool genSetter = ofClass.Members.Search(name, FlagType.Setter, 0) != null;
@@ -3699,12 +3699,12 @@ namespace ASCompletion.Completion
             else
             {
                 string type = FormatType(member.Type);
-                if (type == null)
-                {
+                if (type == null) type = features.objectKey;
+                /*{
                     string message = String.Format(TextHelper.GetString("Info.TypeDeclMissing"), member.Name);
                     ErrorManager.ShowInfo(message);
                     return;
-                }
+                }*/
                 decl = acc + features.functionKey + " ";
                 bool noRet = type.Equals("void", StringComparison.OrdinalIgnoreCase);
                 type = (noRet) ? ASContext.Context.Features.voidKey : type;

@@ -1556,14 +1556,14 @@ namespace ASCompletion.Completion
                 // complete declaration
                 MemberModel cMember = ASContext.Context.CurrentMember;
                 int line = Sci.LineFromPosition(position);
-                if (cMember == null)
+                if (cMember == null && !ASContext.Context.CurrentClass.IsVoid())
                 {
                     if (expr.Value != null && expr.Value.Length > 0)
                         return HandleDeclarationCompletion(Sci, expr.Value, autoHide);
                     else if (ASContext.Context.CurrentModel.Version >= 2)
                         return ASGenerator.HandleGeneratorCompletion(Sci, autoHide, features.overrideKey);
                 }
-                else if (line == cMember.LineFrom)
+                else if (cMember != null && line == cMember.LineFrom)
                 {
                     string text = Sci.GetLine(line);
                     int p = text.IndexOf(cMember.Name);
@@ -3009,7 +3009,8 @@ namespace ASCompletion.Completion
 		{
 			return style == 0 || style == 10 /*punctuation*/ || style == 11 /*identifier*/ 
                 || style == 16 /*word2 (secondary keywords: class name)*/
-                || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/;
+                || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/
+                || style == 127 /*PHP*/;
 		}
 
         /// <summary>
@@ -3021,7 +3022,8 @@ namespace ASCompletion.Completion
                 || style == 10 /*punctuation*/ || style == 11 /*identifier*/ 
                 || style == 16 /*word2 (secondary keywords: class name)*/ 
                 || style == 19 /*globalclass (primary keywords)*/ || style == 20 /*word3 (add keywords3)*/
-                || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/;
+                || style == 21 /*word4 (add keywords4)*/ || style == 22 /*word5 (add keywords5)*/
+                || style == 127 /*PHP*/;
 		}
 
 		static public bool IsCommentStyle(int style)
@@ -3282,7 +3284,7 @@ namespace ASCompletion.Completion
                     ASGenerator.GenerateOverride(sci, context.inClass, context.Member, position);
                     return false;
                 }
-                else if (context.Member != null && cMember == null)
+                else if (context.Member != null && cMember == null && !context.inClass.IsVoid())
                 {
                     string ins = features.overrideKey + " ";
                     string w = sci.GetWordFromPosition(position);
