@@ -355,7 +355,8 @@ namespace ASCompletion.Completion
         /// </summary>
         private static void AutoStartCompletion(ScintillaNet.ScintillaControl Sci, int position)
         {
-            if (!CompletionList.Active && ASContext.CommonSettings.AlwaysCompleteWordLength > 0)
+            if (!CompletionList.Active && ASContext.Context.Features.hasEcmaTyping 
+                && ASContext.CommonSettings.AlwaysCompleteWordLength > 0)
             {
                 // fire completion if starting to write a word
                 bool valid = true;
