@@ -491,7 +491,7 @@ namespace ASCompletion.Model
             if (comment == null) return "";
             comment = comment.Trim();
             if (comment.Length == 0) return "";
-            Boolean indent = (PluginCore.PluginBase.Settings.CommentBlockStyle == PluginCore.CommentBlockStyle.Indented);
+            Boolean indent = tab != "" && (PluginCore.PluginBase.Settings.CommentBlockStyle == PluginCore.CommentBlockStyle.Indented);
 			Boolean startWithStar = comment.StartsWith("*");
 			if (startWithStar || comment.IndexOf('\n') > 0 || comment.IndexOf('\r') > 0)
             {
@@ -505,9 +505,11 @@ namespace ASCompletion.Model
 				comment = reMultiSpacedEOL.Replace(comment, "\n\n  ");
 				comment = reAsdocWordSpace.Replace(comment, "\n");
 				comment = GetCorrectComment(comment, "\n", "\n  ");
-				comment = comment.Replace("\n", "\r\n" + tab + " * " );
-
-                if (indent) return tab + "/**\r\n" + tab + " " + comment + "\r\n" + tab + " */\r\n";
+                if (indent)
+                {
+                    comment = comment.Replace("\n", "\r\n" + tab + " * ");
+                    return tab + "/**\r\n" + tab + " " + comment + "\r\n" + tab + " */\r\n";
+                }
                 else return tab + "/**\r\n" + tab + comment + "\r\n" + tab + "*/\r\n";
             }
             else return tab + "/// " + comment + "\r\n";

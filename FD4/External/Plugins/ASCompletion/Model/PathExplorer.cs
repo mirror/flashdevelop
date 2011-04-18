@@ -203,9 +203,9 @@ namespace ASCompletion.Model
                             NotifyProgress(TextHelper.GetString("Info.ParsingCache"), 0, 1);
                             ASFileParser.ParseCacheFile(pathModel, cacheFileName, context);
                         }
+                        else writeCache = true;
                         if (stopExploration) return;
                     }
-                    else writeCache = true;
 
                     // explore filesystem (populates foundFiles)
                     ExploreFolder(pathModel.Path, context.GetExplorerMask());
