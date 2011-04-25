@@ -233,10 +233,10 @@ namespace AS3Context
                     {
                         addLibs.Add("spark.swc");
                         addLibs.Add("sparkskins.swc");
-                        addLibs.Add("textLayout.swc");
+                        //addLibs.Add("textLayout.swc");
                         addLibs.Add("osmf.swc");
                         addLocales.Add("spark_rb.swc");
-                        addLocales.Add("textLayout_rb.swc");
+                        //addLocales.Add("textLayout_rb.swc");
                         addLocales.Add("osmf_rb.swc");
                         if (hasAIRSupport)
                         {
