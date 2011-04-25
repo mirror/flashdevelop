@@ -27,8 +27,8 @@ namespace ASCompletion.Completion
         const string patternClass = @"new\s*{0}";
         const string BlankLine = "$(Boundary)\n\n";
         const string NewLine = "$(Boundary)\n";
-        static private Regex reModifier = new Regex("[a-z \t]*(public |private |protected )", RegexOptions.Compiled);
-        static private Regex reOverride = new Regex("[a-z \t]*(override )", RegexOptions.Compiled);
+        static private Regex reModifiers = new Regex("^\\s*(\\$\\(Boundary\\))?([a-z ]+)(function|var|const)", RegexOptions.Compiled);
+        static private Regex reModifier = new Regex("(public |private |protected )", RegexOptions.Compiled);
 
         static private string contextToken;
         static private string contextParam;
@@ -4140,37 +4140,32 @@ namespace ASCompletion.Completion
             finally { Sci.EndUndoAction(); }
         }
 
+        /// <summary>
+        /// Move "visibility" modifier at the beginning of the line
+        /// </summary>
         private static string FixModifiersLocation(string src)
         {
+            bool needUpdate = false;
             string[] lines = src.Split('\n');
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
-                string trimmedLine = line.TrimStart();
-                Match m = reModifier.Match(trimmedLine);
+
+                Match m = reModifiers.Match(line);
                 if (m.Success)
                 {
-                    lines[i] = line.Substring(0, line.Length - trimmedLine.Length) 
-                        + m.Groups[1].Value + trimmedLine.Remove(m.Groups[1].Index, m.Groups[1].Length);
+                    Group decl = m.Groups[2];
+                    Match m2 = reModifier.Match(decl.Value);
+                    if (m2.Success)
+                    {
+                        string repl = m2.Value + decl.Value.Remove(m2.Index, m2.Length);
+                        lines[i] = line.Remove(decl.Index, decl.Length).Insert(decl.Index, repl);
+                        needUpdate = true;
+                    }
                 }
             }
-            src = String.Join("\n", lines);
-
-            lines = src.Split('\n');
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i];
-                string trimmedLine = line.TrimStart();
-                Match m = reOverride.Match(trimmedLine);
-                if (m.Success)
-                {
-                    lines[i] = line.Substring(0, line.Length - trimmedLine.Length)
-                        + m.Groups[1].Value + trimmedLine.Remove(m.Groups[1].Index, m.Groups[1].Length);
-                }
-            }
-
-            src = String.Join("\n", lines);
-            return src;
+            if (needUpdate) return String.Join("\n", lines);
+            else return src;
         }
 
         private static void UpdateLookupPosition(int position, int delta)
