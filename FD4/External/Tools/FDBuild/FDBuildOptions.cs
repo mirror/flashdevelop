@@ -36,6 +36,9 @@ namespace FDBuild
 
         [Option("Set compiler executable path", "compiler")]
         public string CompilerPath;
+
+        [Option("Set compiler version (optional)", "version")]
+        public string CompilerVersion;
         
         [Option("Set Swfmill executable path", "swfmill")]
         public string SwfmillPath;
@@ -52,7 +55,7 @@ namespace FDBuild
         [Option("Pause the console after building", "pause")]
 		public bool PauseAtEnd = false;
 
-        [Option("Connect to FlashDevelop's remoting services using the specified IPC name", "ipc")]
+        [Option("Connect to FlashDevelop's remoting services using the specified IPC name (optional)", "ipc")]
         public string IpcName = null;
 
         public string Language

@@ -62,7 +62,8 @@ namespace ProjectManager.Actions
             // save modified files
             mainForm.CallCommand("SaveAllModified", null);
 
-            string compiler = GetCompilerPath(project);
+            InstalledSDK sdk = GetProjectSDK(project);
+            string compiler = GetCompilerPath(project, sdk);
             project.TraceEnabled = !releaseMode;
 
             if (project.OutputType == OutputType.OtherIDE)
@@ -135,7 +136,7 @@ namespace ProjectManager.Actions
                 }
             }
 
-            return FDBuild(project, runOutput, releaseMode, compiler);
+            return FDBuild(project, runOutput, releaseMode, sdk);
         }
 
         static public void RunFlashIDE(Project project, bool runOutput, bool releaseMode)
@@ -159,7 +160,7 @@ namespace ProjectManager.Actions
             }
         }
 
-        public bool FDBuild(Project project, bool runOutput, bool releaseMode, string compiler)
+        public bool FDBuild(Project project, bool runOutput, bool releaseMode, InstalledSDK sdk)
 		{
             string directory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = project.Directory;
@@ -168,7 +169,9 @@ namespace ProjectManager.Actions
 			string fdBuildPath = Path.Combine(fdBuildDir, "fdbuild.exe");
 
 			string arguments = " -ipc " + ipcName;
-            if (compiler != null && compiler.Length > 0) arguments += " -compiler \"" + compiler + "\"";
+            arguments += " -version \"" + sdk.Version.Replace(',', ';') + "\"";
+            arguments += " -compiler \"" + project.CurrentSDK + "\"";
+
             if (releaseMode) arguments += " -notrace";
             arguments += " -library \"" + PathHelper.LibraryDir + "\"";
 
@@ -229,14 +232,22 @@ namespace ProjectManager.Actions
 
         /* SDK MANAGEMENT */
 
-        static public string GetCompilerPath(Project project)
+        static public InstalledSDK GetProjectSDK(Project project)
         {
             if (project == null) return null;
-            if (project.CurrentSDK == null)
-            {
-                InstalledSDK[] sdks = GetInstalledSDKs(project);
-                project.CurrentSDK = PathHelper.ResolvePath(MatchSDK(sdks, project).Path, project.Directory);
-            }
+            InstalledSDK[] sdks = GetInstalledSDKs(project);
+            return MatchSDK(sdks, project);
+        }
+
+        static public string GetCompilerPath(Project project)
+        {
+            return GetCompilerPath(project, GetProjectSDK(project));
+        }
+
+        static public string GetCompilerPath(Project project, InstalledSDK sdk)
+        {
+            if (project == null) return null;
+            project.CurrentSDK = PathHelper.ResolvePath(sdk.Path, project.Directory);
             return project.CurrentSDK;
         }
 

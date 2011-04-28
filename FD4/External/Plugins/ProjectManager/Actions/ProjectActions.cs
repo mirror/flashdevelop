@@ -123,7 +123,7 @@ namespace ProjectManager.Actions
 			
             if (project != null)
             {
-                BuildActions.GetCompilerPath(project);
+                BuildActions.GetCompilerPath(project); // refresh project's SDK
 
                 // platform/version
                 classPaths.Add(project.MovieOptions.Platform);

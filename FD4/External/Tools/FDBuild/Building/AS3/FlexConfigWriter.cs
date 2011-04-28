@@ -11,6 +11,7 @@ namespace FDBuild.Building.AS3
     class FlexConfigWriter : XmlTextWriter
     {
         AS3Project project;
+        bool flex4;
 
         public FlexConfigWriter(string libraryPath): base(libraryPath, new UTF8Encoding(false))
         {
@@ -21,8 +22,23 @@ namespace FDBuild.Building.AS3
         {
             this.project = project;
 
+            double version = GetVersion(Program.BuildOptions.CompilerVersion ?? "4.0");
+            flex4 = version >= 4;
+
             try { InternalWriteConfig(extraClasspaths, debugMode); }
             finally { Close(); }
+        }
+
+        private double GetVersion(string version)
+        {
+            string[] p = version.Split('.');
+            if (p.Length == 0) return 0;
+            double major = 0;
+            double.TryParse(p[0], out major);
+            if (p.Length == 1) return major;
+            double minor = 0;
+            double.TryParse("0." + p[1], out minor);
+            return major + minor;
         }
 
         private void InternalWriteConfig(string[] extraClasspaths, bool debugMode)
@@ -93,7 +109,7 @@ namespace FDBuild.Building.AS3
             if (!options.UseResourceBundleMetadata) WriteElementString("use-resource-bundle-metadata", "false");
 
             if (!debugMode && options.Optimize) WriteElementString("optimize", "true");
-            if (debugMode && options.OmitTraces) WriteElementString("omit-trace-statements", "true");
+            if (!debugMode && options.OmitTraces && flex4) WriteElementString("omit-trace-statements", "true");
             if (debugMode && options.VerboseStackTraces) WriteElementString("verbose-stacktraces", "true");
         }
 

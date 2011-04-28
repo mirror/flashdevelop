@@ -362,7 +362,7 @@ namespace ProjectManager
                     }
                     else if (de.Action == ProjectManagerCommands.InstalledSDKsChanged)
                     {
-                        BuildActions.GetCompilerPath(project);
+                        BuildActions.GetCompilerPath(project); // refresh project's SDK
                         e.Handled = true;
                     }
                     else if (de.Action == ProjectManagerCommands.BuildProject)

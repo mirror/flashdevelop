@@ -143,6 +143,5 @@ namespace FDBuild
         {
             AS3ProjectBuilder builder = new AS3ProjectBuilder(null, Program.BuildOptions.CompilerPath, Program.BuildOptions.IpcName);
         }
-
     }
 }
