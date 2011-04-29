@@ -317,10 +317,9 @@ namespace AS3Context.Controls
         {
             try
             {
-                string home = Environment.GetEnvironmentVariable("HOMEDRIVE")
-                    + Environment.GetEnvironmentVariable("HOMEPATH");
-                if (!Directory.Exists(home))
-                    return false;
+                string home = Environment.GetEnvironmentVariable("USERPROFILE");
+                if (!Directory.Exists(home)) return false;
+
                 string mmCfg = Path.Combine(home, "mm.cfg");
                 if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
 
@@ -330,7 +329,6 @@ namespace AS3Context.Controls
                 {
                     src += AddCustomProfiler() ?? AddDefaultProfiler();
                 }
-
                 File.WriteAllText(mmCfg, src);
             }
             catch 
