@@ -7,9 +7,9 @@ var isAS3 = detectVersion();
 /* RUN */
 
 cleanup();
-//setDebug(1);
+setDebug(1);
 build();
-//setDebug(0);
+setDebug(0);
 postBuild();
 
 
