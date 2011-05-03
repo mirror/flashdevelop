@@ -3285,7 +3285,7 @@ namespace ASCompletion.Completion
                     ASGenerator.GenerateOverride(sci, context.inClass, context.Member, position);
                     return false;
                 }
-                else if (context.Member != null && cMember == null && !context.inClass.IsVoid())
+                /*else if (context.Member != null && cMember == null && !context.inClass.IsVoid())
                 {
                     string ins = features.overrideKey + " ";
                     string w = sci.GetWordFromPosition(position);
@@ -3296,7 +3296,7 @@ namespace ASCompletion.Completion
                     sci.SetSel(position, position);
                     ASGenerator.GenerateOverride(sci, context.inClass, context.Member, position);
                     return false;
-                }
+                }*/
                 else if (!context.IsNull())
                 {
                     if (expr.WordBefore == features.importKey)

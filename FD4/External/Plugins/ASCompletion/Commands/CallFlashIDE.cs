@@ -17,6 +17,8 @@ namespace ASCompletion.Commands
         private delegate void RunBackgroundInvoker(string exe, string args);
 
         static readonly private string[] FLASHIDE_PATH = {
+            @"C:\Program Files\Adobe\Adobe Flash CS5.5\Flash.exe",
+            @"C:\Program Files (x86)\Adobe\Adobe Flash CS5.5\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS5\Flash.exe",
             @"C:\Program Files (x86)\Adobe\Adobe Flash CS5\Flash.exe",
             @"C:\Program Files\Adobe\Adobe Flash CS4\Flash.exe",
@@ -69,7 +71,7 @@ namespace ASCompletion.Commands
             if (BridgeManager.Active) pathToIDE = "Flash";
             else
             {
-                if (pathToIDE != null && Path.GetExtension(pathToIDE) == "")
+                if (pathToIDE != null && Directory.Exists(pathToIDE))
                     pathToIDE = Path.Combine(pathToIDE, "Flash.exe");
                 if (pathToIDE == null || !System.IO.File.Exists(pathToIDE))
                 {
