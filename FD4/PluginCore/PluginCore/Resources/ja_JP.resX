@@ -178,7 +178,7 @@
     <value>コンパイラーに必要な構成</value>
   </data>
   <data name="ASCompletion.Description.AddSpaceAfter" xml:space="preserve">
-    <value>再フォーマット時、常にこれら文字の後にスペースを入れます。</value>
+    <value>再フォーマット時、常にこれら文字の後にスペースを挿入します。</value>
   </data>
   <data name="ASCompletion.Description.AlwaysCompleteWordLength" xml:space="preserve">
     <value>補完リストを自動的に表示するために必要なタイプ数を設定します。0 で表示しません。</value>
@@ -190,7 +190,7 @@
     <value>保存後、自動的にシンタックスチェックを実行します。</value>
   </data>
   <data name="ASCompletion.Description.CompactChars" xml:space="preserve">
-    <value>再フォーマットされたとき、これらの文字の周りにあるホワイトスペースを削除します。</value>
+    <value>再フォーマットされたとき、これらの文字の周りにある空白を除去します。</value>
   </data>
   <data name="ASCompletion.Description.CompletionEnabled" xml:space="preserve">
     <value>コード補完を有効にします。</value>
@@ -392,12 +392,15 @@
   </data>
   <data name="FileExplorer.Info.Kilobytes" xml:space="preserve">
     <value>KB</value>
+    <comment>E</comment>
   </data>
   <data name="FileExplorer.Info.NewFileName" xml:space="preserve">
     <value>NewFile</value>
+    <comment>E</comment>
   </data>
   <data name="FileExplorer.Info.NewFolderName" xml:space="preserve">
     <value>NewFolder</value>
+    <comment>E</comment>
   </data>
   <data name="FileExplorer.Label.CommandPromptHere" xml:space="preserve">
     <value>コマンドプロンプト(&amp;P)...</value>
@@ -863,6 +866,7 @@
   </data>
   <data name="FlashDevelop.Info.UntitledFileStart" xml:space="preserve">
     <value>Untitled</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Info.UpdateAvailable" xml:space="preserve">
     <value>新しいバージョンの FlashDevelop を見つけました。{0}現在のバージョン: {1} / 新しいバージョン: {2}</value>
@@ -875,6 +879,7 @@
   </data>
   <data name="FlashDevelop.Label.8Bits" xml:space="preserve">
     <value>8 Bits</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Label.About" xml:space="preserve">
     <value>FlashDevelop について(&amp;A)...</value>
@@ -890,6 +895,7 @@
   </data>
   <data name="FlashDevelop.Label.BigEndian" xml:space="preserve">
     <value>Big Endian</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
     <value>すべてマーク(&amp;B)</value>
@@ -1083,6 +1089,7 @@
   </data>
   <data name="FlashDevelop.Label.LittleEndian" xml:space="preserve">
     <value>Little Endian</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Label.LookInComments" xml:space="preserve">
     <value>コメントを検索(&amp;C)</value>
@@ -1113,6 +1120,7 @@
   </data>
   <data name="FlashDevelop.Label.Ok" xml:space="preserve">
     <value>OK</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Label.Open" xml:space="preserve">
     <value>開く(&amp;O)...</value>
@@ -1260,6 +1268,7 @@
   </data>
   <data name="FlashDevelop.Label.UTF8" xml:space="preserve">
     <value>UTF-8</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Label.View" xml:space="preserve">
     <value>表示(&amp;V)</value>
@@ -1710,6 +1719,7 @@
   </data>
   <data name="ProjectManager.Info.NewProject" xml:space="preserve">
     <value>NewProject</value>
+    <comment>E</comment>
   </data>
   <data name="ProjectManager.Info.NoOutput" xml:space="preserve">
     <value>ムービーを書き出さず、ビルド前･後のコマンドラインのみ実行する</value>
@@ -1938,9 +1948,11 @@
   </data>
   <data name="ProjectManager.Label.New" xml:space="preserve">
     <value>New</value>
+    <comment>E</comment>
   </data>
   <data name="ProjectManager.Label.NewFile" xml:space="preserve">
     <value>NewFile</value>
+    <comment>E</comment>
   </data>
   <data name="ProjectManager.Label.NewFolder" xml:space="preserve">
     <value>フォルダー</value>
@@ -2006,7 +2018,7 @@
     <value>コマンドラインビルダー</value>
   </data>
   <data name="ProjectManager.Title.ConfigurationRequired" xml:space="preserve">
-    <value>コンパイラー指定が必要です</value>
+    <value>コンパイラーの設定をしてください</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
     <value>コマンドラインを入力</value>
@@ -2187,7 +2199,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>引数の変更をメソッド宣言に反映</value>
   </data>
   <data name="ASCompletion.Label.ChangeConstructorDecl" xml:space="preserve">
-    <value>Change constructor declaration</value>
+    <value>引数の変更をコンストラクタ宣言に反映</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
     <value>インターフェース定義の生成</value>
@@ -2373,6 +2385,7 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDevelop.Info.Undefined" xml:space="preserve">
     <value>undefined</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Label.Add" xml:space="preserve">
     <value>新規(&amp;N)</value>
@@ -2649,6 +2662,7 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDevelop.Info.SampleText" xml:space="preserve">
     <value>Sample Text</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDevelop.Info.SaveCurrentLanguage" xml:space="preserve">
     <value>現在の言語を保存しますか？</value>
@@ -2934,11 +2948,13 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>どこに新しいプロパティ( getter, setter )を作成するかを設定します。</value>
   </data>
   <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
-    <value>Defines where new methods are to be generated.</value>
+    <value>"ジェネレータによって作成されるメソッドの配置を設定します。
+AfterCurrentMethod: 現在のメソッドの後に配置。
+AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
-    <value>「 ( 」または「 [ 」または「 " 」を入力したとき、自動的に対になる閉じ括弧（引用符）を入力する。</value>
+    <value>「 ( 」または「 [ 」または「 " 」を入力したとき、自動的に対になる閉じ括弧（引用符）を挿入します。</value>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
     <value> "パラメーターからフィールドを生成"によって生成されるフィールドに付与する接頭辞です。</value>
@@ -3016,7 +3032,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>参照を解決...</value>
   </data>
   <data name="CodeRefactor.Info.ResolvingReferencesIn" xml:space="preserve">
-    <value>Resolving References in</value>
+    <value>参照の解決</value>
   </data>
   <data name="CodeRefactor.Info.SearchingFiles" xml:space="preserve">
     <value>ファイルを検索...</value>
@@ -3052,7 +3068,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>名前の変更 '{0}'</value>
   </data>
   <data name="CodeRefactor.Title.ExtractMethodDialog" xml:space="preserve">
-    <value>Extract Method</value>
+    <value>メソッドの抽出</value>
   </data>
   <data name="CodeRefactor.Title.ExtractLocalVariableDialog" xml:space="preserve">
     <value>ローカル変数の抽出</value>
@@ -3254,6 +3270,7 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="FlashDebugger.Info.FlashPlayerGenericName" xml:space="preserve">
     <value>Flash Player</value>
+    <comment>E</comment>
   </data>
   <data name="FlashDebugger.Info.HaltedInFile" xml:space="preserve">
     <value>${reasonForHalting}, ${fileAndLine}</value>
@@ -3503,15 +3520,19 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="ASCompletion.Info.ExtendsNode" xml:space="preserve">
     <value>Extends</value>
+    <comment>E</comment>
   </data>
   <data name="ASCompletion.Info.ImplementsNode" xml:space="preserve">
     <value>Implements</value>
+    <comment>E</comment>
   </data>
   <data name="ASCompletion.Info.ImportsNode" xml:space="preserve">
     <value>Imports</value>
+    <comment>E</comment>
   </data>
   <data name="ASCompletion.Info.RegionsNode" xml:space="preserve">
     <value>Regions</value>
+    <comment>E</comment>
   </data>
   <data name="HaXeContext.Info.AmbiguousType" xml:space="preserve">
     <value>あいまいな型</value>
@@ -3725,9 +3746,11 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="SourceControl.Label.Pull" xml:space="preserve">
     <value>Pull</value>
+    <comment>E</comment>
   </data>
   <data name="SourceControl.Label.Push" xml:space="preserve">
     <value>Push...</value>
+    <comment>E</comment>
   </data>
   <data name="SourceControl.Label.Revert" xml:space="preserve">
     <value>元に戻す...</value>
@@ -3779,235 +3802,235 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.ShortcutEditInfo" xml:space="preserve">
-    <value>Shortcuts can be edited by selecting an item and pressing valid menu item shortcut keys.</value>
+    <value>ショートカットキーを登録するには、設定したい項目を選択し、キーを打ち込んでください。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Command" xml:space="preserve">
-    <value>Command</value>
+    <value>コマンド</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.KeyboardShortcuts" xml:space="preserve">
-    <value>Keyboard S&amp;hortcuts...</value>
+    <value>キーボードショートカットの編集(&amp;H)...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.RemoveShortcut" xml:space="preserve">
-    <value>&amp;Remove Shortcut</value>
+    <value>ショートカットを削除(&amp;R)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.RevertToDefault" xml:space="preserve">
-    <value>Revert To &amp;Default</value>
+    <value>デフォルトに戻す(&amp;D)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Shortcut" xml:space="preserve">
-    <value>Shortcut</value>
+    <value>ショートカット</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Title.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
+    <value>ショートカット</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
-    <value>Unable to load a plugin:</value>
+    <value>プラグインをロードできませんでした:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
-    <value>&amp;Code Generator</value>
+    <value>コードジェネレーター(&amp;C)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.ShortcutIsAlreadyUsed" xml:space="preserve">
-    <value>The shortcut has already been assigned to another command.</value>
+    <value>そのショートカットキーはすでに他のコマンドに割り当てられています。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.AppDescriptorNotFound" xml:space="preserve">
-    <value>Unable to locate the default application descriptor file (application.xml). Do you want to select the application descriptor file manually?</value>
+    <value>デフォルトのアプリケーション設定ファイル (application.xml) が見つかりません。設定ファイルを選択しますか？</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.FileNamePrefixInvalid" xml:space="preserve">
-    <value>You must enter a valid value for the {0} property before you can select an icon.</value>
+    <value>アイコンを選択する前に、{0} プロパティに有効な値を入力する必要があります。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.ImagePathInvalid" xml:space="preserve">
-    <value>The image you have selected is located</value>
+    <value>選択した画像が見つかりませんでした。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.InvalidIconDimensions" xml:space="preserve">
-    <value>The selected icon image must be {0} x {1} pixels in size.</value>
+    <value>アイコン画像のサイズは {0} x {1} ピクセルでなければなりません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.InvalidProperties" xml:space="preserve">
-    <value>One or more properties contains an invalid value. Please update the invalid value(s).</value>
+    <value>ひとつまたは複数のプロパティに無効な値が含まれています。無効な値を更新してください。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Message.UnsupportedAirDescriptorFile" xml:space="preserve">
-    <value>The file '{0}' is not a supported AIR application descriptor file. The AIR runtime version '{1}' specified in the file is not supported by the property editor. Click OK to continue and edit the file using AIR {2} properties only.</value>
+    <value>このファイル {0} はサポートされない AIR アプリケーション設定ファイルです。指定された AIR ランタイムバージョン{1} において、このファイルはプロパティエディタによってサポートされていません。OK をクリックすると、AIR {2} プロパティのみを編集します。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.AppDescriptorNotFound" xml:space="preserve">
-    <value>Application Descriptor File Not Found</value>
+    <value>アプリケーション設定ファイルが見つかりません</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.FileNamePrefixInvalid" xml:space="preserve">
-    <value>Use Uniform File Names Validation</value>
+    <value>ファイル名の検証を使用</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.InvalidIconDimensions" xml:space="preserve">
-    <value>Invalid Image Size</value>
+    <value>無効な画像サイズ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.InvalidProperties" xml:space="preserve">
-    <value>Invalid Property Value(s)</value>
+    <value>無効なプロパティ値</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Alert.Title.UnsupportedAirDescriptorFile" xml:space="preserve">
-    <value>Warning</value>
+    <value>警告</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.AspectRatio.Landscape" xml:space="preserve">
-    <value>Landscape</value>
+    <value>ランドスケープ (横長モード)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.AspectRatio.Portrait" xml:space="preserve">
-    <value>Portrait</value>
+    <value>ポートレート  (縦長モード)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.PackageIconsFolder" xml:space="preserve">
-    <value>Folder containing packaged icons, relative to the application root directory. Leave blank if files are in application root. Non-default value may require reconfiguring of package script.</value>
+    <value>アイコンファイルの格納先を、アプリケーションルートディレクトリからの相対位置で指定します。ルート階層に配置したい場合はブランクを指定してください。デフォルト以外の値に設定した場合、パッケージスクリプトの再設定が必要な場合があります。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.ProjectIconsFolder" xml:space="preserve">
-    <value>Folder for storing icons, relative to the project folder. Adding icons from within the project will have no effect. Non-default value may require reconfiguring of package script.</value>
+    <value>プロジェクトファイル内におけるアイコンファイルの格納先を、プロジェクトフォルダとの相対位置で指定します。プロジェクト内から追加したアイコンの場合は適用されません。デフォルト以外の値に設定した場合、パッケージスクリプトの再設定が必要な場合があります。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.RenameIconsWithSize" xml:space="preserve">
-    <value>Rename icon file names with the relevant size when copying to the icons folder. Does not apply when Use Uniform File Names is true.</value>
+    <value>アイコンフォルダにコピーされると同時に、サイズに関連してアイコンのファイル名前を変更します。 Use Uniform File Names の設定が true の場合には適用されません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.SelectPropertiesFileOnOpen" xml:space="preserve">
-    <value>Prompt to manually select the project's application descriptor file on open.</value>
+    <value>プロジェクトのアプリケーション設定ファイルを開くとき、ファイルを手動で選択します。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Description.UseUniformFileNames" xml:space="preserve">
-    <value>Rename icon file names using a combination of the File Name property and the image size when copying to the icons folder.</value>
-    <comment>Added after 3.3.1</comment>
+    <value>アイコンフォルダにコピーされると同時に、アイコンのファイル名を対応するファイル名プロパティ・画像サイズ合わせて変更します。</value>
+    <comment>Added after 3.3.1 未検証</comment>
   </data>
   <data name="AirProperties.Exception.Message.NotAirDescriptorFile" xml:space="preserve">
-    <value>The file '{0}' is not a valid AIR application descriptor file. It has an unsupported namespace.</value>
+    <value>ファイル {0} は有効な AIR アプリケーション設定ファイルではありません。このファイルはサポートされない名前空間を持っています。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Exception.Title.Initialization" xml:space="preserve">
-    <value>Error Opening Descriptor File</value>
+    <value>設定ファイルの読み込みに失敗しました</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Info.Description" xml:space="preserve">
-    <value>Adds an AIR application properties management form for AIR projects.</value>
+    <value>AIR アプリケーションのプロパティー管理機能を追加します。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Add" xml:space="preserve">
-    <value>&amp;Add</value>
+    <value>追加(&amp;A)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AddCustomLocale" xml:space="preserve">
-    <value>Add Custom Locale</value>
+    <value>カスタムロケールを追加</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AndroidAdditions" xml:space="preserve">
-    <value>Android Manifest Additions</value>
+    <value>Android マニフェストの追加</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Application" xml:space="preserve">
-    <value>Application</value>
+    <value>アプリケーション</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AspectRatio" xml:space="preserve">
-    <value>Aspect Ratio</value>
+    <value>アスペクト比</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AutoOrients" xml:space="preserve">
-    <value>Auto Orients</value>
+    <value>自動回転</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.BrowserInvocation" xml:space="preserve">
-    <value>Allow Browser Invocation</value>
+    <value>ブラウザ起動を許可</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Cancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>キャンセル(&amp;C)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Content" xml:space="preserve">
-    <value>Content</value>
+    <value>コンテンツ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ContentType" xml:space="preserve">
-    <value>Content Type</value>
+    <value>コンテンツの種類</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Copyright" xml:space="preserve">
-    <value>Copyright</value>
+    <value>著作権情報</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.CustomUpdateUI" xml:space="preserve">
-    <value>Custom Update UI</value>
+    <value>カスタムUIの更新</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.DefaultLocales" xml:space="preserve">
-    <value>Default Locales</value>
+    <value>デフォルトのロケール</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Description" xml:space="preserve">
-    <value>Description</value>
+    <value>概要</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Desktop" xml:space="preserve">
-    <value>Desktop</value>
+    <value>デスクトップ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Details" xml:space="preserve">
-    <value>Details</value>
+    <value>詳細</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ExtendedDesktop" xml:space="preserve">
-    <value>Extended Desktop</value>
+    <value>拡張デスクトップ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ExtendedTv" xml:space="preserve">
-    <value>Extended TV</value>
+    <value>拡張 TV</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Extension" xml:space="preserve">
-    <value>Extension</value>
+    <value>拡張</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ExtensionId" xml:space="preserve">
-    <value>Extension ID</value>
+    <value>拡張 ID</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Extensions" xml:space="preserve">
-    <value>Extensions</value>
+    <value>拡張</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.FileName" xml:space="preserve">
-    <value>File Name</value>
+    <value>ファイルの名前</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.FileTypes" xml:space="preserve">
-    <value>File Types</value>
+    <value>ファイルの種類</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Fullscreen" xml:space="preserve">
-    <value>Fullscreen</value>
+    <value>フルスクリーン</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Help" xml:space="preserve">
-    <value>&amp;Help</value>
+    <value>ヘルプ(&amp;H)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Icon" xml:space="preserve">
-    <value>Icon</value>
+    <value>アイコン</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Icons" xml:space="preserve">
-    <value>Icons</value>
+    <value>アイコン</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Id" xml:space="preserve">
@@ -4015,215 +4038,215 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InitialLocation" xml:space="preserve">
-    <value>Initial Location</value>
+    <value>初期座標</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InitialSize" xml:space="preserve">
-    <value>Initial Size</value>
+    <value>初期サイズ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Installation" xml:space="preserve">
-    <value>Installation</value>
+    <value>インストール</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InstallFolder" xml:space="preserve">
-    <value>Install Folder</value>
+    <value>インストール先フォルダー</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.IPhoneAdditions" xml:space="preserve">
-    <value>IPhone Info Additions</value>
-    <comment>Added after 3.3.1</comment>
+    <value>IPhone アドイン情報</value>
+    <comment>Added after 3.3.1 未検証</comment>
   </data>
   <data name="AirProperties.Label.Locale" xml:space="preserve">
-    <value>Locale</value>
+    <value>ロケール</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Locales" xml:space="preserve">
-    <value>Locales</value>
+    <value>ロケール</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Maximizable" xml:space="preserve">
-    <value>Maximizable</value>
+    <value>最大化を許可</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MaximumSize" xml:space="preserve">
-    <value>Maximum Size</value>
+    <value>最大サイズ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Minimizable" xml:space="preserve">
-    <value>Minimizable</value>
+    <value>最小化を許可</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MinimumSize" xml:space="preserve">
-    <value>Minimum Size</value>
+    <value>最小サイズ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MinPatchLevel" xml:space="preserve">
-    <value>Minimum Patch Level</value>
+    <value>最低パッチレベル</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MobileDevice" xml:space="preserve">
-    <value>Mobile Device</value>
+    <value>モバイルデバイス</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Name" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.New" xml:space="preserve">
-    <value>New</value>
+    <value>新規</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.NonWindowedPlatforms" xml:space="preserve">
-    <value>Non-Windowed Platforms</value>
+    <value>非ウィンドウ表示プラットフォーム</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Ok" xml:space="preserve">
-    <value>&amp;OK</value>
+    <value>OK(&amp;O)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProgramMenuFolder" xml:space="preserve">
-    <value>Program Menu Folder</value>
+    <value>プログラムメニューフォルダー</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
-    <value>&amp;AIR App Properties...</value>
+    <value>AIR アプリケーションのプロパティー(&amp;A)...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.PublisherId" xml:space="preserve">
-    <value>Publisher ID</value>
+    <value>パブリッシャー ID</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>削除</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.RenderMode" xml:space="preserve">
-    <value>Render Mode</value>
+    <value>レンダリングモード</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Resizable" xml:space="preserve">
-    <value>Resizable</value>
+    <value>リサイズを許可</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SelectedLocales" xml:space="preserve">
-    <value>Selected Locales</value>
+    <value>選択されたロケール</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SupportedProfiles" xml:space="preserve">
-    <value>Supported Profiles</value>
+    <value>サポートするプロファイル</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SystemChrome" xml:space="preserve">
-    <value>System Chrome</value>
+    <value>システムクローム</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Title" xml:space="preserve">
-    <value>Title</value>
+    <value>タイトル</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.TitleDesc" xml:space="preserve">
-    <value>Configure the properties of your AIR application. For a detailed explanation of the available{0}properties and their accepted values, please click the Help button for online help.</value>
+    <value>AIR アプリケーションのプロパティーを設定します。使用できるプロパティーの {0} 説明や有効な値については Help ボタンをクリックしてオンラインヘルプを参照してください。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Transparent" xml:space="preserve">
-    <value>Transparent</value>
+    <value>透過</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Tv" xml:space="preserve">
-    <value>TV</value>
+    <value>テレビ</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Version" xml:space="preserve">
-    <value>Version</value>
+    <value>バージョン</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.VersionNo" xml:space="preserve">
-    <value>Version No.</value>
+    <value>バージョン番号</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Visible" xml:space="preserve">
-    <value>Visible</value>
+    <value>可視</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.WindowBounds" xml:space="preserve">
-    <value>Window Bounds</value>
+    <value>ウインドウの境界</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.WindowedPlatforms" xml:space="preserve">
-    <value>Windowed Platforms</value>
+    <value>ウインドウ表示プラットフォーム</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.ChineseSimplified" xml:space="preserve">
-    <value>Chinese Simplified (zh)</value>
+    <value>簡体字中国語 (zh)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.ChineseTraditional" xml:space="preserve">
-    <value>Chinese Trad. (zh-Hant)</value>
+    <value>繁体字中国語 (zh-Hant)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Czech" xml:space="preserve">
-    <value>Czech (cs)</value>
+    <value>チェコ語 (cs)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Default" xml:space="preserve">
-    <value>Default</value>
+    <value>デフォルト</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Dutch" xml:space="preserve">
-    <value>Dutch (nl)</value>
+    <value>オランダ語 (nl)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.English" xml:space="preserve">
-    <value>English (en)</value>
+    <value>英語 (en)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.French" xml:space="preserve">
-    <value>French (fr)</value>
+    <value>フランス語 (fr)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.German" xml:space="preserve">
-    <value>German (de)</value>
+    <value>ドイツ語 (de)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Italian" xml:space="preserve">
-    <value>Italian (it)</value>
+    <value>イタリア語 (it)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Japanese" xml:space="preserve">
-    <value>Japanese (jp)</value>
+    <value>日本語 (jp)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Korean" xml:space="preserve">
-    <value>Korean (ko)</value>
+    <value>韓国語 (ko)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Polish" xml:space="preserve">
-    <value>Polish (pl)</value>
+    <value>ポーランド語 (pl)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Portuguese" xml:space="preserve">
-    <value>Portuguese Braz.(pt-BR)</value>
+    <value>ブラジリアンポルトガル語 (pt-BR)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Russian" xml:space="preserve">
-    <value>Russian (ru)</value>
+    <value>ロシア語 (ru)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Spanish" xml:space="preserve">
-    <value>Spanish (es)</value>
+    <value>スペイン語 (es)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Swedish" xml:space="preserve">
-    <value>Swedish (sv)</value>
+    <value>スウェーデン語 (sv)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Turkish" xml:space="preserve">
-    <value>Turkish (tr)</value>
+    <value>トルコ語 (tr)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.RenderMode.Auto" xml:space="preserve">
-    <value>Auto</value>
+    <value>自動</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.RenderMode.CPU" xml:space="preserve">
@@ -4235,49 +4258,49 @@ Never - 起動時にスタートページを表示しません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.SystemChrome.None" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.SystemChrome.Standard" xml:space="preserve">
-    <value>Standard</value>
+    <value>標準</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Title.AirWizard" xml:space="preserve">
-    <value>AIR Application Properties</value>
+    <value>AIR アプリケーションのプロパティ設定</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Title.LocaleManager" xml:space="preserve">
-    <value>Configure AIR Application Installer Locales</value>
+    <value>設定の AIR アプリケーションのインストーラのロケール</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidExtension" xml:space="preserve">
-    <value>The {0} Extension ID is invalid.</value>
+    <value>{0} は無効な拡張 ID です。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidFileType" xml:space="preserve">
-    <value>The {0} File Type has one or more invalid properties.</value>
+    <value>{0} は1つ以上の無効なプロパティを持っています。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidLocale" xml:space="preserve">
-    <value>The value entered for the custom locale is not valid.
-Custom locales must be an extension of a default locale, e.g. en-US.</value>
-    <comment>Added after 3.3.1</comment>
+    <value>"有効でないカスタムロケールが入力されました。
+カスタムロケールはデフォルトロケールの延長でなければなりません。例えば en-US など。"</value>
+    <comment>Added after 3.3.1 機能未検証</comment>
   </data>
   <data name="AirProperties.Validation.InvalidProperty" xml:space="preserve">
-    <value>The {0} property is not valid.</value>
+    <value>{0} は有効なデータではありません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="SourceControl.Description.EnableHG" xml:space="preserve">
-    <value>Enable Mercurial (Hg) integration in FlashDevelop</value>
+    <value>プロジェクトで Mercurial (Hg) 使用を有効にします。</value>
   </data>
   <data name="SourceControl.Description.HGPath" xml:space="preserve">
-    <value>Path to Mercurial command line tool. Example: 'hg' if the tool is already installed in the environment path.</value>
+    <value>Mercurial コマンドラインツールへのパスです。例えば、'hg'。もしツールがすでにインストールされている場合は環境変数に設定されたパスが指定されます。</value>
   </data>
   <data name="SourceControl.Description.TortoiseHGProcPath" xml:space="preserve">
-    <value>Path to TortoiseHG's TortoiseProc tool. Example 'hgtk'.</value>
+    <value>TortoiseHG の TotoiseProc ツールへのパスです。 例えば 'hgtk'。</value>
   </data>
   <data name="FlashDevelop.Description.CustomShortcuts" xml:space="preserve">
-    <value>List of user defined override shortcuts.</value>
+    <value>ユーザーによって上書き設定されたショートカットの一覧です。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="SourceControl.Category.HG" xml:space="preserve">
@@ -4285,114 +4308,114 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AS3Context.Description.AS3FileTypes" xml:space="preserve">
-    <value>File extensions explored in classpath. Defaults to *.as, *.mxml (enter one filetype per line).</value>
+    <value>クラスパス内の AS3 タイプとして有効な拡張子の設定。デフォルトでは *.as と *.mxml。拡張子を一行にひとつづつ入力してください。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Info.CouldNotFormat" xml:space="preserve">
-    <value>Syntax errors encountered. Could not format code.</value>
+    <value>シンタックスエラーが発生しました。コードをフォーマットできません。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Info.Description" xml:space="preserve">
-    <value>Adds an MXML and ActionScript code formatter to FlashDevelop.</value>
+    <value>FlashDevelop に MXML と ActionScript のコードフォーマッターを追加します。</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Label.CodeFormatter" xml:space="preserve">
-    <value>Code &amp;Formatter</value>
+    <value>コードフォーマッター(&amp;F)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.EncodingInput" xml:space="preserve">
-    <value>Encoding:</value>
+    <value>エンコーディング:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.Hash" xml:space="preserve">
-    <value>&amp;Hash...</value>
+    <value>ハッシュ(&amp;H)...</value>
   </data>
   <data name="FlashDevelop.Label.HashInput" xml:space="preserve">
-    <value>Hash:</value>
+    <value>ハッシュ関数:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.InputText" xml:space="preserve">
-    <value>Input:</value>
+    <value>入力:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.OutputText" xml:space="preserve">
-    <value>Output:</value>
+    <value>出力:</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Title.HashDialog" xml:space="preserve">
-    <value>Insert Hash</value>
+    <value>ハッシュの挿入</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="ProjectManager.Label.CleanProject" xml:space="preserve">
-    <value>&amp;Clean Project</value>
+    <value>プロジェクトのクリーニング(&amp;C)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Info.UnableToCleanProject" xml:space="preserve">
-    <value>Unable to delete output file</value>
+    <value>出力ファイルを削除することができません</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.Active" xml:space="preserve">
-    <value>Enables delegation to host system, typically when running FlashDevelop virtualized in a MacOS or Linux host.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>FlashDevelop が MacOS または Linulx 上で仮想化されている場合、ホストシステムへの委譲を有効にします。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="BridgeSettings.Description.AlwaysOpenLocal" xml:space="preserve">
-    <value>List of file extensions which must always be executed by Windows and never by the host system.</value>
+    <value>常に Windows 上で開く拡張子の種類を設定します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.TargetRemoteIDE" xml:space="preserve">
-    <value>Use Flash CS* from the host system if FLA or JSFL is located on the host drive.</value>
+    <value>FLA ファイルまたは JSFL ファイルがホストドライブ上にある場合、ホストシステムの Flash CS* を使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.UseRemoteExplorer" xml:space="preserve">
-    <value>Use file explorer of the host system if path is located on the host shared drive.</value>
+    <value>パスがホスト共有ドライブ上にある場合、ホストシステムのエクスプローラを使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Info.Description" xml:space="preserve">
-    <value>Add virtualization bridge configuration to FlashDevelop.</value>
+    <value>FlashDevelop に仮想化環境におけるブリッジの設定を追加します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Description.ConfirmOnExit" xml:space="preserve">
-    <value>Confirms closing on program exit.</value>
+    <value>プログラムが終了する際に確認をとります。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Info.AreYouSureToExit" xml:space="preserve">
-    <value>Are you sure you want to exit FlashDevelop?</value>
+    <value>本当に FlashDevelop を終了してもよろしいですか？</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Label.MoveLineDown" xml:space="preserve">
-    <value>Move Line Down</value>
+    <value>行を下に移動</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Label.MoveLineUp" xml:space="preserve">
-    <value>Move Line Up</value>
+    <value>行を上に移動</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="FlashDevelop.Description.VirtualSpaceMode" xml:space="preserve">
-    <value>Sets the virtual space mode with rectangular selection.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>矩形選択とバーチャルスペースのモードを設定します。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="FlashDevelop.Category.Locale" xml:space="preserve">
-    <value>Locale</value>
+    <value>Locale | ロケール</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.BridgePort" xml:space="preserve">
-    <value>Bridge socket connection port (default 8009).</value>
+    <value>ブリッジのソケット通信のポート番号です。(通常は 8009)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.CustomBridgeIP" xml:space="preserve">
-    <value>Provide a specific IP to override auto-detection.</value>
+    <value>ブリッジIPの自動検出を無効にし、特定のIPアドレスを指定します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.SharedDrive" xml:space="preserve">
-    <value>Drive shared by host system with guest Windows OS.</value>
+    <value>ゲスト Windows OS で共有するドライブです。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.Manage" xml:space="preserve">
-    <value>&amp;Manage...</value>
+    <value>管理(&amp;M)...</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKGroup" xml:space="preserve">
-    <value>Installed SDK(s)</value>
+    <value>インストールされた SDK</value>
     <comment>Added after 3.2.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKTab" xml:space="preserve">
@@ -4400,369 +4423,436 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Label.UTF7" xml:space="preserve">
-    <value>U&amp;TF-7</value>
+    <value>UTF-7(&amp;T)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesAfterColons" xml:space="preserve">
-    <value>Advanced amount of spaces after colons.</value>
+    <value>コロン「 : 」の後に挿入されるスペースの数です。
+(Use Global Spaces Around Colons が False のとき有効。)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesBeforeColons" xml:space="preserve">
-    <value>Advanced amount of spaces before colons.</value>
+    <value>コロン「 : 」の前に挿入されるスペースの数です。
+(Use Global Spaces Around Colons が False のとき有効。)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayDeclarationBrackets" xml:space="preserve">
-    <value>Advanced amount of spaces inside array declaration brackets.</value>
+    <value>配列の宣言の括弧「 [ ] 」の内側に挿入されるスペースの数です。
+(Use Global Spaces Inside Parens が False のとき有効。) 
+例: 値が3のとき [   a, b, c   ]</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayReferenceBrackets" xml:space="preserve">
-    <value>Advanced amount of spaces inside array reference brackets.</value>
+    <value>配列の参照の括弧「 [ ] 」の内側に挿入されるスペースの数です。
+(Use Global Spaces Inside Parens が False のとき有効。) 
+例: 値が3のとき [   1   ]</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideLiteralBraces" xml:space="preserve">
-    <value>Advanced amount of spaces inside literal braces.</value>
+    <value>リテラルブレース「 { } 」の内側に挿入されるスペースの数です。
+(Use Global Spaces Inside Parens が False のとき有効。)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideParens" xml:space="preserve">
-    <value>Advanced amount of spaces inside parens.</value>
+    <value>丸括弧「 ( ) 」の中に挿入されるスペースの数です。
+(Use Global Spaces Inside Parens が False のとき有効。)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.AlwaysGenerateIndent" xml:space="preserve">
-    <value>Always generate code indent.</value>
+    <value>常にコードインデントを生成します。
+ ( Trueの場合、空白行に前の行と同じ数のインデントが挿入されます。)</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BlankLinesBeforeClasses" xml:space="preserve">
-    <value>Amount of blank lines before classes.</value>
+    <value>クラス定義の前に挿入される空白行の数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BlankLinesBeforeControlStatements" xml:space="preserve">
-    <value>Amount of blank lines before control statements.</value>
+    <value>制御文( if 文、for 文など )の前に挿入される空白行の数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BlankLinesBeforeFunctions" xml:space="preserve">
-    <value>Amount of blank lines before functions.</value>
+    <value>メソッド定義の前に挿入される空白行の数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BlankLinesBeforeProperties" xml:space="preserve">
-    <value>Amount of blank lines before properties.</value>
+    <value>プロパティ宣言の前に挿入される空白行の数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BlankLinesToKeep" xml:space="preserve">
-    <value>Amount of blank lines to keep.</value>
+    <value>空白行を保持する最大数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BraceStyle" xml:space="preserve">
-    <value>Style of the braces.</value>
+    <value>"ブレース「 { 」のスタイルを設定します。( Object 定義のブレースは除く)
+OnLine: ブレースの前に改行を挿入しない。スペースを挿入する。
+AfterLine: ブレースの前に改行を挿入する。"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.BreakLinesBeforeComma" xml:space="preserve">
-    <value>Break the lines before each comma.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>コンマの前に改行を挿入します。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="CodeFormatter.Description.AS.CatchOnNewLine" xml:space="preserve">
-    <value>Place catch on new line.</value>
+    <value>catch ステートメントを独立した行に配置します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.CollapseSpacesForAdjacentParens" xml:space="preserve">
-    <value>Collapse spaces for adjacent parens.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>隣接する括弧のスペースを相殺します。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="CodeFormatter.Description.AS.DontIndentPackageItems" xml:space="preserve">
-    <value>Do not indent package items.</value>
+    <value>パッケージ分のインデントを無効化します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.ElseIfOnSameLine" xml:space="preserve">
-    <value>Place elseif on new line.</value>
+    <value>elseif ステートメントを独立した行に配置します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.ElseOnNewLine" xml:space="preserve">
-    <value>Place else on new line.</value>
+    <value>else ステートメントを独立した行に配置します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.IndentMultilineComments" xml:space="preserve">
-    <value>Indent multiline comments.</value>
+    <value>複数行コメントの中間行にインデントを配置します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.KeepBlankLines" xml:space="preserve">
-    <value>Keep the document's blank lines.</value>
+    <value>ドキュメントの空白行を保持します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.KeepSingleLineCommentsOnColumnOne" xml:space="preserve">
-    <value>Keep single line comments on column one.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>行コメントを1コラムに保持します。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="CodeFormatter.Description.AS.LeaveExtraWhitespaceAroundVarDeclarations" xml:space="preserve">
-    <value>Leave extra whitespace around var declarations.</value>
+    <value>変数宣言の後の空白を保持します。  ( 例: var hoge:String (この部分) = "hoge"; )</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.MaxLineLength" xml:space="preserve">
-    <value>Maximum amount of characters on line.</value>
+    <value>一行の最大文字数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.NewLineAfterBindable" xml:space="preserve">
-    <value>Place new line after bindable.</value>
+    <value>bindable タグの後に改行を挿入します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.OpenBraceOnNewLine" xml:space="preserve">
-    <value>Place open brace on new line.</value>
+    <value>開始ブレースを新しい行に配置します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.PutEmptyStatementsOnNewLine" xml:space="preserve">
-    <value>Place empty statements on new line.</value>
+    <value>空のステートメントを新しい行に配置します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesAfterComma" xml:space="preserve">
-    <value>Amount of spaces after comma.</value>
+    <value>カンマ 「 , 」 の後に挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesAfterLabel" xml:space="preserve">
-    <value>Amount of spaces after label.</value>
+    <value>ラベルの後に挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesAroundAssignment" xml:space="preserve">
-    <value>Amount of spaces around assignments.</value>
+    <value>assignments の前後に挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesAroundColons" xml:space="preserve">
-    <value>Amount of spaces around colons.</value>
+    <value>コロン「 : 」の前後のに挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesAroundEqualsInOptionalParameters" xml:space="preserve">
-    <value>Amount of spaces around equals in optional parameters.</value>
+    <value>オプション引数の定義におけるイコール「 = 」の前後に挿入するスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesAroundSymbolicOperator" xml:space="preserve">
-    <value>Amount of spaces around symbolic operators.</value>
+    <value>記号演算子の前後に挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesBeforeComma" xml:space="preserve">
-    <value>Amount of spaces before comma.</value>
+    <value>コンマの前に挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesBeforeOpenControlParen" xml:space="preserve">
-    <value>Amount of spaces before control paren.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>制御括弧の前の挿入されるスペースの数です。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="CodeFormatter.Description.AS.SpacesInsideParens" xml:space="preserve">
-    <value>Amount of spaces inside parens.</value>
+    <value>括弧「 ( ), [ ], { }  」の内側に挿入されるスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.TrimTrailingWhitespace" xml:space="preserve">
-    <value>Trim trailing whitespace characters.</value>
+    <value>末尾の空白文字を取り除きます。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.UseBraceStyle" xml:space="preserve">
-    <value>Use the BraceStyle setting.</value>
+    <value>Brace Style の設定を使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.UseGlobalSpacesAroundColons" xml:space="preserve">
-    <value>Use the GlobalSpacesAroundColons setting.</value>
+    <value>Global Spaces Around Colons の設定を使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.UseGlobalSpacesInsideParens" xml:space="preserve">
-    <value>Use the GlobalSpacesInsideParens setting.</value>
+    <value>Global SpacesInside Parens の設定を使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.UseSpacesAroundEqualsInOptionalParameters" xml:space="preserve">
-    <value>Use the SpacesAroundEqualsInOptionalParameters setting.</value>
+    <value>Spaces Around Equals In Optional Parameters の設定を使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.UseTabs" xml:space="preserve">
-    <value>Use tabs instead of braces with indenting.</value>
+    <value>インデントにタブを使用します。False の場合、スペースが使用されます。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.WrapArrayDeclarationMode" xml:space="preserve">
-    <value>Mode of the array declaration wrapping.</value>
+    <value>"配列の折り返し処理を指定します。
+None: 折り返しをしない。改行があった場合は1行にまとめる。
+DontProcess: 処理しない。
+ByColumn: 項目の区切りで折り返す。
+ByTag:"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.WrapExpressionMode" xml:space="preserve">
-    <value>Mode of the expression wrapping.</value>
+    <value>"式の折り返し処理を指定します。
+None: 折り返しをしない。改行があった場合は1行にまとめる。
+DontProcess: 処理しない。
+ByColumn: 項目の区切りで折り返す。
+ByTag:"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.WrapIndentStyle" xml:space="preserve">
-    <value>Style of the wrap indent.</value>
+    <value>"折り返しにかかわるインデントの処理を指定します。
+Normal: 折り返し後の行頭にインデントを挿入します。
+WrapElement: インデントを挿入しません。"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.WrapMethodCallMode" xml:space="preserve">
-    <value>Mode of the method call wrapping.</value>
+    <value>"メソッド呼び出しの折り返し処理を指定します。
+None: 折り返しをしない。改行があった場合は1行にまとめる。
+DontProcess: 処理しない。
+ByColumn: 項目の区切りで折り返す。
+ByTag:"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.WrapMethodDeclarationMode" xml:space="preserve">
-    <value>Mode of the method declaration wrapping.</value>
+    <value>"メソッドの宣言の折り返し処理を指定します。
+None:折り返しをしない。改行があった場合は1行にまとめる。
+DontProcess:処理しない。
+ByColumn:項目の区切りで折り返す。
+ByTag:"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.AS.WrapXMLMode" xml:space="preserve">
-    <value>Mode of the xml wrapping.</value>
+    <value>"XMLの折り返し処理を指定します。
+None:折り返しをしない。改行があった場合は1行にまとめる。
+DontProcess:処理しない。
+ByColumn:項目の区切りで折り返す。
+ByTag:タグの区切りで折り返す。"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.AddNewLineAfterLastAttribute" xml:space="preserve">
-    <value>Add new line after last attribute.</value>
+    <value>最後の属性の後に改行を挿入します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.AttributesPerLine" xml:space="preserve">
-    <value>Maximum amount of attributes on line.</value>
+    <value>一行における属性の最大数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.AttributesToKeepOnSameLine" xml:space="preserve">
-    <value>List of attributes to keep on the same line.</value>
-    <comment>Added after 3.3.2</comment>
+    <value>改行せず、同じ行を維持する属性の一覧です。</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.AttributeWrapMode" xml:space="preserve">
-    <value>Mode of the attribute wrapping.</value>
+    <value>"属性の折り返し処理を指定します。
+LineLength: Max Line Length を優先して折り返す。
+CountPerLine: Attributes Per Line を優先して折り返す。
+None: 折り返しをしない。改行があった場合は1行にまとめる。
+Default: "</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.BlankLinesBeforeTags" xml:space="preserve">
-    <value>Amount of blank lines before tags.</value>
+    <value>タグの前に挿入する空白行の数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.KeepBlankLines" xml:space="preserve">
-    <value>Keep the document's blank lines.</value>
+    <value>ドキュメントの空白行を保持します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.MaxLineLength" xml:space="preserve">
-    <value>Maximum amount of characters on line.</value>
+    <value>一行における文字の最大数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.RequireCDATAForAS3Formatting" xml:space="preserve">
-    <value>Require CDATA for AS3 code formatting.</value>
+    <value>AS3 コードのフォーマットに CDATA を必須とします。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.SortAttributeData" xml:space="preserve">
-    <value>Sort the attribute data.</value>
+    <value>属性データの並び替えです。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.SortAttributeMode" xml:space="preserve">
-    <value>Mode of the attribute sorting.</value>
+    <value>"属性のソート処理を指定します。
+None:
+UseData:"</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.SortExtraAttributes" xml:space="preserve">
-    <value>Sort the extra attributes.</value>
+    <value>余分な属性 (MXMLでない属性) の並び替えを有効にします。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.SpacesAroundEquals" xml:space="preserve">
-    <value>Amount of spaces around equals.</value>
+    <value>イコール「 = 」の前後に挿入するスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.SpacesBeforeEmptyTagEnd" xml:space="preserve">
-    <value>Amount of spaces before empty tag's end.</value>
+    <value>空の終了タグの前に挿入するスペースの数です。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.TagsThatCanFormat" xml:space="preserve">
-    <value>List of tags that are formatted.</value>
+    <value>フォーマットを有効にするタグをカンマ区切りで指定します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.TagsThatCannotFormat" xml:space="preserve">
-    <value>List of tags that are not formatted.</value>
+    <value>フォーマットを有効にしないタグをカンマ区切りで指定します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.TagsWithBlankLinesBefore" xml:space="preserve">
-    <value>List of tags that have blank line before it.</value>
+    <value>前に改行を挿入するタグの一覧をカンマ区切りで指定します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.UseAttributesToKeepOnSameLine" xml:space="preserve">
-    <value>Use the AttributesToKeepOnSameLine setting.</value>
+    <value>Attributes To Keep On Same Line の設定を使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.UseTabs" xml:space="preserve">
-    <value>Use tabs instead of braces with indenting.</value>
+    <value>括弧とインデントのかわりにタブを使用します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Description.MXML.WrapIndentStyle" xml:space="preserve">
-    <value>Style of the indent wrapping.</value>
+    <value>インデント折り返しのスタイルです。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKBrowse" xml:space="preserve">
-    <value>Browse...</value>
+    <value>ブラウズ...</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKComboDefault" xml:space="preserve">
-    <value>Default</value>
+    <value>デフォルト</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKComboNoSDK" xml:space="preserve">
-    <value>No SDK configured</value>
+    <value>登録されたSDKはありません</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKExpected" xml:space="preserve">
-    <value>Expected:</value>
-    <comment>Added after 3.3.2</comment>
+    <value>推測:</value>
+    <comment>Added after 3.3.2 未検証</comment>
   </data>
   <data name="ProjectManager.Label.SDKTabCustom" xml:space="preserve">
-    <value>Custom SDK</value>
+    <value>カスタム SDK</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKUseCustom" xml:space="preserve">
-    <value>Relative or absolute path to a specific SDK.</value>
+    <value>絶対パス、または相対パスで個別の SDK を指定します。</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
-    <value>Use a SDK configured globally.</value>
+    <value>登録された SDK を使用</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
-    <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
+    <value>このプロジェクトには有効な SDK が定義されていません。プロジェクト設定の SDK タブを確認してください。</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="ProjectManager.Description.OmitTraces" xml:space="preserve">
-    <value>Remove trace() calls from your code when compiling in release (not debug) mode.</value>
+    <value>リリースビルド時に trace 文を省略します。</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="ProjectManager.Label.DocumentClass" xml:space="preserve">
-    <value>Document &amp;Class</value>
+    <value>ドキュメントクラス(&amp;C)</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.AddSourcePath" xml:space="preserve">
-    <value>Add &amp;Source Path</value>
+    <value>ソースパスに追加(&amp;S)</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="FlashDebugger.Label.ViewImmediatePanel" xml:space="preserve">
-    <value>Immediate Panel</value>
+    <value>イミディエイトパネル</value>
   </data>
   <data name="FlashDebugger.Title.Immediate" xml:space="preserve">
-    <value>Immediate</value>
+    <value>イミディエイト</value>
   </data>
   <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
-    <value>Set Document &amp;Class</value>
+    <value>ドキュメントクラスに設定(&amp;C)</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieCustom" xml:space="preserve">
-    <value>Run Custom Command...</value>
+    <value>コマンドを実行...</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieDefault" xml:space="preserve">
-    <value>Play: FlashViewer Default</value>
+    <value>再生: Flash ビューアの設定による</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieExternalPlayer" xml:space="preserve">
-    <value>Play: External Player</value>
+    <value>再生: 外部プレーヤ</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieNewTab" xml:space="preserve">
-    <value>Play: Open in new Tab</value>
+    <value>再生: 新しいタブで開く</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieNewWindow" xml:space="preserve">
-    <value>Play: Open in Popup</value>
+    <value>再生: ポップアップで開く</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieOpenDocument" xml:space="preserve">
-    <value>Open Document...</value>
+    <value>ドキュメントを開く...</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Category.Paths" xml:space="preserve">
-    <value>Paths</value>
+    <value>Paths | パス</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Description.CustomSnippetDir" xml:space="preserve">
-    <value>Path to the custom snippets directory.</value>
+    <value>スニペットを設置するディレクトリを変更します。</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
-    <value>Path to the custom templates directory.</value>
+    <value>ファイルテンプレートを設置するディレクトリを変更します。</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Description.CustomProjectsDir" xml:space="preserve">
-    <value>Path to the custom project templates directory.</value>
+    <value>プロジェクトテンプレートを設置するディレクトリを変更します。</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Info.NoAssociatedIDE" xml:space="preserve">
+    <value>このターゲットは関連付けられた外部 IDE を持っていません。</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Info.OutputType" xml:space="preserve">
+    <value>コンパイルターゲット(&amp;T):</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeApplication" xml:space="preserve">
+    <value>アプリケーション</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeCustomBuild" xml:space="preserve">
+    <value>カスタムビルド</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeLibrary" xml:space="preserve">
+    <value>ライブラリー</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeOtherIDE" xml:space="preserve">
+    <value>他の IDE</value>
+    <comment>Added after 3.3.4 未検証</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeWebsite" xml:space="preserve">
+    <value>ウェブサイト</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>
