@@ -152,7 +152,7 @@ namespace AS3Context
 
             char S = Path.DirectorySeparatorChar;
             if (compiler == null) 
-                compiler = S + "flexsdk";
+                compiler = Path.Combine(PathHelper.ToolDir, "flexlibs");
             string frameworks = compiler + S + "frameworks";
             string sdkLibs = frameworks + S + "libs";
             string sdkLocales = frameworks + S + "locale" + S + PluginBase.MainForm.Settings.LocaleVersion;
@@ -163,7 +163,7 @@ namespace AS3Context
 
             if (!Directory.Exists(sdkLibs) && !sdkLibs.StartsWith("$")) // fallback
             {
-                sdkLibs = PathHelper.ResolvePath(PathHelper.ToolDir + S + "flexlibs" + S + "framework" + S + "player" + S + "libs");
+                sdkLibs = PathHelper.ResolvePath(PathHelper.ToolDir + S + "flexlibs" + S + "frameworks" + S + "libs" + S + "player");
             }
 
             if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
@@ -187,7 +187,7 @@ namespace AS3Context
                         if (playerglobal != null)
                         {
                             // add missing SWC in new SDKs
-                            if (!swcPresent && Directory.Exists(compiler))
+                            if (!swcPresent && Directory.Exists(compiler) && !compiler.EndsWith(S + "flexlibs"))
                             {
                                 string swcDir = sdkLibs + S + "player" + S;
                                 if (minorVersion > 0 || (!Directory.Exists(sdkLibs + "9") && !Directory.Exists(sdkLibs + "10")))
