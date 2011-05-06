@@ -28,7 +28,7 @@ signals:
 
 private slots:
     void command(QString cmd, QString value);
-    void threadFinished();
+    void threadDisconnected();
 };
 
 #endif

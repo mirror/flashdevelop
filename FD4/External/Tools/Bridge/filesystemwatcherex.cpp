@@ -28,7 +28,7 @@ void FileSystemWatcherEx::setPath(QString path, bool includeSubdirectories)
 
     if (dir.exists())
     {
-        //qDebug() << "Watching:" << path;
+        qDebug() << "Watching:" << path;
         basePath = path;
         includeSubs = includeSubdirectories;
         fsw = new QFileSystemWatcher(this);
@@ -46,7 +46,7 @@ void FileSystemWatcherEx::setFile(QString path)
 
     if (file.exists())
     {
-        //qDebug() << "Watching:" << path;
+        qDebug() << "Watching:" << path;
         basePath = file.dir().absolutePath();
         watchedFile = new WatchedFile(file);
         fsw = new QFileSystemWatcher(this);
@@ -80,6 +80,8 @@ void FileSystemWatcherEx::fileChanged(QString path)
 {
     if (!watchedFile->file.startsWith(path))
         return;
+    qDebug() << "Changed:" << path;
+
     QFileInfo info(watchedFile->file);
     if (info.exists())
     {
@@ -101,6 +103,8 @@ void FileSystemWatcherEx::fileChanged(QString path)
 
 void FileSystemWatcherEx::directoryChanged(QString path)
 {
+    qDebug() << "Changed:" << path;
+
     QDir dir(path);
     if (dir.exists()) // content changed
     {

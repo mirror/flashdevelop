@@ -5,7 +5,7 @@
 
 #define EOL "*"
 
-BridgeThread::BridgeThread(int descriptor, QObject *parent) : QThread(parent)
+BridgeThread::BridgeThread(int descriptor, QObject *parent) : QObject(parent)
 {
     socketDescriptor = descriptor;
     handler = 0;
@@ -25,10 +25,8 @@ BridgeThread::BridgeThread(int descriptor, QObject *parent) : QThread(parent)
     connect(&timer, SIGNAL(timeout()), this, SLOT(timer_elapsed()));
 }
 
-void BridgeThread::run()
+BridgeThread::~BridgeThread()
 {
-    exec(); // loop
-
     disconnect(&timer, SIGNAL(timeout()), this, SLOT(timer_elapsed()));
     disconnect(client, SIGNAL(disconnected()), this, SLOT(client_disconnected()));
     disconnect(client, SIGNAL(readyRead()), this, SLOT(client_readyRead()));
@@ -54,19 +52,20 @@ void BridgeThread::timer_elapsed()
 void BridgeThread::client_readyRead()
 {
     QString msg(client->readLine().trimmed());
-    //qDebug() << "in:" << msg;
     int colon = msg.indexOf(':');
     if (colon > 0)
     {
+        qDebug() << "Received:" << msg;
         QString cmd = msg.mid(0, colon);
         emit command(cmd, msg.mid(colon + 1));
-        if (cmd == "close" || cmd == "unwatch") exit();
+        if (cmd == "close" || cmd == "unwatch") client_disconnected();
     }
 }
 
 void BridgeThread::client_disconnected()
 {
-    exit();
+    qDebug() << "Socket disconnected";
+    emit disconnected();
 }
 
 void BridgeThread::sendMessage(QString message)
@@ -91,7 +90,7 @@ BridgeHandler::~BridgeHandler()
 {
     if (fsw != 0)
     {
-        qDebug() << "dispose handler";
+        qDebug() << "disposed watcher " << fsw->path();
         delete fsw;
     }
 }
@@ -123,7 +122,7 @@ void BridgeHandler::watchPath(QString param)
     }
 
     watchedPath = localPath;
-    qDebug() << "watch" << watchedPath << filter;
+    //qDebug() << "watch" << watchedPath << filter;
 
     fsw = new FileSystemWatcherEx(this);
     connect(fsw, SIGNAL(fileSystemChanged(QString)), this, SLOT(localChanged(QString)));
@@ -168,7 +167,7 @@ QString BridgeHandler::getLocalPath(QString path)
     {
         special = QDir(local).dirName();
         isSpecial = true;
-        qDebug() << "special:" << special;
+        qDebug() << "Special:" << special;
     }
     return local;
 }
@@ -193,6 +192,7 @@ void BridgeHandler::localChanged(QString path)
 {
     if (isSpecial) // copy in shared space
     {
+        qDebug() << "Copy shared:" << path;
         QDir dir(path);
         dir.setNameFilters(filter);
         QStringList files(dir.entryList());
@@ -209,7 +209,7 @@ void BridgeHandler::localChanged(QString path)
     path = getRemotePath(path);
     if (path.length() > 0)
     {
-        //qDebug() << "changed" << path;
+        qDebug() << "Local changed:" << path;
         emit notifyChanged(path);
     }
 }

@@ -17,8 +17,12 @@ BridgeServer::BridgeServer(QObject *parent)
     QSettings settings;
     settings.beginGroup("server");
 
+    qDebug() << "Connecting:" << settings.value("host").toString() << settings.value("port").toInt();
+
     QHostAddress host(settings.value("host").toString());
     listen(host, settings.value("port").toInt());
+
+    qDebug() << (isListening() ? "Success" : "Failure");
 }
 
 void BridgeServer::notifyStatus()
@@ -29,9 +33,8 @@ void BridgeServer::notifyStatus()
 void BridgeServer::incomingConnection(int socketDescriptor)
 {
     BridgeThread *thread = new BridgeThread(socketDescriptor, 0);
-    connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));
+    connect(thread, SIGNAL(disconnected()), this, SLOT(threadDisconnected()));
     connect(thread, SIGNAL(command(QString,QString)), this, SLOT(command(QString,QString)));
-    thread->start();
     runningThreads++;
     notifyStatus();
 }
@@ -62,12 +65,12 @@ void BridgeServer::openDocument(QString path)
 {
     BridgeHandler handler;
     QString localPath = handler.getLocalPath(path.replace('\\', '/'));
-    qDebug() << "open" << localPath;
+    qDebug() << "Open:" << localPath;
 
     QFile file(localPath);
     if (file.exists())
         QDesktopServices::openUrl(QUrl::fromLocalFile(localPath));
-    else qDebug() << "File not found" << path;
+    else qDebug() << "File not found:" << path;
 }
 
 BridgeHandler* BridgeServer::createWatchHandler(QString path)
@@ -84,7 +87,7 @@ BridgeHandler* BridgeServer::createWatchHandler(QString path)
     return handler;
 }
 
-void BridgeServer::threadFinished()
+void BridgeServer::threadDisconnected()
 {
     BridgeThread *thread = (BridgeThread*)sender();
     //qDebug() << "disconnected" << thread;

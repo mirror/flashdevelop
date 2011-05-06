@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QSettings>
 #include <QSystemTrayIcon>
+#include "simplelog.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -9,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QString logPath = QDir::homePath() + "/.fdbridge_log";
+    logfile.open(logPath.toAscii().data());
+    qInstallMsgHandler(SimpleLogHandler);
+
     ui->setupUi(this);
 
     setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
@@ -104,7 +109,7 @@ void MainWindow::initStatusBar()
 
 void MainWindow::bridgeStatus(int threads, int watchers)
 {
-    QString msg = QString("Running: %1 threads, %2 watchers").arg(threads).arg(watchers);
+    QString msg = QString("Running: %1 socket(s), %2 watcher(s)").arg(threads).arg(watchers);
     statusLabel->setText(msg);
 }
 

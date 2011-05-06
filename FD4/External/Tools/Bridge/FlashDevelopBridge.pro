@@ -20,7 +20,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     filesystemwatcherex.h \
     bridgeserver.h \
-    bridgethread.h
+    bridgethread.h \
+    simplelog.h
 
 FORMS    += mainwindow.ui
 

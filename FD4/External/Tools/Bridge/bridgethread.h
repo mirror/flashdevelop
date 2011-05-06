@@ -44,7 +44,7 @@ private slots:
 };
 
 
-class BridgeThread : public QThread
+class BridgeThread : public QObject
 {
     Q_OBJECT
 
@@ -56,9 +56,11 @@ class BridgeThread : public QThread
 
 public:
     BridgeThread(int descriptor, QObject *parent);
+    ~BridgeThread();
     BridgeHandler *handler;
 
 signals:
+    void disconnected();
     void command(QString name, QString param);
 
 public slots:
