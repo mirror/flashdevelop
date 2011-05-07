@@ -10,6 +10,7 @@ using System.Xml;
 using ASCompletion.Context;
 using System.Globalization;
 
+
 namespace AS3Context
 {
     #region ABC model builder
@@ -18,9 +19,8 @@ namespace AS3Context
     {
         static public Regex reSafeChars = new Regex("[*\\:" + Regex.Escape(new String(Path.GetInvalidPathChars())) + "]", RegexOptions.Compiled);
         static private Regex reDocFile = new Regex("[/\\\\]([-_.$a-z0-9]+)\\.xml", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        
-        static public Dictionary<string, Dictionary<string, DocItem>> Docs 
-            = new Dictionary<string, Dictionary<string, DocItem>>();
+
+        static public Dictionary<string, Dictionary<string, DocItem>> Docs = new Dictionary<string, Dictionary<string, DocItem>>();
 
         private static Dictionary<string, FileModel> genericTypes;
         private static Dictionary<string, string> imports;
@@ -40,29 +40,29 @@ namespace AS3Context
             }
 
             if (parser.Docs.Count > 0)
-            foreach (string docFile in parser.Docs.Keys)
-            {
-                if (docFile.EndsWith(".dita.xml"))
-                    continue;
-                try
+                foreach (string docFile in parser.Docs.Keys)
                 {
-                    Match m = reDocFile.Match(docFile);
-                    if (!m.Success) continue;
-                    string package = m.Groups[1].Value;
-                    Dictionary<string, DocItem> packageDocs = Docs.ContainsKey(package)
-                        ? Docs[package]
-                        : new Dictionary<string, DocItem>();
+                    if (docFile.EndsWith(".dita.xml"))
+                        continue;
+                    try
+                    {
+                        Match m = reDocFile.Match(docFile);
+                        if (!m.Success) continue;
+                        string package = m.Groups[1].Value;
+                        Dictionary<string, DocItem> packageDocs = Docs.ContainsKey(package)
+                            ? Docs[package]
+                            : new Dictionary<string, DocItem>();
 
-                    byte[] rawDoc = parser.Docs[docFile];
-                    DocsReader dr = new DocsReader(rawDoc);
-                    dr.Parse(packageDocs);
+                        byte[] rawDoc = parser.Docs[docFile];
+                        DocsReader dr = new DocsReader(rawDoc);
+                        dr.Parse(packageDocs);
 
-                    Docs[package] = packageDocs;
+                        Docs[package] = packageDocs;
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
-                catch (Exception)
-                {
-                }
-            }
         }
 
         /// <summary>
@@ -120,8 +120,8 @@ namespace AS3Context
                         if (thisDocs.ContainsKey(docPath))
                         {
                             DocItem doc = thisDocs[docPath];
-                            type.Comments = doc.LongDesc;
-                            model.MetaDatas = doc.Meta;
+                            setDoc(doc, type);
+                            if (doc.Meta != null) model.MetaDatas = doc.Meta;
                         }
                         if (model.Package.Length == 0) docPath = type.Name;
                     }
@@ -200,7 +200,7 @@ namespace AS3Context
                     }
 
                     // constructor
-                    if (instance.init != null && type.Flags != FlagType.Interface)
+                    if (instance.init != null && (type.Flags & FlagType.Interface) == 0)
                     {
                         List<MemberInfo> temp = new List<MemberInfo>(new MemberInfo[] { instance.init });
                         MemberList result = GetMembers(temp, 0, instance.name);
@@ -233,14 +233,14 @@ namespace AS3Context
                 }
 
                 // packages
-                if (abc.scripts == null) 
+                if (abc.scripts == null)
                     continue;
                 foreach (Traits trait in abc.scripts)
                 {
                     FileModel model = null;
                     foreach (MemberInfo info in trait.members)
                     {
-                        if (info.kind == TraitMember.Class) 
+                        if (info.kind == TraitMember.Class)
                             continue;
 
                         MemberModel member = GetMember(info, 0);
@@ -249,12 +249,12 @@ namespace AS3Context
                         if (model == null || model.Package != info.name.uri)
                         {
                             AddImports(model, imports);
-                            
+
                             string package = info.name.uri ?? "";
                             string filename = package.Length > 0 ? "package.as" : "toplevel.as";
                             filename = Path.Combine(package.Replace('.', Path.DirectorySeparatorChar), filename);
                             filename = Path.Combine(path.Path, filename);
-                            if (path.HasFile(filename)) 
+                            if (path.HasFile(filename))
                                 model = path.GetFile(filename);
                             else
                             {
@@ -271,7 +271,7 @@ namespace AS3Context
                         thisDocs = GetDocs(model.Package);
                         if (thisDocs != null)
                         {
-                            docPath = "globalOperation:" + (model.Package.Length > 0 ? model.Package + ":" : "") 
+                            docPath = "globalOperation:" + (model.Package.Length > 0 ? model.Package + ":" : "")
                                 + member.Name;
                             if (member.Access == Visibility.Public && !String.IsNullOrEmpty(member.Namespace)
                                 && member.Namespace != "public")
@@ -279,11 +279,7 @@ namespace AS3Context
                             if ((member.Flags & FlagType.Setter) > 0) docPath += ":set";
                             else if ((member.Flags & FlagType.Getter) > 0) docPath += ":get";
 
-                            if (thisDocs.ContainsKey(docPath))
-                            {
-                                DocItem doc = thisDocs[docPath];
-                                member.Comments = doc.LongDesc;
-                            }
+                            if (thisDocs.ContainsKey(docPath)) setDoc(thisDocs[docPath], member);
                         }
 
                         member.InFile = model;
@@ -299,6 +295,28 @@ namespace AS3Context
 
             // some SWCs need manual fixes
             CustomFixes(path);
+
+            // fake SWC (like 'playerglobal_rb.swc', only provides documentation)
+            if (path.Files.Count == 1)
+            {
+                foreach (FileModel model in path.Files.Values)
+                    if (model.GetPublicClass().QualifiedName == "Empty")
+                    {
+                        path.Files.Clear();
+                        break;
+                    }
+            }
+        }
+
+        private static void setDoc(DocItem doc, MemberModel decl)
+        {
+            decl.Comments = doc.LongDesc;
+            if (doc.Value != null) decl.Value = doc.Value;
+
+            if (!String.IsNullOrEmpty(doc.ApiType) && doc.ApiType.EndsWith("*/"))
+            {
+                // TODO  Extract features in comments
+            }
         }
 
         private static void CustomFixes(PathModel path)
@@ -310,7 +328,7 @@ namespace AS3Context
                 if (path.HasFile(mathPath))
                 {
                     ClassModel mathModel = path.GetFile(mathPath).GetPublicClass();
-                    foreach(MemberModel member in mathModel.Members)
+                    foreach (MemberModel member in mathModel.Members)
                     {
                         if (member.Parameters != null && member.Parameters.Count > 0 && member.Parameters[0].Name == "x")
                         {
@@ -324,6 +342,16 @@ namespace AS3Context
                             else if (n == "sin" || n == "cos" || n == "tan") member.Parameters[0].Name = "angleRadians";
                             else member.Parameters[0].Name = "val";
                         }
+                    }
+                }
+                string objPath = Path.Combine(path.Path, "Object").ToUpper();
+                if (path.HasFile(objPath))
+                {
+                    ClassModel objModel = path.GetFile(objPath).GetPublicClass();
+                    if (objModel.Members.Search("prototype", 0, 0) == null)
+                    {
+                        MemberModel proto = new MemberModel("prototype", "Object", FlagType.Dynamic | FlagType.Variable, Visibility.Public);
+                        objModel.Members.Add(proto);
                     }
                 }
             }
@@ -358,7 +386,7 @@ namespace AS3Context
             {
                 MemberModel member = GetMember(info, baseFlags);
                 if (member == null) continue;
-                
+
                 string uri = info.name.uri ?? "";
                 if (uri.Length > 0)
                 {
@@ -397,7 +425,7 @@ namespace AS3Context
                         member.Namespace = "internal";
                     }
                 }
-                
+
                 if (thisDocs != null) GetMemberDoc(member);
 
                 list.Add(member);
@@ -472,12 +500,8 @@ namespace AS3Context
             dPath += member.Name;
             if ((member.Flags & FlagType.Getter) > 0) dPath += ":get";
             else if ((member.Flags & FlagType.Setter) > 0) dPath += ":set";
-            if (thisDocs.ContainsKey(dPath))
-            {
-                DocItem doc = thisDocs[dPath];
-                member.Comments = doc.LongDesc;
-                if (doc.Value != null) member.Value = doc.Value;
-            }
+
+            if (thisDocs.ContainsKey(dPath)) setDoc(thisDocs[dPath], member);
         }
 
         private static string ImportType(QName type)
@@ -549,6 +573,18 @@ namespace AS3Context
             DocItem doc = new DocItem();
             string id = GetAttribute("id");
 
+            if (id != null)
+            {
+                // type doubled in doc: "flash.utils:IDataOutput:flash.utils:IDataOutput:writeDouble"
+                int colon = id.IndexOf(':') + 1;
+                if (colon > 0)
+                {
+                    int dup = id.IndexOf(id.Substring(0, colon), colon);
+                    if (dup > 0) id = id.Substring(dup);
+                }
+                doc.ApiType = id;
+            }
+
             string eon = Name;
             ReadStartElement();
             while (Name != eon)
@@ -559,24 +595,34 @@ namespace AS3Context
 
             if (id != null)
             {
-                if (doc.LongDesc == null) doc.LongDesc = "";
-                if (doc.ShortDesc == null) doc.ShortDesc = doc.LongDesc;
-                else doc.LongDesc = doc.LongDesc.Trim();
+                if (doc.LongDesc == null)
+                    doc.LongDesc = "";
+
+                if (doc.ShortDesc == null)
+                    doc.ShortDesc = doc.LongDesc;
+                else
+                    doc.LongDesc = doc.LongDesc.Trim();
+
+                if (doc.LongDesc.Length == 0 && doc.ShortDesc.Length > 0)
+                    doc.LongDesc = doc.ShortDesc;
 
                 if (doc.Params != null)
                     foreach (string name in doc.Params.Keys)
-                        doc.LongDesc += "\n\t @param\t" + name + "\t" + doc.Params[name];
-                if (doc.Returns != null)
-                    doc.LongDesc += "\n\t @returns\t" + doc.Returns;
+                        doc.LongDesc += "\n@param\t" + name + "\t" + doc.Params[name].Trim();
 
-                if (doc.ShortDesc != "" || doc.LongDesc != "")
+                if (doc.Returns != null)
+                    doc.LongDesc += "\n@return\t" + doc.Returns.Trim();
+
+                if (doc.ShortDesc.Length > 0 || doc.LongDesc.Length > 0)
                     docs[id] = doc;
             }
         }
 
         private void ProcessDeclarationNodes(DocItem doc)
         {
-            if (NodeType != XmlNodeType.Element) return;
+            if (NodeType != XmlNodeType.Element)
+                return;
+
             switch (Name)
             {
                 case "shortdesc": doc.ShortDesc = ReadValue(); break;
@@ -595,13 +641,16 @@ namespace AS3Context
                 case "apiReturn": ReadReturnsDesc(doc); break;
                 case "apiInheritDoc": break; // TODO link inherited doc?
 
-                case "apiConstructorDetail":
+                //case "apiConstructorDetail":
+                //case "apiOperationDetail":
                 case "apiClassifierDetail":
-                case "apiOperationDetail":
                 case "apiDetail":
                 case "related-links": SkipContents(); break;
 
                 case "prolog": SkipContents(); break; // TODO parse metadata
+
+                case "apiType": ReadApiType(doc); break;
+                case "apiOperationClassifier": ReadApiType_apiOperationClassifier(doc); break;
             }
         }
 
@@ -615,6 +664,16 @@ namespace AS3Context
                 Read();
         }
 
+        private void ReadApiType(DocItem doc)
+        {
+            doc.ApiType = GetAttribute("value");
+        }
+
+        private void ReadApiType_apiOperationClassifier(DocItem doc)
+        {
+            doc.ApiType = ReadValue();
+        }
+
         private void ReadReturnsDesc(DocItem doc)
         {
             if (IsEmptyElement) return;
@@ -625,6 +684,11 @@ namespace AS3Context
             {
                 if (Name == "apiDesc")
                     doc.Returns = ReadValue();
+                if (Name == "apiType")
+                    ReadApiType(doc);
+                if (Name == "apiOperationClassifier")
+                    ReadApiType_apiOperationClassifier(doc);
+
                 Read();
             }
         }
@@ -641,17 +705,17 @@ namespace AS3Context
             while (Name != eon)
             {
                 if (NodeType == XmlNodeType.Element)
-                switch (Name)
-                {
-                    case "apiItemName": name = ReadValue(); break;
-                    case "apiDesc": desc = ReadValue(); break;
-                }
+                    switch (Name)
+                    {
+                        case "apiItemName": name = ReadValue(); break;
+                        case "apiDesc": desc = ReadValue(); break;
+                    }
                 Read();
             }
 
-            if (name != null && desc != null) 
+            if (name != null && desc != null)
             {
-                if (doc.Params == null) doc.Params = new Dictionary<string,string>();
+                if (doc.Params == null) doc.Params = new Dictionary<string, string>();
                 doc.Params[name] = desc;
             }
         }
@@ -676,7 +740,7 @@ namespace AS3Context
         private void ReadStyleMeta(DocItem doc)
         {
             if (IsEmptyElement || !HasAttributes) return;
-            
+
             ASMetaData meta = new ASMetaData("Style");
             meta.Kind = ASMetaKind.Style;
             meta.Comments = "";
@@ -702,7 +766,7 @@ namespace AS3Context
             }
 
             if (doc.Meta == null) doc.Meta = new List<ASMetaData>();
-            if (sDefault != null) meta.Comments = meta.Comments.Trim() + "\n\t @default\t" + sDefault;
+            if (sDefault != null) meta.Comments = meta.Comments.Trim() + "\n@default\t" + sDefault;
             meta.Params = new Dictionary<string, string>();
             meta.Params["name"] = sName;
             meta.Params["type"] = sType;
@@ -725,20 +789,20 @@ namespace AS3Context
             string eName = null;
             string eType = null;
             string eFullType = null;
-            
+
             string eon = Name;
             ReadStartElement();
             while (Name != eon)
             {
                 if (NodeType == XmlNodeType.Element)
-                switch (Name)
-                {
-                    case "shortdesc": meta.Comments = ReadValue() ?? ""; break;
-                    case "apiDesc": if (meta.Comments == "") meta.Comments = ReadValue() ?? ""; break;
-                    case "apiName": eName = ReadValue(); break;
-                    case "adobeApiEventClassifier": eType = ReadValue().Replace(':', '.'); break;
-                    case "apiEventType": eFullType = ReadValue(); break;
-                }
+                    switch (Name)
+                    {
+                        case "shortdesc": meta.Comments = ReadValue() ?? ""; break;
+                        case "apiDesc": if (meta.Comments == "") meta.Comments = ReadValue() ?? ""; break;
+                        case "apiName": eName = ReadValue(); break;
+                        case "adobeApiEventClassifier": eType = ReadValue().Replace(':', '.'); break;
+                        case "apiEventType": eFullType = ReadValue(); break;
+                    }
                 Read();
             }
 
@@ -747,7 +811,7 @@ namespace AS3Context
             meta.Params["name"] = eName;
             meta.Params["type"] = eType;
             if (eFullType != null)
-                meta.Comments = meta.Comments.Trim() + "\n\t @eventType\t" + eFullType.Replace(':', '.');
+                meta.Comments = meta.Comments.Trim() + "\n@eventType\t" + eFullType.Replace(':', '.');
             meta.RawParams = String.Format("name=\"{0}\", type=\"{1}\"", eName, eType);
             doc.Meta.Add(meta);
         }
@@ -767,19 +831,12 @@ namespace AS3Context
             ReadStartElement();
             while (Name != eon)
             {
-                if (NodeType == XmlNodeType.Element)
+                switch (NodeType)
                 {
-                    ReadStartElement();
-                    //if (!sEmptyElement) desc += "<" + Name + "/>";
-                    //else desc += "<" + Name + ">";
+                    case XmlNodeType.Element: ReadStartElement(); break;
+                    case XmlNodeType.EndElement: ReadEndElement(); break;
+                    case XmlNodeType.Text: desc += ReadString(); break;
                 }
-                else if (NodeType == XmlNodeType.EndElement)
-                {
-                    //desc += "</" + Name + ">";
-                    ReadEndElement();
-                }
-                else if (NodeType == XmlNodeType.Text)
-                    desc += ReadString();
             }
             return desc;
         }
@@ -793,6 +850,7 @@ namespace AS3Context
         public Dictionary<string, string> Params;
         public string Returns;
         public string Value;
+        public string ApiType;
     }
 
     #endregion
