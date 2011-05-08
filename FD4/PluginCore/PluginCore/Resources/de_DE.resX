@@ -2034,7 +2034,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Compiler-Konfiguration wird benötigt</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
-    <value>Geben Sie einen eigenen SWF-Datei-Testen Befehlt</value>
+    <value>Benutzerdefinierten SWF-Test-Befehl eingeben</value>
   </data>
   <data name="ProjectManager.Title.EnterText" xml:space="preserve">
     <value>Texte eingeben</value>
@@ -2360,7 +2360,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Dokument:</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieDocument" xml:space="preserve">
-    <value>Wählen Sie das Dokument welches bei SWF-Datei testen geöffnet wird</value>
+    <value>Zu öffendes Dokument auswählen</value>
   </data>
   <data name="FlashDevelop.Info.NotEnoughArguments" xml:space="preserve">
     <value>Nicht genügend Argumente um einen Prozess auszuführen:</value>
@@ -4693,11 +4693,11 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKTabCustom" xml:space="preserve">
-    <value>Eigenes SDK</value>
+    <value>Benutzerdefiniertes SDK</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKUseCustom" xml:space="preserve">
-    <value>Relativer order absoluter Pfad zu einem speziellen SDK.</value>
+    <value>Relativer oder absoluter Pfad zu einem benutzerdefinierten SDK.</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
@@ -4705,19 +4705,19 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
-    <value>This project doesn't have a valid SDK defined. Please check the SDK tab in the Project Properties.</value>
+    <value>Dieses Projekt hat kein gültiges SDK konfiguriert. Bitte überprüfen Sie den SDK-Tab in den Projekteinstellungen.</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="ProjectManager.Description.OmitTraces" xml:space="preserve">
-    <value>Remove trace() calls from your code when compiling in release (not debug) mode.</value>
+    <value>Entfernt trace()-Aufrufe aus dem Code in der Release-Konfiguration.</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="ProjectManager.Label.DocumentClass" xml:space="preserve">
-    <value>Document &amp;Class</value>
+    <value>Dokument&amp;klasse</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.AddSourcePath" xml:space="preserve">
-    <value>Add &amp;Source Path</value>
+    <value>Klassenpfad &amp;hinzufügen</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="FlashDebugger.Label.ViewImmediatePanel" xml:space="preserve">
@@ -4727,47 +4727,75 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Immediate</value>
   </data>
   <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
-    <value>Set Document &amp;Class</value>
+    <value>Dokument&amp;klasse festlegen</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Info.NoAssociatedIDE" xml:space="preserve">
+    <value>Dieses Ausgabeziel hat keine externe IDE zugewiesen.</value>
+    <comment>added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Info.OutputType" xml:space="preserve">
+    <value>Ausgabe&amp;ziel:</value>
+    <comment>added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Label.OutputTypeApplication" xml:space="preserve">
+    <value>Anwendung</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Label.OutputTypeCustomBuild" xml:space="preserve">
+    <value>Benutzerdefiniertes Erstellen</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Label.OutputTypeLibrary" xml:space="preserve">
+    <value>Bibliothek</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Label.OutputTypeOtherIDE" xml:space="preserve">
+    <value>Andere IDE</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+	<data name="ProjectManager.Label.OutputTypeWebsite" xml:space="preserve">
+    <value>Webseite</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieCustom" xml:space="preserve">
-    <value>Run Custom Command...</value>
+    <value>Benutzerdefinierten Befehl ausführen...</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieDefault" xml:space="preserve">
-    <value>Play: FlashViewer Default</value>
+    <value>FlashViewer Standard</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieExternalPlayer" xml:space="preserve">
-    <value>Play: External Player</value>
+    <value>Standalone-Player</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieNewTab" xml:space="preserve">
-    <value>Play: Open in new Tab</value>
+    <value>In neuem Tab öffnen</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieNewWindow" xml:space="preserve">
-    <value>Play: Open in Popup</value>
+    <value>In Popup öffnen</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieOpenDocument" xml:space="preserve">
-    <value>Open Document...</value>
+    <value>Dokument öffnen...</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Category.Paths" xml:space="preserve">
-    <value>Paths</value>
+    <value>Pfade</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Description.CustomSnippetDir" xml:space="preserve">
-    <value>Path to the custom snippets directory.</value>
+    <value>Pfad zum benutzerdefinierten Snippet-Verzeichnis.</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
-    <value>Path to the custom templates directory.</value>
+    <value>Pfad zum benutzerdefinierten Vorlagenverzeichnis.</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Description.CustomProjectsDir" xml:space="preserve">
-    <value>Path to the custom project templates directory.</value>
+    <value>Pfad zum benutzerdefinierten Projektvorlagenverzeichnis.</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>
