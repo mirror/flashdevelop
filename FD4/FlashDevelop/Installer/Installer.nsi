@@ -12,10 +12,10 @@
 !define BUILD "Alpha"
 
 ; Define AIR SDK version
-!define AIR "2.5.x"
+!define AIR "2.6.0"
 
 ; Define Flex SDK version
-!define FLEX "4.1.0.16076"
+!define FLEX "4.5.0.20967"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -335,14 +335,15 @@ Section "Install Flex SDK" InstallFlexSDK
 	
 	; Download Flex SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\flex_sdk_${FLEX}.zip" +6 0
-	NSISdl::download http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
+	NSISdl::download http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +3
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
 	; Extract the Flex SDK zip
-	IfFileExists "${SDKPATH}\*.*" +2
+	IfFileExists "${SDKPATH}\*.*" +3
+	RMDir /r "${SDKPATH}"
 	CreateDirectory "${SDKPATH}"
 	DetailPrint "Extracting Flex SDK..."
 	nsisunz::Unzip "$TEMP\flex_sdk_${FLEX}.zip" "${SDKPATH}"
@@ -376,14 +377,15 @@ Section "Install AIR SDK" InstallAirSDK
 	
 	; Download Air SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +6 0
-	NSISdl::download http://airdownload.adobe.com/air/win/download/latest/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
+	NSISdl::download http://airdownload.adobe.com/air/win/download/2.6/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +3
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
 	; Extract the AIR SDK zip
-	IfFileExists "${SDKPATH}\*.*" +2
+	IfFileExists "${SDKPATH}\*.*" +3
+	RMDir /r "${SDKPATH}"
 	CreateDirectory "${SDKPATH}"
 	DetailPrint "Extracting AIR SDK..."
 	nsisunz::Unzip "$TEMP\air_sdk_${AIR}.zip" "${SDKPATH}"
