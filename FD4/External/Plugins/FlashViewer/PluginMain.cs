@@ -180,7 +180,7 @@ namespace FlashViewer
                 else if (File.Exists(playerPath10)) this.settingObject.PlayerPath = playerPath10;
             }
             // After detection, if the path is incorrect clear it
-            if (!File.Exists(this.settingObject.PlayerPath))
+            if (this.settingObject.PlayerPath == null || !File.Exists(this.settingObject.PlayerPath))
             {
                 this.settingObject.PlayerPath = String.Empty;
             }
