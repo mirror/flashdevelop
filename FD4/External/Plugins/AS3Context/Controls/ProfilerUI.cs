@@ -317,10 +317,7 @@ namespace AS3Context.Controls
         {
             try
             {
-                string home = Environment.GetEnvironmentVariable("USERPROFILE");
-                if (!Directory.Exists(home)) return false;
-
-                string mmCfg = Path.Combine(home, "mm.cfg");
+                String mmCfg = PathHelper.ResolveMMConfig();
                 if (!File.Exists(mmCfg)) CreateDefaultCfg(mmCfg);
 
                 string src = File.ReadAllText(mmCfg).Trim();

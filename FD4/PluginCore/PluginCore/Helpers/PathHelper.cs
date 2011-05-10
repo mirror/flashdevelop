@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Security.AccessControl;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -184,11 +185,32 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Resolve the path to the mm.cfg file
+        /// </summary>
+        public static String ResolveMMConfig()
+        {
+            String homePath = Environment.GetEnvironmentVariable("HOMEPATH");
+            String homeDrive = Environment.GetEnvironmentVariable("HOMEDRIVE");
+            if (!String.IsNullOrEmpty(homeDrive) && homePath != null)
+            {
+                try
+                {
+                    String tempPath = Path.Combine(homeDrive, homePath);
+                    DirectorySecurity ds = Directory.GetAccessControl(tempPath);
+                    return Path.Combine(tempPath, "mm.cfg");
+                }
+                catch {} // Do not use this path...
+            }
+            String userProfile = Environment.GetEnvironmentVariable("USERPROFILE");
+            return Path.Combine(userProfile, "mm.cfg");
+        }
+
+        /// <summary>
         /// Resolve a path which may be:
         /// - absolute or
         /// - relative to base path
         /// </summary>
-        public static string ResolvePath(String path)
+        public static String ResolvePath(String path)
         {
             return ResolvePath(path, null);
         }
@@ -199,34 +221,26 @@ namespace PluginCore.Helpers
         /// - relative to a specified path, or 
         /// - relative to base path
         /// </summary>
-        public static string ResolvePath(String path, String relativeTo)
+        public static String ResolvePath(String path, String relativeTo)
         {
-            if (path == null || path.Length == 0)
-                return null;
-
+            if (path == null || path.Length == 0) return null;
             Boolean isPathNetworked = path.StartsWith("\\\\") || path.StartsWith("//");
             Boolean isPathAbsSlashed = (path.StartsWith("\\") || path.StartsWith("/")) && !isPathNetworked;
             if (isPathAbsSlashed) path = Path.GetPathRoot(AppDir) + path.Substring(1);
-
-            if (Path.IsPathRooted(path) || isPathNetworked)
-                return path;
-
+            if (Path.IsPathRooted(path) || isPathNetworked) return path;
             String resolvedPath;
             if (relativeTo != null)
             {
                 resolvedPath = Path.Combine(relativeTo, path);
-                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
-                    return resolvedPath;
+                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
             }
             if (!PluginBase.MainForm.StandaloneMode)
             {
                 resolvedPath = Path.Combine(UserAppDir, path);
-                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
-                    return resolvedPath;
+                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
             }
             resolvedPath = Path.Combine(AppDir, path);
-            if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
-                return resolvedPath;
+            if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
             return null;
         }
 

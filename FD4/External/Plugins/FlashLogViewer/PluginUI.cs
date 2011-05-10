@@ -207,12 +207,11 @@ namespace FlashLogViewer
         /// </summary>
         private void InitializeSettings()
         {
-            String userDir = Environment.GetEnvironmentVariable("USERPROFILE");
+            String mmConfigFile = PathHelper.ResolveMMConfig();
             String userAppDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             String macromediaDir = Path.Combine(userAppDir, "Macromedia");
             String flashPlayerDir = Path.Combine(macromediaDir, "Flash Player");
             String flashLogDir = Path.Combine(flashPlayerDir, "Logs");
-            String mmConfigFile = Path.Combine(userDir, "mm.cfg");
             try
             {
                 if (!File.Exists(this.Settings.FlashLogFile))
@@ -222,7 +221,7 @@ namespace FlashLogViewer
                     FileHelper.WriteFile(this.Settings.FlashLogFile, "", Encoding.UTF8);
                 }
             }
-            catch { } // No errors please...
+            catch {} // No errors please...
             try
             {
                 if (!File.Exists(this.Settings.PolicyLogFile))
@@ -232,7 +231,7 @@ namespace FlashLogViewer
                     FileHelper.WriteFile(this.Settings.PolicyLogFile, "", Encoding.UTF8);
                 }
             }
-            catch { } // No errors please...
+            catch {} // No errors please...
             try
             {
                 if (!File.Exists(mmConfigFile))
@@ -241,7 +240,7 @@ namespace FlashLogViewer
                     FileHelper.WriteFile(mmConfigFile, contents, Encoding.UTF8);
                 }
             }
-            catch { } // No errors please...
+            catch {} // No errors please...
             this.curLogFile = this.Settings.FlashLogFile;
         }
 
@@ -358,25 +357,25 @@ namespace FlashLogViewer
         /// </summary>
         public void RefreshDisplay(Boolean forceScroll)
         {
-            using (StreamReader s = new StreamReader(
-                    File.Open(this.curLogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite), 
-                    Encoding.UTF8))
+            using (StreamReader s = new StreamReader(File.Open(this.curLogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite), Encoding.UTF8))
             {
-                if (s.BaseStream.Length > lastPosition) 
+                if (s.BaseStream.Length > lastPosition)
+                {
                     s.BaseStream.Seek(lastPosition, SeekOrigin.Begin);
-
+                }
                 RichTextBox log = this.logTextBox;
                 bool colorize = this.Settings.ColourWarnings;
                 Color currentColor = Color.White; // undefined
-
                 while (!s.EndOfStream)
                 {
                     string line = s.ReadLine();
                     if (!this.PassesFilter(line)) continue;
                     Color newColor = Color.Black;
                     if (colorize)
+                    {
                         if (reWarning.IsMatch(line)) newColor = Color.Orange;
                         else if (reError.IsMatch(line)) newColor = Color.Red;
+                    }
                     if (newColor != currentColor)
                     {
                         log.Select(log.TextLength, 0);
@@ -388,7 +387,6 @@ namespace FlashLogViewer
                 lastPosition = s.BaseStream.Length;
                 s.Close();
             }
-
             if (forceScroll) this.logTextBox.ScrollToCaret();
         }
 
@@ -405,10 +403,11 @@ namespace FlashLogViewer
             this.logComboBox.Enabled = this.filterComboBox.Enabled = this.clearFilterButton.Enabled = enable;
             if (enable)
             {
+                this.lastPosition = 0;
+                this.logTextBox.Clear();
                 this.UpdateMainRegexes();
                 this.RefreshDisplay(true);
             }
-
         }
 
         /// <summary>
@@ -503,9 +502,14 @@ namespace FlashLogViewer
         /// </summary>
         private void LogComboBoxIndexChanged(Object sender, EventArgs e)
         {
+            this.lastPosition = 0;
+            this.logTextBox.Clear();
             if (this.logComboBox.SelectedIndex == 0) this.curLogFile = this.Settings.FlashLogFile;
             else this.curLogFile = this.Settings.PolicyLogFile;
-            this.RefreshDisplay(true);
+            if (this.policyLogWrited != DateTime.MinValue)
+            {
+                this.RefreshDisplay(true);
+            }
         }
 
         /// <summary>
@@ -523,6 +527,8 @@ namespace FlashLogViewer
                 }
                 catch { this.filterComboBox.ForeColor = Color.Red; }
             }
+            this.lastPosition = 0;
+            this.logTextBox.Clear();
             this.RefreshDisplay(false);
         }
 
