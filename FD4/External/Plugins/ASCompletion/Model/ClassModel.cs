@@ -509,7 +509,7 @@ namespace ASCompletion.Model
                 if (indent)
                 {
                     comment = comment.Replace("\n", "\r\n" + tab + space + "* ");
-                    return tab + "/**\r\n" + tab + " " + comment + "\r\n" + tab + space + "*/\r\n";
+                    return tab + "/**\r\n" + tab + space + comment + "\r\n" + tab + space + "*/\r\n";
                 }
                 else return tab + "/**\r\n" + tab + comment + "\r\n" + tab + "*/\r\n";
             }
