@@ -213,6 +213,7 @@ namespace ASCompletion.Completion
                             Sci.SetSel(position, position);
                             contextMatch = m;
                             contextParam = CheckEventType(m.Groups["event"].Value);
+                            contextToken = contextToken.Replace("$(Boundary)", "").Trim();
                             ShowEventList(found);
                             return;
                         }
