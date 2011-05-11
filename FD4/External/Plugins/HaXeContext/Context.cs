@@ -114,23 +114,23 @@ namespace HaXeContext
 
         public bool IsFlashTarget
         {
-            get { return platform == "Flash Player" || platform == "AIR"; }
+            get { return platform == HaxeMovieOptions.FLASHPLAYER_PLATFORM || platform == HaxeMovieOptions.AIR_PLATFORM; }
         }
         public bool IsJavaScriptTarget
         {
-            get { return platform == "Javascript"; }
+            get { return platform == HaxeMovieOptions.JAVASCRIPT_PLATFORM; }
         }
         public bool IsNekoTarget
         {
-            get { return platform == "Neko"; }
+            get { return platform == HaxeMovieOptions.NEKO_PLATFORM; }
         }
         public bool IsPhpTarget
         {
-            get { return platform == "PHP"; }
+            get { return platform == HaxeMovieOptions.PHP_PLATFORM; }
         }
         public bool IsCppTarget
         {
-            get { return platform == "C++"; }
+            get { return platform == HaxeMovieOptions.CPP_PLATFORM; }
         }
 
         private string LookupLibrary(string lib)

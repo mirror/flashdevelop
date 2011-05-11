@@ -42,7 +42,7 @@ namespace ProjectManager.Projects.Haxe
             {
                 case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5" };
                 case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2", "10.3", "11.0" };
-                default: return new string[] { "0.0" };
+                default: return new string[] { "1.0" };
             }
         }
 
@@ -52,7 +52,7 @@ namespace ProjectManager.Projects.Haxe
             {
                 case AIR_PLATFORM: return "2.0";
                 case FLASHPLAYER_PLATFORM: return "10.0";
-                default: return "0.0";
+                default: return "1.0";
             }
         }
 

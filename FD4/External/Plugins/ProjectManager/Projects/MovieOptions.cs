@@ -50,8 +50,8 @@ namespace ProjectManager.Projects
             set
             {
                 string[] p = value.Split('.');
-                MajorVersion = int.Parse(p[0]);
-                if (p.Length > 1) MinorVersion = int.Parse(p[1]); else MinorVersion = 0;
+                MajorVersion = p[0].Length > 0 ? int.Parse(p[0]) : 0;
+                if (p.Length > 1 && p[1].Length > 0) MinorVersion = int.Parse(p[1]); else MinorVersion = 0;
             }
         }
 

@@ -26,6 +26,10 @@ namespace ASCompletion.Helpers
             @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>[^\n\r]*)",
             RegexOptions.Compiled | RegexOptions.Multiline);
 
+        private Regex warnError = new Regex(
+            @"^\*\*Warning\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>[^\n\r]*)",
+            RegexOptions.Compiled | RegexOptions.Multiline);
+
         private Regex reFlashFile = new Regex(
             "<flashFileName>(?<output>[^<]+)</flashFileName>",
             RegexOptions.Compiled);
@@ -63,10 +67,11 @@ namespace ASCompletion.Helpers
         {
             updater.Stop();
             string src = File.Exists(logFile) ? File.ReadAllText(logFile) : "";
-            MatchCollection matches = reError.Matches(src);
+            MatchCollection errorMatches = reError.Matches(src);
+            MatchCollection warningMatches = warnError.Matches(src);
 
             TextEvent te;
-            if (matches.Count == 0)
+            if (errorMatches.Count == 0 && warningMatches.Count == 0)
             {
                 te = new TextEvent(EventType.ProcessEnd, "Done(0)");
                 EventManager.DispatchEvent(this, te);
@@ -76,16 +81,23 @@ namespace ASCompletion.Helpers
 
             NotifyEvent ne = new NotifyEvent(EventType.ProcessStart);
             EventManager.DispatchEvent(this, ne);
-            foreach (Match m in matches)
+            foreach (Match m in errorMatches)
             {
                 string file = m.Groups["file"].Value;
                 string line = m.Groups["line"].Value;
                 string desc = m.Groups["desc"].Value.Trim();
                 TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
             }
-            te = new TextEvent(EventType.ProcessEnd, "Done(" + matches.Count + ")");
+            foreach (Match m in warningMatches)
+            {
+                string file = m.Groups["file"].Value;
+                string line = m.Groups["line"].Value;
+                string desc = m.Groups["desc"].Value.Trim();
+                TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
+            }
+            te = new TextEvent(EventType.ProcessEnd, "Done(" + errorMatches.Count + ")");
             EventManager.DispatchEvent(this, te);
-
+            
             (PluginBase.MainForm as Form).Activate();
             (PluginBase.MainForm as Form).Focus();
         }
