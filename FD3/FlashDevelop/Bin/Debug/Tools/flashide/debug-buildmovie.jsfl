@@ -7,9 +7,9 @@ var isAS3 = detectVersion();
 /* RUN */
 
 cleanup();
-//setDebug(1);
+setDebug(1);
 build();
-//setDebug(0);
+setDebug(0);
 postBuild();
 
 
@@ -62,20 +62,10 @@ function setDebug(value)
 	if (!isAS3) return;
 	var doc = fl.getDocumentDOM();
 	if (!doc) return;
-	var out = tempPath + "temp" + Math.floor(Math.random() * 1000000000) + ".xml";
 	
-	doc.exportPublishProfile(out);
-	var config = FLfile.read(out);
-	FLfile.remove(out);
-	
-	var rep = "<DebuggingPermitted>" + (value ? 0 : 1) + "</DebuggingPermitted>";
-	if (config.indexOf(rep) > 0)
-	{
-		config = config.split(rep).join("<DebuggingPermitted>" + value + "</DebuggingPermitted>");
-		FLfile.write(out, config);
-		doc.importPublishProfile(out);
-		FLfile.remove(out);
-	}
+	var config = XML(doc.exportPublishProfileString());
+	config.PublishFlashProperties.DebuggingPermitted = value ? 1 : 0;
+	doc.importPublishProfileString(config);
 }
 
 function detectVersion()
