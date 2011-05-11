@@ -52,7 +52,8 @@ namespace FlashDevelop.Dialogs
             this.imageBox.Click += new System.EventHandler(this.DialogCloseClick);
             // 
             // copyLabel
-            // 
+            //
+            this.copyLabel.AutoSize = true;
             this.copyLabel.BackColor = System.Drawing.Color.White;
             this.copyLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.copyLabel.Location = new System.Drawing.Point(25, 247);
@@ -63,7 +64,8 @@ namespace FlashDevelop.Dialogs
             this.copyLabel.Click += new System.EventHandler(this.DialogCloseClick);
             // 
             // versionLabel
-            // 
+            //
+            this.versionLabel.AutoSize = true;
             this.versionLabel.BackColor = System.Drawing.Color.White;
             this.versionLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.versionLabel.Location = new System.Drawing.Point(25, 227);
