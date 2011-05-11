@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Security;
+using System.Security.Principal;
 using System.Security.AccessControl;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
@@ -195,11 +197,22 @@ namespace PluginCore.Helpers
             {
                 try
                 {
-                    String tempPath = Path.Combine(homeDrive, homePath);
-                    DirectorySecurity ds = Directory.GetAccessControl(tempPath);
-                    return Path.Combine(tempPath, "mm.cfg");
+                    String tempPath = homeDrive + homePath;
+                    DirectorySecurity security = Directory.GetAccessControl(tempPath);
+                    AuthorizationRuleCollection rules = security.GetAccessRules(true, true, typeof(SecurityIdentifier));
+                    WindowsIdentity currentUser = WindowsIdentity.GetCurrent();
+                    foreach (FileSystemAccessRule rule in rules)
+                    {
+                        if (currentUser.User.Equals(rule.IdentityReference))
+                        {
+                            if (rule.AccessControlType.Equals(AccessControlType.Allow))
+                            {
+                                return Path.Combine(tempPath, "mm.cfg");
+                            }
+                        }
+                    }
                 }
-                catch {} // Do not use this path...
+                catch {} // Not working...
             }
             String userProfile = Environment.GetEnvironmentVariable("USERPROFILE");
             return Path.Combine(userProfile, "mm.cfg");
