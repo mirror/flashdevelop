@@ -199,7 +199,7 @@ namespace AS3Context
                 string test = exPath.Replace('\\', '/');
                 string as3Fmk = PathHelper.ResolvePath("Library" + S + "AS3" + S + "frameworks");
 
-                if (test.IndexOf("Library/AS3/frameworks/Flex") >= 0)
+                if (test.IndexOf("Library/AS3/frameworks/Flex", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     addLibs.Add("framework.swc");
                     addLibs.Add("rpc.swc");
@@ -215,7 +215,7 @@ namespace AS3Context
                         addLocales.Add("airframework_rb.swc");
                     }
 
-                    if (test.IndexOf("Library/AS3/frameworks/Flex4") >= 0)
+                    if (test.IndexOf("Library/AS3/frameworks/Flex4", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         addLibs.Add("spark.swc");
                         addLibs.Add("sparkskins.swc");
