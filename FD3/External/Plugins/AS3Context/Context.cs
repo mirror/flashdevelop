@@ -202,10 +202,12 @@ namespace AS3Context
                 if (test.IndexOf("Library/AS3/frameworks/Flex", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     addLibs.Add("framework.swc");
+                    addLibs.Add("mx/mx.swc");
                     addLibs.Add("rpc.swc");
                     addLibs.Add("datavisualization.swc");
                     addLibs.Add("flash-integration.swc");
                     addLocales.Add("framework_rb.swc");
+                    addLocales.Add("mx_rb.swc");
                     addLocales.Add("rpc_rb.swc");
                     addLocales.Add("datavisualization_rb.swc");
                     addLocales.Add("flash-integration_rb.swc");
