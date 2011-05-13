@@ -12,22 +12,27 @@ namespace SwfOp
     public class ContentParser
     {
         public List<string> Errors;
-        public List<string> Symbols;
-        public List<string> Classes;
-        public List<string> Fonts;
+        public List<DeclEntry> Symbols;
+        public List<DeclEntry> Frames;
+        public List<DeclEntry> Classes;
+        public List<DeclEntry> Fonts;
         public List<Abc> Abcs;
+        public long TotalSize;
+        public long AbcSize;
+        public long FontsSize;
         public string Filename;
         public Dictionary<string, byte[]> Docs;
         public byte[] Catalog;
-        private string frameInfo = " @Frame 0";
+        static internal int currentFrame;
 
         public ContentParser(string filename)
         {
             Filename = filename;
             Errors = new List<string>();
-            Symbols = new List<string>();
-            Classes = new List<string>();
-            Fonts = new List<string>();
+            Symbols = new List<DeclEntry>();
+            Classes = new List<DeclEntry>();
+            Fonts = new List<DeclEntry>();
+            Frames = new List<DeclEntry>();
             Abcs = new List<Abc>();
             Docs = new Dictionary<string, byte[]>();
         }
@@ -118,7 +123,11 @@ namespace SwfOp
             if (swf == null) return;
 			
 			// list tags
-            int currentFrame = 1;
+            currentFrame = 0;
+            DeclEntry frame = new DeclEntry("Frame 0");
+            Frames.Add(frame);
+            string nextFrameName = null;
+
             foreach (BaseTag tag in swf)
             {
                 if (tag is ExportTag)
@@ -129,24 +138,31 @@ namespace SwfOp
                         if (name.StartsWith("__Packages."))
                         {
                             string cname = name.Substring(11);
-                            if (!Classes.Contains(cname)) Classes.Add(cname + frameInfo);
+                            Classes.Add(new DeclEntry(cname));
                         }
-                        else if (!Symbols.Contains(name)) Symbols.Add(name + frameInfo);
+                        else Symbols.Add(new DeclEntry(name));
                     }
+                }
+                else if (tag is DoActionTag)
+                {
+                    AbcSize += tag.Data.Length;
                 }
                 else if (tag is AbcTag)
                 {
-                    AbcTag abcTag = tag as AbcTag;
-                    ExploreABC(abcTag.abc);
+                    ExploreABC((tag as AbcTag).abc);
+                    AbcSize += tag.Data.Length;
                 }
                 else if ((TagCodeEnum)tag.TagCode == TagCodeEnum.ShowFrame)
                 {
                     currentFrame++;
-                    frameInfo = " @Frame " + currentFrame;
+                    if (nextFrameName == null) frame = new DeclEntry("Frame " + currentFrame);
+                    else frame = new DeclEntry("Frame '" + nextFrameName + "'");
+                    nextFrameName = null;
+                    Frames.Add(frame);
                 }
-                else if (tag  is FrameTag)
+                else if (tag is FrameTag)
                 {
-                    frameInfo = " @Frame " + currentFrame + ": " + (tag as FrameTag).name;
+                    nextFrameName = (tag as FrameTag).name;
                 }
                 else if (tag is DefineFontTag)
                 {
@@ -154,20 +170,59 @@ namespace SwfOp
                     string style = "";
                     if (ftag.IsBold) style += "Bold ";
                     if (ftag.IsItalics) style += "Italic ";
-                    Fonts.Add(ftag.Name + " (" + style + ftag.GlyphCount + ")" + frameInfo);
+                    Fonts.Add(new DeclEntry(ftag.Name + " (" + style + ftag.GlyphCount + ")"));
+                    FontsSize += tag.Size;
                 }
+
+                if (tag is DoActionTag || tag is AbcTag) frame.AbcSize += tag.Size;
+                else if (tag is DefineFontTag) frame.FontSize += tag.Size;
+                else frame.DataSize += tag.Size;
+                TotalSize += tag.Size;
             }
+
+            // empty frame at the end
+            if (Frames.Count > 1 && frame.DataSize == 4) Frames.Remove(frame);
         }
 
         private void ExploreABC(Abc abc)
         {
             Abcs.Add(abc);
-
+            
             foreach (Traits trait in abc.instances)
             {
                 string name = trait.ToString();
-                if (!Classes.Contains(name)) Classes.Add(name + frameInfo);
+                Classes.Add(new DeclEntry(name));
             }
+            foreach (Traits trait in abc.scripts)
+            {
+                foreach (MemberInfo member in trait.members)
+                {
+                    if (member.kind != TraitMember.Class)
+                    {
+                        if (member is MethodInfo) Classes.Add(new DeclEntry(member.name + "()"));
+                        else if (member is SlotInfo)
+                        {
+                            if (member.kind == TraitMember.Const) Classes.Add(new DeclEntry(member.name + "#"));
+                            else Classes.Add(new DeclEntry(member.name + "$"));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class DeclEntry
+    {
+        public string Name;
+        public int Frame;
+        public long DataSize;
+        public long AbcSize;
+        public long FontSize;
+
+        public DeclEntry(string name)
+        {
+            Name = name;
+            Frame = ContentParser.currentFrame;
         }
     }
 }

@@ -286,11 +286,27 @@ namespace AS3Context
             SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
             parser.Run();
             AbcConverter.Convert(parser, path, contextInstance);
-            
+
             if (path.HasFile(fileName))
             {
                 FileModel model = path.GetFile(fileName);
                 ASComplete.OpenVirtualFile(model);
+                return true;
+            }
+            int split = fileName.LastIndexOf(Path.DirectorySeparatorChar) + 1;
+            fileName = fileName.Substring(0, split) + "package.as";
+            if (path.HasFile(fileName))
+            {
+                FileModel model = path.GetFile(fileName);
+                ASComplete.OpenVirtualFile(model);
+                return true;
+            }
+            fileName = fileName.Substring(0, split) + "toplevel.as";
+            if (path.HasFile(fileName))
+            {
+                FileModel model = path.GetFile(fileName);
+                ASComplete.OpenVirtualFile(model);
+                return true;
             }
             return false;
         }

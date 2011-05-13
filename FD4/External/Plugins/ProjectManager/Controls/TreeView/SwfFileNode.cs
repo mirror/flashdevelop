@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using ProjectManager.Projects;
 using System.Text.RegularExpressions;
+using SwfOp;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -57,14 +58,24 @@ namespace ProjectManager.Controls.TreeView
         {
             return reSafeChars.Replace(export, "?");
         }
-	}
+    }
+
+    public class MemberExportNode : ClassExportNode
+    {
+        public MemberExportNode(string filePath, string export, int image)
+            : base(filePath, export)
+        {
+            ImageIndex = SelectedImageIndex = image;
+        }
+    }
 
 	public class ClassExportNode : ExportNode
 	{
-		public ClassExportNode(string filePath, string export) : base(filePath, export)
-		{
-			ImageIndex = SelectedImageIndex = Icons.Class.Index;
-		}
+        public ClassExportNode(string filePath, string export)
+            : base(filePath, export)
+        {
+            ImageIndex = SelectedImageIndex = Icons.Class.Index;
+        }
     }
 
     public class FontExportNode : ExportNode
@@ -113,7 +124,7 @@ namespace ProjectManager.Controls.TreeView
 		bool explored;
         bool explorable;
 		BackgroundWorker runner;
-        SwfOp.ContentParser parser;
+        ContentParser parser;
 
 		public SwfFileNode(string filePath) : base(filePath)
 		{
@@ -132,6 +143,12 @@ namespace ProjectManager.Controls.TreeView
 		{
 			base.Refresh (recursive);
 
+            if (explored && !IsExpanded)
+            {
+                explored = false;
+                Nodes.Clear();
+            }
+
             if (!FileExists || !explorable)
             {
                 Nodes.Clear(); // non-existent file can't be explored
@@ -142,8 +159,8 @@ namespace ProjectManager.Controls.TreeView
                 Nodes.Add(new WorkingNode(BackingPath));
             }
 
-			if (explored)
-				Explore();
+            if (explored) 
+                Explore();
 		}
 
 		public void RefreshWithFeedback(bool recursive)
@@ -169,7 +186,7 @@ namespace ProjectManager.Controls.TreeView
 
             if (parser != null) 
                 return;
-            parser = new SwfOp.ContentParser(BackingPath);
+            parser = new ContentParser(BackingPath);
 
             runner = new BackgroundWorker();
             runner.RunWorkerCompleted += new RunWorkerCompletedEventHandler(runner_ProcessEnded);
@@ -179,7 +196,7 @@ namespace ProjectManager.Controls.TreeView
 
         private void runner_DoWork(object sender, DoWorkEventArgs e)
         {
-            (e.Argument as SwfOp.ContentParser).Run();
+            (e.Argument as ContentParser).Run();
         }
 
 		private void runner_ProcessEnded(object sender, RunWorkerCompletedEventArgs e)
@@ -210,34 +227,44 @@ namespace ProjectManager.Controls.TreeView
                 }
 
                 Nodes.Clear();
-                ExportComparer classesComp = new ExportComparer();
+                ExportComparer classesComp = new ExportComparer(parser.Frames);
                 if (parser.Classes.Count == 1) classesComp.Compare(parser.Classes[0], parser.Classes[0]);
                 parser.Classes.Sort(classesComp);
-                ExportComparer symbolsComp = new ExportComparer();
+                ExportComparer symbolsComp = new ExportComparer(parser.Frames);
                 if (parser.Symbols.Count == 1) symbolsComp.Compare(parser.Symbols[0], parser.Symbols[0]);
                 parser.Symbols.Sort(symbolsComp);
-                ExportComparer fontsComp = new ExportComparer();
+                ExportComparer fontsComp = new ExportComparer(parser.Frames);
                 if (parser.Fonts.Count == 1) fontsComp.Compare(parser.Fonts[0], parser.Fonts[0]);
                 parser.Fonts.Sort(fontsComp);
 
                 if (parser.Classes.Count > 0)
                 {
                     ClassesNode node = new ClassesNode(BackingPath);
+                    node.Text += " (" + FormatBytes(parser.AbcSize) + ")";
                     string[] groups = new string[classesComp.groups.Keys.Count];
                     classesComp.groups.Keys.CopyTo(groups, 0);
                     Array.Sort(groups);
-                    foreach (string groupName in groups)
+                    for (int i = 0; i < groups.Length; i++)
                     {
-                        if (node.Nodes.Count > 0)
-                        {
-                            SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
-                            frame.Text = groupName;
-                            node.Nodes.Add(frame);
-                        }
+                        string groupName = groups[i];
+                        SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
+                        frame.Text = groupName + " (" + FormatBytes(parser.Frames[i].AbcSize) + ")";
+                        if (parser.Frames.Count > 1) node.Nodes.Add(frame);
+
                         List<String> names = classesComp.groups[groupName];
                         names.Sort(); // TODO Add setting?
                         foreach (string cls in names)
-                            node.Nodes.Add(new ClassExportNode(BackingPath, cls.Replace(':', '.')));
+                        {
+                            string name = cls.Replace(':', '.');
+                            if (cls.EndsWith("()"))
+                                node.Nodes.Add(new MemberExportNode(BackingPath, name.Replace("()", ""), Icons.Method.Index));
+                            else if (cls.EndsWith("$"))
+                                node.Nodes.Add(new MemberExportNode(BackingPath, name.Replace("$", ""), Icons.Variable.Index));
+                            else if (cls.EndsWith("#"))
+                                node.Nodes.Add(new MemberExportNode(BackingPath, name.Replace("#", ""), Icons.Const.Index));
+                            else
+                                node.Nodes.Add(new ClassExportNode(BackingPath, name));
+                        }
                     }
                     Nodes.Add(node);
                 }
@@ -245,17 +272,18 @@ namespace ProjectManager.Controls.TreeView
                 if (parser.Symbols.Count > 0)
                 {
                     SymbolsNode node2 = new SymbolsNode(BackingPath);
+                    node2.Text += " (" + FormatBytes(parser.TotalSize - parser.AbcSize - parser.FontsSize) + ")";
+
                     string[] groups = new string[symbolsComp.groups.Keys.Count];
                     symbolsComp.groups.Keys.CopyTo(groups, 0);
                     Array.Sort(groups);
-                    foreach (string groupName in groups)
+                    for (int i = 0; i < groups.Length; i++)
                     {
-                        if (node2.Nodes.Count > 0)
-                        {
-                            SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
-                            frame.Text = groupName;
-                            node2.Nodes.Add(frame);
-                        }
+                        string groupName = groups[i];
+                        SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
+                        frame.Text = groupName + " (" + FormatBytes(parser.Frames[i].DataSize) + ")";
+                        if (parser.Frames.Count > 1) node2.Nodes.Add(frame);
+                        
                         List<String> names = symbolsComp.groups[groupName];
                         names.Sort(); // TODO Add setting?
                         foreach (string symbol in names)
@@ -267,17 +295,17 @@ namespace ProjectManager.Controls.TreeView
                 if (parser.Fonts.Count > 0)
                 {
                     FontsNode node2 = new FontsNode(BackingPath);
+                    node2.Text += " (" + FormatBytes(parser.FontsSize) + ")";
                     string[] groups = new string[fontsComp.groups.Keys.Count];
                     fontsComp.groups.Keys.CopyTo(groups, 0);
                     Array.Sort(groups);
-                    foreach (string groupName in groups)
+                    for (int i = 0; i < groups.Length; i++)
                     {
-                        if (node2.Nodes.Count > 0)
-                        {
-                            SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
-                            frame.Text = groupName;
-                            node2.Nodes.Add(frame);
-                        }
+                        string groupName = groups[i];
+                        SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
+                        frame.Text = groupName + " (" + FormatBytes(parser.Frames[i].FontSize) + ")";
+                        if (parser.Frames.Count > 1) node2.Nodes.Add(frame);
+                        
                         List<String> names = fontsComp.groups[groupName];
                         names.Sort(); // TODO Add setting?
                         foreach (string font in names)
@@ -294,24 +322,42 @@ namespace ProjectManager.Controls.TreeView
             }
 		}
 
-        class ExportComparer : IComparer<string>
+        public string FormatBytes(long bytes)
+        {
+            const int scale = 1024;
+            string[] orders = new string[] { "Gb", "Mb", "Kb", "b" };
+            long max = (long)Math.Pow(scale, orders.Length - 1);
+
+            foreach (string order in orders)
+            {
+                if (bytes > max)
+                    return string.Format("{0:##.##} {1}", decimal.Divide(bytes, max), order);
+
+                max /= scale;
+            }
+            return "0 b";
+        }
+
+        class ExportComparer : IComparer<DeclEntry>
         {
             public Dictionary<string, List<string>> groups = new Dictionary<string, List<string>>();
+            private List<DeclEntry> frames;
 
-            public int Compare(string a, string b)
+            public ExportComparer(List<DeclEntry> swfFrames)
             {
-                int pa = a.IndexOf(" @Frame");
-                int pb = b.IndexOf(" @Frame");
-                string endA = " ";
-                if (pa > 0) { endA = a.Substring(pa + 2); a = a.Substring(0, pa); }
-                string endB = " ";
-                if (pb > 0) { endB = b.Substring(pb + 2); b = b.Substring(0, pb); }
-                if (!groups.ContainsKey(endA)) groups[endA] = new List<string>();
-                if (!groups[endA].Contains(a)) groups[endA].Add(a);
-                if (!groups.ContainsKey(endB)) groups[endB] = new List<string>();
-                if (!groups[endB].Contains(b)) groups[endB].Add(b);
-                if (endA != endB) return string.Compare(endA, endB);
-                return string.Compare(a, b);
+                frames = swfFrames;
+            }
+
+            public int Compare(DeclEntry a, DeclEntry b)
+            {
+                string fa = frames[a.Frame].Name;
+                string fb = frames[b.Frame].Name;
+                if (!groups.ContainsKey(fa)) groups[fa] = new List<string>();
+                if (!groups[fa].Contains(a.Name)) groups[fa].Add(a.Name);
+                if (!groups.ContainsKey(fb)) groups[fb] = new List<string>();
+                if (!groups[fb].Contains(b.Name)) groups[fb].Add(b.Name);
+                if (a.Frame != b.Frame) return a.Frame - b.Frame;
+                return string.Compare(a.Name, b.Name);
             }
 
         }

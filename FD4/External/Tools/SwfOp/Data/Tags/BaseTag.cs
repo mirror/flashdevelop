@@ -60,6 +60,16 @@ namespace SwfOp.Data.Tags {
         }
 
         /// <summary>
+        /// tag size
+        /// </summary>
+        virtual public long Size
+        {
+            get {
+                return _data.Length;
+            }
+        }
+
+        /// <summary>
         /// constructor
         /// </summary>
         /// <param name="data">raw tag data</param>

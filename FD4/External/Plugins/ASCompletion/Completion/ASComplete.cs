@@ -585,7 +585,7 @@ namespace ASCompletion.Completion
             string ext = model.haXe ? ".hx" : ".as";
             string dummyFile = Path.Combine(
                 Path.GetDirectoryName(model.FileName),
-                "[model] " + Path.GetFileName(model.FileName) + ext);
+                "[model] " + Path.GetFileNameWithoutExtension(model.FileName) + ext);
             foreach (ITabbedDocument doc in ASContext.MainForm.Documents)
             {
                 if (doc.FileName == dummyFile)

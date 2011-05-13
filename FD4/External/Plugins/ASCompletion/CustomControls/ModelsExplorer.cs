@@ -13,6 +13,7 @@ using System.IO;
 using WeifenLuo.WinFormsUI.Docking;
 using PluginCore.Managers;
 using ASCompletion.Completion;
+using System.Collections;
 
 namespace ASCompletion
 {
@@ -75,6 +76,18 @@ namespace ASCompletion
             public PathModel model;
         }
 
+        class NodesComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                TreeNode a = (TreeNode)x;
+                TreeNode b = (TreeNode)y;
+                if (a.ImageIndex == b.ImageIndex)
+                    return string.Compare(a.Text, b.Text);
+                else return a.ImageIndex - b.ImageIndex;
+            }
+        }
+
         #endregion
 
         #region Initialization
@@ -93,7 +106,7 @@ namespace ASCompletion
         private IASContext current;
         private Dictionary<string, TreeNodeCollection> packages;
         private TreeNodeCollection rootNodes;
-        private List<TypeTreeNode> allTypes;
+        private List<TreeNode> allTypes;
         private int typeIndex;
         private TreeNode lastMatch;
 
@@ -169,10 +182,11 @@ namespace ASCompletion
             outlineTreeView.BeginUpdate();
             try
             {
+                outlineTreeView.TreeViewNodeSorter = null;
                 outlineTreeView.Nodes.Clear();
                 outlineTreeView.ImageList = ASContext.Panel.TreeIcons;
 
-                allTypes = new List<TypeTreeNode>();
+                allTypes = new List<TreeNode>();
                 if (current == null || current.Classpath == null || current.Classpath.Count == 0) return;
 
                 foreach (PathModel path in current.Classpath)
@@ -193,6 +207,7 @@ namespace ASCompletion
             }
             finally
             {
+                outlineTreeView.TreeViewNodeSorter = new NodesComparer();
                 outlineTreeView.EndUpdate();
                 filterTextBox.Focus();
             }
@@ -228,14 +243,19 @@ namespace ASCompletion
         /// <param name="model">Model information</param>
         private void AddModel(TreeNodeCollection nodes, FileModel model)
         {
+            if (model.Members != null)
+                PluginUI.AddMembers(nodes, model.Members);
+
             if (model.Classes != null)
-            foreach (ClassModel aClass in model.Classes) if (aClass.IndexType == null)
-            {
-                TypeTreeNode node = new TypeTreeNode(aClass);
-                AddExplore(node);
-                allTypes.Add(node);
-                nodes.Add(node);
-            }
+                foreach (ClassModel aClass in model.Classes) if (aClass.IndexType == null)
+                {
+                    TypeTreeNode node = new TypeTreeNode(aClass);
+                    AddExplore(node);
+                    allTypes.Add(node);
+                    nodes.Add(node);
+                }
+
+            
         }
 
         /// <summary>

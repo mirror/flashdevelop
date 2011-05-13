@@ -60,6 +60,11 @@ namespace SwfOp.Data.Tags {
         /// total size of the sprite (including children)
         /// </summary>
         private long size;
+
+        /// <summary>
+        /// symbol id
+        /// </summary>
+        private ushort id = ushort.MaxValue;
 		
 		/// <summary>
 		/// constructor.
@@ -103,17 +108,20 @@ namespace SwfOp.Data.Tags {
         {
             get
             {
+                if (id != ushort.MaxValue) return id;
+
                 using (BinaryReader br = new BinaryReader(new MemoryStream(header)))
                 {
-                    return br.ReadUInt16();
+                    id = br.ReadUInt16();
                 }
+                return id;
             }
         }
 
         /// <summary>
         /// total size of the sprite (including children)
         /// </summary>
-        public long Size { get { return size; } }
+        public override long Size { get { return size; } }
 		
 		/// <summary>
 		/// see <see cref="SwfOp.Data.Tags.BaseTag">base class</see>
