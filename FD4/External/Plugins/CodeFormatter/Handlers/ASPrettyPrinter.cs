@@ -850,7 +850,7 @@ namespace CodeFormatter.Handlers
 		
 		public bool IsIdentifierPart(char ch)
 		{
-			return Char.IsLetterOrDigit(ch) || ch == '_';
+			return Char.IsLetterOrDigit(ch) || ch == '_' || ch == '$';
 		}
 		
 		private bool IsFirstTokenBeforeFormatIndent()
