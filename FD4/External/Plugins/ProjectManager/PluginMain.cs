@@ -719,10 +719,15 @@ namespace ProjectManager
                         de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
                     }
-                    string cmd = MainForm.ProcessArgString(project.TestMovieCommand);
+                    string cmd = MainForm.ProcessArgString(project.TestMovieCommand).Trim();
                     cmd = project.FixDebugReleasePath(cmd);
-                    string[] args = (cmd + ';').Split(';');
-                    ProcessStartInfo psi = new ProcessStartInfo(args[0], args[1]);
+
+                    int semi = cmd.IndexOf(';');
+                    if (semi < 0) semi = cmd.IndexOf(' ');
+                    string args = semi > 0 ? cmd.Substring(semi + 1) : "";
+                    cmd = semi > 0 ? cmd.Substring(0, semi) : cmd;
+
+                    ProcessStartInfo psi = new ProcessStartInfo(cmd, args);
                     psi.UseShellExecute = true;
                     psi.WorkingDirectory = project.Directory;
                     ProcessHelper.StartAsync(psi);
