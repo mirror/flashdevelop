@@ -2642,7 +2642,8 @@ namespace ASCompletion.Completion
                 style = Sci.StyleAt(position) & stylemask;
                 if (style == 14) // regex literal
                 {
-                    inRegex = true;
+                    if (hadDot) inRegex = true;
+                    else break;
                 }
                 else if (!IsCommentStyle(style))
                 {

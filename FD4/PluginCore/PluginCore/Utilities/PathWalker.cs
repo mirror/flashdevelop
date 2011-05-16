@@ -3,11 +3,17 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using PluginCore;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace PluginCore.Utilities
 {
     public class PathWalker
     {
+        public delegate void PathWalkerCompleteHandler(PathWalker sender, List<string> foundFiles);
+
+        public event PathWalkerCompleteHandler OnComplete;
+
         private String basePath;
         private String fileMask;
         private Boolean recursive;
@@ -30,6 +36,35 @@ namespace PluginCore.Utilities
             this.knownPathes = new List<String>();
             this.ExploreFolder(basePath);
             return this.foundFiles;
+        }
+
+        /// <summary>
+        /// Gets a list of the files
+        /// </summary>
+        public void GetFilesAsync()
+        {
+            this.foundFiles = new List<String>();
+            this.knownPathes = new List<String>();
+
+            BackgroundWorker bg = new BackgroundWorker();
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
+        }
+
+        void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Form owner = PluginBase.MainForm as Form;
+            if (owner.InvokeRequired)
+            {
+                owner.BeginInvoke((MethodInvoker)delegate { bg_RunWorkerCompleted(sender, e); });
+                return;
+            }
+            if (OnComplete != null) OnComplete(this, foundFiles);
+        }
+
+        void bg_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.ExploreFolder(basePath);
         }
         
         /// <summary>

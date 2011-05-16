@@ -241,17 +241,18 @@ namespace ProjectManager.Controls.TreeView
                 {
                     ClassesNode node = new ClassesNode(BackingPath);
                     node.Text += " (" + FormatBytes(parser.AbcSize) + ")";
-                    string[] groups = new string[classesComp.groups.Keys.Count];
+                    int[] groups = new int[classesComp.groups.Keys.Count];
                     classesComp.groups.Keys.CopyTo(groups, 0);
                     Array.Sort(groups);
-                    for (int i = 0; i < groups.Length; i++)
+                    foreach (int index in groups)
                     {
-                        string groupName = groups[i];
+                        DeclEntry group = parser.Frames[index];
+                        string groupName = group.Name;
                         SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
-                        frame.Text = groupName + " (" + FormatBytes(parser.Frames[i].AbcSize) + ")";
+                        frame.Text = groupName + " (" + FormatBytes(group.AbcSize) + ")";
                         if (parser.Frames.Count > 1) node.Nodes.Add(frame);
 
-                        List<String> names = classesComp.groups[groupName];
+                        List<String> names = classesComp.groups[index];
                         names.Sort(); // TODO Add setting?
                         foreach (string cls in names)
                         {
@@ -274,17 +275,18 @@ namespace ProjectManager.Controls.TreeView
                     SymbolsNode node2 = new SymbolsNode(BackingPath);
                     node2.Text += " (" + FormatBytes(parser.TotalSize - parser.AbcSize - parser.FontsSize) + ")";
 
-                    string[] groups = new string[symbolsComp.groups.Keys.Count];
+                    int[] groups = new int[symbolsComp.groups.Keys.Count];
                     symbolsComp.groups.Keys.CopyTo(groups, 0);
                     Array.Sort(groups);
-                    for (int i = 0; i < groups.Length; i++)
+                    foreach(int index in groups)
                     {
-                        string groupName = groups[i];
+                        DeclEntry group = parser.Frames[index];
+                        string groupName = group.Name;
                         SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
-                        frame.Text = groupName + " (" + FormatBytes(parser.Frames[i].DataSize) + ")";
+                        frame.Text = groupName + " (" + FormatBytes(group.DataSize) + ")";
                         if (parser.Frames.Count > 1) node2.Nodes.Add(frame);
-                        
-                        List<String> names = symbolsComp.groups[groupName];
+
+                        List<String> names = symbolsComp.groups[index];
                         names.Sort(); // TODO Add setting?
                         foreach (string symbol in names)
                             node2.Nodes.Add(new ExportNode(BackingPath, symbol));
@@ -296,17 +298,18 @@ namespace ProjectManager.Controls.TreeView
                 {
                     FontsNode node2 = new FontsNode(BackingPath);
                     node2.Text += " (" + FormatBytes(parser.FontsSize) + ")";
-                    string[] groups = new string[fontsComp.groups.Keys.Count];
+                    int[] groups = new int[fontsComp.groups.Keys.Count];
                     fontsComp.groups.Keys.CopyTo(groups, 0);
                     Array.Sort(groups);
-                    for (int i = 0; i < groups.Length; i++)
+                    foreach (int index in groups)
                     {
-                        string groupName = groups[i];
+                        DeclEntry group = parser.Frames[index];
+                        string groupName = group.Name;
                         SwfFrameNode frame = new SwfFrameNode(BackingPath, groupName);
-                        frame.Text = groupName + " (" + FormatBytes(parser.Frames[i].FontSize) + ")";
+                        frame.Text = groupName + " (" + FormatBytes(group.FontSize) + ")";
                         if (parser.Frames.Count > 1) node2.Nodes.Add(frame);
-                        
-                        List<String> names = fontsComp.groups[groupName];
+
+                        List<String> names = fontsComp.groups[index];
                         names.Sort(); // TODO Add setting?
                         foreach (string font in names)
                             node2.Nodes.Add(new FontExportNode(BackingPath, font));
@@ -340,7 +343,7 @@ namespace ProjectManager.Controls.TreeView
 
         class ExportComparer : IComparer<DeclEntry>
         {
-            public Dictionary<string, List<string>> groups = new Dictionary<string, List<string>>();
+            public Dictionary<int, List<string>> groups = new Dictionary<int, List<string>>();
             private List<DeclEntry> frames;
 
             public ExportComparer(List<DeclEntry> swfFrames)
@@ -350,14 +353,14 @@ namespace ProjectManager.Controls.TreeView
 
             public int Compare(DeclEntry a, DeclEntry b)
             {
-                string fa = frames[a.Frame].Name;
-                string fb = frames[b.Frame].Name;
-                if (!groups.ContainsKey(fa)) groups[fa] = new List<string>();
-                if (!groups[fa].Contains(a.Name)) groups[fa].Add(a.Name);
-                if (!groups.ContainsKey(fb)) groups[fb] = new List<string>();
-                if (!groups[fb].Contains(b.Name)) groups[fb].Add(b.Name);
+                string na = a.Name;
+                string nb = b.Name;
+                if (!groups.ContainsKey(a.Frame)) groups[a.Frame] = new List<string>();
+                if (!groups[a.Frame].Contains(na)) groups[a.Frame].Add(na);
+                if (!groups.ContainsKey(b.Frame)) groups[b.Frame] = new List<string>();
+                if (!groups[b.Frame].Contains(nb)) groups[b.Frame].Add(nb);
                 if (a.Frame != b.Frame) return a.Frame - b.Frame;
-                return string.Compare(a.Name, b.Name);
+                return string.Compare(na, nb);
             }
 
         }

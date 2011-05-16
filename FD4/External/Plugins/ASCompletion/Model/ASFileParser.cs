@@ -558,17 +558,21 @@ namespace ASCompletion.Model
 				}
 				if (braceCount > 0 && !inValue)
 				{
-					if (c1 == '}')
-					{
+                    if (c1 == '/')
+                    {
+                        LookupRegex(ref ba, ref i);
+                    }
+                    else if (c1 == '}')
+                    {
                         lastComment = null;
-						braceCount--;
-						if (braceCount == 0 && curMethod != null)
-						{
-							curMethod.LineTo = line;
-							curMethod = null;
-						}
-					}
-					else if (c1 == '{') braceCount++;
+                        braceCount--;
+                        if (braceCount == 0 && curMethod != null)
+                        {
+                            curMethod.LineTo = line;
+                            curMethod = null;
+                        }
+                    }
+                    else if (c1 == '{') braceCount++;
                     // escape next char
                     else if (c1 == '\\') i++;
 					continue;
@@ -642,7 +646,19 @@ namespace ASCompletion.Model
                             else paramTempCount--;
                         }
                     }
-                    else if (inValue && (inParams || inType || inConst) 
+                    else if (c1 == '/')
+                    {
+                        int i0 = i;
+                        if (LookupRegex(ref ba, ref i))
+                        {
+                            valueBuffer[valueLength++] = '/';
+                            for (; i0 < i; i0++) 
+                                if (valueLength < VALUE_BUFFER - 1) valueBuffer[valueLength++] = ba[i0];
+                            valueBuffer[valueLength++] = '/';
+                            continue;
+                        }
+                    }
+                    else if (inValue && (inParams || inType || inConst)
                         && c1 == '/' && valueLength == 0) // lookup native regex
                     {
                         int itemp = i;
@@ -1128,6 +1144,13 @@ namespace ASCompletion.Model
 
                     // escape next char
                     else if (c1 == '\\') { i++; continue; }
+
+                    // literal regex
+                    else if (c1 == '/' && version == 3)
+                    {
+                        if (LookupRegex(ref ba, ref i))
+                            continue;
+                    }
 				}
 
 				// put in buffer
@@ -1153,6 +1176,31 @@ namespace ASCompletion.Model
 
 		//	Debug.WriteLine("out model: " + model.GenerateIntrinsic(false));
 		}
+
+        private bool LookupRegex(ref string ba, ref int i)
+        {
+            int len = ba.Length;
+            int i0 = i - 2;
+            char c;
+            // regex in valid context
+            while (i0 > 0)
+            {
+                c = ba[i0--];
+                if ("=(,[{;".IndexOf(c) >= 0) break; // ok
+                if (" \t".IndexOf(c) >= 0) continue;
+                return false; // anything else isn't expected before a regex
+            }
+            i0 = i;
+            while (i0 < len)
+            {
+                c = ba[i0++];
+                if (c == '\\') { i0++; continue; } // escape next
+                if (c == '/') break; // end of regex
+                if ("\r\n".IndexOf(c) >= 0) return false;
+            }
+            i = i0; // ok, skip this regex
+            return true;
+        }
 
         private bool LookupMeta(ref string ba, ref int i)
         {

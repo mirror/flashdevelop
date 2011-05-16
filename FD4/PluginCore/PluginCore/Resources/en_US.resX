@@ -1920,7 +1920,7 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>&amp;Insert</value>
   </data>
   <data name="ProjectManager.Label.InsertIntoDocument" xml:space="preserve">
-    <value>&amp;Insert Into Document</value>
+    <value>&amp;Generate Embed code</value>
   </data>
   <data name="ProjectManager.Label.InstalledTemplates" xml:space="preserve">
     <value>Installed &amp;Templates</value>
