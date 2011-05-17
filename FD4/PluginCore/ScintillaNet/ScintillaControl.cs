@@ -773,7 +773,7 @@ namespace ScintillaNet
 		{	
 			get
 			{
-				return (int)SPerform(2161, 0, 0);
+				return (int)SPerform(2161, 0, 0) - 1;
 			}
 		}
 		
