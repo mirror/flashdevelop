@@ -1924,6 +1924,7 @@
   </data>
   <data name="ProjectManager.Label.InsertIntoDocument" xml:space="preserve">
     <value>ドキュメントに挿入(&amp;I)</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Label.InstalledTemplates" xml:space="preserve">
     <value>テンプレート(&amp;T)</value>
