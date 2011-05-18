@@ -19,7 +19,8 @@ namespace PluginCore.FRService
         protected OperationType type;
         protected FRSearch search;
         protected string replacement;
-        protected Boolean cacheDocuments;
+        protected Boolean cacheDocuments = false;
+        protected Boolean updateSourceFile = true;
         protected IDictionary<String, ITabbedDocument> openDocuments = null;
 
         /// <summary>
@@ -29,6 +30,15 @@ namespace PluginCore.FRService
         {
             get { return cacheDocuments; }
             set { cacheDocuments = value; }
+        }
+
+        /// <summary>
+        /// Updates the source file only
+        /// </summary>
+        public Boolean UpdateSourceFileOnly
+        {
+            get { return updateSourceFile; }
+            set { updateSourceFile = value; }
         }
 
         /// <summary>
@@ -119,6 +129,14 @@ namespace PluginCore.FRService
         }
 
         /// <summary>
+        /// Checks if the document is cached
+        /// </summary>
+        protected bool IsDocumentCached(String file)
+        {
+            return openDocuments.ContainsKey(file);
+        }
+
+        /// <summary>
         /// Caches the documents
         /// </summary>
         protected void CacheOpenDocuments()
@@ -146,7 +164,11 @@ namespace PluginCore.FRService
 
                 default:
                     EncodingFileInfo info = FileHelper.GetEncodingFileInfo(file);
-                    FileHelper.WriteFile(file, src, Encoding.GetEncoding(info.CodePage), info.ContainsBOM);
+                    if (this.updateSourceFile || !this.IsDocumentCached(file))
+                    {
+                        FileHelper.WriteFile(file, src, Encoding.GetEncoding(info.CodePage), info.ContainsBOM);
+                    }
+                    else openDocuments[file].SciControl.Text = src;
                     break;
             }
         }

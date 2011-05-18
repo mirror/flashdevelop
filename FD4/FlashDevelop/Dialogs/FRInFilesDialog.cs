@@ -523,6 +523,7 @@ namespace FlashDevelop.Dialogs
             {
                 this.UpdateUIState(true);
                 FRConfiguration config = new FRConfiguration(path, mask, recursive, this.GetFRSearch());
+                config.CacheDocuments = true;
                 this.runner = new FRRunner();
                 this.runner.ProgressReport += new FRProgressReportHandler(this.RunnerProgress);
                 this.runner.Finished += new FRFinishedHandler(this.FindFinished);
@@ -553,6 +554,8 @@ namespace FlashDevelop.Dialogs
                 }
                 this.UpdateUIState(true);
                 FRConfiguration config = new FRConfiguration(path, mask, recursive, this.GetFRSearch());
+                config.CacheDocuments = true;
+                config.UpdateSourceFileOnly = false;
                 config.Replacement = this.replaceComboBox.Text;
                 this.runner = new FRRunner();
                 this.runner.ProgressReport += new FRProgressReportHandler(this.RunnerProgress);
