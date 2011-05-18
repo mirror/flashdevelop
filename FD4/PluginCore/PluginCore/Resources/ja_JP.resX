@@ -3835,7 +3835,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
-    <value>コードジェネレーター(&amp;C)</value>
+    <value>コードの生成(&amp;C)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Info.ShortcutIsAlreadyUsed" xml:space="preserve">
@@ -4007,7 +4007,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Extensions" xml:space="preserve">
-    <value>拡張</value>
+    <value>拡張子</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.FileName" xml:space="preserve">
@@ -4111,7 +4111,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
-    <value>AIR アプリケーションのプロパティー(&amp;A)...</value>
+    <value>AIR アプリケーション設定(&amp;A)...</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.PublisherId" xml:space="preserve">
@@ -4321,7 +4321,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="CodeFormatter.Label.CodeFormatter" xml:space="preserve">
-    <value>コードフォーマッター(&amp;F)</value>
+    <value>コードの整形(&amp;F)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="FlashDevelop.Label.EncodingInput" xml:space="preserve">
@@ -4779,7 +4779,7 @@ UseData:"</value>
     <comment>Added after 3.3.3</comment>
   </data>
   <data name="FlashDebugger.Label.ViewImmediatePanel" xml:space="preserve">
-    <value>イミディエイトパネル</value>
+    <value>イミディエイト</value>
   </data>
   <data name="FlashDebugger.Title.Immediate" xml:space="preserve">
     <value>イミディエイト</value>
