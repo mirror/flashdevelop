@@ -3296,6 +3296,8 @@ namespace ScintillaNet
 		public void Copy()
 		{
 			SPerform(2178, 0, 0);
+            // Invoke UI update after copy...
+            if (UpdateUI != null) UpdateUI(this);
 		}
 
         /// <summary>
@@ -4602,6 +4604,8 @@ namespace ScintillaNet
         public void CopyAllowLine()
         {
             SPerform(2519, 0, 0);
+            // Invoke UI update after copy...
+            if (UpdateUI != null) UpdateUI(this);
         }
 
         /// <summary>

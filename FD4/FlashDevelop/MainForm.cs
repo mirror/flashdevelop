@@ -1889,6 +1889,7 @@ namespace FlashDevelop
                 else
                 {
                     sci.BeginUndoAction();
+                    if (sci.SelTextSize > 0) sci.Clear();
                     sci.Home();
                     int pos = sci.CurrentPos;
                     int lines = sci.LineCount;
