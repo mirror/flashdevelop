@@ -9,7 +9,7 @@
 
 ; Define version info
 !define VERSION "4.0.0"
-!define BUILD "Alpha"
+!define BUILD "Beta"
 
 ; Define AIR SDK version
 !define AIR "2.6.0"
