@@ -42,6 +42,7 @@ namespace PluginCore.Helpers
         /// </summary>
         public static ActionPoint ProcessActionPoint(String text)
         {
+            text = text.Trim().Replace(BOUNDARY, "");
             Int32 entryPosition = text.IndexOf(ENTRYPOINT);
             Int32 exitPosition = text.IndexOf(EXITPOINT);
             if (entryPosition != -1 && exitPosition != -1)
@@ -62,7 +63,6 @@ namespace PluginCore.Helpers
         /// </summary>
         public static void ExecuteActionPoint(ActionPoint point, ScintillaNet.ScintillaControl sci)
         {
-            while (sci.SelectText(BOUNDARY, 0) != -1) sci.ReplaceSel("");
             if (point.EntryPosition != -1 && point.ExitPosition != -1)
             {
                 Int32 start = sci.MBSafePosition(point.EntryPosition);

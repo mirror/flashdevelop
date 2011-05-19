@@ -198,7 +198,7 @@ namespace AS3Context
                                 {
                                     Directory.CreateDirectory(swcDir);
                                     File.Copy(playerglobal, swcDir + S + "playerglobal.swc");
-                                    File.WriteAllText(swcDir + S + "README.txt",
+                                    File.WriteAllText(swcDir + S + "README_FlashDevelop.txt",
                                         "This 'playerglobal.swc' was copied here automatically by FlashDevelop from:\n" + playerglobal);
                                     playerglobal = swcDir + S + "playerglobal.swc";
                                 }
