@@ -97,6 +97,15 @@ namespace ASCompletion.Helpers
             }
             te = new TextEvent(EventType.ProcessEnd, "Done(" + errorMatches.Count + ")");
             EventManager.DispatchEvent(this, te);
+
+            if (errorMatches.Count == 0)
+            {
+                if (!te.Handled)
+                {
+                    PlaySWF();
+                    return;
+                }
+            }
             
             (PluginBase.MainForm as Form).Activate();
             (PluginBase.MainForm as Form).Focus();
