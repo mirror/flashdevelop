@@ -198,7 +198,8 @@ namespace FlashDebugger
         /// </summary>
 		public String GetLocalPath(SourceFile file)
 		{
-			if (File.Exists(file.getFullPath()))
+            if (file == null) return null;
+            if (File.Exists(file.getFullPath()))
 			{
 				return file.getFullPath();
 			}
