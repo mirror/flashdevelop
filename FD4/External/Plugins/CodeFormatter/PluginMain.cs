@@ -266,7 +266,7 @@ namespace CodeFormatter
 			get
 			{
 				ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
-                String compressedText = CompressText(sci.Text.Substring(0, sci.CurrentPos));
+                String compressedText = CompressText(sci.Text.Substring(0, sci.MBSafeCharPosition(sci.CurrentPos)));
 				return compressedText.Length;
 			}
 			set 
