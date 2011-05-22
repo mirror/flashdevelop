@@ -552,7 +552,7 @@ namespace ASCompletion.Model
 				else if (isInString)
 				{
 					// store parameter default value
-                    if (inValue && (inParams || inConst) && valueLength < VALUE_BUFFER) 
+                    if (inValue && valueLength < VALUE_BUFFER) 
                         valueBuffer[valueLength++] = c1;
 					continue;
 				}
@@ -765,7 +765,7 @@ namespace ASCompletion.Model
                     // AS3 const or method parameter's default value 
 					else if (version > 2 && (curMember.Flags & FlagType.Variable) > 0)
 					{
-                        curMember.Value = param;
+                        if (inParams || inConst) curMember.Value = param;
                         curMember.LineTo = line;
                         if (inConst && c1 != ',')
                         {
