@@ -725,8 +725,10 @@ namespace ASCompletion
         {
             TreeNodeCollection nodes = tree;
             MemberTreeNode node = null;
+            MemberModel prevMember = null;
             int img;
             foreach (MemberModel member in members)
+            {
                 if ((member.Flags & FlagType.Constant) > 0)
                 {
                     img = ((member.Access & Visibility.Private) > 0) ? ICON_PRIVATE_CONST :
@@ -743,7 +745,7 @@ namespace ASCompletion
                 }
                 else if ((member.Flags & (FlagType.Getter | FlagType.Setter)) > 0)
                 {
-                    if (node != null && node.Text == member.ToString()) // "collapse" properties
+                    if (prevMember != null && prevMember.Name == member.Name) // "collapse" properties
                         continue;
                     img = ((member.Access & Visibility.Private) > 0) ? ICON_PRIVATE_PROPERTY :
                         ((member.Access & Visibility.Protected) > 0) ? ICON_PROTECTED_PROPERTY : ICON_PROPERTY;
@@ -757,6 +759,8 @@ namespace ASCompletion
                     node = new MemberTreeNode(member, img);
                     nodes.Add(node);
                 }
+                prevMember = member;
+            }
         }
 
         static public void AddMembersGrouped(TreeNodeCollection tree, MemberList members)
@@ -795,6 +799,7 @@ namespace ASCompletion
                 groupList.Add(member);
             }
 
+            MemberModel prevMember = null;
             for (int i = 0; i < typePriority.Length; i++)
             {
                 if (typeGroups.ContainsKey(typePriority[i]))
@@ -809,7 +814,7 @@ namespace ASCompletion
                     node = null;
                     foreach (MemberModel member in groupList)
                     {
-                        if (node != null && node.Text == member.ToString())
+                        if (prevMember != null && prevMember.Name == member.Name)
                             continue;
                         img = GetMemberIcon(member.Flags, member.Access);
                         node = new MemberTreeNode(member, img);

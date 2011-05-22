@@ -99,7 +99,7 @@ namespace ASCompletion.Model
 				if ((Flags & FlagType.Setter) > 0)
 				{
 					if (Parameters != null && Parameters.Count > 0 && Parameters[0].Type != null && Parameters[0].Type.Length > 0)
-						return res + ":" + FormatType(Parameters[0].Type);
+						return res + " : " + FormatType(Parameters[0].Type);
 				}
 			}
 
