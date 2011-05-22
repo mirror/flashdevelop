@@ -766,6 +766,7 @@ namespace ASCompletion.Model
 					else if (version > 2 && (curMember.Flags & FlagType.Variable) > 0)
 					{
                         curMember.Value = param;
+                        curMember.LineTo = line;
                         if (inConst && c1 != ',')
                         {
                             context = 0;
@@ -981,7 +982,7 @@ namespace ASCompletion.Model
                     }
 					
 					// member type declaration
-					else if (c1 == ':')
+					else if (c1 == ':' && !inValue)
 					{
 						foundColon = true;
 					}
