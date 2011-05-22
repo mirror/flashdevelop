@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using PluginCore.Bridge;
 using PluginCore.Managers;
+using System.Text.RegularExpressions;
 
 namespace PluginCore.Bridge
 {
@@ -107,9 +108,12 @@ namespace PluginCore.Bridge
 
         #region regular watcher implementation
 
+        static private Regex reIgnore = new Regex("[\\\\/][._]svn", RegexOptions.Compiled | RegexOptions.RightToLeft);
+
         private void SetupRegularWatcher()
         {
             watcher = new FileSystemWatcher(path);
+            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
             if (filter != null)
             {
                 watcher.IncludeSubdirectories = false;
@@ -128,18 +132,22 @@ namespace PluginCore.Bridge
 
         private void watcher_Created(object sender, FileSystemEventArgs e)
         {
+            if (reIgnore.IsMatch(e.FullPath)) return;
             if (Created != null) Created(this, e);
         }
         private void watcher_Changed(object sender, FileSystemEventArgs e)
         {
+            if (reIgnore.IsMatch(e.FullPath)) return;
             if (Changed != null) Changed(this, e);
         }
         private void watcher_Deleted(object sender, FileSystemEventArgs e)
         {
+            if (reIgnore.IsMatch(e.FullPath)) return;
             if (Deleted != null) Deleted(this, e);
         }
         private void watcher_Renamed(object sender, RenamedEventArgs e)
         {
+            if (reIgnore.IsMatch(e.FullPath)) return;
             if (Renamed != null) Renamed(this, e);
         }
 

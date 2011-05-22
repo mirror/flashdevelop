@@ -17,7 +17,7 @@ namespace ProjectManager.Controls.TreeView
 	/// </summary>
     public class WatcherNode : DirectoryNode
 	{
-        Timer updateTimer;
+        System.Timers.Timer updateTimer;
         WatcherEx watcher;
         List<String> changedPaths;
         String[] excludedFiles;
@@ -31,9 +31,10 @@ namespace ProjectManager.Controls.TreeView
             excludedDirs = PluginMain.Settings.ExcludedDirectories.Clone() as String[];
             excludedFiles = PluginMain.Settings.ExcludedFileTypes.Clone() as String[];
             // Use a timer for FileSystemWatcher updates so they don't do lots of redrawing
-            updateTimer = new Timer();
+            updateTimer = new System.Timers.Timer();
+            updateTimer.SynchronizingObject = Tree;
             updateTimer.Interval = 500;
-            updateTimer.Tick += updateTimer_Tick;
+            updateTimer.Elapsed += updateTimer_Tick;
             setWatcher();
 		}
 
@@ -145,13 +146,9 @@ namespace ProjectManager.Controls.TreeView
 		{
             // have we been deleted already?
             if (!Directory.Exists(BackingPath)) return;
-			if (Tree.InvokeRequired) Tree.BeginInvoke(new MethodInvoker(Changed));
-			else
-			{
-				updateNeeded = true;
-                updateTimer.Enabled = false; // reset timer
-                updateTimer.Enabled = true;
-			}
+			updateNeeded = true;
+            updateTimer.Enabled = false; // reset timer
+            updateTimer.Enabled = true;
 		}
 
 		private void Update()

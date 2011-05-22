@@ -89,7 +89,7 @@ namespace ASCompletion.Model
         private bool inited;
         private bool inUse;
         private WatcherEx watcher;
-        private Timer updater;
+        private System.Timers.Timer updater;
         private string[] masks;
         private string basePath;
         private List<string> toExplore;
@@ -128,9 +128,10 @@ namespace ASCompletion.Model
         {
             if (inited && IsValid) return;
             inited = true;
-            updater = new Timer();
-            updater.Interval = 2000;
-            updater.Tick += new EventHandler(updater_Tick);
+            updater = new System.Timers.Timer();
+            updater.Interval = 500;
+            updater.SynchronizingObject = PluginCore.PluginBase.MainForm as Form;
+            updater.Elapsed += updater_Tick;
             toExplore = new List<string>();
             toRemove = new List<string>();
             
@@ -186,14 +187,10 @@ namespace ASCompletion.Model
         /// </summary>
         void SetTimer()
         {
-            if (ASContext.Panel == null) return;
-            if (ASContext.Panel.InvokeRequired) ASContext.Panel.BeginInvoke(new MethodInvoker(SetTimer));
-            else
-            {
-                updater.Stop();
-                updater.Start();
-            }
+            updater.Enabled = false;
+            updater.Enabled = true;
         }
+
         void updater_Tick(object sender, EventArgs e)
         {
             if (Updating) return;
