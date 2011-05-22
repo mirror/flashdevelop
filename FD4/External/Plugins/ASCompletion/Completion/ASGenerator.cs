@@ -1376,6 +1376,7 @@ namespace ASCompletion.Completion
                 Sci = ASContext.CurSciControl;
 
                 FileModel fileModel = new FileModel();
+                fileModel.Context = ASContext.Context;
                 ASFileParser parser = new ASFileParser();
                 parser.ParseSrc(fileModel, Sci.Text);
 
@@ -1423,6 +1424,7 @@ namespace ASCompletion.Completion
                 Sci = ASContext.CurSciControl;
 
                 FileModel fileModel = new FileModel();
+                fileModel.Context = ASContext.Context;
                 ASFileParser parser = new ASFileParser();
                 parser.ParseSrc(fileModel, Sci.Text);
 
@@ -1917,6 +1919,7 @@ namespace ASCompletion.Completion
                 isOtherClass = true;
 
                 FileModel fileModel = new FileModel();
+                fileModel.Context = ASContext.Context;
                 ASFileParser parser = new ASFileParser();
                 parser.ParseSrc(fileModel, Sci.Text);
 
@@ -2356,6 +2359,7 @@ namespace ASCompletion.Completion
                 isOtherClass = true;
 
                 FileModel fileModel = new FileModel();
+                fileModel.Context = ASContext.Context;
                 ASFileParser parser = new ASFileParser();
                 parser.ParseSrc(fileModel, Sci.Text);
 
