@@ -241,8 +241,8 @@ namespace FlashDevelop.Dialogs
             foreach (ShortcutItem item in ShortcutManager.RegistedItems)
             {
                 if (!this.listView.Items.ContainsKey(item.Id) && 
-                    item.Id.ToLower().Contains(filter.ToLower()) || 
-                    GetKeysAsString(item.Custom).ToLower().Contains(filter.ToLower()))
+                    (item.Id.ToLower().Contains(filter.ToLower()) || 
+                    GetKeysAsString(item.Custom).ToLower().Contains(filter.ToLower())))
                 {
                     ListViewItem lvi = new ListViewItem();
                     lvi.Text = lvi.Name = item.Id; lvi.Tag = item;

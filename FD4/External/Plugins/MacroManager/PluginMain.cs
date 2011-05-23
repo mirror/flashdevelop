@@ -249,7 +249,7 @@ namespace MacroManager
                     if (data.StartsWith("#")) // Hardcore mode :)
                     {
                         data = PluginBase.MainForm.ProcessArgString(entry.Substring(1));
-                        if (data.Contains("$(")) return; // Invalid, don't execute..
+                        if (data == "|") return; // Invalid, don't execute..
                     }
                     if (data.IndexOf('|') != -1)
                     {

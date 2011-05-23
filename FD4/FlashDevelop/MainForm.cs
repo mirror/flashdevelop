@@ -3098,6 +3098,24 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Invokes the specified registered menu item
+        /// </summary>
+        public void InvokeMenuItem(Object sender, System.EventArgs e)
+        {
+            try
+            {
+                ToolStripItem button = (ToolStripItem)sender;
+                String registeredItem = ((ItemData)button.Tag).Tag;
+                ShortcutItem item = ShortcutManager.GetRegisteredItem(registeredItem);
+                if (item.Item != null) item.Item.PerformClick();
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
         /// Calls a ScintillaControl command
         /// </summary>
         public void ScintillaCommand(Object sender, System.EventArgs e)
@@ -3330,6 +3348,7 @@ namespace FlashDevelop
         {
             ToolStripItem button = (ToolStripItem)sender;
             String file = this.ProcessArgString(((ItemData)button.Tag).Tag);
+            if (!File.Exists(file)) return;
             try
             {
                 Host host = new Host();
