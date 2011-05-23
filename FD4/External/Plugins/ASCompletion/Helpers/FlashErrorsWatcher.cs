@@ -20,7 +20,7 @@ namespace ASCompletion.Helpers
         private string docInfo;
         private string publishInfo;
         private WatcherEx fsWatcher;
-        private Timer updater;
+        private System.Timers.Timer updater;
 
         private Regex reError = new Regex(
             @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>[^\n\r]*)",
@@ -45,20 +45,20 @@ namespace ASCompletion.Helpers
                     logLocation = Path.Combine(BridgeManager.Settings.SharedDrive, ".FlashDevelop\\flashide");
                     Directory.CreateDirectory(logLocation);
                 }
-                else
-                    logLocation = Path.Combine(appData, Path.Combine("Adobe", "FlashDevelop"));
+                else logLocation = Path.Combine(appData, Path.Combine("Adobe", "FlashDevelop"));
                 Directory.CreateDirectory(logLocation);
+
                 logFile = Path.Combine(logLocation, "FlashErrors.log");
                 docInfo = Path.Combine(logLocation, "FlashDocument.log");
                 publishInfo = Path.Combine(logLocation, "FlashPublish.log");
 
-                fsWatcher = new WatcherEx(logLocation, "*.log");
+                fsWatcher = new WatcherEx(logLocation);
                 fsWatcher.EnableRaisingEvents = true;
                 fsWatcher.Changed += new FileSystemEventHandler(fsWatcher_Changed);
 
-                updater = new Timer();
+                updater = new System.Timers.Timer();
                 updater.Interval = 200;
-                updater.Tick += new EventHandler(updater_Tick);
+                updater.Elapsed += updater_Tick;
             }
             catch { }
         }
@@ -159,12 +159,8 @@ namespace ASCompletion.Helpers
 
         private void SetTimer()
         {
-            if (ASContext.Panel.InvokeRequired) ASContext.Panel.BeginInvoke(new MethodInvoker(SetTimer));
-            else
-            {
-                updater.Stop();
-                updater.Start();
-            }
+            updater.Enabled = false;
+            updater.Enabled = true;
         }
     }
 }
