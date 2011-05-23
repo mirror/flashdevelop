@@ -113,7 +113,7 @@ namespace PluginCore.Bridge
         private void SetupRegularWatcher()
         {
             watcher = new FileSystemWatcher(path);
-            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
+            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             if (filter != null)
             {
                 watcher.IncludeSubdirectories = false;
