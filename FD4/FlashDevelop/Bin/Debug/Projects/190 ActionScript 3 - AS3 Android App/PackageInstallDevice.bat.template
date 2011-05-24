@@ -49,7 +49,7 @@ goto end
 :certificate
 echo Certificate not found: %CERTIFICATE%
 echo.
-echo Troubleshotting: 
+echo Troubleshooting: 
 echo A certificate is required, generate one using 'CreateCertificate.bat'
 echo.
 goto end
@@ -57,14 +57,14 @@ goto end
 :failed
 echo AIR setup creation FAILED.
 echo.
-echo Troubleshotting: 
+echo Troubleshooting: 
 echo - did you build your project in FlashDevelop?
 echo - did you configure the Flex SDK path in this Batch file?
 echo.
 goto end
 
 :androidFailed
-echo Troubleshotting:
+echo Troubleshooting:
 echo - did you configure android-sdk paths in this Batch file?
 echo - only one android device should be connected
 echo.
