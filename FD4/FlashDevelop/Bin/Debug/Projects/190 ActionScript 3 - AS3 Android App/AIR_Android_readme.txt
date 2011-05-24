@@ -1,4 +1,4 @@
-Instructions for DISTRIBUTING* your application:
+Instructions for DISTRIBUTING your application:
 
 1. Creating a self-signed certificate:
 
@@ -7,24 +7,24 @@ Instructions for DISTRIBUTING* your application:
 - run CreateCertificate.bat to generate your self-signed certificate,
 - wait a minute before packaging.
 
-2. Installing the AIR runtime on your device:
+2. Installing the latest AIR runtime on your device:
 
-- edit InstallAirRuntimeDevice.bat / InstallAirRuntimeEmulator.bat to change the path 
-  to the Flex SDK and Android SDK's tools
-- run InstallAirRuntimeDevice.bat / InstallAirRuntimeEmulator.bat to install the runtime on your device.
+- edit InstallAirRuntimeXXXX.bat to change the path to the Flex SDK and Android SDK's tools,
+- run InstallAirRuntimeXXXX.bat to install the runtime on your device.
 
 3. Packaging & installing the application:
 
-- edit PackageInstallXXX.bat and change the path to Flex SDK and Android SDK's platform-tools
+- edit PackageInstallXXXX.bat and change the path to Flex SDK and Android SDK's platform-tools
 - if you have a signed certificate, you may need to change the path to the certificate,
-- run PackageInstallXXX.bat, you will be prompted for the certificate password,
+- run PackageInstallXXXX.bat, you will be prompted for the certificate password,
   (note that you may not see '***' when typing your password - it works anyway)
 - the packaged application should appear in your project in a new 'apk' directory 
   and be installed on the currently plugged Android device/emulator,
-- the application shoudl start automatically
+- the application should start automatically.
 
-4. Debugging the appliction on your device:
+4. Debugging the application on your device:
 
-- make sure you start FlashDevelop debugger before running DebugDevice.bat
-- in Flashdevelop: Debug > Start Remote Session
-- follow the same instructions as 3. but with DebugDevice.bat
+- follow the same instructions as 3. but with DebugDevice.bat,
+- make sure you start FlashDevelop debugger before running DebugDevice.bat,
+  in Flashdevelop select: Debug > Start Remote Session,
+- when DebugDevice.bat is done, the application will connect to FlashDevelop debugger automatically.
