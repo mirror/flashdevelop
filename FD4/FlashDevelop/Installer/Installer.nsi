@@ -285,11 +285,12 @@ Section "FlashDevelop" Main
 	
 	SetOverwrite off
 	
-	IfFileExists "$INSTDIR\.local" +5 0
+	IfFileExists "$INSTDIR\.local" +6 0
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
 	RMDir /r "$INSTDIR\Snippets"
 	RMDir /r "$INSTDIR\Templates"
+	RMDir /r "$INSTDIR\Projects"
 	
 	SetOutPath "$INSTDIR\Settings"
 	File /r /x .svn /x *.db /x LayoutData.fdl /x SessionData.fdb /x SettingData.fdb "..\Bin\Debug\Settings\*.*"
@@ -299,6 +300,9 @@ Section "FlashDevelop" Main
 	
 	SetOutPath "$INSTDIR\Templates"
 	File /r /x .svn /x *.db "..\Bin\Debug\Templates\*.*"
+
+	SetOutPath "$INSTDIR\Projects"
+	File /r /x .svn /x *.db "..\Bin\Debug\Projects\*.*"
 	
 SectionEnd
 
