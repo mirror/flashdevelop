@@ -10,6 +10,17 @@
 	<description></description> 
 	<copyright></copyright> 
 	
+	<android>
+		<manifestAdditions><![CDATA[
+		
+			<manifest android:installLocation="auto">
+				<uses-permission android:name="android.permission.INTERNET"/>
+				<!--<application android:hardwareAccelerated="true"/>-->
+			</manifest>
+			
+		]]></manifestAdditions>
+	</android>
+	
 	<initialWindow> 
 		<title>$(PROJECTNAME)</title> 
 		<content>$(PROJECTID).swf</content> 
@@ -29,15 +40,4 @@
 	Android manifest documentation:
 	http://developer.android.com/guide/topics/manifest/manifest-intro.html
 	-->
-	
-	<android>
-		<manifestAdditions><![CDATA[
-		
-			<manifest android:installLocation="auto">
-				<uses-permission android:name="android.permission.INTERNET"/>
-				<!--<application android:hardwareAccelerated="true"/>-->
-			</manifest>
-			
-		]]></manifestAdditions>
-	</android>
 </application>
