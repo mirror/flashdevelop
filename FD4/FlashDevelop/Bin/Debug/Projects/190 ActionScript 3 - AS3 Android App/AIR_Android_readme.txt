@@ -15,9 +15,16 @@ Instructions for DISTRIBUTING* your application:
 
 3. Packaging & installing the application:
 
-- edit PackageInstallApplication.bat and change the path to Flex SDK and Android SDK's platform-tools
+- edit PackageInstallXXX.bat and change the path to Flex SDK and Android SDK's platform-tools
 - if you have a signed certificate, you may need to change the path to the certificate,
-- run PackageInstallApplication.bat, you will be prompted for the certificate password,
+- run PackageInstallXXX.bat, you will be prompted for the certificate password,
   (note that you may not see '***' when typing your password - it works anyway)
 - the packaged application should appear in your project in a new 'apk' directory 
-  and be installed on the currently plugged Android device/emulator.
+  and be installed on the currently plugged Android device/emulator,
+- the application shoudl start automatically
+
+4. Debugging the appliction on your device:
+
+- make sure you start FlashDevelop debugger before running DebugDevice.bat
+- in Flashdevelop: Debug > Start Remote Session
+- follow the same instructions as 3. but with DebugDevice.bat
