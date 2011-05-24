@@ -1,7 +1,11 @@
 package $(PackageName)$(CSLB){
+	import flash.desktop.NativeApplication;
+	import flash.events.Event;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.ui.Multitouch;
+	import flash.ui.MultitouchInputMode;
 	
 	/**
 	$(CBI)* ...
@@ -12,8 +16,16 @@ package $(PackageName)$(CSLB){
 		public function Main():void $(CSLB){
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
+			stage.addEventListener(Event.DEACTIVATE, autoClose);
+			
+			// touch or gesture?
+			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 			
 			// entry point
+		}
+		
+		private function autoClose(e:Event):void $(CSLB){
+			NativeApplication.nativeApplication.exit();
 		}
 		
 	}

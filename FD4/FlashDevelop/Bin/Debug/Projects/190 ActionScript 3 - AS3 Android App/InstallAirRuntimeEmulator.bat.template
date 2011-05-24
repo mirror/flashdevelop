@@ -1,0 +1,27 @@
+@echo off
+
+:: AIR runtime installer APK
+set AIR_INSTALLER=$(FlexSDK)\runtimes\air\android\emulator\runtime.apk
+
+:: Path to Android SDK platform-tools
+set PATH=%PATH%;C:\android-sdk-windows\platform-tools
+
+echo Installing AIR runtime for EMULATOR
+echo.
+adb devices
+echo.
+adb -e install -r %AIR_INSTALLER%
+echo.
+if errorlevel 1 goto failed
+goto end
+
+:failed
+echo Troubleshotting:
+echo - check the path to the Flex SDK in this Batch file
+echo - check the AIR version in the Flex SDK
+echo - only one Android emulator should be running
+echo.
+goto end
+
+:end
+pause

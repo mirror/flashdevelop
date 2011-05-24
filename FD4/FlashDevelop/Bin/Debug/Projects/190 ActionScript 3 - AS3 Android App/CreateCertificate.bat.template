@@ -11,7 +11,7 @@ set PATH=%PATH%;$(FlexSDK)\bin
 :: Certificate information
 set NAME="$(PROJECTNAME)"
 set PASSWORD=fd
-set CERTIFICATE="$(PROJECTID).pfx"
+set CERTIFICATE="$(PROJECTID).p12"
 
 call adt -certificate -cn %NAME% 1024-RSA %CERTIFICATE% %PASSWORD%
 if errorlevel 1 goto failed

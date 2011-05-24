@@ -19,8 +19,25 @@
 	<icon>
 		<image72x72>icons/icon_72.png</image72x72>
 	</icon>
+	
 	<!-- 
-	More options:
+	More AIR options:
 	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	More mobile options:
+	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
+	
+	Android manifest documentation:
+	http://developer.android.com/guide/topics/manifest/manifest-intro.html
 	-->
+	
+	<android>
+		<manifestAdditions><![CDATA[
+		
+			<manifest android:installLocation="auto">
+				<uses-permission android:name="android.permission.INTERNET"/>
+				<!--<application android:hardwareAccelerated="true"/>-->
+			</manifest>
+			
+		]]></manifestAdditions>
+	</android>
 </application>

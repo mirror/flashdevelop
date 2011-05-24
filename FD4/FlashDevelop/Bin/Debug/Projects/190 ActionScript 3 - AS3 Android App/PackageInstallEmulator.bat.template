@@ -6,10 +6,9 @@
 
 :: Path to Flex SDK >= 4.5.0.18623 binaries
 set PATH=%PATH%;$(FlexSDK)\bin
-:: Path to AIR SDK binaries
-set PATH=%PATH%;C:\android-sdk-windows\tools
-:: Path to air on android installer
-set AIR_INSTALLER=C:\android-sdk-windows\Runtime_Emulator_Froyo_20100705.apk
+
+:: Path to Android SDK binaries
+set PATH=%PATH%;C:\android-sdk-windows\platform-tools
 
 :: Signature (see 'CreateCertificate.bat')
 set CERTIFICATE=$(PROJECTID).p12
@@ -24,27 +23,27 @@ set APK_FILE=apk/$(PROJECTID).apk
 set APP_XML=application.xml 
 set FILE_OR_DIR=-C bin .
 
-echo Signing AIR setup using certificate %CERTIFICATE%.
-call adt -package -target apk %SIGNING_OPTIONS% %APK_FILE% %APP_XML% %FILE_OR_DIR%
+echo Packaging and Installing application for EMULATOR
+echo.
+adb devices
+
+echo.
+echo Packaging APK for EMULATOR using certificate %CERTIFICATE%.
+call adt -package -target apk-emulator %SIGNING_OPTIONS% %APK_FILE% %APP_XML% %FILE_OR_DIR%
 if errorlevel 1 goto failed
 
 echo.
 echo APK setup created: %APK_FILE%
 echo.
-:: Install on android device. Comment lines if you don't need.
-echo the program will install Air runtime on android emulator
-echo.
-pause
-echo.
-adb -e install -r %AIR_INSTALLER%
-echo.
-if errorlevel 1 goto androidFailed
 
-echo the program will install %APK_FILE% on the only running android emulator
-echo.
-pause
+echo Installing %APK_FILE% on the EMULATOR
 echo.
 adb -e install -r %APK_FILE%
+echo.
+
+echo Starting application on the DEVICE
+echo.
+adb -d shell am start -n air.$(PACKAGEDOT)$(PROJECTID)/.AppEntry
 goto end
 
 :certificate
@@ -59,7 +58,8 @@ goto end
 echo AIR setup creation FAILED.
 echo.
 echo Troubleshotting: 
-echo did you configure the Flex >= 4.5.0.18623 SDK path in this Batch file?
+echo - did you build your project in FlashDevelop?
+echo - did you configure the Flex SDK path in this Batch file?
 echo.
 goto end
 

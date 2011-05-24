@@ -1,0 +1,74 @@
+@echo off
+
+:: AIR application packaging
+:: More information:
+:: http://livedocs.adobe.com/flex/3/html/help.html?content=CommandLineTools_5.html#1035959
+
+:: Path to Flex SDK >= 4.5.0.18623 binaries
+set PATH=%PATH%;$(FlexSDK)\bin
+
+:: Path to Android SDK binaries
+set PATH=%PATH%;C:\android-sdk-windows\platform-tools
+
+:: Signature (see 'CreateCertificate.bat')
+set CERTIFICATE=$(PROJECTID).p12
+set SIGNING_OPTIONS=-storetype pkcs12 -keystore %CERTIFICATE%
+if not exist %CERTIFICATE% goto certificate
+
+:: Output
+if not exist apk md apk
+set APK_FILE=apk/$(PROJECTID).apk
+
+:: Input
+set APP_XML=application.xml 
+set FILE_OR_DIR=-C bin .
+
+echo Packaging and Installing application for DEVICE
+echo.
+adb devices
+
+echo.
+echo Packaging APK for DEVICE using certificate %CERTIFICATE%.
+call adt -package -target apk %SIGNING_OPTIONS% %APK_FILE% %APP_XML% %FILE_OR_DIR%
+if errorlevel 1 goto failed
+
+echo.
+echo APK setup created: %APK_FILE%
+echo.
+
+echo Installing %APK_FILE% on the DEVICE
+echo.
+adb -d install -r %APK_FILE%
+echo.
+
+echo Starting application on the DEVICE
+echo.
+adb -d shell am start -n air.$(PACKAGEDOT)$(PROJECTID)/.AppEntry
+goto end
+
+:certificate
+echo Certificate not found: %CERTIFICATE%
+echo.
+echo Troubleshotting: 
+echo A certificate is required, generate one using 'CreateCertificate.bat'
+echo.
+goto end
+
+:failed
+echo AIR setup creation FAILED.
+echo.
+echo Troubleshotting: 
+echo - did you build your project in FlashDevelop?
+echo - did you configure the Flex SDK path in this Batch file?
+echo.
+goto end
+
+:androidFailed
+echo Troubleshotting:
+echo - did you configure android-sdk paths in this Batch file?
+echo - only one android device should be connected
+echo.
+goto end
+
+:end
+pause
