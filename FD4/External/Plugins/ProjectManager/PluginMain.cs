@@ -126,6 +126,7 @@ namespace ProjectManager
 
         #region Plugin MetaData
 
+        public Int32 Api { get { return 1; } }
         public string Name { get { return pluginName; } }
         public string Guid { get { return pluginGuid; } }
         public string Author { get { return pluginAuth; } }

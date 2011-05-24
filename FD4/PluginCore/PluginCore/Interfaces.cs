@@ -23,13 +23,17 @@ namespace PluginCore
 	    #endregion
 		
 	    #region IPlugin Properties
-		
-	    String Name { get; }
+
+        Int32 Api { get; }
+        String Name { get; }
         String Guid { get; }
         String Help { get; }
         String Author { get; }
         String Description { get; }
         Object Settings { get; }
+
+        // List of valid API levels:
+        // FlashDevelop 4.0 = 1
 		
 	    #endregion
     }

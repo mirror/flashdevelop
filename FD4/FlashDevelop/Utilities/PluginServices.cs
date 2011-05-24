@@ -16,6 +16,7 @@ namespace FlashDevelop.Utilities
 	{
         public static List<String> KnownDLLs;
         public static List<AvailablePlugin> AvailablePlugins;
+        public static Int32 REQUIRED_API_LEVEL = 1;
         
         static PluginServices()
         {
@@ -105,6 +106,11 @@ namespace FlashDevelop.Utilities
                         {
                             AvailablePlugin newPlugin = new AvailablePlugin(fileName);
                             newPlugin.Instance = (IPlugin)Activator.CreateInstance(pluginAssembly.GetType(pluginType.ToString()));
+                            if (newPlugin.Instance.Api != REQUIRED_API_LEVEL)
+                            {
+                                // Invalid plugin, ignore...
+                                throw new Exception("Required API level does not match.");
+                            }
                             if (!Globals.Settings.DisabledPlugins.Contains(newPlugin.Instance.Guid))
                             {
                                 newPlugin.Instance.Initialize();
@@ -121,7 +127,7 @@ namespace FlashDevelop.Utilities
             catch (Exception ex)
             {
                 String message = TextHelper.GetString("Info.UnableToLoadPlugin");
-                ErrorManager.ShowError(message + " \n" + fileName, ex);
+                ErrorManager.ShowWarning(message + " \n" + fileName, ex);
             }
 		}
 	}

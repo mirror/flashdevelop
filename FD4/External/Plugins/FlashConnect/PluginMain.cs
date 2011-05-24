@@ -17,7 +17,7 @@ namespace FlashConnect
 {
 	public class PluginMain : IPlugin
 	{
-		private String pluginName = "FlashConnect";
+        private String pluginName = "FlashConnect";
         private String pluginGuid = "425ae753-fdc2-4fdf-8277-c47c39c2e26b";
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds a xml socket to FlashDevelop that let's you trace messages from outside of FlashDevelop.";
@@ -27,6 +27,14 @@ namespace FlashConnect
 		private XmlSocket xmlSocket;
 
         #region Required Properties
+
+        /// <summary>
+        /// Api level of the plugin
+        /// </summary>
+        public Int32 Api
+        {
+            get { return 1; }
+        }
 
         /// <summary>
         /// Name of the plugin

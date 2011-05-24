@@ -26,6 +26,14 @@ namespace FileExplorer
         private Image pluginImage;
 
 	    #region Required Properties
+        
+        /// <summary>
+        /// Api level of the plugin
+        /// </summary>
+        public Int32 Api
+        {
+            get { return 1; }
+        }
 
         /// <summary>
         /// Name of the plugin

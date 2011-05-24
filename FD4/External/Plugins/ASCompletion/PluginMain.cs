@@ -57,6 +57,11 @@ namespace ASCompletion
 
         #region Required Properties
 
+        public Int32 Api
+        {
+            get { return 1; }
+        }
+
         public string Name
 		{
 			get { return pluginName; }
