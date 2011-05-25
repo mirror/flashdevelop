@@ -3348,7 +3348,6 @@ namespace FlashDevelop
         {
             ToolStripItem button = (ToolStripItem)sender;
             String file = this.ProcessArgString(((ItemData)button.Tag).Tag);
-            if (!File.Exists(file)) return;
             try
             {
                 Host host = new Host();
