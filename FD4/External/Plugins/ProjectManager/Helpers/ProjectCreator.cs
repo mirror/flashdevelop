@@ -31,6 +31,7 @@ namespace ProjectManager.Helpers
         string packagePath;
         string packageDot = "";
         string packageSlash = "";
+        string defaultFlexSDK;
         Argument[] arguments;
 
         private static Hashtable projectTypes = new Hashtable();
@@ -69,10 +70,9 @@ namespace ProjectManager.Helpers
             EventManager.DispatchEvent(this, de);
             if (!de.Handled)
             {
-                int addArgs = 1;
-                arguments = new Argument[PluginBase.MainForm.CustomArguments.Count + addArgs];
-                arguments[0] = new Argument("FlexSDK", PluginBase.MainForm.ProcessArgString("$(FlexSDK)"));
-                PluginBase.MainForm.CustomArguments.CopyTo(arguments, addArgs);
+                defaultFlexSDK = PathHelper.ResolvePath(PluginBase.MainForm.ProcessArgString("$(FlexSDK)")) ?? "C:\\flex_sdk";
+                arguments = PluginBase.MainForm.CustomArguments.ToArray();
+                
                 Directory.CreateDirectory(projectLocation);
                 // manually copy important files
                 CopyFile(projectTemplate, projectPath);
@@ -181,6 +181,7 @@ namespace ProjectManager.Helpers
                     case "PACKAGESLASH": return packageSlash;
                     case "PACKAGESLASHALT": return packageSlash.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                     case "DOLLAR": return "$";
+                    case "FLEXSDK": return defaultFlexSDK;
                     default:
                         foreach (Argument arg in arguments)
                             if (arg.Key.ToUpper() == name) return arg.Value;
