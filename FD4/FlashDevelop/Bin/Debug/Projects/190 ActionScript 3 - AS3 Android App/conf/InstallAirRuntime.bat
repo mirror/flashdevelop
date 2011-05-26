@@ -8,7 +8,7 @@ set AIR_INSTALLER=%FLEX_SDK%\runtimes\air\android\device\runtime.apk
 :: Install
 echo Installing AIR runtime on current device...
 echo.
-adb install -r %AIR_INSTALLER%
+adb install -r "%AIR_INSTALLER%"
 echo.
 if errorlevel 1 goto failed
 goto end

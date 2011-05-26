@@ -7,7 +7,7 @@ set OUTPUT=%APK_PATH%\%APK_NAME%%APK_TARGET%.apk
 
 :: Package
 echo Packaging %APK_NAME%%APK_TARGET%.apk using certificate %CERT_FILE%...
-call adt -package -target apk%APK_TARGET% %OPTIONS% %SIGNING_OPTIONS% %OUTPUT% %APP_XML% %FILE_OR_DIR%
+call adt -package -target apk%APK_TARGET% %OPTIONS% %SIGNING_OPTIONS% "%OUTPUT%" "%APP_XML%" %FILE_OR_DIR%
 if errorlevel 1 goto failed
 goto end
 

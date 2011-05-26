@@ -7,8 +7,8 @@ set ANDROID_SDK=C:\android-sdk-windows
 
 
 :: Validation
-if not exist %FLEX_SDK% goto flexsdk
-if not exist %ANDROID_SDK% goto androidsdk
+if not exist "%FLEX_SDK%" goto flexsdk
+if not exist "%ANDROID_SDK%" goto androidsdk
 goto succeed
 
 :flexsdk
