@@ -2,7 +2,7 @@
 <application xmlns="http://ns.adobe.com/air/application/2.6">
 	
 	<id>$(PACKAGEDOT)$(PROJECTID)</id> 
-	<version>1.0</version> 
+	<versionNumber>1.0</versionNumber> 
 	<filename>$(PROJECTID)</filename> 
 	
 	<name>$(PROJECTNAME)</name> 

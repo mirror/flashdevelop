@@ -1,18 +1,20 @@
-Instructions for DISTRIBUTING* your application:
+AIR for desktop instructions
 
-1. Creating a self-signed certificate:
+1. Configuration
 
-- Edit CreateCertificate.bat to change the path to the Flex SDK
-- Edit CreateCertificate.bat to set your certificate password (and name if you like)
-- Run CreateCertificate.bat to generate your self-signed certificate
-- Wait a minute before packaging
+- edit 'conf\SetupSDK.bat' for the path to Flex SDK
 
-2. Packaging the application:
 
-- Edit PackageApplication.bat and change the path to the Flex SDK
-- If you have a signed certificate, edit PackageApplication.bat to change the path to the certificate
-- Run PackageApplication.bat, you will be prompted for the certificate password (you may not see '***' when typing your password)
-- The packaged application should appear in your project in a new directory called 'air'
+2. Creating a self-signed certificate:
 
-* To test your application with FlashDevelop, just press F5 as usual.
+- run 'conf\CreateCertificate.bat' to generate your self-signed certificate,
 
+(!) wait a minute before packaging.
+
+
+3. Run/debug from FlashDevelop as usual (build F8, build&run F5 or Ctrl+Enter)
+
+
+4. Packaging for release:
+
+- run 'PackageApp.bat' to only create the AIR setup
