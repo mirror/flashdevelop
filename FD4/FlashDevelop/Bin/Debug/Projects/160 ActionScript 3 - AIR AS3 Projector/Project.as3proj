@@ -8,8 +8,8 @@
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
-    <movie version="1" />
-    <movie minorVersion="5" />
+    <movie version="2" />
+    <movie minorVersion="6" />
     <movie platform="AIR" />
     <movie background="#FFFFFF" />
   </output>
@@ -73,6 +73,6 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="$(Dollar)(FlexSDK)\bin\adl.exe;application.xml bin" />
+    <option testMovieCommand="Run.bat" />
   </options>
 </project>

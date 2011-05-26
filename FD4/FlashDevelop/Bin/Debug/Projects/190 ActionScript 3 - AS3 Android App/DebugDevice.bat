@@ -1,6 +1,6 @@
 @echo off
-call conf\SetupSDK.bat
-call conf\SetupApplication.bat
+call bat\SetupSDK.bat
+call bat\SetupApplication.bat
 
 echo Packaging and Installing application for debugging (%DEBUG_IP%)
 echo.
@@ -9,7 +9,7 @@ echo.
 
 set APK_TARGET=-debug
 set OPTIONS=-connect %DEBUG_IP%
-call conf\Packager.bat
+call bat\Packager.bat
 
 echo Installing %OUTPUT% on the device...
 echo.

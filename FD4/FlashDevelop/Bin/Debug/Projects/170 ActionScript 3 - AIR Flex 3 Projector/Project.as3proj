@@ -78,6 +78,6 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="$(Dollar)(FlexSDK)\bin\adl.exe;application.xml bin" />
+    <option testMovieCommand="Run.bat" />
   </options>
 </project>

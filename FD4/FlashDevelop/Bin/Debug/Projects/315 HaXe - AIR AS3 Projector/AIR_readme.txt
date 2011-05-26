@@ -2,12 +2,12 @@ AIR for desktop instructions
 
 1. Configuration
 
-- edit 'conf\SetupSDK.bat' for the path to Flex SDK
+- edit 'bat\SetupSDK.bat' for the path to Flex SDK
 
 
 2. Creating a self-signed certificate:
 
-- run 'conf\CreateCertificate.bat' to generate your self-signed certificate,
+- run 'bat\CreateCertificate.bat' to generate your self-signed certificate,
 
 (!) wait a minute before packaging.
 

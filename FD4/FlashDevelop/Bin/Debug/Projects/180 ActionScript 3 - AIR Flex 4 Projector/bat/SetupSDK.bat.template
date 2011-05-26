@@ -9,7 +9,7 @@ goto succeed
 
 :flexsdk
 echo.
-echo ERROR: incorrect path to Flex SDK in 'conf\SetupSDK.bat'
+echo ERROR: incorrect path to Flex SDK in 'bat\SetupSDK.bat'
 echo.
 echo %FLEX_SDK%
 echo.

@@ -15,7 +15,7 @@ goto end
 echo Certificate not found: %CERT_FILE%
 echo.
 echo Troubleshooting: 
-echo - generate a default certificate using 'conf\CreateCertificate.bat'
+echo - generate a default certificate using 'bat\CreateCertificate.bat'
 echo.
 if %PAUSE_ERRORS%==1 pause
 exit

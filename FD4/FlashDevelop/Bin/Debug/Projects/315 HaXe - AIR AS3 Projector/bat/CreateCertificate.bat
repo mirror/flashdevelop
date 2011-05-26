@@ -1,8 +1,8 @@
 @echo off
 cd..
 set PAUSE_ERRORS=1
-call conf\SetupSDK.bat
-call conf\SetupApplication.bat
+call bat\SetupSDK.bat
+call bat\SetupApplication.bat
 
 :: Generate
 echo.

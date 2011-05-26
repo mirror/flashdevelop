@@ -275,7 +275,11 @@ namespace AirProperties
             string[] maxSizeProperty;
             _isPropertiesLoaded = false;
 
-            _propertiesFile = LookupPropertiesFile();
+            if (isDefault)
+            {
+                // search app descriptor in project
+                _propertiesFile = LookupPropertiesFile();
+            }
 
             if (File.Exists(_propertiesFile))
             {
@@ -427,6 +431,12 @@ namespace AirProperties
             files = Directory.GetFiles(_propertiesFilePath, "*.xml");
             foreach (String file in files)
                 if (LooksLikeAIRProperties(file)) return file;
+
+            // look if we stored a custom path in the project's lcoal storage
+            ProjectManager.Projects.Project project = PluginCore.PluginBase.CurrentProject as ProjectManager.Projects.Project;
+            if (project.Storage.ContainsKey("air-descriptor"))
+                path = project.GetAbsolutePath(project.Storage["air-descriptor"]);
+
             return path; // not found
         }
 
@@ -554,6 +564,14 @@ namespace AirProperties
             {
                 _propertiesFile = OpenPropertiesFileDialog.FileName;
                 LoadProperties(false);
+
+                if (_isPropertiesLoaded)
+                {
+                    // store custom property file location in project's local storage
+                    ProjectManager.Projects.Project project = PluginCore.PluginBase.CurrentProject as ProjectManager.Projects.Project;
+                    project.Storage.Add("air-descriptor", project.GetRelativePath(_propertiesFile));
+                    project.Save();
+                }
             }
         }
 
@@ -879,8 +897,8 @@ namespace AirProperties
                 // create a reader to read the contents of
                 // the memory stream (file)
                 StreamReader sr = new StreamReader(ms);
-                // return the formatted string to caller
-                return sr.ReadToEnd();
+                // return the formatted string to caller (without the namespace declaration)
+                return sr.ReadToEnd().Replace(" xmlns:" + nameSpace + "=\"" + nameSpace + "\"", ""); 
             }
             catch (Exception)
             {

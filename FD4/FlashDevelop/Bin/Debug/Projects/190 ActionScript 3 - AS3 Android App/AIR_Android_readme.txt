@@ -2,12 +2,12 @@ AIR for Android instructions
 
 1. Configuration
 
-- edit 'conf\SetupSDK.bat' for paths to Flex SDK and Android SDK
+- edit 'bat\SetupSDK.bat' for paths to Flex SDK and Android SDK
 
 
 2. Creating a self-signed certificate:
 
-- run 'conf\CreateCertificate.bat' to generate your self-signed certificate,
+- run 'bat\CreateCertificate.bat' to generate your self-signed certificate,
 
 (!) wait a minute before packaging.
 
@@ -20,7 +20,7 @@ AIR for Android instructions
 
 5. Install AIR runtime on your device
 
-- run 'conf\InstallAirRuntime.bat'
+- run 'bat\InstallAirRuntime.bat'
 
 
 6. Running/debugging the application on the device:

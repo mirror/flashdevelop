@@ -13,7 +13,7 @@ goto succeed
 
 :flexsdk
 echo.
-echo ERROR: incorrect path to Flex SDK in 'conf\SetupSDK.bat'
+echo ERROR: incorrect path to Flex SDK in 'bat\SetupSDK.bat'
 echo.
 echo %FLEX_SDK%
 echo.
@@ -22,7 +22,7 @@ exit
 
 :androidsdk
 echo.
-echo ERROR: incorrect path to Android SDK in 'conf\SetupSDK.bat'
+echo ERROR: incorrect path to Android SDK in 'bat\SetupSDK.bat'
 echo.
 echo %ANDROID_SDK%
 echo.
