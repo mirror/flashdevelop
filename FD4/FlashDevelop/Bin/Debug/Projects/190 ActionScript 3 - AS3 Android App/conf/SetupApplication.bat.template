@@ -26,3 +26,18 @@ set APK_NAME=$(PROJECTID)
 
 :: Debugging using a custom IP
 set DEBUG_IP=
+
+
+:: Validation
+find /C "<id>%APP_ID%</id>" "%APP_XML%" > NUL
+if errorlevel 1 goto badid
+goto end
+
+:badid
+echo.
+echo ERROR: 
+echo   Application ID in 'conf\SetupApplication.bat' (APP_ID) 
+echo   does NOT match Application descriptor '%APP_XML%' (id)
+echo.
+
+:end
