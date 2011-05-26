@@ -20,16 +20,18 @@ namespace AirProperties
         private static AirVersion _version;
         private static Boolean _unsupportedVersion;
         private const String _BaseAirNamespace = "http://ns.adobe.com/air/application/";
-        private const String _MaxSupportedVersion = "2.5";
+        private const String _MaxSupportedVersion = "2.7";
 
         public enum AirVersion
         {
-            V10 = 0, // Version 1.0
-            V11 = 1, // Version 1.1
-            V15 = 2, // Version 1.5
-            V153 = 3, // Version 1.5.3
-            V20 = 4, // Version 2.0
-            V25 = 5  // Version 2.5
+            V10 = 0,    // Version 1.0
+            V11 = 1,    // Version 1.1
+            V15 = 2,    // Version 1.5
+            V153 = 3,   // Version 1.5.3
+            V20 = 4,    // Version 2.0
+            V25 = 5,    // Version 2.5
+            V26 = 6,    // Version 2.6
+            V27 = 7     // Version 2.7
         }
 
         public static Exception LastException
@@ -75,24 +77,27 @@ namespace AirProperties
                 _descriptorFile.Load(filePath);
                 _rootNode = _descriptorFile.DocumentElement;
                 _unsupportedVersion = false;
+                string nsuri = _rootNode.NamespaceURI.ToLower();
                 // Determine if valid descriptor file, and which version of AIR is specified
-                if (!_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace))
+                if (!nsuri.StartsWith(_BaseAirNamespace))
                 {
                     throw new Exception(String.Format(TextHelper.GetString("Exception.Message.NotAirDescriptorFile"), filePath));
                 }
                 else
                 {
-                    if (_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace + "1.0")) _version = AirVersion.V10;
-                    else if (_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace + "1.1")) _version = AirVersion.V11;
-                    else if (_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace + "1.5.3")) _version = AirVersion.V153;
-                    else if (_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace + "1.5")) _version = AirVersion.V15;
-                    else if (_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace + "2.0")) _version = AirVersion.V20;
-                    else if (_rootNode.NamespaceURI.ToLower().StartsWith(_BaseAirNamespace + "2.5")) _version = AirVersion.V25;
+                    if (nsuri.StartsWith(_BaseAirNamespace + "1.0")) _version = AirVersion.V10;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "1.1")) _version = AirVersion.V11;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "1.5.3")) _version = AirVersion.V153;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "1.5")) _version = AirVersion.V15;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "2.0")) _version = AirVersion.V20;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "2.5")) _version = AirVersion.V25;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "2.6")) _version = AirVersion.V26;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "2.7")) _version = AirVersion.V27;
                     else
                     {
                         // Is a valid AIR descriptor, but version not supported so default to max supported version
                         _unsupportedVersion = true;
-                        _version = AirVersion.V25;
+                        _version = AirVersion.V27;
                     }
                 }
                 _namespaceManager = new XmlNamespaceManager(_descriptorFile.NameTable);
