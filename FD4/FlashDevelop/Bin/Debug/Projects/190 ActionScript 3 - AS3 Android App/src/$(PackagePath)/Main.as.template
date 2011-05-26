@@ -16,7 +16,7 @@ package $(PackageName)$(CSLB){
 		public function Main():void $(CSLB){
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.addEventListener(Event.DEACTIVATE, autoClose);
+			stage.addEventListener(Event.DEACTIVATE, deactivate);
 			
 			// touch or gesture?
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
@@ -24,7 +24,8 @@ package $(PackageName)$(CSLB){
 			// entry point
 		}
 		
-		private function autoClose(e:Event):void $(CSLB){
+		private function deactivate(e:Event):void $(CSLB){
+			// auto-close
 			NativeApplication.nativeApplication.exit();
 		}
 		

@@ -1,30 +1,35 @@
-Instructions for DISTRIBUTING your application:
+AIR for Android instructions
 
-1. Creating a self-signed certificate:
+1. Configuration
 
-- edit CreateCertificate.bat to change the path to Flex SDK,
-- edit CreateCertificate.bat to set your certificate password (and name if you like),
-- run CreateCertificate.bat to generate your self-signed certificate,
-- wait a minute before packaging.
+- edit 'conf\SetupSDK.bat' for paths to Flex SDK and Android SDK
 
-2. Installing the latest AIR runtime on your device:
 
-- edit InstallAirRuntimeXXXX.bat to change the path to the Flex SDK and Android SDK's tools,
-- run InstallAirRuntimeXXXX.bat to install the runtime on your device.
+2. Creating a self-signed certificate:
 
-3. Packaging & installing the application:
+- run 'conf\CreateCertificate.bat' to generate your self-signed certificate,
 
-- edit PackageInstallXXXX.bat and change the path to Flex SDK and Android SDK's platform-tools
-- if you have a signed certificate, you may need to change the path to the certificate,
-- run PackageInstallXXXX.bat, you will be prompted for the certificate password,
-  (note that you may not see '***' when typing your password - it works anyway)
-- the packaged application should appear in your project in a new 'apk' directory 
-  and be installed on the currently plugged Android device/emulator,
-- the application should start automatically.
+(!) wait a minute before packaging.
 
-4. Debugging the application on your device:
 
-- follow the same instructions as 3. but with DebugDevice.bat,
-- make sure you start FlashDevelop debugger before running DebugDevice.bat,
-  in Flashdevelop select: Debug > Start Remote Session,
-- when DebugDevice.bat is done, the application will connect to FlashDevelop debugger automatically.
+3. Build from FlashDevelop as usual (F8)
+
+
+4. Run/debug the application on the desktop as usual (F5 or Ctrl+Enter)
+
+
+5. Running/debugging the application on the device:
+
+- Debug-build from FlashDevelop (F8)
+- start FlashDevelop debugger: Debug > Start Remote Session
+- run 'DebugDevice.bat' to package, install & run the application on your device
+- the application should connect to FlashDevelop interactive debugger as usual
+
+(!) if the debugger fails to connect using your computer name (this is by default) 
+    you may need to set your computer IP at the end of 'conf\SetupApplication.bat' (DEBUG_IP)
+
+
+6. Packaging for release:
+
+- run 'PackageApp.bat' to only create the APK
+- or run 'PackageInstallApp.bat' to package and run on device at once
