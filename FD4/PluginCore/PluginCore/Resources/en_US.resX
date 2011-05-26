@@ -2008,7 +2008,8 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>SWF File</value>
   </data>
   <data name="ProjectManager.Label.TestMovie" xml:space="preserve">
-    <value>&amp;Test Movie</value>
+    <value>&amp;Test Project</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Title.CommandLineBuilder" xml:space="preserve">
     <value>Command-Line Builder</value>
@@ -2017,7 +2018,8 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Compiler Configuration Required</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
-    <value>Enter Custom Test Movie Command</value>
+    <value>Enter Custom Test Project Command</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Title.EnterText" xml:space="preserve">
     <value>Enter Text</value>
@@ -2358,7 +2360,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Document:</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieDocument" xml:space="preserve">
-    <value>Select Document To Open On Test Movie</value>
+    <value>Select Document To Open On Test Project</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Info.NotEnoughArguments" xml:space="preserve">
     <value>Not enough arguments to run a process successfully:</value>
@@ -3226,7 +3229,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Additional paths to search for source.  Useful for specifying the location of any frameworks or library sources.</value>
   </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
-    <value>Start debugger on Test Movie.</value>
+    <value>Start debugger on Test Project.</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>Cannot debug a movie running in ActiveX Flash Player.</value>

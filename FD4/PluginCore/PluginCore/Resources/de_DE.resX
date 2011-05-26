@@ -2027,6 +2027,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   </data>
   <data name="ProjectManager.Label.TestMovie" xml:space="preserve">
     <value>&amp;SWF-Datei testen</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Title.CommandLineBuilder" xml:space="preserve">
     <value>Befehlszeile erstellen</value>
@@ -2036,6 +2037,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
     <value>Benutzerdefinierten SWF-Test-Befehl eingeben</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Title.EnterText" xml:space="preserve">
     <value>Texte eingeben</value>
@@ -2362,6 +2364,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="ProjectManager.Title.CustomTestMovieDocument" xml:space="preserve">
     <value>Zu öffendes Dokument auswählen</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Info.NotEnoughArguments" xml:space="preserve">
     <value>Nicht genügend Argumente um einen Prozess auszuführen:</value>
@@ -3233,6 +3236,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
     <value>Starte Debugger beim Starten der SWF-Datei.</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>Debugger kann nicht mit eingebetteten Flash-Plugin (ActiveX Flash Player) verbunden werden. Verwenden Sie den Flash Debug Projektor.</value>
@@ -3814,7 +3818,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
     <value>Folgendes Plugin konnte nicht geladen werden:</value>
-    <comment>Added after 3.3.1</comment>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
     <value>&amp;Code Generator</value>

@@ -2014,6 +2014,7 @@
   </data>
   <data name="ProjectManager.Label.TestMovie" xml:space="preserve">
     <value>プロジェクトをテスト(&amp;T)</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Title.CommandLineBuilder" xml:space="preserve">
     <value>コマンドラインビルダー</value>
@@ -2023,6 +2024,7 @@
   </data>
   <data name="ProjectManager.Title.CustomTestMovieCommand" xml:space="preserve">
     <value>コマンドラインを入力</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="ProjectManager.Title.EnterText" xml:space="preserve">
     <value>テキスト入力</value>
@@ -2359,6 +2361,7 @@ Never - 起動時にスタートページを表示しません。</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieDocument" xml:space="preserve">
     <value>開くドキュメントを選択</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Info.NotEnoughArguments" xml:space="preserve">
     <value>プロセスを正常に実行するには引数が充分ではありません:</value>
@@ -3232,6 +3235,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
   </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
     <value>ムービーのテスト時にデバッガーを開始します。</value>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>ActiveX プレーヤーではデバッグを開始することができません。</value>
@@ -3832,7 +3836,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
   </data>
   <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
     <value>プラグインをロードできませんでした:</value>
-    <comment>Added after 3.3.1</comment>
+    <comment>Modified after 3.3.4</comment>
   </data>
   <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
     <value>コードの生成(&amp;C)</value>
