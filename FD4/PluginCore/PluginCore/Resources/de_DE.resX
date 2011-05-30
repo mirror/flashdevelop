@@ -4803,4 +4803,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Pfad zum benutzerdefinierten Projektvorlagenverzeichnis.</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="ASCompletion.Description.HandlerNamingConvention" xml:space="preserve">
+    <value>Generator can automatically generate an event handler method name using the following naming conventions</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

@@ -159,62 +159,14 @@ namespace ASCompletion.Completion
                         Match m = Regex.Match(text, String.Format(patternEvent, ""), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
-                            contextToken = TemplateUtils.GetTemplate("EventHandlerName");
-                            bool noOwner = true;
-                            int regexIndex = m.Index + Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
-                            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(regexIndex, true));
-                            if (contextOwnerPos != -1)
+                            GenerateDefaultHandlerName(Sci, position, m);
+                            resolve = ASComplete.GetExpressionType(Sci, Sci.CurrentPos);
+                            if (resolve.Member == null)
                             {
-                                ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
-                                if (contextOwnerResult != null && !contextOwnerResult.IsNull()
-                                    && contextOwnerResult.Member != null)
-                                {
-                                    if (contextOwnerResult.Member.Name == "contentLoaderInfo" && Sci.CharAt(contextOwnerPos) == '.')
-                                    {
-                                        // we want to name the event from the loader var and not from the contentLoaderInfo parameter
-                                        contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(contextOwnerPos - 1, true));
-                                        if (contextOwnerPos != -1)
-                                        {
-                                            contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
-                                            if (contextOwnerResult != null && !contextOwnerResult.IsNull()
-                                                && contextOwnerResult.Member != null)
-                                            {
-                                                noOwner = false;
-                                                contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        noOwner = false;
-                                        contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", contextOwnerResult.Member.Name);
-                                    }
-                                }
+                                contextMatch = m;
+                                contextParam = CheckEventType(m.Groups["event"].Value);
+                                ShowEventList(found);
                             }
-                            if (noOwner)
-                            {
-                                contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "Owner", "")
-                                    .Replace("_$(EventName)", "$(EventName)");
-                            }
-
-                            string eventName = m.Groups["event"].Value;
-                            eventName = eventName.Substring(eventName.LastIndexOf('.') + 1);
-                            contextToken = TemplateUtils.ReplaceTemplateVariable(contextToken, "EventName", Camelize(eventName));
-
-                            char c = (char)Sci.CharAt(position - 1);
-                            if (c == ',') contextToken = contextToken.Replace("$(Boundary)", "$(Boundary) ");
-                            InsertCode(position, contextToken);
-
-                            position = Sci.WordEndPosition(position + 1, true);
-                            Sci.SetSel(position, position);
-                            c = (char)Sci.CharAt(position);
-                            if (c <= 32) Sci.ReplaceSel(");");
-                            
-                            Sci.SetSel(position, position);
-                            contextMatch = m;
-                            contextParam = CheckEventType(m.Groups["event"].Value);
-                            contextToken = contextToken.Replace("$(Boundary)", "").Trim();
-                            ShowEventList(found);
                             return;
                         }
                     }
@@ -402,6 +354,65 @@ namespace ASCompletion.Completion
             
 
             // TODO  Empty line, show generators list?
+        }
+
+        private static void GenerateDefaultHandlerName(ScintillaNet.ScintillaControl Sci, int position, Match m)
+        {
+            string target = null;
+            int regexIndex = m.Index + Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
+            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(regexIndex, true));
+            if (contextOwnerPos != -1)
+            {
+                ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
+                if (contextOwnerResult != null && !contextOwnerResult.IsNull()
+                    && contextOwnerResult.Member != null)
+                {
+                    if (contextOwnerResult.Member.Name == "contentLoaderInfo" && Sci.CharAt(contextOwnerPos) == '.')
+                    {
+                        // we want to name the event from the loader var and not from the contentLoaderInfo parameter
+                        contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(contextOwnerPos - 1, true));
+                        if (contextOwnerPos != -1)
+                        {
+                            contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
+                            if (contextOwnerResult != null && !contextOwnerResult.IsNull()
+                                && contextOwnerResult.Member != null)
+                            {
+                                target = contextOwnerResult.Member.Name;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        target = contextOwnerResult.Member.Name;
+                    }
+                }
+            }
+            
+            string eventName = m.Groups["event"].Value;
+            eventName = Camelize(eventName.Substring(eventName.LastIndexOf('.') + 1));
+
+            switch (ASContext.CommonSettings.HandlerNamingConvention)
+            {
+                case HandlerNamingConventions.onTargetEventName:
+                    if (target == null) contextToken = "on" + Capitalize(eventName);
+                    else contextToken = "on" + Capitalize(target) + Capitalize(eventName);
+                    break;
+                default: //HandlerNamingConventions.target_eventName
+                    if (target == null) contextToken = eventName;
+                    else contextToken = target + "_" + eventName;
+                    break;
+            }
+
+            char c = (char)Sci.CharAt(position - 1);
+            if (c == ',') InsertCode(position, "$(Boundary) " + contextToken + "$(Boundary)");
+            else InsertCode(position, contextToken);
+
+            position = Sci.WordEndPosition(position + 1, true);
+            Sci.SetSel(position, position);
+            c = (char)Sci.CharAt(position);
+            if (c <= 32) Sci.ReplaceSel(");");
+
+            Sci.SetSel(position, position);
         }
 
         private static FoundDeclaration GetDeclarationAtLine(ScintillaNet.ScintillaControl Sci, int line)
@@ -2022,6 +2033,11 @@ namespace ASCompletion.Completion
             return pos;
         }
 
+        static public string Capitalize(string name)
+        {
+            return name != null && name.Length > 0 ? Char.ToUpper(name[0]) + name.Substring(1) : name;
+        }
+
         static public string Camelize(string name)
         {
             name = name.Trim(new char[] { '\'', '"' });
@@ -2030,7 +2046,7 @@ namespace ASCompletion.Completion
             foreach (string part in parts)
             {
                 if (result.Length > 0)
-                    result += Char.ToUpper(part[0]) + part.Substring(1);
+                    result += Capitalize(part);
                 else result = part;
             }
             return result;

@@ -301,8 +301,9 @@ namespace ASCompletion.Settings
         const bool DEFAULT_GENERATE_ADDCLOSINGBRACES = false;
         const PropertiesGenerationLocations DEFAULT_GENERATE_PROPERTIES = PropertiesGenerationLocations.AfterLastPropertyDeclaration;
         const MethodsGenerationLocations DEFAULT_GENERATE_METHODS = MethodsGenerationLocations.AfterCurrentMethod;
-        const string DEFAULT_GENERATE_PREFIXFIELDS = "_";
+        const string DEFAULT_GENERATE_PREFIXFIELDS = "";
         const bool DEFAULT_GENERATE_SCOPE = false;
+        const HandlerNamingConventions DEFAULT_HANDLER_CONVENTION = HandlerNamingConventions.target_eventName;
 
         static public string[] DEFAULT_EVENTAUTOREMOVE = new string[] {
               "Event.ADDED_TO_STAGE", "Event.REMOVED_FROM_STAGE",
@@ -317,6 +318,7 @@ namespace ASCompletion.Settings
         private string prefixFields = DEFAULT_GENERATE_PREFIXFIELDS;
         private bool addClosingBraces = DEFAULT_GENERATE_ADDCLOSINGBRACES;
         private bool generateScope = DEFAULT_GENERATE_SCOPE;
+        private HandlerNamingConventions handlerNamingConvention = DEFAULT_HANDLER_CONVENTION;
 
         [DisplayName("Event Listeners Auto Remove")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.EventListenersAutoRemove")]
@@ -389,6 +391,15 @@ namespace ASCompletion.Settings
             set { prefixFields = value; }
         }
 
+        [DisplayName("Handler Generation Naming Convention")]
+        [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.HandlerNamingConvention"),
+        DefaultValue(DEFAULT_HANDLER_CONVENTION)]
+        public HandlerNamingConventions HandlerNamingConvention
+        {
+            get { return handlerNamingConvention; }
+            set { handlerNamingConvention = value; }
+        }
+
         #endregion
     }
 
@@ -403,5 +414,11 @@ namespace ASCompletion.Settings
     {
         AfterCurrentMethod = 0,
         AfterSimilarAccessorMethod = 1
+    }
+
+    public enum HandlerNamingConventions
+    {
+        target_eventName = 0,
+        onTargetEventName = 1
     }
 }
