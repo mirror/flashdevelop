@@ -171,12 +171,14 @@
 	<menu label="Label.Syntax" name="SyntaxMenu">
 		<button label="&amp;AS2" click="ChangeSyntax" tag="as2" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
 		<button label="A&amp;S3" click="ChangeSyntax" tag="as3" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
-		<button label="HaX&amp;e" click="ChangeSyntax" tag="haxe" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
-		<button label="&amp;JScript" click="ChangeSyntax" tag="jscript" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
-		<button label="&amp;Python" click="ChangeSyntax" tag="python" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
+		<button label="&amp;Batch" click="ChangeSyntax" tag="batch" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
 		<button label="&amp;CSharp" click="ChangeSyntax" tag="csharp" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
-		<button label="&amp;HTML" click="ChangeSyntax" tag="html" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
 		<button label="&amp;CSS" click="ChangeSyntax" tag="css" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
+		<button label="HaX&amp;e" click="ChangeSyntax" tag="haxe" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
+		<button label="&amp;HTML" click="ChangeSyntax" tag="html" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
+		<button label="&amp;JScript" click="ChangeSyntax" tag="jscript" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
+		<button label="&amp;Properties" click="ChangeSyntax" tag="properties" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
+		<button label="&amp;Python" click="ChangeSyntax" tag="python" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
 		<button label="&amp;XML" click="ChangeSyntax" tag="xml" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
 		<button label="Label.Text" click="ChangeSyntax" tag="text" flags="Enable:IsEditable+Check:IsEditable|IsActiveSyntax" />
 	</menu>
