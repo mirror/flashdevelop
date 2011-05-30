@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<keyword-classes>
-		<keyword-class name="as-primary-keywords">
-			rem set if exist errorlevel for in do break call chcp cd chdir choice cls country ctty date del erase dir echo
-			exit goto loadfix loadhigh mkdir md move path pause prompt rename ren rmdir rd shift time type ver verify vol
-			com con lpt nul color copy defined else not start
-		</keyword-class>
-	</keyword-classes>
 	<languages>
 		<language name="batch">
 			<lexer name="batch" style-bits="7" />
@@ -19,7 +12,7 @@
 				<style name="word" />
 				<style name="label" fore="0xffffff" back="0x00a0ff" eolfilled="true" />
 				<style name="hide" fore="0xFF00FF" />
-				<style name="command" fore="0x0060ff" />
+				<style name="command" fore="0x000099" />
 				<style name="identifier" fore="0xa31515" />
 				<style name="operator" />
 				<style name="gdefault" fore="0xc0c0c0" />
