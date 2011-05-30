@@ -716,11 +716,11 @@ namespace ScintillaNet.Lexers
 		DEFAULT = 0,
 		COMMENT = 1,
 		WORD = 2,
-		LABEL = 3,
-		HIDE = 4,
+		LABEL = 3, // line starting with ':'
+		HIDE = 4, // '@'
 		COMMAND = 5,
-		IDENTIFIER = 6,
-		OPERATOR = 7,
+        IDENTIFIER = 6, // %%x, %EnvironmentVar%, !EnvironmentVar!
+        OPERATOR = 7,
 		GDEFAULT = 32,
         LINENUMBER = 33,
         BRACELIGHT = 34,

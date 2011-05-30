@@ -188,8 +188,7 @@ namespace PluginCore.Controls
 			if (toolTip.Visible)
 			{
 				toolTip.Visible = false;
-				toolTipRTB.Select(0, toolTipRTB.Text.Length);
-				toolTipRTB.SelectionFont = new Font(toolTipRTB.Font.FontFamily, toolTipRTB.Font.Size, FontStyle.Regular);
+                toolTipRTB.ResetText();
 			}
 		}
 

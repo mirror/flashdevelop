@@ -47,7 +47,7 @@ namespace PluginCore.Controls
 			outSize.Height = rtb.GetPositionFromCharIndex(rtb.TextLength).Y;
 
 			lastIdx = -1;
-			int maxW = maxW = rtb.GetPositionFromCharIndex(rtb.TextLength).X;
+			int maxW = rtb.GetPositionFromCharIndex(rtb.TextLength).X;
 			int currW = 0;
 			while (true)
 			{
