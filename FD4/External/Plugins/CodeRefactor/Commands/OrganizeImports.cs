@@ -8,6 +8,7 @@ using CodeRefactor.Provider;
 using PluginCore.Localization;
 using ASCompletion.Model;
 using ASCompletion.Context;
+using PluginCore.Utilities;
 using ScintillaNet;
 using PluginCore;
 
@@ -124,7 +125,7 @@ namespace CodeRefactor.Commands
         /// </summary>
         private void InsertImports(List<MemberModel> imports, String searchInText, ScintillaControl sci, Int32 indent)
         {
-            String eol = ScintillaControl.GetNewLineMarker(sci.EOLMode);
+            String eol = LineEndDetector.GetNewLineMarker(sci.EOLMode);
             if (imports.Count > 1 || (imports.Count > 0 && this.TruncateImports))
             {
                 Int32 line = imports[0].LineFrom - DeletedImportsCompensation;

@@ -17,6 +17,7 @@ using ASCompletion.Context;
 using System.IO;
 using PluginCore.Helpers;
 using PluginCore.Localization;
+using PluginCore.Utilities;
 using ScintillaNet;
 
 namespace ASCompletion.Completion
@@ -964,7 +965,7 @@ namespace ASCompletion.Completion
             int offset = Sci.MBSafeLengthFromBytes(txt, position - startPos);
             
             ReformatOptions options = new ReformatOptions();
-            options.Newline = ScintillaControl.GetNewLineMarker(Sci.EOLMode);
+            options.Newline = LineEndDetector.GetNewLineMarker(Sci.EOLMode);
             options.CondenseWhitespace = ASContext.CommonSettings.CondenseWhitespace;
             options.BraceAfterLine = ASContext.CommonSettings.ReformatBraces 
                 && PluginBase.MainForm.Settings.CodingStyle == CodingStyle.BracesAfterLine;
@@ -1036,7 +1037,7 @@ namespace ASCompletion.Completion
             try
             {
                 int eolMode = Sci.EOLMode;
-                Sci.InsertText(position, ScintillaControl.GetNewLineMarker(eolMode) + "}");
+                Sci.InsertText(position, LineEndDetector.GetNewLineMarker(eolMode) + "}");
                 Sci.SetLineIndentation(lastLine + 1, startIndent);
             }
             finally
@@ -3451,7 +3452,7 @@ namespace ASCompletion.Completion
 					return false;
 
 				// insert import
-                string statement = "import " + package + "*;" + ScintillaControl.GetNewLineMarker(sci.EOLMode);
+                string statement = "import " + package + "*;" + LineEndDetector.GetNewLineMarker(sci.EOLMode);
 				int endPos = sci.CurrentPos;
 				int line = 0;
 				int curLine = sci.LineFromPosition(position);

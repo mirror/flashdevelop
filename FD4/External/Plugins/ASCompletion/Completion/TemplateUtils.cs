@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ASCompletion.Model;
 using PluginCore.Helpers;
+using PluginCore.Utilities;
 using PluginCore;
 
 namespace ASCompletion.Completion
@@ -174,7 +175,7 @@ namespace ASCompletion.Completion
 
         public static MemberModel GetTemplateBlockMember(ScintillaNet.ScintillaControl Sci, string blockTmpl)
         {
-            blockTmpl = blockTmpl.Replace("\n", ScintillaNet.ScintillaControl.GetNewLineMarker(Sci.EOLMode));
+            blockTmpl = blockTmpl.Replace("\n", LineEndDetector.GetNewLineMarker(Sci.EOLMode));
             int lineNum = 0;
             while (lineNum < Sci.LineCount)
             {

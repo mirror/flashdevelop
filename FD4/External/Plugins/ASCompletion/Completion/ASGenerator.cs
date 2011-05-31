@@ -13,6 +13,7 @@ using PluginCore.Helpers;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using WeifenLuo.WinFormsUI.Docking;
+using PluginCore.Utilities;
 
 namespace ASCompletion.Completion
 {
@@ -4068,7 +4069,7 @@ namespace ASCompletion.Completion
             int curLine = sci.LineFromPosition(position);
 
             string fullPath = CleanType(member.Type); // ((member.Flags & FlagType.Class) > 0) ? member.Type : member.Name;
-            string nl = ScintillaNet.ScintillaControl.GetNewLineMarker(sci.EOLMode);
+            string nl = LineEndDetector.GetNewLineMarker(sci.EOLMode);
             string statement = "import " + fullPath + ";" + nl;
 
             // locate insertion point

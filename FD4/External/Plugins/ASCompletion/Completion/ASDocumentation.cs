@@ -14,6 +14,7 @@ using PluginCore.Controls;
 using ASCompletion.Model;
 using ASCompletion.Context;
 using PluginCore.Localization;
+using PluginCore.Utilities;
 using ScintillaNet;
 
 namespace ASCompletion.Completion
@@ -83,7 +84,7 @@ namespace ASCompletion.Completion
 			string tab = Sci.GetLine(line).Substring(0, indent);
 			// get EOL
 			int eolMode = Sci.EOLMode;
-			string newline = ScintillaControl.GetNewLineMarker(eolMode);
+			string newline = LineEndDetector.GetNewLineMarker(eolMode);
             string star = PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " *" : "*";
 			
 			// empty box
