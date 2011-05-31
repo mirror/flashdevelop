@@ -14,6 +14,7 @@ using PluginCore.Controls;
 using ASCompletion.Model;
 using ASCompletion.Context;
 using PluginCore.Localization;
+using ScintillaNet;
 
 namespace ASCompletion.Completion
 {
@@ -50,7 +51,7 @@ namespace ASCompletion.Completion
 			boxMethodParams = new BoxItem(TextHelper.GetString("Label.CompleteDocDetails"));
 		}
 		
-		static public bool OnChar(ScintillaNet.ScintillaControl Sci, int Value, int position, int style)
+		static public bool OnChar(ScintillaControl Sci, int Value, int position, int style)
 		{
 			if (style == 3 || style == 124)
 			{
@@ -74,7 +75,7 @@ namespace ASCompletion.Completion
 		static private void CompleteTemplate(string Context)
 		{
 			// get indentation
-			ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
+			ScintillaControl Sci = ASContext.CurSciControl;
 			if (Sci == null) return;
 			int position = Sci.CurrentPos;
 			int line = Sci.LineFromPosition(position);
@@ -82,7 +83,7 @@ namespace ASCompletion.Completion
 			string tab = Sci.GetLine(line).Substring(0, indent);
 			// get EOL
 			int eolMode = Sci.EOLMode;
-			string newline = ASComplete.GetNewLineMarker(eolMode);
+			string newline = ScintillaControl.GetNewLineMarker(eolMode);
             string star = PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " *" : "*";
 			
 			// empty box
@@ -150,7 +151,7 @@ namespace ASCompletion.Completion
             return list;
         }
 		
-		static private bool HandleDocTagCompletion(ScintillaNet.ScintillaControl Sci)
+		static private bool HandleDocTagCompletion(ScintillaControl Sci)
 		{
             if (ASContext.CommonSettings.JavadocTags == null || ASContext.CommonSettings.JavadocTags.Length == 0)
                 return false;
@@ -176,7 +177,7 @@ namespace ASCompletion.Completion
 			return true;
 		}
 		
-		static private bool HandleBoxCompletion(ScintillaNet.ScintillaControl Sci, int position)
+		static private bool HandleBoxCompletion(ScintillaControl Sci, int position)
 		{
 			// is the block before a function declaration?
 			int len = Sci.TextLength-1;

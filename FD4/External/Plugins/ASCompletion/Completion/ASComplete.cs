@@ -17,6 +17,7 @@ using ASCompletion.Context;
 using System.IO;
 using PluginCore.Helpers;
 using PluginCore.Localization;
+using ScintillaNet;
 
 namespace ASCompletion.Completion
 {
@@ -51,7 +52,7 @@ namespace ASCompletion.Completion
 		/// Character written in editor
 		/// </summary>
 		/// <param name="Value">Character inserted</param>
-		static public bool OnChar(ScintillaNet.ScintillaControl Sci, int Value, bool autoHide)
+		static public bool OnChar(ScintillaControl Sci, int Value, bool autoHide)
 		{
             IASContext ctx = ASContext.Context;
 			if (ctx.Settings == null || !ctx.Settings.CompletionEnabled) 
@@ -185,12 +186,12 @@ namespace ASCompletion.Completion
 			return false;
         }
 
-        internal static void OnTextChanged(ScintillaNet.ScintillaControl sci, int position, int length, int linesAdded)
+        internal static void OnTextChanged(ScintillaControl sci, int position, int length, int linesAdded)
         {
             // TODO track text changes -> LastChar
         }
 
-        private static void HandleClosingChar(ScintillaNet.ScintillaControl Sci, int Value, int position)
+        private static void HandleClosingChar(ScintillaControl Sci, int Value, int position)
         {
             if (!ASContext.CommonSettings.AddClosingBraces) return;
 
@@ -273,7 +274,7 @@ namespace ASCompletion.Completion
 		/// </summary>
 		/// <param name="keys">Test keys</param>
 		/// <returns></returns>
-		static public bool OnShortcut(Keys keys, ScintillaNet.ScintillaControl Sci)
+		static public bool OnShortcut(Keys keys, ScintillaControl Sci)
 		{
             // dot complete
 			if (keys == (Keys.Control | Keys.Space))
@@ -353,7 +354,7 @@ namespace ASCompletion.Completion
         /// <summary>
         /// Fire the completion automatically
         /// </summary>
-        private static void AutoStartCompletion(ScintillaNet.ScintillaControl Sci, int position)
+        private static void AutoStartCompletion(ScintillaControl Sci, int position)
         {
             if (!CompletionList.Active && ASContext.Context.Features.hasEcmaTyping 
                 && ASContext.CommonSettings.AlwaysCompleteWordLength > 0)
@@ -365,7 +366,7 @@ namespace ASCompletion.Completion
                 if (position - wordStart != n)
                     return;
                 char c = (char)Sci.CharAt(wordStart);
-                string characterClass = ScintillaNet.ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
+                string characterClass = ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
                 if (Char.IsDigit(c) || characterClass.IndexOf(c) < 0)
                     return;
                 // give a guess to the context (do not complete where it should not)
@@ -430,7 +431,7 @@ namespace ASCompletion.Completion
 		/// </summary>
 		/// <param name="Sci">Control</param>
 		/// <returns>Declaration was found</returns>
-		static public bool DeclarationLookup(ScintillaNet.ScintillaControl Sci)
+		static public bool DeclarationLookup(ScintillaControl Sci)
 		{
 			if (!ASContext.Context.IsFileValid || (Sci == null)) return false;
 
@@ -489,7 +490,7 @@ namespace ASCompletion.Completion
         /// <summary>
         /// Show resolved element declaration
         /// </summary>
-        static public bool OpenDocumentToDeclaration(ScintillaNet.ScintillaControl Sci, ASResult result)
+        static public bool OpenDocumentToDeclaration(ScintillaControl Sci, ASResult result)
         {
             FileModel model = result.inFile
                 ?? ((result.Member != null && result.Member.InFile != null) ? result.Member.InFile : null)
@@ -605,7 +606,7 @@ namespace ASCompletion.Completion
         {
             try
             {
-                ScintillaNet.ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
+                ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
                 if (sci == null || line <= 0) return;
 
                 bool found = false;
@@ -642,7 +643,7 @@ namespace ASCompletion.Completion
 		/// </summary>
 		/// <param name="Sci">Control</param>
 		/// <returns>Resolved element details</returns>
-		static public Hashtable ResolveElement(ScintillaNet.ScintillaControl Sci, string eventAction)
+		static public Hashtable ResolveElement(ScintillaControl Sci, string eventAction)
 		{
             Hashtable details = new Hashtable();
 
@@ -913,7 +914,7 @@ namespace ASCompletion.Completion
 		#endregion
 
 		#region structure_completion
-		static private void HandleStructureCompletion(ScintillaNet.ScintillaControl Sci)
+		static private void HandleStructureCompletion(ScintillaControl Sci)
 		{
 			try
 			{
@@ -954,7 +955,7 @@ namespace ASCompletion.Completion
 			}
 		}
 
-        private static void ReformatLine(ScintillaNet.ScintillaControl Sci, int position)
+        private static void ReformatLine(ScintillaControl Sci, int position)
         {
             int line = Sci.LineFromPosition(position);
             string txt = Sci.GetLine(line);
@@ -963,7 +964,7 @@ namespace ASCompletion.Completion
             int offset = Sci.MBSafeLengthFromBytes(txt, position - startPos);
             
             ReformatOptions options = new ReformatOptions();
-            options.Newline = GetNewLineMarker(Sci.EOLMode);
+            options.Newline = ScintillaControl.GetNewLineMarker(Sci.EOLMode);
             options.CondenseWhitespace = ASContext.CommonSettings.CondenseWhitespace;
             options.BraceAfterLine = ASContext.CommonSettings.ReformatBraces 
                 && PluginBase.MainForm.Settings.CodingStyle == CodingStyle.BracesAfterLine;
@@ -993,7 +994,7 @@ namespace ASCompletion.Completion
         /// <param name="Sci"></param>
         /// <param name="txt"></param>
         /// <param name="line"></param>
-        private static void AutoCloseBrace(ScintillaNet.ScintillaControl Sci, int line)
+        private static void AutoCloseBrace(ScintillaControl Sci, int line)
         {
             // find matching brace
             int bracePos = Sci.LineEndPosition(line - 1) - 1;
@@ -1035,7 +1036,7 @@ namespace ASCompletion.Completion
             try
             {
                 int eolMode = Sci.EOLMode;
-                Sci.InsertText(position, GetNewLineMarker(eolMode) + "}");
+                Sci.InsertText(position, ScintillaControl.GetNewLineMarker(eolMode) + "}");
                 Sci.SetLineIndentation(lastLine + 1, startIndent);
             }
             finally
@@ -1050,7 +1051,7 @@ namespace ASCompletion.Completion
         /// </summary>
         /// <param name="Sci"></param>
         /// <param name="line"></param>
-        private static void FixIndentationAfterComments(ScintillaNet.ScintillaControl Sci, int line)
+        private static void FixIndentationAfterComments(ScintillaControl Sci, int line)
         {
             int startLine = line - 1;
             while (startLine > 0)
@@ -1071,7 +1072,7 @@ namespace ASCompletion.Completion
         /// <param name="Sci"></param>
         /// <param name="txt"></param>
         /// <param name="line"></param>
-        private static void FormatComments(ScintillaNet.ScintillaControl Sci, string txt, int line)
+        private static void FormatComments(ScintillaControl Sci, string txt, int line)
         {
             txt = txt.TrimStart();
             if (txt.StartsWith("/*"))
@@ -1092,7 +1093,7 @@ namespace ASCompletion.Completion
 		#endregion
 
 		#region template_completion
-		static private bool HandleDeclarationCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide)
+		static private bool HandleDeclarationCompletion(ScintillaControl Sci, string tail, bool autoHide)
 		{
 			int position = Sci.CurrentPos;
             int line = Sci.LineFromPosition(position);
@@ -1163,12 +1164,12 @@ namespace ASCompletion.Completion
 		/// </summary>
 		/// <param name="Sci">Scintilla control</param>
 		/// <param name="paramNumber">Highlight param number</param>
-		static private void ShowCalltip(ScintillaNet.ScintillaControl Sci, int paramNumber)
+		static private void ShowCalltip(ScintillaControl Sci, int paramNumber)
 		{
 			ShowCalltip(Sci, paramNumber, false);
 		}
 
-		static private void ShowCalltip(ScintillaNet.ScintillaControl Sci, int paramNumber, bool forceRedraw)
+		static private void ShowCalltip(ScintillaControl Sci, int paramNumber, bool forceRedraw)
 		{
 			// measure highlighting
 			int start = calltipDef.IndexOf('(');
@@ -1236,12 +1237,12 @@ namespace ASCompletion.Completion
 		/// </summary>
 		/// <param name="Sci">Scintilla control</param>
 		/// <returns>Auto-completion has been handled</returns>
-		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide)
+		static public bool HandleFunctionCompletion(ScintillaControl Sci, bool autoHide)
 		{
 			return HandleFunctionCompletion(Sci, autoHide, false);
 		}
 
-		static public bool HandleFunctionCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide, bool forceRedraw)
+		static public bool HandleFunctionCompletion(ScintillaControl Sci, bool autoHide, bool forceRedraw)
 		{
 			// find method
 			int position = Sci.CurrentPos - 1;
@@ -1414,7 +1415,7 @@ namespace ASCompletion.Completion
 			return true;
 		}
 
-        private static void ShowListeners(ScintillaNet.ScintillaControl Sci, int position, ClassModel ofClass)
+        private static void ShowListeners(ScintillaControl Sci, int position, ClassModel ofClass)
         {
             // find event metadatas
             List<ASMetaData> events = new List<ASMetaData>();
@@ -1509,7 +1510,7 @@ namespace ASCompletion.Completion
 		/// <param name="Sci">Scintilla control</param>
 		/// <param name="autoHide">Don't keep the list open if the word does not match</param>
 		/// <returns>Auto-completion has been handled</returns>
-		static private bool HandleDotCompletion(ScintillaNet.ScintillaControl Sci, bool autoHide)
+		static private bool HandleDotCompletion(ScintillaControl Sci, bool autoHide)
 		{
             //this method can exit at multiple points, so reset the current class now rather than later
             currentClassHash = null;
@@ -1709,7 +1710,7 @@ namespace ASCompletion.Completion
 
 		#region types_completion
 
-        static private void SelectTypedNewMember(ScintillaNet.ScintillaControl sci)
+        static private void SelectTypedNewMember(ScintillaControl sci)
         {
             try
             {
@@ -1751,7 +1752,7 @@ namespace ASCompletion.Completion
             catch {} // Do not throw exception with incorrect types
         }
 
-		static private bool HandleNewCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide, string keyword)
+		static private bool HandleNewCompletion(ScintillaControl Sci, string tail, bool autoHide, string keyword)
 		{
             if (!ASContext.Context.Settings.LazyClasspathExploration
                 && ASContext.Context.Settings.CompletionListAllTypes)
@@ -1777,7 +1778,7 @@ namespace ASCompletion.Completion
 			return true;
 		}
 
-		static private bool HandleImportCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide)
+		static private bool HandleImportCompletion(ScintillaControl Sci, string tail, bool autoHide)
 		{
             if (!ASContext.Context.Features.hasImports) return false;
 
@@ -1803,7 +1804,7 @@ namespace ASCompletion.Completion
 			return true;
 		}
 
-		static private bool HandleColonCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool autoHide)
+		static private bool HandleColonCompletion(ScintillaControl Sci, string tail, bool autoHide)
 		{
             ComaExpression coma = ComaExpression.None;
 			int position = Sci.CurrentPos - 1;
@@ -1888,7 +1889,7 @@ namespace ASCompletion.Completion
         /// Display the full project classes list
         /// </summary>
         /// <param name="Sci"></param>
-        static public void HandleAllClassesCompletion(ScintillaNet.ScintillaControl Sci, string tail, bool classesOnly, bool showClassVars)
+        static public void HandleAllClassesCompletion(ScintillaControl Sci, string tail, bool classesOnly, bool showClassVars)
         {
             MemberList known = ASContext.Context.GetAllProjectClasses();
             if (known.Count == 0) return;
@@ -2557,7 +2558,7 @@ namespace ASCompletion.Completion
         /// <param name="sci">Scintilla Control</param>
         /// <param name="position">Cursor position</param>
         /// <returns></returns>
-        static private ASExpr GetExpression(ScintillaNet.ScintillaControl Sci, int position)
+        static private ASExpr GetExpression(ScintillaControl Sci, int position)
         {
             return GetExpression(Sci, position, false);
         }
@@ -2569,7 +2570,7 @@ namespace ASCompletion.Completion
 		/// <param name="position">Cursor position</param>
         /// <param name="ignoreWhiteSpace">Skip whitespace at position</param>
 		/// <returns></returns>
-        static private ASExpr GetExpression(ScintillaNet.ScintillaControl Sci, int position, bool ignoreWhiteSpace)
+        static private ASExpr GetExpression(ScintillaControl Sci, int position, bool ignoreWhiteSpace)
 		{
 			ASExpr expression = new ASExpr();
 			expression.Position = position;
@@ -2616,7 +2617,7 @@ namespace ASCompletion.Completion
             }
 
             // get the word characters from the syntax definition
-            string characterClass = ScintillaNet.ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
+            string characterClass = ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
 
             // get expression before cursor
             ContextFeatures features = ASContext.Context.Features;
@@ -2845,7 +2846,7 @@ namespace ASCompletion.Completion
         /// Find out in what context is a coma-separated expression
         /// </summary>
         /// <returns></returns>
-        private static ComaExpression DisambiguateComa(ScintillaNet.ScintillaControl Sci, int position, int minPos)
+        private static ComaExpression DisambiguateComa(ScintillaControl Sci, int position, int minPos)
         {
             ContextFeatures features = ASContext.Context.Features;
             // find block start '(' or '{'
@@ -2992,12 +2993,6 @@ namespace ASCompletion.Completion
 
 		#region tools_functions
 
-        static public string GetNewLineMarker(int eolMode)
-        {
-            if (eolMode == 1) return "\r";
-            else if (eolMode == 2) return "\n";
-            else return "\r\n";
-        }
 
         static public bool IsLiteralStyle(int style)
         {
@@ -3034,10 +3029,10 @@ namespace ASCompletion.Completion
                 || style == 17 || style == 18 /*javadoc tags*/;
 		}
 
-		static public string GetWordLeft(ScintillaNet.ScintillaControl Sci, ref int position)
+		static public string GetWordLeft(ScintillaControl Sci, ref int position)
 		{
             // get the word characters from the syntax definition
-            string characterClass = ScintillaNet.ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
+            string characterClass = ScintillaControl.Configuration.GetLanguage(Sci.ConfigurationLanguage).characterclass.Characters;
 
 			string word = "";
 			//string exclude = "(){};,+*/\\=:.%\"<>";
@@ -3068,7 +3063,7 @@ namespace ASCompletion.Completion
 			return word;
 		}
 
-		static public ASResult GetExpressionType(ScintillaNet.ScintillaControl sci, int position)
+		static public ASResult GetExpressionType(ScintillaControl sci, int position)
 		{
             // context
             int line = sci.LineFromPosition(position);
@@ -3188,7 +3183,7 @@ namespace ASCompletion.Completion
         /// - automatically insert import statement 
         /// - replace with short name
         /// </summary>
-        static internal void HandleCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger, ICompletionListItem item)
+        static internal void HandleCompletionInsert(ScintillaControl sci, int position, string text, char trigger, ICompletionListItem item)
         {
             // if the current class hash was set, we want to store whatever the user selected as the last-completed member for this class.
             if (currentClassHash != null)
@@ -3236,7 +3231,7 @@ namespace ASCompletion.Completion
             }
         }
 
-        private static void SmartEventInsertion(ScintillaNet.ScintillaControl sci, int position, ICompletionListItem item)
+        private static void SmartEventInsertion(ScintillaControl sci, int position, ICompletionListItem item)
         {
             try
             {
@@ -3259,7 +3254,7 @@ namespace ASCompletion.Completion
             }
         }
 
-        private static bool SmartInsertion(ScintillaNet.ScintillaControl sci, int position, ASExpr expr, ASResult context)
+        private static bool SmartInsertion(ScintillaControl sci, int position, ASExpr expr, ASResult context)
         {
             ContextFeatures features = ASContext.Context.Features;
             FileModel cFile = ASContext.Context.CurrentModel;
@@ -3409,7 +3404,7 @@ namespace ASCompletion.Completion
                 PluginBase.MainForm.CallCommand("InsertSnippet", word);
         }
 
-        private static void InsertSymbol(ScintillaNet.ScintillaControl sci, string p)
+        private static void InsertSymbol(ScintillaControl sci, string p)
         {
             if (ASContext.CommonSettings.AddClosingBraces)
             {
@@ -3423,7 +3418,7 @@ namespace ASCompletion.Completion
 		/// <param name="sci"></param>
 		/// <param name="value">Character inserted</param>
 		/// <returns>Code was generated</returns>
-		static private bool CodeAutoOnChar(ScintillaNet.ScintillaControl sci, int value)
+		static private bool CodeAutoOnChar(ScintillaControl sci, int value)
 		{
 			if (ASContext.Context.Settings == null || !ASContext.Context.Settings.GenerateImports)
 				return false;
@@ -3456,7 +3451,7 @@ namespace ASCompletion.Completion
 					return false;
 
 				// insert import
-				string statement = "import "+package+"*;"+GetNewLineMarker(sci.EOLMode);
+                string statement = "import " + package + "*;" + ScintillaControl.GetNewLineMarker(sci.EOLMode);
 				int endPos = sci.CurrentPos;
 				int line = 0;
 				int curLine = sci.LineFromPosition(position);

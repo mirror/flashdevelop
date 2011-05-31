@@ -174,7 +174,7 @@ namespace ASCompletion.Completion
 
         public static MemberModel GetTemplateBlockMember(ScintillaNet.ScintillaControl Sci, string blockTmpl)
         {
-            blockTmpl = blockTmpl.Replace("\n", ASComplete.GetNewLineMarker(Sci.EOLMode));
+            blockTmpl = blockTmpl.Replace("\n", ScintillaNet.ScintillaControl.GetNewLineMarker(Sci.EOLMode));
             int lineNum = 0;
             while (lineNum < Sci.LineCount)
             {

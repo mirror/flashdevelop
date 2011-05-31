@@ -4068,7 +4068,7 @@ namespace ASCompletion.Completion
             int curLine = sci.LineFromPosition(position);
 
             string fullPath = CleanType(member.Type); // ((member.Flags & FlagType.Class) > 0) ? member.Type : member.Name;
-            string nl = ASComplete.GetNewLineMarker(sci.EOLMode);
+            string nl = ScintillaNet.ScintillaControl.GetNewLineMarker(sci.EOLMode);
             string statement = "import " + fullPath + ";" + nl;
 
             // locate insertion point

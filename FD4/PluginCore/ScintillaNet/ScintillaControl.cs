@@ -5329,7 +5329,14 @@ namespace ScintillaNet
 		
 		#endregion
 
-		#region Misc Custom Stuff
+        #region Misc Custom Stuff
+
+        static public string GetNewLineMarker(int eolMode)
+        {
+            if (eolMode == 1) return "\r";
+            else if (eolMode == 2) return "\n";
+            else return "\r\n";
+        }
 
 		/// <summary>
 		/// Render the contents for printing
@@ -6069,7 +6076,8 @@ namespace ScintillaNet
                 }
             }
             start = this.PositionFromLine(startLine);
-            this.InsertText(start, selectStr);
+            
+            this.InsertText(start, selectStr.TrimEnd() + GetNewLineMarker(EOLMode));
             this.ReindentLines(startLine, len);
             this.SelectionStart = start;
             this.SelectionEnd = this.LineEndPosition(startLine + len - 1);
@@ -6176,6 +6184,7 @@ namespace ScintillaNet
         {
             int ret = 0;
             str = str.Trim();
+            if (str.Length == 0) return ret;
             // TODO: Is there a lexer test for "start/end of control block"?
             if (ConfigurationLanguage == "xml" || ConfigurationLanguage == "html" || ConfigurationLanguage == "css")
             {
