@@ -5331,13 +5331,6 @@ namespace ScintillaNet
 
         #region Misc Custom Stuff
 
-        static public string GetNewLineMarker(int eolMode)
-        {
-            if (eolMode == 1) return "\r";
-            else if (eolMode == 2) return "\n";
-            else return "\r\n";
-        }
-
 		/// <summary>
 		/// Render the contents for printing
 		/// </summary>
@@ -6076,8 +6069,8 @@ namespace ScintillaNet
                 }
             }
             start = this.PositionFromLine(startLine);
-            
-            this.InsertText(start, selectStr.TrimEnd() + GetNewLineMarker(EOLMode));
+
+            this.InsertText(start, selectStr.TrimEnd() + LineEndDetector.GetNewLineMarker(EOLMode));
             this.ReindentLines(startLine, len);
             this.SelectionStart = start;
             this.SelectionEnd = this.LineEndPosition(startLine + len - 1);
