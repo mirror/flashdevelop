@@ -395,8 +395,15 @@ namespace ASCompletion.Completion
             switch (ASContext.CommonSettings.HandlerNamingConvention)
             {
                 case HandlerNamingConventions.onTargetEventName:
-                    if (target == null) contextToken = "on" + Capitalize(eventName);
-                    else contextToken = "on" + Capitalize(target) + Capitalize(eventName);
+                    if (target == null)
+                    {
+                        contextToken = "on" + Capitalize(eventName);
+                    }
+                    else
+                    {
+                        string trimmedTarget = target.TrimStart(new char[] { '_' }); ;
+                        contextToken = "on" + Capitalize(trimmedTarget) + Capitalize(eventName);
+                    }
                     break;
                 default: //HandlerNamingConventions.target_eventName
                     if (target == null) contextToken = eventName;
