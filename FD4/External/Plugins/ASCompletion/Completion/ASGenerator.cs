@@ -407,7 +407,11 @@ namespace ASCompletion.Completion
                     break;
                 default: //HandlerNamingConventions.target_eventName
                     if (target == null) contextToken = eventName;
-                    else contextToken = target + "_" + eventName;
+                    else
+                    {
+                        string trimmedTarget = target.TrimStart(new char[] { '_' }); ;
+                        contextToken = target + "_" + eventName;
+                    }
                     break;
             }
 
@@ -1982,9 +1986,21 @@ namespace ASCompletion.Completion
 
             // if this is a constant, we assign a value to constant
             string returnTypeStr = null;
+            string eventValue = null;
             if (job.Equals(GeneratorJobType.Constant))
             {
                 isStatic.Flags |= FlagType.Static;
+                ClassModel aType = inClass;
+                aType.ResolveExtends();
+                while (!aType.IsVoid() && aType.QualifiedName != "Object")
+                {
+                    if (aType.QualifiedName == "flash.events.Event")
+                    {
+                        eventValue = "String = \"" + Camelize(contextToken) + "\"";
+                        break;
+                    }
+                    aType = aType.Extends;
+                }
             }
             else if (returnType != null)
             {
@@ -2022,7 +2038,14 @@ namespace ASCompletion.Completion
                 }
             }
             MemberModel newMember = NewMember(contextToken, isStatic, ft, varVisi);
-            newMember.Type = returnTypeStr;
+            if (returnTypeStr != null)
+            {
+                newMember.Type = returnTypeStr;
+            }
+            else if (eventValue != null)
+            {
+                newMember.Type = eventValue;
+            }
             GenerateVariable(newMember, position, detach);
         }
 
