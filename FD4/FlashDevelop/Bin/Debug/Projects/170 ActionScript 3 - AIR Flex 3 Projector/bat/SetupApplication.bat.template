@@ -1,3 +1,4 @@
+:user_configuration
 
 :: About AIR application packaging
 :: http://livedocs.adobe.com/flex/3/html/help.html?content=CommandLineTools_5.html#1035959
@@ -25,11 +26,8 @@ set APP_ID=$(PACKAGEDOT)$(PROJECTID)
 set AIR_PATH=air
 set AIR_NAME=$(PROJECTID)
 
-:: Debugging using a custom IP
-set DEBUG_IP=
 
-
-:: Validation
+:validation
 find /C "<id>%APP_ID%</id>" "%APP_XML%" > NUL
 if errorlevel 1 goto badid
 goto end

@@ -1,3 +1,4 @@
+:user_configuration
 
 :: Path to Flex SDK
 set FLEX_SDK=$(FlexSDK)
@@ -6,7 +7,7 @@ set FLEX_SDK=$(FlexSDK)
 set ANDROID_SDK=C:\android-sdk-windows
 
 
-:: Validation
+:validation
 if not exist "%FLEX_SDK%" goto flexsdk
 if not exist "%ANDROID_SDK%" goto androidsdk
 goto succeed

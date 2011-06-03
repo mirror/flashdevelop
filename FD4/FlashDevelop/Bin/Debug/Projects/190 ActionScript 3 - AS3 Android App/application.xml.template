@@ -1,40 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <application xmlns="http://ns.adobe.com/air/application/2.6">
 	
-	<id>$(PACKAGEDOT)$(PROJECTID)</id> 
-	<versionNumber>0.1</versionNumber> 
+	<id>$(PACKAGEDOT)$(PROJECTID)</id>
+	<versionNumber>0.1</versionNumber>
 	<supportedProfiles>mobileDevice</supportedProfiles>
-	<filename>$(PROJECTID)</filename> 
+	<filename>$(PROJECTID)</filename>
 	
-	<name>$(PROJECTNAME)</name> 
-	<description></description> 
-	<copyright></copyright> 
+	<name>$(PROJECTNAME)</name>
+	<description></description>
+	<copyright></copyright>
 	
 	<android>
 		<manifestAdditions><![CDATA[
-		
+			
 			<manifest android:installLocation="auto">
 				<uses-permission android:name="android.permission.INTERNET"/>
-				<!--<application android:hardwareAccelerated="true"/>-->
+				<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>
 			</manifest>
 			
 		]]></manifestAdditions>
 	</android>
 	
-	<initialWindow> 
-		<title>$(PROJECTNAME)</title> 
-		<content>$(PROJECTID).swf</content> 
-		<visible>true</visible> 
-	</initialWindow> 
+	<initialWindow>
+		<title>$(PROJECTNAME)</title>
+		<content>$(PROJECTID).swf</content>
+		<visible>true</visible>
+		<!--<autoOrients>false</autoOrients>-->
+		<!--<aspectRatio>landscape</aspectRatio>-->
+		<!--<fullScreen>true</fullScreen>-->
+		<!--<renderMode>gpu</renderMode>-->
+	</initialWindow>
 	
 	<icon>
 		<image72x72>icons/icon_72.png</image72x72>
 	</icon>
 	
 	<!-- 
-	More AIR options:
+	AIR options:
 	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
-	More mobile options:
+	
+	AIR mobile options:
 	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
 	
 	Android manifest documentation:
