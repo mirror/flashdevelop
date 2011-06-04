@@ -1611,20 +1611,11 @@ namespace ASCompletion.Model
                 {					
 					if ((curMember.Flags & FlagType.Function) == 0)
 					{
-						/*
-						Debug.WriteLine("0-curMember.Flags: " + curMember.Flags.ToString());
-						Debug.WriteLine("         flags: " + curMember.Flags.ToString());
-						Debug.WriteLine("          name: " + curMember.Name.ToString());
-						Debug.WriteLine("     namespace: " + curMember.Namespace.ToString());
-						Debug.WriteLine("          type: " + curMember.Type);
-						Debug.WriteLine("        access: " + curMember.Access);
-						*/
 						MemberModel fnModel = ParseCallbackDeclaration(lastComment);
 						if (fnModel != null)
 						{
-							curMember.Type = fnModel.Type;// + "@" + lastComment;
-							curMember.Flags |= FlagType.Access | FlagType.Function;
-						//	curMember.Namespace = fnModel.Namespace;
+							curMember.Type = fnModel.Type;
+							curMember.Flags |= FlagType.Function;
 							curMember.Parameters = fnModel.Parameters;
 
 							if (curMember.Namespace == "internal")
@@ -1635,14 +1626,7 @@ namespace ASCompletion.Model
 								curMember.Namespace = "";
 							}
 							curMember.Access = Visibility.Public;
-							/*
-							Debug.WriteLine("1-curMember.Flags: " + curMember.Flags.ToString());
-							Debug.WriteLine("         flags: " + curMember.Flags.ToString());
-							Debug.WriteLine("          name: " + curMember.Name.ToString());
-							Debug.WriteLine("     namespace: " + curMember.Namespace.ToString());
-							Debug.WriteLine("          type: " + curMember.Type);
-							Debug.WriteLine("        access: " + curMember.Access);
-							*/
+
 							lastComment = null;
 						}
 					}

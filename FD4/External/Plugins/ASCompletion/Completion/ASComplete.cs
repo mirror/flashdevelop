@@ -848,9 +848,10 @@ namespace ASCompletion.Completion
                 if ((result.Type != null) && (result.Member != null))
                 {
                     details.Add("ItmName", result.Member.Name);
-                    flags = result.Member.Flags;
+                    flags = result.Member.Flags & ~(FlagType.LocalVar | FlagType.Dynamic);
                     kind = GetKind(flags, features);
                     details.Add("ItmKind", kind);
+                    details.Add("ItmNameDocs", result.Member.Name + (kind == features.functionKey ? "()" : ""));
                 }
                 else
                 {
@@ -858,6 +859,7 @@ namespace ASCompletion.Completion
                     flags = oClass.Flags;
                     kind = GetKind(flags, features);
                     details.Add("ItmKind", kind);
+                    details.Add("ItmNameDocs", "");
                 }
 
                 if (eventAction != null)
@@ -875,7 +877,7 @@ namespace ASCompletion.Completion
                         // top-level vars should be searched only if the command includes member information
                         if (result.inClass == ClassModel.VoidClass && cmd.IndexOf("$(Itm") < 0) return null;
                         // complete command
-                        ArgumentsProcessor.Process(cmd, details);
+                        cmd = ArgumentsProcessor.Process(cmd, details);
                         // call the command
                         try
                         {
