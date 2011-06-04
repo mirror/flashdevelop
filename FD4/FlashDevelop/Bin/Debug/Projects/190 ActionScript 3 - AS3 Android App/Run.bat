@@ -4,14 +4,14 @@ call bat\SetupSDK.bat
 call bat\SetupApplication.bat
 
 :run_target
-goto adl
+goto desktop
 ::goto device
 
 
-:adl
+:desktop
 echo.
 echo HINT - edit 'Run.bat' to:
-echo - change the device screen size and initial orientation
+echo - change the desktop launcher's screen size and initial orientation
 echo - choose to directly build/test on your device instead of ADL
 echo.
 echo.

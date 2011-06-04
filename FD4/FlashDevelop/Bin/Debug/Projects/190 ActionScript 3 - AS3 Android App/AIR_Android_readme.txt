@@ -26,7 +26,8 @@ AIR for Android instructions
 6. Running/debugging the application on the device:
 
 	6.a. Build/Test directly to device
-	- edit 'Run.bat' and change the run target 'goto adl' by 'goto device'
+	- edit 'Run.bat' and change the run target 'goto desktop' by 'goto device'
+	- build & run as usual (Ctrl+Enter or F5) to package, install & run the application on your device
 	
 	6.b. Test occasionally on device
 	- Debug-build from FlashDevelop (F8)
