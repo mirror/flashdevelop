@@ -133,12 +133,19 @@ namespace AS2Context
             ReleaseClasspath();
             started = true;
             if (as2settings == null) throw new Exception("BuildClassPath() must be overridden");
+            if (contextSetup == null)
+            {
+                contextSetup = new ContextSetupInfos();
+                contextSetup.Lang = settings.LanguageId;
+                contextSetup.Platform = "Flash Player";
+                contextSetup.Version = as2settings.DefaultFlashVersion + ".0";
+            }
 
 			// external version definition
-            platform = "Flash Player";
+            platform = contextSetup.Platform;
             majorVersion = as2settings.DefaultFlashVersion;
             minorVersion = 0;
-            string exPath = ExtractPlatformVersion();
+            ParseVersion(contextSetup.Version, ref majorVersion, ref minorVersion);
 			
             //
 			// Class pathes
@@ -192,15 +199,16 @@ namespace AS2Context
                     if (System.IO.Directory.Exists(path)) AddPath(path);
                 }
             }
+
 			// add external pathes
 			List<PathModel> initCP = classPath;
 			classPath = new List<PathModel>();
-			string[] cpathes;
-			if (exPath.Length > 0)
+			if (contextSetup.Classpath != null)
 			{
-				cpathes = exPath.Split(';');
-				foreach(string cpath in cpathes) AddPath(cpath.Trim());
+                foreach (string cpath in contextSetup.Classpath) 
+                    AddPath(cpath.Trim());
 			}
+
             // add library
             AddPath(Path.Combine(PathHelper.LibraryDir, "AS2/classes"));
 			// add user pathes from settings

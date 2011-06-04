@@ -199,7 +199,7 @@ namespace AS3Context
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.DefaultFlashVersion"), DefaultValue(DEFAULT_FLASHVERSION)]
         public string DefaultFlashVersion
         {
-            get { return flashVersion; }
+            get { return flashVersion ?? DEFAULT_FLASHVERSION; }
             set
             {
                 if (value == flashVersion) return;

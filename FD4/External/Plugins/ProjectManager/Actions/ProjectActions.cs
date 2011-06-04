@@ -120,18 +120,21 @@ namespace ProjectManager.Actions
 		public void UpdateASCompletion(IMainForm mainForm, Project project)
 		{
             List<string> classPaths = new List<string>();
+            List<string> hiddenPaths = new List<string>();
+            int majorVersion = 0;
+            int minorVersion = 0;
+            string platform = "";
 			
             if (project != null)
             {
                 BuildActions.GetCompilerPath(project); // refresh project's SDK
 
                 // platform/version
-                classPaths.Add(project.MovieOptions.Platform);
-                int majorVersion = project.MovieOptions.MajorVersion;
-                int minorVersion = project.MovieOptions.MinorVersion;
+                platform = project.MovieOptions.Platform;
+                majorVersion = project.MovieOptions.MajorVersion;
+                minorVersion = project.MovieOptions.MinorVersion;
                 if (project.MovieOptions.Platform == "AIR")
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
-                classPaths.Add(majorVersion + "." + minorVersion);
 
                 // add project classpaths
                 foreach (string cp in project.AbsoluteClasspaths)
@@ -174,13 +177,31 @@ namespace ProjectManager.Actions
                         if (File.Exists(absPath)) classPaths.Add(absPath);
                     }
                 }
+
+                foreach (string hidPath in project.HiddenPaths)
+                {
+                    string absPath = Path.Combine(project.Directory, hidPath);
+                    foreach (string cp in classPaths)
+                        if (absPath.StartsWith(cp))
+                        {
+                            hiddenPaths.Add(absPath);
+                            break;
+                        }
+                }
             }
 
-            // release old classpath
             DataEvent de;
+            Hashtable info = new Hashtable();
+            // release old classpath            
             if (currentLang != null && (project == null || currentLang != project.Language))
             {
-                de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", currentLang + ";");
+                info["lang"] = currentLang;
+                info["platform"] = "";
+                info["version"] = "0.0";
+                info["classpath"] = null;
+                info["hidden"] = null;
+
+                de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", info);
                 EventManager.DispatchEvent(this, de);
             }
 
@@ -188,9 +209,14 @@ namespace ProjectManager.Actions
             if (project != null)
             {
                 currentLang = project.Language;
-                string cps = currentLang + ";" + string.Join(";", classPaths.ToArray());
 
-                de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", cps);
+                info["platform"] = platform;
+                info["version"] = majorVersion + "." + minorVersion;
+                info["lang"] = currentLang;
+                info["classpath"] = classPaths.ToArray();
+                info["hidden"] = hiddenPaths.ToArray();
+
+                de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", info);
                 EventManager.DispatchEvent(this, de);
             }
             else currentLang = null;

@@ -99,18 +99,12 @@ namespace PHPContext
             ReleaseClasspath();
             started = true;
             if (langSettings == null) throw new Exception("BuildClassPath() must be overridden");
-
-            // external version definition
-            // expected from project manager: "9;path;path..."
-            string exPath = externalClassPath ?? "";
-            if (exPath.Length > 0)
+            if (contextSetup == null)
             {
-                try
-                {
-                    int p = exPath.IndexOf(';');
-                    exPath = exPath.Substring(p + 1).Trim();
-                }
-                catch { }
+                contextSetup = new ContextSetupInfos();
+                contextSetup.Lang = settings.LanguageId;
+                contextSetup.Platform = "PHP";
+                contextSetup.Version = "5.0";
             }
 
             //
@@ -127,12 +121,12 @@ namespace PHPContext
             // add external pathes
             List<PathModel> initCP = classPath;
             classPath = new List<PathModel>();
-            string[] cpathes;
-            if (exPath.Length > 0)
+            if (contextSetup.Classpath != null)
             {
-                cpathes = exPath.Split(';');
-                foreach (string cpath in cpathes) AddPath(cpath.Trim());
+                foreach (string cpath in contextSetup.Classpath)
+                    AddPath(cpath.Trim());
             }
+
             // add library
             AddPath(Path.Combine(PathHelper.LibraryDir, settings.LanguageId + "/classes"));
             // add user pathes from settings

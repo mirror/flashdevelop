@@ -264,12 +264,16 @@ namespace ASCompletion
                             // add a custom classpath
                             if (command == "ASCompletion.ClassPath")
                             {
-                                //TraceManager.Add("CP = " + cmdData);
-                                if (cmdData != null)
+                                Hashtable info = de.Data as Hashtable;
+                                if (info != null)
                                 {
-                                    int p = cmdData.IndexOf(';');
-                                    string lang = cmdData.Substring(0, p);
-                                    ASContext.SetLanguageClassPath(lang, cmdData.Substring(p + 1));
+                                    ContextSetupInfos setup = new ContextSetupInfos();
+                                    setup.Platform = (string)info["platform"];
+                                    setup.Lang = (string)info["lang"];
+                                    setup.Version = (string)info["version"];
+                                    setup.Classpath = (string[])info["classpath"];
+                                    setup.HiddenPaths = (string[])info["hidden"];
+                                    ASContext.SetLanguageClassPath(setup);
                                 }
                                 e.Handled = true;
                             }

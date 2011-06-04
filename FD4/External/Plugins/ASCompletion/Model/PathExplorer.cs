@@ -99,8 +99,11 @@ namespace ASCompletion.Model
 
         public void HideDirectories(string[] dirs)
         {
-            foreach(string dir in dirs)
-                explored.Add(Path.Combine(pathModel.Path, dir));
+            foreach (string dir in dirs)
+            {
+                if (Path.IsPathRooted(dir)) explored.Add(dir);
+                else explored.Add(Path.Combine(pathModel.Path, dir));
+            }
         }
 
 		public void Run()

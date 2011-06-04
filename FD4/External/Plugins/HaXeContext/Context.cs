@@ -176,12 +176,19 @@ namespace HaXeContext
             ReleaseClasspath();
             started = true;
             if (hxsettings == null) throw new Exception("BuildClassPath() must be overridden");
+            if (contextSetup == null)
+            {
+                contextSetup = new ContextSetupInfos();
+                contextSetup.Lang = settings.LanguageId;
+                contextSetup.Platform = "Flash Player";
+                contextSetup.Version = "10.0";
+            }
 
             // external version definition
-            platform = "Flash Player";
+            platform = contextSetup.Platform;
             majorVersion = hxsettings.DefaultFlashVersion;
             minorVersion = 0;
-            string exPath = ExtractPlatformVersion();
+            ParseVersion(contextSetup.Version, ref majorVersion, ref minorVersion);
 
             // NOTE: version > 10 for non-Flash platforms
             string lang = null;
@@ -277,12 +284,12 @@ namespace HaXeContext
             // add external pathes
             List<PathModel> initCP = classPath;
             classPath = new List<PathModel>();
-            string[] cpathes;
-            if (exPath.Length > 0)
+            if (contextSetup.Classpath != null)
             {
-                cpathes = exPath.Split(';');
-                foreach (string cpath in cpathes) AddPath(cpath.Trim());
+                foreach (string cpath in contextSetup.Classpath)
+                    AddPath(cpath.Trim());
             }
+
             // add user pathes from settings
             if (settings.UserClasspath != null && settings.UserClasspath.Length > 0)
             {

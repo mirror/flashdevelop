@@ -128,15 +128,26 @@ namespace AS3Context
             ReleaseClasspath();
             started = true;
             if (as3settings == null) throw new Exception("BuildClassPath() must be overridden");
+            if (contextSetup == null)
+            {
+                contextSetup = new ContextSetupInfos();
+                contextSetup.Lang = settings.LanguageId;
+                contextSetup.Platform = "Flash Player";
+                contextSetup.Version = as3settings.DefaultFlashVersion;
+            }
 
             // external version definition
-            platform = "Flash Player";
+            platform = contextSetup.Platform;
             majorVersion = 10;
             minorVersion = 0;
-            ParseVersion(as3settings.DefaultFlashVersion, ref majorVersion, ref minorVersion);
-            string exPath = ExtractPlatformVersion();
+            ParseVersion(contextSetup.Version, ref majorVersion, ref minorVersion);
             hasAIRSupport = platform == "AIR";
-            bool hasCustomAPI = re_customAPI.IsMatch(exPath);
+
+            string cpCheck = contextSetup.Classpath != null ?
+                String.Join(";", contextSetup.Classpath).Replace('\\', '/') : "";
+
+            // check if CP contains a custom playerglobal.swc
+            bool hasCustomAPI = re_customAPI.IsMatch(cpCheck);
 
             //
             // Class pathes
@@ -210,10 +221,9 @@ namespace AS3Context
                 addLocales.Add("playerglobal_rb.swc");
 
                 // framework SWCs
-                string test = exPath.Replace('\\', '/');
                 string as3Fmk = PathHelper.ResolvePath("Library" + S + "AS3" + S + "frameworks");
 
-                if (test.IndexOf("Library/AS3/frameworks/Flex", StringComparison.OrdinalIgnoreCase) >= 0)
+                if (cpCheck.IndexOf("Library/AS3/frameworks/Flex", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     addLibs.Add("framework.swc");
                     addLibs.Add("mx/mx.swc");
@@ -231,7 +241,7 @@ namespace AS3Context
                         addLocales.Add("airframework_rb.swc");
                     }
 
-                    if (test.IndexOf("Library/AS3/frameworks/Flex4", StringComparison.OrdinalIgnoreCase) >= 0)
+                    if (cpCheck.IndexOf("Library/AS3/frameworks/Flex4", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         addLibs.Add("spark.swc");
                         addLibs.Add("sparkskins.swc");
@@ -281,11 +291,9 @@ namespace AS3Context
             // add external pathes
             List<PathModel> initCP = classPath;
             classPath = new List<PathModel>();
-            string[] cpathes;
-            if (exPath.Length > 0)
+            if (contextSetup.Classpath != null)
             {
-                cpathes = exPath.Split(';');
-                foreach (string cpath in cpathes)
+                foreach (string cpath in contextSetup.Classpath)
                     AddPath(cpath.Trim());
             }
 

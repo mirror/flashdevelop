@@ -33,6 +33,7 @@ namespace ASCompletion.Context
         static protected PluginMain plugin;
         // context state/models
         protected bool started;
+        protected ContextSetupInfos contextSetup;
         protected List<PathModel> classPath;
 		protected FileModel cFile;
         protected int cLine;
@@ -52,7 +53,6 @@ namespace ASCompletion.Context
 		// settings
         protected IContextSettings settings;
         protected ContextFeatures features;
-		protected string externalClassPath = "";
         protected string temporaryPath;
         protected string platform;
         protected int majorVersion;
@@ -338,12 +338,12 @@ namespace ASCompletion.Context
         /// </summary>
         /// <param name="lang">Language id (ie. Scintilla.ConfigurationLanguage)</param>
         /// <param name="classpath">Additional classpath</param>
-        static public void SetLanguageClassPath(string lang, string classpath)
+        static public void SetLanguageClassPath(ContextSetupInfos setup)
         {
-            lang = lang.ToLower();
+            string lang = setup.Lang.ToLower();
             foreach (RegisteredContext reg in allContexts)
             {
-                if (reg.Language == lang) reg.Context.SetExternalClassPath(classpath);
+                if (reg.Language == setup.Lang) reg.Context.Setup(setup);
             }
         }
 
@@ -503,30 +503,6 @@ namespace ASCompletion.Context
         #region classpath management
 
         /// <summary>
-        /// Gets target platform and version from the beginning of 'externalClassPath' 
-        /// and returns the rest of the paths
-        /// </summary>
-        protected virtual string ExtractPlatformVersion()
-        {
-            // expected from project manager: "Flash Player;9.0;path;path..."
-            string exPath = externalClassPath ?? "";
-            if (exPath.Length > 0)
-            {
-                int p = exPath.IndexOf(';');
-                if (p >= 0)
-                {
-                    platform = exPath.Substring(0, p);
-                    exPath = exPath.Substring(p + 1).Trim();
-                    p = exPath.IndexOf(';');
-                    if (p > 0)
-                        ParseVersion(exPath.Substring(0, p), ref majorVersion, ref minorVersion);
-                    exPath = exPath.Substring(p + 1).Trim();
-                }
-            }
-            return exPath;
-        }
-
-        /// <summary>
         /// Mark pathes as "not in use"
         /// </summary>
         public virtual void ReleaseClasspath()
@@ -567,9 +543,9 @@ namespace ASCompletion.Context
         /// <summary>
 		/// Add additional classpathes
 		/// </summary>
-		public virtual void SetExternalClassPath(string classPath)
+        public virtual void Setup(ContextSetupInfos setup)
 		{
-			externalClassPath = classPath;
+            contextSetup = setup;
 			BuildClassPath();
 		}
 
@@ -1524,6 +1500,7 @@ namespace ASCompletion.Context
 
         static public void ParseVersion(string version, ref int majorVersion, ref int minorVersion)
         {
+            if (version == "0.0") return;
             if (version == null || version == "") return;
             string[] parts = version.Split('.');
             int.TryParse(parts[0], out majorVersion);
@@ -1548,6 +1525,16 @@ namespace ASCompletion.Context
             //TraceManager.Add("Register context: " + language + " (" + inlinedLanguage + ")");
         }
     }
+
+    public class ContextSetupInfos
+    {
+        public string Lang;
+        public string Platform;
+        public string Version;
+        public string[] Classpath;
+        public string[] HiddenPaths;
+    }
+
     #endregion
 
     #region Completion cache

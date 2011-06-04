@@ -16,9 +16,9 @@ namespace ASCompletion.Context
     {
         #region Types resolution
         /// <summary>
-		/// Add additional classpathes
+		/// Configure completion for the current project
 		/// </summary>
-        void SetExternalClassPath(string classPath);
+        void Setup(ContextSetupInfos setup);
 
         /// <summary>
         /// Update the class/member context for the given line number.
@@ -318,5 +318,6 @@ namespace ASCompletion.Context
         bool IsFileValid { get; }
 
         #endregion
+
     }
 }
