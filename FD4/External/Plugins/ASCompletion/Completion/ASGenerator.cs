@@ -72,7 +72,7 @@ namespace ASCompletion.Completion
             // ignore automatic vars (MovieClip members)
             if (resolve.Member != null &&
                 (((resolve.Member.Flags & FlagType.AutomaticVar) > 0)
-                 || (resolve.inClass != null && resolve.inClass.QualifiedName == "Object")))
+                 || (resolve.InClass != null && resolve.InClass.QualifiedName == "Object")))
             {
                 resolve.Member = null;
                 resolve.Type = null;
@@ -321,12 +321,12 @@ namespace ASCompletion.Completion
                 else
                 {
                     if (resolve != null
-                        && resolve.inClass != null
-                        && resolve.inClass.InFile != null
+                        && resolve.InClass != null
+                        && resolve.InClass.InFile != null
                         && resolve.Member != null
                         && (resolve.Member.Flags & FlagType.Function) > 0
-                        && File.Exists(resolve.inClass.InFile.FileName)
-                        && !resolve.inClass.InFile.FileName.StartsWith(PathHelper.AppDir))
+                        && File.Exists(resolve.InClass.InFile.FileName)
+                        && !resolve.InClass.InFile.FileName.StartsWith(PathHelper.AppDir))
                     {
                         Match m = Regex.Match(text, String.Format(patternMethodDecl, contextToken));
                         Match m2 = Regex.Match(text, String.Format(patternMethod, contextToken));
@@ -339,7 +339,7 @@ namespace ASCompletion.Completion
                     else if (resolve != null
                         && resolve.Type != null
                         && resolve.Type.InFile != null
-                        && resolve.relClass != null
+                        && resolve.RelClass != null
                         && File.Exists(resolve.Type.InFile.FileName)
                         && !resolve.Type.InFile.FileName.StartsWith(PathHelper.AppDir))
                     {
@@ -558,11 +558,11 @@ namespace ASCompletion.Completion
             string autoSelect = "";
 
             ASResult result = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
-            if (!(result != null && result.relClass != null))
+            if (!(result != null && result.RelClass != null))
             {
                 result = null;
             }
-            else if (found.inClass.QualifiedName.Equals(result.relClass.QualifiedName))
+            else if (found.inClass.QualifiedName.Equals(result.RelClass.QualifiedName))
             {
                 result = null;
             }
@@ -574,7 +574,7 @@ namespace ASCompletion.Completion
                 isConst = true;
             }
 
-            ClassModel inClass = result != null ? result.relClass : found.inClass;
+            ClassModel inClass = result != null ? result.RelClass : found.inClass;
             bool isInterface = ClassIsInterface(inClass);
 
             if (!isInterface)
@@ -645,16 +645,16 @@ namespace ASCompletion.Completion
             string autoSelect = "";
 
             ASResult result = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(Sci.CurrentPos, true));
-            if (!(result != null && result.relClass != null))
+            if (!(result != null && result.RelClass != null))
             {
                 result = null;
             }
-            else if (found.inClass.QualifiedName.Equals(result.relClass.QualifiedName))
+            else if (found.inClass.QualifiedName.Equals(result.RelClass.QualifiedName))
             {
                 result = null;
             }
 
-            ClassModel inClass = result != null ? result.relClass : found.inClass;
+            ClassModel inClass = result != null ? result.RelClass : found.inClass;
             bool isInterface = ClassIsInterface(inClass);
 
             if (!isInterface)
@@ -1221,13 +1221,13 @@ namespace ASCompletion.Completion
             if (type != null)
             {
                 ClassModel inClassForImport = null;
-                if (resolve.inClass != null)
+                if (resolve.InClass != null)
                 {
-                    inClassForImport = resolve.inClass;
+                    inClassForImport = resolve.InClass;
                 }
-                else if (resolve.relClass != null)
+                else if (resolve.RelClass != null)
                 {
-                    inClassForImport = resolve.relClass;
+                    inClassForImport = resolve.RelClass;
                 }
                 else 
                 {
@@ -1390,12 +1390,12 @@ namespace ASCompletion.Completion
             {
                 return;
             }
-            if (funcResult != null && funcResult.inClass != null && !funcResult.inClass.Equals(inClass))
+            if (funcResult != null && funcResult.InClass != null && !funcResult.InClass.Equals(inClass))
             {
                 AddLookupPosition();
                 lookupPosition = -1;
 
-                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.inClass.InFile.FileName, true);
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.InClass.InFile.FileName, true);
                 Sci = ASContext.CurSciControl;
 
                 FileModel fileModel = new FileModel();
@@ -1405,13 +1405,13 @@ namespace ASCompletion.Completion
 
                 foreach (ClassModel cm in fileModel.Classes)
                 {
-                    if (cm.QualifiedName.Equals(funcResult.inClass.QualifiedName))
+                    if (cm.QualifiedName.Equals(funcResult.InClass.QualifiedName))
                     {
-                        funcResult.inClass = cm;
+                        funcResult.InClass = cm;
                         break;
                     }
                 }
-                inClass = funcResult.inClass;
+                inClass = funcResult.InClass;
 
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
@@ -1932,12 +1932,12 @@ namespace ASCompletion.Completion
                 }
             }
 
-            if (varResult != null && varResult.relClass != null && !varResult.relClass.Equals(inClass))
+            if (varResult != null && varResult.RelClass != null && !varResult.RelClass.Equals(inClass))
             {
                 AddLookupPosition();
                 lookupPosition = -1;
 
-                ASContext.MainForm.OpenEditableDocument(varResult.relClass.InFile.FileName, false);
+                ASContext.MainForm.OpenEditableDocument(varResult.RelClass.InFile.FileName, false);
                 Sci = ASContext.CurSciControl;
                 isOtherClass = true;
 
@@ -1948,13 +1948,13 @@ namespace ASCompletion.Completion
 
                 foreach (ClassModel cm in fileModel.Classes)
                 {
-                    if (cm.QualifiedName.Equals(varResult.relClass.QualifiedName))
+                    if (cm.QualifiedName.Equals(varResult.RelClass.QualifiedName))
                     {
-                        varResult.relClass = cm;
+                        varResult.RelClass = cm;
                         break;
                     }
                 }
-                inClass = varResult.relClass;
+                inClass = varResult.RelClass;
 
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }
@@ -2005,13 +2005,13 @@ namespace ASCompletion.Completion
             else if (returnType != null)
             {
                 ClassModel inClassForImport = null;
-                if (returnType.inClass != null)
+                if (returnType.InClass != null)
                 {
-                    inClassForImport = returnType.inClass;
+                    inClassForImport = returnType.InClass;
                 }
-                else if (returnType.relClass != null)
+                else if (returnType.RelClass != null)
                 {
-                    inClassForImport = returnType.relClass;
+                    inClassForImport = returnType.RelClass;
                 }
                 else
                 {
@@ -2314,13 +2314,13 @@ namespace ASCompletion.Completion
                             else
                             {
                                 paramType = FormatType(GetShortType(result.Member.Type));
-                                if (result.inClass == null)
+                                if (result.InClass == null)
                                 {
                                     paramQualType = result.Type.QualifiedName;
                                 }
                                 else
                                 {
-                                    paramQualType = getQualifiedType(result.Member.Type, result.inClass);
+                                    paramQualType = getQualifiedType(result.Member.Type, result.InClass);
                                 }
                             }
                         }
@@ -2396,12 +2396,12 @@ namespace ASCompletion.Completion
             }
 
 
-            if (funcResult != null && funcResult.relClass != null && !funcResult.relClass.Equals(inClass))
+            if (funcResult != null && funcResult.RelClass != null && !funcResult.RelClass.Equals(inClass))
             {
                 AddLookupPosition();
                 lookupPosition = -1;
 
-                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.relClass.InFile.FileName, true);
+                DockContent dc = ASContext.MainForm.OpenEditableDocument(funcResult.RelClass.InFile.FileName, true);
                 Sci = ASContext.CurSciControl;
                 isOtherClass = true;
 
@@ -2412,13 +2412,13 @@ namespace ASCompletion.Completion
 
                 foreach (ClassModel cm in fileModel.Classes)
                 {
-                    if (cm.QualifiedName.Equals(funcResult.relClass.QualifiedName))
+                    if (cm.QualifiedName.Equals(funcResult.RelClass.QualifiedName))
                     {
-                        funcResult.relClass = cm;
+                        funcResult.RelClass = cm;
                         break;
                     }
                 }
-                inClass = funcResult.relClass;
+                inClass = funcResult.RelClass;
 
                 ASContext.Context.UpdateContext(inClass.LineFrom);
             }

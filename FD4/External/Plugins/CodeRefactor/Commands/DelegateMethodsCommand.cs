@@ -27,7 +27,7 @@ namespace CodeRefactor.Commands
             IASContext context = ASContext.Context;
             Int32 pos = Sci.CurrentPos;
 
-            ASGenerator.GenerateDelegateMethods(Sci, result.Member, selectedMembers, result.Type, result.inClass);
+            ASGenerator.GenerateDelegateMethods(Sci, result.Member, selectedMembers, result.Type, result.InClass);
         }
     }
 }

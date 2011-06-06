@@ -76,7 +76,7 @@ namespace CodeRefactor.Provider
             // get type at cursor position
             ASResult result = ASComplete.GetExpressionType(Sci, position);
             // browse to package folder
-            if (result.IsPackage && result.inFile != null)
+            if (result.IsPackage && result.InFile != null)
             {
                 return null;
             }
@@ -84,9 +84,9 @@ namespace CodeRefactor.Provider
             if (!result.IsNull())
             {
                 if (result.Member != null && (result.Member.Flags & FlagType.AutomaticVar) > 0) return null;
-                FileModel model = result.inFile ?? ((result.Member != null && result.Member.InFile != null) ? result.Member.InFile : null) ?? ((result.Type != null) ? result.Type.InFile : null);
+                FileModel model = result.InFile ?? ((result.Member != null && result.Member.InFile != null) ? result.Member.InFile : null) ?? ((result.Type != null) ? result.Type.InFile : null);
                 if (model == null || model.FileName == "") return null;
-                ClassModel inClass = result.inClass ?? result.Type;
+                ClassModel inClass = result.InClass ?? result.Type;
                 // for Back command
                 int lookupLine = Sci.LineFromPosition(Sci.CurrentPos);
                 int lookupCol = Sci.CurrentPos - Sci.PositionFromLine(lookupLine);
@@ -112,16 +112,16 @@ namespace CodeRefactor.Provider
                     else
                     {
                         ASComplete.OpenVirtualFile(model);
-                        result.inFile = ASContext.Context.CurrentModel;
-                        if (result.inFile == null) return null;
+                        result.InFile = ASContext.Context.CurrentModel;
+                        if (result.InFile == null) return null;
                         if (inClass != null)
                         {
-                            inClass = result.inFile.GetClassByName(inClass.Name);
+                            inClass = result.InFile.GetClassByName(inClass.Name);
                             if (result.Member != null) result.Member = inClass.Members.Search(result.Member.Name, 0, 0);
                         }
                         else if (result.Member != null)
                         {
-                            result.Member = result.inFile.Members.Search(result.Member.Name, 0, 0);
+                            result.Member = result.InFile.Members.Search(result.Member.Name, 0, 0);
                         }
                     }
                 }
@@ -178,14 +178,14 @@ namespace CodeRefactor.Provider
         /// </summary>
         static public bool IsMatchTheTarget(ScintillaNet.ScintillaControl Sci, SearchMatch match, ASResult target)
         {
-            if (Sci == null || target == null || target.inFile == null || target.Member == null)
+            if (Sci == null || target == null || target.InFile == null || target.Member == null)
             {
                 return false;
             }
             String originalFile = Sci.FileName;
             // get type at match position
             ASResult declaration = DeclarationLookupResult(Sci, Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value));
-            return (declaration.inFile != null && originalFile == declaration.inFile.FileName) && (Sci.CurrentPos == (Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value)));
+            return (declaration.InFile != null && originalFile == declaration.InFile.FileName) && (Sci.CurrentPos == (Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value)));
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace CodeRefactor.Provider
         /// <returns>True if the SearchMatch does point to the target source.</returns>
         static public bool DoesMatchPointToTarget(ScintillaNet.ScintillaControl Sci, SearchMatch match, ASResult target, DocumentHelper associatedDocumentHelper)
         {
-            if (Sci == null || target == null || target.inFile == null || target.Member == null)
+            if (Sci == null || target == null || target.InFile == null || target.Member == null)
             {
                 return false;
             }
@@ -207,11 +207,11 @@ namespace CodeRefactor.Provider
             }
             // check if the result matches the target
             // TODO: this method of checking their equality seems pretty crude -- is there a better way?
-            if (result == null || result.inFile == null || result.Member == null)
+            if (result == null || result.InFile == null || result.Member == null)
             {
                 return false;
             }
-            Boolean doesMatch = result.inFile.BasePath == target.inFile.BasePath && result.inFile.FileName == target.inFile.FileName && result.Member.LineFrom == target.Member.LineFrom && result.Member.Name == target.Member.Name;
+            Boolean doesMatch = result.InFile.BasePath == target.InFile.BasePath && result.InFile.FileName == target.InFile.FileName && result.Member.LineFrom == target.Member.LineFrom && result.Member.Name == target.Member.Name;
             return (doesMatch);
         }
 

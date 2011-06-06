@@ -61,7 +61,7 @@ namespace AS3Context
             else
             {
                 ASResult found = new ASResult();
-                found.inFile = model.InFile;
+                found.InFile = model.InFile;
                 found.Type = model;
                 ASComplete.OpenDocumentToDeclaration(sci, found);
             }
@@ -511,15 +511,15 @@ namespace AS3Context
                     if ((member.Flags & FlagType.Dynamic) > 0 && (member.Access & acc) > 0
                         && member.Name == word)
                     {
-                        result.inFile = tmpClass.InFile;
+                        result.InFile = tmpClass.InFile;
                         if (member.LineFrom == 0) // cached model, reparse
                         {
-                            result.inFile.OutOfDate = true;
-                            result.inFile.Check();
-                            if (result.inFile.Classes.Count > 0)
+                            result.InFile.OutOfDate = true;
+                            result.InFile.Check();
+                            if (result.InFile.Classes.Count > 0)
                             {
-                                result.inClass = result.inFile.Classes[0];
-                                result.Member = result.inClass.Members.Search(member.Name, member.Flags, 0);
+                                result.InClass = result.InFile.Classes[0];
+                                result.Member = result.InClass.Members.Search(member.Name, member.Flags, 0);
                             }
                         }
                         else result.Member = member;

@@ -997,9 +997,9 @@ namespace ASCompletion.Context
             }
 
             ASResult ctx = GetDeclarationAtLine(line);
-            if (ctx.inClass != cClass) 
+            if (ctx.InClass != cClass) 
             {
-                cClass = ctx.inClass;
+                cClass = ctx.InClass;
                 // update "this" and "super" special vars
                 UpdateTopLevelElements();
             }
@@ -1029,17 +1029,17 @@ namespace ASCompletion.Context
         public virtual ASResult GetDeclarationAtLine(int line)
         {
             ASResult result = new ASResult();
-            result.inClass = ClassModel.VoidClass;
+            result.InClass = ClassModel.VoidClass;
 
             // current class
             foreach (ClassModel aClass in cFile.Classes)
             {
                 if (aClass.LineFrom <= line && aClass.LineTo >= line)
                 {
-                    result.inClass = aClass;
+                    result.InClass = aClass;
 
                     // current member
-                    foreach (MemberModel member in result.inClass.Members)
+                    foreach (MemberModel member in result.InClass.Members)
                     {
                         if (member.LineFrom <= line && member.LineTo >= line)
                         {

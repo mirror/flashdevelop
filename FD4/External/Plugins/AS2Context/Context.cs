@@ -335,7 +335,7 @@ namespace AS2Context
                     if (inClass.IsVoid()) 
                         inClass = ASContext.Context.ResolveType(result.Member.Type, null);
                     result.Type = inClass;
-                    result.inFile = ASContext.Context.CurrentModel;
+                    result.InFile = ASContext.Context.CurrentModel;
                     return;
                 }
                 else if (token == "super")
@@ -351,7 +351,7 @@ namespace AS2Context
                     {
                         result.Member = topLevel.Members.Search("super", 0, 0);
                         result.Type = extends;
-                        result.inFile = extends.InFile;
+                        result.InFile = extends.InFile;
                         return;
                     }
                 }
@@ -368,7 +368,7 @@ namespace AS2Context
                     result.Member.Flags = FlagType.Variable;
                     result.Member.Type = "MovieClip";
                     result.Type = ResolveType("MovieClip", null);
-                    result.inFile = topLevel;
+                    result.InFile = topLevel;
                 }
             }
         }

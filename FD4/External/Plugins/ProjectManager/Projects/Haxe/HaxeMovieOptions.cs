@@ -40,7 +40,7 @@ namespace ProjectManager.Projects.Haxe
         {
             switch (platform)
             {
-                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7" };
+                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0" };
                 case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2", "10.3", "11.0" };
                 default: return new string[] { "1.0" };
             }

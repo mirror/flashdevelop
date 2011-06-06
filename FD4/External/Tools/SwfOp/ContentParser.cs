@@ -126,7 +126,6 @@ namespace SwfOp
             currentFrame = 0;
             DeclEntry frame = new DeclEntry("Frame 0");
             Frames.Add(frame);
-            string nextFrameName = null;
 
             foreach (BaseTag tag in swf)
             {
@@ -155,14 +154,12 @@ namespace SwfOp
                 else if ((TagCodeEnum)tag.TagCode == TagCodeEnum.ShowFrame)
                 {
                     currentFrame++;
-                    if (nextFrameName == null) frame = new DeclEntry("Frame " + currentFrame);
-                    else frame = new DeclEntry("Frame '" + nextFrameName + "'");
-                    nextFrameName = null;
+                    frame = new DeclEntry("Frame " + currentFrame);
                     Frames.Add(frame);
                 }
                 else if (tag is FrameTag)
                 {
-                    nextFrameName = (tag as FrameTag).name;
+                    frame.Name = (tag as FrameTag).name;
                 }
                 else if (tag is DefineFontTag)
                 {

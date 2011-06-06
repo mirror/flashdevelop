@@ -259,7 +259,7 @@ namespace CodeRefactor
                     this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.editorReferencesItem.Enabled = this.viewReferencesItem.Enabled = true;
-                    if (result.Type != null && result.inClass != null && result.inFile != null)
+                    if (result.Type != null && result.InClass != null && result.InFile != null)
                     {
                         FlagType flags = result.Member.Flags;
                         if ((flags & FlagType.Variable) > 0 && (flags & FlagType.LocalVar) == 0 && (flags & FlagType.ParameterVar) == 0)
