@@ -10,7 +10,7 @@ hr
 	padding: 0px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	color: #b85c11;
+	color: #A95510;
 	height: 1px;
 	width: 100%;
 }
@@ -30,7 +30,7 @@ a
 }
 a:hover 
 {
-	color: #E58F14;
+	color: #C98012;
 	text-decoration: underline;
 }
 div#wrapper 
@@ -113,13 +113,13 @@ div#rssContent li
 }
 div#rssContent li span a 
 {
-	color: #e58f14;
+	color: #C98012;
 	font-weight: bold;
 	text-decoration: none;
 }
 div#rssContent li span a:hover 
 {
-	color: #e58f14;
+	color: #C98012;
 	text-decoration: underline;
 }
 .window 
