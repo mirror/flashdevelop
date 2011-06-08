@@ -339,11 +339,12 @@ namespace FlashDebugger
         static internal void DeleteAllBreakPoints_Click(Object sender, EventArgs e)
         {
             foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
-            {
-				doc.SciControl.MarkerDeleteAll(markerBPEnabled);
-				doc.SciControl.MarkerDeleteAll(markerBPDisabled);
-                RemoveAllHighlights(doc.SciControl);
-			}
+                if (doc.IsEditable)
+                {
+				    doc.SciControl.MarkerDeleteAll(markerBPEnabled);
+				    doc.SciControl.MarkerDeleteAll(markerBPDisabled);
+                    RemoveAllHighlights(doc.SciControl);
+			    }
             PanelsHelper.breakPointUI.Clear();
             PluginMain.breakPointManager.ClearAll();
         }

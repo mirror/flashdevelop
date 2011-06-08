@@ -22,6 +22,8 @@ namespace TaskListPanel
 {
     public class PluginUI : DockPanelControl, IEventHandler
     {
+        static private Regex reClean = new Regex(@"(\*)?\*/.*", RegexOptions.Compiled);
+            
         private System.Windows.Forms.Timer parseTimer;
         private Int32 totalFiles;
         private Int32 currentPos;
@@ -67,8 +69,7 @@ namespace TaskListPanel
                 if (settings.GroupValues.Length > 0)
                 {
                     this.groups.AddRange(settings.GroupValues);
-                    String pattern = String.Join("|", settings.GroupValues);
-                    this.todoParser = new Regex(@"(//|/\*\*?|\*)[\t ]*(" + pattern + @")[:|\t ]*([^\r|\n|\*\*/]*)", RegexOptions.Multiline);
+                    this.todoParser = BuildRegex(String.Join("|", settings.GroupValues));
                     this.isEnabled = true;
                     this.InitGraphics();
                 }
@@ -85,6 +86,11 @@ namespace TaskListPanel
             this.parseTimer.Tick += delegate { this.ParseNextFile(); };
             this.parseTimer.Enabled = false;
             this.parseTimer.Tag = null;
+        }
+
+        private Regex BuildRegex(String pattern)
+        {
+            return new Regex(@"(//|/\*\*|/\*)[\t ]*(" + pattern + @")[:\t ]*(.*)", RegexOptions.Multiline);
         }
 
         #region Windows Forms Designer Generated Code
@@ -236,8 +242,7 @@ namespace TaskListPanel
                 if (settings.GroupValues.Length > 0)
                 {
                     this.groups.AddRange(settings.GroupValues);
-                    String pattern = String.Join("|", settings.GroupValues);
-                    this.todoParser = new Regex(@"(//|/\*\*?|\*)[\t ]*(" + pattern + @")[:|\t ]*([^\r|\n|\*\*/]*)", RegexOptions.Multiline);
+                    this.todoParser = BuildRegex(String.Join("|", settings.GroupValues));
                     this.isEnabled = true;
                     this.InitGraphics();
                 }
@@ -516,7 +521,7 @@ namespace TaskListPanel
                         "",
                         match.Groups[2].Index.ToString(),
                         match.Groups[2].Value,
-                        match.Groups[3].Value.Trim(), 
+                        CleanMatch(match.Groups[3].Value), 
                         Path.GetFileName(path),
                         Path.GetDirectoryName(path)
                     }, FindImageIndex(match.Groups[2].Value));
@@ -528,6 +533,11 @@ namespace TaskListPanel
                 }
                 this.columnPath.Width = -2; // Extend last column
             }
+        }
+
+        private string CleanMatch(string value)
+        {
+            return reClean.Replace(value, "").Trim();
         }
 
         /// <summary>
