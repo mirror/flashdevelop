@@ -34,6 +34,7 @@ namespace ASCompletion.Completion
         static private string contextToken;
         static private string contextParam;
         static private Match contextMatch;
+        static private ASResult contextResolved;
         static private MemberModel contextMember;
         static private bool firstVar;
 
@@ -69,6 +70,7 @@ namespace ASCompletion.Completion
             }
 
             ASResult resolve = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(position, true));
+            contextResolved = resolve;
             // ignore automatic vars (MovieClip members)
             if (resolve.Member != null &&
                 (((resolve.Member.Flags & FlagType.AutomaticVar) > 0)
@@ -527,8 +529,10 @@ namespace ASCompletion.Completion
             List<ICompletionListItem> known = new List<ICompletionListItem>();
             string label = TextHelper.GetString("ASCompletion.Label.PromoteLocal");
             string labelParam = TextHelper.GetString("ASCompletion.Label.AddAsParameter");
+            string labelMove = TextHelper.GetString("ASCompletion.Label.MoveDeclarationOnTop");
             known.Add(new GeneratorItem(label, GeneratorJobType.PromoteLocal, found.member, found.inClass));
             known.Add(new GeneratorItem(labelParam, GeneratorJobType.AddAsParameter, found.member, found.inClass));
+            known.Add(new GeneratorItem(labelMove, GeneratorJobType.MoveLocalUp, found.member, found.inClass));
             CompletionList.Show(known, false);
         }
 
@@ -977,23 +981,57 @@ namespace ASCompletion.Completion
                     GenerateImplementation(aType, position);
                     break;
 
+                case GeneratorJobType.MoveLocalUp:
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        if (!RemoveLocalDeclaration(Sci, contextMember)) return;
+
+                        position = GetBodyStart(member.LineFrom, member.LineTo, Sci);
+                        Sci.SetSel(position, position);
+
+                        string template = TemplateUtils.GetTemplate("Variable");
+                        template = TemplateUtils.ReplaceTemplateVariable(template, "Name", contextMember.Name);
+                        template = TemplateUtils.ReplaceTemplateVariable(template, "Type", contextMember.Type);
+                        template = TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", null);
+                        template = TemplateUtils.ReplaceTemplateVariable(template, "Value", null);
+                        template += "\n$(Boundary)";
+
+                        lookupPosition += SnippetHelper.InsertSnippetText(Sci, position, template);
+
+                        Sci.SetSel(lookupPosition, lookupPosition);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
+                    break;
+
                 case GeneratorJobType.PromoteLocal:
-                    if (!RemoveLocalDeclaration(Sci, contextMember)) return;
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        if (!RemoveLocalDeclaration(Sci, contextMember)) return;
 
-                    latest = GetLatestMemberForVariable(GeneratorJobType.Variable, inClass, GetDefaultVisibility(), member);
-                    if (latest == null) return;
+                        latest = GetLatestMemberForVariable(GeneratorJobType.Variable, inClass, GetDefaultVisibility(), member);
+                        if (latest == null) return;
 
-                    position = FindNewVarPosition(Sci, inClass, latest);
-                    if (position <= 0) return;
-                    Sci.SetSel(position, position);
+                        position = FindNewVarPosition(Sci, inClass, latest);
+                        if (position <= 0) return;
+                        Sci.SetSel(position, position);
 
-                    contextMember.Flags -= FlagType.LocalVar;
-                    if ((member.Flags & FlagType.Static) > 0)
-                        contextMember.Flags |= FlagType.Static;
-                    contextMember.Access = GetDefaultVisibility();
-                    GenerateVariable(contextMember, position, detach);
+                        contextMember.Flags -= FlagType.LocalVar;
+                        if ((member.Flags & FlagType.Static) > 0)
+                            contextMember.Flags |= FlagType.Static;
+                        contextMember.Access = GetDefaultVisibility();
+                        GenerateVariable(contextMember, position, detach);
 
-                    Sci.SetSel(lookupPosition, lookupPosition);
+                        Sci.SetSel(lookupPosition, lookupPosition);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
                     break;
 
                 case GeneratorJobType.AddAsParameter:
@@ -2763,6 +2801,26 @@ namespace ASCompletion.Completion
 
         private static bool RemoveLocalDeclaration(ScintillaNet.ScintillaControl Sci, MemberModel contextMember)
         {
+            int removed = 0;
+            if (contextResolved != null)
+            {
+                contextResolved.Context.LocalVars.Items.Sort(new ByDeclarationPositionMemberComparer());
+                contextResolved.Context.LocalVars.Items.Reverse();
+                foreach (MemberModel member in contextResolved.Context.LocalVars)
+                {
+                    if (member.Name == contextMember.Name)
+                    {
+                        RemoveOneLocalDeclaration(Sci, member);
+                        removed++;
+                    }
+                }
+            }
+            if (removed == 0) return RemoveOneLocalDeclaration(Sci, contextMember);
+            else return true;
+        }
+
+        private static bool RemoveOneLocalDeclaration(ScintillaNet.ScintillaControl Sci, MemberModel contextMember)
+        {
             string type = "";
             if (contextMember.Type != null)
             {
@@ -4245,33 +4303,34 @@ namespace ASCompletion.Completion
     /// <summary>
     /// Available generators
     /// </summary>
-    public enum GeneratorJobType
+    public enum GeneratorJobType:int
     {
-        GetterSetter = 0,
-        Getter = 1,
-        Setter = 2,
-        ComplexEvent = 3,
-        BasicEvent = 4,
-        Delegate = 5,
-        Variable = 6,
-        Function = 7,
-        ImplementInterface = 8,
-        PromoteLocal = 9,
-        AddImport = 10,
-        Class = 11,
-        FunctionPublic = 12,
-        VariablePublic = 13,
-        Constant = 14,
-        Constructor = 15,
-        ToString = 16,
-        FieldFromPatameter = 17,
-        AddInterfaceDef = 18,
-        ConvertToConst = 19,
-        AddAsParameter = 20,
-        ChangeMethodDecl = 21,
-        EventMetatag = 22,
-        AssignStatementToVar = 23,
-        ChangeConstructorDecl = 24,
+        GetterSetter,
+        Getter,
+        Setter,
+        ComplexEvent,
+        BasicEvent,
+        Delegate,
+        Variable,
+        Function,
+        ImplementInterface,
+        PromoteLocal,
+        MoveLocalUp,
+        AddImport,
+        Class,
+        FunctionPublic,
+        VariablePublic,
+        Constant,
+        Constructor,
+        ToString,
+        FieldFromPatameter,
+        AddInterfaceDef,
+        ConvertToConst,
+        AddAsParameter,
+        ChangeMethodDecl,
+        EventMetatag,
+        AssignStatementToVar,
+        ChangeConstructorDecl,
     }
 
     /// <summary>

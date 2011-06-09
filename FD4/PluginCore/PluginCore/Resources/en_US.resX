@@ -4807,4 +4807,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Generator can automatically generate an event handler method name using the following naming conventions</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="ASCompletion.Label.MoveDeclarationOnTop" xml:space="preserve">
+    <value>Move declaration(s) on top</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

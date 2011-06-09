@@ -508,4 +508,14 @@ namespace ASCompletion.Model
         }
 
     }
+
+    public class ByDeclarationPositionMemberComparer : IComparer<MemberModel>
+    {
+
+        public int Compare(MemberModel a, MemberModel b)
+        {
+            return a.LineFrom - b.LineFrom;
+        }
+
+    }
 }
