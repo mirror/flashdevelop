@@ -3090,9 +3090,13 @@ namespace ASCompletion.Completion
             try
             {
                 ASExpr expr = GetExpression(sci, position);
-                if ((expr.Value == null) || (expr.Value.Length == 0))
-                    return new ASResult();
                 expr.LocalVars = ParseLocalVars(expr);
+                if ((expr.Value == null) || (expr.Value.Length == 0))
+                {
+                    ASResult res = new ASResult();
+                    res.Context = expr;
+                    return res;
+                }
                 FileModel aFile = ASContext.Context.CurrentModel;
                 ClassModel aClass = ASContext.Context.CurrentClass;
                 // Expression before cursor
