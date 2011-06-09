@@ -528,11 +528,11 @@ namespace ASCompletion.Completion
         {
             List<ICompletionListItem> known = new List<ICompletionListItem>();
             string label = TextHelper.GetString("ASCompletion.Label.PromoteLocal");
-            string labelParam = TextHelper.GetString("ASCompletion.Label.AddAsParameter");
             string labelMove = TextHelper.GetString("ASCompletion.Label.MoveDeclarationOnTop");
+            string labelParam = TextHelper.GetString("ASCompletion.Label.AddAsParameter");
             known.Add(new GeneratorItem(label, GeneratorJobType.PromoteLocal, found.member, found.inClass));
-            known.Add(new GeneratorItem(labelParam, GeneratorJobType.AddAsParameter, found.member, found.inClass));
             known.Add(new GeneratorItem(labelMove, GeneratorJobType.MoveLocalUp, found.member, found.inClass));
+            known.Add(new GeneratorItem(labelParam, GeneratorJobType.AddAsParameter, found.member, found.inClass));
             CompletionList.Show(known, false);
         }
 
@@ -2829,7 +2829,7 @@ namespace ASCompletion.Completion
                     type = type.Replace("/*", @"/\*\s*").Replace("*/", @"\s*\*/");
                 type = @":\s*" + type;
             }
-            Regex reDecl = new Regex(String.Format(@"\s(var\s+{0}\s*{1})\s*", contextMember.Name, type));
+            Regex reDecl = new Regex(String.Format(@"[\s\(](var\s+{0}\s*{1})\s*", contextMember.Name, type));
             for (int i = contextMember.LineFrom; i <= contextMember.LineTo + 10; i++)
             {
                 string text = Sci.GetLine(i);
