@@ -237,14 +237,16 @@ namespace PluginCore.Controls
         {
             if (faded) return;
             faded = true;
-            base.Hide();
+            //base.Hide();
+            toolTip.Visible = false;
         }
 
         internal void FadeIn()
         {
             if (!faded) return;
             faded = false;
-            base.Show();
+            //base.Show();
+            toolTip.Visible = true;
         }
         #endregion
     }
