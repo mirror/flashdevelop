@@ -16,7 +16,7 @@
 			scale: "noScale",
 			allowFullscreen: "true",
 			allowScriptAccess: "always",
-			bgcolor: "#FFFFFF"
+			bgcolor: ""
 		};
 		var attributes = {
 			id:"$(ProjectID)"

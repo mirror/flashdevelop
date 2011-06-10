@@ -16,7 +16,7 @@
 			scale: "noScale",
 			allowFullscreen: "true",
 			allowScriptAccess: "always",
-			bgcolor: "#FFFFFF",
+			bgcolor: "",
 			wmode: "direct"
 		};
 		var attributes = {

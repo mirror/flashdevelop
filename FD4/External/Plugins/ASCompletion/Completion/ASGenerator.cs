@@ -3076,7 +3076,14 @@ namespace ASCompletion.Completion
                     if (!result.IsNull()) continue;
 
                     string decl = entry ? NewLine : "";
-                    decl = TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Function"));
+                    if ((method.Flags & FlagType.Getter) > 0)
+                        decl = TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Getter"));
+                    else if ((method.Flags & FlagType.Setter) > 0)
+                        decl = TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Setter"));
+                    else
+                        decl = TemplateUtils.ToDeclarationWithModifiersString(method, TemplateUtils.GetTemplate("Function"));
+                    decl = TemplateUtils.ReplaceTemplateVariable(decl, "Member", "_" + method.Name);
+                    decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", features.voidKey);
                     decl = TemplateUtils.ReplaceTemplateVariable(decl, "Body", null);
                     decl = TemplateUtils.ReplaceTemplateVariable(decl, "BlankLine", NewLine);
 

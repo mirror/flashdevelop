@@ -74,7 +74,12 @@ namespace ASCompletion.Completion
             template = ReplaceTemplateVariable(template, "Arguments", ParametersString(m, true));
 
             if (m.Type != null && m.Type.Length > 0)
-                template = ReplaceTemplateVariable(template, "Type", FormatType(m.Type));
+            {
+                if ((m.Flags & FlagType.Setter) > 0 && m.Parameters != null && m.Parameters.Count == 1)
+                    template = ReplaceTemplateVariable(template, "Type", FormatType(m.Parameters[0].Type));
+                else
+                    template = ReplaceTemplateVariable(template, "Type", FormatType(m.Type));
+            }
             else
                 template = ReplaceTemplateVariable(template, "Type", null);
 

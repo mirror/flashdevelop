@@ -110,7 +110,8 @@ namespace FDBuild.Building.AS3
 
             if (!debugMode && options.Optimize) WriteElementString("optimize", "true");
             if (!debugMode && options.OmitTraces && flex4) WriteElementString("omit-trace-statements", "true");
-            if (debugMode && options.VerboseStackTraces) WriteElementString("verbose-stacktraces", "true");
+            if (debugMode) WriteElementString("verbose-stacktraces", "true");
+            else WriteElementString("verbose-stacktraces", options.VerboseStackTraces ? "true" : "false");
         }
 
         private void AddBaseOptions(MxmlcOptions options)
