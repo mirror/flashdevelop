@@ -4,7 +4,7 @@
 set FLEX_SDK=$(FlexSDK)
 
 :: Path to Android SDK
-set ANDROID_SDK=C:\android-sdk-windows
+set ANDROID_SDK=$(AppDir)\Tools\android-sdk
 
 
 :validation
