@@ -182,6 +182,7 @@ namespace ProjectManager.Helpers
                     case "PACKAGESLASHALT": return packageSlash.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                     case "DOLLAR": return "$";
                     case "FLEXSDK": return defaultFlexSDK;
+                    case "APPDIR": return PathHelper.AppDir;
                     default:
                         foreach (Argument arg in arguments)
                             if (arg.Key.ToUpper() == name) return arg.Value;

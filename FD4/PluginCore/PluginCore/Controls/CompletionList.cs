@@ -139,9 +139,11 @@ namespace PluginCore.Controls
 		{
             if (select.Length > 0)
             {
-                ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
-                if (!doc.IsEditable) return;
-                ScintillaControl sci = doc.SciControl;
+                int maxLen = 0;
+                foreach (ICompletionListItem item in itemList)
+                    if (item.Label.Length > maxLen) maxLen = item.Label.Length;
+                maxLen = Math.Min(256, maxLen);
+                if (select.Length > maxLen) select = select.Substring(0, maxLen);
                 currentWord = select;
             }
             else currentWord = null;
