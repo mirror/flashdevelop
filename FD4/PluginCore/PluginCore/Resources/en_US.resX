@@ -4811,4 +4811,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Move declaration(s) on top</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="ASCompletion.Label.GeneratePublicCallback" xml:space="preserve">
+    <value>Generate public callback</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

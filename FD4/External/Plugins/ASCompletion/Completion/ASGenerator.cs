@@ -661,13 +661,10 @@ namespace ASCompletion.Completion
             ClassModel inClass = result != null ? result.RelClass : found.inClass;
             bool isInterface = ClassIsInterface(inClass);
 
-            if (!isInterface)
+            if (!isInterface && result == null)
             {
-                if (result == null)
-                {
-                    string label = TextHelper.GetString("ASCompletion.Label.GeneratePrivateFunction");
-                    known.Add(new GeneratorItem(label, GeneratorJobType.Function, found.member, found.inClass));
-                }
+                string label = TextHelper.GetString("ASCompletion.Label.GeneratePrivateFunction");
+                known.Add(new GeneratorItem(label, GeneratorJobType.Function, found.member, found.inClass));
             }
 
             string labelFunPublic = TextHelper.GetString("ASCompletion.Label.GenerateFunctionPublic");
@@ -677,6 +674,9 @@ namespace ASCompletion.Completion
                 autoSelect = labelFunPublic;
             }
             known.Add(new GeneratorItem(labelFunPublic, GeneratorJobType.FunctionPublic, found.member, found.inClass));
+
+            string labelCallback = TextHelper.GetString("ASCompletion.Label.GeneratePublicCallback");
+            known.Add(new GeneratorItem(labelCallback, GeneratorJobType.VariablePublic, found.member, found.inClass));
 
             CompletionList.Show(known, false);
         }
@@ -1955,17 +1955,27 @@ namespace ASCompletion.Completion
             ASResult returnType = null;
             int lineNum = Sci.LineFromPosition(Sci.CurrentPos);
             string line = Sci.GetLine(lineNum);
-            Match m = Regex.Match(line, @"=\s*[^;\s\n\r}}]+");
+            
+            Match m = Regex.Match(line, "\\b" + Regex.Escape(contextToken) + "\\(");
             if (m.Success)
             {
-                int posLineStart = Sci.PositionFromLine(lineNum);
-                if (posLineStart + m.Index >= Sci.CurrentPos)
+                returnType = new ASResult();
+                returnType.Type = ASContext.Context.ResolveType("Function", null);
+            }
+            else
+            {
+                m = Regex.Match(line, @"=\s*[^;\s\n\r}}]+");
+                if (m.Success)
                 {
-                    line = line.Substring(m.Index);
-                    StatementReturnType rType = GetStatementReturnType(Sci, inClass, line, posLineStart + m.Index);
-                    if (rType != null)
+                    int posLineStart = Sci.PositionFromLine(lineNum);
+                    if (posLineStart + m.Index >= Sci.CurrentPos)
                     {
-                        returnType = rType.resolve;
+                        line = line.Substring(m.Index);
+                        StatementReturnType rType = GetStatementReturnType(Sci, inClass, line, posLineStart + m.Index);
+                        if (rType != null)
+                        {
+                            returnType = rType.resolve;
+                        }
                     }
                 }
             }
@@ -2025,7 +2035,7 @@ namespace ASCompletion.Completion
             // if this is a constant, we assign a value to constant
             string returnTypeStr = null;
             string eventValue = null;
-            if (job.Equals(GeneratorJobType.Constant))
+            if (job == GeneratorJobType.Constant)
             {
                 isStatic.Flags |= FlagType.Static;
                 ClassModel aType = inClass;

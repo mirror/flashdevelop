@@ -4811,4 +4811,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Move declaration(s) on top</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="ASCompletion.Label.GeneratePublicCallback" xml:space="preserve">
+    <value>Generate public callback</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>
