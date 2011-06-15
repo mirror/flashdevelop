@@ -41,7 +41,7 @@ namespace ProjectManager.Projects.AS3
             switch (platform)
             {
                 case CUSTOM_PLATFORM: return "0.0";
-                case AIR_PLATFORM: return "2.6";
+                case AIR_PLATFORM: return "2.7";
                 default: return "10.0";
             }
         }

@@ -244,6 +244,7 @@ namespace AS3Context
                     if (cpCheck.IndexOf("Library/AS3/frameworks/Flex4", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         addLibs.Add("spark.swc");
+                        addLibs.Add("spark_dmv.swc");
                         addLibs.Add("sparkskins.swc");
                         //addLibs.Add("textLayout.swc");
                         addLibs.Add("osmf.swc");
