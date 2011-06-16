@@ -46,7 +46,7 @@ namespace FlashDevelop.Dialogs
             this.imageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imageBox.Location = new System.Drawing.Point(0, 0);
             this.imageBox.Name = "imageBox";
-            this.imageBox.Size = new System.Drawing.Size(450, 300);
+            this.imageBox.Size = new System.Drawing.Size(450, 244);
             this.imageBox.TabIndex = 0;
             this.imageBox.TabStop = false;
             this.imageBox.Click += new System.EventHandler(this.DialogCloseClick);
@@ -54,9 +54,10 @@ namespace FlashDevelop.Dialogs
             // copyLabel
             //
             this.copyLabel.AutoSize = true;
-            this.copyLabel.BackColor = System.Drawing.Color.White;
+            this.copyLabel.ForeColor = System.Drawing.Color.DarkGray;
+            this.copyLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.copyLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.copyLabel.Location = new System.Drawing.Point(25, 247);
+            this.copyLabel.Location = new System.Drawing.Point(25, 191);
             this.copyLabel.Name = "copyLabel";
             this.copyLabel.Size = new System.Drawing.Size(400, 31);
             this.copyLabel.TabIndex = 0;
@@ -66,9 +67,10 @@ namespace FlashDevelop.Dialogs
             // versionLabel
             //
             this.versionLabel.AutoSize = true;
-            this.versionLabel.BackColor = System.Drawing.Color.White;
+            this.versionLabel.ForeColor = System.Drawing.Color.DarkGray;
+            this.versionLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.versionLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.versionLabel.Location = new System.Drawing.Point(25, 227);
+            this.versionLabel.Location = new System.Drawing.Point(25, 173);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(400, 14);
             this.versionLabel.TabIndex = 0;
@@ -77,7 +79,7 @@ namespace FlashDevelop.Dialogs
             // 
             // AboutDialog
             //
-            this.ClientSize = new System.Drawing.Size(450, 300);
+            this.ClientSize = new System.Drawing.Size(450, 244);
             this.Controls.Add(this.copyLabel);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.imageBox);
