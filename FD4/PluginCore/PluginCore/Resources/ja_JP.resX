@@ -4861,15 +4861,15 @@ UseData:"</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ASCompletion.Description.HandlerNamingConvention" xml:space="preserve">
-    <value>Generator can automatically generate an event handler method name using the following naming conventions</value>
+    <value>自動生成されるイベントハンドラーのメソッド名のフォーマットを指定します。</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ASCompletion.Label.MoveDeclarationOnTop" xml:space="preserve">
-    <value>Move declaration(s) on top</value>
+    <value>宣言を先頭に移動</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="ASCompletion.Label.GeneratePublicCallback" xml:space="preserve">
-    <value>Generate public callback</value>
+    <value>public コールバック関数の生成</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>
