@@ -3,6 +3,11 @@ AIR for Android instructions
 1. Configuration
 
 	- edit 'bat\SetupSDK.bat' for paths to Flex SDK and Android SDK
+	
+	- install your device's USB drivers:
+	    http://developer.android.com/sdk/oem-usb.html
+	- enable "USB debugging" on your Android device:
+	    Parameters > Applications > Development > USB Debugging
 
 
 2. Creating a self-signed certificate:
