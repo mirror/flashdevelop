@@ -551,11 +551,9 @@ namespace ResultsPanel
                 this.logCount = count;
                 return;
             }
-
             Int32 newResult = -1;
             TraceItem entry; Match match; String description;
             String fileTest; Boolean inExec; Int32 icon; Int32 state;
-
             for (Int32 i = this.logCount; i < count; i++)
             {
                 entry = TraceManager.TraceLog[i];
@@ -615,7 +613,6 @@ namespace ResultsPanel
                     }
                 }
             }
-
             this.logCount = count;
             if (newResult >= 0)
             {
@@ -636,7 +633,6 @@ namespace ResultsPanel
 		private void FilterResults(bool locked)
 		{
             if (!locked) this.entriesView.BeginUpdate();
-
             String filterText = this.toolStripTextBoxFilter.Text.ToLower();
             Boolean matchInfo = this.toolStripButtonInfo.Checked;
             Boolean matchWarnings = this.toolStripButtonWarning.Checked;
@@ -658,15 +654,15 @@ namespace ResultsPanel
                     this.entriesView.Items.Add(it);
                 }
             }
-            
             if (this.entriesView.Items.Count > 0)
-			    if (this.Settings.ScrollToBottom)
-			    {
-				    Int32 last = this.entriesView.Items.Count - 1;
-				    this.entriesView.EnsureVisible(last);
-			    }
+            {
+                if (this.Settings.ScrollToBottom)
+                {
+                    Int32 last = this.entriesView.Items.Count - 1;
+                    this.entriesView.EnsureVisible(last);
+                }
                 else this.entriesView.EnsureVisible(0);
-
+            }
             this.nextEntry.Enabled = this.previousEntry.Enabled = this.entriesView.Items.Count > 0;
             if (!locked) this.entriesView.EndUpdate();
 		}
