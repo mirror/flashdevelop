@@ -313,7 +313,7 @@ namespace ResultsPanel
         private void ToolStripButtonErrorCheckedChanged(Object sender, EventArgs e)
         {
             this.clearFilterButton.Enabled = this.toolStripTextBoxFilter.Text.Trim().Length > 0;
-            this.FilterResults();
+            this.FilterResults(false);
         }
 
         /// <summary>
@@ -551,10 +551,11 @@ namespace ResultsPanel
                 this.logCount = count;
                 return;
             }
+
             Int32 newResult = -1;
-            this.entriesView.BeginUpdate();
             TraceItem entry; Match match; String description;
             String fileTest; Boolean inExec; Int32 icon; Int32 state;
+
             for (Int32 i = this.logCount; i < count; i++)
             {
                 entry = TraceManager.TraceLog[i];
@@ -606,49 +607,57 @@ namespace ResultsPanel
                             item.SubItems.Add(fileInfo.Name);
                             item.SubItems.Add(fileInfo.Directory.ToString());
                             if (newResult < 0) newResult = this.entriesView.Items.Count;
-                            this.AddToGroup(item, fileInfo.FullName);
 							if (icon == 0) this.messageCount++;
                             else if (icon == 1) this.errorCount++;
                             else if (icon == 2) this.warningCount++;
-							allListViewItems.Add(item);
+                            allListViewItems.Add(item);
                         }
                     }
                 }
             }
-            this.UpdateButtons();
-            this.FilterResults();
+
             this.logCount = count;
             if (newResult >= 0)
             {
+                this.UpdateButtons();
+                this.FilterResults(true);
                 for (Int32 i = newResult; i < this.entriesView.Items.Count; i++)
                 {
                     this.AddSquiggle(this.entriesView.Items[i]);
                 }
+                this.entryPath.Width = -2; // Extend last column
             }
-            this.entryPath.Width = -2; // Extend last column
             this.entriesView.EndUpdate();
         }
 
         /// <summary>
         /// Filters the results...
         /// </summary>
-		private void FilterResults()
+		private void FilterResults(bool locked)
 		{
-			this.entriesView.BeginUpdate();
-            this.entriesView.Items.Clear();
+            if (!locked) this.entriesView.BeginUpdate();
+
             String filterText = this.toolStripTextBoxFilter.Text.ToLower();
+            Boolean matchInfo = this.toolStripButtonInfo.Checked;
+            Boolean matchWarnings = this.toolStripButtonWarning.Checked;
+            Boolean matchErrors = this.toolStripButtonError.Checked;
+            this.entriesView.Items.Clear();
             foreach (ListViewItem it in this.allListViewItems)
-			{
+            {
                 // Is checked?
-                if (((this.toolStripButtonInfo.Checked && it.ImageIndex == 0) || (this.toolStripButtonWarning.Checked && it.ImageIndex == 2) || (this.toolStripButtonError.Checked && it.ImageIndex == 1))
+                Int32 img = it.ImageIndex;
+                if (((matchInfo && img == 0) || (matchWarnings && img == 2) || (matchErrors && img == 1))
                     // Contains filter?
-                    && (this.toolStripTextBoxFilter.Text == "" || (this.toolStripTextBoxFilter.Text != "" && (it.SubItems[2].Text.ToLower().Contains(filterText) || it.SubItems[3].Text.ToLower().Contains(filterText) || it.SubItems[4].Text.ToLower().Contains(filterText)))))
-				{	
-					String path = Path.Combine(it.SubItems[4].Text, it.SubItems[3].Text);
+                    && (filterText == "" || ((Match)it.Tag).Value.ToLower().Contains(filterText)))
+                {
+                    if (PluginBase.Settings.UseListViewGrouping)
+                    {
+                        String path = Path.Combine(it.SubItems[4].Text, it.SubItems[3].Text);
+                        this.AddToGroup(it, path);
+                    }
                     this.entriesView.Items.Add(it);
-                    this.AddToGroup(it, path);
-				}
-			}
+                }
+            }
             
             if (this.entriesView.Items.Count > 0)
 			    if (this.Settings.ScrollToBottom)
@@ -659,7 +668,7 @@ namespace ResultsPanel
                 else this.entriesView.EnsureVisible(0);
 
             this.nextEntry.Enabled = this.previousEntry.Enabled = this.entriesView.Items.Count > 0;
-            this.entriesView.EndUpdate();
+            if (!locked) this.entriesView.EndUpdate();
 		}
 
         /// <summary>
