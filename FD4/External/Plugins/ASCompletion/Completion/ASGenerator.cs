@@ -190,7 +190,9 @@ namespace ASCompletion.Completion
                 // "add to interface" suggestion
                 if (resolve.Member != null &&
                     resolve.Member.Name == found.member.Name &&
-                    (found.member.Flags & FlagType.Function) > 0 &&
+                    ((found.member.Flags & FlagType.Function) > 0 
+                            || (found.member.Flags & FlagType.Getter) > 0
+                            || (found.member.Flags & FlagType.Setter) > 0) &&
                     found.inClass != null &&
                     found.inClass.Implements != null &&
                     found.inClass.Implements.Count > 0)
@@ -1667,6 +1669,14 @@ namespace ASCompletion.Completion
             }
 
             string template = TemplateUtils.GetTemplate("IFunction");
+            if ((member.Flags & FlagType.Getter) > 0)
+            {
+                template = TemplateUtils.GetTemplate("IGetter");
+            }
+            else if ((member.Flags & FlagType.Setter) > 0)
+            {
+                template = TemplateUtils.GetTemplate("ISetter");
+            }
 
             DockContent dc = ASContext.MainForm.OpenEditableDocument(aType.InFile.FileName, true);
             Sci = ASContext.CurSciControl;
@@ -1685,8 +1695,12 @@ namespace ASCompletion.Completion
             Sci.SetSel(position, position);
             Sci.CurrentPos = position;
 
+            IASContext context = ASContext.Context;
+            ContextFeatures features = context.Features;
+
             template = TemplateUtils.ToDeclarationString(member, template);
             template = TemplateUtils.ReplaceTemplateVariable(template, "BlankLine", NewLine);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Void", features.voidKey);
 
             List<string> importsList = new List<string>();
             string t;
