@@ -245,6 +245,9 @@ namespace CodeRefactor
             return result == null && result.IsNull() ? null : result;
         }
 
+        /// <summary>
+        /// Update the ASCompletion generator related items
+        /// </summary>
         private void UpdateGeneratorItems()
         {
             Boolean isValid = this.GetLanguageIsValid();

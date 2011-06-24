@@ -1560,10 +1560,7 @@ namespace FlashDevelop
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke((MethodInvoker)delegate 
-                { 
-                    this.ProcessParameters(args);
-                });
+                this.BeginInvoke((MethodInvoker)delegate { this.ProcessParameters(args); });
                 return;
             }
             this.Activate(); this.Focus();
@@ -1610,9 +1607,9 @@ namespace FlashDevelop
         /// </summary>
         public void ApplyAllSettings()
         {
-            if ((this as Form).InvokeRequired)
+            if (this.InvokeRequired)
             {
-                (this as Form).BeginInvoke((MethodInvoker)delegate { ApplyAllSettings(); });
+                this.BeginInvoke((MethodInvoker)delegate { this.ApplyAllSettings(); });
                 return;
             }
             ShortcutManager.ApplyAllShortcuts();
