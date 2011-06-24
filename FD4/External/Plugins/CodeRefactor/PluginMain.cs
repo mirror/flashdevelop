@@ -127,6 +127,10 @@ namespace CodeRefactor
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu));
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.ContextMenu", this.refactorContextMenu));
                     break;
+
+                case EventType.FileSwitch:
+                    this.UpdateGeneratorItems();
+                    break;
             }
 		}
 
@@ -139,7 +143,7 @@ namespace CodeRefactor
         /// </summary>
         public void InitBasics()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.FileSwitch);
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
@@ -190,6 +194,7 @@ namespace CodeRefactor
         private void MainMenuActivate(Object sender, EventArgs e)
         {
             this.UpdateMenuItems();
+            this.UpdateGeneratorItems();
         }
 
         /// <summary>
@@ -198,6 +203,7 @@ namespace CodeRefactor
         private void EditorMenuOpening(Object sender, CancelEventArgs e)
         {
             this.UpdateMenuItems();
+            this.UpdateGeneratorItems();
         }
 
         /// <summary>
@@ -237,6 +243,13 @@ namespace CodeRefactor
             Int32 position = document.SciControl.WordEndPosition(document.SciControl.CurrentPos, true);
             ASResult result = ASComplete.GetExpressionType(document.SciControl, position);
             return result == null && result.IsNull() ? null : result;
+        }
+
+        private void UpdateGeneratorItems()
+        {
+            Boolean isValid = this.GetLanguageIsValid();
+            this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
+            this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
         }
 
         /// <summary>
@@ -324,8 +337,6 @@ namespace CodeRefactor
                         }
                     }
                 }
-                this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
-                this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
             }
             catch {}
         }

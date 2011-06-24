@@ -1610,6 +1610,11 @@ namespace FlashDevelop
         /// </summary>
         public void ApplyAllSettings()
         {
+            if ((this as Form).InvokeRequired)
+            {
+                (this as Form).BeginInvoke((MethodInvoker)delegate { ApplyAllSettings(); });
+                return;
+            }
             ShortcutManager.ApplyAllShortcuts();
             EventManager.DispatchEvent(this, new NotifyEvent(EventType.ApplySettings));
             for (Int32 i = 0; i < this.Documents.Length; i++)
