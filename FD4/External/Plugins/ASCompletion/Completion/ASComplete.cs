@@ -22,11 +22,14 @@ using ScintillaNet;
 
 namespace ASCompletion.Completion
 {
+    public delegate void ResolvedContextChangeHandler(ResolvedContext resolved);
+
 	/// <summary>
 	/// Description of ASComplete.
 	/// </summary>
 	public class ASComplete
 	{
+
 		#region regular_expressions_definitions
 		static private readonly RegexOptions ro_csr = ASFileParser.ro_cs | RegexOptions.RightToLeft;
 		// refine last expression
@@ -46,6 +49,9 @@ namespace ASCompletion.Completion
         static private String currentClassHash = null;
         //stores the last completed member for each class
         static private IDictionary<String, String> completionHistory = new Dictionary<String, String>();
+
+        static public ResolvedContext CurrentResolvedContext;
+        static public event ResolvedContextChangeHandler OnResolvedContextChanged;
         #endregion
 
         #region application_event_handlers
@@ -640,52 +646,69 @@ namespace ASCompletion.Completion
         }
 
         /// <summary>
-		/// Using the text under at cursor position, resolve the member/type and call the specified command.
-		/// </summary>
-		/// <param name="Sci">Control</param>
-		/// <returns>Resolved element details</returns>
-		static public Hashtable ResolveElement(ScintillaControl Sci, string eventAction)
-		{
-            Hashtable details = new Hashtable();
+        /// Resolve word at cursor position and pre-fill arguments for args processor
+        /// </summary>
+        internal static void ResolveContext(ScintillaControl Sci)
+        {
+            // check if a document
+            if (Sci == null)
+            {
+                ClearResolvedContext();
+                return;
+            }
 
-			// get type at cursor position
-            if (Sci == null) return details;
-			int position = Sci.WordEndPosition(Sci.CurrentPos, true);
-			ASResult result = GetExpressionType(Sci, position);
+            // check if resolution is needed
+            int position = Sci.WordEndPosition(Sci.CurrentPos, true);
+            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == position
+                && !CurrentResolvedContext.Result.IsNull())
+                return;
 
-            // file model
+            // check context
             IASContext context = ASContext.Context;
-            if (context.CurrentModel == null) return details;
+            if (context.CurrentModel == null)
+            {
+                ClearResolvedContext();
+                return;
+            }
+            CurrentResolvedContext = new ResolvedContext();
+            CurrentResolvedContext.Position = position;
+
+            // get type at cursor position
+            ASResult result = CurrentResolvedContext.Result 
+                = GetExpressionType(Sci, position);
             ContextFeatures features = context.Features;
+
+            Hashtable args = CurrentResolvedContext.Arguments;
             string package = context.CurrentModel.Package;
-            details.Add("TypPkg", package);
+            args.Add("TypPkg", package);
 
             ClassModel cClass = context.CurrentClass;
             if (cClass == null) cClass = ClassModel.VoidClass;
-            details.Add("TypName", cClass.Name);
-            string fullname = (package.Length > 0 ? package + "." : "") + cClass.Name;
-            details.Add("TypPkgName", fullname);
+            args.Add("TypName", MemberModel.FormatType(cClass.Name));
+            string fullname = MemberModel.FormatType(cClass.QualifiedName);
+            args.Add("TypPkgName", fullname);
             FlagType flags = cClass.Flags;
             string kind = GetKind(flags, features);
-            details.Add("TypKind", kind);
+            args.Add("TypKind", kind);
 
             if (context.CurrentMember != null)
             {
-                details.Add("MbrName", context.CurrentMember.Name);
+                args.Add("MbrName", context.CurrentMember.Name);
                 flags = context.CurrentMember.Flags;
                 kind = GetKind(flags, features);
-                details.Add("MbrKind", kind);
+                args.Add("MbrKind", kind);
 
-                ClassModel aType = ASContext.Context.ResolveType(context.CurrentMember.Type, context.CurrentModel);
+                ClassModel aType = CurrentResolvedContext.TokenType 
+                    = ASContext.Context.ResolveType(context.CurrentMember.Type, context.CurrentModel);
                 package = aType.IsVoid() ? "" : aType.InFile.Package;
-                details.Add("MbrTypPkg", package);
-                details.Add("MbrTypName", aType.Name);
-                fullname = (package.Length > 0 ? package + "." : "") + aType.Name;
-                details.Add("MbrTypePkgName", fullname);
+                args.Add("MbrTypPkg", package);
+                args.Add("MbrTypName", MemberModel.FormatType(aType.Name));
+                fullname = MemberModel.FormatType(aType.QualifiedName);
+                args.Add("MbrTypePkgName", fullname);
                 flags = aType.Flags;
                 kind = GetKind(flags, features);
-                details.Add("MbrTypKind", kind);
-                
+                args.Add("MbrTypKind", kind);
+
                 // Get closest list (Array or Vector)
                 //string closestListName = "", closestListItemType = "";
                 //FindClosestList(context, result.Context, Sci.LineFromPosition(position), ref closestListName, ref closestListItemType);
@@ -694,118 +717,161 @@ namespace ASCompletion.Completion
 
                 // get free iterator index
                 string iterator = FindFreeIterator(context, cClass, result.Context);
-                details.Add("ItmUniqueVar", iterator);
+                args.Add("ItmUniqueVar", iterator);
             }
             else
             {
-                details.Add("MbrName", "");
-                details.Add("MbrKind", "");
-                details.Add("MbrTypPkg", "");
-                details.Add("MbrTypName", "");
-                details.Add("MbrTypePkgName", "");
-                details.Add("MbrTypKind", "");
-                details.Add("TypClosestListName", "");
-                details.Add("TypClosestListItemType", "");
-                details.Add("ItmUniqueVar", "");
+                args.Add("MbrName", "");
+                args.Add("MbrKind", "");
+                args.Add("MbrTypPkg", "");
+                args.Add("MbrTypName", "");
+                args.Add("MbrTypePkgName", "");
+                args.Add("MbrTypKind", "");
+                args.Add("TypClosestListName", "");
+                args.Add("TypClosestListItemType", "");
+                args.Add("ItmUniqueVar", "");
             }
 
-			// if element can be resolved
+            // if element can be resolved
             if (!result.IsNull())
             {
-                ClassModel oClass = (result.InClass != null) ? result.InClass : result.Type;
-                
-                if (result.IsPackage || oClass.IsVoid()) 
-                    return details; 
+                ClassModel oClass = result.InClass != null ? result.InClass : result.Type;
+
+                if (result.IsPackage || oClass.IsVoid())
+                    return;
 
                 // type details
                 FileModel file;
                 MemberModel member = result.Member;
-                
+
                 if (member != null && member.IsPackageLevel)
                 {
-                    details.Add("ItmTypName", member.Name);
+                    args.Add("ItmTypName", member.Name);
                     file = member.InFile;
                     fullname = "package";
                     flags = member.Flags;
                 }
                 else
                 {
-                    details.Add("ItmTypName", oClass.Name);
+                    args.Add("ItmTypName", MemberModel.FormatType(oClass.Name));
                     file = oClass.InFile;
-                    fullname = oClass.Name;
+                    fullname = MemberModel.FormatType(oClass.Name);
                     flags = oClass.Flags;
                 }
                 package = file.Package;
                 fullname = (package.Length > 0 ? package + "." : "") + fullname;
                 kind = GetKind(flags, features);
-                
-                details.Add("ItmFile", file.FileName);
-                details.Add("ItmTypPkg", package);
-                details.Add("ItmTypPkgName", fullname);
-                details.Add("ItmTypKind", kind);
+
+                args.Add("ItmFile", file.FileName);
+                args.Add("ItmTypPkg", package);
+                args.Add("ItmTypPkgName", fullname);
+                args.Add("ItmTypKind", kind);
                 // type as path
-                details.Add("ItmTypPkgNamePath", fullname.Replace('.', '\\'));
-                details.Add("ItmTypPkgNameURL", fullname.Replace('.', '/'));
+                args.Add("ItmTypPkgNamePath", fullname.Replace('.', '\\'));
+                args.Add("ItmTypPkgNameURL", fullname.Replace('.', '/'));
+
+                if (result.Type != null)
+                {
+                    package = result.Type.InFile.Package;
+                    args.Add("ItmClassName", MemberModel.FormatType(result.Type.Name));
+                    args.Add("ItmClassPkg", package);
+                    args.Add("ItmClassPkgName", MemberModel.FormatType(result.Type.QualifiedName));
+                }
+                else
+                {
+                    args.Add("ItmClassName", "");
+                    args.Add("ItmClassPkg", "");
+                    args.Add("ItmClassPkgName", "");
+                }
 
                 // element details
                 if (result.Type != null && member != null)
                 {
-                    details.Add("ItmName", member.Name);
+                    args.Add("ItmName", member.Name);
                     flags = member.Flags & ~(FlagType.LocalVar | FlagType.Dynamic | FlagType.Static);
                     kind = GetKind(flags, features);
-                    details.Add("ItmKind", kind);
-                    details.Add("ItmNameDocs", member.Name + (kind == features.functionKey ? "()" : ""));
+                    args.Add("ItmKind", kind);
+                    args.Add("ItmNameDocs", member.Name + (kind == features.functionKey ? "()" : ""));
                 }
                 else
                 {
-                    details.Add("ItmName", oClass.Name);
+                    args.Add("ItmName", MemberModel.FormatType(oClass.Name));
                     flags = oClass.Flags;
                     kind = GetKind(flags, features);
-                    details.Add("ItmKind", kind);
-                    details.Add("ItmNameDocs", "");
-                }
-
-                if (eventAction != null)
-                {
-                    // other plugins may handle the documentation
-                    DataEvent de = new DataEvent(EventType.Command, eventAction, details);
-                    EventManager.DispatchEvent(ASContext.Context, de);
-                    if (de.Handled) return details;
-
-                    // help
-                    if (eventAction == "ShowDocumentation")
-                    {
-                        string cmd = ASContext.Context.Settings.DocumentationCommandLine;
-                        if (cmd == null || cmd.Length == 0) return null;
-                        // top-level vars should be searched only if the command includes member information
-                        if (result.InClass == ClassModel.VoidClass && cmd.IndexOf("$(Itm") < 0) return null;
-                        // complete command
-                        cmd = ArgumentsProcessor.Process(cmd, details);
-                        // call the command
-                        try
-                        {
-                            ASContext.MainForm.CallCommand("RunProcess", cmd);
-                        }
-                        catch (Exception ex)
-                        {
-                            ErrorManager.ShowError(ex);
-                        }
-                    }
+                    args.Add("ItmKind", kind);
+                    args.Add("ItmNameDocs", "");
                 }
             }
             else
             {
-                details.Add("ItmFile", "");
-                details.Add("ItmName", "");
-                details.Add("ItmKind", "");
-                details.Add("ItmTypName", "");
-                details.Add("ItmTypPkg", "");
-                details.Add("ItmTypPkgName", "");
-                details.Add("ItmTypKind", "");
-                details.Add("ItmTypPkgNamePath", "");
-                details.Add("ItmTypPkgNameURL", "");
+                args.Add("ItmFile", "");
+                args.Add("ItmName", "");
+                args.Add("ItmKind", "");
+                args.Add("ItmTypName", "");
+                args.Add("ItmTypPkg", "");
+                args.Add("ItmTypPkgName", "");
+                args.Add("ItmTypKind", "");
+                args.Add("ItmTypPkgNamePath", "");
+                args.Add("ItmTypPkgNameURL", "");
+                args.Add("ItmClassName", "");
+                args.Add("ItmClassPkg", "");
+                args.Add("ItmClassPkgName", "");
             }
-			return details;
+            NotifyContextChanged();
+        }
+
+        private static void ClearResolvedContext()
+        {
+            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == 0)
+                return;
+            CurrentResolvedContext = new ResolvedContext();
+            NotifyContextChanged();
+        }
+
+        private static void NotifyContextChanged()
+        {
+            if (OnResolvedContextChanged != null) 
+                ASComplete.OnResolvedContextChanged(CurrentResolvedContext);
+        }
+
+        /// <summary>
+		/// Using the text under at cursor position, resolve the member/type and call the specified command.
+		/// </summary>
+		/// <param name="Sci">Control</param>
+		/// <returns>Resolved element details</returns>
+		static public Hashtable ResolveElement(ScintillaControl Sci, string eventAction)
+		{
+            if (CurrentResolvedContext == null) ResolveContext(Sci);
+
+            if (eventAction != null && !CurrentResolvedContext.Result.IsNull())
+            {
+                // other plugins may handle the request
+                DataEvent de = new DataEvent(EventType.Command, eventAction, CurrentResolvedContext.Arguments);
+                EventManager.DispatchEvent(ASContext.Context, de);
+                if (de.Handled) return CurrentResolvedContext.Arguments;
+
+                // help
+                if (eventAction == "ShowDocumentation")
+                {
+                    string cmd = ASContext.Context.Settings.DocumentationCommandLine;
+                    if (cmd == null || cmd.Length == 0) return null;
+                    // top-level vars should be searched only if the command includes member information
+                    if (CurrentResolvedContext.Result.InClass == ClassModel.VoidClass && cmd.IndexOf("$(Itm") < 0) 
+                        return null;
+                    // complete command
+                    cmd = ArgumentsProcessor.Process(cmd, CurrentResolvedContext.Arguments);
+                    // call the command
+                    try
+                    {
+                        ASContext.MainForm.CallCommand("RunProcess", cmd);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorManager.ShowError(ex);
+                    }
+                }
+            }
+            return CurrentResolvedContext.Arguments;
 		}
 
         public static void FindClosestList(IASContext context, ASExpr expr, int lineNum, ref string closestListName, ref string closestListItemType)
@@ -3511,6 +3577,7 @@ namespace ASCompletion.Completion
 		}
 
 		#endregion
+
     }
 
     #region completion list
@@ -3734,7 +3801,7 @@ namespace ASCompletion.Completion
 		}
 	}
 
-    class LastCharData
+    sealed class LastCharData
     {
         public int Value;
         public int Position;
@@ -3744,6 +3811,14 @@ namespace ASCompletion.Completion
             this.Value = val;
             this.Position = pos;
         }
+    }
+
+    public sealed class ResolvedContext
+    {
+        public int Position;
+        public Hashtable Arguments = new Hashtable();
+        public ASResult Result;
+        public ClassModel TokenType;
     }
 	#endregion
 }

@@ -126,10 +126,9 @@ namespace CodeRefactor
                     // Expose plugin's refactor main menu & context menu...
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu));
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.ContextMenu", this.refactorContextMenu));
-                    break;
-
-                case EventType.FileSwitch:
-                    this.UpdateGeneratorItems();
+                    // Watch context
+                    ASComplete.OnResolvedContextChanged += new ResolvedContextChangeHandler(ASComplete_OnResolvedContextChanged);
+                    UpdateMenuItems();
                     break;
             }
 		}
@@ -143,7 +142,7 @@ namespace CodeRefactor
         /// </summary>
         public void InitBasics()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.FileSwitch);
+            EventManager.AddEventHandler(this, EventType.UIStarted);
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
@@ -174,8 +173,6 @@ namespace CodeRefactor
             this.refactorContextMenu.ExtractLocalVariableMenuItem.Click += new EventHandler(this.ExtractLocalVariableClicked);
             this.refactorContextMenu.CodeGeneratorMenuItem.Click += new EventHandler(this.CodeGeneratorMenuItemClicked);
             this.surroundContextMenu = new SurroundMenu();
-            editorMenu.Opening += new CancelEventHandler(this.EditorMenuOpening);
-            mainMenu.MenuActivate += new EventHandler(this.MainMenuActivate);
             editorMenu.Items.Insert(3, this.refactorContextMenu);
             editorMenu.Items.Insert(4, this.surroundContextMenu);
             mainMenu.Items.Insert(5, this.refactorMainMenu);
@@ -186,24 +183,6 @@ namespace CodeRefactor
             searchMenu.DropDownItems.Add(new ToolStripSeparator());
             searchMenu.DropDownItems.Add(this.viewReferencesItem);
             editorMenu.Items.Insert(7, this.editorReferencesItem);
-        }
-
-        /// <summary>
-        /// Updates the menu items
-        /// </summary>
-        private void MainMenuActivate(Object sender, EventArgs e)
-        {
-            this.UpdateMenuItems();
-            this.UpdateGeneratorItems();
-        }
-
-        /// <summary>
-        /// Updates the menu items
-        /// </summary>
-        private void EditorMenuOpening(Object sender, CancelEventArgs e)
-        {
-            this.UpdateMenuItems();
-            this.UpdateGeneratorItems();
         }
 
         /// <summary>
@@ -234,25 +213,12 @@ namespace CodeRefactor
         }
 
         /// <summary>
-        /// Gets the result for menu updating from current position.
+        /// Cursor position changed and word at this position was resolved
         /// </summary>
-        private ASResult GetResultFromCurrentPosition()
+        /// <param name="resolved"></param>
+        private void ASComplete_OnResolvedContextChanged(ResolvedContext resolved)
         {
-            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-            if (document == null || document.SciControl == null || !ASContext.Context.IsFileValid) return null;
-            Int32 position = document.SciControl.WordEndPosition(document.SciControl.CurrentPos, true);
-            ASResult result = ASComplete.GetExpressionType(document.SciControl, position);
-            return result == null && result.IsNull() ? null : result;
-        }
-
-        /// <summary>
-        /// Update the ASCompletion generator related items
-        /// </summary>
-        private void UpdateGeneratorItems()
-        {
-            Boolean isValid = this.GetLanguageIsValid();
-            this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
-            this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
+            this.UpdateMenuItems();
         }
 
         /// <summary>
@@ -262,10 +228,11 @@ namespace CodeRefactor
         {
             try
             {
-                Boolean isValid = this.GetLanguageIsValid();
+                ResolvedContext resolved = ASComplete.CurrentResolvedContext;
+                Boolean isValid = GetLanguageIsValid() && resolved != null && resolved.Position != 0;
                 this.refactorMainMenu.DelegateMenuItem.Enabled = false;
                 this.refactorContextMenu.DelegateMenuItem.Enabled = false;
-                ASResult result = isValid ? GetResultFromCurrentPosition() : null;
+                ASResult result = isValid ? resolved.Result : null;
                 if (result != null && result.Member != null)
                 {
                     Boolean isVoid = result.Type.IsVoid();
@@ -340,6 +307,9 @@ namespace CodeRefactor
                         }
                     }
                 }
+
+                this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
+                this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
             }
             catch {}
         }
@@ -435,7 +405,7 @@ namespace CodeRefactor
             try
             {
                 String name;
-                ASResult result = GetResultFromCurrentPosition();
+                ASResult result = ASComplete.CurrentResolvedContext.Result;
                 Dictionary<MemberModel, ClassModel> members = new Dictionary<MemberModel, ClassModel>();
                 List<String> memberNames = new List<String>();
                 ClassModel cm = result.Type;

@@ -54,6 +54,7 @@ namespace ASCompletion
         private bool started;
         private FlashErrorsWatcher flashErrorsWatcher;
         private bool checking = false;
+        private System.Timers.Timer timerPosition;
 
         #region Required Properties
 
@@ -175,22 +176,8 @@ namespace ASCompletion
                     // caret position in editor
                     case EventType.UIRefresh:
                         if (!doc.IsEditable) return;
-                        try
-                        {
-                            int position = sci.CurrentPos;
-                            if (position != currentPos)
-                            {
-                                currentPos = position;
-                                if (currentDoc == doc.FileName)
-                                {
-                                    int line = sci.LineFromPosition(currentPos);
-                                    ASContext.SetCurrentLine(line);
-                                    // UI
-                                    SetItemsEnabled(ASContext.Context.IsFileValid);
-                                }
-                            }
-                        }
-                        catch {} // drag & drop sci Perform crash
+                        timerPosition.Enabled = false;
+                        timerPosition.Enabled = true;
                         return;
 
                     // key combinations
@@ -236,9 +223,8 @@ namespace ASCompletion
                     case EventType.FileSwitch:
                         if (!doc.IsEditable)
                         {
-                            currentDoc = "";
-                            SetItemsEnabled(false);
                             ASContext.SetCurrentFile(null, true);
+                            ContextChanged();
                             return;
                         }
                         currentDoc = doc.FileName;
@@ -247,9 +233,7 @@ namespace ASCompletion
                         bool ignoreFile = !doc.IsEditable;
                         ASContext.SetCurrentFile(doc, ignoreFile);
                         // UI
-                        bool enableItems = ASContext.Context.IsFileValid && !doc.IsUntitled;
-                        SetItemsEnabled(enableItems);
-                        pluginUI.OutlineTree.Enabled = ASContext.Context.CurrentModel != null;
+                        ContextChanged();
                         return;
 
                     // some commands work all the time
@@ -696,6 +680,12 @@ namespace ASCompletion
             // application events
             EventManager.AddEventHandler(this, eventMask);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
+
+            // cursor position changes tracking
+            timerPosition = new System.Timers.Timer();
+            timerPosition.SynchronizingObject = PluginBase.MainForm as Form;
+            timerPosition.Interval = 50;
+            timerPosition.Elapsed += new System.Timers.ElapsedEventHandler(timerPosition_Elapsed);
         }
 
         #endregion
@@ -844,7 +834,42 @@ namespace ASCompletion
 		{
 			if (ASComplete.HasCalltip())
 				ASComplete.HandleFunctionCompletion(sci, false, true);
-		}
+        }
+
+        void timerPosition_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            ScintillaNet.ScintillaControl sci = ASContext.CurSciControl;
+            if (sci == null) return;
+            int position = sci.CurrentPos;
+            if (position != currentPos)
+            {
+                currentPos = position;
+                ContextChanged();
+            }
+        }
+
+        private void ContextChanged()
+        {
+            ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
+            
+            bool isValid = ASContext.Context.IsFileValid;
+            bool enableItems = isValid && !doc.IsUntitled;
+            pluginUI.OutlineTree.Enabled = ASContext.Context.CurrentModel != null;
+
+            if (isValid)
+            {
+                ScintillaNet.ScintillaControl sci = ASContext.CurSciControl;
+                if (currentDoc == doc.FileName && sci != null)
+                {
+                    int line = sci.LineFromPosition(currentPos);
+                    ASContext.SetCurrentLine(line);
+                }
+                else ASComplete.CurrentResolvedContext = null; // force update
+                ASComplete.ResolveContext(sci);
+            }
+            else ASComplete.ResolveContext(null);
+            SetItemsEnabled(enableItems);
+        }
         #endregion
     }
 
