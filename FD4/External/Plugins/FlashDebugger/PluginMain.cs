@@ -147,6 +147,10 @@ namespace FlashDebugger
                     menusHelper.UpdateMenuState(this);
                     break;
 
+                case EventType.FileSwitch:
+                    menusHelper.UpdateMenuState(this);
+                    break;
+
                 case EventType.Command:
                     PluginCore.DataEvent buildevnt = (PluginCore.DataEvent)e;
                     if (buildevnt.Action == "AS3Context.StartDebugger")
@@ -248,7 +252,7 @@ namespace FlashDebugger
         /// </summary> 
         private void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileEmpty | EventType.FileOpen | EventType.ProcessStart | EventType.ProcessEnd | EventType.UIClosing | EventType.ApplySettings);
+            EventManager.AddEventHandler(this, EventType.FileOpen | EventType.UIClosing | EventType.FileSwitch | EventType.ApplySettings);
             EventManager.AddEventHandler(this, EventType.UIStarted, HandlingPriority.Low);
             EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
         }

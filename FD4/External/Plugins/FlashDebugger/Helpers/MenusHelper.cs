@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -236,11 +237,27 @@ namespace FlashDebugger
 				PanelsHelper.pluginUI.TreeControl.Clear();
 				PanelsHelper.stackframeUI.ClearItem();
 			}
-            enabled = (state != DebuggerState.Running);
-            ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled = DeleteAllBreakPointsMenu.Enabled = enabled;
-            DisableAllBreakPointsMenu.Enabled = EnableAllBreakPointsMenu.Enabled = PanelsHelper.breakPointUI.Enabled = enabled;
+            enabled = (state != DebuggerState.Running) && GetLanguageIsValid();
+            ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled = enabled;
+            DeleteAllBreakPointsMenu.Enabled = DisableAllBreakPointsMenu.Enabled = enabled;
+            EnableAllBreakPointsMenu.Enabled = PanelsHelper.breakPointUI.Enabled = enabled;
 			StartRemoteDebuggingMenu.Enabled = (state == DebuggerState.Initializing || state == DebuggerState.Stopped);
 			PluginBase.MainForm.RefreshUI();
+        }
+
+        /// <summary>
+        /// Gets if the language is valid for debugging
+        /// </summary>
+        private Boolean GetLanguageIsValid()
+        {
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document != null && document.IsEditable)
+            {
+                String ext = Path.GetExtension(document.FileName);
+                String lang = document.SciControl.ConfigurationLanguage;
+                return (lang == "as3" || lang == "haxe" || ext == ".mxml");
+            }
+            else return false;
         }
 
         #endregion
