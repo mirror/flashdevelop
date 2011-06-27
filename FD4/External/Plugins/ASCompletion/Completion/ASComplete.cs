@@ -674,8 +674,10 @@ namespace ASCompletion.Completion
             CurrentResolvedContext.Position = position;
 
             // get type at cursor position
-            ASResult result = CurrentResolvedContext.Result 
-                = GetExpressionType(Sci, position);
+            ASResult result;
+            if (ASContext.Context.IsFileValid) result = GetExpressionType(Sci, position);
+            else result = new ASResult();
+            CurrentResolvedContext.Result = result;
             ContextFeatures features = context.Features;
 
             Hashtable args = CurrentResolvedContext.Arguments;
