@@ -659,13 +659,13 @@ namespace ASCompletion.Completion
 
             // check if resolution is needed
             int position = Sci.WordEndPosition(Sci.CurrentPos, true);
-            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == position
-                && !CurrentResolvedContext.Result.IsNull())
+            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == position 
+                && CurrentResolvedContext.Result != null && !CurrentResolvedContext.Result.IsNull())
                 return;
 
             // check context
             IASContext context = ASContext.Context;
-            if (context.CurrentModel == null)
+            if (context == null || context.CurrentModel == null)
             {
                 ClearResolvedContext();
                 return;
