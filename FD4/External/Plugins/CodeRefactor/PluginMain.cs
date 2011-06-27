@@ -126,9 +126,9 @@ namespace CodeRefactor
                     // Expose plugin's refactor main menu & context menu...
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu));
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.ContextMenu", this.refactorContextMenu));
-                    // Watch context
-                    ASComplete.OnResolvedContextChanged += new ResolvedContextChangeHandler(ASComplete_OnResolvedContextChanged);
-                    UpdateMenuItems();
+                    // Watch resooved context for menu item updating...
+                    ASComplete.OnResolvedContextChanged += new ResolvedContextChangeHandler(this.OnResolvedContextChanged);
+                    this.UpdateMenuItems();
                     break;
             }
 		}
@@ -215,8 +215,7 @@ namespace CodeRefactor
         /// <summary>
         /// Cursor position changed and word at this position was resolved
         /// </summary>
-        /// <param name="resolved"></param>
-        private void ASComplete_OnResolvedContextChanged(ResolvedContext resolved)
+        private void OnResolvedContextChanged(ResolvedContext resolved)
         {
             this.UpdateMenuItems();
         }
@@ -307,7 +306,6 @@ namespace CodeRefactor
                         }
                     }
                 }
-
                 this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
                 this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
             }
