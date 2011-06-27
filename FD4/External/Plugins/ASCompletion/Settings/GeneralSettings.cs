@@ -9,15 +9,6 @@ using PluginCore.Localization;
 
 namespace ASCompletion.Settings
 {
-    public enum OutlineSorting
-    {
-        None,
-        Sorted,
-        SortedByKind,
-        SortedSmart,
-        SortedGroup
-    }
-
     [Serializable]
     public class GeneralSettings
     {
@@ -403,6 +394,15 @@ namespace ASCompletion.Settings
         #endregion
     }
 
+    public enum OutlineSorting
+    {
+        None,
+        Sorted,
+        SortedByKind,
+        SortedSmart,
+        SortedGroup
+    }
+
     public enum PropertiesGenerationLocations
     {
         AfterLastPropertyDeclaration = 0,
@@ -419,6 +419,7 @@ namespace ASCompletion.Settings
     public enum HandlerNamingConventions
     {
         target_eventName = 0,
+        target_eventNameHandler = 2,
         onTargetEventName = 1
     }
 }

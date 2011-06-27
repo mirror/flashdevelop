@@ -395,27 +395,21 @@ namespace ASCompletion.Completion
             
             string eventName = m.Groups["event"].Value;
             eventName = Camelize(eventName.Substring(eventName.LastIndexOf('.') + 1));
+            if (target != null) target = target.TrimStart(new char[] { '_' });
 
             switch (ASContext.CommonSettings.HandlerNamingConvention)
             {
                 case HandlerNamingConventions.onTargetEventName:
-                    if (target == null)
-                    {
-                        contextToken = "on" + Capitalize(eventName);
-                    }
-                    else
-                    {
-                        string trimmedTarget = target.TrimStart(new char[] { '_' }); ;
-                        contextToken = "on" + Capitalize(trimmedTarget) + Capitalize(eventName);
-                    }
+                    if (target == null) contextToken = "on" + Capitalize(eventName);
+                    else contextToken = "on" + Capitalize(target) + Capitalize(eventName);
+                    break;
+                case HandlerNamingConventions.target_eventNameHandler:
+                    if (target == null) contextToken = eventName;
+                    else contextToken = target + "_" + eventName + "Handler";
                     break;
                 default: //HandlerNamingConventions.target_eventName
                     if (target == null) contextToken = eventName;
-                    else
-                    {
-                        string trimmedTarget = target.TrimStart(new char[] { '_' }); ;
-                        contextToken = target + "_" + eventName;
-                    }
+                    else contextToken = target + "_" + eventName;
                     break;
             }
 
