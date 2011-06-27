@@ -164,7 +164,7 @@ namespace ASCompletion.Completion
                         {
                             GenerateDefaultHandlerName(Sci, position, m);
                             resolve = ASComplete.GetExpressionType(Sci, Sci.CurrentPos);
-                            if (resolve.Member == null)
+                            if (resolve.Member == null || (resolve.Member.Flags & FlagType.AutomaticVar) > 0)
                             {
                                 contextMatch = m;
                                 contextParam = CheckEventType(m.Groups["event"].Value);
