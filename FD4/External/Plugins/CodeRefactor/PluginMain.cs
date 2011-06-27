@@ -122,11 +122,15 @@ namespace CodeRefactor
 		{
             switch (e.Type)
             {
+                case EventType.FileSwitch:
+                    this.GenerateSurroundMenuItems();
+                    break;
+
                 case EventType.UIStarted:
                     // Expose plugin's refactor main menu & context menu...
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.Menu", this.refactorMainMenu));
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "CodeRefactor.ContextMenu", this.refactorContextMenu));
-                    // Watch resooved context for menu item updating...
+                    // Watch resolved context for menu item updating...
                     ASComplete.OnResolvedContextChanged += new ResolvedContextChangeHandler(this.OnResolvedContextChanged);
                     this.UpdateMenuItems();
                     break;
@@ -142,7 +146,7 @@ namespace CodeRefactor
         /// </summary>
         public void InitBasics()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.FileSwitch);
             String dataPath = Path.Combine(PathHelper.DataDir, "CodeRefactor");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
@@ -228,7 +232,7 @@ namespace CodeRefactor
             try
             {
                 ResolvedContext resolved = ASComplete.CurrentResolvedContext;
-                Boolean isValid = GetLanguageIsValid() && resolved != null && resolved.Position >= 0;
+                Boolean isValid = this.GetLanguageIsValid() && resolved != null && resolved.Position >= 0;
                 this.refactorMainMenu.DelegateMenuItem.Enabled = false;
                 this.refactorContextMenu.DelegateMenuItem.Enabled = false;
                 ASResult result = isValid ? resolved.Result : null;
@@ -275,7 +279,7 @@ namespace CodeRefactor
                 this.refactorMainMenu.ExtractMethodMenuItem.Enabled = false;
                 this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = false;
                 ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                if (document != null && document.IsEditable && ASContext.Context.IsFileValid && document.SciControl.SelTextSize > 1)
+                if (document != null && document.IsEditable && this.GetLanguageIsValid() && document.SciControl.SelTextSize > 1)
                 {
                     Int32 selEnd = document.SciControl.SelectionEnd;
                     Int32 selStart = document.SciControl.SelectionStart;
@@ -287,29 +291,44 @@ namespace CodeRefactor
                         this.refactorMainMenu.ExtractMethodMenuItem.Enabled = true;
                         this.refactorContextMenu.ExtractLocalVariableMenuItem.Enabled = true;
                         this.refactorMainMenu.ExtractLocalVariableMenuItem.Enabled = true;
-                        // Generate context menu items
-                        this.surroundContextMenu.DropDownItems.Clear(); // Full refresh
-                        this.surroundContextMenu.GenerateSnippets(document.SciControl);
-                        foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
-                        {
-                            item.Click += this.SurroundWithClicked;
-                        }
-                        // Generate main menu items
-                        foreach (ToolStripMenuItem item in this.refactorMainMenu.SurroundMenu.DropDownItems)
-                        {
-                            item.Click -= this.SurroundWithClicked;
-                        }
-                        this.refactorMainMenu.SurroundMenu.GenerateSnippets(document.SciControl);
-                        foreach (ToolStripMenuItem item in this.refactorMainMenu.SurroundMenu.DropDownItems)
-                        {
-                            item.Click += this.SurroundWithClicked;
-                        }
                     }
                 }
                 this.refactorContextMenu.CodeGeneratorMenuItem.Enabled = isValid;
                 this.refactorMainMenu.CodeGeneratorMenuItem.Enabled = isValid;
             }
             catch {}
+        }
+
+        /// <summary>
+        /// Generate surround main menu and context menu items
+        /// </summary>
+        private void GenerateSurroundMenuItems()
+        {
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document != null && document.IsEditable && this.GetLanguageIsValid())
+            {
+                this.surroundContextMenu.GenerateSnippets(document.SciControl);
+                foreach (ToolStripMenuItem item in this.surroundContextMenu.DropDownItems)
+                {
+                    item.Click += this.SurroundWithClicked;
+                }
+                foreach (ToolStripMenuItem item in this.refactorMainMenu.SurroundMenu.DropDownItems)
+                {
+                    item.Click -= this.SurroundWithClicked;
+                }
+                this.refactorMainMenu.SurroundMenu.GenerateSnippets(document.SciControl);
+                foreach (ToolStripMenuItem item in this.refactorMainMenu.SurroundMenu.DropDownItems)
+                {
+                    item.Click += this.SurroundWithClicked;
+                }
+            }
+            else
+            {
+                this.surroundContextMenu.DropDownItems.Clear();
+                this.refactorMainMenu.SurroundMenu.DropDownItems.Clear();
+                this.refactorMainMenu.SurroundMenu.DropDownItems.Add("");
+                this.surroundContextMenu.DropDownItems.Add("");
+            }
         }
 
         /// <summary>
