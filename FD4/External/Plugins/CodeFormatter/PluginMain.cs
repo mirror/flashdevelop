@@ -117,25 +117,24 @@ namespace CodeFormatter
 		{
 			switch (e.Type)
             {
+                case EventType.FileSwitch:
+                    this.UpdateMenuItems();
+                    break;
+
                 case EventType.Command:
                     DataEvent de = (DataEvent)e;
                     if (de.Action == "CodeRefactor.Menu")
                     {
                         ToolStripMenuItem mainMenu = (ToolStripMenuItem)de.Data;
                         this.CreateMainMenuItem(mainMenu);
+                        this.UpdateMenuItems();
                     }
                     else if (de.Action == "CodeRefactor.ContextMenu")
                     {
                         ToolStripMenuItem contextMenu = (ToolStripMenuItem)de.Data;
                         this.CreateContextMenuItem(contextMenu);
+                        this.UpdateMenuItems();
                     }
-                    break;
-
-                case EventType.FileSwitch:
-                    if (this.mainMenuItem == null || this.contextMenuItem == null) return;
-                    ITabbedDocument doc = PluginBase.MainForm.CurrentDocument as ITabbedDocument;
-                    Boolean isValid = doc != null && doc.IsEditable && this.IsSupportedLanguage(doc.FileName);
-                    this.mainMenuItem.Enabled = this.contextMenuItem.Enabled = isValid;
                     break;
             }
 		}
@@ -156,6 +155,17 @@ namespace CodeFormatter
 			this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
             this.pluginDesc = TextHelper.GetString("Info.Description");
 		}
+
+        /// <summary>
+        /// Update the menu items if they are available
+        /// </summary>
+        private void UpdateMenuItems()
+        {
+            if (this.mainMenuItem == null || this.contextMenuItem == null) return;
+            ITabbedDocument doc = PluginBase.MainForm.CurrentDocument as ITabbedDocument;
+            Boolean isValid = doc != null && doc.IsEditable && this.IsSupportedLanguage(doc.FileName);
+            this.mainMenuItem.Enabled = this.contextMenuItem.Enabled = isValid;
+        }
 
 		/// <summary>
 		/// Creates a menu item for the plugin
@@ -313,12 +323,13 @@ namespace CodeFormatter
             {
 				ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
 				if (!document.IsEditable) return TYPE_UNKNOWN;
+                String ext = Path.GetExtension(document.FileName);
 				if (ASContext.Context.CurrentModel.Context != null && ASContext.Context.CurrentModel.Context.GetType().ToString().Equals("AS3Context.Context")) 
                 {
-					if (GetFileExtension(document.FileName).Equals("as")) return TYPE_AS3PURE;
-					else if(GetFileExtension(document.FileName).Equals("mxml")) return TYPE_MXML;
+                    if (ext.Equals(".as")) return TYPE_AS3PURE;
+                    else if (ext.Equals(".mxml")) return TYPE_MXML;
 				}
-				if (GetFileExtension(document.FileName).Equals("xml")) return TYPE_XML;
+                if (ext.Equals(".xml")) return TYPE_XML;
 				return TYPE_UNKNOWN;
 			}
 		}
@@ -334,17 +345,6 @@ namespace CodeFormatter
             compressedText = compressedText.Replace("\r", "");
             return compressedText;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-		public String GetFileExtension(String filename) 
-        {
-            String extension = "";
-            Int32 lastDot = filename.LastIndexOf('.');
-			if (lastDot >= 0) extension = filename.Substring(lastDot + 1).ToLower();
-			return extension;
-		}
 
         /// <summary>
         /// 
