@@ -824,7 +824,7 @@ namespace ASCompletion.Completion
 
         private static void ClearResolvedContext()
         {
-            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == 0)
+            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == -1)
                 return;
             CurrentResolvedContext = new ResolvedContext();
             NotifyContextChanged();
@@ -3817,7 +3817,7 @@ namespace ASCompletion.Completion
 
     public sealed class ResolvedContext
     {
-        public int Position;
+        public int Position = -1;
         public Hashtable Arguments = new Hashtable();
         public ASResult Result;
         public ClassModel TokenType;

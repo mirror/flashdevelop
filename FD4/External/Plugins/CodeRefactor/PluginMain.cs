@@ -228,7 +228,7 @@ namespace CodeRefactor
             try
             {
                 ResolvedContext resolved = ASComplete.CurrentResolvedContext;
-                Boolean isValid = GetLanguageIsValid() && resolved != null && resolved.Position != 0;
+                Boolean isValid = GetLanguageIsValid() && resolved != null && resolved.Position >= 0;
                 this.refactorMainMenu.DelegateMenuItem.Enabled = false;
                 this.refactorContextMenu.DelegateMenuItem.Enabled = false;
                 ASResult result = isValid ? resolved.Result : null;
