@@ -189,11 +189,12 @@
 		<button label="Label.CheckUpdates" click="CheckUpdates" image="181|8|0|4" />
 		<separator />
 		<menu label="Label.TechnicalSpecifications" name="TechSpecsMenu">
-			<button label="&amp;CSS 1.0" click="Browse" tag="http://www.w3.org/TR/CSS1" />
+			<button label="&amp;CSS 2.1" click="Browse" tag="http://www.w3.org/TR/CSS2" />
+			<button label="H&amp;TML 5" click="Browse" tag="http://www.w3.org/TR/html5" />
 			<button label="&amp;HTML 4.01" click="Browse" tag="http://www.w3.org/TR/html401" />
-			<button label="&amp;XHTML 1.0" click="Browse" tag="http://www.w3.org/TR/xhtml1" />
-			<button label="X&amp;SLT 1.0" click="Browse" tag="http://www.w3.org/TR/xslt" />
-			<button label="XM&amp;L 1.0" click="Browse" tag="http://www.w3.org/TR/REC-xml" />
+			<button label="&amp;XHTML 1.1" click="Browse" tag="http://www.w3.org/TR/xhtml11" />
+			<button label="X&amp;SLT 2.0" click="Browse" tag="http://www.w3.org/TR/xslt20" />
+			<button label="XM&amp;L 1.1" click="Browse" tag="http://www.w3.org/TR/xml11/" />
 			<button label="&amp;DOM Level 3" click="Browse" tag="http://www.w3.org/TR/DOM-Level-3-Core" />
 			<button label="&amp;WCAG 1.0" click="Browse" tag="http://www.w3.org/TR/WCAG10" />
 		</menu>
