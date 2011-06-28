@@ -712,10 +712,10 @@ namespace ASCompletion.Completion
                 args.Add("MbrTypKind", kind);
 
                 // Get closest list (Array or Vector)
-                //string closestListName = "", closestListItemType = "";
-                //FindClosestList(context, result.Context, Sci.LineFromPosition(position), ref closestListName, ref closestListItemType);
-                //details.Add("TypClosestListName", closestListName);
-                //details.Add("TypClosestListItemType", closestListItemType);
+                string closestListName = "", closestListItemType = "";
+                FindClosestList(context, result.Context, Sci.LineFromPosition(position), ref closestListName, ref closestListItemType);
+                args.Add("TypClosestListName", closestListName);
+                args.Add("TypClosestListItemType", closestListItemType);
 
                 // get free iterator index
                 string iterator = FindFreeIterator(context, cClass, result.Context);
