@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Drawing;
+using System.Reflection;
 using System.Collections;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI;
@@ -211,6 +213,8 @@ namespace LayoutManager
         {
             this.toolStrip.Renderer = new DockPanelStripRenderer();
             this.infoListViewItem = new ListViewItem(TextHelper.GetString("Info.NoLayoutsFound"), 1);
+            String file = Path.Combine(this.GetLayoutsDir(), "DefaultLayout.fdl");
+            if (!File.Exists(file)) WriteDefaultLayout(file);
             this.PopulateLayoutsListView();
         }
 
@@ -374,7 +378,7 @@ namespace LayoutManager
         }
 
         /// <summary>
-        /// Gets the workspaces directory
+        /// Gets the layouts directory
         /// </summary>
         private String GetLayoutsDir()
         {
@@ -386,6 +390,27 @@ namespace LayoutManager
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 return path;
             }
+        }
+
+        /// <summary>
+        /// Copies the default layout file to disk
+        /// </summary> 
+        private void WriteDefaultLayout(String file)
+        {
+            try
+            {
+                String content;
+                Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                Stream src = assembly.GetManifestResourceStream("LayoutManager.Resources.Default.fdl");
+                using (StreamReader sr = new StreamReader(src, true))
+                {
+                    content = sr.ReadToEnd();
+                    sr.Close();
+                }
+                Directory.CreateDirectory(Path.GetDirectoryName(file));
+                FileHelper.WriteFile(file, content, Encoding.Unicode);
+            }
+            catch {}
         }
 
         /// <summary>
