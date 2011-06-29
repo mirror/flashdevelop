@@ -419,7 +419,8 @@ namespace ASCompletion.Settings
     public enum HandlerNamingConventions
     {
         target_eventName = 0,
-        target_eventNameHandler = 2,
-        onTargetEventName = 1
+        target_eventNameHandler = 1,
+        onTargetEventName = 2,
+        handleTargetEventName = 3
     }
 }

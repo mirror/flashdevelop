@@ -399,6 +399,10 @@ namespace ASCompletion.Completion
 
             switch (ASContext.CommonSettings.HandlerNamingConvention)
             {
+                case HandlerNamingConventions.handleTargetEventName:
+                    if (target == null) contextToken = "handle" + Capitalize(eventName);
+                    else contextToken = "handle" + Capitalize(target) + Capitalize(eventName);
+                    break;
                 case HandlerNamingConventions.onTargetEventName:
                     if (target == null) contextToken = "on" + Capitalize(eventName);
                     else contextToken = "on" + Capitalize(target) + Capitalize(eventName);

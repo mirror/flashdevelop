@@ -1092,28 +1092,50 @@ namespace ASCompletion.Completion
             int newIndent = indent + Sci.TabWidth;
             int count = Sci.LineCount;
             int lastLine = line;
+            int position;
+            string txt = Sci.GetLine(line).Trim();
             line++;
-            while (line < count - 1)
+            int eolMode = Sci.EOLMode;
+            string NL = LineEndDetector.GetNewLineMarker(eolMode);
+
+            if (txt.Length > 0 && ")]};,".IndexOf(txt[0]) >= 0)
             {
-                string txt = Sci.GetLine(line).TrimEnd();
-                if (txt.Length != 0)
+                Sci.BeginUndoAction();
+                try
                 {
-                    indent = Sci.GetLineIndentation(line);
-                    if (indent <= startIndent) break;
-                    lastLine = line;
+                    position = Sci.CurrentPos;
+                    Sci.InsertText(position, NL + "}");
+                    Sci.SetLineIndentation(line, startIndent);
                 }
-                else break;
-                line++;
+                finally
+                {
+                    Sci.EndUndoAction();
+                }
+                return;
+            }
+            else 
+            {
+                while (line < count - 1)
+                {
+                    txt = Sci.GetLine(line).TrimEnd();
+                    if (txt.Length != 0)
+                    {
+                        indent = Sci.GetLineIndentation(line);
+                        if (indent <= startIndent) break;
+                        lastLine = line;
+                    }
+                    else break;
+                    line++;
+                }
             }
             if (line >= count - 1) lastLine = start;
 
             // insert closing brace
-            int position = Sci.LineEndPosition(lastLine);
             Sci.BeginUndoAction();
             try
             {
-                int eolMode = Sci.EOLMode;
-                Sci.InsertText(position, LineEndDetector.GetNewLineMarker(eolMode) + "}");
+                position = Sci.LineEndPosition(lastLine);
+                Sci.InsertText(position, NL + "}");
                 Sci.SetLineIndentation(lastLine + 1, startIndent);
             }
             finally
