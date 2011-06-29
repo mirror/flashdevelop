@@ -2399,6 +2399,8 @@ namespace FlashDevelop
                                 requiresRestart = true;
                             }
                             zipLog += "Extract: " + fdpath + "\r\n";
+                            String dirPath = Path.GetDirectoryName(fdpath);
+                            if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
                             FileStream extracted = new FileStream(fdpath, FileMode.Create);
                             while (true)
                             {
@@ -2413,7 +2415,6 @@ namespace FlashDevelop
                         {
                             zipLog += "Create: " + fdpath + "\r\n";
                             Directory.CreateDirectory(fdpath);
-
                         }
                     }
                     String finish = TextHelper.GetString("Info.ZipExtractDone");
