@@ -27,10 +27,10 @@ namespace FlashDebugger
 			UITools.Manager.OnMouseHover += new UITools.MouseHoverHandler(Manager_OnMouseHover);
 		}
 
-		public void Show(Point point, Variable variable)
+		public void Show(Point point, Variable variable, String path)
 		{
 			m_ToolTip.Location = point;
-			m_ToolTip.SetVariable(variable);
+			m_ToolTip.SetVariable(variable, path);
 			m_ToolTip.Visible = true;
 			m_ToolTip.Location = point;
 			m_ToolTip.BringToFront();
@@ -83,7 +83,7 @@ namespace FlashDebugger
                         ValueExp exp = b.parse(new java.io.StringReader(leftword));
                         var ctx = new ExpressionContext(flashInterface.Session, flashInterface.Session.getFrames()[debugManager.CurrentFrame]);
                         var obj = exp.evaluate(ctx);
-                        Show(dataTipPoint, (Variable)obj);
+                        Show(dataTipPoint, (Variable)obj, leftword);
 					}
 					catch (Exception){}
 				}

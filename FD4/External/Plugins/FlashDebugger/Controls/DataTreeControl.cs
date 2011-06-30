@@ -202,7 +202,9 @@ namespace FlashDebugger.Controls
 		private String GetVariablePath(Node node)
 		{
 			String ret = "";
-			if (node.Parent != null) ret = GetVariablePath(node.Parent);
+			if (node.Tag != null && node.Tag is String)
+                return (String)node.Tag; // fix for: live tip value has no parent
+            if (node.Parent != null) ret = GetVariablePath(node.Parent);
 			if (node is DataNode)
 			{
 				DataNode datanode = node as DataNode;

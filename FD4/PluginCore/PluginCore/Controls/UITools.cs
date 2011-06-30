@@ -181,23 +181,24 @@ namespace PluginCore.Controls
             {
                 // check mouse over the editor
                 if ((position < 0) || simpleTip.Visible || CompletionList.HasMouseIn) return;
-                Point mousePos = sci.PointToClient(Control.MousePosition);
+                Point mousePos = (PluginBase.MainForm as Form).PointToClient(Cursor.Position);
                 if (mousePos.X == lastMousePos.X && mousePos.Y == lastMousePos.Y)
                     return;
 
                 lastMousePos = mousePos;
-                Rectangle bounds = sci.Bounds;
-                if ((mousePos.X < 0) || (mousePos.X > bounds.Width) || (mousePos.Y < 0) || (mousePos.Y > bounds.Height)) return;
+                Rectangle bounds = GetWindowBounds(sci);
+                if (!bounds.Contains(mousePos)) return;
 
                 // check no panel is over the editor
                 DockPanel panel = PluginBase.MainForm.DockPanel;
                 DockContentCollection panels = panel.Contents;
                 foreach (DockContent content in panels)
                 {
-                    if (content.IsHidden) continue;
-                    Point pt = content.PointToClient(Control.MousePosition);
-                    if (content.ClientRectangle.Contains(pt)
-                        && content.GetType().ToString() != "FlashDevelop.Docking.TabbedDocument")
+                    if (content.IsHidden || content.Bounds.Height == 0 || content.Bounds.Width == 0
+                        || content.GetType().ToString() == "FlashDevelop.Docking.TabbedDocument") 
+                        continue;
+                    bounds = GetWindowBounds(content);
+                    if (bounds.Contains(mousePos))
                         return;
                 }
                 if (OnMouseHover != null) OnMouseHover(sci, position);
@@ -208,6 +209,21 @@ namespace PluginCore.Controls
                 // disable this feature completely
                 OnMouseHover = null;
             }
+        }
+
+        private Rectangle GetWindowBounds(Control ctrl)
+        {
+            while (ctrl.Parent != null && !(ctrl is DockWindow)) ctrl = ctrl.Parent;
+            if (ctrl != null) return ctrl.Bounds;
+            else return new Rectangle();
+        }
+
+        private Point GetMousePosIn(Control ctrl)
+        {
+            Point ctrlPos = ctrl.PointToScreen(new Point());
+            Point pos = Cursor.Position;
+            Rectangle bounds = ctrl.Bounds;
+            return new Point(pos.X - ctrlPos.X, pos.Y - ctrlPos.Y);
         }
 
         private void HandleDwellEnd(ScintillaControl sci, int position)

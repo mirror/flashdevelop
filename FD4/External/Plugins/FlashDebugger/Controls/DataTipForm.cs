@@ -34,12 +34,18 @@ namespace FlashDebugger.Controls
 			Tree.Collapsed += new EventHandler<TreeViewAdvEventArgs>(Tree_SizeChanged);
 		}
 
-		public void SetVariable(Variable variable)
+		public void SetVariable(Variable variable, String path)
 		{
-			DataTree.Nodes.Clear();
-			DataTree.AddNode(new DataNode(variable));
-			DoResize();
-		}
+            SetVariable(variable);
+            DataTree.Nodes[0].Tag = path;
+        }
+
+        public void SetVariable(Variable variable)
+        {
+            DataTree.Nodes.Clear();
+            DataTree.AddNode(new DataNode(variable));
+            DoResize();
+        }
 
 		private void Tree_SizeChanged(object sender, TreeViewAdvEventArgs e)
 		{

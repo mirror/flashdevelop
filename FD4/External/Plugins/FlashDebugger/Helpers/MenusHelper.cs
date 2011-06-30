@@ -237,7 +237,7 @@ namespace FlashDebugger
 				PanelsHelper.pluginUI.TreeControl.Clear();
 				PanelsHelper.stackframeUI.ClearItem();
 			}
-            enabled = (state != DebuggerState.Running) && GetLanguageIsValid();
+            enabled = /*(state != DebuggerState.Running) &&*/ GetLanguageIsValid();
             ToggleBreakPointMenu.Enabled = ToggleBreakPointEnableMenu.Enabled = enabled;
             DeleteAllBreakPointsMenu.Enabled = DisableAllBreakPointsMenu.Enabled = enabled;
             EnableAllBreakPointsMenu.Enabled = PanelsHelper.breakPointUI.Enabled = enabled;
