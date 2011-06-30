@@ -15,7 +15,7 @@
 !define AIR "2.7.0"
 
 ; Define Flex SDK version
-!define FLEX "4.5.0.20967"
+!define FLEX "4.5.1.21328"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -348,9 +348,17 @@ Section "Install Flex SDK" InstallFlexSDK
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
-	; Extract the Flex SDK zip
+	; Delete SDK dir on update
+	RMDir /r "${SDKPATH}"
+	
+	; Force AIR SDK update
+	DeleteRegValue HKLM "Software\FlashDevelop" "AirSDKVersion"
+	
+	; Create SDK dir if not found
 	IfFileExists "${SDKPATH}\*.*" +2 0
 	CreateDirectory "${SDKPATH}"
+	
+	; Extract the Flex SDK zip
 	DetailPrint "Extracting Flex SDK..."
 	nsisunz::Unzip "$TEMP\flex_sdk_${FLEX}.zip" "${SDKPATH}"
 	Pop $R0
