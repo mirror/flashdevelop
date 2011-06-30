@@ -32,6 +32,7 @@ namespace AS3Context
         #region initialization
         private AS3Settings as3settings;
         private bool hasAIRSupport;
+        private bool hasMobileSupport;
         private MxmlFilterContext mxmlFilterContext; // extract inlined AS3 ranges & MXML tags
         private System.Timers.Timer timerCheck;
         private string fileWithSquiggles;
@@ -141,7 +142,8 @@ namespace AS3Context
             majorVersion = 10;
             minorVersion = 0;
             ParseVersion(contextSetup.Version, ref majorVersion, ref minorVersion);
-            hasAIRSupport = platform == "AIR";
+            hasAIRSupport = platform == "AIR" || platform == "AIR Mobile";
+            hasMobileSupport = platform == "AIR Mobile";
 
             string cpCheck = contextSetup.Classpath != null ?
                 String.Join(";", contextSetup.Classpath).Replace('\\', '/') : "";
@@ -235,6 +237,7 @@ namespace AS3Context
                     addLocales.Add("rpc_rb.swc");
                     addLocales.Add("datavisualization_rb.swc");
                     addLocales.Add("flash-integration_rb.swc");
+
                     if (hasAIRSupport)
                     {
                         addLibs.Add("air" + S + "airframework.swc");
@@ -251,10 +254,17 @@ namespace AS3Context
                         addLocales.Add("spark_rb.swc");
                         //addLocales.Add("textLayout_rb.swc");
                         addLocales.Add("osmf_rb.swc");
+
                         if (hasAIRSupport)
                         {
                             addLibs.Add("air" + S + "airspark.swc");
                             addLocales.Add("airspark_rb.swc");
+
+                            if (hasMobileSupport)
+                            {
+                                addLibs.Add("mobile" + S + "mobilecomponents.swc");
+                                addLocales.Add("mobilecomponents_rb.swc");
+                            }
                         }
 
                         MxmlFilter.AddManifest("http://ns.adobe.com/mxml/2009", as3Fmk + S + "Flex4" + S + "manifest.xml");

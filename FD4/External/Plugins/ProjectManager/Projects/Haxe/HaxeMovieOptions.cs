@@ -8,6 +8,7 @@ namespace ProjectManager.Projects.Haxe
     {
         public const string FLASHPLAYER_PLATFORM = "Flash Player";
         public const string AIR_PLATFORM = "AIR";
+        public const string AIR_MOBILE_PLATFORM = "AIR Mobile";
         public const string CUSTOM_PLATFORM = "Custom";
         public const string JAVASCRIPT_PLATFORM = "JavaScript";
         public const string NEKO_PLATFORM = "Neko";
@@ -24,14 +25,15 @@ namespace ProjectManager.Projects.Haxe
         {
             get
             {
-                return (Platform == FLASHPLAYER_PLATFORM && MajorVersion >= 9) || Platform == AIR_PLATFORM;
+                return (Platform == FLASHPLAYER_PLATFORM && MajorVersion >= 9)
+                    || Platform == AIR_PLATFORM || Platform == AIR_MOBILE_PLATFORM;
             }
         }
 
         public override string[] TargetPlatforms
         {
             get { return new string[] { 
-                FLASHPLAYER_PLATFORM, AIR_PLATFORM, JAVASCRIPT_PLATFORM, 
+                FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, JAVASCRIPT_PLATFORM, 
                 NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
             }; }
         }
@@ -41,6 +43,7 @@ namespace ProjectManager.Projects.Haxe
             switch (platform)
             {
                 case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0" };
+                case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0" };
                 case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2", "10.3", "11.0" };
                 default: return new string[] { "1.0" };
             }
@@ -51,6 +54,7 @@ namespace ProjectManager.Projects.Haxe
             switch (platform)
             {
                 case AIR_PLATFORM: return "2.7";
+                case AIR_MOBILE_PLATFORM: return "2.7";
                 case FLASHPLAYER_PLATFORM: return "10.0";
                 default: return "1.0";
             }

@@ -1959,21 +1959,28 @@ namespace FlashDevelop
         /// </summary>
         public void Save(Object sender, System.EventArgs e)
         {
-            if (this.CurrentDocument.IsUntitled)
+            try
             {
-                this.saveFileDialog.FileName = this.CurrentDocument.FileName;
-                this.saveFileDialog.InitialDirectory = this.WorkingDirectory;
-                if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+                if (this.CurrentDocument.IsUntitled)
                 {
-                    ButtonManager.AddNewReopenMenuItem(this.saveFileDialog.FileName);
-                    this.CurrentDocument.Save(this.saveFileDialog.FileName);
-                    NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
-                    EventManager.DispatchEvent(this, ne);
+                    this.saveFileDialog.FileName = this.CurrentDocument.FileName;
+                    this.saveFileDialog.InitialDirectory = this.WorkingDirectory;
+                    if (this.saveFileDialog.ShowDialog(this) == DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+                    {
+                        ButtonManager.AddNewReopenMenuItem(this.saveFileDialog.FileName);
+                        this.CurrentDocument.Save(this.saveFileDialog.FileName);
+                        NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
+                        EventManager.DispatchEvent(this, ne);
+                    }
+                }
+                else if (this.CurrentDocument.IsModified)
+                {
+                    this.CurrentDocument.Save();
                 }
             }
-            else if (this.CurrentDocument.IsModified)
+            catch (Exception ex)
             {
-                this.CurrentDocument.Save();
+                ErrorManager.ShowError(ex);
             }
         }
 
@@ -2056,29 +2063,36 @@ namespace FlashDevelop
         /// </summary>
         public void SaveAll(Object sender, System.EventArgs e)
         {
-            this.savingMultiple = true;
-            ITabbedDocument[] documents = this.Documents;
-            ITabbedDocument active = this.CurrentDocument;
-            for (Int32 i = 0; i < documents.Length; i++)
+            try 
             {
-                ITabbedDocument current = documents[i];
-                if (current.IsEditable && current.IsModified)
+                this.savingMultiple = true;
+                ITabbedDocument[] documents = this.Documents;
+                ITabbedDocument active = this.CurrentDocument;
+                for (Int32 i = 0; i < documents.Length; i++)
                 {
-                    if (current.IsUntitled)
+                    ITabbedDocument current = documents[i];
+                    if (current.IsEditable && current.IsModified)
                     {
-                        this.saveFileDialog.FileName = current.FileName;
-                        this.saveFileDialog.InitialDirectory = this.WorkingDirectory;
-                        if (this.saveFileDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+                        if (current.IsUntitled)
                         {
-                            ButtonManager.AddNewReopenMenuItem(this.saveFileDialog.FileName);
-                            current.Save(this.saveFileDialog.FileName);
+                            this.saveFileDialog.FileName = current.FileName;
+                            this.saveFileDialog.InitialDirectory = this.WorkingDirectory;
+                            if (this.saveFileDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK && this.saveFileDialog.FileName.Length != 0)
+                            {
+                                ButtonManager.AddNewReopenMenuItem(this.saveFileDialog.FileName);
+                                current.Save(this.saveFileDialog.FileName);
+                            }
                         }
+                        else current.Save();
                     }
-                    else current.Save();
                 }
+                this.savingMultiple = false;
+                active.Activate();
             }
-            this.savingMultiple = false;
-            active.Activate();
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
         }
 
         /// <summary>
@@ -2086,23 +2100,30 @@ namespace FlashDevelop
         /// </summary>
         public void SaveAllModified(Object sender, System.EventArgs e)
         {
-            String filter = "*";
-            this.savingMultiple = true;
-            ToolStripItem button = (ToolStripItem)sender;
-            filter = ((ItemData)button.Tag).Tag + filter;
-            ITabbedDocument[] documents = this.Documents;
-            ITabbedDocument active = this.CurrentDocument;
-            for (Int32 i = 0; i < documents.Length; i++)
+            try
             {
-                ITabbedDocument current = documents[i];
-                if (current.IsEditable && current.IsModified && !current.IsUntitled && current.Text.EndsWith(filter))
+                String filter = "*";
+                this.savingMultiple = true;
+                ToolStripItem button = (ToolStripItem)sender;
+                filter = ((ItemData)button.Tag).Tag + filter;
+                ITabbedDocument[] documents = this.Documents;
+                ITabbedDocument active = this.CurrentDocument;
+                for (Int32 i = 0; i < documents.Length; i++)
                 {
-                    current.Save();
-                    current.IsModified = false;
+                    ITabbedDocument current = documents[i];
+                    if (current.IsEditable && current.IsModified && !current.IsUntitled && current.Text.EndsWith(filter))
+                    {
+                        current.Save();
+                        current.IsModified = false;
+                    }
                 }
+                this.savingMultiple = false;
+                active.Activate();
             }
-            this.savingMultiple = false;
-            active.Activate();
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
         }
 
         /// <summary>

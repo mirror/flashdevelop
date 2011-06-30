@@ -30,7 +30,9 @@ namespace HaXeContext
                     new Regex("(?<gen>[^<]+)<(?<type>.+)>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private HaXeSettings hxsettings;
-        private Dictionary<string,string> haxelibsCache;
+        private Dictionary<string, string> haxelibsCache;
+        private bool hasAIRSupport;
+        private bool hasMobileSupport;
 
         public Context(HaXeSettings initSettings)
         {
@@ -192,6 +194,7 @@ namespace HaXeContext
 
             // NOTE: version > 10 for non-Flash platforms
             string lang = null;
+            hasAIRSupport = hasMobileSupport = false;
             features.Directives = new List<string>();
             if (IsJavaScriptTarget) 
             {
@@ -218,6 +221,9 @@ namespace HaXeContext
                 features.Directives.Add("flash");
                 features.Directives.Add("flash" + majorVersion);
                 lang = (majorVersion < 6 || majorVersion >= 9) ? "flash9" : "flash";
+
+                hasAIRSupport = platform == "AIR" || platform == "AIR Mobile";
+                hasMobileSupport = platform == "AIR Mobile";
             }
             features.Directives.Add("true");
 

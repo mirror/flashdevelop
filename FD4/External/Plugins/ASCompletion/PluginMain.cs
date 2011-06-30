@@ -851,12 +851,9 @@ namespace ASCompletion
         private void ContextChanged()
         {
             ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
-            
-            bool isValid = ASContext.Context.IsFileValid;
-            bool enableItems = isValid && !doc.IsUntitled;
-            pluginUI.OutlineTree.Enabled = ASContext.Context.CurrentModel != null;
+            bool isValid = false;
 
-            if (isValid)
+            if (doc.IsEditable)
             {
                 ScintillaNet.ScintillaControl sci = ASContext.CurSciControl;
                 if (currentDoc == doc.FileName && sci != null)
@@ -865,9 +862,14 @@ namespace ASCompletion
                     ASContext.SetCurrentLine(line);
                 }
                 else ASComplete.CurrentResolvedContext = null; // force update
-                ASComplete.ResolveContext(sci);
+
+                isValid = ASContext.Context.IsFileValid;
+                if (isValid) ASComplete.ResolveContext(sci);
             }
             else ASComplete.ResolveContext(null);
+            
+            bool enableItems = isValid && !doc.IsUntitled;
+            pluginUI.OutlineTree.Enabled = ASContext.Context.CurrentModel != null;
             SetItemsEnabled(enableItems);
         }
         #endregion

@@ -1,1 +1,1 @@
-An AIR projector written in ActionScript 3 editable for apk android application
+An Android AIR app written in ActionScript 3

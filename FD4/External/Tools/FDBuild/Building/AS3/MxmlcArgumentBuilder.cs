@@ -48,8 +48,13 @@ namespace ProjectManager.Building.AS3
                     if (line.IndexOf("configname=") > 0) { hasConfig = true; }
             }
 
-            if (project.MovieOptions.Platform == "AIR" && !hasConfig)
-                AddEq("+configname", "air");
+            if (!hasConfig)
+            {
+                if (project.MovieOptions.Platform == "AIR")
+                    AddEq("+configname", "air");
+                else if (project.MovieOptions.Platform == "AIR Mobile")
+                    AddEq("+configname", "airmobile");
+            }
         }
 
         void AddEq(string argument, string value)

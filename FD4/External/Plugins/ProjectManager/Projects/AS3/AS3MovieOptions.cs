@@ -8,6 +8,7 @@ namespace ProjectManager.Projects.AS3
     {
         public const string FLASHPLAYER_PLATFORM = "Flash Player";
         public const string AIR_PLATFORM = "AIR";
+        public const string AIR_MOBILE_PLATFORM = "AIR Mobile";
         public const string CUSTOM_PLATFORM = "Custom";
 
         public AS3MovieOptions()
@@ -23,7 +24,7 @@ namespace ProjectManager.Projects.AS3
 
         public override string[] TargetPlatforms
         {
-            get { return new string[] { FLASHPLAYER_PLATFORM, AIR_PLATFORM, CUSTOM_PLATFORM }; }
+            get { return new string[] { FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, CUSTOM_PLATFORM }; }
         }
 
         public override string[] TargetVersions(string platform)
@@ -31,6 +32,7 @@ namespace ProjectManager.Projects.AS3
             switch (platform)
             {
                 case CUSTOM_PLATFORM: return new string[] { "0.0" };
+                case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0" };
                 case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0" };
                 default: return new string[] { "9.0", "10.0", "10.1", "10.2", "10.3", "11.0" };
             }
@@ -42,6 +44,7 @@ namespace ProjectManager.Projects.AS3
             {
                 case CUSTOM_PLATFORM: return "0.0";
                 case AIR_PLATFORM: return "2.7";
+                case AIR_MOBILE_PLATFORM: return "2.7";
                 default: return "10.0";
             }
         }
