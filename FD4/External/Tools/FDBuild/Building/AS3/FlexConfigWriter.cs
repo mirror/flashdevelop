@@ -38,7 +38,7 @@ namespace FDBuild.Building.AS3
             if (p.Length == 1) return major;
             double minor = 0;
             double.TryParse("0." + p[1], out minor);
-            return major + minor;
+            return major + (minor < 10 ? minor / 10 : minor / 100);
         }
 
         private void InternalWriteConfig(string[] extraClasspaths, bool debugMode)
