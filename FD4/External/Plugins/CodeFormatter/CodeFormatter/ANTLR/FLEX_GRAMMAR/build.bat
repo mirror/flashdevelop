@@ -1,1 +1,0 @@
-java -cp antlr-3.1.1.jar -Xms256m -Xmx512m org.antlr.Tool -Xconversiontimeout 3000 MXMLLexer.g3
