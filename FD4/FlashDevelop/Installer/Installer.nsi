@@ -366,6 +366,20 @@ Section "Install Flex SDK" InstallFlexSDK
 	MessageBox MB_OK "Archive extraction failed. The installer will now continue normally."
 	Goto Finish
 	
+	SetOverwrite off
+	
+	; Add the missing SWC files
+	SetOutPath "${SDKPATH}\frameworks\libs\player"
+	File /r /x .svn /x *.db "..\Bin\Debug\Tools\flexlibs\frameworks\libs\player\*.*"
+	
+	; Write the notice file
+	ClearErrors
+	FileOpen $1 ${SDKPATH}\frameworks\libs\player\FlashDevelopNotice.txt w
+	IfErrors Done
+	FileWrite $1 "FlashDevelop added the missing 'playerglobal.swc' files here."
+	FileClose $1
+	Done:
+	
 	; Save version to registry
 	WriteRegStr HKLM "Software\FlashDevelop" "FlexSDKVersion" "${FLEX}"
 	
