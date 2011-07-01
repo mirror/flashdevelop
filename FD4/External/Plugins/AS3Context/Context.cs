@@ -200,7 +200,7 @@ namespace AS3Context
                         if (playerglobal != null)
                         {
                             // add missing SWC in new SDKs
-                            if (!swcPresent && Directory.Exists(compiler) && !compiler.EndsWith(S + "flexlibs"))
+                            if (!swcPresent && Directory.Exists(compiler) && !compiler.Contains(S + "flexlibs"))
                             {
                                 string swcDir = sdkLibs + S + "player" + S;
                                 if (minorVersion > 0 || (!Directory.Exists(sdkLibs + "9") && !Directory.Exists(sdkLibs + "10")))
@@ -225,6 +225,11 @@ namespace AS3Context
                 // framework SWCs
                 string as3Fmk = PathHelper.ResolvePath("Library" + S + "AS3" + S + "frameworks");
 
+                // Flex core - ie. (Bitmap|Font|ByteArray|...)Asset / Flex(Sprite|MobieClip|Loader...)
+                addLibs.Add("flex.swc");
+                addLibs.Add("core.swc");
+                
+                // Flex framework
                 if (cpCheck.IndexOf("Library/AS3/frameworks/Flex", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     addLibs.Add("framework.swc");
