@@ -464,7 +464,7 @@ namespace CodeFormatter
 			set { this.pref_AS_LeaveExtraWhitespaceAroundVarDecls = value; }
 		}
 
-        [DefaultValue(BraceStyle.AfterLine)]
+        [DefaultValue(BraceStyle.Inherit)]
         [Category("ActionScript")]
         [DisplayName("Brace Style")]
         [LocalizedDescription("CodeFormatter.Description.AS.BraceStyle")]
@@ -1279,7 +1279,8 @@ namespace CodeFormatter
     public enum BraceStyle
     {
         OnLine = 4,
-        AfterLine = 5
+        AfterLine = 5,
+        Inherit = 100
     }
 
     public enum WrapType

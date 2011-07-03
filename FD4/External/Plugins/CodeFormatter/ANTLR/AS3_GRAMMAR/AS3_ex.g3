@@ -204,10 +204,11 @@ tokens{
   using System.Collections.Generic;
   using System.Text.RegularExpressions;
   
-  using FDFlexFormatter.Handlers;
+  using CodeFormatter.Handlers;
 }
 @lexer::header{
-  using FDFlexFormatter.Handlers;
+  using CodeFormatter.Handlers;
+  using PluginCore.Managers;
 }
 @lexer::members
 {
@@ -2396,7 +2397,7 @@ memberExpression
 	;
 
 newExpression
-	: N=NEW  {Emit((CommonToken)$N);} primaryExpression
+	: N=NEW  {Emit((CommonToken)$N);InsertWS(1);} primaryExpression
 	;
 
 //11.2
@@ -2549,6 +2550,7 @@ primaryExpressionHelper
     |   xmlPrimaryExpression
     |   parExpression // PAR_EXPRESSION
     |   conditionalCompilerOption
+	|   l=LT {Emit((CommonToken)$l);} type g=GT {Emit((CommonToken)$g);} (arrayLiteral)? //Vector initializer with optional array data
     ;
 
 //11.1.5 Object Initialiser

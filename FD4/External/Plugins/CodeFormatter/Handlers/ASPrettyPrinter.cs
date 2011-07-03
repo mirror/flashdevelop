@@ -1627,7 +1627,13 @@ namespace CodeFormatter.Handlers
 
 		public int GetBraceStyleSetting() 
         {
-			return mBraceStyleSetting;
+            if (mBraceStyleSetting == (int)BraceStyle.Inherit)
+            {
+                PluginCore.CodingStyle cs = PluginCore.PluginBase.Settings.CodingStyle;
+                if (cs == PluginCore.CodingStyle.BracesAfterLine) return (int)BraceStyle.AfterLine;
+                else return (int)BraceStyle.OnLine;
+            }
+            else return mBraceStyleSetting;
 		}
 
 		public void SetBraceStyleSetting(int braceStyleSetting) 

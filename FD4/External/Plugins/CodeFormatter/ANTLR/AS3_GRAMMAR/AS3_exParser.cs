@@ -1,9 +1,9 @@
-// $ANTLR 3.1.1 AS3_ex.g3 2009-08-01 20:20:28
+// $ANTLR 3.1.1 AS3_ex.g3 2011-07-03 23:25:56
 
   using System.Collections.Generic;
   using System.Text.RegularExpressions;
   
-  using FDFlexFormatter.Handlers;
+  using CodeFormatter.Handlers;
 
 
 using System;
@@ -330,7 +330,7 @@ public class AS3_exParser : Parser
         public AS3_exParser(ITokenStream input, RecognizerSharedState state)
     		: base(input, state) {
             InitializeCyclicDFAs();
-            this.state.ruleMemo = new Hashtable[540+1];
+            this.state.ruleMemo = new Hashtable[542+1];
              
              
        }
@@ -493,7 +493,7 @@ public class AS3_exParser : Parser
     		}	
     	}
     	
-    	bool IsIdentifierPart(char ch)
+    	public static bool IsIdentifierPart(char ch)
         {
        		return Char.IsLetterOrDigit(ch) || ch == '_';
     	}
@@ -12792,13 +12792,13 @@ public class AS3_exParser : Parser
             {
                 int LA95_2 = input.LA(2);
 
-                if ( (LA95_2 == NATIVE || LA95_2 == TO || (LA95_2 >= EACH && LA95_2 <= NAMESPACE) || (LA95_2 >= DYNAMIC && LA95_2 <= STATIC) || LA95_2 == IDENTIFIER) )
-                {
-                    alt95 = 2;
-                }
-                else if ( (LA95_2 == DOT || LA95_2 == SUB || LA95_2 == COLON || LA95_2 == XML_NS_OP) )
+                if ( (LA95_2 == DOT || LA95_2 == SUB || LA95_2 == COLON || LA95_2 == XML_NS_OP) )
                 {
                     alt95 = 1;
+                }
+                else if ( (LA95_2 == NATIVE || LA95_2 == TO || (LA95_2 >= EACH && LA95_2 <= NAMESPACE) || (LA95_2 >= DYNAMIC && LA95_2 <= STATIC) || LA95_2 == IDENTIFIER) )
+                {
+                    alt95 = 2;
                 }
                 else 
                 {
@@ -13566,7 +13566,7 @@ public class AS3_exParser : Parser
 
             	if ( (LA98_0 == ELSE) )
             	{
-            	    int LA98_2 = input.LA(2);
+            	    int LA98_1 = input.LA(2);
 
             	    if ( (synpred213_AS3_ex()) )
             	    {
@@ -19338,13 +19338,13 @@ public class AS3_exParser : Parser
             	{
                 int LA143_3 = input.LA(2);
 
-                if ( (LA143_3 == DOT || LA143_3 == SUB || LA143_3 == COLON || LA143_3 == XML_NS_OP) )
-                {
-                    alt143 = 1;
-                }
-                else if ( ((LA143_3 >= AS && LA143_3 <= STATIC) || LA143_3 == LCURLY || LA143_3 == LPAREN || LA143_3 == LBRACK || LA143_3 == LT || LA143_3 == STAR || (LA143_3 >= XML_AT && LA143_3 <= XML_LS_STD) || (LA143_3 >= SINGLE_QUOTE_LITERAL && LA143_3 <= DOUBLE_QUOTE_LITERAL) || LA143_3 == REGULAR_EXPR_LITERAL || LA143_3 == HEX_NUMBER_LITERAL || LA143_3 == DEC_NUMBER_LITERAL || LA143_3 == IDENTIFIER || (LA143_3 >= XML_COMMENT && LA143_3 <= XML_PI)) )
+                if ( ((LA143_3 >= AS && LA143_3 <= STATIC) || LA143_3 == LCURLY || LA143_3 == LPAREN || LA143_3 == LBRACK || LA143_3 == LT || LA143_3 == STAR || (LA143_3 >= XML_AT && LA143_3 <= XML_LS_STD) || (LA143_3 >= SINGLE_QUOTE_LITERAL && LA143_3 <= DOUBLE_QUOTE_LITERAL) || LA143_3 == REGULAR_EXPR_LITERAL || LA143_3 == HEX_NUMBER_LITERAL || LA143_3 == DEC_NUMBER_LITERAL || LA143_3 == IDENTIFIER || (LA143_3 >= XML_COMMENT && LA143_3 <= XML_PI)) )
                 {
                     alt143 = 3;
+                }
+                else if ( (LA143_3 == DOT || LA143_3 == SUB || LA143_3 == COLON || LA143_3 == XML_NS_OP) )
+                {
+                    alt143 = 1;
                 }
                 else 
                 {
@@ -19475,7 +19475,7 @@ public class AS3_exParser : Parser
             	}
             	if ( state.backtracking == 0 ) 
             	{
-            	  Emit((CommonToken)N);
+            	  Emit((CommonToken)N);InsertWS(1);
             	}
             	PushFollow(FOLLOW_primaryExpression_in_newExpression11846);
             	primaryExpression304 = primaryExpression();
@@ -21364,7 +21364,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "primaryExpressionHelper"
-    // AS3_ex.g3:2543:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption );
+    // AS3_ex.g3:2543:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? );
     public AS3_exParser.primaryExpressionHelper_return primaryExpressionHelper() // throws RecognitionException [1]
     {   
         AS3_exParser.primaryExpressionHelper_return retval = new AS3_exParser.primaryExpressionHelper_return();
@@ -21374,6 +21374,8 @@ public class AS3_exParser : Parser
 
         IToken T = null;
         IToken S = null;
+        IToken l = null;
+        IToken g = null;
         AS3_exParser.literal_return literal326 = null;
 
         AS3_exParser.arrayLiteral_return arrayLiteral327 = null;
@@ -21388,9 +21390,15 @@ public class AS3_exParser : Parser
 
         AS3_exParser.conditionalCompilerOption_return conditionalCompilerOption332 = null;
 
+        AS3_exParser.type_return type333 = null;
+
+        AS3_exParser.arrayLiteral_return arrayLiteral334 = null;
+
 
         object T_tree=null;
         object S_tree=null;
+        object l_tree=null;
+        object g_tree=null;
 
         try 
     	{
@@ -21398,10 +21406,10 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2544:5: (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption )
-            int alt154 = 9;
-            alt154 = dfa154.Predict(input);
-            switch (alt154) 
+            // AS3_ex.g3:2544:5: (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? )
+            int alt155 = 10;
+            alt155 = dfa155.Predict(input);
+            switch (alt155) 
             {
                 case 1 :
                     // AS3_ex.g3:2544:9: T= THIS
@@ -21528,6 +21536,56 @@ public class AS3_exParser : Parser
 
                     }
                     break;
+                case 10 :
+                    // AS3_ex.g3:2553:6: l= LT type g= GT ( arrayLiteral )?
+                    {
+                    	root_0 = (object)adaptor.GetNilNode();
+
+                    	l=(IToken)Match(input,LT,FOLLOW_LT_in_primaryExpressionHelper13134); if (state.failed) return retval;
+                    	if ( state.backtracking == 0 )
+                    	{l_tree = (object)adaptor.Create(l);
+                    		adaptor.AddChild(root_0, l_tree);
+                    	}
+                    	if ( state.backtracking == 0 ) 
+                    	{
+                    	  Emit((CommonToken)l);
+                    	}
+                    	PushFollow(FOLLOW_type_in_primaryExpressionHelper13138);
+                    	type333 = type();
+                    	state.followingStackPointer--;
+                    	if (state.failed) return retval;
+                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, type333.Tree);
+                    	g=(IToken)Match(input,GT,FOLLOW_GT_in_primaryExpressionHelper13142); if (state.failed) return retval;
+                    	if ( state.backtracking == 0 )
+                    	{g_tree = (object)adaptor.Create(g);
+                    		adaptor.AddChild(root_0, g_tree);
+                    	}
+                    	if ( state.backtracking == 0 ) 
+                    	{
+                    	  Emit((CommonToken)g);
+                    	}
+                    	// AS3_ex.g3:2553:71: ( arrayLiteral )?
+                    	int alt154 = 2;
+                    	alt154 = dfa154.Predict(input);
+                    	switch (alt154) 
+                    	{
+                    	    case 1 :
+                    	        // AS3_ex.g3:2553:72: arrayLiteral
+                    	        {
+                    	        	PushFollow(FOLLOW_arrayLiteral_in_primaryExpressionHelper13147);
+                    	        	arrayLiteral334 = arrayLiteral();
+                    	        	state.followingStackPointer--;
+                    	        	if (state.failed) return retval;
+                    	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, arrayLiteral334.Tree);
+
+                    	        }
+                    	        break;
+
+                    	}
+
+
+                    }
+                    break;
 
             }
             retval.Stop = input.LT(-1);
@@ -21566,7 +21624,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "objectLiteral"
-    // AS3_ex.g3:2556:1: objectLiteral : L= LCURLY ( propertyNameAndValueList )? R= RCURLY ;
+    // AS3_ex.g3:2557:1: objectLiteral : L= LCURLY ( propertyNameAndValueList )? R= RCURLY ;
     public AS3_exParser.objectLiteral_return objectLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.objectLiteral_return retval = new AS3_exParser.objectLiteral_return();
@@ -21576,7 +21634,7 @@ public class AS3_exParser : Parser
 
         IToken L = null;
         IToken R = null;
-        AS3_exParser.propertyNameAndValueList_return propertyNameAndValueList333 = null;
+        AS3_exParser.propertyNameAndValueList_return propertyNameAndValueList335 = null;
 
 
         object L_tree=null;
@@ -21588,12 +21646,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2557:5: (L= LCURLY ( propertyNameAndValueList )? R= RCURLY )
-            // AS3_ex.g3:2557:9: L= LCURLY ( propertyNameAndValueList )? R= RCURLY
+            // AS3_ex.g3:2558:5: (L= LCURLY ( propertyNameAndValueList )? R= RCURLY )
+            // AS3_ex.g3:2558:9: L= LCURLY ( propertyNameAndValueList )? R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral13147); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral13172); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -21602,31 +21660,31 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideObjectBraces());PushIndent(true);
             	}
-            	// AS3_ex.g3:2557:117: ( propertyNameAndValueList )?
-            	int alt155 = 2;
-            	int LA155_0 = input.LA(1);
+            	// AS3_ex.g3:2558:117: ( propertyNameAndValueList )?
+            	int alt156 = 2;
+            	int LA156_0 = input.LA(1);
 
-            	if ( (LA155_0 == NATIVE || LA155_0 == TO || (LA155_0 >= EACH && LA155_0 <= NAMESPACE) || (LA155_0 >= DYNAMIC && LA155_0 <= STATIC) || (LA155_0 >= SINGLE_QUOTE_LITERAL && LA155_0 <= DOUBLE_QUOTE_LITERAL) || LA155_0 == HEX_NUMBER_LITERAL || LA155_0 == DEC_NUMBER_LITERAL || LA155_0 == IDENTIFIER) )
+            	if ( (LA156_0 == NATIVE || LA156_0 == TO || (LA156_0 >= EACH && LA156_0 <= NAMESPACE) || (LA156_0 >= DYNAMIC && LA156_0 <= STATIC) || (LA156_0 >= SINGLE_QUOTE_LITERAL && LA156_0 <= DOUBLE_QUOTE_LITERAL) || LA156_0 == HEX_NUMBER_LITERAL || LA156_0 == DEC_NUMBER_LITERAL || LA156_0 == IDENTIFIER) )
             	{
-            	    alt155 = 1;
+            	    alt156 = 1;
             	}
-            	switch (alt155) 
+            	switch (alt156) 
             	{
             	    case 1 :
             	        // AS3_ex.g3:0:0: propertyNameAndValueList
             	        {
-            	        	PushFollow(FOLLOW_propertyNameAndValueList_in_objectLiteral13151);
-            	        	propertyNameAndValueList333 = propertyNameAndValueList();
+            	        	PushFollow(FOLLOW_propertyNameAndValueList_in_objectLiteral13176);
+            	        	propertyNameAndValueList335 = propertyNameAndValueList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
-            	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValueList333.Tree);
+            	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValueList335.Tree);
 
             	        }
             	        break;
 
             	}
 
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral13156); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral13181); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -21674,7 +21732,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyNameAndValueList"
-    // AS3_ex.g3:2560:1: propertyNameAndValueList : propertyNameAndValue (C= COMMA propertyNameAndValue )* ;
+    // AS3_ex.g3:2561:1: propertyNameAndValueList : propertyNameAndValue (C= COMMA propertyNameAndValue )* ;
     public AS3_exParser.propertyNameAndValueList_return propertyNameAndValueList() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyNameAndValueList_return retval = new AS3_exParser.propertyNameAndValueList_return();
@@ -21683,9 +21741,9 @@ public class AS3_exParser : Parser
         object root_0 = null;
 
         IToken C = null;
-        AS3_exParser.propertyNameAndValue_return propertyNameAndValue334 = null;
+        AS3_exParser.propertyNameAndValue_return propertyNameAndValue336 = null;
 
-        AS3_exParser.propertyNameAndValue_return propertyNameAndValue335 = null;
+        AS3_exParser.propertyNameAndValue_return propertyNameAndValue337 = null;
 
 
         object C_tree=null;
@@ -21696,38 +21754,38 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2561:5: ( propertyNameAndValue (C= COMMA propertyNameAndValue )* )
-            // AS3_ex.g3:2561:9: propertyNameAndValue (C= COMMA propertyNameAndValue )*
+            // AS3_ex.g3:2562:5: ( propertyNameAndValue (C= COMMA propertyNameAndValue )* )
+            // AS3_ex.g3:2562:9: propertyNameAndValue (C= COMMA propertyNameAndValue )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13178);
-            	propertyNameAndValue334 = propertyNameAndValue();
+            	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13203);
+            	propertyNameAndValue336 = propertyNameAndValue();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
-            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValue334.Tree);
-            	// AS3_ex.g3:2561:30: (C= COMMA propertyNameAndValue )*
+            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValue336.Tree);
+            	// AS3_ex.g3:2562:30: (C= COMMA propertyNameAndValue )*
             	do 
             	{
-            	    int alt156 = 2;
-            	    int LA156_0 = input.LA(1);
+            	    int alt157 = 2;
+            	    int LA157_0 = input.LA(1);
 
-            	    if ( (LA156_0 == COMMA) )
+            	    if ( (LA157_0 == COMMA) )
             	    {
-            	        alt156 = 1;
+            	        alt157 = 1;
             	    }
 
 
-            	    switch (alt156) 
+            	    switch (alt157) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2561:31: C= COMMA propertyNameAndValue
+            			    // AS3_ex.g3:2562:31: C= COMMA propertyNameAndValue
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_propertyNameAndValueList13184); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_propertyNameAndValueList13209); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -21740,22 +21798,22 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13189);
-            			    	propertyNameAndValue335 = propertyNameAndValue();
+            			    	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13214);
+            			    	propertyNameAndValue337 = propertyNameAndValue();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
-            			    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValue335.Tree);
+            			    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValue337.Tree);
 
             			    }
             			    break;
 
             			default:
-            			    goto loop156;
+            			    goto loop157;
             	    }
             	} while (true);
 
-            	loop156:
-            		;	// Stops C# compiler whining that label 'loop156' has no statements
+            	loop157:
+            		;	// Stops C# compiler whining that label 'loop157' has no statements
 
 
             }
@@ -21796,7 +21854,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyNameAndValue"
-    // AS3_ex.g3:2564:1: propertyNameAndValue : propertyName C= COLON assignmentExpression ;
+    // AS3_ex.g3:2565:1: propertyNameAndValue : propertyName C= COLON assignmentExpression ;
     public AS3_exParser.propertyNameAndValue_return propertyNameAndValue() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyNameAndValue_return retval = new AS3_exParser.propertyNameAndValue_return();
@@ -21805,9 +21863,9 @@ public class AS3_exParser : Parser
         object root_0 = null;
 
         IToken C = null;
-        AS3_exParser.propertyName_return propertyName336 = null;
+        AS3_exParser.propertyName_return propertyName338 = null;
 
-        AS3_exParser.assignmentExpression_return assignmentExpression337 = null;
+        AS3_exParser.assignmentExpression_return assignmentExpression339 = null;
 
 
         object C_tree=null;
@@ -21818,17 +21876,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2565:5: ( propertyName C= COLON assignmentExpression )
-            // AS3_ex.g3:2565:9: propertyName C= COLON assignmentExpression
+            // AS3_ex.g3:2566:5: ( propertyName C= COLON assignmentExpression )
+            // AS3_ex.g3:2566:9: propertyName C= COLON assignmentExpression
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_propertyName_in_propertyNameAndValue13210);
-            	propertyName336 = propertyName();
+            	PushFollow(FOLLOW_propertyName_in_propertyNameAndValue13235);
+            	propertyName338 = propertyName();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
-            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyName336.Tree);
-            	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_propertyNameAndValue13214); if (state.failed) return retval;
+            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyName338.Tree);
+            	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_propertyNameAndValue13239); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{C_tree = (object)adaptor.Create(C);
             		adaptor.AddChild(root_0, C_tree);
@@ -21840,11 +21898,11 @@ public class AS3_exParser : Parser
             	      		InsertWS(mPrinter.GetSpacesAfterLabel());
             	      		
             	}
-            	PushFollow(FOLLOW_assignmentExpression_in_propertyNameAndValue13232);
-            	assignmentExpression337 = assignmentExpression();
+            	PushFollow(FOLLOW_assignmentExpression_in_propertyNameAndValue13257);
+            	assignmentExpression339 = assignmentExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
-            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression337.Tree);
+            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression339.Tree);
 
             }
 
@@ -21884,7 +21942,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyName"
-    // AS3_ex.g3:2573:1: propertyName : ( identifierLiteral | stringLiteral | numericLiteral );
+    // AS3_ex.g3:2574:1: propertyName : ( identifierLiteral | stringLiteral | numericLiteral );
     public AS3_exParser.propertyName_return propertyName() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyName_return retval = new AS3_exParser.propertyName_return();
@@ -21892,11 +21950,11 @@ public class AS3_exParser : Parser
         int propertyName_StartIndex = input.Index();
         object root_0 = null;
 
-        AS3_exParser.identifierLiteral_return identifierLiteral338 = null;
+        AS3_exParser.identifierLiteral_return identifierLiteral340 = null;
 
-        AS3_exParser.stringLiteral_return stringLiteral339 = null;
+        AS3_exParser.stringLiteral_return stringLiteral341 = null;
 
-        AS3_exParser.numericLiteral_return numericLiteral340 = null;
+        AS3_exParser.numericLiteral_return numericLiteral342 = null;
 
 
 
@@ -21906,8 +21964,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2574:5: ( identifierLiteral | stringLiteral | numericLiteral )
-            int alt157 = 3;
+            // AS3_ex.g3:2575:5: ( identifierLiteral | stringLiteral | numericLiteral )
+            int alt158 = 3;
             switch ( input.LA(1) ) 
             {
             case NATIVE:
@@ -21922,67 +21980,67 @@ public class AS3_exParser : Parser
             case STATIC:
             case IDENTIFIER:
             	{
-                alt157 = 1;
+                alt158 = 1;
                 }
                 break;
             case SINGLE_QUOTE_LITERAL:
             case DOUBLE_QUOTE_LITERAL:
             	{
-                alt157 = 2;
+                alt158 = 2;
                 }
                 break;
             case HEX_NUMBER_LITERAL:
             case DEC_NUMBER_LITERAL:
             	{
-                alt157 = 3;
+                alt158 = 3;
                 }
                 break;
             	default:
             	    if ( state.backtracking > 0 ) {state.failed = true; return retval;}
-            	    NoViableAltException nvae_d157s0 =
-            	        new NoViableAltException("", 157, 0, input);
+            	    NoViableAltException nvae_d158s0 =
+            	        new NoViableAltException("", 158, 0, input);
 
-            	    throw nvae_d157s0;
+            	    throw nvae_d158s0;
             }
 
-            switch (alt157) 
+            switch (alt158) 
             {
                 case 1 :
-                    // AS3_ex.g3:2574:9: identifierLiteral
+                    // AS3_ex.g3:2575:9: identifierLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_identifierLiteral_in_propertyName13251);
-                    	identifierLiteral338 = identifierLiteral();
+                    	PushFollow(FOLLOW_identifierLiteral_in_propertyName13276);
+                    	identifierLiteral340 = identifierLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
-                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, identifierLiteral338.Tree);
+                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, identifierLiteral340.Tree);
 
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2575:9: stringLiteral
+                    // AS3_ex.g3:2576:9: stringLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_stringLiteral_in_propertyName13262);
-                    	stringLiteral339 = stringLiteral();
+                    	PushFollow(FOLLOW_stringLiteral_in_propertyName13287);
+                    	stringLiteral341 = stringLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
-                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, stringLiteral339.Tree);
+                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, stringLiteral341.Tree);
 
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2576:9: numericLiteral
+                    // AS3_ex.g3:2577:9: numericLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_numericLiteral_in_propertyName13273);
-                    	numericLiteral340 = numericLiteral();
+                    	PushFollow(FOLLOW_numericLiteral_in_propertyName13298);
+                    	numericLiteral342 = numericLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
-                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, numericLiteral340.Tree);
+                    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, numericLiteral342.Tree);
 
                     }
                     break;
@@ -22024,7 +22082,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "arrayLiteral"
-    // AS3_ex.g3:2580:1: arrayLiteral : L= LBRACK ( elementList )? R= RBRACK ;
+    // AS3_ex.g3:2581:1: arrayLiteral : L= LBRACK ( elementList )? R= RBRACK ;
     public AS3_exParser.arrayLiteral_return arrayLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.arrayLiteral_return retval = new AS3_exParser.arrayLiteral_return();
@@ -22034,7 +22092,7 @@ public class AS3_exParser : Parser
 
         IToken L = null;
         IToken R = null;
-        AS3_exParser.elementList_return elementList341 = null;
+        AS3_exParser.elementList_return elementList343 = null;
 
 
         object L_tree=null;
@@ -22046,12 +22104,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2581:5: (L= LBRACK ( elementList )? R= RBRACK )
-            // AS3_ex.g3:2581:9: L= LBRACK ( elementList )? R= RBRACK
+            // AS3_ex.g3:2582:5: (L= LBRACK ( elementList )? R= RBRACK )
+            // AS3_ex.g3:2582:9: L= LBRACK ( elementList )? R= RBRACK
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_arrayLiteral13296); if (state.failed) return retval;
+            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_arrayLiteral13321); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -22060,31 +22118,31 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideArrayDeclBrackets());
             	}
-            	// AS3_ex.g3:2581:105: ( elementList )?
-            	int alt158 = 2;
-            	int LA158_0 = input.LA(1);
+            	// AS3_ex.g3:2582:105: ( elementList )?
+            	int alt159 = 2;
+            	int LA159_0 = input.LA(1);
 
-            	if ( ((LA158_0 >= AS && LA158_0 <= STATIC) || LA158_0 == VOID || LA158_0 == LCURLY || LA158_0 == LPAREN || LA158_0 == LBRACK || LA158_0 == LT || (LA158_0 >= PLUS && LA158_0 <= STAR) || (LA158_0 >= INC && LA158_0 <= DEC) || (LA158_0 >= NOT && LA158_0 <= INV) || (LA158_0 >= XML_AT && LA158_0 <= XML_LS_STD) || (LA158_0 >= SINGLE_QUOTE_LITERAL && LA158_0 <= DOUBLE_QUOTE_LITERAL) || LA158_0 == REGULAR_EXPR_LITERAL || LA158_0 == HEX_NUMBER_LITERAL || LA158_0 == DEC_NUMBER_LITERAL || LA158_0 == IDENTIFIER || (LA158_0 >= XML_COMMENT && LA158_0 <= XML_PI)) )
+            	if ( ((LA159_0 >= AS && LA159_0 <= STATIC) || LA159_0 == VOID || LA159_0 == LCURLY || LA159_0 == LPAREN || LA159_0 == LBRACK || LA159_0 == LT || (LA159_0 >= PLUS && LA159_0 <= STAR) || (LA159_0 >= INC && LA159_0 <= DEC) || (LA159_0 >= NOT && LA159_0 <= INV) || (LA159_0 >= XML_AT && LA159_0 <= XML_LS_STD) || (LA159_0 >= SINGLE_QUOTE_LITERAL && LA159_0 <= DOUBLE_QUOTE_LITERAL) || LA159_0 == REGULAR_EXPR_LITERAL || LA159_0 == HEX_NUMBER_LITERAL || LA159_0 == DEC_NUMBER_LITERAL || LA159_0 == IDENTIFIER || (LA159_0 >= XML_COMMENT && LA159_0 <= XML_PI)) )
             	{
-            	    alt158 = 1;
+            	    alt159 = 1;
             	}
-            	switch (alt158) 
+            	switch (alt159) 
             	{
             	    case 1 :
             	        // AS3_ex.g3:0:0: elementList
             	        {
-            	        	PushFollow(FOLLOW_elementList_in_arrayLiteral13300);
-            	        	elementList341 = elementList();
+            	        	PushFollow(FOLLOW_elementList_in_arrayLiteral13325);
+            	        	elementList343 = elementList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
-            	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, elementList341.Tree);
+            	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, elementList343.Tree);
 
             	        }
             	        break;
 
             	}
 
-            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_arrayLiteral13305); if (state.failed) return retval;
+            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_arrayLiteral13330); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -22132,7 +22190,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "elementList"
-    // AS3_ex.g3:2584:1: elementList : assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? ;
+    // AS3_ex.g3:2585:1: elementList : assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? ;
     public AS3_exParser.elementList_return elementList() // throws RecognitionException [1]
     {   
         AS3_exParser.elementList_return retval = new AS3_exParser.elementList_return();
@@ -22141,9 +22199,9 @@ public class AS3_exParser : Parser
         object root_0 = null;
 
         IToken C = null;
-        AS3_exParser.assignmentExpression_return assignmentExpression342 = null;
+        AS3_exParser.assignmentExpression_return assignmentExpression344 = null;
 
-        AS3_exParser.assignmentExpression_return assignmentExpression343 = null;
+        AS3_exParser.assignmentExpression_return assignmentExpression345 = null;
 
 
         object C_tree=null;
@@ -22159,8 +22217,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2591:5: ( assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? )
-            // AS3_ex.g3:2592:6: assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )?
+            // AS3_ex.g3:2592:5: ( assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? )
+            // AS3_ex.g3:2593:6: assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -22172,36 +22230,36 @@ public class AS3_exParser : Parser
             	{
             	  pushedIndent=PushLazyParmIndent(pushedIndent, options.IndentStyle);
             	}
-            	PushFollow(FOLLOW_assignmentExpression_in_elementList13351);
-            	assignmentExpression342 = assignmentExpression();
+            	PushFollow(FOLLOW_assignmentExpression_in_elementList13376);
+            	assignmentExpression344 = assignmentExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
-            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression342.Tree);
-            	// AS3_ex.g3:2595:6: (C= COMMA assignmentExpression )*
+            	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression344.Tree);
+            	// AS3_ex.g3:2596:6: (C= COMMA assignmentExpression )*
             	do 
             	{
-            	    int alt159 = 2;
-            	    int LA159_0 = input.LA(1);
+            	    int alt160 = 2;
+            	    int LA160_0 = input.LA(1);
 
-            	    if ( (LA159_0 == COMMA) )
+            	    if ( (LA160_0 == COMMA) )
             	    {
-            	        int LA159_1 = input.LA(2);
+            	        int LA160_1 = input.LA(2);
 
-            	        if ( ((LA159_1 >= AS && LA159_1 <= STATIC) || LA159_1 == LCURLY || LA159_1 == LPAREN || LA159_1 == LBRACK || LA159_1 == LT || (LA159_1 >= PLUS && LA159_1 <= STAR) || (LA159_1 >= INC && LA159_1 <= DEC) || (LA159_1 >= NOT && LA159_1 <= INV) || (LA159_1 >= XML_AT && LA159_1 <= XML_LS_STD) || (LA159_1 >= SINGLE_QUOTE_LITERAL && LA159_1 <= DOUBLE_QUOTE_LITERAL) || LA159_1 == REGULAR_EXPR_LITERAL || LA159_1 == HEX_NUMBER_LITERAL || LA159_1 == DEC_NUMBER_LITERAL || LA159_1 == IDENTIFIER || (LA159_1 >= XML_COMMENT && LA159_1 <= XML_PI)) )
+            	        if ( ((LA160_1 >= AS && LA160_1 <= STATIC) || LA160_1 == LCURLY || LA160_1 == LPAREN || LA160_1 == LBRACK || LA160_1 == LT || (LA160_1 >= PLUS && LA160_1 <= STAR) || (LA160_1 >= INC && LA160_1 <= DEC) || (LA160_1 >= NOT && LA160_1 <= INV) || (LA160_1 >= XML_AT && LA160_1 <= XML_LS_STD) || (LA160_1 >= SINGLE_QUOTE_LITERAL && LA160_1 <= DOUBLE_QUOTE_LITERAL) || LA160_1 == REGULAR_EXPR_LITERAL || LA160_1 == HEX_NUMBER_LITERAL || LA160_1 == DEC_NUMBER_LITERAL || LA160_1 == IDENTIFIER || (LA160_1 >= XML_COMMENT && LA160_1 <= XML_PI)) )
             	        {
-            	            alt159 = 1;
+            	            alt160 = 1;
             	        }
 
 
             	    }
 
 
-            	    switch (alt159) 
+            	    switch (alt160) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2596:7: C= COMMA assignmentExpression
+            			    // AS3_ex.g3:2597:7: C= COMMA assignmentExpression
             			    {
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13369); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13394); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -22210,37 +22268,37 @@ public class AS3_exParser : Parser
             			    	{
             			    	  pushedIndent=EmitCommaWithSpacingAndCRs(options,(CommonToken) C, pushedIndent);
             			    	}
-            			    	PushFollow(FOLLOW_assignmentExpression_in_elementList13386);
-            			    	assignmentExpression343 = assignmentExpression();
+            			    	PushFollow(FOLLOW_assignmentExpression_in_elementList13411);
+            			    	assignmentExpression345 = assignmentExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
-            			    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression343.Tree);
+            			    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression345.Tree);
 
             			    }
             			    break;
 
             			default:
-            			    goto loop159;
+            			    goto loop160;
             	    }
             	} while (true);
 
-            	loop159:
-            		;	// Stops C# compiler whining that label 'loop159' has no statements
+            	loop160:
+            		;	// Stops C# compiler whining that label 'loop160' has no statements
 
-            	// AS3_ex.g3:2599:9: (C= COMMA )?
-            	int alt160 = 2;
-            	int LA160_0 = input.LA(1);
+            	// AS3_ex.g3:2600:9: (C= COMMA )?
+            	int alt161 = 2;
+            	int LA161_0 = input.LA(1);
 
-            	if ( (LA160_0 == COMMA) )
+            	if ( (LA161_0 == COMMA) )
             	{
-            	    alt160 = 1;
+            	    alt161 = 1;
             	}
-            	switch (alt160) 
+            	switch (alt161) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2599:10: C= COMMA
+            	        // AS3_ex.g3:2600:10: C= COMMA
             	        {
-            	        	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13399); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13424); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -22308,33 +22366,33 @@ public class AS3_exParser : Parser
         	    throw new FailedPredicateException(input, "synpred9_AS3_ex", "!PromoteWhitespace()");
         	}
         	// AS3_ex.g3:1247:121: (s= SUB | d= DOT | c= COLON )
-        	int alt161 = 3;
+        	int alt162 = 3;
         	switch ( input.LA(1) ) 
         	{
         	case SUB:
         		{
-        	    alt161 = 1;
+        	    alt162 = 1;
         	    }
         	    break;
         	case DOT:
         		{
-        	    alt161 = 2;
+        	    alt162 = 2;
         	    }
         	    break;
         	case COLON:
         		{
-        	    alt161 = 3;
+        	    alt162 = 3;
         	    }
         	    break;
         		default:
         		    if ( state.backtracking > 0 ) {state.failed = true; return ;}
-        		    NoViableAltException nvae_d161s0 =
-        		        new NoViableAltException("", 161, 0, input);
+        		    NoViableAltException nvae_d162s0 =
+        		        new NoViableAltException("", 162, 0, input);
 
-        		    throw nvae_d161s0;
+        		    throw nvae_d162s0;
         	}
 
-        	switch (alt161) 
+        	switch (alt162) 
         	{
         	    case 1 :
         	        // AS3_ex.g3:1247:122: s= SUB
@@ -22366,26 +22424,26 @@ public class AS3_exParser : Parser
         	    throw new FailedPredicateException(input, "synpred9_AS3_ex", "!PromoteWhitespace()");
         	}
         	// AS3_ex.g3:1247:248: (I2= IDENTIFIER | allKeywords )
-        	int alt162 = 2;
-        	int LA162_0 = input.LA(1);
+        	int alt163 = 2;
+        	int LA163_0 = input.LA(1);
 
-        	if ( (LA162_0 == IDENTIFIER) )
+        	if ( (LA163_0 == IDENTIFIER) )
         	{
-        	    alt162 = 1;
+        	    alt163 = 1;
         	}
-        	else if ( ((LA162_0 >= AS && LA162_0 <= STATIC)) )
+        	else if ( ((LA163_0 >= AS && LA163_0 <= STATIC)) )
         	{
-        	    alt162 = 2;
+        	    alt163 = 2;
         	}
         	else 
         	{
         	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
-        	    NoViableAltException nvae_d162s0 =
-        	        new NoViableAltException("", 162, 0, input);
+        	    NoViableAltException nvae_d163s0 =
+        	        new NoViableAltException("", 163, 0, input);
 
-        	    throw nvae_d162s0;
+        	    throw nvae_d163s0;
         	}
-        	switch (alt162) 
+        	switch (alt163) 
         	{
         	    case 1 :
         	        // AS3_ex.g3:1247:249: I2= IDENTIFIER
@@ -23139,59 +23197,6 @@ public class AS3_exParser : Parser
         // AS3_ex.g3:1855:11: ( catchClause )+ finallyClause
         {
         	// AS3_ex.g3:1855:11: ( catchClause )+
-        	int cnt171 = 0;
-        	do 
-        	{
-        	    int alt171 = 2;
-        	    int LA171_0 = input.LA(1);
-
-        	    if ( (LA171_0 == CATCH) )
-        	    {
-        	        alt171 = 1;
-        	    }
-
-
-        	    switch (alt171) 
-        		{
-        			case 1 :
-        			    // AS3_ex.g3:0:0: catchClause
-        			    {
-        			    	PushFollow(FOLLOW_catchClause_in_synpred197_AS3_ex8290);
-        			    	catchClause();
-        			    	state.followingStackPointer--;
-        			    	if (state.failed) return ;
-
-        			    }
-        			    break;
-
-        			default:
-        			    if ( cnt171 >= 1 ) goto loop171;
-        			    if ( state.backtracking > 0 ) {state.failed = true; return ;}
-        		            EarlyExitException eee =
-        		                new EarlyExitException(171, input);
-        		            throw eee;
-        	    }
-        	    cnt171++;
-        	} while (true);
-
-        	loop171:
-        		;	// Stops C# compiler whinging that label 'loop171' has no statements
-
-        	PushFollow(FOLLOW_finallyClause_in_synpred197_AS3_ex8293);
-        	finallyClause();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred197_AS3_ex"
-
-    // $ANTLR start "synpred199_AS3_ex"
-    public void synpred199_AS3_ex_fragment() {
-        // AS3_ex.g3:1856:11: ( ( catchClause )+ )
-        // AS3_ex.g3:1856:11: ( catchClause )+
-        {
-        	// AS3_ex.g3:1856:11: ( catchClause )+
         	int cnt172 = 0;
         	do 
         	{
@@ -23209,7 +23214,7 @@ public class AS3_exParser : Parser
         			case 1 :
         			    // AS3_ex.g3:0:0: catchClause
         			    {
-        			    	PushFollow(FOLLOW_catchClause_in_synpred199_AS3_ex8305);
+        			    	PushFollow(FOLLOW_catchClause_in_synpred197_AS3_ex8290);
         			    	catchClause();
         			    	state.followingStackPointer--;
         			    	if (state.failed) return ;
@@ -23229,6 +23234,59 @@ public class AS3_exParser : Parser
 
         	loop172:
         		;	// Stops C# compiler whinging that label 'loop172' has no statements
+
+        	PushFollow(FOLLOW_finallyClause_in_synpred197_AS3_ex8293);
+        	finallyClause();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred197_AS3_ex"
+
+    // $ANTLR start "synpred199_AS3_ex"
+    public void synpred199_AS3_ex_fragment() {
+        // AS3_ex.g3:1856:11: ( ( catchClause )+ )
+        // AS3_ex.g3:1856:11: ( catchClause )+
+        {
+        	// AS3_ex.g3:1856:11: ( catchClause )+
+        	int cnt173 = 0;
+        	do 
+        	{
+        	    int alt173 = 2;
+        	    int LA173_0 = input.LA(1);
+
+        	    if ( (LA173_0 == CATCH) )
+        	    {
+        	        alt173 = 1;
+        	    }
+
+
+        	    switch (alt173) 
+        		{
+        			case 1 :
+        			    // AS3_ex.g3:0:0: catchClause
+        			    {
+        			    	PushFollow(FOLLOW_catchClause_in_synpred199_AS3_ex8305);
+        			    	catchClause();
+        			    	state.followingStackPointer--;
+        			    	if (state.failed) return ;
+
+        			    }
+        			    break;
+
+        			default:
+        			    if ( cnt173 >= 1 ) goto loop173;
+        			    if ( state.backtracking > 0 ) {state.failed = true; return ;}
+        		            EarlyExitException eee =
+        		                new EarlyExitException(173, input);
+        		            throw eee;
+        	    }
+        	    cnt173++;
+        	} while (true);
+
+        	loop173:
+        		;	// Stops C# compiler whinging that label 'loop173' has no statements
 
 
         }
@@ -23339,40 +23397,40 @@ public class AS3_exParser : Parser
         // AS3_ex.g3:2308:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
         {
         	// AS3_ex.g3:2308:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) )
-        	int alt175 = 2;
-        	int LA175_0 = input.LA(1);
+        	int alt176 = 2;
+        	int LA176_0 = input.LA(1);
 
-        	if ( (LA175_0 == GT) )
+        	if ( (LA176_0 == GT) )
         	{
-        	    alt175 = 1;
+        	    alt176 = 1;
         	}
-        	else if ( (LA175_0 == AS || (LA175_0 >= IN && LA175_0 <= INSTANCEOF) || LA175_0 == IS || LA175_0 == LT || LA175_0 == LTE) )
+        	else if ( (LA176_0 == AS || (LA176_0 >= IN && LA176_0 <= INSTANCEOF) || LA176_0 == IS || LA176_0 == LT || LA176_0 == LTE) )
         	{
-        	    alt175 = 2;
+        	    alt176 = 2;
         	}
         	else 
         	{
         	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
-        	    NoViableAltException nvae_d175s0 =
-        	        new NoViableAltException("", 175, 0, input);
+        	    NoViableAltException nvae_d176s0 =
+        	        new NoViableAltException("", 176, 0, input);
 
-        	    throw nvae_d175s0;
+        	    throw nvae_d176s0;
         	}
-        	switch (alt175) 
+        	switch (alt176) 
         	{
         	    case 1 :
         	        // AS3_ex.g3:2308:9: g= GT (assign= ASSIGN )?
         	        {
         	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_synpred274_AS3_ex11147); if (state.failed) return ;
         	        	// AS3_ex.g3:2308:14: (assign= ASSIGN )?
-        	        	int alt174 = 2;
-        	        	int LA174_0 = input.LA(1);
+        	        	int alt175 = 2;
+        	        	int LA175_0 = input.LA(1);
 
-        	        	if ( (LA174_0 == ASSIGN) )
+        	        	if ( (LA175_0 == ASSIGN) )
         	        	{
-        	        	    alt174 = 1;
+        	        	    alt175 = 1;
         	        	}
-        	        	switch (alt174) 
+        	        	switch (alt175) 
         	        	{
         	        	    case 1 :
         	        	        // AS3_ex.g3:2308:15: assign= ASSIGN
@@ -23606,26 +23664,26 @@ public class AS3_exParser : Parser
         {
         	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred310_AS3_ex11913); if (state.failed) return ;
         	// AS3_ex.g3:2410:40: ( eitherIdentifier op= XML_NS_OP )?
-        	int alt180 = 2;
+        	int alt181 = 2;
         	switch ( input.LA(1) ) 
         	{
         	    case IDENTIFIER:
         	    	{
-        	        int LA180_1 = input.LA(2);
+        	        int LA181_1 = input.LA(2);
 
         	        if ( (synpred309_AS3_ex()) )
         	        {
-        	            alt180 = 1;
+        	            alt181 = 1;
         	        }
         	        }
         	        break;
         	    case XML_AT:
         	    	{
-        	        int LA180_2 = input.LA(2);
+        	        int LA181_2 = input.LA(2);
 
         	        if ( (synpred309_AS3_ex()) )
         	        {
-        	            alt180 = 1;
+        	            alt181 = 1;
         	        }
         	        }
         	        break;
@@ -23674,11 +23732,11 @@ public class AS3_exParser : Parser
         	    case WITH:
         	    case INCLUDE:
         	    	{
-        	        int LA180_3 = input.LA(2);
+        	        int LA181_3 = input.LA(2);
 
         	        if ( (synpred309_AS3_ex()) )
         	        {
-        	            alt180 = 1;
+        	            alt181 = 1;
         	        }
         	        }
         	        break;
@@ -23693,27 +23751,27 @@ public class AS3_exParser : Parser
         	    case OVERRIDE:
         	    case STATIC:
         	    	{
-        	        int LA180_4 = input.LA(2);
+        	        int LA181_4 = input.LA(2);
 
         	        if ( (synpred309_AS3_ex()) )
         	        {
-        	            alt180 = 1;
+        	            alt181 = 1;
         	        }
         	        }
         	        break;
         	    case STAR:
         	    	{
-        	        int LA180_5 = input.LA(2);
+        	        int LA181_5 = input.LA(2);
 
         	        if ( (synpred309_AS3_ex()) )
         	        {
-        	            alt180 = 1;
+        	            alt181 = 1;
         	        }
         	        }
         	        break;
         	}
 
-        	switch (alt180) 
+        	switch (alt181) 
         	{
         	    case 1 :
         	        // AS3_ex.g3:2410:41: eitherIdentifier op= XML_NS_OP
@@ -23880,6 +23938,34 @@ public class AS3_exParser : Parser
         }
     }
     // $ANTLR end "synpred384_AS3_ex"
+
+    // $ANTLR start "synpred386_AS3_ex"
+    public void synpred386_AS3_ex_fragment() {
+        // AS3_ex.g3:2552:9: ( conditionalCompilerOption )
+        // AS3_ex.g3:2552:9: conditionalCompilerOption
+        {
+        	PushFollow(FOLLOW_conditionalCompilerOption_in_synpred386_AS3_ex13125);
+        	conditionalCompilerOption();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred386_AS3_ex"
+
+    // $ANTLR start "synpred387_AS3_ex"
+    public void synpred387_AS3_ex_fragment() {
+        // AS3_ex.g3:2553:72: ( arrayLiteral )
+        // AS3_ex.g3:2553:72: arrayLiteral
+        {
+        	PushFollow(FOLLOW_arrayLiteral_in_synpred387_AS3_ex13147);
+        	arrayLiteral();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred387_AS3_ex"
 
     // Delegated rules
 
@@ -25071,6 +25157,24 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
+   	public bool synpred386_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred386_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
    	public bool synpred122_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -25215,6 +25319,24 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
+   	public bool synpred387_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred387_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
    	public bool synpred102_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -25271,6 +25393,7 @@ public class AS3_exParser : Parser
    	protected DFA141 dfa141;
    	protected DFA142 dfa142;
    	protected DFA146 dfa146;
+   	protected DFA155 dfa155;
    	protected DFA154 dfa154;
 	private void InitializeCyclicDFAs()
 	{
@@ -25292,6 +25415,7 @@ public class AS3_exParser : Parser
     	this.dfa141 = new DFA141(this);
     	this.dfa142 = new DFA142(this);
     	this.dfa146 = new DFA146(this);
+    	this.dfa155 = new DFA155(this);
     	this.dfa154 = new DFA154(this);
 	    this.dfa8.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA8_SpecialStateTransition);
 	    this.dfa14.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA14_SpecialStateTransition);
@@ -25311,118 +25435,98 @@ public class AS3_exParser : Parser
 	    this.dfa141.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA141_SpecialStateTransition);
 	    this.dfa142.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA142_SpecialStateTransition);
 	    this.dfa146.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA146_SpecialStateTransition);
+	    this.dfa155.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA155_SpecialStateTransition);
 	    this.dfa154.specialStateTransitionHandler = new DFA.SpecialStateTransitionHandler(DFA154_SpecialStateTransition);
 	}
 
     const string DFA8_eotS =
-        "\x5b\uffff";
+        "\x32\uffff";
     const string DFA8_eofS =
-        "\x01\x01\x5a\uffff";
+        "\x01\x01\x03\uffff\x01\x01\x2d\uffff";
     const string DFA8_minS =
-        "\x01\x04\x02\uffff\x01\x00\x11\uffff\x01\x00\x3f\uffff\x01\x00"+
-        "\x05\uffff";
+        "\x01\x04\x01\uffff\x03\x04\x2c\x00\x01\uffff";
     const string DFA8_maxS =
-        "\x01\u0092\x02\uffff\x01\x00\x11\uffff\x01\x00\x3f\uffff\x01\x00"+
-        "\x05\uffff";
+        "\x01\u0092\x01\uffff\x01\u008e\x02\u0092\x2c\x00\x01\uffff";
     const string DFA8_acceptS =
-        "\x01\uffff\x01\x02\x58\uffff\x01\x01";
+        "\x01\uffff\x01\x02\x2f\uffff\x01\x01";
     const string DFA8_specialS =
-        "\x03\uffff\x01\x00\x11\uffff\x01\x01\x3f\uffff\x01\x02\x05\uffff}>";
+        "\x05\uffff\x01\x0b\x01\x20\x01\x24\x01\x08\x01\x19\x01\x1c\x01"+
+        "\x27\x01\x15\x01\x23\x01\x12\x01\x14\x01\x1f\x01\x07\x01\x05\x01"+
+        "\x13\x01\x25\x01\x03\x01\x0a\x01\x18\x01\x0e\x01\x28\x01\x26\x01"+
+        "\x1e\x01\x1a\x01\x0d\x01\x04\x01\x10\x01\x01\x01\x21\x01\x2b\x01"+
+        "\x02\x01\x0c\x01\x1b\x01\x0f\x01\x29\x01\x1d\x01\x16\x01\x06\x01"+
+        "\x2a\x01\x17\x01\x00\x01\x09\x01\x22\x01\x11\x01\uffff}>";
     static readonly string[] DFA8_transitionS = {
-            "\x3d\x01\x01\x03\x04\x01\x01\uffff\x05\x01\x01\x15\x06\x01"+
-            "\x02\uffff\x08\x01\x01\x55\x01\x01\x02\uffff\x05\x01\x02\uffff"+
+            "\x3d\x01\x01\x02\x04\x01\x01\uffff\x05\x01\x01\x03\x06\x01"+
+            "\x02\uffff\x08\x01\x01\x04\x01\x01\x02\uffff\x05\x01\x02\uffff"+
             "\x05\x01\x01\uffff\x02\x01\x01\uffff\x03\x01\x0c\uffff\x02\x01"+
             "\x02\uffff\x01\x01\x04\uffff\x01\x01\x02\uffff\x01\x01\x01\uffff"+
             "\x01\x01\x01\uffff\x03\x01",
             "",
-            "",
+            "\x18\x06\x01\x07\x0b\x06\x01\x07\x08\x06\x04\x07\x01\x06\x04"+
+            "\x07\x03\uffff\x01\x01\x05\uffff\x01\x01\x09\uffff\x01\x01\x24"+
+            "\uffff\x01\x01\x1b\uffff\x01\x05",
+            "\x08\x12\x01\x11\x03\x12\x01\x0c\x02\x12\x01\x0f\x08\x12\x01"+
+            "\x0e\x01\x10\x01\x0a\x05\x12\x01\x09\x01\x12\x01\x08\x01\x12"+
+            "\x01\x0e\x01\x0b\x01\x12\x01\x11\x02\x12\x01\x11\x02\x12\x04"+
+            "\x0e\x01\x12\x04\x0e\x01\uffff\x01\x01\x01\uffff\x01\x01\x01"+
+            "\uffff\x01\x01\x03\uffff\x01\x01\x07\uffff\x03\x01\x02\uffff"+
+            "\x02\x01\x06\uffff\x02\x01\x18\uffff\x02\x01\x0c\uffff\x02\x01"+
+            "\x02\uffff\x01\x01\x04\uffff\x01\x01\x02\uffff\x01\x01\x01\uffff"+
+            "\x01\x0d\x01\uffff\x03\x01",
+            "\x01\x30\x01\x27\x01\x2f\x02\x30\x01\x21\x01\x28\x01\x20\x01"+
+            "\x1c\x01\x2a\x02\x30\x01\x19\x01\x30\x01\x29\x01\x1a\x01\x2c"+
+            "\x01\x30\x01\x1f\x05\x30\x01\x22\x01\x1b\x01\x17\x04\x30\x01"+
+            "\x26\x01\x16\x01\x24\x01\x14\x01\x2e\x01\x22\x01\x18\x01\x23"+
+            "\x01\x1c\x01\x1e\x01\x2d\x01\x1c\x01\x2b\x01\x25\x03\x22\x01"+
+            "\x15\x01\x1d\x04\x22\x04\x01\x01\uffff\x01\x01\x03\uffff\x01"+
+            "\x01\x07\uffff\x03\x01\x02\uffff\x02\x01\x06\uffff\x02\x01\x18"+
+            "\uffff\x02\x01\x0c\uffff\x02\x01\x02\uffff\x01\x01\x04\uffff"+
+            "\x01\x01\x02\uffff\x01\x01\x01\uffff\x01\x13\x01\uffff\x03\x01",
             "\x01\uffff",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\x01\uffff",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\x01\uffff",
-            "",
-            "",
-            "",
-            "",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
+            "\x01\uffff",
             ""
     };
 
@@ -25465,28 +25569,58 @@ public class AS3_exParser : Parser
         switch ( s )
         {
                	case 0 : 
-                   	int LA8_3 = input.LA(1);
+                   	int LA8_45 = input.LA(1);
 
                    	 
-                   	int index8_3 = input.Index();
+                   	int index8_45 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 90; }
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
 
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_3);
+                   	input.Seek(index8_45);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 1 : 
+                   	int LA8_32 = input.LA(1);
+
+                   	 
+                   	int index8_32 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_32);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 2 : 
+                   	int LA8_35 = input.LA(1);
+
+                   	 
+                   	int index8_35 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_35);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 3 : 
                    	int LA8_21 = input.LA(1);
 
                    	 
                    	int index8_21 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 90; }
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -25494,19 +25628,604 @@ public class AS3_exParser : Parser
                    	input.Seek(index8_21);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 2 : 
-                   	int LA8_85 = input.LA(1);
+               	case 4 : 
+                   	int LA8_30 = input.LA(1);
 
                    	 
-                   	int index8_85 = input.Index();
+                   	int index8_30 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 90; }
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
 
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_85);
+                   	input.Seek(index8_30);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 5 : 
+                   	int LA8_18 = input.LA(1);
+
+                   	 
+                   	int index8_18 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_18);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 6 : 
+                   	int LA8_42 = input.LA(1);
+
+                   	 
+                   	int index8_42 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_42);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 7 : 
+                   	int LA8_17 = input.LA(1);
+
+                   	 
+                   	int index8_17 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_17);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 8 : 
+                   	int LA8_8 = input.LA(1);
+
+                   	 
+                   	int index8_8 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_8);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 9 : 
+                   	int LA8_46 = input.LA(1);
+
+                   	 
+                   	int index8_46 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_46);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 10 : 
+                   	int LA8_22 = input.LA(1);
+
+                   	 
+                   	int index8_22 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_22);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 11 : 
+                   	int LA8_5 = input.LA(1);
+
+                   	 
+                   	int index8_5 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_5);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 12 : 
+                   	int LA8_36 = input.LA(1);
+
+                   	 
+                   	int index8_36 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_36);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 13 : 
+                   	int LA8_29 = input.LA(1);
+
+                   	 
+                   	int index8_29 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_29);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 14 : 
+                   	int LA8_24 = input.LA(1);
+
+                   	 
+                   	int index8_24 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_24);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 15 : 
+                   	int LA8_38 = input.LA(1);
+
+                   	 
+                   	int index8_38 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_38);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 16 : 
+                   	int LA8_31 = input.LA(1);
+
+                   	 
+                   	int index8_31 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_31);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 17 : 
+                   	int LA8_48 = input.LA(1);
+
+                   	 
+                   	int index8_48 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_48);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 18 : 
+                   	int LA8_14 = input.LA(1);
+
+                   	 
+                   	int index8_14 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_14);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 19 : 
+                   	int LA8_19 = input.LA(1);
+
+                   	 
+                   	int index8_19 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_19);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 20 : 
+                   	int LA8_15 = input.LA(1);
+
+                   	 
+                   	int index8_15 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_15);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 21 : 
+                   	int LA8_12 = input.LA(1);
+
+                   	 
+                   	int index8_12 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_12);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 22 : 
+                   	int LA8_41 = input.LA(1);
+
+                   	 
+                   	int index8_41 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_41);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 23 : 
+                   	int LA8_44 = input.LA(1);
+
+                   	 
+                   	int index8_44 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_44);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 24 : 
+                   	int LA8_23 = input.LA(1);
+
+                   	 
+                   	int index8_23 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_23);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 25 : 
+                   	int LA8_9 = input.LA(1);
+
+                   	 
+                   	int index8_9 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_9);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 26 : 
+                   	int LA8_28 = input.LA(1);
+
+                   	 
+                   	int index8_28 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_28);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 27 : 
+                   	int LA8_37 = input.LA(1);
+
+                   	 
+                   	int index8_37 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_37);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 28 : 
+                   	int LA8_10 = input.LA(1);
+
+                   	 
+                   	int index8_10 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_10);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 29 : 
+                   	int LA8_40 = input.LA(1);
+
+                   	 
+                   	int index8_40 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_40);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 30 : 
+                   	int LA8_27 = input.LA(1);
+
+                   	 
+                   	int index8_27 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_27);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 31 : 
+                   	int LA8_16 = input.LA(1);
+
+                   	 
+                   	int index8_16 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_16);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 32 : 
+                   	int LA8_6 = input.LA(1);
+
+                   	 
+                   	int index8_6 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_6);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 33 : 
+                   	int LA8_33 = input.LA(1);
+
+                   	 
+                   	int index8_33 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_33);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 34 : 
+                   	int LA8_47 = input.LA(1);
+
+                   	 
+                   	int index8_47 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_47);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 35 : 
+                   	int LA8_13 = input.LA(1);
+
+                   	 
+                   	int index8_13 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_13);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 36 : 
+                   	int LA8_7 = input.LA(1);
+
+                   	 
+                   	int index8_7 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_7);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 37 : 
+                   	int LA8_20 = input.LA(1);
+
+                   	 
+                   	int index8_20 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_20);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 38 : 
+                   	int LA8_26 = input.LA(1);
+
+                   	 
+                   	int index8_26 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_26);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 39 : 
+                   	int LA8_11 = input.LA(1);
+
+                   	 
+                   	int index8_11 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_11);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 40 : 
+                   	int LA8_25 = input.LA(1);
+
+                   	 
+                   	int index8_25 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_25);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 41 : 
+                   	int LA8_39 = input.LA(1);
+
+                   	 
+                   	int index8_39 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_39);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 42 : 
+                   	int LA8_43 = input.LA(1);
+
+                   	 
+                   	int index8_43 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_43);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 43 : 
+                   	int LA8_34 = input.LA(1);
+
+                   	 
+                   	int index8_34 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_34);
                    	if ( s >= 0 ) return s;
                    	break;
         }
@@ -25527,7 +26246,7 @@ public class AS3_exParser : Parser
     const string DFA14_acceptS =
         "\x01\uffff\x01\x01\x01\x02\x02\uffff\x01\x03\x04\uffff";
     const string DFA14_specialS =
-        "\x06\uffff\x01\x03\x01\x02\x01\x00\x01\x01}>";
+        "\x06\uffff\x01\x03\x01\x01\x01\x02\x01\x00}>";
     static readonly string[] DFA14_transitionS = {
             "\x36\x02\x13\uffff\x01\x03\x24\uffff\x01\x01\x1b\uffff\x01"+
             "\x02",
@@ -25586,21 +26305,6 @@ public class AS3_exParser : Parser
         switch ( s )
         {
                	case 0 : 
-                   	int LA14_8 = input.LA(1);
-
-                   	 
-                   	int index14_8 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred75_AS3_ex()) ) { s = 2; }
-
-                   	else if ( (true) ) { s = 5; }
-
-                   	 
-                   	input.Seek(index14_8);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 1 : 
                    	int LA14_9 = input.LA(1);
 
                    	 
@@ -25615,7 +26319,7 @@ public class AS3_exParser : Parser
                    	input.Seek(index14_9);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 2 : 
+               	case 1 : 
                    	int LA14_7 = input.LA(1);
 
                    	 
@@ -25628,6 +26332,21 @@ public class AS3_exParser : Parser
 
                    	 
                    	input.Seek(index14_7);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 2 : 
+                   	int LA14_8 = input.LA(1);
+
+                   	 
+                   	int index14_8 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred75_AS3_ex()) ) { s = 2; }
+
+                   	else if ( (true) ) { s = 5; }
+
+                   	 
+                   	input.Seek(index14_8);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 3 : 
@@ -29904,25 +30623,25 @@ public class AS3_exParser : Parser
         dfa.Error(nvae);
         throw nvae;
     }
-    const string DFA154_eotS =
-        "\x1c\uffff";
-    const string DFA154_eofS =
-        "\x1c\uffff";
-    const string DFA154_minS =
-        "\x01\x04\x05\x00\x07\uffff\x02\x00\x0d\uffff";
-    const string DFA154_maxS =
-        "\x01\u0092\x05\x00\x07\uffff\x02\x00\x0d\uffff";
-    const string DFA154_acceptS =
+    const string DFA155_eotS =
+        "\x1d\uffff";
+    const string DFA155_eofS =
+        "\x1d\uffff";
+    const string DFA155_minS =
+        "\x01\x04\x05\x00\x07\uffff\x02\x00\x06\uffff\x01\x00\x07\uffff";
+    const string DFA155_maxS =
+        "\x01\u0092\x05\x00\x07\uffff\x02\x00\x06\uffff\x01\x00\x07\uffff";
+    const string DFA155_acceptS =
         "\x06\uffff\x01\x03\x04\uffff\x01\x04\x01\x05\x02\uffff\x01\x07"+
-        "\x07\uffff\x01\x08\x01\x01\x01\x02\x01\x06\x01\x09";
-    const string DFA154_specialS =
+        "\x07\uffff\x01\x08\x01\x01\x01\x02\x01\x06\x01\x09\x01\x0a";
+    const string DFA155_specialS =
         "\x01\uffff\x01\x00\x01\x01\x01\x02\x01\x03\x01\x04\x07\uffff\x01"+
-        "\x05\x01\x06\x0d\uffff}>";
-    static readonly string[] DFA154_transitionS = {
+        "\x05\x01\x06\x06\uffff\x01\x07\x07\uffff}>";
+    static readonly string[] DFA155_transitionS = {
             "\x0c\x0f\x01\x05\x0b\x0f\x01\x0e\x01\x0f\x01\x03\x05\x0f\x01"+
             "\x02\x01\x0f\x01\x01\x01\x0f\x01\x0e\x01\x04\x07\x0f\x04\x0e"+
             "\x01\x0f\x04\x0e\x01\uffff\x01\x0c\x01\uffff\x01\x17\x01\uffff"+
-            "\x01\x0b\x03\uffff\x01\x0f\x09\uffff\x01\x0f\x24\uffff\x02\x0f"+
+            "\x01\x0b\x03\uffff\x01\x15\x09\uffff\x01\x0f\x24\uffff\x02\x0f"+
             "\x0c\uffff\x02\x06\x02\uffff\x01\x06\x04\uffff\x01\x06\x02\uffff"+
             "\x01\x06\x01\uffff\x01\x0d\x01\uffff\x03\x0f",
             "\x01\uffff",
@@ -29939,6 +30658,282 @@ public class AS3_exParser : Parser
             "",
             "\x01\uffff",
             "\x01\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\x01\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static readonly short[] DFA155_eot = DFA.UnpackEncodedString(DFA155_eotS);
+    static readonly short[] DFA155_eof = DFA.UnpackEncodedString(DFA155_eofS);
+    static readonly char[] DFA155_min = DFA.UnpackEncodedStringToUnsignedChars(DFA155_minS);
+    static readonly char[] DFA155_max = DFA.UnpackEncodedStringToUnsignedChars(DFA155_maxS);
+    static readonly short[] DFA155_accept = DFA.UnpackEncodedString(DFA155_acceptS);
+    static readonly short[] DFA155_special = DFA.UnpackEncodedString(DFA155_specialS);
+    static readonly short[][] DFA155_transition = DFA.UnpackEncodedStringArray(DFA155_transitionS);
+
+    protected class DFA155 : DFA
+    {
+        public DFA155(BaseRecognizer recognizer)
+        {
+            this.recognizer = recognizer;
+            this.decisionNumber = 155;
+            this.eot = DFA155_eot;
+            this.eof = DFA155_eof;
+            this.min = DFA155_min;
+            this.max = DFA155_max;
+            this.accept = DFA155_accept;
+            this.special = DFA155_special;
+            this.transition = DFA155_transition;
+
+        }
+
+        override public string Description
+        {
+            get { return "2543:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? );"; }
+        }
+
+    }
+
+
+    protected internal int DFA155_SpecialStateTransition(DFA dfa, int s, IIntStream _input) //throws NoViableAltException
+    {
+            ITokenStream input = (ITokenStream)_input;
+    	int _s = s;
+        switch ( s )
+        {
+               	case 0 : 
+                   	int LA155_1 = input.LA(1);
+
+                   	 
+                   	int index155_1 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred378_AS3_ex()) ) { s = 24; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	 
+                   	input.Seek(index155_1);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 1 : 
+                   	int LA155_2 = input.LA(1);
+
+                   	 
+                   	int index155_2 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred379_AS3_ex()) ) { s = 25; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	 
+                   	input.Seek(index155_2);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 2 : 
+                   	int LA155_3 = input.LA(1);
+
+                   	 
+                   	int index155_3 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	 
+                   	input.Seek(index155_3);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 3 : 
+                   	int LA155_4 = input.LA(1);
+
+                   	 
+                   	int index155_4 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	 
+                   	input.Seek(index155_4);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 4 : 
+                   	int LA155_5 = input.LA(1);
+
+                   	 
+                   	int index155_5 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	 
+                   	input.Seek(index155_5);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 5 : 
+                   	int LA155_13 = input.LA(1);
+
+                   	 
+                   	int index155_13 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred383_AS3_ex()) ) { s = 26; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	else if ( (synpred386_AS3_ex()) ) { s = 27; }
+
+                   	 
+                   	input.Seek(index155_13);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 6 : 
+                   	int LA155_14 = input.LA(1);
+
+                   	 
+                   	int index155_14 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred383_AS3_ex()) ) { s = 26; }
+
+                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	else if ( (synpred386_AS3_ex()) ) { s = 27; }
+
+                   	 
+                   	input.Seek(index155_14);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 7 : 
+                   	int LA155_21 = input.LA(1);
+
+                   	 
+                   	int index155_21 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred384_AS3_ex()) ) { s = 15; }
+
+                   	else if ( (true) ) { s = 28; }
+
+                   	 
+                   	input.Seek(index155_21);
+                   	if ( s >= 0 ) return s;
+                   	break;
+        }
+        if (state.backtracking > 0) {state.failed = true; return -1;}
+        NoViableAltException nvae =
+            new NoViableAltException(dfa.Description, 155, _s, input);
+        dfa.Error(nvae);
+        throw nvae;
+    }
+    const string DFA154_eotS =
+        "\x58\uffff";
+    const string DFA154_eofS =
+        "\x01\x02\x57\uffff";
+    const string DFA154_minS =
+        "\x01\x04\x01\x00\x56\uffff";
+    const string DFA154_maxS =
+        "\x01\u0092\x01\x00\x56\uffff";
+    const string DFA154_acceptS =
+        "\x02\uffff\x01\x02\x54\uffff\x01\x01";
+    const string DFA154_specialS =
+        "\x01\uffff\x01\x00\x56\uffff}>";
+    static readonly string[] DFA154_transitionS = {
+            "\x3b\x02\x01\x01\x06\x02\x01\uffff\x0c\x02\x02\uffff\x0a\x02"+
+            "\x02\uffff\x05\x02\x02\uffff\x05\x02\x01\uffff\x01\x02\x03\uffff"+
+            "\x02\x02\x0c\uffff\x02\x02\x02\uffff\x01\x02\x04\uffff\x01\x02"+
+            "\x02\uffff\x01\x02\x01\uffff\x01\x02\x01\uffff\x03\x02",
+            "\x01\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -29980,7 +30975,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2543:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption );"; }
+            get { return "2553:71: ( arrayLiteral )?"; }
         }
 
     }
@@ -29999,106 +30994,12 @@ public class AS3_exParser : Parser
                    	int index154_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred378_AS3_ex()) ) { s = 24; }
+                   	if ( (synpred387_AS3_ex()) ) { s = 87; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (true) ) { s = 2; }
 
                    	 
                    	input.Seek(index154_1);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 1 : 
-                   	int LA154_2 = input.LA(1);
-
-                   	 
-                   	int index154_2 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred379_AS3_ex()) ) { s = 25; }
-
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
-
-                   	 
-                   	input.Seek(index154_2);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 2 : 
-                   	int LA154_3 = input.LA(1);
-
-                   	 
-                   	int index154_3 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
-
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
-
-                   	 
-                   	input.Seek(index154_3);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 3 : 
-                   	int LA154_4 = input.LA(1);
-
-                   	 
-                   	int index154_4 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
-
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
-
-                   	 
-                   	input.Seek(index154_4);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 4 : 
-                   	int LA154_5 = input.LA(1);
-
-                   	 
-                   	int index154_5 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
-
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
-
-                   	 
-                   	input.Seek(index154_5);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 5 : 
-                   	int LA154_13 = input.LA(1);
-
-                   	 
-                   	int index154_13 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred383_AS3_ex()) ) { s = 26; }
-
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
-
-                   	else if ( (true) ) { s = 27; }
-
-                   	 
-                   	input.Seek(index154_13);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 6 : 
-                   	int LA154_14 = input.LA(1);
-
-                   	 
-                   	int index154_14 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred383_AS3_ex()) ) { s = 26; }
-
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
-
-                   	else if ( (true) ) { s = 27; }
-
-                   	 
-                   	input.Seek(index154_14);
                    	if ( s >= 0 ) return s;
                    	break;
         }
@@ -30214,8 +31115,8 @@ public class AS3_exParser : Parser
     public static readonly BitSet FOLLOW_DOT_in_importDeclaration6153 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000002000UL});
     public static readonly BitSet FOLLOW_STAR_in_importDeclaration6159 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
     public static readonly BitSet FOLLOW_semic_in_importDeclaration6165 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_classOrInterfaceDecl6180 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_classOrInterfaceDecl6188 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_classOrInterfaceDecl6180 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_classOrInterfaceDecl6188 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_interfaceDeclaration_in_classOrInterfaceDecl6192 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_classDeclaration_in_classOrInterfaceDecl6196 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_bindingDecl_in_directive6212 = new BitSet(new ulong[]{0x0000000000000002UL});
@@ -30289,8 +31190,8 @@ public class AS3_exParser : Parser
     public static readonly BitSet FOLLOW_COLON_in_interfaceFunctionDeclaration6936 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_type_in_interfaceFunctionDeclaration6940 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
     public static readonly BitSet FOLLOW_semic_in_interfaceFunctionDeclaration6944 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_propertyDeclaration6968 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_propertyDeclaration6975 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_propertyDeclaration6968 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_propertyDeclaration6975 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_variableStatement_in_propertyDeclaration6979 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_constantVarStatement_in_propertyDeclaration6983 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_namespaceDirective_in_propertyDeclaration6987 = new BitSet(new ulong[]{0x0000000000000002UL});
@@ -30369,7 +31270,7 @@ public class AS3_exParser : Parser
     public static readonly BitSet FOLLOW_ASSIGN_in_namespaceDirective8232 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
     public static readonly BitSet FOLLOW_stringLiteral_in_namespaceDirective8237 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
     public static readonly BitSet FOLLOW_semic_in_namespaceDirective8242 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_TRY_in_tryStatement8270 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_TRY_in_tryStatement8270 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_blockStatement_in_tryStatement8276 = new BitSet(new ulong[]{0x0000000000020080UL});
     public static readonly BitSet FOLLOW_catchClause_in_tryStatement8290 = new BitSet(new ulong[]{0x0000000000020080UL});
     public static readonly BitSet FOLLOW_finallyClause_in_tryStatement8293 = new BitSet(new ulong[]{0x0000000000000002UL});
@@ -30378,9 +31279,9 @@ public class AS3_exParser : Parser
     public static readonly BitSet FOLLOW_CATCH_in_catchClause8350 = new BitSet(new ulong[]{0x2000000000000000UL});
     public static readonly BitSet FOLLOW_LPAREN_in_catchClause8357 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_variableIdentifierDecl_in_catchClause8361 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_catchClause8365 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_catchClause8365 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_blockStatement_in_catchClause8369 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FINALLY_in_finallyClause8393 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_FINALLY_in_finallyClause8393 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_blockStatement_in_finallyClause8398 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_IDENTIFIER_in_labelledStatement8424 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
     public static readonly BitSet FOLLOW_COLON_in_labelledStatement8437 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
@@ -30670,25 +31571,29 @@ public class AS3_exParser : Parser
     public static readonly BitSet FOLLOW_xmlPrimaryExpression_in_primaryExpressionHelper13104 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_parExpression_in_primaryExpressionHelper13114 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_conditionalCompilerOption_in_primaryExpressionHelper13125 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_objectLiteral13147 = new BitSet(new ulong[]{0x13FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_propertyNameAndValueList_in_objectLiteral13151 = new BitSet(new ulong[]{0x1000000000000000UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_objectLiteral13156 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13178 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_propertyNameAndValueList13184 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13189 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_propertyName_in_propertyNameAndValue13210 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_propertyNameAndValue13214 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_propertyNameAndValue13232 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_propertyName13251 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_propertyName13262 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_numericLiteral_in_propertyName13273 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LBRACK_in_arrayLiteral13296 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033809UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_elementList_in_arrayLiteral13300 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_RBRACK_in_arrayLiteral13305 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13351 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_elementList13369 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13386 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_elementList13399 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LT_in_primaryExpressionHelper13134 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_primaryExpressionHelper13138 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_primaryExpressionHelper13142 = new BitSet(new ulong[]{0x8000000000000002UL});
+    public static readonly BitSet FOLLOW_arrayLiteral_in_primaryExpressionHelper13147 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_objectLiteral13172 = new BitSet(new ulong[]{0x13FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_propertyNameAndValueList_in_objectLiteral13176 = new BitSet(new ulong[]{0x1000000000000000UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_objectLiteral13181 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13203 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_propertyNameAndValueList13209 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13214 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_propertyName_in_propertyNameAndValue13235 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_propertyNameAndValue13239 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_propertyNameAndValue13257 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_propertyName13276 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_propertyName13287 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_numericLiteral_in_propertyName13298 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LBRACK_in_arrayLiteral13321 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033809UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_elementList_in_arrayLiteral13325 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_RBRACK_in_arrayLiteral13330 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13376 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_elementList13394 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13411 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_elementList13424 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_SUB_in_synpred9_AS3_ex3793 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_DOT_in_synpred9_AS3_ex3801 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
     public static readonly BitSet FOLLOW_COLON_in_synpred9_AS3_ex3809 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
@@ -30790,5 +31695,7 @@ public class AS3_exParser : Parser
     public static readonly BitSet FOLLOW_literal_in_synpred380_AS3_ex13058 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_identifierLiteral_in_synpred383_AS3_ex13093 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_xmlPrimaryExpression_in_synpred384_AS3_ex13104 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_synpred386_AS3_ex13125 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arrayLiteral_in_synpred387_AS3_ex13147 = new BitSet(new ulong[]{0x0000000000000002UL});
 
 }
