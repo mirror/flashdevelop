@@ -945,7 +945,7 @@ namespace ASCompletion.Completion
             while (true)
             {
                 restartCycle = false;
-                if (expr != null)
+                if (expr != null && expr.LocalVars != null)
                     foreach (MemberModel m in expr.LocalVars)
                     {
                         if (m.Name == iterator)
