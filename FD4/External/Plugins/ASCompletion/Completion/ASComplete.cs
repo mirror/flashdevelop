@@ -650,176 +650,182 @@ namespace ASCompletion.Completion
         /// </summary>
         internal static void ResolveContext(ScintillaControl Sci)
         {
-            // check if a document
-            if (Sci == null)
+            try
             {
-                ClearResolvedContext();
-                return;
-            }
+                // check if a document
+                if (Sci == null)
+                {
+                    ClearResolvedContext();
+                    return;
+                }
 
-            // check if resolution is needed
-            int position = Sci.WordEndPosition(Sci.CurrentPos, true);
-            if (CurrentResolvedContext != null && CurrentResolvedContext.Position == position 
-                && CurrentResolvedContext.Result != null && !CurrentResolvedContext.Result.IsNull())
-                return;
-
-            // check context
-            IASContext context = ASContext.Context;
-            if (context == null || context.CurrentModel == null)
-            {
-                ClearResolvedContext();
-                return;
-            }
-            CurrentResolvedContext = new ResolvedContext();
-            CurrentResolvedContext.Position = position;
-
-            // get type at cursor position
-            ASResult result;
-            if (ASContext.Context.IsFileValid) result = GetExpressionType(Sci, position);
-            else result = new ASResult();
-            CurrentResolvedContext.Result = result;
-            ContextFeatures features = context.Features;
-
-            Hashtable args = CurrentResolvedContext.Arguments;
-            string package = context.CurrentModel.Package;
-            args.Add("TypPkg", package);
-
-            ClassModel cClass = context.CurrentClass;
-            if (cClass == null) cClass = ClassModel.VoidClass;
-            args.Add("TypName", MemberModel.FormatType(cClass.Name));
-            string fullname = MemberModel.FormatType(cClass.QualifiedName);
-            args.Add("TypPkgName", fullname);
-            FlagType flags = cClass.Flags;
-            string kind = GetKind(flags, features);
-            args.Add("TypKind", kind);
-
-            if (context.CurrentMember != null)
-            {
-                args.Add("MbrName", context.CurrentMember.Name);
-                flags = context.CurrentMember.Flags;
-                kind = GetKind(flags, features);
-                args.Add("MbrKind", kind);
-
-                ClassModel aType = CurrentResolvedContext.TokenType 
-                    = ASContext.Context.ResolveType(context.CurrentMember.Type, context.CurrentModel);
-                package = aType.IsVoid() ? "" : aType.InFile.Package;
-                args.Add("MbrTypPkg", package);
-                args.Add("MbrTypName", MemberModel.FormatType(aType.Name));
-                fullname = MemberModel.FormatType(aType.QualifiedName);
-                args.Add("MbrTypePkgName", fullname);
-                flags = aType.Flags;
-                kind = GetKind(flags, features);
-                args.Add("MbrTypKind", kind);
-
-                // Get closest list (Array or Vector)
-                string closestListName = "", closestListItemType = "";
-                FindClosestList(context, result.Context, Sci.LineFromPosition(position), ref closestListName, ref closestListItemType);
-                args.Add("TypClosestListName", closestListName);
-                args.Add("TypClosestListItemType", closestListItemType);
-
-                // get free iterator index
-                string iterator = FindFreeIterator(context, cClass, result.Context);
-                args.Add("ItmUniqueVar", iterator);
-            }
-            else
-            {
-                args.Add("MbrName", "");
-                args.Add("MbrKind", "");
-                args.Add("MbrTypPkg", "");
-                args.Add("MbrTypName", "");
-                args.Add("MbrTypePkgName", "");
-                args.Add("MbrTypKind", "");
-                args.Add("TypClosestListName", "");
-                args.Add("TypClosestListItemType", "");
-                args.Add("ItmUniqueVar", "");
-            }
-
-            // if element can be resolved
-            if (!result.IsNull())
-            {
-                ClassModel oClass = result.InClass != null ? result.InClass : result.Type;
-
-                if (result.IsPackage || oClass.IsVoid())
+                // check if resolution is needed
+                int position = Sci.WordEndPosition(Sci.CurrentPos, true);
+                if (CurrentResolvedContext != null && CurrentResolvedContext.Position == position
+                    && CurrentResolvedContext.Result != null && !CurrentResolvedContext.Result.IsNull())
                     return;
 
-                // type details
-                FileModel file;
-                MemberModel member = result.Member;
-
-                if (member != null && member.IsPackageLevel)
+                // check context
+                IASContext context = ASContext.Context;
+                if (context == null || context.CurrentModel == null)
                 {
-                    args.Add("ItmTypName", member.Name);
-                    file = member.InFile;
-                    fullname = "package";
-                    flags = member.Flags;
+                    ClearResolvedContext();
+                    return;
+                }
+                CurrentResolvedContext = new ResolvedContext();
+                CurrentResolvedContext.Position = position;
+
+                // get type at cursor position
+                ASResult result;
+                if (ASContext.Context.IsFileValid) result = GetExpressionType(Sci, position);
+                else result = new ASResult();
+                CurrentResolvedContext.Result = result;
+                ContextFeatures features = context.Features;
+
+                Hashtable args = CurrentResolvedContext.Arguments;
+                string package = context.CurrentModel.Package;
+                args.Add("TypPkg", package);
+
+                ClassModel cClass = context.CurrentClass;
+                if (cClass == null) cClass = ClassModel.VoidClass;
+                args.Add("TypName", MemberModel.FormatType(cClass.Name));
+                string fullname = MemberModel.FormatType(cClass.QualifiedName);
+                args.Add("TypPkgName", fullname);
+                FlagType flags = cClass.Flags;
+                string kind = GetKind(flags, features);
+                args.Add("TypKind", kind);
+
+                if (context.CurrentMember != null)
+                {
+                    args.Add("MbrName", context.CurrentMember.Name);
+                    flags = context.CurrentMember.Flags;
+                    kind = GetKind(flags, features);
+                    args.Add("MbrKind", kind);
+
+                    ClassModel aType = CurrentResolvedContext.TokenType
+                        = ASContext.Context.ResolveType(context.CurrentMember.Type, context.CurrentModel);
+                    package = aType.IsVoid() ? "" : aType.InFile.Package;
+                    args.Add("MbrTypPkg", package);
+                    args.Add("MbrTypName", MemberModel.FormatType(aType.Name));
+                    fullname = MemberModel.FormatType(aType.QualifiedName);
+                    args.Add("MbrTypePkgName", fullname);
+                    flags = aType.Flags;
+                    kind = GetKind(flags, features);
+                    args.Add("MbrTypKind", kind);
+
+                    // Get closest list (Array or Vector)
+                    string closestListName = "", closestListItemType = "";
+                    FindClosestList(context, result.Context, Sci.LineFromPosition(position), ref closestListName, ref closestListItemType);
+                    args.Add("TypClosestListName", closestListName);
+                    args.Add("TypClosestListItemType", closestListItemType);
+
+                    // get free iterator index
+                    string iterator = FindFreeIterator(context, cClass, result.Context);
+                    args.Add("ItmUniqueVar", iterator);
                 }
                 else
                 {
-                    args.Add("ItmTypName", MemberModel.FormatType(oClass.Name));
-                    file = oClass.InFile;
-                    fullname = MemberModel.FormatType(oClass.Name);
-                    flags = oClass.Flags;
+                    args.Add("MbrName", "");
+                    args.Add("MbrKind", "");
+                    args.Add("MbrTypPkg", "");
+                    args.Add("MbrTypName", "");
+                    args.Add("MbrTypePkgName", "");
+                    args.Add("MbrTypKind", "");
+                    args.Add("TypClosestListName", "");
+                    args.Add("TypClosestListItemType", "");
+                    args.Add("ItmUniqueVar", "");
                 }
-                package = file.Package;
-                fullname = (package.Length > 0 ? package + "." : "") + fullname;
-                kind = GetKind(flags, features);
 
-                args.Add("ItmFile", file.FileName);
-                args.Add("ItmTypPkg", package);
-                args.Add("ItmTypPkgName", fullname);
-                args.Add("ItmTypKind", kind);
-                // type as path
-                args.Add("ItmTypPkgNamePath", fullname.Replace('.', '\\'));
-                args.Add("ItmTypPkgNameURL", fullname.Replace('.', '/'));
-
-                if (result.Type != null)
+                // if element can be resolved
+                if (!result.IsNull())
                 {
-                    package = result.Type.InFile.Package;
-                    args.Add("ItmClassName", MemberModel.FormatType(result.Type.Name));
-                    args.Add("ItmClassPkg", package);
-                    args.Add("ItmClassPkgName", MemberModel.FormatType(result.Type.QualifiedName));
+                    ClassModel oClass = result.InClass != null ? result.InClass : result.Type;
+
+                    if (result.IsPackage || oClass.IsVoid())
+                        return;
+
+                    // type details
+                    FileModel file;
+                    MemberModel member = result.Member;
+
+                    if (member != null && member.IsPackageLevel)
+                    {
+                        args.Add("ItmTypName", member.Name);
+                        file = member.InFile;
+                        fullname = "package";
+                        flags = member.Flags;
+                    }
+                    else
+                    {
+                        args.Add("ItmTypName", MemberModel.FormatType(oClass.Name));
+                        file = oClass.InFile;
+                        fullname = MemberModel.FormatType(oClass.Name);
+                        flags = oClass.Flags;
+                    }
+                    package = file.Package;
+                    fullname = (package.Length > 0 ? package + "." : "") + fullname;
+                    kind = GetKind(flags, features);
+
+                    args.Add("ItmFile", file.FileName);
+                    args.Add("ItmTypPkg", package);
+                    args.Add("ItmTypPkgName", fullname);
+                    args.Add("ItmTypKind", kind);
+                    // type as path
+                    args.Add("ItmTypPkgNamePath", fullname.Replace('.', '\\'));
+                    args.Add("ItmTypPkgNameURL", fullname.Replace('.', '/'));
+
+                    if (result.Type != null)
+                    {
+                        package = result.Type.InFile.Package;
+                        args.Add("ItmClassName", MemberModel.FormatType(result.Type.Name));
+                        args.Add("ItmClassPkg", package);
+                        args.Add("ItmClassPkgName", MemberModel.FormatType(result.Type.QualifiedName));
+                    }
+                    else
+                    {
+                        args.Add("ItmClassName", "");
+                        args.Add("ItmClassPkg", "");
+                        args.Add("ItmClassPkgName", "");
+                    }
+
+                    // element details
+                    if (result.Type != null && member != null)
+                    {
+                        args.Add("ItmName", member.Name);
+                        flags = member.Flags & ~(FlagType.LocalVar | FlagType.Dynamic | FlagType.Static);
+                        kind = GetKind(flags, features);
+                        args.Add("ItmKind", kind);
+                        args.Add("ItmNameDocs", member.Name + (kind == features.functionKey ? "()" : ""));
+                    }
+                    else
+                    {
+                        args.Add("ItmName", MemberModel.FormatType(oClass.Name));
+                        flags = oClass.Flags;
+                        kind = GetKind(flags, features);
+                        args.Add("ItmKind", kind);
+                        args.Add("ItmNameDocs", "");
+                    }
                 }
                 else
                 {
+                    args.Add("ItmFile", "");
+                    args.Add("ItmName", "");
+                    args.Add("ItmKind", "");
+                    args.Add("ItmTypName", "");
+                    args.Add("ItmTypPkg", "");
+                    args.Add("ItmTypPkgName", "");
+                    args.Add("ItmTypKind", "");
+                    args.Add("ItmTypPkgNamePath", "");
+                    args.Add("ItmTypPkgNameURL", "");
                     args.Add("ItmClassName", "");
                     args.Add("ItmClassPkg", "");
                     args.Add("ItmClassPkgName", "");
                 }
-
-                // element details
-                if (result.Type != null && member != null)
-                {
-                    args.Add("ItmName", member.Name);
-                    flags = member.Flags & ~(FlagType.LocalVar | FlagType.Dynamic | FlagType.Static);
-                    kind = GetKind(flags, features);
-                    args.Add("ItmKind", kind);
-                    args.Add("ItmNameDocs", member.Name + (kind == features.functionKey ? "()" : ""));
-                }
-                else
-                {
-                    args.Add("ItmName", MemberModel.FormatType(oClass.Name));
-                    flags = oClass.Flags;
-                    kind = GetKind(flags, features);
-                    args.Add("ItmKind", kind);
-                    args.Add("ItmNameDocs", "");
-                }
+                NotifyContextChanged();
             }
-            else
+            catch (Exception ex)
             {
-                args.Add("ItmFile", "");
-                args.Add("ItmName", "");
-                args.Add("ItmKind", "");
-                args.Add("ItmTypName", "");
-                args.Add("ItmTypPkg", "");
-                args.Add("ItmTypPkgName", "");
-                args.Add("ItmTypKind", "");
-                args.Add("ItmTypPkgNamePath", "");
-                args.Add("ItmTypPkgNameURL", "");
-                args.Add("ItmClassName", "");
-                args.Add("ItmClassPkg", "");
-                args.Add("ItmClassPkgName", "");
             }
-            NotifyContextChanged();
         }
 
         private static void ClearResolvedContext()
@@ -879,6 +885,9 @@ namespace ASCompletion.Completion
         public static void FindClosestList(IASContext context, ASExpr expr, int lineNum, ref string closestListName, ref string closestListItemType)
         {
             MemberModel closestList = null;
+            if (expr == null || expr.LocalVars == null) 
+                return;
+
             foreach (MemberModel m in expr.LocalVars)
             {
                 if (m.LineFrom > lineNum)

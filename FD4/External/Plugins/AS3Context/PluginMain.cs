@@ -438,6 +438,7 @@ namespace AS3Context
                 string includedSDK = "Tools\\flexsdk";
                 if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
                 {
+                    InstalledSDKContext.Current = this;
                     InstalledSDK sdk = new InstalledSDK(this);
                     sdk.Path = includedSDK;
                     settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
