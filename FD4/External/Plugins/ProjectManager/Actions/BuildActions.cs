@@ -169,7 +169,7 @@ namespace ProjectManager.Actions
 			string fdBuildPath = Path.Combine(fdBuildDir, "fdbuild.exe");
 
 			string arguments = " -ipc " + ipcName;
-            arguments += " -version \"" + sdk.Version.Replace(',', ';') + "\"";
+            if (sdk.Version != null) arguments += " -version \"" + sdk.Version.Replace(',', ';') + "\"";
             arguments += " -compiler \"" + project.CurrentSDK + "\"";
 
             if (releaseMode) arguments += " -notrace";

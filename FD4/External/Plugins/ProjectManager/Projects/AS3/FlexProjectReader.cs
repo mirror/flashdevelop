@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using PluginCore.Helpers;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -52,11 +53,34 @@ namespace ProjectManager.Projects.AS3
             if (GetAttribute("useApolloConfig") == "true")
             {
                 if (additional.Length > 0) additional += "\n";
-                additional += "+configname=air";
-                //api.Add("Library\\AS3\\frameworks\\AIR");
+                project.MovieOptions.Platform = AS3MovieOptions.AIR_PLATFORM;
+                project.TestMovieBehavior = TestMovieBehavior.Custom;
             }
+            else
+            {
+                project.MovieOptions.Platform = AS3MovieOptions.FLASHPLAYER_PLATFORM;
+                project.TestMovieBehavior = TestMovieBehavior.Default;
+            }
+            project.MovieOptions.Version = project.MovieOptions.DefaultVersion(project.MovieOptions.Platform);
+
             project.CompilerOptions.Additional = additional.Split('\n');
-            if (Path.GetExtension(mainApp).ToLower() == ".mxml") api.Add("Library\\AS3\\frameworks\\Flex3");
+            if (Path.GetExtension(mainApp).ToLower() == ".mxml")
+            {
+                int target = 4;
+                try
+                {
+                    string mainFile = PathHelper.ResolvePath(mainApp, project.Directory);
+                    if (mainFile != null && File.Exists(mainFile))
+                        if (File.ReadAllText(mainFile).IndexOf("http://www.adobe.com/2006/mxml") > 0)
+                        {
+                            target = 3;
+                            if (project.MovieOptions.Platform == AS3MovieOptions.FLASHPLAYER_PLATFORM)
+                                project.MovieOptions.Version = "9.0";
+                        }
+                }
+                catch { } 
+                api.Add("Library\\AS3\\frameworks\\Flex" + target);
+            }
             if (api.Count > 0) project.CompilerOptions.IntrinsicPaths = api.ToArray();
 
             while (Read() && Name != "compiler")

@@ -1743,7 +1743,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Dieses Projekt hat keine Ausgabedatei und und keine Pre- oder Post-Build-Befehle definiert.</value>
   </data>
   <data name="ProjectManager.Info.NoProjectsOpenLink" xml:space="preserve">
-    <value>|Erstelle neues Projekt|{0}oder{0}|Öffne existierende Projekt|{0}oder{0}|Importiere Flex Builder Projekt|</value>
+    <value>|Erstelle neues Projekt|{0}oder{0}|Öffne existierende Projekt|{0}oder{0}|Importiere Flash Builder Projekt|</value>
   </data>
   <data name="ProjectManager.Info.NoTemplatesFound" xml:space="preserve">
     <value>Keine Vorlagen wurden im Vorlagenverzeichnis gefunden. Sie können keine Projekte erstellen. Sie können dieses Problem beheben, indem Sie FlashDevelop neu installieren.</value>
@@ -1776,7 +1776,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Die Projektdatei existiert bereits. Möchten Sie sie überschreiben?</value>
   </data>
   <data name="ProjectManager.Info.ProjectsFilter" xml:space="preserve">
-    <value>FlashDevelop Projekte (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder Projekt (.actionScriptProperties)|.actionScriptProperties</value>
+    <value>FlashDevelop Projekte (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flash Builder Projekt (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="ProjectManager.Info.Properties" xml:space="preserve">
     <value>Eigenschaften</value>
@@ -2415,7 +2415,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Wählen Sie ein Projekt um es zu importieren</value>
   </data>
   <data name="ProjectManager.Info.ImportProjectFilter" xml:space="preserve">
-    <value>Adobe Flex Builder Projekt (.actionScriptProperties)|.actionScriptProperties</value>
+    <value>Adobe Flash Builder Projekt (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
     <value>Suchresultate im Resultatsfenster anzeigen</value>

@@ -1728,7 +1728,7 @@
     <value>このプロジェクトはなにも書き出さず、設定されたコマンドも実行しません。</value>
   </data>
   <data name="ProjectManager.Info.NoProjectsOpenLink" xml:space="preserve">
-    <value>|新規プロジェクトを作成|{0}または{0}|既存のプロジェクトを開く|{0}または{0}|Flex Builder プロジェクトをインポート|</value>
+    <value>|新規プロジェクトを作成|{0}または{0}|既存のプロジェクトを開く|{0}または{0}|Flash Builder プロジェクトをインポート|</value>
   </data>
   <data name="ProjectManager.Info.NoTemplatesFound" xml:space="preserve">
     <value>テンプレートディレクトリの中にテンプレートが見つかりません。新規プロジェクトが作成できない可能性があります。FlashDevelop を再インストールしてください。</value>
@@ -1761,7 +1761,7 @@
     <value>プロジェクトファイルは既に存在します。上書きしますか？</value>
   </data>
   <data name="ProjectManager.Info.ProjectsFilter" xml:space="preserve">
-    <value>FlashDevelop プロジェクト (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties</value>
+    <value>FlashDevelop プロジェクト (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flash Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="ProjectManager.Info.Properties" xml:space="preserve">
     <value>プロジェクト設定</value>
@@ -2413,7 +2413,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>プロジェクトに読み込むものを選択</value>
   </data>
   <data name="ProjectManager.Info.ImportProjectFilter" xml:space="preserve">
-    <value>Adobe Flex Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties</value>
+    <value>Adobe Flash Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties</value>
   </data>
   <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
     <value>結果パネルに表示</value>
