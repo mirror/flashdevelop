@@ -823,7 +823,7 @@ namespace ASCompletion.Completion
                 }
                 NotifyContextChanged();
             }
-            catch (Exception ex)
+            catch 
             {
             }
         }

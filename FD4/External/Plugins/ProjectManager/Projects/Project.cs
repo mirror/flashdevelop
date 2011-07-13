@@ -197,10 +197,9 @@ namespace ProjectManager.Projects
 		
 		public virtual void SetCompileTarget(string path, bool isCompileTarget)
 		{
-			if (isCompileTarget)
-				compileTargets.Add(GetRelativePath(path));
-			else
-				compileTargets.Remove(GetRelativePath(path));
+            string relPath = Path.IsPathRooted(path) ? GetRelativePath(path) : path;
+			if (isCompileTarget) compileTargets.Add(relPath);
+			else compileTargets.Remove(relPath);
 		}
 
 		public bool IsCompileTarget(string path) { return compileTargets.Contains(GetRelativePath(path)); }
@@ -209,10 +208,9 @@ namespace ProjectManager.Projects
 
         public virtual void SetLibraryAsset(string path, bool isLibraryAsset)
         {
-            if (isLibraryAsset)
-                libraryAssets.Add(GetRelativePath(path));
-            else
-                libraryAssets.Remove(GetRelativePath(path));
+            string relPath = Path.IsPathRooted(path) ? GetRelativePath(path) : path;
+            if (isLibraryAsset) libraryAssets.Add(relPath);
+            else libraryAssets.Remove(relPath);
         }
 
         public virtual bool IsLibraryAsset(string path) { return libraryAssets.Contains(GetRelativePath(path)); }

@@ -251,6 +251,11 @@ namespace ASCompletion.Context
             }
         }
 
+        virtual public bool CanBuild
+        {
+            get { return false; }
+        }
+
 		/// <summary>
 		/// Language built-in elements
 		/// </summary>

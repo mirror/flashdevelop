@@ -229,18 +229,18 @@ namespace ProjectManager.Actions
 		public void RemoveAllReferences(Project project, string path)
 		{
 			if (project.IsLibraryAsset(path))
-				project.SetLibraryAsset(path,false);
+				project.SetLibraryAsset(path, false);
 
 			if (project.IsCompileTarget(path))
-				project.SetCompileTarget(path,false);
+				project.SetCompileTarget(path, false);
 		}
 
 		public void MoveReferences(Project project, string fromPath, string toPath)
 		{
 			if (project.IsCompileTarget(fromPath))
 			{
-				project.SetCompileTarget(fromPath,false);
-				project.SetCompileTarget(toPath,true);
+				project.SetCompileTarget(fromPath, false);
+				project.SetCompileTarget(toPath, true);
 			}
 			
 			if (project.IsLibraryAsset(fromPath))
@@ -301,9 +301,13 @@ namespace ProjectManager.Actions
             {
                 while (project.CompileTargets.Count > project.MaxTargetsCount)
                 {
+                    int len = project.CompileTargets.Count; 
                     string relPath = project.CompileTargets[0];
+                    project.SetCompileTarget(relPath, false);
+                    if (project.CompileTargets.Count == len) // safety if path is not removed
+                        project.CompileTargets.RemoveAt(0);
+
                     string path = project.GetAbsolutePath(relPath);
-                    project.SetCompileTarget(path, false);
                     OnProjectModified(new string[] { path });
                 }
             }

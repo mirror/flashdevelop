@@ -1152,6 +1152,12 @@ namespace AS2Context
 		#endregion
 		
 		#region command line compiler
+
+        override public bool CanBuild
+        {
+            get { return cFile != null && cFile != FileModel.Ignore; }
+        }
+
         /// <summary>
         /// Retrieve the context's default compiler path
         /// </summary>

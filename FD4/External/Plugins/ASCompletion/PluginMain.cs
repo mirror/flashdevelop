@@ -49,6 +49,7 @@ namespace ASCompletion
             EventType.ApplySettings |
             EventType.ProcessArgs;
         private List<ToolStripItem> menuItems;
+        private ToolStripItem quickBuildItem;
         private int currentPos;
         private string currentDoc;
         private bool started;
@@ -590,7 +591,8 @@ namespace ASCompletion
                 item = new ToolStripMenuItem(TextHelper.GetString("Label.QuickBuild"), image, new EventHandler(QuickBuild), Keys.Control | Keys.F8);
                 PluginBase.MainForm.RegisterShortcutItem("FlashToolsMenu.QuickBuild", item);
                 menu.DropDownItems.Add(item);
-                menuItems.Add(item);
+                //menuItems.Add(item);
+                quickBuildItem = item;
 
                 menu.DropDownItems.Add(new ToolStripSeparator());
 
@@ -784,9 +786,10 @@ namespace ASCompletion
 		/// Sets the IsEnabled value of all the CommandBarItems
 		/// </summary>
 		/// <param name="enabled">Is the item enabled?</param>
-		private void SetItemsEnabled(bool enabled)
+		private void SetItemsEnabled(bool enabled, bool canBuild)
 		{
             foreach (ToolStripItem item in menuItems) item.Enabled = enabled;
+            quickBuildItem.Enabled = canBuild;
         }
 
         #endregion
@@ -870,7 +873,7 @@ namespace ASCompletion
             
             bool enableItems = isValid && !doc.IsUntitled;
             pluginUI.OutlineTree.Enabled = ASContext.Context.CurrentModel != null;
-            SetItemsEnabled(enableItems);
+            SetItemsEnabled(enableItems, ASContext.Context.CanBuild);
         }
         #endregion
     }

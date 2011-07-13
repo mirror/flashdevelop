@@ -313,9 +313,14 @@ namespace ASCompletion.Context
         bool InPrivateSection { get; }
 
         /// <summary>
-        /// File is valid for completion
+        /// Current file is valid for completion
         /// </summary>
         bool IsFileValid { get; }
+
+        /// <summary>
+        /// Current file can be compiled
+        /// </summary>
+        bool CanBuild { get; }
 
         #endregion
 
