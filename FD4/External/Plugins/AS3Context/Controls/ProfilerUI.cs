@@ -326,7 +326,7 @@ namespace AS3Context.Controls
                 {
                     src += AddCustomProfiler() ?? AddDefaultProfiler();
                 }
-                File.WriteAllText(mmCfg, src);
+                File.WriteAllText(mmCfg, src, Encoding.UTF8);
             }
             catch 
             {

@@ -218,7 +218,7 @@ namespace FlashLogViewer
                 {
                     if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
                     this.Settings.FlashLogFile = Path.Combine(flashLogDir, "flashlog.txt");
-                    FileHelper.WriteFile(this.Settings.FlashLogFile, "", Encoding.UTF8);
+                    File.WriteAllText(this.Settings.FlashLogFile, "", Encoding.UTF8);
                 }
             }
             catch {} // No errors please...
@@ -228,7 +228,7 @@ namespace FlashLogViewer
                 {
                     if (!Directory.Exists(flashLogDir)) Directory.CreateDirectory(flashLogDir);
                     this.Settings.PolicyLogFile = Path.Combine(flashLogDir, "policyfiles.txt");
-                    FileHelper.WriteFile(this.Settings.PolicyLogFile, "", Encoding.UTF8);
+                    File.WriteAllText(this.Settings.PolicyLogFile, "", Encoding.UTF8);
                 }
             }
             catch {} // No errors please...
@@ -237,7 +237,7 @@ namespace FlashLogViewer
                 if (!File.Exists(mmConfigFile))
                 {
                     String contents = "PolicyFileLog=1\r\nPolicyFileLogAppend=0\r\nErrorReportingEnable=1\r\nTraceOutputFileEnable=1\r\n";
-                    FileHelper.WriteFile(mmConfigFile, contents, Encoding.UTF8);
+                    File.WriteAllText(mmConfigFile, contents, Encoding.UTF8);
                 }
             }
             catch {} // No errors please...

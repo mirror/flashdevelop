@@ -210,7 +210,7 @@ namespace AirProperties
             if (PluginBase.CurrentProject != null)
             {
                 ProjectManager.Projects.Project project = (ProjectManager.Projects.Project)PluginBase.CurrentProject;
-                pluginActive = (project.MovieOptions.Platform == "AIR");
+                pluginActive = (project.MovieOptions.Platform == "AIR" || project.MovieOptions.Platform == "AIR Mobile");
             }
             this.pluginMenuItem.Enabled = this.pmMenuButton.Enabled = pluginActive;
         }
