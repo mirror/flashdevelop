@@ -133,7 +133,7 @@ namespace ProjectManager.Actions
                 platform = project.MovieOptions.Platform;
                 majorVersion = project.MovieOptions.MajorVersion;
                 minorVersion = project.MovieOptions.MinorVersion;
-                if (project.MovieOptions.Platform == "AIR")
+                if (project.MovieOptions.Platform == "AIR" || project.MovieOptions.Platform == "AIR Mobile")
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
                 // add project classpaths
