@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
-using PluginCore.Helpers;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -69,7 +68,7 @@ namespace ProjectManager.Projects.AS3
                 int target = 4;
                 try
                 {
-                    string mainFile = PathHelper.ResolvePath(mainApp, project.Directory);
+                    string mainFile = ResolvePath(mainApp, project.Directory);
                     if (mainFile != null && File.Exists(mainFile))
                         if (File.ReadAllText(mainFile).IndexOf("http://www.adobe.com/2006/mxml") > 0)
                         {
@@ -159,6 +158,16 @@ namespace ProjectManager.Projects.AS3
                 }
                 Read();
             }
+        }
+
+        public static String ResolvePath(String path, String relativeTo)
+        {
+            if (path == null || path.Length == 0) return null;
+            Boolean isPathNetworked = path.StartsWith("\\\\") || path.StartsWith("//");
+            if (Path.IsPathRooted(path) || isPathNetworked) return path;
+            String resolvedPath = Path.Combine(relativeTo, path);
+            if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
+            return null;
         }
     }
 }
