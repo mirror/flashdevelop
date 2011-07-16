@@ -5465,18 +5465,20 @@ namespace ScintillaNet
 		public bool PositionIsOnComment(int position, int lexer)
 		{
 			int style = BaseStyleAt(position);
-			if ((lexer == 3 || lexer == 18 || lexer == 25 || lexer == 27)
-			    && style == 1
+			if (lexer == 3 || lexer == 18 || lexer == 25 || lexer == 27)
+            {
+                return (    // cpp, tcl, bullant or pascal
+			    style == 1
 			    || style == 2 
 			    || style == 3
 			    || style == 15
 				|| style == 17
-				|| style == 18)
-			{
-				return true; // cpp, tcl, bullant or pascal
-			} 
-			else if ((lexer == 4 || lexer == 5)
-		        && style == 9
+				|| style == 18);
+			}
+			else if (lexer == 4 || lexer == 5)
+            {
+                return (    // html or xml
+		        style == 9
 		        || style == 20 
 		        || style == 29 
 		        || style == 30 
@@ -5491,125 +5493,123 @@ namespace ScintillaNet
 		        || style == 92
 		        || style == 107
 		        || style == 124
-		        || style == 125)
-			{
-				return true; // html or xml
+		        || style == 125);
 			}
-			else if ((lexer == 2 || lexer == 21)
-			    && style == 1
-			    || style == 12)
-			{
-				return true; // python or lisp
+			else if (lexer == 2 || lexer == 21)
+            {
+                return (    // python or lisp
+			    style == 1
+			    || style == 12);
 			}
-			else if ((lexer == 6 || lexer == 22 || lexer == 45 || lexer == 62)
-			    && style == 2)
-			{
-				return true; // perl, bash, clarion/clw or ruby
+			else if (lexer == 6 || lexer == 22 || lexer == 45 || lexer == 62)
+            {
+                return (    // perl, bash, clarion/clw or ruby
+			    style == 2);
 			}
-			else if ((lexer == 7)
-			    && style == 1
+			else if (lexer == 7)
+            {
+                return (    // sql
+			    style == 1
 				|| style == 2 
 				|| style == 3
 				|| style == 13
 				|| style == 15
 				|| style == 17
-				|| style == 18)
-			{
-				return true; // sql
+				|| style == 18);
 			}
-			else if ((lexer == 8 || lexer == 9 || lexer == 11 || lexer == 12 || lexer == 16 || lexer == 17 || lexer == 19 || lexer == 23 || lexer == 24 || lexer == 26 || lexer == 28 || lexer == 32 || lexer == 36 || lexer == 37 || lexer == 40 || lexer == 44 || lexer == 48 || lexer == 51 || lexer == 53 || lexer == 54 || lexer == 57 || lexer == 63)
-			    && style == 1)
-			{
-				return true; // asn1, vb, diff, batch, makefile, avenue, eiffel, eiffelkw, vbscript, matlab, crontab, fortran, f77, lout, mmixal, yaml, powerbasic, erlang, octave, kix or properties
+			else if (lexer == 8 || lexer == 9 || lexer == 11 || lexer == 12 || lexer == 16 || lexer == 17 || lexer == 19 || lexer == 23 || lexer == 24 || lexer == 26 || lexer == 28 || lexer == 32 || lexer == 36 || lexer == 37 || lexer == 40 || lexer == 44 || lexer == 48 || lexer == 51 || lexer == 53 || lexer == 54 || lexer == 57 || lexer == 63)
+            {
+                return (    // asn1, vb, diff, batch, makefile, avenue, eiffel, eiffelkw, vbscript, matlab, crontab, fortran, f77, lout, mmixal, yaml, powerbasic, erlang, octave, kix or properties
+			    style == 1);
 			}
-			else if ((lexer == 14)
-			    && style == 4)
-			{
-				return true; // latex
+			else if (lexer == 14)
+            {
+                return (    // latex
+			    style == 4);
 			}
-			else if ((lexer == 15 || lexer == 41 || lexer == 56)
-			    && style == 1
+			else if (lexer == 15 || lexer == 41 || lexer == 56)
+            {
+                return (    // lua, verilog or escript
+			    style == 1
 			   	|| style == 2
-			  	|| style == 3)
-			{
-				return true; // lua, verilog or escript
+			  	|| style == 3);
 			}
-			else if ((lexer == 20)
-			    && style == 10)
-			{
-				return true; // ada
+			else if (lexer == 20)
+            {
+                return (    // ada
+			    style == 10);
 			}
-			else if ((lexer == 31 || lexer == 39 || lexer == 42 || lexer == 52 || lexer == 55 || lexer == 58 || lexer == 60 || lexer == 61 || lexer == 64 || lexer == 71)
-			    && style == 1
-				|| style == 2)
-			{
-				return true; // au3, apdl, baan, ps, mssql, rebol, forth, gui4cli, vhdl or pov
+			else if (lexer == 31 || lexer == 39 || lexer == 42 || lexer == 52 || lexer == 55 || lexer == 58 || lexer == 60 || lexer == 61 || lexer == 64 || lexer == 71)
+            {
+                return (    // au3, apdl, baan, ps, mssql, rebol, forth, gui4cli, vhdl or pov
+			    style == 1
+				|| style == 2);
 			}
-			else if ((lexer == 34)
-			    && style == 1
-				|| style == 11)
-			{
-				return true; // asm
+			else if (lexer == 34)
+            {
+                return (    // asm
+			    style == 1
+				|| style == 11);
 			}
-			else if ((lexer == 43)
-			    && style == 1
-				|| style == 18)
-			{
-				return true; // nsis
+			else if (lexer == 43)
+            {
+                return (    // nsis
+			    style == 1
+				|| style == 18);
 			}
-			else if ((lexer == 59)
-			    && style == 2
-				|| style == 3)
-			{
-				return true; // specman
+			else if (lexer == 59)
+            {
+                return (    // specman
+			    style == 2
+				|| style == 3);
 			}
-			else if ((lexer == 70)
-			    && style == 3
-				|| style == 4)
-			{
-				return true; // tads3
+			else if (lexer == 70)
+            {
+                return (    // tads3
+                style == 3
+                || style == 4);
 			}
-			else if ((lexer == 74)
-			    && style == 1
-				|| style == 9)
-			{
-				return true; // csound
+			else if (lexer == 74)
+            {
+                return (    // csound
+			    style == 1
+				|| style == 9);
 			}
-			else if ((lexer == 65)
-			    && style == 12
+			else if (lexer == 65)
+            {
+                return (    // caml
+			    style == 12
 				|| style == 13
 				|| style == 14
-				|| style == 15)
-			{
-				return true; // caml
+				|| style == 15);
 			}
-			else if ((lexer == 68)
-			    && style == 13
+			else if (lexer == 68)
+            {
+                return (    // haskell
+			    style == 13
 				|| style == 14
 				|| style == 15
-				|| style == 16)
-			{
-				return true; // haskell
+				|| style == 16);
 			}
-			else if ((lexer == 73)
-			    && style == 1
+			else if (lexer == 73)
+            {
+                return (    // flagship
+			    style == 1
 				|| style == 2
 				|| style == 3
 				|| style == 4
 				|| style == 5
-				|| style == 6)
-			{
-				return true; // flagship
+				|| style == 6);
 			}
-			else if ((lexer == 72) 
-			    && style == 3)
-			{
-				return true; // smalltalk
+			else if (lexer == 72) 
+            {
+                return (    // smalltalk
+			    style == 3);
 			}
-			else if ((lexer == 38) 
-			    && style == 9)
-			{
-				return true; // css
+			else if (lexer == 38) 
+            {
+                return (    // css
+			    style == 9);
 			}
 			return false;
 		}
@@ -6027,7 +6027,7 @@ namespace ScintillaNet
         }
 
         /// <summary>
-        /// Moves the current line(s) down or down
+        /// Moves the current line(s) up or down
         /// </summary>
         public void MoveLine(int dir)
         {
@@ -6039,25 +6039,57 @@ namespace ScintillaNet
             if (this.PositionFromLine(endLine) != end || startLine == endLine) ++endLine;
             if (this.SelectionStart == this.SelectionEnd && PluginBase.MainForm.Settings.CodingStyle == CodingStyle.BracesAfterLine)
             {
-                // TODO? do we need a better test for moving open brace and line above it together
-                if (this.GetLine(startLine).Trim().StartsWith("{")) --startLine;
-                else if (this.GetLine(startLine + 1).Trim().StartsWith("{")) ++endLine;
+                string str = this.GetLine(startLine).Trim();
+                if (str.StartsWith("{")) startLine = this.GetStartLine(startLine - 1);
+                else if (str.IndexOf('(') >= 0)
+                {
+                    int pos = this.GetLine(startLine).IndexOf('(');
+                    pos += this.PositionFromLine(startLine);
+                    pos = this.BraceMatch(pos);
+                    if (pos != -1 /*INVALID_POSITION*/)
+                    {
+                        int nextLine = this.LineFromPosition(pos);
+                        if (this.GetLine(nextLine + 1).Trim().StartsWith("{")) endLine = nextLine + 2;
+                    }
+                }
             }
             int len = endLine - startLine;
             this.BeginUndoAction();
             this.SelectionStart = this.PositionFromLine(startLine);
             this.SelectionEnd = this.PositionFromLine(endLine);
             string selectStr = this.SelText;
+            int saveEndAtLastLine = EndAtLastLine;
+            this.EndAtLastLine = 0;     // setting this to 0 prevents unwanted scrolling jumps when moving lines near the bottom of file
             this.Clear();
-            if (dir > 0) this.LineDown();
+            if (dir > 0)
+            {
+                if (startLine + 1 >= this.LineCount)
+                {
+                    String eol = LineEndDetector.GetNewLineMarker(EOLMode);
+                    this.AppendText(eol.Length, eol);
+                }
+                this.LineDown();
+            }
             else this.LineUp();
             startLine += dir;
             // line # moved past limits, so back out the change
             if (startLine < 0 || startLine >= this.LineCount) startLine -= dir;
             else
             {
-                int ctrlBlock = 0;
-                if (len <= 2) ctrlBlock = this.IsControlBlock(selectStr);
+                int ctrlBlock = this.IsControlBlock(selectStr);
+                if (ctrlBlock != 0)
+                {
+                    if (ConfigurationLanguage == "xml" || ConfigurationLanguage == "html" || ConfigurationLanguage == "css")
+                    {
+                        if (ctrlBlock < 0 && (selectStr.IndexOf("</") >= 0 || selectStr.IndexOf("/>") >= 0)) ctrlBlock = 0;
+                        else if (len > 1) ctrlBlock = 0;
+                    }
+                    else
+                    {
+                        char oppositeMark = (ctrlBlock < 0) ? '}' : '{';
+                        if (selectStr.IndexOf(oppositeMark) >= 0) ctrlBlock = 0;    // selection contains both open and close marks, so clear the setting
+                    }
+                }
                 // if we're moving a single control block start/end, reindent the affected lines that are moving in or out of the block
                 if (ctrlBlock != 0)
                 {
@@ -6074,6 +6106,7 @@ namespace ScintillaNet
             this.ReindentLines(startLine, len);
             this.SelectionStart = start;
             this.SelectionEnd = this.LineEndPosition(startLine + len - 1);
+            this.EndAtLastLine = saveEndAtLastLine;
             this.EndUndoAction();
         }
 
@@ -6082,36 +6115,48 @@ namespace ScintillaNet
         /// </summary>
         public void ReindentLines(int startLine, int nLines)
         {
-            if (nLines <= 0) return;
-            String lineComment = Configuration.GetLanguage(ConfigurationLanguage).linecomment;
+            if (nLines <= 0 || nLines > 200) return;
             String pasteStr = "";
             String destStr = "";
             int commentIndent = -1;
             int pasteIndent = -1;
+            int indent;
             int line;
+            // find first non-comment line above the paste, so we can properly recolorize the affected area, even if it spans block comments
+            for (line = startLine; line > 0; )
+            {
+                --line;
+                if (!PositionIsOnComment(PositionFromLine(line)))
+                {
+                    break;
+                }
+            }
+            Colourise(PositionFromLine(line), PositionFromLine(startLine + nLines));
+
             // Scan pasted lines to find their indentation
             for (line = startLine; line < startLine + nLines; ++line)
             {
                 pasteStr = GetLine(line).Trim();
                 if (pasteStr != "")
                 {
-                    if (!String.IsNullOrEmpty(lineComment) && pasteStr.StartsWith(lineComment))
+                    indent = GetLineIndentation(line);
+                    if (PositionIsOnComment(PositionFromLine(line) + indent))
                     {
                         // Indent of the first commented line
-                        if (commentIndent < 0) commentIndent = GetLineIndentation(line);
+                        if (commentIndent < 0) commentIndent = indent;
 
                     }
                     else // We found code, so we won't be using comment-based indenting
                     {
                         commentIndent = -1;
-                        pasteIndent = GetLineIndentation(line);
+                        pasteIndent = indent;
                         break;
                     }
                 }
             }
             // Scan the destination to determine its indentation
             int destIndent = -1;
-            for (line = startLine; --line >= 1; )
+            for (line = startLine; --line >= 0; )
             {
                 destStr = GetLine(line).Trim();
                 if (destStr != "")
@@ -6121,15 +6166,17 @@ namespace ScintillaNet
                         // no code lines were found in the paste, so use the comment indentation
                         pasteIndent = commentIndent;
                         destIndent = GetLineIndentation(line);  // destination indent at any non-blank line
+                        if (IsControlBlock(destStr) < 0) destIndent = GetLineIndentation(GetStartLine(line)) + Indent;
                         break;
                     }
                     else
                     {
-                        if (String.IsNullOrEmpty(lineComment) || !destStr.StartsWith(lineComment))
+                        if (!IsComment(destStr))
                         {
                             destIndent = GetLineIndentation(line); // destination indent at first code-line
                             if (IsControlBlock(destStr) < 0)
                             {
+                                destIndent = GetLineIndentation(GetStartLine(line));
                                 // Indent when we're pasting at the start of a control block (unless we're pasting an end block),
                                 if (IsControlBlock(pasteStr) <= 0) destIndent += Indent;
                             }
@@ -6160,9 +6207,9 @@ namespace ScintillaNet
             if (destIndent < 0) destIndent = 0;
             while (--nLines >= 0)
             {
-                int indent = GetLineIndentation(startLine);
-                if (indent != 0) // TODO: || (startIndent == 0 && not a comment, or preprocessor line)
-                {
+                indent = GetLineIndentation(startLine);
+                if (indent >= Indent || !PositionIsOnComment(PositionFromLine(startLine)))   // TODO: Are there any other lines besides comments that we want to keep in column 1? (preprocessor, ??)
+                {                                                                            // Note that any changes here must also be matched when determining pasteIndent.
                     SetLineIndentation(startLine, destIndent + indent - pasteIndent);
                 }
                 ++startLine;
@@ -6170,9 +6217,42 @@ namespace ScintillaNet
         }
 
         /// <summary>
+        /// Returns the starting line of a multi-line context (like function parameters, or long XML tags)
+        /// </summary>
+        public int GetStartLine(int line)
+        {
+            string str = GetLine(line);
+            char marker;
+            marker = (ConfigurationLanguage == "xml" || ConfigurationLanguage == "html" || ConfigurationLanguage == "css") ? '>' : ')';
+            int pos = str.LastIndexOf(marker);
+            if (pos >= 0)
+            {
+                pos += PositionFromLine(line);
+                pos = BraceMatch(pos);
+                if (pos != -1 /*INVALID_POSITION*/)
+                {
+                    line = LineFromPosition(pos);
+                }
+            }
+            return line;
+        }
+
+        /// <summary>
+        /// Determines whether the input string starts with a comment
+        /// </summary>
+        public bool IsComment(string str)
+        {
+            bool ret;
+            String lineComment = Configuration.GetLanguage(ConfigurationLanguage).linecomment;
+            String blockComment = Configuration.GetLanguage(ConfigurationLanguage).commentstart;
+            ret = ((!String.IsNullOrEmpty(lineComment) && str.StartsWith(lineComment)) || (!String.IsNullOrEmpty(blockComment) && str.StartsWith(blockComment)));
+            return ret;
+        }
+ 
+        /// <summary>
         /// Determines whether the input string is a start/end of a control block
         /// Returns -1:start, 1:end, 0:neither
-        /// <!summary>
+        /// </summary>
         public int IsControlBlock(string str)
         {
             int ret = 0;
@@ -6182,7 +6262,7 @@ namespace ScintillaNet
             if (ConfigurationLanguage == "xml" || ConfigurationLanguage == "html" || ConfigurationLanguage == "css")
             {
                 if (str.StartsWith("</")) ret = 1;
-                else if (str.IndexOf('/') < 0) ret = -1; // TODO: More robust test for a block start?
+                else if (!str.StartsWith("<?") && !str.StartsWith("<!") && !str.StartsWith("</") && !str.EndsWith("/>") && str.EndsWith(">")) ret = -1;
             }
             else
             {
@@ -6194,7 +6274,7 @@ namespace ScintillaNet
 
         /// <summary>
         /// Tests whether the code-portion of a string ends with a string value
-        /// <!summary>
+        /// </summary>
         public bool CodeEndsWith(string str, string value)
         {
             bool ret = false;
@@ -6214,7 +6294,7 @@ namespace ScintillaNet
 
         /// <summary>
         /// Returns the first line of a string
-        /// <!summary>
+        /// </summary>
         public string FirstLine(string str)
         {
             char newline = (EOLMode == 1) ? '\r' : '\n';
