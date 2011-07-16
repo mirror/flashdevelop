@@ -159,10 +159,18 @@ namespace HaXeContext
                 pi.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = Process.Start(pi);
                 p.WaitForExit();
-                string path = p.StandardOutput.ReadLine();
+                
+                string path = "";
+                do { path = p.StandardOutput.ReadLine(); }
+                while (path.StartsWith("-") && !p.StandardOutput.EndOfStream);
                 p.Close();
-                haxelibsCache.Add(lib, path);
-                return path;
+
+                if (path != null && path.Length > 0 && Directory.Exists(path))
+                {
+                    haxelibsCache.Add(lib, path);
+                    return path;
+                }
+                else return null;
             }
             catch (Exception)
             {
