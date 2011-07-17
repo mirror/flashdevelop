@@ -71,7 +71,6 @@ namespace ProjectManager.Helpers
 
             errorThread = new Thread(ReadErrors);
             errorThread.Start();
-            
             return ReadUntilPrompt();
         }
 
@@ -109,7 +108,10 @@ namespace ProjectManager.Helpers
 
             // start up fcsh if necessary
             if (process == null || process.HasExited)
+            {
+                o.AppendLine("Starting java as: " + javaExe);
                 o.AppendLine("INITIALIZING: " + Initialize(jvmarg, projectPath, javaExe));
+            }
             else
             {
                 errorList.Clear();
@@ -117,11 +119,7 @@ namespace ProjectManager.Helpers
             }
 
             // success?
-            if (process != null)
-            {
-                o.AppendLine("Starting java as " + process.StartInfo.FileName);
-            }
-            else
+            if (process == null)
             {
                 output = o.ToString();
                 errorList.Add("Could not compile because the fcsh process could not be started.");

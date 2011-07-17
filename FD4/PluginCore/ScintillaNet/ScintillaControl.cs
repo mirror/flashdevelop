@@ -5232,16 +5232,16 @@ namespace ScintillaNet
                             string tempText;
                             do
                             {
-                                previousIndent = GetLineIndentation(tempLine - 1);
-                                tempText = GetLine(tempLine - 1).Trim();
+                                --tempLine;
+                                previousIndent = GetLineIndentation(tempLine);
+                                tempText = GetLine(tempLine).TrimEnd();
                                 if (tempText.Length == 0) previousIndent = -1;
-                                tempLine--;
                             }
                             while ((tempLine > 0) && (previousIndent < 0));
                             if (tempText.IndexOf("//") > 0) // remove comment at end of line
                             {
                                 int slashes = this.MBSafeTextLength(tempText.Substring(0, tempText.IndexOf("//") + 1));
-                                if (this.PositionIsOnComment(slashes))
+                                if (this.PositionIsOnComment(PositionFromLine(tempLine) + slashes))
                                     tempText = tempText.Substring(0, tempText.IndexOf("//")).Trim();
                             }
                             if (tempText.EndsWith("{"))
@@ -6262,7 +6262,7 @@ namespace ScintillaNet
             if (ConfigurationLanguage == "xml" || ConfigurationLanguage == "html" || ConfigurationLanguage == "css")
             {
                 if (str.StartsWith("</")) ret = 1;
-                else if (!str.StartsWith("<?") && !str.StartsWith("<!") && !str.StartsWith("</") && !str.EndsWith("/>") && str.EndsWith(">")) ret = -1;
+                else if (!str.StartsWith("<?") && !str.StartsWith("<!") && !str.Contains("</") && !str.EndsWith("/>") && str.EndsWith(">")) ret = -1;
             }
             else
             {

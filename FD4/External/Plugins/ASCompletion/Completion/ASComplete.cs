@@ -1025,7 +1025,7 @@ namespace ASCompletion.Completion
                         if (txt.IndexOf("//") > 0) // remove comment at end of line
                         {
                             int slashes = Sci.MBSafeTextLength(txt.Substring(0, txt.IndexOf("//") + 1));
-                            if (Sci.PositionIsOnComment(slashes))
+                            if (Sci.PositionIsOnComment(Sci.PositionFromLine(line-1) + slashes))
                                 txt = txt.Substring(0, txt.IndexOf("//")).Trim();
                         }
                         if (txt.EndsWith("{") && (line > 1)) AutoCloseBrace(Sci, line);
