@@ -8,7 +8,7 @@
 			<button label="Label.AS3Document" click="NewFromTemplate" tag="as;$(BaseDir)\Templates\AS3.fdt" shortcut="Control|D2" />
 			<button label="Label.MXMLDocument" click="NewFromTemplate" tag="mxml;$(BaseDir)\Templates\MXML.fdt" shortcut="Control|D3" />
 			<button label="Label.HTMLDocument" click="NewFromTemplate" tag="html;$(BaseDir)\Templates\HTML.fdt" shortcut="Control|D4" />
-			<button label="Label.XHTMLDocument" click="NewFromTemplate" tag="html;$(BaseDir)\Templates\XHTML.fdt" shortcut="Control|D5" />
+			<!--<button label="Label.JScriptDocument" click="NewFromTemplate" tag="html;$(BaseDir)\Templates\JScript.fdt" shortcut="Control|D5" />-->
 			<button label="Label.CSSDocument" click="NewFromTemplate" tag="css;$(BaseDir)\Templates\CSS.fdt" shortcut="Control|D6" />
 			<button label="Label.PHPDocument" click="NewFromTemplate" tag="php;$(BaseDir)\Templates\PHP.fdt" shortcut="Control|D7" />
 			<button label="Label.XMLDocument" click="NewFromTemplate" tag="xml;$(BaseDir)\Templates\XML.fdt" shortcut="Control|D8" />
