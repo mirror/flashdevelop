@@ -16,6 +16,7 @@ using PluginCore.Localization;
 using ASCompletion.Model;
 using System.Collections;
 using PluginCore.PluginCore.Helpers;
+using System.Collections.Generic;
 
 namespace AS3Context.Compiler
 {
@@ -100,7 +101,7 @@ namespace AS3Context.Compiler
 		private ProcessRunner mxmlcRunner;
 		private string builtSWF;
         private bool debugMode;
-        private Hashtable jvmConfig;
+        private Dictionary<string, string> jvmConfig;
 
         public void CheckAS3(string filename, string flexPath)
         {

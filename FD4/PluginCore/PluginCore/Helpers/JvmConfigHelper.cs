@@ -2,45 +2,31 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Collections;
 
 namespace PluginCore.PluginCore.Helpers
 {
     public class JvmConfigHelper
     {
-        private static Dictionary<string, Hashtable> cache = new Dictionary<string, Hashtable>();
-
         /// <summary>
-        /// Read a simple config file and returns its variables as a Hashtable.
+        /// Read a jvm.config file and returns its variables as a Dictionnary.
         /// </summary>
-        public static Hashtable ReadConfig(string configPath)
+        public static Dictionary<string, string> ReadConfig(string configPath)
         {
             if (configPath == null) configPath = "";
-            if (cache.ContainsKey(configPath)) return cache[configPath];
+            if (ConfigHelper.Cache.ContainsKey(configPath))
+                return ConfigHelper.Cache[configPath];
 
-            Hashtable config = new Hashtable();
-            if (File.Exists(configPath))
-            {
-                string[] lines = File.ReadAllLines(configPath);
-                foreach (string line in lines)
-                {
-                    if (line.StartsWith("#")) continue;
-                    string[] entry = line.Trim().Split(new char[] { '=' }, 2);
-                    if (entry.Length < 2) continue;
-                    config[entry[0].Trim()] = entry[1].Trim();
-                }
-            }
+            Dictionary<string, string> config = ConfigHelper.Parse(configPath, true);
 
             // default values
             if (!config.ContainsKey("java.home")) config["java.home"] = "";
 
             string args = "-Xmx384m -Dsun.io.useCanonCaches=false";
-            if (config.ContainsKey("java.args")) args = config["java.args"] as string;
+            if (config.ContainsKey("java.args")) args = config["java.args"];
             if (args.IndexOf("-Duser.language") < 0)
                 args += " -Duser.language=en -Duser.region=US";
             config["java.args"] = args;
 
-            cache[configPath] = config;
             return config;
         }
 
@@ -48,17 +34,17 @@ namespace PluginCore.PluginCore.Helpers
         {
             return GetJavaEXE(null, null);
         }
-        public static string GetJavaEXE(Hashtable jvmConfig)
+        public static string GetJavaEXE(Dictionary<string, string> jvmConfig)
         {
             return GetJavaEXE(jvmConfig, null);
         }
-        public static string GetJavaEXE(Hashtable jvmConfig, string flexSdkPath)
+        public static string GetJavaEXE(Dictionary<string, string> jvmConfig, string flexSdkPath)
         {
             string defaultExe = "java.exe";
             string home = null;
             
             if (jvmConfig != null && jvmConfig.ContainsKey("java.home"))
-                home = ResolvePath(jvmConfig["java.home"] as string, flexSdkPath, true);
+                home = ResolvePath(jvmConfig["java.home"], flexSdkPath, true);
             if (home == null) home = Environment.ExpandEnvironmentVariables("%JAVA_HOME%");
  
             if (!String.IsNullOrEmpty(home) && !home.StartsWith("%")) 

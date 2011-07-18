@@ -9,6 +9,10 @@ using PluginCore.Managers;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
 using PluginCore;
+using PluginCore.Bridge;
+using System.Diagnostics;
+using PluginCore.PluginCore.Helpers;
+using System.Collections.Generic;
 
 namespace FileExplorer
 {
@@ -20,6 +24,7 @@ namespace FileExplorer
         private String pluginDesc = "Adds a file explorer panel to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
         private String settingFilename;
+        private String configFilename;
         private Settings settingObject;
         private DockContent pluginPanel;
         private PluginUI pluginUI;
@@ -126,16 +131,28 @@ namespace FileExplorer
             {
                 case EventType.Command:
                     DataEvent evnt = (DataEvent)e;
-                    if (evnt.Action == "FileExplorer.BrowseTo")
+                    switch (evnt.Action)
                     {
-                        this.pluginUI.BrowseTo(evnt.Data.ToString());
-                        evnt.Handled = true;
-                        this.OpenPanel(null, null);
-                    }
-                    if (evnt.Action == "FileExplorer.GetContextMenu")
-                    {
-                        evnt.Data = this.pluginUI.GetContextMenu();
-                        evnt.Handled = true;
+                        case "FileExplorer.BrowseTo":
+                            this.pluginUI.BrowseTo(evnt.Data.ToString());
+                            this.OpenPanel(null, null);
+                            evnt.Handled = true;
+                            break;
+
+                        case "FileExplorer.Explore":
+                            ExploreDirectory(evnt.Data.ToString());
+                            evnt.Handled = true;
+                            break;
+
+                        case "FileExplorer.PromptHere":
+                            PromptHere(evnt.Data.ToString());
+                            evnt.Handled = true;
+                            break;
+
+                        case "FileExplorer.GetContextMenu":
+                            evnt.Data = this.pluginUI.GetContextMenu();
+                            evnt.Handled = true;
+                            break;
                     }
                     break;
 
@@ -161,6 +178,7 @@ namespace FileExplorer
             String dataPath = Path.Combine(PathHelper.DataDir, "FileExplorer");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            this.configFilename = Path.Combine(dataPath, "Config.ini");
             this.pluginDesc = TextHelper.GetString("Info.Description");
             this.pluginImage = PluginBase.MainForm.FindImage("209");
         }
@@ -171,7 +189,7 @@ namespace FileExplorer
         public void AddEventHandlers()
         {
             EventType eventMask = EventType.Command | EventType.FileOpen;
-            EventManager.AddEventHandler(this, eventMask);
+            EventManager.AddEventHandler(this, eventMask, HandlingPriority.Low);
         }
 
         /// <summary>
@@ -208,6 +226,10 @@ namespace FileExplorer
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
+            if (!File.Exists(configFilename))
+            {
+                File.WriteAllText(configFilename, "[actions]\r\n#explorer=explorer.exe /e,\"{0}\"\r\n#cmd=cmd.exe\r\n");
+            }
         }
 
         /// <summary>
@@ -224,6 +246,73 @@ namespace FileExplorer
         public void OpenPanel(Object sender, System.EventArgs e)
         {
             this.pluginPanel.Show();
+        }
+
+        private void ExploreDirectory(string path)
+        {
+            try
+            {
+                path = Expand(path);
+
+                if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteExplorer)
+                {
+                    BridgeManager.RemoteOpen(path);
+                    return;
+                }
+
+                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                String explorer = Expand(config["explorer"]);
+                int start = explorer.StartsWith("\"") ? explorer.IndexOf("\"", 2) : 0;
+                int p = explorer.IndexOf(" ", start);
+                if (!path.StartsWith("\"")) path = "\"" + path + "\"";
+                
+                ProcessStartInfo psi = new ProcessStartInfo(explorer.Substring(0, p));
+                psi.Arguments = String.Format(explorer.Substring(p + 1), path);
+                psi.WorkingDirectory = path;
+                ProcessHelper.StartAsync(psi);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        private void PromptHere(string path)
+        {
+            try
+            {
+                path = Expand(path);
+
+                /*if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteConsole)
+                {
+                    BridgeManager.RemoteConsole(path);
+                    return;
+                }*/
+
+                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                String cmd = Expand(config["cmd"]);
+                int start = cmd.StartsWith("\"") ? cmd.IndexOf("\"", 2) : 0;
+                int p = cmd.IndexOf(" ", start);
+                if (!path.StartsWith("\"")) path = "\"" + path + "\"";
+
+                ProcessStartInfo psi = new ProcessStartInfo(p > 0 ? cmd.Substring(0, p) : cmd);
+                if (p > 0) psi.Arguments = String.Format(cmd.Substring(p + 1), path);
+                psi.WorkingDirectory = path;
+                ProcessHelper.StartAsync(psi);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        private string Expand(string path)
+        {
+            if (path.IndexOf('$') >= 0)
+                path = PluginBase.MainForm.ProcessArgString(path);
+            if (path.IndexOf('%') >= 0)
+                path = Environment.ExpandEnvironmentVariables(path);
+            return path.Trim();
         }
 
 		#endregion

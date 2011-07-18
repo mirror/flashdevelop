@@ -62,6 +62,21 @@ namespace PluginCore.Bridge
             else TraceManager.AddAsync("Unable to connect to host bridge.");
         }
 
+        /// <summary>
+        /// Open the console in the shared location on the host
+        /// </summary>
+        /*static public void RemoteConsole(string shared)
+        {
+            if (remoteClient == null || !remoteClient.Connected)
+                remoteClient = new BridgeClient();
+            if (remoteClient != null && remoteClient.Connected)
+            {
+                PluginBase.MainForm.StatusStrip.Items[0].Text = "  Opening console in host system...";
+                remoteClient.Send("console:" + shared);
+            }
+            else TraceManager.AddAsync("Unable to connect to host bridge.");
+        }*/
+
         #endregion
 
         public static bool IsRemote(string path)

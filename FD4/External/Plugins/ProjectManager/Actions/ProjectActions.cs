@@ -193,7 +193,7 @@ namespace ProjectManager.Actions
             DataEvent de;
             Hashtable info = new Hashtable();
             // release old classpath            
-            if (currentLang != null && (project == null || currentLang != project.Language))
+            if (currentLang != null && project == null)
             {
                 info["lang"] = currentLang;
                 info["platform"] = "";

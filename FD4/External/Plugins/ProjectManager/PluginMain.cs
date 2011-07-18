@@ -1009,15 +1009,8 @@ namespace ProjectManager
         private void TreeBrowseItem()
         {
             string path = Tree.SelectedPath;
-            if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteExplorer)
-            {
-                BridgeManager.RemoteOpen(path);
-                return;
-            }
-            ProcessStartInfo psi = new ProcessStartInfo("explorer.exe");
-            psi.Arguments = "/e,\"" + path + "\"";
-            psi.WorkingDirectory = path;
-            ProcessHelper.StartAsync(psi);
+            DataEvent de = new DataEvent(EventType.Command, "FileExplorer.Explore", path);
+            EventManager.DispatchEvent(this, de);
         }
 
         private void TreeCutItems()

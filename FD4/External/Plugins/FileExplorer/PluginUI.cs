@@ -857,7 +857,17 @@ namespace FileExplorer
         /// </summary>
         private void ExploreHere(Object sender, System.EventArgs e)
         {
-            ProcessHelper.StartAsync("explorer.exe", "/e, " + this.selectedPath.Text);
+            DataEvent de = new DataEvent(EventType.Command, "FileExplorer.Explore", this.selectedPath.Text);
+            EventManager.DispatchEvent(this, de);
+        }
+
+        /// <summary>
+        /// Opens the command prompt in the current path
+        /// </summary>
+        private void CommandPromptHere(Object sender, System.EventArgs e)
+        {
+            DataEvent de = new DataEvent(EventType.Command, "FileExplorer.PromptHere", this.selectedPath.Text);
+            EventManager.DispatchEvent(this, de);
         }
 
         /// <summary>
@@ -999,16 +1009,6 @@ namespace FileExplorer
             {
                 ErrorManager.ShowError(ex);
             }
-        }
-
-        /// <summary>
-        /// Opens the command prompt in the current path
-        /// </summary>
-        private void CommandPromptHere(Object sender, System.EventArgs e)
-        {
-            ProcessStartInfo startInfo = new ProcessStartInfo("cmd.exe");
-            startInfo.WorkingDirectory = this.selectedPath.Text;
-            ProcessHelper.StartAsync(startInfo);
         }
 
         /// <summary>

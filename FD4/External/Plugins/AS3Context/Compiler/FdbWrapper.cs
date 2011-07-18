@@ -30,7 +30,8 @@ namespace AS3Context.Compiler
             }
             else return;
 
-            Hashtable jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
+            Dictionary<string, string> jvmConfig = 
+                JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
 
             if (process == null || process.HasExited)
                 Initialize(flexSDKPath, jvmConfig, projectPath);
@@ -62,7 +63,7 @@ namespace AS3Context.Compiler
         bool interactive;
         bool connected;
 
-        bool Initialize(string flexSDKPath, Hashtable jvmConfig, string projectPath)
+        bool Initialize(string flexSDKPath, Dictionary<string, string> jvmConfig, string projectPath)
         {
             cmdQueue = new Queue<string>();
 
@@ -81,7 +82,8 @@ namespace AS3Context.Compiler
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.FileName = JvmConfigHelper.GetJavaEXE(jvmConfig);
-            process.StartInfo.Arguments = jvmConfig["java.args"] + "  -Dfile.encoding=UTF-8 -Dapplication.home=\"" + flexSDKPath + "\" -jar \"" + fdbPath + "\"";
+            process.StartInfo.Arguments = jvmConfig["java.args"] 
+                + "  -Dfile.encoding=UTF-8 -Dapplication.home=\"" + flexSDKPath + "\" -jar \"" + fdbPath + "\"";
             process.StartInfo.WorkingDirectory = workingDir;
             process.StartInfo.StandardErrorEncoding = Encoding.UTF8;
             process.StartInfo.StandardOutputEncoding = Encoding.UTF8;
