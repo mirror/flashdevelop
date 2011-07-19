@@ -16,8 +16,8 @@ namespace ProjectManager.Building
 		public BuildEventRunner(Project project, string compilerPath)
 		{
 			this.project = project;
+            project.CurrentSDK = compilerPath;
 			this.vars = new BuildEventVars(project);
-            vars.AddVar("CompilerPath", compilerPath);
 		}
 
         //parse line into command/argument pair

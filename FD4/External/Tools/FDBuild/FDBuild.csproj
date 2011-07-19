@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\PluginCore\PluginCore\Helpers\ConfigHelper.cs">
+      <Link>Building\AS3\ConfigHelper.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\PluginCore\PluginCore\Helpers\JvmConfigHelper.cs">
       <Link>Building\AS3\JvmConfigHelper.cs</Link>
     </Compile>

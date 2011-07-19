@@ -21,7 +21,7 @@ namespace ProjectManager.Building.AS3
         string sdkPath;
         string mxmlcPath;
         string fcshPath;
-        Hashtable jvmConfig;
+        Dictionary<string, string> jvmConfig;
 
         public AS3ProjectBuilder(AS3Project project, string compilerPath, string ipcName)
             : base(project, compilerPath)
@@ -80,8 +80,8 @@ namespace ProjectManager.Building.AS3
             fcshPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "fcsh.jar");
             jvmConfig = PluginCore.PluginCore.Helpers.JvmConfigHelper.ReadConfig(Path.Combine(flexsdkPath, "bin\\jvm.config"));
 
-            if (jvmConfig.ContainsKey("java.args") && jvmConfig["java.args"].ToString().Trim().Length > 0)
-                VMARGS = jvmConfig["java.args"].ToString();
+            if (jvmConfig.ContainsKey("java.args") && jvmConfig["java.args"].Trim().Length > 0)
+                VMARGS = jvmConfig["java.args"];
         }
 
         #endregion
