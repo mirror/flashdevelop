@@ -295,10 +295,10 @@ namespace FlashLogViewer
             this.filterComboBox.FlatStyle = PluginBase.Settings.ComboBoxFlatStyle;
             this.toolStrip.Renderer = new DockPanelStripRenderer();
             this.refreshTimer = new Timer();
-            this.refreshTimer.Enabled = false;
             this.refreshTimer.Interval = this.GetUpdateInterval();
             this.refreshTimer.Tick += new EventHandler(this.RefreshTimerTick);
             this.refreshTimer.Start();
+            this.refreshTimer.Enabled = false;
         }
 
         /// <summary>
