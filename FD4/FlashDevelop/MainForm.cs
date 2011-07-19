@@ -1887,17 +1887,20 @@ namespace FlashDevelop
             if (sci.CanPaste)
             {
                 // if clip is not line-based, then just do simple paste
-                if (!Clipboard.GetText().EndsWith("\n") || Clipboard.ContainsData("MSDEVColumnSelect")) sci.Paste();
+                if (sci.SelTextSize > 0 || !Clipboard.GetText().EndsWith("\n") 
+                    || Clipboard.ContainsData("MSDEVColumnSelect")) sci.Paste();
                 else
                 {
                     sci.BeginUndoAction();
-                    if (sci.SelTextSize > 0) sci.Clear();
-                    sci.Home();
                     int pos = sci.CurrentPos;
+                    if (pos > sci.LineIndentPosition(sci.LineFromPosition(pos))) sci.LineDown();
+                    sci.Home();
+                    pos = sci.CurrentPos;
                     int lines = sci.LineCount;
                     sci.Paste();
                     lines = sci.LineCount - lines; // = # of lines in the pasted text
                     sci.ReindentLines(sci.LineFromPosition(pos), lines);
+                    sci.SetSel(pos, pos);
                     sci.EndUndoAction();
                 }
             }
