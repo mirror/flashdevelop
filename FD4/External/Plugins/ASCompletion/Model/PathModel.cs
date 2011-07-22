@@ -522,14 +522,14 @@ namespace ASCompletion.Model
             }
         }
 
-        public void SetFiles(Dictionary<string, FileModel> files)
+        public void SetFiles(Dictionary<string, FileModel> newFiles)
         {
             if (!IsValid) return;
             lock (lockObject)
             {
                 Touch();
                 files.Clear();
-                foreach (FileModel model in files.Values)
+                foreach (FileModel model in newFiles.Values)
                     files[model.FileName.ToUpper()] = model;
             }
         }
