@@ -261,6 +261,7 @@ namespace FileExplorer
                 }
 
                 Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                if (!config.ContainsKey("explorer")) config["explorer"] = "explorer.exe /e,\"{0}\"";
                 String explorer = Expand(config["explorer"]);
                 int start = explorer.StartsWith("\"") ? explorer.IndexOf("\"", 2) : 0;
                 int p = explorer.IndexOf(" ", start);
@@ -290,6 +291,7 @@ namespace FileExplorer
                 }*/
 
                 Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                if (!config.ContainsKey("cmd")) config["cmd"] = "cmd.exe";
                 String cmd = Expand(config["cmd"]);
                 int start = cmd.StartsWith("\"") ? cmd.IndexOf("\"", 2) : 0;
                 int p = cmd.IndexOf(" ", start);
