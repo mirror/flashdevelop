@@ -191,18 +191,15 @@ namespace ASCompletion
 
                 foreach (PathModel path in current.Classpath)
                 {
-                    ClasspathTreeNode node = new ClasspathTreeNode(path.Path, path.Files.Count);
+                    ClasspathTreeNode node = new ClasspathTreeNode(path.Path, path.FilesCount);
                     outlineTreeView.Nodes.Add(node);
                     rootNodes = node.Nodes;
 
                     packages = new Dictionary<string, TreeNodeCollection>();
-                    lock (path.Files.Values)
-                    {
-                        foreach (FileModel model in path.Files.Values)
-                        {
-                            AddModel(FindPackage(model.Package), model);
-                        }
-                    }
+                    path.ForeachFile((model) => {
+                        AddModel(FindPackage(model.Package), model);
+                        return true;
+                    });
                 }
             }
             finally
@@ -608,14 +605,16 @@ namespace ASCompletion
                         string sourcePath = Path.Combine(thePath.Path, package.Replace('.', Path.DirectorySeparatorChar));
                         string targetPath = folderBrowserDialog.SelectedPath + Path.DirectorySeparatorChar;
                         string packagep = (package.Length > 0) ? package + "." : "";
-                        foreach (FileModel aModel in thePath.Files.Values)
+
+                        thePath.ForeachFile((aModel) =>
+                        {
                             if (aModel.Package == package || aModel.Package.StartsWith(packagep))
                             {
                                 if (aModel.FileName.StartsWith(sourcePath))
-                                {
                                     WriteIntrinsic(aModel, aModel.FileName.Replace(sourcePath, targetPath));
-                                }
                             }
+                            return true;
+                        });
                     }
                     catch (Exception ex)
                     {

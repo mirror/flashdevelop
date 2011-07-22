@@ -403,7 +403,7 @@ namespace HaXeContext
             string package = CurrentModel.Package;
             foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
             {
-                foreach (FileModel aFile in aPath.Files.Values)
+                aPath.ForeachFile((aFile) =>
                 {
                     string module = Path.GetFileNameWithoutExtension(aFile.FileName);
                     string qmodule = aFile.Package.Length > 0 ? aFile.Package + "." + module : module;
@@ -435,7 +435,8 @@ namespace HaXeContext
                         item = new MemberModel(qmodule, qmodule, FlagType.Class, Visibility.Public);
                         fullList.Add(item);
                     }
-                }
+                    return true;
+                });
             }
             // display imported classes and classes declared in imported modules
             MemberList imports = ResolveImports(cFile);
@@ -485,7 +486,7 @@ namespace HaXeContext
                     // cached file
                     if (aPath.HasFile(path))
                     {
-                        file = aPath.Files[path.ToUpper()];
+                        file = aPath.GetFile(path);
                         if (file.Context != this)
                         {
                             // not associated with this context -> refresh

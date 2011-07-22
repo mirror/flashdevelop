@@ -593,25 +593,32 @@ namespace AS2Context
                 bool testSamePackage = package.Length == 0 && features.hasPackages;
                 foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
                 {
-                    foreach (FileModel aFile in aPath.Files.Values)
+                    ClassModel found = null;
+                    aPath.ForeachFile((aFile) =>
                     {
                         // qualified path
                         if (aFile.Package == package && aFile.Classes.Count > 0)
                         {
                             foreach (ClassModel aClass in aFile.Classes)
-                            {
-                                if (aClass.Name == cname) return aClass;
-                            }
+                                if (aClass.Name == cname)
+                                {
+                                    found = aClass;
+                                    return false;
+                                }
                         }
                         // in the same package
                         else if (testSamePackage && aFile.Package == inPackage)
                         {
                             foreach (ClassModel aClass in aFile.Classes)
-                            {
-                                if (aClass.Name == cname) return aClass;
-                            }
+                                if (aClass.Name == cname)
+                                {
+                                    found = aClass;
+                                    return false;
+                                }
                         }
-                    }
+                        return true;
+                    });
+                    if (found != null) return found;
                 }
                 if (classPath.Count > 0 && classPath[0].IsTemporaryPath)
                 {
@@ -654,7 +661,7 @@ namespace AS2Context
                 // cached file
                 if (aPath.HasFile(path))
                 {
-                    FileModel nFile = aPath.Files[path.ToUpper()];
+                    FileModel nFile = aPath.GetFile(path);
                     if (nFile.Context != this)
                     {
                         // not associated with this context -> refresh
@@ -919,12 +926,12 @@ namespace AS2Context
                     string prevPackage = null;
                     string packagePrefix = name.Length > 0 ? name + "." : "";
                     int nameLen = name.Length + 1;
-                    foreach (FileModel model in aPath.Files.Values)
+                    aPath.ForeachFile((model) =>
                     {
-                        if (!model.HasPackage) 
-                            continue;
+                        if (!model.HasPackage)
+                            return true; // skip
                         string package = model.Package;
-                        if (package == name) 
+                        if (package == name)
                         {
                             foreach (ClassModel type in model.Classes)
                             {
@@ -940,7 +947,7 @@ namespace AS2Context
                             foreach (MemberModel member in model.Members)
                                 pModel.Members.Add(member.Clone() as MemberModel);
                         }
-                        else if (package != prevPackage 
+                        else if (package != prevPackage
                                 && (package.Length > name.Length && package.StartsWith(packagePrefix))) // imports
                         {
                             prevPackage = package;
@@ -952,7 +959,8 @@ namespace AS2Context
                                 pModel.Imports.Add(new MemberModel(package, package, FlagType.Package, Visibility.Public));
                             }
                         }
-                    }
+                        return true;
+                    });
                 }
             }
 
@@ -1130,7 +1138,7 @@ namespace AS2Context
             // public classes
             foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
             {
-                foreach (FileModel aFile in aPath.Files.Values)
+                aPath.ForeachFile((aFile) =>
                 {
                     aClass = aFile.GetPublicClass();
                     if (!aClass.IsVoid() && aClass.IndexType == null && aClass.Access == Visibility.Public)
@@ -1139,7 +1147,8 @@ namespace AS2Context
                         item.Name = item.Type;
                         fullList.Add(item);
                     }
-                }
+                    return true;
+                });
             }
             // void
             fullList.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));

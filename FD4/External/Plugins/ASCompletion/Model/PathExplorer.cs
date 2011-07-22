@@ -225,14 +225,15 @@ namespace ASCompletion.Model
                         if (!Directory.Exists(cacheDir)) Directory.CreateDirectory(cacheDir);
                         else if (File.Exists(cacheFileName)) File.Delete(cacheFileName);
 
-                        if (pathModel.Files.Values.Count > 0)
+                        if (pathModel.FilesCount > 0)
                         {
                             StringBuilder sb = new StringBuilder();
-                            foreach (FileModel model in pathModel.Files.Values)
+                            pathModel.ForeachFile((model) =>
                             {
                                 sb.Append("\n#file-cache ").Append(model.FileName).Append('\n');
                                 sb.Append(model.GenerateIntrinsic(true));
-                            }
+                                return true;
+                            });
                             string src = sb.ToString();
                             FileHelper.WriteFile(cacheFileName, src, Encoding.UTF8);
                         }
@@ -252,6 +253,7 @@ namespace ASCompletion.Model
             Stream fileStream = File.OpenRead(pathModel.Path);
             ZipFile zipFile = new ZipFile(fileStream);
             ASFileParser parser = new ASFileParser();
+            Dictionary<string, FileModel> models = new Dictionary<string, FileModel>();
 
             foreach (ZipEntry entry in zipFile)
             {
@@ -263,11 +265,13 @@ namespace ASCompletion.Model
                         FileModel model = new FileModel(Path.Combine(pathModel.Path, entry.Name));
                         model.Context = pathModel.Owner;
                         parser.ParseSrc(model, src);
-                        pathModel.Files[model.FileName.ToUpper()] = model;
+                        models.Add(model.FileName, model);
                     }
             }
             zipFile.Close();
             fileStream.Close();
+
+            pathModel.SetFiles(models);
         }
 
         private static string UnzipFile(ZipFile zfile, ZipEntry entry)
@@ -325,7 +329,7 @@ namespace ASCompletion.Model
                         basePath = basePath.Substring(0, basePath.Length - packagePath.Length);
                 }
                 basePath += "\\";
-                lock (pathModel.Files) { pathModel.Files[aFile.FileName.ToUpper()] = aFile; }
+                pathModel.AddFile(aFile);
                 aFile = null;
                 cpt++;
                 // update status

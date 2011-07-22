@@ -406,7 +406,7 @@ namespace AS3Context
             {
                 if (MxmlFilter.HasCatalog(path.Path)) MxmlFilter.AddCatalog(path.Path);
 
-                if (path.Files.Count != 0) // already parsed
+                if (path.FilesCount != 0) // already parsed
                     return;
             }
 
@@ -698,10 +698,10 @@ namespace AS3Context
             string package = CurrentModel.Package;
             foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
             {
-                foreach (FileModel aFile in aPath.Files.Values)
+                aPath.ForeachFile((aFile) =>
                 {
                     if (!aFile.HasPackage)
-                        continue;
+                        return true; // skip
 
                     aClass = aFile.GetPublicClass();
                     if (!aClass.IsVoid() && aClass.IndexType == null)
@@ -731,7 +731,8 @@ namespace AS3Context
                             fullList.Add(item);
                         }
                     }
-                }
+                    return true;
+                });
             }
             // void
             fullList.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));

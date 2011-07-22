@@ -73,13 +73,13 @@ namespace AS3Context
         /// <param name="context"></param>
         public static void Convert(ContentParser parser, PathModel path, IASContext context)
         {
-            path.Files.Clear();
             inSWF = Path.GetExtension(path.Path).ToLower() == ".swf";
 
             // extract documentation
             ParseDocumentation(parser);
 
             // extract models
+            Dictionary<string, FileModel> models = new Dictionary<string, FileModel>();
             FileModel privateClasses = new FileModel(Path.Combine(path.Path, "__Private.as"));
             privateClasses.Version = 3;
             privateClasses.Package = "private";
@@ -228,7 +228,7 @@ namespace AS3Context
                     if (model.Classes.Count > 0 || model.Members.Count > 0)
                     {
                         AddImports(model, imports);
-                        path.AddFile(model);
+                        models.Add(model.FileName, model);
                     }
                 }
 
@@ -254,8 +254,8 @@ namespace AS3Context
                             string filename = package.Length > 0 ? "package.as" : "toplevel.as";
                             filename = Path.Combine(package.Replace('.', Path.DirectorySeparatorChar), filename);
                             filename = Path.Combine(path.Path, filename);
-                            if (path.HasFile(filename)) 
-                                model = path.GetFile(filename);
+                            if (models.ContainsKey(filename)) 
+                                model = models[filename];
                             else
                             {
                                 model = new FileModel("");
@@ -264,7 +264,7 @@ namespace AS3Context
                                 model.HasPackage = true;
                                 model.FileName = filename;
                                 model.Version = 3;
-                                path.AddFile(model);
+                                models.Add(filename, model);
                             }
                         }
 
@@ -291,21 +291,23 @@ namespace AS3Context
                 }
             }
 
-            if (privateClasses.Classes.Count > 0) path.AddFile(privateClasses);
+            if (privateClasses.Classes.Count > 0) models.Add(privateClasses.FileName, privateClasses);
 
             // some SWCs need manual fixes
-            CustomFixes(path);
+            CustomFixes(path.Path, models);
 
             // fake SWC (like 'playerglobal_rb.swc', only provides documentation)
-            if (path.Files.Count == 1)
+            if (models.Keys.Count == 1)
             {
-                foreach (FileModel model in path.Files.Values)
+                foreach (FileModel model in models.Values)
                     if (model.GetPublicClass().QualifiedName == "Empty")
                     {
-                        path.Files.Clear();
+                        models.Clear();
                         break;
                     }
             }
+
+            path.SetFiles(models);
         }
 
         private static void setDoc(DocItem doc, MemberModel decl)
@@ -319,15 +321,15 @@ namespace AS3Context
             }
         }
 
-        private static void CustomFixes(PathModel path)
+        private static void CustomFixes(string path, Dictionary<string, FileModel> models)
         {
-            string file = Path.GetFileName(path.Path);
+            string file = Path.GetFileName(path);
             if (file == "playerglobal.swc" || file == "airglobal.swc")
             {
-                string mathPath = Path.Combine(path.Path, "Math").ToUpper();
-                if (path.HasFile(mathPath))
+                string mathPath = Path.Combine(path, "Math");
+                if (models.ContainsKey(mathPath))
                 {
-                    ClassModel mathModel = path.GetFile(mathPath).GetPublicClass();
+                    ClassModel mathModel = models[mathPath].GetPublicClass();
                     foreach(MemberModel member in mathModel.Members)
                     {
                         if (member.Parameters != null && member.Parameters.Count > 0 && member.Parameters[0].Name == "x")
@@ -344,10 +346,10 @@ namespace AS3Context
                         }
                     }
                 }
-                string objPath = Path.Combine(path.Path, "Object").ToUpper();
-                if (path.HasFile(objPath))
+                string objPath = Path.Combine(path, "Object");
+                if (models.ContainsKey(objPath))
                 {
-                    ClassModel objModel = path.GetFile(objPath).GetPublicClass();
+                    ClassModel objModel = models[objPath].GetPublicClass();
                     if (objModel.Members.Search("prototype", 0, 0) == null)
                     {
                         MemberModel proto = new MemberModel("prototype", "Object", FlagType.Dynamic | FlagType.Variable, Visibility.Public);

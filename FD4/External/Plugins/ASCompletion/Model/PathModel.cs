@@ -11,6 +11,8 @@ using PluginCore.Bridge;
 
 namespace ASCompletion.Model
 {
+    public delegate bool ForeachDelegate(FileModel model);
+
     /// <summary>
     /// Files cache
     /// </summary>
@@ -80,20 +82,29 @@ namespace ASCompletion.Model
         public volatile bool Updating;
         public bool WasExplored;
         public bool IsTemporaryPath;
-        public Dictionary<string, FileModel> Files;
         public DateTime LastAccess;
         public string Path;
         public IASContext Owner;
         public bool IsValid;
         public bool IsVirtual;
+        private object lockObject = new object();
         private bool inited;
         private bool inUse;
         private WatcherEx watcher;
         private System.Timers.Timer updater;
         private string[] masks;
         private string basePath;
+        private Dictionary<string, FileModel> files;
         private List<string> toExplore;
         private List<string> toRemove;
+
+        /*public Dictionary<string, FileModel> Files
+        {
+            get
+            {
+                lock (lockObject) { return files; }
+            }
+        }*/
 
         public bool InUse
         {
@@ -105,12 +116,20 @@ namespace ASCompletion.Model
             }
         }
 
+        public int FilesCount
+        {
+            get
+            {
+                lock (lockObject) { return files.Count; }
+            }
+        }
+
         public PathModel(string path, IASContext context)
         {
             Owner = context;
             Path = path.TrimEnd(new char[] { '\\', '/' });
 
-            Files = new Dictionary<string, FileModel>();
+            files = new Dictionary<string, FileModel>();
             LastAccess = DateTime.Now;
 
             if (Owner != null)
@@ -123,6 +142,8 @@ namespace ASCompletion.Model
                 }
             }
         }
+
+        #region init_timers
 
         private void Init()
         {
@@ -203,16 +224,18 @@ namespace ASCompletion.Model
             }
             else
             {
-                DoScheduledOperations();
-
-                lock (Files.Values)
+                lock (lockObject)
                 {
-                    foreach (FileModel file in Files.Values)
+                    DoScheduledOperations();
+
+                    foreach (FileModel file in files.Values)
                         if (file != null) file.Check();
                 }
             }
             if (Owner != null) Owner.RefreshContextCache(Path);
         }
+
+        #endregion
 
         #region Watcher events
         private bool maskMatch(string fileName)
@@ -238,7 +261,7 @@ namespace ASCompletion.Model
             {
                 if (Directory.Exists(e.FullPath))
                 {
-                    lock (toRemove)
+                    lock (lockObject)
                     {
                         string path = e.OldFullPath;
                         // add to known removed paths
@@ -260,7 +283,7 @@ namespace ASCompletion.Model
             }
             else
             {
-                if (Files.ContainsKey(e.OldFullPath.ToUpper()))
+                if (files.ContainsKey(e.OldFullPath.ToUpper()))
                 {
                     RemoveFile(e.OldFullPath);
                 }
@@ -275,7 +298,7 @@ namespace ASCompletion.Model
             // directory change: schedule for exploration
             if (!maskMatch(e.FullPath))
             {
-                lock (toExplore)
+                lock (lockObject)
                 {
                     string path = e.FullPath;
                     // add path for exploration if not already scheduled
@@ -294,9 +317,9 @@ namespace ASCompletion.Model
             {
                 SetTimer();
             }
-            else if (Files.ContainsKey(e.FullPath.ToUpper()))
+            else if (files.ContainsKey(e.FullPath.ToUpper()))
             {
-                Files[e.FullPath.ToUpper()].OutOfDate = true;
+                files[e.FullPath.ToUpper()].OutOfDate = true;
                 SetTimer();
             }
             else ParseNewFile(e.FullPath);
@@ -309,7 +332,7 @@ namespace ASCompletion.Model
             // (possibly) folder deleted
             if (!maskMatch(e.FullPath))
             {
-                lock (toRemove)
+                lock (lockObject)
                 {
                     string path = e.FullPath;
                     // add to known removed paths
@@ -327,7 +350,7 @@ namespace ASCompletion.Model
             {
                 SetTimer();
             }
-            else if (Files.ContainsKey(e.FullPath.ToUpper()))
+            else if (files.ContainsKey(e.FullPath.ToUpper()))
             {
                 RemoveFile(e.FullPath);
                 SetTimer();
@@ -341,7 +364,7 @@ namespace ASCompletion.Model
                 FileModel newModel = new FileModel(fileName);
                 newModel.Context = Owner;
                 newModel.OutOfDate = true;
-                Files[fileName.ToUpper()] = newModel;
+                files[fileName.ToUpper()] = newModel;
                 SetTimer();
             }
         }
@@ -351,70 +374,60 @@ namespace ASCompletion.Model
             // copy scheduled paths
             string[] _toCheck;
             string[] _toExplore;
-            lock (toExplore)
+            if (toExplore.Count == 0) return;
+            _toCheck = new string[toExplore.Count];
+            _toExplore = new string[toExplore.Count];
+            for (int i = 0; i < _toExplore.Length; i++)
             {
-                if (toExplore.Count == 0) return;
-                _toCheck = new string[toExplore.Count];
-                _toExplore = new string[toExplore.Count];
-                for (int i = 0; i < _toExplore.Length; i++)
-                {
-                    _toCheck[i] = toExplore[i].ToUpper() + System.IO.Path.DirectorySeparatorChar;
-                    _toExplore[i] = toExplore[i];
-                }
-                toExplore.Clear();
+                _toCheck[i] = toExplore[i].ToUpper() + System.IO.Path.DirectorySeparatorChar;
+                _toExplore[i] = toExplore[i];
             }
+            toExplore.Clear();
+            
             List<string> _toRemove;
-            lock (toRemove)
-            {
-                _toRemove = new List<string>(toRemove.Count);
-                for (int i = 0; i < _toRemove.Count; i++)
-                    _toRemove[i] = toRemove[i].ToUpper() + System.IO.Path.DirectorySeparatorChar;
-                toRemove.Clear();
-            }
+            _toRemove = new List<string>(toRemove.Count);
+            for (int i = 0; i < _toRemove.Count; i++)
+                _toRemove[i] = toRemove[i].ToUpper() + System.IO.Path.DirectorySeparatorChar;
+            toRemove.Clear();
 
             Dictionary<string, FileModel> newFiles = new Dictionary<string, FileModel>();
-            lock (Files.Keys)
+            // cleanup files
+            foreach (string file in files.Keys)
             {
-                // cleanup files
-                foreach (string file in Files.Keys)
-                {
-                    bool drop = false;
-                    foreach (string remPath in _toRemove)
-                        if (file.StartsWith(remPath))
-                        {
-                            //TraceManager.Add("drop: " + Files[file].FileName);
-                            drop = true;
-                            break;
-                        }
-                    if (drop) continue;
-
-                    FileModel model = Files[file];
-                    foreach (string checkPath in _toCheck)
+                bool drop = false;
+                foreach (string remPath in _toRemove)
+                    if (file.StartsWith(remPath))
                     {
-                        if (!File.Exists(model.FileName))
-                        {
-                            if (!Directory.Exists(System.IO.Path.GetDirectoryName(model.FileName)))
-                            {
-                                string newRemPath = System.IO.Path.GetDirectoryName(model.FileName).ToUpper() + System.IO.Path.DirectorySeparatorChar;
-                                _toRemove.Add(newRemPath);
-                            }
-                            //TraceManager.Add("drop2: " + Files[file].FileName);
-                            drop = true;
-                            break;
-                        }
+                        //TraceManager.Add("drop: " + files[file].FileName);
+                        drop = true;
+                        break;
                     }
-                    if (drop) continue;
-                    newFiles[file] = model;
-                }
-                Files = newFiles;
-            }
-            lock(Files) // re-lock the new Files dictionnary
-            {
-                // add new files
-                foreach (string path in _toExplore)
+                if (drop) continue;
+
+                FileModel model = files[file];
+                foreach (string checkPath in _toCheck)
                 {
-                    AddNewFilesIn(path);
+                    if (!File.Exists(model.FileName))
+                    {
+                        if (!Directory.Exists(System.IO.Path.GetDirectoryName(model.FileName)))
+                        {
+                            string newRemPath = System.IO.Path.GetDirectoryName(model.FileName).ToUpper() + System.IO.Path.DirectorySeparatorChar;
+                            _toRemove.Add(newRemPath);
+                        }
+                        //TraceManager.Add("drop2: " + files[file].FileName);
+                        drop = true;
+                        break;
+                    }
                 }
+                if (drop) continue;
+                newFiles[file] = model;
+            }
+            files = newFiles;
+            
+            // add new files
+            foreach (string path in _toExplore)
+            {
+                AddNewFilesIn(path);
             }
         }
 
@@ -426,13 +439,13 @@ namespace ASCompletion.Model
                 List<string> foundFiles = new List<string>();
                 ExploreFolder(path, masks, explored, foundFiles);
                 foreach (string fileName in foundFiles)
-                    if (!Files.ContainsKey(fileName.ToUpper()))
+                    if (!files.ContainsKey(fileName.ToUpper()))
                     {
                         //TraceManager.Add("add: " + fileName);
                         FileModel newModel = new FileModel(fileName);
                         newModel.Context = Owner;
                         newModel.OutOfDate = true;
-                        Files[fileName.ToUpper()] = newModel;
+                        files[fileName.ToUpper()] = newModel;
                     }
             }
         }
@@ -478,7 +491,10 @@ namespace ASCompletion.Model
         public bool HasFile(string fileName)
         {
             if (!IsValid) return false;
-            return Files.ContainsKey(fileName.ToUpper());
+            lock (lockObject) 
+            {
+                return files.ContainsKey(fileName.ToUpper());
+            }
         }
 
         public FileModel GetFile(string fileName)
@@ -490,22 +506,51 @@ namespace ASCompletion.Model
                 model.OutOfDate = true;
                 return model;
             }
-            Touch();
-            return Files[fileName.ToUpper()];
+            lock (lockObject)
+            {
+                Touch();
+                return files[fileName.ToUpper()];
+            }
         }
 
         public void AddFile(FileModel aFile)
         {
             if (!IsValid) return;
-            Touch();
-            Files[aFile.FileName.ToUpper()] = aFile;
+            lock (lockObject)
+            {
+                files[aFile.FileName.ToUpper()] = aFile;
+            }
+        }
+
+        public void SetFiles(Dictionary<string, FileModel> files)
+        {
+            if (!IsValid) return;
+            lock (lockObject)
+            {
+                Touch();
+                files.Clear();
+                foreach (FileModel model in files.Values)
+                    files[model.FileName.ToUpper()] = model;
+            }
+        }
+
+        public void ForeachFile(ForeachDelegate callback)
+        {
+            lock (lockObject)
+            {
+                Touch();
+                foreach (FileModel model in files.Values)
+                    if (!callback(model)) break;
+            }
         }
 
         public void RemoveFile(string fileName)
         {
             if (!IsValid) return;
-            Touch();
-            Files.Remove(fileName.ToUpper());
+            lock (lockObject)
+            {
+                files.Remove(fileName.ToUpper());
+            }
         }
 
         public void Touch()
@@ -515,7 +560,10 @@ namespace ASCompletion.Model
 
         public void Cleanup()
         {
-            Files.Clear();
+            lock (lockObject)
+            {
+                files.Clear();
+            }
             ReleaseWatcher();
         }
     }
