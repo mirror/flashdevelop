@@ -43,7 +43,6 @@ namespace ProjectManager.Building.AS3
             bool hasConfig = false;
             if (options.Additional != null)
             {
-                Add(options.Additional, releaseMode);
                 foreach (string line in options.Additional)
                     if (line.IndexOf("configname=") > 0) { hasConfig = true; }
             }
@@ -55,6 +54,9 @@ namespace ProjectManager.Building.AS3
                 else if (project.MovieOptions.Platform == "AIR Mobile")
                     AddEq("+configname", "airmobile");
             }
+
+            if (options.Additional != null)
+                Add(options.Additional, releaseMode);
         }
 
         void AddEq(string argument, string value)

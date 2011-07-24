@@ -82,7 +82,8 @@ namespace SourceControl.Actions
             // add in same group as Open/Execute/Shell menu...
             Boolean isProjectNode = tree.SelectedNodes.Count > 0 && tree.SelectedNodes[0].GetType().ToString().EndsWith("ProjectNode");
             Int32 index = GetNthSeparatorIndex(tree.ContextMenuStrip, isProjectNode ? 2 : 1);
-            tree.ContextMenuStrip.Items.Insert(index, scItem);
+            if (index >= 0) tree.ContextMenuStrip.Items.Insert(index, scItem);
+            else tree.ContextMenuStrip.Items.Add(scItem);
         }
 
         private static Int32 GetNthSeparatorIndex(ContextMenuStrip menu, Int32 n)

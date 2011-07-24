@@ -62,7 +62,6 @@ namespace ProjectManager.Projects.AS3
             }
             project.MovieOptions.Version = project.MovieOptions.DefaultVersion(project.MovieOptions.Platform);
 
-            project.CompilerOptions.Additional = additional.Split('\n');
             if (Path.GetExtension(mainApp).ToLower() == ".mxml")
             {
                 int target = 4;
@@ -73,6 +72,7 @@ namespace ProjectManager.Projects.AS3
                         if (File.ReadAllText(mainFile).IndexOf("http://www.adobe.com/2006/mxml") > 0)
                         {
                             target = 3;
+                            additional = "-compatibility-version=3\n" + additional;
                             if (project.MovieOptions.Platform == AS3MovieOptions.FLASHPLAYER_PLATFORM)
                                 project.MovieOptions.Version = "9.0";
                         }
@@ -80,6 +80,7 @@ namespace ProjectManager.Projects.AS3
                 catch { } 
                 api.Add("Library\\AS3\\frameworks\\Flex" + target);
             }
+            project.CompilerOptions.Additional = additional.Split('\n');
             if (api.Count > 0) project.CompilerOptions.IntrinsicPaths = api.ToArray();
 
             while (Read() && Name != "compiler")
