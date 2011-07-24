@@ -796,6 +796,24 @@ namespace AS3Context
         }
 
         /// <summary>
+        /// Check if a type is already in the file's imports
+        /// Throws an Exception if the type name is ambiguous 
+        /// (ie. same name as an existing import located in another package)
+        /// </summary>
+        /// <param name="member">Element to search in imports</param>
+        /// <param name="atLine">Position in the file</param>
+        public override bool IsImported(MemberModel member, int atLine)
+        {
+            FileModel cFile = ASContext.Context.CurrentModel;
+            // same package is auto-imported
+            string package = member.Type.Length > member.Name.Length 
+                ? member.Type.Substring(0, member.Type.Length - member.Name.Length - 1)
+                : "";
+            if (package == cFile.Package) return true;
+            return base.IsImported(member, atLine);
+        }
+
+        /// <summary>
         /// Retrieves a class model from its name
         /// </summary>
         /// <param name="cname">Class (short or full) name</param>
