@@ -74,7 +74,8 @@
 		<separator />
 		<button label="Label.Cut" click="ScintillaCommand" tag="CutAllowLine" shortcut="Control|X" image="158" flags="Enable:IsEditable" />
 		<button label="Label.Copy" click="ScintillaCommand" tag="CopyAllowLine" shortcut="Control|C" image="278" flags="Enable:IsEditable" />
-		<button label="Label.Paste" click="SmartPaste" shortcut="Control|V" image="283" flags="Enable:IsEditable|CanPaste" />
+		<button label="Label.Paste" click="ScintillaCommand" tag="Paste" shortcut="Control|V" image="283" flags="Enable:IsEditable|CanPaste" />
+		<!--<button label="Label.PasteLines" click="SmartPaste" shortcut="Control|Alt|V" image="283" flags="Enable:IsEditable|CanPaste" />-->
 		<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" shortcut="Control|A" flags="Enable:IsEditable" />
 		<separator />
 		<button label="Label.CutLine" click="ScintillaCommand" tag="LineCut" shortcut="Control|Shift|X" flags="Enable:IsEditable" />
