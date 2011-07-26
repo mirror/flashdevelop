@@ -3222,22 +3222,27 @@ namespace ASCompletion.Completion
 		{
 			if (result.Member != null && result.InClass != null)
 			{
-				return MemberTooltipText(result.Member, result.InClass);
+                return MemberTooltipText(result.Member, result.InClass) + GetToolTipDoc(result.Member);
 			}
 			else if (result.Member != null && (result.Member.Flags & FlagType.Constructor) != FlagType.Constructor)
 			{
-                return MemberTooltipText(result.Member, ClassModel.VoidClass);
+                return MemberTooltipText(result.Member, ClassModel.VoidClass) + GetToolTipDoc(result.Member);
 			}
 			else if (result.InClass != null)
 			{
-				return ClassModel.ClassDeclaration(result.InClass);
+                return ClassModel.ClassDeclaration(result.InClass) + GetToolTipDoc(result.InClass);
 			}
 			else if (result.Type != null)
 			{
-				return ClassModel.ClassDeclaration(result.Type);
+                return ClassModel.ClassDeclaration(result.Type) + GetToolTipDoc(result.Type);
 			}
 			else return null;
 		}
+
+        private static string GetToolTipDoc(MemberModel model)
+        {
+            return ASDocumentation.GetTipShortDetails(model, null).TrimStart(new char[] { ' ', '…' });
+        }
 
 		static private string MemberTooltipText(MemberModel member, ClassModel inClass)
 		{
@@ -3274,7 +3279,7 @@ namespace ASCompletion.Completion
             if (inClass != ClassModel.VoidClass)
             {
                 string package = inClass.InFile.Package;
-                foundIn = "\nin " + ((package.Length > 0) ? package + "." + inClass.Name : inClass.Name);
+                foundIn = "\n[COLOR=#666666:MULTIPLY]in " + MemberModel.FormatType(inClass.QualifiedName) + "[/COLOR]";
             }
             if ((ft & (FlagType.Getter | FlagType.Setter)) > 0)
                 return String.Format("{0}property {1}{2}", modifiers, member.ToString(), foundIn);
