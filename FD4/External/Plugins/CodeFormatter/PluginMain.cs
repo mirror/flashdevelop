@@ -98,7 +98,9 @@ namespace CodeFormatter
 		/// </summary>
 		public void Initialize()
 		{
-			this.InitBasics();
+            this.InitBasics();
+            this.CreateMainMenuItem();
+            this.CreateContextMenuItem();
 			this.LoadSettings();
 		}
 		
@@ -126,13 +128,13 @@ namespace CodeFormatter
                     if (de.Action == "CodeRefactor.Menu")
                     {
                         ToolStripMenuItem mainMenu = (ToolStripMenuItem)de.Data;
-                        this.CreateMainMenuItem(mainMenu);
+                        this.AttachMainMenuItem(mainMenu);
                         this.UpdateMenuItems();
                     }
                     else if (de.Action == "CodeRefactor.ContextMenu")
                     {
                         ToolStripMenuItem contextMenu = (ToolStripMenuItem)de.Data;
-                        this.CreateContextMenuItem(contextMenu);
+                        this.AttachContextMenuItem(contextMenu);
                         this.UpdateMenuItems();
                     }
                     break;
@@ -170,21 +172,27 @@ namespace CodeFormatter
 		/// <summary>
 		/// Creates a menu item for the plugin
 		/// </summary>
-		public void CreateMainMenuItem(ToolStripMenuItem mainMenu)
+		public void CreateMainMenuItem()
 		{
             String label = TextHelper.GetString("Label.CodeFormatter");
             this.mainMenuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.Control | Keys.Shift | Keys.D2);
             PluginBase.MainForm.RegisterShortcutItem("RefactorMenu.CodeFormatter", this.mainMenuItem);
+        }
+        private void AttachMainMenuItem(ToolStripMenuItem mainMenu)
+        {
             mainMenu.DropDownItems.Insert(7, this.mainMenuItem);
-		}
+        }
 
         /// <summary>
         /// Creates a context menu item for the plugin
         /// </summary>
-        public void CreateContextMenuItem(ToolStripMenuItem contextMenu)
+        public void CreateContextMenuItem()
         {
             String label = TextHelper.GetString("Label.CodeFormatter");
             this.contextMenuItem = new ToolStripMenuItem(label, null, new EventHandler(this.Format), Keys.None);
+        }
+        public void AttachContextMenuItem(ToolStripMenuItem contextMenu)
+        {
             contextMenu.DropDownItems.Insert(6, this.contextMenuItem);
         }
 
