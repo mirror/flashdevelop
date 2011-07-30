@@ -198,12 +198,16 @@ namespace CodeRefactor.Provider
             {
                 return false;
             }
+            ASResult result = null;
             // get type at match position
-            ASResult result = DeclarationLookupResult(Sci, Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value));
-            if (associatedDocumentHelper != null)
+            if (match.Index < Sci.Text.Length) // TODO: find out rare cases of incorrect index reported
             {
-                // because the declaration lookup opens a document, we should register it with the document helper to be closed later
-                associatedDocumentHelper.RegisterLoadedDocument(PluginBase.MainForm.CurrentDocument);
+                result = DeclarationLookupResult(Sci, Sci.MBSafePosition(match.Index) + Sci.MBSafeTextLength(match.Value));
+                if (associatedDocumentHelper != null)
+                {
+                    // because the declaration lookup opens a document, we should register it with the document helper to be closed later
+                    associatedDocumentHelper.RegisterLoadedDocument(PluginBase.MainForm.CurrentDocument);
+                }
             }
             // check if the result matches the target
             // TODO: this method of checking their equality seems pretty crude -- is there a better way?

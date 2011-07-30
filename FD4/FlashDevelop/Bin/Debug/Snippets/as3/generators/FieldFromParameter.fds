@@ -1,1 +1,1 @@
-this.$(Name) = $(Value)$(EntryPoint);
+$(Name) = $(Value)$(EntryPoint);
