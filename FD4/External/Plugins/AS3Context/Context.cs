@@ -414,6 +414,7 @@ namespace AS3Context
             {
                 if (File.Exists(path.Path) && !path.WasExplored)
                 {
+                    bool isRefresh = path.FilesCount > 0;
                     //TraceManager.AddAsync("parse " + path.Path);
                     lock (path)
                     {
@@ -421,6 +422,12 @@ namespace AS3Context
                         SwfOp.ContentParser parser = new SwfOp.ContentParser(path.Path);
                         parser.Run();
                         AbcConverter.Convert(parser, path, this);
+                    }
+                    // reset FCSH
+                    if (isRefresh)
+                    {
+                        EventManager.DispatchEvent(this,
+                            new DataEvent(EventType.Command, "ProjectManager.RestartFlexShell", path.Path));
                     }
                 }
             }
