@@ -409,7 +409,8 @@ namespace AS3Context.Compiler
 
             string cmd = "-Duser.language=en -Duser.region=US"
                 + " -classpath \"" + ascPath + ";" + flexShellsPath + "\" AscShell";
-            TraceManager.Add(TextHelper.GetString("Info.StartAscRunner") + " java " + cmd, -1);
+            TraceManager.Add(TextHelper.GetString("Info.StartAscRunner") + "\n" 
+                + JvmConfigHelper.GetJavaEXE(jvmConfig) + " " + cmd, -1);
 			// run asc shell
 			ascRunner = new ProcessRunner();
             ascRunner.WorkingDirectory = Path.GetDirectoryName(ascPath);
@@ -434,7 +435,8 @@ namespace AS3Context.Compiler
 
             string cmd = jvmConfig["java.args"] 
                 + " -classpath \"" + mxmlcPath + ";" + flexShellsPath + "\" " + shell;
-            TraceManager.Add(TextHelper.GetString("Info.StartMxmlcRunner") + " java " + cmd, -1);
+            TraceManager.Add(TextHelper.GetString("Info.StartMxmlcRunner") + "\n"
+                + JvmConfigHelper.GetJavaEXE(jvmConfig) + " " + cmd, -1);
 			// run compiler shell
             mxmlcRunner = new ProcessRunner();
             mxmlcRunner.WorkingDirectory = Path.Combine(flexPath, "frameworks");
