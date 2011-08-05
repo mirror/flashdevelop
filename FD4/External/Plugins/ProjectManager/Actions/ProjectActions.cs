@@ -137,6 +137,7 @@ namespace ProjectManager.Actions
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
                 // add project classpaths
+                project.UpdateVars();
                 foreach (string cp in project.AbsoluteClasspaths)
                     if (Directory.Exists(cp)) classPaths.Add(cp);
 
@@ -146,12 +147,14 @@ namespace ProjectManager.Actions
                     MxmlcOptions options = (project as AS3Project).CompilerOptions;
                     foreach (string relPath in options.IntrinsicPaths)
                     {
-                        string absPath = PathHelper.ResolvePath(relPath, project.Directory);
+                        string absPath = project.GetAbsolutePath(relPath);
+                        if (absPath == null) continue;
                         if (Directory.Exists(absPath)) classPaths.Add(absPath);
                     }
                     foreach (string relPath in options.LibraryPaths)
                     {
                         string absPath = project.GetAbsolutePath(relPath);
+                        if (absPath == null) continue;
                         if (File.Exists(absPath)) classPaths.Add(absPath);
                         else if (Directory.Exists(absPath))
                         {
@@ -162,25 +165,29 @@ namespace ProjectManager.Actions
                     foreach (string relPath in options.IncludeLibraries)
                     {
                         string absPath = project.GetAbsolutePath(relPath);
+                        if (absPath == null) continue;
                         if (Directory.Exists(absPath) || File.Exists(absPath)) classPaths.Add(absPath);
                     }
                     foreach (string relPath in options.ExternalLibraryPaths)
                     {
                         string absPath = project.GetAbsolutePath(relPath);
+                        if (absPath == null) continue;
                         if (Directory.Exists(absPath) || File.Exists(absPath)) classPaths.Add(absPath);
                     }
                     foreach (string relPath in options.RSLPaths)
                     {
                         string[] parts = relPath.Split(',');
                         if (parts.Length < 2) continue;
-                        string absPath = project.GetAbsolutePath(parts[0]);
+                        string absPath = project.GetAbsolutePath(relPath);
+                        if (absPath == null) continue;
                         if (File.Exists(absPath)) classPaths.Add(absPath);
                     }
                 }
 
+                string dir = project.Directory;
                 foreach (string hidPath in project.HiddenPaths)
                 {
-                    string absPath = Path.Combine(project.Directory, hidPath);
+                    string absPath = Path.Combine(dir, hidPath);
                     foreach (string cp in classPaths)
                         if (absPath.StartsWith(cp))
                         {

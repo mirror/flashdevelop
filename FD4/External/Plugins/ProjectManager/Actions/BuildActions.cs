@@ -95,8 +95,7 @@ namespace ProjectManager.Actions
                 if (project.PreBuildEvent.Trim().Length == 0 && project.PostBuildEvent.Trim().Length == 0)
                 {
                     String info = TextHelper.GetString("Info.NoOutputAndNoBuild");
-                    ErrorManager.ShowInfo(info);
-                    return false;
+                    TraceManager.Add(info);
                 }
             }
             else

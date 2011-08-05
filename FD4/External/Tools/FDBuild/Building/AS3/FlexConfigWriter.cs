@@ -5,6 +5,7 @@ using System.Xml;
 using ProjectManager.Projects.AS3;
 using System.IO;
 using System.Collections;
+using ProjectManager.Projects;
 
 namespace FDBuild.Building.AS3
 {
@@ -21,6 +22,7 @@ namespace FDBuild.Building.AS3
         public void WriteConfig(AS3Project project, string[] extraClasspaths, bool debugMode)
         {
             this.project = project;
+            project.UpdateVars();
 
             double version = GetVersion(Program.BuildOptions.CompilerVersion ?? "4.0");
             flex4 = version >= 4;

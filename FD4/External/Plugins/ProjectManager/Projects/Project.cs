@@ -37,6 +37,7 @@ namespace ProjectManager.Projects
         string preferredSDK;
         string currentSDK;
         PathCollection absClasspaths;
+        BuildEventInfo[] vars; // arguments to replace in paths
 
         public OutputType OutputType = OutputType.Unknown;
         public string InputPath; // For code injection
@@ -301,12 +302,20 @@ namespace ProjectManager.Projects
 
 		public string GetRelativePath(string path)
 		{
-			return ProjectPaths.GetRelativePath(this.Directory,path);
+			return ProjectPaths.GetRelativePath(this.Directory, path);
 		}
+
+        public void UpdateVars()
+        {
+            vars = new BuildEventVars(this).GetVars();
+        }
 
 		public string GetAbsolutePath(string path)
 		{
             path = Environment.ExpandEnvironmentVariables(path);
+            if (vars != null && path.IndexOf('$') >= 0)
+                foreach (BuildEventInfo arg in vars) 
+                    path = path.Replace(arg.FormattedName, arg.Value);
             return ProjectPaths.GetAbsolutePath(this.Directory, path);
 		}
 
@@ -341,8 +350,6 @@ namespace ProjectManager.Projects
         }
 
 		#endregion
-
-
     }
 
     public enum OutputType
