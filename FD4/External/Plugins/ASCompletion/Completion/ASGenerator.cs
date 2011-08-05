@@ -1766,6 +1766,7 @@ namespace ASCompletion.Completion
                 isVararg = true;
             }
             string varName = paramName;
+            string scopedVarName = varName;
 
             if (ASContext.CommonSettings.PrefixFields.Length > 0 && !paramName.StartsWith(ASContext.CommonSettings.PrefixFields))
             {
@@ -1773,16 +1774,15 @@ namespace ASCompletion.Completion
             }
             if (ASContext.CommonSettings.GenerateScope || ASContext.CommonSettings.PrefixFields == "")
             {
-                varName = "this." + varName;
+                scopedVarName = "this." + varName;
             }
 
             string template = TemplateUtils.GetTemplate("FieldFromParameter");
-            template = TemplateUtils.ReplaceTemplateVariable(template, "Name", varName);
+            template = TemplateUtils.ReplaceTemplateVariable(template, "Name", scopedVarName);
             template = TemplateUtils.ReplaceTemplateVariable(template, "Value", paramName);
             template += "\n$(Boundary)";
 
             SnippetHelper.InsertSnippetText(Sci, funcBodyStart, template);
-
 
             MemberList classMembers = inClass.Members;
             foreach (MemberModel classMember in classMembers)
