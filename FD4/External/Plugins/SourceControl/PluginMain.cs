@@ -334,8 +334,8 @@ namespace SourceControl
             // Try to find svn path from: Tools/sliksvn/
             if (settingObject.SVNPath == "svn.exe")
             {
-                String svnCmdPath = Path.Combine(PathHelper.ToolDir, @"sliksvn\bin\svn.exe");
-                if (File.Exists(svnCmdPath)) settingObject.SVNPath = svnCmdPath;
+                String svnCmdPath = @"Tools\sliksvn\bin\svn.exe";
+                if (PathHelper.ResolvePath(svnCmdPath) != null) settingObject.SVNPath = svnCmdPath;
             }
             // Try to find TortoiseProc path from program files
             if (settingObject.TortoiseSVNProcPath == "TortoiseProc.exe")

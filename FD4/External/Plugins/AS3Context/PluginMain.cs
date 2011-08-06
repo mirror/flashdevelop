@@ -530,7 +530,7 @@ namespace AS3Context
             string path = sdk.Path;
             Match mBin = Regex.Match(path, "[/\\\\]bin$", RegexOptions.IgnoreCase);
             if (mBin.Success)
-                path = path.Substring(0, mBin.Index);
+                sdk.Path = path = path.Substring(0, mBin.Index);
             path = PathHelper.ResolvePath(path);
 
             try
