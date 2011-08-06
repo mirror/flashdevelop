@@ -488,6 +488,7 @@ namespace ProjectManager
             if (this.project != null) CloseProject(true);
 
             this.project = project;
+            project.UpdateVars();
 
             // init
             Environment.CurrentDirectory = project.Directory;
@@ -594,6 +595,7 @@ namespace ProjectManager
         {
             using (PropertiesDialog dialog = project.CreatePropertiesDialog())
             {
+                project.UpdateVars();
                 dialog.SetProject(project);
                 dialog.OpenGlobalClasspaths += delegate { OpenGlobalClasspaths(); };
                 dialog.ShowDialog(pluginUI);
@@ -781,6 +783,7 @@ namespace ProjectManager
         {
             if (!listenToPathChange) return;
             listenToPathChange = false;
+            project.UpdateVars();
             projectActions.UpdateASCompletion(MainForm, project);
             pluginUI.NotifyIssues();
             FlexCompilerShell.Cleanup(); // clear compile cache for this project

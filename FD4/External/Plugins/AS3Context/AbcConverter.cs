@@ -615,6 +615,10 @@ namespace AS3Context
 				if (doc.Returns != null)
 					doc.LongDesc += "\n@return\t" + doc.Returns.Trim();
 
+				if (doc.ExtraAsDocs != null)
+					foreach (KeyValuePair<string, string> extraAsdoc in doc.ExtraAsDocs)
+						doc.LongDesc += "\n@" + extraAsdoc.Key + "\t" + extraAsdoc.Value;
+
 				if (doc.ShortDesc.Length > 0 || doc.LongDesc.Length > 0)
 					docs[id] = doc;
             }
@@ -643,13 +647,15 @@ namespace AS3Context
                 case "apiReturn": ReadReturnsDesc(doc); break;
                 case "apiInheritDoc": break; // TODO link inherited doc?
 
+				case "apiException": ReadApiException(doc); break; // TODO link inherited doc?
+
                 //case "apiConstructorDetail":
                 //case "apiOperationDetail":
                 case "apiClassifierDetail":
 				case "apiDetail": 
 				case "related-links": SkipContents(); break;
 
-				case "prolog": SkipContents(); break; // TODO parse metadata
+				case "prolog": ReadProlog(doc); break; // TODO parse metadata - DONE!
 
 				case "apiType": ReadApiType(doc); break;
 				case "apiOperationClassifier": ReadApiType_apiOperationClassifier(doc); break;
@@ -721,6 +727,161 @@ namespace AS3Context
                 doc.Params[name] = desc;
             }
         }
+
+
+		private void ReadApiException(DocItem doc)
+		{
+			if (IsEmptyElement) return;
+
+			string apiDesc = "";
+			string apiItemName = "";
+			string apiOperationClassifier = "";
+
+			string eon = Name;
+			ReadStartElement();
+			while (Name != eon)
+			{
+				if (Name == "apiDesc")
+					apiDesc = ReadValue();
+
+				if (Name == "apiItemName")
+					apiItemName = ReadValue();
+
+				if (Name == "apiOperationClassifier")
+					apiOperationClassifier = ReadValue();
+
+				Read();
+			}
+
+			doc.ExtraAsDocs.Add(new KeyValuePair<string, string>("throws", apiItemName + " " + apiDesc));
+		}
+
+
+
+		/// <summary>
+		/// ---
+		/// Example:
+		/// <prolog>
+		///		<asMetadata>
+		///			<apiVersion>
+		///				<apiLanguage version="3.0" />
+		///				<apiPlatform description="" name="Flash" version="10" />
+		///				<apiPlatform description="" name="AIR" version="1.5" />
+		///				<apiTool description="" name="Flex" version="3" />
+		///			</apiVersion>
+		///		</asMetadata>
+		///		<asCustoms>
+		///			<customAsDoc>
+		///				<type c="String" />
+		///			</customAsDoc>
+		///		</asCustoms>
+		///	</prolog>
+		///	---
+		/// </summary>
+		/// <param name="doc"></param>
+		private void ReadProlog(DocItem doc)
+		{
+			if (IsEmptyElement)
+				return;
+
+			string eon = Name;
+			ReadStartElement();
+			while (Name != eon)
+			{
+				if (Name == "asMetadata")
+					ReadPrologAsMetadata(doc);
+				
+				if (Name == "asCustoms")
+					ReadPrologAsCustoms(doc, Name);
+				
+				Read();
+			}
+		}
+
+		private void ReadPrologAsMetadata(DocItem doc)
+		{
+			if (IsEmptyElement)
+				return;
+
+			string eon = Name;
+			ReadStartElement();
+			while (Name != eon)
+			{
+				if (Name == "apiVersion")
+					ReadPrologAsMetadataApiVersion(doc);
+
+				Read();
+			}
+		}
+
+		private void ReadPrologAsMetadataApiVersion(DocItem doc)
+		{
+			if (IsEmptyElement)
+				return;
+
+			string asdocKey;
+			string asdocVal;
+
+			string eon = Name;
+			ReadStartElement();
+			while (Name != eon)
+			{
+				if (Name == "apiLanguage")
+				{
+					string sVers = GetAttribute("version");
+
+					asdocKey = "langversion";
+					asdocVal = sVers;
+
+					doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+				}
+				else if (Name == "apiPlatform")
+				{
+					string sDesc = GetAttribute("description");
+					string sName = GetAttribute("name");
+					string sVers = GetAttribute("version");
+
+					asdocKey = "playerversion";
+					asdocVal = sName + " " + sVers + "  " + sDesc;
+
+					doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+				}
+				else if (Name == "apiTool")
+				{
+					string sDesc = GetAttribute("description");
+					string sName = GetAttribute("name");
+					string sVers = GetAttribute("version");
+
+					asdocKey = "productversion";
+					asdocVal = sName + " " + sVers + "  " + sDesc;
+
+					doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+				}
+
+				Read();
+			}
+		}
+
+		private void ReadPrologAsCustoms(DocItem doc, string terminationNode)
+		{
+			if (IsEmptyElement)
+				return;
+
+			string asdocKey;
+			string asdocVal;
+
+			string eon = terminationNode;
+			ReadStartElement();
+			while (!(Name == eon && NodeType == XmlNodeType.EndElement))
+			{
+				asdocKey = this.Name;
+				asdocVal = this.ReadInnerXml();
+
+				doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+			}
+		}
+
+
 
         private void ReadExcludeMeta(DocItem doc)
         {
@@ -848,11 +1009,13 @@ namespace AS3Context
     {
         public string ShortDesc;
         public string LongDesc;
-        public List<ASMetaData> Meta;
-        public Dictionary<string, string> Params;
         public string Returns;
         public string Value;
 		public string ApiType;
+
+		public List<ASMetaData> Meta;
+		public Dictionary<string, string> Params;
+		public List<KeyValuePair<string, string>> ExtraAsDocs = new List<KeyValuePair<string, string>>();
     }
 
     #endregion

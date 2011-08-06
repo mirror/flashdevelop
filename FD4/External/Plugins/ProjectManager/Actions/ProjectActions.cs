@@ -128,6 +128,7 @@ namespace ProjectManager.Actions
             if (project != null)
             {
                 BuildActions.GetCompilerPath(project); // refresh project's SDK
+                project.UpdateVars();
 
                 // platform/version
                 platform = project.MovieOptions.Platform;
@@ -137,7 +138,6 @@ namespace ProjectManager.Actions
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
                 // add project classpaths
-                project.UpdateVars();
                 foreach (string cp in project.AbsoluteClasspaths)
                     if (Directory.Exists(cp)) classPaths.Add(cp);
 
