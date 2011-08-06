@@ -408,7 +408,7 @@ namespace ASCompletion.Completion
                     else contextToken = "on" + Capitalize(target) + Capitalize(eventName);
                     break;
                 case HandlerNamingConventions.target_eventNameHandler:
-                    if (target == null) contextToken = eventName;
+                    if (target == null) contextToken = eventName + "Handler";
                     else contextToken = target + "_" + eventName + "Handler";
                     break;
                 default: //HandlerNamingConventions.target_eventName
