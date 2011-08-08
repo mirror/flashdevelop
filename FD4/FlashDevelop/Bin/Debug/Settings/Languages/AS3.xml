@@ -35,7 +35,7 @@
 		</keyword-class>
 		<keyword-class name="as3-documentation-keywords">
 			author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link mtasc mxmlc 
-			param private return see serial serialData serialField since throws usage version
+			param private return see serial serialData serialField since throws usage version langversion playerversion productversion
 		</keyword-class>
 		<keyword-class name="as3-additional-keywords3">
 			dynamic private public static intrinsic internal native override protected AS3 final 

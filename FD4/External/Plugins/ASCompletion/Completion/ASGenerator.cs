@@ -1770,7 +1770,7 @@ namespace ASCompletion.Completion
 
             if (ASContext.CommonSettings.PrefixFields.Length > 0 && !paramName.StartsWith(ASContext.CommonSettings.PrefixFields))
             {
-                varName = ASContext.CommonSettings.PrefixFields + varName;
+                scopedVarName = varName = ASContext.CommonSettings.PrefixFields + varName;
             }
             if (ASContext.CommonSettings.GenerateScope || ASContext.CommonSettings.PrefixFields == "")
             {
@@ -1786,12 +1786,8 @@ namespace ASCompletion.Completion
 
             MemberList classMembers = inClass.Members;
             foreach (MemberModel classMember in classMembers)
-            {
                 if (classMember.Name.Equals(varName))
-                {
                     return;
-                }
-            }
 
             MemberModel latest = GetLatestMemberForVariable(GeneratorJobType.Variable, inClass, GetDefaultVisibility(), new MemberModel());
             if (latest == null) return;
@@ -1802,14 +1798,8 @@ namespace ASCompletion.Completion
             Sci.CurrentPos = position;
 
             MemberModel mem = NewMember(varName, member, FlagType.Variable, GetDefaultVisibility());
-            if (isVararg)
-            {
-                mem.Type = "Array";
-            }
-            else
-            {
-                mem.Type = contextMember.Type;
-            }
+            if (isVararg) mem.Type = "Array";
+            else mem.Type = contextMember.Type;
 
             GenerateVariable(mem, position, true);
             ASContext.Panel.RestoreLastLookupPosition();
