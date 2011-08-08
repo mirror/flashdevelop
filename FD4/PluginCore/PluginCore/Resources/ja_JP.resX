@@ -4872,4 +4872,12 @@ UseData:"</value>
     <value>public コールバック関数の生成</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="FlashDevelop.Label.SmartPaste" xml:space="preserve">
+    <value>Smart Paste</value>
+    <comment>Added after 4.0.0 Beta</comment>
+  </data>
+  <data name="FlashDevelop.Label.JScriptDocument" xml:space="preserve">
+    <value>JScript Document</value>
+    <comment>Added after 4.0.0 Beta</comment>
+  </data>
 </root>

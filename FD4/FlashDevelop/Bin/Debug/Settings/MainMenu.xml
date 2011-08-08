@@ -8,7 +8,7 @@
 			<button label="Label.AS3Document" click="NewFromTemplate" tag="as;$(BaseDir)\Templates\AS3.fdt" shortcut="Control|D2" />
 			<button label="Label.MXMLDocument" click="NewFromTemplate" tag="mxml;$(BaseDir)\Templates\MXML.fdt" shortcut="Control|D3" />
 			<button label="Label.HTMLDocument" click="NewFromTemplate" tag="html;$(BaseDir)\Templates\HTML.fdt" shortcut="Control|D4" />
-			<!--<button label="Label.JScriptDocument" click="NewFromTemplate" tag="html;$(BaseDir)\Templates\JScript.fdt" shortcut="Control|D5" />-->
+			<button label="Label.JScriptDocument" click="NewFromTemplate" tag="js;$(BaseDir)\Templates\JScript.js.fdt" shortcut="Control|D5" />
 			<button label="Label.CSSDocument" click="NewFromTemplate" tag="css;$(BaseDir)\Templates\CSS.fdt" shortcut="Control|D6" />
 			<button label="Label.PHPDocument" click="NewFromTemplate" tag="php;$(BaseDir)\Templates\PHP.fdt" shortcut="Control|D7" />
 			<button label="Label.XMLDocument" click="NewFromTemplate" tag="xml;$(BaseDir)\Templates\XML.fdt" shortcut="Control|D8" />
@@ -75,7 +75,7 @@
 		<button label="Label.Cut" click="ScintillaCommand" tag="CutAllowLine" shortcut="Control|X" image="158" flags="Enable:IsEditable" />
 		<button label="Label.Copy" click="ScintillaCommand" tag="CopyAllowLine" shortcut="Control|C" image="278" flags="Enable:IsEditable" />
 		<button label="Label.Paste" click="ScintillaCommand" tag="Paste" shortcut="Control|V" image="283" flags="Enable:IsEditable|CanPaste" />
-		<!--<button label="Label.SmartPaste" click="SmartPaste" shortcut="Control|Alt|V" image="283" flags="Enable:IsEditable|CanPaste" />-->
+		<button label="Label.SmartPaste" click="SmartPaste" shortcut="Control|Alt|V" flags="Enable:IsEditable|CanPaste" />
 		<button label="Label.SelectAll" click="ScintillaCommand" tag="SelectAll" shortcut="Control|A" flags="Enable:IsEditable" />
 		<separator />
 		<button label="Label.CutLine" click="ScintillaCommand" tag="LineCut" shortcut="Control|Shift|X" flags="Enable:IsEditable" />

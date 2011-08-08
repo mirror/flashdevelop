@@ -4815,4 +4815,12 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Generate public callback</value>
     <comment>Added after 3.3.4</comment>
   </data>
+  <data name="FlashDevelop.Label.SmartPaste" xml:space="preserve">
+    <value>Smart Paste</value>
+    <comment>Added after 4.0.0 Beta</comment>
+  </data>
+  <data name="FlashDevelop.Label.JScriptDocument" xml:space="preserve">
+    <value>JScript Document</value>
+    <comment>Added after 4.0.0 Beta</comment>
+  </data>
 </root>
