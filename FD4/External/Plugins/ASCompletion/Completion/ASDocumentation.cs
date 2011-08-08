@@ -288,20 +288,15 @@ namespace ASCompletion.Completion
 		static public CommentBlock ParseComment(string comment)
 		{
 			// cleanup
-			comment = Regex.Replace(comment, "^[ \t*]+", "");
-			comment = Regex.Replace(comment, "[ \t*]+$", "", RegexOptions.RightToLeft);
 			string[] lines = Regex.Split(comment, "[\r\n]+");
-			int p;
-			comment = "";
-			foreach(string line in lines)
+            char[] trim = new char[] { ' ', '\t', '*' };
+            bool addNL = false;
+            comment = "";
+            foreach (string line in lines)
 			{
-				p = line.IndexOf('*');
-				if (p < 0) comment += '\n'+line.TrimStart();
-				else if (p+1 < line.Length) 
-				{
-					if (line[p+1] == ' ') p++;
-					comment += '\n'+line.Substring(p+1);
-				}
+                string temp = line.Trim(trim);
+                if (addNL) comment += '\n' + temp;
+                else { comment += temp; addNL = true; }
 			}
 			// extraction
 			CommentBlock cb = new CommentBlock();
