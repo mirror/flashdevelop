@@ -199,16 +199,12 @@ namespace ASCompletion.Completion
                 {
                     string funcName = found.member.Name;
                     int classPosStart = Sci.PositionFromLine(found.inClass.LineFrom);
-
-                    bool skip = false;
+                    
+                    List<string> interfaces = new List<string>();
                     foreach (string interf in found.inClass.Implements)
                     {
-                        if (skip)
-                        {
-                            break;
-                        }
+                        bool skip = false;
                         ClassModel cm = ASContext.Context.ResolveType(interf, ASContext.Context.CurrentModel);
-                        contextParam = cm.Type;
                         MemberList members = cm.Members;
                         foreach (MemberModel m in members)
                         {
@@ -218,10 +214,14 @@ namespace ASCompletion.Completion
                                 break;
                             }
                         }
+                        if (!skip)
+                        {
+                            interfaces.Add(interf);
+                        }
                     }
-                    if (!skip && contextParam != null)
+                    if (interfaces.Count > 0)
                     {
-                        ShowAddInterfaceDefList(found);
+                        ShowAddInterfaceDefList(found, interfaces);
                         return;
                     }
                 }
@@ -509,7 +509,7 @@ namespace ASCompletion.Completion
         {
             if (matches.Count == 1)
             {
-                ASGenerator.GenerateJob(GeneratorJobType.AddImport, matches[0], null, null);
+                ASGenerator.GenerateJob(GeneratorJobType.AddImport, matches[0], null, null, null);
                 return;
             }
 
@@ -766,7 +766,7 @@ namespace ASCompletion.Completion
             }
         }
 
-        private static void ShowAddInterfaceDefList(FoundDeclaration found)
+        private static void ShowAddInterfaceDefList(FoundDeclaration found, List<string> interfaces)
         {
             ContextFeatures features = ASContext.Context.Features;
             List<ICompletionListItem> known = new List<ICompletionListItem>();
@@ -776,8 +776,10 @@ namespace ASCompletion.Completion
             if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
             {
                 string labelClass = TextHelper.GetString("ASCompletion.Label.AddInterfaceDef");
-                known.Add(new GeneratorItem(labelClass, GeneratorJobType.AddInterfaceDef, found.member, found.inClass));
-
+                foreach (String interf in interfaces)
+                {
+                    known.Add(new GeneratorItem(String.Format(labelClass, interf), GeneratorJobType.AddInterfaceDef, found.member, found.inClass, interf));
+                }
                 CompletionList.Show(known, false);
             }
         }
@@ -836,7 +838,7 @@ namespace ASCompletion.Completion
             ASGenerator.contextMatch = contextMatch;
         }
 
-        static public void GenerateJob(GeneratorJobType job, MemberModel member, ClassModel inClass, string itemLabel)
+        static public void GenerateJob(GeneratorJobType job, MemberModel member, ClassModel inClass, string itemLabel, Object data)
         {
             ScintillaNet.ScintillaControl Sci = ASContext.CurSciControl;
             lookupPosition = Sci.CurrentPos;
@@ -1099,7 +1101,7 @@ namespace ASCompletion.Completion
                     Sci.BeginUndoAction();
                     try
                     {
-                        AddInterfaceDefJob(inClass, Sci, member);
+                        AddInterfaceDefJob(inClass, Sci, member, (String)data);
                     }
                     finally
                     {
@@ -1651,9 +1653,9 @@ namespace ASCompletion.Completion
             Sci.CurrentPos = currPos;
         }
 
-        private static void AddInterfaceDefJob(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member)
+        private static void AddInterfaceDefJob(ClassModel inClass, ScintillaNet.ScintillaControl Sci, MemberModel member, string interf)
         {
-            ClassModel aType = ASContext.Context.ResolveType(contextParam, ASContext.Context.CurrentModel);
+            ClassModel aType = ASContext.Context.ResolveType(interf, ASContext.Context.CurrentModel);
             if (aType.IsVoid()) return;
 
             FileModel fileModel = ASFileParser.ParseFile(aType.InFile.FileName, ASContext.Context);
@@ -4365,6 +4367,7 @@ namespace ASCompletion.Completion
         private GeneratorJobType job;
         private MemberModel member;
         private ClassModel inClass;
+        private Object data;
 
         public GeneratorItem(string label, GeneratorJobType job, MemberModel member, ClassModel inClass)
         {
@@ -4372,6 +4375,12 @@ namespace ASCompletion.Completion
             this.job = job;
             this.member = member;
             this.inClass = inClass;
+        }
+
+        public GeneratorItem(string label, GeneratorJobType job, MemberModel member, ClassModel inClass, Object data) : this(label, job, member, inClass)
+        {
+            
+            this.data = data;
         }
 
         public string Label
@@ -4392,8 +4401,16 @@ namespace ASCompletion.Completion
         {
             get
             {
-                ASGenerator.GenerateJob(job, member, inClass, label);
+                ASGenerator.GenerateJob(job, member, inClass, label, data);
                 return null;
+            }
+        }
+
+        public Object Data
+        {
+            get
+            {
+                return data;
             }
         }
     }

@@ -151,7 +151,7 @@ namespace ASClassWizard
                             ASContext.Context.CurrentModel.Check();
                             ClassModel inClass = ASContext.Context.CurrentModel.GetPublicClass();
                             ASGenerator.SetJobContext(null, cname, null, null);
-                            ASGenerator.GenerateJob(GeneratorJobType.ImplementInterface, null, inClass, null);
+                            ASGenerator.GenerateJob(GeneratorJobType.ImplementInterface, null, inClass, null, null);
                         }
                         lastFileOptions = null;
                     }
