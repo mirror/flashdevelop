@@ -2215,7 +2215,7 @@ Never - Startseite wird nie angezeigt.</value>
     <value>Schnittstellendefinition erstellen</value>
   </data>
   <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
-    <value>Zu Schnittstelle hinzufügen</value>
+    <value>Zu Schnittstelle hinzufügen - {0}</value>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter</value>
@@ -2963,9 +2963,6 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Gibt an, ob automatisch eine schließenden Klammer nach Eingabe von "(" oder "[" eingefügt werden soll. Gilt auch für Anführungszeichen.</value>
-  </data>
-  <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value>Fügt ein Präfix den Feldern hinzu, welche über "Erstelle Felder aus den Parametern" hinzu.</value>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>Fügt FlashDevelop einen Klassen-Assistenten hinzu</value>

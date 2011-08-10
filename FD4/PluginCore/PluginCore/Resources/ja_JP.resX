@@ -2208,7 +2208,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>インターフェース定義の生成</value>
   </data>
   <data name="ASCompletion.Label.AddInterfaceDef" xml:space="preserve">
-    <value>インターフェースに追加</value>
+    <value>インターフェースに追加 - {0}</value>
   </data>
   <data name="ASCompletion.Label.GenerateGet" xml:space="preserve">
     <value>Getter の生成</value>
@@ -2959,9 +2959,6 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>「 ( 」または「 [ 」または「 " 」を入力したとき、自動的に対になる閉じ括弧（引用符）を挿入します。</value>
-  </data>
-  <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value> "パラメーターからフィールドを生成"によって生成されるフィールドに付与する接頭辞です。</value>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>FlashDevelop に ActionScript クラスウイザード機能を追加します。</value>
