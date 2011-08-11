@@ -20,6 +20,7 @@ namespace PluginCore.PluginCore.Helpers
 
             // default values
             if (!config.ContainsKey("java.home")) config["java.home"] = "";
+            else config["java.home"] = config["java.home"].Trim(new char[] { '"', '\'', ' ', '\t' });
 
             string args = "-Xmx384m -Dsun.io.useCanonCaches=false";
             if (config.ContainsKey("java.args")) args = config["java.args"];
