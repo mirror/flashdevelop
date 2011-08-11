@@ -11,6 +11,7 @@ using ProjectManager.Projects.AS3;
 using ScintillaNet;
 using PluginCore;
 using net.sf.jni4net;
+using PluginCore.PluginCore.Helpers;
 
 namespace FlashDebugger
 {
@@ -67,8 +68,7 @@ namespace FlashDebugger
             {
                 IProject project = PluginBase.CurrentProject;
                 if (project == null || !project.EnableInteractiveDebugger) return false;
-                ProjectReader reader = new ProjectReader(project.ProjectPath, new AS3Project(project.ProjectPath));
-                currentProject = reader.ReadProject();
+                currentProject = project as Project;
                 // Give a console warning for non external player...
                 if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
                 {
@@ -99,6 +99,15 @@ namespace FlashDebugger
                 {
                     BridgeSetup bridgeSetup = null;
                     bridgeSetup = new BridgeSetup();
+
+                    string flexSDKPath = currentProject.CurrentSDK;
+                    if (flexSDKPath != null && Directory.Exists(flexSDKPath))
+                    {
+                        Dictionary<string, string> jvmConfig =
+                            JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
+                        bridgeSetup.JavaHome = JvmConfigHelper.GetJavaHome(jvmConfig, flexSDKPath);
+                    }
+
                     bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
                     bridgeSetup.AddAllJarsClassPath(Path.Combine(PluginCore.Helpers.PathHelper.ToolDir, @"flexlibs\lib"));
                     Bridge.CreateJVM(bridgeSetup);

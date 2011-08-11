@@ -41,15 +41,19 @@ namespace PluginCore.PluginCore.Helpers
         public static string GetJavaEXE(Dictionary<string, string> jvmConfig, string flexSdkPath)
         {
             string defaultExe = "java.exe";
-            string home = null;
-            
-            if (jvmConfig != null && jvmConfig.ContainsKey("java.home"))
-                home = ResolvePath(jvmConfig["java.home"], flexSdkPath, true);
-            if (home == null) home = Environment.ExpandEnvironmentVariables("%JAVA_HOME%");
- 
+            string home = GetJavaHome(jvmConfig, flexSdkPath);
             if (!String.IsNullOrEmpty(home) && !home.StartsWith("%")) 
                 return Path.Combine(home, "bin\\java.exe");
             return defaultExe;
+        }
+
+        public static string GetJavaHome(Dictionary<string, string> jvmConfig, string flexSdkPath)
+        {
+            string home = null;
+            if (jvmConfig != null && jvmConfig.ContainsKey("java.home"))
+                home = ResolvePath(jvmConfig["java.home"], flexSdkPath, true);
+            if (home == null) home = Environment.ExpandEnvironmentVariables("%JAVA_HOME%");
+            return home;
         }
 
 		// Duplicated from 'PluginCore.PathHelper.ResolvePath()'
