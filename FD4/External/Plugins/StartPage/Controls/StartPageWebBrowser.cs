@@ -72,7 +72,6 @@ namespace StartPage.Controls
             this.Controls.Add(this.webBrowser);
             this.Name = "StartPageWebBrowser";
             this.Size = new System.Drawing.Size(696, 602);
-            this.Resize += new System.EventHandler(this.DndPanelResize);
             this.ResumeLayout(false);
 
         }
@@ -106,15 +105,6 @@ namespace StartPage.Controls
         {
             this.recentProjectList.Update(ProjectManager.PluginMain.Settings.RecentProjects);
             this.webBrowser.Document.InvokeScript("handleXmlData", new String[] { this.recentProjectList.ToXml(), null});
-        }
-
-        /// <summary>
-        /// Resizes the dnd panel to correct size.
-        /// </summary>
-        private void DndPanelResize(Object sender, EventArgs e)
-        {
-            Int32 sbWidth = SystemInformation.VerticalScrollBarWidth;
-            this.dndPanel.Width = this.webBrowser.Width - sbWidth;
         }
         
         /// <summary>

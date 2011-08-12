@@ -17,6 +17,12 @@
 				<a href="javascript:window.external.ShowReleaseNotes();"><script type="text/javascript">document.write(getLocaleString("mainLinkNotes"));</script></a>
 				<a href="javascript:window.external.ShowAbout();"><script type="text/javascript">document.write(getLocaleString("mainLinkAbout"));</script></a>
 			</div>
+			<!-- Social Div -->
+			<div class="social"> 
+				<a href="http://www.facebook.com/pages/FlashDevelop/234513319739" title="FlashDevelop@Facebook"><img src="images/iconFacebook.png"/></a> 
+				<a href="http://twitter.com/flashdevelop" title="FlashDevelop@Twitter"><img src="images/iconTwitter.png"/></a>
+			</div> 
+			<!-- /Social Div --> 
 			<table id="holder" cellpadding="0" cellspacing="0">
 				<tr valign="top">
 					<td class="holderSpacer"></td>
@@ -46,15 +52,17 @@
 							<tr>
 								<td class="windowLeft"></td>
 								<td>
-									<b>&raquo;</b>
-									<a href="javascript:window.external.OpenProjectDialog()">
-										<script type="text/javascript">document.write(getLocaleString("openProjectDialog"));</script>
-									</a>
-									<br />
-									<b>&raquo;</b>
-									<a href="javascript:window.external.NewProject()">
-										<script type="text/javascript">document.write(getLocaleString("createNewProject"));</script>
-									</a>
+									<div id="tasksContent">
+										<b>&raquo;</b>
+										<a href="javascript:window.external.OpenProjectDialog()">
+											<script type="text/javascript">document.write(getLocaleString("openProjectDialog"));</script>
+										</a>
+										<br />
+										<b>&raquo;</b>
+										<a href="javascript:window.external.NewProject()">
+											<script type="text/javascript">document.write(getLocaleString("createNewProject"));</script>
+										</a>
+									</div>
 								</td>
 								<td class="windowRight"></td>
 							</tr>

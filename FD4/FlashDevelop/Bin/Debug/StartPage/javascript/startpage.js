@@ -1,12 +1,12 @@
 ﻿/**
 * Templates used by the start page.
 */
-var rssFeedItemTemplate = "<li><span><a href=\"javascript:window.external.ShowURL('{1}');\">{0}</a></span><br />{2}</li>";
+var rssFeedItemTemplate = "<li><span class=\"rssItemTitle\"><a href=\"javascript:window.external.ShowURL('{1}');\">{0}</a></span><span class=\"rssItemContent\">{2}</span></li>";
 var projectItemTemplate = "<li><a href=\"javascript:window.external.OpenProject('{1}');\" onmouseover=\"showToolTip('{1}','{2}','{3}','{4}');\" onmouseout=\"hideToolTip();\">{0}</a></li>";
 var tooltipTextTemplate = "{0}<br /><b>" + getLocaleString("tooltipTextType") + "</b> {1}<br /><b>" + getLocaleString("tooltipTextCreated") + "</b> {2}<br /><b>" + getLocaleString("tooltipTextModified") + "</b> {3}";
-var versionAvailableTemplate = "<b><span>{0}:</b> <a href=\"{1}\">" + getLocaleString("downloadVersionHere") + "</a></span>";
+var versionAvailableTemplate = "<span><b>{0}:</b> <a href=\"{1}\">" + getLocaleString("downloadVersionHere") + "</a></span>";
 var versionOutOfDateTemplate = "<br/><span class=\"alertRed\">" + getLocaleString("yourVersionIsOutOfDate") + "</span>";
-var versionNotAvailableTemplate = "<span>" + getLocaleString("versionInfoNotAvailable") + "<span>";
+var versionNotAvailableTemplate = "<span>" + getLocaleString("versionInfoNotAvailable") + "</span>";
 
 /**
 * Parses XML document from string.
