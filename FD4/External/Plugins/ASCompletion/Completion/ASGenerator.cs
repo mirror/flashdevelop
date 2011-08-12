@@ -994,7 +994,8 @@ namespace ASCompletion.Completion
 
                         string template = TemplateUtils.GetTemplate("Variable");
                         template = TemplateUtils.ReplaceTemplateVariable(template, "Name", contextMember.Name);
-                        template = TemplateUtils.ReplaceTemplateVariable(template, "Type", contextMember.Type);
+                        template = TemplateUtils.ReplaceTemplateVariable(template, "Type",
+                            String.IsNullOrEmpty(contextMember.Type) ? "*" : contextMember.Type);
                         template = TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", null);
                         template = TemplateUtils.ReplaceTemplateVariable(template, "Value", null);
                         template += "\n$(Boundary)";
