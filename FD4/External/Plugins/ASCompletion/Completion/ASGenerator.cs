@@ -1059,9 +1059,17 @@ namespace ASCompletion.Completion
                         if (member.InFile == null) break;
                         member.Type = member.Name;
                     }
-                    int offset = InsertImport(member, true);
-                    position += offset;
-                    Sci.SetSel(position, position);
+                    Sci.BeginUndoAction();
+                    try
+                    {
+                        int offset = InsertImport(member, true);
+                        position += offset;
+                        Sci.SetSel(position, position);
+                    }
+                    finally
+                    {
+                        Sci.EndUndoAction();
+                    }
                     break;
 
                 case GeneratorJobType.Class:
@@ -4185,7 +4193,8 @@ namespace ASCompletion.Completion
             int position = sci.CurrentPos;
             int curLine = sci.LineFromPosition(position);
 
-            string fullPath = CleanType(member.Type); // ((member.Flags & FlagType.Class) > 0) ? member.Type : member.Name;
+            string fullPath = member.Type; 
+            if ((member.Flags & FlagType.Class) > 0) fullPath = CleanType(member.Type);
             string nl = LineEndDetector.GetNewLineMarker(sci.EOLMode);
             string statement = "import " + fullPath + ";" + nl;
 
