@@ -992,10 +992,12 @@ namespace ASCompletion.Completion
                         position = GetBodyStart(member.LineFrom, member.LineTo, Sci);
                         Sci.SetSel(position, position);
 
+                        string varType = contextMember.Type;
+                        if (varType == "") varType = null;
+
                         string template = TemplateUtils.GetTemplate("Variable");
                         template = TemplateUtils.ReplaceTemplateVariable(template, "Name", contextMember.Name);
-                        template = TemplateUtils.ReplaceTemplateVariable(template, "Type",
-                            String.IsNullOrEmpty(contextMember.Type) ? "*" : contextMember.Type);
+                        template = TemplateUtils.ReplaceTemplateVariable(template, "Type", varType);
                         template = TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", null);
                         template = TemplateUtils.ReplaceTemplateVariable(template, "Value", null);
                         template += "\n$(Boundary)";
@@ -2859,7 +2861,8 @@ namespace ASCompletion.Completion
                     int position = Sci.PositionFromLine(i) + index;
                     int len = Sci.MBSafeTextLength(m.Groups[1].Value);
                     Sci.SetSel(position, position + len);
-                    Sci.ReplaceSel(contextMember.Name);
+                    if (contextMember.Type == null) Sci.ReplaceSel(contextMember.Name + " ");
+                    else Sci.ReplaceSel(contextMember.Name);
                     UpdateLookupPosition(position, contextMember.Name.Length - len);
                     return true;
                 }
