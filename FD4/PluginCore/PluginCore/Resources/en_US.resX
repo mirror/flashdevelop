@@ -2321,10 +2321,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Do not show automatically the method call-tip when typing '(' or ','. You can still display the call tip by pressing Ctrl+Shift+Space.</value>
   </data>
   <data name="ProjectManager.Description.MissingEntryPoint" xml:space="preserve">
-    <value>In order to build this project, you must mark the AS or MXML entry point as "Always Compile" in the project tree.</value>
+    <value>In order to build this project, you must mark the AS or MXML entry point as "Document Class" in the project tree.</value>
   </data>
   <data name="ProjectManager.Description.MissingTarget" xml:space="preserve">
-    <value>In order to build this project, you must mark one or more classes as "Always Compile" in the project tree, or turn off the 'UseMain' compiler option.</value>
+    <value>In order to build this project, you must mark one or more classes as "Document Class" in the project tree, or turn off the 'UseMain' compiler option.</value>
   </data>
   <data name="BookmarkPanel.ColumnHeader.Line" xml:space="preserve">
     <value>Line</value>
