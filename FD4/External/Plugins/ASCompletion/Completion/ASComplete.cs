@@ -1758,7 +1758,11 @@ namespace ASCompletion.Completion
 
                 // static or instance members?
                 if (!result.IsNull())
-                    mask = (result.IsStatic) ? FlagType.Static : FlagType.Dynamic;
+                    mask = result.IsStatic ? FlagType.Static : FlagType.Dynamic;
+                else if (expr.ContextFunction == null || IsStatic(expr.ContextFunction))
+                    mask = FlagType.Static;
+                else
+                    mask = FlagType.Dynamic;
 
 				// explore members
                 tmpClass.ResolveExtends();
@@ -2116,6 +2120,8 @@ namespace ASCompletion.Completion
 
 			// no head, exit
 			if (head.IsNull()) return notFound;
+            // accessing instance member in static function, exit
+            if (IsStatic(context.ContextFunction) && !IsStatic(head.Member)) return notFound;
 
 			// eval tail
 			int n = tokens.Length;
@@ -2124,7 +2130,7 @@ namespace ASCompletion.Completion
 			ASResult step = head;
 			ClassModel resultClass = head.Type;
 			// look for static or dynamic members?
-			FlagType mask = (head.IsStatic) ? FlagType.Static : FlagType.Dynamic;
+			FlagType mask = head.IsStatic ? FlagType.Static : FlagType.Dynamic;
             // members visibility
             IASContext ctx = ASContext.Context;
 			ClassModel curClass = ctx.CurrentClass;
@@ -2215,6 +2221,11 @@ namespace ASCompletion.Completion
 			}
 			return step;
 		}
+
+        private static bool IsStatic(MemberModel member)
+        {
+            return member != null && (member.Flags & FlagType.Static) > 0;
+        }
 
 		/// <summary>
 		/// Find variable type in function context
