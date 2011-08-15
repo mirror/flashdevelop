@@ -664,9 +664,9 @@ namespace AS3Context
 				case "apiName": break; // TODO validate event name
 				case "apiInheritDoc": break; // TODO link inherited doc?
 
-			//	case "apiConstructorDetail":
-			//	case "apiOperationDetail":
-			//	case "apiClassifierDetail":
+				//case "apiConstructorDetail":
+				//case "apiOperationDetail":
+				case "apiClassifierDetail":
 				case "apiDetail":
 				case "related-links": SkipContents(); break;
 
