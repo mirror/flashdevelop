@@ -664,9 +664,12 @@ namespace AS3Context
 				case "apiName": break; // TODO validate event name
 				case "apiInheritDoc": break; // TODO link inherited doc?
 
-				//case "apiConstructorDetail":
-				//case "apiOperationDetail":
 				case "apiClassifierDetail":
+					ReadApiClassifierDetail(doc);
+					break;
+
+			//	case "apiConstructorDetail":
+			//	case "apiOperationDetail":
 				case "apiDetail":
 				case "related-links": SkipContents(); break;
 
@@ -746,6 +749,26 @@ namespace AS3Context
                 Read();
             }
         }
+
+		private void ReadApiClassifierDetail(DocItem doc)
+		{
+			doc.LongDesc = "";
+
+			if (IsEmptyElement)
+				return;
+
+			string eon = Name;
+			Read();
+			while (Name != eon)
+			{
+				if (Name == "apiDesc")
+					doc.LongDesc += this.ReadInnerXml() + "\n";
+				else if (Name == "example")
+					doc.LongDesc += "\nEXAMPLE: \n\n" + this.ReadInnerXml() + "\n";
+				else
+					this.ReadInnerXml();
+			}
+		}
 
         private void ReadParamDesc(DocItem doc)
         {
