@@ -37,11 +37,11 @@ namespace ASCompletion.Completion
 		static private BoxItem boxMethodParams;
 		
 		#region regular_expressions
-        static private RegexOptions ro_cs = RegexOptions.Compiled | RegexOptions.Singleline;
-        static private Regex re_splitFunction = new Regex("(?<keys>[\\w\\s]*)[\\s]function[\\s]*(?<fname>[^(]*)\\((?<params>[^()]*)\\)(?<type>.*)", ro_cs);
-        static private Regex re_property = new Regex("^(get|set)\\s", RegexOptions.Compiled);
-        static private Regex re_variableType = new Regex("[\\s]*:[\\s]*(?<type>[\\w.?*]+)", ro_cs);
-        static private Regex re_functionDeclaration = new Regex("[\\s\\w]*[\\s]function[\\s][\\s\\w$]+\\($", ASFileParser.ro_cs);
+		static private Regex re_splitFunction = new Regex("(?<keys>[\\w\\s]*)[\\s]function[\\s]*(?<fname>[^(]*)\\((?<params>[^()]*)\\)(?<type>.*)",
+		                                                  ASFileParserRegexOptions.SinglelineComment);
+		static private Regex re_property = new Regex("^(get|set)\\s", RegexOptions.Compiled);
+		static private Regex re_variableType = new Regex("[\\s]*:[\\s]*(?<type>[\\w.?*]+)", ASFileParserRegexOptions.SinglelineComment);
+		static private Regex re_functionDeclaration = new Regex("[\\s\\w]*[\\s]function[\\s][\\s\\w$]+\\($", ASFileParserRegexOptions.SinglelineComment);
         static private Regex re_tags = new Regex("<[/]?(p|br)[/]?>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		#endregion
 		

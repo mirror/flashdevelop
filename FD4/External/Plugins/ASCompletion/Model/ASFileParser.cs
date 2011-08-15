@@ -19,6 +19,198 @@ using PluginCore.Managers;
 
 namespace ASCompletion.Model
 {
+
+	#region CommentDeclarationType enum
+	/// <summary>
+	/// Contributor: i.o.
+	/// </summary>
+	public enum CommentDeclarationType : uint
+	{
+		None = 0,
+		Array = 1,
+		TypedCallback = 2
+	}
+	//
+	#endregion
+
+	#region CommentDeclarationUtils class
+	/// <summary>
+	/// Contributor: i.o.
+	/// </summary>
+	public class CommentDeclarationUtils
+	{
+		private static Random random = new Random(123456);
+
+		/// <summary>
+		/// Parsing comment declaration
+		/// </summary>
+		public static CommentDeclarationType ParseAndApply(MemberModel curMember, string declComment)
+		{
+			if (curMember == null || declComment == null || declComment == "")
+				return CommentDeclarationType.None;
+
+			if (curMember.Type == "Array")
+			{
+				Match m = ASFileParserRegexes.ValidTypeName.Match(declComment);
+				if (m.Success)
+				{
+					curMember.Type = "Array@" + m.Groups["type"].Value;
+					return CommentDeclarationType.Array;
+				}
+			}
+			else if (curMember.Type == "Function")
+			{
+				if ((curMember.Flags & FlagType.Function) == 0)
+				{
+					MemberModel fnModel = parseTypedCallbackDeclaration(declComment);
+					if (fnModel != null)
+					{
+						curMember.Type = fnModel.Type;
+						curMember.Flags |= FlagType.Function;
+						curMember.Parameters = fnModel.Parameters;
+
+						if (curMember.Namespace == "internal")
+						{
+							if ((curMember.Access & Visibility.Public) == 0)
+								curMember.Access = Visibility.Internal;
+
+							curMember.Namespace = "";
+						}
+						curMember.Access = Visibility.Public;
+
+						return CommentDeclarationType.TypedCallback;
+					}
+				}
+			}
+
+			return CommentDeclarationType.None;
+		}
+
+		/// <summary>
+		/// String randomer
+		/// </summary>
+		private static string getRandomStringRepl()
+		{
+			random.NextDouble();
+			return "StringRerl" + random.Next(0xFFFFFFF).ToString();
+		}
+
+		/// <summary>
+		/// TypedCallback parsing
+		/// </summary>
+		private static MemberModel parseTypedCallbackDeclaration(string decl)
+		{
+			if (decl == null || decl.Length == 0)
+				return null;
+
+			int idxBraceOp = decl.IndexOf("(");
+			int idxBraceCl = decl.IndexOf(")");
+
+			if (idxBraceOp != 0 || idxBraceCl < 1)
+				return null;
+
+			// replace strings by temp replacements
+			MatchCollection qStrMatches = ASFileParserRegexes.QuotedString.Matches(decl);
+			Dictionary<String, String> qStrRepls = new Dictionary<string, string>();
+			int i = qStrMatches.Count;
+			while (i-- > 0)
+			{
+				String strRepl = getRandomStringRepl();
+				qStrRepls.Add(strRepl, qStrMatches[i].Value);
+				decl = decl.Substring(0, qStrMatches[i].Index) + strRepl + decl.Substring(qStrMatches[i].Index + qStrMatches[i].Length);
+			}
+
+			//	System.Diagnostics.Debug.WriteLine("decl: " + decl);
+
+			// refreshing
+			idxBraceOp = decl.IndexOf("(");
+			idxBraceCl = decl.IndexOf(")");
+
+			if (idxBraceOp != 0 || decl.LastIndexOf("(") != idxBraceOp
+				|| idxBraceCl < 0 || decl.LastIndexOf(")") != idxBraceCl)
+				return null;
+
+			MemberModel fm = new MemberModel("unknown", "*", FlagType.Function, Visibility.Default);
+			fm.Parameters = new List<MemberModel>();
+
+			// return type
+			Match m = ASFileParserRegexes.FunctionType.Match(decl.Substring(idxBraceCl));
+			if (m.Success)
+				fm.Type = m.Groups["fType"].Value;
+
+			// parameters
+			String pBody = decl.Substring(idxBraceOp, 1 + idxBraceCl - idxBraceOp);
+			MatchCollection pMatches = ASFileParserRegexes.Parameter.Matches(pBody);
+			int l = pMatches.Count;
+			for (i = 0; i < l; i++)
+			{
+				string pName = pMatches[i].Groups["pName"].Value;
+				if (pName != null && pName.Length > 0)
+				{
+					foreach (KeyValuePair<String,String> replEntry in qStrRepls)
+					{
+						if (pName.IndexOf(replEntry.Key) > -1)
+						{
+							pName = "[COLOR=#F00][I]InvalidName[/I][/COLOR]";
+							break;
+						}
+					}
+				}
+
+				string pType = pMatches[i].Groups["pType"].Value;
+				if (pType != null && pType.Length > 0)
+				{
+					foreach (KeyValuePair<String,String> replEntry in qStrRepls)
+					{
+						if (pType.IndexOf(replEntry.Key) > -1)
+						{
+							pType = "[COLOR=#F00][I]InvalidType[/I][/COLOR]";
+							break;
+						}
+					}
+				}
+
+				string pVal = pMatches[i].Groups["pVal"].Value;
+				if (pVal != null && pVal.Length > 0)
+				{
+					if (qStrRepls.ContainsKey(pVal))
+					{
+						pVal = qStrRepls[pVal];
+					}
+					else
+					{
+						foreach (KeyValuePair<String,String> replEntry in qStrRepls)
+						{
+							if (pVal.IndexOf(replEntry.Key) > -1)
+							{
+								pVal = "[COLOR=#F00][I]InvalidValue[/I][/COLOR]";
+								break;
+							}
+						}
+					}
+				}
+				else
+				{
+					pVal = null;
+				}
+
+				MemberModel pModel = new MemberModel();
+				pModel.Name = pName;
+				pModel.Type = pType;
+				pModel.Value = pVal;
+				pModel.Flags = FlagType.ParameterVar;
+				pModel.Access = Visibility.Default;
+
+				fm.Parameters.Add(pModel);
+			}
+
+			return fm;
+		}
+	}
+	//
+	#endregion
+
+
 	#region Token class
 	class Token
 	{
@@ -43,24 +235,42 @@ namespace ASCompletion.Model
 		}
 	}
 	#endregion
-	
+
+
+	#region ASFileParserRegexes class
+	//
+	public class ASFileParserRegexes
+	{
+		public static readonly Regex Spaces = new Regex("\\s+", RegexOptions.Compiled);
+		public static readonly Regex Region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
+		public static readonly Regex QuotedString = new Regex("(\"(\\\\.|[^\"\\\\])*\")|('(\\\\.|[^'\\\\])*')", RegexOptions.Compiled);
+		public static readonly Regex FunctionType = new Regex(@"\)\s*\:\s*(?<fType>[\w\$\.\<\>\@]+)", RegexOptions.Compiled);
+		public static readonly Regex ValidTypeName = new Regex("^(\\s*of\\s*)?(?<type>[\\w.\\$]*)$", RegexOptions.Compiled);
+		public static readonly Regex Import = new Regex("^[\\s]*import[\\s]+(?<package>[\\w.]+)",
+														ASFileParserRegexOptions.MultilineComment);
+		public static readonly Regex Parameter = new Regex(@"[\(,]\s*((?<pName>(\.\.\.)?[\w\$]+)\s*(\:\s*(?<pType>[\w\$\*\.\<\>\@]+))?(\s*\=\s*(?<pVal>[^\,\)]+))?)",
+														   RegexOptions.Compiled);
+		public static readonly Regex BalancedBraces = new Regex("{[^{}]*(((?<Open>{)[^{}]*)+((?<Close-Open>})[^{}]*)+)*(?(Open)(?!))}",
+																ASFileParserRegexOptions.SinglelineComment);
+	}
+	//
+	#endregion
+
+	#region ASFileParserRegexOptions class
+	//
+	public class ASFileParserRegexOptions
+	{
+		public const RegexOptions MultilineComment = RegexOptions.Compiled | RegexOptions.Multiline;
+		public const RegexOptions SinglelineComment = RegexOptions.Compiled | RegexOptions.Singleline;
+	}
+	//
+	#endregion
+
 	/// <summary>
 	/// Description of ASFileParser.
 	/// </summary>
 	public class ASFileParser
 	{	
-		#region Regular expressions
-		static public RegexOptions ro_cm = RegexOptions.Compiled | RegexOptions.Multiline;
-		static public RegexOptions ro_cs = RegexOptions.Compiled | RegexOptions.Singleline;
-		static public Regex re_balancedBraces = new Regex("{[^{}]*(((?<Open>{)[^{}]*)+((?<Close-Open>})[^{}]*)+)*(?(Open)(?!))}", ro_cs);
-        static public Regex re_import = new Regex("^[\\s]*import[\\s]+(?<package>[\\w.]+)", ro_cm);
-		static public Regex re_quotedString = new Regex("(\"(\\\\.|[^\"\\\\])*\")|('(\\\\.|[^'\\\\])*')", RegexOptions.Compiled);
-		static private Regex re_spaces = new Regex("\\s+", RegexOptions.Compiled);
-		static private Regex re_param = new Regex(@"[\(,]\s*((?<pName>(\.\.\.)?[\w\$]+)\s*(\:\s*(?<pType>[\w\$\*\.\<\>\@]+))?(\s*\=\s*(?<pVal>[^\,\)]+))?)", RegexOptions.Compiled);
-		static private Regex re_functType = new Regex( @"\)\s*\:\s*(?<fType>[\w\$\.\<\>\@]+)", RegexOptions.Compiled );
-        static private Regex re_validTypeName = new Regex("^(\\s*of\\s*)?(?<type>[\\w.\\$]*)$", RegexOptions.Compiled);
-        static private Regex re_region = new Regex(@"^(#|{)[ ]?region[:\\s]*(?<name>[^\r\n]*)", RegexOptions.Compiled);
-		#endregion
 
         #region public methods
 		static private PathModel cachedPath;
@@ -538,7 +748,7 @@ namespace ASCompletion.Model
                         }
 
                         string comment = new String(commentBuffer, 0, commentLength);
-                        Match match = re_region.Match(comment);
+						Match match = ASFileParserRegexes.Region.Match(comment);
                         if (match.Success)
                         {
                             string regionName = match.Groups["name"].Value.Trim();
@@ -756,7 +966,7 @@ namespace ASCompletion.Model
 						foundColon = false;
                         if (haXe && (param.EndsWith("}") || param.Contains(">")))
                         {
-                            param = re_spaces.Replace(param, "");
+							param = ASFileParserRegexes.Spaces.Replace(param, "");
                             param = param.Replace(",", ", ");
                             param = param.Replace("->", " -> ");
                         }
@@ -1602,39 +1812,9 @@ namespace ASCompletion.Model
                 else curMember.Type = curToken.Text;
 				curMember.LineTo = curToken.Line;
 				// Typed Arrays
-				if (curMember.Type == "Array" && lastComment != null)
-				{
-                    Match m = re_validTypeName.Match(lastComment);
-                    if (m.Success)
-                    {
-                        curMember.Type = "Array@" + m.Groups["type"].Value;
-                        lastComment = null;
-                    }
-				}
-				else if (curMember.Type == "Function" && lastComment != null)
-                {					
-					if ((curMember.Flags & FlagType.Function) == 0)
-					{
-						MemberModel fnModel = ParseCallbackDeclaration(lastComment);
-						if (fnModel != null)
-						{
-							curMember.Type = fnModel.Type;
-							curMember.Flags |= FlagType.Function;
-							curMember.Parameters = fnModel.Parameters;
 
-							if (curMember.Namespace == "internal")
-							{
-								if((curMember.Access & Visibility.Public) == 0)
-									curMember.Access = Visibility.Internal;
-
-								curMember.Namespace = "";
-							}
-							curMember.Access = Visibility.Public;
-
-							lastComment = null;
-						}
-					}
-                }
+				if (CommentDeclarationUtils.ParseAndApply(curMember, lastComment) != CommentDeclarationType.None)
+					lastComment = null;
 			}
             else if (hadContext && (hadKeyword || inParams || inEnum || inTypedef))
 			{
@@ -1696,9 +1876,9 @@ namespace ASCompletion.Model
                             {
                                 // typed Array & Proxy
                                 if ((token == "Array" || token == "Proxy" || token == "flash.utils.Proxy")
-                                    && lastComment != null && re_validTypeName.IsMatch(lastComment))
+									&& lastComment != null && ASFileParserRegexes.ValidTypeName.IsMatch(lastComment))
                                 {
-                                    Match m = re_validTypeName.Match(lastComment);
+									Match m = ASFileParserRegexes.ValidTypeName.Match(lastComment);
                                     if (m.Success)
                                     {
                                         token += "@" + m.Groups["type"].Value;
@@ -1945,128 +2125,6 @@ namespace ASCompletion.Model
 		{
 			int p = token.LastIndexOf(separator);
 			return (p >= 0) ? token.Substring(p+1) : token;
-		}
-
-		/// <summary>
-		/// Callback comment declaration parsing
-        /// (contributed by [i.o.])
-		/// </summary>
-        private MemberModel ParseCallbackDeclaration(string decl)
-        {
-            if (decl == null || decl.Length == 0)
-                return null;
-
-            int idxBraceOp = decl.IndexOf("(");
-            int idxBraceCl = decl.IndexOf(")");
-
-			if (idxBraceOp != 0 || idxBraceCl < 1)
-				return null;
-
-			// replace strings by temp replacements
-			MatchCollection qStrMatches = re_quotedString.Matches(decl);
-			Dictionary<String, String> qStrRepls = new Dictionary<string, string>();
-			int i = qStrMatches.Count;
-			while (i-- > 0)
-			{
-				String strRepl = GenRandomStringRepl();
-				qStrRepls.Add(strRepl, qStrMatches[i].Value);
-				decl = decl.Substring(0, qStrMatches[i].Index) + strRepl + decl.Substring(qStrMatches[i].Index + qStrMatches[i].Length);
-			}
-
-		//	System.Diagnostics.Debug.WriteLine("decl: " + decl);
-
-			// refreshing
-			idxBraceOp = decl.IndexOf("(");
-			idxBraceCl = decl.IndexOf(")");
-
-            if (idxBraceOp != 0 || decl.LastIndexOf("(") != idxBraceOp
-                || idxBraceCl < 0 || decl.LastIndexOf(")") != idxBraceCl)
-                return null;
-
-            MemberModel fm = new MemberModel("unknown", "*", FlagType.Function, Visibility.Default);
-            fm.Parameters = new List<MemberModel>();
-
-            // return type
-            Match m = re_functType.Match(decl.Substring(idxBraceCl));
-			if (m.Success)
-				fm.Type = m.Groups["fType"].Value;
-
-            // parameters
-            String pBody = decl.Substring(idxBraceOp, 1 + idxBraceCl - idxBraceOp);
-            MatchCollection pMatches = re_param.Matches(pBody);
-            int l = pMatches.Count;
-            for (i = 0; i < l; i++)
-            {
-				string pName = pMatches[i].Groups["pName"].Value;
-				if (pName != null && pName.Length > 0)
-				{
-					foreach (KeyValuePair<String,String> replEntry in qStrRepls)
-					{
-						if (pName.IndexOf(replEntry.Key) > -1)
-						{
-							pName = "[COLOR=#F00][I]InvalidName[/I][/COLOR]";
-							break;
-						}
-					}
-				}
-
-				string pType = pMatches[i].Groups["pType"].Value;
-				if (pType != null && pType.Length > 0)
-				{
-					foreach (KeyValuePair<String,String> replEntry in qStrRepls)
-					{
-						if (pType.IndexOf(replEntry.Key) > -1)
-						{
-							pType = "[COLOR=#F00][I]InvalidType[/I][/COLOR]";
-							break;
-						}
-					}
-				}
-
-				string pVal = pMatches[i].Groups["pVal"].Value;
-				if (pVal != null && pVal.Length > 0)
-				{
-					if (qStrRepls.ContainsKey(pVal))
-					{
-						pVal = qStrRepls[pVal];
-					}
-					else
-					{
-						foreach (KeyValuePair<String,String> replEntry in qStrRepls)
-						{
-							if (pVal.IndexOf(replEntry.Key) > -1)
-							{
-								pVal = "[COLOR=#F00][I]InvalidValue[/I][/COLOR]";
-								break;
-							}
-						}
-					}
-				}
-				else
-				{
-					pVal = null;
-				}
-
-				MemberModel pModel = new MemberModel();
-				pModel.Name = pName;
-				pModel.Type = pType;
-				pModel.Value = pVal;
-				pModel.Flags = FlagType.ParameterVar;
-				pModel.Access = Visibility.Default;
-
-                fm.Parameters.Add(pModel);
-            }
-
-            return fm;
-        }
-
-
-		private static Random rnd = new Random(123456);
-
-		private static string GenRandomStringRepl()
-		{
-			rnd.NextDouble();
-			return "StringRerl" + rnd.Next(0xFFFFFFF).ToString();
 		}
 
 		#endregion

@@ -4232,7 +4232,7 @@ namespace ASCompletion.Completion
                     found = true;
                     indent = sci.GetLineIndentation(line - 1);
                     // insert in alphabetical order
-                    mImport = ASFileParser.re_import.Match(txt);
+					mImport = ASFileParserRegexes.Import.Match(txt);
                     if (mImport.Success &&
                         String.Compare(mImport.Groups["package"].Value, fullPath) > 0)
                     {

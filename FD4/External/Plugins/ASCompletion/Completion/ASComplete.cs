@@ -31,15 +31,16 @@ namespace ASCompletion.Completion
 	{
 
 		#region regular_expressions_definitions
-		static private readonly RegexOptions ro_csr = ASFileParser.ro_cs | RegexOptions.RightToLeft;
+		static private readonly RegexOptions ro_csr = ASFileParserRegexOptions.SinglelineComment | RegexOptions.RightToLeft;
 		// refine last expression
 		static private readonly Regex re_refineExpression = new Regex("[^\\[\\]{}(:,=+*/%!<>-]*$", ro_csr);
 		// code cleaning
-		static private readonly Regex re_whiteSpace = new Regex("[\\s]+", ASFileParser.ro_cs);
+		static private readonly Regex re_whiteSpace = new Regex("[\\s]+", ASFileParserRegexOptions.SinglelineComment);
 		// balanced matching, see: http://blogs.msdn.com/bclteam/archive/2005/03/15/396452.aspx
-		static private readonly Regex re_balancedParenthesis = new Regex("\\([^()]*(((?<Open>\\()[^()]*)+((?<Close-Open>\\))[^()]*)+)*(?(Open)(?!))\\)", ASFileParser.ro_cs);
+		static private readonly Regex re_balancedParenthesis = new Regex("\\([^()]*(((?<Open>\\()[^()]*)+((?<Close-Open>\\))[^()]*)+)*(?(Open)(?!))\\)",
+																		 ASFileParserRegexOptions.SinglelineComment);
 		// expressions
-		static private readonly Regex re_sub = new Regex("^#(?<index>[0-9]+)~$", ASFileParser.ro_cs);
+		static private readonly Regex re_sub = new Regex("^#(?<index>[0-9]+)~$", ASFileParserRegexOptions.SinglelineComment);
 		#endregion
 
         #region completion_history
