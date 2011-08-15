@@ -1466,6 +1466,10 @@ namespace ASCompletion.Model
 						{
 							foundModifier = FlagType.Intrinsic | FlagType.Extern;
 						}
+						else if (token == "final")
+						{
+							foundModifier = FlagType.Final;
+						}
 						else if (token == "dynamic")
 						{
 							foundModifier = FlagType.Dynamic;

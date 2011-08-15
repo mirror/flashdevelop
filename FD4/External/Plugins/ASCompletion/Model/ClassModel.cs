@@ -383,12 +383,17 @@ namespace ASCompletion.Model
 					//	}
                     }
 
+				if ((ofClass.Flags & FlagType.Final) > 0)
+					modifiers += "final ";
+
                 if ((ofClass.Flags & FlagType.Dynamic) > 0)
                     modifiers += "dynamic ";
+
                 string classType = "class";
                 if ((ofClass.Flags & FlagType.Interface) > 0) classType = "interface";
                 else if ((ofClass.Flags & FlagType.Enum) > 0) classType = "enum";
                 else if ((ofClass.Flags & FlagType.TypeDef) > 0) classType = "typedef";
+
                 // signature
                 if (qualified)
                     return String.Format("{0}{1} {2}", modifiers, classType, ofClass.QualifiedName);
@@ -429,11 +434,13 @@ namespace ASCompletion.Model
 				}
             }
 
+			if ((ft & FlagType.Final) > 0)
+				modifiers += "final ";
+
 			if ((ft & FlagType.Enum) > 0)
 			{
 				return member.ToString();
 			}
-
 			else if ((ft & FlagType.Class) > 0)
 			{
 				if ((ft & FlagType.Dynamic) > 0)
@@ -451,6 +458,7 @@ namespace ASCompletion.Model
 				if ((ft & FlagType.Static) > 0)
 					modifiers += "static ";
 			}
+
             // signature
             if ((ft & FlagType.Namespace) > 0)
             {

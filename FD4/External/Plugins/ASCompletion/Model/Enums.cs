@@ -13,7 +13,7 @@ namespace ASCompletion.Model
     }
 
     [Flags]
-    public enum FlagType : uint
+    public enum FlagType : ulong
     {
         Package = 1 << 1,
         Import = 1 << 2,
@@ -29,26 +29,27 @@ namespace ASCompletion.Model
         Native = 1 << 11,
         Intrinsic = 1 << 12,
         Extern = 1 << 13,
-        Dynamic = 1 << 14,
-        Static = 1 << 15,
-        Override = 1 << 16,
+        Final = 1 << 14,
+        Dynamic = 1 << 15,
+        Static = 1 << 16,
+        Override = 1 << 17,
 
-        Constant = 1 << 17,
-        Variable = 1 << 18,
-        Function = 1 << 19,
-        Getter = 1 << 20,
-        Setter = 1 << 21,
-        HXProperty = 1 << 22,
-        Constructor = 1 << 23,
+        Constant = 1 << 18,
+        Variable = 1 << 19,
+        Function = 1 << 20,
+        Getter = 1 << 21,
+        Setter = 1 << 22,
+        HXProperty = 1 << 23,
+        Constructor = 1 << 24,
 
-        LocalVar = 1 << 24,
-        ParameterVar = 1 << 25,
-        AutomaticVar = 1 << 26,
+        LocalVar = 1 << 25,
+        ParameterVar = 1 << 26,
+        AutomaticVar = 1 << 27,
 
-        Declaration = 1 << 27,
-        Template = 1 << 28,
-        DocTemplate = 1 << 29,
-        CodeTemplate = 1 << 30
+        Declaration = 1 << 28,
+        Template = 1 << 29,
+        DocTemplate = 1 << 30,
+        CodeTemplate = 1L << 31
     }
 
     public enum ASMetaKind
