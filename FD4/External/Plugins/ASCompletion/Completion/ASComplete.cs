@@ -1353,73 +1353,11 @@ namespace ASCompletion.Completion
 
 		static public bool HandleFunctionCompletion(ScintillaControl Sci, bool autoHide, bool forceRedraw)
 		{
-			// find method
-			int position = Sci.CurrentPos - 1;
-			int parCount = 0;
-			int braCount = 0;
-			int comaCount = 0;
-			int arrCount = 0;
-			int style = 0;
-			int stylemask = (1 << Sci.StyleBits) -1;
-			char c;
-			while (position >= 0)
-			{
-				style = Sci.StyleAt(position) & stylemask;
-				if (style == 19)
-				{
-					string keyword = GetWordLeft(Sci, ref position);
-					if (!ASContext.Context.Features.HasTypePreKey(keyword))
-					{
-						position = -1;
-						break;
-					}
-				}
-				if (!IsLiteralStyle(style) && IsTextStyleEx(style))
-				{
-					c = (char)Sci.CharAt(position);
-					if (c == ';')
-					{
-						position = -1;
-						break;
-					}
-					// skip {} () [] blocks
-					if ( ((braCount > 0) && (c != '{' && c != '}'))
-					    || ((parCount > 0) && (c != '(' && c != ')'))
-					    || ((arrCount > 0) && (c != '[' && c != ']')) )
-					{
-						position--;
-						continue;
-					}
-					// new block
-					if (c == '}') braCount++;
-					else if (c == ']') arrCount++;
-					else if (c == ')') parCount++;
-
-					// block closed
-					else if (c == '{')
-					{
-						if (braCount == 0) comaCount = 0;
-						else braCount--;
-					}
-					else if (c == '[')
-					{
-						if (arrCount == 0) comaCount = 0;
-						else arrCount--;
-					}
-					else if (c == '(')
-					{
-						if (--parCount < 0)
-							// function start found
-							break;
-					}
-
-					// new parameter reached
-					else if ((c == ',') && (parCount == 0))
-						comaCount++;
-				}
-				position--;
-			}
-			// continuing calltip ?
+            int position = Sci.CurrentPos - 1;
+            int comaCount = FindFunctionCallStart(Sci, ref position);
+            if (position < 0) return false;
+            
+            // continuing calltip ?
 			if (HasCalltip())
 			{
 				if (calltipPos == position)
@@ -1429,8 +1367,6 @@ namespace ASCompletion.Completion
 				}
                 else UITools.CallTip.Hide();
 			}
-			else if (position < 0)
-				return false;
 
 			// get expression at cursor position
 			ASExpr expr = GetExpression(Sci, position, true);
@@ -1523,6 +1459,78 @@ namespace ASCompletion.Completion
 			}
 			return true;
 		}
+
+        /// <summary>
+        /// Locate beginning of function call parameters
+        /// </summary>
+        private static int FindFunctionCallStart(ScintillaControl Sci, ref int position)
+        {
+            int parCount = 0;
+            int braCount = 0;
+            int comaCount = 0;
+            int arrCount = 0;
+            int style = 0;
+            int stylemask = (1 << Sci.StyleBits) - 1;
+            char c;
+            while (position >= 0)
+            {
+                style = Sci.StyleAt(position) & stylemask;
+                if (style == 19)
+                {
+                    string keyword = GetWordLeft(Sci, ref position);
+                    if (!ASContext.Context.Features.HasTypePreKey(keyword))
+                    {
+                        position = -1;
+                        break;
+                    }
+                }
+                if (!IsLiteralStyle(style) && IsTextStyleEx(style))
+                {
+                    c = (char)Sci.CharAt(position);
+                    if (c == ';')
+                    {
+                        position = -1;
+                        break;
+                    }
+                    // skip {} () [] blocks
+                    if (((braCount > 0) && (c != '{' && c != '}'))
+                        || ((parCount > 0) && (c != '(' && c != ')'))
+                        || ((arrCount > 0) && (c != '[' && c != ']')))
+                    {
+                        position--;
+                        continue;
+                    }
+                    // new block
+                    if (c == '}') braCount++;
+                    else if (c == ']') arrCount++;
+                    else if (c == ')') parCount++;
+
+                    // block closed
+                    else if (c == '{')
+                    {
+                        if (braCount == 0) comaCount = 0;
+                        else braCount--;
+                    }
+                    else if (c == '[')
+                    {
+                        if (arrCount == 0) comaCount = 0;
+                        else arrCount--;
+                    }
+                    else if (c == '(')
+                    {
+                        if (--parCount < 0)
+                            // function start found
+                            break;
+                    }
+
+                    // new parameter reached
+                    else if ((c == ',') && (parCount == 0))
+                        comaCount++;
+                }
+                position--;
+            }
+            return comaCount;
+        }
 
         private static void ShowListeners(ScintillaControl Sci, int position, ClassModel ofClass)
         {
@@ -1661,6 +1669,7 @@ namespace ASCompletion.Completion
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=')
                     || expr.coma == ComaExpression.AnonymousObject
+                    || expr.coma == ComaExpression.AnonymousObjectParams
                     || expr.coma == ComaExpression.FunctionDeclaration) 
                     return false;
 
@@ -2984,7 +2993,7 @@ namespace ASCompletion.Completion
             int sqCount = 0;
             char c = (char)Sci.CharAt(position);
             bool wasPar = false;
-            if (c == '{') { wasPar = true; position--; }
+            //if (c == '{') { wasPar = true; position--; }
             while (position > minPos)
             {
                 c = (char)Sci.CharAt(position);
@@ -3048,7 +3057,8 @@ namespace ASCompletion.Completion
                         position--;
                         string word1 = GetWordLeft(Sci, ref position);
                         c = (word1.Length > 0) ? word1[word1.Length - 1] : (char)Sci.CharAt(position);
-                        if (c != ')' && c != '}' && !Char.IsLetterOrDigit(c)) return ComaExpression.AnonymousObject;
+                        if (":,(=".IndexOf(c) >= 0) return ComaExpression.AnonymousObjectParam;
+                        else if (c != ')' && c != '}' && !Char.IsLetterOrDigit(c)) return ComaExpression.AnonymousObject;
                         break;
                     }
                 }
@@ -3792,6 +3802,7 @@ namespace ASCompletion.Completion
     {
         None,
         AnonymousObject,
+        AnonymousObjectParam,
         VarDeclaration,
         FunctionDeclaration,
         FunctionParameter,
