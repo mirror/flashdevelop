@@ -19,7 +19,8 @@ namespace FDBuild
 
         public static int Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.Default;
+            try { Console.OutputEncoding = Encoding.Default; }
+            catch { /* WineMod: not supported */ }
 
             FDBuildOptions options = new FDBuildOptions(args);
             BuildOptions = new FDBuildOptions(args);

@@ -374,7 +374,8 @@ namespace OutputPanel
             {
                 this.DisplayOutput();
             }
-            this.textLog.ScrollToCaret();
+            try { this.textLog.ScrollToCaret(); }
+            catch { /* WineMod: not supported */ }
         }
 
         /// <summary>
