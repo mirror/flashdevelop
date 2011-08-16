@@ -1669,7 +1669,7 @@ namespace ASCompletion.Completion
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=')
                     || expr.coma == ComaExpression.AnonymousObject
-                    || expr.coma == ComaExpression.AnonymousObjectParams
+                    || expr.coma == ComaExpression.AnonymousObjectParam
                     || expr.coma == ComaExpression.FunctionDeclaration) 
                     return false;
 
