@@ -2131,7 +2131,8 @@ namespace ASCompletion.Completion
 			// no head, exit
 			if (head.IsNull()) return notFound;
             // accessing instance member in static function, exit
-            if (IsStatic(context.ContextFunction) && head.Member != null && !IsStatic(head.Member)) return notFound;
+            if (IsStatic(context.ContextFunction) && head.RelClass == inClass 
+                && head.Member != null && !IsStatic(head.Member)) return notFound;
 
 			// eval tail
 			int n = tokens.Length;
