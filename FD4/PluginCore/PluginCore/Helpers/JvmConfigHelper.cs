@@ -53,7 +53,11 @@ namespace PluginCore.PluginCore.Helpers
             string home = null;
             if (jvmConfig != null && jvmConfig.ContainsKey("java.home"))
                 home = ResolvePath(jvmConfig["java.home"], flexSdkPath, true);
-            if (home == null) home = Environment.ExpandEnvironmentVariables("%JAVA_HOME%");
+            if (home == null)
+            {
+                home = Environment.ExpandEnvironmentVariables("%JAVA_HOME%");
+                if (home.StartsWith("%")) home = null;
+            }
             return home;
         }
 
