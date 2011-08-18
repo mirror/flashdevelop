@@ -1260,6 +1260,7 @@ namespace ASCompletion.Completion
 		static private bool calltipDetails;
 		static private int calltipPos = -1;
 		static private int calltipOffset;
+        static private ClassModel calltipRelClass;
 		static private string prevParam = "";
 		static private string paramInfo = "";
 
@@ -1278,11 +1279,11 @@ namespace ASCompletion.Completion
 			ShowCalltip(Sci, paramNumber, false);
 		}
 
-		static private void ShowCalltip(ScintillaControl Sci, int paramNumber, bool forceRedraw)
+		static private void ShowCalltip(ScintillaControl Sci, int paramIndex, bool forceRedraw)
 		{
-			// measure highlighting
+            // measure highlighting
 			int start = calltipDef.IndexOf('(');
-			while ((start >= 0) && (paramNumber-- > 0))
+            while ((start >= 0) && (paramIndex-- > 0))
 				start = FindNearSymbolInFunctDef(calltipDef, ",", start + 1);
 
 			int end = FindNearSymbolInFunctDef(calltipDef, ",", start + 1);
@@ -1354,7 +1355,7 @@ namespace ASCompletion.Completion
 		static public bool HandleFunctionCompletion(ScintillaControl Sci, bool autoHide, bool forceRedraw)
 		{
             int position = Sci.CurrentPos - 1;
-            int comaCount = FindFunctionCallStart(Sci, ref position);
+            int paramIndex = FindParameterIndex(Sci, ref position);
             if (position < 0) return false;
             
             // continuing calltip ?
@@ -1362,13 +1363,39 @@ namespace ASCompletion.Completion
 			{
 				if (calltipPos == position)
 				{
-					ShowCalltip(Sci, comaCount, forceRedraw);
+                    ShowCalltip(Sci, paramIndex, forceRedraw);
 					return true;
 				}
                 else UITools.CallTip.Hide();
 			}
 
-			// get expression at cursor position
+            if (!ResolveFunction(Sci, position, autoHide))
+                return true;
+
+			// EventDispatchers
+            if (paramIndex == 0 && calltipRelClass != null && calltipMember.Name.EndsWith("EventListener"))
+            {
+                ShowListeners(Sci, position, calltipRelClass);
+                return true;
+            }
+
+            // show calltip
+            ShowCalltip(Sci, paramIndex, forceRedraw);
+			return true;
+        }
+
+        /// <summary>
+        /// Find declaration of function called in code
+        /// </summary>
+        /// <param name="position">Position obtained by FindParameterIndex()</param>
+        /// <returns>Function successfully resolved</returns>
+        private static bool ResolveFunction(ScintillaControl Sci, int position, bool autoHide)
+        {
+            calltipPos = 0;
+            calltipMember = null;
+            calltipRelClass = null;
+
+            // get expression at cursor position
 			ASExpr expr = GetExpression(Sci, position, true);
 			if (expr.Value == null || expr.Value.Length == 0
 			    || (expr.WordBefore == "function" && expr.Separator == ' '))
@@ -1376,94 +1403,110 @@ namespace ASCompletion.Completion
 
 			// Context
             IASContext ctx = ASContext.Context;
+            FileModel aFile = ctx.CurrentModel;
+            ClassModel aClass = ctx.CurrentClass;
             ASResult result;
 
-            // custom completion
-            MemberModel customMethod = ctx.ResolveFunctionContext(Sci, expr, autoHide);
-            if (customMethod != null)
+            // Expression before cursor
+            expr.LocalVars = ParseLocalVars(expr);
+            result = EvalExpression(expr.Value, expr, aFile, aClass, true, true);
+            if (result.IsNull())
             {
-                result = new ASResult();
-                result.Member = customMethod;
+                // custom completion
+                MemberModel customMethod = ctx.ResolveFunctionContext(Sci, expr, autoHide);
+                if (customMethod != null)
+                {
+                    result = new ASResult();
+                    result.Member = customMethod;
+                }
             }
-            else
-            {
-                FileModel aFile = ctx.CurrentModel;
-                ClassModel aClass = ctx.CurrentClass;
-                // Expression before cursor
-                expr.LocalVars = ParseLocalVars(expr);
-                result = EvalExpression(expr.Value, expr, aFile, aClass, true, true);
-            }
+			if (result.IsNull()) 
+                return false;
 
-			// Show calltip
-			if (!result.IsNull())
+			MemberModel method = result.Member;
+            if (method == null)
 			{
-				MemberModel method = result.Member;
-                if (method == null)
-				{
-                    if (result.Type == null) 
-                        return true;
-					string constructor = ASContext.GetLastStringToken(result.Type.Name, ".");
-					result.Member = method = result.Type.Members.Search(constructor, FlagType.Constructor, 0);
-					if (method == null)
-						return true;
-				}
-                else if ((method.Flags & FlagType.Function) == 0)
-                {
-                    if (method.Name == "super" && result.Type != null)
-                    {
-                        result.Member = method = result.Type.Members.Search(result.Type.Constructor, FlagType.Constructor, 0);
-                        if (method == null)
-                            return true;
-                    }
-                    else return true;
-                }
-
-                // inherit doc
-                while ((method.Flags & FlagType.Override) > 0 && result.InClass != null
-                    && (method.Comments == null || method.Comments.Trim() == ""))
-                {
-                    FindMember(method.Name, result.InClass.Extends, result, 0, 0);
-                    method = result.Member;
-                    if (method == null) 
-                        return true;
-                }
-                if ((method.Comments == null || method.Comments.Trim() == "")
-                    && result.InClass != null && result.InClass.Implements != null)
-                {
-                    ASResult iResult = new ASResult();
-                    foreach (string type in result.InClass.Implements)
-                    {
-                        ClassModel model = ASContext.Context.ResolveType(type, result.InFile);
-                        FindMember(method.Name, model, iResult, 0, 0);
-                        if (iResult.Member != null)
-                        {
-                            iResult.RelClass = result.RelClass;
-                            result = iResult;
-                            method = iResult.Member;
-                            break;
-                        }
-                    }
-                }
-
-                // calltip content
-				calltipPos = position;
-				calltipOffset = method.Name.Length;
-                calltipDef = method.ToString();
-				calltipMember = method;
-                calltipDetails = UITools.Manager.ShowDetails;
-				// show
-				prevParam = "";
-                if (comaCount == 0 && result.RelClass != null && method.Name.EndsWith("EventListener"))
-                    ShowListeners(Sci, position, result.RelClass);
-				else ShowCalltip(Sci, comaCount, forceRedraw);
+                if (result.Type == null) 
+                    return true;
+				string constructor = ASContext.GetLastStringToken(result.Type.Name, ".");
+				result.Member = method = result.Type.Members.Search(constructor, FlagType.Constructor, 0);
+				if (method == null)
+					return false;
 			}
-			return true;
-		}
+            else if ((method.Flags & FlagType.Function) == 0)
+            {
+                if (method.Name == "super" && result.Type != null)
+                {
+                    result.Member = method = result.Type.Members.Search(result.Type.Constructor, FlagType.Constructor, 0);
+                    if (method == null)
+                        return false;
+                }
+                else return false;
+            }
+
+            // inherit doc
+            while ((method.Flags & FlagType.Override) > 0 && result.InClass != null
+                && (method.Comments == null || method.Comments.Trim() == ""))
+            {
+                FindMember(method.Name, result.InClass.Extends, result, 0, 0);
+                method = result.Member;
+                if (method == null) 
+                    return false;
+            }
+            if ((method.Comments == null || method.Comments.Trim() == "")
+                && result.InClass != null && result.InClass.Implements != null)
+            {
+                ASResult iResult = new ASResult();
+                foreach (string type in result.InClass.Implements)
+                {
+                    ClassModel model = ASContext.Context.ResolveType(type, result.InFile);
+                    FindMember(method.Name, model, iResult, 0, 0);
+                    if (iResult.Member != null)
+                    {
+                        iResult.RelClass = result.RelClass;
+                        result = iResult;
+                        method = iResult.Member;
+                        break;
+                    }
+                }
+            }
+
+            calltipPos = position;
+            calltipOffset = method.Name.Length;
+            calltipDef = method.ToString();
+            calltipMember = method;
+            calltipDetails = UITools.Manager.ShowDetails;
+            calltipRelClass = result.RelClass;
+            prevParam = "";
+            return true;
+        }
 
         /// <summary>
-        /// Locate beginning of function call parameters
+        /// Find type of current parameter in current function call
         /// </summary>
-        private static int FindFunctionCallStart(ScintillaControl Sci, ref int position)
+        /// <param name="paramIndex"></param>
+        /// <param name="indexTypeOnly">Resolve only if parameter is an Object with an index type</param>
+        /// <returns></returns>
+        private static ClassModel ResolveParameterType(int paramIndex, bool indexTypeOnly)
+        {
+            if (calltipMember != null && calltipMember.Parameters != null
+                && paramIndex < calltipMember.Parameters.Count)
+            {
+                MemberModel param = calltipMember.Parameters[paramIndex];
+                string type = param.Type;
+                if (indexTypeOnly && (String.IsNullOrEmpty(type) || type.IndexOf('@') < 0))
+                    return ClassModel.VoidClass;
+                if (ASContext.Context.Features.objectKey == "Dynamic" && type.StartsWith("Dynamic@"))
+                    type = type.Replace("Dynamic@", "Dynamic<") + ">";
+                return ASContext.Context.ResolveType(type, ASContext.Context.CurrentModel);
+            }
+            else return ClassModel.VoidClass;
+        }
+
+        /// <summary>
+        /// Locate beginning of function call parameters and return index of current parameter
+        /// </summary>
+        private static int FindParameterIndex(ScintillaControl Sci, ref int position)
         {
             int parCount = 0;
             int braCount = 0;
@@ -1636,8 +1679,9 @@ namespace ASCompletion.Completion
 			int position = Sci.CurrentPos;
 			ASExpr expr = GetExpression(Sci, position);
 			if (expr.Value == null)
-				return true;
-            ContextFeatures features = ASContext.Context.Features;
+                return true;
+            IASContext ctx = ASContext.Context;
+            ContextFeatures features = ctx.Features;
             int dotIndex = expr.Value.LastIndexOf(features.dot);
             if (dotIndex == 0 && expr.Separator != '"')
                 return true;
@@ -1648,6 +1692,7 @@ namespace ASCompletion.Completion
                 (word == features.varKey || word == features.functionKey || word == features.constKey
                 || word == features.getKey || word == features.setKey))
                 return false;
+            ClassModel argumentType = null;
 			if (dotIndex < 0)
 			{
                 if (word != null)
@@ -1669,9 +1714,18 @@ namespace ASCompletion.Completion
                 // no completion
                 if ((expr.BeforeBody && expr.Separator != '=')
                     || expr.coma == ComaExpression.AnonymousObject
-                    || expr.coma == ComaExpression.AnonymousObjectParam
-                    || expr.coma == ComaExpression.FunctionDeclaration) 
+                    || expr.coma == ComaExpression.FunctionDeclaration)
                     return false;
+
+                if (expr.coma == ComaExpression.AnonymousObjectParam)
+                {
+                    int cpos = Sci.CurrentPos - 1;
+                    int paramIndex = FindParameterIndex(Sci, ref cpos);
+                    if (calltipPos != cpos) ResolveFunction(Sci, cpos, autoHide);
+                    if (calltipMember == null) return false;
+                    argumentType = ResolveParameterType(paramIndex, true);
+                    if (argumentType.IsVoid()) return false;
+                }
 
                 // complete declaration
                 MemberModel cMember = ASContext.Context.CurrentMember;
@@ -1708,13 +1762,18 @@ namespace ASCompletion.Completion
             // Context
             ASResult result;
             ClassModel tmpClass;
-            IASContext ctx = ASContext.Context;
             bool outOfDate = (expr.Separator == ':') ? ctx.UnsetOutOfDate() : false;
             FileModel cFile = ctx.CurrentModel;
             ClassModel cClass = ctx.CurrentClass;
 
             expr.LocalVars = ParseLocalVars(expr);
-			if (dotIndex > 0)
+            if (argumentType != null)
+            {
+                result = new ASResult();
+                tmpClass = argumentType;
+                expr.LocalVars.Clear();
+            }
+			else if (dotIndex > 0)
 			{
 				// Expression before cursor
                 result = EvalExpression(expr.Value, expr, cFile, cClass, false, false);
@@ -1767,12 +1826,10 @@ namespace ASCompletion.Completion
                 bool limitMembers = autoHide; // ASContext.Context.HideIntrinsicMembers || (autoHide && !ASContext.Context.AlwaysShowIntrinsicMembers);
 
                 // static or instance members?
-                if (!result.IsNull())
-                    mask = result.IsStatic ? FlagType.Static : FlagType.Dynamic;
-                else if (expr.ContextFunction == null || IsStatic(expr.ContextFunction))
-                    mask = FlagType.Static;
-                else
-                    mask = FlagType.Dynamic;
+                if (!result.IsNull()) mask = result.IsStatic ? FlagType.Static : FlagType.Dynamic;
+                else if (expr.ContextFunction == null || IsStatic(expr.ContextFunction)) mask = FlagType.Static;
+                else mask = FlagType.Dynamic;
+                if (argumentType != null) mask |= FlagType.Variable;
 
 				// explore members
                 tmpClass.ResolveExtends();
@@ -1791,8 +1848,8 @@ namespace ASCompletion.Completion
                 }
 			}
 			// known classes / toplevel vars/methods
-			if (result.IsNull() || (dotIndex < 0))
-			{
+            if (argumentType == null && (result.IsNull() || (dotIndex < 0)))
+            {
                 mix.Merge(cFile.GetSortedMembersList());
                 mix.Merge(ctx.GetVisibleExternalElements(false));
                 MemberList decl = new MemberList();
@@ -2131,7 +2188,7 @@ namespace ASCompletion.Completion
 			// no head, exit
 			if (head.IsNull()) return notFound;
             // accessing instance member in static function, exit
-            if (IsStatic(context.ContextFunction) && head.RelClass == inClass 
+            if (IsStatic(context.ContextFunction) && head.RelClass == inClass
                 && head.Member != null && !IsStatic(head.Member)) return notFound;
 
 			// eval tail

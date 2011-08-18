@@ -537,8 +537,15 @@ namespace AS2Context
 
             ClassModel originalClass = ResolveType(baseType, inFile);
             if (originalClass.IsVoid()) return originalClass;
+            baseType = originalClass.QualifiedName;
 
             ClassModel indexClass = ResolveType(indexType, inFile);
+
+            if (baseType == "Object" || baseType == "Dynamic")
+            {
+                if (!indexClass.IsVoid()) return indexClass;
+                return MakeCustomObjectClass(originalClass, indexType);
+            }
             if (indexClass.IsVoid()) return originalClass;
             indexType = indexClass.QualifiedName;
 
@@ -576,6 +583,29 @@ namespace AS2Context
             }
 
             aFile.Classes.Add(aClass);
+            return aClass;
+        }
+
+        protected ClassModel MakeCustomObjectClass(ClassModel objectClass, string indexType)
+        {
+            foreach (ClassModel c in objectClass.InFile.Classes)
+                if (c.IndexType == indexType) return c;
+
+            ClassModel aClass = new ClassModel();
+            aClass.Flags = objectClass.Flags;
+            aClass.Access = objectClass.Access;
+            aClass.ExtendsType = "";
+            aClass.Name = objectClass.QualifiedName + "@" + indexType;
+            aClass.IndexType = indexType;
+            aClass.InFile = objectClass.InFile;
+
+            FlagType flags = FlagType.Dynamic | FlagType.Variable | FlagType.AutomaticVar;
+            foreach (string prop in indexType.Split(','))
+            {
+                MemberModel member = new MemberModel(prop, "", flags, Visibility.Public);
+                aClass.Members.Add(member);
+            }
+            objectClass.InFile.Classes.Add(aClass);
             return aClass;
         }
 

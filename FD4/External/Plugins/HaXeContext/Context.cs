@@ -27,7 +27,7 @@ namespace HaXeContext
             new Regex("@haxe[\\s]+(?<params>.*)", RegexOptions.Compiled | RegexOptions.Multiline);
 
         static readonly protected Regex re_genericType =
-                    new Regex("(?<gen>[^<]+)<(?<type>.+)>$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    new Regex("(?<gen>[^<]+)<(?<type>.+)>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private HaXeSettings hxsettings;
         private Dictionary<string, string> haxelibsCache;
@@ -569,6 +569,13 @@ namespace HaXeContext
             ClassModel aClass = base.ResolveType(baseType, inFile);
             if (aClass.IsVoid()) return aClass;
 
+            if (aClass.QualifiedName == "Dynamic<T>")
+            {
+                ClassModel indexClass = ResolveType(indexType, inFile);
+                if (!indexClass.IsVoid()) return indexClass;
+                return MakeCustomObjectClass(aClass, indexType);
+            }
+
             FileModel aFile = aClass.InFile;
             // is the type already cloned?
             foreach (ClassModel otherClass in aFile.Classes)
@@ -577,7 +584,7 @@ namespace HaXeContext
             // clone the type
             aClass = aClass.Clone() as ClassModel;
 
-            aClass.Name = baseType.Substring(baseType.LastIndexOf('.') + 1) + "#" + indexType;
+            aClass.Name = baseType.Substring(baseType.LastIndexOf('.') + 1) + "@" + indexType;
             aClass.IndexType = indexType;
 
             string typed = "<" + indexType + ">";

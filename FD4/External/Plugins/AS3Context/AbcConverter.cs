@@ -1,43 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using ASCompletion.Model;
-using SwfOp;
-using SwfOp.Data;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 using ASCompletion.Context;
-using System.Globalization;
+using ASCompletion.Model;
+using SwfOp;
+using SwfOp.Data;
 
 
 namespace AS3Context
 {
-    #region ABC model builder
+    #region AbcConverter class: ABC model builder
 
     public class AbcConverter
     {
-		static public List<string> ExcludedASDocs = getDefaultExcludedASDocs();
+        static public List<string> ExcludedASDocs = getDefaultExcludedASDocs();
 
         static public Regex reSafeChars = new Regex("[*\\:" + Regex.Escape(new String(Path.GetInvalidPathChars())) + "]", RegexOptions.Compiled);
         static private Regex reDocFile = new Regex("[/\\\\]([-_.$a-z0-9]+)\\.xml", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-		static public Dictionary<string, Dictionary<string, DocItem>> Docs = new Dictionary<string, Dictionary<string, DocItem>>();
+        static public Dictionary<string, Dictionary<string, ASDocItem>> Docs = new Dictionary<string, Dictionary<string, ASDocItem>>();
 
         private static Dictionary<string, FileModel> genericTypes;
         private static Dictionary<string, string> imports;
         private static bool inSWF;
-        private static Dictionary<string, DocItem> thisDocs;
+        private static Dictionary<string, ASDocItem> thisDocs;
         private static string docPath;
 
-		///
-		private static List<string> getDefaultExcludedASDocs()
-		{
-			List<string> list = new List<string>();
-			list.Add("helpid");
-			list.Add("keyword");
-			return list;
-		}
+        ///
+        private static List<string> getDefaultExcludedASDocs()
+        {
+            List<string> list = new List<string>();
+            list.Add("helpid");
+            list.Add("keyword");
+            return list;
+        }
 
         /// <summary>
         /// Extract documentation from XML included in ASDocs-enriched SWCs
@@ -51,30 +50,30 @@ namespace AS3Context
             }
 
             if (parser.Docs.Count > 0)
-            foreach (string docFile in parser.Docs.Keys)
-            {
-                if (docFile.EndsWith(".dita.xml"))
-                    continue;
-                try
+                foreach (string docFile in parser.Docs.Keys)
                 {
-                    Match m = reDocFile.Match(docFile);
-                    if (!m.Success) continue;
-                    string package = m.Groups[1].Value;
-                    Dictionary<string, DocItem> packageDocs = Docs.ContainsKey(package)
-                        ? Docs[package]
-                        : new Dictionary<string, DocItem>();
+                    if (docFile.EndsWith(".dita.xml"))
+                        continue;
+                    try
+                    {
+                        Match m = reDocFile.Match(docFile);
+                        if (!m.Success) continue;
+                        string package = m.Groups[1].Value;
+                        Dictionary<string, ASDocItem> packageDocs = Docs.ContainsKey(package)
+                            ? Docs[package]
+                            : new Dictionary<string, ASDocItem>();
 
-                    byte[] rawDoc = parser.Docs[docFile];
-                    DocsReader dr = new DocsReader(rawDoc);
-					dr.ExcludedASDocs = ExcludedASDocs;
-                    dr.Parse(packageDocs);
+                        byte[] rawDoc = parser.Docs[docFile];
+                        ASDocsReader dr = new ASDocsReader(rawDoc);
+                        dr.ExcludedASDocs = ExcludedASDocs;
+                        dr.Parse(packageDocs);
 
-                    Docs[package] = packageDocs;
+                        Docs[package] = packageDocs;
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
-                catch (Exception)
-                {
-                }
-            }
         }
 
         /// <summary>
@@ -124,10 +123,10 @@ namespace AS3Context
                     type.InFile = model;
                     type.Type = instance.name.ToTypeString();
                     type.Name = instance.name.localName;
-					type.Flags = FlagType.Class;
+                    type.Flags = FlagType.Class;
 
-					if (instance.flags == TraitMember.Function)
-						type.Flags |= FlagType.Interface;
+                    if (instance.flags == TraitMember.Function)
+                        type.Flags |= FlagType.Interface;
 
                     thisDocs = GetDocs(model.Package);
                     if (thisDocs != null)
@@ -135,8 +134,8 @@ namespace AS3Context
                         docPath = (model.Package.Length > 0 ? model.Package + ":" : "globalClassifier:") + type.Name;
                         if (thisDocs.ContainsKey(docPath))
                         {
-                            DocItem doc = thisDocs[docPath];
-                            setDoc(doc, type);
+                            ASDocItem doc = thisDocs[docPath];
+                            applyASDoc(doc, type);
                             if (doc.Meta != null) model.MetaDatas = doc.Meta;
                         }
                         if (model.Package.Length == 0) docPath = type.Name;
@@ -207,13 +206,13 @@ namespace AS3Context
 
                         foreach (MemberModel member in type.Members)
                         {
-							member.Access = Visibility.Public;
+                            member.Access = Visibility.Public;
                             member.Namespace = "";
                         }
                     }
 
                     // constructor
-					if (instance.init != null && (type.Flags & FlagType.Interface) == 0)
+                    if (instance.init != null && (type.Flags & FlagType.Interface) == 0)
                     {
                         List<MemberInfo> temp = new List<MemberInfo>(new MemberInfo[] { instance.init });
                         MemberList result = GetMembers(temp, 0, instance.name);
@@ -246,14 +245,14 @@ namespace AS3Context
                 }
 
                 // packages
-                if (abc.scripts == null) 
+                if (abc.scripts == null)
                     continue;
                 foreach (Traits trait in abc.scripts)
                 {
                     FileModel model = null;
                     foreach (MemberInfo info in trait.members)
                     {
-                        if (info.kind == TraitMember.Class) 
+                        if (info.kind == TraitMember.Class)
                             continue;
 
                         MemberModel member = GetMember(info, 0);
@@ -262,12 +261,12 @@ namespace AS3Context
                         if (model == null || model.Package != info.name.uri)
                         {
                             AddImports(model, imports);
-                            
+
                             string package = info.name.uri ?? "";
                             string filename = package.Length > 0 ? "package.as" : "toplevel.as";
                             filename = Path.Combine(package.Replace('.', Path.DirectorySeparatorChar), filename);
                             filename = Path.Combine(path.Path, filename);
-                            if (models.ContainsKey(filename)) 
+                            if (models.ContainsKey(filename))
                                 model = models[filename];
                             else
                             {
@@ -284,7 +283,7 @@ namespace AS3Context
                         thisDocs = GetDocs(model.Package);
                         if (thisDocs != null)
                         {
-                            docPath = "globalOperation:" + (model.Package.Length > 0 ? model.Package + ":" : "") 
+                            docPath = "globalOperation:" + (model.Package.Length > 0 ? model.Package + ":" : "")
                                 + member.Name;
                             if (member.Access == Visibility.Public && !String.IsNullOrEmpty(member.Namespace)
                                 && member.Namespace != "public")
@@ -292,7 +291,7 @@ namespace AS3Context
                             if ((member.Flags & FlagType.Setter) > 0) docPath += ":set";
                             else if ((member.Flags & FlagType.Getter) > 0) docPath += ":get";
 
-                            if (thisDocs.ContainsKey(docPath)) setDoc(thisDocs[docPath], member);
+                            if (thisDocs.ContainsKey(docPath)) applyASDoc(thisDocs[docPath], member);
                         }
 
                         member.InFile = model;
@@ -323,23 +322,43 @@ namespace AS3Context
             path.SetFiles(models);
         }
 
-        private static void setDoc(DocItem doc, MemberModel decl)
+        /// <summary>
+        /// old name: setDoc()
+        /// </summary>
+        private static void applyASDoc(ASDocItem doc, MemberModel model)
         {
-            decl.Comments = doc.LongDesc;
+            model.Comments = doc.LongDesc;
 
-			if (doc.IsFinal)
-				decl.Flags |= FlagType.Final;
+            if (doc.IsFinal)
+                model.Flags |= FlagType.Final;
 
-			if (doc.IsDynamic && (decl is ClassModel))
-				decl.Flags |= FlagType.Dynamic;
+            if (doc.IsDynamic && (model is ClassModel))
+                model.Flags |= FlagType.Dynamic;
 
-			if (doc.Value != null)
-				decl.Value = doc.Value;
+            if (doc.Value != null)
+                model.Value = doc.Value;
 
-            if (!String.IsNullOrEmpty(doc.ApiType) && doc.ApiType.EndsWith("*/"))
-            {
-                // TODO  Extract features in comments
-            }
+            // TODO  Extract features in comments
+            applyTypeComment(doc, model);
+            applyTypeCommentToParams(doc, model);
+        }
+
+        private static void applyTypeComment(ASDocItem doc, MemberModel model)
+        {
+            if (doc == null || model ==null)
+                return;
+
+            ASFileParserUtils.ParseTypeDefinitionInto(doc.ApiType, model, true, true);
+        }
+
+        private static void applyTypeCommentToParams(ASDocItem doc, MemberModel model)
+        {
+            if (doc == null || model == null || model.Parameters == null)
+                return;
+
+            foreach (MemberModel param in model.Parameters)
+                if (doc.ParamTypes != null && doc.ParamTypes.ContainsKey(param.Name))
+                    ASFileParserUtils.ParseTypeDefinitionInto(doc.ParamTypes[param.Name], param, true, true);
         }
 
         private static void CustomFixes(string path, Dictionary<string, FileModel> models)
@@ -351,7 +370,7 @@ namespace AS3Context
                 if (models.ContainsKey(mathPath))
                 {
                     ClassModel mathModel = models[mathPath].GetPublicClass();
-                    foreach(MemberModel member in mathModel.Members)
+                    foreach (MemberModel member in mathModel.Members)
                     {
                         if (member.Parameters != null && member.Parameters.Count > 0 && member.Parameters[0].Name == "x")
                         {
@@ -385,14 +404,13 @@ namespace AS3Context
             if (model != null)
             {
                 foreach (string import in imports.Keys)
-                {
                     model.Imports.Add(new MemberModel(imports[import], import, FlagType.Import, 0));
-                }
+                
                 imports.Clear();
             }
         }
 
-        private static Dictionary<string, DocItem> GetDocs(string package)
+        private static Dictionary<string, ASDocItem> GetDocs(string package)
         {
             string docPackage = package == "" ? "__Global__" : package;
             if (Docs.ContainsKey(docPackage)) return Docs[docPackage];
@@ -409,12 +427,14 @@ namespace AS3Context
             {
                 MemberModel member = GetMember(info, baseFlags);
                 if (member == null) continue;
-                
+
                 string uri = info.name.uri ?? "";
                 if (uri.Length > 0)
                 {
                     if (uri == "private" || package == "private")
+                    {
                         continue;
+                    }
                     else if (uri == protect)
                     {
                         member.Access = Visibility.Protected;
@@ -431,7 +451,9 @@ namespace AS3Context
                         member.Namespace = "AS3";
                     }
                     else if (uri == "http://www.adobe.com/2006/flex/mx/internal")
+                    {
                         continue;
+                    }
                     else if (uri == "http://www.adobe.com/2006/actionscript/flash/proxy")
                     {
                         member.Access = Visibility.Public;
@@ -448,7 +470,7 @@ namespace AS3Context
                         member.Namespace = "internal";
                     }
                 }
-                
+
                 if (thisDocs != null) GetMemberDoc(member);
 
                 list.Add(member);
@@ -476,7 +498,6 @@ namespace AS3Context
                 }
                 member.Type = ImportType(slot.type);
             }
-
             else if (info is MethodInfo)
             {
                 switch (info.kind)
@@ -495,6 +516,7 @@ namespace AS3Context
                 for (int i = 0; i < n; i++)
                 {
                     MemberModel param = new MemberModel();
+                    param.Flags = FlagType.ParameterVar | FlagType.Variable;
                     param.Name = (!inSWF && method.paramNames != null) ? method.paramNames[i] : "param" + i;
                     type = method.paramTypes[i];
                     param.Type = ImportType(type);
@@ -510,7 +532,11 @@ namespace AS3Context
                     member.Parameters.Add(param);
                 }
             }
-            else return null;
+            else
+            {
+                member = null;
+            }
+
             return member;
         }
 
@@ -524,7 +550,7 @@ namespace AS3Context
             if ((member.Flags & FlagType.Getter) > 0) dPath += ":get";
             else if ((member.Flags & FlagType.Setter) > 0) dPath += ":set";
 
-            if (thisDocs.ContainsKey(dPath)) setDoc(thisDocs[dPath], member);
+            if (thisDocs.ContainsKey(dPath)) applyASDoc(thisDocs[dPath], member);
         }
 
         private static string ImportType(QName type)
@@ -564,25 +590,46 @@ namespace AS3Context
 
     #endregion
 
-    #region Documentation parser
+    #region ASDocItem class: documented values container
 
-    class DocsReader : XmlTextReader
+    public class ASDocItem
     {
-		public List<string> ExcludedASDocs = null;
-        private Dictionary<string, DocItem> docs;
+        public bool IsFinal = false;
+        public bool IsDynamic = false;
+
+        public string ShortDesc = null;
+        public string LongDesc = null;
+        public string Returns = null;
+        public string Value = null;
+        public string ApiType = null;
+
+        public List<ASMetaData> Meta;
+        public Dictionary<string, string> Params = new Dictionary<string, string>();
+        public Dictionary<string, string> ParamTypes = new Dictionary<string, string>();
+        public List<KeyValuePair<string, string>> ExtraAsDocs = new List<KeyValuePair<string, string>>();
+    }
+
+    #endregion
+
+    #region ASDocsReader class: documentation parser
+
+    class ASDocsReader : XmlTextReader
+    {
+        public List<string> ExcludedASDocs = null;
+        private Dictionary<string, ASDocItem> docs;
 
 
-        public DocsReader(byte[] raw)
+        public ASDocsReader(byte[] raw)
             : base(new MemoryStream(raw))
         {
             WhitespaceHandling = WhitespaceHandling.None;
         }
 
-        public void Parse(Dictionary<string, DocItem> packageDocs)
+        public void Parse(Dictionary<string, ASDocItem> packageDocs)
         {
             docs = packageDocs;
 
-            DocItem doc = new DocItem();
+            ASDocItem doc = new ASDocItem();
             MoveToContent();
             while (Read())
                 ProcessDeclarationNodes(doc);
@@ -590,19 +637,24 @@ namespace AS3Context
             docs = null;
         }
 
+
+        //---------------------------
+        //	PRIMARY
+        //---------------------------
+
         private void ReadDeclaration()
         {
             if (IsEmptyElement)
                 return;
 
-			if (this.ExcludedASDocs == null)
-				this.ExcludedASDocs = new List<string>();
+            if (this.ExcludedASDocs == null)
+                this.ExcludedASDocs = new List<string>();
 
-            DocItem doc = new DocItem();
+            ASDocItem doc = new ASDocItem();
             string id = GetAttribute("id");
 
-			if (id != null)
-			{
+            if (id != null)
+            {
                 // type doubled in doc: "flash.utils:IDataOutput:flash.utils:IDataOutput:writeDouble"
                 int colon = id.IndexOf(':') + 1;
                 if (colon > 0)
@@ -623,89 +675,92 @@ namespace AS3Context
 
             if (id != null)
             {
-				if (doc.ApiType == "String" && doc.Value != null && !doc.Value.StartsWith("\""))
-					doc.Value = "\"" + doc.Value + "\"";
+                if (doc.ApiType == "String" && doc.Value != null && !doc.Value.StartsWith("\""))
+                    doc.Value = "\"" + doc.Value + "\"";
 
                 if (doc.LongDesc == null)
-					doc.LongDesc = "";
+                    doc.LongDesc = "";
 
                 if (doc.ShortDesc == null)
-					doc.ShortDesc = doc.LongDesc;
+                    doc.ShortDesc = doc.LongDesc;
                 else
-					doc.LongDesc = doc.LongDesc.Trim();
+                    doc.LongDesc = doc.LongDesc.Trim();
 
-				if (doc.LongDesc.Length == 0 && doc.ShortDesc.Length > 0)
-					doc.LongDesc = doc.ShortDesc;
+                if (doc.LongDesc.Length == 0 && doc.ShortDesc.Length > 0)
+                    doc.LongDesc = doc.ShortDesc;
 
-				if (!this.ExcludedASDocs.Contains("param") && doc.Params != null)
-					foreach (string name in doc.Params.Keys)
-						doc.LongDesc += "\n@param\t" + name + "\t" + doc.Params[name].Trim();
+                if (!this.ExcludedASDocs.Contains("param") && doc.Params != null)
+                    foreach (string name in doc.Params.Keys)
+                        doc.LongDesc += "\n@param\t" + name + "\t" + doc.Params[name].Trim();
 
-				if (!this.ExcludedASDocs.Contains("return") && doc.Returns != null)
-					doc.LongDesc += "\n@return\t" + doc.Returns.Trim();
+                if (!this.ExcludedASDocs.Contains("return") && doc.Returns != null)
+                    doc.LongDesc += "\n@return\t" + doc.Returns.Trim();
 
-				if (doc.ExtraAsDocs != null)
-					foreach (KeyValuePair<string, string> extraAsdoc in doc.ExtraAsDocs)
-						if (!this.ExcludedASDocs.Contains(extraAsdoc.Key))
-							doc.LongDesc += "\n@" + extraAsdoc.Key + "\t" + extraAsdoc.Value;
+                if (doc.ExtraAsDocs != null)
+                    foreach (KeyValuePair<string, string> extraASDoc in doc.ExtraAsDocs)
+                        if (!this.ExcludedASDocs.Contains(extraASDoc.Key))
+                            doc.LongDesc += "\n@" + extraASDoc.Key + "\t" + extraASDoc.Value;
 
-				if (doc.ShortDesc.Length > 0 || doc.LongDesc.Length > 0)
-					docs[id] = doc;
+                if (doc.ShortDesc.Length > 0 || doc.LongDesc.Length > 0)
+                    docs[id] = doc;
             }
         }
 
-		private void ProcessDeclarationNodes(DocItem doc)
-		{
-			if (NodeType != XmlNodeType.Element)
-				return;
+        private void ProcessDeclarationNodes(ASDocItem doc)
+        {
+            if (NodeType != XmlNodeType.Element)
+                return;
 
-			switch (Name)
-			{
-				case "apiName": break; // TODO validate event name
-				case "apiInheritDoc": break; // TODO link inherited doc?
+            switch (Name)
+            {
+                case "apiName": break; // TODO validate event name
+                case "apiInheritDoc": break; // TODO link inherited doc?
 
-				case "apiClassifierDetail":
-					ReadApiClassifierDetail(doc);
-					break;
+                case "apiDetail":
+                case "related-links": SkipContents(); break;
 
-			//	case "apiConstructorDetail":
-			//	case "apiOperationDetail":
-				case "apiDetail":
-				case "related-links": SkipContents(); break;
+                case "apiClassifierDetail":
+                    ReadApiClassifierDetail(doc);
+                    break;
 
-				case "shortdesc": doc.ShortDesc = ReadValue(); break;
-				case "prolog": ReadProlog(doc); break;
-				case "apiDesc": doc.LongDesc = ReadValue(); break;
-				case "apiData": doc.Value = ReadValue(); break;
+                case "apiClassifier":
+                case "apiValue":
+                case "apiOperation":
+                case "apiConstructor":
+                    ReadDeclaration();
+                    break;
 
-				case "style": ReadStyleMeta(doc); break;
-				case "Exclude": ReadExcludeMeta(doc); break;
-				case "adobeApiEvent": ReadEventMeta(doc); break;
+                case "shortdesc": doc.ShortDesc = ReadValue(); break;
+                case "prolog": ReadProlog(doc); break;
+                case "apiDesc": doc.LongDesc = ReadValue(); break;
+                case "apiData": doc.Value = ReadValue(); break;
 
-				case "apiClassifier":
-				case "apiValue":
-				case "apiOperation":
-				case "apiConstructor":
-					ReadDeclaration();
-					break;
+                case "style": ReadStyleMeta(doc); break;
+                case "Exclude": ReadExcludeMeta(doc); break;
+                case "adobeApiEvent": ReadEventMeta(doc); break;
 
-				case "apiFinal": doc.IsFinal = true; SkipContents(); break;
-				case "apiDynamic": doc.IsDynamic = true; SkipContents(); break;
+                case "apiFinal": doc.IsFinal = true; SkipContents(); break;
 
-				case "apiParam": ReadParamDesc(doc); break;
-				case "apiReturn": ReadReturnsDesc(doc); break;
-				case "apiException": ReadApiException(doc); break; // TODO link inherited doc?
+                case "apiParam": ReadParamDesc(doc); break;
+                case "apiReturn": ReadReturnsDesc(doc); break;
+                case "apiException": ReadApiException(doc); break; // TODO link inherited doc?
 
-				case "apiType": ReadApiType(doc); break;
+                case "apiType": ReadApiType(doc); break;
 
-				case "apiValueClassifier":
-				case "apiOperationClassifier": ReadApiTypeAsClassifier(doc); break;
-			}
-		}
+                case "apiValueClassifier":
+                case "apiOperationClassifier": ReadApiTypeAsClassifier(doc); break;
+            }
+        }
+
+
+        //---------------------------
+        //	COMMONS
+        //---------------------------
 
         private void SkipContents()
         {
-            if (IsEmptyElement) return;
+            if (IsEmptyElement)
+                return;
 
             string eon = Name;
             ReadStartElement();
@@ -713,246 +768,388 @@ namespace AS3Context
                 Read();
         }
 
-		private void ReadApiType(DocItem doc)
-		{
-			doc.ApiType = GetAttribute("value");
-		}
-
-		private void ReadApiTypeAsClassifier(DocItem doc)
-		{
-			doc.ApiType = ReadValue();
-		}
-
-        private void ReadReturnsDesc(DocItem doc)
+        private string ReadValue()
         {
-            if (IsEmptyElement) return;
+            if (IsEmptyElement)
+            {
+                string see = GetAttribute("conref");
+                if (see != null) return "@see " + see;
+                return "";
+            }
+
+            string desc = "";
+
+            string prefix = "";
+            string postfix = "";
+            string eon = Name;
+            string lcName; // name in lower case
+            ReadStartElement();
+            while (Name != eon)
+            {
+                lcName = Name.ToLower();
+                if (lcName == "codeblock" || lcName == "listing")
+                {
+                    if (NodeType == XmlNodeType.Element)
+                    {
+                        prefix = "\n<" + lcName + ">\n";
+                        postfix = "\n</" + lcName + ">\n";
+                    }
+                    else
+                    {
+                        prefix = "";
+                        postfix = "";
+                    }
+                }
+
+                switch (NodeType)
+                {
+                    case XmlNodeType.Element:
+                        ReadStartElement();
+                        break;
+
+                    case XmlNodeType.EndElement:
+                        ReadEndElement();
+                        break;
+
+                    case XmlNodeType.Text:
+                        desc += prefix + ReadString() + postfix;
+                        break;
+                }
+            }
+            return desc;
+        }
+
+
+        //---------------------------
+        //	apiClassifierDetail
+        //---------------------------
+
+        private void ReadApiClassifierDetail(ASDocItem doc)
+        {
+            doc.LongDesc = "";
+
+            if (IsEmptyElement)
+                return;
+
+            string eon = Name;
+            Read();
+            while (Name != eon)
+            {
+                switch (Name)
+                {
+                    case "apiClassifierDef":
+                        ReadApiClassifierDef(doc);
+                        Read();
+                        break;
+
+                    case "apiDesc":
+                        doc.LongDesc += this.ReadInnerXml() +"\n";
+                    //    Read();
+                        break;
+
+                    case "example":
+                        doc.LongDesc += "\nEXAMPLE: \n\n" + this.ReadInnerXml() +"\n";
+                    //    Read();
+                        break;
+
+                    default:
+                        this.ReadInnerXml();
+                        break;
+                }
+            }
+        }
+
+        private void ReadApiClassifierDef(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
 
             string eon = Name;
             ReadStartElement();
             while (Name != eon)
             {
-				switch (this.Name)
-				{
-					case "apiDesc":
-						doc.Returns = ReadValue();
-						break;
+                if (Name == "apiFinal")
+                    doc.IsFinal = true;
+                else if (Name == "apiDynamic")
+                    doc.IsDynamic = true;
 
-					case "apiType":
-						ReadApiType(doc);
-						break;
-
-					case "apiValueClassifier":
-					case "apiOperationClassifier":
-						ReadApiTypeAsClassifier(doc);
-						break;
-				}
                 Read();
             }
         }
 
-		private void ReadApiClassifierDetail(DocItem doc)
-		{
-			doc.LongDesc = "";
 
-			if (IsEmptyElement)
-				return;
+        //---------------------------
+        //	prolog
+        //---------------------------
 
-			string eon = Name;
-			Read();
-			while (Name != eon)
-			{
-				if (Name == "apiDesc")
-					doc.LongDesc += this.ReadInnerXml() + "\n";
-				else if (Name == "example")
-					doc.LongDesc += "\nEXAMPLE: \n\n" + this.ReadInnerXml() + "\n";
-				else
-					this.ReadInnerXml();
-			}
-		}
-
-        private void ReadParamDesc(DocItem doc)
+        /// <summary>
+        /// ---
+        /// Example:
+        /// <prolog>
+        ///		<asMetadata>
+        ///			<apiVersion>
+        ///				<apiLanguage version="3.0" />
+        ///				<apiPlatform description="" name="Flash" version="10" />
+        ///				<apiPlatform description="" name="AIR" version="1.5" />
+        ///				<apiTool description="" name="Flex" version="3" />
+        ///			</apiVersion>
+        ///		</asMetadata>
+        ///		<asCustoms>
+        ///			<customAsDoc>
+        ///				<type c="String" />
+        ///			</customAsDoc>
+        ///		</asCustoms>
+        ///	</prolog>
+        ///	---
+        /// </summary>
+        /// <param name="doc"></param>
+        private void ReadProlog(ASDocItem doc)
         {
-            if (IsEmptyElement) return;
+            if (IsEmptyElement)
+                return;
+
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+            {
+                if (Name == "asMetadata")
+                    ReadPrologMetadata(doc);
+                else if (Name == "asCustoms")
+                    ReadPrologCustoms(doc, Name);
+
+                Read();
+            }
+        }
+
+        private void ReadPrologMetadata(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
+
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+            {
+                if (Name == "apiVersion")
+                    ReadPrologMetadataApiVersion(doc);
+
+                Read();
+            }
+        }
+
+        private void ReadPrologMetadataApiVersion(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
+
+            string asdocKey;
+            string asdocVal;
+
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+            {
+                if (Name == "apiLanguage")
+                {
+                    string sVers = GetAttribute("version");
+
+                    asdocKey = "langversion";
+                    asdocVal = sVers;
+
+                    doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+                }
+                else if (Name == "apiPlatform")
+                {
+                    string sDesc = GetAttribute("description");
+                    string sName = GetAttribute("name");
+                    string sVers = GetAttribute("version");
+
+                    asdocKey = "playerversion";
+                    asdocVal = sName + " " + sVers + "  " + sDesc;
+
+                    doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+                }
+                else if (Name == "apiTool")
+                {
+                    string sDesc = GetAttribute("description");
+                    string sName = GetAttribute("name");
+                    string sVers = GetAttribute("version");
+
+                    asdocKey = "productversion";
+                    asdocVal = sName + " " + sVers + "  " + sDesc;
+
+                    doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+                }
+
+                Read();
+            }
+        }
+
+        private void ReadPrologCustoms(ASDocItem doc, string terminationNode)
+        {
+            if (IsEmptyElement)
+                return;
+
+            string asdocKey;
+            string asdocVal;
+
+            string eon = terminationNode;
+            ReadStartElement();
+            while (!(Name == eon && NodeType == XmlNodeType.EndElement))
+            {
+                asdocKey = this.Name;
+
+                /*
+                if (asdocKey == "maelexample")
+                {
+                    asdocVal = this.ReadValue();
+                    Read();
+                }
+                else
+                {
+                    */
+                    asdocVal = this.ReadInnerXml();
+              //  }
+
+                doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
+            }
+        }
+
+
+        //---------------------------
+        //	apiType
+        //---------------------------
+
+        private void ReadApiType(ASDocItem doc)
+        {
+            doc.ApiType = GetAttribute("value");
+        }
+
+        private void ReadApiTypeAsClassifier(ASDocItem doc)
+        {
+            doc.ApiType = ReadValue();
+        }
+
+
+        //---------------------------
+        //	apiOperationDetail
+        //---------------------------
+
+        private void ReadParamDesc(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
 
             string name = null;
             string desc = null;
+            string type = null;
 
             string eon = Name;
             ReadStartElement();
             while (Name != eon)
             {
                 if (NodeType == XmlNodeType.Element)
-                switch (Name)
                 {
-                    case "apiItemName": name = ReadValue(); break;
-                    case "apiDesc": desc = ReadValue(); break;
+                    switch (Name)
+                    {
+                        case "apiItemName":
+                            name = ReadValue();
+                            break;
+
+                        case "apiDesc":
+                            desc = ReadValue();
+                            break;
+
+                        case "apiType":
+                            type = GetAttribute("value");
+                            break;
+                    }
                 }
                 Read();
             }
 
-            if (name != null && desc != null) 
+            if (name != null)
             {
-                if (doc.Params == null) doc.Params = new Dictionary<string,string>();
-                doc.Params[name] = desc;
+                if (desc != null)
+                    doc.Params[name] = desc;
+
+                if (type != null)
+                    doc.ParamTypes[name] = type;
+            }
+        }
+
+        private void ReadReturnsDesc(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
+
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+            {
+                switch (this.Name)
+                {
+                    case "apiDesc":
+                        doc.Returns = ReadValue();
+                        break;
+
+                    case "apiType":
+                        ReadApiType(doc);
+                        break;
+
+                    case "apiValueClassifier":
+                    case "apiOperationClassifier":
+                        ReadApiTypeAsClassifier(doc);
+                        break;
+                }
+                Read();
             }
         }
 
 
-		private void ReadApiException(DocItem doc)
-		{
-			if (IsEmptyElement) return;
+        //---------------------------
+        //	apiException
+        //---------------------------
 
-			string apiDesc = "";
-			string apiItemName = "";
-			string apiOperationClassifier = "";
+        private void ReadApiException(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
 
-			string eon = Name;
-			ReadStartElement();
-			while (Name != eon)
-			{
-				if (Name == "apiDesc")
-					apiDesc = ReadValue();
+            string apiDesc = "";
+            string apiItemName = "";
+            string apiOperationClassifier = "";
 
-				if (Name == "apiItemName")
-					apiItemName = ReadValue();
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+            {
+                switch (Name)
+                {
+                    case "apiDesc":
+                        apiDesc = ReadValue();
+                        break;
 
-				if (Name == "apiOperationClassifier")
-					apiOperationClassifier = ReadValue();
+                    case "apiItemName":
+                        apiItemName = ReadValue();
+                        break;
 
-				Read();
-			}
+                    case "apiOperationClassifier":
+                        apiOperationClassifier = ReadValue();
+                        break;
+                }
+                Read();
+            }
 
-			doc.ExtraAsDocs.Add(new KeyValuePair<string, string>("throws", apiItemName + " " + apiDesc));
-		}
-
-
-
-		/// <summary>
-		/// ---
-		/// Example:
-		/// <prolog>
-		///		<asMetadata>
-		///			<apiVersion>
-		///				<apiLanguage version="3.0" />
-		///				<apiPlatform description="" name="Flash" version="10" />
-		///				<apiPlatform description="" name="AIR" version="1.5" />
-		///				<apiTool description="" name="Flex" version="3" />
-		///			</apiVersion>
-		///		</asMetadata>
-		///		<asCustoms>
-		///			<customAsDoc>
-		///				<type c="String" />
-		///			</customAsDoc>
-		///		</asCustoms>
-		///	</prolog>
-		///	---
-		/// </summary>
-		/// <param name="doc"></param>
-		private void ReadProlog(DocItem doc)
-		{
-			if (IsEmptyElement)
-				return;
-
-			string eon = Name;
-			ReadStartElement();
-			while (Name != eon)
-			{
-				if (Name == "asMetadata")
-					ReadPrologAsMetadata(doc);
-				
-				if (Name == "asCustoms")
-					ReadPrologAsCustoms(doc, Name);
-				
-				Read();
-			}
-		}
-
-		private void ReadPrologAsMetadata(DocItem doc)
-		{
-			if (IsEmptyElement)
-				return;
-
-			string eon = Name;
-			ReadStartElement();
-			while (Name != eon)
-			{
-				if (Name == "apiVersion")
-					ReadPrologAsMetadataApiVersion(doc);
-
-				Read();
-			}
-		}
-
-		private void ReadPrologAsMetadataApiVersion(DocItem doc)
-		{
-			if (IsEmptyElement)
-				return;
-
-			string asdocKey;
-			string asdocVal;
-
-			string eon = Name;
-			ReadStartElement();
-			while (Name != eon)
-			{
-				if (Name == "apiLanguage")
-				{
-					string sVers = GetAttribute("version");
-
-					asdocKey = "langversion";
-					asdocVal = sVers;
-
-					doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
-				}
-				else if (Name == "apiPlatform")
-				{
-					string sDesc = GetAttribute("description");
-					string sName = GetAttribute("name");
-					string sVers = GetAttribute("version");
-
-					asdocKey = "playerversion";
-					asdocVal = sName + " " + sVers + "  " + sDesc;
-
-					doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
-				}
-				else if (Name == "apiTool")
-				{
-					string sDesc = GetAttribute("description");
-					string sName = GetAttribute("name");
-					string sVers = GetAttribute("version");
-
-					asdocKey = "productversion";
-					asdocVal = sName + " " + sVers + "  " + sDesc;
-
-					doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
-				}
-
-				Read();
-			}
-		}
-
-		private void ReadPrologAsCustoms(DocItem doc, string terminationNode)
-		{
-			if (IsEmptyElement)
-				return;
-
-			string asdocKey;
-			string asdocVal;
-
-			string eon = terminationNode;
-			ReadStartElement();
-			while (!(Name == eon && NodeType == XmlNodeType.EndElement))
-			{
-				asdocKey = this.Name;
-				asdocVal = this.ReadInnerXml();
-
-				doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
-			}
-		}
+            doc.ExtraAsDocs.Add(new KeyValuePair<string, string>("throws", apiItemName + " " + apiDesc));
+        }
 
 
+        //---------------------------
+        //	Meta tags
+        //---------------------------
 
-        private void ReadExcludeMeta(DocItem doc)
+        private void ReadExcludeMeta(ASDocItem doc)
         {
             if (!HasAttributes) return;
 
@@ -969,10 +1166,10 @@ namespace AS3Context
             doc.Meta.Add(meta);
         }
 
-        private void ReadStyleMeta(DocItem doc)
+        private void ReadStyleMeta(ASDocItem doc)
         {
             if (IsEmptyElement || !HasAttributes) return;
-            
+
             ASMetaData meta = new ASMetaData("Style");
             meta.Kind = ASMetaKind.Style;
             meta.Comments = "";
@@ -1011,7 +1208,7 @@ namespace AS3Context
             doc.Meta.Add(meta);
         }
 
-        private void ReadEventMeta(DocItem doc)
+        private void ReadEventMeta(ASDocItem doc)
         {
             if (IsEmptyElement) return;
 
@@ -1021,20 +1218,20 @@ namespace AS3Context
             string eName = null;
             string eType = null;
             string eFullType = null;
-            
+
             string eon = Name;
             ReadStartElement();
             while (Name != eon)
             {
                 if (NodeType == XmlNodeType.Element)
-                switch (Name)
-                {
-                    case "shortdesc": meta.Comments = ReadValue() ?? ""; break;
-                    case "apiDesc": if (meta.Comments == "") meta.Comments = ReadValue() ?? ""; break;
-                    case "apiName": eName = ReadValue(); break;
-                    case "adobeApiEventClassifier": eType = ReadValue().Replace(':', '.'); break;
-                    case "apiEventType": eFullType = ReadValue(); break;
-                }
+                    switch (Name)
+                    {
+                        case "shortdesc": meta.Comments = ReadValue() ?? ""; break;
+                        case "apiDesc": if (meta.Comments == "") meta.Comments = ReadValue() ?? ""; break;
+                        case "apiName": eName = ReadValue(); break;
+                        case "adobeApiEventClassifier": eType = ReadValue().Replace(':', '.'); break;
+                        case "apiEventType": eFullType = ReadValue(); break;
+                    }
                 Read();
             }
 
@@ -1047,47 +1244,6 @@ namespace AS3Context
             meta.RawParams = String.Format("name=\"{0}\", type=\"{1}\"", eName, eType);
             doc.Meta.Add(meta);
         }
-
-        private string ReadValue()
-        {
-            if (IsEmptyElement)
-            {
-                string see = GetAttribute("conref");
-                if (see != null) return "@see " + see;
-                return "";
-            }
-
-            string desc = "";
-
-            string eon = Name;
-            ReadStartElement();
-            while (Name != eon)
-            {
-                switch (NodeType)
-                {
-                    case XmlNodeType.Element: ReadStartElement(); break;
-                    case XmlNodeType.EndElement: ReadEndElement(); break;
-                    case XmlNodeType.Text: desc += ReadString(); break;
-                }
-            }
-            return desc;
-        }
-    }
-
-    public class DocItem
-    {
-		public bool IsFinal = false;
-		public bool IsDynamic = false;
-
-		public string ShortDesc;
-		public string LongDesc;
-		public string Returns;
-		public string Value;
-		public string ApiType;
-
-		public List<ASMetaData> Meta;
-		public Dictionary<string, string> Params;
-		public List<KeyValuePair<string, string>> ExtraAsDocs = new List<KeyValuePair<string, string>>();
     }
 
     #endregion
