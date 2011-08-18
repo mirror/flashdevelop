@@ -390,7 +390,7 @@ namespace ASCompletion.Model
                 if (!parseCommon)
                     return TypeDefinitionKind.Null;
 
-                model.Type = typeDefinition;
+                model.Type = typeDefinition.Replace(":", ".");
                 return TypeDefinitionKind.Simple;
             }
 
