@@ -164,15 +164,17 @@ namespace ASCompletion.Model
                         model.Type = fnModel.Type;
                         model.Flags |= FlagType.Function;
                         model.Parameters = fnModel.Parameters;
-
-                        if (model.Namespace == "internal")
+                        if (model.Access == 0)
                         {
-                            if ((model.Access & Visibility.Public) == 0)
-                                model.Access = Visibility.Internal;
+                            if (model.Namespace == "internal")
+                            {
+                                if ((model.Access & Visibility.Public) == 0)
+                                    model.Access = Visibility.Internal;
 
-                            model.Namespace = "";
+                                model.Namespace = "";
+                            }
+                            else model.Access = Visibility.Public;
                         }
-                        model.Access = Visibility.Public;
                     }
                     return TypeDefinitionKind.TypedCallback;
                 }
