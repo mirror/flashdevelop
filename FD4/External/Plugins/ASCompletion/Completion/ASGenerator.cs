@@ -2998,31 +2998,14 @@ namespace ASCompletion.Completion
             while (m1.Success || m2.Success)
             {
                 Match m = null;
-                if (m1.Success && m2.Success)
-                {
-                    if (m1.Index > m2.Index)
-                    {
-                        m = m2;
-                    }
-                    else
-                    {
-                        m = m1;
-                    }
-                }
-                else if (m1.Success)
-                {
-                    m = m1;
-                }
-                else
-                {
-                    m = m2;
-                }
+                if (m1.Success && m2.Success) m = m1.Index > m2.Index ? m2 : m1;
+                else if (m1.Success) m = m1;
+                else m = m2;
                 string sub = "";
                 string val = m.Value;
-                for (int j = 0; j < val.Length - 2; j++)
-                {
+                for (int j = 0; j < val.Length - 2; j++) 
                     sub += "A";
-                }
+                
                 line = line.Substring(0, m.Index) + sub + "AA" + line.Substring(m.Index + m.Value.Length);
                 retLine = retLine.Substring(0, m.Index + 1) + sub + retLine.Substring(m.Index + m.Value.Length - 1);
 
@@ -3399,20 +3382,24 @@ namespace ASCompletion.Completion
             Sci.BeginUndoAction();
             try
             {
+                int delta = 0;
                 if (type == "Event")
                 {
                     List<string> typesUsed = new List<string>();
                     typesUsed.Add("flash.events.Event");
-                    position += AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                    delta = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                    position += delta;
                     Sci.SetSel(position, position);
                 }
                 else if (type == "DataEvent")
                 {
                     List<string> typesUsed = new List<string>();
                     typesUsed.Add("flash.events.DataEvent");
-                    position += AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                    delta = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                    position += delta;
                     Sci.SetSel(position, position);
                 }
+                lookupPosition += delta;
                 string acc = GetPrivateAccessor(afterMethod);
                 string template = TemplateUtils.GetTemplate("EventHandler");
                 string decl = NewLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
@@ -4318,9 +4305,11 @@ namespace ASCompletion.Completion
 
         private static void UpdateLookupPosition(int position, int delta)
         {
-            if (lookupPosition < 0) return;
-            if (position < lookupPosition + delta) lookupPosition += delta;
-            else if (position < lookupPosition) lookupPosition = position; // replaced text at cursor position
+            if (lookupPosition > position)
+            {
+                if (lookupPosition < position + delta) lookupPosition = position;// replaced text at cursor position
+                else lookupPosition += delta;
+            }
         }
 
         private static void AddLookupPosition()

@@ -1826,9 +1826,9 @@ namespace ASCompletion.Completion
                 bool limitMembers = autoHide; // ASContext.Context.HideIntrinsicMembers || (autoHide && !ASContext.Context.AlwaysShowIntrinsicMembers);
 
                 // static or instance members?
-                if (!result.IsNull()) mask = result.IsStatic ? FlagType.Static : FlagType.Dynamic;
+                if (!result.IsNull()) mask = result.IsStatic ? FlagType.Static : 0;
                 else if (expr.ContextFunction == null || IsStatic(expr.ContextFunction)) mask = FlagType.Static;
-                else mask = FlagType.Dynamic;
+                else mask = 0;
                 if (argumentType != null) mask |= FlagType.Variable;
 
 				// explore members
