@@ -1999,7 +1999,7 @@ namespace ASCompletion.Completion
                 }
             }
 
-            if (varResult != null && varResult.RelClass != null && !varResult.RelClass.Equals(inClass))
+            if (varResult.RelClass != null && !varResult.RelClass.IsVoid() && !varResult.RelClass.Equals(inClass))
             {
                 AddLookupPosition();
                 lookupPosition = -1;
@@ -2463,7 +2463,7 @@ namespace ASCompletion.Completion
             }
 
 
-            if (funcResult != null && funcResult.RelClass != null && !funcResult.RelClass.Equals(inClass))
+            if (funcResult.RelClass != null && !funcResult.RelClass.IsVoid() && !funcResult.RelClass.Equals(inClass))
             {
                 AddLookupPosition();
                 lookupPosition = -1;

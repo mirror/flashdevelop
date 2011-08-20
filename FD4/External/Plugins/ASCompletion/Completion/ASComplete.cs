@@ -2215,7 +2215,6 @@ namespace ASCompletion.Completion
 			{
                 token = tokens[i];
                 path += features.dot + token;
-                step.Context = context;
                 step.Path = path;
 
                 if (token.Length == 0)
@@ -2237,7 +2236,7 @@ namespace ASCompletion.Completion
                     if (step.IsNull())
                         return step;
                 }
-                else if (step.Type != null)
+                else if (step.Type != null && !step.Type.IsVoid())
                 {
                     resultClass = step.Type;
                     // handle typed indexes automatic typing
@@ -2260,7 +2259,7 @@ namespace ASCompletion.Completion
                     {
                         FindMember(token, resultClass, step, mask, acc);
                     }
-                    
+
                     // handle E4X expressions
                     if (step.Type == null)
                     {
@@ -2270,6 +2269,8 @@ namespace ASCompletion.Completion
                             step = new ASResult();
                             step.Member = new MemberModel(token, "XMLList", FlagType.Variable | FlagType.Dynamic | FlagType.AutomaticVar, Visibility.Public);
                             step.Type = ctx.ResolveType("XMLList", null);
+                            step.Context = context;
+                            step.Path = path;
                         }
                         else return step;
                         // members visibility
@@ -2285,6 +2286,13 @@ namespace ASCompletion.Completion
                             mask |= FlagType.Dynamic;
                         }
                     }
+                }
+                else
+                {
+                    step.Member = null;
+                    step.InClass = null;
+                    step.InFile = null;
+                    return step;
                 }
 			}
 			return step;
