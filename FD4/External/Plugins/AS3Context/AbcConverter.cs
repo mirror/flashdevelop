@@ -1022,12 +1022,17 @@ namespace AS3Context
 
         private void ReadApiType(ASDocItem doc)
         {
-            doc.ApiType = GetAttribute("value");
+            SetApiType(doc, GetAttribute("value"));
         }
 
         private void ReadApiTypeAsClassifier(ASDocItem doc)
         {
-            doc.ApiType = ReadValue();
+            SetApiType(doc, ReadValue());
+        }
+
+        private void SetApiType(ASDocItem doc, string apiType)
+        {
+            doc.ApiType = apiType == "any" ? "*" : apiType;
         }
 
 
