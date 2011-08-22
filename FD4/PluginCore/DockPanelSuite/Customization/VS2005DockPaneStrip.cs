@@ -525,6 +525,13 @@ namespace WeifenLuo.WinFormsUI.Docking
             }
         }
 
+        private int m_firstDisplayingTab = 0;
+        private int FirstDisplayingTab
+        {
+            get { return m_firstDisplayingTab; }
+            set { m_firstDisplayingTab = value; }
+        }
+
         private int m_startDisplayingTab = 0;
         private int StartDisplayingTab
         {
@@ -778,25 +785,64 @@ namespace WeifenLuo.WinFormsUI.Docking
             return overflow;
         }
 
-		private void CalculateTabs_Document()
-		{
+        /// <summary>
+        /// Calculate which tabs are displayed and in what order.
+        /// </summary>
+        private void CalculateTabs_Document()
+        {
             if (m_startDisplayingTab >= Tabs.Count)
                 m_startDisplayingTab = 0;
 
             Rectangle rectTabStrip = TabsRectangle;
 
-			int x = rectTabStrip.X + rectTabStrip.Height / 2;
-
+            int x = rectTabStrip.X + rectTabStrip.Height / 2;
             bool overflow = false;
-            for (int i = StartDisplayingTab; i < Tabs.Count; i++)
-                overflow = CalculateDocumentTab(rectTabStrip, ref x, i);
 
-            for (int i = 0; i < StartDisplayingTab; i++)
-                overflow = CalculateDocumentTab(rectTabStrip, ref x, i);
+            // Originally all new documents that were considered overflow
+            // (not enough pane strip space to show all tabs) were added to
+            // the far left (assuming not right to left) and the tabs on the
+            // right were dropped from view. If StartDisplayingTab is not 0
+            // then we are dealing with making sure a specific tab is kept in focus.
+            if (m_startDisplayingTab > 0)
+            {
+                int tempX = x;
+                TabVS2005 tab = Tabs[m_startDisplayingTab] as TabVS2005;
+                tab.MaxWidth = GetMaxTabWidth(m_startDisplayingTab);
+
+                // Add the active tab and tabs to the left
+                for (int i = StartDisplayingTab; i >= 0; i--)
+                    CalculateDocumentTab(rectTabStrip, ref tempX, i);
+
+                // Store which tab is the first one displayed so that it
+                // will be drawn correctly (without part of the tab cut off)
+                FirstDisplayingTab = EndDisplayingTab;
+
+                tempX = x; // Reset X location because we are starting over
+
+                // Start with the first tab displayed - name is a little misleading.
+                // Loop through each tab and set its location. If there is not enough
+                // room for all of them overflow will be returned.
+                for (int i = EndDisplayingTab; i < Tabs.Count; i++)
+                    overflow = CalculateDocumentTab(rectTabStrip, ref tempX, i);
+
+                // If not all tabs are shown then we have an overflow.
+                if (FirstDisplayingTab != 0)
+                    overflow = true;
+            }
+            else
+            {
+                for (int i = StartDisplayingTab; i < Tabs.Count; i++)
+                    overflow = CalculateDocumentTab(rectTabStrip, ref x, i);
+                for (int i = 0; i < StartDisplayingTab; i++)
+                    overflow = CalculateDocumentTab(rectTabStrip, ref x, i);
+
+                FirstDisplayingTab = StartDisplayingTab;
+            }
 
             if (!overflow)
             {
                 m_startDisplayingTab = 0;
+                FirstDisplayingTab = 0;
                 x = rectTabStrip.X + rectTabStrip.Height / 2;
                 foreach (TabVS2005 tab in Tabs)
                 {
@@ -805,7 +851,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
             }
             DocumentTabsOverflow = overflow;
-		}
+        }
 
         protected internal override void EnsureTabVisible(IDockContent content)
 		{
@@ -979,7 +1025,8 @@ namespace WeifenLuo.WinFormsUI.Docking
             if (toScreen)
                 rect = RectangleToScreen(rect);
 
-            if (tab.Content == DockPane.ActiveContent || Tabs.IndexOf(tab) == StartDisplayingTab || full)
+            // Draws the full angle piece for active content (or first tab)
+            if (tab.Content == DockPane.ActiveContent || full || Tabs.IndexOf(tab) == FirstDisplayingTab)
             {
                 if (RightToLeft == RightToLeft.Yes)
                 {
