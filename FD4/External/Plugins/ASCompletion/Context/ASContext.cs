@@ -401,7 +401,8 @@ namespace ASCompletion.Context
 
         static internal void SetCurrentLine(int line)
         {
-            if (validContexts.Count == 0)
+            ScintillaNet.ScintillaControl sci = CurSciControl;
+            if (validContexts.Count == 0 || sci == null)
             {
                 hasContext = false;
                 return;
@@ -410,7 +411,6 @@ namespace ASCompletion.Context
             {
                 // reevaluate active context
                 hasContext = false;
-                ScintillaNet.ScintillaControl sci = CurSciControl;
                 string needSyntax = null;
                 currentLine = line;
                 foreach (IASContext context in validContexts)
@@ -418,7 +418,7 @@ namespace ASCompletion.Context
                     context.CurrentLine = line;
 
                     // inline language coloring
-                    if (context.CurrentModel.InlinedRanges != null)
+                    if (context.CurrentModel != null && context.CurrentModel.InlinedRanges != null)
                     {
                         needSyntax = context.CurrentModel.InlinedIn;
                         int start = sci.MBSafeCharPosition(sci.PositionFromLine(line));
