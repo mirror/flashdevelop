@@ -159,8 +159,8 @@ namespace AS2Context
             if (Path.GetExtension(mtascPath) != "") mtascPath = Path.GetDirectoryName(mtascPath);
 
             string path;
-            if ((as2settings.UseMtascIntrinsic || as2settings.MMClassPath.Length == 0)
-                && mtascPath.Length > 0 && System.IO.Directory.Exists(mtascPath))
+            if ((as2settings.UseMtascIntrinsic || String.IsNullOrEmpty(as2settings.MMClassPath))
+                && !String.IsNullOrEmpty(mtascPath) && System.IO.Directory.Exists(mtascPath))
 			{
 				try 
 				{
@@ -181,7 +181,7 @@ namespace AS2Context
 				catch {}
 			}
 			// Macromedia/Adobe
-            if (as2settings.MMClassPath != null && System.IO.Directory.Exists(as2settings.MMClassPath))
+            if (!String.IsNullOrEmpty(as2settings.MMClassPath) && System.IO.Directory.Exists(as2settings.MMClassPath))
             {
                 if (classPath.Count == 0)
                 {
