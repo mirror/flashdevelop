@@ -76,7 +76,7 @@ namespace SourceControl.Actions
             ovManager.Reset();
 
             foreach (ITabbedDocument document in PluginBase.MainForm.Documents)
-                HandleFileReload(document.FileName);
+                if (document.IsEditable) HandleFileReload(document.FileName);
         }
 
         internal static void SelectionChanged()
