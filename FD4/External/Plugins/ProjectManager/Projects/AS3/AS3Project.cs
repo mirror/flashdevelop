@@ -60,16 +60,16 @@ namespace ProjectManager.Projects.AS3
                 if (export.IndexOf('(') > 0)
                 {
                     string fontName = export.Substring(0, export.IndexOf('(')).Trim();
-                    return String.Format("{0}Embed(source='{1}', fontFamily='{2}'){3}", pre, relPath, fontName, post);
-                } 
-                else return String.Format("{0}Embed(source='{1}', symbol='{2}'){3}", pre, relPath, export, post);
+                    return String.Format("{0}Embed(source=\"{1}\", fontFamily=\"{2}\"){3}", pre, relPath, fontName, post);
+                }
+                else return String.Format("{0}Embed(source=\"{1}\", symbol=\"{2}\"){3}", pre, relPath, export, post);
             }
             else if (FileInspector.IsImage(relPath, fileExt) || IsText(fileExt) 
                 || FileInspector.IsFont(relPath, fileExt) || FileInspector.IsSound(relPath, fileExt))
             {
-                return String.Format("{0}Embed(source='{1}'){2}", pre, relPath, post);
+                return String.Format("{0}Embed(source=\"{1}\"){2}", pre, relPath, post);
             }
-            else return String.Format("{0}Embed(source='{1}', mimeType='application/octet-stream'){2}", pre, relPath, post);
+            else return String.Format("{0}Embed(source=\"{1}\", mimeType=\"application/octet-stream\"){2}", pre, relPath, post);
         }
 
         private bool IsText(string ext)
