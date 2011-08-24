@@ -2,52 +2,70 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="css-values">
-			auto none normal italic oblique small-caps bold bolder lighter xx-small x-small small medium large x-large 
-			xx-large larger smaller transparent repeat repeat-x repeat-y no-repeat scroll fixed top bottom left center 
-			right justify both underline overline line-through blink baseline sub super text-top middle text-bottom capitalize 
-			uppercase lowercase thin medium thick dotted dashed solid double groove ridge inset outset block inline list-item 
-			pre no-wrap inside outside disc circle square decimal lower-roman upper-roman lower-alpha upper-alpha aqua black 
-			blue fuchsia gray green lime maroon navy olive purple red silver teal white yellow
-			inherit run-in compact marker table inline-table table-row-group table-header-group table-footer-group
-			table-row table-column-group table-column table-cell table-caption static relative absolute fixed ltr rtl 
-			embed bidi-override visible hidden scroll collapse open-quote close-quote no-open-quote no-close-quote 
-			decimal-leading-zero lower-greek lower-latin upper-latin hebrew armenian georgian cjk-ideographic hiragana 
-			katakana hiragana-iroha katakana-iroha landscape portrait crop cross always avoid wider narrower ultra-condensed 
-			extra-condensed condensed semi-condensed semi-expanded expanded extra-expanded ultra-expanded caption icon 
-			menu message-box small-caption status-bar separate show hide once crosshair default pointer move text wait 
-			help e-resize ne-resize nw-resize n-resize se-resize sw-resize s-resize w-resize ActiveBorder ActiveCaption 
-			AppWorkspace Background ButtonFace ButtonHighlight ButtonShadow InactiveCaptionText ButtonText CaptionText 
-			GrayText Highlight HighlightText InactiveBorder InactiveCaption InfoBackground InfoText Menu MenuText Scrollbar 
-			ThreeDDarkShadow ThreeDFace ThreeDHighlight ThreeDLightShadow ThreeDShadow Window WindowFrame WindowText 
-			silent x-soft soft medium loud x-loud spell-out mix left-side far-left center-left center-right far-right 
-			right-side behind leftwards rightwards below level above higher lower x-slow slow medium fast x-fast faster 
-			slower male female child x-low low high x-high code digits continous
+			ActiveBorder ActiveCaption AppWorkspace Background ButtonFace ButtonHighlight ButtonShadow ButtonText CaptionText GrayText Highlight 
+			HighlightText InactiveBorder InactiveCaption InactiveCaptionText InfoBackground InfoText Menu MenuText Scrollbar ThreeDDarkShadow ThreeDFace 
+			ThreeDHighlight ThreeDLightShadow ThreeDShadow Window WindowFrame WindowText above absolute alignment-adjust alignment-baseline always 
+			anging-punctuation appearance aqua armenian auto avoid backface-visibility baseline baseline-shift behind below bidi-override black blink 
+			block blue bold bolder bookmark-label bookmark-level bookmark-target border-image-slice border-image-source border-image-width border-radius 
+			border-top-left-radius border-top-right-radius both bottom box-align box-decoration-break box-direction box-flex box-flex-group box-lines 
+			box-ordinal-group box-orient box-pack box-shadow box-sizing capitalize caption center center-left center-right child circle cjk-ideographic 
+			close-quote code collapse color-profile column-count column-fill column-gap column-rule column-rule-color column-rule-style column-rule-width 
+			column-span column-width columns compact condensed continous crop cross crosshair dashed decimal decimal-leading-zero default digits disc 
+			dominant-baseline dotted double drop-initial-after-adjust drop-initial-after-align drop-initial-before-adjust drop-initial-before-align 
+			drop-initial-size drop-initial-value e-resize embed expanded extra-condensed extra-expanded far-left far-right fast faster female fit 
+			fit-position fixed float-offset font-size-adjust font-stretch fuchsia georgian gray green grid-columns grid-rows groove hebrew help hidden 
+			hide high higher hiragana hiragana-iroha hyphenate-after hyphenate-before hyphenate-character hyphenate-lines hyphenate-resource hyphens 
+			icon image-orientation image-resolution inherit inline inline-box-align inline-table inset inside italic justify katakana katakana-iroha 
+			landscape large larger left left-side leftwards level lighter lime line-stacking line-stacking-ruby line-stacking-shift line-stacking-strategy 
+			line-through list-item loud low lower lower-alpha lower-greek lower-latin lower-roman lowercase ltr male mark mark-after mark-before marker 
+			marks maroon marquee-direction marquee-play-count marquee-speed marquee-style medium menu message-box middle mix move move-to n-resize narrower 
+			nav-down nav-index nav-left nav-right nav-up navy ne-resize no-close-quote no-open-quote no-repeat no-wrap none normal nw-resize oblique olive 
+			once opacity open-quote outline-offset outset outside overflow-style overflow-x overflow-y overline page page-policy perspective perspective-origin 
+			phonemes pointer portrait pre punctuation-trim purple red relative rendering-intent repeat repeat-x repeat-y resize rest rest-after rest-before 
+			ridge right right-side rightwards rotation rotation-point rtl ruby-align ruby-overhang ruby-position ruby-span run-in s-resize scroll se-resize 
+			semi-condensed semi-expanded separate show silent silver size slow slower small small-caps small-caption smaller soft solid spell-out square 
+			static status-bar string-set sub super sw-resize table table-caption table-cell table-column table-column-group table-footer-group table-header-group 
+			table-row table-row-group target target-name target-new target-position teal text text-align-last text-bottom text-height text-justify text-outline 
+			text-overflow text-shadow text-top text-wrap thick thin top transform transform-origin transform-style transition transition-delay transition-duration 
+			transition-property transition-timing-function transparent ultra-condensed ultra-expanded underline upper-alpha upper-latin upper-roman uppercase 
+			visible voice-balance voice-duration voice-pitch voice-pitch-range voice-rate voice-stress voice-volume w-resize wait white wider word-break 
+			word-wrap x-fast x-high x-large x-loud x-low x-slow x-small x-soft xx-large xx-small yellow
 		</keyword-class>
 		<keyword-class name="css-keywords">
-			color background-color background-image background-repeat background-attachment background-position 
-			background font-family font-style font-variant font-weight font-size font word-spacing letter-spacing 
-			text-decoration vertical-align text-transform text-align text-indent line-height margin-top margin-right 
-			margin-bottom margin-left margin padding-top padding-right padding-bottom padding-left padding border-top-width 
-			border-right-width border-bottom-width border-left-width border-width border-top border-right border-bottom 
-			border-left border border-color border-style width height float clear display white-space list-style-type 
-			list-style-image list-style-position list-style
-			border-top-color border-right-color border-bottom-color border-left-color border-color border-top-style 
-			border-right-style border-bottom-style border-left-style border-style top right bottom left position z-index 
-			direction unicode-bidi min-width max-width min-height max-height overflow clip visibility content quotes 
-			counter-reset counter-increment marker-offset size marks page-break-before page-break-after page-break-inside 
-			page orphans widows font-stretch font-size-adjust unicode-range units-per-em src panose-1 stemv stemh slope 
-			cap-height x-height ascent descent widths bbox definition-src baseline centerline mathline topline text-shadow 
-			caption-side table-layout border-collapse border-spacing empty-cells speak-header cursor outline outline-width 
-			outline-style outline-color volume speak pause-before pause-after pause cue-before cue-after cue play-during 
-			azimuth elevation speech-rate voice-family pitch pitch-range stress richness speak-punctuation speak-numeral
-			background-size border-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius 
-			border-top-left-radius box-shadow columns column-width column-count column-rule column-gap column-rule-color 
-			column-rule-style column-rule-width resize opacity word-wrap
+			alignment-adjust alignment-baseline anging-punctuation appearance ascent azimuth backface-visibility background background-attachment 
+			background-color background-image background-position background-repeat baseline baseline-shift bbox bookmark-label bookmark-level bookmark-target 
+			border border-bottom border-bottom-color border-bottom-left-radius border-bottom-right-radius border-bottom-style border-bottom-width 
+			border-collapse border-color border-image border-image-outset border-image-repeat border-image-slice border-image-source border-image-width 
+			border-left border-left-color border-left-style border-left-width border-radius border-right border-right-color border-right-style border-right-width 
+			border-spacing border-style border-top border-top-color border-top-left-radius border-top-right-radius border-top-style border-top-width 
+			border-width bottom box-align box-decoration-break box-direction box-flex box-flex-group box-lines box-ordinal-group box-orient box-pack 
+			box-shadow box-sizing cap-height caption-side centerline clear clip color color-profile column-count column-fill column-gap column-rule 
+			column-rule-color column-rule-style column-rule-width column-span column-width columns content counter-increment counter-reset crop cue 
+			cue-after cue-before cursor definition-src descent direction display dominant-baseline drop-initial-after-adjust drop-initial-after-align 
+			drop-initial-before-adjust drop-initial-before-align drop-initial-size drop-initial-value e elevation empty-cells fit fit-position float 
+			float-offset font font-family font-size font-size-adjust font-stretch font-style font-variant font-weight grid-columns grid-rows height 
+			hyphenate-after hyphenate-before hyphenate-character hyphenate-lines hyphenate-resource hyphens icon image-orientation image-resolution 
+			inline-box-align left letter-spacing line-height line-stacking line-stacking-ruby line-stacking-shift line-stacking-strategy list-style 
+			list-style-image list-style-position list-style-type margin margin-bottom margin-left margin-right margin-top mark mark-after mark-before 
+			marker-offset marks marquee-direction marquee-play-count marquee-speed marquee-style mathline max-height max-width min-height min-width 
+			move-to nav-down nav-index nav-left nav-right nav-up opacity orphans outline outline-color outline-offset outline-style outline-width 
+			overflow overflow-style overflow-x overflow-y padding padding-bottom padding-left padding-right padding-top page page-break-after 
+			page-break-before page-break-inside page-policy panose-1 pause pause-after pause-before perspective perspective-origin phonemes pitch 
+			pitch-range play-during position punctuation-trim quotes rendering-intent resize rest rest-after rest-before richness right rotation 
+			rotation-point ruby-align ruby-overhang ruby-position ruby-span size slope speak speak-header speak-numeral speak-punctuation speech-rate 
+			src stemh stemv stress string-set table-layout target target-name target-new target-position text-align text-align-last text-decoration 
+			text-height text-indent text-justify text-outline text-overflow text-shadow text-transform text-wrap top topline transform transform-origin 
+			transform-style transition transition-delay transition-duration transition-property transition-timing-function unicode-bidi unicode-range 
+			units-per-em vertical-align visibility voice-balance voice-duration voice-family voice-pitch voice-pitch-range voice-rate voice-stress 
+			voice-volume volume white-space widows width widths word-break word-spacing word-wrap x-height z-index @font-face @keyframes
 		</keyword-class>
 		<keyword-class name="css-pseudoclasses">
-			first-letter first-line link active visited first-child focus hover lang before after left right first empty 
-			enabled disabled checked not root target only-child last-child nth-child nth-last-child first-of-type last-of-type 
-			nth-of-type nth-last-of-type only-of-type valid invalid required optional indeterminate default selection
+			active after before checked default disabled empty enabled first first-child first-letter first-line first-of-type focus hover indeterminate 
+			invalid lang last-child last-of-type left link not nth-child nth-last-child nth-last-of-type nth-of-type only-child only-of-type optional 
+			required right root selection target valid visited
+		</keyword-class>
+		<keyword-class name="css-vendor-prefixes">
+			^-moz- ^-webkit- ^-o- ^-ms-
 		</keyword-class>
 	</keyword-classes>
 	<languages>
