@@ -40,9 +40,14 @@
 			caption-side table-layout border-collapse border-spacing empty-cells speak-header cursor outline outline-width 
 			outline-style outline-color volume speak pause-before pause-after pause cue-before cue-after cue play-during 
 			azimuth elevation speech-rate voice-family pitch pitch-range stress richness speak-punctuation speak-numeral
+			background-size border-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius 
+			border-top-left-radius box-shadow columns column-width column-count column-rule column-gap column-rule-color 
+			column-rule-style column-rule-width resize opacity word-wrap
 		</keyword-class>
 		<keyword-class name="css-pseudoclasses">
-			first-letter first-line link active visited first-child focus hover lang before after left right first
+			first-letter first-line link active visited first-child focus hover lang before after left right first empty 
+			enabled disabled checked not root target only-child last-child nth-child nth-last-child first-of-type last-of-type 
+			nth-of-type nth-last-of-type only-of-type valid invalid required optional indeterminate default selection
 		</keyword-class>
 	</keyword-classes>
 	<languages>
