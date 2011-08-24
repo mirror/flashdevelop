@@ -2,7 +2,7 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="sgml-and-dtd-keywords">
-			ELEMENT DOCTYPE ATTLIST ENTITY NOTATION doctype
+			ELEMENT DOCTYPE ATTLIST ENTITY NOTATION
 		</keyword-class>
 		<keyword-class name="html-elements-and-attributes">
 			a abbr acronym address applet area b base basefont bdo big blockquote body br button caption center cite code 
