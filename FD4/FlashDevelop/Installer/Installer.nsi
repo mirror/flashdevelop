@@ -364,8 +364,8 @@ Section "Install Flex SDK" InstallFlexSDK
 	NSISdl::download /TIMEOUT=30000 http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
-	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	DetailPrint "FLEX download cancel details: $R0"
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
 	; Delete SDK dir on update
@@ -431,8 +431,8 @@ Section "Install AIR SDK" InstallAirSDK
 	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/2.7/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
-	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	DetailPrint "AIR download cancel details: $R0"
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
 	; Extract the AIR SDK zip
