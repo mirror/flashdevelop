@@ -209,6 +209,22 @@ Function GetNeedsReset
 	
 FunctionEnd
 
+Function ConnectInternet
+
+	Push $R0
+	ClearErrors
+	Dialer::AttemptConnect
+	IfErrors NoIE3
+	Pop $R0
+	StrCmp $R0 "online" Connected
+	MessageBox MB_OK|MB_ICONSTOP "Cannot connect to the internet."
+	NoIE3:
+	MessageBox MB_OK|MB_ICONINFORMATION "Please connect to the internet now."
+	Connected:
+	Pop $R0
+	
+FunctionEnd
+
 Function .onInit
 	
 	; Check if the installer is already running
@@ -340,12 +356,16 @@ Section "Install Flex SDK" InstallFlexSDK
 	
 	${If} $0 != ${FLEX}
 	
+	; Connect to internet
+	Call ConnectInternet
+
 	; Download Flex SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\flex_sdk_${FLEX}.zip" +6 0
 	NSISdl::download /TIMEOUT=30000 http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
-	StrCmp $R0 "success" +3
+	StrCmp $R0 "success" +4
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
+	DetailPrint "FLEX download cancel details: $R0"
 	Goto Finish
 	
 	; Delete SDK dir on update
@@ -402,13 +422,17 @@ Section "Install AIR SDK" InstallAirSDK
 	Pop $0
 	
 	${If} $0 != ${AIR}
-	
+
+	; Connect to internet
+	Call ConnectInternet
+
 	; Download AIR SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +6 0
 	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/2.7/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
-	StrCmp $R0 "success" +3
+	StrCmp $R0 "success" +4
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
+	DetailPrint "AIR download cancel details: $R0"
 	Goto Finish
 	
 	; Extract the AIR SDK zip
