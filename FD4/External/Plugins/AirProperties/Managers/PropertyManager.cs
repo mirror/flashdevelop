@@ -31,7 +31,8 @@ namespace AirProperties
             V20 = 4,    // Version 2.0
             V25 = 5,    // Version 2.5
             V26 = 6,    // Version 2.6
-            V27 = 7     // Version 2.7
+            V27 = 7,    // Version 2.7
+            V30 = 9     // Version 3.0
         }
 
         public static Exception LastException
@@ -93,6 +94,7 @@ namespace AirProperties
                     else if (nsuri.StartsWith(_BaseAirNamespace + "2.5")) _version = AirVersion.V25;
                     else if (nsuri.StartsWith(_BaseAirNamespace + "2.6")) _version = AirVersion.V26;
                     else if (nsuri.StartsWith(_BaseAirNamespace + "2.7")) _version = AirVersion.V27;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "3.0")) _version = AirVersion.V30;
                     else
                     {
                         // Is a valid AIR descriptor, but version not supported so default to max supported version
