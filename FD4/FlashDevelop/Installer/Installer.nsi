@@ -12,7 +12,7 @@
 !define BUILD "Beta3"
 
 ; Define AIR SDK version
-!define AIR "2.7.0"
+!define AIR "2.7.1"
 
 ; Define Flex SDK version
 !define FLEX "4.5.1.21328"
