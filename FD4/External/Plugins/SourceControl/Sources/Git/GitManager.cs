@@ -5,6 +5,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using PluginCore;
+using System.Text.RegularExpressions;
 
 namespace SourceControl.Sources.Git
 {
@@ -15,6 +16,7 @@ namespace SourceControl.Sources.Git
         Dictionary<string, Status> statusCache = new Dictionary<string, Status>();
         IVCMenuItems menuItems = new MenuItems();
         IVCFileActions fileActions = new FileActions();
+        Regex reIgnore = new Regex("[/\\\\]\\.git([/\\\\]|$)");
 
         public IVCMenuItems MenuItems { get { return menuItems; } }
         public IVCFileActions FileActions { get { return fileActions; } }
@@ -105,6 +107,7 @@ namespace SourceControl.Sources.Git
 
         public bool SetPathDirty(string path, string rootPath)
         {
+            if (reIgnore.IsMatch(path)) return false;
             if (statusCache.ContainsKey(rootPath))
             {
                 return statusCache[rootPath].SetPathDirty(path);
