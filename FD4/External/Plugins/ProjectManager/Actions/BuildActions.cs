@@ -85,6 +85,7 @@ namespace ProjectManager.Actions
                         data["releaseMode"] = releaseMode;
                         DataEvent de = new DataEvent(EventType.Command, "ProjectManager.RunWithAssociatedIDE", data);
                         EventManager.DispatchEvent(project, de);
+                        if (de.Handled) return true;
                     }
                 }
                 return false;
@@ -138,7 +139,7 @@ namespace ProjectManager.Actions
             return FDBuild(project, runOutput, releaseMode, sdk);
         }
 
-        static public void RunFlashIDE(Project project, bool runOutput, bool releaseMode)
+        static public bool RunFlashIDE(Project project, bool runOutput, bool releaseMode)
         {
             string cmd = (runOutput) ? "testmovie" : "buildmovie";
             if (!PluginMain.Settings.DisableExtFlashIntegration) cmd += "-fd";
@@ -151,11 +152,13 @@ namespace ProjectManager.Actions
             if (cmd == null || !File.Exists(cmd))
             {
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.JsflNotFound"));
+                return false;
             }
             else
             {
                 DataEvent de = new DataEvent(EventType.Command, "ASCompletion.CallFlashIDE", cmd);
                 EventManager.DispatchEvent(project, de);
+                return de.Handled;
             }
         }
 
