@@ -1826,7 +1826,7 @@ namespace ASCompletion.Completion
                 bool limitMembers = autoHide; // ASContext.Context.HideIntrinsicMembers || (autoHide && !ASContext.Context.AlwaysShowIntrinsicMembers);
 
                 // static or instance members?
-                if (!result.IsNull()) mask = result.IsStatic ? FlagType.Static : 0;
+                if (!result.IsNull()) mask = result.IsStatic ? FlagType.Static : FlagType.Dynamic;
                 else if (expr.ContextFunction == null || IsStatic(expr.ContextFunction)) mask = FlagType.Static;
                 else mask = 0;
                 if (argumentType != null) mask |= FlagType.Variable;
@@ -1837,7 +1837,7 @@ namespace ASCompletion.Completion
 				while (tmpClass != null && !tmpClass.IsVoid())
 				{
                     mix.Merge(tmpClass.GetSortedMembersList(), mask, acc);
-                    if ((mask & FlagType.Static) > 0 && tmpClass.InFile.Version != 2) break; // only AS2 inherit static members
+                    //if ((mask & FlagType.Static) > 0 && tmpClass.InFile.Version != 2) break; // only AS2 inherit static members?
 
                     tmpClass = tmpClass.Extends;
                     // hide Object class members
