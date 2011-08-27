@@ -850,9 +850,14 @@ namespace HaXeContext
                 MemberList imports = ResolveImports(CurrentModel);
                 elements.Add(imports);
                 if (!typesOnly)
-                    foreach (ClassModel aClass in imports)
-                        if (aClass.IsEnum())
-                            elements.Add(aClass.Members);
+                    foreach (MemberModel import in imports)
+                    {
+                        if (import is ClassModel)
+                        {
+                            ClassModel aClass = import as ClassModel;
+                            if (aClass.IsEnum()) elements.Add(aClass.Members);
+                        }
+                    }
 
                 // in cache
                 if (typesOnly)
