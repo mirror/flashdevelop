@@ -626,6 +626,7 @@ namespace ASCompletion.Model
             foundColon = false;
 
             bool handleDirectives = features.hasDirectives || cachedPath != null;
+            bool inlineDirective = false;
 
             while (i < len)
             {
@@ -690,6 +691,14 @@ namespace ASCompletion.Model
                             // preprocessor statements
                             else if (c1 == '#' && handleDirectives)
                             {
+                                int ls = i - 2;
+                                inlineDirective = false;
+                                while (ls > 0)
+                                {
+                                    c2 = ba[ls--];
+                                    if (c2 == 10 || c2 == 13) break;
+                                    else if (c2 > 32) { inlineDirective = true; break; }
+                                }
                                 c2 = ba[i];
                                 if (i < 2 || ba[i - 2] < 33 && c2 >= 'a' && c2 <= 'z')
                                 {
@@ -766,7 +775,7 @@ namespace ASCompletion.Model
 
                     // directive/preprocessor statement
                     case 3:
-                        if (c1 == 10 || c1 == 13)
+                        if (c1 == 10 || c1 == 13 || (inlineDirective && c1 <= 32))
                         {
                             if (commentLength > 0)
                             {
@@ -806,6 +815,7 @@ namespace ASCompletion.Model
                             commentLength = 0;
                             matching = 0;
                         }
+
                         break;
 
                     // We are inside a /// comment
@@ -940,6 +950,8 @@ namespace ASCompletion.Model
 
                 if (inValue)
                 {
+                    bool stopParser = false;
+                    bool valueError = false;
                     if (inType && !inAnonType && !inGeneric && !Char.IsLetterOrDigit(c1) && ".{}-><".IndexOf(c1) < 0)
                     {
                         inType = false;
@@ -952,56 +964,43 @@ namespace ASCompletion.Model
                     else if (c1 == '{')
                     {
                         paramBraceCount++;
-                        valueBuffer[0] = '~'; // ignore value
-                        c1 = '~';
+                        stopParser = true;
                     }
-                    else if (c1 == '}' && paramBraceCount > 0)
+                    else if (c1 == '}')
                     {
-                        paramBraceCount--;
-                        if (!inType && paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && valueLength < VALUE_BUFFER)
-                        {
-                            valueBuffer[valueLength++] = ' ';
-                            c1 = inParams ? ' ' : ';'; // stop value
-                        }
-                        else //if (inType && inAnonType)
-                            c1 = ' '; // ignore brace
+                        if (paramBraceCount > 0) { paramBraceCount--; stopParser = true; }
+                        else valueError = true;
                     }
                     else if (c1 == '(')
                     {
-                        // TODO "timeline code": detect a function declaration
-                        /*if (!inType && paramParCount == 0)
-                        {
-                            string param = new string(valueBuffer, 0, valueLength).Trim();
-                            if (param == "function")
-                            {
-                                inValue = false;
-                                valueLength = 0;
-                                if (curMember != null)
-                                {
-                                    curMember.Flags -= FlagType.Variable;
-                                    curMember.Flags |= FlagType.Function;
-                                    context = FlagType.Function;
-                                    i--;
-                                }
-                            }
-                        }*/
                         paramParCount++;
+                        stopParser = true;
                     }
                     else if (c1 == ')')
                     {
-                        if (paramParCount > 0) paramParCount--;
+                        if (paramParCount > 0) { paramParCount--; stopParser = true; }
+                        else valueError = true;
                     }
                     else if (c1 == '[') paramSqCount++;
-                    else if (c1 == ']' && paramSqCount > 0) paramSqCount--;
-                    else if (paramTempCount > 0)
+                    else if (c1 == ']')
                     {
-                        if (c1 == '<') paramTempCount++;
-                        else if (c1 == '>')
+                        if (paramSqCount > 0) { paramSqCount--; stopParser = true; }
+                        else valueError = true;
+                    }
+                    else if (c1 == '<')
+                    {
+                        if (inType) inGeneric = true;
+                        paramTempCount++;
+                    }
+                    else if (c1 == '>')
+                    {
+                        if (ba[i - 2] == '-') { /*haxe method signatures*/ }
+                        else if (paramTempCount > 0)
                         {
-                            // ignore haxe method signatures
-                            if (inGeneric && i > 1 && ba[i - 2] == '-') { /*ignore*/ }
-                            else paramTempCount--;
+                            paramTempCount--;
+                            stopParser = true;
                         }
+                        else valueError = true;
                     }
                     else if (c1 == '/')
                     {
@@ -1038,11 +1037,11 @@ namespace ASCompletion.Model
                             else if (c1 == '/') break;
                         }
                     }
+                    else if ((c1 == ':' || c1 == ',') && paramBraceCount > 0) stopParser = true;
 
                     // end of value
-                    if (paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && paramTempCount == 0
-                        && (c1 == ',' || c1 == ';' || c1 == '}' || c1 == '\r' || c1 == '\n'
-                            || (inParams && c1 == ')') || inType))
+                    if ((valueError || (!stopParser && paramBraceCount == 0 && paramParCount == 0 && paramSqCount == 0 && paramTempCount == 0))
+                        && (c1 == ',' || c1 == ';' || c1 == '}' || c1 == '\r' || c1 == '\n' || (inParams && c1 == ')') || inType))
                     {
                         if (!inType && (!inValue || c1 != ','))
                         {
@@ -1051,7 +1050,7 @@ namespace ASCompletion.Model
                         }
                         inValue = false;
                         inGeneric = false;
-                        if (inType && valueLength < VALUE_BUFFER) valueBuffer[valueLength++] = c1;
+                        //if (valueLength < VALUE_BUFFER) valueBuffer[valueLength++] = c1;
                     }
 
                     // in params, store the default value
@@ -1075,7 +1074,9 @@ namespace ASCompletion.Model
                             if (valueLength < VALUE_BUFFER) valueBuffer[valueLength++] = c1;
                             continue;
                         }
-                        if (inType && inGeneric && (c1 == '<' || c1 == '.')) continue;
+                        if (stopParser) continue;
+                        else if (valueError && c1 == ')') inValue = false;
+                        else if (inType && inGeneric && (c1 == '<' || c1 == '.')) continue;
                         else if (inAnonType) continue;
                         hadWS = true;
                     }
@@ -1084,8 +1085,8 @@ namespace ASCompletion.Model
                 // store type / parameter value
                 if (!inValue && valueLength > 0)
                 {
-                    string param = (valueBuffer[0] == '~' && valueBuffer[0] != '[') ? "..."
-                        : new string(valueBuffer, 0, valueLength);
+                    string param = /*(valueBuffer[0] == '{' && valueBuffer[0] != '[') ? "..."
+                        :*/ new string(valueBuffer, 0, valueLength);
 
                     // get text before the last keyword found
                     if (valueKeyword != null)
@@ -1111,11 +1112,14 @@ namespace ASCompletion.Model
                     else if (inType)
                     {
                         foundColon = false;
-                        if (haXe && (param.EndsWith("}") || param.Contains(">")))
+                        if (haXe)
                         {
-                            param = ASFileParserRegexes.Spaces.Replace(param, "");
-                            param = param.Replace(",", ", ");
-                            param = param.Replace("->", " -> ");
+                            if (param.EndsWith("}") || param.Contains(">"))
+                            {
+                                param = ASFileParserRegexes.Spaces.Replace(param, "");
+                                param = param.Replace(",", ", ");
+                                param = param.Replace("->", " -> ");
+                            }
                         }
                         curMember.Type = param;
                     }
@@ -1124,6 +1128,7 @@ namespace ASCompletion.Model
                     {
                         if (inParams || inConst) curMember.Value = param;
                         curMember.LineTo = line;
+                        if (c1 == '\r' || c1 == '\n') curMember.LineTo--;
                         if (inConst && c1 != ',')
                         {
                             context = 0;
@@ -1132,7 +1137,7 @@ namespace ASCompletion.Model
                     }
                     //
                     valueLength = 0;
-                    if (!inParams && !(inConst && context != 0)) continue;
+                    if (!inParams && !(inConst && context != 0) && c1 != '{') continue;
                     else length = 0;
                 }
 
@@ -1202,30 +1207,40 @@ namespace ASCompletion.Model
                             {
                                 if (!inValue && i > 2 && length > 1 && i < len - 3
                                     && Char.IsLetterOrDigit(ba[i - 3]) && (Char.IsLetter(ba[i]) || (haXe && ba[i] == '{'))
-                                    && (buffer[length - 1] == '.' || Char.IsLetter(buffer[length - 1])))
+                                    && (Char.IsLetter(buffer[0]) || buffer[0] == '_'))
                                 {
-                                    evalToken = 0;
-                                    inGeneric = true;
-                                    inValue = true;
-                                    inType = true;
-                                    inAnonType = false;
-                                    valueLength = 0;
-                                    for (int j = 0; j < length; j++)
-                                        valueBuffer[valueLength++] = buffer[j];
-                                    valueBuffer[valueLength++] = c1;
-                                    length = 0;
-                                    paramBraceCount = 0;
-                                    paramParCount = 0;
-                                    paramSqCount = 0;
-                                    paramTempCount = 1;
-                                    continue;
+                                    if (curMember == null)
+                                    {
+                                        evalToken = 0;
+                                        inGeneric = true;
+                                        addChar = true;
+                                    }
+                                    else
+                                    {
+                                        evalToken = 0;
+                                        inGeneric = true;
+                                        inValue = true;
+                                        inType = true;
+                                        inAnonType = false;
+                                        valueLength = 0;
+                                        for (int j = 0; j < length; j++)
+                                            valueBuffer[valueLength++] = buffer[j];
+                                        valueBuffer[valueLength++] = c1;
+                                        length = 0;
+                                        paramBraceCount = 0;
+                                        paramParCount = 0;
+                                        paramSqCount = 0;
+                                        paramTempCount = 1;
+                                        continue;
+                                    }
                                 }
                             }
-                            else if (inGeneric && (c1 == ',' || c1 == '.' || c1 == '-' || c1 == '>'))
+                            else if (inGeneric && (c1 == ',' || c1 == '.' || c1 == '-' || c1 == '>' || c1 == ':'))
                             {
                                 hadWS = false;
                                 hadDot = false;
                                 evalToken = 0;
+                                if (!inValue) addChar = true;
                             }
                             else
                             {
@@ -1339,7 +1354,7 @@ namespace ASCompletion.Model
                         }
 
                         // member type declaration
-                        else if (c1 == ':' && !inValue)
+                        else if (c1 == ':' && !inValue && !inGeneric)
                         {
                             foundColon = true;
                         }
@@ -1377,6 +1392,7 @@ namespace ASCompletion.Model
                             {
                                 context = FlagType.Variable;
                                 inParams = true;
+                                inGeneric = false;
                                 if (valueMember != null && curMember == null)
                                 {
                                     valueLength = 0;
@@ -1899,6 +1915,7 @@ namespace ASCompletion.Model
                     lastComment = null;
                 modifiers = 0;
                 curMember = null;
+                flattenNextBlock = false;
                 return true;
             }
             else
@@ -2261,6 +2278,8 @@ namespace ASCompletion.Model
                 curAccess = 0;
                 modifiers = 0;
                 modifiersLine = 0;
+                inGeneric = false;
+                flattenNextBlock = false;
                 tryPackage = false;
             }
             return false;

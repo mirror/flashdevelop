@@ -1323,22 +1323,30 @@ namespace ASCompletion.Completion
 			else UITools.CallTip.CallTipSetHlt(start + 1, end, true);
 		}
 
+        static string[] featStart = new string[] { "/*", "{", "<", "[", "(" };
+        static string[] featEnd = new string[] { "*/", "}", ">", "]", ")" };
+
 		static private int FindNearSymbolInFunctDef(string defBody, string symbol, int startAt)
 		{
 			int end = -1;
-			int commentBeg = -1;
-			int commentEnd = -1;
+			int featBeg;
 			while (true)
 			{
 				end = defBody.IndexOf(symbol, startAt);
-				commentBeg = defBody.IndexOf("/*", startAt);
-				if (commentBeg > end || end < 0 || commentBeg < 0)
-					break;
-
-				commentEnd = defBody.IndexOf("*/", commentBeg);
-				startAt = commentEnd;
+                if (end < 0) break;
+                bool cont = false;
+                for (int i = 0; i < featStart.Length; i++)
+                {
+                    featBeg = defBody.IndexOf(featStart[i], startAt);
+                    if (featBeg >= 0 && featBeg < end)
+                    {
+                        startAt = Math.Max(featBeg + 1, defBody.IndexOf(featEnd[i], featBeg));
+                        cont = true;
+                        break;
+                    }
+                }
+                if (!cont) break;
 			}
-
 			return end;
 		}
 
