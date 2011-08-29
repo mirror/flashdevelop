@@ -195,24 +195,27 @@ namespace AS3Context
                         string playerglobal = MatchPlayerGlobalExact(majorVersion, minorVersion, sdkLibs);
                         if (playerglobal != null) swcPresent = true;
                         else playerglobal = MatchPlayerGlobalExact(majorVersion, minorVersion, fallbackLibs);
-                        if (playerglobal == null) playerglobal = MatchPlayerGlobalAny(majorVersion, minorVersion, sdkLibs);
-                        if (playerglobal == null) playerglobal = MatchPlayerGlobalAny(majorVersion, minorVersion, fallbackLibs);
+                        if (playerglobal == null) playerglobal = MatchPlayerGlobalAny(ref majorVersion, ref minorVersion, fallbackLibs);
+                        if (playerglobal == null) playerglobal = MatchPlayerGlobalAny(ref majorVersion, ref minorVersion, sdkLibs);
                         if (playerglobal != null)
                         {
                             // add missing SWC in new SDKs
                             if (!swcPresent && sdkLibs.IndexOf(S + "flexlibs") < 0 && Directory.Exists(compiler))
                             {
                                 string swcDir = sdkLibs + S + "player" + S;
-                                if (minorVersion > 0 || (!Directory.Exists(sdkLibs + "9") && !Directory.Exists(sdkLibs + "10")))
+                                if (!Directory.Exists(swcDir + "9") && !Directory.Exists(swcDir + "10"))
                                     swcDir += majorVersion + "." + minorVersion;
                                 else
                                     swcDir += majorVersion;
                                 try
                                 {
-                                    Directory.CreateDirectory(swcDir);
-                                    File.Copy(playerglobal, swcDir + S + "playerglobal.swc");
-                                    File.WriteAllText(swcDir + S + "FlashDevelopNotice.txt",
-                                        "This 'playerglobal.swc' was copied here automatically by FlashDevelop from:\r\n" + playerglobal);
+                                    if (!File.Exists(swcDir + S + "playerglobal.swc"))
+                                    {
+                                        Directory.CreateDirectory(swcDir);
+                                        File.Copy(playerglobal, swcDir + S + "playerglobal.swc");
+                                        File.WriteAllText(swcDir + S + "FlashDevelopNotice.txt",
+                                            "This 'playerglobal.swc' was copied here automatically by FlashDevelop from:\r\n" + playerglobal);
+                                    }
                                     playerglobal = swcDir + S + "playerglobal.swc";
                                 }
                                 catch { }
@@ -341,7 +344,7 @@ namespace AS3Context
         /// <summary>
         /// Find any playerglobal.swc
         /// </summary>
-        private string MatchPlayerGlobalAny(int majorVersion, int minorVersion, string sdkLibs)
+        private string MatchPlayerGlobalAny(ref int majorVersion, ref int minorVersion, string sdkLibs)
         {
             char S = Path.DirectorySeparatorChar;
             string libPlayer = sdkLibs + S + "player";
@@ -351,22 +354,26 @@ namespace AS3Context
                 string version = majorVersion + "." + i;
                 if (Directory.Exists(libPlayer + S + version))
                 {
-                    playerglobal = libPlayer + S + version + S + "playerglobal.swc";
-                    break;
+                    minorVersion = i;
+                    return libPlayer + S + version + S + "playerglobal.swc";
                 }
             }
             if (playerglobal == null && Directory.Exists(libPlayer + S + majorVersion))
                 playerglobal = "player" + S + majorVersion + S + "playerglobal.swc";
 
-            if (playerglobal == null)
+            if (playerglobal == null && majorVersion > 9)
             {
-                string[] dirs = Directory.GetDirectories(sdkLibs + S + "player");
-                foreach (string dir in dirs)
-                    if (File.Exists(dir + S + "playerglobal.swc"))
-                    {
-                        playerglobal = dir + S + "playerglobal.swc";
-                    }
+                int tempMajor = majorVersion - 1;
+                int tempMinor = 9;
+                playerglobal = MatchPlayerGlobalAny(ref tempMajor, ref tempMinor, sdkLibs);
+                if (playerglobal != null)
+                {
+                    majorVersion = tempMajor;
+                    minorVersion = tempMinor;
+                    return playerglobal;
+                }
             }
+
             return playerglobal;
         }
 

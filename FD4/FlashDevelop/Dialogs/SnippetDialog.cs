@@ -350,7 +350,8 @@ namespace FlashDevelop.Dialogs
                     break;
                 }
             }
-            if (!foundSyntax) this.languageDropDown.SelectedIndex = 0;
+            if (!foundSyntax && this.languageDropDown.Items.Count > 0) 
+                this.languageDropDown.SelectedIndex = 0;
             this.columnHeader.Width = -2;
         }
 

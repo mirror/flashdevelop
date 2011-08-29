@@ -16,7 +16,8 @@ namespace SourceControl.Sources.Mercurial
         Dictionary<string, Status> statusCache = new Dictionary<string, Status>();
         IVCMenuItems menuItems = new MenuItems();
         IVCFileActions fileActions = new FileActions();
-        Regex reIgnore = new Regex("[/\\\\]\\.git([/\\\\]|$)");
+        Regex reIgnore = new Regex("[/\\\\]\\.hg[/\\\\]");
+        bool ignoreDirty = false;
 
         public IVCMenuItems MenuItems { get { return menuItems; } }
         public IVCFileActions FileActions { get { return fileActions; } }
@@ -97,19 +98,22 @@ namespace SourceControl.Sources.Mercurial
                 statusCache[rootPath] = status;
             }
             else status = statusCache[rootPath];
+            ignoreDirty = true;
             status.Update();
         }
 
         void status_OnResult(Status status)
         {
+            ignoreDirty = false;
             if (OnChange != null) OnChange(this);
         }
 
         public bool SetPathDirty(string path, string rootPath)
         {
-            if (reIgnore.IsMatch(path)) return false;
+            if (ignoreDirty) return false;
             if (statusCache.ContainsKey(rootPath))
             {
+                if (reIgnore.IsMatch(path)) return false;
                 return statusCache[rootPath].SetPathDirty(path);
             }
             return false;
