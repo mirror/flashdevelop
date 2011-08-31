@@ -506,6 +506,7 @@ namespace ASCompletion.Model
         private ClassModel curClass;
         private string lastComment;
         private string curComment;
+        private bool isBlockComment;
         private ContextFeatures features;
         #endregion
 
@@ -652,12 +653,14 @@ namespace ASCompletion.Model
                                     {
                                         // This is a /// comment
                                         matching = 4;
+                                        isBlockComment = true;
                                         i++;
                                     }
                                     else
                                     {
                                         // This is a regular comment
                                         matching = 1;
+                                        isBlockComment = false;
                                     }
                                     inCode = false;
                                     i++;
@@ -665,6 +668,7 @@ namespace ASCompletion.Model
                                 }
                                 else if (c2 == '*')
                                 {
+                                    isBlockComment = (i + 1 < len && ba[i + 1] == '*');
                                     matching = 2;
                                     inCode = false;
                                     i++;
@@ -1625,11 +1629,12 @@ namespace ASCompletion.Model
             {
                 meta = meta.Substring(meta.IndexOf('(') + 1);
                 md.ParseParams(meta.Substring(0, meta.Length - 1));
-                if (lastComment != null && (md.Name == "Event" || md.Name == "Style"))
+                if (lastComment != null && isBlockComment && (md.Name == "Event" || md.Name == "Style"))
                 {
                     md.Comments = lastComment;
                     lastComment = null;
                 }
+                else lastComment = null;
             }
             if (model.MetaDatas == null) model.MetaDatas = new List<ASMetaData>();
             model.MetaDatas.Add(md);
@@ -1910,6 +1915,7 @@ namespace ASCompletion.Model
                 foundColon = false;
                 context = foundKeyword;
                 curModifiers = modifiers;
+                if (!isBlockComment) lastComment = null;
                 curComment = lastComment;
                 if (foundKeyword != FlagType.Import)
                     lastComment = null;
