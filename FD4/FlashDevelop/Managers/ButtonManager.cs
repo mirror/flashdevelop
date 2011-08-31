@@ -98,6 +98,14 @@ namespace FlashDevelop.Managers
             {
                 if (!Globals.MainForm.StandaloneMode) return false;
             }
+            if (action.Contains("!MultiInstanceMode"))
+            {
+                if (Globals.MainForm.MultiInstanceMode) return false;
+            }
+            else if (action.Contains("MultiInstanceMode"))
+            {
+                if (!Globals.MainForm.MultiInstanceMode) return false;
+            }
             if (sci != null)
             {
                 if (action.Contains("!CanUndo"))
