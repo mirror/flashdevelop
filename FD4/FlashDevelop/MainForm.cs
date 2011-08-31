@@ -132,6 +132,7 @@ namespace FlashDevelop
         private Boolean closingForOpenFile = false;
         private Boolean closingEntirely = false;
         private Boolean closeAllCanceled = false;
+        private Boolean restartRequested = false;
         private Boolean closingAll = false;
         
         /* Singleton */
@@ -1011,7 +1012,14 @@ namespace FlashDevelop
                 ArgumentDialog.SaveCustomArguments();
                 PluginServices.DisposePlugins();
                 this.SaveAllSettings();
+                /* Restart if requested */
+                if (this.restartRequested)
+                {
+                    this.restartRequested = false;
+                    Application.Restart();
+                }
             }
+            else this.restartRequested = false;
         }
 
         /// <summary>
@@ -3410,7 +3418,8 @@ namespace FlashDevelop
         /// </summary>
         public void Restart(Object sender, EventArgs e)
         {
-            Application.Restart();
+            this.restartRequested = true;
+            this.Close();
         }
 
         #endregion
