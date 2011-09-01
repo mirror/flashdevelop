@@ -512,6 +512,8 @@ namespace ASCompletion.Model
 
         #region tokenizer
 
+        public bool ScriptMode;
+
         public ContextFeatures Features
         {
             get { return features; }
@@ -1330,7 +1332,7 @@ namespace ASCompletion.Model
                                 paramTempCount = 0;
                                 continue;
                             }
-                            else if (flattenNextBlock) // not in a class, parse if/for/while/do blocks
+                            else if (flattenNextBlock || (haXe && ScriptMode) || i == 1) // not in a class, parse if/for/while/do blocks
                             {
                                 flattenNextBlock = false;
                                 context = 0;
@@ -1354,6 +1356,7 @@ namespace ASCompletion.Model
                             {
                                 if (hasPackageSection && model.PrivateSectionIndex == 0) model.PrivateSectionIndex = line + 1;
                                 flattenNextBlock = false;
+                                foundColon = false;
                             }
                         }
 
@@ -1927,7 +1930,7 @@ namespace ASCompletion.Model
             else
             {
                 // when not in a class, parse if/for/while blocks
-                if ((haXe || version < 2) &&
+                if (ScriptMode &&
                     (token == "if" || token == "else" || token == "for" || token == "while" || token == "do"
                      || token == "switch" || token == "with" || token == "case"
                      || token == "try" || token == "catch" || token == "finally"))

@@ -915,6 +915,7 @@ namespace ASCompletion.Context
         public virtual FileModel GetCodeModel(string src)
         {
             ASFileParser parser = GetCodeParser();
+            parser.ScriptMode = true;
             // parse
             FileModel temp = new FileModel();
             temp.haXe = ASContext.Context.Settings.LanguageId == "HAXE";

@@ -2300,6 +2300,7 @@ namespace ASCompletion.Completion
                     step.Member = null;
                     step.InClass = null;
                     step.InFile = null;
+                    step.Type = null;
                     return step;
                 }
 			}
@@ -2811,7 +2812,7 @@ namespace ASCompletion.Completion
                     if (mStart.Success)
                     {
                         // cleanup function body & offset
-                        int pos = mStart.Index + mStart.Length;
+                        int pos = mStart.Index + mStart.Length - 1;
                         expression.BeforeBody = (position < Sci.PositionFromLine(expression.ContextMember.LineFrom) + pos);
                         string pre = body.Substring(0, pos);
                         for (int i = 0; i < pre.Length - 1; i++)

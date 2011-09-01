@@ -657,7 +657,7 @@ namespace HaXeContext
 
             topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable, Visibility.Public));
             topLevel.Members.Add(new MemberModel("super", "", FlagType.Variable, Visibility.Public));
-            topLevel.Members.Add(new MemberModel("Void", "", FlagType.Intrinsic, Visibility.Public));
+            //topLevel.Members.Add(new MemberModel("Void", "", FlagType.Intrinsic, Visibility.Public));
             topLevel.Members.Sort();
             foreach (MemberModel member in topLevel.Members)
                 member.Flags |= FlagType.Intrinsic;
@@ -858,11 +858,11 @@ namespace HaXeContext
                             if (aClass.IsEnum()) elements.Add(aClass.Members);
                         }
                     }
+                elements.Sort();
 
                 // in cache
                 if (typesOnly)
                 {
-                    elements.Sort();
                     completionCache = new CompletionCache(this, elements);
                     // known classes colorization
                     if (!CommonSettings.DisableKnownTypesColoring && !settings.LazyClasspathExploration && CurSciControl != null)
