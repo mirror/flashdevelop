@@ -178,7 +178,6 @@ namespace ASCompletion.Completion
                 // "Generate fields from parameters" suggestion
                 if (found.member != null
                     && (found.member.Flags & FlagType.Function) > 0
-                    && (found.member.Flags & FlagType.Static) == 0
                     && found.member.Parameters != null && (found.member.Parameters.Count > 0)
                     && resolve.Member != null && (resolve.Member.Flags & FlagType.ParameterVar) > 0)
                 {
