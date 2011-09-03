@@ -758,8 +758,15 @@ namespace ASCompletion.Completion
 
             if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language.StartsWith("as"))
             {
-                string labelClass = TextHelper.GetString("ASCompletion.Label.GenerateFieldFromPatameter");
-                known.Add(new GeneratorItem(labelClass, GeneratorJobType.FieldFromPatameter, found.member, found.inClass));
+                Hashtable parameters = new Hashtable();
+                parameters["scope"] = GetDefaultVisibility();
+                string labelClass = TextHelper.GetString("ASCompletion.Label.GeneratePrivateFieldFromPatameter");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.FieldFromPatameter, found.member, found.inClass, parameters));
+
+                parameters = new Hashtable();
+                parameters["scope"] = Visibility.Public;
+                labelClass = TextHelper.GetString("ASCompletion.Label.GeneratePublicFieldFromPatameter");
+                known.Add(new GeneratorItem(labelClass, GeneratorJobType.FieldFromPatameter, found.member, found.inClass, parameters));
 
                 CompletionList.Show(known, false);
             }
@@ -1099,7 +1106,7 @@ namespace ASCompletion.Completion
                     Sci.BeginUndoAction();
                     try
                     {
-                        GenerateFieldFromParameter(Sci, member, inClass);
+                        GenerateFieldFromParameter(Sci, member, inClass, (Visibility)(((Hashtable)data)["scope"]));
                     }
                     finally
                     {
@@ -1746,7 +1753,8 @@ namespace ASCompletion.Completion
             InsertCode(position, template);
         }
 
-        private static void GenerateFieldFromParameter(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass)
+        private static void GenerateFieldFromParameter(ScintillaNet.ScintillaControl Sci, MemberModel member, ClassModel inClass,
+                    Visibility scope)
         {
             int funcBodyStart = GetBodyStart(member.LineFrom, member.LineTo, Sci);
 
@@ -1780,18 +1788,30 @@ namespace ASCompletion.Completion
             string varName = paramName;
             string scopedVarName = varName;
 
-            if (ASContext.CommonSettings.PrefixFields.Length > 0 && !paramName.StartsWith(ASContext.CommonSettings.PrefixFields))
+            if ((scope & Visibility.Public) > 0)
             {
-                scopedVarName = varName = ASContext.CommonSettings.PrefixFields + varName;
-            }
-            
-            if (ASContext.CommonSettings.GenerateScope || ASContext.CommonSettings.PrefixFields == "")
-            {
-                if ((member.Flags | FlagType.Static) > 0)
+                if ((member.Flags & FlagType.Static) > 0)
                     scopedVarName = inClass.Name + "." + varName;
                 else
                     scopedVarName = "this." + varName;
             }
+            else
+            {
+                if (ASContext.CommonSettings.PrefixFields.Length > 0 && !paramName.StartsWith(ASContext.CommonSettings.PrefixFields))
+                {
+                    scopedVarName = varName = ASContext.CommonSettings.PrefixFields + varName;
+                }
+
+                if (ASContext.CommonSettings.GenerateScope || ASContext.CommonSettings.PrefixFields == "")
+                {
+                    if ((member.Flags & FlagType.Static) > 0)
+                        scopedVarName = inClass.Name + "." + varName;
+                    else
+                        scopedVarName = "this." + varName;
+                }
+            }
+
+            
 
             string template = TemplateUtils.GetTemplate("FieldFromParameter");
             template = TemplateUtils.ReplaceTemplateVariable(template, "Name", scopedVarName);
@@ -1813,7 +1833,7 @@ namespace ASCompletion.Completion
             Sci.SetSel(position, position);
             Sci.CurrentPos = position;
 
-            MemberModel mem = NewMember(varName, member, FlagType.Variable, GetDefaultVisibility());
+            MemberModel mem = NewMember(varName, member, FlagType.Variable, scope);
             if (isVararg) mem.Type = "Array";
             else mem.Type = contextMember.Type;
 
