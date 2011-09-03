@@ -3463,8 +3463,11 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
     <value>Generate constructor</value>
   </data>
-  <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
-    <value>Generate field from parameter</value>
+  <data name="ASCompletion.Label.GeneratePrivateFieldFromPatameter" xml:space="preserve">
+    <value>Generate private field</value>
+  </data>
+  <data name="ASCompletion.Label.GeneratePublicFieldFromPatameter" xml:space="preserve">
+    <value>Generate public field</value>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
     <value>Generate toString()</value>
