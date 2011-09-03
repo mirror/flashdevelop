@@ -1784,9 +1784,13 @@ namespace ASCompletion.Completion
             {
                 scopedVarName = varName = ASContext.CommonSettings.PrefixFields + varName;
             }
+            
             if (ASContext.CommonSettings.GenerateScope || ASContext.CommonSettings.PrefixFields == "")
             {
-                scopedVarName = "this." + varName;
+                if ((member.Flags | FlagType.Static) > 0)
+                    scopedVarName = inClass.Name + "." + varName;
+                else
+                    scopedVarName = "this." + varName;
             }
 
             string template = TemplateUtils.GetTemplate("FieldFromParameter");
