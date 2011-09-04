@@ -2386,7 +2386,7 @@ namespace ASCompletion.Completion
                             {
                                 paramName = result.Member.Name;
                             }
-                            if (result.Member.Type == null || result.Member.Type == ctx.Features.voidKey)
+                            if (result.Member.Type == null || result.Member.Type.Equals("void", StringComparison.OrdinalIgnoreCase))
                             {
                                 paramType = result.Type.Name;
                                 paramQualType = result.Type.QualifiedName;
