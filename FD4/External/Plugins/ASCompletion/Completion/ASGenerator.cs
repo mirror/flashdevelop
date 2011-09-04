@@ -2077,20 +2077,10 @@ namespace ASCompletion.Completion
             // if this is a constant, we assign a value to constant
             string returnTypeStr = null;
             string eventValue = null;
-            if (job == GeneratorJobType.Constant)
+            if (job == GeneratorJobType.Constant && returnType == null)
             {
                 isStatic.Flags |= FlagType.Static;
-                ClassModel aType = inClass;
-                aType.ResolveExtends();
-                while (!aType.IsVoid() && aType.QualifiedName != "Object")
-                {
-                    if (aType.QualifiedName == "flash.events.Event")
-                    {
-                        eventValue = "String = \"" + Camelize(contextToken) + "\"";
-                        break;
-                    }
-                    aType = aType.Extends;
-                }
+                eventValue = "String = \"" + Camelize(contextToken) + "\"";
             }
             else if (returnType != null)
             {
@@ -2376,7 +2366,7 @@ namespace ASCompletion.Completion
                         if (types.Count == 0)
                         {
                             result = new ASResult();
-                            result.Type = ctx.ResolveType("Object", null);
+                            result.Type = ctx.ResolveType(ctx.Features.objectKey, null);
                             types.Add(result);
                         }
 
@@ -2396,7 +2386,7 @@ namespace ASCompletion.Completion
                             {
                                 paramName = result.Member.Name;
                             }
-                            if (result.Member.Type == null || "void".Equals(result.Member.Type, StringComparison.InvariantCultureIgnoreCase))
+                            if (result.Member.Type == null || result.Member.Type == ctx.Features.voidKey)
                             {
                                 paramType = result.Type.Name;
                                 paramQualType = result.Type.QualifiedName;
@@ -2423,7 +2413,12 @@ namespace ASCompletion.Completion
 
             for (int i = 0; i < prms.Count; i++)
             {
-                prms[i].paramName = GuessVarName(prms[i].paramName, FormatType(GetShortType(prms[i].paramType)));
+                if (prms[i].paramType == "void")
+                {
+                    prms[i].paramName = "object";
+                    prms[i].paramType = null;
+                }
+                else prms[i].paramName = GuessVarName(prms[i].paramName, FormatType(GetShortType(prms[i].paramType)));
             }
 
             for (int i = 0; i < prms.Count; i++)
@@ -2971,6 +2966,7 @@ namespace ASCompletion.Completion
                 pos -= line.Length - line.TrimEnd().Length + 1;
                 pos = Sci.WordEndPosition(pos, true);
                 resolve = ASComplete.GetExpressionType(Sci, pos);
+                if (resolve.IsNull()) resolve = null;
                 word = Sci.GetWordFromPosition(pos);
             }
             char c = (char)Sci.CharAt(pos);
@@ -2988,7 +2984,7 @@ namespace ASCompletion.Completion
             }
             else if (c == '}')
             {
-                type = inClass.InFile.Context.ResolveType("Object", inClass.InFile);
+                type = inClass.InFile.Context.ResolveType(ASContext.Context.Features.objectKey, inClass.InFile);
             }
             else if (c == '>')
             {
