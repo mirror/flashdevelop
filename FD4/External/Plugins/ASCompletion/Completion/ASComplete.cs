@@ -284,6 +284,9 @@ namespace ASCompletion.Completion
 		/// <returns></returns>
 		static public bool OnShortcut(Keys keys, ScintillaControl Sci)
 		{
+            if (Sci.IsSelectionRectangle) 
+                return false;
+
             // dot complete
 			if (keys == (Keys.Control | Keys.Space))
 			{
