@@ -51,7 +51,6 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void UpdateAllShortcuts()
         {
-            List<Keys> keys = new List<Keys>();
             foreach (ShortcutItem item in RegistedItems)
             {
                 if (!AllShortcuts.Contains(item.Custom))
@@ -71,6 +70,7 @@ namespace FlashDevelop.Managers
             {
                 if (item.Item != null)
                 {
+                    item.Item.ShortcutKeys = Keys.None;
                     item.Item.ShortcutKeys = item.Custom;
                 }
                 else if (item.Default != item.Custom)
@@ -82,7 +82,7 @@ namespace FlashDevelop.Managers
         }
 
         /// <summary>
-        /// Saves the custom shorcuts from a file
+        /// Loads the custom shorcuts from a file
         /// </summary>
         public static void LoadCustomShortcuts()
         {
