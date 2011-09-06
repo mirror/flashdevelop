@@ -4873,11 +4873,11 @@ UseData:"</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="FlashDevelop.Label.SmartPaste" xml:space="preserve">
-    <value>Smart Paste</value>
+    <value>スマート貼り付け</value>
     <comment>Added after 4.0.0 Beta</comment>
   </data>
   <data name="FlashDevelop.Label.JScriptDocument" xml:space="preserve">
-    <value>JScript Document</value>
+    <value>JScript ドキュメント</value>
     <comment>Added after 4.0.0 Beta</comment>
   </data>
 </root>
