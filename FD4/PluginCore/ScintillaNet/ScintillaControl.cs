@@ -5252,7 +5252,7 @@ namespace ScintillaNet
                                     previousIndent += TabWidth;
                             }
                             // TODO: Should this test a config variable for indenting after case : statements?
-                            if (true && tempText.EndsWith(":"))
+                            if (Lexer == 3 && tempText.EndsWith(":") && !tempText.EndsWith("::"))
                             {
                                 int prevLine = tempLine;
                                 while (--prevLine > 0)
@@ -5275,20 +5275,18 @@ namespace ScintillaNet
                             IndentLine(curLine, previousIndent);
                             int position = LineIndentPosition(curLine);
                             SetSel(position, position);
-                            if (Control.ModifierKeys == Keys.Shift)
+                            if (Lexer == 3 && Control.ModifierKeys == Keys.Shift)
                             {
                                 int endPos = LineEndPosition(curLine - 1);
                                 int style = BaseStyleAt(endPos - 1);
                                 if (style == 12 || style == 7)
                                 {
-                                    string quote = (style == 7) ? "'" : "\"";
+                                    string quote = GetStringType(endPos).ToString();
                                     InsertText(endPos, quote);
                                     InsertText(position + 1, "+ " + quote);
                                     GotoPos(position + 4);
-                                    if (Regex.IsMatch(GetLine(curLine - 1), "=[\\s]*" + quote))
-                                    {
+                                    //if (Regex.IsMatch(GetLine(curLine - 1), "=[\\s]*" + quote))
                                         SetLineIndentation(curLine, GetLineIndentation(curLine - 1) + TabWidth);
-                                    }
                                 }
                             }
                         }
@@ -5326,6 +5324,25 @@ namespace ScintillaNet
 					break;
 			}
 		}
+
+        /// <summary>
+        /// Detects the string-literal quote style
+        /// </summary>
+        /// <param name="position">lookup position</param>
+        /// <returns>' or " or Space if undefined</returns>
+        public char GetStringType(int position)
+        {
+            int len = Length;
+            int i = position;
+            while (i < len)
+            {
+                char c = (char)CharAt(i++);
+                if (c == '\'') return '\'';
+                else if (c == '"') return '"';
+                else if (c == '\\') i++;
+            }
+            return ' ';
+        }
 		
 		#endregion
 
