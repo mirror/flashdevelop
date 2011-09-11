@@ -31,9 +31,9 @@ namespace AS2Context
         static protected readonly Regex re_level =
             new Regex("^_level[0-9]+$", RegexOptions.Compiled | RegexOptions.Singleline);
         static protected readonly Regex re_token =
-            new Regex("^[a-z$][a-z0-9$_]*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            new Regex("^[a-z$_][a-z0-9$_]*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         static protected readonly Regex re_package =
-            new Regex("^[a-z$][a-z0-9$_.]*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            new Regex("^[a-z$_][a-z0-9$_.]*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         #endregion
 
         #region initialization
