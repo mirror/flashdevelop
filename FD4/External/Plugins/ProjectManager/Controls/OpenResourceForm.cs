@@ -17,6 +17,7 @@ namespace ProjectManager.Controls
         private Int32 MAX_ITEMS = 100;
         private List<String> openedFiles;
         private List<String> projectFiles;
+        private const String ITEM_SPACER = "-----------------";
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.ListBox listBox;
@@ -122,7 +123,7 @@ namespace ProjectManager.Controls
             if (e.Index >= 0)
             {
                 var fullName = (String)this.listBox.Items[e.Index];
-                if (fullName == "-----------------")
+                if (fullName == ITEM_SPACER)
                 {
                     e.Graphics.FillRectangle(new SolidBrush(this.listBox.BackColor), e.Bounds);
                     int y = (e.Bounds.Top + e.Bounds.Bottom)/2;
@@ -172,7 +173,7 @@ namespace ProjectManager.Controls
             if (this.textBox.Text.Length > 0)
             {
                 matchedFiles = SearchUtil.getMatchedItems(this.openedFiles, this.textBox.Text, "\\", 0);
-                if (matchedFiles.Capacity > 0) matchedFiles.Add("-----------------");
+                if (matchedFiles.Capacity > 0) matchedFiles.Add(ITEM_SPACER);
                 matchedFiles.AddRange(SearchUtil.getMatchedItems(this.projectFiles, this.textBox.Text, "\\", this.MAX_ITEMS));
             }
             else matchedFiles = openedFiles;
@@ -295,11 +296,21 @@ namespace ProjectManager.Controls
             if (e.KeyCode == Keys.Down && this.listBox.SelectedIndex < this.listBox.Items.Count - 1)
             {
                 this.listBox.SelectedIndex++;
+                if (this.listBox.SelectedItem.ToString() == ITEM_SPACER)
+                {
+                    try { this.listBox.SelectedIndex++; }
+                    catch { }
+                }
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Up && this.listBox.SelectedIndex > 0)
             {
                 this.listBox.SelectedIndex--;
+                if (this.listBox.SelectedItem.ToString() == ITEM_SPACER)
+                {
+                    try { this.listBox.SelectedIndex--; }
+                    catch { }
+                }
                 e.Handled = true;
             }
         }
