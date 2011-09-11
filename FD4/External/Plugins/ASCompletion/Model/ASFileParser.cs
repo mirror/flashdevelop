@@ -1924,7 +1924,7 @@ namespace ASCompletion.Model
                     lastComment = null;
                 modifiers = 0;
                 curMember = null;
-                flattenNextBlock = false;
+                flattenNextBlock = token == "var" && prevToken.Text == "for";
                 return true;
             }
             else
@@ -2288,7 +2288,7 @@ namespace ASCompletion.Model
                 modifiers = 0;
                 modifiersLine = 0;
                 inGeneric = false;
-                flattenNextBlock = false;
+                //flattenNextBlock = false;
                 tryPackage = false;
             }
             return false;
