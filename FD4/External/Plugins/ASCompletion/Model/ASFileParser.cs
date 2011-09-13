@@ -391,6 +391,7 @@ namespace ASCompletion.Model
                     return TypeDefinitionKind.Null;
 
                 model.Type = typeDefinition.Replace(":", ".");
+                if (model.Type.IndexOf('$') > 0) model.Type = model.Type.Replace("$", ".<") + ">";
                 return TypeDefinitionKind.Simple;
             }
 
