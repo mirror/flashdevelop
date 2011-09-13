@@ -240,7 +240,7 @@ namespace AS3Context
                     if (model.Classes.Count > 0 || model.Members.Count > 0)
                     {
                         AddImports(model, imports);
-                        models.Add(model.FileName, model);
+                        models[model.FileName] = model;
                     }
                 }
 
@@ -276,7 +276,7 @@ namespace AS3Context
                                 model.HasPackage = true;
                                 model.FileName = filename;
                                 model.Version = 3;
-                                models.Add(filename, model);
+                                models[filename] = model;
                             }
                         }
 
@@ -303,7 +303,7 @@ namespace AS3Context
                 }
             }
 
-            if (privateClasses.Classes.Count > 0) models.Add(privateClasses.FileName, privateClasses);
+            if (privateClasses.Classes.Count > 0) models[privateClasses.FileName] = privateClasses;
 
             // some SWCs need manual fixes
             CustomFixes(path.Path, models);
