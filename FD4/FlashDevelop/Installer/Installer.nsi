@@ -202,6 +202,12 @@ Function GetNeedsReset
 	StrCpy $2 "do_reset"
 	${ElseIf} $3 == 2
 	StrCpy $2 "do_reset"
+	${ElseIf} $1 == "4.0.0-Beta"
+	StrCpy $2 "do_reset"
+	${ElseIf} $1 == "4.0.0-Beta2"
+	StrCpy $2 "do_reset"
+	${ElseIf} $1 == "4.0.0-Beta3"
+	StrCpy $2 "do_reset"
 	${Else}
 	StrCpy $2 "is_ok"
 	${EndIf}
