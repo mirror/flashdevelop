@@ -1333,7 +1333,7 @@ namespace ASCompletion.Model
                                 paramTempCount = 0;
                                 continue;
                             }
-                            else if (flattenNextBlock || (haXe && ScriptMode) || i == 1) // not in a class, parse if/for/while/do blocks
+                            else if (flattenNextBlock || ScriptMode) // not in a class, parse if/for/while/do blocks
                             {
                                 flattenNextBlock = false;
                                 context = 0;
@@ -1464,7 +1464,11 @@ namespace ASCompletion.Model
                                 if (curClass != null && curMember == null) curClass.Members.Add(curMethod);
                             }
 
-                            else if (curMember == null && curToken.Text != "catch" && (!haXe || curToken.Text != "for")) context = 0;
+                            else if (curMember == null && curToken.Text != "catch" && (!haXe || curToken.Text != "for"))
+                            {
+                                context = 0;
+                                inGeneric = false;
+                            }
                         }
 
                         // end of statement
@@ -1925,13 +1929,12 @@ namespace ASCompletion.Model
                     lastComment = null;
                 modifiers = 0;
                 curMember = null;
-                flattenNextBlock = token == "var" && (prevToken.Text == "for" || prevToken.Text == "each");
                 return true;
             }
             else
             {
                 // when not in a class, parse if/for/while blocks
-                if (ScriptMode &&
+                /*if (ScriptMode &&
                     (token == "if" || token == "else" || token == "for" || token == "while" || token == "do"
                      || token == "switch" || token == "with" || token == "case"
                      || token == "try" || token == "catch" || token == "finally"))
@@ -1944,6 +1947,16 @@ namespace ASCompletion.Model
                         context = FlagType.Variable;
                     }
                     return false;
+                }*/
+                if (ScriptMode)
+                {
+                    if (token == "catch" || (haXe && token == "for"))
+                    {
+                        curModifiers = 0;
+                        foundKeyword = FlagType.Variable;
+                        context = FlagType.Variable;
+                        return false;
+                    }
                 }
 
                 if (inValue && valueMember != null) valueMember = null;
