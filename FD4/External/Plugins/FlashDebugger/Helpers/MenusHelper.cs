@@ -184,7 +184,7 @@ namespace FlashDebugger
             {
                 PluginMain.debugManager.Continue_Click(sender, e);
             }
-            else PluginMain.debugManager.Start(/*true*/);
+            else PluginMain.debugManager.Start(true);
         }
 
 		#region Menus State Management

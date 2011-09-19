@@ -89,7 +89,15 @@ namespace FlashDebugger
         /// </summary>
         internal bool Start()
         {
-            if (!CheckCurrent()) return false;
+            return Start(false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal bool Start(bool alwaysStart)
+        {
+            if (!alwaysStart && !CheckCurrent()) return false;
             UpdateMenuState(DebuggerState.Starting);
 
             // load JVM.. only once
@@ -100,7 +108,10 @@ namespace FlashDebugger
                     BridgeSetup bridgeSetup = null;
                     bridgeSetup = new BridgeSetup();
 
-                    string flexSDKPath = currentProject.CurrentSDK;
+                    string flexSDKPath = null;
+                    if (currentProject != null) flexSDKPath = currentProject.CurrentSDK;
+                    else flexSDKPath = PluginCore.Helpers.PathHelper.ResolvePath(PluginBase.MainForm.ProcessArgString("$(FlexSDK)"));
+
                     if (flexSDKPath != null && Directory.Exists(flexSDKPath))
                     {
                         Dictionary<string, string> jvmConfig =
