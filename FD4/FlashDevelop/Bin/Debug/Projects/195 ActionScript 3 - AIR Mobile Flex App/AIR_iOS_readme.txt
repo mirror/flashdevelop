@@ -56,5 +56,6 @@ AIR for iOS instructions
 
 Tips:
 - iFunBox: iTunes replacement; installs app faster even if app version doesn't change,
-- TestFlightApp: manage testers/dev team & distribute "ad-hoc" versions of your app
-- Wireless Ad Hoc distribution: http://samvermette.com/71
+- TestFlightApp: ad-hoc distribution service http://testflightapp.com
+- HockeyKit: self hosted ad-hoc distribution https://github.com/TheRealKerni/HockeyKit
+- Manual ad-hoc distribution: http://samvermette.com/71
