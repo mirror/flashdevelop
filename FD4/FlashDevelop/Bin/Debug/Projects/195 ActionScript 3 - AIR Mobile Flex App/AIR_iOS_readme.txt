@@ -57,3 +57,4 @@ AIR for iOS instructions
 Tips:
 - iFunBox: iTunes replacement; installs app faster even if app version doesn't change,
 - TestFlightApp: manage testers/dev team & distribute "ad-hoc" versions of your app
+- Wireless Ad Hoc distribution: http://samvermette.com/71
