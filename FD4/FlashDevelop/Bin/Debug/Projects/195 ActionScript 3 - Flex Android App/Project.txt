@@ -1,1 +1,0 @@
-An Android AIR app written in ActionScript 3 using the Flex framework
