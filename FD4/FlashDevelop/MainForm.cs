@@ -868,6 +868,7 @@ namespace FlashDevelop
             this.Load += new EventHandler(this.OnMainFormLoad);
             this.LocationChanged += new EventHandler(this.OnMainFormLocationChange);
             this.GotFocus += new EventHandler(this.OnMainFormGotFocus);
+            this.Resize += new EventHandler(this.OnMainFormResize);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -905,6 +906,17 @@ namespace FlashDevelop
         {
             this.WindowState = this.appSettings.WindowState;
             if (RecoveryDialog.ShouldShowDialog()) RecoveryDialog.Show();
+        }
+
+        /// <summary>
+        /// Saves the window size as it's being resized
+        /// </summary>
+        private void OnMainFormResize(Object sender, System.EventArgs e)
+        {
+            if (this.WindowState != FormWindowState.Maximized && this.WindowState != FormWindowState.Minimized)
+            {
+                this.appSettings.WindowSize = this.Size;
+            }
         }
 
         /// <summary>
