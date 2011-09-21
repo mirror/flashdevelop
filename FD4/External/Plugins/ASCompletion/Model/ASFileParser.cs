@@ -1475,6 +1475,7 @@ namespace ASCompletion.Model
                         else if (c1 == ';')
                         {
                             context = (inEnum) ? FlagType.Enum : 0;
+                            inGeneric = false;
                             modifiers = 0;
                             inParams = false;
                             curMember = null;
