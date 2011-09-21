@@ -1,4 +1,5 @@
 package org.flashdevelop.utils;
+
 import flash.events.DataEvent;
 import flash.events.Event;
 import flash.events.IOErrorEvent;

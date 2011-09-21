@@ -1,4 +1,5 @@
 package org.flashdevelop.utils;
+
 import flash.Lib;
 import haxe.Log;
 import haxe.PosInfos;

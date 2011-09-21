@@ -180,7 +180,7 @@ namespace ProjectManager.Projects.AS3
                 asset.SwfMode = SwfAssetMode.ExternalLibrary;
                 SwcLibraries.Add(asset);
             }
-            OnClasspathChanged();
+            base.PropertiesChanged();
         }
 
         public static AS3Project Load(string path)

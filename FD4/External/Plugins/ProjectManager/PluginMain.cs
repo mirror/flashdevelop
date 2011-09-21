@@ -607,8 +607,6 @@ namespace ProjectManager
                 {
                     project.PropertiesChanged();
                     BroadcastProjectInfo();
-                    if (dialog.PlatformChanged && !dialog.ClasspathsChanged) 
-                        projectActions.UpdateASCompletion(MainForm, project);
                     project.Save();
                 }
                 else if (dialog.ClasspathsChanged)

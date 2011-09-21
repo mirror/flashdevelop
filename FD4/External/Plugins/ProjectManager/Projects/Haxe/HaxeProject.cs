@@ -46,7 +46,9 @@ namespace ProjectManager.Projects.Haxe
         public bool IsFlashOutput
         {
             get { return movieOptions.Platform == HaxeMovieOptions.FLASHPLAYER_PLATFORM 
-                || movieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM; }
+                || movieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM
+                || movieOptions.Platform == HaxeMovieOptions.NME_PLATFORM;
+            }
         }
         public bool IsJavacriptOutput
         {
@@ -63,6 +65,10 @@ namespace ProjectManager.Projects.Haxe
         public bool IsCppOutput
         {
             get { return movieOptions.Platform == HaxeMovieOptions.CPP_PLATFORM; }
+        }
+        public bool IsNmeOutput
+        {
+            get { return movieOptions.Platform == HaxeMovieOptions.NME_PLATFORM; }
         }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
@@ -122,10 +128,16 @@ namespace ProjectManager.Projects.Haxe
             else if (IsNekoOutput) mode = "neko";
             else if (IsPhpOutput) mode = "php";
             else if (IsCppOutput) mode = "cpp";
-            else throw new SystemException("Unknown mode");
+            //else throw new SystemException("Unknown mode");
 
             outfile = String.Join("/",outfile.Split('\\'));
             pr.Add("-" + mode + " " + Quote(outfile));
+
+            // nme options
+            if (IsNmeOutput)
+            {
+                pr.Add("--remap flash:nme");
+            }
 
             // flash options
             if (IsFlashOutput)
@@ -149,6 +161,8 @@ namespace ProjectManager.Projects.Haxe
                 int minorVersion = MovieOptions.MinorVersion;
                 if (MovieOptions.Platform == "AIR")
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
+                if (movieOptions.Platform == "NME")
+                    HaxeProject.GuessFlashPlayerForNME(ref majorVersion, ref minorVersion);
                 if (majorVersion >= 10)
                 {
                     if (minorVersion > 0) param = majorVersion + "." + minorVersion;
@@ -205,6 +219,11 @@ namespace ProjectManager.Projects.Haxe
             }
 
             return pr.ToArray();
+        }
+
+        private static void GuessFlashPlayerForNME(ref int majorVersion, ref int minorVersion)
+        {
+            majorVersion = 10;
         }
 
         #region Load/Save

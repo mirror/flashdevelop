@@ -134,6 +134,11 @@ namespace HaXeContext
         {
             get { return platform == HaxeMovieOptions.CPP_PLATFORM; }
         }
+        public bool IsNmeTarget
+        {
+            get { return platform == HaxeMovieOptions.NME_PLATFORM; }
+        }
+
 
         private string LookupLibrary(string lib)
         {
@@ -223,6 +228,12 @@ namespace HaXeContext
             {
                 lang = "cpp";
                 features.Directives.Add(lang);
+            }
+            else if (IsNmeTarget)
+            {
+                lang = "nme";
+                features.Directives.Add(lang);
+                features.Directives.Add("--remap flash:nme");
             }
             else
             {
@@ -1167,6 +1178,40 @@ namespace HaXeContext
             RunCMD(command);
             return true;
         }
+
+        public bool NmeRun(string output)
+        {
+            string[] sp = output.Split(',');
+            output = sp[0];
+            if (!File.Exists(output)) return false;
+
+            HaxeProject project = PluginBase.CurrentProject as HaxeProject;
+            if (project == null || project.OutputType != OutputType.Application) 
+                return false;
+
+            string compiler = project.CurrentSDK;
+            if (compiler == null) compiler = "haxelib";
+            else if (Directory.Exists(compiler)) compiler = Path.Combine(compiler, "haxelib.exe");
+            else compiler = compiler.Replace("haxe.exe", "haxelib.exe");
+
+            string config = project.TestMovieBehavior == TestMovieBehavior.Custom ? project.TestMovieCommand : null;
+            if (String.IsNullOrEmpty(config)) config = "flash";
+
+            config += " -trace ";
+            if (project.TraceEnabled)
+            {
+                config += "-debug";
+                EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "AS3Context.StartDebugger", null));
+            }
+            
+            string args = "run nme run \"" + output + "\" " + config;
+            string oldWD = MainForm.WorkingDirectory;
+            MainForm.WorkingDirectory = Path.GetDirectoryName(output);
+            MainForm.CallCommand("RunProcessCaptured", compiler + ";" + args);
+            MainForm.WorkingDirectory = oldWD;
+            return true;
+        }
         #endregion
+
     }
 }

@@ -14,6 +14,7 @@ namespace ProjectManager.Projects.Haxe
         public const string NEKO_PLATFORM = "Neko";
         public const string PHP_PLATFORM = "PHP";
         public const string CPP_PLATFORM = "C++";
+        public const string NME_PLATFORM = "NME";
         
         public HaxeMovieOptions()
         {
@@ -26,15 +27,16 @@ namespace ProjectManager.Projects.Haxe
             get
             {
                 return (Platform == FLASHPLAYER_PLATFORM && MajorVersion >= 9)
-                    || Platform == AIR_PLATFORM || Platform == AIR_MOBILE_PLATFORM;
+                    || Platform == AIR_PLATFORM || Platform == AIR_MOBILE_PLATFORM 
+                    || Platform == NEKO_PLATFORM;
             }
         }
 
         public override string[] TargetPlatforms
         {
             get { return new string[] { 
-                FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, JAVASCRIPT_PLATFORM, 
-                NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
+                FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, NME_PLATFORM, 
+                JAVASCRIPT_PLATFORM, NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
             }; }
         }
 
@@ -45,6 +47,7 @@ namespace ProjectManager.Projects.Haxe
                 case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0" };
                 case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0" };
                 case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2", "10.3", "11.0" };
+                case NME_PLATFORM: return new string[] { "3.0" };
                 default: return new string[] { "1.0" };
             }
         }
@@ -56,6 +59,7 @@ namespace ProjectManager.Projects.Haxe
                 case AIR_PLATFORM: return "2.7";
                 case AIR_MOBILE_PLATFORM: return "2.7";
                 case FLASHPLAYER_PLATFORM: return "10.0";
+                case NME_PLATFORM: return "3.0";
                 default: return "1.0";
             }
         }
@@ -64,8 +68,7 @@ namespace ProjectManager.Projects.Haxe
         {
             get
             {
-                return new OutputType[] { 
-                    OutputType.CustomBuild, OutputType.Application, OutputType.Website };
+                return new OutputType[] { OutputType.CustomBuild, OutputType.Application };
             }
         }
 

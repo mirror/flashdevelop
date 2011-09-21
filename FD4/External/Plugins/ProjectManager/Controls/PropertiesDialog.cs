@@ -1020,7 +1020,7 @@ namespace ProjectManager.Controls
         private void UpdateEditCommandButton()
         {
             TestMovieBehavior state = GetTestMovie();
-            editCommandButton.Visible = (state == TestMovieBehavior.Custom || state == TestMovieBehavior.OpenDocument);
+            editCommandButton.Visible = state == TestMovieBehavior.Custom || state == TestMovieBehavior.OpenDocument;
         }
 
         private void InitTestMovieOptions()
@@ -1029,7 +1029,7 @@ namespace ProjectManager.Controls
             string platform = GetPlatform();
 
             List<TestMovieBehavior> options = new List<TestMovieBehavior>();
-            if (platform == "Flash Player" && output == OutputType.Application)
+            if (output == OutputType.Application && platform == "Flash Player")
             {
                 options.Add(TestMovieBehavior.Default);
                 options.Add(TestMovieBehavior.NewTab);
@@ -1353,6 +1353,7 @@ namespace ProjectManager.Controls
         {
             Value = value;
             Label = localizePrefix != null ? TextHelper.GetString(localizePrefix + value) : value.ToString();
+            if (String.IsNullOrEmpty(Label)) Label = value.ToString();
         }
 
         public override string ToString()

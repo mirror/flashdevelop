@@ -115,6 +115,17 @@ namespace HaXeContext
         {
             switch (e.Type)
             {
+                case EventType.Command:
+                    DataEvent de = e as DataEvent;
+                    if (de != null && de.Action == "FlashViewer.Default")
+                    {
+                        if ((contextInstance as Context).IsNmeTarget)
+                        {
+                            e.Handled = (contextInstance as Context).NmeRun(de.Data as string);
+                        }
+                    }
+                    break;
+
                 case EventType.UIStarted:
                     contextInstance = new Context(settingObject);
                     ValidateSettings();
@@ -145,6 +156,7 @@ namespace HaXeContext
         public void AddEventHandlers()
         {
             EventManager.AddEventHandler(this, EventType.UIStarted);
+            EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
         }
 
         /// <summary>

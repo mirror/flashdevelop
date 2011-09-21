@@ -88,7 +88,10 @@ namespace ProjectManager.Projects
             else return true;
         }
 
-        public virtual void PropertiesChanged() { }
+        public virtual void PropertiesChanged() 
+        {
+            OnClasspathChanged();
+        }
 
         internal virtual ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
         {
