@@ -1179,12 +1179,8 @@ namespace HaXeContext
             return true;
         }
 
-        public bool NmeRun(string output)
+        public bool NmeRun(string config)
         {
-            string[] sp = output.Split(',');
-            output = sp[0];
-            if (!File.Exists(output)) return false;
-
             HaxeProject project = PluginBase.CurrentProject as HaxeProject;
             if (project == null || project.OutputType != OutputType.Application) 
                 return false;
@@ -1194,19 +1190,12 @@ namespace HaXeContext
             else if (Directory.Exists(compiler)) compiler = Path.Combine(compiler, "haxelib.exe");
             else compiler = compiler.Replace("haxe.exe", "haxelib.exe");
 
-            string config = project.TestMovieBehavior == TestMovieBehavior.Custom ? project.TestMovieCommand : null;
             if (String.IsNullOrEmpty(config)) config = "flash";
-
-            config += " -trace ";
-            if (project.TraceEnabled)
-            {
-                config += "-debug";
-                EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "AS3Context.StartDebugger", null));
-            }
+            if (project.TraceEnabled) config += " -debug";
             
-            string args = "run nme run \"" + output + "\" " + config;
+            string args = "run nme run \"" + project.OutputPathAbsolute + "\" " + config;
             string oldWD = MainForm.WorkingDirectory;
-            MainForm.WorkingDirectory = Path.GetDirectoryName(output);
+            MainForm.WorkingDirectory = project.Directory;
             MainForm.CallCommand("RunProcessCaptured", compiler + ";" + args);
             MainForm.WorkingDirectory = oldWD;
             return true;

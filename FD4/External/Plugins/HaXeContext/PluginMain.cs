@@ -117,7 +117,7 @@ namespace HaXeContext
             {
                 case EventType.Command:
                     DataEvent de = e as DataEvent;
-                    if (de != null && de.Action == "FlashViewer.Default")
+                    if (de != null && de.Action == "ProjectManager.RunCustomCommand")
                     {
                         if ((contextInstance as Context).IsNmeTarget)
                         {
@@ -155,8 +155,7 @@ namespace HaXeContext
         /// </summary>
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.UIStarted);
-            EventManager.AddEventHandler(this, EventType.Command, HandlingPriority.High);
+            EventManager.AddEventHandler(this, EventType.UIStarted | EventType.Command);
         }
 
         /// <summary>

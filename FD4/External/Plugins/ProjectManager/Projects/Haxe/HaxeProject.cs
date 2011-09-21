@@ -28,7 +28,8 @@ namespace ProjectManager.Projects.Haxe
         { 
             get 
             {
-                return movieOptions.DebuggerSupported && CompilerOptions.EnableDebug;
+                return movieOptions.DebuggerSupported && CompilerOptions.EnableDebug
+                    && (movieOptions.Platform != HaxeMovieOptions.NME_PLATFORM || TestMovieCommand == "flash");
             } 
         }
 

@@ -27,17 +27,20 @@ namespace ProjectManager.Projects.Haxe
             get
             {
                 return (Platform == FLASHPLAYER_PLATFORM && MajorVersion >= 9)
-                    || Platform == AIR_PLATFORM || Platform == AIR_MOBILE_PLATFORM 
-                    || Platform == NEKO_PLATFORM;
+                    || Platform == AIR_PLATFORM || Platform == AIR_MOBILE_PLATFORM
+                    || Platform == NME_PLATFORM;
             }
         }
 
         public override string[] TargetPlatforms
         {
-            get { return new string[] { 
-                FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, NME_PLATFORM, 
-                JAVASCRIPT_PLATFORM, NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
-            }; }
+            get 
+            { 
+                return new string[] { 
+                        FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, NME_PLATFORM, 
+                        JAVASCRIPT_PLATFORM, NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
+                    }; 
+            }
         }
 
         public override string[] TargetVersions(string platform)

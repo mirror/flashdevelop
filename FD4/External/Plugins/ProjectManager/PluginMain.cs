@@ -50,6 +50,7 @@ namespace ProjectManager
         public const string BuildProject = "ProjectManager.BuildingProject";
         public const string BuildComplete = "ProjectManager.BuildComplete";
         public const string BuildFailed = "ProjectManager.BuildFailed";
+        public const string RunCustomCommand = "ProjectManager.RunCustomCommand";
         public const string FileMapping = "ProjectManager.FileMapping";
         public const string TreeSelectionChanged = "ProjectManager.TreeSelectionChanged";
         public const string OpenVirtualFile = "ProjectManager.OpenVirtualFile";
@@ -654,6 +655,8 @@ namespace ProjectManager
 
         void OpenSwf(string path)
         {
+            DataEvent de;
+
             if (path == null)
             {
                 if (project == null) return;
@@ -661,7 +664,7 @@ namespace ProjectManager
             }
             if (project == null) // use default player
             {
-                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path);
+                de = new DataEvent(EventType.Command, "FlashViewer.Default", path);
                 EventManager.DispatchEvent(this, de);
                 return;
             }
@@ -673,17 +676,17 @@ namespace ProjectManager
 
             if (project.TestMovieBehavior == TestMovieBehavior.NewTab)
             {
-                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Document", path);
+                de = new DataEvent(EventType.Command, "FlashViewer.Document", path);
                 EventManager.DispatchEvent(this, de);
             }
             else if (project.TestMovieBehavior == TestMovieBehavior.NewWindow)
             {
-                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Popup", path + "," + w + "," + h);
+                de = new DataEvent(EventType.Command, "FlashViewer.Popup", path + "," + w + "," + h);
                 EventManager.DispatchEvent(this, de);
             }
             else if (project.TestMovieBehavior == TestMovieBehavior.ExternalPlayer)
             {
-                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.External", path);
+                de = new DataEvent(EventType.Command, "FlashViewer.External", path);
                 EventManager.DispatchEvent(this, de);
             }
             else if (project.TestMovieBehavior == TestMovieBehavior.OpenDocument)
@@ -692,7 +695,7 @@ namespace ProjectManager
                 {
                     if (project.TraceEnabled && project.EnableInteractiveDebugger)
                     {
-                        DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                        de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
                         EventManager.DispatchEvent(this, de);
                         de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
@@ -715,7 +718,7 @@ namespace ProjectManager
                 {
                     if (project.TraceEnabled && project.EnableInteractiveDebugger)
                     {
-                        DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                        de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
                         EventManager.DispatchEvent(this, de);
                         de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
                         EventManager.DispatchEvent(this, de);
@@ -723,6 +726,12 @@ namespace ProjectManager
                     string cmd = MainForm.ProcessArgString(project.TestMovieCommand).Trim();
                     cmd = project.FixDebugReleasePath(cmd);
 
+                    // let plugins handle the command
+                    de = new DataEvent(EventType.Command, ProjectManagerEvents.RunCustomCommand, cmd);
+                    EventManager.DispatchEvent(this, de);
+                    if (de.Handled) return;
+
+                    // shell execute
                     int semi = cmd.IndexOf(';');
                     if (semi < 0) semi = cmd.IndexOf(' ');
                     string args = semi > 0 ? cmd.Substring(semi + 1) : "";
@@ -737,7 +746,7 @@ namespace ProjectManager
             else
             {
                 // Default: Let FlashViewer handle it..
-                DataEvent de = new DataEvent(EventType.Command, "FlashViewer.Default", path + "," + w + "," + h);
+                de = new DataEvent(EventType.Command, "FlashViewer.Default", path + "," + w + "," + h);
                 EventManager.DispatchEvent(this, de);
             }
         }
