@@ -2158,6 +2158,21 @@ namespace ScintillaNet
             }
         }
 
+        /// <summary>
+        /// Sets whether the maximum width line displayed is used to set scroll width.
+        /// </summary>
+        public bool ScrollWidthTracking
+        {
+            get
+            {
+                return SPerform(2517, 0, 0) != 0;
+            }
+            set
+            {
+                SPerform(2516, (uint)(value ? 1 : 0), 0);
+            }
+        }
+
 		#endregion
 
 		#region Scintilla Methods
@@ -6076,7 +6091,7 @@ namespace ScintillaNet
             this.SelectionEnd = this.PositionFromLine(endLine);
             string selectStr = this.SelText;
             int saveEndAtLastLine = EndAtLastLine;
-            this.EndAtLastLine = 0;     // setting this to 0 prevents unwanted scrolling jumps when moving lines near the bottom of file
+            this.EndAtLastLine = 0; // setting this to 0 prevents unwanted scrolling jumps when moving lines near the bottom of file
             this.Clear();
             if (dir > 0)
             {
@@ -6118,7 +6133,6 @@ namespace ScintillaNet
                 }
             }
             start = this.PositionFromLine(startLine);
-
             this.InsertText(start, selectStr.TrimEnd() + LineEndDetector.GetNewLineMarker(EOLMode));
             this.ReindentLines(startLine, len);
             this.SelectionStart = start;
