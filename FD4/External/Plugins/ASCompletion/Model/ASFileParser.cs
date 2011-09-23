@@ -1364,7 +1364,7 @@ namespace ASCompletion.Model
                         // member type declaration
                         else if (c1 == ':' && !inValue && !inGeneric)
                         {
-                            foundColon = true;
+                            foundColon = curMember != null && curMember.Type == null;
                         }
 
                         // next variable declaration
