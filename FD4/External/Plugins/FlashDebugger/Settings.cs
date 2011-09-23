@@ -60,7 +60,7 @@ namespace FlashDebugger
 			set { m_SaveBreakPoints = value; }
         }
 
-        [DisplayName("Disable Panels Autoshow")]
+        [DisplayName("Disable Panel Auto Show")]
         [LocalizedCategory("FlashDebugger.Category.Misc")]
         [LocalizedDescription("FlashDebugger.Description.DisablePanelsAutoshow")]
         [DefaultValue(false)]
