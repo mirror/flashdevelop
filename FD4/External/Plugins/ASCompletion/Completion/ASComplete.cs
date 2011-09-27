@@ -1437,8 +1437,8 @@ namespace ASCompletion.Completion
 			MemberModel method = result.Member;
             if (method == null)
 			{
-                if (result.Type == null) 
-                    return true;
+                if (result.Type == null)
+                    return false;
 				string constructor = ASContext.GetLastStringToken(result.Type.Name, ".");
 				result.Member = method = result.Type.Members.Search(constructor, FlagType.Constructor, 0);
 				if (method == null)
