@@ -191,8 +191,16 @@ namespace FlashDevelop.Dialogs
                         else if (command.Action.ToLower() == "move")
                         {
                             String[] args = data.Split(';');
-                            if (Directory.Exists(args[0])) Directory.Move(args[0], args[1]);
-                            else if (File.Exists(args[0])) File.Move(args[0], args[1]);
+                            if (Directory.Exists(args[0]))
+                            {
+                                FolderHelper.CopyFolder(args[0], args[1]);
+                                Directory.Delete(args[0], true);
+                            }
+                            else if (File.Exists(args[0]))
+                            {
+                                File.Copy(args[0], args[1], true);
+                                File.Delete(args[0]);
+                            }
                         }
                         else if (command.Action.ToLower() == "delete")
                         {
