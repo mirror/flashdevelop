@@ -24,10 +24,10 @@ AIR for iOS instructions
 	- create a new Provisioning Profile: select App ID & registered devices that will be allowed to install the app.
 	
 	Finally you can complete:
-	- IOS_CERT_FILE: path to your iOS developer 'p12' key (unique, keep outside of project)
-	- IOS_CERT_PASS: your password (don't make it public),
-	    if you don't set it, remove "-storepass %IOS_CERT_PASS%" from the IOS_SIGNING_OPTIONS,
-		  you'll be prompted to type it when packaging.
+	- IOS_DEV_CERT_FILE: path to your iOS developer 'p12' key (keep safe outside of project)
+	- IOS_DEV_CERT_PASS: developer certificate's password
+	    if you don't set it, remove "-storepass %IOS_DEV_CERT_PASS%" from the IOS_SIGNING_OPTIONS,
+		you'll be prompted to type it when packaging.
 	- IOS_PROVISION: the project's Provisioning Profile file (copy in project)
 
 
@@ -49,6 +49,9 @@ AIR for iOS instructions
 
 7. Packaging for release:
 
+	- edit in 'bat\SetupApplication.bat' to add your "distribution" certificate (IOS_DIST_CERT_FILE)
+	  Note: you can package ad-hoc IPAs using your developer certificate.
+	
 	- Release-build from FlashDevelop (F8)
 	- run 'PackageApp.bat' and select 
 	    either iOS/"ad-hoc" for installation on test devices

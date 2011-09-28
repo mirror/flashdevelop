@@ -29,7 +29,8 @@ echo.
 
 set PLATFORM=android
 set OPTIONS=
-if %C% GTR 2 set PLATFORM=ios
+if %C% GTR 3 set PLATFORM=ios
+if %C% GTR 7 set PLATFORM=ios-dist
 
 if "%C%"=="1" set TARGET=
 if "%C%"=="2" set TARGET=-debug

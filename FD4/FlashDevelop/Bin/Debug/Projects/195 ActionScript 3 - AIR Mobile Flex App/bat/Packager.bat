@@ -2,6 +2,7 @@
 
 if "%PLATFORM%"=="android" goto android-config
 if "%PLATFORM%"=="ios" goto ios-config
+if "%PLATFORM%"=="ios-dist" goto ios-dist-config
 goto start
 
 
@@ -14,8 +15,16 @@ set TYPE=apk
 goto start
 
 :ios-config
-set CERT_FILE=%IOS_CERT_FILE%
-set SIGNING_OPTIONS=%IOS_SIGNING_OPTIONS%
+set CERT_FILE=%IOS_DEV_CERT_FILE%
+set SIGNING_OPTIONS=%IOS_DEV_SIGNING_OPTIONS%
+set ICONS=%IOS_ICONS%
+set DIST_EXT=ipa
+set TYPE=ipa
+goto start
+
+:ios-dist-config
+set CERT_FILE=%IOS_DIST_CERT_FILE%
+set SIGNING_OPTIONS=%IOS_DIST_SIGNING_OPTIONS%
 set ICONS=%IOS_ICONS%
 set DIST_EXT=ipa
 set TYPE=ipa
