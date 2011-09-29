@@ -1,5 +1,5 @@
-Manitu Group Azoth version 1.04.20100930
-Copyright (c) 2010 Manitu Group
+Manitu Group Azoth version 1.05.20110728
+Copyright (c) 2010-2011 Manitu Group
 
 Please visit http://www.buraks.com/azoth for more information.
 
