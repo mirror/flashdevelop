@@ -660,9 +660,10 @@ namespace ASCompletion.Context
         void cacheRefreshTimer_Tick(object sender, EventArgs e)
         {
             cacheRefreshTimer.Enabled = false;
-            cacheRefreshTimer.Interval = 100;
+            cacheRefreshTimer.Interval = 200;
             if (completionCache.IsDirty && ASContext.Context == this)
             {
+                TraceManager.Add("Refresh");
                 completionCache.IsDirty = false;
                 UpdateCurrentFile(true);
                 completionCache.IsDirty = true;
@@ -971,7 +972,7 @@ namespace ASCompletion.Context
         {
             if (cFile == null || CurSciControl == null)
                 return;
-
+            TraceManager.Add("UpdateCurrentFile");
             ASFileParser parser = new ASFileParser();
             parser.ParseSrc(cFile, CurSciControl.Text);
             cLine = CurSciControl.LineFromPosition(CurSciControl.CurrentPos);
