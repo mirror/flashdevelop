@@ -2413,6 +2413,7 @@ namespace ASCompletion.Completion
                     else
                     {
                         result.Member = item;
+                        result.RelClass = ClassModel.VoidClass;
                         result.Type = (p < 0 && (item.Flags & FlagType.Function) > 0) 
                             ? context.ResolveType("Function", null) 
                             : context.ResolveType(item.Type, item.InFile);
