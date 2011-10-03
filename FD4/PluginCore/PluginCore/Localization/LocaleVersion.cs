@@ -13,7 +13,11 @@ namespace PluginCore.Localization
         ja_JP = 1,
 
 		[StringValue("de_DE")]
-        de_DE = 2
+        de_DE = 2,
+
+		[StringValue("eu_EU")]
+        eu_EU = 3
+
     }
 
 }

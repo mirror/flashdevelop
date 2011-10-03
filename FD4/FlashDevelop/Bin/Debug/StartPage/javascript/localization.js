@@ -86,3 +86,31 @@ locale["de_DE.projectTypeUnknown"] = "Unbekannt";
 locale["de_DE.tooltipTextModified"] = "Verändert:";
 locale["de_DE.tooltipTextCreated"] = "Erstellt:";
 locale["de_DE.tooltipTextType"] = "Typ:";
+
+/**
+* Locale strings for Euskara.
+*/
+locale["en_US.mainLinkHome"] = "Hasiera";
+locale["en_US.mainLinkDocs"] = "Dokumentazioa";
+locale["en_US.mainLinkNotes"] = "Argitaratze oharrak";
+locale["en_US.mainLinkAbout"] = "Honi buruz";
+locale["en_US.createNewProject"] = "Proiektu berria...";
+locale["en_US.openProjectDialog"] = "Proiektua ireki...";
+locale["en_US.recentProjectsTitle"] = "Azken proiektuak";
+locale["en_US.loadingRecentProjects"] = "Azken proiektuak kargatzen...";
+locale["en_US.recentProjectsNotFound"] = "Ez da azken proiekturik aurkitu.";
+locale["en_US.versionInfoTitle"] = "Azken bertsioa";
+locale["en_US.loadingVersionInfo"] = "Bertioaren informazioa kargatzen...";
+locale["en_US.versionInfoNotAvailable"] = "Bertsioaren informazioa ez dago eskuragarri.";
+locale["en_US.yourVersionIsOutOfDate"] = "Zure ({0}) bertsioa ez dago eguneratua.";
+locale["en_US.downloadVersionHere"] = "Deskargatu hemen!";
+locale["en_US.loadingRssFeed"] = "RSS-ak kargatzen...";
+locale["en_US.rssFeedNotAvailable"] = "RSS-ak ez daude eskuragarri.";
+locale["en_US.projectTypeFDP"] = "Ezin da zehaztu";
+locale["en_US.projectTypeAS2"] = "ActionScript 2 Proiektua";
+locale["en_US.projectTypeAS3"] = "ActionScript 3 Proiektua";
+locale["en_US.projectTypeHaXe"] = "HaXe Proiektua";
+locale["en_US.projectTypeUnknown"] = "Ezezaguna";
+locale["en_US.tooltipTextModified"] = "Aldatua:";
+locale["en_US.tooltipTextCreated"] = "Sortua:";
+locale["en_US.tooltipTextType"] = "Mota:";
