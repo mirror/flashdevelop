@@ -115,7 +115,7 @@ Function RefreshConfig
 	SetOverwrite on
 	SetOutPath "$LOCALAPPDATA\FlashDevelop"
 	IfFileExists "$INSTDIR\.local" +1 0
-	File /oname=".reconfig" "..\Bin\Debug\.local"
+	File "/oname=.reconfig" "..\Bin\Debug\.local"
 	
 FunctionEnd
 
