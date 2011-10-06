@@ -113,9 +113,11 @@ InstType "un.Full"
 Function RefreshConfig
 	
 	SetOverwrite on
+	IfFileExists "$INSTDIR\.local" Skip 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" 0 Skip
 	SetOutPath "$LOCALAPPDATA\FlashDevelop"
-	IfFileExists "$INSTDIR\.local" +1 0
 	File "/oname=.reconfig" "..\Bin\Debug\.local"
+	Skip:
 	
 FunctionEnd
 
