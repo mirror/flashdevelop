@@ -166,6 +166,17 @@ namespace FlashViewer
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
             }
+            // Recheck after installer update if auto config is not disabled
+            if (!this.settingObject.DisableAutoConfig && PluginBase.MainForm.RefreshConfig)
+            {
+                this.settingObject.PlayerPath = null;
+            }
+            // Try to find player path from: Tools/flexlibs/
+            if (String.IsNullOrEmpty(this.settingObject.PlayerPath))
+            {
+                String playerPath = Path.Combine(PathHelper.ToolDir, @"flexlibs\runtimes\player\11.0\win\FlashPlayerDebugger.exe");
+                if (File.Exists(playerPath)) this.settingObject.PlayerPath = playerPath;
+            }
             // Try to find player path from: Tools/flexsdk/
             if (String.IsNullOrEmpty(this.settingObject.PlayerPath))
             {

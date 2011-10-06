@@ -12,10 +12,13 @@
 !define BUILD "RC2"
 
 ; Define AIR SDK version
-!define AIR "2.7.1"
+!define AIR "3.0.0"
 
 ; Define Flex SDK version
 !define FLEX "4.5.1.21328"
+
+; Define Flash player version
+!define FLASH "11.0.1.152"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -107,6 +110,15 @@ InstType "un.Full"
 
 ; Functions
 
+Function RefreshConfig
+	
+	SetOverwrite on
+	SetOutPath "$LOCALAPPDATA\FlashDevelop"
+	IfFileExists "$INSTDIR\.local" +1 0
+	File /oname=".reconfig" "..\Bin\Debug\.local"
+	
+FunctionEnd
+
 Function GetDotNETVersion
 	
 	Push $0
@@ -175,6 +187,18 @@ Function GetFlexSDKVersion
 	ClearErrors
 	IfFileExists "$INSTDIR\.local" +3 0
 	ReadRegStr $0 HKLM Software\FlashDevelop "FlexSDKVersion"
+	IfErrors 0 +2
+	StrCpy $0 "not_found"
+	Exch $0
+	
+FunctionEnd
+
+Function GetFlashDebugVersion
+	
+	Push $0
+	ClearErrors
+	IfFileExists "$INSTDIR\.local" +3 0
+	ReadRegStr $0 HKLM Software\FlashDevelop "FlashDebugVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
@@ -411,6 +435,9 @@ Section "Install Flex SDK" InstallFlexSDK
 	
 	; Delete temporary Flex SDK zip file
 	Delete "$TEMP\flex_sdk_${FLEX}.zip"
+
+	; Notify FD about the update
+	Call RefreshConfig
 	
 	Finish:
 	
@@ -456,6 +483,47 @@ Section "Install AIR SDK" InstallAirSDK
 	
 	; Delete temporary AIR SDK zip file
 	Delete "$TEMP\air_sdk_${AIR}.zip"
+
+	; Notify FD about the update
+	Call RefreshConfig
+	
+	Finish:
+	
+	${EndIf}
+
+SectionEnd
+
+Section "Install Flash Player" InstallFlashPlayer
+
+	SectionIn 1 3
+	SetOverwrite on
+	SetShellVarContext all
+	
+	Call GetFlashDebugVersion
+	Pop $0
+	
+	${If} $0 != ${FLASH}
+	
+	; Connect to internet
+	Call ConnectInternet
+	
+	; Create player dir if not found
+	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.0\win\*.*" +2 0
+	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.0\win\"
+	
+	; Download Flash debug player
+	NSISdl::download /TIMEOUT=30000 http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug_32bit.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.0\win\FlashPlayerDebugger.exe"
+	Pop $R0
+	StrCmp $R0 "success" +4
+	DetailPrint "Flash debug player download cancel details: $R0"
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
+	Goto Finish
+	
+	; Save version to registry
+	WriteRegStr HKLM "Software\FlashDevelop" "FlashDebugVersion" "${FLASH}"
+
+	; Notify FD about the update
+	Call RefreshConfig
 	
 	Finish:
 	
@@ -574,6 +642,7 @@ SectionGroupEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallAirSDK} "Downloads and installs the latest free Adobe AIR SDK with FlashDevelop. The AIR SDK will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs the latest free Adobe Flex SDK with FlashDevelop. The Flex SDK will be downloaded only if it isn't installed or it needs to be updated."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallFlashPlayer} "Downloads and installs the latest standalone Flash debug player with FlashDevelop. The player will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${StartMenuGroup} "Creates a start menu group and adds default FlashDevelop links to the group."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."

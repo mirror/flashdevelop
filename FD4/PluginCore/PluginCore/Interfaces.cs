@@ -150,6 +150,8 @@ namespace PluginCore
         Boolean StandaloneMode { get; }
         Boolean MultiInstanceMode { get; }
         Boolean IsFirstInstance { get; }
+        Boolean RestartRequested { get; }
+        Boolean RefreshConfig { get; }
         List<Keys> IgnoredKeys { get; }
         String ProductVersion { get; }
         String ProductName { get; }

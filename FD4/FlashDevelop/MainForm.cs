@@ -50,6 +50,7 @@ namespace FlashDevelop
             if (this.InitializeFirstRun() != DialogResult.Abort)
             {
                 this.InitializeRendering();
+                this.InitializeProperties();
                 this.InitializeComponents();
                 this.InitializeProcessRunner();
                 this.InitializeSmartDialogs();
@@ -133,6 +134,7 @@ namespace FlashDevelop
         private Boolean closingEntirely = false;
         private Boolean closeAllCanceled = false;
         private Boolean restartRequested = false;
+        private Boolean refreshConfig = false;
         private Boolean closingAll = false;
         
         /* Singleton */
@@ -433,6 +435,24 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Gets or sets the RestartRequested
+        /// </summary>
+        public Boolean RestartRequested
+        {
+            get { return this.restartRequested; }
+            set { this.restartRequested = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the RefreshConfig
+        /// </summary>
+        public Boolean RefreshConfig
+        {
+            get { return this.refreshConfig; }
+            set { this.refreshConfig = value; }
+        }
+
+        /// <summary>
         /// Gets the application start args
         /// </summary>
         public String[] StartArguments
@@ -642,6 +662,23 @@ namespace FlashDevelop
         {
             Icon icon = new Icon(ResourceHelper.GetStream("FlashDevelopIcon.ico"));
             this.Icon = this.printPreviewDialog.Icon = icon;
+        }
+
+        /// <summary>
+        /// Initializes the status properties
+        /// </summary>
+        private void InitializeProperties()
+        {
+            try
+            {
+                String reconfig = Path.Combine(PathHelper.UserAppDir, ".reconfig");
+                if (!this.StandaloneMode && File.Exists(reconfig))
+                {
+                    File.Delete(reconfig);
+                    this.refreshConfig = true;
+                }
+            }
+            catch {} // No errors...
         }
 
         /// <summary>
