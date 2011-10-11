@@ -215,7 +215,12 @@ namespace OutputPanel
         /// </summary>
         private void CopyOutput(Object sender, System.EventArgs e)
         {
-            this.textLog.Copy();
+            if (this.textLog.SelectedText.Length > 0) this.textLog.Copy();
+            else if (!String.IsNullOrEmpty(this.textLog.Text))
+            {
+                Clipboard.SetText(this.textLog.Text);
+                PluginBase.MainForm.RefreshUI();
+            }
         }
 
         /// <summary>
