@@ -716,16 +716,6 @@ namespace ASCompletion.Completion
                     flags = aType.Flags;
                     kind = GetKind(flags, features);
                     args.Add("MbrTypKind", kind);
-
-                    // Get closest list (Array or Vector)
-                    string closestListName = "", closestListItemType = "";
-                    FindClosestList(context, result.Context, Sci.LineFromPosition(position), ref closestListName, ref closestListItemType);
-                    args.Add("TypClosestListName", closestListName);
-                    args.Add("TypClosestListItemType", closestListItemType);
-
-                    // get free iterator index
-                    string iterator = FindFreeIterator(context, cClass, result.Context);
-                    args.Add("ItmUniqueVar", iterator);
                 }
                 else
                 {

@@ -57,6 +57,10 @@ namespace ASCompletion
         private bool checking = false;
         private System.Timers.Timer timerPosition;
 
+        private Regex reVirtualFile = new Regex("\\.(swf|swc)::", RegexOptions.Compiled);
+        private Regex reArgs = new Regex("\\$\\((Typ|Mbr|Itm)", RegexOptions.Compiled);
+        private Regex reCostlyArgs = new Regex("\\$\\((TypClosest|ItmUnique)", RegexOptions.Compiled);
+
         #region Required Properties
 
         public Int32 Api
@@ -385,7 +389,7 @@ namespace ASCompletion
                         else if (command == "ProjectManager.OpenVirtualFile")
                         {
                             string cmdData = de.Data as string;
-                            if (Regex.IsMatch(cmdData, "\\.(swf|swc)::"))
+                            if (reVirtualFile.IsMatch(cmdData))
                             {
                                 string[] path = Regex.Split(cmdData, "::");
                                 string fileName = path[0] + Path.DirectorySeparatorChar
@@ -406,12 +410,26 @@ namespace ASCompletion
                 {
                     case EventType.ProcessArgs:
                         TextEvent te = (TextEvent)e;
-                        string cmd = te.Value;
-                        if (Regex.IsMatch(cmd, "\\$\\((Typ|Mbr|Itm)"))
+                        if (reArgs.IsMatch(te.Value))
                         {
                             // resolve current element
                             Hashtable details = ASComplete.ResolveElement(sci, null);
-                            te.Value = ArgumentsProcessor.Process(cmd, details);
+                            te.Value = ArgumentsProcessor.Process(te.Value, details);
+
+                            if (te.Value.IndexOf("$") >= 0 && reCostlyArgs.IsMatch(te.Value))
+                            {
+                                ASResult result = ASComplete.CurrentResolvedContext.Result;
+                                details = new Hashtable();
+                                // Get closest list (Array or Vector)
+                                string closestListName = "", closestListItemType = "";
+                                ASComplete.FindClosestList(ASContext.Context, result.Context, sci.LineFromPosition(sci.CurrentPos), ref closestListName, ref closestListItemType);
+                                details.Add("TypClosestListName", closestListName);
+                                details.Add("TypClosestListItemType", closestListItemType);
+                                // get free iterator index
+                                string iterator = ASComplete.FindFreeIterator(ASContext.Context, ASContext.Context.CurrentClass, result.Context);
+                                details.Add("ItmUniqueVar", iterator);
+                                te.Value = ArgumentsProcessor.Process(te.Value, details);
+                            }
                         }
                         break;
 
@@ -482,8 +500,8 @@ namespace ASCompletion
                         return;
 
                     case EventType.ProcessEnd:
-                        string result = (e as TextEvent).Value;
-                        ASContext.Context.OnProcessEnd(result);
+                        string procResult = (e as TextEvent).Value;
+                        ASContext.Context.OnProcessEnd(procResult);
                         break;
                 }
             }
@@ -686,7 +704,7 @@ namespace ASCompletion
             // cursor position changes tracking
             timerPosition = new System.Timers.Timer();
             timerPosition.SynchronizingObject = PluginBase.MainForm as Form;
-            timerPosition.Interval = 50;
+            timerPosition.Interval = 200;
             timerPosition.Elapsed += new System.Timers.ElapsedEventHandler(timerPosition_Elapsed);
         }
 
