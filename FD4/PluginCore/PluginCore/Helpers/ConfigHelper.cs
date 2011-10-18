@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace PluginCore.PluginCore.Helpers
+namespace PluginCore.Helpers
 {
     public class ConfigHelper
     {
@@ -15,7 +15,6 @@ namespace PluginCore.PluginCore.Helpers
         public static Dictionary<string, string> Parse(string configPath, bool cache)
         {
             if (cache && Cache.ContainsKey(configPath)) return Cache[configPath];
-
             Dictionary<string, string> config = new Dictionary<string, string>();
             if (File.Exists(configPath))
             {

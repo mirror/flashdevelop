@@ -1,18 +1,17 @@
 using System;
 using System.IO;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Collections.Generic;
 using WeifenLuo.WinFormsUI.Docking;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
-using PluginCore;
 using PluginCore.Bridge;
-using System.Diagnostics;
-using PluginCore.PluginCore.Helpers;
-using System.Collections.Generic;
+using PluginCore;
 
 namespace FileExplorer
 {
@@ -169,7 +168,69 @@ namespace FileExplorer
 		#endregion
 
         #region Custom Methods
-       
+
+        /// <summary>
+        /// Opens the selected path in windows explorer
+        /// </summary>
+        private void ExploreDirectory(string path)
+        {
+            try
+            {
+                path = PluginBase.MainForm.ProcessArgString(path);
+                if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteExplorer)
+                {
+                    BridgeManager.RemoteOpen(path);
+                    return;
+                }
+                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                if (!config.ContainsKey("explorer")) config["explorer"] = "explorer.exe /e,\"{0}\"";
+                String explorer = PluginBase.MainForm.ProcessArgString(config["explorer"]);
+                int start = explorer.StartsWith("\"") ? explorer.IndexOf("\"", 2) : 0;
+                int p = explorer.IndexOf(" ", start);
+                if (!path.StartsWith("\"")) path = "\"" + path + "\"";
+                // Start the process...
+                ProcessStartInfo psi = new ProcessStartInfo(explorer.Substring(0, p));
+                psi.Arguments = String.Format(explorer.Substring(p + 1), path);
+                psi.WorkingDirectory = path;
+                ProcessHelper.StartAsync(psi);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Opens the selected path in command prompt
+        /// </summary>
+        private void PromptHere(string path)
+        {
+            try
+            {
+                path = PluginBase.MainForm.ProcessArgString(path);
+                /*if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteConsole)
+                {
+                    BridgeManager.RemoteConsole(path);
+                    return;
+                }*/
+                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                if (!config.ContainsKey("cmd")) config["cmd"] = "cmd.exe";
+                String cmd = PluginBase.MainForm.ProcessArgString(config["cmd"]);
+                int start = cmd.StartsWith("\"") ? cmd.IndexOf("\"", 2) : 0;
+                int p = cmd.IndexOf(" ", start);
+                if (!path.StartsWith("\"")) path = "\"" + path + "\"";
+                // Start the process...
+                ProcessStartInfo psi = new ProcessStartInfo(p > 0 ? cmd.Substring(0, p) : cmd);
+                if (p > 0) psi.Arguments = String.Format(cmd.Substring(p + 1), path);
+                psi.WorkingDirectory = path;
+                ProcessHelper.StartAsync(psi);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.ShowError(ex);
+            }
+        }
+
         /// <summary>
         /// Initializes important variables
         /// </summary>
@@ -248,77 +309,8 @@ namespace FileExplorer
             this.pluginPanel.Show();
         }
 
-        private void ExploreDirectory(string path)
-        {
-            try
-            {
-                path = Expand(path);
+        #endregion
 
-                if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteExplorer)
-                {
-                    BridgeManager.RemoteOpen(path);
-                    return;
-                }
-
-                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
-                if (!config.ContainsKey("explorer")) config["explorer"] = "explorer.exe /e,\"{0}\"";
-                String explorer = Expand(config["explorer"]);
-                int start = explorer.StartsWith("\"") ? explorer.IndexOf("\"", 2) : 0;
-                int p = explorer.IndexOf(" ", start);
-                if (!path.StartsWith("\"")) path = "\"" + path + "\"";
-                
-                ProcessStartInfo psi = new ProcessStartInfo(explorer.Substring(0, p));
-                psi.Arguments = String.Format(explorer.Substring(p + 1), path);
-                psi.WorkingDirectory = path;
-                ProcessHelper.StartAsync(psi);
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-            }
-        }
-
-        private void PromptHere(string path)
-        {
-            try
-            {
-                path = Expand(path);
-
-                /*if (BridgeManager.Active && BridgeManager.IsRemote(path) && BridgeManager.Settings.UseRemoteConsole)
-                {
-                    BridgeManager.RemoteConsole(path);
-                    return;
-                }*/
-
-                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
-                if (!config.ContainsKey("cmd")) config["cmd"] = "cmd.exe";
-                String cmd = Expand(config["cmd"]);
-                int start = cmd.StartsWith("\"") ? cmd.IndexOf("\"", 2) : 0;
-                int p = cmd.IndexOf(" ", start);
-                if (!path.StartsWith("\"")) path = "\"" + path + "\"";
-
-                ProcessStartInfo psi = new ProcessStartInfo(p > 0 ? cmd.Substring(0, p) : cmd);
-                if (p > 0) psi.Arguments = String.Format(cmd.Substring(p + 1), path);
-                psi.WorkingDirectory = path;
-                ProcessHelper.StartAsync(psi);
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.ShowError(ex);
-            }
-        }
-
-        private string Expand(string path)
-        {
-            if (path.IndexOf('$') >= 0)
-                path = PluginBase.MainForm.ProcessArgString(path);
-            if (path.IndexOf('%') >= 0)
-                path = Environment.ExpandEnvironmentVariables(path);
-            return path.Trim();
-        }
-
-		#endregion
-
-	}
+    }
 	
 }

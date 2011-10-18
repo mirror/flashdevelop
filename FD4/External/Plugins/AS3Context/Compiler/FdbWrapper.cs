@@ -7,7 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using PluginCore.Helpers;
 using System.Collections;
-using PluginCore.PluginCore.Helpers;
+using PluginCore.Helpers;
 
 namespace AS3Context.Compiler
 {

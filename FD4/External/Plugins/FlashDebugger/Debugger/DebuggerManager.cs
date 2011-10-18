@@ -11,7 +11,7 @@ using ProjectManager.Projects.AS3;
 using ScintillaNet;
 using PluginCore;
 using net.sf.jni4net;
-using PluginCore.PluginCore.Helpers;
+using PluginCore.Helpers;
 
 namespace FlashDebugger
 {

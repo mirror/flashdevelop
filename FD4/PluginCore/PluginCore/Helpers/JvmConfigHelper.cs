@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace PluginCore.PluginCore.Helpers
+namespace PluginCore.Helpers
 {
     public class JvmConfigHelper
     {
@@ -13,9 +13,7 @@ namespace PluginCore.PluginCore.Helpers
         public static Dictionary<string, string> ReadConfig(string configPath)
         {
             if (configPath == null) configPath = "";
-            if (ConfigHelper.Cache.ContainsKey(configPath))
-                return ConfigHelper.Cache[configPath];
-
+            if (ConfigHelper.Cache.ContainsKey(configPath)) return ConfigHelper.Cache[configPath];
             Dictionary<string, string> config = ConfigHelper.Parse(configPath, true);
 
             // default values
@@ -25,9 +23,10 @@ namespace PluginCore.PluginCore.Helpers
             string args = "-Xmx384m -Dsun.io.useCanonCaches=false";
             if (config.ContainsKey("java.args")) args = config["java.args"];
             if (args.IndexOf("-Duser.language") < 0)
+            {
                 args += " -Duser.language=en -Duser.region=US";
+            }
             config["java.args"] = args;
-
             return config;
         }
 
@@ -43,8 +42,10 @@ namespace PluginCore.PluginCore.Helpers
         {
             string defaultExe = "java.exe";
             string home = GetJavaHome(jvmConfig, flexSdkPath);
-            if (!String.IsNullOrEmpty(home) && !home.StartsWith("%")) 
+            if (!String.IsNullOrEmpty(home) && !home.StartsWith("%"))
+            {
                 return Path.Combine(home, "bin\\java.exe");
+            }
             return defaultExe;
         }
 
@@ -52,7 +53,9 @@ namespace PluginCore.PluginCore.Helpers
         {
             string home = null;
             if (jvmConfig != null && jvmConfig.ContainsKey("java.home"))
+            {
                 home = ResolvePath(jvmConfig["java.home"], flexSdkPath, true);
+            }
             if (home == null)
             {
                 home = Environment.ExpandEnvironmentVariables("%JAVA_HOME%");
@@ -65,26 +68,19 @@ namespace PluginCore.PluginCore.Helpers
 		// because JvmConfigHelper is used in external tool 'FDBuild'
         private static string ResolvePath(String path, String relativeTo, Boolean checkResolvedPathExisting)
         {
-            if (path == null || path.Length == 0)
-                return null;
-
+            if (path == null || path.Length == 0) return null;
             Boolean isPathNetworked = path.StartsWith("\\\\") || path.StartsWith("//");
             Boolean isPathAbsSlashed = (path.StartsWith("\\") || path.StartsWith("/")) && !isPathNetworked;
             if (isPathAbsSlashed) path = Path.GetPathRoot(AppDir) + path.Substring(1);
-
-            if (Path.IsPathRooted(path) || isPathNetworked)
-                return path;
-
+            if (Path.IsPathRooted(path) || isPathNetworked) return path;
             String resolvedPath;
             if (relativeTo != null)
             {
                 resolvedPath = Path.Combine(relativeTo, path);
-                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
-                    return resolvedPath;
+                if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
             }
             resolvedPath = Path.Combine(AppDir, path);
-            if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath))
-                return resolvedPath;
+            if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
             return null;
         }
 
@@ -97,4 +93,5 @@ namespace PluginCore.PluginCore.Helpers
         }
 
     }
+
 }
