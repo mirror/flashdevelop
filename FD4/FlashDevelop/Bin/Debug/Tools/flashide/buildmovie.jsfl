@@ -60,7 +60,7 @@ function setDebug(value)
 {
 	if (!isAS3) return;
 	var doc = fl.getDocumentDOM();
-	if (!doc) return;
+	if (!doc || !doc.exportPublishProfileString) return;
 	
 	var config = XML(doc.exportPublishProfileString());
 	config.PublishFlashProperties.DebuggingPermitted = value ? 1 : 0;
