@@ -7,7 +7,7 @@ using ProjectManager.Helpers;
 using System.IO;
 using FDBuild.Building.AS3;
 using System.Collections;
-using PluginCore.PluginCore.Helpers;
+using PluginCore.Helpers;
 using ProjectManager.Projects;
 
 
@@ -58,7 +58,7 @@ namespace ProjectManager.Building.AS3
             sdkPath = flexsdkPath;
             mxmlcPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "mxmlc.jar");
             fcshPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "fcsh.jar");
-            jvmConfig = PluginCore.PluginCore.Helpers.JvmConfigHelper.ReadConfig(Path.Combine(flexsdkPath, "bin\\jvm.config"));
+            jvmConfig = PluginCore.Helpers.JvmConfigHelper.ReadConfig(Path.Combine(flexsdkPath, "bin\\jvm.config"));
 
             if (jvmConfig.ContainsKey("java.args") && jvmConfig["java.args"].Trim().Length > 0)
                 VMARGS = jvmConfig["java.args"];

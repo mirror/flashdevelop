@@ -161,11 +161,14 @@ namespace FlashDebugger
                         }
                         return;
                     }
-                    if (!buildevnt.Action.StartsWith("ProjectManager")) return;
+
+                    if (!buildevnt.Action.StartsWith("ProjectManager")) 
+                        return;
+
                     if (buildevnt.Action == ProjectManager.ProjectManagerEvents.Project)
                     {
                         IProject project = PluginBase.CurrentProject;
-                        if (project != null && project is AS3Project)
+                        if (project != null && project.EnableInteractiveDebugger)
                         {
                             disableDebugger = false;
                             PanelsHelper.breakPointUI.Clear();
@@ -188,14 +191,35 @@ namespace FlashDebugger
                         }
                     }
                     else if (disableDebugger) return;
+
+                    if (buildevnt.Action == ProjectManager.ProjectManagerCommands.HotBuild
+                        || buildevnt.Action == ProjectManager.ProjectManagerCommands.BuildProject)
+                    {
+                        if (debugManager.FlashInterface.isDebuggerStarted)
+                        {
+                            if (debugManager.FlashInterface.isDebuggerSuspended)
+                            {
+                                debugManager.Continue_Click(null, null);
+                            }
+                            debugManager.Stop_Click(null, null);
+                        }
+                    }
+
                     if (buildevnt.Action == ProjectManager.ProjectManagerEvents.TestProject)
                     {
                         if (debugManager.FlashInterface.isDebuggerStarted)
                         {
                             if (debugManager.FlashInterface.isDebuggerSuspended)
+                            {
                                 debugManager.Continue_Click(null, null);
-                            debugManager.Stop_Click(null, null);
+                                e.Handled = true;
+                                return;
+                            }
                         }
+                    }
+                    
+                    if (buildevnt.Action == ProjectManager.ProjectManagerEvents.TestProject)
+                    {
                         menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
                     }
                     break;
