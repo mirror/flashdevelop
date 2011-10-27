@@ -14,7 +14,7 @@ namespace SourceControl.Sources.Git
 
         public string RootPath;
 
-        StatusNode root = new StatusNode(".", VCItemStatus.Unknown);
+        StatusNode root = new StatusNode(".", VCItemStatus.Undefined);
         StatusNode temp;
         string dirty;
         string updatingPath;
@@ -27,6 +27,9 @@ namespace SourceControl.Sources.Git
         public StatusNode Get(string path)
         {
             StatusNode found = root.FindPath(path);
+            if (path.StartsWith("bin\\items"))
+            {
+            }
             if (found == null)
                 found = new StatusNode(Path.GetFileName(path), VCItemStatus.UpToDate);
             return found;
@@ -36,7 +39,7 @@ namespace SourceControl.Sources.Git
         {
             if (runner != null) return;
 
-            temp = new StatusNode(".", VCItemStatus.UpToDate);
+            temp = new StatusNode(".", VCItemStatus.Undefined);
             updatingPath = RootPath;
 
             if (dirty != null)
@@ -101,9 +104,10 @@ namespace SourceControl.Sources.Git
         override protected void runner_Output(object sender, string line)
         {
             int fileIndex = 3;
-            if (line.Length < fileIndex) return;
+            if (line.Length < fileIndex || line.Length < 3) return;
             char c0 = line[0];
             char c1 = line[1];
+            if (c1 == ':') return;
 
             VCItemStatus s = VCItemStatus.UpToDate;
             //else if (c0 == 'I') s = VCItemStatus.Ignored; // TODO look into .gitignore
@@ -126,6 +130,8 @@ namespace SourceControl.Sources.Git
 
     class StatusNode
     {
+        static public StatusNode UNKNOWN = new StatusNode("*", VCItemStatus.Unknown);
+
         public bool HasChildren;
         public string Name;
         public VCItemStatus Status;
@@ -145,6 +151,7 @@ namespace SourceControl.Sources.Git
         public StatusNode FindPath(string path)
         {
             if (path == ".") return this;
+            if (Status == VCItemStatus.Unknown) return UNKNOWN;
 
             int p = path.IndexOf(Path.DirectorySeparatorChar);
             string childName = p < 0 ? path : path.Substring(0, p);
@@ -165,6 +172,7 @@ namespace SourceControl.Sources.Git
         {
             int p = path.IndexOf('/');
             if (p < 0) return AddChild(path, status, true);
+            else if (p == path.Length - 1) return AddChild(path.Substring(0, path.Length - 1), status, true);
             else return AddChild(path.Substring(0, p), status, false)
                 .MapPath(path.Substring(p + 1), status);
         }

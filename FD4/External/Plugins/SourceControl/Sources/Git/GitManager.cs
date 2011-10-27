@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using PluginCore;
 using System.Text.RegularExpressions;
+using PluginCore.Managers;
 
 namespace SourceControl.Sources.Git
 {
@@ -16,14 +17,20 @@ namespace SourceControl.Sources.Git
         Dictionary<string, Status> statusCache = new Dictionary<string, Status>();
         IVCMenuItems menuItems = new MenuItems();
         IVCFileActions fileActions = new FileActions();
-        Regex reIgnore = new Regex("[/\\\\]\\.git[/\\\\]");
+        Regex reIgnore = new Regex("[/\\\\]\\.git([/\\\\]|$)");
         bool ignoreDirty = false;
+        //string checkPathForCommit;
+        //System.Timers.Timer checkPathTimer;
 
         public IVCMenuItems MenuItems { get { return menuItems; } }
         public IVCFileActions FileActions { get { return fileActions; } }
 
         public GitManager()
         {
+            /*checkPathTimer = new System.Timers.Timer();
+            checkPathTimer.SynchronizingObject = PluginCore.PluginBase.MainForm as Form;
+            checkPathTimer.Interval = 1000;
+            checkPathTimer.Elapsed += checkPathTimer_Tick;*/
         }
 
         public bool IsPathUnderVC(string path)
@@ -113,10 +120,26 @@ namespace SourceControl.Sources.Git
             if (ignoreDirty) return false;
             if (statusCache.ContainsKey(rootPath))
             {
-                if (reIgnore.IsMatch(path)) return false;
+                if (reIgnore.IsMatch(path))
+                {
+                    //checkHead(rootPath);
+                    return false;
+                }
                 return statusCache[rootPath].SetPathDirty(path);
             }
             return false;
         }
+
+        /*private void checkHead(string rootPath)
+        {
+            checkPathForCommit = rootPath;
+            checkPathTimer.Stop();
+            checkPathTimer.Start();
+        }
+
+        void checkPathTimer_Tick(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            TraceManager.Add("check head");
+        }*/
     }
 }

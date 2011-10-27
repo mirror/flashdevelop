@@ -177,8 +177,11 @@ namespace ProjectManager.Projects.Haxe
             if (!release)
             {
                 pr.Add("-debug");
-                if( IsFlashOutput && MovieOptions.DebuggerSupported && CompilerOptions.EnableDebug )
+                if (IsFlashOutput && MovieOptions.DebuggerSupported && CompilerOptions.EnableDebug)
+                {
+                    pr.Add("--no-inline");
                     pr.Add("-D fdb");
+                }
             }
 
             // defines

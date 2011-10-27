@@ -16,7 +16,7 @@ namespace SourceControl.Sources.Mercurial
         Dictionary<string, Status> statusCache = new Dictionary<string, Status>();
         IVCMenuItems menuItems = new MenuItems();
         IVCFileActions fileActions = new FileActions();
-        Regex reIgnore = new Regex("[/\\\\]\\.hg[/\\\\]");
+        Regex reIgnore = new Regex("([/\\\\]\\.hg[/\\\\]|hg-checkexec)");
         bool ignoreDirty = false;
 
         public IVCMenuItems MenuItems { get { return menuItems; } }

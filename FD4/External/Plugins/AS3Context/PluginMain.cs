@@ -286,7 +286,7 @@ namespace AS3Context
 
             string container = virtualPath.Substring(0, p);
             string ext = Path.GetExtension(container).ToLower();
-            if (ext != ".swc" && ext != ".swf") return false;
+            if (ext != ".swf" && ext != ".swc" && ext != ".ane") return false;
             if (!File.Exists(container)) return false;
 
             string fileName = Path.Combine(container, virtualPath.Substring(p + 2).Replace('.', Path.DirectorySeparatorChar));

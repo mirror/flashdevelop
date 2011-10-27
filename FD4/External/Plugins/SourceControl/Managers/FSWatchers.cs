@@ -14,15 +14,16 @@ namespace SourceControl.Managers
     {
         Dictionary<FileSystemWatcher, IVCManager> watchers = new Dictionary<FileSystemWatcher, IVCManager>();
         List<IVCManager> dirtyVC = new List<IVCManager>();
-        Timer updateTimer;
+        System.Timers.Timer updateTimer;
         string lastDirtyPath;
         bool disposing;
 
         public FSWatchers()
         {
-            updateTimer = new Timer();
+            updateTimer = new System.Timers.Timer();
+            updateTimer.SynchronizingObject = PluginCore.PluginBase.MainForm as Form;
             updateTimer.Interval = 1000;
-            updateTimer.Tick += updateTimer_Tick;
+            updateTimer.Elapsed += updateTimer_Tick;
             updateTimer.Start();
         }
 
@@ -135,8 +136,6 @@ namespace SourceControl.Managers
         {
             if (lastDirtyPath != null && e.FullPath.StartsWith(lastDirtyPath))
                 return;
-            if (Path.GetFileName(e.FullPath).StartsWith("hg-checkexec"))
-                return;
             lastDirtyPath = e.FullPath;
             
             FileSystemWatcher watcher = (FileSystemWatcher)sender;
@@ -155,14 +154,11 @@ namespace SourceControl.Managers
                     dirtyVC.Add(manager);
             }
 
-            (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate
-            {
-                updateTimer.Stop();
-                updateTimer.Start();
-            });
+            updateTimer.Stop();
+            updateTimer.Start();
         }
 
-        void updateTimer_Tick(object sender, EventArgs e)
+        void updateTimer_Tick(object sender, System.Timers.ElapsedEventArgs e)
         {
             updateTimer.Stop();
             updateTimer.Interval = 2000;
@@ -194,12 +190,9 @@ namespace SourceControl.Managers
                 }
             }
 
-            (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker)delegate
-            {
-                updateTimer.Stop();
-                updateTimer.Interval = 1000;
-                updateTimer.Start();
-            });
+            updateTimer.Stop();
+            updateTimer.Interval = 1000;
+            updateTimer.Start();
         }
     }
 

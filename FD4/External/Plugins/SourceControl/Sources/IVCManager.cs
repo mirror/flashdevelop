@@ -133,6 +133,7 @@ namespace SourceControl.Sources
     /// </summary>
     public enum VCItemStatus : int
     {
+        Undefined = -1,
         Unknown = 0,
         External = 1,
         Ignored = 2,

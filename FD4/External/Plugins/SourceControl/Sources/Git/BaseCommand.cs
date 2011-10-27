@@ -26,9 +26,10 @@ namespace SourceControl.Sources.Git
             {
                 if (!args.StartsWith("status")) TraceManager.AddAsync("git " + args);
 
+                string cmd = GetGitCmd();
                 runner = new ProcessRunner();
                 runner.WorkingDirectory = workingDirectory;
-                runner.Run(GetGitCmd(), args);
+                runner.Run(cmd, args, !File.Exists(cmd));
                 runner.Output += new LineOutputHandler(runner_Output);
                 runner.Error += new LineOutputHandler(runner_Error);
                 runner.ProcessEnded += new ProcessEndedHandler(runner_ProcessEnded);

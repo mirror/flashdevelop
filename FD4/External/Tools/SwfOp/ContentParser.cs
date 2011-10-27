@@ -44,7 +44,8 @@ namespace SwfOp
                 Stream filestream = File.OpenRead(Filename);
 
                 // SWC file: extract 'library.swf' file
-                if (Filename.EndsWith(".swc", StringComparison.OrdinalIgnoreCase))
+                if (Filename.EndsWith(".swc", StringComparison.OrdinalIgnoreCase)
+                    || Filename.EndsWith(".ane", StringComparison.OrdinalIgnoreCase))
                 {
                     ZipFile zfile = new ZipFile(filestream);
                     foreach (ZipEntry entry in zfile)

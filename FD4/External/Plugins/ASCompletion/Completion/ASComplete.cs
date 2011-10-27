@@ -1838,7 +1838,8 @@ namespace ASCompletion.Completion
 				while (tmpClass != null && !tmpClass.IsVoid())
 				{
                     mix.Merge(tmpClass.GetSortedMembersList(), mask, acc);
-                    //if ((mask & FlagType.Static) > 0 && tmpClass.InFile.Version != 2) break; // only AS2 inherit static members?
+
+                    if ((mask & FlagType.Static) > 0 && dotIndex > 0) break; // only show direct static inheritance
 
                     tmpClass = tmpClass.Extends;
                     // hide Object class members

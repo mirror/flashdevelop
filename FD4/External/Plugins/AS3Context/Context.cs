@@ -116,7 +116,7 @@ namespace AS3Context
             timerCheck = new Timer(500);
             timerCheck.AutoReset = false;
             timerCheck.Elapsed += new ElapsedEventHandler(timerCheck_Elapsed);
-            FlexShells.SyntaxError += new SyntaxErrorHandler(Flex2Shell_SyntaxError);
+            FlexShells.SyntaxError += new SyntaxErrorHandler(FlexShell_SyntaxError);
         }
         #endregion
 
@@ -594,7 +594,7 @@ namespace AS3Context
             ClearSquiggles(sci);
 
             string src = CurSciControl.Text;
-            string sdk = PluginBase.CurrentProject != null
+            string sdk = PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "as3"
                     ? PluginBase.CurrentProject.CurrentSDK
                     : as3settings.GetDefaultSDK().Path;
             FlexShells.Instance.CheckAS3(CurrentFile, sdk, src);
@@ -617,7 +617,7 @@ namespace AS3Context
             }
         }
 
-        private void Flex2Shell_SyntaxError(string error)
+        private void FlexShell_SyntaxError(string error)
         {
             if (!IsFileValid) return;
             Match m = re_syntaxError.Match(error);

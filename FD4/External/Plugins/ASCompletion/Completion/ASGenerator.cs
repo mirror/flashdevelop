@@ -296,8 +296,6 @@ namespace ASCompletion.Completion
                     }
                 }
             }
-
-
             
             // suggest declaration
             if (contextToken != null)
@@ -2006,7 +2004,7 @@ namespace ASCompletion.Completion
             }
             else
             {
-                m = Regex.Match(line, @"=\s*[^;\s\n\r}}]+");
+                m = Regex.Match(line, @"=\s*[^;\n\r}}]+");
                 if (m.Success)
                 {
                     int posLineStart = Sci.PositionFromLine(lineNum);
@@ -2384,7 +2382,7 @@ namespace ASCompletion.Completion
                         {
                             if (result.Member.Name != null)
                             {
-                                paramName = result.Member.Name;
+                                paramName = result.Member.Name.Trim('@');
                             }
                             if (result.Member.Type == null || result.Member.Type.Equals("void", StringComparison.OrdinalIgnoreCase))
                             {
@@ -2578,20 +2576,14 @@ namespace ASCompletion.Completion
                     {
                         l.Add(fp.paramQualType);
                     }
-                    catch (Exception)
-                    {
-                    }
+                    catch (Exception) { }
                 }
                 int o = AddImportsByName(l, Sci.LineFromPosition(position));
                 position += o;
                 if (latest == null)
-                {
                     Sci.SetSel(position, Sci.WordEndPosition(position, true));
-                }
                 else
-                {
                     Sci.SetSel(position, position);
-                }
             }
 
 
@@ -2603,8 +2595,7 @@ namespace ASCompletion.Completion
                 string type = functionParameters[i].paramType;
                 parameters.Add(new MemberModel(name, type, FlagType.ParameterVar, 0));
             }
-            MemberModel newMember = NewMember(contextToken, isStatic, FlagType.Function,
-                        funcVisi);
+            MemberModel newMember = NewMember(contextToken, isStatic, FlagType.Function, funcVisi);
             newMember.Parameters = parameters;
             GenerateFunction(newMember,
                 position, detach, inClass);
@@ -2970,15 +2961,7 @@ namespace ASCompletion.Completion
                 word = Sci.GetWordFromPosition(pos);
             }
             char c = (char)Sci.CharAt(pos);
-            if (word != null && Char.IsDigit(word[0]))
-            {
-                type = inClass.InFile.Context.ResolveType("Number", inClass.InFile);
-            }
-            else if (word != null && (word == "true" || word == "false"))
-            {
-                type = inClass.InFile.Context.ResolveType("Boolean", inClass.InFile);
-            }
-            else if (!(ASComplete.IsTextStyle(Sci.StyleAt(pos - 1) & stylemask)))
+            if (c == '"' || c == '\'')
             {
                 type = inClass.InFile.Context.ResolveType("String", inClass.InFile);
             }
@@ -2993,6 +2976,14 @@ namespace ASCompletion.Completion
             else if (c == ']')
             {
                 type = inClass.InFile.Context.ResolveType("Array", inClass.InFile);
+            }
+            else if (word != null && Char.IsDigit(word[0]))
+            {
+                type = inClass.InFile.Context.ResolveType("Number", inClass.InFile);
+            }
+            else if (word != null && (word == "true" || word == "false"))
+            {
+                type = inClass.InFile.Context.ResolveType("Boolean", inClass.InFile);
             }
 
             if (resolve == null)
@@ -3402,22 +3393,24 @@ namespace ASCompletion.Completion
             try
             {
                 int delta = 0;
-                if (type == "Event")
-                {
-                    List<string> typesUsed = new List<string>();
-                    typesUsed.Add("flash.events.Event");
-                    delta = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
-                    position += delta;
-                    Sci.SetSel(position, position);
-                }
-                else if (type == "DataEvent")
-                {
-                    List<string> typesUsed = new List<string>();
-                    typesUsed.Add("flash.events.DataEvent");
-                    delta = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
-                    position += delta;
-                    Sci.SetSel(position, position);
-                }
+                ClassModel eventClass = ASContext.Context.ResolveType(type, ASContext.Context.CurrentModel);
+                if (eventClass.IsVoid())
+                    if (type == "Event")
+                    {
+                        List<string> typesUsed = new List<string>();
+                        typesUsed.Add("flash.events.Event");
+                        delta = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                        position += delta;
+                        Sci.SetSel(position, position);
+                    }
+                    else if (type == "DataEvent")
+                    {
+                        List<string> typesUsed = new List<string>();
+                        typesUsed.Add("flash.events.DataEvent");
+                        delta = AddImportsByName(typesUsed, Sci.LineFromPosition(position));
+                        position += delta;
+                        Sci.SetSel(position, position);
+                    }
                 lookupPosition += delta;
                 string acc = GetPrivateAccessor(afterMethod);
                 string template = TemplateUtils.GetTemplate("EventHandler");

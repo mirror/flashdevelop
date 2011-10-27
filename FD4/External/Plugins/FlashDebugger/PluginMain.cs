@@ -193,11 +193,8 @@ namespace FlashDebugger
                         if (debugManager.FlashInterface.isDebuggerStarted)
                         {
                             if (debugManager.FlashInterface.isDebuggerSuspended)
-                            {
                                 debugManager.Continue_Click(null, null);
-                            }
-                            e.Handled = true;
-                            return;
+                            debugManager.Stop_Click(null, null);
                         }
                         menusHelper.UpdateMenuState(this, DebuggerState.Initializing);
                     }

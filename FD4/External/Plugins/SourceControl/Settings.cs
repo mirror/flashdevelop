@@ -107,14 +107,14 @@ namespace SourceControl
             set { this.hgPath = value; }
         }
 
-        [DefaultValue("hgtk")]
+        [DefaultValue("thgw")]
         [DisplayName("TortoiseHG Proc Path")]
         [LocalizedCategory("SourceControl.Category.HG")]
         [LocalizedDescription("SourceControl.Description.TortoiseHGProcPath")]
         [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
         public String TortoiseHGProcPath
         {
-            get { return this.tortoiseHGProcPath ?? "hgtk"; }
+            get { return this.tortoiseHGProcPath ?? "thgw"; }
             set { this.tortoiseHGProcPath = value; }
         }
 

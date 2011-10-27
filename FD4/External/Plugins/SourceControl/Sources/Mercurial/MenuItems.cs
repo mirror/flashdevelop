@@ -54,7 +54,7 @@ namespace SourceControl.Sources.Mercurial
             push = new ToolStripMenuItem(TextHelper.GetString("Label.Push"), PluginBase.MainForm.FindImage("159|9|-3|3"), Push_Click);
             showLog = new ToolStripMenuItem(TextHelper.GetString("Label.ShowLog"), PluginBase.MainForm.FindImage("95"), ShowLog_Click);
             midSeparator = new ToolStripSeparator();
-            diff = new ToolStripMenuItem(TextHelper.GetString("Label.Diff"), PluginBase.MainForm.FindImage("251"), Diff_Click);
+            //diff = new ToolStripMenuItem(TextHelper.GetString("Label.Diff"), PluginBase.MainForm.FindImage("251"), Diff_Click);
             diffChange = new ToolStripMenuItem(TextHelper.GetString("Label.DiffWithPrevious"), PluginBase.MainForm.FindImage("251"), DiffChange_Click);
             add = new ToolStripMenuItem(TextHelper.GetString("Label.Add"), PluginBase.MainForm.FindImage("33"), Add_Click);
             ignore = new ToolStripMenuItem(TextHelper.GetString("Label.AddToIgnoreList"), PluginBase.MainForm.FindImage("166"), Ignore_Click);
@@ -105,7 +105,7 @@ namespace SourceControl.Sources.Mercurial
 
         void DiffChange_Click(object sender, EventArgs e)
         {
-            TortoiseProc.Execute("diff", GetPaths());
+            TortoiseProc.Execute("vdiff", GetPaths());
         }
 
         void Diff_Click(object sender, EventArgs e)
@@ -114,7 +114,7 @@ namespace SourceControl.Sources.Mercurial
                 return;
             string path1 = (currentNodes[0] as GenericNode).BackingPath;
             string path2 = (currentNodes[1] as GenericNode).BackingPath;
-            TortoiseProc.Execute("diff", path1, path2);
+            TortoiseProc.Execute("vdiff", path1, path2);
         }
 
         void ShowLog_Click(object sender, EventArgs e)
