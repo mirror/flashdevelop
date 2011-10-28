@@ -119,12 +119,11 @@ namespace ProjectManager.Projects.Haxe
 
             // libraries
             foreach (string lib in CompilerOptions.Libraries)
-                pr.Add("-lib " + lib);
+                if (lib.Length > 0) pr.Add("-lib " + lib);
 
             // compilation mode
             string mode = null;
-            if (IsFlashOutput) 
-                mode = (MovieOptions.MajorVersion < 6/*AIR*/ || MovieOptions.MajorVersion >= 9) ? "swf9" : "swf";
+            if (IsFlashOutput) mode = "swf";
             else if (IsJavacriptOutput) mode = "js";
             else if (IsNekoOutput) mode = "neko";
             else if (IsPhpOutput) mode = "php";

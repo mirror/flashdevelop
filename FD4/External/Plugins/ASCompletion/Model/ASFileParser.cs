@@ -1247,7 +1247,12 @@ namespace ASCompletion.Model
                                 hadWS = false;
                                 hadDot = false;
                                 evalToken = 0;
-                                if (!inValue) addChar = true;
+                                if (!inValue)
+                                {
+                                    addChar = true;
+                                    if (c1 == '>' && inGeneric && paramTempCount == 0 && paramBraceCount == 0
+                                        && paramSqCount == 0 && paramParCount == 0) inGeneric = false;
+                                }
                             }
                             else
                             {
@@ -1522,7 +1527,7 @@ namespace ASCompletion.Model
                         // haXe signatures: T -> T -> T
                         else if (haXe && c1 == '-' && curMember != null)
                         {
-                            if (ba[i] == '>')
+                            if (ba[i] == '>' && curMember.Type != null)
                             {
                                 curMember.Type += " ->";
                                 foundColon = true;
