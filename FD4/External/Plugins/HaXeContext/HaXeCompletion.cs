@@ -22,6 +22,7 @@ namespace HaXeContext
         ScintillaNet.ScintillaControl sci;
         ArrayList tips;
         int nbErrors;
+        Regex reListEntry = new Regex("<i n=\"([^\"]+)\"><t>([^<]*)</t><d>([^<]*)</d></i>", RegexOptions.Compiled | RegexOptions.Singleline);
          
         public HaXeCompletion(ScintillaNet.ScintillaControl sci, int position)
         {
@@ -86,7 +87,7 @@ namespace HaXeContext
 
             // Build haXe built-in completion/check syntax command
             string args = completionMode 
-                ? "--display \"" + file + "\"@" + pos.ToString() + " " + hxml
+                ? " --display \"" + file + "\"@" + pos.ToString() + " " + hxml + " -D use_rtti_doc"
                 : "--no-output " + hxml;
 
             // compiler path
@@ -157,7 +158,7 @@ namespace HaXeContext
                     string xml = "";
                     while (++i < lines.Length)
                         xml += lines[i];
-                    foreach (Match m in Regex.Matches(xml, "<i n=\"([^\"]+)\"><t>([^<]*)</t><d>([^<]*)</d></i>"))
+                    foreach (Match m in reListEntry.Matches(xml))
                     {
                         ArrayList seq = new ArrayList();
                         seq.Add(m.Groups[1].Value);

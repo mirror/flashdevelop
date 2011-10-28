@@ -743,6 +743,7 @@ namespace HaXeContext
                     MemberModel member = new MemberModel();
                     member.Name = var;
                     member.Access = Visibility.Public;
+                    member.Comments = desc;
                     
                     // Package or Class
                     if (type == "")
