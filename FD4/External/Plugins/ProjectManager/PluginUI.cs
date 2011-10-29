@@ -234,6 +234,7 @@ namespace ProjectManager
         void tree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             if (!(e.Node is GenericNode)) e.Cancel = true;
+            isEditingLabel = false;
         }
 
         /// <summary>

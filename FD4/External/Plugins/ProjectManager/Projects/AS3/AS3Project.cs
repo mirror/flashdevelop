@@ -126,7 +126,7 @@ namespace ProjectManager.Projects.AS3
         public override bool IsLibraryAsset(string path)
         {
             if (!FileInspector.IsSwc(path)) return base.IsLibraryAsset(path);
-            else return SwcLibraries.Contains(GetRelativePath(path));
+            else return SwcLibraries.Contains(path) || SwcLibraries.Contains(GetRelativePath(path));
         }
 
         public override LibraryAsset GetAsset(string path)
@@ -159,7 +159,11 @@ namespace ProjectManager.Projects.AS3
                     asset.SwfMode = SwfAssetMode.Library;
                     SwcLibraries.Add(asset);
                 }
-                else SwcLibraries.Remove(relPath);
+                else
+                {
+                    SwcLibraries.Remove(path);
+                    SwcLibraries.Remove(relPath);
+                }
                 RebuildCompilerOptions();
                 OnClasspathChanged();
             }

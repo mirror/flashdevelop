@@ -251,8 +251,17 @@ namespace ProjectManager.Controls.TreeView
 
         private void AddItems(MergableMenu menu, GenericNode node)
         {
-            if (node.IsInvalid) return;
             string path = node.BackingPath;
+            if (node.IsInvalid)
+            {
+                if (node is ClasspathNode) AddInvalidClassPathNodes(menu, path);
+                /*else if (node is FileNode)
+                {
+                    string ext = Path.GetExtension(path).ToLower();
+                    if (FileInspector.IsSwc(path, ext)) AddInvalidSwcItems(menu, path);
+                }*/
+                return;
+            }
             if (node is ProjectNode) AddProjectItems(menu);
             else if (node is ClasspathNode) AddClasspathItems(menu);
             else if (node is DirectoryNode) AddFolderItems(menu, path);
@@ -304,6 +313,12 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(FindInFiles, 0);
             menu.Add(ShellMenu, 0);
             menu.Add(Paste, 1);
+            menu.Add(RemoveSourcePath, 2, true);
+        }
+
+        private void AddInvalidClassPathNodes(MergableMenu menu, string path)
+        {
+            menu.Add(RemoveSourcePath, 2, true);
         }
 
         private void AddFolderItems(MergableMenu menu, string path)
@@ -401,6 +416,12 @@ namespace ProjectManager.Controls.TreeView
                 menu.Add(Copy, 1);
                 menu.Add(Delete, 1);
             }
+        }
+
+        private void AddInvalidSwcItems(MergableMenu menu, string path)
+        {
+            bool addLibrary = project.IsLibraryAsset(path);
+            if (addLibrary) menu.Add(LibraryOptions, 2);
         }
 
         private void AddProjectOutputItems(MergableMenu menu, ProjectOutputNode node)
