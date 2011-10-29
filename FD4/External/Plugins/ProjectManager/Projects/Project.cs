@@ -206,7 +206,14 @@ namespace ProjectManager.Projects
 			else compileTargets.Remove(relPath);
 		}
 
-		public bool IsCompileTarget(string path) { return compileTargets.Contains(GetRelativePath(path)); }
+        public virtual void SetDocumentClass(string path, bool isMain)
+		{
+            // to be implemented
+		}
+
+        public bool IsCompileTarget(string path) { return compileTargets.Contains(GetRelativePath(path)); }
+
+        public virtual bool IsDocumentClass(string path) { return false; }
 
         public bool IsClassPath(string path) { return AbsoluteClasspaths.Contains(path); }
 
@@ -353,6 +360,7 @@ namespace ProjectManager.Projects
         }
 
 		#endregion
+
     }
 
     public enum OutputType
@@ -367,8 +375,8 @@ namespace ProjectManager.Projects
 
     internal enum CompileTargetType
     {
-        None,
-        AlwaysCompile,
-        DocumentClass
+        None = 0,
+        AlwaysCompile = 1,
+        DocumentClass = 2
     }
 }

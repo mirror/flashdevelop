@@ -216,6 +216,8 @@ namespace ProjectManager
             pluginUI.Menu.Insert.Click += delegate { TreeInsertItem(); };
             pluginUI.Menu.AddLibrary.Click += delegate { TreeAddLibraryItems(); };
             pluginUI.Menu.AlwaysCompile.Click += delegate { TreeAlwaysCompileItems(); };
+            pluginUI.Menu.SetDocumentClass.Click += delegate { TreeDocumentClass(); };
+            pluginUI.Menu.DocumentClass.Click += delegate { TreeDocumentClass(); };
             pluginUI.Menu.Browse.Click += delegate { TreeBrowseItem(); };
             pluginUI.Menu.Cut.Click += delegate { TreeCutItems(); };
             pluginUI.Menu.Copy.Click += delegate { TreeCopyItems(); };
@@ -240,6 +242,7 @@ namespace ProjectManager
             pluginUI.Menu.FindInFiles.Click += delegate { FindInFiles(); };
             pluginUI.Menu.CopyClassName.Click += delegate { CopyClassName(); };
             pluginUI.Menu.AddSourcePath.Click += delegate { AddSourcePath(); };
+            pluginUI.Menu.RemoveSourcePath.Click += delegate { RemoveSourcePath(); };
             pluginUI.Menu.Opening += new CancelEventHandler(this.MenuOpening);
 
             Tree.MovePath += fileActions.Move;
@@ -1016,6 +1019,11 @@ namespace ProjectManager
             projectActions.ToggleAlwaysCompile(project, Tree.SelectedPaths);
         }
 
+        private void TreeDocumentClass()
+        {
+            projectActions.ToggleDocumentClass(project, Tree.SelectedPaths);
+        }
+
         private void TreeBrowseItem()
         {
             string path = Tree.SelectedPath;
@@ -1187,6 +1195,15 @@ namespace ProjectManager
             if (project.Classpaths.Count == 1 && project.Classpaths[0] == ".")
                 project.Classpaths.Clear();
             project.Classpaths.Add(path);
+            project.Save();
+            project.OnClasspathChanged();
+        }
+
+        private void RemoveSourcePath()
+        {
+            String path = Tree.SelectedPath;
+            project.Classpaths.Remove(project.GetRelativePath(path));
+            if (project.Classpaths.Count == 0) project.Classpaths.Add(".");
             project.Save();
             project.OnClasspathChanged();
         }

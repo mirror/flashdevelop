@@ -91,8 +91,54 @@ namespace ProjectManager.Projects.Haxe
 
             foreach (string cp in AbsoluteClasspaths)
                 if (path.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
-                    return CompileTargetType.AlwaysCompile;
+                    return CompileTargetType.AlwaysCompile | CompileTargetType.DocumentClass;
             return CompileTargetType.None;
+        }
+
+        public override bool IsDocumentClass(string path) 
+        {
+            foreach (string cp in AbsoluteClasspaths)
+                if (path.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
+                {
+                    string cname = GetClassName(path, cp);
+                    if (CompilerOptions.MainClass == cname) return true;
+                }
+            return false;
+        }
+
+        public override void SetDocumentClass(string path, bool isMain)
+        {
+            if (isMain)
+            {
+                ClearDocumentClass();
+                if (!IsCompileTarget(path)) SetCompileTarget(path, true);
+                foreach (string cp in AbsoluteClasspaths)
+                    if (path.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
+                    {
+                        CompilerOptions.MainClass = GetClassName(path, cp);
+                        break;
+                    }
+            }
+            else 
+            {
+                SetCompileTarget(path, false);
+                CompilerOptions.MainClass = "";
+            }
+        }
+
+        private void ClearDocumentClass()
+        {
+            if (string.IsNullOrEmpty(CompilerOptions.MainClass)) 
+                return;
+
+            string docFile = CompilerOptions.MainClass.Replace('.', Path.DirectorySeparatorChar) + ".hx";
+            CompilerOptions.MainClass = "";
+            foreach (string cp in AbsoluteClasspaths)
+                if (File.Exists(Path.Combine(cp, docFile)))
+                {
+                    SetCompileTarget(Path.Combine(cp, docFile), false);
+                    break;
+                }
         }
 
         string Quote(string s)
@@ -194,10 +240,7 @@ namespace ProjectManager.Projects.Haxe
                 // guess the class name from the file name
                 foreach (string cp in classPaths)
                     if( absTarget.StartsWith(cp, StringComparison.OrdinalIgnoreCase) ) {
-                        string className = absTarget.Substring(cp.Length);
-                        className = className.Substring(0, className.LastIndexOf('.'));
-                        className = Regex.Replace(className, "[\\\\/]+", ".");
-                        if( className.StartsWith(".") ) className = className.Substring(1);
+                        string className = GetClassName(absTarget, cp);
                         if( CompilerOptions.MainClass != className )
                             pr.Add(className);
                     }
@@ -222,6 +265,15 @@ namespace ProjectManager.Projects.Haxe
             }
 
             return pr.ToArray();
+        }
+
+        private string GetClassName(string absTarget, string cp)
+        {
+            string className = absTarget.Substring(cp.Length);
+            className = className.Substring(0, className.LastIndexOf('.'));
+            className = Regex.Replace(className, "[\\\\/]+", ".");
+            if (className.StartsWith(".")) className = className.Substring(1);
+            return className;
         }
 
         private static void GuessFlashPlayerForNME(ref int majorVersion, ref int minorVersion)

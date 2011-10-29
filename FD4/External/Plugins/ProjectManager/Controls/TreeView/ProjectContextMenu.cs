@@ -42,6 +42,8 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem HideItem = new ToolStripMenuItem(TextHelper.GetString("Label.HideFile"));
         public ToolStripMenuItem ShowHidden = new ToolStripMenuItem(TextHelper.GetString("Label.ShowHiddenItems"), Icons.HiddenItems.Img);
         public ToolStripMenuItem AlwaysCompile = new ToolStripMenuItem(TextHelper.GetString("Label.AlwaysCompile"));
+        public ToolStripMenuItem DocumentClass = new ToolStripMenuItem(TextHelper.GetString("Label.DocumentClass"));
+        public ToolStripMenuItem SetDocumentClass = new ToolStripMenuItem(TextHelper.GetString("Label.SetDocumentClass"));
         public ToolStripMenuItem AddLibrary = new ToolStripMenuItem(TextHelper.GetString("Label.AddToLibrary"));
         public ToolStripMenuItem TestMovie = new ToolStripMenuItem(TextHelper.GetString("Label.TestMovie"), Icons.GreenCheck.Img);
         public ToolStripMenuItem BuildProject = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProject"), Icons.Gear.Img);
@@ -55,6 +57,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"), Icons.FindInFiles.Img);
         public ToolStripMenuItem CopyClassName = new ToolStripMenuItem(TextHelper.GetString("Label.CopyClassName"));
         public ToolStripMenuItem AddSourcePath = new ToolStripMenuItem(TextHelper.GetString("Label.AddSourcePath"), Icons.Classpath.Img);
+        public ToolStripMenuItem RemoveSourcePath = new ToolStripMenuItem(TextHelper.GetString("Label.AddSourcePath"), Icons.Classpath.Img);
         public event FileAddHandler AddFileFromTemplate;
 
         public ProjectContextMenu()
@@ -314,8 +317,10 @@ namespace ProjectManager.Controls.TreeView
             if (projectTree.SelectedPaths.Length == 1)
             {
                 DirectoryNode node = projectTree.SelectedNode as DirectoryNode;
-                if (node != null && (node.InsideClasspath == null || node.InsideClasspath is ProjectNode))
-                    menu.Add(AddSourcePath, 2);
+                if (node.InsideClasspath == node)
+                    menu.Add(RemoveSourcePath, 2, true);
+                else if (node != null && (node.InsideClasspath == null || node.InsideClasspath is ProjectNode))
+                    menu.Add(AddSourcePath, 2, false);
             }
             AddFileItems(menu, path, true);
         }
@@ -334,12 +339,16 @@ namespace ProjectManager.Controls.TreeView
             CompileTargetType result = project.AllowCompileTarget(path, isFolder);
             if (result != CompileTargetType.None)
             {
-                bool isTarget = project.IsCompileTarget(path);
-                AlwaysCompile.Text = result == CompileTargetType.AlwaysCompile
-                    ? TextHelper.GetString("Label.AlwaysCompile")
-                    : (isTarget ? TextHelper.GetString("Label.DocumentClass")
-                       : TextHelper.GetString("Label.SetDocumentClass"));
-                menu.Add(AlwaysCompile, 2, isTarget);
+                bool isMain = false;
+                if ((result & CompileTargetType.DocumentClass) > 0)
+                {
+                    isMain = project.IsDocumentClass(path);
+                    if (isMain) menu.Add(DocumentClass, 2, true);
+                    else menu.Add(SetDocumentClass, 2, false);
+                }
+                if (!isMain && (result & CompileTargetType.AlwaysCompile) > 0)
+                    menu.Add(AlwaysCompile, 2, project.IsCompileTarget(path));
+
                 if (!isFolder) menu.Add(CopyClassName, 2);
             }
         }

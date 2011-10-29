@@ -89,6 +89,17 @@ namespace ProjectManager.Projects.AS3
             return CompileTargetType.DocumentClass; // can actually be outside of the classpath...
         }
 
+        public override bool IsDocumentClass(string path)
+        {
+            return IsCompileTarget(path);
+        }
+
+        public override void SetDocumentClass(string path, bool isMain)
+        {
+            CompileTargets.Clear();
+            if (isMain) SetCompileTarget(path, true);
+        }
+
         public override bool Clean()
         {
             try

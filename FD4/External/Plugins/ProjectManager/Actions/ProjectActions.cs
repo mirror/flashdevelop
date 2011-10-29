@@ -299,6 +299,17 @@ namespace ProjectManager.Actions
 			OnProjectModified(null);
 		}
 
+        public void ToggleDocumentClass(Project project, string[] paths)
+        {
+            foreach (string path in paths)
+            {
+                bool isMain = project.IsDocumentClass(path);
+                project.SetDocumentClass(path, !isMain);
+            }
+            project.Save();
+            OnProjectModified(null);
+        }
+
         public void ToggleAlwaysCompile(Project project, string[] paths)
 		{
 			foreach (string path in paths)
