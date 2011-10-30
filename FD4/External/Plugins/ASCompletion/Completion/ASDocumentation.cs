@@ -284,10 +284,13 @@ namespace ASCompletion.Completion
 		#endregion
 		
 		#region Tooltips
-		
+
+        static private Regex reStripTags = new Regex("<[/]?[a-z]+>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
 		static public CommentBlock ParseComment(string comment)
 		{
 			// cleanup
+            comment = reStripTags.Replace(comment, "");
 			string[] lines = Regex.Split(comment, "[\r\n]+");
             char[] trim = new char[] { ' ', '\t', '*' };
             bool addNL = false;
