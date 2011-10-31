@@ -43,7 +43,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem ShowHidden = new ToolStripMenuItem(TextHelper.GetString("Label.ShowHiddenItems"), Icons.HiddenItems.Img);
         public ToolStripMenuItem AlwaysCompile = new ToolStripMenuItem(TextHelper.GetString("Label.AlwaysCompile"));
         public ToolStripMenuItem DocumentClass = new ToolStripMenuItem(TextHelper.GetString("Label.DocumentClass"));
-        public ToolStripMenuItem SetDocumentClass = new ToolStripMenuItem(TextHelper.GetString("Label.SetDocumentClass"));
+        public ToolStripMenuItem SetDocumentClass = new ToolStripMenuItem(TextHelper.GetString("Label.SetDocumentClass"), Icons.DocumentClass.Img);
         public ToolStripMenuItem AddLibrary = new ToolStripMenuItem(TextHelper.GetString("Label.AddToLibrary"));
         public ToolStripMenuItem TestMovie = new ToolStripMenuItem(TextHelper.GetString("Label.TestMovie"), Icons.GreenCheck.Img);
         public ToolStripMenuItem BuildProject = new ToolStripMenuItem(TextHelper.GetString("Label.BuildProject"), Icons.Gear.Img);
@@ -57,7 +57,7 @@ namespace ProjectManager.Controls.TreeView
         public ToolStripMenuItem FindInFiles = new ToolStripMenuItem(TextHelper.GetString("Label.FindHere"), Icons.FindInFiles.Img);
         public ToolStripMenuItem CopyClassName = new ToolStripMenuItem(TextHelper.GetString("Label.CopyClassName"));
         public ToolStripMenuItem AddSourcePath = new ToolStripMenuItem(TextHelper.GetString("Label.AddSourcePath"), Icons.Classpath.Img);
-        public ToolStripMenuItem RemoveSourcePath = new ToolStripMenuItem(TextHelper.GetString("Label.AddSourcePath"), Icons.Classpath.Img);
+        public ToolStripMenuItem RemoveSourcePath = new ToolStripMenuItem(TextHelper.GetString("Label.SourcePath"));
         public event FileAddHandler AddFileFromTemplate;
 
         public ProjectContextMenu()
@@ -211,6 +211,8 @@ namespace ProjectManager.Controls.TreeView
             Rename.Enabled = singleFile;
             Insert.Enabled = singleFile;
             Paste.Enabled = singleFile;
+            RemoveSourcePath.CheckOnClick = false;
+            RemoveSourcePath.Checked = true;
 
             // deal with naming the "Hide" button correctly
             if (nodes.Count > 1 || nodes.Count == 0) HideItem.Text = TextHelper.GetString("Label.HideItems");

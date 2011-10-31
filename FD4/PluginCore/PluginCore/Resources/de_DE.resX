@@ -4823,4 +4823,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>JavaScript Dokument</value>
     <comment>Added after 4.0.0 Beta</comment>
   </data>
+  <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
+    <value>&amp;Source Path</value>
+    <comment>Added after 4.0.0 RC1</comment>
+  </data>
 </root>

@@ -4823,4 +4823,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>JScript Document</value>
     <comment>Added after 4.0.0 Beta</comment>
   </data>
+  <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
+    <value>&amp;Source Path</value>
+    <comment>Added after 4.0.0 RC1</comment>
+  </data>
 </root>

@@ -155,7 +155,6 @@
   </data>
   <data name="AS3Context.Description.FlexSDK" xml:space="preserve">
     <value>Zure ordenagailuko Adobe Flex SDK-rako bidea.</value>
-    <value>The path to Adobe Flex SDK on your computer.</value>
   </data>
   <data name="AS3Context.Info.CheckError" xml:space="preserve">
     <value>Errorea gertatu da AS3 sintaxi egiaztatzea egiten zen bitartean.</value>
@@ -3774,7 +3773,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="ProjectManager.Label.SearchString" xml:space="preserve">
     <value>Search string: (UPPERCASE for search by abbreviation)</value>
-    <value>Search string: (UPPERCASE for search by abbreviation)</value>
   </data>
   <data name="ProjectManager.Title.OpenResource" xml:space="preserve">
     <value>Baliabidea Ireki</value>
@@ -3892,7 +3890,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="AS3Context.Description.CustomProfilers" xml:space="preserve">
     <value>Erabiltzaileak definitutako SWF-ak profilatzea injektatu 'PreloadSWF' ezaugarria erabiliz.</value>
-    <value>User-defined profiling SWFs to be injected using the 'PreloadSWF' feature.</value>
   </data>
   <data name="AS3Context.Description.ProfilerTimeout" xml:space="preserve">
     <value>Inaktibitate denbora jakin baten ondoren profilatzailea entzuteari automatikoki utzi.</value>
@@ -4769,5 +4766,9 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="MacroManager.Settings.Shortcut" xml:space="preserve">
     <value>Lasterbidea</value>
+  </data>
+  <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
+    <value>&amp;Source Path</value>
+    <comment>Added after 4.0.0 RC1</comment>
   </data>
 </root>
