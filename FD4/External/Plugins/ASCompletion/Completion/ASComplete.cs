@@ -1473,7 +1473,7 @@ namespace ASCompletion.Completion
             }
 
             calltipPos = position;
-            calltipOffset = method.Name.Length;
+            calltipOffset = Math.Min(expr.Value.Length, method.Name.Length);
             calltipDef = method.ToString();
             calltipMember = method;
             calltipDetails = UITools.Manager.ShowDetails;
