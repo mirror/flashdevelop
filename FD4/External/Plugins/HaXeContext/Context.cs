@@ -706,10 +706,12 @@ namespace HaXeContext
 
             // auto-started completion, can be ignored for performance (show default completion tooltip)
             if (autoHide && !expression.Value.EndsWith("."))
-                if ( hxsettings.DisableMixedCompletion )
-                    return new MemberList();
-                else
-                    return null;
+                if (hxsettings.DisableMixedCompletion) return new MemberList();
+                else return null;
+
+            // empty expression
+            if (expression.Value == "")
+                return null; // not supported yet
 
             MemberList list = new MemberList();
            
