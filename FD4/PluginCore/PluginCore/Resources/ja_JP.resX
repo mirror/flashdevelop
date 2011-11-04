@@ -4881,7 +4881,7 @@ UseData:"</value>
     <comment>Added after 4.0.0 Beta</comment>
   </data>
   <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
-    <value>&amp;Source Path</value>
+    <value>ソースパス(&amp;S)</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
 </root>
