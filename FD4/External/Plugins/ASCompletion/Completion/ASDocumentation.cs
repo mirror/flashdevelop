@@ -285,13 +285,26 @@ namespace ASCompletion.Completion
 		
 		#region Tooltips
 
+        static private Regex reNewLine = new Regex("[\r\n]+", RegexOptions.Compiled);
+        static private Regex reKeepTags = new Regex("<([/]?(b|i|s|u))>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        static private Regex reSpecialTags = new Regex("<([/]?)(code|small)>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         static private Regex reStripTags = new Regex("<[/]?[a-z]+>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        static private Regex reDocTags = new Regex("\n@(?<tag>[a-z]+)\\s", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        static private Regex reSplitParams = new Regex("(?<var>[\\w$]+)\\s", RegexOptions.Compiled);
 
 		static public CommentBlock ParseComment(string comment)
 		{
 			// cleanup
+            comment = reKeepTags.Replace(comment, "[$1]");
+            comment = reSpecialTags.Replace(comment, match =>
+            {
+                if (match.Groups[2].Value == "small")
+                    return match.Groups[1].Length == 0 ? "[size=-2]" : "[/size]";
+                else
+                    return match.Groups[1].Length == 0 ? "[font=Courier New]" : "[/font]";
+            });
             comment = reStripTags.Replace(comment, "");
-			string[] lines = Regex.Split(comment, "[\r\n]+");
+			string[] lines = reNewLine.Split(comment);
             char[] trim = new char[] { ' ', '\t', '*' };
             bool addNL = false;
             comment = "";
@@ -303,7 +316,7 @@ namespace ASCompletion.Completion
 			}
 			// extraction
 			CommentBlock cb = new CommentBlock();
-			MatchCollection tags = Regex.Matches(comment, "\n@(?<tag>[a-z]+)\\s");
+            MatchCollection tags = reDocTags.Matches(comment);
 			
 			if (tags.Count == 0)
 			{
@@ -326,7 +339,7 @@ namespace ASCompletion.Completion
 				string desc = comment.Substring(start, end-start).Trim();
 				if (tag == "param")
 				{
-					Match mParam = Regex.Match(desc, "(?<var>[\\w$]+)\\s");
+                    Match mParam = reSplitParams.Match(desc);
 					if (mParam.Success)
 					{
 						Group mVar = mParam.Groups["var"];
@@ -335,7 +348,7 @@ namespace ASCompletion.Completion
 							cb.ParamDesc = new ArrayList();
 						}
 						cb.ParamName.Add(mVar.Value);
-						cb.ParamDesc.Add(desc.Substring(mVar.Index+mVar.Length).TrimStart());
+                        cb.ParamDesc.Add(desc.Substring(mVar.Index + mVar.Length).TrimStart());
 					}
 				}
 				else if (tag == "return")
