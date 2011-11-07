@@ -3772,7 +3772,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Baliabidea &amp;Ireki...</value>
   </data>
   <data name="ProjectManager.Label.SearchString" xml:space="preserve">
-    <value>Search string: (UPPERCASE for search by abbreviation)</value>
+    <value>Katea bilatu: (laburdura bideko bilakerarako LETRA LARRIZ)</value>
   </data>
   <data name="ProjectManager.Title.OpenResource" xml:space="preserve">
     <value>Baliabidea Ireki</value>
@@ -4768,7 +4768,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Lasterbidea</value>
   </data>
   <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
-    <value>&amp;Source Path</value>
+    <value>&amp;Iturburu-bidea</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
 </root>
