@@ -67,6 +67,7 @@ namespace AS3Context
             features.hasOverride = true;
             features.hasTryCatch = true;
             features.hasE4X = true;
+            features.hasStaticInheritance = true;
             features.checkFileName = true;
 
             // allowed declarations access modifiers

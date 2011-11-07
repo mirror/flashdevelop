@@ -1839,7 +1839,8 @@ namespace ASCompletion.Completion
 				{
                     mix.Merge(tmpClass.GetSortedMembersList(), mask, acc);
 
-                    if ((mask & FlagType.Static) > 0 && dotIndex > 0) break; // only show direct static inheritance
+                    if ((mask & FlagType.Static) > 0 // only show direct static inheritance
+                        && (!features.hasStaticInheritance || dotIndex > 0)) break; 
 
                     tmpClass = tmpClass.Extends;
                     // hide Object class members

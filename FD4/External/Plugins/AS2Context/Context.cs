@@ -82,6 +82,7 @@ namespace AS2Context
             features.hasMethods = true;
             features.hasStatics = true;
             features.hasTryCatch = true;
+            features.hasStaticInheritance = true;
             features.checkFileName = true;
 
             // allowed declarations access modifiers

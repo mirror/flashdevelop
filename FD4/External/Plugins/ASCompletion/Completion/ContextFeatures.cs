@@ -31,6 +31,7 @@ namespace ASCompletion.Completion
         public bool hasOverride;
         public bool hasTryCatch;
         public bool hasE4X;
+        public bool hasStaticInheritance;
         public bool checkFileName;
 
         // support for directives
