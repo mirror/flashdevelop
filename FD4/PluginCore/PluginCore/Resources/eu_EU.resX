@@ -260,21 +260,6 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
   <data name="ASCompletion.Description.FixPackageAutomatically" xml:space="preserve">
     <value>Fitxategi bidearen berdinak ez diren paketeak automatikoki zuzendu. Irekitako fitxategian exekutatua.</value>
   </data>
-  <data name="ASCompletion.Description.ShortcutBackFromDeclaration" xml:space="preserve">
-    <value>Deklaraziora Joan ekintza egin aurreko kokalekura itzuli.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>Testu-kurtsorearen posizioan dagoen elementua edo deklarazioa aurkitu eta ireki.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutQuickBuild" xml:space="preserve">
-    <value>Konpiladorea uneko fitxategiarentzat martxan jarri. Konpiladore aginduak iturburuan egotea beharrezkoa izan daiteke.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutSyntaxChecking" xml:space="preserve">
-    <value>Uneko fitxategiaren sintaxia egiaztatu.</value>
-  </data>
-  <data name="ASCompletion.Description.ShortcutTypesExplorer" xml:space="preserve">
-    <value>Proiektu moten arakatzailea zabaldu.</value>
-  </data>
   <data name="ASCompletion.Description.SmartTipsEnabled" xml:space="preserve">
     <value>Iradokizun osaketa aberasteko dokumentazio blokeko javadoc etiketak analizatu.</value>
   </data>
@@ -1110,7 +1095,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Azpi-karpetetan begiratu</value>
   </data>
   <data name="FlashDevelop.Label.MatchCase" xml:space="preserve">
-    <value>Bategiten duten kasuak</value>
+    <value>Maiuskula/minuskula</value>
   </data>
   <data name="FlashDevelop.Label.Modify" xml:space="preserve">
     <value>Aldatu</value>
@@ -1478,17 +1463,11 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
   <data name="ProjectManager.Description.AllowSourcePathOverlap" xml:space="preserve">
     <value>Iturburu-bidearen sarrera bertze iturburu-bide sarrera baten azpi-karpeta dela egiaztatzen da.</value>
   </data>
-  <data name="ProjectManager.Description.AlternateTemplateDir" xml:space="preserve">
-    <value>Zure proiektu txantiloiak direktorio pertsonalizatu batean biltegiratu nahi baiduzu, hemen zehaztu dezakezu bat. Utzi ezazu hutsik lehenetsitako lekua erabiltzeko.</value>
-  </data>
   <data name="ProjectManager.Description.ApplicationMain" xml:space="preserve">
     <value>Konpilatuko den iturburu fitxategia zehazten da.</value>
   </data>
   <data name="ProjectManager.Description.Benchmark" xml:space="preserve">
     <value>Konpilazio denbora zehatzak inprimatzen dira irteera panelean.</value>
-  </data>
-  <data name="ProjectManager.Description.CustomSDK" xml:space="preserve">
-    <value>Aukera hau erabili Flex SDK-rako bide desberdin bat jartzeko.</value>
   </data>
   <data name="ProjectManager.Description.DeclareOverride" xml:space="preserve">
     <value>Gainidatzitako funtzioak "override" hitzarekin deklaratuak daudela ziurtatu.</value>
@@ -1941,7 +1920,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>&amp;Txertatu</value>
   </data>
   <data name="ProjectManager.Label.InsertIntoDocument" xml:space="preserve">
-    <value>&amp;Dokumentuan txertatu</value>
+    <value>&amp;Embed Kodea Sortu</value>
   </data>
   <data name="ProjectManager.Label.InstalledTemplates" xml:space="preserve">
     <value>Instalatutako &amp;Txantiloiak</value>
@@ -2028,7 +2007,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>SWF Fitxategia</value>
   </data>
   <data name="ProjectManager.Label.TestMovie" xml:space="preserve">
-    <value>&amp;Pelikula probatu</value>
+    <value>&amp;Proiektua probatu</value>
   </data>
   <data name="ProjectManager.Title.CommandLineBuilder" xml:space="preserve">
     <value>Komando-lerro eraikitzailea</value>
@@ -2097,7 +2076,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>&amp;Sarrerak garbitu</value>
   </data>
   <data name="ResultsPanel.Label.CopyEntry" xml:space="preserve">
-    <value>Sarrera &amp;Kopiatu</value>
+    <value>Sarrera Xehetasunak &amp;Kopiatu</value>
   </data>
   <data name="ResultsPanel.Label.IgnoreEntry" xml:space="preserve">
     <value>Ezikusi &amp;Sarrera</value>
@@ -2204,9 +2183,6 @@ Inoiz - abiatzean ez da hasiera orria erakutsiko.</value>
   <data name="XMLCompletion.Info.Description" xml:space="preserve">
     <value>FlashDevelop-i HTML eta XML osatze sinplea gehitzen dio.</value>
   </data>
-  <data name="ASCompletion.Description.ContextualGenerator" xml:space="preserve">
-    <value>Ingurunearen kode sortzaileari deitzeko lasterbidea.</value>
-  </data>
   <data name="ASCompletion.Label.GeneratePrivateFunction" xml:space="preserve">
     <value>Funtzio pribatua sortu</value>
   </data>
@@ -2218,6 +2194,9 @@ Inoiz - abiatzean ez da hasiera orria erakutsiko.</value>
   </data>
   <data name="ASCompletion.Label.ChangeMethodDecl" xml:space="preserve">
     <value>Metodoaren deklarazioa aldatu</value>
+  </data>
+  <data name="ASCompletion.Label.ChangeConstructorDecl" xml:space="preserve">
+    <value>Eraikitzailearen deklarazioa aldatu</value>
   </data>
   <data name="ASCompletion.Label.GenerateFunctionInterface" xml:space="preserve">
     <value>Interfazearen definizioa sortu</value>
@@ -2296,21 +2275,6 @@ Inoiz - abiatzean ez da hasiera orria erakutsiko.</value>
   </data>
   <data name="TaskListPanel.Info.Description" xml:space="preserve">
     <value>Zereginen zerrenda panela gehitzen dio FlashDevelop-i.</value>
-  </data>
-  <data name="ProjectManager.Category.Shortcuts" xml:space="preserve">
-    <value>Lasterbideak</value>
-  </data>
-  <data name="ProjectManager.Description.ShortcutBuild" xml:space="preserve">
-    <value>Proiektua Eraiki ekintzarako lasterbidea.</value>
-  </data>
-  <data name="ProjectManager.Description.ShortcutTestMovie" xml:space="preserve">
-    <value>Pelikula Probatu ekintzarako lasterbidea.</value>
-  </data>
-  <data name="ResultsPanel.Description.NextError" xml:space="preserve">
-    <value>Emaitzetako hurrengo errorera jauzi egiteko lasterbidea.</value>
-  </data>
-  <data name="ResultsPanel.Description.PreviousError" xml:space="preserve">
-    <value>Emaitzetako aurreko errorera jauzi egiteko lasterbidea.</value>
   </data>
   <data name="ResultsPanel.Label.NextEntry" xml:space="preserve">
     <value>&amp;Hurrengo sarrera</value>
@@ -2392,7 +2356,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Dokumentua:</value>
   </data>
   <data name="ProjectManager.Title.CustomTestMovieDocument" xml:space="preserve">
-    <value>Pelikula Probatun irekitzeko dokumentua aukeratu</value>
+    <value>Proiektua Probatu-n irekitzeko dokumentua aukeratu</value>
   </data>
   <data name="FlashDevelop.Info.NotEnoughArguments" xml:space="preserve">
     <value>Ez dago argumentu nahikoa prozesua egoki martxan jartzeko:</value>
@@ -2475,9 +2439,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="FlashDevelop.Label.Debug" xml:space="preserve">
     <value>&amp;Araztu</value>
   </data>
-  <data name="ProjectManager.Info.InvalidCustomCompiler" xml:space="preserve">
-    <value>Proiektuaren Flex SDK-rako bide pertsonalizatua ez da egokia. Mesedez, zuzen ezazu Proiektu Propietateetan (Konpiladore Aukerak).</value>
-  </data>
   <data name="FlashDevelop.Info.ArgumentFilter" xml:space="preserve">
     <value>FlashDevelop-en Argumentuak (*.fda)</value>
   </data>
@@ -2514,9 +2475,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ASCompletion.Category.OutlineView" xml:space="preserve">
     <value>EskemaBista</value>
   </data>
-  <data name="ASCompletion.Category.Shortcuts" xml:space="preserve">
-    <value>Lasterbideak</value>
-  </data>
   <data name="ASCompletion.Info.TypeDeclMissing" xml:space="preserve">
     <value>'{0}'-rentzako mota deklarazioa falta da.</value>
   </data>
@@ -2543,9 +2501,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="FlashDevelop.Group.Other" xml:space="preserve">
     <value>Besteak</value>
-  </data>
-  <data name="ResultsPanel.Category.Shortcuts" xml:space="preserve">
-    <value>Lasterbideak</value>
   </data>
   <data name="ASCompletion.Description.DisableLiveSyntaxChecking" xml:space="preserve">
     <value>Sintaxia idatzi ahala egiaztatzea desgaitu.</value>
@@ -2794,7 +2749,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Script-a ezin izan da modu egokian exekutatu:</value>
   </data>
   <data name="MacroManager.Description.UserMacros" xml:space="preserve">
-    <value>Une honetan eskuragarri dauden makroen zerrendaList of currently available macros.</value>
+    <value>Une honetan eskuragarri dauden makroen zerrenda.</value>
   </data>
   <data name="MacroManager.Group.Macros" xml:space="preserve">
     <value>Makroak</value>
@@ -2838,9 +2793,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="MacroManager.Title.MacroDialog" xml:space="preserve">
     <value>Makroak</value>
   </data>
-  <data name="MacroManager.Description.EditShortcut" xml:space="preserve">
-    <value>"Makroak editatu" menu elementurako lasterbidea.</value>
-  </data>
   <data name="MacroManager.Description.AutoRun" xml:space="preserve">
     <value>FlashDevelop hastean automatikoki makroa exekutatzen du. Gaitua badago, menuko elementua ez da erakutsiko.</value>
   </data>
@@ -2849,9 +2801,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="MacroManager.Description.Label" xml:space="preserve">
     <value>Makroaren menuko etiketa.</value>
-  </data>
-  <data name="MacroManager.Description.Shortcut" xml:space="preserve">
-    <value>Makroaren menu gakorako lasterbidea.</value>
   </data>
   <data name="ProjectManager.Label.BuildProjectFile" xml:space="preserve">
     <value>&amp;Proiektu fitxategia eraiki</value>
@@ -2997,11 +2946,12 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>Propietate berriak (hartzaile, aldatzaile) non sortuko diren definitzen da.</value>
   </data>
+  <data name="ASCompletion.Description.MethodsGenerationLocation" xml:space="preserve">
+    <value>Metodo berriak non sortuko diren definitzen da.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
     <value>Irekitako giltzen (edo komatxoen) ondoren automatikoki ixteko giltza (edo komatxoa) jarriko ote den definitzen da, ( eta [ eta komatxoentzat.</value>
-  </data>
-  <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value>"Parametroetatik eremuak sortu" sortzailerakin sortutako eremuetan aurrizki hau gehitzen zaio.</value>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>ActionScript klaseak sortzeko morroi bat gehitzen zaio FlashDevelop-i.</value>
@@ -3168,30 +3118,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="FlashDevelop.Description.DisableFindOptionSync" xml:space="preserve">
     <value>Bilaketa elkarrizketa eta bilaketa azkarraren kontrolaren arteko sinkronizazio aukera desgaitzen da.</value>
   </data>
-  <data name="CodeRefactor.Category.Shortcuts" xml:space="preserve">
-    <value>Lasterbideak</value>
-  </data>
-  <data name="CodeRefactor.Description.FindRefsShortcut" xml:space="preserve">
-    <value>Erreferentzia guztiak aurkitzeko menuko elementura lasterbidea.</value>
-  </data>
-  <data name="CodeRefactor.Description.OrganizeShortcut" xml:space="preserve">
-    <value>Import-ak antolatzeko menuko elementura lasterbidea.</value>
-  </data>
-  <data name="CodeRefactor.Description.RenameShortcut" xml:space="preserve">
-    <value>Berrizendatzeko menuko elementura lasterbidea.</value>
-  </data>
-  <data name="CodeRefactor.Description.TruncateShortcut" xml:space="preserve">
-    <value>Import-ak trinkotzeko menuko elementura lasterbidea.</value>
-  </data>
-  <data name="CodeRefactor.Description.ExtractLocalVariableShortcut" xml:space="preserve">
-    <value>Aldagai lokalak erauzteko menuko elementura lasterbidea.</value>
-  </data>
-  <data name="CodeRefactor.Description.ExtractMethodShortcut" xml:space="preserve">
-    <value>Metodoak erauzteko menuko elementura lasterbidea.</value>
-  </data>
-  <data name="CodeRefactor.Description.GenerateDelegateMethodsShortcut" xml:space="preserve">
-    <value>Metodo delegatuak sortzeko menuko elementura lasterbidea.</value>
-  </data>
   <data name="ProjectManager.Label.BuildAllProjects" xml:space="preserve">
     <value>Proiektu guztiak eraiki</value>
   </data>
@@ -3282,35 +3208,11 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="FlashDebugger.Category.Misc" xml:space="preserve">
     <value>Hainbat</value>
   </data>
-  <data name="FlashDebugger.Category.Shortcuts" xml:space="preserve">
-    <value>Lasterbideak</value>
-  </data>
   <data name="FlashDebugger.Category.View" xml:space="preserve">
-    <value>Bista</value>
-  </data>
-  <data name="FlashDebugger.Description.Current" xml:space="preserve">
-    <value>Uneko komandoaren lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.DisableAllBreakPoints" xml:space="preserve">
-    <value>Laster-marka Guztiak Desgaitu komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.EnableAllBreakPoints" xml:space="preserve">
-    <value>Laster-marka Guztiak Gaitu komandoarentzako lasterbidea.</value>
+    <value>Ikusi</value>
   </data>
   <data name="FlashDebugger.Description.EnableLogging" xml:space="preserve">
-    <value>Araztailearen log-a gaitua (berrabiaraztea beharrezkoa da).</value>
-  </data>
-  <data name="FlashDebugger.Description.Finish" xml:space="preserve">
-    <value>Bukatu komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.Next" xml:space="preserve">
-    <value>Hurrengoa komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.Pause" xml:space="preserve">
-    <value>Pause komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.RunToCursor" xml:space="preserve">
-    <value>Kurtsorera Jauzi komandoarentzako lasterbidea.</value>
+    <value>Araztaile saioa gaitua (berrabiaraztea beharrezkoa).</value>
   </data>
   <data name="FlashDebugger.Description.SaveBreakPoints" xml:space="preserve">
     <value>Eten-puntuak gorde eta leheneratu.</value>
@@ -3318,32 +3220,14 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="FlashDebugger.Description.SourcePaths" xml:space="preserve">
     <value>Bide gehigarriak iturburu bilaketarako. Edozein framework edo liburutegi iturbururen kokapena zehazteko erabilgarria.</value>
   </data>
-  <data name="FlashDebugger.Description.StartContinue" xml:space="preserve">
-    <value>Hasi/Jarraitu komandoarentzako lasterbidea.</value>
-  </data>
   <data name="FlashDebugger.Description.StartDebuggerOnTestMovie" xml:space="preserve">
-    <value>Pelikula Probatun araztailea hasi.</value>
-  </data>
-  <data name="FlashDebugger.Description.Step" xml:space="preserve">
-    <value>Urratsa komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.Stop" xml:space="preserve">
-    <value>Gelditu komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.ToggleBreakPoint" xml:space="preserve">
-    <value>Eten-puntuak Txandakatu komandoarentzako lasterbidea.</value>
-  </data>
-  <data name="FlashDebugger.Description.ToggleBreakPointEnable" xml:space="preserve">
-    <value>Eten-puntuak Txandakatzea Gaitu komandoarentzako lasterbidea.</value>
+    <value>Proiektua Probatu-n araztailea hasi.</value>
   </data>
   <data name="FlashDebugger.Info.CannotDebugActiveXPlayer" xml:space="preserve">
     <value>Ezin izan da martxan dagoen pelikula ActiveX Flash Player-en araztu.</value>
   </data>
   <data name="FlashDebugger.Info.CannotFindOutputFile" xml:space="preserve">
     <value>Ezin izan da irteera fitxategia aurkitu.</value>
-  </data>
-  <data name="FlashDebugger.Info.CheckFlexSDKSetting" xml:space="preserve">
-    <value>Flex SDK-ren konfigurazioa ez da egokia. Ikusi AS3Ingurunea Programa Ezarpenak-en.</value>
   </data>
   <data name="FlashDebugger.Info.ContinuingDueToError" xml:space="preserve">
     <value>'${error}' errorea dela eta jarraitu</value>
@@ -3546,9 +3430,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="FlashDebugger.Title.StackTrace" xml:space="preserve">
     <value>Pila</value>
   </data>
-  <data name="CodeAnalyzer.Description.AnalyzeShortcut" xml:space="preserve">
-    <value>Proiektua analizatu komandoarentzeko lasterbidea.</value>
-  </data>
   <data name="CodeAnalyzer.Description.PMDRuleset" xml:space="preserve">
     <value>Flex PMD-arentzako lehenetsitako arau-multzo pertsonalizatuen fitxategia custom ruleset file for the Flex PMD.</value>
   </data>
@@ -3576,8 +3457,11 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ASCompletion.Label.GenerateConstructor" xml:space="preserve">
     <value>Eraikitzailea sortu</value>
   </data>
-  <data name="ASCompletion.Label.GenerateFieldFromPatameter" xml:space="preserve">
-    <value>Parametrotik eremua sortu</value>
+  <data name="ASCompletion.Label.GeneratePrivateFieldFromPatameter" xml:space="preserve">
+    <value>Parametrotik eremu pribatua sortu</value>
+  </data>
+  <data name="ASCompletion.Label.GeneratePublicFieldFromPatameter" xml:space="preserve">
+    <value>Parametrotik eremu publikoa sortu</value>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
     <value>toString() sortu</value>
@@ -3714,9 +3598,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ASClassWizard.Wizard.Label.NewClass" xml:space="preserve">
     <value>KlaseBerria</value>
   </data>
-  <data name="FlashDebugger.Description.DeleteAllBreakPoints" xml:space="preserve">
-    <value>Eten-puntu Guztiak Ezabatu komandora lasterbidea.</value>
-  </data>
   <data name="FlashDevelop.Info.DebugLineBack" xml:space="preserve">
     <value>Arazte lerroa:</value>
   </data>
@@ -3761,9 +3642,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="FlashDebugger.Description.DisablePanelsAutoshow" xml:space="preserve">
     <value>Aplikazio bat araztean araztailearen panela automatikoki agertu/desagertuko dira.</value>
-  </data>
-  <data name="ProjectManager.Description.OpenResourceShortcut" xml:space="preserve">
-    <value>BaliabideaIreki elkarrizketara lasterbidea.</value>
   </data>
   <data name="ProjectManager.Description.SearchExternalClassPath" xml:space="preserve">
     <value>Enable searching files in external classpath.</value>
@@ -3876,9 +3754,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="SourceControl.Label.SourceControl" xml:space="preserve">
     <value>Iturburu kontrola</value>
   </data>
-  <data name="FlashDebugger.Description.StartRemoteSession" xml:space="preserve">
-    <value>Urrutiko Saioa Hasi komandoarentzako lasterbidea.</value>
-  </data>
   <data name="FlashDevelop.Info.Language" xml:space="preserve">
     <value>Lengoaia:</value>
   </data>
@@ -3903,869 +3778,1043 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ASCompletion.Description.GenerateScope" xml:space="preserve">
     <value>Esparru erreferentzia esplizitua sortu - normalean 'this' hitz-gakoa.</value>
   </data>
-  <data name="ASCompletion.Settings.ShortcutSyntaxChecking" xml:space="preserve">
-    <value>Sintaxia egiaztatu</value>
-  </data>
-  <data name="ASCompletion.Settings.ShortcutQuickBuild" xml:space="preserve">
-    <value>Eraikitze azkarra</value>
-  </data>
-  <data name="ASCompletion.Settings.ShortcutGotoDeclaration" xml:space="preserve">
-    <value>Deklaraziora Joan</value>
-  </data>
-  <data name="ASCompletion.Settings.ShortcutBackFromDeclaration" xml:space="preserve">
-    <value>Deklaraziotik Itzuli</value>
-  </data>
-  <data name="ASCompletion.Settings.ShortcutTypesExplorer" xml:space="preserve">
-    <value>Proiektu Moten Arakatzailea</value>
-  </data>
-  <data name="ASCompletion.Settings.ContextualGenerator" xml:space="preserve">
-    <value>Ingurune Sortzailea</value>
-  </data>
-  <data name="ASCompletion.Settings.JavadocTagsEnabled" xml:space="preserve">
-    <value>Javadoc Etiketak gaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.JavadocTags" xml:space="preserve">
-    <value>Javadoc Etiketak</value>
-  </data>
-  <data name="ASCompletion.Settings.SmartTipsEnabled" xml:space="preserve">
-    <value>Iradokizun Adimendunak Gaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.DescriptionLinesLimit" xml:space="preserve">
-    <value>Deskribapen Lerroen Muga</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableAutoCloseBraces" xml:space="preserve">
-    <value>Blokeak Automatikoki Ixtea Desgaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.CondenseWhitespace" xml:space="preserve">
-    <value>Zuriuneak kondentsatu</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableCodeReformat" xml:space="preserve">
-    <value>Kodea Formateatzea Desgaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.ReformatBraces" xml:space="preserve">
-    <value>Giltzak Formateatu</value>
-  </data>
-  <data name="ASCompletion.Settings.SpaceBeforeFunctionCall" xml:space="preserve">
-    <value>Funtzio deiaren aurretik zuriunea gehitu</value>
-  </data>
-  <data name="ASCompletion.Settings.AlwaysCompleteWordLength" xml:space="preserve">
-    <value>Hitzaren Luzera Beti Osatu</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableCallTip" xml:space="preserve">
-    <value>Dei-iradokizun Automatikoa Desgaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableKnownTypesColoring" xml:space="preserve">
-    <value>Mota Ezagunen Koloreztatzea Desgaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.CompactChars" xml:space="preserve">
-    <value>zuriuneez inguratuak ez dauden karaktereak</value>
-  </data>
-  <data name="ASCompletion.Settings.SpacedChars" xml:space="preserve">
-    <value>zuriuneak beharrezkoak dituzten karaktereak</value>
-  </data>
-  <data name="ASCompletion.Settings.AddSpaceAfter" xml:space="preserve">
-    <value>Ondoren beti zuriune bat gehitu</value>
-  </data>
-  <data name="ASCompletion.Settings.PathToFlashIDE" xml:space="preserve">
-    <value>Flash IDE-rako bidea</value>
-  </data>
-  <data name="ASCompletion.Settings.OutlineViewShowExtends" xml:space="preserve">
-    <value>Extends-ak Erakutsi</value>
-  </data>
-  <data name="ASCompletion.Settings.OutlineViewShowImplements" xml:space="preserve">
-    <value>Implements-ak Erakutsi</value>
-  </data>
-  <data name="ASCompletion.Settings.OutlineViewShowImports" xml:space="preserve">
-    <value>Imports-ak Erakutsi</value>
-  </data>
-  <data name="ASCompletion.Settings.ShowRegions" xml:space="preserve">
-    <value>Regions-ak Erakutsi</value>
-  </data>
-  <data name="ASCompletion.Settings.SortingMode" xml:space="preserve">
-    <value>Ordenatze modua</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableCache" xml:space="preserve">
-    <value>Cache-a Desgaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.LastASVersion" xml:space="preserve">
-    <value>Azken ActionScript Bertsioa</value>
-  </data>
-  <data name="ASCompletion.Settings.EventListenersAutoRemove" xml:space="preserve">
-    <value>Gertaera Entzuleak Automatikoki Ezabatu</value>
-  </data>
-  <data name="ASCompletion.Settings.GenerateProtectedDeclarations" xml:space="preserve">
-    <value>Protected Adierazpenak Sortu</value>
-  </data>
-  <data name="ASCompletion.Settings.StartWithModifiers" xml:space="preserve">
-    <value>Adierazpenak Sarbide Aldatzaileekin Hasi</value>
-  </data>
-  <data name="ASCompletion.Settings.GenerateScope" xml:space="preserve">
-    <value>Esparru Esplizitua Sortu</value>
-  </data>
-  <data name="ASCompletion.Settings.PropertiesGenerationLocation" xml:space="preserve">
-    <value>Propietateak Sortzeko Kokapena</value>
-  </data>
-  <data name="ASCompletion.Settings.AddClosingBraces" xml:space="preserve">
-    <value>Ixteko Giltzak Gehitu</value>
-  </data>
-  <data name="ASCompletion.Settings.PrefixFields" xml:space="preserve">
-    <value>Parametroetatik sortutako eremuei aurrizkia jarri</value>
-  </data>
-  <data name="ASCompletion.Settings.CheckSyntaxOnSave" xml:space="preserve">
-    <value>Gordetzerakoan Sintaxia Egiaztatu</value>
-  </data>
-  <data name="ASCompletion.Settings.DocumentationCommandLine" xml:space="preserve">
-    <value>Dokumentazio Komando Lerroa</value>
-  </data>
-  <data name="ASCompletion.Settings.UserClasspath" xml:space="preserve">
-    <value>Erabiltzailearen Klase-bidea</value>
-  </data>
-  <data name="ASCompletion.Settings.CompletionEnabled" xml:space="preserve">
-    <value>Osaketa Gaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.GenerateImports" xml:space="preserve">
-    <value>Imports-ak Sortu</value>
-  </data>
-  <data name="ASCompletion.Settings.CompletionListAllTypes" xml:space="preserve">
-    <value>Osaketan Mota Guztiak Zerrendatu</value>
-  </data>
-  <data name="ASCompletion.Settings.CompletionShowQualifiedTypes" xml:space="preserve">
-    <value>Osaketan Kualifikatutako Motak Erakutsi</value>
-  </data>
-  <data name="ASCompletion.Settings.LazyClasspathExploration" xml:space="preserve">
-    <value>Klase-bide Arakatze Nagia</value>
-  </data>
-  <data name="ASCompletion.Settings.PlayAfterBuild" xml:space="preserve">
-    <value>Eraiki Ondoren Exekutatu</value>
-  </data>
-  <data name="ASCompletion.Settings.FixPackageAutomatically" xml:space="preserve">
-    <value>Paketea Automatikoki Zuzendu</value>
-  </data>
-  <data name="AS3Context.Settings.DefaultFlashVersion" xml:space="preserve">
-    <value>Lehenetsitako Flash Bertsioa</value>
-  </data>
-  <data name="AS3Context.Settings.AS3Classpath" xml:space="preserve">
-    <value>AS3 Klase-bidea</value>
-  </data>
-  <data name="AS3Context.Settings.ProfilerTimeout" xml:space="preserve">
-    <value>Profilatzailea denboraz kanpo</value>
-  </data>
-  <data name="AS3Context.Settings.CustomProfilers" xml:space="preserve">
-    <value>Profilatzailea pertsonalizatuak</value>
-  </data>
-  <data name="AS3Context.Settings.FlexSDK" xml:space="preserve">
-    <value>Flex SDK-ren Kokapena</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableFDB" xml:space="preserve">
-    <value>Flex Araztailea Ostatatzea Desgaitu</value>
-  </data>
-  <data name="ASCompletion.Settings.VerboseFDB" xml:space="preserve">
-    <value>Verbose Flex Debugger Output</value>
-  </data>
-  <data name="ASCompletion.Settings.DisableLiveSyntaxChecking" xml:space="preserve">
-    <value>Zuzeneko Sintaxi Egiaztatzea Desgaitu</value>
-  </data>
-  <data name="AS2Context.Settings.UseMtascIntrinsic" xml:space="preserve">
-    <value>Use Mtasc Intrinsics</value>
-  </data>
-  <data name="AS2Context.Settings.MtascPath" xml:space="preserve">
-    <value>MTASC-ren Kokapena</value>
-  </data>
-  <data name="AS2Context.Settings.MtascCheckParameters" xml:space="preserve">
-    <value>Parametroak Egiaztatu</value>
-  </data>
-  <data name="AS2Context.Settings.MMClassPath" xml:space="preserve">
-    <value>Flash IDE Klase-bidea</value>
-  </data>
-  <data name="AS2Context.Settings.DefaultFlashVersion" xml:space="preserve">
-    <value>Lehenetsitako Flash Bertsioa</value>
-  </data>
-  <data name="CodeAnalyzer.Settings.PMDRuleset" xml:space="preserve">
-    <value>Lehenetsitako Arau-multzo Fitxategia</value>
-  </data>
-  <data name="CodeAnalyzer.Settings.AnalyzeShortcut" xml:space="preserve">
-    <value>Proiektua Analizatzeko lasterbidea</value>
-  </data>
-  <data name="CodeRefactor.Settings.RenameShortcut" xml:space="preserve">
-    <value>Berrizendatu</value>
-  </data>
-  <data name="CodeRefactor.Settings.FindRefsShortcut" xml:space="preserve">
-    <value>Erreferentzia Guztiak Aurkitu</value>
-  </data>
-  <data name="CodeRefactor.Settings.OrganizeShortcut" xml:space="preserve">
-    <value>Imports-ak Antolatu</value>
-  </data>
-  <data name="CodeRefactor.Settings.TruncateShortcut" xml:space="preserve">
-    <value>Imports-ak Trinkotu</value>
-  </data>
-  <data name="CodeRefactor.Settings.ExtractLocalVariableShortcut" xml:space="preserve">
-    <value>Aldagai Lokalak Erauzi</value>
-  </data>
-  <data name="CodeRefactor.Settings.ExtractMethodShortcut" xml:space="preserve">
-    <value>Metodoa Erauzi</value>
-  </data>
-  <data name="CodeRefactor.Settings.GenerateDelegateMethodsShortcut" xml:space="preserve">
-    <value>Metodo Delegatuak Sortu</value>
-  </data>
-  <data name="CodeRefactor.Settings.SeparatePackages" xml:space="preserve">
-    <value>Paketeak Banatu</value>
-  </data>
-  <data name="SourceControl.Settings.EnableSVN" xml:space="preserve">
-    <value>SVN Gaitu</value>
-  </data>
-  <data name="SourceControl.Settings.SVNPath" xml:space="preserve">
-    <value>SVN-ra Bidea</value>
-  </data>
-  <data name="SourceControl.Settings.TortoiseSVNProcPath" xml:space="preserve">
-    <value>TortoiseSVN Proc-ra Bidea</value>
-  </data>
-  <data name="SourceControl.Settings.EnableGIT" xml:space="preserve">
-    <value>GIT Gaitu</value>
-  </data>
-  <data name="SourceControl.Settings.GITPath" xml:space="preserve">
-    <value>GIT-era Bidea</value>
-  </data>
-  <data name="SourceControl.Settings.TortoiseGITProcPath" xml:space="preserve">
-    <value>TortoiseGIT Proc-ra Bidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.SaveBreakPoints" xml:space="preserve">
-    <value>Eten-puntuak gorde</value>
-  </data>
-  <data name="FlashDebugger.Settings.DisablePanelsAutoshow" xml:space="preserve">
-    <value>Panelak Automatikoki Erakustea Desgaitu</value>
-  </data>
-  <data name="FlashDebugger.Settings.VerboseOutput" xml:space="preserve">
-    <value>Verbose Output</value>
-  </data>
-  <data name="FlashDebugger.Settings.SourcePaths" xml:space="preserve">
-    <value>Iturburu bideak</value>
-  </data>
-  <data name="FlashDebugger.Settings.Stop" xml:space="preserve">
-    <value>Gelditu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.StartContinue" xml:space="preserve">
-    <value>Hasi lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.Current" xml:space="preserve">
-    <value>Current Shortcut</value>
-  </data>
-  <data name="FlashDebugger.Settings.RunToCursor" xml:space="preserve">
-    <value>Kurtsorera Jauzi lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.Step" xml:space="preserve">
-    <value>Urratsa lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.Next" xml:space="preserve">
-    <value>Hurrengoa lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.Pause" xml:space="preserve">
-    <value>Pause lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.Finish" xml:space="preserve">
-    <value>Bukatu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.StartRemoteSession" xml:space="preserve">
-    <value>Urrutiko Saioa Hasi lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.ToggleBreakPoint" xml:space="preserve">
-    <value>Eten-puntuak Txandakatu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.ToggleBreakPointEnable" xml:space="preserve">
-    <value>Eten-puntuak Txandakatzea Gaitu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.DeleteAllBreakPoints" xml:space="preserve">
-    <value>Eten-puntuak Guztiak Ezabatu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.DisableAllBreakPoints" xml:space="preserve">
-    <value>Eten-puntuak Guztiak Desgaitu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.EnableAllBreakPoints" xml:space="preserve">
-    <value>Eten-puntuak Guztiak Gaitu lasterbidea</value>
-  </data>
-  <data name="FlashDebugger.Settings.StartDebuggerOnTestMovie" xml:space="preserve">
-    <value>Pelikula Probatzean Araztailea hasi</value>
-  </data>
-  <data name="FlashLogViewer.Settings.FlashLogFile" xml:space="preserve">
-    <value>Flash Log Fitxategia</value>
-  </data>
-  <data name="FlashLogViewer.Settings.PolicyLogFile" xml:space="preserve">
-    <value>Gidalerro Log Fitxategia</value>
-  </data>
-  <data name="FlashLogViewer.Settings.ColourWarnings" xml:space="preserve">
-    <value>Abisuak Koloreztatu</value>
-  </data>
-  <data name="FlashLogViewer.Settings.KeepPopupTopMost" xml:space="preserve">
-    <value>Popup-ak Gainean Mantendu</value>
-  </data>
-  <data name="FlashLogViewer.Settings.TrackingStartType" xml:space="preserve">
-    <value>Jarraipena Hasi</value>
-  </data>
-  <data name="FlashLogViewer.Settings.UpdateInterval" xml:space="preserve">
-    <value>Eguneratze-tartea</value>
-  </data>
-  <data name="FlashLogViewer.Settings.RegexWarning" xml:space="preserve">
-    <value>Abisuentzako Espresio Erregularak</value>
-  </data>
-  <data name="FlashLogViewer.Settings.RegexError" xml:space="preserve">
-    <value>Erroreentzako Espresio Erregularak</value>
-  </data>
-  <data name="PHPContext.Settings.IntrinsicDefinitions" xml:space="preserve">
-    <value>Berezko Definizioak</value>
-  </data>
-  <data name="TaskListPanel.Settings.ExcludedPaths" xml:space="preserve">
-    <value>Baztertutako Bideak</value>
-  </data>
-  <data name="TaskListPanel.Settings.FileExtensions" xml:space="preserve">
-    <value>Fitxategi Luzapenak</value>
-  </data>
-  <data name="TaskListPanel.Settings.GroupValues" xml:space="preserve">
-    <value>Talde Balioak</value>
-  </data>
-  <data name="TaskListPanel.Settings.ImageIndexes" xml:space="preserve">
-    <value>Irudi Indizeak</value>
-  </data>
-  <data name="StartPage.Settings.CloseOnProjectOpen" xml:space="preserve">
-    <value>Proiektua irekitzean Hasiera Orria itxi</value>
-  </data>
-  <data name="StartPage.Settings.ShowStartPageInsteadOfUntitled" xml:space="preserve">
-    <value>Hasiera Orria Erakutsi Dokumentu Izengabea Ordez</value>
-  </data>
-  <data name="StartPage.Settings.ShowStartPageOnStartup" xml:space="preserve">
-    <value>Abiatzean Hasiera Orria Erakutsi</value>
-  </data>
-  <data name="StartPage.Settings.CustomStartPage" xml:space="preserve">
-    <value>Hasiera Orri Pertsonalizatua</value>
-  </data>
-  <data name="StartPage.Settings.UseCustomStartPage" xml:space="preserve">
-    <value>Hasiera Orri Pertsonalizatua Erabili</value>
-  </data>
-  <data name="StartPage.Settings.CustomRssFeed" xml:space="preserve">
-    <value>RSS jariorako Pertsonalizatua</value>
-  </data>
-  <data name="StartPage.Settings.UseCustomRssFeed" xml:space="preserve">
-    <value>RSS jariorako Pertsonalizatua Erabili</value>
-  </data>
-  <data name="HaXeContext.Settings.DefaultFlashVersion" xml:space="preserve">
-    <value>Lehenetsitako Flash Bertsioa</value>
-  </data>
-  <data name="HaXeContext.Settings.HaXePath" xml:space="preserve">
-    <value>HaXe Bidea</value>
-  </data>
-  <data name="HaXeContext.Settings.HaXeCheckParameters" xml:space="preserve">
-    <value>Parametroak Egiaztatu</value>
-  </data>
-  <data name="HaXeContext.Settings.DisableCompilerCompletion" xml:space="preserve">
-    <value>Konpiladorean oinarritutako Osaketa Desgaitu</value>
-  </data>
-  <data name="HaXeContext.Settings.DisableMixedCompletion" xml:space="preserve">
-    <value>Osaketa Mistoa Desgaitu</value>
-  </data>
-  <data name="HaXeContext.Settings.DisableCompletionOnDemand" xml:space="preserve">
-    <value>Eskaripeko Osaketa Desgaitu</value>
-  </data>
-  <data name="HaXeContext.Settings.ExportHXML" xml:space="preserve">
-    <value>HXML Esportatu</value>
-  </data>
-  <data name="LayoutManager.Settings.CustomLayoutPath" xml:space="preserve">
-    <value>Ikuspegi Pertsonalizatuen Fitxategiaren Direktorioa</value>
-  </data>
-  <data name="XMLCompletion.Settings.DisableZenCoding" xml:space="preserve">
-    <value>Zen Kodetzea Desgaitu</value>
-  </data>
-  <data name="XMLCompletion.Settings.CloseTags" xml:space="preserve">
-    <value>Etiketak Itxi</value>
-  </data>
-  <data name="XMLCompletion.Settings.InsertQuotes" xml:space="preserve">
-    <value>Komatxoak Txertatu</value>
-  </data>
-  <data name="XMLCompletion.Settings.SmartIndenter" xml:space="preserve">
-    <value>Koskatze Adimenduna Gaitu</value>
-  </data>
-  <data name="XMLCompletion.Settings.UpperCaseHtmlTags" xml:space="preserve">
-    <value>HTML Etiketak Maiuskulaz</value>
-  </data>
-  <data name="XMLCompletion.Settings.EnableXMLCompletion" xml:space="preserve">
-    <value>XML Osaketa Gaitu</value>
-  </data>
-  <data name="ResultsPanel.Settings.ScrollToBottom" xml:space="preserve">
-    <value>Beheraino Korritu</value>
-  </data>
-  <data name="ResultsPanel.Settings.NextError" xml:space="preserve">
-    <value>Hurrengo Errororea</value>
-  </data>
-  <data name="ResultsPanel.Settings.PreviousError" xml:space="preserve">
-    <value>Aurreko Errorea</value>
-  </data>
-  <data name="OutputPanel.Settings.ShowOnOutput" xml:space="preserve">
-    <value>Irteeran Erakutsi</value>
-  </data>
-  <data name="OutputPanel.Settings.ShowOnProcessEnd" xml:space="preserve">
-    <value>Prozesu Bukaeran Erakutsi</value>
-  </data>
-  <data name="OutputPanel.Settings.WrapOutput" xml:space="preserve">
-    <value>Irteera bildu</value>
-  </data>
-  <data name="FlashViewer.Settings.PlayerPath" xml:space="preserve">
-    <value>Kanpoko Player-aren Bidea</value>
-  </data>
-  <data name="FlashViewer.Settings.DisplayStyle" xml:space="preserve">
-    <value>Pelikual Bistaratze Estiloa</value>
-  </data>
-  <data name="FlashViewer.Settings.DisableAutoConfig" xml:space="preserve">
-    <value>Auto-Konfigurazioa Desgitu</value>
-  </data>
-  <data name="FileExplorer.Settings.FilePath" xml:space="preserve">
-    <value>Bide Aktiboa</value>
-  </data>
-  <data name="FileExplorer.Settings.SynchronizeToProject" xml:space="preserve">
-    <value>Proiektuarekin Sinkronizatu</value>
-  </data>
-  <data name="FileExplorer.Settings.SortColumn" xml:space="preserve">
-    <value>Zutabe Aktiboa</value>
-  </data>
-  <data name="FileExplorer.Settings.SortOrder" xml:space="preserve">
-    <value>Klasifikatze ordena</value>
-  </data>
-  <data name="FlashDevelop.Settings.FoldAtElse" xml:space="preserve">
-    <value>Else-n Tolestu</value>
-  </data>
-  <data name="FlashDevelop.Settings.FoldComment" xml:space="preserve">
-    <value>Iruzkinak Tolestu</value>
-  </data>
-  <data name="FlashDevelop.Settings.FoldCompact" xml:space="preserve">
-    <value>Toleste Trinkoa Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.FoldHtml" xml:space="preserve">
-    <value>HTML-n Tolestu</value>
-  </data>
-  <data name="FlashDevelop.Settings.FoldPreprocessor" xml:space="preserve">
-    <value>Prozesatzailean Tolestu</value>
-  </data>
-  <data name="FlashDevelop.Settings.UseFolding" xml:space="preserve">
-    <value>Toleste Gaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.FoldFlags" xml:space="preserve">
-    <value>Toleste Flag-ak</value>
-  </data>
-  <data name="FlashDevelop.Settings.CaretLineVisible" xml:space="preserve">
-    <value>Testu-kurtsoaren Lerroa Nabarmendu</value>
-  </data>
-  <data name="FlashDevelop.Settings.HighlightGuide" xml:space="preserve">
-    <value>Nabarmentze Gida Desgaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.PrintMarginColumn" xml:space="preserve">
-    <value>Zutabe Marjina Inprimatu</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewEOL" xml:space="preserve">
-    <value>Lerro-bukaera Karaketereak (EOL) Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewBookmarks" xml:space="preserve">
-    <value>Laster-markak Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewLineNumbers" xml:space="preserve">
-    <value>Lerro Zenbakiak Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewIndentationGuides" xml:space="preserve">
-    <value>Koskatze Gidak Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewWhitespace" xml:space="preserve">
-    <value>Zuriune Karaketerak Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewToolBar" xml:space="preserve">
-    <value>TresnaBarra Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewStatusBar" xml:space="preserve">
-    <value>EgoeraBarra Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ViewModifiedLines" xml:space="preserve">
-    <value>Aldatutako Lerroak Ikusi</value>
-  </data>
-  <data name="FlashDevelop.Settings.ComboBoxFlatStyle" xml:space="preserve">
-    <value>ComboBox Estilo Finkoa</value>
-  </data>
-  <data name="FlashDevelop.Settings.UseListViewGrouping" xml:space="preserve">
-    <value>Zerrenda Bista Taldekatzea Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.UseSystemColors" xml:space="preserve">
-    <value>Sistemako EI Koloreak Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.RenderMode" xml:space="preserve">
-    <value>EI Errendatze Modua</value>
-  </data>
-  <data name="FlashDevelop.Settings.ConsoleFont" xml:space="preserve">
-    <value>EI-ko kontsolako letra-mota</value>
-  </data>
-  <data name="FlashDevelop.Settings.DefaultFont" xml:space="preserve">
-    <value>EI-ko Lehenetsitako letra-mota</value>
-  </data>
-  <data name="FlashDevelop.Settings.BackSpaceUnIndents" xml:space="preserve">
-    <value>Koska gabeko zuriuneak erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.TabIndents" xml:space="preserve">
-    <value>Tabulazio Koskak Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.SmartIndentType" xml:space="preserve">
-    <value>Koskatze Adimendun Mota</value>
-  </data>
-  <data name="FlashDevelop.Settings.CodingStyle" xml:space="preserve">
-    <value>Kodetze Estilo Mota</value>
-  </data>
-  <data name="FlashDevelop.Settings.CommentBlockStyle" xml:space="preserve">
-    <value>Iruzkin Blokeen Koskatzea</value>
-  </data>
-  <data name="FlashDevelop.Settings.IndentSize" xml:space="preserve">
-    <value>Koskatzen Tamaina</value>
-  </data>
-  <data name="FlashDevelop.Settings.TabWidth" xml:space="preserve">
-    <value>Tabulazioaren Zabalera</value>
-  </data>
-  <data name="FlashDevelop.Settings.UseTabs" xml:space="preserve">
-    <value>Tabulazioa Karaktereak Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.ApplyFileExtension" xml:space="preserve">
-    <value>Fitxategi Luzapenak Aplikatu</value>
-  </data>
-  <data name="FlashDevelop.Settings.AutoReloadModifiedFiles" xml:space="preserve">
-    <value>Aldatutako Fitxategiak Automatikoki Kargatu</value>
-  </data>
-  <data name="FlashDevelop.Settings.SequentialTabbing" xml:space="preserve">
-    <value>Tabulatze Sekuentziala Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.WrapText" xml:space="preserve">
-    <value>Editoreko Testua Bildu</value>
-  </data>
-  <data name="FlashDevelop.Settings.BraceMatchingEnabled" xml:space="preserve">
-    <value>Giltza Bategitea Erabili</value>
-  </data>
-  <data name="FlashDevelop.Settings.LineCommentsAfterIndent" xml:space="preserve">
-    <value>Koska Ondorengo Lerro Iruzkinak</value>
-  </data>
-  <data name="FlashDevelop.Settings.MoveCursorAfterComment" xml:space="preserve">
-    <value>Iruzkinaren Ondoren Kurtsorea Mugitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.RestoreFileStates" xml:space="preserve">
-    <value>Fitxategiaren Egoerak Berreskuratu</value>
-  </data>
-  <data name="FlashDevelop.Settings.RestoreFileSession" xml:space="preserve">
-    <value>Fitxategiaren Saioa Berreskuratu</value>
-  </data>
-  <data name="FlashDevelop.Settings.StripTrailingSpaces" xml:space="preserve">
-    <value>Strip Trailing Spaces</value>
-  </data>
-  <data name="FlashDevelop.Settings.EnsureConsistentLineEnds" xml:space="preserve">
-    <value>Lerro-bukaera Tinkoak Ziurtatu</value>
-  </data>
-  <data name="FlashDevelop.Settings.EnsureLastLineEnd" xml:space="preserve">
-    <value>Azken Lerro-bukaera Ziurtatu</value>
-  </data>
-  <data name="FlashDevelop.Settings.EOLMode" xml:space="preserve">
-    <value>Lerro-bukaera Mota</value>
-  </data>
-  <data name="FlashDevelop.Settings.CaretPeriod" xml:space="preserve">
-    <value>Testu-kurtsorearen Periodoa</value>
-  </data>
-  <data name="FlashDevelop.Settings.CaretWidth" xml:space="preserve">
-    <value>Testu-kurtsorearen Zabalera</value>
-  </data>
-  <data name="FlashDevelop.Settings.ScrollWidth" xml:space="preserve">
-    <value>Korritze-eremu Zabalera</value>
-  </data>
-  <data name="FlashDevelop.Settings.BackupInterval" xml:space="preserve">
-    <value>Babeskopia denbora-tartea</value>
-  </data>
-  <data name="FlashDevelop.Settings.FilePollInterval" xml:space="preserve">
-    <value>File Poll Interval</value>
-  </data>
-  <data name="FlashDevelop.Settings.LocaleVersion" xml:space="preserve">
-    <value>Aukeratutako Lokalizazioa</value>
-  </data>
-  <data name="FlashDevelop.Settings.DefaultFileExtension" xml:space="preserve">
-    <value>Lehenetsitako Fitxategi Luzapena</value>
-  </data>
-  <data name="FlashDevelop.Settings.DefaultCodePage" xml:space="preserve">
-    <value>Lehenetsitako KodeOrria</value>
-  </data>
-  <data name="FlashDevelop.Settings.SaveUnicodeWithBOM" xml:space="preserve">
-    <value>Create Unicode With BOM</value>
-  </data>
-  <data name="FlashDevelop.Settings.DisableReplaceFilesConfirm" xml:space="preserve">
-    <value>Fitxategietan Ordeztu Berrespena Desgaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.RedirectFilesResults" xml:space="preserve">
-    <value>Fitxategietan Ordeztu-ren Emaitza Berbideratu</value>
-  </data>
-  <data name="FlashDevelop.Settings.DisableFindOptionSync" xml:space="preserve">
-    <value>Aukera Sinkronoki Bilatu Desgaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.DisableFindTextUpdating" xml:space="preserve">
-    <value>Testua Bilatu Eguneratzea Desgaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.LatestCommand" xml:space="preserve">
-    <value>Azken Abio Komandoa</value>
-  </data>
-  <data name="FlashDevelop.Settings.LatestDialogPath" xml:space="preserve">
-    <value>Azken Bide Aktiboa</value>
-  </data>
-  <data name="FlashDevelop.Settings.WindowSize" xml:space="preserve">
-    <value>Leiho Tamaina</value>
-  </data>
-  <data name="FlashDevelop.Settings.WindowState" xml:space="preserve">
-    <value>Leiho Egoera</value>
-  </data>
-  <data name="FlashDevelop.Settings.WindowPosition" xml:space="preserve">
-    <value>Leiho Posizioa</value>
-  </data>
-  <data name="FlashDevelop.Settings.PreviousDocuments" xml:space="preserve">
-    <value>Aurreko Dokumentuak</value>
-  </data>
-  <data name="FlashDevelop.Settings.DisabledPlugins" xml:space="preserve">
-    <value>Desgaitutako Pluginak</value>
-  </data>
-  <data name="FlashDevelop.Settings.CustomArguments" xml:space="preserve">
-    <value>Argumentu Pertsonalizatuak</value>
-  </data>
-  <data name="FlashDevelop.Settings.HoverDelay" xml:space="preserve">
-    <value>Nabarmentze Atzerapena</value>
-  </data>
-  <data name="FlashDevelop.Settings.DisplayDelay" xml:space="preserve">
-    <value>Bistaratze Atzerapena</value>
-  </data>
-  <data name="FlashDevelop.Settings.ShowDetails" xml:space="preserve">
-    <value>Xehetasunak Erakutsi</value>
-  </data>
-  <data name="FlashDevelop.Settings.AutoFilterList" xml:space="preserve">
-    <value>Auto Filtro Zerrenda</value>
-  </data>
-  <data name="FlashDevelop.Settings.EnableAutoHide" xml:space="preserve">
-    <value>AutoEzkutatzea Gaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.WrapList" xml:space="preserve">
-    <value>Zerrenda Bildu</value>
-  </data>
-  <data name="FlashDevelop.Settings.DisableSmartMatch" xml:space="preserve">
-    <value>Bategite Adimenduna Desgaitu</value>
-  </data>
-  <data name="FlashDevelop.Settings.InsertionTriggers" xml:space="preserve">
-    <value>Osaketa Zerrendako Txertaketa Trigger-ak</value>
-  </data>
-  <data name="MacroManager.Settings.EditShortcut" xml:space="preserve">
-    <value>Lasterbidea Editatu</value>
-  </data>
-  <data name="MacroManager.Settings.UserMacros" xml:space="preserve">
-    <value>Erabiltzailearen Makroak</value>
-  </data>
-  <data name="ProjectManager.Settings.Strict" xml:space="preserve">
-    <value>Modu Hertsia</value>
-  </data>
-  <data name="ProjectManager.Settings.Infer" xml:space="preserve">
-    <value>Motak Inferitu</value>
-  </data>
-  <data name="ProjectManager.Settings.Verbose" xml:space="preserve">
-    <value>Verbose Output</value>
-  </data>
-  <data name="ProjectManager.Settings.WarnUnusedImports" xml:space="preserve">
-    <value>Erabili Gabeko Import-ez Abisatu</value>
-  </data>
-  <data name="ProjectManager.Settings.TraceMode" xml:space="preserve">
-    <value>Trace Mota</value>
-  </data>
-  <data name="ProjectManager.Settings.TraceFunction" xml:space="preserve">
-    <value>Trace Funtzio Pertsonalizatua</value>
-  </data>
-  <data name="ProjectManager.Settings.LibraryPrefix" xml:space="preserve">
-    <value>Liburutegiaren aurrizkia</value>
-  </data>
-  <data name="ProjectManager.Settings.UseMain" xml:space="preserve">
-    <value>Sarrera Puntu Nagusia Erabili</value>
-  </data>
-  <data name="ProjectManager.Settings.IncludePackages" xml:space="preserve">
-    <value>Paketeak Sartu</value>
-  </data>
-  <data name="ProjectManager.Settings.ExcludeFile" xml:space="preserve">
-    <value>Fitxategia Baztertu</value>
-  </data>
-  <data name="ProjectManager.Settings.GroupClasses" xml:space="preserve">
-    <value>Klaseak Taldekatu</value>
-  </data>
-  <data name="ProjectManager.Settings.UseMX" xml:space="preserve">
-    <value>MX Klaseak Erabili</value>
-  </data>
-  <data name="ProjectManager.Settings.Frame" xml:space="preserve">
-    <value>Injektatze Trama</value>
-  </data>
-  <data name="ProjectManager.Settings.Keep" xml:space="preserve">
-    <value>Klaseak SWF-an mantendu</value>
-  </data>
-  <data name="ProjectManager.Settings.Accessible" xml:space="preserve">
-    <value>Irisgarritasun Ezaugarriak Gaitu</value>
-  </data>
-  <data name="ProjectManager.Settings.AllowSourcePathOverlap" xml:space="preserve">
-    <value>Iturburu Bidea Teilakatzea Baimendu</value>
-  </data>
-  <data name="ProjectManager.Settings.Benchmark" xml:space="preserve">
-    <value>Saiakuntza-Bankuaren Emaitzak ErakutsiShow Benchmark Results</value>
-  </data>
-  <data name="ProjectManager.Settings.ES" xml:space="preserve">
-    <value>ECMAScript Objektu Modeloa Erabili</value>
-  </data>
-  <data name="ProjectManager.Settings.LoadConfig" xml:space="preserve">
-    <value>Konfigurazio Fitxategia Kargatu</value>
-  </data>
-  <data name="ProjectManager.Settings.Locale" xml:space="preserve">
-    <value>Lokalizazio hizkuntza</value>
-  </data>
-  <data name="ProjectManager.Settings.Optimize" xml:space="preserve">
-    <value>Byte-kodea Optimizatu</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowBindingWarnings" xml:space="preserve">
-    <value>Lotura Abisuak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowInvalidCSS" xml:space="preserve">
-    <value>Baliogabeko CSS Propietate Abisuak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowActionScriptWarnings" xml:space="preserve">
-    <value>Actionscript Abisuak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowDeprecationWarnings" xml:space="preserve">
-    <value>Zaharkitze Abisuak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowUnusedTypeSelectorWarnings" xml:space="preserve">
-    <value>Erabili gabeko Mota Aukeratzaile Abisuak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.StrictAS3" xml:space="preserve">
-    <value>Modu Hertsia Gaitu</value>
-  </data>
-  <data name="ProjectManager.Settings.UseResourceBundleMetadata" xml:space="preserve">
-    <value>Baliabide Sorta Metadatua Erabili</value>
-  </data>
-  <data name="ProjectManager.Settings.VerboseStackTraces" xml:space="preserve">
-    <value>Verbose Stack Traces</value>
-  </data>
-  <data name="ProjectManager.Settings.Warnings" xml:space="preserve">
-    <value>Abisu Guztiak Gaitu</value>
-  </data>
-  <data name="ProjectManager.Settings.Additional" xml:space="preserve">
-    <value>Konpiladore Aukera Gehigarriak</value>
-  </data>
-  <data name="ProjectManager.Settings.CompilerConstants" xml:space="preserve">
-    <value>Konpiladore Konstanteak</value>
-  </data>
-  <data name="ProjectManager.Settings.CustomSDK" xml:space="preserve">
-    <value>Flex SDK-ra Bide Pertsonalizatu</value>
-  </data>
-  <data name="ProjectManager.Settings.MinorVersion" xml:space="preserve">
-    <value>Player Bertsio Baxuagoa</value>
-  </data>
-  <data name="ProjectManager.Settings.IntrinsicPaths" xml:space="preserve">
-    <value>Berezko Liburutegiak</value>
-  </data>
-  <data name="ProjectManager.Settings.ExternalLibraryPaths" xml:space="preserve">
-    <value>Kanpo Liburutegiak</value>
-  </data>
-  <data name="ProjectManager.Settings.IncludeLibraries" xml:space="preserve">
-    <value>SWC-en Liburutegiak Sartu</value>
-  </data>
-  <data name="ProjectManager.Settings.LibraryPaths" xml:space="preserve">
-    <value>SWC Liburutegiak</value>
-  </data>
-  <data name="ProjectManager.Settings.RSLPaths" xml:space="preserve">
-    <value>Exekuzioan Elkarbanatutako Liburutegiak (RSL)</value>
-  </data>
-  <data name="ProjectManager.Settings.UseNetwork" xml:space="preserve">
-    <value>Sare Zerbitzuak Erabili</value>
-  </data>
-  <data name="ProjectManager.Settings.LinkReport" xml:space="preserve">
-    <value>Txostena Estekatu</value>
-  </data>
-  <data name="ProjectManager.Settings.LoadExterns" xml:space="preserve">
-    <value>Externs-ak Kargatu</value>
-  </data>
-  <data name="ProjectManager.Settings.StaticLinkRSL" xml:space="preserve">
-    <value>RSL Esteka Estatikoa</value>
-  </data>
-  <data name="ProjectManager.Settings.EnableDebug" xml:space="preserve">
-    <value>Araztailea Gaitu</value>
-  </data>
-  <data name="ProjectManager.Settings.FlashStrict" xml:space="preserve">
-    <value>Flash Hertsia</value>
-  </data>
-  <data name="ProjectManager.Settings.Directives" xml:space="preserve">
-    <value>Zuzentarauak</value>
-  </data>
-  <data name="ProjectManager.Settings.HaXeLibraries" xml:space="preserve">
-    <value>Liburutegiak</value>
-  </data>
-  <data name="ProjectManager.Settings.MainClass" xml:space="preserve">
-    <value>Klase Nagusia</value>
-  </data>
-  <data name="ProjectManager.Settings.OpenResourceShortcut" xml:space="preserve">
-    <value>Baliabidea Ireki</value>
-  </data>
-  <data name="ProjectManager.Settings.SearchExternalClassPath" xml:space="preserve">
-    <value>Kanpoko Klase-bidean Bilatu</value>
-  </data>
-  <data name="ProjectManager.Settings.UseProjectSessions" xml:space="preserve">
-    <value>Proiektu Saioak Erabili</value>
-  </data>
-  <data name="ProjectManager.Settings.MaxRecentProjects" xml:space="preserve">
-    <value>Azken Proiektuen Maximoa</value>
-  </data>
-  <data name="ProjectManager.Settings.DisableExtFlashIntegration" xml:space="preserve">
-    <value>Flash IDE Integrazioa Aurreratua Desgaitu</value>
-  </data>
-  <data name="ProjectManager.Settings.ExcludedFileTypes" xml:space="preserve">
-    <value>Baztertutako Fitxategi Motak</value>
-  </data>
-  <data name="ProjectManager.Settings.ExecutableFileTypes" xml:space="preserve">
-    <value>Fitxategi Mota Exekutagarriak</value>
-  </data>
-  <data name="ProjectManager.Settings.ExcludedDirectories" xml:space="preserve">
-    <value>Baztertutako Direktorioak</value>
-  </data>
-  <data name="ProjectManager.Settings.FilteredDirectoryNames" xml:space="preserve">
-    <value>Filtratutako Direktorio Izenak</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowProjectClasspaths" xml:space="preserve">
-    <value>Proiektu Klase-bideak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.ShowGlobalClasspaths" xml:space="preserve">
-    <value>Klase-bide Orokorrak Erakutsi</value>
-  </data>
-  <data name="ProjectManager.Settings.EnableMxmlMapping" xml:space="preserve">
-    <value>Mxml Iturburuak Mapeatzea Gaitu</value>
-  </data>
-  <data name="ProjectManager.Settings.AlternateTemplateDir" xml:space="preserve">
-    <value>Txantiloi Direktorioa Ordeztu</value>
-  </data>
-  <data name="ProjectManager.Settings.ShortcutTestMovie" xml:space="preserve">
-    <value>Pelikula Probatu Lasterbidea</value>
-  </data>
-  <data name="ProjectManager.Settings.ShortcutBuild" xml:space="preserve">
-    <value>Proiektua Eraiki Lasterbidea</value>
-  </data>
-  <data name="FlashConnect.Settings.Enabled" xml:space="preserve">
-    <value>Gaitua</value>
-  </data>
-  <data name="FlashConnect.Settings.Host" xml:space="preserve">
-    <value>Ostalaria</value>
-  </data>
-  <data name="FlashConnect.Settings.Port" xml:space="preserve">
-    <value>Portua</value>
-  </data>
-  <data name="MacroManager.Settings.Label" xml:space="preserve">
-    <value>Etiketa</value>
-  </data>
-  <data name="MacroManager.Settings.Image" xml:space="preserve">
-    <value>Irudia</value>
-  </data>
-  <data name="MacroManager.Settings.Entries" xml:space="preserve">
-    <value>Sarrerak</value>
-  </data>
-  <data name="MacroManager.Settings.AutoRun" xml:space="preserve">
-    <value>AutoRun</value>
-  </data>
-  <data name="MacroManager.Settings.Shortcut" xml:space="preserve">
+  <data name="FlashDevelop.Info.ShortcutEditInfo" xml:space="preserve">
+    <value>Item bat aukeratu eta menu item lasterbide teklak sakatuta lasterbideak editatu daitezke.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.Command" xml:space="preserve">
+    <value>Komandoa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.KeyboardShortcuts" xml:space="preserve">
+    <value>Teklatu L&amp;asterbideak...</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.RemoveShortcut" xml:space="preserve">
+    <value>&amp;Lasterbideak Ezabatu</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.RevertToDefault" xml:space="preserve">
+    <value>Lehenetsira &amp;Itzuli</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.Shortcut" xml:space="preserve">
     <value>Lasterbidea</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Title.Shortcuts" xml:space="preserve">
+    <value>Lasterbideak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Info.UnableToLoadPlugin" xml:space="preserve">
+    <value>Plugin bateraezina ezin izan da kargatu:</value>
+    <comment>Modified after 3.3.4</comment>
+  </data>
+  <data name="CodeRefactor.Label.InvokeCodeGenerator" xml:space="preserve">
+    <value>&amp;Kode Sortzailea</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="MacroManager.Description.Shortcut" xml:space="preserve">
+    <value>Makroaren Menu lasterbide tekla.</value>
+  </data>
+  <data name="FlashDevelop.Info.ShortcutIsAlreadyUsed" xml:space="preserve">
+    <value>Lasterbidea beste komando bati esleitua dago.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.AppDescriptorNotFound" xml:space="preserve">
+    <value>Ezin izan da lehenetsitako aplikazio deskriptore fitxategia (application.xml) lokalizatu. Aplikazioa deskriptore fitxategia eskuz aukeratu nahi duzu?</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.FileNamePrefixInvalid" xml:space="preserve">
+    <value>{0} propietatearentzako balizko balio bat sartu behar duzu ikonoa aukeratu aurretik.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.ImagePathInvalid" xml:space="preserve">
+    <value>Zuk aukeratutako irudia kokatuta dago</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.InvalidIconDimensions" xml:space="preserve">
+    <value>Aukeratutako ikonoak pixeletan {0} x {1} tamaina izan behar du.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.InvalidProperties" xml:space="preserve">
+    <value>Propietate batek edo gehiagok ez dute balizko balioa. Mesedez eguneratu balio hori(ek).</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Message.UnsupportedAirDescriptorFile" xml:space="preserve">
+    <value>'{0}' fitxategia ez da onatzen AIR aplikazio fitxategi gisa. Fitxategian zehaztutako AIR '{1}' runtime bertsioak propietate editoreak ez du onartzen. Ados sakatu aurrera jarraitu eta fitxategia AIR {2} propietateak erabiliz editatzeko.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.AppDescriptorNotFound" xml:space="preserve">
+    <value>Aplikazio deskriptore fitxategia ez da aurkitu</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.FileNamePrefixInvalid" xml:space="preserve">
+    <value>Use Uniform File Names Validation</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.InvalidIconDimensions" xml:space="preserve">
+    <value>Baliogabeko Irudi Tamaina</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.InvalidProperties" xml:space="preserve">
+    <value>Baliogabeko Propietate Balioa(k)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Alert.Title.UnsupportedAirDescriptorFile" xml:space="preserve">
+    <value>Abisua</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.AspectRatio.Landscape" xml:space="preserve">
+    <value>Horizontala</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.AspectRatio.Portrait" xml:space="preserve">
+    <value>Bertikala</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.PackageIconsFolder" xml:space="preserve">
+    <value>Ikonoen karpeta, aplikazioaren erro direktorioari erlatiboa. Zuria utzi fitxategiak aplikazioaren erroan badaude. Lehenetsia ez den balio bat izateko pakete script-a birkonfiguratu behar da.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.ProjectIconsFolder" xml:space="preserve">
+    <value>Ikonoen karpeta, proiektuaren karpetari erlatiboa. Proiektu barruko ikonoak gehitzeak ez du eraginik. Lehenetsia ez den balio bat izateko pakete script-a birkonfiguratu behar da.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.RenameIconsWithSize" xml:space="preserve">
+    <value>Ikonoen fitxategiak dagozkien tamainekin berrizendatu ikonoen karpetara kopiatzean. Ez aplikatu Use Uniform File Names true denean.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.SelectPropertiesFileOnOpen" xml:space="preserve">
+    <value>Irekitzean proiektuaren aplikazio deskriptore fitxategia eskuz aukeratzeko eskatu.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Description.UseUniformFileNames" xml:space="preserve">
+    <value>Ikonoen fitxategiak Fitxategi Izena propietatearen eta irudi tamainaren arteko konbinazio batekin berrizendatu ikonoen karpetara kopiatzean.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Exception.Message.NotAirDescriptorFile" xml:space="preserve">
+    <value>'{0}' fitxategia ez da balizko AIR aplikazio deskriptore fitxategia. Onartzen ez den izen-espazioa du.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Exception.Title.Initialization" xml:space="preserve">
+    <value>Deskriptore Fitxategia Irekitzean Errorea</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Info.Description" xml:space="preserve">
+    <value>AIR aplikazioaren propietate kudeaketa formularioa gehitzen dio AIR proiektuentzat.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Title.AirWizard" xml:space="preserve">
+    <value>AIR Aplikazioaren Propietateak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Icon" xml:space="preserve">
+    <value>Ikonoa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ProjectMenuItem" xml:space="preserve">
+    <value>&amp;AIR Aplikazio Propietateak...</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.ChineseSimplified" xml:space="preserve">
+    <value>Txinatar Erraztua (zh)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.ChineseTraditional" xml:space="preserve">
+    <value>Txinatar Trad. (zh-Hant)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Czech" xml:space="preserve">
+    <value>Txekiarra (cs)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Default" xml:space="preserve">
+    <value>Lehenetsia</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Dutch" xml:space="preserve">
+    <value>Nederlandera (nl)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.English" xml:space="preserve">
+    <value>Ingelesa (en)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.French" xml:space="preserve">
+    <value>Frantsesa (fr)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.German" xml:space="preserve">
+    <value>Alemana (de)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Italian" xml:space="preserve">
+    <value>Italiera (it)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Japanese" xml:space="preserve">
+    <value>Japoniarra (jp)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Korean" xml:space="preserve">
+    <value>Korearra (ko)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Polish" xml:space="preserve">
+    <value>Poloniera (pl)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Portuguese" xml:space="preserve">
+    <value>Braz. Portugesa(pt-BR)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Russian" xml:space="preserve">
+    <value>Errusiera (ru)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Spanish" xml:space="preserve">
+    <value>Gaztelera (es)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Swedish" xml:space="preserve">
+    <value>Suediera (sv)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Locale.Turkish" xml:space="preserve">
+    <value>Turkiarra (tr)</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.RenderMode.Auto" xml:space="preserve">
+    <value>Auto</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.RenderMode.CPU" xml:space="preserve">
+    <value>CPU</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.RenderMode.GPU" xml:space="preserve">
+    <value>GPU</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.SystemChrome.None" xml:space="preserve">
+    <value>Bat ere ez</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.SystemChrome.Standard" xml:space="preserve">
+    <value>Estandarra</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidExtension" xml:space="preserve">
+    <value>{0} Luzapen IDa baliogabea da.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidFileType" xml:space="preserve">
+    <value>{0} Fitxategi Motak baliogabeko propietate bat edo gehiago ditu.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidLocale" xml:space="preserve">
+    <value>Hizkuntza pertsonalizatutzat sartutako balioa ez da egokia.
+Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Validation.InvalidProperty" xml:space="preserve">
+    <value>{0} propietatea ez da balizkoa.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Add" xml:space="preserve">
+    <value>&amp;Gehit</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AddCustomLocale" xml:space="preserve">
+    <value>Hizkuntza pertsonalizatua gehitu</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Cancel" xml:space="preserve">
+    <value>&amp;Utzi</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.DefaultLocales" xml:space="preserve">
+    <value>Lehenetsitako Hizkuntzak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Locales" xml:space="preserve">
+    <value>Hizkuntzak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Ok" xml:space="preserve">
+    <value>&amp;Ados</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.SelectedLocales" xml:space="preserve">
+    <value>Aukeratutako Hizkuntzak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AndroidAdditions" xml:space="preserve">
+    <value>Android Manifest Gehigarriak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Application" xml:space="preserve">
+    <value>Aplikazioa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AspectRatio" xml:space="preserve">
+    <value>Aspektu-erlazioa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.AutoOrients" xml:space="preserve">
+    <value>Auto Orientazioa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.BrowserInvocation" xml:space="preserve">
+    <value>Arakatzaileari Deitzea Baimendu</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Content" xml:space="preserve">
+    <value>Edukia</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ContentType" xml:space="preserve">
+    <value>Eduki Mota</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Copyright" xml:space="preserve">
+    <value>Copyright</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.CustomUpdateUI" xml:space="preserve">
+    <value>Eguneraketa EI pertsonalizatua</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Description" xml:space="preserve">
+    <value>Deskripzioa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Desktop" xml:space="preserve">
+    <value>Mahaigaina</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Details" xml:space="preserve">
+    <value>Xehetasunak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ExtendedDesktop" xml:space="preserve">
+    <value>Mahaigain Hedatua</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ExtendedTv" xml:space="preserve">
+    <value>TV Hedatua</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Extension" xml:space="preserve">
+    <value>Luzapena</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ExtensionId" xml:space="preserve">
+    <value>Luzapen IDa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Extensions" xml:space="preserve">
+    <value>Luzapenak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.FileName" xml:space="preserve">
+    <value>Fitxategi Izena</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.FileTypes" xml:space="preserve">
+    <value>Fitxategi Motak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Fullscreen" xml:space="preserve">
+    <value>Pantaila Osoa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Help" xml:space="preserve">
+    <value>&amp;Laguntza</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Icons" xml:space="preserve">
+    <value>Ikonak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Id" xml:space="preserve">
+    <value>ID</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.InitialLocation" xml:space="preserve">
+    <value>Hasierako Hizkuntza</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.InitialSize" xml:space="preserve">
+    <value>Hasierako Tamaina</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Installation" xml:space="preserve">
+    <value>Instalazioa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.InstallFolder" xml:space="preserve">
+    <value>Instalazio Karpeta</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.IPhoneAdditions" xml:space="preserve">
+    <value>IPhone Info Gehigarriak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Locale" xml:space="preserve">
+    <value>Hizkuntza</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Maximizable" xml:space="preserve">
+    <value>Maximizagarria</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MaximumSize" xml:space="preserve">
+    <value>Tamaina Maximoa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Minimizable" xml:space="preserve">
+    <value>Minimizagarria</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MinimumSize" xml:space="preserve">
+    <value>Tamaina Minimoa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MinPatchLevel" xml:space="preserve">
+    <value>Minimum Patch Level</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.MobileDevice" xml:space="preserve">
+    <value>Gailu Mugikorra</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Name" xml:space="preserve">
+    <value>Izena</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.New" xml:space="preserve">
+    <value>Berria</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.NonWindowedPlatforms" xml:space="preserve">
+    <value>Lehio Gabeko Plataformak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.ProgramMenuFolder" xml:space="preserve">
+    <value>Programaren Menu Karpeta</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.PublisherId" xml:space="preserve">
+    <value>Argitaratzaile ID</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Remove" xml:space="preserve">
+    <value>Ezabatu</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.RenderMode" xml:space="preserve">
+    <value>Errandatze Modua</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Resizable" xml:space="preserve">
+    <value>Tamaina Aldagarria</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.SupportedProfiles" xml:space="preserve">
+    <value>Onartutako Profilak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.SystemChrome" xml:space="preserve">
+    <value>Sistemaren Markoa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Title" xml:space="preserve">
+    <value>Titulua</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.TitleDesc" xml:space="preserve">
+    <value>Zure AIR aplikazioaren propietateak konfiguratu. Eskuragarri dauden propietateen azalpen{0}zehaztuagoa eta onartutako balioak ikusteko, mesedez sakatu online laguntzarako Laguntza botoia.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Transparent" xml:space="preserve">
+    <value>Gardena</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Tv" xml:space="preserve">
+    <value>TV</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Version" xml:space="preserve">
+    <value>Bertsioa</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.VersionNo" xml:space="preserve">
+    <value>Bertsio Zenb.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.Visible" xml:space="preserve">
+    <value>Ikusgai</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.WindowBounds" xml:space="preserve">
+    <value>Lehiaren Mugak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Label.WindowedPlatforms" xml:space="preserve">
+    <value>Lehiodun Plataformak</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AirProperties.Title.LocaleManager" xml:space="preserve">
+    <value>AIR Aplikazio Instalatzailearen Hizkuntzak konfiguratu</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="SourceControl.Description.EnableHG" xml:space="preserve">
+    <value>FlashDevelop-en Mercurial-en (Hg) integrazioa gaitu</value>
+  </data>
+  <data name="SourceControl.Description.HGPath" xml:space="preserve">
+    <value>Mercurial komando lerroko tresnarako bidea. Adibidea: 'hg' dagoeneko ingurune bidean instalaturik badago.</value>
+  </data>
+  <data name="SourceControl.Description.TortoiseHGProcPath" xml:space="preserve">
+    <value>TortoiseHG-en TortoiseProc tresnarako bidea. Adibidea: 'hgtk'.</value>
+  </data>
+  <data name="FlashDevelop.Description.CustomShortcuts" xml:space="preserve">
+    <value>Erabiltzaileak definitutako lasterbide zerrenda.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="SourceControl.Category.HG" xml:space="preserve">
+    <value>HG</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="AS3Context.Description.AS3FileTypes" xml:space="preserve">
+    <value>Klase-bidean esploratutako fitxategi luzapenak. Lehenetsiak *.as, *.mxml (sartu fitxategi mota bat lerroko).</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Info.CouldNotFormat" xml:space="preserve">
+    <value>Sintaxi erroreak aurkitu dira. Ezin izan da kodea formateatu.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeFormatter.Info.Description" xml:space="preserve">
+    <value>MXML eta ActionScript kode formateatzaile bat gehitzen dio FlashDevelop-i.</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="CodeFormatter.Label.CodeFormatter" xml:space="preserve">
+    <value>Kode &amp;Formateatzailea</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.EncodingInput" xml:space="preserve">
+    <value>Kodetzen:</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.Hash" xml:space="preserve">
+    <value>&amp;Hash...</value>
+  </data>
+  <data name="FlashDevelop.Label.HashInput" xml:space="preserve">
+    <value>Hash:</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.InputText" xml:space="preserve">
+    <value>Input:</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Label.OutputText" xml:space="preserve">
+    <value>Output:</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="FlashDevelop.Title.HashDialog" xml:space="preserve">
+    <value>Txertatu Hash</value>
+    <comment>Added after 3.3.1</comment>
+  </data>
+  <data name="ProjectManager.Label.CleanProject" xml:space="preserve">
+    <value>&amp;Proiektua garbitu</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Info.UnableToCleanProject" xml:space="preserve">
+    <value>Ezin izan da irteera fitxategia ezabatu</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Info.Description" xml:space="preserve">
+    <value>Birtualizazio zubi konfigurazioa gehitu FlashDevelop-i.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.Active" xml:space="preserve">
+    <value>Sistema ostalari bati ordezkaritza gaitzen du, normalean FlashDevelop MacOS edo Linux ostalari batean birtualizatu denean.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.AlwaysOpenLocal" xml:space="preserve">
+    <value>Windows-ek beti eta sistema ostalariak inoiz exekutatuko dituzten fitxategi luzapen zerrenda.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.SharedDrive" xml:space="preserve">
+    <value>Sistema ostalaria Windows SE gonbidatuarekin elkarbanatutako unitatea.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.TargetRemoteIDE" xml:space="preserve">
+    <value>Sistema ostalariko Flash CS* erabili FLA edo JSFL ostalariaren unitatean kokatuak badaude.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.UseRemoteExplorer" xml:space="preserve">
+    <value>Sistema ostalariko fitxategi esploratzailea erabili bidea ostalariaren unitatean kokatua badago.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Description.ConfirmOnExit" xml:space="preserve">
+    <value>Programa ixtea baieztatu irteterakoan.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Info.AreYouSureToExit" xml:space="preserve">
+    <value>Ziur zaude FlashDevelop-etik irten nahi duzula?</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Label.MoveLineDown" xml:space="preserve">
+    <value>Lerroa Behera Mugitu</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="FlashDevelop.Label.MoveLineUp" xml:space="preserve">
+    <value>Lerroa Gora Mugitu</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="FlashDevelop.Description.VirtualSpaceMode" xml:space="preserve">
+    <value>Aukeraketa angeluzuzena espaziorekin birtuala modua ezartzen du.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="FlashDevelop.Category.Locale" xml:space="preserve">
+    <value>Hizkuntza</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.BridgePort" xml:space="preserve">
+    <value>Zubiaren konexio socket portua (lehenetsia 8009).</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="BridgeSettings.Description.CustomBridgeIP" xml:space="preserve">
+    <value>IP zehatz bat eskaini auto-detektatzea gainidazteko.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKTab" xml:space="preserve">
+    <value>SDK</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.Manage" xml:space="preserve">
+    <value>&amp;Kudeatu...</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKGroup" xml:space="preserve">
+    <value>Instalatutako SDK(k)</value>
+    <comment>Added after 3.2.2</comment>
+  </data>
+  <data name="FlashDevelop.Label.UTF7" xml:space="preserve">
+    <value>U&amp;TF-7</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesAfterColons" xml:space="preserve">
+    <value>Bi punturen ondorengo hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesBeforeColons" xml:space="preserve">
+    <value>Bi punturen aurreko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayDeclarationBrackets" xml:space="preserve">
+    <value>Array-aren deklarazio parentesi barruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideArrayReferenceBrackets" xml:space="preserve">
+    <value>Array-aren erreferentzia parentesi barruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideLiteralBraces" xml:space="preserve">
+    <value>Giltzen arteko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AdvancedSpacesInsideParens" xml:space="preserve">
+    <value>Parentesi barruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.AlwaysGenerateIndent" xml:space="preserve">
+    <value>Beti sortu kode koska.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeClasses" xml:space="preserve">
+    <value>Klaseen aurreko lerro zuri kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeControlStatements" xml:space="preserve">
+    <value>Kontrol adierazpenen aurreko lerro zuri kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeFunctions" xml:space="preserve">
+    <value>Funtzioen aurreko lerro zuri kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesBeforeProperties" xml:space="preserve">
+    <value>Propietateen aurreko lerro zuri kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BlankLinesToKeep" xml:space="preserve">
+    <value>Gordetzeko lerro zuri kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BraceStyle" xml:space="preserve">
+    <value>Giltzen estiloa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.BreakLinesBeforeComma" xml:space="preserve">
+    <value>Koma bakoitzaren aurretik lerro saltoa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.CatchOnNewLine" xml:space="preserve">
+    <value>catch lerro berri batean kokatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.CollapseSpacesForAdjacentParens" xml:space="preserve">
+    <value>Ondoko parentesientzako hutsuneak tolestu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.DontIndentPackageItems" xml:space="preserve">
+    <value>Pakete item-ak ez koskatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.ElseIfOnSameLine" xml:space="preserve">
+    <value>elseif lerro berri batean kokatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.ElseOnNewLine" xml:space="preserve">
+    <value>else lerro berri batean kokatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.IndentMultilineComments" xml:space="preserve">
+    <value>Lerro anitzeko iruzikinak koskatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.KeepBlankLines" xml:space="preserve">
+    <value>Dokumentuaren lerro zuriak mantendu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.KeepSingleLineCommentsOnColumnOne" xml:space="preserve">
+    <value>Zutabe bat denean iruzkinak lerro bakarrean mantendu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.LeaveExtraWhitespaceAroundVarDeclarations" xml:space="preserve">
+    <value>var deklarazioen inguruan zuriune gehigarria utzi.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.MaxLineLength" xml:space="preserve">
+    <value>Lerroko karaktere kopuru maximoa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.NewLineAfterBindable" xml:space="preserve">
+    <value>bindable-ren ondoren lerro berria kokatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.OpenBraceOnNewLine" xml:space="preserve">
+    <value>Irekitzeko giltza lerro berri batean kokatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.PutEmptyStatementsOnNewLine" xml:space="preserve">
+    <value>Adierazpen hutsak lerro berri batean kokatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAfterComma" xml:space="preserve">
+    <value>Koma ondorengo hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAfterLabel" xml:space="preserve">
+    <value>Etiketen ondorengo hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundAssignment" xml:space="preserve">
+    <value>Esleipenen inguruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundColons" xml:space="preserve">
+    <value>Bi punturen inguruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundEqualsInOptionalParameters" xml:space="preserve">
+    <value>Aukerako parametroko berdin-en inguruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesAroundSymbolicOperator" xml:space="preserve">
+    <value>Operadore sinbolikoen inguruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesBeforeComma" xml:space="preserve">
+    <value>Koma aurreko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesBeforeOpenControlParen" xml:space="preserve">
+    <value>Kontrol parentesi aurreko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.SpacesInsideParens" xml:space="preserve">
+    <value>Parentesi barruko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.TrimTrailingWhitespace" xml:space="preserve">
+    <value>Amaierako zuriune karaketereak moztu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseBraceStyle" xml:space="preserve">
+    <value>GiltzaEstilo ezarpena erabili.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseGlobalSpacesAroundColons" xml:space="preserve">
+    <value>BiPuntuIngurukoHutsuneGlobalak ezarpena erabili.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseGlobalSpacesInsideParens" xml:space="preserve">
+    <value>ParentesiArtekoHutsuneGlobalak ezarpena erabili.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseSpacesAroundEqualsInOptionalParameters" xml:space="preserve">
+    <value>AukerakoParametrokoBerdinenIngurukoHutsuneak ezarpena erabili.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.UseTabs" xml:space="preserve">
+    <value>Etiketak erabili koskatutako giltzak erabili ordez.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapArrayDeclarationMode" xml:space="preserve">
+    <value>Array deklarazioa biltzeko modua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapExpressionMode" xml:space="preserve">
+    <value>Espresioa biltzeko modua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapIndentStyle" xml:space="preserve">
+    <value>Koskak biltzeko estiloa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapMethodCallMode" xml:space="preserve">
+    <value>Metodo deia biltzeko modua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapMethodDeclarationMode" xml:space="preserve">
+    <value>Metodo deklarazioa biltzeko modua</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.AS.WrapXMLMode" xml:space="preserve">
+    <value>XML biltzeko modua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AddNewLineAfterLastAttribute" xml:space="preserve">
+    <value>Azken atributuaren ondoren lerro berri bat gehitu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AttributesPerLine" xml:space="preserve">
+    <value>Lerroko atributu kopuru maximoa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AttributesToKeepOnSameLine" xml:space="preserve">
+    <value>Lerro berean mantentzeko atributuen zerrenda.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.AttributeWrapMode" xml:space="preserve">
+    <value>Atributuak biltzeko modua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.BlankLinesBeforeTags" xml:space="preserve">
+    <value>Etiketen aurreko lerro zuri kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.KeepBlankLines" xml:space="preserve">
+    <value>Dokumentuaren lerro zuriak mantendu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.MaxLineLength" xml:space="preserve">
+    <value>Lerroko karaktere kopuru maximoa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.RequireCDATAForAS3Formatting" xml:space="preserve">
+    <value>CDATA beharrezkoa AS3 kode formateatzerako.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SortAttributeData" xml:space="preserve">
+    <value>Atributuen datuak ordenatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SortAttributeMode" xml:space="preserve">
+    <value>Atributuen ordenazio modua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SortExtraAttributes" xml:space="preserve">
+    <value>Atributu gehigarriak ordenatu.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SpacesAroundEquals" xml:space="preserve">
+    <value>Berdin inguruko hutsune kopurua</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.SpacesBeforeEmptyTagEnd" xml:space="preserve">
+    <value>Etiketa hutsen bukaera aurreko hutsune kopurua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.TagsThatCanFormat" xml:space="preserve">
+    <value>Formateatutako etiketen zerrenda.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.TagsThatCannotFormat" xml:space="preserve">
+    <value>Formateatzen ez diren etiketen zerrenda.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.TagsWithBlankLinesBefore" xml:space="preserve">
+    <value>Aurretik lerro hutsa duten etiketen zerrenda.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.UseAttributesToKeepOnSameLine" xml:space="preserve">
+    <value>LerroBereanMantentzekoAtributuak ezarpena erabili.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.UseTabs" xml:space="preserve">
+    <value>Koskatzerakoan etiketak erabili giltzak ordez.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="CodeFormatter.Description.MXML.WrapIndentStyle" xml:space="preserve">
+    <value>Koskak biltzeko estiloa.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKBrowse" xml:space="preserve">
+    <value>Arakatu...</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKComboDefault" xml:space="preserve">
+    <value>Lehenetsia</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKComboNoSDK" xml:space="preserve">
+    <value>SDK ez dago konfiguratua</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKExpected" xml:space="preserve">
+    <value>Espero zena:</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKTabCustom" xml:space="preserve">
+    <value>SDK Pertsonalizatua</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKUseCustom" xml:space="preserve">
+    <value>SDK zehatz baterako bide erlatibo edo absolutua.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Label.SDKUseGlobal" xml:space="preserve">
+    <value>Orokorrean konfiguratutako SDK bat erabili.</value>
+    <comment>Added after 3.3.2</comment>
+  </data>
+  <data name="ProjectManager.Info.CheckSDKSettings" xml:space="preserve">
+    <value>Proiektu honek ez du balizko SDK bat definiturik. Mesedez Proiektu Propietateetako SDK fitxa egiaztatu.</value>
+    <comment>Added after 3.3.3</comment>
+  </data>
+  <data name="ProjectManager.Description.OmitTraces" xml:space="preserve">
+    <value>Argitalpen konpilazioan (ez arazketan) zure kodetik trace() deiak ezabatu.</value>
+    <comment>Added after 3.3.3</comment>
+  </data>
+  <data name="ProjectManager.Label.DocumentClass" xml:space="preserve">
+    <value>Dokumentu &amp;Klasea</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.AddSourcePath" xml:space="preserve">
+    <value>&amp;Iturburu Bidea Gehitu</value>
+    <comment>Added after 3.3.3</comment>
+  </data>
+  <data name="FlashDebugger.Label.ViewImmediatePanel" xml:space="preserve">
+    <value>Berehalako Panela</value>
+  </data>
+  <data name="FlashDebugger.Title.Immediate" xml:space="preserve">
+    <value>Berehalakoa</value>
+  </data>
+  <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
+    <value>Dokumentu &amp;Klasea Ezarri</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Info.NoAssociatedIDE" xml:space="preserve">
+    <value>Helburu honek ez du kanpo IDE bat loturik.</value>
+    <comment>added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Info.OutputType" xml:space="preserve">
+    <value>Konpilazio &amp;Helburua:</value>
+    <comment>added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeApplication" xml:space="preserve">
+    <value>Aplikazioa</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeCustomBuild" xml:space="preserve">
+    <value>Erakitize pertsonalizatua</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeLibrary" xml:space="preserve">
+    <value>Liburutegia</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeOtherIDE" xml:space="preserve">
+    <value>Beste IDE</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.OutputTypeWebsite" xml:space="preserve">
+    <value>Web orria</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieCustom" xml:space="preserve">
+    <value>Komando Pertsonalizatua Exekutatu...</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieDefault" xml:space="preserve">
+    <value>Erreproduzitu: Lehenetsitako FlashViewer</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieExternalPlayer" xml:space="preserve">
+    <value>Erreproduzitu: Kanpoko Player-a</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieNewTab" xml:space="preserve">
+    <value>Erreproduzitu: Fitxa berrian</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieNewWindow" xml:space="preserve">
+    <value>Erreproduzitu: Popup-ean</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieOpenDocument" xml:space="preserve">
+    <value>Dokumentua Ireki...</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Category.Paths" xml:space="preserve">
+    <value>Bideak</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomSnippetDir" xml:space="preserve">
+    <value>Kode-zati pertsonalizatuen direktoriora bidea.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomTemplateDir" xml:space="preserve">
+    <value>Txantiloi pertsonalizatuen direktoriora bidea.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Description.CustomProjectsDir" xml:space="preserve">
+    <value>Proiektu txantiloi pertsonalizatuen direktoriora bidea.</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ASCompletion.Description.HandlerNamingConvention" xml:space="preserve">
+    <value>Sortzaileak gertaera kudeatzaile bat automatikoki sor dezake ondorengo izen konbentzioak erabiliz</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ASCompletion.Label.MoveDeclarationOnTop" xml:space="preserve">
+    <value>Deklarazioa(k) gora mugitu</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="ASCompletion.Label.GeneratePublicCallback" xml:space="preserve">
+    <value>Atzeradei publikoa sortu</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="FlashDevelop.Label.SmartPaste" xml:space="preserve">
+    <value>Itsasketa Adimenduna</value>
+    <comment>Added after 4.0.0 Beta</comment>
+  </data>
+  <data name="FlashDevelop.Label.JScriptDocument" xml:space="preserve">
+    <value>JScript Dokumentua</value>
+    <comment>Added after 4.0.0 Beta</comment>
   </data>
   <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
     <value>&amp;Iturburu-bidea</value>
