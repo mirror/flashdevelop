@@ -6,11 +6,15 @@ using System.IO;
 using SwfOp.IO;
 using SwfOp.Data;
 using SwfOp.Data.Tags;
+using System.Collections;
+using SwfOp.Utils;
 
 namespace SwfOp
 {
     public class ContentParser
     {
+        public SwfHeader Header;
+        public SwfFileAttributes FileAttributes = new SwfFileAttributes();
         public List<string> Errors;
         public List<DeclEntry> Symbols;
         public List<DeclEntry> Frames;
@@ -122,7 +126,9 @@ namespace SwfOp
                 Errors.Add("Swf error: " + ex.Message);
             }
             if (swf == null) return;
-			
+
+            Header = swf.Header;
+
 			// list tags
             currentFrame = 0;
             DeclEntry frame = new DeclEntry("Frame 0");
@@ -171,6 +177,16 @@ namespace SwfOp
                     Fonts.Add(new DeclEntry(ftag.Name + " (" + style + ftag.GlyphCount + ")"));
                     FontsSize += tag.Size;
                 }
+                else if ((TagCodeEnum)tag.TagCode == TagCodeEnum.FileAttributes)
+                {
+                    ParseAttributes(tag);
+                }
+                else if ((TagCodeEnum)tag.TagCode == TagCodeEnum.SetBackgroundColor)
+                {
+                    FileAttributes.Background = (tag.Data[2] << 16 | tag.Data[3] << 8 | tag.Data[4]).ToString("X");
+                    while (FileAttributes.Background.Length < 6) FileAttributes.Background = "0" + FileAttributes.Background;
+                    FileAttributes.Background = "#" + FileAttributes.Background;
+                }
 
                 if (tag is DoActionTag || tag is AbcTag) frame.AbcSize += tag.Size;
                 else if (tag is DefineFontTag) frame.FontSize += tag.Size;
@@ -180,6 +196,16 @@ namespace SwfOp
 
             // empty frame at the end
             if (Frames.Count > 1 && frame.DataSize == 4) Frames.Remove(frame);
+        }
+
+        private void ParseAttributes(BaseTag tag)
+        {
+            BitArray ba = BitParser.GetBitValues(tag.Data);
+            FileAttributes.UseDirectBlit = (bool)ba[16 + 1];
+            FileAttributes.UseGPU = (bool)ba[16 + 2];
+            FileAttributes.HasMetaData = (bool)ba[16 + 3];
+            FileAttributes.Actionscript3 = (bool)ba[16 + 4];
+            FileAttributes.UseNetwork = (bool)ba[16 + 7];
         }
 
         private void ExploreABC(Abc abc)
@@ -222,5 +248,15 @@ namespace SwfOp
             Name = name;
             Frame = ContentParser.currentFrame;
         }
+    }
+
+    public class SwfFileAttributes
+    {
+        public bool UseDirectBlit;
+        public bool UseGPU;
+        public bool HasMetaData;
+        public bool Actionscript3;
+        public bool UseNetwork;
+        public string Background = "#FFFFFF";
     }
 }

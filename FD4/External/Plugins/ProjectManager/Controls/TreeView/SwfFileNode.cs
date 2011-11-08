@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using ProjectManager.Projects;
 using System.Text.RegularExpressions;
 using SwfOp;
+using SwfOp.Utils;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -87,9 +88,39 @@ namespace ProjectManager.Controls.TreeView
         }
     }
 
+    public class HeaderInfoNode : FakeNode
+    {
+        public HeaderInfoNode(string label)
+            : base("")
+        {
+            Text = label;
+            ForeColorRequest = Color.Gray;
+            ImageIndex = SelectedImageIndex = Icons.Info.Index;
+        }
+        public HeaderInfoNode(string label, object value)
+            : base("")
+        {
+            Text = label + " : " + value;
+            ForeColorRequest = Color.Gray;
+            ImageIndex = SelectedImageIndex = Icons.Info.Index;
+        }
+    }
+
+    public class SwfHeaderNode : FakeNode
+    {
+        public SwfHeaderNode(string filePath)
+            : base(filePath + ";__header__")
+        {
+            Text = "Properties";
+            ForeColorRequest = Color.Gray;
+            ImageIndex = SelectedImageIndex = Icons.HiddenFolder.Index;
+        }
+    }
+
 	public class ClassesNode : FakeNode
 	{
-		public ClassesNode(string filePath):  base(filePath+";__classes__")
+		public ClassesNode(string filePath)
+            : base(filePath+";__classes__")
 		{
 			Text = "Classes";
 			ForeColorRequest = Color.Gray;
@@ -237,6 +268,19 @@ namespace ProjectManager.Controls.TreeView
                 if (parser.Fonts.Count == 1) fontsComp.Compare(parser.Fonts[0], parser.Fonts[0]);
                 parser.Fonts.Sort(fontsComp);
 
+                SwfHeaderNode hnode = new SwfHeaderNode(BackingPath);
+                hnode.Nodes.Add(new HeaderInfoNode("File Size", FormatBytes(new FileInfo(BackingPath).Length)));
+                hnode.Nodes.Add(new HeaderInfoNode("SWF Version", parser.Header.Version));
+                hnode.Nodes.Add(new HeaderInfoNode("AVM", parser.FileAttributes.Actionscript3 ? 2 : 1));
+                if (parser.FileAttributes.UseNetwork) hnode.Nodes.Add(new HeaderInfoNode("Use Network"));
+                if (parser.FileAttributes.UseDirectBlit) hnode.Nodes.Add(new HeaderInfoNode("Use DirectBlit"));
+                if (parser.FileAttributes.UseGPU) hnode.Nodes.Add(new HeaderInfoNode("Use GPU"));
+                hnode.Nodes.Add(new HeaderInfoNode("Dimensions", FormatDimensions(GetSwfRect(parser.Header.Rect))));
+                hnode.Nodes.Add(new HeaderInfoNode("Background", parser.FileAttributes.Background));
+                hnode.Nodes.Add(new HeaderInfoNode("Framerate", parser.Header.Fps / 256));
+                hnode.Nodes.Add(new HeaderInfoNode("Frames", parser.Header.Frames));
+                Nodes.Add(hnode);
+
                 if (parser.Classes.Count > 0)
                 {
                     ClassesNode node = new ClassesNode(BackingPath);
@@ -323,7 +367,27 @@ namespace ProjectManager.Controls.TreeView
                 parser = null;
                 TreeView.EndUpdate();
             }
-		}
+        }
+
+        private string FormatDimensions(Rectangle rect)
+        {
+            return rect.Width + "x" + rect.Height;
+        }
+
+        private Rectangle GetSwfRect(byte[] bytes)
+        {
+            BitArray ba = BitParser.GetBitValues(bytes);
+            int Nbits = (int)BitParser.ReadUInt32(ba, 5);
+            int index = 5;
+            int xmin = (int)BitParser.ReadUInt32(ba, index, Nbits) / 20;
+            index += Nbits;
+            int xmax = (int)BitParser.ReadUInt32(ba, index, Nbits) / 20;
+            index += Nbits;
+            int ymin = (int)BitParser.ReadUInt32(ba, index, Nbits) / 20;
+            index += Nbits;
+            int ymax = (int)BitParser.ReadUInt32(ba, index, Nbits) / 20;
+            return new Rectangle(xmin, ymin, xmax, ymax);
+        }
 
         public string FormatBytes(long bytes)
         {

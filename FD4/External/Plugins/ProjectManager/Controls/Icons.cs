@@ -77,6 +77,7 @@ namespace ProjectManager.Controls
 		public static FDImage NewProject;
 		public static FDImage GreenCheck;
 		public static FDImage Gear;
+		public static FDImage Info;
         public static FDImage Class;
         public static FDImage Method;
         public static FDImage Variable;
@@ -142,6 +143,7 @@ namespace ProjectManager.Controls
             NewProject = Get("274|0|5|4");
             GreenCheck = Get(351);
 			Gear = Get(127);
+            Info = Get(229);
             Class = GetResource("Icons.Class.png");
             Method = GetResource("Icons.Method.png");
             Variable = GetResource("Icons.Variable.png");
