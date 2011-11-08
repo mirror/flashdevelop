@@ -189,6 +189,7 @@ namespace ASCompletion.Completion
                 // "add to interface" suggestion
                 if (resolve.Member != null &&
                     resolve.Member.Name == found.member.Name &&
+                    line == found.member.LineFrom &&
                     ((found.member.Flags & FlagType.Function) > 0 
                             || (found.member.Flags & FlagType.Getter) > 0
                             || (found.member.Flags & FlagType.Setter) > 0) &&
