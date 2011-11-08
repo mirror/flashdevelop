@@ -13,6 +13,7 @@ $(Clipboard) - Arbelaren edukia
 - FILE -------------------------------------------------------------------------
 $(CurFile) - Uneko fitxategia
 $(CurFilename) - Uneko fitxategiaren izena
+$(CurFilenameNoExt) - Uneko fitxategiaren izena luzapen gabe
 $(CurDir) - Uneko fitxategiaren direktorioa
 - DIRECTORY -------------------------------------------------------------------------
 $(DesktopDir) - Erabiltzaileran mahaigaineko direktorioa
