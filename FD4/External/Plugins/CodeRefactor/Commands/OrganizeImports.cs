@@ -77,6 +77,7 @@ namespace CodeRefactor.Commands
                 sci.SetSel(pos, pos);
                 sci.EndUndoAction();
             }
+            ASContext.Context.UpdateContext(sci.LineFromPosition(sci.CurrentPos)); // force refreshing model
             this.FireOnRefactorComplete();
         }
 
