@@ -90,7 +90,7 @@ namespace TaskListPanel
 
         private Regex BuildRegex(String pattern)
         {
-            return new Regex(@"(//|/\*\*|/\*)[\t ]*(" + pattern + @")[:\t ]*(.*)", RegexOptions.Multiline);
+            return new Regex(@"(//|\*)[\t ]*(" + pattern + @")[:\t ]+(.*)", RegexOptions.Multiline);
         }
 
         #region Windows Forms Designer Generated Code
