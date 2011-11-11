@@ -295,6 +295,7 @@ namespace ASCompletion.Completion
 		static public CommentBlock ParseComment(string comment)
 		{
 			// cleanup
+            comment = comment.Replace("&lt;", "<").Replace("&gt;", ">");
             comment = reKeepTags.Replace(comment, "[$1]");
             comment = reSpecialTags.Replace(comment, match =>
             {
