@@ -12,13 +12,13 @@
 !define BUILD "RC3"
 
 ; Define AIR SDK version
-!define AIR "3.0.0"
+!define AIR "3.1.0"
 
 ; Define Flex SDK version
 !define FLEX "4.5.1.21328"
 
 ; Define Flash player version
-!define FLASH "11.0.1.152"
+!define FLASH "11.1.102.55"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -463,7 +463,7 @@ Section "Install AIR SDK" InstallAirSDK
 
 	; Download AIR SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +6 0
-	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.0/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
+	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "AIR download cancel details: $R0"
@@ -510,11 +510,11 @@ Section "Install Flash Player" InstallFlashPlayer
 	Call ConnectInternet
 	
 	; Create player dir if not found
-	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.0\win\*.*" +2 0
-	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.0\win\"
+	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\*.*" +2 0
+	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\"
 	
 	; Download Flash debug player
-	NSISdl::download /TIMEOUT=30000 http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug_32bit.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.0\win\FlashPlayerDebugger.exe"
+	NSISdl::download /TIMEOUT=30000 http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug_32bit.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\FlashPlayerDebugger.exe"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "Flash debug player download cancel details: $R0"
