@@ -296,9 +296,9 @@ namespace OutputPanel
                 this.logCount = newCount;
                 return;
             }
-            TraceItem entry;
             Int32 state;
             String message;
+            TraceItem entry;
             String newText = "";
             Color newColor = Color.Black;
             Color currentColor = Color.Black;
@@ -315,7 +315,9 @@ namespace OutputPanel
                     if (message[1] == ':' && Char.IsDigit(message[0]))
                     {
                         if (int.TryParse(message[0].ToString(), out state))
+                        {
                             message = message.Substring(2);
+                        }
                     }
                 }
                 switch (state)
@@ -367,6 +369,7 @@ namespace OutputPanel
             }
             this.logCount = newCount;
             this.scrollTimer.Enabled = true;
+            this.TypingTimerTick(null, null);
         }
 
         /// <summary>
