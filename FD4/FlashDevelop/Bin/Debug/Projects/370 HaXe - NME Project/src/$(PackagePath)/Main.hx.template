@@ -1,0 +1,16 @@
+package $(PackageName);
+
+import nme.Lib;
+
+/**
+$(CBI)* ...
+$(CBI)* @author $(DefaultUser)
+$(CBI)*/
+
+class Main $(CSLB){
+	
+	static public function main() $(CSLB){
+		
+	}
+	
+}

@@ -485,7 +485,8 @@ namespace XMLCompletion
 					{
 						ctag = GetXMLContextTag(sci, position);
 						position = sci.CurrentPos-2;
-						if (ctag.Tag != null && !ctag.Tag.StartsWith("<!") && !InQuotes(ctag.Tag) && (GetWordLeft(sci, ref position).Length > 0))
+                        if (ctag.Tag != null && !String.IsNullOrEmpty(ctag.Name) && Char.IsLetter(ctag.Name[0]) 
+                            && !InQuotes(ctag.Tag) && (GetWordLeft(sci, ref position).Length > 0))
 						{
 							position = sci.CurrentPos;
 							c = (Char)sci.CharAt(position);

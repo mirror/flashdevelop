@@ -4,13 +4,13 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\$(ProjectID).swf" />
-    <movie fps="30" />
-    <movie width="800" />
-    <movie height="600" />
+    <movie path="build.nmml" />
+    <movie fps="0" />
+    <movie width="0" />
+    <movie height="0" />
     <movie version="3" />
-    <movie minorVersion="1" />
-    <movie platform="AIR" />
+    <movie minorVersion="0" />
+    <movie platform="NME" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
@@ -27,7 +27,7 @@
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <library name="air" />
+    <library name="nme" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
@@ -49,7 +49,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="Run.bat" />
+    <option testMovieCommand="flash" />
   </options>
   <!-- Plugin storage -->
   <storage />
