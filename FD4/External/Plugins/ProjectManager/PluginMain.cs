@@ -82,6 +82,7 @@ namespace ProjectManager
         private PluginUI pluginUI;
         private Image pluginImage;
         private Project project;
+        private OpenResourceForm projectResources;
         private Boolean runOutput;
         private Boolean buildingAll;
         private Queue<String> buildQueue;
@@ -550,6 +551,11 @@ namespace ProjectManager
             if (!PluginBase.MainForm.ClosingEntirely) SaveProjectSession();
 
             project = null;
+            if (projectResources != null)
+            {
+                projectResources.Close();
+                projectResources = null;
+            }
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
 
             if (!internalClosing)
@@ -1241,8 +1247,8 @@ namespace ProjectManager
         {
             if (PluginBase.CurrentProject != null)
             {
-                OpenResourceForm opr = new OpenResourceForm(this);
-                opr.ShowDialog(pluginUI);
+                if (projectResources == null) projectResources = new OpenResourceForm(this);
+                projectResources.ShowDialog(pluginUI);
             }
         }
 

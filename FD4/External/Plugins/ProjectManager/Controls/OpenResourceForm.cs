@@ -21,6 +21,7 @@ namespace ProjectManager.Controls
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button refreshButton;
 
         public OpenResourceForm(PluginMain plugin)
         {
@@ -29,8 +30,6 @@ namespace ProjectManager.Controls
             this.InitializeLocalization();
             this.Font = PluginBase.Settings.DefaultFont;
             this.FormGuid = "8e4e0a95-0aff-422c-b8f5-ad9bc8affabb";
-            this.CreateFileList();
-            this.RefreshListBox();
         }
 
         #region Windows Form Designer Generated Code
@@ -44,6 +43,7 @@ namespace ProjectManager.Controls
             this.infoLabel = new System.Windows.Forms.Label();
             this.textBox = new System.Windows.Forms.TextBox();
             this.listBox = new System.Windows.Forms.ListBox();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // infoLabel
@@ -60,10 +60,18 @@ namespace ProjectManager.Controls
             this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox.Location = new System.Drawing.Point(12, 25);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(478, 22);
+            this.textBox.Size = new System.Drawing.Size(446, 22);
             this.textBox.TabIndex = 1;
             this.textBox.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             this.textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(464, 24);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(26, 22);
+            this.refreshButton.TabIndex = 2;
+            this.refreshButton.UseVisualStyleBackColor = true;
             // 
             // listBox
             // 
@@ -74,7 +82,7 @@ namespace ProjectManager.Controls
             this.listBox.Location = new System.Drawing.Point(12, 53);
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(478, 276);
-            this.listBox.TabIndex = 2;
+            this.listBox.TabIndex = 3;
             this.listBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxDrawItem);
             this.listBox.Resize += new System.EventHandler(this.ListBoxResize);
             this.listBox.DoubleClick += new System.EventHandler(this.ListBoxDoubleClick);
@@ -86,6 +94,7 @@ namespace ProjectManager.Controls
             this.ClientSize = new System.Drawing.Size(502, 336);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.textBox);
+            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.infoLabel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -97,6 +106,7 @@ namespace ProjectManager.Controls
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Open Resource";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OpenResourceKeyDown);
+            this.Activated += new EventHandler(OpenResourceForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -112,6 +122,25 @@ namespace ProjectManager.Controls
         {
             this.infoLabel.Text = TextHelper.GetString("Label.SearchString");
             this.Text = " " + TextHelper.GetString("Title.OpenResource");
+            this.refreshButton.Image = PluginBase.MainForm.FindImage("-1|24|0|0");
+            this.refreshButton.Click += new EventHandler(refreshButton_Click);
+        }
+
+        void refreshButton_Click(object sender, EventArgs e)
+        {
+            this.CreateFileList();
+            this.RefreshListBox();
+        }
+
+        void OpenResourceForm_Activated(object sender, EventArgs e)
+        {
+            if (openedFiles == null) this.CreateFileList();
+            else
+            {
+                this.textBox.Text = "";
+                this.UpdateOpenFiles();
+            }
+            this.RefreshListBox();
         }
 
         /// <summary>
@@ -184,19 +213,57 @@ namespace ProjectManager.Controls
         }
 
         /// <summary>
+        /// Check open files and update collections accordingly
+        /// </summary>
+        private void UpdateOpenFiles()
+        {
+            List<String> open = this.GetOpenFiles();
+            List<String> folders = this.GetProjectFolders();
+            List<String> prevOpen = openedFiles;
+            openedFiles = new List<String>();
+            foreach (string file in open)
+            {
+                foreach(string folder in folders)
+                    if (file.StartsWith(folder))
+                    {
+                        openedFiles.Add(PluginBase.CurrentProject.GetRelativePath(file));
+                        break;
+                    }
+            }
+            foreach (string file in prevOpen)
+                if (!openedFiles.Contains(file)) projectFiles.Add(file);
+            foreach (string file in openedFiles)
+                if (projectFiles.Contains(file)) projectFiles.Remove(file);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         private void CreateFileList()
         {
+            List<String> open = this.GetOpenFiles();
             openedFiles = new List<String>();
             projectFiles = new List<String>();
             List<String> allFiles = this.GetProjectFiles();
             foreach (String file in allFiles)
             {
-                if (isFileHidden(file)) continue;
-                if (isFileOpened(file)) openedFiles.Add(PluginBase.CurrentProject.GetRelativePath(file));
+                if (open.Contains(file)) openedFiles.Add(PluginBase.CurrentProject.GetRelativePath(file));
                 else projectFiles.Add(PluginBase.CurrentProject.GetRelativePath(file));
             }
+        }
+
+        /// <summary>
+        /// Open documents paths
+        /// </summary>
+        /// <returns></returns>
+        private List<string> GetOpenFiles()
+        {
+            List<String> open = new List<String>();
+            foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
+            {
+                if (doc.IsEditable && !doc.IsUntitled) open.Add(doc.FileName);
+            }
+            return open;
         }
 
         /// <summary>
@@ -208,12 +275,23 @@ namespace ProjectManager.Controls
             List<String> folders = this.GetProjectFolders();
             foreach (String folder in folders)
             {
-                if (Directory.Exists(folder))
-                {
-                    files.AddRange(Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories));
-                }
+                AddFilesInFolder(files, folder);
             }
             return files;
+        }
+
+        /// <summary>
+        /// Gather files in depth avoiding hidden directories
+        /// </summary>
+        private void AddFilesInFolder(List<string> files, string folder)
+        {
+            if (Directory.Exists(folder) && !isFolderHidden(folder))
+            {
+                files.AddRange(Directory.GetFiles(folder, "*.*"));
+
+                foreach (string sub in Directory.GetDirectories(folder))
+                    AddFilesInFolder(files, sub);
+            }
         }
 
         /// <summary>
@@ -238,28 +316,14 @@ namespace ProjectManager.Controls
         }
 
         /// <summary>
-        /// 
+        /// Quick filter of hidden/VCS directories
         /// </summary>
-        private Boolean isFileHidden(String file)
+        private bool isFolderHidden(string folder)
         {
-            String name = System.IO.Path.GetFileName(file);
-            String path = System.IO.Path.GetDirectoryName(file);
-            String dirSep = System.IO.Path.DirectorySeparatorChar.ToString();
-            if (path.Contains(".svn") || path.Contains(dirSep + "_svn") || path.Contains(".cvs") || path.Contains(dirSep + "_cvs") || path.Contains(".git")) return true;
-            else if (name.Substring(0, 1) == ".") return true;
-            else return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Boolean isFileOpened(String file)
-        {
-            foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
-            {
-                if (doc.FileName == file) return true;
-            }
-            return false;
+            String name = Path.GetFileName(folder);
+            if (name.Length == 0 || !Char.IsLetterOrDigit(name[0])) return true;
+            FileInfo info = new FileInfo(folder);
+            return (info.Attributes & FileAttributes.Hidden) > 0;
         }
 
         /// <summary>
