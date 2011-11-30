@@ -63,6 +63,7 @@ namespace HaXeContext
             features.hasMethods = true;
             features.hasStatics = true;
             features.hasTryCatch = true;
+            features.hasInference = true;
             features.checkFileName = false;
 
             // haxe directives
@@ -705,7 +706,7 @@ namespace HaXeContext
                 return null;
 
             // auto-started completion, can be ignored for performance (show default completion tooltip)
-            if (autoHide && !expression.Value.EndsWith("."))
+            if (expression.Value.IndexOf(".") < 0 || (autoHide && !expression.Value.EndsWith(".")))
                 if (hxsettings.DisableMixedCompletion) return new MemberList();
                 else return null;
 

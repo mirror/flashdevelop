@@ -20,7 +20,7 @@ namespace ASCompletion.Completion
     public class ASGenerator
     {
         #region context detection (ie. entry points)
-        const string patternEvent = "Listener\\s*\\((\\s*([a-z_0-9.\\\"']+)\\s*,)?\\s*(?<event>[a-z_0-9.\\\"']+)\\s*,\\s*{0}";
+        const string patternEvent = "Listener\\s*\\((\\s*([a-z_0-9.\\\"']+)\\s*,)?\\s*(?<event>[a-z_0-9.\\\"']+)\\s*,\\s*(this\\.)?{0}";
         const string patternDelegate = @"\.\s*create\s*\(\s*[a-z_0-9.]+,\s*{0}";
         const string patternVarDecl = @"\s*{0}\s*:\s*{1}";
         const string patternMethod = @"{0}\s*\(";
@@ -140,7 +140,8 @@ namespace ASCompletion.Completion
                     if (contextToken != null)
                     {
                         // "generate event handlers" suggestion
-                        Match m = Regex.Match(text, String.Format(patternEvent, contextToken), RegexOptions.IgnoreCase);
+                        string re = String.Format(patternEvent, contextToken);
+                        Match m = Regex.Match(text, re, RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             contextMatch = m;
@@ -3181,7 +3182,8 @@ namespace ASCompletion.Completion
 
         private static MemberModel NewMember(string contextToken, MemberModel calledFrom, FlagType kind, Visibility visi)
         {
-            string type = (kind == FlagType.Function) ? ASContext.Context.Features.voidKey : null;
+            string type = (kind == FlagType.Function && !ASContext.Context.Features.hasInference) 
+                ? ASContext.Context.Features.voidKey : null;
             if (calledFrom != null && (calledFrom.Flags & FlagType.Static) > 0)
                 kind |= FlagType.Static;
             return new MemberModel(contextToken, type, kind, visi);

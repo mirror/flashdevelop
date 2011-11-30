@@ -1272,6 +1272,7 @@ namespace ProjectManager.Controls
             {
                 project.TestMovieCommand = dialog.Line;
                 Modified();
+                btnOK.Focus();
             }
         }
 
