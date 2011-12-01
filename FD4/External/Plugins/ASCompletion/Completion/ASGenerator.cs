@@ -2962,32 +2962,43 @@ namespace ASCompletion.Completion
                 if (resolve.IsNull()) resolve = null;
                 word = Sci.GetWordFromPosition(pos);
             }
-            char c = (char)Sci.CharAt(pos);
-            if (c == '"' || c == '\'')
-            {
-                type = inClass.InFile.Context.ResolveType("String", inClass.InFile);
-            }
-            else if (c == '}')
-            {
-                type = inClass.InFile.Context.ResolveType(ASContext.Context.Features.objectKey, inClass.InFile);
-            }
-            else if (c == '>')
-            {
-                type = inClass.InFile.Context.ResolveType("XML", inClass.InFile);
-            }
-            else if (c == ']')
-            {
-                type = inClass.InFile.Context.ResolveType("Array", inClass.InFile);
-            }
-            else if (word != null && Char.IsDigit(word[0]))
-            {
-                type = inClass.InFile.Context.ResolveType("Number", inClass.InFile);
-            }
-            else if (word != null && (word == "true" || word == "false"))
-            {
-                type = inClass.InFile.Context.ResolveType("Boolean", inClass.InFile);
-            }
 
+            m = Regex.Match(line, "new\\s+([a-z0-9.<>,_$-]+)", RegexOptions.IgnoreCase);
+            if (m.Success)
+            {
+                string cname = m.Groups[1].Value;
+                if (cname.StartsWith("<")) cname = "Vector." + cname; // literral vector
+                type = inClass.InFile.Context.ResolveType(cname, inClass.InFile);
+                if (!type.IsVoid()) resolve = null;
+            }
+            else
+            {
+                char c = (char)Sci.CharAt(pos);
+                if (c == '"' || c == '\'')
+                {
+                    type = inClass.InFile.Context.ResolveType("String", inClass.InFile);
+                }
+                else if (c == '}')
+                {
+                    type = inClass.InFile.Context.ResolveType(ASContext.Context.Features.objectKey, inClass.InFile);
+                }
+                else if (c == '>')
+                {
+                    type = inClass.InFile.Context.ResolveType("XML", inClass.InFile);
+                }
+                else if (c == ']')
+                {
+                    type = inClass.InFile.Context.ResolveType("Array", inClass.InFile);
+                }
+                else if (word != null && Char.IsDigit(word[0]))
+                {
+                    type = inClass.InFile.Context.ResolveType("Number", inClass.InFile);
+                }
+                else if (word != null && (word == "true" || word == "false"))
+                {
+                    type = inClass.InFile.Context.ResolveType("Boolean", inClass.InFile);
+                }
+            }
             if (resolve == null)
             {
                 resolve = new ASResult();

@@ -93,7 +93,7 @@ namespace HaXeContext
             features.typesPreKeys = new string[] { "import", "new", "extends", "implements", "using" };
             features.codeKeywords = new string[] { 
                 "var", "function", "new", "cast", "return", "break", "continue", "callback",
-                "if", "else", "for", "while", "do", "switch", "case", "default", 
+                "if", "else", "for", "while", "do", "switch", "case", "default", "type",
                 "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic"
             };
             features.varKey = "var";
@@ -488,34 +488,41 @@ namespace HaXeContext
                 // HX files are "modules": when imported all the classes contained are available
                 string fileName = item.Type.Replace(".", dirSeparator) + ".hx";
                 
-                if (fileName.StartsWith("flash" + dirSeparator) && majorVersion > 8) // flash9 remap
+                if (fileName.StartsWith("flash" + dirSeparator) && (!IsFlashTarget || majorVersion > 8)) // flash9 remap
                     fileName = "flash9" + fileName.Substring(5);
 
-                foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
-                {                    
-                    string path = Path.Combine(aPath.Path, fileName);
-                    FileModel file = null;
-                    // cached file
-                    if (aPath.HasFile(path))
+                foreach (PathModel aPath in classPath) 
+                    if (aPath.IsValid && !aPath.Updating)
                     {
-                        file = aPath.GetFile(path);
-                        if (file.Context != this)
-                        {
-                            // not associated with this context -> refresh
-                            file.OutOfDate = true;
-                            file.Context = this;
+                        string path;
+                        try {
+                            path = Path.Combine(aPath.Path, fileName);
                         }
-                        
-                    } else if (File.Exists(path)) {
-                        file = GetFileModel(path);
+                        catch { continue; }
+
+                        FileModel file = null;
+                        // cached file
+                        if (aPath.HasFile(path))
+                        {
+                            file = aPath.GetFile(path);
+                            if (file.Context != this)
+                            {
+                                // not associated with this context -> refresh
+                                file.OutOfDate = true;
+                                file.Context = this;
+                            }
+                        }
+                        else if (File.Exists(path))
+                        {
+                            file = GetFileModel(path);
+                            if (file != null)
+                                aPath.AddFile(file);
+                        }
                         if (file != null)
-                            aPath.AddFile(file);
+                            foreach (ClassModel c in file.Classes)
+                                if (c.IndexType == null)
+                                    imports.Add(c);
                     }
-                    if (file != null)
-                        foreach( ClassModel c in file.Classes )
-                        	if (c.IndexType == null)
-                            	imports.Add(c);
-                }
             }
             return imports;
         }
