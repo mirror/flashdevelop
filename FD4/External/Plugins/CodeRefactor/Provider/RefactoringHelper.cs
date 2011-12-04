@@ -313,7 +313,8 @@ namespace CodeRefactor.Provider
             foreach (String path in project.SourcePaths)
             {
                 String absolute = project.GetAbsolutePath(path);
-                files.AddRange(Directory.GetFiles(absolute, filter, SearchOption.AllDirectories));
+                if (Directory.Exists(path))
+                    files.AddRange(Directory.GetFiles(absolute, filter, SearchOption.AllDirectories));
             }
             // If no source paths are defined, get files directly from project path
             if (project.SourcePaths.Length == 0)

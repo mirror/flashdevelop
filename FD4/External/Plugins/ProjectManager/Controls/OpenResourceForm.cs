@@ -139,6 +139,7 @@ namespace ProjectManager.Controls
             {
                 this.textBox.Text = "";
                 this.UpdateOpenFiles();
+                this.textBox.Focus();
             }
             this.RefreshListBox();
         }
