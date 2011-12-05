@@ -15,7 +15,7 @@
 !define AIR "3.1.0"
 
 ; Define Flex SDK version
-!define FLEX "4.5.1.21328"
+!define FLEX "4.6.0.23201B"
 
 ; Define Flash player version
 !define FLASH "11.1.102.55"
@@ -102,7 +102,6 @@ XPStyle on
 
 InstType "Default"
 InstType "Standalone/Portable"
-InstType "Generic"
 InstType "un.Default"
 InstType "un.Full"
 
@@ -319,7 +318,7 @@ FunctionEnd
 
 Section "FlashDevelop" Main
 	
-	SectionIn 1 2 3 RO
+	SectionIn 1 2 RO
 	SetOverwrite on
 	
 	SetOutPath "$INSTDIR"
@@ -359,7 +358,6 @@ SectionEnd
 
 Section "Desktop Shortcut" DesktopShortcut
 	
-	SectionIn 1
 	SetOverwrite on
 	SetShellVarContext all
 	
@@ -368,8 +366,7 @@ Section "Desktop Shortcut" DesktopShortcut
 SectionEnd
 
 Section "Quick Launch Item" QuickShortcut
-	
-	SectionIn 1	
+			
 	SetOverwrite on
 	SetShellVarContext all
 	
@@ -379,7 +376,7 @@ SectionEnd
 
 Section "Install Flex SDK" InstallFlexSDK
 
-	SectionIn 1 3
+	SectionIn 1
 	SetOverwrite on
 	SetShellVarContext all
 	
@@ -393,7 +390,7 @@ Section "Install Flex SDK" InstallFlexSDK
 
 	; Download Flex SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\flex_sdk_${FLEX}.zip" +6 0
-	NSISdl::download /TIMEOUT=30000 http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
+	NSISdl::download /TIMEOUT=30000 http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "FLEX download cancel details: $R0"
@@ -449,7 +446,7 @@ SectionEnd
 
 Section "Install AIR SDK" InstallAirSDK
 
-	SectionIn 1 3
+	SectionIn 1
 	SetOverwrite on
 	SetShellVarContext all
 	
@@ -497,7 +494,7 @@ SectionEnd
 
 Section "Install Flash Player" InstallFlashPlayer
 
-	SectionIn 1 3
+	SectionIn 1
 	SetOverwrite on
 	SetShellVarContext all
 	
@@ -537,7 +534,7 @@ SectionGroup "Advanced"
 
 Section "Start Menu Group" StartMenuGroup
 	
-	SectionIn 1 3	
+	SectionIn 1	
 	SetOverwrite on
 	SetShellVarContext all
 	
@@ -551,7 +548,7 @@ SectionEnd
 
 Section "Registry Modifications" RegistryMods
 	
-	SectionIn 1 3
+	SectionIn 1
 	SetOverwrite on
 	SetShellVarContext all
 	
