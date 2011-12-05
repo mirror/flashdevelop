@@ -150,6 +150,7 @@ namespace FDBuild.Building.AS3
                 WriteStartElement("include-libraries");
                 foreach (string path in options.IncludeLibraries)
                 {
+                    if (path.Trim().Length == 0) continue;
                     absPath = project.GetAbsolutePath(path);
                     if (File.Exists(absPath))
                         WriteElementPathString("library", absPath);
@@ -168,6 +169,7 @@ namespace FDBuild.Building.AS3
                 WriteAttributeString("append", "true");
                 foreach (string path in options.ExternalLibraryPaths)
                 {
+                    if (path.Trim().Length == 0) continue;
                     absPath = project.GetAbsolutePath(path);
                     if (File.Exists(absPath) || Directory.Exists(absPath))
                         WriteElementPathString("path-element", absPath);
@@ -180,6 +182,7 @@ namespace FDBuild.Building.AS3
                 WriteAttributeString("append", "true");
                 foreach (string path in options.LibraryPaths)
                 {
+                    if (path.Trim().Length == 0) continue;
                     absPath = project.GetAbsolutePath(path);
                     if (File.Exists(absPath) || Directory.Exists(absPath))
                         WriteElementPathString("path-element", absPath);
@@ -197,6 +200,7 @@ namespace FDBuild.Building.AS3
                 {
                     string[] parts = path.Split(',');
                     if (parts.Length < 2) continue;
+                    if (parts[0].Trim().Length == 0) continue;
                     string absPath = project.GetAbsolutePath(parts[0]);
                     if (File.Exists(absPath))
                     {

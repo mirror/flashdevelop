@@ -444,6 +444,7 @@ namespace AS3Context
                     settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
                 }
             }
+            else foreach (InstalledSDK sdk in settingObject.InstalledSDKs) ValidateSDK(sdk);
 
             settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
             settingObject.OnInstalledSDKsChanged += settingObjectOnInstalledSDKsChanged;

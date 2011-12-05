@@ -180,6 +180,8 @@ namespace AS2Context
                     settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
                 }
             }
+            else foreach (InstalledSDK sdk in settingObject.InstalledSDKs) ValidateSDK(sdk);
+            
             settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 
