@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
-	<app title="$(ProjectID)" main="$(PackageDot)Main" package="$(PackageName)" 
+	<app file="$(ProjectID)" title="$(ProjectName)" main="$(PackageDot)Main" package="$(PackageName)" 
 		version="1.0.0" company="$(DefaultUser)" />
 		
 	<!-- output -->
