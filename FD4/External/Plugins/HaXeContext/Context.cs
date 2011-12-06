@@ -1203,6 +1203,9 @@ namespace HaXeContext
 
             if (String.IsNullOrEmpty(config)) config = "flash";
             if (project.TraceEnabled) config += " -debug";
+
+            if (config.StartsWith("flash") && config.IndexOf("-DSWF_PLAYER") < 0)
+                config += GetSwfPlayer();
             
             string args = "run nme run \"" + project.OutputPathAbsolute + "\" " + config;
             string oldWD = MainForm.WorkingDirectory;
@@ -1210,6 +1213,14 @@ namespace HaXeContext
             MainForm.CallCommand("RunProcessCaptured", compiler + ";" + args);
             MainForm.WorkingDirectory = oldWD;
             return true;
+        }
+
+        private string GetSwfPlayer()
+        {
+            DataEvent de = new DataEvent(EventType.Command, "FlashViewer.GetFlashPlayer", null);
+            EventManager.DispatchEvent(this, de);
+            if (de.Handled && !String.IsNullOrEmpty((string)de.Data)) return " -DSWF_PLAYER=\"" + de.Data + "\"";
+            else return "";
         }
         #endregion
 

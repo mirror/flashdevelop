@@ -13,6 +13,7 @@ using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using PluginCore;
+using System.Collections;
 
 namespace FlashViewer
 {
@@ -225,7 +226,7 @@ namespace FlashViewer
                 if (evnt.Action.StartsWith("FlashViewer."))
                 {
                     String action = evnt.Action;
-                    String[] args = evnt.Data.ToString().Split(',');
+                    String[] args = evnt.Data != null ? evnt.Data.ToString().Split(',') : null;
                     if (action == "FlashViewer.Default")
                     {
                         switch (this.settingObject.DisplayStyle)
@@ -266,6 +267,10 @@ namespace FlashViewer
                         case "FlashViewer.SetDisplayStyle":
                             ViewStyle vs = (ViewStyle)Enum.Parse(typeof(ViewStyle), evnt.Data.ToString());
                             this.settingObject.DisplayStyle = vs;
+                            break;
+
+                        case "FlashViewer.GetFlashPlayer":
+                            evnt.Data = PathHelper.ResolvePath(this.settingObject.PlayerPath);
                             break;
                     }
                     evnt.Handled = true;
