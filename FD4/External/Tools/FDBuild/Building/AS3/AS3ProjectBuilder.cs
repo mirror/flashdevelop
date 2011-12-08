@@ -125,6 +125,7 @@ namespace ProjectManager.Building.AS3
                 tempFile = GetTempProjectFile(project);
 
                 //create new config file
+                double sdkVersion = GetVersion(FDBuild.Program.BuildOptions.CompilerVersion ?? "4.0");
 
                 // create compiler configuration file
                 string projectName = project.Name.Replace(" ", "");
@@ -138,7 +139,7 @@ namespace ProjectManager.Building.AS3
 
                 //write "new" config to tmp 
                 FlexConfigWriter config = new FlexConfigWriter(project.GetAbsolutePath(configFileTmp));
-                config.WriteConfig(project, extraClasspaths, noTrace == false);
+                config.WriteConfig(project, sdkVersion, extraClasspaths, noTrace == false);
 
                 //compare tmp to current
                 bool configChanged = !File.Exists(backupConfig) || !File.Exists(configFile) || !FileComparer.IsEqual(configFileTmp, configFile);
@@ -150,8 +151,8 @@ namespace ProjectManager.Building.AS3
 
                 //remove temp
                 File.Delete(configFileTmp);
-                
-                MxmlcArgumentBuilder mxmlc = new MxmlcArgumentBuilder(project);
+
+                MxmlcArgumentBuilder mxmlc = new MxmlcArgumentBuilder(project, sdkVersion);
 
                 mxmlc.AddConfig(configFile);
                 mxmlc.AddOptions(noTrace, fcsh != null);
@@ -170,6 +171,18 @@ namespace ProjectManager.Building.AS3
                 File.Copy(tempFile, output, true);
             }
             finally { if (tempFile != null && File.Exists(tempFile)) File.Delete(tempFile); }
+        }
+
+        private double GetVersion(string version)
+        {
+            string[] p = version.Split('.');
+            if (p.Length == 0) return 0;
+            double major = 0;
+            double.TryParse(p[0], out major);
+            if (p.Length == 1) return major;
+            double minor = 0;
+            double.TryParse(p[1], out minor);
+            return major + (minor < 10 ? minor / 10 : minor / 100);
         }
 
         public void CompileWithMxmlc(string workingdir, string arguments, bool configChanged)

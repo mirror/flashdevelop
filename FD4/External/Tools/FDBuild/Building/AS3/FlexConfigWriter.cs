@@ -19,28 +19,15 @@ namespace FDBuild.Building.AS3
             base.Formatting = Formatting.Indented;
         }
 
-        public void WriteConfig(AS3Project project, string[] extraClasspaths, bool debugMode)
+        public void WriteConfig(AS3Project project, double sdkVersion, string[] extraClasspaths, bool debugMode)
         {
             this.project = project;
             project.UpdateVars();
 
-            double version = GetVersion(Program.BuildOptions.CompilerVersion ?? "4.0");
-            flex4 = version >= 4;
+            flex4 = sdkVersion >= 4;
 
             try { InternalWriteConfig(extraClasspaths, debugMode); }
             finally { Close(); }
-        }
-
-        private double GetVersion(string version)
-        {
-            string[] p = version.Split('.');
-            if (p.Length == 0) return 0;
-            double major = 0;
-            double.TryParse(p[0], out major);
-            if (p.Length == 1) return major;
-            double minor = 0;
-            double.TryParse("0." + p[1], out minor);
-            return major + (minor < 10 ? minor / 10 : minor / 100);
         }
 
         private void InternalWriteConfig(string[] extraClasspaths, bool debugMode)
