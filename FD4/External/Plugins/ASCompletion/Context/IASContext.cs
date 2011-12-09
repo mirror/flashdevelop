@@ -239,7 +239,7 @@ namespace ASCompletion.Context
         /// <param name="position"></param>
         /// <param name="text"></param>
         /// <returns>Indicator that the event is handled</returns>
-        bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text);
+        bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger);
 
         /// <summary>
         /// When selecting a node in the outline view

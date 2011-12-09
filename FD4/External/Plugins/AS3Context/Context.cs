@@ -760,7 +760,7 @@ namespace AS3Context
             return fullList;
         }
 
-        public override bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text)
+        public override bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger)
         {
             bool isVector = false;
             if (text == "Vector")
@@ -775,9 +775,6 @@ namespace AS3Context
                 if (m.Success)
                 {
                     insert = String.Format(".<{0}>", m.Groups["indextype"].Value);
-                    sci.InsertText(position + text.Length, insert);
-                    sci.CurrentPos = position + text.Length + insert.Length;
-                    sci.SetSel(sci.CurrentPos, sci.CurrentPos);
                 }
                 else
                 {
@@ -791,19 +788,32 @@ namespace AS3Context
                             if (m.Success)
                             {
                                 insert = String.Format(".<{0}>", m.Value);
-                                sci.InsertText(position + text.Length, insert);
-                                sci.CurrentPos = position + text.Length + insert.Length;
-                                sci.SetSel(sci.CurrentPos, sci.CurrentPos);
-                                return true;
                             }
                         }
                     }
-                    insert = ".<>";
-                    sci.InsertText(position + text.Length, insert);
-                    sci.CurrentPos = position + text.Length + 2;
-                    sci.SetSel(sci.CurrentPos, sci.CurrentPos);
-                    ASComplete.HandleAllClassesCompletion(sci, "", false, true);
+                    if (insert == null)
+                    {
+                        if (trigger == '.' || trigger == '(') return true;
+                        insert = ".<>";
+                        sci.InsertText(position + text.Length, insert);
+                        sci.CurrentPos = position + text.Length + 2;
+                        sci.SetSel(sci.CurrentPos, sci.CurrentPos);
+                        ASComplete.HandleAllClassesCompletion(sci, "", false, true);
+                        return true;
+                    }
                 }
+                if (insert == null) return false;
+                if (trigger == '.')
+                {
+                    sci.InsertText(position + text.Length, insert.Substring(1));
+                    sci.CurrentPos = position + text.Length;
+                }
+                else 
+                {
+                    sci.InsertText(position + text.Length, insert);
+                    sci.CurrentPos = position + text.Length + insert.Length;
+                }
+                sci.SetSel(sci.CurrentPos, sci.CurrentPos);
                 return true;
             }
 

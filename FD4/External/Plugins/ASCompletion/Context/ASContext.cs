@@ -1215,7 +1215,7 @@ namespace ASCompletion.Context
         /// <param name="position"></param>
         /// <param name="text"></param>
         /// <returns>Indicator that the event is handled</returns>
-        public virtual bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text)
+        public virtual bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger)
         {
             // override to do special handling operations (and return true)
             return false;

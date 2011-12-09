@@ -3413,7 +3413,7 @@ namespace ASCompletion.Completion
             if (!ASContext.Context.IsFileValid)
                 return;
             // let the context handle the insertion
-            if (ASContext.Context.OnCompletionInsert(sci, position, text))
+            if (ASContext.Context.OnCompletionInsert(sci, position, text, trigger))
                 return;
 
             // event inserted
