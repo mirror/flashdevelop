@@ -1202,6 +1202,7 @@ namespace HaXeContext
             else compiler = compiler.Replace("haxe.exe", "haxelib.exe");
 
             if (String.IsNullOrEmpty(config)) config = "flash";
+            else if (config.IndexOf("android") >= 0) CheckADB();
             if (project.TraceEnabled) config += " -debug";
 
             if (config.StartsWith("flash") && config.IndexOf("-DSWF_PLAYER") < 0)
@@ -1213,6 +1214,24 @@ namespace HaXeContext
             MainForm.CallCommand("RunProcessCaptured", compiler + ";" + args);
             MainForm.WorkingDirectory = oldWD;
             return true;
+        }
+
+        private void CheckADB()
+        {
+            if (Process.GetProcessesByName("adb").Length > 0) 
+                return;
+
+            string adb = Environment.ExpandEnvironmentVariables("%ANDROID_SDK%/platform-tools");
+            if (adb.StartsWith("%") || !Directory.Exists(adb)) 
+                adb = Path.Combine(PathHelper.ToolDir, "android/platform-tools");
+            if (Directory.Exists(adb)) 
+            {
+                adb = Path.Combine(adb, "adb.exe");
+                ProcessStartInfo p = new ProcessStartInfo(adb, "get-state");
+                p.UseShellExecute = true;
+                p.WindowStyle = ProcessWindowStyle.Hidden;
+                Process.Start(p);
+            }
         }
 
         private string GetSwfPlayer()
