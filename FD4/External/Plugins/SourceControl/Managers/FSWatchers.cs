@@ -99,37 +99,71 @@ namespace SourceControl.Managers
                     if (path.StartsWith(watcher.Path, StringComparison.OrdinalIgnoreCase))
                         return;
 
-                ExploreDirectory(path);
+                ExploreDirectory(path, true);
             }
-            catch (Exception)
-            {
-            }
+            catch { }
         }
 
-        private void ExploreDirectory(string path)
+        private void ExploreDirectory(string path, bool rootDir)
         {
             foreach (IVCManager manager in ProjectWatcher.VCManagers)
                 if (manager.IsPathUnderVC(path))
                 {
-                    var watcher = new FileSystemWatcher(path);
-                    watcher.IncludeSubdirectories = true;
-                    watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size | NotifyFilters.Attributes;
-                    watcher.Changed += new FileSystemEventHandler(watcher_Changed);
-                    watcher.Deleted += new FileSystemEventHandler(watcher_Changed);
-                    watcher.EnableRaisingEvents = true;
-                    watchers.Add(watcher, manager);
-
-                    dirtyVC.Add(manager);
+                    CreateWatcher(path, manager);
                     return;
                 }
+
+            if (rootDir)
+            {
+                if (ParentDirUnderVC(path)) return;
+            }
 
             string[] dirs = Directory.GetDirectories(path);
             foreach (string dir in dirs)
             {
                 FileInfo info = new FileInfo(dir);
                 if ((info.Attributes & FileAttributes.Hidden) == 0)
-                    ExploreDirectory(dir);
+                    ExploreDirectory(dir, false);
             }
+        }
+
+        private void CreateWatcher(string path, IVCManager manager)
+        {
+            var watcher = new FileSystemWatcher(path);
+            watcher.IncludeSubdirectories = true;
+            watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size | NotifyFilters.Attributes;
+            watcher.Changed += new FileSystemEventHandler(watcher_Changed);
+            watcher.Deleted += new FileSystemEventHandler(watcher_Changed);
+            watcher.EnableRaisingEvents = true;
+            watchers.Add(watcher, manager);
+
+            dirtyVC.Add(manager);
+        }
+
+        private bool ParentDirUnderVC(string path)
+        {
+            try
+            {
+                DirectoryInfo info = new DirectoryInfo(path);
+                do
+                {
+                    info = info.Parent;
+
+                    foreach (FileSystemWatcher watcher in watchers.Keys)
+                        if (info.FullName.StartsWith(watcher.Path, StringComparison.OrdinalIgnoreCase))
+                            return true;
+
+                    foreach (IVCManager manager in ProjectWatcher.VCManagers)
+                        if (manager.IsPathUnderVC(info.FullName))
+                        {
+                            CreateWatcher(path, manager);
+                            return true;
+                        }
+                }
+                while (info.Parent != null);
+            }
+            catch { }
+            return false;
         }
 
         private void watcher_Changed(object sender, FileSystemEventArgs e)
