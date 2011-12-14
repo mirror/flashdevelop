@@ -419,11 +419,8 @@ namespace AS3Context
             if (!File.Exists(this.settingFilename)) this.SaveSettings();
             else
             {
-                using (new InstalledSDKContext(this))
-                {
-                    Object obj = ObjectSerializer.Deserialize(this.settingFilename, settingObject);
-                    settingObject = (AS3Settings)obj;
-                }
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, settingObject);
+                settingObject = (AS3Settings)obj;
             }
             if (settingObject.AS3ClassPath == null) settingObject.AS3ClassPath = @"Library\AS3\intrinsic";
         }
@@ -528,6 +525,7 @@ namespace AS3Context
 
         public bool ValidateSDK(InstalledSDK sdk)
         {
+            sdk.Owner = this;
             string path = sdk.Path;
             Match mBin = Regex.Match(path, "[/\\\\]bin$", RegexOptions.IgnoreCase);
             if (mBin.Success)

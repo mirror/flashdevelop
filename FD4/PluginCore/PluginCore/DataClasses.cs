@@ -90,7 +90,7 @@ namespace PluginCore
     [Serializable]
     public class InstalledSDK
     {
-        static public readonly InstalledSDK INVALID_SDK = new InstalledSDK();
+        static public readonly InstalledSDK INVALID_SDK = new InstalledSDK(null);
 
         private String path;
         private String name;
@@ -148,6 +148,13 @@ namespace PluginCore
                 catch { return false; }
                 return true;
             }
+        }
+
+        [Browsable(false)]
+        public InstalledSDKOwner Owner
+        {
+            get { return owner; }
+            set { owner = value; }
         }
 
         public InstalledSDK(InstalledSDKOwner owner) { this.owner = owner; }

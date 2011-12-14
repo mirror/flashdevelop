@@ -307,7 +307,9 @@ namespace ProjectManager.Actions
             }
 
             // new SDK from path
+            if (sdks.Length > 0) InstalledSDKContext.Current = sdks[0].Owner;
             InstalledSDK newSdk = new InstalledSDK();
+            InstalledSDKContext.Current = null;
             newSdk.Path = parts[parts.Length - 1];
             LatestSDKMatchQuality = -1;
             return newSdk;

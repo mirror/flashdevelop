@@ -151,11 +151,11 @@ namespace AS2Context
             if (!File.Exists(this.settingFilename)) this.SaveSettings();
             else
             {
-                using (new InstalledSDKContext(this))
-                {
-                    Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
-                    this.settingObject = (AS2Settings)obj;
-                }
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (AS2Settings)obj;
+                if (settingObject.InstalledSDKs != null)
+                    foreach (InstalledSDK sdk in settingObject.InstalledSDKs)
+                        sdk.Owner = this;
             }
             if (this.settingObject.MMClassPath == null) this.settingObject.MMClassPath = FindMMClassPath();
             if (this.settingObject.UserClasspath == null)
@@ -207,6 +207,7 @@ namespace AS2Context
 
         public bool ValidateSDK(InstalledSDK sdk)
         {
+            sdk.Owner = this;
             string path = PathHelper.ResolvePath(sdk.Path);
             try
             {

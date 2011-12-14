@@ -167,11 +167,8 @@ namespace HaXeContext
             if (!File.Exists(this.settingFilename)) this.SaveSettings();
             else
             {
-                using (new InstalledSDKContext(this))
-                {
-                    Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
-                    this.settingObject = (HaXeSettings)obj;
-                }
+                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
+                this.settingObject = (HaXeSettings)obj;
             }
         }
 
@@ -224,6 +221,7 @@ namespace HaXeContext
 
         public bool ValidateSDK(InstalledSDK sdk)
         {
+            sdk.Owner = this;
             string path = PathHelper.ResolvePath(sdk.Path);
             try
             {
