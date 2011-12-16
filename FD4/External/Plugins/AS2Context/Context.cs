@@ -102,7 +102,7 @@ namespace AS2Context
             features.importKey = "import";
             features.typesPreKeys = new string[] { "import", "new", "instanceof", "extends", "implements" };
             features.codeKeywords = new string[] { 
-                "var", "function", "new", "delete", "instanceof", "return", "break", "continue",
+                "class", "interface", "var", "function", "new", "delete", "instanceof", "return", "break", "continue",
                 "if", "else", "for", "in", "while", "do", "switch", "case", "default", "with",
                 "null", "undefined", "true", "false", "try", "catch", "finally", "throw"
             };

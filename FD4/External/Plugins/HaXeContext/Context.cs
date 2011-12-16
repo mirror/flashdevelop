@@ -92,8 +92,8 @@ namespace HaXeContext
             features.importKeyAlt = "using";
             features.typesPreKeys = new string[] { "import", "new", "extends", "implements", "using" };
             features.codeKeywords = new string[] { 
-                "var", "function", "new", "cast", "return", "break", "continue", "callback",
-                "if", "else", "for", "while", "do", "switch", "case", "default", "type",
+                "enum", "typedef", "class", "interface", "var", "function", "new", "cast", "return", "break", 
+                "continue", "callback", "if", "else", "for", "while", "do", "switch", "case", "default", "type",
                 "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic"
             };
             features.varKey = "var";
