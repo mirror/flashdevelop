@@ -388,8 +388,12 @@ Section "Install Flex SDK" InstallFlexSDK
 	; Connect to internet
 	Call ConnectInternet
 
+	; If the Flex SDK exists in the installer directory then copy that to $TEMP for bulk silent deployments.
+	IfFileExists "$EXEDIR\flex_sdk_${FLEX}.zip" 0 +2
+	CopyFiles "$EXEDIR\flex_sdk_${FLEX}.zip" $TEMP
+	
 	; Download Flex SDK zip file. If the extract failed previously, use the old file.
-	IfFileExists "$TEMP\flex_sdk_${FLEX}.zip" +6 0
+	IfFileExists "$TEMP\flex_sdk_${FLEX}.zip" +7 0
 	NSISdl::download /TIMEOUT=30000 http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
@@ -458,8 +462,12 @@ Section "Install AIR SDK" InstallAirSDK
 	; Connect to internet
 	Call ConnectInternet
 
+	; If the AIR SDK exists in the installer directory then copy that to $TEMP for bulk silent deployments.
+	IfFileExists "$EXEDIR\air_sdk_${AIR}.zip" 0 +2
+	CopyFiles "$EXEDIR\air_sdk_${AIR}.zip" $TEMP
+	
 	; Download AIR SDK zip file. If the extract failed previously, use the old file.
-	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +6 0
+	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +7 0
 	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
@@ -510,6 +518,11 @@ Section "Install Flash Player" InstallFlashPlayer
 	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\*.*" +2 0
 	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\"
 	
+	; If the debug player exists in the installer directory then use that for bulk silent deployments.
+	IfFileExists "$EXEDIR\flashplayer_11_sa_debug_32bit.exe" 0 +3
+	CopyFiles "$EXEDIR\flashplayer_11_sa_debug_32bit.exe" "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\FlashPlayerDebugger.exe"
+	Goto +9
+
 	; Download Flash debug player
 	NSISdl::download /TIMEOUT=30000 http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug_32bit.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.1\win\FlashPlayerDebugger.exe"
 	Pop $R0
