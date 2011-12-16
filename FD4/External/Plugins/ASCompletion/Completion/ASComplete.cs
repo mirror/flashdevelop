@@ -1694,11 +1694,11 @@ namespace ASCompletion.Completion
                 || word == features.getKey || word == features.setKey))
                 return false;
             ClassModel argumentType = null;
-			if (dotIndex < 0)
-			{
+            if (dotIndex < 0)
+            {
                 if (word != null)
                 {
-                    if (word == "class" || word == "package" || word == "interface")
+                    if (word == "class" || word == "package" || word == "interface" || word == "for" || word == "catch")
                         return false;
                     // new/extends/implements
                     if (features.HasTypePreKey(word))
@@ -1745,7 +1745,12 @@ namespace ASCompletion.Completion
                     if (p < 0 || position < Sci.PositionFromLine(line) + p)
                         return HandleDeclarationCompletion(Sci, expr.Value, autoHide);
                 }
-			}
+            }
+            else
+            {
+                if (expr.Value.EndsWith("..") || Regex.IsMatch(expr.Value, "[0-9]+\\.")) 
+                    return false;
+            }
 
             string tail = (dotIndex >= 0) ? expr.Value.Substring(dotIndex + features.dot.Length) : expr.Value;
             
@@ -2926,11 +2931,12 @@ namespace ASCompletion.Completion
                             string testWord2 = GetWordLeft(Sci, ref testPos) ?? "null"; // regular function
                             if (testWord == features.functionKey || testWord == "catch"
                                 || testWord2 == features.functionKey
-                                || testWord2 == features.getKey || testWord2 == features.setKey) 
+                                || testWord2 == features.getKey || testWord2 == features.setKey)
                             {
                                 expression.Separator = ',';
                                 expression.coma = ComaExpression.FunctionDeclaration;
                             }
+                            else expression.WordBefore = testWord;
                             break;
                         }
                     }
