@@ -6,6 +6,7 @@ using CodeFormatter.InfoCollector;
 using Antlr.Runtime.Tree;
 using Antlr.Runtime;
 using Antlr.Utility;
+using System.Text.RegularExpressions;
 
 namespace CodeFormatter.Handlers
 {
@@ -100,6 +101,7 @@ namespace CodeFormatter.Handlers
 		private Point mOutputRange; //=null; //x=start offset, y=end offset (0-based offsets into outputbuffer)
 		private Point mReplaceRange; //=null; //same semantics as mOutputRange
 		private bool mInE4XText;
+        private Regex mReLine = new Regex("[^\n]+$", RegexOptions.RightToLeft);
 	
 		private void InitSettings()
 		{
@@ -222,8 +224,8 @@ namespace CodeFormatter.Handlers
 			int count = 0;
 			for (int i = source.Length - 1; i >= 0; i--)
 			{
-				if ((source.ToCharArray())[i] == '\n') count++;
-				else if (Char.IsWhiteSpace((source.ToCharArray())[i])) continue;
+				if (source[i] == '\n') count++;
+				else if (Char.IsWhiteSpace(source[i])) continue;
 				else break;
 			}
 			return count;
@@ -276,9 +278,10 @@ namespace CodeFormatter.Handlers
 			if (mTrimTrailingWS && GetFormatMode() != FORMAT_INDENT)
 			{
 				// This is code to trim trailing whitespace on lines.
-				for (int i = buffer.Length - 1; i >= 0; i--)
+                String raw = buffer.ToString();
+				for (int i = raw.Length - 1; i >= 0; i--)
 				{
-					char c = (buffer.ToString().ToCharArray())[i];
+					char c = raw[i];
 					if (c == ' ' || c == '\t') buffer.Remove(i,1);
 					else break;
 				}
@@ -293,10 +296,11 @@ namespace CodeFormatter.Handlers
 
 		public static int DetermineLastLineLength(StringBuilder buffer, int tabSize)
 		{
-			int i = buffer.Length - 1;
+            String raw = buffer.ToString();
+			int i = raw.Length - 1;
 			while (i >= 0)
 			{
-				char c = (buffer.ToString().ToCharArray())[i];
+				char c = raw[i];
 				if (c == '\n' || c == '\r')
 				{
 					i++;
@@ -304,12 +308,12 @@ namespace CodeFormatter.Handlers
 				}
 				i--;
 			}
-			if (i < 0 || i >= buffer.Length) return 0;
-			String lastLine = buffer.ToString().Substring(i);
+			if (i < 0 || i >= raw.Length) return 0;
+			String lastLine = raw.Substring(i);
 			int lastLineLength = 0;
 			for (i = 0; i < lastLine.Length; i++)
 			{
-				char c = (lastLine.ToString().ToCharArray())[i];
+				char c = lastLine[i];
 				if (c == '\t')
 				{
 					int leftOver = lastLineLength % tabSize;
@@ -351,36 +355,39 @@ namespace CodeFormatter.Handlers
 		
 		public int DetermineLastIndent(StringBuilder buffer)
 		{
-			// TODO: it's pretty inefficient to split the buffer when I should only grab lines as I need them
-			String[] lines = buffer.ToString().Split('\n');
-			int spaceCount = 0;
-			if (lines != null && lines.Length > 0)
-			{
-				for (int i = lines.Length - 1; i >= 0; i--)
-				{
-					String line = lines[i];
-					// Skip to next (i.e. previous) line if this line starts with a line comment
-					if (line.Trim().StartsWith("//")) continue;
-					for (int k = 0; k < line.Length ;k++)
-					{
-						char c = (line.ToString().ToCharArray())[k];
-						if (!Char.IsWhiteSpace(c))
-						{
-							return spaceCount;
-						}
-						else
-						{
-							if (c == ' ') spaceCount++;
-							else if (c == '\t')
-							{
-								int remainder = spaceCount % GetTabSize();
-								if (remainder == 0) spaceCount += GetTabSize();
-								else spaceCount += remainder;
-							}
-						}
-					}
-				}
-			}
+            String raw = buffer.ToString();
+            int spaceCount = 0;
+            int len = raw.Length;
+            do
+            {
+                Match m = mReLine.Match(raw, 0, len);
+                if (!m.Success) break;
+                len = m.Index;
+                String line = m.Value;
+                // Skip to next (i.e. previous) line if this line starts with a line comment
+                if (line.Trim().StartsWith("//")) continue;
+                // count indent
+                for (int k = 0; k < line.Length; k++)
+                {
+                    char c = line[k];
+                    if (!Char.IsWhiteSpace(c))
+                    {
+                        return spaceCount;
+                    }
+                    else
+                    {
+                        if (c == ' ') spaceCount++;
+                        else if (c == '\t')
+                        {
+                            int remainder = spaceCount % GetTabSize();
+                            if (remainder == 0) spaceCount += GetTabSize();
+                            else spaceCount += remainder;
+                        }
+                    }
+                }
+            }
+            while (true);
+
 			return GetCurrentIndent();
 		}
 
@@ -389,8 +396,9 @@ namespace CodeFormatter.Handlers
 			int lastIndent = DetermineLastIndent(buffer);
 			int currentIndent = GetCurrentIndent();
 			int newIndent = currentIndent;
-			String text = buffer.ToString().Trim(); // TODO: something more efficient
-			if (text.Length>0)
+			//String text = buffer.ToString().Trim(); // TODO: something more efficient
+			//if (text.Length>0)
+            if (buffer.Length > currentIndent)
 			{
 				newIndent = Math.Min(currentIndent, lastIndent);
 				if (lastIndent < currentIndent)
@@ -466,20 +474,21 @@ namespace CodeFormatter.Handlers
 			if (!mProcessingBindableTag && mBindableMode && mBindablePos >= 0 && GetFormatMode() == FORMAT_ALL)
 			{
 				//TODO: figure out how a partial range will figure into this.  I may have to shift the position if it's already been set
-				while (mBindablePos<mOutputBuffer.Length)
+                String raw = mOutputBuffer.ToString();
+                while (mBindablePos < raw.Length)
 				{
-					char c = (mOutputBuffer.ToString().ToCharArray())[mBindablePos];
+                    char c = raw[mBindablePos];
 					if (!Char.IsWhiteSpace(c)) break;
 					mBindablePos++;
 				}
 				while (mBindablePos>0)
 				{
-					char c = (mOutputBuffer.ToString().ToCharArray())[mBindablePos - 1];
+                    char c = raw[mBindablePos - 1];
 					if (c == '\n') break;
 					mBindablePos--;
 				}
-				String bindableText = mOutputBuffer.ToString().Substring(mBindablePos);
-				mOutputBuffer.Remove(mBindablePos, mOutputBuffer.Length - mBindablePos);
+                String bindableText = raw.Substring(mBindablePos);
+                mOutputBuffer.Remove(mBindablePos, raw.Length - mBindablePos);
 				// This should spit out the blank lines before function and similar whitespace
 				PrintNecessaryWS(mOutputBuffer);
 				mOutputBuffer.Append(bindableText);
@@ -689,7 +698,7 @@ namespace CodeFormatter.Handlers
 								{
                                     // FIXED: Multiline comment indent support added
 									String nextLine = data;
-                                    if (nextLine.Length > 0 && (nextLine.ToCharArray())[0] == '*')
+                                    if (nextLine.Length > 0 && nextLine[0] == '*')
                                     {
                                         if (mIndentMultilineComments) indentAmount += 1;
                                         else indentAmount += 0;
@@ -763,11 +772,11 @@ namespace CodeFormatter.Handlers
 					String indentString = GenerateIndent(indentAmount);
 					mOutputBuffer.Append(indentString);
 				}
-				if (!IsE4XTextContent() && mOutputBuffer.Length > 0 && IsIdentifierPart((mOutputBuffer.ToString().ToCharArray())[mOutputBuffer.Length - 1]))
+				if (!IsE4XTextContent() && mOutputBuffer.Length > 0 && IsIdentifierPart(LastChar(mOutputBuffer)))
 				{
 					// If the start of the token is a java identifier char (any letter or number or '_')
 					// or if the token doesn't start with whitespace, but isn't an operator either ('+=' is an operator, so we wouldn't add space, but we would add space for a string literal)
-					if ((tok.Text.Length > 0 && IsIdentifierPart(tok.Text.ToCharArray()[0])) || IsSymbolTokenThatShouldHaveSpaceBeforeIt(tok.Type))
+					if ((tok.Text.Length > 0 && IsIdentifierPart(tok.Text[0])) || IsSymbolTokenThatShouldHaveSpaceBeforeIt(tok.Type))
 					{
 						mOutputBuffer.Append(' ');
 					}
@@ -777,14 +786,15 @@ namespace CodeFormatter.Handlers
 				{
 					if (tok.Text.Length == 1)
 					{
-						char c = tok.Text.ToCharArray()[0];
+						char c = tok.Text[0];
 						if (IsGroupingChar(c))
 						{
 							int i = mOutputBuffer.Length - 1;
 							int spaceCount = 0;
+                            String raw = mOutputBuffer.ToString();
 							while (i >= 0)
 							{
-								if (mOutputBuffer.ToString().ToCharArray()[i] == ' ')
+								if (raw[i] == ' ')
 								{
 									spaceCount++;
 									i--;
@@ -793,21 +803,23 @@ namespace CodeFormatter.Handlers
 							}
 							if (i >= 0 && spaceCount > 0) // Only care if there are some spaces
 							{
-								char prevChar = mOutputBuffer.ToString().ToCharArray()[i];
+								char prevChar = raw[i];
 								int nestingType = DetermineMatchingGroupingCharType(c, prevChar);
 								if (nestingType != Nesting_Unrelated)
 								{
 									int amtToKeep = 0;
 									// TODO: Not sure how this will work with advanced spacing settings
-									if (!IsCollapseSpaceForAdjacentParens() && nestingType != Nesting_Opposite)
-									{
-										if (prevChar == '(' || c == ')') amtToKeep = GetAdvancedSpacesInsideParens();
-										else if (prevChar == '{' || c == '}') amtToKeep = GetAdvancedSpacesInsideObjectBraces();
-										else if (prevChar == '[' || c == ']')
-										{
-											amtToKeep = GetAdvancedSpacesInsideArrayDeclBrackets();
-										}
-									}
+                                    if (!IsCollapseSpaceForAdjacentParens() && nestingType != Nesting_Opposite)
+                                    {
+                                        if (prevChar == '(' || c == ')') amtToKeep = GetAdvancedSpacesInsideParens();
+                                        else if (prevChar == '{' || c == '}') amtToKeep = GetAdvancedSpacesInsideObjectBraces();
+                                        else if (prevChar == '[' || c == ']')
+                                        {
+                                            amtToKeep = GetAdvancedSpacesInsideArrayDeclBrackets();
+                                        }
+                                    }
+                                    else if (prevChar == ')' && nestingType == Nesting_Deeper) amtToKeep = 1;
+
 									if (amtToKeep < spaceCount)
 									{
 										mOutputBuffer.Remove(mOutputBuffer.Length - (spaceCount - amtToKeep), spaceCount - amtToKeep);
@@ -847,6 +859,12 @@ namespace CodeFormatter.Handlers
 			}
 			mOutputBuffer.Append(tok.Text);
 		}
+
+        private char LastChar(StringBuilder mOutputBuffer)
+        {
+            String raw = mOutputBuffer.ToString();
+            return raw[raw.Length - 1];
+        }
 		
 		public bool IsIdentifierPart(char ch)
 		{
@@ -907,7 +925,7 @@ namespace CodeFormatter.Handlers
 
 		private bool LastCharIsNonWhitespace(StringBuilder buffer)
 		{
-			if (buffer.Length > 0 && !Char.IsWhiteSpace(buffer.ToString().ToCharArray()[buffer.Length - 1]))
+			if (buffer.Length > 0 && !Char.IsWhiteSpace(LastChar(buffer)))
 			{
 				return true;
 			}
@@ -1771,7 +1789,7 @@ namespace CodeFormatter.Handlers
 		{
 			for (int k = start; k < end && k < text.Length; k++)
 			{
-				if (text.ToCharArray()[k] == '\t')
+				if (text[k] == '\t')
 				{
 					if (col % GetTabSize() == 0) col += GetTabSize();
 					else col += GetTabSize() - col % GetTabSize();
